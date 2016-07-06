@@ -1,0 +1,126 @@
+%Este trabalho está licenciado sob a Licença Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-nc-sa/4.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+
+\documentclass{book}
+
+%language settings
+\usepackage[brazil]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage[T1]{fontenc}
+
+%independent chapters
+\usepackage{subfiles}
+
+%geometry
+%\usepackage[hmargin=2.5cm,vmargin=2.5cm]{geometry}
+
+
+%ams-latex
+\usepackage{amsmath,amssymb,amsthm}
+
+%graphics
+\usepackage{graphics}
+\usepackage{graphicx}
+
+%links
+\usepackage[hidelinks]{hyperref}
+
+%copy and paste from PDF (correctly)
+\usepackage{upquote}
+\usepackage{lmodern}
+
+%code insert
+\usepackage{verbatim}
+\usepackage{listings}
+\lstset{language=matlab, frame=single}
+
+%bibliography
+\usepackage{cite}
+
+%miscellaneous
+\usepackage{multirow}
+\usepackage[normalem]{ulem}
+
+%Exercises
+\usepackage{exercise}
+\renewcommand{\ExerciseHeaderTitle}{({\it \ExerciseTitle})}
+\renewcommand{\ExerciseHeader}{{\textbf{\large\ExerciseName~\ExerciseHeaderNB\ExerciseHeaderTitle\ExerciseHeaderOrigin\medskip}}}
+\renewcommand{\AnswerHeader}{\medskip{\textbf{Resposta de \ExerciseName\ \ExerciseHeaderNB}\smallskip}}
+
+%environments
+\newtheorem{teo}{Teorema}
+\newtheorem{lem}{Lema}
+\newtheorem{prop}{Proposição}
+\newtheorem{corol}{Corolário}	
+\newtheorem{ex}{Exemplo}	
+\newtheorem{exer}{Exercício}	
+\newtheorem{exersol}{Exercício Resolvido}	
+\newtheorem{prob}{Problema}
+\newtheorem{obs}{Observação}
+\newtheorem{defn}{Definição}
+
+% \newenvironment{sol}
+%   {\begin{proof}[Solução]}
+%   {\end{proof}}
+\newenvironment{sol}
+               {\let\oldqedsymbol=\qedsymbol
+                \renewcommand{\qedsymbol}{$\Diamond$}
+                \begin{proof}[\bfseries\upshape Solution]}
+               {\end{proof}
+                \renewcommand{\qedsymbol}{\oldqedsymbol}}
+
+%newcommands
+\newcommand{\fim}{\begin{flushright}$\Diamond$\end{flushright}}
+\newcommand{\sen}{\text{sen}\,}
+\newcommand{\p}{\partial}
+
+%titlepage
+\title{Cálculo Numérico}
+\author{}
+\date{\today}
+
+%license footnote
+\cnote{Texto disponibilizado nos termos da licença }
+
+\begin{document}
+
+\frontmatter
+
+\maketitle
+
+\chapter*{Autores}
+
+Lista de autores\footnote{em ordem alfabética}:
+\begin{itemize}
+\item[] Esequia Sauter - UFRGS
+\item[] Fabio Souto de Azevedo - UFRGS
+\item[] Pedro Henrique de Almeida Konzen - UFRGS
+\end{itemize}
+
+\chapter*{Licença}
+Este trabalho está licenciado sob a Licença Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional. Para ver uma cópia desta licença, visite \url{http://creativecommons.org/licenses/by-nc-sa/4.0/} ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+ 
+\chapter*{Nota dos autores}
+
+Este livro vem sendo construído de forma colaborativa desde 2011. Nosso intuito é de melhorá-lo, expandi-lo e adaptá-lo às necessidades de um curso semestral de cálculo numérico em nível de graduação.
+
+Caso queira colaborar, entre em contato conosco pelo endereço de e-mail:
+\begin{center}
+\url{livro_colaborativo@googlegroups.com}  
+\end{center}
+
+\chapter*{Apresentação}
+Este livro busca abordar os tópicos de um curso de introdução ao cálculo numérico moderno oferecido a estudantes de matemática, física, engenharias e outros. A ênfase é colocada na formulação de resolução de problemas, implementação em computador e interpretação de resultados. Pressupõe-se que o estudante domine conhecimentos e habilidades típicas desenvolvidas em cursos de graduação de cálculo, álgebra linear e equações diferenciais. Conhecimentos prévios em linguagem de computadores é fortemente recomendável, embora apenas técnicas elementares de programação sejam realmente necessárias.
+
+\tableofcontents
+
+\mainmatter
+
+\subfile{cap_intro.tex}
+
+%references
+\nocite{*}
+\bibliographystyle{plain}
+\addcontentsline{toc}{chapter}{Referências Bibliográficas}
+\bibliography{main}
+
+\end{document}
