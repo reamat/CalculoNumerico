@@ -1,0 +1,718 @@
+%Este trabalho está licenciado sob a Licença Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional. Para ver uma cópia desta licença, visite \url{http://creativecommons.org/licenses/by-nc-sa/4.0/} ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+
+\documentclass[main.tex]{subfiles}
+\begin{document}
+\chapter{Solução de sistemas lineares}
+
+\section{Problemas lineares}
+
+
+Neste parte de nosso curso, estamos interessados em técnicas para resolução de sistemas de equações algébricas lineares. O leitor já tem ampla experiência com tais problemas desde o ensino fundamental até o curso de álgebra linear, dedicado à formalização e ao estudo sistematizado de problemas lineares.
+
+Trataremos de sistemas de equações algébricas lineares da seguinte forma:
+\begin{eqnarray*}
+a_{11}x_1 + a_{12}x_2 + \cdots +a_{1n}x_n &=& y_1\\
+a_{21}x_1 + a_{22}x_2 + \cdots +a_{2n}x_n &=& y_2\\
+ &\vdots &\\
+a_{m1}x_1 + a_{m2}x_2 + \cdots +a_{mn}x_n &=& y_m\\
+\end{eqnarray*}
+Observe que $m$ é o número de equações e $n$ é o número de incógnitas.  Podemos escrever este problema na forma matricial
+$$Ax=y$$
+onde
+$$A=\left[\begin{array}{cccc}
+a_{11} & a_{12} & \cdots & a_{1n}\\
+a_{21} & a_{22} & \cdots & a_{2n}\\
+\vdots & \vdots & \ddots & \vdots\\
+a_{m1} & a_{m2} & \cdots & a_{mn}
+\end{array}
+\right]~~~x=\left[\begin{array}{c}
+x_{1} \\
+x_{2} \\
+\vdots \\
+x_{n}
+\end{array}
+\right]~~~y=\left[\begin{array}{c}
+y_{1} \\
+y_{2} \\
+\vdots \\
+y_{m}
+\end{array}
+\right]$$
+
+Daremos mais atenção ao caso $m=n$, isto é, quando a matriz $A$ que envolvia no sistema linear é quadrada.
+
+
+\section{Eliminação gaussiana com pivotamento parcial}
+Lembramos que algumas operações feitas nas linhas de um sistema não alteram a solução:
+\begin{enumerate}
+\item Multiplicação de um linha por um número
+\item Troca de uma linha por ela mesma somada a um múltiplo de outra.
+\item Troca de duas linhas.
+\end{enumerate}
+
+O processo que transforma um sistema em outro com mesma solução, mas que apresenta uma forma triangular é chamado eliminação Gaussiana. A solução do sistema pode ser obtida fazendo substituição regressiva.
+\begin{ex}{\bf Eliminação Gaussiana sem pivotamento parcial}: Resolva o sistema:
+$$\left\{
+\begin{array}{c}
+x+y+z=1\\
+2x+y-z=0\\
+2x+2y+z=1
+\end{array}\right.
+$$
+
+Solução: Escrevemos a matriz completa do sistema:
+$$\left[
+\begin{array}{ccc|c}
+1 &1& 1&1\\
+2 &1& -1&0\\
+2 & 2 &1&1
+\end{array}
+\right] \sim\left[
+\begin{array}{ccc|c}
+1 &1& 1&1\\
+0 &-1& -3&-2\\
+0 & 0 &-1&-1
+\end{array}
+\right]
+$$
+Encontramos $-z=-1$, ou seja, $z=1$. Substituímos na segunda equação e temos $-y-3z=-2$, ou seja, $y=-1$ e, finalmente $x+y+z=1$, resultando em $x=1$.
+\end{ex}
+
+A Eliminação Gaussiana com pivotamento parcial consiste em fazer uma permutação de linhas de forma a escolher o maior pivô (em módulo) a cada passo.
+
+\begin{ex}{\bf Eliminação Gaussiana com pivotamento parcial}: Resolva o sistema:
+$$\left\{
+\begin{array}{c}
+x+y+z=1\\
+2x+y-z=0\\
+2x+2z+z=1
+\end{array}\right.
+$$
+
+Solução: Escrevemos a matriz completa do sistema:
+\begin{eqnarray*}\left[
+\begin{array}{ccc|c}
+1 &1& 1&1\\
+2 &1& -1&0\\
+2 & 2 &1&1
+\end{array}
+\right]&\sim& \left[
+\begin{array}{ccc|c}
+2 &1& -1&0\\
+1 &1& 1&1\\
+2 & 2 &1&1
+\end{array}
+\right] \\ & \sim & \left[
+\begin{array}{ccc|c}
+2 &1& -1&0\\
+0 &1/2& 3/2&1\\
+0 & 1 &2&1
+\end{array}
+\right]\\ & \sim & \left[
+\begin{array}{ccc|c}
+2 &1& -1&0\\
+0 & 1 &2&1\\
+0 &1/2& 3/2&1
+\end{array}
+\right]\\ & \sim & \left[
+\begin{array}{ccc|c}
+2 &1& -1&0\\
+0 & 1 &2&1\\
+0 &0& 1/2&1/2
+\end{array}
+\right]
+\end{eqnarray*}
+Encontramos $1/2z=1/2$, ou seja, $z=1$. Substituímos na segunda equação e temos $y+2z=1$, ou seja, $y=-1$ e, finalmente $2x+y-z=0$, resultando em $x=1$.
+\end{ex}
+
+
+
+\begin{ex}
+$$\left[
+\begin{array}{ccc}
+0 &2& 2\\
+1 &2& 1\\
+1 & 1 &1
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+x\\
+y\\
+z
+\end{array}
+\right]=
+\left[
+\begin{array}{c}
+8\\
+9\\
+6
+\end{array}
+\right]
+$$
+
+Construímos a matriz completa:
+\begin{eqnarray*}\left[
+\begin{array}{ccc|c}
+0 &2& 2&8\\
+1 &2& 1&9\\
+1 & 1 &1&6
+\end{array}
+\right] &\sim&
+\left[
+\begin{array}{ccc|c}
+1 &2& 1&9\\
+0 &2& 2&8\\
+1 & 1 &1&6
+\end{array}
+\right]\sim
+\left[
+\begin{array}{ccc|c}
+1 &2& 1&9\\
+0 &2& 2&8\\
+0 & -1 &0&-3
+\end{array}
+\right]\sim
+\left[
+\begin{array}{ccc|c}
+1 &2& 1&9\\
+0 &2& 2&8\\
+0 & 0 &1&1
+\end{array}
+\right]\\
+&\sim&
+\left[
+\begin{array}{ccc|c}
+1 &2& 0&8\\
+0 &2& 0&6\\
+0 & 0 &1&1
+\end{array}
+\right]\sim
+\left[
+\begin{array}{ccc|c}
+1 &0& 0&2\\
+0 &2& 0&6\\
+0 & 0 &1&1
+\end{array}
+\right]
+\end{eqnarray*}
+Portanto $x=2$, $y=3$ e $z=1$.
+\end{ex}
+
+\begin{ex} {\bf Problema com elementos com grande diferença de escala}
+$$\left[\begin{array}{cc}
+\varepsilon & 2\\
+1 & \varepsilon
+\end{array}\right]
+\left[\begin{array}{c}x\\y
+\end{array}\right]=
+\left[\begin{array}{c}4\\3
+\end{array}\right]
+$$
+Executamos a eliminação gaussiana sem pivotamento parcial para $\varepsilon \neq 0$ e $|\varepsilon|<<1$:
+$$\left[\begin{array}{cc|c}
+\varepsilon & 2 & 4\\
+1 & \varepsilon & 3
+\end{array}
+\right]\sim\left[\begin{array}{cc|c}
+\varepsilon & 2 & 4\\
+0 & \varepsilon-\frac{2}{\varepsilon} & 3-\frac{4}{\varepsilon}
+\end{array}
+\right]
+%\sim
+%\left[\begin{array}{cc|c}
+%\varepsilon & 0 & 4-\left(3-\frac{4}{\varepsilon}\right) \frac{2}{\varepsilon-\frac{2}{\varepsilon}}\\
+%0 & \varepsilon-\frac{2}{\varepsilon} & 3-\frac{4}{\varepsilon}
+%\end{array}
+%\right]
+$$
+
+Temos
+$$y=\frac{3-4/\varepsilon}{\varepsilon-2/\varepsilon}$$%=2-{\frac {3}{2}}\varepsilon+{\varepsilon}^{2}-{\frac {3}{4}}{\varepsilon}^{3}+{\frac {1}{2}}{\varepsilon}^{4}+O(\varepsilon^5)$$
+e
+$$x=\frac{4-2y}{\varepsilon}$$ %3-2\varepsilon+{\frac {3}{2}}{\varepsilon}^{2}-{\varepsilon}^{3}+{\frac {3}{4}}{\varepsilon}^{4}+O(\varepsilon^5)$$
+
+Observe que a expressão obtida para  $y$ se aproximada de $2$ quando $\varepsilon$ é pequeno:
+$$y=\frac{3-4/\varepsilon}{\varepsilon-2/\varepsilon}=\frac{3\varepsilon-4}{\varepsilon^2-2} \longrightarrow \frac{-4}{-2}=2, ~~\hbox{quando}~\varepsilon \to 0.$$
+Já expressão obtida para $x$ depende justamente da diferença $2-y$:
+$$x=\frac{4-2y}{\varepsilon}=\frac{2}{\varepsilon} (2-y)$$
+
+Assim, quando $\varepsilon$ é pequeno, a primeira expressão, implementado em um sistema de ponto flutuante de acurácia finita, produz $y= 2$ e, consequentemente, a expressão para $x$ produz $x=0$. Isto é, estamos diante um problema de cancelamento catastrófico.
+
+Agora, quando usamos a Eliminação Gaussiana com pivotamento parcial, fazemos uma permutação de linhas de forma a escolher o maior pivô a cada passo:
+
+$$\left[\begin{array}{cc|c}
+\varepsilon & 2 & 4\\
+1 & \varepsilon & 3
+\end{array}
+\right]\sim
+\left[\begin{array}{cc|c}
+1 & \varepsilon & 3\\
+\varepsilon & 2 & 4
+\end{array}
+\right]\sim
+\left[\begin{array}{cc|c}
+1 & \varepsilon & 3\\
+0 & 2-\varepsilon^2 & 4-3\varepsilon
+\end{array}
+\right]
+$$
+
+Continuando o procedimento, temos:
+$$y=\frac{4-4\varepsilon}{2-\varepsilon^2}$$ e
+$$x=3-\varepsilon y$$
+\end{ex}
+
+Observe que tais expressões são analiticamente idênticas às anteriores, no entanto, são mais estáveis numericamente. Quando $\varepsilon$ converge a zero, $y$ converge a $2$, como no caso anterior. No entanto, mesmo que $y=2$, a segunda expressão produz $x=3-\varepsilon y$, isto é, a aproximação $x\approx 3$ não depende mais de obter $2-y$ com precisão.
+
+\begin{prob} Resolva o seguinte sistema de equações lineares
+\begin{eqnarray*}
+x+y+z&=&0\\
+x+10z&=&-48\\
+10y+z&=&25
+\end{eqnarray*} Usando eliminação gaussiana com pivotamento parcial (não use o computador para resolver essa questão).
+\end{prob}
+
+\begin{prob}Calcule a inversa da matriz
+$$
+A=\left[\begin{array}{ccc}
+1&2&-1\\
+-1&2&0\\
+2&1&-1
+\end{array}
+\right]
+$$
+usando eliminação Gaussiana com pivotamento parcial.
+
+\end{prob}
+
+\section{Condicionamento de sistemas lineares}
+\subsection{Motivação}
+
+Quando lidamos com matrizes no corpo do números reais (ou complexos), existem apenas duas alternativas: i) a matriz é inversível; ii) a matriz não é inversível e, neste caso, é chamada de matriz singular. Ao lidarmos em aritmética de precisão finita, encontramos uma situação mais sutil: alguns problema lineares são mais difíceis de serem resolvidos, pois os erros de arredondamento se propagam de forma mais significativa que em outros problemas. Neste caso falamos de problemas bem-condicionados e mal-condicionados. Intuitivamente falando, um problema bem-condicionado é um problema em que os erros de arredondamento se propagam de forma menos importante; enquanto problemas mal-condicionados são problemas em que os erros se propagam de forma mais relevante.
+
+Um caso típico de sistema mal-condicionado é aquele cujos coeficiente estão muito próximos ao de um problema singular. Considere o seguinte exemplo:
+
+\begin{ex} Observe que o problema
+$$\left\{ \begin{array}{l}71x+41y=100\\
+\lambda x+30y=70
+\end{array}
+\right.$$
+é impossível quando $\lambda= \frac{71\times 30}{41}\approx 51,95122$.
+
+Agora, verifique o que acontece quando resolvemos os seguintes sistemas lineares:
+$$\left\{ \begin{array}{l}71x+41y=100\\
+52x+30y=70
+\end{array}
+\right. \\ \hbox{ e }
+\left\{ \begin{array}{l}71x+41y=100\\
+51x+30y=70
+\end{array}
+\right. \\
+$$
+A solução do primeiro problema é $x=-65$ e $y=115$. Já para o segundo problema é $x=\frac{10}{3}$ e $y=-\frac{10}{3}$.
+
+Igualmente, observe os seguintes dois problemas:
+$$\left\{ \begin{array}{l}71x+41y=100\\
+52x+30y=70
+\end{array}
+\right. \\ \hbox{ e }
+\left\{ \begin{array}{l}71x+41y=100,4\\
+52x+30y=69,3
+\end{array}
+\right. \\
+$$
+A solução do primeiro problema é $x=-65$ e $y=115$ e do segundo problema é $x=-85,35$ e $y=150,25$.
+
+Observe que pequenas variações nos coeficientes das matrizes fazem as soluções ficarem bem distintas, isto é, pequenas variações nos dados de entrada acarretaram em grandes variações na solução do sistema. Quando isso acontece, dizemos que o problema é mal-condicionados.
+\end{ex}
+Para introduzir essa ideia formalmente, precisamos definir o número de condicionamento. Informalmente falando, o número de condicionamento mede o quanto a solução de um problema em função de alterações nos dados de entrada. Para construir matematicamente este conceito, precisamos de uma medida destas variações. Como tanto os dados de entrada como os dados de saída são expressos na forma vetorial, precisaremos do conceito de norma vetorial. Por isso, faremos uma breve interrupção de nossa discussão para introduzir as definições de norma de vetores e matrizes na próxima seção.
+
+\subsection{Norma $L_p$ de vetores}
+
+Definimos a norma $L_p$ ou $L^p$ de um vetor em $\mathbb{R}^n$ para $p\geq 1$ como
+$$\|v\|_p=\left(|v_1|^p+|v_2|^p+\cdots |v_n|^p\right)^{1/p}$$
+E a norma $L_\infty$ ou $L^{\infty}$ como
+
+$$\|v\|_\infty=\max_{j=1}^n|v_j|$$
+
+{\bf Propriedades:} Se $\lambda$ é um real (ou complexo) e $u$ e  $v$ são vetores, temos:
+\begin{eqnarray*}
+\|v\|&=&0 \Longleftrightarrow v=0\\
+\|\lambda v\|&=&|\lambda| \|v\|\\
+\|u+v\| &\leq & \|u\| + \|v\|~~~~ (\hbox{desigualdade do triângulo})\\
+\lim_{p\to\infty}\|u\|_p &=& \|u\|_{\infty}
+\end{eqnarray*}
+
+
+{\bf Exemplo: } Calcule a norma $L^1$, $L^2$ e $L^\infty$ de
+$$v=\left[\begin{array}{c}1\\2\\-3\\0
+\end{array}\right]$$
+
+\begin{eqnarray*}
+\|v\|_1&=&1+2+3+0=6\\
+\|v\|_2&=&\sqrt{1+2^2+3^2+0^2}=\sqrt{14}\\
+\|v\|_\infty&=&\max\{1,2,3,0\}=3
+\end{eqnarray*}
+
+
+\subsection{Norma matricial}
+Definimos a norma operacional em $L^p$ de uma matriz $A:\mathbb{R}^{n}\to \mathbb{R}^{n}$ da seguinte forma:
+$$\|A\|_p = \sup_{\|v\|_p=1} \|Av\|_p$$
+ou seja, a norma p de uma matrix é o máximo valor assumido pela norma de $Av$ entre todos os vetores de norma unitária.
+
+Temos as seguintes propriedades, se $A$ e $B$ são matrizes, $I$ é a matriz identidade, $v$ é um vetor e $\lambda$ é um real (ou complexo):
+\begin{eqnarray*}
+\|A\|_p&=&0 \Longleftrightarrow A=0\\
+\|\lambda A\|_p&=&|\lambda| \|A\|_p\\
+\|A+B\|_p &\leq & \|A\|_p + \|B\|_p~~~~ (\hbox{desigualdade do triângulo})\\
+\|Av\|_p &\leq& \|A\|_p\|v\|_p\\
+\|AB\|_p &\leq& \|A\|_p\|B\|_p\\
+\|I\|_p&=&1\\
+1&=&\|I\|_p=\|AA^{-1}\|_p\leq \|A\|_p\|A^{-1}\|_p~~~~ \hbox{(se A é inversível)}
+\end{eqnarray*}
+
+Casos especiais:
+\begin{eqnarray*}
+\|A\|_1&=& \max_{j=1}^n\sum_{i=1}^n |A_{ij}|\\
+\|A\|_2&=& \sqrt{\max\{|\lambda|: \lambda \in \sigma(AA^*)\}}\\
+\|A\|_\infty&=& \max_{i=1}^n\sum_{j=1}^n |A_{ij}|
+\end{eqnarray*}
+onde $\sigma(M)$ é o conjunto de autovalores da matriz $M$.
+
+{\bf Exemplo:}
+Calcule as normas $1$, $2$ e $\infty$ da seguinte matriz:
+$$A=\left[
+\begin{array}{ccc}
+3 & -5 & 7\\
+1 & -2 & 4\\
+-8 & 1 & -7\\
+\end{array}
+\right]$$
+
+{\bf Solução}
+\begin{eqnarray*}
+\|A\|_1&=&\max\{12,8,18\}=18\\
+\|A\|_\infty&=&\max\{15,7,16\}=16\\
+\|A\|_2&=&\sqrt{\max\{0,5865124; 21,789128 ;195,62436\}}= 13,986578
+\end{eqnarray*}
+
+\subsection{Número de condicionamento}
+O condicionamento de um sistema linear é um conceito relacionado à forma como os erros se propagam dos dados de entrada para os dados de saída, ou seja, se o sistema $$Ax=y$$
+possui uma solução $x$ para o vetor $y$, quando varia a solução $x$ quando o dado de entrado $y$ varia. Consideramos, então, o problema
+$$A(x+\delta_x)=y+\delta_y$$
+Aqui $\delta_x$ representa a variação em $x$ e $\delta_y$ representa a respectiva variação em $y$. Temos:
+$$Ax+A\delta_x=y+\delta_y$$ e, portanto,
+$$A\delta_x=\delta_y.$$
+
+Queremos avaliar a magnitude do erro relativo em y, representado por $\|\delta_y\|/\|y\|$ em função da magnitude do erro relativo $\|\delta_x\|/\|x\|$.
+$$\frac{\|\delta_x\|}{\|x\|}\left/\frac{\|\delta_y\|}{\|y\|}\right.=\frac{\|\delta_x\|}{\|x\|}\frac{\|y\|}{\|\delta_y\|}=\frac{\|A^{-1}\delta_y\|}{\|x\|}\frac{\|Ax\|}{\|\delta_y\|}\leq \frac{\|A^{-1}\|\|\delta_y\|}{\|x\|}\frac{\|A\|\|x\|}{\|\delta_y\|}=\|A\|\|A^{-1}\|$$
+
+Assim, definimos o número de condicionamento de uma matriz inversível $A$ como
+$$k_p(A)=\|A\|_p \|A^{-1}\|_p$$
+
+O número de condicionamento, então, mede o quão instável é resolver o problema $Ax=y$ frente a erros no vetor de entrada $x$.
+
+{\bf Obs:} O número de condicionamento depende da norma escolhida.
+
+{\bf Obs:} O número de condicionamento da matriz identidade é $1$.
+
+{\bf Obs:} O número de condicionamento de qualquer matriz inversível é igual ou maior que $1$.
+
+{\bf Exemplo} Calcule o número de condicionamento da matriz
+$$A=\left[
+\begin{array}{ccc}
+3 & -5 & 7\\
+1 & -2 & 4\\
+-8 & 1 & -7\\
+\end{array}
+\right]$$
+
+nas normas $1$, $2$ e $\infty$.
+
+{\bf Resp:} $k_1(A)=36$, $k_2(A)=18,26$, $K_\infty(A)=20,8$.
+
+
+\section{Métodos iterativos para sistemas lineares}
+\subsection{Método de Jacobi}
+Considere o problema $Ax=y$, ou seja,
+\begin{eqnarray*}
+a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n&=&y_1\\
+a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n&=&y_2\\
+\vdots \hspace{100pt}\vdots~~~~&=&~\vdots\\
+a_{n1}x_1+a_{n2}x_2+\cdots+a_{nn}x_n&=&y_n
+\end{eqnarray*}
+
+Os elementos $x_j$ são calculados iterativamente conforme:
+\begin{eqnarray*}
+x_1^{(k+1)}&=& \frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}}\\
+x_2^{(k+1)}&=&\frac{y_2 - \left(a_{21}x_1^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}\\
+&\vdots&\\
+x_n^{(k+1)}&=&\frac{y_2 - \left(a_{n1}x_1^{(k)}+\cdots+a_{n(n-1)}x_{n-1}^{(k)}\right)}{a_{nn}}
+\end{eqnarray*}
+
+Em notação mais compacta, o método de Jacobi consiste na iteração:
+\begin{align*}
+  &x^{(0)} = \text{aprox. inicial}\\
+  &x_i^{(k)} = \frac{y_i - \displaystyle{\sum_{\substack{j=1\\j\neq i}}^{n} a_{ij}x_j^{(k)}}}{a_{ii}}
+\end{align*}
+
+{\bf Exemplo:} Resolva o sistema $$\left\{\begin{array}{l}10x+y=23\\x+8y=26\end{array}\right.$$
+usando o método de Jacobi iniciando com $x^{(0)}=y^{(0)}=0$.
+\begin{eqnarray*}
+x^{(k+1)}&=&\frac{23-y^{(k)}}{10}\\
+y^{(k+1)}&=&\frac{26-x^{(k)}}{8}\\
+\\
+x^{(1)}&=&\frac{23-y^{(0)}}{10}=2,3\\
+y^{(1)}&=&\frac{26-x^{(0)}}{8}=3,25\\
+\\
+x^{(2)}&=&\frac{23-y^{(1)}}{10}=1,975 \\
+y^{(2)}&=&\frac{26-x^{(1)}}{8}=2,9625\\
+\end{eqnarray*}
+
+\subsubsection{Algoritmo de Jacobi}
+
+\verbatiminput{./rotinas/Metodo_de_Jacobi/jacobi.sci}
+
+\subsection{Método de Gauss-Seidel}
+Considere o problema $Ax=y$, ou seja,
+\begin{eqnarray*}
+a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n&=&y_1\\
+a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n&=&y_2\\
+\vdots \hspace{100pt}\vdots~~~~&=&~\vdots\\
+a_{n1}x_1+a_{22}x_2+\cdots+a_{nn}x_n&=&y_n
+\end{eqnarray*}
+
+Os elementos $x_j$ são calculados iterativamente conforme:
+\begin{eqnarray*}
+x_1^{(k+1)}&=& \frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}}\\
+x_2^{(k+1)}&=&\frac{y_2 - \left(a_{11}x_1^{(k+1)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{22}}\\
+&\vdots&\\
+x_n^{(k+1)}&=&\frac{y_2 - \left(a_{n1}x_1^{(k+1)}+\cdots+a_{n(n-1)}x_{n-1}^{(k+1)}\right)}{A_{nn}}
+\end{eqnarray*}
+
+Em notação mais compacta, o método de Gauss-Seidel consiste na iteração:
+\begin{align*}
+  &x^{(0)} = \text{aprox. inicial}\\
+  &x_i^{(k)} = \frac{y_i - \displaystyle{\sum_{j=1}^{i-1} a_{ij}x_j^{(k+1)}} - \displaystyle{\sum_{j=i+1}^{n} a_{ij}x_j^{(k)}}}{a_{ii}}
+\end{align*}
+
+
+
+{\bf Exemplo:} Resolva o sistema $$\left\{\begin{array}{l}10x+y=23\\x+8y=26\end{array}\right.$$
+usando o método de Guass-Seidel iniciando com $x^{(0)}=y^{(0)}=0$.
+\begin{eqnarray*}
+x^{(k+1)}&=&\frac{23-y^{(k)}}{10}\\
+y^{(k+1)}&=&\frac{26-x^{(k+1)}}{8}\\
+\\
+x^{(1)}&=&\frac{23-y^{(0)}}{10}=2,3\\
+y^{(1)}&=&\frac{26-x^{(1)}}{8}=2,9625\\
+\\
+x^{(2)}&=&\frac{23-y^{(1)}}{10}=2,00375  \\
+y^{(2)}&=&\frac{26-x^{(2)}}{8}=2,9995312
+\end{eqnarray*}
+
+\subsubsection{Algoritmo de Gauss-Seidel}
+
+\verbatiminput{./rotinas/Metodo_de_Gauss-Seidel/gauss.sci}
+
+\section{Análise de convergência}
+Uma condição suficiente porém não necessária para que os métodos de Gauss-Seidel e Jacobi convirjam é a que a matriz seja diagonal dominante estrita. Ver Burden \& Faires.
+
+\begin{prob}
+Resolva o seguinte sistema pelo método de Jacobi e Gauss-Seidel:
+$$\left\{\begin{array}{ll}
+5x_1+x_2+x_3&=50\\
+-x_1+3x_2-x_3&=10\\
+x_1+2x_2+10x_3&=-30
+\end{array}\right.$$
+Use como critério de paragem tolerância inferior a $10^{-3}$ e inicialize com $x^{0}=y^{0}=z^{0}=0$.  
+\end{prob}
+
+\section{Método da potência para cálculo de autovalores}
+Consideremos uma matriz $A\in \mathbb{R}^{n,n}$ diagonalizável, isto é, existe um conjunto $\{{v}_{j}\}_{j=1}^n$ de autovetores de $A$ tais que qualquer elemento $x\in\mathbb{R}^n$ pode ser escrito como uma combinação linear dos ${v}_{j}$. Sejam $\{\lambda_j\}_{j=1}^n$ o conjunto de autovalores associados aos autovetores tal que um deles seja dominante, ou seja,
+$$
+|\lambda_1|>|\lambda_2|\geq |\lambda_3|\geq\cdots |\lambda_n|>0
+$$
+Como os autovetores são LI, todo vetor ${x}\in\mathbb{R}^n$, ${x}=(x_1,x_2,...,x_n)$, pode ser escrito com combinação linear dos autovetores da seguinte forma:
+\begin{equation}\label{met_pot_forma}
+{x}=\sum_{j=1}^n\beta_j{v}_{j}.
+\end{equation}
+
+O método da potência permite o cálculo do autovetor dominante com base no comportamento assintótico (i.e. "no infinito") da sequência
+$${x}, A{x}, A^2{x}, A^3{x}, \ldots$$.
+
+Por questões de convergência, consideramos a seguinte sequência semelhante à anterior, porém normalizada:
+$$\frac{{x}}{\|{x}\|}, \frac{A{x}}{\|A{x}\|}, \frac{A^2{x}}{\|A^2{x}\|}, \frac{A^3{x}}{\|A^3{x}\|}, \ldots,$$
+que pode ser obtida pelo seguinte processo iterativo:
+$${x}^{(k+1)}=\frac{A^{k}{x}}{\|A^{k}{x}\|}$$
+Observamos que se ${x}$ está na forma (\ref{met_pot_forma}), então $A^k {x}$ pode ser escrito como
+$$A^{k}{x} = \sum_{j=1}^n\beta_j A^k {v}_{j}=\sum_{j=1}^n\beta_j \lambda_j^k {v}_{j}= \beta_1\lambda_1^k\left({v}_1+\sum_{j=2}^n\frac{\beta_j}{\beta_1} \left(\frac{\lambda_j}{\lambda_1}\right)^k {v}_{j}\right)$$
+Como $\left|\frac{\lambda_j}{\lambda_1}\right|<1$ para todo $j\geq 2$, temos
+$$\sum_{j=2}^n\frac{\beta_j}{\beta_1} \left(\frac{\lambda_j}{\lambda_1}\right)^k {v}_{j} \to 0.$$
+Assim
+\begin{equation}\label{met_pot_assim}\frac{A^k {x}}{\|A^k {x}\|} = \frac{\beta_1\lambda_1^k}{\|A^k {x}\|}\left( {v}_1 + O\left(\left|\frac{\lambda_2}{\lambda_1}\right|^k\right))\right) \end{equation}
+Como a norma de $\frac{A^k {x}}{\|A^k {x}\|}$ é igual a um, temos
+$$\left\|\frac{\beta_1\lambda_1^k}{\|A^k x\|}{v}_1\right\| \to 1$$
+e, portanto,
+$$\left|\frac{\beta_1\lambda_1^k}{\|A^k {x}\|}\right| \to \frac{1}{\|{v}_1\|}$$
+Ou seja, se definimos $\alpha^{(k)}=\frac{\beta_1\lambda_1^k}{\|A^k {x}\|}$, então
+$$
+|\alpha^{(k)}|\to 1
+$$
+Retornando a (\ref{met_pot_assim}), temos:
+
+$$\frac{A^k {x}}{\|A^k {x}\|}-\alpha^{(k)}{v}_1 \to 0$$
+
+Observe que um múltiplo de autovetor  também é um autovetor e, portanto, 
+$$
+\frac{A^k {x}}{\|A^k {x}\|}
+$$
+é um esquema que oscila entre os autovetores ou converge para o autovetor ${v}_1$.
+
+
+Uma vez que temos o autovetor ${v}_1$ de $A$, podemos calcular $\lambda_1$ da seguinte forma:
+$$
+A{v}_1=\lambda_1 {v}_1 ~\Longrightarrow~ {v}_1^TA{v}_1={v}_1^T\lambda_1 {v}_1 ~ \Longrightarrow~ \lambda_1=\frac{{v}_1^TA{v}_1}{{v}_1^T{v}_1}
+$$
+Observe que a última identidade é válida, pois $\|{v}_1\|=1$ por construção.
+%\section{a}
+%
+%Como
+%
+%Observamos que cada vetor $x^{(k)}$ pode ser escrito na forma (\ref{met_pot_forma}):
+%\begin{equation}\label{met_pot_forma2}
+%x^{(k)}=\sum_{j=1}^n\beta_j^{(k)} v_{j}.
+%\end{equation}
+%E que o vetor $A^{(k)}$ admite a seguinte formulação:
+%
+%$$
+%Ax^{(k)}=\sum_{j=1}^n\beta_j^{(k)}Av_{j}=\sum_{j=1}^n\beta_j^{(k)}\lambda_{j}v_{j}
+%$$
+%e
+%$$x^{(k+1)}=\frac{Ax^{(k)}}{\|Ax^{(k)}\|}=\frac{1}{\|Ax^{(k)}\|}\sum_{j=1}^n\beta_j^{(k)}\lambda_{j}v_{j}={c_k}\sum_{j=1}^n\beta_j^{(k)}\lambda_{j}v_{j}$$
+%onde $c_k=\frac{1}{\|Ax^{(k)}\|}$
+%
+%
+%\section{dd}
+%Escolha um vetor ${\bf x}^{(0)}\in \mathbb{R}^n$ tal que $\|{\bf x}^{(0)}\|=1$. Escolha $p_0\in\{1,2,...,n\}$ o menor inteiro tal que $x_{p_0}^{0}=1=\|{\bf x}^{(0)}\|_\infty$. Defina
+%$$
+%{\bf y}^{(1)}=A{\bf x}^{(0)}
+%$$
+%e coloque $\mu^{(1)}=y_{p_0}^{(1)}$. Observe que
+%\begin{eqnarray*}
+%\mu^{(1)}=y_{p_0}^{(1)}=\frac{y_{p_0}^{(1)}}{x_{p_0}^{(0)}}=\frac{\sum_{j=1}^n \lambda_j\beta_jv_{p_0}^{(j)}}{\sum_{j=1}^n \beta_jv_{p_0}^{(j)}}&=&\frac{\beta_1\lambda_1v_{p_0}^{(1)}+\sum_{j=2}^n\beta_j \lambda_j\beta_jv_{p_0}^{(j)}}{\beta_1v_{p_0}^{(1)}+\sum_{j=2}^n \beta_jv_{p_0}^{(j)}}\\
+%&=&\lambda_1\left[\frac{\beta_1v_{p_0}^{(1)}+\sum_{j=2}^n\beta_j \left(\lambda_j/\lambda_1\right)\beta_jv_{p_0}^{(j)}}{\beta_1v_{p_0}^{(1)}+\sum_{j=2}^n \beta_jv_{p_0}^{(j)}}\right]
+%\end{eqnarray*}
+%Agora, escolha $p_1\in\{1,2,...,n\}$ o menor inteiro tal que $y_{p_1}^{(1)}=\|{\bf y}^{(1)}\|_\infty$. Defina
+%$$
+%{\bf x}^{(1)}=\frac{{\bf y}^{(1)}}{y_{p_1}^{(1)}}
+%$$
+%e
+%$$
+%{\bf y}^{(2)}=A{\bf x}^{(1)}=\frac{A^2{\bf x}^{(0)}}{{ y}_{p_1}^{(1)}}.
+%$$
+%Coloque $\mu^{(2)}=y_{p_1}^{(2)}$ e note que
+%\begin{eqnarray*}
+%\mu^{(2)}=y_{p_1}^{(2)}=\frac{y_{p_1}^{(2)}}{x_{p_1}^{(1)}}=\frac{[\sum_{j=1}^n \lambda_j^2\beta_jv_{p_1}^{(j)}]/{ y}_{p_1}^{(1)}}{[\sum_{j=1}^n \lambda_j\beta_jv_{p_1}^{(j)}]/{ y}_{p_1}^{(1)}}&=&\frac{\beta_1\lambda_1^2v_{p_1}^{(1)}+\sum_{j=2}^n\beta_j \lambda_j^2\beta_jv_{p_1}^{(j)}}{\beta_1\lambda_1v_{p_1}^{(1)}+\sum_{j=2}^n \beta_j\lambda_jv_{p_1}^{(j)}}\\
+%&=&\lambda_1\left[\frac{\beta_1v_{p_1}^{(1)}+\sum_{j=2}^n\beta_j \left(\lambda_j/\lambda_1\right)^2\beta_jv_{p_1}^{(j)}}{\beta_1v_{p_1}^{(1)}+\sum_{j=2}^n \beta_j \left(\lambda_j/\lambda_1\right)v_{p_1}^{(j)}}\right]
+%\end{eqnarray*}
+%Similarmente, seja $p_2\in\{1,2,...,n\}$ o menor inteiro tal que $y_{p_2}^{(2)}=\|{\bf y}^{(2)}\|_\infty$. Defina
+%$$
+%{\bf x}^{(2)}=\frac{{\bf y}^{(2)}}{y_{p_2}^{(2)}}=\frac{A{\bf x}^{(1)}}{y_{p_2}^{(2)}}=\frac{A^2{\bf x}^{(0)}}{y_{p_2}^{(2)}{ y}_{p_1}^{(1)}}.
+%$$
+%
+%Recursivamente, definimos as sequências ${\bf x}^{(m)}$, ${\bf y}^{(m)}$ e a sequência de escalares $\mu^{m}$, onde
+%$$
+%{\bf y}^{(m)}=A{\bf x}^{(m-1)},
+%$$
+%\begin{equation}{\label{seq_maior_autovalor}}
+%\mu^{(m)}=y_{p_{m-1}}^{(m)}=\lambda_1\left[\frac{\beta_1v_{p_{m-1}}^{(1)}+\sum_{j=2}^n\beta_j \left(\lambda_j/\lambda_1\right)^m\beta_jv_{p_{m-1}}^{(j)}}{\beta_1v_{p_{m-1}}^{(1)}+\sum_{j=2}^n \beta_j \left(\lambda_j/\lambda_1\right)^{m-1}v_{p_{m-1}}^{(j)}}\right]
+%\end{equation}
+%e
+%$$
+%{\bf x}^{(2)}=\frac{A^m{\bf x}^{(0)}}{\prod_{k=1}^m y_{p_k}^{(k)}}.
+%$$
+%sendo $p_m\in\{1,2,...,n\}$ o menor inteiro tal que $y_{p_m}^{(m)}=\|{\bf y}^{(m)}\|_\infty$. Da equação (\ref{seq_maior_autovalor}) e do fato que $|\lambda_1|>\lambda_j$, $j=2,3,...,n$, temos que $\lim_{m\to\infty}\mu^{(m)}=\lambda_1$.
+
+\begin{exer}Calcule o autovalor dominante e o autovetor associado da matriz
+$$
+\left[\begin{array}{cc}
+3&4\\2&-1
+\end{array}\right]
+$$
+usando o método da potência inciando com o vetor $x=[1~~  1]^T$
+\end{exer}
+
+\begin{exer}Os autovalores de uma matriz triangular são os elementos da diagonal principal. Verifique o método da potência aplicada à seguinte matriz:
+$$
+\left[\begin{array}{ccc}
+2&3&1\\
+0&3&-1\\
+0&0&1
+\end{array}\right].
+$$
+\end{exer}
+
+%0&10&1&25
+%\end{array}\right] &\sim&
+%\left[
+%\begin{array}{cccc}
+%1&1&1&0\\
+%0&-1&9&-48\\
+%0&10&1&25
+%\end{array}\right] \sim
+%\left[
+%\begin{array}{cccc}
+%1&1&1&0\\
+%0&10&1&25\\
+%0&-1&9&-48
+%\end{array}\right]\sim\\
+%&\sim&\left[
+%\begin{array}{cccc}
+%1&1&1&0\\
+%0&10&1&25\\
+%0&0&9.1&-45.5
+%\end{array}\right]\sim
+%\left[
+%\begin{array}{cccc}
+%1&1&1&0\\
+%0&10&1&25\\
+%0&0&1&-5
+%\end{array}\right]\sim\\
+%&\sim&\left[
+%\begin{array}{cccc}
+%1&1&0&5\\
+%0&10&0&30\\
+%0&0&1&-5
+%\end{array}\right]
+%\sim\left[
+%\begin{array}{cccc}
+%1&1&0&5\\
+%0&1&0&3\\
+%0&0&1&-5
+%\end{array}\right]\\
+%&\sim&\left[
+%\begin{array}{cccc}
+%1&0&0&2\\
+%0&1&0&3\\
+%0&0&1&-5
+%\end{array}\right]
+%\end{eqnarray*}
+%Portanto $x=2$, $y=3$, $z=-5$
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
