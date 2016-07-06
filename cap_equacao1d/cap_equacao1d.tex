@@ -1,0 +1,774 @@
+%Este trabalho está licenciado sob a Licença Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-nc-sa/4.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+
+\documentclass[main.tex]{subfiles}
+\begin{document}
+\chapter{Solução de equações de uma variável}
+
+Neste capítulo buscaremos aproximações numéricas para raízes de funções de uma variável que são continuamente diferenciáveis.
+
+\section{Condição de Existência de raízes reais}
+Um teorema que garante a existência de raiz real em um intervalo é o teorema do valor intermediário:
+
+\begin{teo}[Teorema do Valor Intermediário]
+Se $f:[a,b]\to\mathbb{R}$ é um função contínua e $K$ for um número entre $f(a)$ e $f(b)$, então existe $c\in(a,b)$ para o qual $f(c)=K$.
+\end{teo}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.5]{./cap_equacao1d/pics/teorema_do_valor_intermediario/teorema_do_valor_intermediario}
+  \caption{Teorema do valor intermediário}
+  \label{fig:teorema_do_valor_intermediario}
+\end{figure}
+
+Em particular, se $f(a)>0$ e $f(b)<0$, então $0\in [f(b),f(a)]$ e podemos garantir a existência de $c\in(a,b)$ tal que $f(c)=0$, i.e. existe uma raiz no intervalo $(a,b)$. A mesma afirmação é válida se $f(a)<0$ e $f(b)>0$.
+\begin{ex}
+Mostre que existe pelo menos uma solução da equação $e^x=x+2$ no intervalo $(-2,0)$.
+
+De fato, se tomarmos $f(x)=e^x-x-2$, então $f(0)=1-2<0$ e $f(-2)=e^{-2}+2-2>0$. Pelo teorema do valor intermediário, existe $c\in(-2,0)$ tal que $f(c)=0$, ou seja, existe pelo menos uma solução nesse intervalo.
+\end{ex}
+
+Quando procuramos aproximações para raízes de funções, é importante que cada um delas fique isolada em um intervalo. Ou seja, precisamos garantir a existência e a unicidade da raiz. A existência vem do teorema do valor intermediário e a unicidade vem da monotonicidade da função.
+\begin{teo}
+Se $f:[a,b]\to\mathbb{R}$ é um função diferenciável, $f(a)\cdot f(b)<0$ e $f'(x)>0$ (ou $f'(x)<0$) para $x\in(a,b)$, então existe uma única raiz $c$ em $(a,b)$.
+\end{teo}
+
+Em outras palavras, se a função corta o eixo $x$ e é sempre crescente (ou sempre decrescente), então a raiz é única.
+\begin{ex}
+Observamos que existe uma única solução da equação $e^x=x+2$ no intervalo $(-2,0)$. A existência foi estabelecida no exemplo anterior. Para garantir a unicidade, observe que $f'(x)=e^x-1$ e, portanto, $f'(x)<0$ para $x\in(-2,0)$. Logo a raiz é única.
+
+Podemos inspecionar o comportamento da função $f(x) e^x - x - 2$ e de sua derivada fazendo seus gráficos no Scilab. Para tanto, podemos implementar o seguinte código:
+\begin{verbatim}
+-->x = linspace(-2,0,50);
+-->//grafico de f(x)
+-->deff('y = f(x)','y=exp(x)-x-2')
+-->plot(x,f(x))
+-->//graficando a f'(x)
+-->deff('y = fl(x)','y=exp(x)-1')
+-->plot(x,fl(x))
+\end{verbatim}
+\end{ex}
+
+\begin{exer}Mostre que a equação
+$$\ln(x)+x^3-\frac{1}{x}=10$$
+possui uma única solução positiva. Faça o gráfico e observe.
+\end{exer}
+
+\begin{exer}Use o teorema do valor intermediário para mostrar que o erro absoluto ao aproximar a raiz da função $f(x)=e^x-x-2$ por $\overline{x}=-1,841$ é menor que $10^{-3}$.
+\end{exer}
+
+\section{Método da bisseção}
+
+Suponha que a função contínua $f:[a,b]\to\mathbb{R}$ tal que $f(a)\cdot f(b)<0$, ou seja, $f$ possui uma raiz no intervalo. Suponha também que a raiz é única. Uma primeira aproximação para a raiz pode ser o ponto médio $p=\frac{a+b}{2}$. Se $f(p)\cdot f(a)<0$, então a raiz está a esquerda de $p$, se não, a raiz está a direita de $p$ (veja Fig. \ref{fig:bisection_scheme}). Depois de escolher o intervalo correto, fazemos uma nova aproximação para a raiz tomando o ponto médio do novo intervalo.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{./cap_equacao1d/pics/metodo_da_bissecao}
+  \caption{Método da bisseção.}
+  \label{fig:bisection_scheme}
+\end{figure}
+
+Em outras palavras, seja $(a^{(0)},b^{(0)})=(a,b)$ o intervalo inicial e $p^{(0)}=\frac{a^{(0)}+b^{(0)}}{2}$ a aproximação inicial. Se $f(p^{(0)})\cdot f(a^{(0)})<0$, então $(a^{(1)},b^{(1)})=(a^{(0)},p^{(0)})$, caso contrário, $(a^{(1)},b^{(1)})=(p^{(0)},b^{(0)})$. A nova aproximação para a raiz é $p^{(1)}=\frac{a^{(1)}+b^{(1)}}{2}$. Esse procedimento produz uma sequência $p^{(n)}$ que converge para a raiz.
+
+\begin{ex}Faça 5 iterações do método da bisseção para encontrar a raiz de $f(x)=x^3+5x^2-12$ utilizando $a^{(0)}=1$ e $b^{(0)}=2$.
+$$
+\begin{array}{|c|c|c|c|c|c|c|}
+\hline
+n&a^{(n)}&b^{(n)}&p^{(n)}&f(a^{(n)})&f(b^{(n)})&f(p^{(n)})\\
+\hline
+0&a^{(0)}=1&b^{(0)}=2&p^{(0)}=1,5&-6 &16&2,625  \\
+\hline
+1&a^{(1)}=1&b^{(1)}=p^1=1,5&p^{(1)}=1,25&-6 &2,625&-2,234375  \\
+\hline
+2&a^{(2)}=1,25&b^{(2)}=1,5&p^{(2)}=1,375&&&\\
+\hline
+3&&&&&&\\
+\hline
+4&&&&&&\\
+\hline
+5&&&&&&\\
+\hline
+\end{array}
+$$
+
+No console do Scilab, temos:
+\begin{verbatim}
+-->deff('y=f(x)','y = x^3 + 5*x^2 - 12')
+-->//iteracao 0
+-->a=1; b=2; p=(a+b)/2;
+-->[a,b,p,f(a),f(b),f(p)]
+ ans  =
+    1.    2.    1.5  - 6.    16.    2.625  
+-->//iteracao 1
+-->b = p; p = (a+b)/2;
+-->[a,b,p,f(a),f(b),f(p)]
+ ans  =
+    1.    1.5    1.25  - 6.    2.625  - 2.234375
+\end{verbatim}
+\end{ex}
+
+Observe que a distância entre $p^{(0)}$ e a raiz $p^*$ não pode exceder metade do intervalo, ou seja $|p^{(0)}-p^*|\leq \frac{b-a}{2}$. Da mesma forma, o erro absoluto entre $p^{(1)}$ e $p^*$ é menor que $\frac{1}{4}$ do intervalo, isto é, $|p^{(1)}-p^*|\leq \frac{b-a}{2^2}$. De modo geral, o erro absoluto na iteração $n$ é estimado por
+$$
+|p^{(n)}-p^*|\leq \frac{b-a}{2^{n+1}},\qquad n\geq 1.
+$$
+Também, se $\epsilon_n:=|p^{(n)}-p^*|$, então vale:
+$$
+\epsilon_{n+1}\leq \frac{1}{2}\left(\epsilon_n\right)^1
+$$
+e, por isso, dizemos que o método da bisseção possui taxa de convergência linear. Um método com taxa de convergência super-linear satisfaz
+$$
+\epsilon_{n+1}\leq C\left(\epsilon_n\right)^m,
+$$
+onde $m>1$ e $C$ é uma constante.
+
+\begin{ex}Determine quantas iterações são necessárias para encontrar a raiz de $f(x)=x^3+5x^2-12$ com uma precisão de $10^{-3}$, utilizando $a^{(0)}=1$ e $b^{(0)}=2$.
+
+Observe que precisamos da seguinte desigualdade
+$$
+|p^{(n)}-p^*|\leq \frac{b-a}{2^{n+1}}= \frac{1}{2^{n+1}}\leq 10^{-3}.
+$$
+Assim,
+$$
+\log_{2}2^{-(n+1)}\leq \log_{2}10^{-3}
+$$
+ou seja,
+$$
+-(n+1)\log_{2}2\leq -3\log_2(10)\Rightarrow  n+1\geq 3\log_2(10)\approx 9,97\Rightarrow  n\approx 8,97
+$$
+Portanto, $n\geq 9$.
+\end{ex}
+
+\begin{exer}Utilize o método da bisseção na equação $\sqrt{x}=\cos(x)$ para encontrar $p^{(4)}$ em $[a,b]=[0,1]$.
+\end{exer}
+
+\subsection{Código Scilab}
+
+O seguinte código é uma implementação no Scilab do algoritmo da bisseção. As variáveis de entrada são:
+\begin{itemize}
+\item \verb+f+ - função objetivo
+\item \verb+a+ - extremo esquerdo do intervalo de inspeção $[a, b]$
+\item \verb+b+ - extremo direito do intervalo de inspeção $[a, b]$
+\item \verb+TOL+ - tolerância (critério de parada)
+\item \verb+N+ - número máximo de iterações
+\end{itemize}
+A variável de saída é:
+\begin{itemize}
+\item \verb+p+ - aproximação da raiz de \verb+f+, i.e. $f(p) \approx 0$.
+\end{itemize}
+
+\verbatiminput{./cap_equacao1d/codes/metodo_da_bissecao/bissecao.sci}
+
+\begin{exer} Encontre a solução de cada equação com erro absoluto inferior a $10^{-6}$.
+\begin{description}
+\item[a)] $e^x=x+2$ no intervalo $(-2,0)$.
+\item[b)] $x^3+5x^2-12=0$ no intervalo $(1,2)$.
+\item[c)] $\sqrt{x}=\cos(x)$ no intervalo $(0,1)$.
+\end{description}
+\end{exer}
+
+\begin{exer} Encontre numericamente as três primeiras raízes positivas da equação dada por
+$$\cos(x)=\frac{x}{10+x^2}$$
+com erro absoluto inferior a $10^{-6}$.
+\end{exer}
+
+\begin{exer} Calcule uma equação da reta tangente a curva $y=e^{-(x-1)^2}$ que passa pelo ponto $(3,1/2)$.
+\end{exer}
+
+\section{Iteração de Ponto Fixo}
+
+\subsection{Exemplo Histórico}
+Vamos analisar o método babilônico para extração da raiz quadrada de um número positivo $A$ usando operações de soma, subtração, divisão e multiplicação.
+
+Seja $x>0$ uma aproximação para $\sqrt{A}$, temos três caso:
+\begin{itemize}
+\item $x>\sqrt{A} \Longrightarrow \frac{A}{x}<\sqrt{A} \Longrightarrow \sqrt{A}\in \left(\frac{A}{x},x\right)$
+\item $x=\sqrt{A} \Longrightarrow \frac{A}{x}=\sqrt{A}$
+\item $x<\sqrt{A} \Longrightarrow \frac{A}{x}>\sqrt{A} \Longrightarrow \sqrt{A}\in \left(x,\frac{A}{x}\right)$
+\end{itemize}
+É natural imaginar que uma melhor aproximação para $\sqrt{A}$ é dada por
+$$y=\frac{x+\frac{A}{x}}{2}$$
+
+Aplicando esse método repetidas vezes, construímos a seguinte iteração:
+\begin{eqnarray*}
+x^{(n+1)}&=&\frac{x^{(n)}}{2}+\frac{A}{2x^{(n)}}\\
+x^{(0)}&=&x
+\end{eqnarray*}
+
+\begin{ex}
+A=5, x=2
+\begin{eqnarray*}
+x^{(n+1)}&=&\frac{x^{(n)}}{2}+\frac{2,5}{x^{(n)}}\\
+x^{(0)}&=&2
+\end{eqnarray*}
+
+\begin{eqnarray*}
+x^{(0)}&=&2\\
+x^{(1)}&=&\frac{2}{2}+\frac{2,5}{2}=1+1,25=2,25\\
+x^{(2)}&=&\frac{2,25}{2}+\frac{2,5}{2,25}= 2,2361111  \\
+x^{(3)}&=&\frac{2,2361111}{2}+\frac{2,5}{2,2361111}= 2,236068  \\
+x^{(4)}&=&\frac{2,236068}{2}+\frac{2,5}{2,236068}= 2,236068
+\end{eqnarray*}  
+\end{ex}
+
+\begin{ex}
+A=10, x=1
+\begin{eqnarray*}
+x^{(n+1)}&=&\frac{x^{(n)}}{2}+\frac{5}{x^{(n)}}\\
+x^{(0)}&=&1
+\end{eqnarray*}
+\begin{eqnarray*}
+x^{(0)}&=&1\\
+x^{(1)}&=&\frac{1}{2}+\frac{5}{1}=0,5+5=5,5\\
+x^{(2)}&=&\frac{5,5}{2}+\frac{5}{5,5}=3,6590909 \\
+x^{(3)}&=&\frac{3,6590909}{2}+\frac{5}{3,6590909}=3,1960051   \\
+x^{(4)}&=&\frac{3,1960051}{2}+\frac{5}{3,1960051}=3,1624556  \\
+x^{(5)}&=&\frac{3,1624556}{2}+\frac{5}{3,1624556}=3,1622777  \\
+x^{(6)}&=&\frac{3,1622777}{2}+\frac{5}{3,1622777}=3,1622777  \\
+\end{eqnarray*}  
+\end{ex}
+
+A experimentação numérica sugere que o método funciona, mas três perguntas devem ser respondidas:
+\begin{enumerate}
+\item Será que a sequência é convergente?
+\item Caso seja convergente, será que o limite $x^*=\lim_{n\to \infty }x_n$ é igual a $\sqrt{A}$?
+\item Caso seja convergente, quão rápida é a convergência?
+\end{enumerate}
+
+A segunda pergunta é a mais fácil de ser respondida:
+
+Supondo que o limite de $x_n$ exista, basta substituir na iteração:
+\begin{eqnarray*}
+\lim_{n \to \infty }x^{(n+1)}&=&\lim_{n \to \infty }\frac{x^{(n)}}{2}+\lim_{n \to \infty }\frac{A}{2x^{(n)}}\\
+x^*&=&\frac{x^*}{2}+\frac{A}{2x^*}\\
+\frac{x^*}{2}&=&\frac{A}{2x^*}\\
+{x^*}&=&\frac{A}{x^*}\\
+{(x^*)}^2&=&{A}\\
+x^*&=&\sqrt{A}
+\end{eqnarray*}
+Portanto, sempre que esse método converge, temos a garantia de que o limite é $\sqrt{A}$. (Independente do valor inicial!)
+
+De fato, podemos provar que o método é convergente para qualquer valor inicial positivo $x$. E, ainda, que a convergência é rápida (ainda precisamos definir isso).
+
+Para responder essas perguntas, devemos formalizar o conceito de ponto fixo. Antes disso, analisemos mais um exemplo:
+
+\subsection{Outro Exemplo}
+
+Suponha que queiramos resolver a equação:
+$$xe^x=10.$$
+Observamos que o este problema é equivalente a resolver:
+\begin{equation*}
+x=\ln\left(\frac{10}{x}\right)  
+\end{equation*}
+ou:
+\begin{equation*}
+x=10e^{-x}
+\end{equation*}
+
+Para tanto, vamos propor os seguintes processos iterativos:
+
+$$\begin{array}{l}
+a)\left\{\begin{array}{ll}x^{(n+1)}=\ln\left(\frac{10}{x^{(n)}}\right),~~ n\geq 0\\
+x^{(0)}=1
+\end{array}\right.\\ \hbox{e} \\
+b)\left\{\begin{array}{ll}x^{(n+1)}={10}{e^{-x^{(n)}}},~~ n\geq 0\\
+x^{(0)}=1
+\end{array}\right.\end{array}$$
+
+O processo $a)$ produz a seguinte sequência:
+\begin{eqnarray*}
+x^{(0)}&=&1\\
+x^{(1)}&=&\ln\left({10}\right)=2,3025851\\
+x^{(2)}&=&\ln\left(\frac{10}{2,3025851}\right)=1,4685526\\
+x^{(3)}&=&\ln\left(\frac{10}{1,4685526}\right)=1,9183078 \\
+x^{(4)}&=&\ln\left(\frac{10}{1,9183078}\right)=1,6511417  \\
+&\vdots&\\
+x^{(10)}&=&1,7421335 \\
+x^{(20)}&=& 1,7455151\\
+x^{(30)}&=& 1,745528\\
+x^{(31)}&=& 1,745528
+\end{eqnarray*}
+
+O processo $b)$ produz a seguinte sequência:
+\begin{eqnarray*}
+x^{(0)}&=&1\\
+x^{(1)}&=&10e^{-1}= 3,6787944   \\
+x^{(2)}&=&10e^{- 3,6787944 }= 0,2525340     \\
+x^{(3)}&=&10e^{-0,2525340}=  7,7682979      \\
+x^{(4)}&=&10e^{-7,7682979}=  0,0042293      \\
+x^{(5)}&=&10e^{-0,0042293}=  9,9577961
+\end{eqnarray*}
+
+
+O experimento numérico sugere que o processo $a$ não é convergente e que o processo $b$ converge para $1,745528$.
+
+\subsection{Ponto fixo}
+
+Seja $\phi (x)$ uma função, dizemos que $x^*\in D(f)$ é um ponto fixo de $\phi$ se
+$$\phi(x^*)=x^*$$
+
+Seja $\phi:[a,b]\to [a,b]$ um função real tal que
+$$|\phi(x)-\phi(y)|\leq \beta |x-y|,~~~\beta<1.$$
+Então $\phi$ é dita uma contração e existe um único ponto $x^*\in [a,b]$ tal que $\phi(x^*)=x^*$. Além disso, a sequência
+$$x^{(n+1)}=\phi(x^{(n)})$$
+é convergente sempre que $x_0\in[a,b]$ e vale o limite $$\lim_{n\to\infty}x^{(n)}=x^*.$$
+
+\begin{obs}
+A desigualdade $|\phi(x)-\phi(y)|\leq \beta |x-y|$ implica que $\phi(x)$ é contínua.  
+\end{obs}
+
+Começamos demonstrando que existe pelo menos um ponto fixo. Para tal definimos a função $f(x)=x-\phi(x)$ e observamos que
+$$f(a)=a-\phi(a)\leq a-a=0$$
+e
+$$f(b)=b-\phi(b)\geq b-b=0$$
+Se $f(a)=a$ ou $f(b)=b$, então o ponto fixo existe. Caso contrário, as desigualdade são estritas e a função muda de sinal no intervalo. Como a função é contínua, pelo teorema do valor intermediário, existe um ponto $x^*$ no intervalo $(a,b)$ tal que $f(x^*)=0$, ou seja, $x^*-\phi(x^*)=0$. Observe que $x^*$ é um ponto fixo de $\phi$, pois $\phi(x^*)=x^*$. 
+
+Para provar que o ponto fixo é único, observamos que se $x^*$ e $x^{**}$ são pontos fixos, eles devem ser iguais, pois:
+$$|x^*-x^{**}|=|\phi(x^{*})-\phi(x^{**})|\leq \beta |x^*-x^{**}|$$
+A desigualdade $|x^*-x^{**}|\leq \beta |x^*-x^{**}|$ com $\beta<1$ implica $|x^*-x^{**}|=0$.
+\\~\\
+
+Para demonstrar a convergência da sequência, observamos a seguinte relação
+$$|x^{(n+1)}-x^*|=|\phi(x^{(n)})-x^*|=|\phi(x^{(n)})-\phi(x^*)|\leq \beta |x^{(n)}-x^*|.$$
+
+Agora observamos que
+$$|x^{(n)}-x^*|\leq  \beta |x^{(n-1)}-x^*|\leq \beta^2 |x^{(n-2)}-x^*|\leq \cdots \leq \beta^{n}|x^{(0)}-x^*|.$$
+Portanto
+$$\lim_{n\to\infty}|x^{(n)}-x^*|=0$$
+e
+$$\lim_{n\to\infty}x^{(n)}=x^*$$
+
+Observações:
+\begin{itemize}
+\item A condição $|\phi(x)-\phi(y)|\leq \beta |x-y|$ é satisfeita sempre que $|\phi'(x)|\leq \beta<1$ em todo o intervalo pois
+$$|\phi(x)-\phi(y)|=\left|\int_x^y\phi'(s)ds\right|\leq \int_x^y|\phi'(s)|ds\leq \int_x^y\beta ds=\beta|x-y|,~~ x<y.$$
+
+\item A desigualdade estrita $\beta<1$ é necessária.
+
+\item A condição $f([a,b])\subseteq [a,b]$ é necessária.
+
+\end{itemize}
+
+
+\subsection{Teste de convergência}
+Seja $\phi :[a,b]$ uma função $C^0[a,b]$ e $x^*\in(a,b)$ um ponto fixo de $\phi$. Então $x^*$ é dito estável se existe uma região $(x^*-\delta,x^*+\delta)$ chamada bacia de atração tal que $x^{(n+1)}=\phi(x^{(n)})$ é convergente sempre que $x^{(0)}\in(x^*-\delta,x^*+\delta)$.
+
+Teorema: Se $\phi\in C^1[a,b]$ e  $|\phi'(x^*)|<1$, então $x^*$ é estável. Se $|\phi'(x^*)|>1$ é instável e o teste é inconclusivo se $|\phi'(x^*)|=1$.
+
+
+\begin{ex}
+Considere o problema de encontrar a solução da equação algébrica
+$$\cos(x)=x$$
+vendo-a como o ponto fixo da função
+$$f(x)=\cos(x).$$
+
+Mostraremos que o teorema do ponto fixo se aplica a esta função com $[a,b]=[1/2,1]$.
+
+Precisamos provar:
+\begin{enumerate}
+\item $f\left([1/2,1]\right) \subseteq [1/2,1]$;
+\item $|f'(x)|<\beta,~~~\beta<1,~~~ \forall x\in [1/2,1]$.
+\end{enumerate}
+
+Para provar o item 1, observamos que $f(x)$ é decrescente no intervalo, pelo que temos:
+$$0,54<\cos(1)\leq \cos(x)\leq \cos(1/2)<0,88$$
+Como $[0,54,~0,88]\subseteq [0,5,~1]$, temos o item a.
+
+Para provar o item 2, observamos que
+$$f'(x)=-\sin(x)$$
+Da mesma forma, temos a estimativa:
+$$-0,85<-\sin(1) \leq -\sin(x)\leq -\sin(1/2)<-0,47$$
+Assim, $|f'(x)|<0,85$ temos a desigualdade com $\beta=0,85<1$.
+
+Agora, observamos o comportamento numérico da sequência:
+$$\left\{\begin{array}{ll}x^{(n+1)}=\cos(x^{(n)}),~~ n\geq 0\\
+x^{(0)}=1
+\end{array}\right.$$
+
+
+Os primeiros termos podem ser calculados numericamente e são dados por:
+\begin{eqnarray*}
+x^{(1)}&=&\cos(x_0)=\cos(1)=0,5403023\\
+x^{(2)}&=&\cos(x_1)=\cos(0,5403023)=0,8575532\\
+x^{(3)}&=&\cos(x_2)=\cos(0,8575532)=0,6542898\\
+x^{(4)}&=&\cos(x_3)=\cos(0,6542898)=0,7934804\\
+x^{(5)}&=&\cos(x_4)=\cos(0,7934804)=0,7013688\\
+x^{(6)}&=&\cos(x_5)=\cos(0,7013688)=0,7639597\\
+x^{(7)}&=&\cos(x_6)=\cos(0,7639597)=0,7221024\\
+x^{(8)}&=&\cos(x_7)=\cos(0,7221024)=0,7504178\\
+x^{(9)}&=&\cos(x_8)=\cos(0,7504178)=0,7314040\\
+x^{(10)}&=&\cos(x_9)=\cos(0,7314040)= 0,7442374  \\
+x^{(11)}&=&\cos(x_{10})=\cos(0,7442374)=0,7356047  \\
+x^{(12)}&=&\cos(x_{11})=\cos(0,7356047)=0,7414251  \\
+x^{(13)}&=&\cos(x_{12})=\cos(0,7414251)=0,7375069  \\
+%x_{14}&=&\cos(x_{13})=\cos(0,7375069)=0,7401473  \\
+&\vdots&\\
+x^{(41)}&=&\cos(x_{40})=\cos(0,7390852)= 0,7390851  \\
+x^{(42)}&=&\cos(x_{41})=\cos(0,7390851)= 0,7390851   \\
+x^{(43)}&=&\cos(x_{42})=\cos(0,7390851 )= 0,7390851
+\end{eqnarray*}
+\end{ex}
+\begin{prob} Resolver os problemas 33 e 34 da lista.
+\end{prob}
+
+
+\subsection{Estabilidade e convergência}
+A fim de compreendermos melhor os conceitos de estabilidade e convergência, considere uma função $\Phi(x)$ com um ponto fixo $x^*=\phi(x^*)$ e analisemos o seguinte processo iterativo:
+\begin{eqnarray*}
+x^{(n+1)}&=&\phi\left(x^{(n)}\right)\\
+x^{(0)}&=&x
+\end{eqnarray*}
+Vamos supor que a função $\phi(x)$ pode ser aproximada por seu polinômio de Taylor em torno do ponto fixo:
+\begin{eqnarray*}
+\phi(x)&=&\phi(x^*)+(x-x^*) \phi'(x^*)+O\left((x-x^*)^2\right), n\geq 0\\
+&=&x^*+(x-x^*) \phi'(x^*)+O\left((x-x^*)^2\right)\\
+&\approx& x^*+(x-x^*) \phi'(x^*)
+\end{eqnarray*}
+
+Substituindo na relação de recorrência, temos
+$$
+x^{(n+1)}=\phi\left(x^{(n)}\right)\approx x^*+(x^{(n)}-x^*) \phi'(x^*)
+$$
+Ou seja:
+$$
+\left(x^{(n+1)}-x^*\right)\approx {(x^{(n)}-x^*)} \phi'(x^*)
+$$
+Tomando módulos, temos:
+$$
+\underbrace{\left|x^{(n+1)}-x^*\right|}_{\epsilon_{n+1}}\approx \underbrace{\left|x^{(n)}-x^*\right|}_{\epsilon_n} \left|\phi'(x^*)\right|,
+$$
+onde $\epsilon_n=\left|x^{(n)}-x^*\right|$.
+
+{\bf Conclusões:}
+\begin{itemize}
+\item Se $|\phi'(x^*)|<1$, então, a distância de $x^{(n)}$ até o ponto fixo $x^*$ está diminuindo a cada passo.
+\item Se $|\phi'(x^*)|>1$, então, a distância de $x^{(n)}$ até o ponto fixo $x^*$ está aumentando a cada passo.
+\item Se $|\phi'(x^*)|=1$, então, nossa aproximação de primeiro ordem não é suficiente para compreender o comportamento da sequência.
+\end{itemize}
+
+Fixaremos, portanto, nos casos quando $|\phi'(x^*)|<1$.
+
+\subsection{Erro absoluto e tolerância}
+Na prática, quando se aplica uma iteração como esta, não se conhece de antemão o valor do ponto fixo $x^*$. Assim, o erro $\epsilon_n=\left|x^{(n)}-x^*\right|$ precisa ser estimado com base nos valores calculados $x^{(n)}$. Uma abordagem frequente é analisar a evolução da diferença entre dois elementos da sequência:
+$$\Delta_n=\left|x^{(n+1)}-x^{(n)}\right|$$
+
+A pergunta natural é: Será que o erro $\epsilon_n=\left|x^{(n)}-x^*\right|$ é pequeno quando  $\Delta_n=\left|x^{(n+1)}-x^{(n)}\right|$ for pequeno?
+
+Para responder a esta pergunta, observamos que
+$$x^*=\lim_{n\to \infty }x^{(n)}$$
+portanto:
+\begin{eqnarray*}
+x^*-x^{(N)}&=&  \left(x^{(N+1)}-x^{(N)}\right)+\left(x^{(N+2)}-x^{(N+1)}\right)+\left(x^{(N+3)}-x^{(N+2)}\right)+\ldots\\
+&=&\sum_{k=0}^\infty \left(x^{(N+k+1)}-x^{(N+k)}\right)
+\end{eqnarray*}
+
+Usamos também as expressões:
+\begin{eqnarray*}
+x^{(n+1)}&\approx& x^*+(x^{(n)}-x^*) \phi'(x^*)\\
+x^{(n)}&\approx& x^*+(x^{(n-1)}-x^*) \phi'(x^*)
+\end{eqnarray*}
+Subtraindo uma da outra, temos:
+\begin{eqnarray*}
+x^{(n+1)}-x^{(n)}&\approx& (x^{(n)}-x^{(n-1)}) \phi'(x^*)
+\end{eqnarray*}
+Portanto:
+\begin{eqnarray*}
+x^{(N+k+1)}-x^{(N+k)}&\approx& (x^{(N+1)}-x^{(N)}) \left(\phi'(x^*)\right)^{k}
+\end{eqnarray*}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+E temos:
+\begin{eqnarray*}
+x^*-x^{(N)}
+&=&\sum_{k=0}^\infty \left(x^{(N+k+1)}-x^{(N+k)}\right)\\
+&\approx&\sum_{k=0}^\infty (x^{(N+1)}-x^{(N)}) \left(\phi'(x^*)\right)^{k}\\
+&=&(x^{(N+1)}-x^{(N)}) \frac{1}{1-\phi'(x^*)}, \left|\phi'(x^*)\right|<1
+\end{eqnarray*}
+Tomando módulo, temos:
+\begin{eqnarray*}
+\left|x^*-x^{(N)} \right|
+&\approx&\left|x^{(N+1)}-x^{(N)}\right| \frac{1}{1-\phi'(x^*)}\\
+\epsilon_N &\approx&  \frac{\Delta_N}{1-\phi'(x^*)}
+\end{eqnarray*}
+
+{\bf Conclusões:} Tendo em mente a relação $x^{(n+1)}-x^{(n)}  \approx (x^{(n)}-x^{(n-1)}) \phi'(x^*)$, concluímos:
+\begin{itemize}
+\item Quando $\phi'(x^*)<0$, o esquema é alternante e o erro $\epsilon_N$ pode ser estimado diretamente da diferença $\Delta_N$.
+\item Quando $\phi'(x^*)>0$, o esquema é monótono e $\frac{1}{1-\phi'(x^*)}>1$, pelo que o erro $\epsilon_N$ é maior que a diferença $\Delta_N$. A relação será tão mais importante quando mais próximo da unidade for $\phi'(x^*)$, ou seja, quando mais lenta for a convergência.
+\item Como $\phi'(x^*)\approx \frac{x^{(n+1)}-x^{(n)}}{x^{(n)}-x^{(n-1)}}$, temos
+$$\left|\phi'(x^*)\right|\approx \frac{\Delta_n}{\Delta_{n-1}}$$
+e portanto
+$$\epsilon_N \approx \frac{\Delta_N}{1-\frac{\Delta_n}{\Delta_{n-1}}}.$$
+\end{itemize}
+
+\begin{obs}
+  Deve-se exigir que $\Delta_n<\Delta_{n-1}$
+\end{obs}
+
+\begin{prob} Resolver problemas 30 a 34 da lista.
+\end{prob}
+
+
+\subsection{Problemas para análise}
+\begin{prob} Verifique (analiticamente) que a única solução real da equação
+$$xe^x=10$$
+é ponto fixo das seguintes funções:
+\begin{itemize}
+\item[a)] $\phi(x)=\ln\left(\frac{10}{x}\right)$
+\item[b)] $\phi(x)=x-\frac{xe^{x}-10}{15}$
+\item[c)] $\phi(x)=x-\frac{xe^{x}-10}{10+e^{x}}$
+\end{itemize}
+Implemente o processo iterativo $x^{(n+1)}=\phi(x^{(n)})$ para $n\geq 0$ e compare o comportamento. Discuta os resultados com base na teoria estudada.
+\end{prob}
+\begin{prob} Verifique (analiticamente) que a única solução real da equação
+$$\cos(x)=x$$
+é ponto fixo das seguintes funções:
+\begin{itemize}
+\item[a)] $\phi(x)=\cos(x)$
+\item[b)] $\phi(x)=0,4 x+ 0,6\cos(x)$
+\item[c)] $\phi(x)=x+\frac{\cos(x)-x}{1+\sin(x)}$
+\end{itemize}
+Implemente o processo iterativo $x^{(n+1)}=\phi(x^{(n)})$ para $n\geq 0$ e compare o comportamento.Discuta os resultados com base na teoria estudada.
+\end{prob}
+
+%\newpage
+\section{Método de Newton-Raphson}
+
+Consideramos o problema de encontrar as raízes da equação
+$$f(x)=0$$ onde $f(x)\in C^1$ através do método do ponto fixo.
+Para tal, observamos que um número real $x^*$ é raiz de $f(x)$ se e somente se $x^*$ é um ponto fixo da função
+$$\phi(x)=x+\gamma(x)f(x), ~~\gamma(x)\neq 0$$
+Aqui $\gamma(x)$ é uma função que será escolhida com base nos critérios de convergência do processo iterativo.
+
+
+A derivada de $\phi(x)$ vale
+$$\phi'(x)=1+\gamma(x)f'(x)+\gamma'(x)f(x)$$
+no ponto $x^*$, temos
+$$\phi'(x^*)=1+\gamma(x^*)f'(x^*)+\gamma'(x^*)f(x^*)$$
+como $f(x^*)=0$, temos
+$$\phi'(x^*)=1+\gamma(x^*)f'(x^*)$$
+
+Sabemos que o processo iterativo converge tão mais rápido quanto menor for $\phi'(x)$ nas  vizinhanças de $x^*$, portanto, supomos que $f'(x^*)\neq 0$ e escolhemos $\gamma(x^*)$ de forma que
+$$\phi'(x^*)=0,$$ ou seja
+$$\gamma(x^*)=-\frac{1}{f'(x^*)}.$$
+
+Observe que $x^*$ é raiz de $f(x)$ se, e somente se $x^*$ é ponto fixo de
+$$\phi(x)=x-\frac{f(x)}{f'(x)}$$
+e $\phi'(x^*)=0<1$. Portanto, o teorema do ponto fixo garante que se $x^{(0)}$ for suficientemente próximo a $x^*$, então o processo iterativo dado por
+$$x^{(n+1)}=x^{(n)}-\frac{f(x^{(n)})}{f'(x^{(n)})}$$
+converge para $x^*$, desde que $f'(x^{(n)})\neq 0 $ para todo $n\in\mathbb{N}$.
+\subsection{Interpretação Geométrica}
+Considere o problema de calcular a raiz uma função $f$, conforme esboço na figura abaixo
+
+\begin{center}
+\includegraphics[scale=.4]{./cap_equacao1d/fig_Newton}
+\end{center}
+
+Queremos calcular $x^{(1)}$ em função de $x^{(0)}$ sabendo que é o corte da reta tangente em $x^{(0)}$ com o eixo $x$. A equação da reta que passa por $(x^{(0)}, f(x^{(0)})$ e é tangente a curva em $x^{(0)}$ tem inclinação $m=f'(x^{(0)})$ e sua equação é
+$$
+y-f(x^{(0)})=f'(x^{(0)})(x-x^{(0)}).
+$$
+Sabendo que essa reta passa por $(x^{(1)},0)$, temos:
+$$
+0-f(x^{(0)})=f'(x^{(0)})(x^{(1)}-x^{(0)}).
+$$
+Portanto,
+$$x^{(1)}=x^{(0)}-\frac{f(x^{(0)})}{f'(x^{(0)})}$$
+que é uma iteração do método de Newton. Repetimos o processo para calcular $x^{(2)},\ x^{(3)},...$. De modo geral, temos:
+$$x^{(n+1)}=x^{(n)}-\frac{f(x^{(n)})}{f'(x^{(n)})}.$$
+
+
+\begin{prob}A partir do problema 23 da lista, encontre com pelo menos cinco dígitos significativos as três primeiras raízes da função $f(x)$.
+\end{prob}
+
+\subsection{Análise de convergência}
+
+Seja $f(x)$ um função com derivada e derivada segunda contínuas tal que $f(x^*)=0$ e $f'(x^*)\neq 0$. Seja também a função $\phi(x)$ definida como
+$$\phi(x)=x-\frac{f(x)}{f'(x)}$$
+Expandimos em série de Taylor em torno de $x^*$ e obtermos:
+$$\phi(x)=\phi(x^*)+(x-x^*)\phi'(x^*)+ (x-x^*)^2\frac{\phi''(x^*)}{2}+O\left((x-x^*)^3\right)$$
+Sabemos que
+\begin{eqnarray*}
+\phi(x^*)&=&x^*-\frac{f(x^*)}{f'(x^*)}=x^*\\
+\phi'(x^*)&=&1-\frac{f'(x^*)f'(x^*)-f(x^*)f''(x^*)}{\left(f'(x^*)\right)^2}=1-1=0
+\end{eqnarray*}
+Portanto:
+\begin{eqnarray*}
+\phi(x)&=&x^*+ (x-x^*)^2\frac{\phi''(x^*)}{2}+O\left((x-x^*)^3\right)\\
+&\approx&x^*+ (x-x^*)^2\frac{\phi''(x^*)}{2}.
+\end{eqnarray*}
+Logo,
+\begin{eqnarray*}
+x^{(n+1)}&=&\phi(x^{(n)})\\
+&\approx& x^*+ (x^{(n)}-x^*)^2\frac{\phi''(x^*)}{2}
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\left(x^{(n+1)}-x^*\right) &\approx& (x^{(n)}-x^*)^2\frac{\phi''(x^*)}{2}
+\end{eqnarray*}
+
+\begin{obs} Pode-se mostrar facilmente que
+$$\phi''(x^*)=\frac{f''(x^*)}{f'(x^*)}$$
+\end{obs}
+\section{Método das Secantes}
+O Método das Secantes é semelhante ao Método de Newton. Neste método a derivada $f'(x)$ é aproximada pela declividade de um reta secante à curva:
+$$f'(x)\approx \frac{f(x+\Delta x)-f(x)}{\Delta x}$$
+
+Assim, em cada passo do método, calcula-se uma nova aproximação com base em duas aproximações anteriores:
+
+$$x^{(n+1)}=x^{(n)} - \frac{f(x^{(n)})}{m}, \qquad m= \frac{f(x^{(n)})-f(x^{(n-1)})}{x^{(n)}-x^{(n-1)}} $$
+
+
+\begin{ex} Encontre as raízes de $f(x)=\cos(x)-x$.\end{ex}
+
+Da inspeção do gráfico das funções $y=\cos(x)$ e $y=x$, sabemos que esta equação possui uma raiz em torno de x=0,8. Iniciamos o método com $x_0=0,7$ e $x_1=0,8$.
+
+\begin{tabular}{|c|c|c|c|}
+\hline
+$x^{(n-1)}$ & $x^{(n)}$ & $m$ & $x^{(n+1)}$\\
+\hline
+~&~&~&~\\
+0,7 & 0,8 & $\frac{f(0,8)-f(0,7)}{0,8-0,7}=- 1,6813548$ & $0,8- \frac{f(0,8)}{- 1,6813548}=0,7385654 $\\
+~&~&~&~\\
+\hline
+~&~&~&~\\
+$0,8$ & $0,7385654$ & $-1,6955107$ & $0,7390784$ \\
+~&~&~&~\\
+\hline
+~&~&~&~\\
+ $0,7385654$ & $0,7390784$ &  $-1,6734174$ & $0,7390851$ \\
+~&~&~&~\\
+\hline
+~&~&~&~\\
+$0,7390784$ & $0,7390851$ & $-1,6736095$ & $0,7390851$ \\
+~&~&~&~\\
+\hline
+\end{tabular}
+
+~~ \\~\\
+
+\begin{prob} Aplique o método das secantes para resolver a equação
+$$e^{-x^2}=2x$$\end{prob}
+
+\begin{prob} Aplique o método das secantes para encontrar as três primeira raízes da função do problema 23 da lista.
+\end{prob}
+\begin{prob} Resolva novamente o problema do exemplo dado com $x^{(0)}=0,8$ e $x^{(1)}=0,7$.
+\end{prob}
+
+\subsection{Análise de convergência}
+Seja $f(x)\in C^2$ um função tal que $f(x^*)=0$ e $f'(x^*)\neq 0$. Considere o processo iterativo do método das secantes:
+$$x^{(n+1)}=x^{(n)}- \frac{f(x^{(n)})}{f(x^{(n)})-f(x^{(n-1)})}(x^{(n)}-x^{(n-1)})$$
+Esta expressão pode ser escrita como:
+\begin{eqnarray*}
+x^{(n+1)}&=&x^{(n)}- \frac{f(x^{(n)})(x^{(n)}-x^{(n-1)})}{f(x^{(n)})-f(x^{(n-1)})}\\~\\
+ &=&\frac{x^{(n)}\left(f(x^{(n)})-f(x^{(n-1)})\right)-f(x^{(n)})(x^{(n)}-x^{(n-1)})}{f(x^{(n)})-f(x^{(n-1)})}\\
+ &=&\frac{x^{(n)} f(x^{(n-1)})-x^{(n-1)}f(x^{(n)})}{f(x^{(n)})-f(x^{(n-1)})}
+\end{eqnarray*}
+
+Subtraindo $x^*$ de ambos os lados temos:
+\begin{eqnarray*}
+x^{(n+1)}-x^*
+ &=&\frac{x^{(n)} f(x^{(n-1)})-x^{(n-1)}f(x^{(n)})}{f(x^{(n)})-f(x^{(n-1)})}-x^*\\
+ &=&\frac{x^{(n)} f(x^{(n-1)})-x^{(n-1)}f(x^{(n)})-x^*\left(f(x^{(n)})-f(x^{(n-1)})\right)}{f(x^{(n)})-f(x^{(n-1)})}\\
+ &=&\frac{(x^{(n)}-x^*) f(x^{(n-1)})-(x^{(n-1)}-x^*)f(x^{(n)})}{f(x^{(n)})-f(x^{(n-1)})}
+\end{eqnarray*}
+
+Definimos $\epsilon_n=x_n-x^*$, equivalente a $x_n=x^*+\epsilon_n$
+\begin{eqnarray*}
+\epsilon_{n+1}
+ &=&\frac{\epsilon_n f(x^*+\epsilon_{n-1})-\epsilon_{n-1}f(x^*+\epsilon_n)}{f(x^*+\epsilon_n)-f(x^*+\epsilon_{n-1})}
+\end{eqnarray*}
+
+Aproximamos a função $f(x)$ no numerador por
+\begin{eqnarray*}
+f(x^*+\epsilon)&\approx& f(x^*)+\epsilon f'(x^*) + \epsilon^2 \frac{f''(x^*)}{2}\\
+f(x^*+\epsilon)&\approx& \epsilon f'(x^*) + \epsilon^2 \frac{f''(x^*)}{2}
+\end{eqnarray*}
+
+\begin{eqnarray*}
+\epsilon_{n+1}
+ &\approx&\frac{\epsilon_n \left[\epsilon_{n-1} f'(x^*) + \epsilon_{n-1}^2 \frac{f''(x^*)}{2}\right]-\epsilon_{n-1}\left[\epsilon_{n} f'(x^*) + \epsilon_{n}^2 \frac{f''(x^*)}{2}\right]}{f(x^*+\epsilon_n)-f(x^*+\epsilon_{n-1})}\\
+~\\ &=&\frac{\frac{f''(x^*)}{2}\left(\epsilon_{n}\epsilon_{n-1}^2-\epsilon_{n-1}\epsilon_{n}^2\right)}{f(x^*+\epsilon_n)-f(x^*+\epsilon_{n-1})}\\
+~\\ &=&\frac{1}{2}\frac{{f''(x^*)}\epsilon_{n}\epsilon_{n-1}\left(\epsilon_{n-1}-\epsilon_{n}\right)}{f(x^*+\epsilon_n)-f(x^*+\epsilon_{n-1})}
+\end{eqnarray*}
+
+Observamos, agora, que
+\begin{equation}
+  \begin{split}
+  f(x^*+\epsilon_n)-f(x^*+\epsilon_{n-1}) &\approx \left[f(x^*)+f'(x^*)\epsilon_n\right]-\left[f(x^*)+f'(x^*)\epsilon_{n-1}\right] \\
+  &=f'(x^*)(\epsilon_n-\epsilon_{n-1})  
+  \end{split}  
+\end{equation}
+
+Portanto:
+\begin{equation}
+  \epsilon_{n+1}\approx \frac{1}{2}\frac{f''(x^*)}{f'(x^*)} \epsilon_n \epsilon_{n-1}
+\end{equation}
+ou, equivalentemente:
+\begin{equation}
+  x^{(n+1)}-x^*\approx \frac{1}{2}\frac{f''(x^*)}{f'(x^*)} \left(x^{(n)}-x^*\right) \left(x^{(n-1)}-x^*\right)
+\end{equation}
+
+Pode-se mostrar que
+\begin{equation}
+  |x^{(n+1)}-x^*|\approx M |x^{(n)}-x^*|^\phi,~~ n\hbox{ grande}
+\end{equation}
+com $\phi=\frac{\sqrt{5}+1}{2}\approx 1,618$ e $M$ é uma constante.
+
+
+\begin{table}[h!]
+  \centering
+  \caption{Quadro comparativo.}
+  \label{tab:quadro_comparativo}
+  {\small
+  \begin{tabular}[h!]{cccc} \hline
+    Método & Convergência & Erro & Critério de parada \\ \hline
+    \multirow{2}{*}{Bisseção} & Linear & \multirow{2}{*}{$\displaystyle \epsilon_{n+1}=\frac{1}{2}\epsilon$} & \multirow{2}{*}{$\displaystyle \frac{b_n - a_n}{2} < \text{erro}$} \\
+    & ($p=1$) & & \\
+    & & & \\
+    Iteração & Linear & \multirow{2}{*}{$\displaystyle \epsilon_{n+1}\approx |\phi'(x^*)| \varepsilon_{n}$} & \multirow{2}{*}{$\displaystyle \begin{array}{cc} \frac{|\Delta_n|}{1-\frac{\Delta_n}{\Delta_{n-1}}}< \text{erro} \\ \Delta_{n} < \Delta_{n-1}\end{array}$} \\
+    linear                 & ($p=1$) & & \\
+    & & & \\
+    \multirow{2}{*}{Newton} & Quadrática & \multirow{2}{*}{$\displaystyle \epsilon_{n+1}\approx \frac{1}{2}\left|\frac{f''(x^*)}{f'(x^*)}\right|\varepsilon_{n}^2$} & \multirow{2}{*}{$|\Delta_n|< \text{erro}$} \\
+    & ($p=2$) & & \\
+    & & & \\
+    \multirow{3}{*}{Secante} & \multirow{3}{*}{$\displaystyle \begin{array}{rl} p &= {\displaystyle \frac{\sqrt{5}+1}{2}}\\
+  &\approx 1,618\end{array}$} & \multirow{3}{*}{$\displaystyle \begin{array}{rl} \varepsilon_{n+1} &\approx \displaystyle \left|\frac{f''(x^*)}{f'(x^*)}\right| \varepsilon_{n}\varepsilon_{n-1} \\
+    &\approx M \varepsilon_{n}^\phi\end{array}$} & \multirow{3}{*}{$|\Delta_n|< \text{erro}$}\\
+    & & & \\
+    & & & \\
+    & & & \\ \hline
+  \end{tabular}
+}
+\end{table}
+
+% \section{Quadro comparativo}
+
+% $$
+% \begin{array}{|l|c|c|c|}
+% \hline
+% \text{Método} & \text{Taxa de convergência} & \text{Evolução do erro} & \text{Critério de parada} \\
+% \hline
+% ~&~&~&~\\
+% \text{Bisseção} & \text{Linear}\ (p=1)& \epsilon_{n+1}=\frac{1}{2}\varepsilon_{n} & \frac{b_n-a_n}{2}< \text{erro}\\
+% ~&~&~&~\\
+% \hline
+% ~&~&~&~\\
+% \text{Iteração linear} & \text{Linear}\ (p=1)&\epsilon_{n+1}\approx |\phi'(x^*)| \varepsilon_{n}& \begin{array}{r}\frac{|\Delta_n|}{1-\frac{\Delta_n}{\Delta_{n-1}}}< \text{erro},~~~\Delta_{n}<\Delta_{n-1} \\ \text{(Heurística)}\end{array}\\
+% ~&~&~&~\\
+% \hline
+% ~&~&~&~\\
+% \text{Newton} & \text{Quadrática}\ (p=2) &\epsilon_{n+1}\approx \frac{|\phi''(x^*)|}{2} \epsilon_{n}^2=\frac{1}{2}\left|\frac{f''(x^*)}{f'(x^*)}\right|\varepsilon_{n}^2 &|\Delta_n|< \text{erro} ~~~~ \text{(Heurística)}\\
+% ~&~&~&~\\
+% \hline
+% ~&~&~&~\\
+% \text{Secantes} & p=\phi=\frac{\sqrt{5}+1}{2}\approx 1,618 & \varepsilon_{n+1}\approx\left|\frac{f''(x^*)}{f'(x^*)}\right| \varepsilon_{n}\varepsilon_{n-1}\approx M \varepsilon_{n}^\phi &|\Delta_n|< \text{erro} ~~~~ \text{(Heurística)}\\
+% ~&~&~&~\\
+% \hline
+% \end{array}
+% $$
+% ~~ \\~~
+
+\begin{obs}
+O erro na tabela sempre se refere ao erro absoluto esperado. Nos três últimos métodos, é comum que se exija como critério de parada que a condição seja satisfeita por alguns poucos passos consecutivos. Outros critérios podem ser usados. No métodos das secantes, deve-se ter o cuidado de evitar divisões por zero quando $x_{n+1}-x_n$ muito pequeno em relação à resolução do sistema de numeração.  
+\end{obs}
+
+
+\end{document} 

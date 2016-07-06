@@ -1,0 +1,173 @@
+\documentclass[livro.tex]{subfiles}
+\begin{document}
+Neste capítulo buscaremos aproximações numéricas para raízes de funções de uma variável que são continuamente diferenciáveis.
+
+\section{Condição de Existência de raízes reais}
+Um teorema que garante a existência de raiz real em um intervalo é o teorema do valor intermediário:
+
+\begin{teo}[Teorema do Valor Intermediário]
+Se $f:[a,b]\to\mathbb{R}$ é um função contínua e $K$ for um número entre $f(a)$ e $f(b)$, então existe $c\in(a,b)$ para o qual $f(c)=K$.
+\end{teo}
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.5]{./pics/bissecao/Teorema_do_valor_intermediario/teorema_do_valor_intermediario.png}
+  \caption{Teorema do valor intermediário}
+  \label{fig:teorema_do_valor_intermediario}
+\end{figure}
+
+Em particular, se $f(a)>0$ e $f(b)<0$, então $0\in [f(b),f(a)]$ e podemos garantir a existência de $c\in(a,b)$ tal que $f(c)=0$, i.e. existe uma raiz no intervalo $(a,b)$. A mesma afirmação é válida se $f(a)<0$ e $f(b)>0$.
+\begin{ex}
+Mostre que existe pelo menos uma solução da equação $e^x=x+2$ no intervalo $(-2,0)$.
+
+De fato, se tomarmos $f(x)=e^x-x-2$, então $f(0)=1-2<0$ e $f(-2)=e^{-2}+2-2>0$. Pelo teorema do valor intermediário, existe $c\in(-2,0)$ tal que $f(c)=0$, ou seja, existe pelo menos uma solução nesse intervalo.
+\end{ex}
+
+Quando procuramos aproximações para raízes de funções, é importante que cada um delas fique isolada em um intervalo. Ou seja, precisamos garantir a existência e a unicidade da raiz. A existência vem do teorema do valor intermediário e a unicidade vem da monotonicidade da função.
+\begin{teo}
+Se $f:[a,b]\to\mathbb{R}$ é um função diferenciável, $f(a)\cdot f(b)<0$ e $f'(x)>0$ (ou $f'(x)<0$) para $x\in(a,b)$, então existe uma única raiz $c$ em $(a,b)$.
+\end{teo}
+
+Em outras palavras, se a função corta o eixo $x$ e é sempre crescente (ou sempre decrescente), então a raiz é única.
+\begin{ex}
+Observamos que existe uma única solução da equação $e^x=x+2$ no intervalo $(-2,0)$. A existência foi estabelecida no exemplo anterior. Para garantir a unicidade, observe que $f'(x)=e^x-1$ e, portanto, $f'(x)<0$ para $x\in(-2,0)$. Logo a raiz é única.
+
+Podemos inspecionar o comportamento da função $f(x) e^x - x - 2$ e de sua derivada fazendo seus gráficos no Scilab. Para tanto, podemos implementar o seguinte código:
+\begin{verbatim}
+-->x = linspace(-2,0,50);
+-->//grafico de f(x)
+-->deff('y = f(x)','y=exp(x)-x-2')
+-->plot(x,f(x))
+-->//graficando a f'(x)
+-->deff('y = fl(x)','y=exp(x)-1')
+-->plot(x,fl(x))
+\end{verbatim}
+\end{ex}
+
+\begin{exer}Mostre que a equação
+$$\ln(x)+x^3-\frac{1}{x}=10$$
+possui uma única solução positiva. Faça o gráfico e observe.
+\end{exer}
+
+\begin{exer}Use o teorema do valor intermediário para mostrar que o erro absoluto ao aproximar a raiz da função $f(x)=e^x-x-2$ por $\overline{x}=-1,841$ é menor que $10^{-3}$.
+\end{exer}
+
+\section{Método da bisseção}
+
+Suponha que a função contínua $f:[a,b]\to\mathbb{R}$ tal que $f(a)\cdot f(b)<0$, ou seja, $f$ possui uma raiz no intervalo. Suponha também que a raiz é única. Uma primeira aproximação para a raiz pode ser o ponto médio $p=\frac{a+b}{2}$. Se $f(p)\cdot f(a)<0$, então a raiz está a esquerda de $p$, se não, a raiz está a direita de $p$ (veja Fig. \ref{fig:bisection_scheme}). Depois de escolher o intervalo correto, fazemos uma nova aproximação para a raiz tomando o ponto médio do novo intervalo.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{./Figuras/bisection_scheme.png}
+  \caption{Método da bisseção.}
+  \label{fig:bisection_scheme}
+\end{figure}
+
+Em outras palavras, seja $(a^{(0)},b^{(0)})=(a,b)$ o intervalo inicial e $p^{(0)}=\frac{a^{(0)}+b^{(0)}}{2}$ a aproximação inicial. Se $f(p^{(0)})\cdot f(a^{(0)})<0$, então $(a^{(1)},b^{(1)})=(a^{(0)},p^{(0)})$, caso contrário, $(a^{(1)},b^{(1)})=(p^{(0)},b^{(0)})$. A nova aproximação para a raiz é $p^{(1)}=\frac{a^{(1)}+b^{(1)}}{2}$. Esse procedimento produz uma sequência $p^{(n)}$ que converge para a raiz.
+
+\begin{ex}Faça 5 iterações do método da bisseção para encontrar a raiz de $f(x)=x^3+5x^2-12$ utilizando $a^{(0)}=1$ e $b^{(0)}=2$.
+$$
+\begin{array}{|c|c|c|c|c|c|c|}
+\hline
+n&a^{(n)}&b^{(n)}&p^{(n)}&f(a^{(n)})&f(b^{(n)})&f(p^{(n)})\\
+\hline
+0&a^{(0)}=1&b^{(0)}=2&p^{(0)}=1,5&-6 &16&2,625  \\
+\hline
+1&a^{(1)}=1&b^{(1)}=p^1=1,5&p^{(1)}=1,25&-6 &2,625&-2,234375  \\
+\hline
+2&a^{(2)}=1,25&b^{(2)}=1,5&p^{(2)}=1,375&&&\\
+\hline
+3&&&&&&\\
+\hline
+4&&&&&&\\
+\hline
+5&&&&&&\\
+\hline
+\end{array}
+$$
+
+No console do Scilab, temos:
+\begin{verbatim}
+-->deff('y=f(x)','y = x^3 + 5*x^2 - 12')
+-->//iteracao 0
+-->a=1; b=2; p=(a+b)/2;
+-->[a,b,p,f(a),f(b),f(p)]
+ ans  =
+    1.    2.    1.5  - 6.    16.    2.625  
+-->//iteracao 1
+-->b = p; p = (a+b)/2;
+-->[a,b,p,f(a),f(b),f(p)]
+ ans  =
+    1.    1.5    1.25  - 6.    2.625  - 2.234375
+\end{verbatim}
+\end{ex}
+
+Observe que a distância entre $p^{(0)}$ e a raiz $p^*$ não pode exceder metade do intervalo, ou seja $|p^{(0)}-p^*|\leq \frac{b-a}{2}$. Da mesma forma, o erro absoluto entre $p^{(1)}$ e $p^*$ é menor que $\frac{1}{4}$ do intervalo, isto é, $|p^{(1)}-p^*|\leq \frac{b-a}{2^2}$. De modo geral, o erro absoluto na iteração $n$ é estimado por
+$$
+|p^{(n)}-p^*|\leq \frac{b-a}{2^{n+1}},\qquad n\geq 1.
+$$
+Também, se $\epsilon_n:=|p^{(n)}-p^*|$, então vale:
+$$
+\epsilon_{n+1}\leq \frac{1}{2}\left(\epsilon_n\right)^1
+$$
+e, por isso, dizemos que o método da bisseção possui taxa de convergência linear. Um método com taxa de convergência super-linear satisfaz
+$$
+\epsilon_{n+1}\leq C\left(\epsilon_n\right)^m,
+$$
+onde $m>1$ e $C$ é uma constante.
+
+\begin{ex}Determine quantas iterações são necessárias para encontrar a raiz de $f(x)=x^3+5x^2-12$ com uma precisão de $10^{-3}$, utilizando $a^{(0)}=1$ e $b^{(0)}=2$.
+
+Observe que precisamos da seguinte desigualdade
+$$
+|p^{(n)}-p^*|\leq \frac{b-a}{2^{n+1}}= \frac{1}{2^{n+1}}\leq 10^{-3}.
+$$
+Assim,
+$$
+\log_{2}2^{-(n+1)}\leq \log_{2}10^{-3}
+$$
+ou seja,
+$$
+-(n+1)\log_{2}2\leq -3\log_2(10)\Rightarrow  n+1\geq 3\log_2(10)\approx 9,97\Rightarrow  n\approx 8,97
+$$
+Portanto, $n\geq 9$.
+\end{ex}
+
+\begin{exer}Utilize o método da bisseção na equação $\sqrt{x}=\cos(x)$ para encontrar $p^{(4)}$ em $[a,b]=[0,1]$.
+\end{exer}
+
+\subsection{Código Scilab}
+
+O seguinte código é uma implementação no Scilab do algoritmo da bisseção. As variáveis de entrada são:
+\begin{itemize}
+\item \verb+f+ - função objetivo
+\item \verb+a+ - extremo esquerdo do intervalo de inspeção $[a, b]$
+\item \verb+b+ - extremo direito do intervalo de inspeção $[a, b]$
+\item \verb+TOL+ - tolerância (critério de parada)
+\item \verb+N+ - número máximo de iterações
+\end{itemize}
+A variável de saída é:
+\begin{itemize}
+\item \verb+p+ - aproximação da raiz de \verb+f+, i.e. $f(p) \approx 0$.
+\end{itemize}
+
+\verbatiminput{./rotinas/Metodo_da_bissecao/bissecao.sci}
+
+\begin{exer} Encontre a solução de cada equação com erro absoluto inferior a $10^{-6}$.
+\begin{description}
+\item[a)] $e^x=x+2$ no intervalo $(-2,0)$.
+\item[b)] $x^3+5x^2-12=0$ no intervalo $(1,2)$.
+\item[c)] $\sqrt{x}=\cos(x)$ no intervalo $(0,1)$.
+\end{description}
+\end{exer}
+
+\begin{exer} Encontre numericamente as três primeiras raízes positivas da equação dada por
+$$\cos(x)=\frac{x}{10+x^2}$$
+com erro absoluto inferior a $10^{-6}$.
+\end{exer}
+
+\begin{exer} Calcule uma equação da reta tangente a curva $y=e^{-(x-1)^2}$ que passa pelo ponto $(3,1/2)$.
+\end{exer}
+
+
+\end{document} 
