@@ -15,4 +15,4 @@ dvi: main.tex
 .PHONY: clean
 
 clean:
-	rm -f *.aux *.log *.out *.toc
+	rm -f *.aux *.log *.out *.toc *.bbl
