@@ -52,7 +52,8 @@ disp('Coeficientes a:')
 disp(a)
 //coeficientes b
 for j=1:n-1
-  b(j) = (3*yi(j+1) - 3*yi(j) - 2*c(j)*h(j)^2 - c(j+1)*h(j)^2)/(3*h(j));
+  b(j) = (3*yi(j+1) - 3*yi(j) - 2*c(j)*h(j)^2 ...
+	  - c(j+1)*h(j)^2)/(3*h(j));
 end
 disp('Coeficientes b:')
 disp(b)

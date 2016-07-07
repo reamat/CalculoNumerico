@@ -98,42 +98,38 @@ Uma maneira de resolver este problema é escrever o polinômio em uma base que pro
 
 \section{Diferenças divididas de Newton}
 O método das diferenças divididas de Newton consistem em construir o polinômio interpolador da seguinte forma:
-\begin{eqnarray*}
-P(x)&=&a_0 + a_1 (x-x_0) + a_2 (x-x_0)(x-x_1) + \cdots +a_n (x-x_0)(x-x_1)\cdots (x-x_{n-1})
-\end{eqnarray*}
+\begin{align*}
+P(x) &= a_0 + a_1 (x-x_0) + a_2 (x-x_0)(x-x_1) + \cdots \\
+&+ a_n (x-x_0)(x-x_1)\cdots (x-x_{n-1}).
+\end{align*}
 Assim, o problema de calcular os coeficientes $a_0$, $a_1$, \ldots, $a_n$ é equivalente ao seguinte sistema linear:
-\begin{tiny}
-\begin{eqnarray*}
-a_0&=&y_0\\
-a_0+a_1(x_1-x_0)&=&y_1\\
-a_0+a_1(x_2-x_0)+a_2(x_2-x_0)(x_2-x_1)&=&y_2\\
-&\vdots&\\
-a_0+a_1(x_n-x_0)+a_2(x_n-x_0)(x_n-x_1)+\cdots + a_n(x_n-x_0)(x_n-x_1)\cdots (x_n-x_{n-1})
-&=&y_n\\
-\end{eqnarray*}  
-\end{tiny}
-Equivalente à sua forma matricial:
-\begin{tiny}
-$$\left[\begin{array}{ccccc}
-1 & 0 & 0  & \cdots&0\\
-1& (x_1-x_0)&0 & \cdots&0\\
-1&(x_2-x_0)&(x_2-x_0)(x_2-x_1) & \cdots&0\\
-\vdots&\vdots&\vdots&\ddots&\vdots\\
-1&(x_n-x_0)&(x_n-x_0)(x_n-x_1) & \cdots& (x_{n}-x_0)(x_n-x_1)\cdots(x_n-x_{n-1})\\
-\end{array}
-\right]
-\left[
-\begin{array}{c}
-a_0\\a_1\\a_2\\ \vdots \\a_n
-\end{array}
-\right]=
-\left[
-\begin{array}{c}
-y_0\\y_1\\y_2\\ \vdots \\y_n
-\end{array}
-\right]
-$$  
-\end{tiny}
+\begin{small}
+\begin{align*}
+a_0 &= y_0\\
+a_0+a_1(x_1-x_0) &= y_1\\
+a_0+a_1(x_2-x_0)+a_2(x_2-x_0)(x_2-x_1) &= y_2\\
+&\vdots\\
+a_0+a_1(x_n-x_0)+a_2(x_n-x_0)(x_n-x_1)+\cdots + a_n(x_n-x_0)\cdots (x_n-x_{n-1})
+ &= y_n
+\end{align*}.  
+\end{small}
+O qual é equivalente à sua forma matricial:
+\begin{small}
+  \begin{equation*}
+    \begin{bmatrix}
+      1 & 0 & 0  & \!\cdots\!&0\\
+      1& (x_1-x_0)&0 &\!\cdots\!&0\\
+      1&(x_2-x_0)&(x_2-x_0)(x_2-x_1) &\!\cdots\!&0\\
+      \vdots&\vdots&\vdots&\!\ddots\!&\vdots\\
+      1&(x_n-x_0)&(x_n-x_0)(x_n-x_1) &\!\cdots\!& (x_{n}-x_0)\cdots(x_n-x_{n-1})\\
+    \end{bmatrix}\begin{bmatrix}
+      a_0\\a_1\\a_2\\ \vdots \\a_n
+    \end{bmatrix} = 
+    \begin{bmatrix}
+      y_0\\y_1\\y_2\\ \vdots \\y_n
+    \end{bmatrix}
+  \end{equation*}
+\end{small}
 
 Este é um sistema triangular inferior que pode ser facilmente resolvido conforme:
 \begin{eqnarray*}
@@ -142,7 +138,6 @@ a_1&=&\frac{y_1-a_0}{x_1-x_0}=\frac{y_1-y_0}{x_1-x_0}\\
 a_2&=&\frac{y_2-a_1(x_2-x_0)-a_0}{(x_2-x_0)(x_2-x_1)}=\frac{\frac{y_2-y_1}{(x_2-x_1)}-\frac{y_1-y_0}{(x_1-x_0)}}{(x_2-x_0)}\\
 &\ldots&
 \end{eqnarray*}
-
 A solução deste sistema pode ser escrita em termos das Diferenças Divididas de Newton, definidas recursivamente conforme:
 \begin{eqnarray*}
 f[x_j]&=&y_j\\
@@ -150,8 +145,6 @@ f[x_j,x_{j+1}]&=&\frac{f[x_{j+1}]-f[x_j]}{x_{j+1}-x_j}\\
 f[x_j,x_{j+1},x_{j+2}]&=&\frac{f[x_{j+1},x_{j+2}]-f[x_j,x_{j+1}]}{x_{j+2}-x_j}\\
 &\vdots&
 \end{eqnarray*}
-
-
 Nesta notação, temos
 $a_k=f[x_0,x_1,x_2,\ldots,x_k]$
 
@@ -210,7 +203,7 @@ P(x)&=&3-2(x+1)+2(x+1)x+(x+1)x(x-1)\\
 
 \begin{prob} 
 Considere o seguinte conjunto de pontos: $$(-2,-47),(0,-3),(1,4)(2,41)$$. Encontre o polinômio interpolador usando os métodos vistos. Trace os pontos no Scilab usando o comando 'plot2d' e trace o gráfico do polinômio usando comandos de plotagem e a estrutura de polinômio.
-{\bf Resp:} $5x^3+2x-3$
+{\bf Resp:} $5x^3+2x-3$.
 \end{prob}
 
 
@@ -317,18 +310,20 @@ O polinômio interpolador de $f(x)$ é
 P(x)&=&f(0)\frac{(x-\frac{1}{2})(x-1)}{(0-\frac{1}{2})(0-1)}+f\left(\frac{1}{2}\right)\frac{(x-0)(x-1)}{(\frac{1}{2}-0)(\frac{1}{2}-1)}+f(1)\frac{(x-0)(x-\frac{1}{2})}{(1-0)(1-\frac{1}{2})}\\
 &=&   f(0)(2x^2-3x+1)+f\left(\frac{1}{2}\right)(-4x^2+4x)+f(1)(2x^2-x)
 \end{eqnarray*}
-e a integral de $P(x)$ é
-\begin{eqnarray*}
-\int_0^1 P(x)dx&=&\left[f(0)\left(\frac{2}{3}x^3-\frac{3}{2}x^2+x\right)+f\left(\frac{1}{2}\right)\left(-\frac{4}{3}x^3+2x^2\right)+f(1)\left(\frac{2}{3}x^3-\frac{1}{2}x^2\right)\right]_0^1\\
-&=&f(0)\left(\frac{2}{3}-\frac{3}{2}+1\right)+f\left(\frac{1}{2}\right)\left(-\frac{4}{3}+2\right)+f(1)\left(\frac{2}{3}-\frac{1}{2}\right)\\
-&=&\frac{1}{6}f(0)+\frac{2}{3}f\left(\frac{1}{2}\right)+\frac{1}{6}f(1)
-\end{eqnarray*}
+e a integral de $P(x)$ é:
+\begin{align*}
+\int_0^1 P(x)dx &= \left[f(0)\left(\frac{2}{3}x^3 - \frac{3}{2}x^2+x\right)\right]_0^1 + \left[f\left(\frac{1}{2}\right)\left(-\frac{4}{3}x^3+2x^2\right)\right]_0^1 \\
+&+ \left[f(1)\left(\frac{2}{3}x^3-\frac{1}{2}x^2\right)\right]_0^1\\
+&= f(0)\left(\frac{2}{3}-\frac{3}{2}+1\right)+f\left(\frac{1}{2}\right)\left(-\frac{4}{3}+2\right)+f(1)\left(\frac{2}{3}-\frac{1}{2}\right)\\
+&= \frac{1}{6}f(0)+\frac{2}{3}f\left(\frac{1}{2}\right)+\frac{1}{6}f(1)
+\end{align*}
 Para fazer a estimativa de erro usando o teorema (\ref{teo_interp}), e temos
 \begin{eqnarray*}
 \left|\int_0^1f(x)dx-\int_0^1 P(x)dx\right|&=&\left|\int_0^1f(x)- P(x)dx\right|\\
 &\leq&\int_0^1|f(x)- P(x)|dx\\
 &\leq& \frac{M}{6}  \int_0^1\left|x\left(x-\frac{1}{2}\right)(x-1)\right|dx\\
-&=& \frac{M}{6}  \left[\int_0^{1/2}x\left(x-\frac{1}{2}\right)(x-1)dx-\int_{1/2}^1x\left(x-\frac{1}{2}\right)(x-1)dx\right]\\
+&=& \frac{M}{6}  \left[\int_0^{1/2}x\left(x-\frac{1}{2}\right)(x-1)dx\right.\\
+&-&\left.\int_{1/2}^1x\left(x-\frac{1}{2}\right)(x-1)dx\right]\\
 &=& \frac{M}{6}  \left[\frac{1}{64}-\left(-\frac{1}{64}\right)\right]=\frac{M}{192}.
 \end{eqnarray*}
 Lembramos que $M=\max_{x\in[0,1]}|f'''(x)|$.
@@ -533,21 +528,22 @@ $$
 
 
 
-\begin{ex} Encontrar  a reta que melhor aproxima o seguinte conjunto de dados:
-
-$$
-\begin{tabular}{|c|c|}
-\hline
-$x_i$ & $y_i$\\
-\hline
-0,01 & 1,99\\
-1,02 & 4,55\\
-2,04 & 7,2\\
-2,95 & 9,51\\
-3,55 & 10,82\\
-\hline
-\end{tabular}
-$$
+\begin{ex} Encontre a reta que melhor aproxima o seguinte conjunto de dados:
+  \begin{center}
+    \begin{tabular}{|c|c|}
+      \hline
+      $x_i$ & $y_i$\\
+      \hline
+      $0,01$ & $1,99$\\
+      $1,02$ & $4,55$\\
+      $2,04$ & $7,20$\\
+      $2,95$ & $9,51$\\
+      $3,55$ & $10,82$\\
+      \hline
+    \end{tabular}
+  \end{center}
+\end{ex}
+\begin{sol}
 Desejamos então encontrar os valores de $a$ e $b$ tais que a função $f(x)=ax+b$ melhor se ajusta aos pontos da tabela. Afim de usar  o critério dos mínimos quadrados, escrevemos o problema na forma matricial dada por:
 $$
 \left[\begin{array}{cc}
@@ -574,15 +570,17 @@ b
 \right]
 $$
 
-Multiplicamos agora ambos os lados pela transposta
-$
+Multiplicamos agora ambos os lados pela transposta:
+\begin{equation*}
 \left[\begin{array}{ccccc}
 0,01 &1,02 &2,04 &2,95 &3,55\\
 1 &1 &1 &1 &1
 \end{array}
-\right]$:
-~\\~~\\
-$$\left[\begin{array}{ccccc}
+\right]
+\end{equation*}
+o que fornece:
+\begin{align*}
+&\left[\begin{array}{ccccc}
 0,01 &1,02 &2,04 &2,95 &3,55\\
 1 &1 &1 &1 &1
 \end{array}
@@ -600,7 +598,8 @@ a\\
 b
 \end{array}
 \right]
-=\left[\begin{array}{ccccc}
+=\\
+&\left[\begin{array}{ccccc}
 0,01 &1,02 &2,04 &2,95 &3,55\\
 1 &1 &1 &1 &1
 \end{array}
@@ -612,9 +611,8 @@ b
 9,51\\
 10,82
 \end{array}
-\right]
-$$
-
+\right]  
+\end{align*}
 $$\left[
 \begin{array}{cc}
 26,5071  & 9,57 \\
@@ -638,6 +636,7 @@ $$
 A solução desse sistema é $a=2,5157653$ e $b=1,9988251$
 
 A tabela abaixo mostra os valores dados e os valores ajustados:
+\begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
 $x_i$ & $y_i$& $ax_i+b$& $ax_i+b-y_i$\\
@@ -648,36 +647,38 @@ $2,04$ & $7,2$ & $7,1309863$ & $-0,0690137$ \\
 $2,95$ & $9,51$ & $9,4203327$ & $-0,0896673$  \\
 $3,55$ & $10,82$ & $10,929792$ & $0,1097919$ \\
 \hline
-\end{tabular}
-
-\end{ex}
+\end{tabular}  
+\end{center}
+\end{sol}
 
 \begin{prob}Encontrar  a parábola $y=ax^2+bx+c$ que melhor aproxima o seguinte conjunto de dados:
-\begin{tabular}{|c|c|}
-\hline
-$x_i$ & $y_i$\\
-\hline
-$0,01$ & $1,99$\\
-$1,02$ & $4,55$\\
-$2,04$ & $7,2$\\
-$2,95$ & $9,51$\\
-$3,55$ & $10,82$\\
-\hline
-\end{tabular}
-e complete a tabela
-$$
-\begin{tabular}{|c|c|c|c|}
-\hline
-$x_i$ & $y_i$& $ax_i^2+bx_i+c$& $ax_i^2+bx_i+c-y_i$\\
-\hline
-0,01 & 1,99& &\\
-1,02 & 4,55&& \\
-2,04 & 7,2&  & \\
-2,95 & 9,51  &  & \\
-3,55 & 10,82&&\\
-\hline
-\end{tabular}
-$$
+  \begin{center}
+    \begin{tabular}{|c|c|}
+      \hline
+      $x_i$ & $y_i$\\
+      \hline
+      $0,01$ & $1,99$\\
+      $1,02$ & $4,55$\\
+      $2,04$ & $7,2$\\
+      $2,95$ & $9,51$\\
+      $3,55$ & $10,82$\\
+      \hline
+    \end{tabular}    
+  \end{center}
+  e complete a tabela:
+  \begin{center}
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+      $x_i$ & $y_i$& $ax_i^2+bx_i+c$& $ax_i^2+bx_i+c-y_i$\\
+      \hline
+      $0,01$ & $1,99$& &\\
+      $1,02$ & $4,55$&& \\
+      $2,04$ & $7,20$&  & \\
+      $2,95$ & $9,51$  &  & \\
+      $3,55$ & $10,82$&&\\
+      \hline
+    \end{tabular}
+  \end{center}
 \end{prob}
 
 {\bf Resposta} $y=-0,0407898x^2+ 2,6613293x+ 1,9364598$
@@ -732,10 +733,11 @@ $$
 E_q=(Ae^{x_0b}-y_0)^2+(Ae^{x_1b}-y_1)^2+(Ae^{x_2b}-y_2)^2
 $$
 ou seja, resolver o sistema
-\begin{eqnarray*}
-\frac{\partial E_q}{\partial A}&=&2(Ae^{x_0b}-y_0)e^{x_0b}+2(Ae^{x_1b}-y_1)e^{x_1b}+2(Ae^{x_2b}-y_2)e^{x_2b}=0\\
-\frac{\partial E_q}{\partial b}&=&2Ax_0(Ae^{x_0b}-y_0)e^{x_0b}+2Ax_1(Ae^{x_1b}-y_1)e^{x_1b}+2x_2A(Ae^{x_2b}-y_2)e^{x_2b}=0
-\end{eqnarray*}
+\begin{align*}
+\frac{\partial E_q}{\partial A} &= 2(Ae^{x_0b}-y_0)e^{x_0b}+2(Ae^{x_1b}-y_1)e^{x_1b}+2(Ae^{x_2b}-y_2)e^{x_2b}=0\\
+\frac{\partial E_q}{\partial b} &= 2Ax_0(Ae^{x_0b}-y_0)e^{x_0b} + 2Ax_1(Ae^{x_1b}-y_1)e^{x_1b} \\
+&+ 2x_2A(Ae^{x_2b}-y_2)e^{x_2b}=0
+\end{align*}
 que é não linear em $A$ e $b$. Esse sistema pode ser resolvido pelo método de Newton-Raphson, o que pode se tornar custoso, ou mesmo inviável quando não dispomos de uma boa aproximação da solução para inicializar o método.
 
 Felizmente, algumas famílias de curvas admitem uma transformação que nos leva a um problema linear. No caso da curva $y=Ae^{bx}$, observe que $\ln y=\ln A+bx$. Assim, em vez de ajustar a curva original $y=Ae^{bx}$ a tabela de pontos, ajustamos a curva submetida a transformação logarítmica
@@ -816,7 +818,7 @@ B^TBz=B^Ty,
 $$
 onde
 $$
-B=\left[\begin{array}{cc}\cos(2 \pi x_0)& -\sin(2 \pi x_0)\\ \cos(2 \pi x_1)& -\sin(2 \pi x_1)\\ \vdots\\ \cos(2 \pi x_{10})& -\sin(2\pi x_{10}) \end{array}\right]=\left[\begin{array}{cc}  1.     &      0.\\
+B\!=\!\left[\begin{array}{cc}\cos(2 \pi x_0)& -\sin(2 \pi x_0)\\ \cos(2 \pi x_1)& -\sin(2 \pi x_1)\\ \vdots\\ \cos(2 \pi x_{10})& -\sin(2\pi x_{10}) \end{array}\right]\!=\!\left[\begin{array}{cc}  1.     &      0.\\
     0,8090170 & - 0,5877853\\
     0,3090170 & - 0,9510565\\
   - 0,3090170 & - 0,9510565\\
@@ -1089,6 +1091,7 @@ Observe que a matriz $A$ é diagonal dominante estrita e, portanto, o sistema $Ac
 
 \begin{ex}Construa um spline cúbico natural que passe pelos pontos $(2,~4,5)$, $(5,-1,9)$, $(9,~0,5)$ e $(12,-0,5)$.
 \end{ex}
+\begin{sol}
 O spline desejado é uma função definida por partes da forma:
 \begin{equation}
 f(x)=\left\{\begin{array}{ll}
@@ -1141,19 +1144,22 @@ d_1&=&\frac{c_{2}-c_1}{3h_1}=\frac{0,7-0}{3\cdot 3}=0,0777778\\
 d_2&=&\frac{c_{3}-c_2}{3h_2}=\frac{-0,4-0,7}{3\cdot 4}=-0,0916667\\
 d_3&=&\frac{c_{4}-c_3}{3h_3}=\frac{0+0,4}{3\cdot 3}=0,0444444
 \end{eqnarray*}
-\begin{eqnarray*}
-b_1&=&\frac{y_{2}-y_1}{h_1}-\frac{h_1}{3}(2c_1+c_{2})=\frac{-1,9-4,5}{3}-\frac{3}{3}(2\cdot 0-0,7)=-2,8333333\\
-b_2&=&\frac{y_{3}-y_2}{h_2}-\frac{h_2}{3}(2c_2+c_{3})=\frac{0,5-(-1,9)}{4}-\frac{4}{3}(2\cdot 0,7+0,4)=-0,7333333\\
-b_3&=&\frac{y_{4}-y_3}{h_3}-\frac{h_3}{3}(2c_3+c_{4})=\frac{-0,5-0,5}{3}-\frac{3}{3}(2\cdot (-0,4)+0)=0,4666667
-\end{eqnarray*}
-Portanto,
+\begin{align*}
+b_1 &= \frac{y_{2}-y_1}{h_1}-\frac{h_1}{3}(2c_1+c_{2})\\
+&= \frac{-1,9-4,5}{3}-\frac{3}{3}(2\cdot 0-0,7)=-2,8333333\\
+b_2&= \frac{y_{3}-y_2}{h_2}-\frac{h_2}{3}(2c_2+c_{3})\\
+&= \frac{0,5-(-1,9)}{4}-\frac{4}{3}(2\cdot 0,7+0,4)=-0,7333333\\
+b_3&= \frac{y_{4}-y_3}{h_3}-\frac{h_3}{3}(2c_3+c_{4})\\
+&= \frac{-0,5-0,5}{3}-\frac{3}{3}(2\cdot (-0,4)+0)=0,4666667
+\end{align*}
+Portanto:
 \begin{small}
 \begin{equation*}
 f(x)=\left\{\begin{array}{ll}
-4,5-2,8333333(x-2)+0,0777778(x-2)^3 &, 2\leq x<5\\
--1,9-0,7333333(x-5)+0,7(x-5)^2-0,0916667(x-5)^3 &, 5\leq x<9\\
-0,5+0,4666667(x-9)-0,4(x-9)^2+0,0444444(x-9)^3 &, 9\leq x\leq 12
-\end{array}\right..  
+4,5-2,833(x-2)+0,078(x-2)^3 &\!, 2\leq x<5\\
+-1,9-0,733(x-5)+0,7(x-5)^2-0,092(x-5)^3 &\!, 5\leq x<9\\
+0,5+0,467(x-9)-0,4(x-9)^2+0,044(x-9)^3 &\!, 9\leq x\leq 12
+\end{array}\right.
 \end{equation*}  
 \end{small}
 
@@ -1179,7 +1185,7 @@ for i=1:3
     plot(z,horner(P(i),z-X(i)))
 end
 \end{verbatim}
-
+\end{sol}
 
 \subsection{Spline com condições de contorno fixadas}
 
@@ -1209,7 +1215,7 @@ c_{n-1}h_{n-1}+c_{n}h_{n-1}=3f'(x_n)-3\frac{y_{n}-y_{n-1}}{h_{n-1}}
 \end{equation}
 
 Essas duas equações juntamente com as equações (\ref{eq_cn_spline}) formam um sistema de $n$ equações $Ac = z$, onde
-\begin{equation}
+\begin{equation*}
 A=\left[\begin{array}{ccccccc}
 2h_1 &h_1&0&0 &\cdots&0&0\\
 h_1&2h_2+2h_{1}&h_2&0&\cdots&0&0\\
@@ -1218,8 +1224,8 @@ h_1&2h_2+2h_{1}&h_2&0&\cdots&0&0\\
 0&0&0&\cdots&h_{n-2} & 2h_{n-2}+2h_{n-1}&h_{n-1}\\
 0&0&0&\cdots &0&h_{n-1}&2h_{n-1}
 \end{array}\right]  
-\end{equation}
-\begin{equation}
+\end{equation*}  
+\begin{equation*}
 c = \left[\begin{array}{c}
 c_1\\
 c_2\\
@@ -1234,25 +1240,25 @@ z = \left[\begin{array}{c}
 3\frac{y_{n-1}-y_{n-2}}{h_{n-2}}-3\frac{y_{n-2}-y_{n-3}}{h_{n-3}}\\
 3f'(x_n)-3\frac{y_{n}-y_{n-1}}{h_{n-1}}
 \end{array}\right]  
-\end{equation}
+\end{equation*}
 Observe que a matriz $A$ é diagonal dominante estrita e, portanto, o sistema $Ac = z$ possui solução única. Calculado $c$, os valores dos $a_n$, $b_n$ e $d_n$ são obtidos diretamente pelas expressões (\ref{eq_an_spline}), (\ref{eq_bn_spline}) e (\ref{eq_dn_spline}), respectivamente.
 
 
 \begin{ex}Construa um spline cúbico com fronteira fixada que interpola a função $y=\sin (x)$ nos pontos $x=0$, $x=\frac{\pi}{2}$, $x=\pi$, $x=\frac{3\pi}{2}$ e $x=2\pi$.
 \end{ex}
 O spline desejado passa pelos pontos $(0,0)$, $(\pi/2,1)$, $(\pi,0)$, $(3\pi/2,-1)$ e $(2\pi,0)$ e tem a forma:
-\begin{equation}
+\begin{equation*}
 f(x)=\left\{\begin{array}{ll}
 a_1+b_1x+c_1x^2+d_1x^3&, 0\leq x<\frac{\pi}{2}\\
 a_2+b_2(x-\frac{\pi}{2})+c_2(x-\frac{\pi}{2})^2+d_2(x-\frac{\pi}{2})^3&, \frac{\pi}{2}\leq x<\pi\\
 a_3+b_3(x-\pi)+c_3(x-\pi)^2+d_3(x-\pi)^3&, \pi\leq x<\frac{3\pi}{2}\\
 a_4+b_4(x-\frac{3\pi}{2})+c_4(x-\frac{3\pi}{2})^2+d_4(x-\frac{3\pi}{2})^3&, \frac{3\pi}{2}\leq x\leq 2\pi
 \end{array}\right..  
-\end{equation}
+\end{equation*}
 Observe que ele satisfaz as condição de contorno $f'(0)=cos(0)=1$ e $f'(2\pi)=cos(2\pi)=1$.
 
 Os coeficientes $c_1$, $c_2$, $c_3$ e $c_4$ resolvem o sistema $Ac = z$, onde:
-\begin{equation}
+\begin{equation*}
 A=\left[\begin{array}{ccccc}
 \pi &\pi/2&0&0&0 \\
 \pi/2&2\pi&\pi/2&0&0\\
@@ -1260,8 +1266,8 @@ A=\left[\begin{array}{ccccc}
 0&0&\pi/2&2\pi&\pi/2\\
 0&0&0&\pi/2&\pi\\
 \end{array}\right]  
-\end{equation}
-\begin{equation}
+\end{equation*}
+\begin{equation*}
 c = \left[\begin{array}{c}
 c_1\\
 c_2\\
@@ -1282,7 +1288,7 @@ z = \left[\begin{array}{c}
 12/\pi\\
 3-6/\pi
 \end{array}\right]  
-\end{equation}
+\end{equation*}
 Aqui $c_5$ é um coeficiente artificial para o problema. A solução é  $c_1=-0,0491874$, $c_2=-0,5956302$, $c_3=0$, $c_4=0,5956302$ e $c_5=0,0491874$. Calculamos os demais coeficientes usando as expressões (\ref{eq_an_spline}), (\ref{eq_bn_spline}) e (\ref{eq_dn_spline}):
 \begin{eqnarray*}
 a_1&=&y_1=0\\
@@ -1296,38 +1302,46 @@ d_2&=&\frac{c_{3}-c_2}{3h_2}=\frac{0-(-0,5956302)}{3\cdot \pi/2}=0,1263967\\
 d_3&=&\frac{c_{4}-c_3}{3h_3}=\frac{0,5956302- 0}{3\cdot \pi/2}=0,1263967\\
 d_4&=&\frac{c_{5}-c_4}{3h_4}=\frac{0,0491874- 0,5956302}{3\cdot \pi/2}=-0,1159588
 \end{eqnarray*}
-\begin{eqnarray*}
-b_1&=&\frac{y_{2}-y_1}{h_1}-\frac{h_1}{3}(2c_1+c_{2})=\frac{1-0}{\pi/2}-\frac{\pi/2}{3}(2\cdot (-0,0491874)-0,5956302)=1\\
-b_2&=&\frac{y_{3}-y_2}{h_2}-\frac{h_2}{3}(2c_2+c_{3})=\frac{0-1}{\pi/2}-\frac{\pi/2}{3}(2\cdot(-0,5956302) +0)=-0,0128772\\
-b_3&=&\frac{y_{4}-y_3}{h_3}-\frac{h_3}{3}(2c_3+c_{4})=\frac{-1-0}{\pi/2}-\frac{\pi/2}{3}(2\cdot 0+0,5956302)=-0,9484910\\
-b_4&=&\frac{y_{5}-y_4}{h_4}-\frac{h_4}{3}(2c_4+c_{5})=\frac{0-(-1)}{\pi/2}-\frac{\pi/2}{3}(2\cdot 0,5956302+0,0491874)=-0,0128772
-\end{eqnarray*}
+\begin{align*}
+b_1&= \frac{y_{2}-y_1}{h_1}-\frac{h_1}{3}(2c_1+c_{2})\\
+&=\frac{1-0}{\pi/2}-\frac{\pi/2}{3}(2\cdot (-0,0491874)-0,5956302)=1\\
+b_2&=\frac{y_{3}-y_2}{h_2}-\frac{h_2}{3}(2c_2+c_{3})\\
+&=\frac{0-1}{\pi/2}-\frac{\pi/2}{3}(2\cdot(-0,5956302) +0)=-0,0128772\\
+b_3&=\frac{y_{4}-y_3}{h_3}-\frac{h_3}{3}(2c_3+c_{4})\\
+&=\frac{-1-0}{\pi/2}-\frac{\pi/2}{3}(2\cdot 0+0,5956302)=-0,9484910\\
+b_4&=\frac{y_{5}-y_4}{h_4}-\frac{h_4}{3}(2c_4+c_{5})\\
+&=\frac{0-(-1)}{\pi/2}-\frac{\pi/2}{3}(2\cdot 0,5956302+0,0491874)=-0,0128772
+\end{align*}
 Portanto,
+\begin{small}
 \begin{equation*}
 f(x)=\left\{\begin{array}{ll}
-x-0,0491874x^2-0,1159588x^3&, 0\leq x<\frac{\pi}{2}\\
-1+-0,0128772(x-\frac{\pi}{2})-0,5956302(x-\frac{\pi}{2})^2+0,1263967(x-\frac{\pi}{2})^3&, \frac{\pi}{2}\leq x<\pi\\
--0,9484910(x-\pi)+0,1263967(x-\pi)^3&, \pi\leq x<\frac{3\pi}{2}\\
--1-0,0128772(x-\frac{3\pi}{2})+0,5956302(x-\frac{3\pi}{2})^2-0,1159588(x-\frac{3\pi}{2})^3&, \frac{3\pi}{2}\leq x\leq2\pi
-\end{array}\right..  
-\end{equation*}
+x-0,049x^2-0,12x^3&, 0\leq x<\frac{\pi}{2}\\
+1+-0,01(x-\frac{\pi}{2})-0,6(x-\frac{\pi}{2})^2+0,13(x-\frac{\pi}{2})^3&, \frac{\pi}{2}\leq x<\pi\\
+-0,95(x-\pi)+0,13(x-\pi)^3&, \pi\leq x<\frac{3\pi}{2}\\
+-1-0,01(x-\frac{3\pi}{2})+0,6(x-\frac{3\pi}{2})^2-0,12(x-\frac{3\pi}{2})^3&, \frac{3\pi}{2}\leq x\leq2\pi
+\end{array}\right.
+\end{equation*}  
+\end{small}
 
 No Scilab, podemos resolver este problema fazendo:
-\verbatiminput{./rotinas/Interpolacao_e_ajuste/ex_spline_fixado.sce}
+\verbatiminput{./cap_aproxfun/codes/splines/ex_spline_fixado.sce}
 
 
 \subsubsection{Resumo sobre Splines}
 
 Dado um conjunto de pontos $(x_i,y_i)$, $i=1,2,\ldots,n$, um spline cúbico é a seguinte função definida por partes:
+\begin{small}
 \begin{equation*}
-  s(x) = \left\{\begin{array}{ll}
-      s_1(x) = a_1 + b_1(x-x_1) + c_1(x-x_1)^2 + d_1(x-x_1)^3 &, x_1 \leq x < x_2\\
-      s_2(x) = a_2 + b_2(x-x_2) + c_2(x-x_2)^2 + d_2(x-x_2)^3 &, x_2 \leq x < x_3\\
-      \qquad \vdots & \qquad\vdots \\
-      s_{n-1} = a_{n-1} + b_{n-1}(x-x_{n-1}) + c_{n-1}(x-x_{n-1})^2 + d_{n-1}(x-x_{n-1})^3 &, x_{n-1} \leq x \leq x_n \end{array}\right.
-\end{equation*}
+  s(x) \!=\! \left\{\begin{array}{ll}
+       \!\!\!a_1 \!+\! b_1(x\!-\!x_1) \!+\! c_1(x\!-\!x_1)^2 \!+\! d_1(x\!-\!x_1)^3 &\!\!\!\!\!, x_1\leq x < x_2\\
+      \!\!\!a_2 \!+\! b_2(x\!-\!x_2) \!+\! c_2(x\!-\!x_2)^2 \!+\! d_2(x\!-\!x_2)^3 &\!\!\!\!\!, x_2 \leq x < x_3\\
+      \qquad\qquad \vdots & \qquad\vdots \\
+      \!\!\!a_{n-1} \!+\! b_{n-1}(x\!-\!x_{n-1}) \!+\! c_{n-1}(x\!-\!x_{n-1})^2 \!+\! d_{n-1}(x\!-\!x_{n-1})^3 &\!\!\!\!\!, x_{n-1} \leq x \leq x_n \end{array}\right.
+\end{equation*}  
+\end{small}
 
-Definindo-se $h_j = x_{j+1} - x_j$, os coeficientes $c_j$, $j=1,2,\dotsc,n$, são solução do sistema linear $Ac = B$, onde:
+Definindo-se $h_j = x_{j+1} - x_j$, os coeficientes $c_j$, $j=1,2,\dotsc,n$, são solução do sistema linear $Ac = z$, onde:
 \begin{small}
   \begin{equation*}
   \begin{array}{|l|l|}\hline
@@ -1353,13 +1367,13 @@ Definindo-se $h_j = x_{j+1} - x_j$, os coeficientes $c_j$, $j=1,2,\dotsc,n$, são
       \end{array}
 \right.\\
 &\\
-b_i = \left\{
+z_i = \left\{
   \begin{array}{ll}
     0 &, i=1\\
     3\frac{y_{i+1}-y_i}{h_i} - 3\frac{y_i-y_{i-1}}{h_{i-1}} &, 1<i<n\\
     0 &, i=n
   \end{array}
-\right. & b_i = \left\{
+\right. & z_i = \left\{
   \begin{array}{ll}
     3\frac{y_2-y_1}{h_1} - 3f'(x_1) &, i=1\\
     3\frac{y_{i+1}-y_i}{h_i} - 3\frac{y_i-y_{i-1}}{h_{i-1}} &, 1<i<n\\
