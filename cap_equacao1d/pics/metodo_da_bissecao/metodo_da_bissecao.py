@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 '''
-Este trabalho está licenciado sob a Licença Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional. Para ver uma cópia desta licença, visite (http://creativecommons.org/licenses/by-nc-sa/4.0/) ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
 Author: Pedro H A Konzen - 03/2015
 Last update: 07/2016 by phkonzen
