@@ -89,22 +89,24 @@ D_{+,h}f(x_0)-f'(x_0)&=&\frac{f(x_0+h)-f(x_0)}{h}-f'(x_0)\\
 &=&\frac{f(x_0)+hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)-f(x_0)}{h}-f'(x_0)\\
 &=&\frac{h}{2}f''(x_0)+O(h^2)=O(h).\\
 \end{eqnarray*}
-Analogamente,
+Analogamente:
 \begin{eqnarray*}
 D_{-,h}f(x_0)-f'(x_0)&=&\frac{f(x_0)-f(x_0-h)}{h}-f'(x_0)\\
 &=&\frac{f(x_0)-\left(f(x_0)-hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)\right)}{h}-f'(x_0)\\
 &=&-\frac{h}{2}f''(x_0)+O(h^2)=O(h).\\
 \end{eqnarray*}
-Também,
-\begin{eqnarray*}
-D_{0,h}f(x_0)-f'(x_0)&=&\frac{f(x_0+h)-f(x_0-h)}{2h}-f'(x_0)\\
-&=&\frac{f(x_0)+hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)-\left(f(x_0)-hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)\right)}{2h}-f'(x_0)\\
-&=&O(h^2).\\
-\end{eqnarray*}
+Também:
+\begin{align*}
+D_{0,h}f(x_0)-f'(x_0)&= \frac{f(x_0+h)-f(x_0-h)}{2h}-f'(x_0)\\
+&= \frac{f(x_0)+hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)}{2h} \\
+&- \frac{f(x_0)-hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)}{2h}-f'(x_0)\\
+&= O(h^2).
+\end{align*}
 
 \begin{ex}
 Calcule a derivada numérica e o erro de truncamento de $f(x)=e^{-x}$ em $x=1,5$ pela fórmula de diferença progressiva para $h=0,1$, $h=0,01$ e $h=0,001$.
 \end{ex}
+\begin{sol}
 Como $|f''(x)|=|e^{-x}|<1$, então $|f'_+(x_0)-f'(x_0)|<\frac{h}{2}$.
 $$
 \begin{array}{|c|c|c|}
@@ -120,6 +122,8 @@ $$
 \end{array}
 $$
 O valor exato da derivada é $f'(1,5)=-0,2231302$.
+\end{sol}
+
 \subsection{Erros de arredondamento}
 Para entender como os erros de arredondamento se propagam ao calcular as derivadas numéricas vamos considerar o operador de diferenças finitas progressivas
 $$
@@ -138,14 +142,17 @@ $$
 |\overline{f(x)}-f(x)|=\delta(x,0)\leq \delta,
 $$
 onde $\overline{f(x+h)}$ e $\overline{f(x)}$ são as representação em ponto flutuante dos números $f(x+h)$ e $f(x)$, respectivamente. A diferença do valor da derivada e sua aproximação representada em ponto flutuante pode ser estimada da seguinte forma:
-\begin{eqnarray*}
-\left|f'(x)-\overline{D_{+,h}f(x)}\right|&=&\left| f'(x)-\frac{\overline{f(x+h)}-\overline{f(x)}}{h}(1+\varepsilon(x,h)) \right|\\
-&=&\left| f'(x)-\left(\frac{\overline{f(x+h)}-\overline{f(x)}}{h}+\frac{f(x+h)-f(x+h)}{h}+\frac{f(x)-f(x)}{h}\right)(1+\varepsilon) \right|\\
-&=&\left| f'(x)+\left(-\frac{f(x+h)-f(x)}{h}-\frac{\overline{f(x+h)}-f(x+h)}{h}+\frac{\overline{f(x)}-f(x)}{h}\right)(1+\varepsilon) \right|\\
-&\leq&\left|f'(x)-\frac{f(x+h)-f(x)}{h}\right| +\left(\left|\frac{\overline{f(x+h)}-f(x+h)}{h}\right|+\left|\frac{\overline{f(x)}-f(x)}{h}\right| \right)|1+\varepsilon| \\&+&\left|\frac{f(x+h)-f(x)}{h}\right|\varepsilon\\
-&\leq&Mh +\left(\left|\frac{\delta}{h}\right|+\left|\frac{\delta}{h}\right| \right)|1+\varepsilon| +|f'(x)|\varepsilon\\
-&\leq&Mh +\left(\frac{2\delta}{h}\right)|1+\varepsilon| +|f'(x)|\varepsilon
-\end{eqnarray*}
+\begin{align*}
+\left|f'(x)-\overline{D_{+,h}f(x)}\right|&= \left| f'(x)-\frac{\overline{f(x+h)}-\overline{f(x)}}{h}(1+\varepsilon(x,h)) \right|\\
+&= \left| f'(x)-\left(\frac{\overline{f(x+h)}-\overline{f(x)}}{h}+\frac{f(x+h)-f(x+h)}{h}\right.\right. \\
+&+ \left.\left.\frac{f(x)-f(x)}{h}\right)(1+\varepsilon) \right|\\
+&= \left| f'(x)+\left(-\frac{f(x+h)-f(x)}{h}-\frac{\overline{f(x+h)}-f(x+h)}{h}\right.\right.\\
+&+ \left.\left. \frac{\overline{f(x)}-f(x)}{h}\right)(1+\varepsilon) \right|\\
+&\leq \left|f'(x)-\frac{f(x+h)-f(x)}{h}\right| +\left(\left|\frac{\overline{f(x+h)}-f(x+h)}{h}\right|\right.\\
+&+\left.\left|\frac{\overline{f(x)}-f(x)}{h}\right| \right)|1+\varepsilon| + \left|\frac{f(x+h)-f(x)}{h}\right|\varepsilon\\
+&\leq Mh +\left(\left|\frac{\delta}{h}\right|+\left|\frac{\delta}{h}\right| \right)|1+\varepsilon| +|f'(x)|\varepsilon\\
+&\leq Mh +\left(\frac{2\delta}{h}\right)|1+\varepsilon| +|f'(x)|\varepsilon
+\end{align*}
 onde
 $$
 M=\frac{1}{2}\max_{x\leq y\leq x+h}|f''(y)|
@@ -157,16 +164,17 @@ Esta estimativa mostra que se o valor de $h$ for muito pequeno o erro ao calcula
 \begin{ex}Estude o comportamento da derivada de $f(x)=e^{-x^2}$ no ponto $x=1,5$ quando $h$ fica pequeno.
 \end{ex}
 Segue a tabela com os valores da derivada para vários valores de $h$.
-$$
+\begin{tiny}
+\begin{equation*}
 \begin{array}{|c|c|c|c|c|c|c|}
 \hline
 h&10^{-2}&10^{-4}&10^{-6}&10^{-7}&10^{-8}&10^{-9}\\
 \hline
 D_{+,h}f(1,5)& - 0,3125246&- 0,3161608 &- 0,3161973&- 0,3161976&- 0,3161977&- 0,3161977 \\
 \hline
-\end{array}
-$$
-$$
+\end{array}  
+\end{equation*}  
+\begin{equation*}
 \begin{array}{|c|c|c|c|c|c|c|}
 \hline
 h&10^{-10}&10^{-11}&10^{-12}&10^{-13}&10^{-14}&10^{-15}\\
@@ -174,41 +182,57 @@ h&10^{-10}&10^{-11}&10^{-12}&10^{-13}&10^{-14}&10^{-15}\\
 D_{+,h}f(1,5)&- 0,3161976&- 0,3161971&- 0,3162332&- 0,3158585&- 0,3178013&- 0,3747003\\
 \hline
 \end{array}
-$$
+\end{equation*}
+\begin{equation*}
+\begin{array}{|c|c|c|c|c|c|c|}
+\hline
+h&10^{-2}&10^{-4}&10^{-6}&10^{-7}&10^{-8}&10^{-9}\\
+\hline
+D_{+,h}f(1,5)& - 0,3125246&- 0,3161608 &- 0,3161973&- 0,3161976&- 0,3161977&- 0,3161977 \\
+\hline
+\end{array}  
+\end{equation*}
+\end{tiny}
 
 Observe que o valor exato é $-0,3161977$ e o $h$ ótimo é algo entre $10^{-8}$ e $10^{-9}$.
 
 
 \subsection{Fórmulas de três e cinco pontos para a derivada primeira}
 Para aproximar a derivada de uma função $f(x)$ em $x_0$, $x_1$ ou $x_2$ usaremos os três pontos vizinhos $(x_0,f(x_0))$, $(x_{1},f(x_{1}))$ e $(x_{2},f(x_{2}))$. Uma interpolação usando polinômios de Lagrange para esses três pontos é da forma:
-\begin{eqnarray*}
-f(x)&=&f(x_0)\frac{(x-x_{1})(x-x_{2})}{(x_0-x_{1})(x_0-x_{2})}
-+f(x_{1})\frac{(x-x_{0})(x-x_{2})}{(x_{1}-x_{0})(x_{1}-x_{2})}
-+f(x_{2})\frac{(x-x_{0})(x-x_{1})}{(x_{2}-x_{0})(x_{2}-x_{1})}\\
-&+&\frac{f'''(\xi(x))}{6}(x-x_0)(x-x_{1})(x-x_{2}).
-\end{eqnarray*}
+\begin{align*}
+f(x)&=f(x_0)\frac{(x-x_{1})(x-x_{2})}{(x_0-x_{1})(x_0-x_{2})}
++f(x_{1})\frac{(x-x_{0})(x-x_{2})}{(x_{1}-x_{0})(x_{1}-x_{2})}\\
+&+f(x_{2})\frac{(x-x_{0})(x-x_{1})}{(x_{2}-x_{0})(x_{2}-x_{1})} 
++\frac{f'''(\xi(x))}{6}(x-x_0)(x-x_{1})(x-x_{2}).
+\end{align*}
 A derivada de $f(x)$ é
-\begin{eqnarray}
-\nonumber f'(x)&=&f(x_0)\frac{2x-x_{1}-x_{2}}{(x_0-x_{1})(x_0-x_{2})}
-+f(x_{1})\frac{2x-x_{0}-x_{2}}{(x_{1}-x_{0})(x_{1}-x_{2})}
-+f(x_{2})\frac{2x-x_{0}-x_{1}}{(x_{2}-x_{0})(x_{2}-x_{1})}\\
-\nonumber &+&\frac{f'''(\xi(x))}{6} \left( (x-x_{1})(x-x_{2}) +(x-x_0)(2x-x_{1}-x_{2})\right)\\&+&D_x\left(\frac{f'''(\xi(x))}{6}\right)(x-x_0)(x-x_1)(x-x_2).{\label{tres_pontos}}
-\end{eqnarray}
+\begin{equation}\label{tres_pontos}
+  \begin{split}
+    f'(x) &= f(x_0)\frac{2x-x_{1}-x_{2}}{(x_0-x_{1})(x_0-x_{2})}
+    +f(x_{1})\frac{2x-x_{0}-x_{2}}{(x_{1}-x_{0})(x_{1}-x_{2})}\\
+    &+f(x_{2})\frac{2x-x_{0}-x_{1}}{(x_{2}-x_{0})(x_{2}-x_{1})}\\
+    &+\frac{f'''(\xi(x))}{6} \left( (x-x_{1})(x-x_{2}) +(x-x_0)(2x-x_{1}-x_{2})\right)\\
+    &+ D_x\left(\frac{f'''(\xi(x))}{6}\right)(x-x_0)(x-x_1)(x-x_2).    
+  \end{split}
+\end{equation}
 Trocando $x$ por $x_0$, temos
-\begin{eqnarray*}
-f'(x_0)&=&f(x_0)\frac{2x_0-x_{1}-x_{2}}{(x_0-x_{1})(x_0-x_{2})}
-+f(x_{1})\frac{2x_0-x_{0}-x_{2}}{(x_{1}-x_{0})(x_{1}-x_{2})}
-+f(x_{2})\frac{2x_0-x_{0}-x_{1}}{(x_{2}-x_{0})(x_{2}-x_{1})}\\
-&+&\frac{f'''(\xi(x_0))}{6} \left( (x_0-x_{1})(x_0-x_{2}) +(x_0-x_0)(2x_0-x_{1}-x_{2})\right)\\&+&D_x\left(\frac{f'''(\xi(x_0))}{6}\right)(x_0-x_0)(x_0-x_1)(x_0-x_2).
-\end{eqnarray*}
+\begin{equation*}
+  \begin{split}
+    f'(x_0)&= f(x_0)\frac{2x_0-x_{1}-x_{2}}{(x_0-x_{1})(x_0-x_{2})}
+    +f(x_{1})\frac{2x_0-x_{0}-x_{2}}{(x_{1}-x_{0})(x_{1}-x_{2})}\\
+    &+f(x_{2})\frac{2x_0-x_{0}-x_{1}}{(x_{2}-x_{0})(x_{2}-x_{1})}\\
+    &+ \frac{f'''(\xi(x_0))}{6} \left( (x_0-x_{1})(x_0-x_{2}) +(x_0-x_0)(2x_0-x_{1}-x_{2})\right)\\
+    &+ D_x\left(\frac{f'''(\xi(x_0))}{6}\right)(x_0-x_0)(x_0-x_1)(x_0-x_2).
+  \end{split}
+\end{equation*}
 Considerando uma malha equiespaçada onde $x_1=x_0+h$ e $x_2=x_0+2h$, temos:
-\begin{eqnarray*}
-f'(x_0)&=&f(x_0)\frac{-3h}{(-h)(-2h)}
-+f(x_{1})\frac{-2h}{(h)(-h)}
-+f(x_{2})\frac{-h}{(2h)(h)}+\frac{f'''(\xi(x_0))}{6} \left( (-h)(-2h)\right)\\
-&=&\frac{1}{h}\left[-\frac{3}{2}f(x_0)+2f(x_{1})
--\frac{1}{2}f(x_{2})\right]+h^2\frac{f'''(\xi(x_0))}{3}
-\end{eqnarray*}
+\begin{equation*}
+  \begin{split}
+  f'(x_0)&= f(x_0)\frac{-3h}{(-h)(-2h)} + f(x_{1})\frac{-2h}{(h)(-h)} \\
+  &+f(x_{2})\frac{-h}{(2h)(h)}+\frac{f'''(\xi(x_0))}{6} \left( (-h)(-2h)\right)\\
+  &= \frac{1}{h}\left[-\frac{3}{2}f(x_0)+2f(x_{1})-\frac{1}{2}f(x_{2})\right]+h^2\frac{f'''(\xi(x_0))}{3}    
+  \end{split}
+\end{equation*}
 Similarmente, trocando $x$ por $x_1$ ou trocando $x$ por $x_2$ na expressão (\ref{tres_pontos}), temos outras duas expressões
 \begin{eqnarray*}
 f'(x_1)&=&\frac{1}{h}\left[-\frac{1}{2}f(x_0)
@@ -475,7 +499,8 @@ Usando o teorema do valor médio para integrais e que $h=b-a$ e $x_1=(a+b)/2$, te
 \begin{align*}
 \int_a^b f(x)dx &= h f(x_1) + f'(x_1)\int_a^b(x-x_1)dx+f''(\eta)\int_a^b\frac{1}{2}(x-x_1)^2dx\\
 &= h f(x_1) +f'(x_1)\left[\frac{(x-x_1)^2}{2}\right]_a^b+f''(\eta)\left[\frac{1}{6}(x-x_1)^3\right]_a^b\\
-&= h f(x_1) +f'(x_1)\left[\frac{(b-x_1)^2}{2}-\frac{(a-x_1)^2}{2}\right]+f''(\eta)\left[\frac{1}{6}(b-x_1)^3-\frac{1}{6}(a-x_1)^3\right]\\
+&= h f(x_1) +f'(x_1)\left[\frac{(b-x_1)^2}{2}-\frac{(a-x_1)^2}{2}\right]\\
+&+f''(\eta)\left[\frac{1}{6}(b-x_1)^3-\frac{1}{6}(a-x_1)^3\right]\\
 &= h f(x_1) +\frac{h^3f''(\eta)}{3}.
 \end{align*}
 para $a\leq \eta\leq b$.
@@ -539,17 +564,25 @@ $$
 P_1(x)=f(x_0)\frac{(x-x_0)}{(x_1-x_0)}+f(x_1)\frac{(x-x_1)}{(x_0-x_1)}=f(x_0)\frac{(x-x_0)}{h}-f(x_1)\frac{(x-x_1)}{h},
 $$
 onde $h=x_1-x_0$. Podemos integrar a função $f(x)$ aproximando-a por esse polinômio:
-$$
-\int_a^bf(x)dx=f(x_0)\int_a^b\frac{(x-x_0)}{h}dx-f(x_1)\int_a^b\frac{(x-x_1)}{h}dx+\frac{1}{2!}\int_a^b(x-x_0)(x-x_1)f''(\xi(x))dx.
-$$
+\begin{equation*}
+  \begin{split}
+    \int_a^bf(x)dx &= f(x_0)\int_a^b\frac{(x-x_0)}{h}dx-f(x_1)\int_a^b\frac{(x-x_1)}{h}dx\\
+    &+\frac{1}{2!}\int_a^b(x-x_0)(x-x_1)f''(\xi(x))dx.   
+  \end{split}
+\end{equation*}
 Pelo teorema do valor médio, existe $a\leq \eta\leq b$ tal que $\int_a^bf(\xi(x))g(x)dx=f(\eta)\int_a^bg(x)dx$ e, portanto,
-\begin{eqnarray*}
-\int_a^bf(x)dx&=&f(x_0)\left[\frac{(x-x_0)^2}{2h}\right]_{x_0}^{x_1}-f(x_1)\left[\frac{(x-x_1)^2}{2h}\right]_{x_0}^{x_1}+\frac{f''(\eta)}{2}\left[\frac{x^3}{3}-\frac{x^2}{2}(x_1+x_0)+x_0x_1x\right]_{x_0}^{x_1}\\
-&=&f(x_0)\frac{(x_1-x_0)^2}{2h}+f(x_1)\frac{(x_0-x_1)^2}{2h}\\&+&\frac{f''(\eta)}{2}\left(\frac{x_1^3}{3}-\frac{x_1^2}{2}(x_1+x_0)+x_0x_1x_1-\frac{x_0^3}{3}+\frac{x_0^2}{2}(x_1+x_0)-x_0x_1x_0\right)\\
-&=&f(x_0)\frac{h^2}{2h}+f(x_1)\frac{h^2}{2h}\\&+&\frac{f''(\eta)}{2}\frac{2x_1^3-3x_1^2(x_1+x_0)+6x_1^2x_0-2x_0^3+3x_0^2(x_1+x_0)-6x_1x_0^2}{6}\\
-&=&\frac{h}{2}(f(x_0)+f(x_1))+\frac{f''(\eta)}{12}\left(x_0^3-3x_0^2x_1+3x_1^2x_0-x_1^3\right)\\
-&=&\frac{h}{2}(f(x_0)+f(x_1))-\frac{h^3f''(\eta)}{12}
-\end{eqnarray*}
+\begin{equation*}
+  \begin{split}
+    \int_a^bf(x)dx&= f(x_0)\left[\frac{(x-x_0)^2}{2h}\right]_{x_0}^{x_1}-f(x_1)\left[\frac{(x-x_1)^2}{2h}\right]_{x_0}^{x_1}\\
+    &+ \frac{f''(\eta)}{2}\left[\frac{x^3}{3}-\frac{x^2}{2}(x_1+x_0)+x_0x_1x\right]_{x_0}^{x_1}\\
+&= f(x_0)\frac{(x_1-x_0)^2}{2h}+f(x_1)\frac{(x_0-x_1)^2}{2h}\\
+&+ \frac{f''(\eta)}{2}\left(\frac{x_1^3}{3}-\frac{x_1^2}{2}(x_1+x_0)+x_0x_1x_1-\frac{x_0^3}{3}+\frac{x_0^2}{2}(x_1+x_0)-x_0x_1x_0\right)\\
+&= f(x_0)\frac{h^2}{2h}+f(x_1)\frac{h^2}{2h}\\
+&+ \frac{f''(\eta)}{2}\frac{2x_1^3-3x_1^2(x_1+x_0)+6x_1^2x_0-2x_0^3+3x_0^2(x_1+x_0)-6x_1x_0^2}{6}\\
+&= \frac{h}{2}(f(x_0)+f(x_1))+\frac{f''(\eta)}{12}\left(x_0^3-3x_0^2x_1+3x_1^2x_0-x_1^3\right)\\
+&= \frac{h}{2}(f(x_0)+f(x_1))-\frac{h^3f''(\eta)}{12}    
+  \end{split}
+\end{equation*}
 
 \begin{ex}
 Use a regra do trapézio para aproximar a integral
@@ -584,9 +617,12 @@ $$
 x_0=a,\qquad x_1:=\frac{a+b}{2}=x_0+h \qquad \text{e}\qquad x_2:=b=x_1+h.
 $$
 com $h = (b-a)/2$. Para isso, o polinômio de Lagrange deve ser uma parábola:
-$$
-P_2(x) =f(x_0)\frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)}+f(x_1)\frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)}+f(x_2)\frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}.
-$$
+\begin{equation*}
+  \begin{split}
+    P_2(x) &= f(x_0)\frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)} + f(x_1)\frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)}\\
+    &+ f(x_2)\frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}.
+  \end{split}
+\end{equation*}
 Se usarmos o mesma metodologia da regra dos trapézios, calcularemos
 $$
 \int_a^bf(x)dx=\int_a^bP_2(x)dx+\int_a^b\frac{(x-x_0)(x-x_1)(x-x_2)}{6}f'''(\xi(x))dx
@@ -596,14 +632,24 @@ $$
 f(x)=f(x_1)+f'(x_1)(x-x_1)+\frac{f''(x_1)}{2}(x-x_1)^2+\frac{f'''(x_1)}{6}(x-x_1)^3+\frac{f^{(4)}(\xi(x))}{24}(x-x_1)^4,
 $$
 onde $x_0\leq\xi(x)\leq x_2$ e integre no intervalo $[a,b]=[x_0,x_2]$:
-\begin{eqnarray*}
-\int_a^bf(x)dx&=&\left[f(x_1)(x-x_1)+f'(x_1)\frac{(x-x_1)^2}{2}+\frac{f''(x_1)}{6}(x-x_1)^3+\frac{f'''(x_1)}{24}(x-x_1)^4\right]_{x_0}^{x_2}\\&+&\frac{1}{24}\int_{x_0}^{x_2}f^{(4)}(\xi(x))(x-x_1)^4dx,
-\end{eqnarray*}
+\begin{equation*}
+  \begin{split}
+    \int_a^bf(x)dx&= \left[f(x_1)(x-x_1)+f'(x_1)\frac{(x-x_1)^2}{2} + \frac{f''(x_1)}{6}(x-x_1)^3\right. \\
+      &\left. + \frac{f'''(x_1)}{24}(x-x_1)^4\right]_{x_0}^{x_2}\\
+      &+ \frac{1}{24}\int_{x_0}^{x_2}f^{(4)}(\xi(x))(x-x_1)^4dx,    
+  \end{split}
+\end{equation*}
 Pelo teorema do valor médio, existe $x_0\leq\eta\leq x_2$ tal que
-\begin{eqnarray*}
-\int_a^bf(x)dx&=&\left[f(x_1)(x-x_1)+f'(x_1)\frac{(x-x_1)^2}{2}+\frac{f''(x_1)}{6}(x-x_1)^3+\frac{f'''(x_1)}{24}(x-x_1)^4\right]_{x_0}^{x_2}\\&+&\frac{f^{(4)}(\eta)}{24}\int_{x_0}^{x_2}(x-x_1)^4dx\\
-&=&\left[f(x_1)(x-x_1)+f'(x_1)\frac{(x-x_1)^2}{2}+\frac{f''(x_1)}{6}(x-x_1)^3+\frac{f'''(x_1)}{24}(x-x_1)^4\right]_{x_0}^{x_2}\\&+&\frac{f^{(4)}(\eta)}{120}\left[(x-x_1)^5\right]_{x_0}^{x_2}
-\end{eqnarray*}
+\begin{equation*}
+  \begin{split}
+    \int_a^bf(x)dx&= \left[f(x_1)(x-x_1)+f'(x_1)\frac{(x-x_1)^2}{2}+\frac{f''(x_1)}{6}(x-x_1)^3\right.\\
+    &+\left.\frac{f'''(x_1)}{24}(x-x_1)^4\right]_{x_0}^{x_2}\\
+    &+ \frac{f^{(4)}(\eta)}{24}\int_{x_0}^{x_2}(x-x_1)^4dx\\
+    &= \left[f(x_1)(x-x_1)+f'(x_1)\frac{(x-x_1)^2}{2}+\frac{f''(x_1)}{6}(x-x_1)^3\right.\\
+    &+\left.\frac{f'''(x_1)}{24}(x-x_1)^4\right]_{x_0}^{x_2}\\
+    &+ \frac{f^{(4)}(\eta)}{120}\left[(x-x_1)^5\right]_{x_0}^{x_2}    
+  \end{split}
+\end{equation*}
 Usando o fato que
 $$
 (x_2-x_1)^3-(x_0-x_1)^3=2h^3,
@@ -625,7 +671,8 @@ f''(x_1)=\frac{f(x_0)-2f(x_1)+f(x_2)}{h^2}+\frac{h^2}{12}f^{(4)}(\eta_1),
 $$
 $x_0\leq \eta_1\leq x_2$, temos
 \begin{eqnarray*}
-\int_a^bf(x)dx&=&2hf(x_1)+\frac{h^3}{3}\left(\frac{f(x_0)-2f(x_1)+f(x_2)}{h^2}+\frac{h^2}{12}f^{(4)}(\eta_1)\right)+\frac{h^5f^{(4)}(\eta)}{60}.\\
+\int_a^bf(x)dx&=&2hf(x_1)+\frac{h^3}{3}\left(\frac{f(x_0)-2f(x_1)+f(x_2)}{h^2}+\frac{h^2}{12}f^{(4)}(\eta_1)\right)\\
+&+&\frac{h^5f^{(4)}(\eta)}{60}\\
 &=&\frac{h}{3}\left(f(x_0)+4f(x_1)+f(x_2)\right)-\frac{h^5}{12}\left(\frac{1}{3}f^{(4)}(\eta_1)-\frac{1}{5}f^{(4)}(\eta)\right).
 \end{eqnarray*}
 Pode-se mostrar que é possível escolher $\eta_2$ que substitua $\eta$ e $\eta_1$ com a seguinte estimativa
@@ -860,8 +907,10 @@ $$\int_a^b f(x)dx \approx \sum_{j=1}^N w_j f(x_j)$$
 
 \item[(d)] Método de Simpson com dois intervalos
 \begin{eqnarray*}
-\int_a^b f(x)dx &\approx& \left[f(a)+4f\left(\frac{3a+b}{4}\right)+2f\left(\frac{a+b}{2}\right)+4f\left(\frac{a+3b}{4}\right)+f(b)\right]\frac{b-a}{12}\\
-&=&\frac{b-a}{12}f(a)+\frac{b-a}{3}f\left(\frac{3a+b}{4}\right)+\frac{b-a}{6}f\left(\frac{a+b}{2}\right)+\frac{b-a}{3}f\left(\frac{a+3b}{4}\right)+\frac{b-a}{12}f(b)\\
+\int_a^b f(x)dx &\approx& \left[f(a)+4f\left(\frac{3a+b}{4}\right)+2f\left(\frac{a+b}{2}\right)\right.\\
+&+& \left. 4f\left(\frac{a+3b}{4}\right)+f(b)\right]\frac{b-a}{12}\\
+&=&\frac{b-a}{12}f(a)+\frac{b-a}{3}f\left(\frac{3a+b}{4}\right)+\frac{b-a}{6}f\left(\frac{a+b}{2}\right)\\
+&+&\frac{b-a}{3}f\left(\frac{a+3b}{4}\right)+\frac{b-a}{12}f(b)\\
 &:=&\sum_{j=1}^5 w_j f(x_j)
 \end{eqnarray*}
 
@@ -872,10 +921,11 @@ A principal técnica que temos usado para desenvolver os métodos numéricos é o {\
 $$f(x)=a_0+a_1x + a_2x^2+\ldots + a_n x^n +R_n(x)$$
 
 Integrando termo a termo, temos:
-
 \begin{eqnarray*}
-\int_a^bf(x)dx&=&\int_a^b a_0dx+\int_a^ba_1xdx + \int_a^ba_2x^2dx+\ldots + \int_a^ba_n x^ndx +\int_a^bR_n(x)dx\\
-&=& a_0(b-a)+a_1\frac{b^2-a^2}{2} + a_2\frac{b^3-a^3}{3}+\ldots + a_n \frac{b^{n+1}-a^{n+1}}{n+1} +\int_a^bR_n(x)dx
+\int_a^bf(x)dx&=& \int_a^b a_0dx+\int_a^ba_1xdx + \int_a^ba_2x^2dx+\ldots+\\
+&& \int_a^ba_n x^ndx +\int_a^bR_n(x)dx\\
+&=& a_0(b-a)+a_1\frac{b^2-a^2}{2} + a_2\frac{b^3-a^3}{3} +\ldots+\\
+&&a_n \frac{b^{n+1}-a^{n+1}}{n+1} +\int_a^bR_n(x)dx
 \end{eqnarray*}
 
 Neste momento, é natural investigar o desempenho de um esquema numérico aplicado a funções do tipo $f(x)=x^n$.
@@ -894,27 +944,23 @@ $$\sum_{j=1}^n w_j=b-a$$
 \begin{ex} A ordem de precisão do esquema de trapézios é 1:
 $$\int_a^b f(x)dx \approx \left[f(a)+f(b)\right]\frac{b-a}{2}=\sum_{j=1}^2w_jf(x_j)$$
 onde $w_j=\frac{b-a}{2}$, $x_1=a$ e $x_2=b$.
-$$
-\begin{array}{rcll}
-\displaystyle\sum_{j=1}^n w_j&=&b-a ~~ &\left(k=0\right)\\
-\displaystyle\sum_{j=1}^n w_jx_j&=&(a+b)\frac{b-a}{2}=\frac{b^2-a^2}{2} ~~& \left(k=1\right)\\
-\displaystyle\sum_{j=1}^n w_jx_j^2&=&(a^2+b^2)\frac{b-a}{2}\neq\frac{b^3-a^3}{3} ~~& \left(k=2\right)
-\end{array}
-$$
+\begin{align*}
+  &(k=0):\quad\sum_{j=1}^n w_j = b-a\\
+  &(k=1):\quad\sum_{j=1}^n w_jx_j = (a+b)\frac{b-a}{2}=\frac{b^2-a^2}{2}\\
+  &(k=2):\quad\sum_{j=1}^n w_jx_j^2 = (a^2+b^2)\frac{b-a}{2}\neq\frac{b^3-a^3}{3}
+\end{align*}
 \end{ex}
-\begin{ex} A ordem de precisão do esquema de Simpson é 3:
 
+\begin{ex} A ordem de precisão do esquema de Simpson é 3:
 $$\int_a^b f(x)dx \approx \left[f(a)+4f\left(\frac{a+b}{2}\right)+f(b)\right]\frac{b-a}{6}=\sum_{j=1}^3w_jf(x_j)$$
 onde $w_1=w_3=\frac{b-a}{6}$,$w_2=4\frac{b-a}{6}$, $x_1=a$, $x_2=\frac{a+b}{2}$ e $x_3=b$
-$$
-\begin{array}{rcll}
-\displaystyle\sum_{j=1}^n w_j&=&(1+4+1)\frac{b-a}{6}=b-a ~~ &\left(k=0\right)\\
-\displaystyle\sum_{j=1}^n w_jx_j&=&(a+4\frac{a+b}{2}+b)\frac{b-a}{6}=(a+b)\frac{b-a}{2}=\frac{b^2-a^2}{2} ~~& \left(k=1\right)\\
-\displaystyle\sum_{j=1}^n w_jx_j^2&=&(a^2+4\left(\frac{a+b}{2}\right)^2+b^2)\frac{b-a}{6}=(3a^2+4ab+3b^2)\frac{b-a}{2}=\frac{b^3-a^3}{3} ~~& \left(k=2\right)\\
-\displaystyle\sum_{j=1}^n w_jx_j^3&=&(a^3+4\left(\frac{a+b}{2}\right)^3+b^3)\frac{b-a}{6}= \frac{b^4-a^4}{4} ~~& \left(k=3\right)\\
-\displaystyle\sum_{j=1}^n w_jx_j^4&=&(a^4+4\left(\frac{a+b}{2}\right)^4+b^4)\frac{b-a}{6}\neq \frac{b^5-a^5}{4} ~~& \left(k=4\right)
-\end{array}
-$$
+\begin{align*}
+  &(k=0):\quad\sum_{j=1}^n w_j = (1+4+1)\frac{b-a}{6}=b-a\\
+  &(k=1):\quad\sum_{j=1}^n w_jx_j = (a+4\frac{a+b}{2}+b)\frac{b-a}{6} = (a+b)\frac{b-a}{2} = \frac{b^2-a^2}{2}\\
+  &(k=2):\quad\sum_{j=1}^n w_jx_j^2 = (a^2+4\left(\frac{a+b}{2}\right)^2+b^2)\frac{b-a}{6} = \frac{b^3-a^3}{3}\\
+  &(k=3):\quad\sum_{j=1}^n w_jx_j^3 = (a^3+4\left(\frac{a+b}{2}\right)^3+b^3)\frac{b-a}{6}= \frac{b^4-a^4}{4}\\
+  &(k=4):\quad\sum_{j=1}^n w_jx_j^4 = (a^4+4\left(\frac{a+b}{2}\right)^4+b^4)\frac{b-a}{6}\neq \frac{b^5-a^5}{4}
+\end{align*}
 \end{ex}
 
 \begin{prob} 
@@ -940,24 +986,26 @@ Esse esquema de ordem de precisão três e dois pontos chama-se quadratura de Gaus
 $$\int_{-1}^1 f(x)dx = f\left(\frac{\sqrt{3}}{3}\right)+f\left(-\frac{\sqrt{3}}{3}\right)$$
 
 \begin{ex} Comparação
+  \begin{small}
 $$\begin{array}{|c|c|c|c|c|}
 \hline
 f(x)&\hbox{Exato}&\hbox{Trapézio} &\hbox{Simpson} & \hbox{Gauss-Legendre (2)}\\
 \hline
 &&&&\\
-\displaystyle e^{x}&\displaystyle e-e^{-1}\approx 2,3504024  & \displaystyle \begin{array}{l}e^{-1}+e \\ \quad\approx 3,0861613 \end{array}& \begin{array}{l}\displaystyle \frac{e^{-1}+4e^{0}+e^{1}}{3}\\ \qquad \approx  2,3620538\end{array} & \begin{array}{l}\displaystyle e^{-\frac{-\sqrt{3}}{3}}+e^{\frac{\sqrt{3}}{3}}\\\qquad\approx   2,3426961\end{array}\\
+\displaystyle e^{x}&\displaystyle \begin{array}{l}e-e^{-1}\\~\approx 2,35040\end{array}  & \displaystyle \begin{array}{l}e^{-1}+e \\ ~\approx 3,08616 \end{array}& \begin{array}{l}\displaystyle \frac{e^{-1}+4e^{0}+e^{1}}{3}\\ ~\approx  2,36205\end{array} & \begin{array}{l}\displaystyle e^{-\frac{-\sqrt{3}}{3}}+e^{\frac{\sqrt{3}}{3}}\\ ~\approx   2,34270\end{array}\\
 &&&&\\
  \hline
 &&&&\\
-\displaystyle x^2\sqrt{3+x^3}& \frac{16}{9}-\frac{4}{9}\sqrt{2}\approx 1,1492384 & 3,4142136  & 1,1380712 & 1,1541058\\
+\displaystyle x^2\sqrt{3+x^3}& \begin{array}{l}\frac{16}{9}-\frac{4}{9}\sqrt{2}\\~\approx 1,14924\end{array} & 3,41421  & 1,13807 & 1,15411\\
 &&&&\\
  \hline
 &&&&\\
-  \displaystyle x^2e^{x^3}&\frac{e-e^{-1}}{3}\approx 0,7834675 & 3,0861613     & 1,0287204  & 0,6790505\\
+  \displaystyle x^2e^{x^3}&\frac{e-e^{-1}}{3}\approx 0,78347 & 3,08616     & 1,02872  & 0,67905\\
 &&&&\\
  \hline
     \end{array}
-$$
+$$    
+  \end{small}
 \end{ex}
 
 \subsection{Quadratura de Gauss-Legendre}
@@ -1027,321 +1075,8 @@ $$\int_{0}^1\sqrt{1+x^2}dx=\frac{1}{2}\int_{-1}^1\sqrt{1+\left(\frac{u+1}{2}\rig
 deff('y=f(u)','y=sqrt(1+(u+1)^2/4)/2')
 I3=f(0)*w3(1)+f(x3(2))*w3(2)+f(-x3(2))*w3(2)
 I4=f(x4(1))*w4(1)+f(-x4(1))*w4(1)+f(x4(2))*w4(2)+f(-x4(2))*w4(2)
-I5=f(0)*w5(1)+f(x5(2))*w5(2)+f(-x5(2))*w5(2)+f(x5(3))*w5(3)+f(-x5(3))*w5(3)
+I5=f(0)*w5(1)+f(x5(2))*w5(2)+f(-x5(2))*w5(2)+f(x5(3))*w5(3) ...
+  +f(-x5(3))*w5(3)
 \end{verbatim}
-
-% \section{Soluções Numéricas para problemas de valor inicial}
-% Muitos problemas de valor inicial da forma
-% \begin{eqnarray*}
-% y'(t)&=&f(y(t),t)\\
-% y(t_0)&=&y_0 ~~ \hbox{condição inicial}
-% \end{eqnarray*}
-% não podem ser resolvidos exatamente, ou seja, sabe-se que a solução existe e é única, porém não podemos expressá-la em termos de funções elementares. Por isso é necessário calcular soluções numéricas. Nesse propósito, construímos uma malha de pontos no eixo $t$, $\{t_i\}_{i=1}^N$ e calculamos o valor aproximado da função solução $y(t_i)$ em cada ponto da malha usando esquemas numéricos.
-
-
-% \subsection{Método de Euler}
-% Seja o problema de valor inicial
-
-% \begin{eqnarray*}
-% y'(t)&=&f(y(t),t)\\
-% y(0)&=&y_0 ~~ \hbox{condição inicial}
-% \end{eqnarray*}
-
-% Aproximamos a derivada $y'(t)$ por um esquema de primeira ordem do tipo
-% $$y'(t)=\frac{y(t+h)-y(t)}{h}+O(h),~~ h>0$$
-% assim temos
-% \begin{eqnarray*}
-% \frac{y(t+h)-y(t)}{h}&=&f(y(t),t)+O(h)\\
-% y(t+h)&=&y(t)+hf(y(t),t)+O(h^2)
-% \end{eqnarray*}
-
-% Definindo $y^{(k)}$ como uma aproximação para $y\left((k-1)h\right)$ e $t^{(k)}=(k-1)h$, temos
-% \begin{eqnarray*}
-% y^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)})\\
-% y^{(1)}&=&y_0~~ \hbox{condição inicial}
-% \end{eqnarray*}
-
-% \begin{ex} Considere o problema de valor inicial:
-% \begin{eqnarray*}
-% y'(t)&=&2y(t)\\
-% y(0)&=&1
-% \end{eqnarray*}
-% \end{ex}
-% Sabemos da teoria elementar de equação diferenciais ordinárias, que a solução exata deste problema é única e é dada por
-% $$y(t)=e^{2t}.$$
-
-% O método de Euler aplicada a este problema produz o seguinte esquema:
-% \begin{eqnarray*}
-% y^{(k+1)}&=&y^{(k)}+2hy^{(k)}=(1+2h)y^{(k)}\\
-% y^{(1)}&=&1,
-% \end{eqnarray*}
-% cuja solução é dada por
-% $$y^{(k)}=(1+2h)^{k-1}.$$
-% Como $t=(k-1)h$, a solução aproximada é
-% $$y(t)\approx \tilde{y}(t)= (1+2h)^{\frac{t}{h}}.$$
-% Fica óbvio que se $h\to 0$, então
-% $$\tilde{y}(t)\to e^{2t}.$$
-
-
-
-% \begin{ex}{\label{ex_euler_1}} Considere o problema de valor inicial:
-% \begin{eqnarray*}
-% y'(t)&=&y(t)(1-y(t))\\
-% y(0)&=&1/2
-% \end{eqnarray*}
-% \end{ex}
-% É fácil encontrar a solução exata desta equação pois
-
-% \begin{eqnarray*}
-% \frac{dy(t)}{y(t)(1-y(t))}&=&dt\\
-% \left(\frac{1}{y}+\frac{1}{1-y}\right)dy&=&dt\\
-% \ln(y)-\ln(1-y)&=&t+C\\
-% \ln\left(\frac{y}{1-y}\right)&=&t+C\\
-% \frac{y}{1-y}&=&e^{t+C}\\
-% y&=&e^{t+C}(1-y)\\
-% y(1+e^{t+C})&=&e^{t+C}\\
-% y&=&\frac{e^{t+C}}{1+e^{t+C}}
-% \end{eqnarray*}
-% ainda $y(0)=\frac{e^C}{1+e^C}=1/2$, temos $e^C=1$ e, portanto,  $C=0$.
-
-% Assim, a solução exata é dada por $y=\frac{e^t}{1+e^{t}}$
-
-% O método de Euler produz o seguinte esquema iterativo:
-% \begin{eqnarray*}
-% y^{(k+1)}&=&y^{(k)}+h y^{(k)}(1-y^{(k)})\\
-% y^{(1)}&=&1/2
-% \end{eqnarray*}
-% Comparação
-% $$\begin{array}{|c|c|c|c|}
-% \hline
-% t &  \hbox{Exato} & \hbox{Euler}~~ h=.1 & \hbox{Euler}~~ h=.01\\
-% \hline
-% &&&\\
-% 0 &  1/2 & .5 & .5\\
-% &&&\\
-% \hline
-% &&&\\
-% 1/2 &   \frac{e^{1/2}}{1+e^{1/2}}\approx 0.6224593 & 0.6231476 & 0.6225316\\
-% &&&\\
-% \hline
-% &&&\\
-% 1 &   \frac{e}{1+e}\approx 0.7310586 & 0.7334030 & 0.7312946\\
-% &&&\\
-% \hline
-% &&&\\
-% 2 &   \frac{e^2}{1+e^2}\approx  0.8807971 & 0.8854273  & 0.8812533 \\
-% &&&\\
-% \hline
-% &&&\\
-% 3 &   \frac{e^3}{1+e^3}\approx   0.9525741   & 0.9564754   & 0.9529609 \\
-% &&&\\
-% \hline
-% \end{array}
-% $$
-
-% \begin{ex} Resolva o problema de valor inicial
-% \begin{eqnarray*}
-% y'&=&-y+t\\
-% y(0)&=&1,
-% \end{eqnarray*}
-% cuja solução exata é $y(t)=2e^{-t}+t-1$.
-% \end{ex}
-% O esquema recursivo de Euler fica:
-% \begin{eqnarray*}
-% y^{(k+1)}&=&y({k})- hy({k})+ht^{(k)}\\
-% y(0)&=&1
-% \end{eqnarray*}
-
-% Comparação
-% $$\begin{array}{|c|c|c|c|}
-% \hline
-% t &  \hbox{Exato} & \hbox{Euler}~~ h=.1 & \hbox{Euler}~~ h=.01\\
-% \hline
-% &&&\\
-% 0 &  1 & 1 & 1\\
-% &&&\\
-% \hline
-% &&&\\
-% 1 &   2e^{-1}\approx 0.7357589 & 0.6973569   &   0.7320647  \\
-% &&&\\
-% \hline
-% &&&\\
-% 2 &   2e^{-2}+1\approx  1.2706706 &  1.2431533    &   1.2679593     \\
-% &&&\\
-% \hline
-% &&&\\
-% 3 &   2e^{-3}+2\approx 2.0995741  &  2.0847823 & 2.0980818   \\
-% &&&\\
-% \hline
-% \end{array}
-% $$
-
-% \newpage
-% \begin{ex} Resolva o seguinte sistema de equações diferenciais:
-% \begin{eqnarray*}
-% x'&=&-y\\
-% y'&=&x\\
-% x(0)&=&1\\
-% y(0)&=&0,\\
-% \end{eqnarray*}
-% cuja solução exata é $x(t)=\cos(t)$ e $y(t)=\sin(t)$.
-% \end{ex}
-% Escreva $$z(t)=\left[\begin{array}{c}x(t)\\y(t)\end{array}\right]$$  e temos
-% \begin{eqnarray*}
-% \left[\begin{array}{c}x^{(k+1)}\\y^{(k+1)}\end{array}\right]=\left[\begin{array}{c}x^{(k)}\\y^{(k)}\end{array}\right]+h\left[\begin{array}{c}-y^{(k)}\\x^{(k)}\end{array}\right]
-% \end{eqnarray*}
-
-% Equivalente a
-% \begin{eqnarray*}
-% x^{(k+1)}&=&x^{(k)}-hy^{(k)}\\
-% y^{(k+1)}&=&y^{(k)}+hx^{(k)}\\
-% \end{eqnarray*}
-
-% \begin{ex} Resolva o problema de valor inicial de segunda ordem dado por
-% \begin{eqnarray*}
-% y''+y'+y&=&\cos(t)\\
-% y(0)&=&1\\
-% y'(0)&=&0
-% \end{eqnarray*}
-% e compare com a solução exata para $h=0.1$ e $h=0.01$.
-% \end{ex}
-% Procedemos com a substituição $w=y'$, de forma que obtermos o sistema:
-% \begin{eqnarray*}
-% y'&=&w\\
-% w'&=&-w-y+\cos(t)\\
-% y(0)&=&1\\
-% w(0)&=&0
-% \end{eqnarray*}
-
-% \begin{eqnarray*}
-% y^{(k+1)}&=&y^{(k)}+hw^{(k)}\\
-% w^{(k+1)}&=&w^{(k)}-hw^{(k)}-hy^{(k)}+h\cos(t^{(k)})\\
-% y^{(1)}&=&1\\
-% w^{(1)}&=&0
-% \end{eqnarray*}
-
-% \subsection{Método de Euler melhorado}
-% No método de Euler, usamos a seguinte iteração:
-% \begin{eqnarray*}
-% y^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)})\\
-% y^{(1)}&=&y_i~~ \hbox{condição inicial}
-% \end{eqnarray*}
-% A ideia do método de Euler melhorado é substituir a declividade  $f(y^{(k)},t^{(k)})$ pela média aritmética entre $f(y^{(k)},t^{(k)})$ e $f(y^{(k+1)},t^{(k+1)})$.
-
-% No entanto, não dispomos do valor de $y^{(k+1)}$ pelo que aproximamos por
-% $$\tilde{y}^{(k+1)}=y^{(k)}+hf(y^{(k)},t^{(k)}).$$
-
-% \begin{eqnarray*}
-% \tilde{y}^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)})\\
-% y^{(k+1)}&=&y^{(k)}+\frac{h}{2}\left[f(y^{(k)},t^{(k)})+f(\tilde{y}^{(k+1)},t^{(k+1)})\right]\\
-% y^{(1)}&=&y_i~~ \hbox{condição inicial}
-% \end{eqnarray*}
-
-% \begin{prob}
-% Refaça o exemplo \ref{ex_euler_1} via método de Euler melhorado.
-% \end{prob}
-
-% \subsection{Ordem de precisão}
-% Considere o problema de valor inicial dado por
-% \begin{eqnarray*}
-% y'(t)&=&f(y(t),t)\\
-% y(0)&=&y_i
-% \end{eqnarray*}
-
-% No método de Euler, aproximamos a derivada $y'(t)$ por um esquema de primeira ordem do tipo
-% $$y'(t)=\frac{y(t+h)-y(t)}{h}+O(h),~~ h>0$$
-% de forma que tínhamos
-% \begin{eqnarray*}
-% y(t+h)&=&y(t)+hf(y(t),t)+O(h^2)
-% \end{eqnarray*}
-% Se fixarmos um instante de tempo $t=Nh$, temos:
-% \begin{eqnarray*}
-% y(t)&=&\left[y(0)+hf(y(0),0)+O(h^2)\right]+\left[y(h)+hf(y(h),h)+O(h^2)\right]\\
-% &+&\ldots \left[y(t-h)+hf(y(t-h),t-h)+O(h^2)\right]\\
-% &=&y^{k}+\sum_{j=0}^{N-1}O(h^2)=y^{k}+O(h)
-% \end{eqnarray*}
-% Por isso, o método de Euler é dito ter ordem global de precisão $h$.
-
-% \section{Métodos de Runge-Kutta}
-% Os métodos de Runge-Kutta consistem em métodos do tipo:
-% $$y^{(k+1)}=y^{(k)}+w_1 k_1 + \ldots + w_n k_n$$
-% onde
-% \begin{eqnarray*}
-% k_1&=&hf(y^{(k)},t^{(k)})\\
-% k_2&=&hf(y^{(k)}+\alpha_{2,1}k_1,t^{(k)}+\beta_{2}h)\\
-% k_3&=&hf(y^{(k)}+\alpha_{3,1}k_1+\alpha_{3,2}k_2,t^{(k)}+\beta_{3}h)\\
-% &\vdots&\\
-% k_n&=&hf(y^{(k)}+\alpha_{n,1}k_1+\alpha_{n,2}k_2+\ldots \alpha_{n,n-1}k_{n-1},t^{(k)}+\beta_{n}h)\\
-% \end{eqnarray*}
-
-% Os coeficientes são escolhidos de forma que a expansão em Taylor de $y^{(k+1)}$ e $y^{(k)}+w_1 k_1 + \ldots + w_n k_n$ coincidam até ordem $n+1$.
-
-% \begin{ex} O método de Euler melhorado é um exemplo de Runge-Kutta de segunda ordem
-% $$y^{(n+1)}=y^{(n)}+\frac{k_1+k_2}{2}$$
-% onde $k_1=hf(y^{(n)},t^{(n)})$ e $k_2=hf(y^{(n)}+k_1,t^{(n)}+h)$
-% \end{ex}
-% \subsection{Métodos de Runge-Kutta - Quarta ordem}
-% $$y^{(n+1)}=y^{(n)}+\frac{k_1+2k_2+2k_3+k_4}{6}$$
-% onde
-% \begin{eqnarray*}
-% k_1&=&hf(y^{(n)},t^{(n)})\\
-% k_2&=&hf(y^{(n)}+k_1/2,t^{(n)}+h/2)\\
-% k_3&=&hf(y^{(n)}+k_2/2,t^{(n)}+h/2)\\
-% k_4&=&hf(y^{(n)}+k_3,t^{(n)}+h)\\
-% \end{eqnarray*}
-% Este método tem ordem de truncamento local de quarta ordem. Uma discussão heurística usando método de Simpson pode ajudar a compreender os estranhos coeficientes:
-
-% \begin{eqnarray*}
-% y({t^{(n+1)}})-y({t^{(n)}})&=&\int_{t^{(n)}}^{t^{(n+1)}}f(y(s),s)ds \\&\approx& \frac{h}{6}\left[ f\left(y(t^{(n)}),t^{(n)}\right)+4f\left(y(t^{(n)}+h/2),t^{(n)}+h/2\right)+f\left(y(t^{(n)}+h),t^{(n)}+h\right)\right]\\
-% &\approx& \frac{k_1+4(\frac{k_2+k_3}{2})+k_4}{6}
-% \end{eqnarray*}
-% onde $k_1$ e $k_4$ representam as inclinações nos extremos e $k_2$ e $k_3$ são duas aproximações diferentes para a inclinação no meio do intervalo.
-
-
-% \section{Métodos de passo múltiplo - Adams-Bashforth}
-
-% O método de Adams-Bashforth consiste de um esquema recursivo do tipo:
-% $$y^{(n+1)}=y^{(n)}+\sum_{j=0}^k w_jf(y^{(n-j)},t^{(n-j)})$$
-
-% \begin{ex} Adams-Bashforth de segunda ordem
-% $$y^{(n+1)}=y^{(n)}+\frac{h}{2}\left[3f\left(y^{(n)},t^{(n)}\right)-f\left(y^{(n-1)},t^{(n-1)}\right)\right]$$
-% \end{ex}
-% \begin{ex} Adams-Bashforth de terceira ordem
-% $$y^{(n+1)}=y^{(n)}+\frac{h}{12}\left[23f\left(y^{(n)},t^{(n)}\right)-16f\left(y^{(n-1)},t^{(n-1)}\right)+5f\left(y^{(n-2)},t^{(n-2)}\right)\right]$$
-% \end{ex}
-% \begin{ex} Adams-Bashforth de quarta ordem
-% $$y^{(n+1)}=y^{(n)}+\frac{h}{24}\left[55f\left(y^{(n)},t^{(n)}\right)-59f\left(y^{(n-1)},t^{(n-1)}\right)+37f\left(y^{(n-2)},t^{(n-2)}\right)-9f\left(y^{(n-3)},t^{(n-3)}\right)\right]$$
-% \end{ex}
-% Os métodos de passo múltiplo evitam os múltiplos estágios do métodos de Runge-Kutta, mas exigem ser "iniciados" com suas condições iniciais.
-% \newpage
-% \section{Métodos de passo múltiplo - Adams-Moulton}
-% O método de Adams-Moulton consiste de um esquema recursivo do tipo:
-% $$y^{(n+1)}=y^{(n)}+\sum_{j=-1}^k w_jf(y^{(n-j)},t^{(n-j)})$$
-
-% \begin{ex} Adams-Moulton de quarta ordem
-% $$y^{(n+1)}=y^{(n)}+\frac{h}{24}\left[9f\left(y^{(n+1)},t^{(n+1)}\right)+ 19f\left(y^{(n)},t^{(n)}\right)-5f\left(y^{(n-1)},t^{(n-1)}\right)+f\left(y^{(n-2)},t^{(n-2)}\right)\right]$$
-% \end{ex}
-% O método de Adams-Moulton é implícito, ou seja, exige que a cada passo, uma equação em $y^{(n+1)}$ seja resolvida.
-
-% \section{Estabilidade}
-% Consideremos o seguinte problema de teste:
-% $$\left\{\begin{array}{rcl}y'&=&-\alpha y\\y(0)&=&1\end{array}\right.$$
-% cuja solução exata é dada por $y(t)=e^{-\alpha t}$.
-
-% Considere agora o método de Euler aplicado a este problema com passa $h$:
-% $$\left\{\begin{array}{rcl}y^{(k+1)}&=&y^{(k)}-\alpha h y^{(k)}\\y^{(1)}&=&1\end{array}\right.$$
-% A solução exata do esquema de Euler é dada por
-% $$y^{(k+1)}=(1-\alpha h)^{k}$$
-% e, portanto,
-% $$\tilde{y}(t)=y^{(k+1)}=(1-\alpha h)^{t/h}$$
-
-% Fixamos um $\alpha>0$, de forma que $y(t)\to 0$. Mas observamos que $\tilde{y}(t)\to 0$ somente quando $|1-\alpha h|<1$ e solução positivas somente quando $\alpha h<1$.
-
-% {\bf Conclusão:} Se o passo $h$ for muito grande, o método pode se tornar instável, produzindo solução espúrias.
-
-% \begin{prob} Resolva o problema 1 pelos diversos métodos e verifique heuristicamente a estabilidade para diversos valores de $h$.
-% \end{prob}
-%\bibliographystyle{acm}
-%\bibliography{bib}
 
 \end{document} 
