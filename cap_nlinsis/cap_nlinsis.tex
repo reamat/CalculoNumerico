@@ -6,7 +6,10 @@
 
 O método de Newton aplicado a encontrar a raiz $x^*$ da função $y=f(x)$ estudado na primeira área de nossa disciplina consiste em um processo iterativo. Em cada passo deste processo, dispomos de uma aproximação $x^{(k)}$ para $x^*$ e construímos uma aproximação $x^{(k+1)}$.  Cada passo do método de Newton envolve os seguintes procedimentos:
 \begin{itemize}
-\item Linearização da função $f(x)$ no ponto $x^{(k)}$: $f(x)= f(x^{(k)})+ (x-x^{(k)}) f'(x^{(k)}) + O\left(|x-x^{(k)}|^2\right) $
+\item Linearização da função $f(x)$ no ponto $x^{(k)}$: 
+  \begin{equation*}
+f(x)= f(x^{(k)})+ (x-x^{(k)}) f'(x^{(k)}) + O\left(|x-x^{(k)}|^2\right)    
+  \end{equation*}
 \item A aproximação $x^{(k+1)}$ é definida como o valor de $x$ em que a linearização $f(x^{(k)})+ (x-x^{(k)}) f'(x^{(k)})$ passa por zero.
 \end{itemize}
 
@@ -104,7 +107,10 @@ Esta expressão é chama de linearização de $F(x)$ no ponto $x^{(0)}$ e generaliza
 Vamos agora construir o método de Newton-Raphson, ou seja, o método de Newton generalizado para sistemas. Assumimos, portanto, que a função $F(x)$ é diferenciável e que existe um ponto $x^*$ tal que $F(x^*)=0$. Seja $x^{(k)}$ uma aproximação para $x^*$, queremos construir uma nova aproximação $x^{(k+1)}$ através da linearização de $F(x)$ no ponto $x^{(k)}$.
 
 \begin{itemize}
-\item Linearização da função $F(x)$ no ponto $x^{(k)}$: $F(x)= F(x^{(k)})+ J_F\left(x^{(k)}\right) \left(x-x^{(k)}\right)  + O\left(\|x-x^{(k)}\|^2\right) $
+\item Linearização da função $F(x)$ no ponto $x^{(k)}$: 
+  \begin{equation*}
+F(x)= F(x^{(k)})+ J_F\left(x^{(k)}\right) \left(x-x^{(k)}\right)  + O\left(\|x-x^{(k)}\|^2\right)    
+  \end{equation*}
 \item A aproximação $x^{(k)}$ é definida como o ponto $x$ em que a linearização $F(x^{(k)})+ J_F\left(x^{(k)}\right) \left(x-x^{(k)}\right)$ é nula, ou seja:
 $$F(x^{(k)})+ J_F\left(x^{(k)}\right) \left(x^{(k+1)}-x^{(k)}\right)=0$$
 \end{itemize}
@@ -116,15 +122,13 @@ x^{(k+1)}-x^{(k)}&=&-J_F^{-1}\left(x^{(k)}\right)F(x^{(k)})\\
 x^{(k+1)}&=&x^{(k)}-J_F^{-1}\left(x^{(k)}\right)F(x^{(k)})
 \end{eqnarray*}
 
-Desta forma, o método iterativo de Newton-Raphson para encontrar as raízes de $F(x)=0$ é dado por
-$$
-\left\{
-\begin{array}{rcl}
-x^{(k+1)}&=&x^{(k)}-J_F^{-1}\left(x^{(k)}\right)F(x^{(k)}),~~ n\geq 0\\
-~\\
+Desta forma, o método iterativo de Newton-Raphson para encontrar as raízes de $F(x)=0$ é dado por:
+\begin{equation*}
+\left\{\begin{array}{rcl}
+x^{(k+1)} &=& x^{(k)}-J_F^{-1}\left(x^{(k)}\right)F(x^{(k)}),~~ n\geq 0\\
 x^{(0)}&=&\hbox{dado inicial}
-\end{array}
-\right.$$
+\end{array}\right.  
+\end{equation*}
 
 \begin{obs} Usamos subíndices para indicar o elemento de um vetor e super-índices para indicar o passo da iteração. Assim $x^{(k)}$ se refere à iteração $k$ e $x_i^{(k)}$ se refere à componente $i$ no vetor $x^{(k)}$.
 \end{obs}
@@ -143,20 +147,21 @@ Em geral, é menos custoso resolver o sistema acima do que calcular o inverso da 
 x_1^2+\frac{x_2^2}{4}&=&1
 \end{eqnarray*}
 Para tal, definimos a função $F(x)$:
-$$F(x)=\left[
+\begin{equation*}
+  F(x)=\left[
 \begin{array}{c}
-\frac{x_1^2}{3}+x_2^2-1\\~\\
-x_1^2+\frac{x_2^2}{4}-1
-\end{array}
-\right]$$
-cuja jacobiana é
-$$J_F=\left[
-\begin{array}{cc}
-\frac{2x_1}{3} & 2x_2\\~\\
-2x_1&\frac{x_2}{2}
+\displaystyle \frac{x_1^2}{3}+x_2^2-1\\
+\displaystyle x_1^2+\frac{x_2^2}{4}-1
 \end{array}
 \right]
-$$
+\end{equation*}
+cuja jacobiana é:
+\begin{equation*}
+  J_F=\left[\begin{array}{cc}
+      \displaystyle \frac{2x_1}{3} & 2x_2\\
+      \displaystyle 2x_1&\frac{x_2}{2}
+    \end{array}\right]
+\end{equation*}
 
 Faremos a implementação numérica no Scilab. Para tal definimos as funções que implementarão $F(x)$ e a $J_F(x)$
 \begin{verbatim}
@@ -191,7 +196,7 @@ Ou simplesmente
 \begin{verbatim}
 x=x-JF(x)\F(x)
 \end{verbatim}
-Observe que as soluções exatas desse sistema são $\left(\pm \sqrt{\frac{9}{11}},\pm \sqrt{\frac{8}{11}}\right)$
+Observe que as soluções exatas desse sistema são $\left(\pm \sqrt{\frac{9}{11}},\pm \sqrt{\frac{8}{11}}\right)$.
 \end{ex}
 
 
@@ -200,36 +205,36 @@ Observe que as soluções exatas desse sistema são $\left(\pm \sqrt{\frac{9}{11}},
 x_1^2=\cos(x_1x_2)+1\\
 \sin(x_2)=2\cos(x_1)
 \end{eqnarray*}
-que fica próxima ao ponto $x_1=1.5$ e $x_2=.5$.
-{\bf Resp:} (1,3468109,~0,4603195)
+que fica próxima ao ponto $x_1=1.5$ e $x_2=.5$.\\
+{\bf Resp:} $(1,3468109,~0,4603195)$.
 \end{prob}
-
-
-{\bf Solução:}
-Definimos a função $F(x)$ como
-$$F(x)=\left[
-\begin{array}{c}
-x_1^2-\cos(x_1x_2)-1\\~\\
-\sin(x_2)-2\cos(x_1)
-\end{array}
-\right]$$
-cuja jacobiana é
-$$J_F(x)=\left[
-\begin{array}{cc}
-2x_1 +x_2\sin(x_1x_2)&x_1\sin(x_1x_2)\\~\\
-2\sin(x_1) & \cos(x_2)
-\end{array}
-\right]
-$$
-
-Implementamos no Scilab como
+\begin{sol} Vamos, aqui, dar as principais ideias para se obter a solução. Cmaçamos definindo a função $F(x)$ por:
+  \begin{equation*}
+    F(x)=\left[\begin{array}{c}
+        \displaystyle x_1^2-\cos(x_1x_2)-1\\
+        \displaystyle \sin(x_2)-2\cos(x_1)
+      \end{array}\right]  
+  \end{equation*}
+cuja jacobiana é:
+\begin{equation*}
+  J_F(x) = \left[\begin{array}{cc}
+    \displaystyle 2x_1 +x_2\sin(x_1x_2) & x_1\sin(x_1x_2)\\
+    \displaystyle 2\sin(x_1) & \cos(x_2)
+  \end{array}\right]
+\end{equation*}
+No Scilab, podemos implementá-las com o seguinte código:
 \begin{verbatim}
 function y=F(x)
-    y=[x(1)^2-cos(x(1)*x(2))-1 ; sin(x(2))-2*cos(x(1))]
+    y(1) = x(1)^2-cos(x(1)*x(2))-1
+    y(2) = sin(x(2))-2*cos(x(1))
 endfunction
 
 function y=JF(x)
-    y=[2*x(1)+x(2)*sin(x(1)*x(2)) x(1)*sin(x(1)*x(2));2*sin(x(1)) cos(x(2))]
+    y(1,1) = 2*x(1)+x(2)*sin(x(1)*x(2)) 
+    y(1,2) = x(1)*sin(x(1)*x(2))
+
+    y(2,1) = 2*sin(x(1)) 
+    y(2,2) = cos(x(2))
 endfunction
 \end{verbatim}
 
@@ -237,7 +242,8 @@ E agora, basta iterar:
 \begin{verbatim}
 x=[1.5; .5]
 x=x-JF(x)\F(x) (5 vezes)
-\end{verbatim}
+\end{verbatim}  
+\end{sol}
 
 \begin{prob} Encontre uma aproximação numérica para o seguinte problema não-linear de três equações e três incógnitas:
 \begin{eqnarray*}
@@ -253,29 +259,12 @@ Partindo das seguintes aproximações iniciais:
 \item[d)] $x^{(0)}=[0,~0,~0]^T$
 \end{itemize}
 \end{prob}
-{\bf Implementação no scilab:}
-\begin{verbatim}
-function y=F(x)
-y=[
-   2*x(1)-x(2)-cos(x(1)) ;
-   -x(1)+2*x(2)-x(3)-cos(x(2));
-   -x(2)+x(3)-cos(x(3))]
-endfunction
-
-function y=JF(x)
-y=[
-   2+sin(x(1)) -1 0;
-   -1 2+sin(x(2)) -1;
-   0 -1 1+sin(x(3))]
-
-endfunction
-\end{verbatim}
 
 \subsection{Algoritmo de Newton para Sistemas}
 
 \verbatiminput{./cap_nlinsis/codes/metodo_de_newton/newton.sci}
 
-\section{Linearização de uma função de várias variáveis, o gradiente e a Jacobiana*}
+\section{Linearização de uma função de várias variáveis, o gradiente e a Jacobiana}
 \subsection{O gradiente}
 
 Considere primeiramente uma função $f:\mathbb{R}^n\to \mathbb{R}$, ou seja, uma função que mapeia n variáveis reais em um único real, por exemplo:
@@ -309,22 +298,22 @@ Assim:
 \begin{eqnarray*}
 \frac{d}{dh}f(x^{(0)}+hv)= \sum_{j=1}^n \frac{\partial f}{\partial x_j}v_j
 \end{eqnarray*}
-Observamos que esta expressão pode ser vista como o produto interno entre o gradiente de $f$ e o vetor v:
+Observamos que esta expressão pode ser vista como o produto interno entre o gradiente de $f$ e o vetor $v$:
 \begin{eqnarray*}
 \nabla f = \left[
-\begin{array}{c}
-\frac{\partial f}{\partial x_1} \\~\\
-\frac{\partial f}{\partial x_2} \\~\\
-\vdots\\~\\
+\begin{matrix}
+\frac{\partial f}{\partial x_1} \\
+\frac{\partial f}{\partial x_2} \\
+\vdots\\
 \frac{\partial f}{\partial x_n}
-\end{array}
-\right]~~~v=\left[
-\begin{array}{c}
-v_1\\~~\\
-v_2\\~~\\
-\vdots\\~\\
+\end{matrix}
+\right] \qquad v=\left[
+\begin{matrix}
+v_1\\
+v_2\\
+\vdots\\
 v_n
-\end{array}
+\end{matrix}
 \right]
 \end{eqnarray*}
 
@@ -344,14 +333,14 @@ $$\nabla^T f(x^{(0)})=\left[\frac{\partial f\left(x^{(0)}\right)}{\partial x_1},
 
 \subsection{A matriz jacobiana}
 Interessamo-nos, agora, pela linearização da função $F:\mathbb{R}^n\to \mathbb{R}^n$. Lembramos que $F(x)$ pode ser escrita como um vetor de funções $f_j:\mathbb{R^n}\to\mathbb{R}$:
-$$F(x)=\left[
-\begin{array}{c}
-f_1(x)\\~\\
-f_2(x)\\~\\
-\vdots\\~\\
-f_n(x)
-\end{array}
-\right]$$
+\begin{equation*}
+  F(x)=\left[\begin{matrix}
+      f_1(x)\\
+      f_2(x)\\
+      \vdots\\
+      f_n(x)
+    \end{matrix}\right]
+\end{equation*}
 Linearizando cada uma das funções $f_j$, temos:
 \begin{eqnarray*}
 F(x)&=&\underbrace{\left[
@@ -361,11 +350,11 @@ f_2\left(x^{(0)}\right)+\nabla^T\! f_2(x^{(0)})\!~\left(x-x^{(0)}\right)   + O(\
 \vdots\\~\\
 f_n\left(x^{(0)}\right)+\nabla^T\! f_n(x^{(0)})\!~\left(x-x^{(0)}\right)   + O(\|x-x^{(0)}\|^2)
 \end{array}
-\right]}_{\hbox{Vetor coluna}}\\
-&~&\\
-&~&\\
-&~&\\
-&=&\underbrace{\left[
+\right]}_{\hbox{Vetor coluna}}
+\end{eqnarray*}
+ou, equivalentemente:
+\begin{eqnarray*}
+ F(x) &=&\underbrace{\left[
 \begin{array}{c}
 f_1\left(x^{(0)}\right)\\~\\
 f_2\left(x^{(0)}\right)\\~\\
