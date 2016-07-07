@@ -533,7 +533,11 @@ e itere algumas vezes a linha de comando:
 \end{verbatim}
 \end{ex}
 
-Existem várias formas de aproximar um número em ponto flutuante $\pm 0,d_{1}d_{2}d_{3}\ldots d_{k-1}d_kd_{k+1}\ldots d_n 10^e$ usando $k$ dígitos significativos. As duas principais são as seguintes:
+Existem várias formas de aproximar um número em ponto flutuante da forma:
+\begin{equation*}
+  \pm 0,d_{1}d_{2}d_{3}\ldots d_{k-1}d_kd_{k+1}\ldots d_n 10^e
+\end{equation*}
+usando $k$ dígitos significativos. As duas principais são as seguintes:
 \begin{enumerate}
 \item Por truncamento: aproximamos o número dado por:
 $$
@@ -550,12 +554,17 @@ $$
 $$
 \end{enumerate}
 
-\begin{ex} Represente os números $0,567$; $0,233$; $-0,6785$ e $\pi =0,314159265...\times 10^1$ com dois dígitos significativos por truncamento e arredondamento.
-
-Truncamento: $0,56$; $0,23$; $-0,67$ e $\pi =0,31\times 10^1=3,1$
-
-Arredondamento: $0,57$; $0,23$; $-0,68$ e $\pi =0,31\times 10^1=3,1$
+\begin{ex} Represente os números:
+  \begin{equation*}
+    0,\!567;\quad 0,\!233;\quad -0,\!6785 \quad\mbox{e}\quad \pi = 0,\!314159265 \ldots \times 10^1
+  \end{equation*}
+com dois dígitos significativos por truncamento e arredondamento.
 \end{ex}
+\begin{sol}
+Truncamento: $0,\!56$; $0,\!23$; $-0,\!67$ e $\pi =0,\!31\times 10^1 =3,\!1$
+
+Arredondamento: $0,\!57$; $0,\!23$; $-0,\!68$ e $\pi = 0,\!31\times 10^1 = 3,\!1$  
+\end{sol}
 
 \begin{obs}
   Observe que o arredondamento pode mudar todos os dígitos e o expoente da representação em ponto flutuante de um número dado.
@@ -596,9 +605,9 @@ $$
 \delta_f=|f(x_1,x_2,...,x_n)-f(\overline{x}_1, \overline{x}_2,...,\overline{x}_n)|\approx \sum_{i=1}^n\left|\frac{\partial f}{\partial x_i}(x_1, x_2,...,x_n)\right|\delta_{x_i}
 $$
 
-\begin{exersol}
+\begin{ex}
   Seja $f(x) = x\exp(x)$. Calcule o erro absoluto em se calcular $f(x)$ sabendo que $x = 2 \pm 0,05$.
-\end{exersol}
+\end{ex}
 \begin{sol}
   Temos que $x\approx 2$ com erro absoluto de $\delta_x = 0,05$. Neste caso, calculamos $\delta_f$, i.e. o erro absoluto em se calcular $f(x)$, por:
   \begin{equation*}
@@ -612,8 +621,8 @@ Como $f'(x) = (1 + x)e^{x}$, temos:
 Portanto, o erro absoluto em se calcular $f(x)$ quando $x=2\pm 0,05$ é de $1,084$.
 \end{sol}
 
-\begin{exersol} Calcule o erro relativo ao medir $f(x,y)=\frac{x^2+1}{x^2}e^{2y}$ sabendo que $x\approx 3$ é conhecido com $10\%$ de erro e $y\approx 2$ é conhecido com $3\%$ de erro.
-\end{exersol}
+\begin{ex} Calcule o erro relativo ao medir $f(x,y)=\frac{x^2+1}{x^2}e^{2y}$ sabendo que $x\approx 3$ é conhecido com $10\%$ de erro e $y\approx 2$ é conhecido com $3\%$ de erro.
+\end{ex}
 \begin{sol}
 Calculamos as derivadas parciais de $f$:
 $$
@@ -641,16 +650,16 @@ $$
 $$
 \end{sol}
 
-\begin{exersol} No exemplo anterior, reduza o erro relativo em $x$ pela metade e calcule o erro relativo em $f$. Depois, repita o processo reduzindo o erro relativo em $y$ pela metade.
-\end{exersol}
+\begin{ex} No exemplo anterior, reduza o erro relativo em $x$ pela metade e calcule o erro relativo em $f$. Depois, repita o processo reduzindo o erro relativo em $y$ pela metade.
+\end{ex}
 \begin{sol}
 Na primeira situação temos $x=3$ com erro relativo de $5\%$ e $\delta_x=0,05\cdot 3=0,15$. Calculamos $\delta_f=7,886399450$ e o erro relativo em $f$ de $13\%$. Na segunda situação, temos $y=2$ com erro de $1,5\%$ e $\delta_y=2\cdot 0,015=0,03$. Calculamos $\delta_f=4,853168892$ e o erro relativo em $f$ de $8\%$. Observe que mesma o erro relativo em $x$ sendo maior, o erro em $y$ é mais significante na função.
 \end{sol}
 
 
-\begin{exersol}
+\begin{ex}
 Considere um triângulo retângulo onde a hipotenusa e um dos catetos são conhecidos a menos de um erro: hipotenusa $a=3\pm 0,01$ metros e cateto $b=2\pm 0,01$ metros. Calcule o erro absoluto ao calcular a área dessa triângulo.
-\end{exersol}
+\end{ex}
 \begin{sol}
 Primeiro vamos encontrar a expressão para a área em função da hipotenusa $a$ e um cateto $b$. A tamanho de segundo cateto $c$ é dado pelo teorema de Pitágoras, $a^2=b^2+c^2$, ou seja, $c=\sqrt{a^2-b^2}$. Portanto a área é $$
 A=\frac{bc}{2}=\frac{b\sqrt{a^2-b^2}}{2}.
@@ -685,25 +694,29 @@ Calcule a corrente e o erro relativo associado quando a tensão vale $220\pm 1\%$
 Operações aritméticas entre números com representação finita pode fazer com que o resultado seja dominado pelos erros de arredondamento. Em geral, esse efeito, denominado cancelamento catastrófico, acontece quando fazemos a diferença de números muito próximos entre si.
 
 \begin{ex}Efetue a operação
-$$
-0,987624687925-0,987624=0,687925\times 10^{-6}
-$$
+  \begin{equation*}
+    0,987624687925-0,987624=0,687925\times 10^{-6}    
+  \end{equation*}
 usando arredondamento com seis dígitos significativos e observe a diferença se comparado com resultado sem arredondamento.
-
+\end{ex}
+\begin{sol}
 Os números arredondados com seis dígitos para a mantissa resultam na seguinte diferença
 $$
 0,987625-0,987624=0,100000\times 10^{-5}
 $$
 Observe que os erros relativos entre os números exatos e aproximados no lado esquerdo são bem pequenos,
-$$
-\frac{|0,987624687925-0,987625|}{|0,987624687925|}=0,00003159\%\qquad\hbox{e}\qquad \frac{0,987624-0,987624}{0,987624}=0\%,
-$$
-enquanto no lado direito o erro relativo é enorme,
-$$
-\frac{|0,100000\times 10^{-5}-0,687925\times 10^{-6}|}{0,687925\times 10^{-6}}=45,36\%
-$$
-
-\end{ex}
+\begin{equation*}
+  \frac{|0,987624687925-0,987625|}{|0,987624687925|}=0,00003159  
+\end{equation*}
+e
+\begin{equation*}
+  \frac{|0,987624-0,987624|}{|0,987624|}=0\%,
+\end{equation*}
+enquanto no lado direito o erro relativo é enorme:
+\begin{equation*}
+\frac{|0,100000\times 10^{-5}-0,687925\times 10^{-6}|}{0,687925\times 10^{-6}}=45,36\%.  
+\end{equation*}
+\end{sol}
 
 \begin{ex} Considere o problema de encontrar as raízes da equação de segundo grau:
   \begin{equation*}
