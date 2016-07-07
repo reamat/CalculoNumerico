@@ -1,0 +1,322 @@
+%Este trabalho está licenciado sob a Licença Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional. Para ver uma cópia desta licença, visite \url{http://creativecommons.org/licenses/by-nc-sa/4.0/} ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\chapter{Problema de valor inicial}
+
+Muitos problemas de valor inicial da forma
+\begin{eqnarray*}
+y'(t)&=&f(y(t),t)\\
+y(t_0)&=&y_0 ~~ \hbox{condição inicial}
+\end{eqnarray*}
+não podem ser resolvidos exatamente, ou seja, sabe-se que a solução existe e é única, porém não podemos expressá-la em termos de funções elementares. Por isso é necessário calcular soluções numéricas. Para esse propósito, construímos uma malha de pontos no eixo $t$, $\{t_i\}_{i=1}^N$ e calculamos o valor aproximado da função solução $y(t_i)$ em cada ponto da malha usando esquemas numéricos.
+
+
+\section{Método de Euler}
+Seja o problema de valor inicial
+
+\begin{eqnarray*}
+y'(t)&=&f(y(t),t)\\
+y(0)&=&y_0 ~~ \hbox{condição inicial}
+\end{eqnarray*}
+
+Aproximamos a derivada $y'(t)$ por um esquema de primeira ordem do tipo
+$$y'(t)=\frac{y(t+h)-y(t)}{h}+O(h),~~ h>0$$
+assim temos
+\begin{eqnarray*}
+\frac{y(t+h)-y(t)}{h}&=&f(y(t),t)+O(h)\\
+y(t+h)&=&y(t)+hf(y(t),t)+O(h^2)
+\end{eqnarray*}
+
+Definindo $y^{(k)}$ como uma aproximação para $y\left((k-1)h\right)$ e $t^{(k)}=(k-1)h$, temos
+\begin{eqnarray*}
+y^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)})\\
+y^{(1)}&=&y_0~~ \hbox{condição inicial}
+\end{eqnarray*}
+
+\begin{ex} Considere o problema de valor inicial:
+\begin{eqnarray*}
+y'(t)&=&2y(t)\\
+y(0)&=&1
+\end{eqnarray*}
+\end{ex}
+Sabemos da teoria de equação diferenciais ordinárias, que a solução exata deste problema é única e é dada por
+$$y(t)=e^{2t}.$$
+
+O método de Euler aplicado a este problema produz o seguinte esquema:
+\begin{eqnarray*}
+y^{(k+1)}&=&y^{(k)}+2hy^{(k)}=(1+2h)y^{(k)}\\
+y^{(1)}&=&1,
+\end{eqnarray*}
+cuja solução é dada por
+$$y^{(k)}=(1+2h)^{k-1}.$$
+Como $t=(k-1)h$, a solução aproximada é
+$$y(t)\approx \tilde{y}(t)= (1+2h)^{\frac{t}{h}}.$$
+Daí, vemos que se $h\to 0$, então
+$$\tilde{y}(t)\to e^{2t}.$$
+
+
+
+\begin{ex}{\label{ex_euler_1}} Considere o problema de valor inicial:
+\begin{eqnarray*}
+y'(t)&=&y(t)(1-y(t))\\
+y(0)&=&1/2
+\end{eqnarray*}
+\end{ex}
+É fácil encontrar a solução exata desta equação pois
+
+\begin{eqnarray*}
+\frac{dy(t)}{y(t)(1-y(t))}&=&dt\\
+\left(\frac{1}{y}+\frac{1}{1-y}\right)dy&=&dt\\
+\ln(y)-\ln(1-y)&=&t+C\\
+\ln\left(\frac{y}{1-y}\right)&=&t+C\\
+\frac{y}{1-y}&=&e^{t+C}\\
+y&=&e^{t+C}(1-y)\\
+y(1+e^{t+C})&=&e^{t+C}\\
+y&=&\frac{e^{t+C}}{1+e^{t+C}}
+\end{eqnarray*}
+ainda $y(0)=\frac{e^C}{1+e^C}=1/2$, temos $e^C=1$ e, portanto,  $C=0$.
+
+Assim, a solução exata é dada por $y=\frac{e^t}{1+e^{t}}$
+
+O método de Euler produz o seguinte esquema iterativo:
+\begin{eqnarray*}
+y^{(k+1)}&=&y^{(k)}+h y^{(k)}(1-y^{(k)})\\
+y^{(1)}&=&1/2
+\end{eqnarray*}
+Comparação
+$$\begin{array}{|c|c|c|c|}
+\hline
+t &  \hbox{Exato} & \hbox{Euler}~~ h=0,1 & \hbox{Euler}~~ h=0,01\\
+\hline
+&&&\\
+0 &  1/2 & 0,5 & 0,5\\
+&&&\\
+\hline
+&&&\\
+1/2 &   \frac{e^{1/2}}{1+e^{1/2}}\approx 0,6224593 & 0,6231476 & 0,6225316\\
+&&&\\
+\hline
+&&&\\
+1 &   \frac{e}{1+e}\approx 0,7310586 & 0,7334030 & 0,7312946\\
+&&&\\
+\hline
+&&&\\
+2 &   \frac{e^2}{1+e^2}\approx  0,8807971 & 0,8854273  & 0,8812533 \\
+&&&\\
+\hline
+&&&\\
+3 &   \frac{e^3}{1+e^3}\approx   0,9525741   & 0,9564754   & 0,9529609 \\
+&&&\\
+\hline
+\end{array}
+$$
+
+\begin{ex} Resolva o problema de valor inicial
+\begin{eqnarray*}
+y'&=&-y+t\\
+y(0)&=&1,
+\end{eqnarray*}
+cuja solução exata é $y(t)=2e^{-t}+t-1$.
+\end{ex}
+O esquema recursivo de Euler fica:
+\begin{eqnarray*}
+y^{(k+1)}&=&y({k})- hy({k})+ht^{(k)}\\
+y(0)&=&1
+\end{eqnarray*}
+
+Comparação
+$$\begin{array}{|c|c|c|c|}
+\hline
+t &  \hbox{Exato} & \hbox{Euler}~~ h=0,1 & \hbox{Euler}~~ h=0,01\\
+\hline
+&&&\\
+0 &  1 & 1 & 1\\
+&&&\\
+\hline
+&&&\\
+1 &   2e^{-1}\approx 0,7357589 & 0,6973569   &   0,7320647  \\
+&&&\\
+\hline
+&&&\\
+2 &   2e^{-2}+1\approx  1,2706706 &  1,2431533    &   1,2679593     \\
+&&&\\
+\hline
+&&&\\
+3 &   2e^{-3}+2\approx 2,0995741  &  2,0847823 & 2,0980818   \\
+&&&\\
+\hline
+\end{array}
+$$
+
+\newpage
+\begin{ex} Resolva o seguinte sistema de equações diferenciais:
+\begin{eqnarray*}
+x'&=&-y\\
+y'&=&x\\
+x(0)&=&1\\
+y(0)&=&0,\\
+\end{eqnarray*}
+cuja solução exata é $x(t)=\cos(t)$ e $y(t)=\sin(t)$.
+\end{ex}
+Escreva $$z(t)=\left[\begin{array}{c}x(t)\\y(t)\end{array}\right]$$  e temos
+\begin{eqnarray*}
+\left[\begin{array}{c}x^{(k+1)}\\y^{(k+1)}\end{array}\right]=\left[\begin{array}{c}x^{(k)}\\y^{(k)}\end{array}\right]+h\left[\begin{array}{c}-y^{(k)}\\x^{(k)}\end{array}\right]
+\end{eqnarray*}
+
+Equivalente a
+\begin{eqnarray*}
+x^{(k+1)}&=&x^{(k)}-hy^{(k)}\\
+y^{(k+1)}&=&y^{(k)}+hx^{(k)}\\
+\end{eqnarray*}
+
+\begin{ex} Resolva o problema de valor inicial de segunda ordem dado por
+\begin{eqnarray*}
+y''+y'+y&=&\cos(t)\\
+y(0)&=&1\\
+y'(0)&=&0
+\end{eqnarray*}
+e compare com a solução exata para $h=0,1$ e $h=0,01$.
+\end{ex}
+Procedemos com a substituição $w=y'$, de forma que obtermos o sistema:
+\begin{eqnarray*}
+y'&=&w\\
+w'&=&-w-y+\cos(t)\\
+y(0)&=&1\\
+w(0)&=&0
+\end{eqnarray*}
+
+\begin{eqnarray*}
+y^{(k+1)}&=&y^{(k)}+hw^{(k)}\\
+w^{(k+1)}&=&w^{(k)}-hw^{(k)}-hy^{(k)}+h\cos(t^{(k)})\\
+y^{(1)}&=&1\\
+w^{(1)}&=&0
+\end{eqnarray*}
+
+\subsection{Método de Euler melhorado}
+No método de Euler, usamos a seguinte iteração:
+\begin{eqnarray*}
+y^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)})\\
+y^{(1)}&=&y_i~~ \hbox{condição inicial}
+\end{eqnarray*}
+A ideia do método de Euler melhorado é substituir a declividade  $f(y^{(k)},t^{(k)})$ pela média aritmética entre $f(y^{(k)},t^{(k)})$ e $f(y^{(k+1)},t^{(k+1)})$.
+
+No entanto, não dispomos do valor de $y^{(k+1)}$ pelo que aproximamos por
+$$\tilde{y}^{(k+1)}=y^{(k)}+hf(y^{(k)},t^{(k)}).$$
+
+\begin{eqnarray*}
+\tilde{y}^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)})\\
+y^{(k+1)}&=&y^{(k)}+\frac{h}{2}\left[f(y^{(k)},t^{(k)})+f(\tilde{y}^{(k+1)},t^{(k+1)})\right]\\
+y^{(1)}&=&y_i~~ \hbox{condição inicial}
+\end{eqnarray*}
+
+\begin{prob}
+Refaça o exemplo \ref{ex_euler_1} via método de Euler melhorado.
+\end{prob}
+
+\subsection{Ordem de precisão}
+Considere o problema de valor inicial dado por
+\begin{eqnarray*}
+y'(t)&=&f(y(t),t)\\
+y(0)&=&y_i
+\end{eqnarray*}
+
+No método de Euler, aproximamos a derivada $y'(t)$ por um esquema de primeira ordem do tipo
+$$y'(t)=\frac{y(t+h)-y(t)}{h}+O(h),~~ h>0$$
+de forma que tínhamos
+\begin{eqnarray*}
+y(t+h)&=&y(t)+hf(y(t),t)+O(h^2)
+\end{eqnarray*}
+Se fixarmos um instante de tempo $t=Nh$, temos:
+\begin{eqnarray*}
+y(t)&=&\left[y(0)+hf(y(0),0)+O(h^2)\right]+\left[y(h)+hf(y(h),h)+O(h^2)\right]\\
+&+&\ldots \left[y(t-h)+hf(y(t-h),t-h)+O(h^2)\right]\\
+&=&y^{k}+\sum_{j=0}^{N-1}O(h^2)=y^{k}+O(h)
+\end{eqnarray*}
+Por isso, o método de Euler é dito ter ordem global de precisão $h$.
+
+\section{Métodos de Runge-Kutta}
+Os métodos de Runge-Kutta consistem em iterações do tipo:
+$$y^{(k+1)}=y^{(k)}+w_1 k_1 + \ldots + w_n k_n$$
+onde
+\begin{eqnarray*}
+k_1&=&hf(y^{(k)},t^{(k)})\\
+k_2&=&hf(y^{(k)}+\alpha_{2,1}k_1,t^{(k)}+\beta_{2}h)\\
+k_3&=&hf(y^{(k)}+\alpha_{3,1}k_1+\alpha_{3,2}k_2,t^{(k)}+\beta_{3}h)\\
+&\vdots&\\
+k_n&=&hf(y^{(k)}+\alpha_{n,1}k_1+\alpha_{n,2}k_2+\ldots \alpha_{n,n-1}k_{n-1},t^{(k)}+\beta_{n}h)\\
+\end{eqnarray*}
+
+Os coeficientes são escolhidos de forma que a expansão em Taylor de $y^{(k+1)}$ e $y^{(k)}+w_1 k_1 + \ldots + w_n k_n$ coincidam até ordem $n+1$.
+
+\begin{ex} O método de Euler melhorado é um exemplo de Runge-Kutta de segunda ordem
+$$y^{(n+1)}=y^{(n)}+\frac{k_1+k_2}{2}$$
+onde $k_1=hf(y^{(n)},t^{(n)})$ e $k_2=hf(y^{(n)}+k_1,t^{(n)}+h)$
+\end{ex}
+\subsection{Métodos de Runge-Kutta - Quarta ordem}
+$$y^{(n+1)}=y^{(n)}+\frac{k_1+2k_2+2k_3+k_4}{6}$$
+onde
+\begin{eqnarray*}
+k_1&=&hf(y^{(n)},t^{(n)})\\
+k_2&=&hf(y^{(n)}+k_1/2,t^{(n)}+h/2)\\
+k_3&=&hf(y^{(n)}+k_2/2,t^{(n)}+h/2)\\
+k_4&=&hf(y^{(n)}+k_3,t^{(n)}+h)\\
+\end{eqnarray*}
+Este método tem ordem de truncamento local de quarta ordem. Uma discussão heurística usando método de Simpson pode ajudar a compreender os estranhos coeficientes:
+
+\begin{eqnarray*}
+y({t^{(n+1)}})-y({t^{(n)}})&=&\int_{t^{(n)}}^{t^{(n+1)}}f(y(s),s)ds \\&\approx& \frac{h}{6}\left[ f\left(y(t^{(n)}),t^{(n)}\right)+4f\left(y(t^{(n)}+h/2),t^{(n)}+h/2\right)+f\left(y(t^{(n)}+h),t^{(n)}+h\right)\right]\\
+&\approx& \frac{k_1+4(\frac{k_2+k_3}{2})+k_4}{6}
+\end{eqnarray*}
+onde $k_1$ e $k_4$ representam as inclinações nos extremos e $k_2$ e $k_3$ são duas aproximações diferentes para a inclinação no meio do intervalo.
+
+
+\section{Métodos de passo múltiplo - Adams-Bashforth}
+
+O método de Adams-Bashforth consiste de um esquema recursivo do tipo:
+$$y^{(n+1)}=y^{(n)}+\sum_{j=0}^k w_jf(y^{(n-j)},t^{(n-j)})$$
+
+\begin{ex} Adams-Bashforth de segunda ordem
+$$y^{(n+1)}=y^{(n)}+\frac{h}{2}\left[3f\left(y^{(n)},t^{(n)}\right)-f\left(y^{(n-1)},t^{(n-1)}\right)\right]$$
+\end{ex}
+\begin{ex} Adams-Bashforth de terceira ordem
+$$y^{(n+1)}=y^{(n)}+\frac{h}{12}\left[23f\left(y^{(n)},t^{(n)}\right)-16f\left(y^{(n-1)},t^{(n-1)}\right)+5f\left(y^{(n-2)},t^{(n-2)}\right)\right]$$
+\end{ex}
+\begin{ex} Adams-Bashforth de quarta ordem
+$$y^{(n+1)}=y^{(n)}+\frac{h}{24}\left[55f\left(y^{(n)},t^{(n)}\right)-59f\left(y^{(n-1)},t^{(n-1)}\right)+37f\left(y^{(n-2)},t^{(n-2)}\right)-9f\left(y^{(n-3)},t^{(n-3)}\right)\right]$$
+\end{ex}
+Os métodos de passo múltiplo evitam os múltiplos estágios do métodos de Runge-Kutta, mas exigem ser "iniciados" com suas condições iniciais.
+\newpage
+\section{Métodos de passo múltiplo - Adams-Moulton}
+O método de Adams-Moulton consiste de um esquema recursivo do tipo:
+$$y^{(n+1)}=y^{(n)}+\sum_{j=-1}^k w_jf(y^{(n-j)},t^{(n-j)})$$
+
+\begin{ex} Adams-Moulton de quarta ordem
+$$y^{(n+1)}=y^{(n)}+\frac{h}{24}\left[9f\left(y^{(n+1)},t^{(n+1)}\right)+ 19f\left(y^{(n)},t^{(n)}\right)-5f\left(y^{(n-1)},t^{(n-1)}\right)+f\left(y^{(n-2)},t^{(n-2)}\right)\right]$$
+\end{ex}
+O método de Adams-Moulton é implícito, ou seja, exige que a cada passo, uma equação em $y^{(n+1)}$ seja resolvida.
+
+\section{Estabilidade}
+Consideremos o seguinte problema de teste:
+$$\left\{\begin{array}{rcl}y'&=&-\alpha y\\y(0)&=&1\end{array}\right.$$
+cuja solução exata é dada por $y(t)=e^{-\alpha t}$.
+
+Considere agora o método de Euler aplicado a este problema com passa $h$:
+$$\left\{\begin{array}{rcl}y^{(k+1)}&=&y^{(k)}-\alpha h y^{(k)}\\y^{(1)}&=&1\end{array}\right.$$
+A solução exata do esquema de Euler é dada por
+$$y^{(k+1)}=(1-\alpha h)^{k}$$
+e, portanto,
+$$\tilde{y}(t)=y^{(k+1)}=(1-\alpha h)^{t/h}$$
+
+Fixamos um $\alpha>0$, de forma que $y(t)\to 0$. Mas observamos que $\tilde{y}(t)\to 0$ somente quando $|1-\alpha h|<1$ e solução positivas somente quando $\alpha h<1$.
+
+{\bf Conclusão:} Se o passo $h$ for muito grande, o método pode se tornar instável, produzindo solução espúrias.
+
+\begin{prob} Resolva o problema 1 pelos diversos métodos e verifique heuristicamente a estabilidade para diversos valores de $h$.
+\end{prob}
+%\bibliographystyle{acm}
+%\bibliography{bib}
+
+\end{document} 
