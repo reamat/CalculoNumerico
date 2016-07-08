@@ -721,6 +721,7 @@ Como $h = x_{i+1} - x_i$, temos:
 & = \frac{h}{2}\left[f(x_1) + f(x_{N_i+1})\right] + h\sum_{i=2}^{N_i} f(x_i)
 \end{align*}
 
+\ifisscilab
 \subsubsection{Código Scilab: Trapézio Composto}
 O código Scilab abaixo é uma implementação do método do trapézio composto para calcular:
 \begin{equation*}
@@ -729,6 +730,7 @@ O código Scilab abaixo é uma implementação do método do trapézio composto para c
 onde $h = (b-a)/n$ e $x_i = a + (i-1)h$, $i=1,2,\dotsc,n+1$. Os parâmetros de entrada são: \verb+f+ o integrando definido como uma função no Scilab, \verb+a+ o limite inferior de integração, \verb+b+ o limite superior de integração, \verb+n+ o número de subintervalos desejado. A variável de saída é \verb+y+ e corresponde a aproximação calculada de $\int_a^b f(x)\, dx$.
 
 \verbatiminput{./cap_derint/codes/trap_comp/trap_comp.sci}
+\fi
 
 \subsubsection{Método composto de Simpson}
 Já a regra composta de Simpson assume a seguinte forma:
@@ -742,6 +744,7 @@ onde, como anteriormente, $x_k = a + (k-1)h$, $h = (b-a)/n$ e $i = 1,2,\dotsc,n+
 \end{equation*}
 onde, agora, $h = (b-a)/(2n)$, $x_i = a + (i-1)h$, $i=1,2,\dotsc,2n+1$.
 
+\ifisscilab
 \subsubsection{Código Scilab: Simpson Composto}
 O código Scilab abaixo é uma implementação do método de Simpson composto para calcular:
 \begin{equation*}
@@ -749,7 +752,7 @@ O código Scilab abaixo é uma implementação do método de Simpson composto para ca
 \end{equation*}
 onde $h = (b-a)/(2n)$ e $x_i = a + (i-1)h$, $i=1,2,\dotsc,2n+1$. Os parâmetros de entrada são: \verb+f+ o integrando definido como uma função no Scilab, \verb+a+ o limite inferior de integração, \verb+b+ o limite superior de integração, \verb+n+ o número de subintervalos desejado. A variável de saída é \verb+y+ e corresponde a aproximação calculada de $\int_a^b f(x)\, dx$.
 \verbatiminput{./rotinas/Derivacao_e_integracao/simp_comp.sci}
-
+\fi
 
 \begin{ex}Calcule numericamente a integral
 $$
@@ -1022,7 +1025,8 @@ $$w_j = \frac{2}{\left( 1-x_j^2 \right) [P'_n(x_j)]^2}.$$
 \item Estes dados são tabelados e facilmente encontrados.
 \end{itemize}
 
-$$\begin{array}{|c|c|c|}
+\begin{equation*}
+  \begin{array}{|c|c|c|}
 \hline
 n&x_j&w_j\\
 \hline
@@ -1047,30 +1051,48 @@ n&x_j&w_j\\
 &&\\
 \hline
 \end{array}
-$$
+\end{equation*}
 
 \begin{ex} Aproximar
-$$\int_{-1}^1\sqrt{1+x^2}dx$$
+  \begin{equation*}
+    \int_{-1}^1\sqrt{1+x^2}dx  
+  \end{equation*}
 pelo método de Gauss-Legendre com 3 pontos.
 \end{ex}
-$$I_3=\frac{5}{9}f\left(-\sqrt{\frac{3}{5}}\right)+\frac{8}{9}f(0)+\frac{5}{9}f\left(\sqrt{\frac{3}{5}}\right) \approx 2,2943456$$
+\begin{sol}
+ \begin{equation*}
+  I_3=\frac{5}{9}f\left(-\sqrt{\frac{3}{5}}\right)+\frac{8}{9}f(0)+\frac{5}{9}f\left(\sqrt{\frac{3}{5}}\right) \approx 2,2943456
+\end{equation*}
+\ifisscilab
 No Scilab:
 \verbatiminput{./rotinas/Derivacao_e_integracao/ex1_gauss_legendre.sce}
+\fi 
+\end{sol}
 
+\ifisscilab
 \begin{ex} Aproximar
 $$\int_{-1}^1\sqrt{1+x^2}dx$$
 pelo método de Gauss-Legendre com 4 pontos.
 \end{ex}
+\begin{sol}
 \begin{verbatim}
 I4=f(x4(1))*w4(1)+f(-x4(1))*w4(1)+f(x4(2))*w4(2)+f(-x4(2))*w4(2)
-\end{verbatim}
+\end{verbatim}  
+\end{sol}
+\fi
+
 
 \begin{ex} Aproximar
 $$\int_{0}^1\sqrt{1+x^2}dx$$
 pelo método de Gauss-Legendre com $3,\ 4$ e $5$ pontos.
 \end{ex}
-Faz-se a mudança de variáveis $u=2x-1$
-$$\int_{0}^1\sqrt{1+x^2}dx=\frac{1}{2}\int_{-1}^1\sqrt{1+\left(\frac{u+1}{2}\right)^2}du$$
+\begin{sol}
+Para tanto, fazemos a mudança de variáveis $u=2x-1$:
+\begin{equation*}
+  \int_{0}^1\sqrt{1+x^2}dx=\frac{1}{2}\int_{-1}^1\sqrt{1+\left(\frac{u+1}{2}\right)^2}du
+\end{equation*}
+E, então aplicamos a quadratura gaussiana nesta última itegral.
+\ifisscilab
 \begin{verbatim}
 deff('y=f(u)','y=sqrt(1+(u+1)^2/4)/2')
 I3=f(0)*w3(1)+f(x3(2))*w3(2)+f(-x3(2))*w3(2)
@@ -1078,5 +1100,7 @@ I4=f(x4(1))*w4(1)+f(-x4(1))*w4(1)+f(x4(2))*w4(2)+f(-x4(2))*w4(2)
 I5=f(0)*w5(1)+f(x5(2))*w5(2)+f(-x5(2))*w5(2)+f(x5(3))*w5(3) ...
   +f(-x5(3))*w5(3)
 \end{verbatim}
+\fi  
+\end{sol}
 
 \end{document} 
