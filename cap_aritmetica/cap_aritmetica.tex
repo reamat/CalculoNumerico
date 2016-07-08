@@ -116,13 +116,15 @@ $$
 125=(325)_6
 $$
 
-Estes cálculos podem ser feitos no Scilab com o auxílio das funções \verb'modulo' e \verb'int'. A primeira calcula o resto da divisão entre dois números, enquanto que a segunda retorna a parte inteira de um número dado. No nosso exemplo, temos:
+\ifisscilab
+Estes cálculos podem ser feitos no \verb+Scilab+ com o auxílio das funções \verb'modulo' e \verb'int'. A primeira calcula o resto da divisão entre dois números, enquanto que a segunda retorna a parte inteira de um número dado. No nosso exemplo, temos:
 \begin{verbatim}
 -->q = 125, d0 = modulo(q,6)
 -->q = int(q/6), d1 = modulo(q,6)
 -->q = int(q/6), d2 = modulo(q,6)
 \end{verbatim}
 Verifique!
+\fi
 \end{ex}
 
 
@@ -152,13 +154,18 @@ e obtemos $d_{-2}=3$. Portanto:
 $$
 125,58\overline{3}=(325,33)_6
 $$
-As contas feitas aqui, também podem ser feitas no Scilab. Você sabe como?
+\ifisscilab
+As contas feitas aqui, também podem ser feitas no \verb+Scilab+. Você sabe como?
+\fi
 \end{ex}
 
 Uma maneira de converter um número dado numa base $g$ para uma base $b$ é fazer em duas partes: primeiro converter o número dado na base $g$ para base decimal e depois converter para a base $b$.
 
 \section{Aritmética de Máquina}
-Os computadores, em geral, usam uma base binária para representar os números, onde as posições, chamadas de bits, assume as condições ``verdadeiro'' ou ``falso'', ou seja, $0$ ou $1$. Cada computador tem um número de bits fixo e, portanto, representa uma quantidade finita de números. Os demais números são tomados por proximidade àqueles conhecidos, gerando erros de arredondamento. Por exemplo, em aritmética de computador, o número $2$ tem representação exata, logo $2^2=4$, mas $\sqrt{3}$ não tem representação finita, logo $(\sqrt{3})^2\neq 3$. Veja isso no Scilab:
+Os computadores, em geral, usam uma base binária para representar os números, onde as posições, chamadas de bits, assume as condições ``verdadeiro'' ou ``falso'', ou seja, $0$ ou $1$. Cada computador tem um número de bits fixo e, portanto, representa uma quantidade finita de números. Os demais números são tomados por proximidade àqueles conhecidos, gerando erros de arredondamento. Por exemplo, em aritmética de computador, o número $2$ tem representação exata, logo $2^2=4$, mas $\sqrt{3}$ não tem representação finita, logo $(\sqrt{3})^2\neq 3$. 
+
+\ifisscilab
+Veja isso no \verb+Scilab+:
 \begin{verbatim}
 -->2^2 == 4
  ans  =
@@ -167,10 +174,8 @@ Os computadores, em geral, usam uma base binária para representar os números, on
  ans  =
   F  
 \end{verbatim}
+\fi
 
-
-
-%\subsection{Sistema de ponto fixo}
 \subsection{Representação de números inteiros}
 
 Tipicamente um número inteiro é armazenado num computador como uma sequência de dígitos binários de comprimento fixo denominado registro.
@@ -191,9 +196,11 @@ $$
 \end{array}
 $$
 
+\ifisscilab
 \begin{obs}
-  No Scilab, consulte sobre os comandos: \verb'uint8', \verb'uint16' e \verb'uint32'.
+  No \verb+Scilab+, consulte sobre os comandos: \verb'uint8', \verb'uint16' e \verb'uint32'.
 \end{obs}
+\fi
 
 \subsubsection{Representação com bit de sinal}
 O bit mais significativo (o primeiro à esquerda) representa o sinal: $0$ positivo e $1$ negativo. Um registro com $n$ bits da forma
@@ -256,9 +263,11 @@ Em um registro com $8$ bits, teremos os números
 \end{align*}
 \end{ex}
 
+\ifisscilab
 \begin{obs}
-  No Scilab, consulte sobre os comandos: \verb'int8', \verb'int16' e \verb'int32'.
+  No \verb+Scilab+, consulte sobre os comandos: \verb'int8', \verb'int16' e \verb'int32'.
 \end{obs}
+\fi
 
 
 \subsection{Sistema de ponto fixo}
@@ -339,22 +348,26 @@ O maior número acontece quando $s=0$, $c=2046$ e $m=1-2^{-52}$, ou seja:
 \end{equation*}
 \end{ex}\fim
 
+\ifisscilab
 \begin{obs}
-  O menor número positivo e o maior número positivo representados no Scilab são, respectivamente:
+  O menor número positivo e o maior número positivo representados no \verb+Scilab+ são, respectivamente:
 \begin{verbatim}
 -->number_properties('tiny')
 -->number_properties('huge')
 \end{verbatim}
 \end{obs}
+\fi
 
 Um número muito pequeno ({\bf underflow}) geralmente é aproximado por zero e um número muito grande ({\bf overflow}) geralmente faz o cálculo parar. Os demais números são aproximados pelo mais próximo, gerando os erros de arredondamento.
 
+\ifisscilab
 \begin{obs}
-  O chamado modo de exceção de ponto flutuante é controlado pela função \verb'ieee'. O padrão do Scilab é \verb'ieee(0)'. Estude os seguintes resultados das seguintes operações usando os diferentes modos de exceção:
+  O chamado modo de exceção de ponto flutuante é controlado pela função \verb'ieee'. O padrão do \verb+Scilab+ é \verb'ieee(0)'. Estude os seguintes resultados das seguintes operações usando os diferentes modos de exceção:
 \begin{verbatim}
 -->2*number_properties('huge'), 1/2^999, 1/0, 1/-0
 \end{verbatim}
 \end{obs}
+\fi
 
 \begin{defn}(Forma normalizada de ponto flutuante)
   Seja $x$ um número real não nulo.\footnote{Se $x = 0$, então $fl(x) = 0,000\ldots 0\times b^0$ será considerada sua representação em ponto flutuante.} A representação de $x$ na forma normalizada em ponto flutuante na base $b\in\mathbb{N}$, $b>1$, e com $n$ {\bf dígitos significativos}\footnote{Na literatura, também encontra-se outros significados para o termo dígitos (algarismos) significativos. Veja, por exemplo, \cite{Burden2013}} é dada por:
@@ -377,9 +390,11 @@ onde, $d_i\in\{0,1,\dotsc,b-1\}$, $d_1\neq 0$ e $E\in\mathbb{Z}$. Os dígitos $d_
 \begin{sol} As representações dos números $0,00\overline{51}$ e $1205,41\overline{54}$ no sistema de ponto fixo são $0,0051$ e $1205,4154$, respectivamente. No sistema de ponto flutuante, as representações são $0,5151515\cdot 10^{-2}$ e $0,1205415 \cdot 10^{4}$, respectivamente.
 \end{sol}
 
+\ifisscilab
 \begin{obs}
-  Consulte sobre o comando \verb'format' no Scilab.
+  Consulte sobre o comando \verb'format' no \verb+Scilab+.
 \end{obs}
+\fi
 
 
 \section{Origem e Definição de Erros}
@@ -477,10 +492,12 @@ Observe que $x_0=\frac{1}{3}$, $x_1=4\cdot \frac{1}{3}-1=\frac{1}{3}$, $x_2=\fra
 \tilde{x}_n&=&\frac{1}{3}+4^n\epsilon
 \end{eqnarray*}
 Portanto o limite da sequência diverge,
-$$
-\lim_{x\to\infty}|\tilde{x}_n|=\infty
-$$
-Faça o teste no scilab, colocando:
+\begin{equation*}
+\lim_{x\to\infty}|\tilde{x}_n|=\infty  
+\end{equation*}
+
+\ifisscilab
+Faça o teste no \verb+Scilab+, colocando:
 \begin{verbatim}
 -->x = 1/3
 \end{verbatim}
@@ -488,6 +505,7 @@ e itere algumas vezes a linha de comando:
 \begin{verbatim}
 -->x = 4*x-1
 \end{verbatim}
+\fi
 \end{ex}
 
 Existem várias formas de aproximar um número em ponto flutuante da forma:
@@ -747,7 +765,7 @@ Um resultado bem conhecido do cálculo nos diz que o limite de (\ref{def_lim}) qu
 Sabemos também que a sequência produzida por (\ref{def_lim}) é crescente, isto é:
 $$\left(1+\frac{1}{1}\right)^1< \left(1+\frac{1}{2}\right)^2< \left(1+\frac{1}{3}\right)^3 < \cdots $$
 
-No entanto, quando calculamos essa expressão no Scilab, nos defrontamos com o seguinte resultado:
+No entanto, quando calculamos essa expressão no \verb+Scilab+, nos defrontamos com o seguinte resultado:
 $$\begin{array}{|c|c|c|c|c|}
 \hline &&&&\\[-0.3cm]
 n & \left(1+\frac{1}{n}\right)^n&~~~~&n & \left(1+\frac{1}{n}\right)^n\\
@@ -779,19 +797,21 @@ Observe que quando $x$ se torna grande, da ordem de $10^{15}$, o gráfico da funç
 \includegraphics[width=0.9\textwidth]{./cap_aritmetica/pics/cancelamento_euler2}
 %\caption{Gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$ em escala linear-logarítmica variando de $10^{14}$ até $10^{16}$ gerado no Scilab 5.4.1.}
 ¨%\end{figure}
+\end{ex}
 
-
-Para compreender por que existe um limiar $N$ que, quando atingido torna a expressão identicamente igual a $1$, observe a sequência de operações realizadas pelo computador:
+Para compreendermos melhor por que existe um limiar $N$ que, quando atingido torna a expressão do exemplo acima identicamente igual a $1$, observamos a sequência de operações realizadas pelo computador:
 \begin{equation}\label{seq_oper}
 x~\to ~1/x ~\to ~1+1/x ~\to ~(1+1/x)^x
 \end{equation}
-Devido ao limite de precisão da representação de números em ponto flutuante, existe um menor número representável que é maior do que 1. Este número pode ser obtido pelo comando:
+Devido ao limite de precisão da representação de números em ponto flutuante, existe um menor número representável que é maior do que 1. Este número é $1 + $\verb+eps+, onde \verb+eps+ é chamado de {\bf épsilon de máquina} e é o menor número que somado a 1 produz um resultado superior a 1 no sistema de numeração usado. O épsilon de máquina no sistema de numeração ``double'' vale aproximadamente $2,22\times 10^{-16}$.
+\ifisscilab
+No \verb+Scilab+, o epsilon de máquina é a constante \verb+eps+. Observe que:
 \begin{verbatim}
 -->1+%eps
  ans  =
     1.0000000000000002220446 
 \end{verbatim}
-A quantidade dada por \verb+%eps+ é chamada de {\bf épsilon de máquina} e é o menor número que somado a 1 produz um resultado superior a 1 no sistema de numeração usado. O épsilon de máquina no sistema de numeração ``double'' vale aproximadamente $2,22\times 10^{-16}$.
+\fi
 Quando somamos a $1$ um número positivo inferior ao épsilon de máquina, obtemos o número 1. Dessa forma, o resultado obtido pela operação de ponto flutuante $1+x$ para $0<x<2,22 \times 10^{-16}$ é 1. 
 
 Portanto, quando realizamos a sequência de operações dada em (\ref{seq_oper}), toda informação contida no número $x$ é perdida na soma com $1$ quando $1/x$ é menor que o épsilon de máquina, o que ocorre quando $x>5\times 10^{15}$. Assim $(1+1/x)$ é aproximado para $1$ e a última operação se resume a $1^x$, o que é igual a $1$ mesmo quando $x$ é grande.
@@ -804,8 +824,9 @@ x ~\to ~1/x ~\to ~1/(1/x)
 \begin{equation}\label{seq_oper3}
 x ~\to ~1+x ~\to ~(1+x)-1.
 \end{equation}
-
-Finalmente, notamos que quando tentamos calcular $\left(1+\frac{1}{n}\right)^n$ para $n$ grande, existe perda de significância no cálculo de $1+1/n$. Para entender isso, observe o que acontece quando $n=7\times 10^{13}$:
+Finalmente, notamos que quando tentamos calcular $\left(1+\frac{1}{n}\right)^n$ para $n$ grande, existe perda de significância no cálculo de $1+1/n$. 
+\ifisscilab
+Para entendermos isso melhor, vejamos o que acontece no \verb+Scilab+ quando $n=7\times 10^{13}$:
 \begin{verbatim}
 -->n=7e13
  n  =
@@ -830,8 +851,7 @@ Observe a perda de informação ao deslocar a mantissa de $1/n$. Para evidenciar o
  ans  =
      7.036874417766400000D+13  
 \end{verbatim}
-
-\end{ex}
+\fi
 
 \begin{ex}[Analogia da balança] Observe a seguinte comparação interessante que pode ser feita para ilustrar os sistemas de numeração com ponto fixo e flutuante: o sistema de ponto fixo é como uma balança cujas marcas estão igualmente espaçadas; o sistema de ponto flutuante é como uma balança cuja distância entre as marcas é proporcional à massa medida. Assim, podemos ter uma balança de ponto fixo cujas marcas estão sempre distanciadas de $100$g ($100$g, $200$g, $300$g, ..., $1$Kg, $1,1$Kg,...) e outra balança de ponto flutuante cujas marcas estão distanciadas sempre de aproximadamente um décimo do valor lido ($100$g, $110$g, $121$g, $133$g, ..., $1$Kg, $1,1$Kg, $1,21$Kg, ...) A balança de ponto fixo apresenta uma resolução baixa para pequenas medidas, porém uma resolução alta para grandes medidas. A balança de ponto flutuante distribui a resolução de forma proporcional ao longo da escala.    
 
