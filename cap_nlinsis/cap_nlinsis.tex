@@ -163,7 +163,8 @@ cuja jacobiana é:
     \end{array}\right]
 \end{equation*}
 
-Faremos a implementação numérica no Scilab. Para tal definimos as funções que implementarão $F(x)$ e a $J_F(x)$
+\ifisscilab
+Faremos a implementação numérica no \verb+Scilab+. Para tal definimos as funções que implementarão $F(x)$ e a $J_F(x)$
 \begin{verbatim}
 function y=F(x)
     y(1)=x(1)^2/3+x(2)^2-1
@@ -196,6 +197,7 @@ Ou simplesmente
 \begin{verbatim}
 x=x-JF(x)\F(x)
 \end{verbatim}
+\fi
 Observe que as soluções exatas desse sistema são $\left(\pm \sqrt{\frac{9}{11}},\pm \sqrt{\frac{8}{11}}\right)$.
 \end{ex}
 
@@ -222,7 +224,8 @@ cuja jacobiana é:
     \displaystyle 2\sin(x_1) & \cos(x_2)
   \end{array}\right]
 \end{equation*}
-No Scilab, podemos implementá-las com o seguinte código:
+\ifisscilab
+No \verb+Scilab+, podemos implementá-las com o seguinte código:
 \begin{verbatim}
 function y=F(x)
     y(1) = x(1)^2-cos(x(1)*x(2))-1
@@ -243,6 +246,7 @@ E agora, basta iterar:
 x=[1.5; .5]
 x=x-JF(x)\F(x) (5 vezes)
 \end{verbatim}  
+\fi
 \end{sol}
 
 \begin{prob} Encontre uma aproximação numérica para o seguinte problema não-linear de três equações e três incógnitas:
@@ -260,9 +264,11 @@ Partindo das seguintes aproximações iniciais:
 \end{itemize}
 \end{prob}
 
-\subsection{Algoritmo de Newton para Sistemas}
+\ifisscilab
+\subsection{Código Scilab: Newton para Sistemas}
 
 \verbatiminput{./cap_nlinsis/codes/metodo_de_newton/newton.sci}
+\fi
 
 \section{Linearização de uma função de várias variáveis, o gradiente e a Jacobiana}
 \subsection{O gradiente}
