@@ -27,4 +27,9 @@ $ make clean
 ##Colaborações
 
 Todos são convidados a colaborarem na escrita deste livro. Caso esteja interessado, entre em contato conosco escrevendo para:
-     (livro_colaborativo@googlegroups.com)
+    (livro_colaborativo@googlegroups.com)
+
+### Fork us on GitHub
+
+Colabore editando diretamente o código fonte disponível no repositório GitHub:
+    (https://github.com/livroscolaborativos/CalculoNumerico)
