@@ -3,6 +3,7 @@
 Este é um livro colaborativo sobre tópicos de métodos e análise numérica, normalmente estudados em cursos de graduação das áreas exatas e da terra na disciplina de cálculo numérico.
 
 Caso queira colaborar, escreva para:
+
      (livro_colaborativo@googlegroups.com)
 
 ## Licença
@@ -27,9 +28,11 @@ $ make clean
 ##Colaborações
 
 Todos são convidados a colaborarem na escrita deste livro. Caso esteja interessado, entre em contato conosco escrevendo para:
+
     (livro_colaborativo@googlegroups.com)
 
 ### Fork us on GitHub
 
 Colabore editando diretamente o código fonte disponível no repositório GitHub:
+
     (https://github.com/livroscolaborativos/CalculoNumerico)
