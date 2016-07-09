@@ -212,9 +212,11 @@ y^{(k+1)}&=&y^{(k)}+\frac{h}{2}\left[f(y^{(k)},t^{(k)})+f(\tilde{y}^{(k+1)},t^{(
 y^{(1)}&=&y_i~~ \hbox{condição inicial}
 \end{eqnarray*}
 
-\begin{prob}
+\section*{Exercícios}
+
+\begin{Exercise}
 Refaça o exemplo \ref{ex_euler_1} via método de Euler melhorado.
-\end{prob}
+\end{Exercise}
 
 \subsection{Ordem de precisão}
 Considere o problema de valor inicial dado por
@@ -326,9 +328,227 @@ Fixamos um $\alpha>0$, de forma que $y(t)\to 0$. Mas observamos que $\tilde{y}(t
 
 {\bf Conclusão:} Se o passo $h$ for muito grande, o método pode se tornar instável, produzindo solução espúrias.
 
-\begin{prob} Resolva o problema 1 pelos diversos métodos e verifique heuristicamente a estabilidade para diversos valores de $h$.
-\end{prob}
-%\bibliographystyle{acm}
-%\bibliography{bib}
+\section*{Exercícios}
+
+\begin{Exercise} Resolva o problema 1 pelos diversos métodos e verifique heuristicamente a estabilidade para diversos valores de $h$.
+\end{Exercise}
+
+\section*{Exercícios finais}
+
+\begin{Exercise} Considere o seguinte modelo para o crescimento de uma colônia de bactérias:
+$$\frac{dy}{dt}=\alpha y (A-y)$$
+onde $y$ indica a densidade de bactérias em unidades arbitrárias na colônia e $\alpha$ e $A$ são constantes positivas.
+Pergunta-se:
+\begin{itemize}
+\item[a)] Qual a solução quando a condição inicial $y(0)$ é igual a $0$ ou $A$?
+\item[b)] O que acontece quando a condição inicial $y(0)$ é um número entre $0$ e $A$?
+\item[c)] O que acontece quando a condição inicial $y(0)$ é um número negativo?
+\item[d)] O que acontece quando a condição inicial $y(0)$ é um número positivo maior que A?
+\item[e)] Se $A=10$ e $\alpha=1$ e $y(0)=1$, use métodos numéricos para obter tempo necessário para que a população dobre?
+\item[f)] Se $A=10$ e $\alpha=1$ e $y(0)=4$, use métodos numéricos para obter tempo necessário para que a população dobre?
+\end{itemize}
+\end{Exercise}
+\begin{Answer}
+Os valores exatos para os itens e e f são:$\frac{1}{10}\ln\left(\frac{9}{4}\right)$ e $\frac{1}{10}\ln\left(6\right)$
+\end{Answer}
+
+\begin{Exercise} Considere o seguinte modelo para a evolução da velocidade de um objeto em queda (unidades no SI):
+$$v'=g-\alpha v^2$$
+Sabendo que $g=9,8$ e $\alpha=10^{-2}$ e $v(0)=0$. Pede-se a velocidade ao tocar o solo, sabendo que a altura inicial era 100.
+
+\end{Exercise}
+\begin{Answer}
+O valor exato é $\sqrt{\frac{g}{\alpha}\left[1-e^{{-200\alpha}}\right]}$ em $t=\frac{1}{\sqrt{g\alpha}}\tanh^{-1}\left(\sqrt{1-e^{{-200\alpha}}}\right)$
+\end{Answer}
+
+
+\begin{Exercise} Considere o seguinte modelo para o oscilador não-linear de Van der Pol:
+$$y''(t) - \alpha (A-y(t)^2)y'(t) + w_0^2y(t)=0$$
+onde $A$, $\alpha$ e $w_0$ são constantes positivas.
+\begin{itemize}
+\item Encontre a frequência e a amplitude de oscilações quando $w_0=1$, $\alpha=.1$ e $A=10$. (Teste diversas condições iniciais)
+\item Estude a dependência da frequência e da amplitude com os parâmetros  $A$, $\alpha$ e $w_0$. (Teste diversas condições iniciais)
+\item Que diferenças existem entre esse oscilador não-linear e o oscilador linear?
+\end{itemize}
+\end{Exercise}
+
+\begin{Exercise} Considere o seguinte modelo para um oscilador não-linear:
+\begin{eqnarray*}
+y''(t)-\alpha(A-z(t))y'(t)+w_0^2 y(t)&=&0\\
+Cz'(t)+z(t)&=&y(t)^2
+\end{eqnarray*}
+onde $A$, $\alpha$, $w_0$ e $C$ são constantes positivas.
+\begin{itemize}
+\item Encontre a frequência e a amplitude de oscilações quando $w_0=1$, $\alpha=.1$, $A=10$ e $C=10$. (Teste diversas condições iniciais)
+\item Estude a dependência da frequência e da amplitude com os parâmetros  $A$, $\alpha$, $w_0$ e $C$. (Teste diversas condições iniciais)
+\end{itemize}
+\end{Exercise}
+
+\begin{Exercise} Considere o seguinte modelo para o controle de temperatura em um processo químico:
+\begin{eqnarray*}
+CT'(t)+T(t)&=&\kappa P(t)+T_{ext}\\
+P'(t)&=&\alpha(T_{set}-T(t))
+\end{eqnarray*}
+onde $C$, $\alpha$ e $\kappa$ são constantes positivas e $P(t)$ indica o potência do aquecedor. Sabendo que $T_{set}$ é a temperatura desejada, interprete o funcionamento esse sistema de controle.
+\begin{itemize}
+\item Calcule a solução quando a temperatura externa $T_{ext}=0$, $T_{set}=1000$, $C=10$, $\kappa=.1$ e $\alpha=.1$. Considere condições iniciais nulas.
+\item Quanto tempo demora o sistema para atingir a temperatura 900K?
+\item Refaça os dois primeiros itens com $\alpha=0.2$ e $\alpha=1$
+\item Faça testes para verificar a influência de $T_{ext}$, $\alpha$ e $\kappa$ na temperatura final.
+\end{itemize}
+\end{Exercise}
+
+\begin{Exercise} Considere a equação do pêndulo dada por:
+$$\frac{d^2\theta(t)}{dt^2}+\frac{g}{l}\sin(\theta(t))=0$$
+onde $g$ é o módulo da aceleração da gravidade e $l$ é o comprimento da haste.
+\begin{itemize}
+\item Mostre analiticamente que a energia total do sistema dada por
+$$\frac{1}{2}\left(\frac{d\theta(t)}{dt}\right)^2-\frac{g}{l}\cos(\theta(t))$$
+é mantida constante.
+\item Resolva numericamente esta equação para $g=9,8m/s^2$ e $l=1m$ e as seguintes condições iniciais:
+\subitem $\theta(0)=0.5$ e $\theta'(0)=0$.
+\subitem $\theta(0)=1.0$ e $\theta'(0)=0$.
+\subitem $\theta(0)=1.5$ e $\theta'(0)=0$.
+\subitem $\theta(0)=2.0$ e $\theta'(0)=0$.
+\subitem $\theta(0)=2.5$ e $\theta'(0)=0$.
+\subitem $\theta(0)=3.0$ e $\theta'(0)=0$.
+\end{itemize}
+Em todos os casos, verifique se o método numérico reproduz a lei de conservação de energia e calcule período e amplitude.
+\end{Exercise}
+
+\begin{Exercise} Considere o modelo simplificado de FitzHugh-Nagumo para o potencial elétrico sobre a membrana de um neurônio:
+\begin{eqnarray*}
+\frac{d V}{dt}& = &  V-V^3/3 - W +  I  \\
+\frac{d W}{dt} & = & 0.08(V+0.7 - 0.8W)
+\end{eqnarray*}
+onde $I$ é a corrente de excitação.
+\begin{itemize}
+\item Encontre o único estado estacionário $\left(V_0,W_0\right)$ com $I=0$.
+\item Resolva numericamente o sistema com condições iniciais dadas por $\left(V_0,W_0\right)$ e
+\subitem $I=0$
+\subitem $I=0.2$
+\subitem $I=0.4$
+\subitem $I=0.8$
+\subitem $I=e^{-t/200}$
+\end{itemize}
+\end{Exercise}
+
+
+\begin{Exercise} Considere o problema de valor inicial dado por
+\begin{eqnarray*}
+\frac{d u(t)}{dt} &=& -u(t) + e^{-t} \\
+u(0)&=&0
+\end{eqnarray*}
+Resolva analiticamente este problema usando as técnicas elementares de equações diferenciais ordinárias. A seguir encontre aproximações numéricas usando os métodos de Euler, Euler modificado, Runge-Kutta Clássico e Adams-Bashforth de ordem 4 conforme pedido nos itens.
+\begin{itemize}
+\item[a)]  Construa uma tabela apresentando valores com 7 algarismos significativos para comparar a solução analítica com as aproximações numéricas produzidas pelos métodos sugeridos. Construa também uma tabela para o erro absoluto obtido por cada método numérico em relação à solução analítica. Nesta última tabela, expresse o erro com 2 algarismos significativos em formato científico. Dica: $format('e',8)$ para a segunda tabela.
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+&0.5&1.0&1.5&2.0&2.5\\
+\hline
+Analítico&&&&&\\
+\hline
+Euler&&&&&\\
+\hline
+Euler modificado&&&&&\\
+\hline
+Runge-Kutta Clássico&&&&&\\
+\hline
+Adams-Bashforth ordem 4&&&&&\\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+&0.5&1.0&1.5&2.0&2.5\\
+\hline
+Euler&&&&&\\
+\hline
+Euler modificado&&&&&\\
+\hline
+Runge-Kutta Clássico&&&&&\\
+\hline
+Adams-Bashforth ordem 4&&&&&\\
+\hline
+\end{tabular}
+\end{center}
+
+\item[b)] Calcule o valor produzido por cada um desses método para $u(1)$ com passo $h=0.1$, $h=0.05$, $h=0.01$, $h=0.005$ e $h=0.001$. Complete a tabela com os valores para o erro absoluto encontrado.
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+&0.1&0.05&0.01&0.005&0.001\\
+\hline
+Euler&&&&&\\
+\hline
+Euler modificado&&&&&   \\
+\hline
+Runge-Kutta Clássico&&&&&\\
+\hline
+Adams-Bashforth ordem 4&&&&&\\
+\hline
+\end{tabular}
+\end{center}
+
+\end{itemize}
+
+\end{Exercise}
+
+
+\begin{Answer}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+&0.5&1.0&1.5&2.0&2.5\\
+\hline
+Analítico&  0.3032653 &   0.3678794  &  0.3346952  &  0.2706706 &   0.2052125  \\
+\hline
+Euler& 0.3315955 &   0.3969266 &   0.3563684 &   0.2844209  &  0.2128243\\
+\hline
+Euler modificado &0.3025634 &   0.3671929 &   0.3342207 &   0.2704083  &  0.2051058 \\
+\hline
+Runge-Kutta Clássico& 0.3032649  &  0.3678790  &  0.3346949  &  0.2706703  &  0.2052124\\
+\hline
+Adams-Bashforth ordem 4& 0.3032421  &  0.3678319 &   0.3346486  &  0.2706329  &  0.2051848  \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+&0.5&1.0&1.5&2.0&2.5\\
+\hline
+Euler& 2.8D-02  &  2.9D-02  &  2.2D-02  &  1.4D-02 &   7.6D-03\\
+\hline
+Euler modificado& 7.0D-04  &  6.9D-04   & 4.7D-04 &   2.6D-04 &   1.1D-04\\
+\hline
+Runge-Kutta Clássico& 4.6D-07 &   4.7D-07    &3.5D-07  &  2.2D-07 &   1.2D-07\\
+\hline
+Adams-Bashforth ordem 4&  2.3D-05 &   4.8D-05  &  4.7D-05  &  3.8D-05  &  2.8D-05 \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+&0.1&0.05&0.01&0.005&0.001\\
+\hline
+Euler&2.9D-02  &  5.6D-03 &   2.8D-03 &   5.5D-04 &   2.8D-04\\
+\hline
+Euler modificado&6.9D-04 &   2.5D-05  &  6.2D-06 &   2.5D-07 &   6.1D-08   \\
+\hline
+Runge-Kutta Clássico& 4.7D-07 &   6.9D-10 &   4.3D-11   & 6.8D-14  &  4.4D-15\\
+\hline
+Adams-Bashforth ordem 4&4.8D-05 &   9.0D-08 &   5.7D-09 &   9.2D-12 &   5.8D-13  \\
+\hline
+\end{tabular}
+\end{center}
+\end{Answer}
 
 \end{document} 
