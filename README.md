@@ -4,7 +4,7 @@ Este é um livro colaborativo sobre tópicos de métodos e análise numérica, n
 
 Caso queira colaborar, escreva para:
 
-(livro_colaborativo@googlegroups.com)
+[livro_colaborativo@googlegroups.com](livro_colaborativo@googlegroups.com)
 
 ## Licença
 Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite (http://creativecommons.org/licenses/by-sa/3.0/) ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
@@ -29,10 +29,10 @@ $ make clean
 
 Todos são convidados a colaborarem na escrita deste livro. Caso esteja interessado, entre em contato conosco escrevendo para:
 
-(livro_colaborativo@googlegroups.com)
+[livro_colaborativo@googlegroups.com](livro_colaborativo@googlegroups.com)
 
 ### Fork us on GitHub
 
 Colabore editando diretamente o código fonte disponível no repositório GitHub:
 
-(https://github.com/livroscolaborativos/CalculoNumerico)
+[https://github.com/livroscolaborativos/CalculoNumerico](https://github.com/livroscolaborativos/CalculoNumerico)
