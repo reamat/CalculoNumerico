@@ -36,3 +36,7 @@ livro_colaborativo@googlegroups.com
 Colabore editando diretamente o código fonte disponível no repositório GitHub:
 
 https://github.com/livroscolaborativos/CalculoNumerico
+
+### Folha de estilo
+
+Para colaborar de forma efetiva, leia nossa [folha de estilo](https://github.com/livroscolaborativos/CalculoNumerico/blob/master/FOLHA_DE_ESTILO.md).
