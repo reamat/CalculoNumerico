@@ -50,13 +50,32 @@ Podemos inspecionar o comportamento da função $f(x) e^x - x - 2$ e de sua deriva
 \fi
 \end{ex}
 
-\begin{exer}Mostre que a equação
-$$\ln(x)+x^3-\frac{1}{x}=10$$
-possui uma única solução positiva. Faça o gráfico e observe.
-\end{exer}
+\section*{Exercícios}
 
-\begin{exer}Use o teorema do valor intermediário para mostrar que o erro absoluto ao aproximar a raiz da função $f(x)=e^x-x-2$ por $\overline{x}=-1,841$ é menor que $10^{-3}$.
-\end{exer}
+\begin{Exercise}Mostre que a equação
+  \begin{equation*}
+    \ln(x)+x^3-\frac{1}{x}=10  
+  \end{equation*}
+possui uma única solução positiva. Faça o gráfico e observe.
+\end{Exercise}
+
+\begin{Exercise} Use o teorema do valor intermediário para mostrar que o erro absoluto ao aproximar a raiz da função $f(x)=e^x-x-2$ por $\overline{x}=-1,841$ é menor que $10^{-3}$.
+\end{Exercise}
+
+\begin{Exercise} Aplique o teorema do valor intermediário a um intervalo adequado e mostre que o erro absoluto associado à aproximação $1,962$ para a solução  exata $x^*$ de:
+  \begin{equation*}
+    e^x+\sin (x) +x = 10  
+  \end{equation*}
+é inferior a $10^{-4}$.
+\end{Exercise}
+
+\begin{Exercise}\label{existe_unica} Mostre que a equação
+  \begin{equation*}
+    \ln(x)+x-\frac{1}{x}=v
+  \end{equation*}
+possui uma solução para cada $v$ real e que esta solução é única.
+\end{Exercise}
+
 
 \section{Método da bisseção}
 
@@ -141,9 +160,6 @@ $$
 Portanto, $n\geq 9$.
 \end{ex}
 
-\begin{exer}Utilize o método da bisseção na equação $\sqrt{x}=\cos(x)$ para encontrar $p^{(4)}$ em $[a,b]=[0,1]$.
-\end{exer}
-
 \ifisscilab
 \subsection{Código Scilab}
 
@@ -163,21 +179,95 @@ A variável de saída é:
 \verbatiminput{./cap_equacao1d/codes/metodo_da_bissecao/bissecao.sci}
 \fi
 
-\begin{exer} Encontre a solução de cada equação com erro absoluto inferior a $10^{-6}$.
-\begin{description}
-\item[a)] $e^x=x+2$ no intervalo $(-2,0)$.
-\item[b)] $x^3+5x^2-12=0$ no intervalo $(1,2)$.
-\item[c)] $\sqrt{x}=\cos(x)$ no intervalo $(0,1)$.
-\end{description}
-\end{exer}
+\section*{Exercícios}
 
-\begin{exer} Encontre numericamente as três primeiras raízes positivas da equação dada por
-$$\cos(x)=\frac{x}{10+x^2}$$
-com erro absoluto inferior a $10^{-6}$.
-\end{exer}
+\begin{Exercise} Mostre que a equação do problema \ref{existe_unica} possui uma solução no intervalo $[1, v+1]$ para todo $v$ positivo. Dica: defina $f(x)=\ln(x)+x-\frac{1}{x}-v$  e considere a seguinte estimativa:
+  \begin{equation*}
+    f(v+1)=f(1)+\int_1^{v+1}f'(x)dx\geq -v+\int_1^{v+1}dx=0.  
+  \end{equation*}
+Use esta estimativa para iniciar o método de bisseção e obtenha o valor da raiz com pelo menos 6 algarismos significativos para $v=1, 2, 3, 4$ e $5$.
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+    $1,390054$; $1,8913954$; $2,4895673$; $3,1641544$; $3,8965468$    
+  \end{tiny}
+\end{Answer}
 
-\begin{exer} Calcule uma equação da reta tangente a curva $y=e^{-(x-1)^2}$ que passa pelo ponto $(3,1/2)$.
-\end{exer}
+\begin{Exercise} Trace o gráfico e isole as três primeiras raízes positivas da função:
+  \begin{equation*}
+    f(x)=5\sin(x^2)-\exp\left({\frac{x}{10}}\right)  
+  \end{equation*}
+em intervalos de comprimento $0,1$.
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+    A primeira raiz se encontra no intervalo $(0,4, 0,5)$. A segunda raiz no intervalo $(1,7, 1,8)$. A terceira raiz se encontra no intervalo $(2,5, 2,6)$.    
+  \end{tiny}
+\end{Answer}
+
+\begin{Exercise}Utilize o método da bisseção na equação $\sqrt{x}=\cos(x)$ para encontrar $p^{(4)}$ em $[a,b]=[0, 1]$.
+\end{Exercise}
+
+\begin{Exercise}[title=Estática] Considere o seguinte problema físico: uma plataforma está fixa a uma parede através de uma dobradiça cujo momento é dado por:
+  \begin{equation*}
+    \tau=k\theta,
+  \end{equation*}
+onde $\theta$ é angulo da plataforma com a horizontal e $k$ é uma constante positiva. A plataforma é feita de material homogêneo, seu peso é $P$ e sua largura é $l$. Modele a relação entre o ângulo $\theta$ e o peso $P$ próprio da plataforma. Encontre o valor de $\theta$ quando $l=1~\mbox{m}$, $P=200~\mbox{N}$, $k=50~\mbox{Nm}/\mbox{rad}$, sabendo que o sistema está em equilíbrio. Use o método da bisseção e expresse o resultado com 4 algarismos significativos.
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+    $k\theta=\frac{lP}{2}\cos(\theta)$ com $\theta\in (0, \pi/2)$; $1,030$.
+  \end{tiny}
+\end{Answer}
+
+\begin{Exercise} Interprete a equação $\cos(x)=kx$ como o problema de encontrar a intersecção da curva $y=\cos(x)$ com $y=kx$. Encontre o valor positivo $k$ para o qual essa equação admite exatamente duas raízes positivas distintas.
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+    $k\approx 0,161228$
+  \end{tiny}
+\end{Answer}
+
+\begin{Exercise} Considere a equação de Lambert dada por:
+  \begin{equation*}
+    xe^x= t,
+  \end{equation*}
+onde $t$ é um número real positivo. Mostre que esta equação possui uma única solução $x^*$ que pertence ao intervalo $[0, t]$. Usando esta estimativa como intervalo inicial, quantos passos são necessário para obter o valor numérico de $x^*$ com erro absoluto inferior a $10^{-6}$ quando $t=1$, $t=10$ e $t=100$ através do método da bisseção? Obtenha esses valores.
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+    $19$; $23$; $26$; $0,567143$; $1,745528$; $3,385630$
+  \end{tiny}
+\end{Answer}
+
+\begin{Exercise}\label{prob_raiz_dupla} O polinômio $f(x)=x^4-4x^2+4$ possui raizes duplas em $\sqrt{2}$ e $-\sqrt{2}$. O método da bisseção pode ser aplicados a $f$? Explique.
+\end{Exercise}
+
+\begin{Exercise}[title=Eletrônica]\label{prob_diodo} O desenho abaixo mostra um circuito não linear envolvendo uma fonte de tensão constante, um diodo retificador e um resistor. Sabendo que a relação entre a corrente ($I_d)$ e a tensão ($v_d$) no diodo é dada pela seguinte expressão:
+  \begin{equation*}
+    I_d=I_R\left(\exp\left(\frac{v_d}{v_t}\right)-1\right),
+  \end{equation*}
+onde $I_R$ é a corrente de condução reversa e $v_t$, a tensão térmica dada por $v_t=\frac{kT}{q}$ com $k$, a constante de Boltzmann, $T$ a temperatura de operação e $q$, a carga do elétron. Aqui  $I_R=1pA=10^{-12}~\mbox{A}$, $T=300~\mbox{K}$. Escreva o problema como uma equação na incógnita $v_d$ e, usando o método da bisseção, resolva este problema com 3 algarismos significativos para os seguintes casos:
+\end{Exercise}
+\begin{minipage}[l]{0.6\linewidth}
+\begin{itemize}
+\item[a)] $V=30~\mbox{V}$ e $R=1~\mbox{k}\\mbox{Omega}$.
+\item[b)] $V=3~\mbox{V}$ e $R=1~\mbox{k}\\mbox{Omega}$.
+\item[c)] $V=3~\mbox{V}$ e $R=10~\mbox{k}\\mbox{Omega}$.
+\item[d)] $V=300~\mbox{mV}$ e $R=1~\mbox{k}\\mbox{Omega}$.
+\item[e)] $V=-300~\mbox{mV}$ e $R=1~\mbox{k}\\mbox{Omega}$.
+\item[f)] $V=-30~\mbox{V}$ e $R=1~\mbox{k}\\mbox{Omega}$.
+\item[g)] $V=-30~\mbox{V}$ e $R=10~\mbox{k}\\mbox{Omega}$.
+\end{itemize}\end{minipage}\begin{minipage}[c]{0.4\linewidth}
+\includegraphics[width=0.9\textwidth]{./cap_equacao1d/pics/circuito_diodo}
+\end{minipage}\\
+Dica: $V=RI_d+v_d$.
+\begin{Answer}
+  \begin{tiny}
+    a) $0,623$; b) $0,559$; c) $0,500$; d) $0,300$; e) $-0,3$; f) $-30$; g) $-30$
+  \end{tiny}
+\end{Answer}
+
 
 \section{Iteração de Ponto Fixo}
 
@@ -412,8 +502,6 @@ x^{(42)}&=&\cos(x_{41})=\cos(0,7390851)= 0,7390851   \\
 x^{(43)}&=&\cos(x_{42})=\cos(0,7390851 )= 0,7390851
 \end{eqnarray*}
 \end{ex}
-\begin{prob} Resolver os problemas 33 e 34 da lista.
-\end{prob}
 
 
 \subsection{Estabilidade e convergência}
@@ -508,13 +596,24 @@ $$\epsilon_N \approx \frac{\Delta_N}{1-\frac{\Delta_n}{\Delta_{n-1}}}.$$
   Deve-se exigir que $\Delta_n<\Delta_{n-1}$
 \end{obs}
 
-\begin{prob} Resolver problemas 30 a 34 da lista.
-\end{prob}
+\section*{Exercícios}
 
+\begin{Exercise}  Mostre que a equação:
+  \begin{equation*}
+    \cos(x)=x  
+  \end{equation*}
+possui uma única solução no intervalo $[0, 1]$. Encontre uma aproximação para esta solução com  4 dígitos significativos.
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+    $0,7391$
+  \end{tiny}
+\end{Answer}
 
-\subsection{Problemas para análise}
-\begin{prob} Verifique (analiticamente) que a única solução real da equação
-$$xe^x=10$$
+\begin{Exercise} Verifique (analiticamente) que a única solução real da equação:
+  \begin{equation*}
+    xe^x=10
+  \end{equation*}
 é ponto fixo das seguintes funções:
 \begin{itemize}
 \item[a)] $\phi(x)=\ln\left(\frac{10}{x}\right)$
@@ -522,9 +621,12 @@ $$xe^x=10$$
 \item[c)] $\phi(x)=x-\frac{xe^{x}-10}{10+e^{x}}$
 \end{itemize}
 Implemente o processo iterativo $x^{(n+1)}=\phi(x^{(n)})$ para $n\geq 0$ e compare o comportamento. Discuta os resultados com base na teoria estudada.
-\end{prob}
-\begin{prob} Verifique (analiticamente) que a única solução real da equação
-$$\cos(x)=x$$
+\end{Exercise}
+
+\begin{Exercise} Verifique (analiticamente) que a única solução real da equação:
+  \begin{equation*}
+    \cos(x)=x  
+  \end{equation*}
 é ponto fixo das seguintes funções:
 \begin{itemize}
 \item[a)] $\phi(x)=\cos(x)$
@@ -532,9 +634,152 @@ $$\cos(x)=x$$
 \item[c)] $\phi(x)=x+\frac{\cos(x)-x}{1+\sin(x)}$
 \end{itemize}
 Implemente o processo iterativo $x^{(n+1)}=\phi(x^{(n)})$ para $n\geq 0$ e compare o comportamento.Discuta os resultados com base na teoria estudada.
-\end{prob}
+\end{Exercise}
 
-%\newpage
+
+\begin{Exercise} Encontre a solução de cada equação com erro absoluto inferior a $10^{-6}$.
+  \begin{itemize}
+  \item[a)] $e^x=x+2$ no intervalo $(-2,0)$.
+  \item[b)] $x^3+5x^2-12=0$ no intervalo $(1,2)$.
+  \item[c)] $\sqrt{x}=\cos(x)$ no intervalo $(0,1)$.
+  \end{itemize}
+\end{Exercise}
+
+\begin{Exercise} Encontre numericamente as três primeiras raízes positivas da equação dada por:
+  \begin{equation*}
+    \cos(x)=\frac{x}{10+x^2}  
+  \end{equation*}
+com erro absoluto inferior a $10^{-6}$.
+\end{Exercise}
+
+\begin{Exercise} Calcule uma equação da reta tangente a curva $y=e^{-(x-1)^2}$ que passa pelo ponto $(3, 1/2)$.
+\end{Exercise}
+
+\begin{Exercise} Resolva numericamente a inequação:
+  \begin{equation*}
+    e^{-x^2}<2x  
+  \end{equation*}
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+    $x>a$ com $a\approx 0,4193648$.    
+  \end{tiny}
+\end{Answer}
+
+\begin{Exercise} Considere os seguintes processos iterativos:
+\begin{equation}
+\begin{array}{l}
+a\left\{\begin{array}{rcl}
+x^{(n+1)}&=&\cos(x^{(n)})\\
+x^{(1)}&=&.5
+\end{array}
+\right. \\ \qquad \hbox { e }\\
+b\left\{\begin{array}{rcl}
+x^{(n+1)}&=&.4x^{(n)}+.6\cos(x^{(n)})\\
+x^{(1)}&=&.5
+\end{array}
+\right.
+\end{array}
+\end{equation}
+
+Use o teorema do ponto fixo para verificar que cada um desses processos converge para a solução da equação $x^*$ de $\cos(x)=x$. Observe o comportamento numérico dessas sequências. Qual estabiliza mais rápido com cinco casas decimais? Discuta.
+
+Dica: Verifique que $\cos([0.5,1])\subseteq [0.5,1]$ e depois a mesma identidade para a função $f(x)=.4x+.6\cos(x)$.
+\end{Exercise}
+
+
+\begin{Exercise}  Use o teorema do ponto fixo aplicado a um intervalo adequado para mostrar que a função $\phi(x)=\ln (100-x)$ possui um ponto fixo estável.
+\end{Exercise}
+
+\begin{Exercise}[title=Fluidos] Na hidráulica, o fator de atrito de Darcy é dado pela implicitamente pela equação de Colebrook-White:
+$$\frac{1}{\sqrt{f}}= -2 \log_{10} \left( \frac{\varepsilon}{14.8 R_\mathrm{h}} + \frac{2.51}{\mathrm{Re}\sqrt{f}} \right)$$
+onde $f$ é o fator de atrito, $\varepsilon$ é a rugosidade do tubo em metros, $R_\mathrm{h}$ é o raio hidráulico em metros e $\mathrm{Re}$ é o número de Reynolds. Considere $\varepsilon=2mm$, $R_\mathrm{h}=5cm$ e $\mathrm{Re}=10000$ e obtenha o valor de $f$ pela iteração:
+$$x^{(n+1)}=-2 \log_{10} \left( \frac{\varepsilon}{14.8 R_\mathrm{h}} + \frac{2.51x^{(n)}}{\mathrm{Re}} \right)$$
+\end{Exercise}
+\begin{Answer}
+0.0431266
+\end{Answer}
+
+\begin{Exercise} Encontre uma solução aproximada para equação algébrica
+$$180-100x=0.052\sinh^{-1}(10^{13}x)$$
+com erro absoluto inferior a $10^{-3}$ usando um método iterativo.
+Estime o erro associado ao valor de $v=180-100x=0.052\sinh^{-1}(10^{13}x)$, usando cada uma dessas expressões. Discuta sucintamente o resultado obtido. Dica: Este caso é semelhante ao problema \ref{prob_diodo}.
+\end{Exercise}
+
+\begin{Exercise}Considere que $x_n$ satisfaz a seguinte relação de recorrência:
+$$x_{n+1}=x_n - \beta \left(x_n-x^*\right)$$
+onde $\beta$ e $x^*$ são constantes.
+Prove que $$x_n-x^*=(1-\beta)^{n-1}(x_1-x^*).$$
+Conclua que $x_n\to x^*$ quando $|1-\beta|<1$.
+\end{Exercise}
+
+\begin{Exercise}[title=Convergência lenta] Considere o seguinte esquema iterativo:
+$$
+\left\{\begin{array}{l}
+x^{(n+1)}=x_n+q^n\\
+x^{(0)}=0
+\end{array}
+\right.$$
+onde $q=1-10^{-6}$.
+\begin{itemize}
+\item[a)] Calcule o limite $$x_\infty=\lim_{n\to\infty}x^{(n)}$$ analiticamente.
+\item[b)] Considere que o problema de obter o limite da sequência numericamente usando como critério de parada que $|x^{(n+1)}-x^{(n)}|<10^{-5}$. Qual o valor é produzido pelo esquema numérico? Qual o desvio entre o valor obtido pelo esquema numérico e o valor do limite obtido no item a?  Discuta. (Dica: Você não deve implementar o esquema iterativo, obtendo o valor de $x^{(n)}$ analiticamente)
+\item[c)] Qual deve ser a tolerência especificada para obter o resultado com erro relativo inferior a $10^{-2}$?
+\end{itemize}
+\end{Exercise}
+
+\begin{Exercise}[title=Convergência sublinear] Considere o seguinte esquema iterativo:
+$$x^{(n+1)}=x^{(n)}-[x^{(n)}]^3,\ x^{(n)}\geq 0$$
+com $x^{(0)}= 10^{-2}$.
+Prove que $\{x^{(n)}\}$ é sequência de número reais positivos convergindo para zero. Verifique que são necessários mais de mil passos para que $x^{(n)}$ se torne menor que $0.9 x^{(0)}$.
+\end{Exercise}
+
+
+\begin{Exercise}[title=Taxa de convergência]
+\begin{itemize}
+\item[a)] Use o teorema do ponto fixo para mostrar que a função $\phi(x)=1-\sin(x)$ possui um único ponto fixo estável o intervalo $[\frac{1}{10},1]$. Construa um método iterativo $x^{(n+1)}=\phi(x^{(n)})$ para encontrar esse ponto fixo. Use o Scilab para encontrar o valor numérico do ponto fixo.
+\item[b)] Verifique que função $\psi(x)=\frac{1}{2}\left[x+1-\sin(x)\right]$ possui um ponto fixo $x^*$ que também é o ponto fixo da função $\phi$ do item a. Use o Scilab para encontrar o valor numérico do ponto fixo através da iteração $x^{(n+1)}=\psi(x^{(n)})$. Qual método é mais rápido?
+\end{itemize}
+\end{Exercise}
+
+
+\begin{Exercise}\it {(Esquemas oscilantes)}
+\begin{itemize}
+\item[a)] Considere a função $\phi(x)$ e função composta $\psi(x)=\phi\circ \phi=\phi\left(\phi(x)\right)$. Verifique todo ponto fixo de $\phi$ também é ponto fixo de $\psi$.
+
+\item[b)]  Considere a função $$\phi(x)=10\exp(-x)$$ e função composta $\psi(x)=\phi\circ \phi=\phi\left(\phi(x)\right)$. Mostre que $\psi$ possui dois pontos fixos que não são pontos fixos de $\phi$.
+
+\item[c)]  No problema anterior, o que acontece quando o processo iterativo $x^{(n+1)}=\phi(x^{(n)})$ é inicializado com um ponto fixo de $\psi$ que não é ponto fixo de $\phi$?
+\end{itemize}
+\end{Exercise}
+
+\begin{Exercise}[title= Aceleração de convergência - introdução ao método de Newton]\label{int_new1} Mostre que se $f(x)$ possui uma raiz $x^*$ então a $x^*$ é um ponto fixo de $\phi(x)=x+\gamma(x) f(x)$. Encontre uma condição em $\gamma(x)$ para que o ponto fixo $x^*$ de $\phi$ seja estável. Encontre uma condição em $\gamma(x)$ para que $\phi'(x^*)=0$.
+\end{Exercise}
+
+\begin{Exercise}[title=Aceleração de convergência - introdução ao método de Newton]\label{int_new2} Considere que $x^{(n)}$ satisfaz a seguinte relação de recorrência:
+$$x^{(n+1)}=x^{(n)} - \gamma f(x^{(n)})$$
+onde $\gamma$ é uma constante. Suponha que $f(x)$ possui um zero em $x^*$. Aproxime a função $f(x)$ em torno de $x^*$ por
+$$f(x)=f(x^*)+f'(x^*)(x-x^*)+O\left((x-x^*)^2\right).$$
+Em vista do problema anterior, qual valor de $\gamma$ você escolheria para que a seguência $x^{(n)}$ convirja rapidamente para $x^*$. Que relação você encontra com o método de Newton?
+\end{Exercise}
+
+\begin{Exercise} Considere o problema da questão \ref{prob_diodo} e dois seguintes esquemas iterativos.
+$$\begin{array}{l}
+A\left\{
+\begin{array}{ll}
+I^{(n+1)}=\frac{1}{R}\left[V-v_t\ln\left(1+\frac{I^{(n)}}{I_R}\right)\right],n>0\\
+I^{(0)}=0
+\end{array}\right.\\ \hspace{2cm} \hbox{ e }\\
+B\left\{
+\begin{array}{ll}
+I^{(n+1)}=I_R\left[\exp\left(\frac{V-RI^{(n)}}{v_t}\right)-1\right],n>0\\
+I^{(0)}=0
+\end{array}\right.
+\end{array}
+$$
+Verifique numericamente que apenas o processo A é convergente para a, b e c; enquanto apenas o processo B é convergente para os outros itens.
+\end{Exercise}
+
 \section{Método de Newton-Raphson}
 
 Consideramos o problema de encontrar as raízes da equação
@@ -613,6 +858,120 @@ x^{(n+1)}&=&\phi(x^{(n)})\\
 \begin{obs} Pode-se mostrar facilmente que
 $$\phi''(x^*)=\frac{f''(x^*)}{f'(x^*)}$$
 \end{obs}
+
+\section*{Exercícios}
+
+\begin{Exercise} Considere o problema de calcular as soluções positivas da equação:
+  \begin{equation*}
+    \tg(x)=2x^2.    
+  \end{equation*}
+\begin{itemize}
+\item[a)] Use o método gráfico para isolar as duas primeiras raízes positivas em pequenos intervalos. Use a teoria estudada em aula para argumentar quanto à existência e unicidade das raízes dentro intervalos escolhidos.
+\item[b)] Calcule o número de iterações necessárias para que o método da bisseção aproxime cada uma das raízes com erro absoluto inferior a $10^{-8}$. Calcule as raízes por este método usando este número de passos.
+\item[c)]  Calcule cada uma das raízes pelo método de Newton com oito dígitos significativos e discuta a convergência comparando com o item b).
+\end{itemize}
+{\bf Obs:} Alguns alunos encontraram como solução $x_1\approx 1,5707963$ e $x_2 \approx 4,7123890$. O que eles fizeram de errado?
+\end{Exercise}
+\ifisscilab
+\begin{Answer}
+  \begin{tiny}
+    \begin{itemize}
+\item[a)]Primeiramente, deve-se observar que a função $\tg(x)$ não está definidida quando $x$ é um múltiplo ímpar de $\frac{\pi}{2}$, pelo que devemos cuidado nas singularidas. Traçamos o gráfico da função $f(x)=\tg(x)-2x^2$ no \verb+Scilab+ usando os seguintes comandos:
+\begin{verbatim}
+-->deff('y=f(x)','y=tan(x)-2*x^2')
+-->plot([0:.01:1.3],f)
+\end{verbatim} 
+Observamos fácilmente uma raiz no intervalo $(0,5, 0,6)$ e outra no intervalo $(1,2, 1,3)$. Como a função $f(x)$ é contínua fora dos pontos de singularidade da tangente, é fácil verificar que existe pelo menos uma solução nos intervalos dados pelo teorema do valor intermediário:
+\begin{eqnarray*}
+f(0,5) &\approx& 0,046302 >0\\
+f(0,6) &\approx& -0,035863 <0\\
+f(1,2) &\approx& -0,30784e-1 <0\\
+f(1,3) &\approx&  0,22210e-1>0\\
+\end{eqnarray*} 
+Para provar a unicidade da solução em cada intervalo, precisamos mostra que a função é monótona, ou seja, a derivada não muda de sinal em cada intervalo:
+\begin{eqnarray*}
+f'(x)=\sec^2(x)-4x=\frac{1}{\cos^2(x)}-4x\leq \frac{1}{\cos^2(0,6)}-4*0,5<0, ~~x\in[ 0,5, 0,6]\\
+f'(x)=\sec^2(x)-4x=\frac{1}{\cos^2(x)}-4x\geq \frac{1}{\cos^2(1,2)}-4*1,3>0, ~~x\in[ 1,2, 1,3]\\
+\end{eqnarray*} 
+
+\item[b)] 
+Já isolamos as raízes em intervalos de comprimento $10^{-1}$ e a precisão requerida exige que as isolemos em intervalos de comprimento $2\times 10^{-8}$. Como cada passo da bisseção, confina a raiz em um intervalo com comprimento igual à metade do comprimento do intervalo anterior, temos a seguinte condição para o número de passos $N_p$:
+$$\frac{10^{-1}}{2^N_p}\leq 2\times 10^{-8}$$
+isso é equivalente a
+$$N_p\geq \log_2 \frac{10^{-1}}{2\times 10^{-8}}=\log_2 \frac{10^{7}}{2}=7\log_2 10 -1=\frac{7}{\log_10 2}-1\approx 22.22$$
+Como $N_p$ é inteiro, o menor $N_p$ que satisfaz a condição é $23$.
+
+As raízes obtidas são $0.55970415$ e $1.2703426$. 
+
+\item[c)] Para recalcular as raízes pelo método de Newton, basta executar a interação
+$$x^{(n+1)}=x^{(n)}-\frac{f(x^{(n)})}{f'(x^{(n)}}$$    
+\end{itemize}
+Em relação à observação, o erro se deveu à falta de cuidade em compreender o problema antes de tentar resolvê-lo, em especial, à falta de observar que a função é descontínua em  múltiplos ímpares de $\frac{\pi}{2}$. Nestes pontos, a função $f(x)$ troca de sinal, mas não passa por zero.    
+  \end{tiny}
+\end{Answer}
+\fi
+
+\section*{Exercícios}
+
+\ifisscilab
+\begin{Exercise}\label{new1} Considere a equação
+  $$e^{-x^2}=x$$
+trace o gráfico com auxílio do \verb+Scilab+ e verique que ela possui uma raiz positiva. Encontre uma aproximação para esta razão pelo gráfico e use este valor para inicializar o método de Newton e obtenha uma aproximação para a raiz com 8 dígitos significativos. (Use o comando \verb+format('v',16)+ para alterar a visualização no \verb+Scilab+.)
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+0,65291864    
+  \end{tiny}
+\end{Answer}
+\fi
+
+\begin{Exercise}\label{new2} Isole e encontre as cinco primeiras raizes positivas da equação com 6 dígitos corretos atavés de traçado de gráfico e do método de Newton.
+$$\cos(10x)=e^{-x}.$$ Dica: a primeira raiz positiva está no intervalo $(0,0.02)$. Fique atento.
+\end{Exercise}
+\begin{Answer}
+ 0.0198679; 0.533890; 0.735412; 1.13237; 1.38851
+\end{Answer}
+
+
+\begin{Exercise}\label{new3} Encontre as raizes do polinômio $f(x)=x^4-4x^2+4$ através do método de Newton. O que você observa em relação ao erro obtido? Compare com a situação do problema \ref{prob_raiz_dupla}.
+\end{Exercise}
+
+\begin{Exercise}\label{new4} Encontre as raizes reais do polinômio $f(x)=\frac{x^5}{100}+x^4+3x+1$ isolando-as pelo método do gráfico e depois usando o método de Newton. Expresse a solução com 7 digitos significativos.
+\end{Exercise}
+\begin{Answer}
+ - 99.99970, - 0.3376513; -1.314006
+\end{Answer}
+
+\begin{Exercise}Considere o método de Newton aplicado para encontrar a raiz de $f(x)=x^3-2x+2$. O que acontece quando $x^{(0)}=0$? Escolha um valor adequado para inicializar o método e obter a única raiz real desta equação.
+\end{Exercise}
+
+\begin{Exercise} Justifique a construção do processo iterativo do Método de Newton através do conceito de estabilidade de ponto fixo e convergência do método da iteração. Dica: Considere os problemas \ref{int_new1} e \ref{int_new2}.
+\end{Exercise}
+
+\begin{Exercise} Entenda a interpretação geométrica ao método de Newton. Encontre uma valor para iniciar o método de Newton aplicado ao problema $f(x)=xe^{-x}=0$ tal que o esquema iterativo divirja.
+\end{Exercise}
+\begin{Answer}
+$x_0>1$.
+\end{Answer}
+
+\begin{Exercise}[title= Computação]Aplique o método de Newton à função $f(x)=\frac{1}{x}-u$ e construa um esquema computacional para calcular a inversa de $u$ com base em operações de multiplicação e soma/subtração.
+ \end{Exercise}
+
+\begin{Exercise}[title=Computação]Aplique o método de Newton à função $f(x)=x^n-A$ e construa um esquema computacional para calcular  $\sqrt[n]{A}$ para $A>0$ com base em operações de multiplicação e soma/subtração.
+\end{Exercise}
+
+\begin{Exercise} Considere a função dada por
+\begin{eqnarray*}
+\psi(x)&=&\ln\left(15-\ln(x)\right)
+\end{eqnarray*}
+definida para $x>0$
+\begin{itemize}
+\item [a)] (1.5) Use o teorema do ponto fixo para provar que se $x_0$ pertence ao intervalo $[1,3]$, então a sequência dada iterativamente por $$x^{(n+1)}=\psi(x^{(n)}),n\geq 0$$ converge para o único ponto fixo, $x^*$, de $\psi$. Construa a iteração $x^{(n+1)}=\psi(x^{(n)})$ e obtenha numericamente o valor do ponto fixo $x^*$. Expresse a resposta com 5 algarismos significativos corretos.
+\item [b)] (1.0) Construa a iteração do método de Newton para encontrar $x^*$, explicitando a relação de recorrência e iniciando com $x_0=2$. Use o Scilab para obter a raiz e expresse a resposta com oito dígitos significativos corretos.
+\end{itemize}
+\end{Exercise}
+
+
 \section{Método das Secantes}
 O Método das Secantes é semelhante ao Método de Newton. Neste método a derivada $f'(x)$ é aproximada pela declividade de um reta secante à curva:
 $$f'(x)\approx \frac{f(x+\Delta x)-f(x)}{\Delta x}$$
@@ -766,7 +1125,204 @@ com $\phi=\frac{\sqrt{5}+1}{2}\approx 1,618$ e $M$ é uma constante.
 O erro na tabela sempre se refere ao erro absoluto esperado. Nos três últimos métodos, é comum que se exija como critério de parada que a condição seja satisfeita por alguns poucos passos consecutivos. Outros critérios podem ser usados. No métodos das secantes, deve-se ter o cuidado de evitar divisões por zero quando $x_{n+1}-x_n$ muito pequeno em relação à resolução do sistema de numeração.  
 \end{obs}
 
-%Exercícios
-\input ./cap_equacao1d/exer_equacao1d.tex
+\section*{Exercícios}
+
+\begin{Exercise} Refaça as questões \ref{new1}, \ref{new2}, \ref{new3}  e \ref{new4}, usando o método das secantes.
+\end{Exercise}
+
+\begin{Exercise} Dê uma interpretação geométrica ao método das secantes. Qual a vantagem do método das secantes sobre o método de Newton?
+\end{Exercise}
+
+\begin{Exercise} Refaça o problema \ref{prob_diodo} usando o método de Newton e das secantes.
+\end{Exercise}
+
+\section*{Exercícios finais}
+
+\begin{Exercise} A equação $$\cos(\pi x)=e^{-2x}$$ tem infinitas raizes.
+Usando  métodos numéricos encontre as primeiras raizes dessa equação. Verifique a j-ésima raiz ($z_j$) pode ser aproximada por $j-1/2$ para $j$ grande. Use o método de Newton para encontrar uma aproximação melhor para $z_j$.
+\end{Exercise}
+\begin{Answer}
+ $z_1\approx 0.3252768 $, $z_2\approx 1.5153738$, $z_3\approx 2.497846  $, $z_4\approx 3.5002901$, $z_j\approx j-1/2-(-1)^j\frac{e^{-2j+1}}{\pi}, ~~~j>4$
+\end{Answer}
+
+
+\begin{Exercise}[title=Eletricidade]A corrente elétrica, $I$, em Ampères em uma lâmpada em função da tensão elétrica, $V$, é dada por
+$$I=\left(\frac{V}{150}\right)^{0.8}$$
+Qual a potência da lâmpada quando ligada em série com uma resistência de valor R a uma fonte de 150V quando. (procure erro inferior a 1\%)
+\begin{itemize}
+\item [a)] $R=0\Omega$
+\item [b)] $R=10\Omega$
+\item [c)] $R=50\Omega$
+\item [d)] $R=100\Omega$
+\item [E)] $R=500\Omega$
+\end{itemize}
+\end{Exercise}
+\begin{Answer}
+150W, 133W, 87W, 55W, 6.5W
+\end{Answer}
+
+%\begin{Exercise} Determine com 3 algarismos signficativos o valor de $R$ para que a potência na lâmpada seja $75W$ na questão anterior?
+
+%Resp: $ 65.2\Omega$
+%\end{Exercise}
+
+
+\begin{Exercise} (Bioquímica) A concentração sanguínea de um medicamente é modelado pela seguinte expressão
+$$c(t)=Ate^{-\lambda t}$$
+onde $t>0$ é o tempo em minutos decorrido desde a administração da droga. $A$ é a quantidade administrada em $mg/ml$ e $\lambda$ é a constante de tempo em min$^{-1}$.
+Responda:
+\begin{itemize}
+\item[a)] Sendo $\lambda=1/3$, em que instantes de tempo a concentração é metade do valor máximo. Calcule com precisão de segundos.
+\item[b)] Sendo $\lambda=1/3$ e $A=100mg/ml$, durante quanto tempo a concentração permanece maior que $10mg/ml$.
+\end{itemize}
+\end{Exercise}
+
+\begin{Answer}
+a) 42s e 8min2s, b) 14min56s.
+\end{Answer}
+
+
+\begin{Exercise}\label{pop} Considere o seguinte modelo para crescimento populacional em um país:
+$$P(t)=A+Be^{\lambda t}.$$
+onde $t$ é dado em anos. Use $t$ em anos e $t=0$ para 1960. Encontre os parâmetros $A$, $B$ e $\lambda$ com base nos anos de 1960, 1970 e 1991 conforme tabela:\\~
+
+\begin{tabular}{|c|c|}
+\hline
+Ano & população\\
+\hline
+1960&70992343\\
+1970&94508583\\
+1980&121150573\\
+1991&146917459\\
+\hline	
+\end{tabular}
+
+Use esses parâmetros para calcular a população em 1980 e compare com o valor do censo.
+\end{Exercise}
+\begin{Answer}
+ 118940992
+\end{Answer}
+
+\begin{Exercise}[title=Fluidos]\label{boiaesf} Uma boia esférica flutua na água. Sabendo que a boia tem $10\ell$ de volume e 2Kg de massa. Calcule a altura da porção molhada da boia.
+\end{Exercise}
+\begin{Answer}
+ 7.7cm
+\end{Answer}
+
+\begin{Exercise}[title= Fluidos]\label{boiacil} Uma boia cilíndrica tem secção transversal circular de raio 10cm e comprimento 2m e pesa 10Kg. Sabendo que a boia flutua sobre água com o eixo do cilíndro na posição horizontal, calcule a altura da parte molhada da boia.
+\end{Exercise}
+\begin{Answer}
+ 4.32cm
+\end{Answer}
+
+\begin{Exercise} Encontre com 6 casas decimais o ponto da curva $y=\ln x$ mais próximo da origem.
+\end{Exercise}
+\begin{Answer}
+(0.652919,0.426303)
+\end{Answer}
+
+
+\begin{Exercise}[title= Matemática financeira] Um computador é vendido pelo valor a vista de R\$2.000,00 ou em 1+15 prestações de R\$200,00. Calcule a taxa de juros associada à venda a prazo.
+\end{Exercise}
+
+\begin{Answer}
+7.19\% ao mes
+\end{Answer}
+
+\begin{Exercise}[title= Matemática financeira] O valor de R\$110.000,00 é financiado conforme a seguinte programa de pagamentos:
+
+\begin{tabular}{|c|c|}
+\hline
+Mês & pagamento\\
+\hline
+1&20.000,00\\
+2&20.000,00\\
+3&20.000,00\\
+4&19.000,00\\
+5&18.000,00\\
+6&17.000,00\\
+7&16.000,00\\
+\hline	
+\end{tabular}
+
+Calcule a taxa de juros envolvida. A data do empréstimo é o mês zero.
+ \end{Exercise}
+
+\begin{Answer}
+4.54\% ao mês.
+\end{Answer}
+
+
+\begin{Exercise}[title=Controle de sistemas]  Depois de acionado um sistema de aquecedores, a temperatura em um forno  evolui conforme a seguinte equação
+$$T(t)=500-800e^{-t}+600e^ {-t/3}.$$
+onde $T$ é a temperatura em Kelvin e $t$ é tempo em horas.
+\begin{itemize}
+\item[a)] Obtenha analicamente o valor de $\lim_{t\to\infty}T(t)$.
+\item[b)] Obtenha analicamente o valor máximo de $T(t)$ e o instante de tempo quando o máximo acontece
+\item[c)] Obtenha numericamente com precisão de minutos o tempo decorrido até que a temperatura passe pela primeira vez pelo valor de equilíbrio obtido no item a.
+\item[c)] Obtenha numericamente com precisão de minutos a duração do periodo durante o qual a temperatura permanece pelo menos 20\% superior ao valor de equilíbrio.
+\end{itemize}
+\end{Exercise}
+
+\begin{Answer}
+500K, 700K em $t=3\ln(2)$, 26min, 4h27min.
+\end{Answer}
+
+\begin{Exercise} Encontre os pontos onde a elipse que satisfaz $\frac{x^2}{3}+y^2=1$ intersepta a parábola $y=x^2-2$.
+\end{Exercise}
+\begin{Answer}
+$\left(\pm 1.1101388,-.7675919\right)$, $\left(\pm 1.5602111,0.4342585\right)$
+\end{Answer}
+
+\begin{Exercise}[title= Otimização] Encontre a área do maior retângulo que é possível inscrever entre a curva $e^{-x^2}\left(1+\cos(x)\right)$ e o eixo $y=0$.
+\end{Exercise}
+\begin{Answer}
+1.5318075
+\end{Answer}
+
+
+\begin{Exercise}[title=Otimização] \label{usinas} Uma indústria consome energia elétrica de duas usinas fornecedoras. O custo de fornecimento em reais por hora como função da potência consumida em $kW$ é dada pelas seguintes funções
+\begin{eqnarray*}
+C_1(x)&=& 500+.27 x + 4.1\cdot 10^{-5}x^2 +2.1\cdot 10^{-7}x^3+4.2\cdot 10^{-10}x^4 \\
+C_2(x)&=& 1000+.22 x + 6.3\cdot 10^{-5}x^2 +8.5\cdot 10^{-7}x^3
+\end{eqnarray*}
+Onde $C_1(x)$ e $C_2(x)$ são os custos de fornecimento das usinas 1 e 2, respectivamente. Calcule o custo mínimo da energia elétrica quando a potência total consumida é  $1500kW$.
+
+\end{Exercise}
+\begin{Answer}
+ Aproximadamente 2500 reais por hora.
+\end{Answer}
+
+\begin{Exercise}[title= Termodinâmica] A pressão de saturação (em bar) de um dado hidrocarboneto pelo ser modelada pela equação de Antoine:
+$$\ln\left(P^{sat}\right)=A-\frac{B}{T+C}$$
+onde $T$ é a temperatura e $A$, $B$ e $C$ são constantes dadas conforme a seguir:
+
+\begin{tabular}{|c|c|c|c|}
+\hline
+Hidrocarboneto&A&B&C\\
+\hline
+N-pentano & 9.2131 & 2477.07 & -39.94 \\
+\hline
+N-heptano & 9.2535 &2911.32 &-56.51 \\
+\hline
+\end{tabular}
+\begin{itemize}
+\item[a)] Calcule a temperatura de bolha de uma mistura de N-pentano e N-heptano à pressão de 1.2bar quando as frações molares  dos gases são  $z_1=z_2=0.5$. Para tal utilize a seguinte equação:
+$$P=\sum_i z_i P_i^{sat}$$
+\item[b)] Calcule a temperatura de orvalho de uma mistura de N-pentano e N-heptano à pressão de 1.2bar quando as frações molares  dos gases são  $z_1=z_2=0.5$. Para tal utilize a seguinte equação:
+$$\frac{1}{P}=\sum_i \frac{z_i}{P_i^{sat}}$$
+\end{itemize}
+\end{Exercise}
+
+\begin{Answer}
+ a) 332.74K b), 359.33K
+\end{Answer}
+
+\begin{Exercise} Encontre os três primeiros pontos de mínimo da função $$f(x)=e^{-x/11}+x\cos(2x)$$ para $x>0$ com erro inferior a $10^{-7}$.
+\end{Exercise}
+\begin{Answer}
+1.72285751  ,4.76770758,  7.88704085
+\end{Answer}
+
 
 \end{document} 
