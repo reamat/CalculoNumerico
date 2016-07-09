@@ -18,5 +18,5 @@ O livro está escrito em [LaTex](https://latex-project.org/). O arquivo principal
 
 ### Capítulos
 
-Dentro de cada subdiretório de um capítulo, por exemplo, `cap_foo` devem estar presentes todos os arquivos referentes ao texto deste. As imagens devem ser colocadas em no subdiretório `cap_foo/pics` e os códigos computacionais em `cap_foo/codes`.
+Dentro de cada subdiretório de um capítulo, por exemplo, `cap_foo` devem estar presentes todos os arquivos referentes ao texto deste. As imagens devem ser colocadas em no subdiretório `cap_foo/pics` e os códigos computacionais em `cap_foo/codes`. De preferência, deve-se criar um subdiretório para cada figura e código computacional. Quando possível, as figuras devem ser acompanhadas de seu código fonte.
 
