@@ -23,3 +23,8 @@ $ make dvi
 Para limpar os arquivos temporários gerados durante a compilação, digite:
 
 $ make clean
+
+##Colaborações
+
+Todos são convidados a colaborarem na escrita deste livro. Caso esteja interessado, entre em contato conosco escrevendo para:
+     (livro_colaborativo@googlegroups.com)
