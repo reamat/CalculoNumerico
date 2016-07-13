@@ -3,12 +3,9 @@
 \documentclass[main.tex]{subfiles}
 \begin{document}
 
-\chapter{Solução de sistemas lineares}
+\chapter{Solução de sistemas lineares}\index{sistema linear}
 
-\section{Problemas lineares}
-
-
-Neste parte de nosso curso, estamos interessados em técnicas para resolução de sistemas de equações algébricas lineares. O leitor já tem ampla experiência com tais problemas desde o ensino fundamental até o curso de álgebra linear, dedicado à formalização e ao estudo sistematizado de problemas lineares.
+Neste parte de nosso curso, estamos interessados em técnicas para resolução de sistemas de equações algébricas lineares. 
 
 Trataremos de sistemas de equações algébricas lineares da seguinte forma:
 \begin{eqnarray*}
@@ -43,7 +40,7 @@ y_{m}
 Daremos mais atenção ao caso $m=n$, isto é, quando a matriz $A$ que envolvia no sistema linear é quadrada.
 
 
-\section{Eliminação gaussiana com pivotamento parcial}
+\section{Eliminação gaussiana com pivoteamento parcial}\index{eliminação gaussiana!com pivoteamento parcial}
 Lembramos que algumas operações feitas nas linhas de um sistema não alteram a solução:
 \begin{enumerate}
 \item Multiplicação de um linha por um número
@@ -453,7 +450,7 @@ $$\left[
 \end{Answer}
 \fi
 
-\section{Condicionamento de sistemas lineares}
+\section{Condicionamento de sistemas lineares}\index{sistema linear!condicionamento}\index{matriz!condicionamento}
 
 Quando lidamos com matrizes no corpo do números reais (ou complexos), existem apenas duas alternativas: i) a matriz é inversível; ii) a matriz não é inversível e, neste caso, é chamada de matriz singular. Ao lidarmos em aritmética de precisão finita, encontramos uma situação mais sutil: alguns problema lineares são mais difíceis de serem resolvidos, pois os erros de arredondamento se propagam de forma mais significativa que em outros problemas. Neste caso falamos de problemas bem-condicionados e mal-condicionados. Intuitivamente falando, um problema bem-condicionado é um problema em que os erros de arredondamento se propagam de forma menos importante; enquanto problemas mal-condicionados são problemas em que os erros se propagam de forma mais relevante.
 
@@ -495,7 +492,7 @@ Observe que pequenas variações nos coeficientes das matrizes fazem as soluções f
 
 Para introduzir essa ideia formalmente, precisamos definir o número de condicionamento. Informalmente falando, o número de condicionamento mede o quanto a solução de um problema em função de alterações nos dados de entrada. Para construir matematicamente este conceito, precisamos de uma medida destas variações. Como tanto os dados de entrada como os dados de saída são expressos na forma vetorial, precisaremos do conceito de norma vetorial. Por isso, faremos uma breve interrupção de nossa discussão para introduzir as definições de norma de vetores e matrizes na próxima seção.
 
-\subsection{Norma $L_p$ de vetores}
+\subsection{Norma $L_p$ de vetores}\index{vetor!norma}
 
 Definimos a norma $L_p$ ou $L^p$ de um vetor em $\mathbb{R}^n$ para $p\geq 1$ como
 $$\|v\|_p=\left(|v_1|^p+|v_2|^p+\cdots |v_n|^p\right)^{1/p}$$
@@ -523,7 +520,8 @@ $$v=\left[\begin{array}{c}1\\2\\-3\\0
 \end{eqnarray*}
 
 
-\subsection{Norma matricial}
+\subsection{Norma matricial}\index{matriz!norma}
+
 Definimos a norma operacional em $L^p$ de uma matriz $A:\mathbb{R}^{n}\to \mathbb{R}^{n}$ da seguinte forma:
 $$\|A\|_p = \sup_{\|v\|_p=1} \|Av\|_p$$
 ou seja, a norma p de uma matriz é o máximo valor assumido pela norma de $Av$ entre todos os vetores de norma unitária.
@@ -564,7 +562,8 @@ $$A=\left[
 \|A\|_2&=&\sqrt{\max\{0,5865124; 21,789128 ;195,62436\}}= 13,986578
 \end{eqnarray*}
 
-\subsection{Número de condicionamento}
+\subsection{Número de condicionamento}\index{número de condicionamento}
+
 O condicionamento de um sistema linear é um conceito relacionado à forma como os erros se propagam dos dados de entrada para os dados de saída, ou seja, se o sistema $$Ax=y$$
 possui uma solução $x$ para o vetor $y$, quando varia a solução $x$ quando o dado de entrado $y$ varia. Consideramos, então, o problema
 $$A(x+\delta_x)=y+\delta_y$$
@@ -707,9 +706,9 @@ norm(f,'inf')
 
 
 
-\section{Métodos iterativos para sistemas lineares}
+\section{Métodos iterativos para sistemas lineares}\index{métodos iterativos!sistemas lineares}
 
-\subsection{Método de Jacobi}
+\subsection{Método de Jacobi}\index{método de!Jacobi}
 
 Considere o problema $Ax=y$, ou seja,
 \begin{eqnarray*}
@@ -752,7 +751,7 @@ y^{(2)}&=&\frac{26-x^{(1)}}{8}=2,9625\\
 \verbatiminput{./rotinas/Metodo_de_Jacobi/jacobi.sci}
 \fi
 
-\subsection{Método de Gauss-Seidel}
+\subsection{Método de Gauss-Seidel}\index{método de!Gauss-Seidel}
 
 Considere o problema $Ax=y$, ou seja,
 \begin{eqnarray*}
@@ -796,7 +795,7 @@ y^{(2)}&=&\frac{26-x^{(2)}}{8}=2,9995312
 \verbatiminput{./rotinas/Metodo_de_Gauss-Seidel/gauss.sci}
 \fi
 
-\section{Análise de convergência}
+\section{Análise de convergência}\index{métodos iterativos!sistemas lineares!convergência}
 Uma condição suficiente porém não necessária para que os métodos de Gauss-Seidel e Jacobi convirjam é a que a matriz seja diagonal dominante estrita. Veja \cite{Burden2013}.
 
 \section*{Exercícios}
@@ -976,7 +975,7 @@ x_1+10x_2+3x_3=27\\
 \end{Answer}
 
 
-\section{Método da potência para cálculo de autovalores}
+\section{Método da potência para cálculo de autovalores}\index{autovalores}\index{método da potência}
 Consideremos uma matriz $A\in \mathbb{R}^{n,n}$ diagonalizável, isto é, existe um conjunto $\{{v}_{j}\}_{j=1}^n$ de autovetores de $A$ tais que qualquer elemento $x\in\mathbb{R}^n$ pode ser escrito como uma combinação linear dos ${v}_{j}$. Sejam $\{\lambda_j\}_{j=1}^n$ o conjunto de autovalores associados aos autovetores tal que um deles seja dominante, ou seja,
 $$
 |\lambda_1|>|\lambda_2|\geq |\lambda_3|\geq\cdots |\lambda_n|>0

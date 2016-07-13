@@ -1,12 +1,15 @@
 %Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
 \documentclass[main.tex]{subfiles}
+
 \begin{document}
-\chapter{Solução de equações de uma variável}
+
+\chapter{Solução de equações de uma variável}\index{equações!de uma variável}
 
 Neste capítulo buscaremos aproximações numéricas para raízes de funções de uma variável que são continuamente diferenciáveis.
 
-\section{Condição de Existência de raízes reais}
+\section{Condição de Existência de raízes reais}\index{função!raíz}\index{função!zero}
+
 Um teorema que garante a existência de raiz real em um intervalo é o teorema do valor intermediário:
 
 \begin{teo}[Teorema do Valor Intermediário]
@@ -77,7 +80,7 @@ possui uma solução para cada $v$ real e que esta solução é única.
 \end{Exercise}
 
 
-\section{Método da bisseção}
+\section{Método da bisseção}\index{método!da bisseção}
 
 Suponha que a função contínua $f:[a,b]\to\mathbb{R}$ tal que $f(a)\cdot f(b)<0$, ou seja, $f$ possui uma raiz no intervalo. Suponha também que a raiz é única. Uma primeira aproximação para a raiz pode ser o ponto médio $p=\frac{a+b}{2}$. Se $f(p)\cdot f(a)<0$, então a raiz está a esquerda de $p$, se não, a raiz está a direita de $p$ (veja Fig. \ref{fig:bisection_scheme}). Depois de escolher o intervalo correto, fazemos uma nova aproximação para a raiz tomando o ponto médio do novo intervalo.
 
@@ -161,7 +164,7 @@ Portanto, $n\geq 9$.
 \end{ex}
 
 \ifisscilab
-\subsection{Código Scilab}
+\subsection{Código Scilab: método da bisseção}
 
 O seguinte código é uma implementação no Scilab do algoritmo da bisseção. As variáveis de entrada são:
 \begin{itemize}
@@ -269,7 +272,7 @@ Dica: $V=RI_d+v_d$.
 \end{Answer}
 
 
-\section{Iteração de Ponto Fixo}
+\section{Iteração de Ponto Fixo}\index{iteração!do ponto fixo}
 
 \subsection{Exemplo Histórico}
 Vamos analisar o método babilônico para extração da raiz quadrada de um número positivo $A$ usando operações de soma, subtração, divisão e multiplicação.
@@ -396,7 +399,7 @@ x^{(5)}&=&10e^{-0,0042293}=  9,9577961
 
 O experimento numérico sugere que o processo $a$ não é convergente e que o processo $b$ converge para $1,745528$.
 
-\subsection{Ponto fixo}
+\subsection{Ponto fixo}\index{ponto fixo}
 
 Seja $\phi (x)$ uma função, dizemos que $x^*\in D(f)$ é um ponto fixo de $\phi$ se
 $$\phi(x^*)=x^*$$
@@ -504,7 +507,8 @@ x^{(43)}&=&\cos(x_{42})=\cos(0,7390851 )= 0,7390851
 \end{ex}
 
 
-\subsection{Estabilidade e convergência}
+\subsection{Estabilidade e convergência}\index{iteração do ponto fixo!estabilidade}\index{iteração do ponto fixo!convergência}
+
 A fim de compreendermos melhor os conceitos de estabilidade e convergência, considere uma função $\Phi(x)$ com um ponto fixo $x^*=\phi(x^*)$ e analisemos o seguinte processo iterativo:
 \begin{eqnarray*}
 x^{(n+1)}&=&\phi\left(x^{(n)}\right)\\
@@ -540,7 +544,8 @@ onde $\epsilon_n=\left|x^{(n)}-x^*\right|$.
 
 Fixaremos, portanto, nos casos quando $|\phi'(x^*)|<1$.
 
-\subsection{Erro absoluto e tolerância}
+\subsection{Erro absoluto e tolerância}\index{erros!absoluto}\index{tolerência}
+
 Na prática, quando se aplica uma iteração como esta, não se conhece de antemão o valor do ponto fixo $x^*$. Assim, o erro $\epsilon_n=\left|x^{(n)}-x^*\right|$ precisa ser estimado com base nos valores calculados $x^{(n)}$. Uma abordagem frequente é analisar a evolução da diferença entre dois elementos da sequência:
 $$\Delta_n=\left|x^{(n+1)}-x^{(n)}\right|$$
 
@@ -780,7 +785,7 @@ $$
 Verifique numericamente que apenas o processo A é convergente para a, b e c; enquanto apenas o processo B é convergente para os outros itens.
 \end{Exercise}
 
-\section{Método de Newton-Raphson}
+\section{Método de Newton-Raphson}\index{método de Newton-Raphson}
 
 Consideramos o problema de encontrar as raízes da equação
 $$f(x)=0$$ onde $f(x)\in C^1$ através do método do ponto fixo.
@@ -805,7 +810,9 @@ $$\phi(x)=x-\frac{f(x)}{f'(x)}$$
 e $\phi'(x^*)=0<1$. Portanto, o teorema do ponto fixo garante que se $x^{(0)}$ for suficientemente próximo a $x^*$, então o processo iterativo dado por
 $$x^{(n+1)}=x^{(n)}-\frac{f(x^{(n)})}{f'(x^{(n)})}$$
 converge para $x^*$, desde que $f'(x^{(n)})\neq 0 $ para todo $n\in\mathbb{N}$.
+
 \subsection{Interpretação Geométrica}
+
 Considere o problema de calcular a raiz uma função $f$, conforme esboço na figura abaixo
 
 \begin{center}
@@ -825,7 +832,7 @@ $$x^{(1)}=x^{(0)}-\frac{f(x^{(0)})}{f'(x^{(0)})}$$
 que é uma iteração do método de Newton. Repetimos o processo para calcular $x^{(2)},\ x^{(3)},...$. De modo geral, temos:
 $$x^{(n+1)}=x^{(n)}-\frac{f(x^{(n)})}{f'(x^{(n)})}.$$
 
-\subsection{Análise de convergência}
+\subsection{Análise de convergência}\index{método de Newton-Raphson!convergência}
 
 Seja $f(x)$ um função com derivada e derivada segunda contínuas tal que $f(x^*)=0$ e $f'(x^*)\neq 0$. Seja também a função $\phi(x)$ definida como
 $$\phi(x)=x-\frac{f(x)}{f'(x)}$$
@@ -968,7 +975,8 @@ definida para $x>0$
 \end{Exercise}
 
 
-\section{Método das Secantes}
+\section{Método das Secantes}\index{método das secantes}
+
 O Método das Secantes é semelhante ao Método de Newton. Neste método a derivada $f'(x)$ é aproximada pela declividade de um reta secante à curva:
 $$f'(x)\approx \frac{f(x+\Delta x)-f(x)}{\Delta x}$$
 
@@ -992,7 +1000,8 @@ $0,7390784$ & $0,7390851$ & $-1,6736095$ & $0,7390851$ \\\hline
 \end{tabular}  
 \end{center}
 
-\subsection{Análise de convergência}
+\subsection{Análise de convergência}\index{método das secantes!convergência}
+
 Seja $f(x)\in C^2$ um função tal que $f(x^*)=0$ e $f'(x^*)\neq 0$. Considere o processo iterativo do método das secantes:
 $$x^{(n+1)}=x^{(n)}- \frac{f(x^{(n)})}{f(x^{(n)})-f(x^{(n-1)})}(x^{(n)}-x^{(n-1)})$$
 Esta expressão pode ser escrita como:
@@ -1079,32 +1088,6 @@ com $\phi=\frac{\sqrt{5}+1}{2}\approx 1,618$ e $M$ é uma constante.
 }
 \end{table}
 
-% \section{Quadro comparativo}
-
-% $$
-% \begin{array}{|l|c|c|c|}
-% \hline
-% \text{Método} & \text{Taxa de convergência} & \text{Evolução do erro} & \text{Critério de parada} \\
-% \hline
-% ~&~&~&~\\
-% \text{Bisseção} & \text{Linear}\ (p=1)& \epsilon_{n+1}=\frac{1}{2}\varepsilon_{n} & \frac{b_n-a_n}{2}< \text{erro}\\
-% ~&~&~&~\\
-% \hline
-% ~&~&~&~\\
-% \text{Iteração linear} & \text{Linear}\ (p=1)&\epsilon_{n+1}\approx |\phi'(x^*)| \varepsilon_{n}& \begin{array}{r}\frac{|\Delta_n|}{1-\frac{\Delta_n}{\Delta_{n-1}}}< \text{erro},~~~\Delta_{n}<\Delta_{n-1} \\ \text{(Heurística)}\end{array}\\
-% ~&~&~&~\\
-% \hline
-% ~&~&~&~\\
-% \text{Newton} & \text{Quadrática}\ (p=2) &\epsilon_{n+1}\approx \frac{|\phi''(x^*)|}{2} \epsilon_{n}^2=\frac{1}{2}\left|\frac{f''(x^*)}{f'(x^*)}\right|\varepsilon_{n}^2 &|\Delta_n|< \text{erro} ~~~~ \text{(Heurística)}\\
-% ~&~&~&~\\
-% \hline
-% ~&~&~&~\\
-% \text{Secantes} & p=\phi=\frac{\sqrt{5}+1}{2}\approx 1,618 & \varepsilon_{n+1}\approx\left|\frac{f''(x^*)}{f'(x^*)}\right| \varepsilon_{n}\varepsilon_{n-1}\approx M \varepsilon_{n}^\phi &|\Delta_n|< \text{erro} ~~~~ \text{(Heurística)}\\
-% ~&~&~&~\\
-% \hline
-% \end{array}
-% $$
-% ~~ \\~~
 
 \begin{obs}
 O erro na tabela sempre se refere ao erro absoluto esperado. Nos três últimos métodos, é comum que se exija como critério de parada que a condição seja satisfeita por alguns poucos passos consecutivos. Outros critérios podem ser usados. No métodos das secantes, deve-se ter o cuidado de evitar divisões por zero quando $x_{n+1}-x_n$ muito pequeno em relação à resolução do sistema de numeração.  
