@@ -3,6 +3,7 @@
 pdf: main.tex
 	pdflatex main
 	bibtex main
+	makeindex main
 	pdflatex main
 	pdflatex main
 
@@ -15,4 +16,4 @@ dvi: main.tex
 .PHONY: clean
 
 clean:
-	rm -f *.aux *.log *.out *.toc *.bbl
+	rm -f *.aux *.log *.out *.toc *.bbl *.idx *.ilg *.ind
