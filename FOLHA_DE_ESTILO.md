@@ -32,4 +32,7 @@ deve ser inserido no livro como:
       No Scilab, \verb+%eps+ fornece o $\epsilon$ de máquina.
     \fi
 
+A declaração `isscilab` deve ser declarada como `True` ou `False` no preâmbulo (`preamble.tex`) do arquivo LaTeX principal `main.tex`. Por exemplo, para declará-la `True` temos:
 
+    \newif\ifisscilab
+    \isscilabtrue
