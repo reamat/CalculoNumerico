@@ -15,19 +15,18 @@ Usualmente, utilizamos o sistema de numeração decimal para representar números. 
     293&=&2\ \hbox{centenas}+9\ \hbox{dezenas}+3\ \hbox{unidades}\\
     &=&2\cdot 10^2+9\cdot 10^1+3\cdot 10^0.
   \end{eqnarray*}
-Assim, vemos que as centenas, dezenas e unidades são potências de 10.
 \end{ex}
 
 O sistema de numeração posicional também pode ser usado com outras bases. Vejamos a seguinte definição.
 
 \begin{defn}[Sistema de numeração de base $b$]\label{def:sistema_de_numeração}
-Dado um número natural $b>1$ e a coleção de símbolos $\{\text{``,''}, - ,0, 1, 2,\dotsc, b-1\}$\footnote{Para sistemas de numeração com base $b>10$, veja a Observação \ref{obs:sistema_de_numeracao}}, a sequência de dígitos:
+Dado um número natural $b>1$ e a coleção de símbolos $\{\pmb{+}, \pmb{-}, \pmb{,} ,\pmb{0}, \pmb{1}, \pmb{2},\dotsc, \pmb{b-1}\}$\footnote{Para sistemas de numeração com base $b>10$, veja a Observação \ref{obs:sistema_de_numeracao}}, a seguinte notação:
 \begin{equation*}
-\pm (d_nd_{n-1}\ldots d_1d_0,d_{-1}d_{-2}\ldots)_b  
+\pm \left(d_nd_{n-1} \ldots d_1d_0,d_{-1}d_{-2} \ldots \right)_b  
 \end{equation*}
-representa o número positivo
+representa o número:
 \begin{equation*}
-\pm d_nb^n+d_{n-1}b^{n-1}+\cdots d_0b^0+d_{-1}b^{-1}+d_{-2}b^{-2}\cdots
+\pm d_n\cdot b^n + d_{n-1}\cdot b^{n-1} + \cdots + d_0\cdot b^0 + d_{-1}\cdot b^{-1}+d_{-2}\cdot b^{-2} + \cdots
 \end{equation*}
 \end{defn}
 
@@ -36,14 +35,10 @@ Para sistemas de numeração com base $b \geq 10$ é usual utilizar as seguintes no
 \begin{itemize}
 \item No sistema de numeração decimal, i.e. $b=10$, representamos o número:
 \begin{equation*}
-  \pm (d_nd_{n-1}\ldots d_1d_0,d_{-1}d_{-2}\ldots)_{10}  
+  \pm d_nd_{n-1}\ldots d_1d_0,d_{-1}d_{-2}\ldots := \pm (d_nd_{n-1}\ldots d_1d_0,d_{-1}d_{-2}\ldots)_{10}  
 \end{equation*}
-simplesmente por:
-\begin{equation*}
-  \pm d_nd_{n-1}\ldots d_1d_0,d_{-1}d_{-2}\ldots  
-\end{equation*}
-Ou seja, não usamos parênteses, nem o subíndice indicando a base.
-\item Em sistemas de numeração com base $b>10$, usamos as letras $A$, $B$, $C$, etc., para denotar os símbolos: $A=10$, $B=11$, $C=12$, etc..
+Ou seja, não usamos parênteses nem o subíndice indicando a base.
+\item Em sistemas de numeração com base $b>10$, usamos as letras $A$, $B$, $C$, etc., para denotar os algarismos: $A=10$, $B=11$, $C=12$, etc..
 \end{itemize}
 \end{obs}
 
@@ -64,60 +59,78 @@ No sistema quaternário a base $b$ é igual a $4$. Por exemplo:
 \begin{ex}[Sistema octal]
 No sistema quaternário a base é $b=8$. Por exemplo:
 \begin{eqnarray*}
-(1357,24)_{8}&=&1\cdot 8^3+3\cdot 8^2+5\cdot 8^1+7\cdot 8^{0}+2\cdot 8^{-1}+4\cdot 8^{-2}\\&=&512+192+40+7+0,25+0,0625=(751,3125)_{10}
+(1357,24)_{8}&=&1\cdot 8^3+3\cdot 8^2+5\cdot 8^1+7\cdot 8^{0}+2\cdot 8^{-1}+4\cdot 8^{-2}\\&=&512+192+40+7+0,25+0,0625=751,3125
 \end{eqnarray*}
 \end{ex}
 
-
 \begin{ex}[Sistema hexadecimal] O sistema de numeração cuja a base é $b=16$ é chamado de sistema hexadecimal. O conjunto de símbolos necessários é  $S=\{``,", -, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F\}$. O número $(E2AC)_{16}$ no sistema decimal é igual a:
 \begin{align*}
-(E2AC)_{16} &= 14\cdot 16^3+2\cdot 16^2+10\cdot 16^1+12\cdot 16^{0}\\
-&=57344+512+160+12=58028
+  (E2AC)_{16} &= 14\cdot 16^3+2\cdot 16^2+10\cdot 16^1+12\cdot 16^{0}\\
+  &=57344+512+160+12=58028
 \end{align*}
 \end{ex}
 
-A partir da Definição \ref{def:sistema_de_numeração} acabamos de mostrar vários exemplos de conversão de números de uma sistema de numeração de base $b$ para o sistema decimal. Agora, vamos estudar como fazer o processo inverso. Isto é, dado um número decimal queremos escrevê-lo em uma outra base $b$. Para tanto, consideramos um número decimal $X_{10}$ representado na base $b$:
+\ifisscilab
+\begin{ex}[Scilab]
+  O Scilab oferece algumas funções para a conversão de números inteiros em dada base para a base decimal. Por exemplo, temos:
+\begin{verbatim}
+-->bin2dec('1001')
+ ans  =
+    9.  
+-->hex2dec('451')
+ ans  =
+    1105.  
+-->oct2dec('157')
+ ans  =
+    111.
+-->base2dec('BEBA',16)
+ ans  =
+    48826.  
+\end{verbatim}
+\end{ex}
+\fi
+
+A partir da Definição \ref{def:sistema_de_numeração} acabamos de mostrar vários exemplos de conversão de números de uma sistema de numeração de base $b$ para o sistema decimal. Agora, vamos estudar como fazer o processo inverso. Isto é, dado um número decimal $(X)_{10}$ queremos escrevê-lo em uma outra base $b$, i.e., queremos obter a seguinte representação:
+\begin{align*}
+  (X)_{10} &= (d_nd_{n-1}\cdots d_0,d_{-1}\cdots)_{b} \\
+  &= d_n\cdot b^{n}+d_{n-1}\cdot b^{n-1}+\cdots + d_0\cdot b^0+d_{-1}\cdot b^{-1}+d_{-2}\cdot b^{-2}+\cdots        
+\end{align*}
+
+Separando as partes inteira e fracionária de $X$, i.e. $X = X^{\mbox{i}} + X^{\mbox{f}}$, temos:
 \begin{equation*}
-  \begin{split}
-    X_{10} &= (d_nd_{n-1}\cdots d_0,d_{-1}\cdots)_{b} \\
-    &= d_n\cdot b^{n}+d_{n-1}\cdot b^{n-1}+\cdots +d_1\cdot b^1+d_0\cdot b^0+d_{-1}\cdot b^{-1}+d_{-2}\cdot b^{-2}+\cdots      
-  \end{split}
-\end{equation*}
-Separando as partes inteira e parte fracionária de $X$, i.e. $X = X^{i} + X^{f}$, temos:
-\begin{equation*}
-X^{i}=d_n\cdot b^{n}+ \cdots+d_{n-1}b^{n-1} \cdot  +d_1\cdot b^1 +d_0\cdot b^0 \qquad \hbox{e}\qquad X^{f}
-= \frac{d_{-1}}{b^1}+\frac{d_{-2}}{b^{2}}+\cdots  
+X^{\mbox{i}} = d_n\cdot b^{n}+ \cdots+d_{n-1}b^{n-1} \cdot  +d_1\cdot b^1 +d_0\cdot b^0 \qquad \hbox{e}\qquad X^{f}
+= \frac{d_{-1}}{b^1} + \frac{d_{-2}}{b^{2}} + \cdots  
 \end{equation*}
 Nosso objetivo é determinar os algarismos $\{d_n, d_{n-1}, ...\}$. 
 
-Primeiramente, vejamos como tratar a parte inteira $X^{i}$. Calculando sua divisão por $b$, temos:
+Primeiramente, vejamos como tratar a parte inteira $X^{\mbox{i}}$. Calculando sua divisão por $b$, temos:
 \begin{equation*}
-\frac{X^{i}}{b}=   \frac{d_0}{b}+d_1+d_2 b^1\cdots+d_{n-1}\cdot b^{n-2} +d_n\cdot b^{n-1}.  
+\frac{X^{\mbox{i}}}{b}=   \frac{d_0}{b}+d_1+d_2 b^1\cdots+d_{n-1}\cdot b^{n-2} +d_n\cdot b^{n-1}.  
 \end{equation*}
-Observe que $d_0$ é o resto da divisão de $X^i$ por $b$, pois $d_1+d_2 b^1\cdots+d_{n-1}\cdot b^{n-2} +d_n\cdot b^{n-1}$ é inteiro e $\frac{d_0}{b}$ é uma fração (lembramos que $d_0<b$). Da mesma forma, o resto da divisão de $d_1+d_2 b^1\cdots+d_{n-1}\cdot b^{n-2} +d_n\cdot b^{n-1}$ por $b$ é $d_1$. Repetimos o processo até encontrar os símbolos $d_0, d_1, d_2, \ldots$.
+Observe que $d_0$ é o resto da divisão de $X^{\mbox{i}}$ por $b$, pois $d_1+d_2 b^1\cdots+d_{n-1}\cdot b^{n-2} +d_n\cdot b^{n-1}$ é inteiro e $\frac{d_0}{b}$ é uma fração (lembramos que $d_0<b$). Da mesma forma, o resto da divisão de $d_1+d_2 b^1\cdots+d_{n-1}\cdot b^{n-2} +d_n\cdot b^{n-1}$ por $b$ é $d_1$. Repetimos o processo até encontrar os símbolos $d_0, d_1, d_2, \ldots$.
 
-\begin{ex}[Conversão da parte inteira] Vamos escrever o número 125 na base $6$. Para encontrar $d_0$, dividimos $125$ por 6:
-$$
-\begin{array}{l}
-125 \ \ \ |\! \underline{\ 6\ \ } \\
-\underline{12 }\ \ \ \ \ \ 20\\
-\ 05\\
-\ \underline{00}\\
-\ \ 5
-\end{array}
-$$
+\begin{ex}[Conversão da parte inteira] Vamos escrever o número $125$ na base $6$. Para encontrar $d_0$, dividimos $125$ por $6$:
+  \begin{equation*}
+    \begin{array}{l}
+      125 \ \ \ |\! \underline{\ 6\ \ } \\
+      \underline{12 }\ \ \ \ \ \ 20\\
+      \ 05\\
+      \ \underline{00}\\
+      \ \ 5
+    \end{array}
+  \end{equation*}
 e encontramos $d_0=5$. Dividindo o quociente por $6$ para encontrar $d_1$:
-$$
-\begin{array}{l}
-20 \ \ \ |\! \underline{\ 6\ \ } \\
-\underline{18 }\ \ \ \ 3\\
-\ 2
-\end{array}
-$$
+\begin{equation*}
+  \begin{array}{l}
+    20 \ \ \ |\! \underline{\ 6\ \ } \\
+    \underline{18 }\ \ \ \ 3\\
+    \ 2
+  \end{array}    
+\end{equation*}
 e obtemos $d_1=2$. Observe que o quociente agora é menor que $6$, ou seja, uma sucessiva divisão por $6$ teria resto igual ao próprio quociente. Assim, concluímos que:
-$$
-125=(325)_6
-$$
+\begin{equation*}
+  125=(325)_6.
+\end{equation*}
 
 \ifisscilab
 Estes cálculos podem ser feitos no \verb+Scilab+ com o auxílio das funções \verb'modulo' e \verb'int'. A primeira calcula o resto da divisão entre dois números, enquanto que a segunda retorna a parte inteira de um número dado. No nosso exemplo, temos:
@@ -130,11 +143,30 @@ Verifique!
 \fi
 \end{ex}
 
+\ifisscilab
+\begin{ex}[Scilab]
+  O Scilab oferece algumas funções para a conversão de números inteiros em dada base para a base decimal. Por exemplo, temos:
+\begin{verbatim}
+-->bin2dec('1001')
+ ans  =
+    9.  
+-->hex2dec('451')
+ ans  =
+    1105.  
+-->oct2dec('157')
+ ans  =
+    111.
+-->base2dec('BEBA',16)
+ ans  =
+    48826.  
+\end{verbatim}
+\end{ex}
+\fi
 
-Agora, para convertermos a parte fracionária $X^f$ na base $b$, i.e. para encontrar os símbolos $d_{-1}$, $d_{-2}$, etc, multiplicamos a parte fracionária de $X$ por $b$:
-$$
-bX^{f}=d_{-1}+\frac{d_{-2}}{b}+\frac{d_{-3}}{b^2}+\cdots.
-$$
+Agora, veremos como converter a parte fracionária de um número decimal em uma dada base $b$. Usando a notação $X = X^{\mbox{i}} + X^{\mbox{f}}$ para as partes inteira e fracionária, respectivamente, temos:
+\begin{equation*}
+  bX^{\mbox{f}}=d_{-1}+\frac{d_{-2}}{b}+\frac{d_{-3}}{b^2}+\cdots  
+\end{equation*}
 Observe que a parte inteira desse produto é $d_{-1}$ e $\frac{d_{-2}}{b}+\frac{d_{-3}}{b^2}+\cdots$ é a parte fracionária. Quando multiplicamos $\frac{d_{-2}}{b}+\frac{d_{-3}}{b^2}+\cdots$ por $b$ novamente, encontramos $d_{-2}$. Repetimos o processo até encontrar todos os símbolos.
 
 \begin{ex}[Conversão da parte fracionária] Escrever o número $125,58\overline{3}$ na base $6$. Do exemplo anterior temos que $125=(325)_6$. Assim, nos resta converter a parte fracionária, Multiplicando-a por $6$:
@@ -246,6 +278,7 @@ Uma maneira de converter um número dado numa base $g$ para uma base $b$ é fazer 
 
 
 \section{Aritmética de Máquina}
+
 Os computadores, em geral, usam uma base binária para representar os números, onde as posições, chamadas de bits, assume as condições ``verdadeiro'' ou ``falso'', ou seja, $0$ ou $1$. Cada computador tem um número de bits fixo e, portanto, representa uma quantidade finita de números. Os demais números são tomados por proximidade àqueles conhecidos, gerando erros de arredondamento. Por exemplo, em aritmética de computador, o número $2$ tem representação exata, logo $2^2=4$, mas $\sqrt{3}$ não tem representação finita, logo $(\sqrt{3})^2\neq 3$. 
 
 \ifisscilab
@@ -266,33 +299,33 @@ Tipicamente um número inteiro é armazenado num computador como uma sequência de 
 
 \subsubsection{Representação sem sinal}
 Um registro com $n$ bits da forma
-$$
+\begin{equation*}
 \begin{array}{|c|c|c|c|c|} \hline
 d_{n-1}&d_{n-2}&\cdots&d_1&d_0\\\hline
-\end{array}
-$$
+\end{array}  
+\end{equation*}
 representa o número $(d_{n-1}d_{n-2}...d_1d_0)_2$. Assim é possível representar números inteiros entre
-$$
+\begin{equation*}
 \begin{array}{cl}
   (111...111)_2 & = 2^{n-1}+2^{n-2}+\cdots+2^1+2^0=2^n-1.\\
     \vdots      & = \\
   (000...000)_2 & = 0 \\
-\end{array}
-$$
+\end{array}  
+\end{equation*}
 
 \ifisscilab
 \begin{obs}
-  No \verb+Scilab+, consulte sobre os comandos: \verb'uint8', \verb'uint16' e \verb'uint32'.
+  No \verb+Scilab+, consulte sobre os comandos: \verb+uint8+, \verb+uint16+ e \verb+uint32+.
 \end{obs}
 \fi
 
 \subsubsection{Representação com bit de sinal}
 O bit mais significativo (o primeiro à esquerda) representa o sinal: $0$ positivo e $1$ negativo. Um registro com $n$ bits da forma
-$$
-\begin{array}{|c|c|c|c|c|} \hline
-s&d_{n-2}&\cdots&d_1&d_0\\\hline
-\end{array}
-$$
+\begin{equation*}
+  \begin{array}{|c|c|c|c|c|} \hline
+    s & d_{n-2} & \cdots & d_1 & d_0 \\\hline
+  \end{array}  
+\end{equation*}
 representa o número $(-1)^s(d_{n-2}...d_1d_0)_2$. Assim é possível representar números inteiros entre $-2^{n-1}$ e $2^{n-1}$, com duas representações para o zero: $(1000...000)_2$ e $(00000...000)_2$.
 \begin{ex}
 Em um registro com $8$ bits, teremos os números
@@ -310,6 +343,12 @@ Em um registro com $8$ bits, teremos os números
 \end{array}  
 \end{equation*}
 \end{ex}
+
+\ifisscilab
+\begin{obs}
+  No \verb+Scilab+, consulte sobre os comandos: \verb+uint8+, \verb+uint16+ e \verb+uint32+.
+\end{obs}
+\fi
 
 \subsubsection{Representação complemento de dois}
 O bit mais significativo (o primeiro à esquerda) representa o coeficiente de $-2^{n-1}$.  Um registro com $n$ bits da forma
@@ -439,21 +478,22 @@ O maior número acontece quando $s=0$, $c=2046$ e $m=1-2^{-52}$, ou seja:
 -->number_properties('tiny')
 -->number_properties('huge')
 \end{verbatim}
+Outras informações sobre a representação em ponto flutuante podem ser obtidas. Veja \verb+help number_properties+.
 \end{obs}
 \fi
 
-Um número muito pequeno ({\bf underflow}) geralmente é aproximado por zero e um número muito grande ({\bf overflow}) geralmente faz o cálculo parar. Os demais números são aproximados pelo mais próximo, gerando os erros de arredondamento.
+Em um computador, Um número muito pequeno (\emph{underflow}) geralmente é aproximado por zero e um número muito grande (\emph{overflow}) geralmente faz o cálculo parar. Os demais números são aproximados pelo mais próximo, gerando os erros de arredondamento. O comportamento do computador nestes casos é governado pelo chamado \emph{modo de exceção de ponto flutuante}.
 
 \ifisscilab
 \begin{obs}
-  O chamado modo de exceção de ponto flutuante é controlado pela função \verb'ieee'. O padrão do \verb+Scilab+ é \verb'ieee(0)'. Estude os seguintes resultados das seguintes operações usando os diferentes modos de exceção:
+  O chamado modo de exceção de ponto flutuante é controlado pela função \verb+ieee+. O padrão do \verb+Scilab+ é \verb+ieee(0)+. Estude os seguintes resultados das seguintes operações usando os diferentes modos de exceção:
 \begin{verbatim}
 -->2*number_properties('huge'), 1/2^999, 1/0, 1/-0
 \end{verbatim}
 \end{obs}
 \fi
 
-\begin{defn}(Forma normalizada de ponto flutuante)
+\begin{defn}[Forma normalizada de ponto flutuante]
   Seja $x$ um número real não nulo.\footnote{Se $x = 0$, então $fl(x) = 0,000\ldots 0\times b^0$ será considerada sua representação em ponto flutuante.} A representação de $x$ na forma normalizada em ponto flutuante na base $b\in\mathbb{N}$, $b>1$, e com $n$ {\bf dígitos significativos}\footnote{Na literatura, também encontra-se outros significados para o termo dígitos (algarismos) significativos. Veja, por exemplo, \cite{Burden2013}} é dada por:
   \begin{equation*}
     fl(x) = 0,d_1d_2d_3\ldots d_n \times b^{E}
@@ -493,11 +533,11 @@ Quando fazemos aproximações numéricas, os erros são gerados de várias formas, se
  \item Erros de Arredondamento: são aqueles relacionados com as limitações que existem na forma representar números de máquina. Sobre esse tópico dedicamos a subseção (\ref{arredondamento_sec}).
 \end{enumerate}
 
-\begin{defn} Seja $x$ um número real e $\overline{x}$ sua aproximação. O {\bf erro absoluto} da aproximação $\overline{x}$ é definido como sendo o número:
+\begin{defn} Seja $x$ um número real e $\overline{x}$ sua aproximação. O \emph{erro absoluto} da aproximação $\overline{x}$ é definido como sendo o número:
   \begin{equation*}
     |x-\overline{x}|.
   \end{equation*}
-O {\bf erro relativo} da aproximação $\overline{x}$ é definido como sendo o número:
+O \emph{erro relativo} da aproximação $\overline{x}$ é definido como sendo o número:
 \begin{equation*}
 \frac{|x-\overline{x}|}{|x|} .
 \end{equation*}
