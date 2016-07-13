@@ -4,7 +4,7 @@
 
 \begin{document}
 
-\chapter{Problema de valor inicial}
+\chapter{Problema de valor inicial}\index{problema de valor inicial}
 
 Muitos problemas de valor inicial da forma
 \begin{eqnarray*}
@@ -14,7 +14,8 @@ y(t_0)&=&y_0 ~~ \hbox{condição inicial}
 não podem ser resolvidos exatamente, ou seja, sabe-se que a solução existe e é única, porém não podemos expressá-la em termos de funções elementares. Por isso é necessário calcular soluções numéricas. Para esse propósito, construímos uma malha de pontos no eixo $t$, $\{t_i\}_{i=1}^N$ e calculamos o valor aproximado da função solução $y(t_i)$ em cada ponto da malha usando esquemas numéricos.
 
 
-\section{Método de Euler}
+\section{Método de Euler}\index{método!de Euler}
+
 Seja o problema de valor inicial
 
 \begin{eqnarray*}
@@ -195,7 +196,8 @@ y^{(1)}&=&1\\
 w^{(1)}&=&0
 \end{eqnarray*}
 
-\subsection{Método de Euler melhorado}
+\subsection{Método de Euler melhorado}\index{método!de Euler melhorado}
+
 No método de Euler, usamos a seguinte iteração:
 \begin{eqnarray*}
 y^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)})\\
@@ -218,7 +220,8 @@ y^{(1)}&=&y_i~~ \hbox{condição inicial}
 Refaça o exemplo \ref{ex_euler_1} via método de Euler melhorado.
 \end{Exercise}
 
-\subsection{Ordem de precisão}
+\subsection{Ordem de precisão}\index{ordem de precisão}
+
 Considere o problema de valor inicial dado por
 \begin{eqnarray*}
 y'(t)&=&f(y(t),t)\\
@@ -239,7 +242,8 @@ y(t)&=&\left[y(0)+hf(y(0),0)+O(h^2)\right]+\left[y(h)+hf(y(h),h)+O(h^2)\right]\\
 \end{eqnarray*}
 Por isso, o método de Euler é dito ter ordem global de precisão $h$.
 
-\section{Métodos de Runge-Kutta}
+\section{Métodos de Runge-Kutta}\index{método!de Runge-Kutta}
+
 Os métodos de Runge-Kutta consistem em iterações do tipo:
 $$y^{(k+1)}=y^{(k)}+w_1 k_1 + \ldots + w_n k_n$$
 onde
@@ -257,7 +261,9 @@ Os coeficientes são escolhidos de forma que a expansão em Taylor de $y^{(k+1)}$ 
 $$y^{(n+1)}=y^{(n)}+\frac{k_1+k_2}{2}$$
 onde $k_1=hf(y^{(n)},t^{(n)})$ e $k_2=hf(y^{(n)}+k_1,t^{(n)}+h)$
 \end{ex}
-\subsection{Métodos de Runge-Kutta - Quarta ordem}
+
+\subsection{Métodos de Runge-Kutta - Quarta ordem}\index{método!de Runge-Kutta!de quarta ordem}
+
 $$y^{(n+1)}=y^{(n)}+\frac{k_1+2k_2+2k_3+k_4}{6}$$
 onde
 \begin{eqnarray*}
@@ -276,7 +282,7 @@ y({t^{(n+1)}})-y({t^{(n)}})&=&\int_{t^{(n)}}^{t^{(n+1)}}f(y(s),s)ds \\
 onde $k_1$ e $k_4$ representam as inclinações nos extremos e $k_2$ e $k_3$ são duas aproximações diferentes para a inclinação no meio do intervalo.
 
 
-\section{Métodos de passo múltiplo - Adams-Bashforth}
+\section{Métodos de passo múltiplo - Adams-Bashforth}\index{método!de passo múltiplo!Adams-Bashforth}
 
 O método de Adams-Bashforth consiste de um esquema recursivo do tipo:
 $$y^{(n+1)}=y^{(n)}+\sum_{j=0}^k w_jf(y^{(n-j)},t^{(n-j)})$$
@@ -297,7 +303,8 @@ $$y^{(n+1)}=y^{(n)}+\frac{h}{12}\left[23f\left(y^{(n)},t^{(n)}\right)-16f\left(y
 \end{ex}
 Os métodos de passo múltiplo evitam os múltiplos estágios do métodos de Runge-Kutta, mas exigem ser "iniciados" com suas condições iniciais.
 
-\section{Métodos de passo múltiplo - Adams-Moulton}
+\section{Métodos de passo múltiplo - Adams-Moulton}\index{método de passo múltiplo!Adams-Moulton}
+
 O método de Adams-Moulton consiste de um esquema recursivo do tipo:
 $$y^{(n+1)}=y^{(n)}+\sum_{j=-1}^k w_jf(y^{(n-j)},t^{(n-j)})$$
 
@@ -312,7 +319,8 @@ $$$$
 \end{ex}
 O método de Adams-Moulton é implícito, ou seja, exige que a cada passo, uma equação em $y^{(n+1)}$ seja resolvida.
 
-\section{Estabilidade}
+\section{Estabilidade}\index{estabilidade}
+
 Consideremos o seguinte problema de teste:
 $$\left\{\begin{array}{rcl}y'&=&-\alpha y\\y(0)&=&1\end{array}\right.$$
 cuja solução exata é dada por $y(t)=e^{-\alpha t}$.
