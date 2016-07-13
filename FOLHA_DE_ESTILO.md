@@ -24,12 +24,12 @@ Dentro de cada subdiretório de um capítulo, por exemplo, `cap_foo` devem estar
 
 O livro deve ser versátil o suficiente para não depender de qualquer pacote computacional em específico. Para tanto, textos envolvendo algum pacote (ou alguma linguagem) computacional devem ser encapsulados dentro de uma declaração `se ... então`. Por exemplo, o texto:
 
-  No Scilab, \verb+%eps+ fornece o $\epsilon$ de máquina.
+    No Scilab, \verb+%eps+ fornece o $\epsilon$ de máquina.
 
 deve ser inserido no livro como:
 
-  \ifiscilab
-    No Scilab, \verb+%eps+ fornece o $\epsilon$ de máquina.
-  \fi
+    \ifiscilab
+      No Scilab, \verb+%eps+ fornece o $\epsilon$ de máquina.
+    \fi
 
 
