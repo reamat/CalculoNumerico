@@ -16,21 +16,21 @@ A derivada $f'(x_0)$ de uma função $f(x)$ no ponto $x_0$ é
 \begin{equation*}
   f'(x_0)=\lim_{h\to 0}\frac{f(x_0+h)-f(x_0)}{h}.  
 \end{equation*}
-Da definição, se $h\neq 0$ é pequeno (não muito pequeno para evitar o cancelamento catastrófico), é esperado que uma aproximação para a derivada no ponto $x_0$ seja dada por
-$$
-f'(x_0)\approx \frac{f(x_0+h)-f(x_0)}{h}.
-$$
-Observe que se $h$ for exatamente a distância entre $x_0$ e $x_{1}$, então $x_0+h=x_{1}$ e
-$$
-f'(x_0)\approx \frac{f(x_{1})-f(x_0)}{h}=\frac{y_{1}-y_0}{h}.
-$$
+Da definição, se $h\neq 0$ é pequeno (não muito pequeno para evitar o cancelamento catastrófico), é esperado que uma aproximação para a derivada no ponto $x_0$ seja dada por:
+\begin{equation}\label{eq:dp}
+  f'(x_0)\approx \frac{f(x_0+h)-f(x_0)}{h}.  
+\end{equation}
 
-\begin{ex}
+\begin{ex}\label{ex:dp}
 Calcule a derivada numérica da função $f(x)=\cos(x)$ no ponto $x=1$ usando $h=0,1$, $h=0,01$, $h=0,001$ e $h=0,0001$.
 \end{ex}
 \begin{sol}
-A tabela abaixo mostra a derivada numérica para cada valor de $h$.
-$$
+Usando a fórmula de diferenças dada pela Equação~\eqref{eq:dp}, devemos calcular:
+\begin{equation*}
+  f'(x) \approx \frac{cos(1 + h) - cos(1)}{h}
+\end{equation*}
+para cada valor de $h$ solicitado. Fazendo isso, obtemos a seguinte tabela:
+\begin{equation*}
 \begin{array}{|c|c|}
 \hline
 \vspace{-10pt}&\\
@@ -52,8 +52,18 @@ h & \dfrac{f(1+h)-f(1)}{h} \\
 \vspace{-10pt}&\\
 0,0001 & \dfrac{0,5403023-0,5403023}{0,0001}=-0,841498\\
 \hline
-\end{array}
-$$
+\end{array}  
+\end{equation*}
+\ifisscilab
+No \verb+Scilab+, podemos calcular a aproximação da derivada $f'(1)$ com $h=0,1$ usando as seguintes linhas de código:
+\begin{verbatim}
+deff('y = f(x)','y = cos(x)')
+x0 = 1
+h = 0.1
+dp = (f(x0+h) - f(x0))/h
+\end{verbatim}
+E, similarmente, para outros valores de $x_0$ e $h$. 
+\fi
 \end{sol}
 
 Observe que, no exemplo anterior, quanto menor $h$, melhor é a aproximação, visto que o valor exato para a derivada é $f'(1)=-\sin(1)=-0,8414710$. Porém, quando $h=10^{-13}$, a derivada numérica é $-0,8404388$ (usando aritmética \verb+double+), resultado pior que aquele para $h=0,0001$. Além disso, na mesma aritmética, quando $h=10^{-16}$ a derivada numérica calculada é zero (cancelamento catastrófico). Isso nos motiva a pensar qual é o melhor $h$.  
