@@ -1,22 +1,32 @@
 #Folha de Estilo
 
-Este documento contém informações sobre os padrões de estilo de escrita e organização do livro colaborativo.
+Este documento contÃ©m informaÃ§Ãµes sobre os padrÃµes de estilo de escrita e organizaÃ§Ã£o do livro colaborativo.
 
-## Regionalização
+## RegionalizaÃ§Ã£o
 
-O livro está escrito em língua portuguesa.
+O livro estÃ¡ escrito em lÃ­ngua portuguesa.
 
-## Equações e símbolos matemáticos
+## EquaÃ§Ãµes e sÃ­mbolos matemÃ¡ticos
 
-As equações e símbolos matemáticos estão escritos usando a coleção de pacotes [AMS-LaTeX](http://www.ams.org/publications/authors/tex/amslatex). Para mais informações, recomendamos a leitura do seguinte documento:
+As equaÃ§Ãµes e sÃ­mbolos matemÃ¡ticos estÃ£o escritos usando a coleÃ§Ã£o de pacotes [AMS-LaTeX](http://www.ams.org/publications/authors/tex/amslatex). Para mais informaÃ§Ãµes, recomendamos a leitura do seguinte documento:
 
 ftp://ftp.ams.org/pub/tex/doc/amsmath/short-math-guide.pdf
 
-## Organização do código fonte
+## OrganizaÃ§Ã£o do cÃ³digo fonte
 
-O livro está escrito em [LaTex](https://latex-project.org/). O arquivo principal (`main.pdf`) escontra-se no diretório principal (`CalculoNumerico`). O código LaTeX de cada capítulo encontra-se em um subdiretório específico com nome `cap_abrev`, onde `abrev` é uma abreviação que lembre o conteúdo do capítulo. Por exemplo, o código do capítulo sobre técnicas numéricas para sistemas lineares está no subdiretório `cap_linsis`.
+O livro estÃ¡ escrito em [LaTex](https://latex-project.org/). O arquivo principal (`main.pdf`) escontra-se no diretÃ³rio principal (`CalculoNumerico`). O cÃ³digo LaTeX de cada capÃ­tulo encontra-se em um subdiretÃ³rio especÃ­fico com nome `cap_abrev`, onde `abrev` Ã© uma abreviaÃ§Ã£o que lembre o conteÃºdo do capÃ­tulo. Por exemplo, o cÃ³digo do capÃ­tulo sobre tÃ©cnicas numÃ©ricas para sistemas lineares estÃ¡ no subdiretÃ³rio `cap_linsis`.
 
-### Capítulos
+### CapÃ­tulos
 
-Dentro de cada subdiretório de um capítulo, por exemplo, `cap_foo` devem estar presentes todos os arquivos referentes ao texto deste. As imagens devem ser colocadas em no subdiretório `cap_foo/pics` e os códigos computacionais em `cap_foo/codes`. De preferência, deve-se criar um subdiretório para cada figura e código computacional. Quando possível, as figuras devem ser acompanhadas de seu código fonte.
+Dentro de cada subdiretÃ³rio de um capÃ­tulo, por exemplo, `cap_foo` devem estar presentes todos os arquivos referentes ao texto deste. As imagens devem ser colocadas em no subdiretÃ³rio `cap_foo/pics` e os cÃ³digos computacionais em `cap_foo/codes`. De preferÃªncia, deve-se criar um subdiretÃ³rio para cada figura e cÃ³digo computacional. Quando possÃ­vel, as figuras devem ser acompanhadas de seu cÃ³digo fonte.
+
+### CÃ³digos computacionais
+
+O livro deve ser versÃ¡til o suficiente para nÃ£o depender de qualquer pacote computacional em especÃ­fico. Para tanto, textos envolvendo algum pacote (ou alguma linguagem) computacional devem ser encapsulados dentro de uma declaraÃ§Ã£o `se ... entÃ£o`. Por exemplo, o texto:
+  No Scilab, \verb+%eps+ fornece o $\epsilon$ de mÃ¡quina.
+deve ser inserido no livro como:
+  \ifiscilab
+    No Scilab, \verb+%eps+ fornece o $\epsilon$ de mÃ¡quina.
+  \fi
+
 
