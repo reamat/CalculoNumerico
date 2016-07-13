@@ -198,14 +198,23 @@ Portanto
 P(x)&=&3-2(x+1)+2(x+1)x+(x+1)x(x-1)\\
 &=&x^3+2x^2-x+1
 \end{eqnarray*}
-
 \end{ex}
 
-\begin{prob} 
-Considere o seguinte conjunto de pontos: $$(-2,-47),(0,-3),(1,4)(2,41)$$. Encontre o polinômio interpolador usando os métodos vistos. Trace os pontos no \verb+Scilab+ usando o comando 'plot2d' e trace o gráfico do polinômio usando comandos de plotagem e a estrutura de polinômio.
-{\bf Resp:} $5x^3+2x-3$.
-\end{prob}
+\section*{Exercícios}
 
+
+\begin{Exercise}\label{exer:interp1}
+Considere o seguinte conjunto de pontos: $$(-2,-47),(0,-3),(1,4)(2,41)$$. Encontre o polinômio interpolador usando os métodos vistos. 
+\end{Exercise}
+\begin{Answer}
+$5x^3+2x-3$
+\end{Answer}
+
+\ifisscilab
+\begin{Exercise}
+  No \verb+Scilab+, faça um gráfico com os pontos e o polinômio interpolador do Exercício~\ref{exer:interp1}.
+\end{Exercise}
+\fi
 
 \section{Polinômios de Lagrange}
 Outra maneira clássica de resolver o problema da interpolação polinomial é através do polinômios de Lagrange. Dado um conjunto de pontos $\{x_j\}_{j=1}^n$ distintos dois a dois, definimos os polinômios de Lagrange como os polinômios de grau $n-1$ que satisfazem as seguintes condições:
@@ -329,30 +338,40 @@ Para fazer a estimativa de erro usando o teorema (\ref{teo_interp}), e temos
 &=& \frac{M}{6}  \left[\frac{1}{64}-\left(-\frac{1}{64}\right)\right]=\frac{M}{192}.
 \end{eqnarray*}
 Lembramos que $M=\max_{x\in[0,1]}|f'''(x)|$.
+
 \begin{obs}Existem estimativas melhores para o erro de truncamento para este esquema de integração numérica. Veremos com mais detalhes tais esquemas na teoria de integração numérica.
 \end{obs}
-\begin{prob}
+
+\begin{ex}
 Use o resultado do exemplo anterior para aproximar o valor das seguintes integrais:\\
 
 a) $\displaystyle \int_0^1 \ln(x+1) dx$\\
 
 b) $\displaystyle \int_0^1 e^{-x^2}dx$
 
-\end{prob}
+\end{ex}
+\begin{sol}
 Usando a fórmula obtida, temos que
 $$
 \int_0^1\ln(x+1) dx \approx 0,39\pm \frac{1}{96}
 $$
 $$
 \int_0^1 e^{-x^2} dx \approx 0,75\pm \frac{3,87}{192}
-$$
+$$  
+\end{sol}
 
-\begin{prob}Use as mesmas técnicas usadas o resultado do exemplo (\ref{exemp_simpson}) para obter uma aproximação do valor de
-$$\int_0^1 f(x)dx$$
+\section*{Exercícios}
+
+\begin{Exercise}
+  Use as mesmas técnicas usadas o resultado do Exemplo~(\ref{exemp_simpson}) para obter uma aproximação do valor de:
+  \begin{equation*}
+    \int_0^1 f(x)dx
+  \end{equation*}
 através do polinômio interpolador que coincide com $f(x)$ nos pontos $x=0$ e $x=1$.
-\end{prob}
-{\bf Resp:} $\int_0^1 P(x)dx =\frac{f(0)+f(1)}{2}$, $\frac{1}{12}\max_{x\in[0,1]}|f''(x)|$
-
+\end{Exercise}
+\begin{Answer}
+  $\int_0^1 P(x)dx =\frac{f(0)+f(1)}{2}$, $\frac{1}{12}\max_{x\in[0,1]}|f''(x)|$
+\end{Answer}
 
 \section{Ajuste de curvas pelo método dos mínimos quadrados}
 No problema de interpolação, desejamos encontrar uma função $f(x)$ tal que
@@ -371,8 +390,11 @@ No problema de ajuste de curvas, busca-se a função $f(x)$ de família de funções 
 $$E_q=\left[f(x_1)-y_1\right]^2+\left[f(x_2)-y_2\right]^2+\cdots +\left[f(x_n)-y_n\right]^2=\sum_{j=1}^n \left[f(x_j)-y_j\right]^2$$
 
 \begin{ex} Encontre a função do tipo $f(x)=ax$ que melhor se aproxima dos seguintes pontos:
-$$(0,-0,1), (1,~2), (2,~3,7) ~ \hbox{e} ~(3,~7).$$
-
+  \begin{equation*}
+    (0,-0,1), (1,~2), (2,~3,7) ~ \hbox{e} ~(3,~7).  
+  \end{equation*}
+\end{ex}
+\begin{sol}
 Defina $$E_q=[f(x_1)-y_1]^2+[f(x_2)-y_2]^2+[f(x_3)-y_3]^2+[f(x_4)-y_4]^2$$
 temos que
 \begin{eqnarray*}
@@ -392,16 +414,14 @@ y=[-.1 2 3.7 7]'
 plot2d(x,y,style=-4)
 \end{verbatim}
 \fi
+\end{sol}
+
+\begin{ex}Encontre a função do tipo $f(x)=bx+a$ que melhor aproxima os pontos:
+  \begin{equation*}
+    (0,-0,1), (1,~2), (2,~3,7) ~ \hbox{e} ~(3,~7).  
+  \end{equation*}
 \end{ex}
-
-
-
-\begin{prob}Encontre a função do tipo $f(x)=bx+a$ que melhor aproxima os pontos do problema anterior.
-\end{prob}
-
-{\bf Resp: $f(x)=-0,3 +2,3x $}
-
-
+\begin{sol}
 \begin{eqnarray*}
 E_q&=&[f(0)+0,1]^2+[f(1)-2]^2+[f(2)-3,7]^2+[f(3)-7]^2\\
 &=&[a+0,1]^2+[a+b-2]^2+[a+2b-3,7]^2+[a+3b-7]^2
@@ -421,7 +441,9 @@ O erro mínimo acontece quando as derivadas são nulas, ou seja:
 12a+28b&=&60,8
 \end{eqnarray*}
 Cuja solução é dada por $a=-0,3$ e $b=2,3$.
-Portanto a função que procuramos é $f(x)=-0,3 +2,3x$.
+Portanto a função que procuramos é $f(x)=-0,3 +2,3x$.  
+\end{sol}
+
 
 
 \section{O caso linear}
@@ -655,7 +677,9 @@ $3,55$ & $10,82$ & $10,929792$ & $0,1097919$ \\
 \end{center}
 \end{sol}
 
-\begin{prob}Encontrar  a parábola $y=ax^2+bx+c$ que melhor aproxima o seguinte conjunto de dados:
+\section*{Exercícios}
+
+\begin{Exercise}Encontrar  a parábola $y=ax^2+bx+c$ que melhor aproxima o seguinte conjunto de dados:
   \begin{center}
     \begin{tabular}{|c|c|}
       \hline
@@ -683,11 +707,10 @@ $3,55$ & $10,82$ & $10,929792$ & $0,1097919$ \\
       \hline
     \end{tabular}
   \end{center}
-\end{prob}
-
-{\bf Resposta} $y=-0,0407898x^2+ 2,6613293x+ 1,9364598$
-
-$$
+\end{Exercise}
+\begin{Answer}
+$y=-0,0407898x^2+ 2,6613293x+ 1,9364598$
+\begin{equation*}
 \begin{tabular}{|c|c|c|c|}
 \hline
 $x_i$ & $y_i$& $ax_i^2+bx_i+c$& $ax_i^2+bx_i+c-y_i$\\
@@ -698,37 +721,39 @@ $x_i$ & $y_i$& $ax_i^2+bx_i+c$& $ax_i^2+bx_i+c-y_i$\\
 2,95 & 9,51& 9,4324077   &-0,0775923   \\
 3,55 & 10,82& 10,870125   &0,0501249\\
 \hline
-\end{tabular}
-$$
+\end{tabular}  
+\end{equation*}
+\end{Answer}
 
 
-\begin{prob} Dado o seguinte conjunto de dados
-$$
-\begin{tabular}{|c|c|}
-\hline
-$x_i$ & $y_i$\\
-\hline
-    0,0 &  31\\
-    0,1 &  35\\
-    0,2 &  37\\
-    0,3 &  33\\
-    0,4 &  28\\
-    0,5 &  20\\
-    0,6 &  16\\
-    0,7 &  15\\
-    0,8 &  18\\
-    0,9 &  23\\
-    1,0 &  31\\
-\hline
-\end{tabular}
-$$
+\begin{Exercise} Dado o seguinte conjunto de dados
+  \begin{equation*}
+    \begin{tabular}{|c|c|}
+      \hline
+      $x_i$ & $y_i$\\
+      \hline
+      0,0 &  31\\
+      0,1 &  35\\
+      0,2 &  37\\
+      0,3 &  33\\
+      0,4 &  28\\
+      0,5 &  20\\
+      0,6 &  16\\
+      0,7 &  15\\
+      0,8 &  18\\
+      0,9 &  23\\
+      1,0 &  31\\
+      \hline
+    \end{tabular}    
+  \end{equation*}
 \begin{itemize}
 \item Encontre a função do tipo $f(x)=a+b\sin(2\pi x)+c\cos(2\pi x)$ que melhor aproxima os valores dados.
 \item Encontre a função do tipo $f(x)=a+bx+cx^2+dx^3$ que melhor aproxima os valores dados.
 \end{itemize}
-\end{prob}
-
-{\bf Resp:} $a=25,638625$, $b=9,8591874$, $c=4,9751219$ e   $a=31,475524$, $b=65,691531$, $c=-272,84382$, $d=208,23621$.
+\end{Exercise}
+\begin{Answer}
+  $a=25,638625$, $b=9,8591874$, $c=4,9751219$ e   $a=31,475524$, $b=65,691531$, $c=-272,84382$, $d=208,23621$.
+\end{Answer}
 
 \section{Problemas não lineares que podem ser aproximados por problemas lineares}
 
@@ -816,6 +841,7 @@ $x_i$ & $y_i$\\
 \end{tabular}
 $$
 \end{ex}
+\begin{sol}
 Usando o fato que $y=A\cos(2 \pi x+\phi)=a\cos(2 \pi x)-b\sin(2 \pi x)$, onde $a=A\cos(\phi)$ e $b=A\sin(\phi)$, $z=[\begin{array}{cc}a &b\end{array}]^T$ é solução do problema
 $$
 B^TBz=B^Ty,
@@ -852,9 +878,10 @@ Assim, como $\cos\phi$ também é positivo, $\phi$ é um ângulo do primeiro quadran
 $$
 \phi=0,9613976
 $$
-Portanto $f(x)=13,909546\cos(2\pi x+0,9613976)$. Observe que nesse exemplo a solução do problema linear é a mesma do problema não linear.
+Portanto $f(x)=13,909546\cos(2\pi x+0,9613976)$. Observe que nesse exemplo a solução do problema linear é a mesma do problema não linear.  
+\end{sol}
 
-\begin{prob}
+\begin{ex}
 Encontre a função $f$ da forma $y=f(x)=\frac{a}{b+x}$ que ajusta a tabela de pontos
 $$
 \begin{tabular}{|c|c|}
@@ -871,7 +898,8 @@ $x_i$ & $y_i$\\
 \end{tabular}
 $$
 usando uma das transformações tabeladas.
-\end{prob}
+\end{ex}
+\begin{sol}
 Usando o fato que $Y=\frac{1}{y}=\frac{b}{a}+\frac{1}{a}x$, $z=[\begin{array}{cc}\frac{b}{a} &\frac{1}{a}\end{array}]^T$ é solução do problema
 $$
 A^TAz=A^TY,
@@ -905,11 +933,8 @@ Y=\left[\begin{array}{c}
   0,0181818
 \end{array}\right]
 $$
-Assim, $\frac{1}{a}=0,0082755$ e $\frac{b}{a}=0,0100288$ e, então, $a=120,83924$ e $b=1,2118696$, ou seja, $f(x)=\frac{120,83924}{1,2118696+x}$.
-
-
-
-
+Assim, $\frac{1}{a}=0,0082755$ e $\frac{b}{a}=0,0100288$ e, então, $a=120,83924$ e $b=1,2118696$, ou seja, $f(x)=\frac{120,83924}{1,2118696+x}$.  
+\end{sol}
 
 
 \section{Interpolação linear segmentada }
