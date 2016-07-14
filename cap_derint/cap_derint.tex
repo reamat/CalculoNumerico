@@ -1,31 +1,31 @@
-%Este trabalho est· licenciado sob a LicenÁa Creative Commons AtribuiÁ„o-CompartilhaIgual 3.0 N„o Adaptada. Para ver uma cÛpia desta licenÁa, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+%Este trabalho est√° licenciado sob a Licen√ßa Creative Commons Atribui√ß√£o-CompartilhaIgual 3.0 N√£o Adaptada. Para ver uma c√≥pia desta licen√ßa, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
 
-\chapter{DerivaÁ„o e integraÁ„o numÈrica}
+\chapter{Deriva√ß√£o e integra√ß√£o num√©rica}
 
-\section{DerivaÁ„o NumÈrica}\index{derivaÁ„o numÈrica}
+\section{Deriva√ß√£o Num√©rica}\index{deriva√ß√£o num√©rica}
 
-Dado um conjunto de pontos $(x_i,y_i)_{i=1}^n$, a derivada $\left(\frac{dy}{dx}\right)_i$ pode ser calculada de v·rias formas. Na prÛxima seÁ„o trabalharemos com diferenÁas finitas, que È mais adequada quando as abcissas est„o prÛximas e os dados n„o sofrem perturbaÁıes significativas. Na seÁ„o subsequente trataremos os casos quando os dados oscilam via ajuste ou interpolaÁıes de curvas.
+Dado um conjunto de pontos $(x_i,y_i)_{i=1}^n$, a derivada $\left(\frac{dy}{dx}\right)_i$ pode ser calculada de v√°rias formas. Na pr√≥xima se√ß√£o trabalharemos com diferen√ßas finitas, que √© mais adequada quando as abcissas est√£o pr√≥ximas e os dados n√£o sofrem perturba√ß√µes significativas. Na se√ß√£o subsequente trataremos os casos quando os dados oscilam via ajuste ou interpola√ß√µes de curvas.
 
-\subsection{AproximaÁ„o da derivada por diferenÁas finitas}\index{fÛrmula de diferenÁas finitas}
+\subsection{Aproxima√ß√£o da derivada por diferen√ßas finitas}\index{f√≥rmula de diferen√ßas finitas}
 
-A derivada $f'(x_0)$ de uma funÁ„o $f(x)$ no ponto $x_0$ È
+A derivada $f'(x_0)$ de uma fun√ß√£o $f(x)$ no ponto $x_0$ √©
 \begin{equation*}
   f'(x_0)=\lim_{h\to 0}\frac{f(x_0+h)-f(x_0)}{h}.  
 \end{equation*}
-Da definiÁ„o, se $h\neq 0$ È pequeno (n„o muito pequeno para evitar o cancelamento catastrÛfico), È esperado que uma aproximaÁ„o para a derivada no ponto $x_0$ seja dada por:
+Da defini√ß√£o, se $h\neq 0$ √© pequeno (n√£o muito pequeno para evitar o cancelamento catastr√≥fico), √© esperado que uma aproxima√ß√£o para a derivada no ponto $x_0$ seja dada por:
 \begin{equation}\label{eq:dp}
   f'(x_0)\approx \frac{f(x_0+h)-f(x_0)}{h}.  
 \end{equation}
 
 \begin{ex}\label{ex:dp}
-Calcule a derivada numÈrica da funÁ„o $f(x)=\cos(x)$ no ponto $x=1$ usando $h=0,1$, $h=0,01$, $h=0,001$ e $h=0,0001$.
+Calcule a derivada num√©rica da fun√ß√£o $f(x)=\cos(x)$ no ponto $x=1$ usando $h=0,1$, $h=0,01$, $h=0,001$ e $h=0,0001$.
 \end{ex}
 \begin{sol}
-Usando a fÛrmula de diferenÁas dada pela EquaÁ„o~\eqref{eq:dp}, devemos calcular:
+Usando a f√≥rmula de diferen√ßas dada pela Equa√ß√£o~\eqref{eq:dp}, devemos calcular:
 \begin{equation*}
   f'(x) \approx \frac{cos(1 + h) - cos(1)}{h}
 \end{equation*}
@@ -55,7 +55,7 @@ h & \dfrac{f(1+h)-f(1)}{h} \\
 \end{array}  
 \end{equation*}
 \ifisscilab
-No \verb+Scilab+, podemos calcular a aproximaÁ„o da derivada $f'(1)$ com $h=0,1$ usando as seguintes linhas de cÛdigo:
+No \verb+Scilab+, podemos calcular a aproxima√ß√£o da derivada $f'(1)$ com $h=0,1$ usando as seguintes linhas de c√≥digo:
 \begin{verbatim}
 deff('y = f(x)','y = cos(x)')
 x0 = 1
@@ -66,33 +66,33 @@ E, similarmente, para outros valores de $x_0$ e $h$.
 \fi
 \end{sol}
 
-Observe que, no exemplo anterior, quanto menor $h$, melhor È a aproximaÁ„o, visto que o valor exato para a derivada È $f'(1)=-\sin(1)=-0,8414710$. PorÈm, quando $h=10^{-13}$, a derivada numÈrica È $-0,8404388$ (usando aritmÈtica \verb+double+), resultado pior que aquele para $h=0,0001$. AlÈm disso, na mesma aritmÈtica, quando $h=10^{-16}$ a derivada numÈrica calculada È zero (cancelamento catastrÛfico). Isso nos motiva a pensar qual È o melhor $h$.  
+Observe que, no exemplo anterior, quanto menor $h$, melhor √© a aproxima√ß√£o, visto que o valor exato para a derivada √© $f'(1)=-\sin(1)=-0,8414710$. Por√©m, quando $h=10^{-13}$, a derivada num√©rica √© $-0,8404388$ (usando aritm√©tica \verb+double+), resultado pior que aquele para $h=0,0001$. Al√©m disso, na mesma aritm√©tica, quando $h=10^{-16}$ a derivada num√©rica calculada √© zero (cancelamento catastr√≥fico). Isso nos motiva a pensar qual √© o melhor $h$.  
 
-Essa aproximaÁ„o para a derivada È denominada diferenÁas progressivas. A derivada numÈrica tambÈm pode ser aproximada usando definiÁıes equivalentes:
+Essa aproxima√ß√£o para a derivada √© denominada diferen√ßas progressivas. A derivada num√©rica tamb√©m pode ser aproximada usando defini√ß√µes equivalentes:
 $$
 f'(x_0)\approx \frac{f(x_0)-f(x_0-h)}{h}=\frac{y_i-y_{i-1}}{h}
 $$
-que È denominada diferenÁas regressivas ou
+que √© denominada diferen√ßas regressivas ou
 $$
 f'(x_0)\approx \frac{f(x_0+h)-f(x_0-h)}{2h}=\frac{y_{i+1}-y_{i-1}}{2h}
 $$
-que È denominada diferenÁas centrais.
+que √© denominada diferen√ßas centrais.
 \begin{ex}
-Calcule a derivada numÈrica da funÁ„o $f(x)=\cos(x)$ no ponto $x=1$ usando diferenÁas progressivas, diferenÁas regressivas e diferenÁas centrais com $h=0,1$, $h=0,01$ e $h=0,001$.
+Calcule a derivada num√©rica da fun√ß√£o $f(x)=\cos(x)$ no ponto $x=1$ usando diferen√ßas progressivas, diferen√ßas regressivas e diferen√ßas centrais com $h=0,1$, $h=0,01$ e $h=0,001$.
 \end{ex}
 \begin{sol}
-A tabela abaixo mostra a derivada numÈrica para cada valor de $h$.
+A tabela abaixo mostra a derivada num√©rica para cada valor de $h$.
 \begin{center}
 \begin{tabular}{|l|c|} \hline
-  DiferenÁas & h=0,1 \\ \hline
+  Diferen√ßas & h=0,1 \\ \hline
   Progressivas & $\displaystyle -0,8670618$ \\
   Regressivas  & $\displaystyle \frac{\cos(1)-\cos(0,9)}{0,1} = -0,8130766$ \\
   Centrais     & $\displaystyle \frac{\cos(1,1)-\cos(0,9)}{0,2} = -0,8400692$ \\ \hline
-  DiferenÁas & h=0,01 \\ \hline
+  Diferen√ßas & h=0,01 \\ \hline
   Progressivas & $\displaystyle -0,8441584$ \\
   Regressivas  & $\displaystyle \frac{\cos(1)-\cos(0,99)}{0,01} = -0,8387555$ \\
   Centrais     & $\displaystyle \frac{\cos(1,01)-\cos(0,99)}{0,02} = -0,8414570$ \\ \hline
-  DiferenÁas & h=0,01 \\ \hline
+  Diferen√ßas & h=0,01 \\ \hline
   Progressivas & $\displaystyle -0,841741$ \\
   Regressivas  & $\displaystyle \frac{\cos(1)-\cos(0,999)}{0,001} = -0,8412007$ \\
   Centrais     & $\displaystyle \frac{\cos(1,001)-\cos(0,999)}{0,002} = -0,8414708$ \\ \hline
@@ -101,7 +101,7 @@ A tabela abaixo mostra a derivada numÈrica para cada valor de $h$.
 \end{sol}
 
 \subsection{Erros de truncamento}\index{erros!truncamento}
-Seja $D_{+,h}f(x_0)$ a aproximaÁ„o da derivada de $f$ em $x_0$ por diferenÁas progressivas, $D_{-,h}f(x_0)$ a aproximaÁ„o por diferenÁas regressivas e $D_{0,h}f(x_0)$ a aproximaÁ„o por diferenÁas centrais, ent„o
+Seja $D_{+,h}f(x_0)$ a aproxima√ß√£o da derivada de $f$ em $x_0$ por diferen√ßas progressivas, $D_{-,h}f(x_0)$ a aproxima√ß√£o por diferen√ßas regressivas e $D_{0,h}f(x_0)$ a aproxima√ß√£o por diferen√ßas centrais, ent√£o
 \begin{eqnarray*}
 D_{+,h}f(x_0)-f'(x_0)&=&\frac{f(x_0+h)-f(x_0)}{h}-f'(x_0)\\
 &=&\frac{f(x_0)+hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)-f(x_0)}{h}-f'(x_0)\\
@@ -113,7 +113,7 @@ D_{-,h}f(x_0)-f'(x_0)&=&\frac{f(x_0)-f(x_0-h)}{h}-f'(x_0)\\
 &=&\frac{f(x_0)-\left(f(x_0)-hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)\right)}{h}-f'(x_0)\\
 &=&-\frac{h}{2}f''(x_0)+O(h^2)=O(h).\\
 \end{eqnarray*}
-TambÈm:
+Tamb√©m:
 \begin{align*}
 D_{0,h}f(x_0)-f'(x_0)&= \frac{f(x_0+h)-f(x_0-h)}{2h}-f'(x_0)\\
 &= \frac{f(x_0)+hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)}{2h} \\
@@ -122,14 +122,14 @@ D_{0,h}f(x_0)-f'(x_0)&= \frac{f(x_0+h)-f(x_0-h)}{2h}-f'(x_0)\\
 \end{align*}
 
 \begin{ex}
-Calcule a derivada numÈrica e o erro de truncamento de $f(x)=e^{-x}$ em $x=1,5$ pela fÛrmula de diferenÁa progressiva para $h=0,1$, $h=0,01$ e $h=0,001$.
+Calcule a derivada num√©rica e o erro de truncamento de $f(x)=e^{-x}$ em $x=1,5$ pela f√≥rmula de diferen√ßa progressiva para $h=0,1$, $h=0,01$ e $h=0,001$.
 \end{ex}
 \begin{sol}
-Como $|f''(x)|=|e^{-x}|<1$, ent„o $|f'_+(x_0)-f'(x_0)|<\frac{h}{2}$.
+Como $|f''(x)|=|e^{-x}|<1$, ent√£o $|f'_+(x_0)-f'(x_0)|<\frac{h}{2}$.
 $$
 \begin{array}{|c|c|c|}
 \hline
- h&\hbox{diferenÁas progressivas} & \hbox{erro}=\frac{h}{2}\\
+ h&\hbox{diferen√ßas progressivas} & \hbox{erro}=\frac{h}{2}\\
 \hline
 0,1&- 0,2123364 & 0,05\\
 \hline
@@ -139,19 +139,19 @@ $$
 \hline
 \end{array}
 $$
-O valor exato da derivada È $f'(1,5)=-0,2231302$.
+O valor exato da derivada √© $f'(1,5)=-0,2231302$.
 \end{sol}
 
 \subsection{Erros de arredondamento}\index{erros!arredondamento}
-Para entender como os erros de arredondamento se propagam ao calcular as derivadas numÈricas vamos considerar o operador de diferenÁas finitas progressivas
+Para entender como os erros de arredondamento se propagam ao calcular as derivadas num√©ricas vamos considerar o operador de diferen√ßas finitas progressivas
 $$
 D_{+,h}f(x) =\frac{f(x+h)-f(x)}{h}.
 $$
-Nesse contexto temos o valor exato $f'(x)$ para a derivada, a sua aproximaÁ„o numÈrica $D_{+,h}f(x)$ e a representaÁ„o em n˙mero de m·quina do operador $D_{+,h}f(x)$ que denotaremos por $\overline{D_{+,h}f(x)}$. Seja $\varepsilon(x,h)$ o erro de arredondamento ao calcularmos a derivada e consideremos
+Nesse contexto temos o valor exato $f'(x)$ para a derivada, a sua aproxima√ß√£o num√©rica $D_{+,h}f(x)$ e a representa√ß√£o em n√∫mero de m√°quina do operador $D_{+,h}f(x)$ que denotaremos por $\overline{D_{+,h}f(x)}$. Seja $\varepsilon(x,h)$ o erro de arredondamento ao calcularmos a derivada e consideremos
 $$
 \overline{D_{+,h}f(x)}=D_{+,h}f(x)(1+\varepsilon(x,h))=\frac{\overline{f(x+h)}-\overline{f(x)}}{h}(1+\varepsilon(x,h)).
 $$
-TambÈm, consideremos
+Tamb√©m, consideremos
 $$
 |\overline{f(x+h)}-f(x+h)|=\delta(x,h)\leq \delta
 $$
@@ -159,7 +159,7 @@ e
 $$
 |\overline{f(x)}-f(x)|=\delta(x,0)\leq \delta,
 $$
-onde $\overline{f(x+h)}$ e $\overline{f(x)}$ s„o as representaÁ„o em ponto flutuante dos n˙meros $f(x+h)$ e $f(x)$, respectivamente. A diferenÁa do valor da derivada e sua aproximaÁ„o representada em ponto flutuante pode ser estimada da seguinte forma:
+onde $\overline{f(x+h)}$ e $\overline{f(x)}$ s√£o as representa√ß√£o em ponto flutuante dos n√∫meros $f(x+h)$ e $f(x)$, respectivamente. A diferen√ßa do valor da derivada e sua aproxima√ß√£o representada em ponto flutuante pode ser estimada da seguinte forma:
 \begin{align*}
 \left|f'(x)-\overline{D_{+,h}f(x)}\right|&= \left| f'(x)-\frac{\overline{f(x+h)}-\overline{f(x)}}{h}(1+\varepsilon(x,h)) \right|\\
 &= \left| f'(x)-\left(\frac{\overline{f(x+h)}-\overline{f(x)}}{h}+\frac{f(x+h)-f(x+h)}{h}\right.\right. \\
@@ -175,14 +175,14 @@ onde
 $$
 M=\frac{1}{2}\max_{x\leq y\leq x+h}|f''(y)|
 $$
-est· relacionado com o erro de truncamento.
+est√° relacionado com o erro de truncamento.
 
-Esta estimativa mostra que se o valor de $h$ for muito pequeno o erro ao calcular a aproximaÁ„o numÈrica cresce. Isso nos motiva a procurar o valor Ûtimo de $h$ que minimiza o erro.
+Esta estimativa mostra que se o valor de $h$ for muito pequeno o erro ao calcular a aproxima√ß√£o num√©rica cresce. Isso nos motiva a procurar o valor √≥timo de $h$ que minimiza o erro.
 
 \begin{ex}Estude o comportamento da derivada de $f(x)=e^{-x^2}$ no ponto $x=1,5$ quando $h$ fica pequeno.
 \end{ex}
 \begin{sol}
-Segue a tabela com os valores da derivada para v·rios valores de $h$.
+Segue a tabela com os valores da derivada para v√°rios valores de $h$.
 \begin{tiny}
 \begin{equation*}
 \begin{array}{|c|c|c|c|c|c|c|}
@@ -213,20 +213,20 @@ D_{+,h}f(1,5)& - 0,3125246&- 0,3161608 &- 0,3161973&- 0,3161976&- 0,3161977&- 0,
 \end{equation*}
 \end{tiny}
 
-Observe que o valor exato È $-0,3161977$ e o $h$ Ûtimo È algo entre $10^{-8}$ e $10^{-9}$.  
+Observe que o valor exato √© $-0,3161977$ e o $h$ √≥timo √© algo entre $10^{-8}$ e $10^{-9}$.  
 \end{sol}
 
 
-\subsection{FÛrmulas de trÍs e cinco pontos para a derivada primeira}\index{fÛrmula de diferenÁas finitas!trÍs pontos}\index{fÛrmula de diferenÁas finitas!cinco pontos}
+\subsection{F√≥rmulas de tr√™s e cinco pontos para a derivada primeira}\index{f√≥rmula de diferen√ßas finitas!tr√™s pontos}\index{f√≥rmula de diferen√ßas finitas!cinco pontos}
 
-Para aproximar a derivada de uma funÁ„o $f(x)$ em $x_0$, $x_1$ ou $x_2$ usaremos os trÍs pontos vizinhos $(x_0,f(x_0))$, $(x_{1},f(x_{1}))$ e $(x_{2},f(x_{2}))$. Uma interpolaÁ„o usando polinÙmios de Lagrange para esses trÍs pontos È da forma:
+Para aproximar a derivada de uma fun√ß√£o $f(x)$ em $x_0$, $x_1$ ou $x_2$ usaremos os tr√™s pontos vizinhos $(x_0,f(x_0))$, $(x_{1},f(x_{1}))$ e $(x_{2},f(x_{2}))$. Uma interpola√ß√£o usando polin√¥mios de Lagrange para esses tr√™s pontos √© da forma:
 \begin{align*}
 f(x)&=f(x_0)\frac{(x-x_{1})(x-x_{2})}{(x_0-x_{1})(x_0-x_{2})}
 +f(x_{1})\frac{(x-x_{0})(x-x_{2})}{(x_{1}-x_{0})(x_{1}-x_{2})}\\
 &+f(x_{2})\frac{(x-x_{0})(x-x_{1})}{(x_{2}-x_{0})(x_{2}-x_{1})} 
 +\frac{f'''(\xi(x))}{6}(x-x_0)(x-x_{1})(x-x_{2}).
 \end{align*}
-A derivada de $f(x)$ È
+A derivada de $f(x)$ √©
 \begin{equation}\label{tres_pontos}
   \begin{split}
     f'(x) &= f(x_0)\frac{2x-x_{1}-x_{2}}{(x_0-x_{1})(x_0-x_{2})}
@@ -246,7 +246,7 @@ Trocando $x$ por $x_0$, temos
     &+ D_x\left(\frac{f'''(\xi(x_0))}{6}\right)(x_0-x_0)(x_0-x_1)(x_0-x_2).
   \end{split}
 \end{equation*}
-Considerando uma malha equiespaÁada onde $x_1=x_0+h$ e $x_2=x_0+2h$, temos:
+Considerando uma malha equiespa√ßada onde $x_1=x_0+h$ e $x_2=x_0+2h$, temos:
 \begin{equation*}
   \begin{split}
   f'(x_0)&= f(x_0)\frac{-3h}{(-h)(-2h)} + f(x_{1})\frac{-2h}{(h)(-h)} \\
@@ -254,14 +254,14 @@ Considerando uma malha equiespaÁada onde $x_1=x_0+h$ e $x_2=x_0+2h$, temos:
   &= \frac{1}{h}\left[-\frac{3}{2}f(x_0)+2f(x_{1})-\frac{1}{2}f(x_{2})\right]+h^2\frac{f'''(\xi(x_0))}{3}    
   \end{split}
 \end{equation*}
-Similarmente, trocando $x$ por $x_1$ ou trocando $x$ por $x_2$ na express„o (\ref{tres_pontos}), temos outras duas expressıes
+Similarmente, trocando $x$ por $x_1$ ou trocando $x$ por $x_2$ na express√£o (\ref{tres_pontos}), temos outras duas express√µes
 \begin{eqnarray*}
 f'(x_1)&=&\frac{1}{h}\left[-\frac{1}{2}f(x_0)
 +\frac{1}{2}f(x_{2})\right]+h^2\frac{f'''(\xi(x_1))}{6}\\
 f'(x_2)&=&\frac{1}{h}\left[\frac{1}{2}f(x_0)-2f(x_{1})
 +\frac{3}{2}f(x_{2})\right]+h^2\frac{f'''(\xi(x_2))}{3}
 \end{eqnarray*}
-Podemos reescrever as trÍs fÛrmulas da seguinte forma:
+Podemos reescrever as tr√™s f√≥rmulas da seguinte forma:
 \begin{eqnarray*}
 f'(x_0)&=&\frac{1}{h}\left[-\frac{3}{2}f(x_0)+2f(x_{0}+h)
 -\frac{1}{2}f(x_{0}+2h)\right]+h^2\frac{f'''(\xi(x_0))}{3}\\
@@ -278,15 +278,15 @@ ou ainda
 {\label{tres_pontos_traz}}f'(x_0)&=&\frac{1}{2h}\left[f(x_0-2h)-4f(x_{0}-h)
 +3f(x_{0})\right]+h^2\frac{f'''(\xi(x_{0}))}{3}
 \end{eqnarray}
-Observe que uma das fÛrmulas È exatamente as diferenÁas centrais obtida anteriormente.
+Observe que uma das f√≥rmulas √© exatamente as diferen√ßas centrais obtida anteriormente.
 
-Analogamente, para construir as fÛrmulas de cinco pontos tomamos o polinÙmio de Lagrange para cinco pontos e chegamos a cinco fÛrmulas, sendo uma delas a seguinte:
+Analogamente, para construir as f√≥rmulas de cinco pontos tomamos o polin√¥mio de Lagrange para cinco pontos e chegamos a cinco f√≥rmulas, sendo uma delas a seguinte:
 \begin{equation}
 {\label{cinco_pontos}}f'(x_0)=\frac{1}{12h}\left[f(x_0-2h)-8f(x_0-h)+8f(x_0+h)-f(x_0+2h)\right]+\frac{h^4}{30}f^{(5)}(\xi(x_0))
 \end{equation}
 
 \begin{ex}
-Calcule a derivada numÈrica de $f(x)=e^{-x^2}$ em $x=1,5$ pela fÛrmula de trÍs e cinco pontos para $h=0,1$, $h=0,01$ e $h=0,001$.
+Calcule a derivada num√©rica de $f(x)=e^{-x^2}$ em $x=1,5$ pela f√≥rmula de tr√™s e cinco pontos para $h=0,1$, $h=0,01$ e $h=0,001$.
 \end{ex}
 \begin{sol}
 A tabela mostra os resultados:
@@ -295,37 +295,37 @@ $$
 \hline
  h & h=0,1 & h=0,01 & h=0,001\\
 \hline
-\hbox{diferenÁas progressivas} &-0,2809448 &-0,3125246 &- 0,3158289\\
+\hbox{diferen√ßas progressivas} &-0,2809448 &-0,3125246 &- 0,3158289\\
 \hline
-\hbox{diferenÁas regressivas} &- 0,3545920 &- 0,3199024 &- 0,3165667\\
+\hbox{diferen√ßas regressivas} &- 0,3545920 &- 0,3199024 &- 0,3165667\\
 \hline
-\hbox{trÍs pontos usando (\ref{tres_pontos_frente})} &-0,3127746 &- 0,3161657 &-0,3161974\\
+\hbox{tr√™s pontos usando (\ref{tres_pontos_frente})} &-0,3127746 &- 0,3161657 &-0,3161974\\
 \hline
-\hbox{trÍs pontos usando (\ref{tres_pontos_central})} &- 0,3177684 &- 0,3162135 &-0,3161978\\
+\hbox{tr√™s pontos usando (\ref{tres_pontos_central})} &- 0,3177684 &- 0,3162135 &-0,3161978\\
 \hline
-\hbox{trÍs pontos usando (\ref{tres_pontos_traz})} &-0,3135824 &- 0,3161665 &-0,3161974\\
+\hbox{tr√™s pontos usando (\ref{tres_pontos_traz})} &-0,3135824 &- 0,3161665 &-0,3161974\\
 \hline
 \hbox{cinco pontos usando (\ref{cinco_pontos})} &-0,3162384&-0,316197677 &-0,3161976736860\\
 \hline
 \end{array}
 $$
-O valor exato da derivada È $f'(1,5) = -0,3161976736856$.  
+O valor exato da derivada √© $f'(1,5) = -0,3161976736856$.  
 \end{sol}
 
-\subsection{AproximaÁ„o para a derivada segunda por diferenÁas centrais}\index{fÛrmula de diferenÁas finitas!central}
+\subsection{Aproxima√ß√£o para a derivada segunda por diferen√ßas centrais}\index{f√≥rmula de diferen√ßas finitas!central}
 
-Para aproximar a derivada segunda, considere as expansıes em sÈrie de Taylor
+Para aproximar a derivada segunda, considere as expans√µes em s√©rie de Taylor
 $$
 f(x_0+h)=f(x_0)+hf'(x_0)+\frac{h^2}{2}f''(x_0)+\frac{h^3}{6}f'''(x_0)+O(h^4)
 $$
 $$
 f(x_0-h)=f(x_0)-hf'(x_0)+\frac{h^2}{2}f''(x_0)-\frac{h^3}{6}f'''(x_0)+O(h^4).
 $$
-Somando as duas expressıes, temos:
+Somando as duas express√µes, temos:
 $$
 f(x_0+h)+f(x_0-h)=2f(x_0)+h^2f''(x_0)+O(h^4)
 $$
-ou seja, uma aproximaÁ„o de segunda ordem para a derivada segunda em $x_0$ È
+ou seja, uma aproxima√ß√£o de segunda ordem para a derivada segunda em $x_0$ √©
 $$
 f''(x_0)=\frac{f(x_0+h)-2f(x_0)+f(x_0-h)}{h^2}+O(h^2):=D^2_{0,h}f(x_0)+O(h^2),
 $$
@@ -334,7 +334,7 @@ $$
 D^2_{0,h}f(x_0)=\frac{f(x_0+h)-2f(x_0)+f(x_0-h)}{h^2}.
 $$
 \begin{ex}
-Calcule a derivada segunda numÈrica de $f(x)=e^{-x^2}$ em $x=1,5$ para $h=0,1$, $h=0,01$ e $h=0,001$.
+Calcule a derivada segunda num√©rica de $f(x)=e^{-x^2}$ em $x=1,5$ para $h=0,1$, $h=0,01$ e $h=0,001$.
 \end{ex}
 \begin{sol}
 A tabela mostra os resultados:
@@ -350,9 +350,9 @@ $$
 Observe que $f''(x)=(4x^2-2)e^{-x^2}$ e $f''(1,5)=0,7377946$.  
 \end{sol}
 
-\subsection{Derivada via ajuste ou interpolaÁ„o}\index{ajuste!derivaÁ„o}\index{interpolaÁ„o!derivaÁ„o}
+\subsection{Derivada via ajuste ou interpola√ß√£o}\index{ajuste!deriva√ß√£o}\index{interpola√ß√£o!deriva√ß√£o}
 
-Dado os valores de uma funÁ„o em pontos $\{(x_i,y_i)\}_{i=1}^N$, as derivadas $\left(\frac{dy}{dx}\right)_i$ podem ser obtidas atravÈs da derivada de uma curva que melhor ajusta ou interpola os pontos. Esse tipo de tÈcnica È necess·rio quando os pontos s„o muito espaÁados entre si ou quando a funÁ„o oscila muito. Por exemplo, dado os pontos $(0,1)$, $(1,2)$, $(2,5)$, $(3,9)$, a par·bola que melhor ajusta os pontos È
+Dado os valores de uma fun√ß√£o em pontos $\{(x_i,y_i)\}_{i=1}^N$, as derivadas $\left(\frac{dy}{dx}\right)_i$ podem ser obtidas atrav√©s da derivada de uma curva que melhor ajusta ou interpola os pontos. Esse tipo de t√©cnica √© necess√°rio quando os pontos s√£o muito espa√ßados entre si ou quando a fun√ß√£o oscila muito. Por exemplo, dado os pontos $(0,1)$, $(1,2)$, $(2,5)$, $(3,9)$, a par√°bola que melhor ajusta os pontos √©
 $$
 Q(x)=0,95 + 0,45x + 0,75x^2.
 $$
@@ -365,7 +365,7 @@ e
 &&y'(x_1)\approx Q'(x_1)=0,45, \qquad\qquad y'(x_2)\approx Q'(x_2)=1,95, \\&& y'(x_3)\approx Q'(x_3)=3,45 \qquad ~ \hbox{e} ~ \qquad y'(x_4)\approx Q'(x_4)=4,95
 \end{eqnarray*}
 
-Agora olhe o gr·fico da seguinte tabela de pontos.
+Agora olhe o gr√°fico da seguinte tabela de pontos.
 $$
 \begin{array}{|c|c|}
 \hline
@@ -399,11 +399,11 @@ $$
 \includegraphics[scale=0.5]{./cap_derint/pics/graf_der}
 \end{center}
 
-Observe que as derivadas calculadas por diferenÁas finitas oscilam entre um valor pequeno e um grande em cada intervalo e alÈm disso, a fÛrmula progressiva difere da regressiva significantemente. Por exemplo, por diferenÁas regressivas $f'(7)\approx \frac{(7,55 -  7,50)}{1}=0,05$ e por diferenÁas progressivas $f'(7)\approx \frac{(9,33 -  7,55)}{1}=1,78$. A melhor forma de calcular a derivada aqui È fazer um ajuste de curva. A reta que melhor ajusta os dados da tabela È $y=f(x)=1,2522727+0,9655455x$. Usando esse ajuste, temos $f'(7)\approx 0,9655455$.
+Observe que as derivadas calculadas por diferen√ßas finitas oscilam entre um valor pequeno e um grande em cada intervalo e al√©m disso, a f√≥rmula progressiva difere da regressiva significantemente. Por exemplo, por diferen√ßas regressivas $f'(7)\approx \frac{(7,55 -  7,50)}{1}=0,05$ e por diferen√ßas progressivas $f'(7)\approx \frac{(9,33 -  7,55)}{1}=1,78$. A melhor forma de calcular a derivada aqui √© fazer um ajuste de curva. A reta que melhor ajusta os dados da tabela √© $y=f(x)=1,2522727+0,9655455x$. Usando esse ajuste, temos $f'(7)\approx 0,9655455$.
 
-\section*{ExercÌcios}
+\section*{Exerc√≠cios}
 
-\begin{Exercise} Expanda a funÁ„o suave $f(x)$ em um polinÙmio de Taylor adequado para obter as seguintes aproximaÁıes:
+\begin{Exercise} Expanda a fun√ß√£o suave $f(x)$ em um polin√¥mio de Taylor adequado para obter as seguintes aproxima√ß√µes:
 \begin{itemize}{\label{ex1}}
 \item[a)] $f'(x)=\frac{f(x+h)-f(x)}{h}+O(h)$
 \item[b)] $f'(x)=\frac{f(x)-f(x-h)}{h}+O(h)$
@@ -413,17 +413,17 @@ Observe que as derivadas calculadas por diferenÁas finitas oscilam entre um valo
 \end{Exercise}
 
 \begin{Exercise}
-Use os esquemas numÈricos do exercÌcio \ref{ex1} para aproximar as seguintes derivadas:
+Use os esquemas num√©ricos do exerc√≠cio \ref{ex1} para aproximar as seguintes derivadas:
 \begin{itemize}
 \item[a)] $f'(x)$ onde $f(x)=\sin(x)$ e $x=2$.
 \item[b)] $f'(x)$ onde $f(x)=e^{-x}$ e $x=1$.
 \item[c)] $f''(x)$ onde $f(x)=e^{-x}$ e $x=1$.
 \end{itemize}
 
-Use $h=10^{-2}$ e $h=10^{-3}$ e compare com os valores obtidos atravÈs da avaliaÁ„o numÈrica das derivadas exatas.
+Use $h=10^{-2}$ e $h=10^{-3}$ e compare com os valores obtidos atrav√©s da avalia√ß√£o num√©rica das derivadas exatas.
 \end{Exercise}
 
-\begin{Exercise} Use a expans„o da funÁ„o $f(x)$ em torno de $x=0$ em polinÙmios de Taylor para encontrar os coeficientes $a_1$, $a_2$ e $a_3$ tais que
+\begin{Exercise} Use a expans√£o da fun√ß√£o $f(x)$ em torno de $x=0$ em polin√¥mios de Taylor para encontrar os coeficientes $a_1$, $a_2$ e $a_3$ tais que
 \begin{itemize}
 \item[a)] $f'(0)=a_1f(0)+a_2f(h)+a_3f(2h) + O(h^2)$
 \item[b)] $f'(0)=a_1f(0)+a_2f(-h)+a_3f(-2h) + O(h^2)$
@@ -442,7 +442,7 @@ Use $h=10^{-2}$ e $h=10^{-3}$ e compare com os valores obtidos atravÈs da avalia
 \end{itemize}
 \end{Answer}
 
-\begin{Exercise} As tensıes  na entrada, $v_i$, e saÌda, $v_o$, de um amplificador foram medidas em regime estacion·rio conforme tabela abaixo.
+\begin{Exercise} As tens√µes  na entrada, $v_i$, e sa√≠da, $v_o$, de um amplificador foram medidas em regime estacion√°rio conforme tabela abaixo.
 $$\begin{array}{|c|c|c|c|c|c|c|c|c|c|c|}
 \hline
     0. &   0.5  &   1.   &   1.5  &   2. &     2.5   &  3.  &    3.5  &   4.  &    4.5  &   5.\\
@@ -451,13 +451,13 @@ $$\begin{array}{|c|c|c|c|c|c|c|c|c|c|c|}
  \hline
 \end{array}
 $$
-onde  a primeira linha È a tens„o de entrada em volts e a segunda linha È tens„o de saÌda em volts.
-Sabendo que o ganho È definido como $$\frac{\partial v_o}{\partial v_i}.$$ Calcule o ganho quando $v_i=1$ e $v_i=4.5$ usando as seguintes tÈcnicas:
+onde  a primeira linha √© a tens√£o de entrada em volts e a segunda linha √© tens√£o de sa√≠da em volts.
+Sabendo que o ganho √© definido como $$\frac{\partial v_o}{\partial v_i}.$$ Calcule o ganho quando $v_i=1$ e $v_i=4.5$ usando as seguintes t√©cnicas:
 \begin{itemize}
-\item[a)] Derivada primeira numÈrica de primeira ordem usando o prÛprio ponto e o prÛximo.
-\item[b)] Derivada primeira numÈrica de primeira ordem usando o prÛprio ponto e o anterior.
-\item[c)] Derivada primeira numÈrica de segunda ordem usando o ponto anterior e o prÛximo.
-\item[d)] Derivada primeira analÌtica da funÁ„o do tipo $v_0=a_1 v_i + a_3 v_i^3$ que melhor se ajusta aos pontos pelo critÈrio dos mÌnimos quadrados.
+\item[a)] Derivada primeira num√©rica de primeira ordem usando o pr√≥prio ponto e o pr√≥ximo.
+\item[b)] Derivada primeira num√©rica de primeira ordem usando o pr√≥prio ponto e o anterior.
+\item[c)] Derivada primeira num√©rica de segunda ordem usando o ponto anterior e o pr√≥ximo.
+\item[d)] Derivada primeira anal√≠tica da fun√ß√£o do tipo $v_0=a_1 v_i + a_3 v_i^3$ que melhor se ajusta aos pontos pelo crit√©rio dos m√≠nimos quadrados.
 \end{itemize}
 $$\begin{array}{|c|c|c|c|c|}
 \hline
@@ -492,25 +492,25 @@ $$
 
 \section{Problemas de valor contorno}\index{problema de valor de contorno}
 
-Nesta seÁ„o usaremos a aproximaÁ„o numÈrica da derivada para resolver problemas de valor de contorno da forma
+Nesta se√ß√£o usaremos a aproxima√ß√£o num√©rica da derivada para resolver problemas de valor de contorno da forma
 $$\left\{\begin{array}{l}-u_{xx}=f(x,u),~~ a<x<b.\\
 u(a)=u_a\\
 u(b)=u_b\end{array}
 \right.
 $$
-Resolver numericamente o problema acima exige uma discretizaÁ„o do domÌnio $[a,b]$, ou seja, dividir o domÌnio em $N$ partes iguais, definindo
+Resolver numericamente o problema acima exige uma discretiza√ß√£o do dom√≠nio $[a,b]$, ou seja, dividir o dom√≠nio em $N$ partes iguais, definindo
 $$
 h=\frac{b-a}{N}
 $$
-O conjunto de abcissas $x_i$, $i=1,...,N+1$ formam uma malha para o problema discreto. Nosso objetivo È encontrar as ordenadas $u_i=u(x_i)$ que satisfazem a vers„o discreta:
+O conjunto de abcissas $x_i$, $i=1,...,N+1$ formam uma malha para o problema discreto. Nosso objetivo √© encontrar as ordenadas $u_i=u(x_i)$ que satisfazem a vers√£o discreta:
 $$\left\{\begin{array}{l}-\frac{u_{i+1}-2u_i+u_{i-1}}{h^2}=f(x_i,u_i),~~ 2\leq i\leq N.\\
 u_1=u_a\\
 u_{N+1}=u_b\end{array}
 \right.
 $$
-O vetor soluÁ„o $(u_i)_{i=1}^{N+1}$ do problema È soluÁ„o do sistema acima, que È linear se $f$ for linear em $u$ e n„o linear caso contr·rio.
+O vetor solu√ß√£o $(u_i)_{i=1}^{N+1}$ do problema √© solu√ß√£o do sistema acima, que √© linear se $f$ for linear em $u$ e n√£o linear caso contr√°rio.
 
-\begin{ex}Encontre uma soluÁ„o numÈrica para o problema de contorno:
+\begin{ex}Encontre uma solu√ß√£o num√©rica para o problema de contorno:
 $$\left\{\begin{array}{l}-u_{xx}+u=e^{-x},~~ 0<x<1.\\
 u(0)=1\\
 u(1)=2\end{array}
@@ -522,7 +522,7 @@ Observe que
 $$
 h=\frac{1}{N}
 $$
-e a vers„o discreta da equaÁ„o È
+e a vers√£o discreta da equa√ß√£o √©
 $$\left\{\begin{array}{l}-\frac{u_{i+1}-2u_i+u_{i-1}}{h^2}+u_i=e^{-x_i},~~ 2\leq i\leq N.\\
 u_1=1\\
 u_{N+1}=2\end{array}
@@ -533,7 +533,7 @@ $$\left\{\begin{array}{l}u_1=1\\-u_{i+1}+(2+h^2)u_i-u_{i-1}=h^2e^{-x_i},~~ 2\leq
 u_{N+1}=2\end{array}
 \right.
 $$
-que È um sistema linear. A sua forma matricial È:
+que √© um sistema linear. A sua forma matricial √©:
 $$
 \left[\begin{array}{ccccccc}
 1&0&0&\cdots&0&0&0\\
@@ -546,23 +546,23 @@ $$
 \left[\begin{array}{c}u_1\\u_2\\u_3\\ \vdots\\ u_{N}\\u_{N+1}\end{array}\right]=
 \left[\begin{array}{c}1\\h^2e^{-x_2}\\h^2e^{-x_3}\\ \vdots\\ h^2e^{-x_N}\\2\end{array}\right]
 $$
-Para $N=10$, temos a seguinte soluÁ„o:
+Para $N=10$, temos a seguinte solu√ß√£o:
 $$
 \left[\begin{array}{c} 1,000000\\  1,0735083  \\1,1487032 \\ 1,2271979\\  1,3105564\\  1,4003172\\  1,4980159\\  1,6052067\\  1,7234836\\  1,8545022\\2,000000\end{array}\right]
 $$  
 \end{sol}
 
-\section*{ExercÌcios}
+\section*{Exerc√≠cios}
 
 \begin{Exercise}
- Considere o seguinte problema de valor de contorno para a equaÁ„o de calor no estado estacion·rio:
+ Considere o seguinte problema de valor de contorno para a equa√ß√£o de calor no estado estacion√°rio:
 $$\left\{\begin{array}{l}-u_{xx}=32,~~ 0<x<1.\\
 u(0)=5\\
 u(1)=10\end{array}
 \right.
 $$
 
-Defina $u_j=u(x_j)$ onde $x_j={(j-1)}{h}$ e $j=1,\ldots,5$. Aproxime a derivada segunda por um esquema de segunda ordem e transforme a equaÁ„o diferencial em um sistema de equaÁıes lineares. Escreva este sistema linear na forma matricial e resolva-o. FaÁa o mesmo com o dobro de subintervalos, isto È, com malha de 9 pontos. 
+Defina $u_j=u(x_j)$ onde $x_j={(j-1)}{h}$ e $j=1,\ldots,5$. Aproxime a derivada segunda por um esquema de segunda ordem e transforme a equa√ß√£o diferencial em um sistema de equa√ß√µes lineares. Escreva este sistema linear na forma matricial e resolva-o. Fa√ßa o mesmo com o dobro de subintervalos, isto √©, com malha de 9 pontos. 
 \end{Exercise}
 \begin{Answer}
  
@@ -590,7 +590,7 @@ Defina $u_j=u(x_j)$ onde $x_j={(j-1)}{h}$ e $j=1,\ldots,5$. Aproxime a derivada 
 $$
 
 
-SoluÁ„o:  [5, 9.25, 11.5, 11.75, 10]    
+Solu√ß√£o:  [5, 9.25, 11.5, 11.75, 10]    
 
 $$\left[
   \begin{array}{ccccccccc}
@@ -618,17 +618,17 @@ $$\left[
 \right]
 $$
 
-SoluÁ„o:  [5, 7.375, 9.25, 10.625, 11.5, 11.875, 11.75, 1.125, 10]    
+Solu√ß√£o:  [5, 7.375, 9.25, 10.625, 11.5, 11.875, 11.75, 1.125, 10]    
 \end{Answer}
 
 
-\begin{Exercise} Considere o seguinte problema de valor de contorno para a equaÁ„o de calor no estado estacion·rio:
+\begin{Exercise} Considere o seguinte problema de valor de contorno para a equa√ß√£o de calor no estado estacion√°rio:
 $$\left\{\begin{array}{l}-u_{xx}=200e^{-(x-1)^2},~~ 0<x<2.\\
 u(0)=120\\
 u(2)=100\end{array}
 \right.
 $$
-Defina $u_j=u(x_j)$ onde $x_j={(j-1)}{h}$ e $j=1,\ldots,21$. Aproxime a derivada segunda por um esquema de segunda ordem e transforme a equaÁ„o diferencial em um sistema de equaÁıes lineares. Resolva o sistema linear obtido.
+Defina $u_j=u(x_j)$ onde $x_j={(j-1)}{h}$ e $j=1,\ldots,21$. Aproxime a derivada segunda por um esquema de segunda ordem e transforme a equa√ß√£o diferencial em um sistema de equa√ß√µes lineares. Resolva o sistema linear obtido.
 
 
 \end{Exercise}
@@ -638,13 +638,13 @@ Defina $u_j=u(x_j)$ onde $x_j={(j-1)}{h}$ e $j=1,\ldots,21$. Aproxime a derivada
 
 
 
-\begin{Exercise} Considere o seguinte problema de valor de contorno para a equaÁ„o de calor no estado estacion·rio:
+\begin{Exercise} Considere o seguinte problema de valor de contorno para a equa√ß√£o de calor no estado estacion√°rio:
 $$\left\{\begin{array}{l}-u_{xx}=200e^{-(x-1)^2},~~ 0<x<2.\\
 u'(0)=0\\
 u(2)=100\end{array}
 \right.
 $$
-Defina $u_j=u(x_j)$ onde $x_j={(j-1)}{h}$ e $j=1,\ldots,21$. Aproxime a derivada segunda por um esquema de segunda ordem, a derivada primeira na fronteira por um esquema de primeira ordem e transforme a equaÁ„o diferencial em um sistema de equaÁıes lineares. Resolva o sistema linear obtido.
+Defina $u_j=u(x_j)$ onde $x_j={(j-1)}{h}$ e $j=1,\ldots,21$. Aproxime a derivada segunda por um esquema de segunda ordem, a derivada primeira na fronteira por um esquema de primeira ordem e transforme a equa√ß√£o diferencial em um sistema de equa√ß√µes lineares. Resolva o sistema linear obtido.
 \end{Exercise}
 
 \begin{Answer}
@@ -652,13 +652,13 @@ Defina $u_j=u(x_j)$ onde $x_j={(j-1)}{h}$ e $j=1,\ldots,21$. Aproxime a derivada
 \end{Answer}
 
 
-\begin{Exercise} Considere o seguinte problema de valor de contorno para a equaÁ„o de calor no estado estacion·rio com um termo n„o-linear de radiaÁ„o:
+\begin{Exercise} Considere o seguinte problema de valor de contorno para a equa√ß√£o de calor no estado estacion√°rio com um termo n√£o-linear de radia√ß√£o:
 $$\left\{\begin{array}{l}-u_{xx}=100- \frac{u^4}{10000},~~ 0<x<2.\\
 u(0)=0\\
 u(2)=10\end{array}
 \right.
 $$
-Defina $u_j=u(x_j)$ onde $x_j={(j-1)}{h}$ e $j=1,\ldots,21$. Aproxime a derivada segunda por um esquema de segunda ordem e transforme a equaÁ„o diferencial em um sistema de equaÁıes n„o lineares. Resolva o sistema  obtido. Expresse  a soluÁ„o com dois algarismos depois do separador decimal. Dica: Veja problema 38 da lista 2, seÁ„o de sistemas n„o lineares.
+Defina $u_j=u(x_j)$ onde $x_j={(j-1)}{h}$ e $j=1,\ldots,21$. Aproxime a derivada segunda por um esquema de segunda ordem e transforme a equa√ß√£o diferencial em um sistema de equa√ß√µes n√£o lineares. Resolva o sistema  obtido. Expresse  a solu√ß√£o com dois algarismos depois do separador decimal. Dica: Veja problema 38 da lista 2, se√ß√£o de sistemas n√£o lineares.
 \end{Exercise}
 
 \begin{Answer}
@@ -666,13 +666,13 @@ Defina $u_j=u(x_j)$ onde $x_j={(j-1)}{h}$ e $j=1,\ldots,21$. Aproxime a derivada
 \end{Answer}
 
 
-\begin{Exercise} Considere o seguinte problema de valor de contorno para a equaÁ„o de calor no estado estacion·rio com um termo n„o-linear de radiaÁ„o e um termo de convecÁ„o:
+\begin{Exercise} Considere o seguinte problema de valor de contorno para a equa√ß√£o de calor no estado estacion√°rio com um termo n√£o-linear de radia√ß√£o e um termo de convec√ß√£o:
 $$\left\{\begin{array}{l}-u_{xx}+3u_x=100- \frac{u^4}{10000},~~ 0<x<2.\\
 u'(0)=0\\
 u(2)=10\end{array}
 \right.
 $$
-Defina $u_j=u(x_j)$ onde $x_j={(j-1)}{h}$ e $j=1,\ldots,21$. Aproxime a derivada segunda por um esquema de segunda ordem, a derivada primeira na fronteira por um esquema de primeira ordem, a derivada primeira no interior por um esquema de segunda ordem e transforme a equaÁ„o diferencial em um sistema de equaÁıes n„o lineares. Resolva o sistema  obtido.
+Defina $u_j=u(x_j)$ onde $x_j={(j-1)}{h}$ e $j=1,\ldots,21$. Aproxime a derivada segunda por um esquema de segunda ordem, a derivada primeira na fronteira por um esquema de primeira ordem, a derivada primeira no interior por um esquema de segunda ordem e transforme a equa√ß√£o diferencial em um sistema de equa√ß√µes n√£o lineares. Resolva o sistema  obtido.
 \end{Exercise}
 \begin{Answer}
 u(0)=31.62, u(1)=31.50, u(1.9)=18.17
@@ -684,28 +684,28 @@ u'(1)+u(1)=2\\
 u'(4)=-1\end{array}
 \right.
 $$
-Defina $u_j=u(x_j)$ onde $x_j=1+{(j-1)}{h}$ e $j=1,\ldots,101$. Aproxime a derivada segunda por um esquema de segunda ordem, a derivada primeira na fronteira por um esquema de primeira ordem, a derivada primeira no interior por um esquema de segunda ordem e transforme a equaÁ„o diferencial em um sistema de equaÁıes n„o lineares. Resolva o sistema  obtido.
+Defina $u_j=u(x_j)$ onde $x_j=1+{(j-1)}{h}$ e $j=1,\ldots,101$. Aproxime a derivada segunda por um esquema de segunda ordem, a derivada primeira na fronteira por um esquema de primeira ordem, a derivada primeira no interior por um esquema de segunda ordem e transforme a equa√ß√£o diferencial em um sistema de equa√ß√µes n√£o lineares. Resolva o sistema  obtido.
 \end{Exercise}
 \begin{Answer}
 u(1)=1.900362, u(2.5)=1.943681, u(4)=1.456517
 \end{Answer}
 
-\section{IntegraÁ„o numÈrica}\index{integraÁ„o numÈrica}
+\section{Integra√ß√£o num√©rica}\index{integra√ß√£o num√©rica}
 
-Considere o problema de calcular a ·rea entre uma funÁ„o positiva, o eixo $x$ e as retas $x=a$ e $x=b$. O valor exato dessa ·rea È calculada fazendo uma aproximaÁ„o por ret‚ngulos com bases iguais e depois tomando o limite quando o n˙mero de ret‚ngulos tende ao infinito:
+Considere o problema de calcular a √°rea entre uma fun√ß√£o positiva, o eixo $x$ e as retas $x=a$ e $x=b$. O valor exato dessa √°rea √© calculada fazendo uma aproxima√ß√£o por ret√¢ngulos com bases iguais e depois tomando o limite quando o n√∫mero de ret√¢ngulos tende ao infinito:
 $$
 A=\lim_{n\to\infty}\sum_{i=1}^nf(x_i)h_n,
 $$
-onde $h_n=\frac{b-a}{n}$ È o tamanho da base dos ret‚ngulo e $f(x_i)$, $1\leq i\leq n$, $a+(i-1)h\leq x_i\leq a+ih$, È a altura dos ret‚ngulos. Essa definiÁ„o È generalizada para c·lculo de integrais num intervalo $[a,b]$:
+onde $h_n=\frac{b-a}{n}$ √© o tamanho da base dos ret√¢ngulo e $f(x_i)$, $1\leq i\leq n$, $a+(i-1)h\leq x_i\leq a+ih$, √© a altura dos ret√¢ngulos. Essa defini√ß√£o √© generalizada para c√°lculo de integrais num intervalo $[a,b]$:
 $$
 \int_a^bf(x)dx=\lim_{n\to\infty}\sum_{i=1}^nf(x_i)h_n.
 $$
-A figura abaixo mostra um exemplo quando $f(x)=x^2+1$, $0\leq x\leq 2$. Temos a aproximaÁ„o por um ret‚ngulo com base $h_1=2$, depois com dois ret‚ngulos de base $h_2=1$ e, finalmente com quatro ret‚ngulo de bases $h_3=0,5$.
+A figura abaixo mostra um exemplo quando $f(x)=x^2+1$, $0\leq x\leq 2$. Temos a aproxima√ß√£o por um ret√¢ngulo com base $h_1=2$, depois com dois ret√¢ngulos de base $h_2=1$ e, finalmente com quatro ret√¢ngulo de bases $h_3=0,5$.
 \begin{center}
 \includegraphics[scale=0.7]{./cap_derint/pics/int_1}
 \end{center}
 
-Os valores aproximados para a integral s„o dados na tabela:
+Os valores aproximados para a integral s√£o dados na tabela:
 $$
 \begin{array}{|c|c|c|c|c|}
 \hline
@@ -720,19 +720,19 @@ $$
 \int_0^2(x^2+1)dx=\left[\frac{x^3}{3}+x\right]_0^2=\frac{8}{3}+2=4,6666667
 $$
 
-\subsection{Regras de Newton-Cotes}\index{integraÁ„o numÈrica!regras de Newton-Cotes}
+\subsection{Regras de Newton-Cotes}\index{integra√ß√£o num√©rica!regras de Newton-Cotes}
 
-A integral de uma funÁ„o num intervalo $[a,b]$, tambÈm chamada de quadratura numÈrica, È aproximada pela soma
+A integral de uma fun√ß√£o num intervalo $[a,b]$, tamb√©m chamada de quadratura num√©rica, √© aproximada pela soma
 $$
 \int_a^bf(x)dx\approx\sum_{i=1}^na_if(x_i),
 $$
-onde $x_i$, $1\leq i\leq n$, s„o pontos distintos do intervalo $[a,b]$. Nessa definiÁ„o, a integral $\int_0^2(x^2+1)dx$ (dada na seÁ„o \ref{sec_int}) usando uma aproximaÁ„o por ret‚ngulo usa apenas um ponto, o ponto mÈdio do intervalo ($x_1=1$), e a soma se reduz a uma parcela ($(2-0)f(1)$). A fÛrmula geral para essa caso, chamado de regra do ponto mÈdio È:
-\begin{equation}{\label{ponto_mÈdio_1}}
+onde $x_i$, $1\leq i\leq n$, s√£o pontos distintos do intervalo $[a,b]$. Nessa defini√ß√£o, a integral $\int_0^2(x^2+1)dx$ (dada na se√ß√£o \ref{sec_int}) usando uma aproxima√ß√£o por ret√¢ngulo usa apenas um ponto, o ponto m√©dio do intervalo ($x_1=1$), e a soma se reduz a uma parcela ($(2-0)f(1)$). A f√≥rmula geral para essa caso, chamado de regra do ponto m√©dio √©:
+\begin{equation}{\label{ponto_m√©dio_1}}
 \int_a^bf(x)dx\approx (b-a)f\left(\frac{a+b}{2}\right):=hf(x_1).
 \end{equation}
 
-\subsubsection{Regra do ponto mÈdio}\index{integraÁ„o numÈrica!regra do ponto mÈdio}
-A regra do ponto mÈdio (\ref{ponto_mÈdio_1}) pode ser deduzida mais formalmente usando a expans„o de Taylor
+\subsubsection{Regra do ponto m√©dio}\index{integra√ß√£o num√©rica!regra do ponto m√©dio}
+A regra do ponto m√©dio (\ref{ponto_m√©dio_1}) pode ser deduzida mais formalmente usando a expans√£o de Taylor
 $$
 f(x)=f(x_1)+f'(x_1)(x-x_1)+\frac{f''(\xi(x))}{2}(x-x_1)^2
 $$
@@ -740,7 +740,7 @@ que leva a integral
 $$
 \int_a^b f(x)dx=\int_a^b f(x_1) dx+f'(x_1)\int_a^b(x-x_1)dx +\int_a^b\frac{f''(\xi(x))}{2}(x-x_1)^2dx.
 $$
-Usando o teorema do valor mÈdio para integrais e que $h=b-a$ e $x_1=(a+b)/2$, temos:
+Usando o teorema do valor m√©dio para integrais e que $h=b-a$ e $x_1=(a+b)/2$, temos:
 \begin{align*}
 \int_a^b f(x)dx &= h f(x_1) + f'(x_1)\int_a^b(x-x_1)dx+f''(\eta)\int_a^b\frac{1}{2}(x-x_1)^2dx\\
 &= h f(x_1) +f'(x_1)\left[\frac{(x-x_1)^2}{2}\right]_a^b+f''(\eta)\left[\frac{1}{6}(x-x_1)^3\right]_a^b\\
@@ -751,7 +751,7 @@ Usando o teorema do valor mÈdio para integrais e que $h=b-a$ e $x_1=(a+b)/2$, te
 para $a\leq \eta\leq b$.
 
 \begin{ex}
-Use a regra do ponto mÈdio para aproximar a integral
+Use a regra do ponto m√©dio para aproximar a integral
 $$
 \int_0^1e^{-x^2}dx.
 $$
@@ -759,13 +759,13 @@ Depois divida a integral em duas
 $$
 \int_0^{1/2}e^{-x^2}dx+\int_{1/2}^{1}e^{-x^2}dx.
 $$
-e aplique a regra do ponto mÈdio em cada uma delas. Finalmente, repita o processo dividindo em quatro integrais.
+e aplique a regra do ponto m√©dio em cada uma delas. Finalmente, repita o processo dividindo em quatro integrais.
 
-Usando o intervalo $[0,1]$, temos $h=1$ e $x_1=1/2$. A regra do ponto mÈdio resulta em
+Usando o intervalo $[0,1]$, temos $h=1$ e $x_1=1/2$. A regra do ponto m√©dio resulta em
 $$
 \int_0^1e^{-x^2}dx\approx 1\cdot e^{-1/4}=0,7788008
 $$
-Usando dois intervalos, $[0,1/2]$ e $[1/2,1]$ e usando a regra do ponto mÈdio em cada um dos intervalos, temos:
+Usando dois intervalos, $[0,1/2]$ e $[1/2,1]$ e usando a regra do ponto m√©dio em cada um dos intervalos, temos:
 $$
 \int_0^1e^{-x^2}dx\approx 0,5\cdot e^{-1/16}+0,5\cdot e^{-9/16})=0,4697065+0,2848914=0,7545979
 $$
@@ -773,14 +773,14 @@ Agora, usando quatro intervalos, temos
 $$
 \int_0^1e^{-x^2}dx\approx 0,25\cdot e^{-1/64}+0,25\cdot e^{-9/64}+0,25\cdot e^{-25/64}+0,25\cdot e^{-49/64}=0,7487471
 $$
-Observe que o valor da integral È
+Observe que o valor da integral √©
 $$
 \int_0^1e^{-x^2}dx=0,7468241330.
 $$
 \end{ex}
 
 
-A forma natural de obter as regras de integraÁ„o È usar o polinÙmio de Lagrange que passa pelo pontos $\{(x_i,f(x_i))\}_{i=1}^n$
+A forma natural de obter as regras de integra√ß√£o √© usar o polin√¥mio de Lagrange que passa pelo pontos $\{(x_i,f(x_i))\}_{i=1}^n$
 $$
 f(x)=P_n(x)+\text{termo de erro}=\sum_{i=1}^nf(x_i)L_i(x) +\prod_{i=1}^n(x-x_i)\frac{f^{(n+1)}(\xi(x))}{(n+1)!}.
 $$
@@ -788,7 +788,7 @@ e integramos
 $$
 \int_a^bf(x)dx=\sum_{i=1}^n\left[f(x_i)\int_a^bL_i(x)dx\right] +\frac{1}{(n+1)!}\int_a^b\prod_{i=1}^n(x-x_i)f^{(n+1)}(\xi(x))dx.
 $$
-A fÛrmula de quadratura ent„o È
+A f√≥rmula de quadratura ent√£o √©
 $$
 \int_a^bf(x)dx\approx\sum_{i=1}^na_if(x_i),
 $$
@@ -797,25 +797,25 @@ $$
 a_i=\int_a^bL_i(x)dx
 $$
 
-\subsubsection{Regra do TrapÈzio}\index{integraÁ„o numÈrica!regra do trapÈzio}
+\subsubsection{Regra do Trap√©zio}\index{integra√ß√£o num√©rica!regra do trap√©zio}
 
-A regra do trapÈzio consiste em aproximar a integral por um trapÈzio em vez de um ret‚ngulo, como fizemos. Para isso, o polinÙmio de Lagrange deve ser uma reta, como mostra a figura.
+A regra do trap√©zio consiste em aproximar a integral por um trap√©zio em vez de um ret√¢ngulo, como fizemos. Para isso, o polin√¥mio de Lagrange deve ser uma reta, como mostra a figura.
 \begin{center}
 \includegraphics[scale=0.7]{./cap_derint/pics/int_2}
 \end{center}
 
-O polinÙmio de Lagrange de primeira ordem que passa por $(x_0,f(x_0)):=(a,f(a))$ e $(x_1,f(x_1)):=(b,f(b))$ È dado por
+O polin√¥mio de Lagrange de primeira ordem que passa por $(x_0,f(x_0)):=(a,f(a))$ e $(x_1,f(x_1)):=(b,f(b))$ √© dado por
 $$
 P_1(x)=f(x_0)\frac{(x-x_0)}{(x_1-x_0)}+f(x_1)\frac{(x-x_1)}{(x_0-x_1)}=f(x_0)\frac{(x-x_0)}{h}-f(x_1)\frac{(x-x_1)}{h},
 $$
-onde $h=x_1-x_0$. Podemos integrar a funÁ„o $f(x)$ aproximando-a por esse polinÙmio:
+onde $h=x_1-x_0$. Podemos integrar a fun√ß√£o $f(x)$ aproximando-a por esse polin√¥mio:
 \begin{equation*}
   \begin{split}
     \int_a^bf(x)dx &= f(x_0)\int_a^b\frac{(x-x_0)}{h}dx-f(x_1)\int_a^b\frac{(x-x_1)}{h}dx\\
     &+\frac{1}{2!}\int_a^b(x-x_0)(x-x_1)f''(\xi(x))dx.   
   \end{split}
 \end{equation*}
-Pelo teorema do valor mÈdio, existe $a\leq \eta\leq b$ tal que $\int_a^bf(\xi(x))g(x)dx=f(\eta)\int_a^bg(x)dx$ e, portanto,
+Pelo teorema do valor m√©dio, existe $a\leq \eta\leq b$ tal que $\int_a^bf(\xi(x))g(x)dx=f(\eta)\int_a^bg(x)dx$ e, portanto,
 \begin{equation*}
   \begin{split}
     \int_a^bf(x)dx&= f(x_0)\left[\frac{(x-x_0)^2}{2h}\right]_{x_0}^{x_1}-f(x_1)\left[\frac{(x-x_1)^2}{2h}\right]_{x_0}^{x_1}\\
@@ -830,7 +830,7 @@ Pelo teorema do valor mÈdio, existe $a\leq \eta\leq b$ tal que $\int_a^bf(\xi(x)
 \end{equation*}
 
 \begin{ex}
-Use a regra do trapÈzio para aproximar a integral
+Use a regra do trap√©zio para aproximar a integral
 $$
 \int_0^1e^{-x^2}dx.
 $$
@@ -838,13 +838,13 @@ Depois divida a integral em duas
 $$
 \int_0^{1/2}e^{-x^2}dx+\int_{1/2}^{1}e^{-x^2}dx.
 $$
-e aplica a regra do trapÈzio em cada uma delas. Finalmente, repita o processo dividindo em quatro integrais.
+e aplica a regra do trap√©zio em cada uma delas. Finalmente, repita o processo dividindo em quatro integrais.
 \end{ex}
-Usando o intervalo $[0,1]$, temos $h=1$, $x_0=0$ e $x_1=1$. A regra do trapÈzio resulta em
+Usando o intervalo $[0,1]$, temos $h=1$, $x_0=0$ e $x_1=1$. A regra do trap√©zio resulta em
 $$
 \int_0^1e^{-x^2}dx\approx \frac{1}{2}(e^{0}+e^{-1})=0,6839397
 $$
-Usando dois intervalos, $[0,1/2]$ e $[1/2,1]$ e usando a regra do trapÈzio em cada um dos intervalos, temos:
+Usando dois intervalos, $[0,1/2]$ e $[1/2,1]$ e usando a regra do trap√©zio em cada um dos intervalos, temos:
 \begin{align*}
 \int_0^1e^{-x^2}dx &\approx \frac{0,5}{2}\left(e^{0}+e^{-1/4}\right) + \frac{0,5}{2}\left(e^{-1/4}+e^{-1}\right) \\
 &= 0,4447002+0,2866701 =0,7313703.
@@ -856,23 +856,23 @@ Agora, usando quatro intervalos, temos
 &= 0,7429841
 \end{align*}
 
-\subsubsection{Regra de Simpson}\index{integraÁ„o numÈrica!regra de Simpson}
-A regra de Simpson consiste em aproximar a integral usando trÍs pontos do intervalo:
+\subsubsection{Regra de Simpson}\index{integra√ß√£o num√©rica!regra de Simpson}
+A regra de Simpson consiste em aproximar a integral usando tr√™s pontos do intervalo:
 $$
 x_0=a,\qquad x_1:=\frac{a+b}{2}=x_0+h \qquad \text{e}\qquad x_2:=b=x_1+h.
 $$
-com $h = (b-a)/2$. Para isso, o polinÙmio de Lagrange deve ser uma par·bola:
+com $h = (b-a)/2$. Para isso, o polin√¥mio de Lagrange deve ser uma par√°bola:
 \begin{equation*}
   \begin{split}
     P_2(x) &= f(x_0)\frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)} + f(x_1)\frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)}\\
     &+ f(x_2)\frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}.
   \end{split}
 \end{equation*}
-Se usarmos o mesma metodologia da regra dos trapÈzios, calcularemos
+Se usarmos o mesma metodologia da regra dos trap√©zios, calcularemos
 $$
 \int_a^bf(x)dx=\int_a^bP_2(x)dx+\int_a^b\frac{(x-x_0)(x-x_1)(x-x_2)}{6}f'''(\xi(x))dx
 $$
-e obteremos o fÛrmula de Simpson com um erro de quarta ordem. O fato È que a regra de Simpson tem ordem cinco e, para isso, usaremos uma abordagem alternativa. Considere o polinÙmio de Taylor
+e obteremos o f√≥rmula de Simpson com um erro de quarta ordem. O fato √© que a regra de Simpson tem ordem cinco e, para isso, usaremos uma abordagem alternativa. Considere o polin√¥mio de Taylor
 $$
 f(x)=f(x_1)+f'(x_1)(x-x_1)+\frac{f''(x_1)}{2}(x-x_1)^2+\frac{f'''(x_1)}{6}(x-x_1)^3+\frac{f^{(4)}(\xi(x))}{24}(x-x_1)^4,
 $$
@@ -884,7 +884,7 @@ onde $x_0\leq\xi(x)\leq x_2$ e integre no intervalo $[a,b]=[x_0,x_2]$:
       &+ \frac{1}{24}\int_{x_0}^{x_2}f^{(4)}(\xi(x))(x-x_1)^4dx,    
   \end{split}
 \end{equation*}
-Pelo teorema do valor mÈdio, existe $x_0\leq\eta\leq x_2$ tal que
+Pelo teorema do valor m√©dio, existe $x_0\leq\eta\leq x_2$ tal que
 \begin{equation*}
   \begin{split}
     \int_a^bf(x)dx&= \left[f(x_1)(x-x_1)+f'(x_1)\frac{(x-x_1)^2}{2}+\frac{f''(x_1)}{6}(x-x_1)^3\right.\\
@@ -910,7 +910,7 @@ temos
 $$
 \int_a^bf(x)dx=2hf(x_1)+\frac{h^3}{3}f''(x_1)+\frac{h^5f^{(4)}(\eta)}{60}.
 $$
-Usando a diferenÁas finitas centrais para a derivada segunda:
+Usando a diferen√ßas finitas centrais para a derivada segunda:
 $$
 f''(x_1)=\frac{f(x_0)-2f(x_1)+f(x_2)}{h^2}+\frac{h^2}{12}f^{(4)}(\eta_1),
 $$
@@ -920,7 +920,7 @@ $x_0\leq \eta_1\leq x_2$, temos
 &+&\frac{h^5f^{(4)}(\eta)}{60}\\
 &=&\frac{h}{3}\left(f(x_0)+4f(x_1)+f(x_2)\right)-\frac{h^5}{12}\left(\frac{1}{3}f^{(4)}(\eta_1)-\frac{1}{5}f^{(4)}(\eta)\right).
 \end{eqnarray*}
-Pode-se mostrar que È possÌvel escolher $\eta_2$ que substitua $\eta$ e $\eta_1$ com a seguinte estimativa
+Pode-se mostrar que √© poss√≠vel escolher $\eta_2$ que substitua $\eta$ e $\eta_1$ com a seguinte estimativa
 $$
 \int_a^bf(x)dx=\frac{h}{3}\left(f(x_0)+4f(x_1)+f(x_2)\right)-\frac{h^5}{90}f^{(4)}(\eta_2).
 $$
@@ -940,21 +940,21 @@ Usando o intervalo $[0,1]$, temos $h=1/2$, $x_0=0$, $x_1=1/2$ e $x_2=1$. A regra
 $$
 \int_0^1e^{-x^2}dx\approx \frac{0,5}{3}(e^{0}+4e^{-1/4}+e^{-1})=0,7471804
 $$
-Usando dois intervalos, $[0,1/2]$ e $[1/2,1]$ e usando a regra do trapÈzio em cada um dos intervalos, temos:
+Usando dois intervalos, $[0,1/2]$ e $[1/2,1]$ e usando a regra do trap√©zio em cada um dos intervalos, temos:
 $$
 \int_0^1e^{-x^2}dx\approx \frac{0,25}{3}(e^{0}+4e^{-1/16}+e^{-1/4})+\frac{0,25}{3}(e^{-1/4}+4e^{-9/16}+e^{-1})=0,7468554
 $$
 
-\subsection{Regras compostas}\index{integraÁ„o numÈrica!regras compostas}
+\subsection{Regras compostas}\index{integra√ß√£o num√©rica!regras compostas}
 
-Vimos que em todas as estimativas de erro que derivamos, o erro depende do tamanho do intervalo de integraÁ„o. Uma estratÈgia para reduzir o erro consiste em particionar o intervalo de integraÁ„o em diversos subintervalos menores:
+Vimos que em todas as estimativas de erro que derivamos, o erro depende do tamanho do intervalo de integra√ß√£o. Uma estrat√©gia para reduzir o erro consiste em particionar o intervalo de integra√ß√£o em diversos subintervalos menores:
 \begin{equation*}
 \int_{a}^b f(x)dx=\sum_{i=1}^{n} \int_{x_i}^{x_{i+1}} f(x)dx  
 \end{equation*}
-onde $x_i = a + (i-1)h$, $h = (b-a)/n$ e $i = 1,2,\dotsc,n+1$, sendo $n$ o n˙mero de subintervalos da partiÁ„o do intervalo de integraÁ„o. Depois, aplica-se um mÈtodo simples de integraÁ„o em cada subintervalo.
+onde $x_i = a + (i-1)h$, $h = (b-a)/n$ e $i = 1,2,\dotsc,n+1$, sendo $n$ o n√∫mero de subintervalos da parti√ß√£o do intervalo de integra√ß√£o. Depois, aplica-se um m√©todo simples de integra√ß√£o em cada subintervalo.
 
-\subsubsection{MÈtodo composto dos trapÈzios}\index{integraÁ„o numÈrica!mÈtodo composto!dos trapÈzios}
-A \emph{regra composta dos trapÈzios} assume a seguinte forma:
+\subsubsection{M√©todo composto dos trap√©zios}\index{integra√ß√£o num√©rica!m√©todo composto!dos trap√©zios}
+A \emph{regra composta dos trap√©zios} assume a seguinte forma:
 \begin{align*}
   \int_{a}^b f(x)dx &= \sum_{i=1}^{n} \int_{x_i}^{x_{i+1}}f(x)\,dx \\
   &\approx \sum_{i=1}^{n} \frac{x_{i+1}-x_i}{2}\left[f(x_i)+f(x_{i+1})\right]
@@ -967,35 +967,35 @@ Como $h = x_{i+1} - x_i$, temos:
 \end{align*}
 
 \ifisscilab
-\subsubsection{CÛdigo Scilab: TrapÈzio Composto}
-O cÛdigo Scilab abaixo È uma implementaÁ„o do mÈtodo do trapÈzio composto para calcular:
+\subsubsection{C√≥digo Scilab: Trap√©zio Composto}
+O c√≥digo Scilab abaixo √© uma implementa√ß√£o do m√©todo do trap√©zio composto para calcular:
 \begin{equation*}
   \int_a^b f(x)\,dx = \frac{h}{2}\left[f(x_1) + f(x_{n+1})\right] + h\sum_{i=2}^n f(x_i) + O(h^3),
 \end{equation*}
-onde $h = (b-a)/n$ e $x_i = a + (i-1)h$, $i=1,2,\dotsc,n+1$. Os par‚metros de entrada s„o: \verb+f+ o integrando definido como uma funÁ„o no Scilab, \verb+a+ o limite inferior de integraÁ„o, \verb+b+ o limite superior de integraÁ„o, \verb+n+ o n˙mero de subintervalos desejado. A vari·vel de saÌda È \verb+y+ e corresponde a aproximaÁ„o calculada de $\int_a^b f(x)\, dx$.
+onde $h = (b-a)/n$ e $x_i = a + (i-1)h$, $i=1,2,\dotsc,n+1$. Os par√¢metros de entrada s√£o: \verb+f+ o integrando definido como uma fun√ß√£o no Scilab, \verb+a+ o limite inferior de integra√ß√£o, \verb+b+ o limite superior de integra√ß√£o, \verb+n+ o n√∫mero de subintervalos desejado. A vari√°vel de sa√≠da √© \verb+y+ e corresponde a aproxima√ß√£o calculada de $\int_a^b f(x)\, dx$.
 
 \verbatiminput{./cap_derint/codes/trap_comp/trap_comp.sci}
 \fi
 
-\subsubsection{MÈtodo composto de Simpson}\index{integraÁ„o numÈrica!mÈtodo composto!de Simpson}
-J· a regra composta de Simpson assume a seguinte forma:
+\subsubsection{M√©todo composto de Simpson}\index{integra√ß√£o num√©rica!m√©todo composto!de Simpson}
+J√° a regra composta de Simpson assume a seguinte forma:
 \begin{align*}
   \int_{a}^b f(x)\,dx &= \sum_{k=1}^{n} \int_{x_k}^{x_{k+1}} f(x)dx \\
   &\approx \sum_{k=1}^{n} \frac{x_{x+1}-x_k}{6}\left[f(x_k) + 4f\left(\frac{x_{k+1}+x_k}{2}\right)+f(x_{k+1})\right]
 \end{align*}
-onde, como anteriormente, $x_k = a + (k-1)h$, $h = (b-a)/n$ e $i = 1,2,\dotsc,n+1$, sendo $n$ o n˙mero de subintervalos da partiÁ„o do intervalo de integraÁ„o. Podemos simplificar o somatÛrio acima, escrevendo:
+onde, como anteriormente, $x_k = a + (k-1)h$, $h = (b-a)/n$ e $i = 1,2,\dotsc,n+1$, sendo $n$ o n√∫mero de subintervalos da parti√ß√£o do intervalo de integra√ß√£o. Podemos simplificar o somat√≥rio acima, escrevendo:
 \begin{equation*}
   \int_{a}^b f(x)\,dx \approx \frac{h}{3}\left[f(x_1) + 2\sum_{i=1}^{n-1} f(x_{2i+1}) + 4\sum_{i=1}^{n} f(x_{2i}) + f(x_{2n+1})\right] + O(h^5)
 \end{equation*}
 onde, agora, $h = (b-a)/(2n)$, $x_i = a + (i-1)h$, $i=1,2,\dotsc,2n+1$.
 
 \ifisscilab
-\subsubsection{CÛdigo Scilab: Simpson Composto}
-O cÛdigo Scilab abaixo È uma implementaÁ„o do mÈtodo de Simpson composto para calcular:
+\subsubsection{C√≥digo Scilab: Simpson Composto}
+O c√≥digo Scilab abaixo √© uma implementa√ß√£o do m√©todo de Simpson composto para calcular:
 \begin{equation*}
   \int_a^b f(x)\,dx = \frac{h}{3}\left[f(x_1) + 2\sum_{i=1}^{n-1} f(x_{2i+1}) + 4\sum_{i=1}^{n} f(x_{2i}) + f(x_{2n+1})\right] + O(h^3),
 \end{equation*}
-onde $h = (b-a)/(2n)$ e $x_i = a + (i-1)h$, $i=1,2,\dotsc,2n+1$. Os par‚metros de entrada s„o: \verb+f+ o integrando definido como uma funÁ„o no Scilab, \verb+a+ o limite inferior de integraÁ„o, \verb+b+ o limite superior de integraÁ„o, \verb+n+ o n˙mero de subintervalos desejado. A vari·vel de saÌda È \verb+y+ e corresponde a aproximaÁ„o calculada de $\int_a^b f(x)\, dx$.
+onde $h = (b-a)/(2n)$ e $x_i = a + (i-1)h$, $i=1,2,\dotsc,2n+1$. Os par√¢metros de entrada s√£o: \verb+f+ o integrando definido como uma fun√ß√£o no Scilab, \verb+a+ o limite inferior de integra√ß√£o, \verb+b+ o limite superior de integra√ß√£o, \verb+n+ o n√∫mero de subintervalos desejado. A vari√°vel de sa√≠da √© \verb+y+ e corresponde a aproxima√ß√£o calculada de $\int_a^b f(x)\, dx$.
 \verbatiminput{./rotinas/Derivacao_e_integracao/simp_comp.sci}
 \fi
 
@@ -1003,12 +1003,12 @@ onde $h = (b-a)/(2n)$ e $x_i = a + (i-1)h$, $i=1,2,\dotsc,2n+1$. Os par‚metros d
 $$
 \int_0^2 x^2 e^{x^2}dx
 $$
-pelas regras compostas do ponto mÈdio, trapÈzio e Simpson variando o n˙mero de intervalos \\$N_i=1,\ 2,\ 3,\ 6,\ 12,\ 24,\ 48,\ 96$.
+pelas regras compostas do ponto m√©dio, trap√©zio e Simpson variando o n√∫mero de intervalos \\$N_i=1,\ 2,\ 3,\ 6,\ 12,\ 24,\ 48,\ 96$.
 \end{ex}
 \begin{equation*}
 \begin{array}{|c|c|c|c|}
 \hline
-n&\hbox{ponto mÈdio}&\hbox{TrapÈzios}&\hbox{Simpson}\\\hline
+n&\hbox{ponto m√©dio}&\hbox{Trap√©zios}&\hbox{Simpson}\\\hline
 1&5,4365637&218,3926&76,421909\\\hline
 2&21,668412&111,91458&51,750469\\\hline
 3&31,678746&80,272022&47,876505\\\hline
@@ -1021,32 +1021,32 @@ n&\hbox{ponto mÈdio}&\hbox{TrapÈzios}&\hbox{Simpson}\\\hline
 \end{array}  
 \end{equation*}
 
-\subsection{O mÈtodo de Romberg}\index{integraÁ„o numÈrica!mÈtodo de Romberg}
-O mÈtodo de Romberg È um mÈtodo simplificado para construir quadraturas de alta ordem.
+\subsection{O m√©todo de Romberg}\index{integra√ß√£o num√©rica!m√©todo de Romberg}
+O m√©todo de Romberg √© um m√©todo simplificado para construir quadraturas de alta ordem.
 
-Considere o mÈtodo de trapÈzios composto aplicado ‡ integral
+Considere o m√©todo de trap√©zios composto aplicado √† integral
 $$\int_a^bf(x)dx$$
-Defina $I(h)$ a aproximaÁ„o desta integral pelo mÈtodo dos trapÈzios composto com  malha de largura constante igual a h. Aqui $h=\frac{b-a}{N_i}$ para algum $N_i$ inteiro, i.e.:
+Defina $I(h)$ a aproxima√ß√£o desta integral pelo m√©todo dos trap√©zios composto com  malha de largura constante igual a h. Aqui $h=\frac{b-a}{N_i}$ para algum $N_i$ inteiro, i.e.:
 $$I(h)=\frac{h}{2}\left[f(a)+2\sum_{j=2}^{N_i} f(x_j)+ f(b)\right],~~~N_i=\frac{b-a}{h}$$
 
-\begin{teo} Se $f(x)$ È uma funÁ„o analÌtica no intervalo $(a,b)$, ent„o a funÁ„o $I(h)$ admite uma representaÁ„o na forma
+\begin{teo} Se $f(x)$ √© uma fun√ß√£o anal√≠tica no intervalo $(a,b)$, ent√£o a fun√ß√£o $I(h)$ admite uma representa√ß√£o na forma
 $$I(h)=I_0 + I_2 h^2 + I_4{h^4}+ I_6{h^6}+\ldots$$
 \end{teo}
-Para um demonstraÁ„o, veja \cite{DEMAILLY}. Em especial observamos que
+Para um demonstra√ß√£o, veja \cite{DEMAILLY}. Em especial observamos que
 $$\int_a^b f(x)dx = \lim_{h\to 0}I(h)=I_0$$
-Ou seja, o valor exato da integral procurada È dado pelo coeficiente $I_0$.
+Ou seja, o valor exato da integral procurada √© dado pelo coeficiente $I_0$.
 
-A ideia central do mÈtodo de Romberg, agora, consiste em usar a extrapolaÁ„o de Richardson para construir mÈtodos de maior ordem a partir do mÈtodos dos trapÈzios para o intervalo $(a,b)$
-\begin{ex} \label{exemplo_romberg_1}ConstruÁ„o do mÈtodo de quarta ordem.
+A ideia central do m√©todo de Romberg, agora, consiste em usar a extrapola√ß√£o de Richardson para construir m√©todos de maior ordem a partir do m√©todos dos trap√©zios para o intervalo $(a,b)$
+\begin{ex} \label{exemplo_romberg_1}Constru√ß√£o do m√©todo de quarta ordem.
 \begin{eqnarray*}
 I(h)&=&I_0 + I_2 h^2 + I_4{h^4}+ I_6{h^6}+\ldots\\~\\
 I\left(\frac{h}{2}\right)&=&I_0 + I_2 \frac{h^2}{4} + I_4\frac{h^4}{16}+ I_6\frac{h^6}{64}+\ldots\\
 \end{eqnarray*}
-Usamos agora uma eliminaÁ„o gaussiana para obter o termo $I_0$:
+Usamos agora uma elimina√ß√£o gaussiana para obter o termo $I_0$:
 \begin{eqnarray*}
 \frac{4I(h/2)-I(h)}{3}=I_0-\frac{1}{4}I_4h^4-\frac{5}{16}I_6h^6+\ldots
 \end{eqnarray*}
-Vamos agora aplicar a fÛrmula para $h=b-a$,
+Vamos agora aplicar a f√≥rmula para $h=b-a$,
 \begin{eqnarray*}
 I(h)&=& \frac{h}{2} \left[f(a)+f(b)\right]\\
 I(h/2)&=& \frac{h}{4} \left[f(a)+2f\left(c\right)+f(b)\right],~~ c=\frac{a+b}{2}\\
@@ -1056,10 +1056,10 @@ I(h/2)&=& \frac{h}{4} \left[f(a)+2f\left(c\right)+f(b)\right],~~ c=\frac{a+b}{2}
 \frac{4I(h/2)-I(h)}{3}&=&\frac{h}{3}\left[f(a)+2f\left(c\right)+f(b)\right]-\frac{h}{6} \left[f(a)+f(b)\right]\\
 &=&\frac{h}{6}\left[f(a)+4f\left(c\right)+f(b)\right]
 \end{eqnarray*}
-Observe que esquema coincide com o mÈtodo de Simpson.
+Observe que esquema coincide com o m√©todo de Simpson.
 \end{ex}
 
-A partir de agora, usaremos a seguinte notaÁ„o
+A partir de agora, usaremos a seguinte nota√ß√£o
 \begin{eqnarray*}
 R_{1,1}&=&I(h)\\
 R_{2,1}&=&I(h/2)\\
@@ -1068,14 +1068,14 @@ R_{3,1}&=&I(h/4)\\
 R_{n,1}&=&I(h/2^{n-1})
 \end{eqnarray*}
 
-Observamos que os pontos envolvidos na quadratura $R_{k,1}$ s„o os mesmos pontos envolvidos na quadratura $R(k-1,1)$ acrescidos dos pontos centrais, assim, temos a seguinte fÛrmula de recorrÍncia:
+Observamos que os pontos envolvidos na quadratura $R_{k,1}$ s√£o os mesmos pontos envolvidos na quadratura $R(k-1,1)$ acrescidos dos pontos centrais, assim, temos a seguinte f√≥rmula de recorr√™ncia:
 $$R_{k,1}=\frac{1}{2}R_{k-1,1}+\frac{h}{2^{k-1}} \sum_{i=1}^{2^{k-2}}f\left(a+(2i-1)\frac{h}{2^{k-1}}\right)$$
 
-Definimos $R_{k,2}$ para $k\geq 2$ como o esquema de ordem quatro obtido da fÛrmula do exemplo \ref{exemplo_romberg_1}:
+Definimos $R_{k,2}$ para $k\geq 2$ como o esquema de ordem quatro obtido da f√≥rmula do exemplo \ref{exemplo_romberg_1}:
 $$R_{k,2}=\frac{4R_{k,1}-R_{k-1,1}}{3}$$
-Os valores $R_{k,2}$ representam ent„o os valores obtidos pelo mÈtodo de Simpson composto aplicado a uma malha composta de $2^{k-1}+1$ pontos.
+Os valores $R_{k,2}$ representam ent√£o os valores obtidos pelo m√©todo de Simpson composto aplicado a uma malha composta de $2^{k-1}+1$ pontos.
 
-Similarmente os valores de $R_{k,j}$ s„o os valores obtidos pela quadratura de ordem $2j$ obtida via extrapolaÁ„o de Richardson. Pode-se mostrar que
+Similarmente os valores de $R_{k,j}$ s√£o os valores obtidos pela quadratura de ordem $2j$ obtida via extrapola√ß√£o de Richardson. Pode-se mostrar que
 $$R_{k,j}=R_{k,j-1}+\frac{R_{k,j-1}-R_{k-1,j-1}}{4^{j-1}-1}.$$
 
 \begin{ex} 
@@ -1097,7 +1097,7 @@ Ou seja, temos:
 \begin{equation*}
   \int_0^2 e^{x^2}dx \approx 16,475543
 \end{equation*}
-usando uma aproximaÁ„o de ordem 8.
+usando uma aproxima√ß√£o de ordem 8.
 \end{ex}
 
 
@@ -1121,38 +1121,38 @@ Ou seja, temos:
 \begin{equation*}
   \int_0^2 x^2e^{x^2}dx \approx 46,371847
 \end{equation*}
-com uma aproximaÁ„o de ordem 12.
+com uma aproxima√ß√£o de ordem 12.
 \end{ex}
 
 
-\subsection{Ordem de precis„o}\index{integraÁ„o numÈrica!ordem de precis„o}
+\subsection{Ordem de precis√£o}\index{integra√ß√£o num√©rica!ordem de precis√£o}
 
-Todos os mÈtodos de quadratura que vimos atÈ o momento s„o da forma
+Todos os m√©todos de quadratura que vimos at√© o momento s√£o da forma
 $$\int_a^b f(x)dx \approx \sum_{j=1}^N w_j f(x_j)$$
 \begin{ex}
 \begin{itemize}
-\item[(a)] MÈtodo do trapÈzio
+\item[(a)] M√©todo do trap√©zio
 \begin{eqnarray*}
 \int_a^b f(x)dx &\approx& \left[f(a)+f(b)\right]\frac{b-a}{2}\\
 &=&\frac{b-a}{2}f(a)+\frac{b-a}{2}f(b)\\
 &:=&w_1f(x_1)+w_2f(x_2)= \sum_{j=1}^2 w_j f(x_j)
 \end{eqnarray*}
 
-\item[(b)] MÈtodo do trapÈzio com dois intervalos
+\item[(b)] M√©todo do trap√©zio com dois intervalos
 \begin{eqnarray*}
 \int_a^b f(x)dx &\approx& \left[f(a)+2f\left(\frac{a+b}{2}\right)+f(b)\right]\frac{b-a}{4}\\
 &=&\frac{b-a}{4}f(a)+\frac{b-a}{2}f\left(\frac{a+b}{2}\right)+\frac{b-a}{4}f(b)\\
 &:=&w_1f(x_1)+w_2f(x_2)+w_3f(x_3)= \sum_{j=1}^3 w_j f(x_j)
 \end{eqnarray*}
 
-\item[(c)] MÈtodo de Simpson
+\item[(c)] M√©todo de Simpson
 \begin{eqnarray*}
 \int_a^b f(x)dx &\approx& \left[f(a)+4f\left(\frac{a+b}{2}\right)+f(b)\right]\frac{b-a}{6}\\
 &=&\frac{b-a}{6}f(a)+\frac{2(b-a)}{3}f\left(\frac{a+b}{2}\right)+\frac{b-a}{6}f(b)\\
 &:=&\sum_{j=1}^3 w_j f(x_j)
 \end{eqnarray*}
 
-\item[(d)] MÈtodo de Simpson com dois intervalos
+\item[(d)] M√©todo de Simpson com dois intervalos
 \begin{eqnarray*}
 \int_a^b f(x)dx &\approx& \left[f(a)+4f\left(\frac{3a+b}{4}\right)+2f\left(\frac{a+b}{2}\right)\right.\\
 &+& \left. 4f\left(\frac{a+3b}{4}\right)+f(b)\right]\frac{b-a}{12}\\
@@ -1164,7 +1164,7 @@ $$\int_a^b f(x)dx \approx \sum_{j=1}^N w_j f(x_j)$$
 \end{itemize}
 \end{ex}
 
-A principal tÈcnica que temos usado para desenvolver os mÈtodos numÈricos È o {\bf polinÙmio de Taylor}:
+A principal t√©cnica que temos usado para desenvolver os m√©todos num√©ricos √© o {\bf polin√¥mio de Taylor}:
 $$f(x)=a_0+a_1x + a_2x^2+\ldots + a_n x^n +R_n(x)$$
 
 Integrando termo a termo, temos:
@@ -1175,20 +1175,20 @@ Integrando termo a termo, temos:
 &&a_n \frac{b^{n+1}-a^{n+1}}{n+1} +\int_a^bR_n(x)dx
 \end{eqnarray*}
 
-Neste momento, È natural investigar o desempenho de um esquema numÈrico aplicado a funÁıes do tipo $f(x)=x^n$.
+Neste momento, √© natural investigar o desempenho de um esquema num√©rico aplicado a fun√ß√µes do tipo $f(x)=x^n$.
 
-\begin{defn} A {\bf ordem de precis„o} ou {\bf ordem de exatid„o} de um esquema de quadratura numÈrica como o maior inteiro positivo {\bf n} para o qual o esquema È exato para todas as funÁıes do tipo $x^k$ com $0\leq k\leq n$, ou seja,
-Um esquema È dito de ordem $n$ se
+\begin{defn} A {\bf ordem de precis√£o} ou {\bf ordem de exatid√£o} de um esquema de quadratura num√©rica como o maior inteiro positivo {\bf n} para o qual o esquema √© exato para todas as fun√ß√µes do tipo $x^k$ com $0\leq k\leq n$, ou seja,
+Um esquema √© dito de ordem $n$ se
 $$\sum_{j=1}^n w_jf(x_j)=\int_a^b f(x)dx,~~~f(x)=x^k,~k=0,1,\ldots n$$
 ou, equivalentemente:
 $$\sum_{j=1}^n w_jx_j^k=\int_a^b x^kdx=\frac{b^{k+1}-a^{k+1}}{k+1},~~~k=0,1,\ldots n$$
 \end{defn}
 
-\begin{obs} Se o mÈtodo tem ordem $0$ ou mais, ent„o
+\begin{obs} Se o m√©todo tem ordem $0$ ou mais, ent√£o
 $$\sum_{j=1}^n w_j=b-a$$
 \end{obs}
 
-\begin{ex} A ordem de precis„o do esquema de trapÈzios È 1:
+\begin{ex} A ordem de precis√£o do esquema de trap√©zios √© 1:
 $$\int_a^b f(x)dx \approx \left[f(a)+f(b)\right]\frac{b-a}{2}=\sum_{j=1}^2w_jf(x_j)$$
 onde $w_j=\frac{b-a}{2}$, $x_1=a$ e $x_2=b$.
 \begin{align*}
@@ -1198,7 +1198,7 @@ onde $w_j=\frac{b-a}{2}$, $x_1=a$ e $x_2=b$.
 \end{align*}
 \end{ex}
 
-\begin{ex} A ordem de precis„o do esquema de Simpson È 3:
+\begin{ex} A ordem de precis√£o do esquema de Simpson √© 3:
 $$\int_a^b f(x)dx \approx \left[f(a)+4f\left(\frac{a+b}{2}\right)+f(b)\right]\frac{b-a}{6}=\sum_{j=1}^3w_jf(x_j)$$
 onde $w_1=w_3=\frac{b-a}{6}$,$w_2=4\frac{b-a}{6}$, $x_1=a$, $x_2=\frac{a+b}{2}$ e $x_3=b$
 \begin{align*}
@@ -1213,10 +1213,10 @@ onde $w_1=w_3=\frac{b-a}{6}$,$w_2=4\frac{b-a}{6}$, $x_1=a$, $x_2=\frac{a+b}{2}$ 
 \begin{ex} 
 Encontre os pesos $w_j$ e as abscissas $x_j$ tais que o esquema de dois pontos
 $$\int_{-1}^1 f(x)dx = w_1f(x_1)+w_2f(x_2)$$
-È de ordem 3.
+√© de ordem 3.
 \end{ex}
 \begin{sol}
-  Temos um sistema de quatro equaÁıes e quatro incÛgnitas dado por:
+  Temos um sistema de quatro equa√ß√µes e quatro inc√≥gnitas dado por:
 \begin{eqnarray*}
 w_1+w_2&=&2\\
 x_1w_1+x_2w_2&=&0\\
@@ -1224,19 +1224,19 @@ x_1^2w_1+x_2^2w_2&=&\frac{2}{3}\\
 x_1^3w_1+x_2^3w_2&=&0\\
 \end{eqnarray*}
 
-Da segunda e quarta equaÁ„o, temos:
+Da segunda e quarta equa√ß√£o, temos:
 $$\frac{w_1}{w_2}=-\frac{x_2}{x_1}=-\frac{x_2^3}{x_1^3}$$
-Como $x_1\neq x_2$, temos $x_1=-x_2$ e $w_1=w_2$. Da primeira equaÁ„o, temos $w_1=w_2=1$. Da terceira equaÁ„o, temos $-x_1=x_2=\frac{\sqrt{3}}{3}$.
+Como $x_1\neq x_2$, temos $x_1=-x_2$ e $w_1=w_2$. Da primeira equa√ß√£o, temos $w_1=w_2=1$. Da terceira equa√ß√£o, temos $-x_1=x_2=\frac{\sqrt{3}}{3}$.
 
-Esse esquema de ordem de precis„o trÍs e dois pontos chama-se quadratura de Gauss-Legendre com dois pontos:
+Esse esquema de ordem de precis√£o tr√™s e dois pontos chama-se quadratura de Gauss-Legendre com dois pontos:
 $$\int_{-1}^1 f(x)dx = f\left(\frac{\sqrt{3}}{3}\right)+f\left(-\frac{\sqrt{3}}{3}\right)$$
 \end{sol}
 
-\begin{ex} ComparaÁ„o
+\begin{ex} Compara√ß√£o
   \begin{small}
 $$\begin{array}{|c|c|c|c|c|}
 \hline
-f(x)&\hbox{Exato}&\hbox{TrapÈzio} &\hbox{Simpson} & \hbox{Gauss-Legendre (2)}\\
+f(x)&\hbox{Exato}&\hbox{Trap√©zio} &\hbox{Simpson} & \hbox{Gauss-Legendre (2)}\\
 \hline
 &&&&\\
 \displaystyle e^{x}&\displaystyle \begin{array}{l}e-e^{-1}\\~\approx 2,35040\end{array}  & \displaystyle \begin{array}{l}e^{-1}+e \\ ~\approx 3,08616 \end{array}& \begin{array}{l}\displaystyle \frac{e^{-1}+4e^{0}+e^{1}}{3}\\ ~\approx  2,36205\end{array} & \begin{array}{l}\displaystyle e^{-\frac{-\sqrt{3}}{3}}+e^{\frac{\sqrt{3}}{3}}\\ ~\approx   2,34270\end{array}\\
@@ -1255,19 +1255,19 @@ $$
   \end{small}
 \end{ex}
 
-\subsection{Quadratura de Gauss-Legendre}\index{quadratura numÈrica!Gauss-Legendre}
+\subsection{Quadratura de Gauss-Legendre}\index{quadratura num√©rica!Gauss-Legendre}
 
-A quadratura de Gauss-Legendre de $n$ pontos È o esquema numÈrico
+A quadratura de Gauss-Legendre de $n$ pontos √© o esquema num√©rico
 $$\int_{-1}^1 f(x)dx =\sum_{j=1}^n w_j f(x_j)$$
-cuja ordem de exatid„o È $2n-1$.
+cuja ordem de exatid√£o √© $2n-1$.
 
 \begin{itemize}
-\item O problema de encontrar os $n$ pesos e $n$ abscissas È equivalente a um sistema n„o linear com $2n$ equaÁıes e $2n$ incÛgnitas.
-\item Pode-se mostrar que este problema sempre tem soluÁ„o e que a soluÁ„o È ˙nica se $x_1<x_2<\ldots <x_n$
-\item As abscissas s„o das pelos zeros do enÈsimo polinÙmio de Legendre, $P_n(x)$.
-\item Os pesos s„o dados por
+\item O problema de encontrar os $n$ pesos e $n$ abscissas √© equivalente a um sistema n√£o linear com $2n$ equa√ß√µes e $2n$ inc√≥gnitas.
+\item Pode-se mostrar que este problema sempre tem solu√ß√£o e que a solu√ß√£o √© √∫nica se $x_1<x_2<\ldots <x_n$
+\item As abscissas s√£o das pelos zeros do en√©simo polin√¥mio de Legendre, $P_n(x)$.
+\item Os pesos s√£o dados por
 $$w_j = \frac{2}{\left( 1-x_j^2 \right) [P'_n(x_j)]^2}.$$
-\item Estes dados s„o tabelados e facilmente encontrados.
+\item Estes dados s√£o tabelados e facilmente encontrados.
 \end{itemize}
 
 \begin{equation*}
@@ -1302,7 +1302,7 @@ n&x_j&w_j\\
   \begin{equation*}
     \int_{-1}^1\sqrt{1+x^2}dx  
   \end{equation*}
-pelo mÈtodo de Gauss-Legendre com 3 pontos.
+pelo m√©todo de Gauss-Legendre com 3 pontos.
 \end{ex}
 \begin{sol}
  \begin{equation*}
@@ -1317,7 +1317,7 @@ No Scilab:
 \ifisscilab
 \begin{ex} Aproximar
 $$\int_{-1}^1\sqrt{1+x^2}dx$$
-pelo mÈtodo de Gauss-Legendre com 4 pontos.
+pelo m√©todo de Gauss-Legendre com 4 pontos.
 \end{ex}
 \begin{sol}
 \begin{verbatim}
@@ -1329,14 +1329,14 @@ I4=f(x4(1))*w4(1)+f(-x4(1))*w4(1)+f(x4(2))*w4(2)+f(-x4(2))*w4(2)
 
 \begin{ex} Aproximar
 $$\int_{0}^1\sqrt{1+x^2}dx$$
-pelo mÈtodo de Gauss-Legendre com $3,\ 4$ e $5$ pontos.
+pelo m√©todo de Gauss-Legendre com $3,\ 4$ e $5$ pontos.
 \end{ex}
 \begin{sol}
-Para tanto, fazemos a mudanÁa de vari·veis $u=2x-1$:
+Para tanto, fazemos a mudan√ßa de vari√°veis $u=2x-1$:
 \begin{equation*}
   \int_{0}^1\sqrt{1+x^2}dx=\frac{1}{2}\int_{-1}^1\sqrt{1+\left(\frac{u+1}{2}\right)^2}du
 \end{equation*}
-E, ent„o aplicamos a quadratura gaussiana nesta ˙ltima integral.
+E, ent√£o aplicamos a quadratura gaussiana nesta √∫ltima integral.
 \ifisscilab
 \begin{verbatim}
 deff('y=f(u)','y=sqrt(1+(u+1)^2/4)/2')
@@ -1348,13 +1348,13 @@ I5=f(0)*w5(1)+f(x5(2))*w5(2)+f(-x5(2))*w5(2)+f(x5(3))*w5(3) ...
 \fi  
 \end{sol}
 
-\section*{ExercÌcios}
+\section*{Exerc√≠cios}
 
-\begin{Exercise}Calcule numericamente as seguintes integrais usando os mÈtodos simples do Ponto mÈdio, TrapÈzio e Simpson. Calcule tambÈm o valor exato usando seus conhecimentos de C·lculo I. Complete a tabela abaixo conforme modelo:
+\begin{Exercise}Calcule numericamente as seguintes integrais usando os m√©todos simples do Ponto m√©dio, Trap√©zio e Simpson. Calcule tamb√©m o valor exato usando seus conhecimentos de C√°lculo I. Complete a tabela abaixo conforme modelo:
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-  & exato & Ponto mÈdio & TrapÈzio & Simpson \\
+  & exato & Ponto m√©dio & Trap√©zio & Simpson \\
 \hline
  & & & &\\[-.3cm]
 $\int_0^1e^{-x}dx$ &$1-e^{-1}\approx 0.6321206$& $ e^{-1/2}\approx 0.6065307$&$\frac{1+e^{-1}}{2}\approx 0.6839397$ &$\frac{1+4e^{-1/2}+e^{-1}}{6}\approx 0.6323337$\\[.2cm]
@@ -1385,7 +1385,7 @@ $\int_0^1\frac{1}{x+1}dx$  & & & &\\[.2cm]
  \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-  & exato & Ponto mÈdio & TrapÈzio & Simpson \\
+  & exato & Ponto m√©dio & Trap√©zio & Simpson \\
 \hline
  & & & &\\[-.3cm]
 $\int_0^1e^{-x}dx$ &$1-e^{-1}\approx 0.6321206$& $ e^{-1/2}\approx 0.6065307$&$\frac{1+e^{-1}}{2}\approx 0.6839397$ &$\frac{1+4e^{-1/2}+e^{-1}}{6}\approx 0.6323337$\\[.2cm]
@@ -1416,29 +1416,29 @@ $\int_0^1\frac{1}{x+1}dx$  & $\ln(2) \approx 0.6931472$ & 0.6666667  &  0.75 &  
 \end{Answer}
 
 \begin{Exercise}
- Dados os valores da funÁ„o $f(x)$, $f(2)=2$, $f(3)=4$ e $f(4)=8$, calcule o valor aproximado de
+ Dados os valores da fun√ß√£o $f(x)$, $f(2)=2$, $f(3)=4$ e $f(4)=8$, calcule o valor aproximado de
  $$\int_2^4f(x)dx$$
- pelos mÈtodos simples de ponto mÈdio, trapÈzio e Simpson.
+ pelos m√©todos simples de ponto m√©dio, trap√©zio e Simpson.
 \end{Exercise}
 \begin{Answer}
  Resp: $8$, $10$ e $8.666667$.
 \end{Answer}
 
 \begin{Exercise}
- DÍ a interpretaÁ„o geomÈtrica dos mÈtodos do ponto mÈdio, trapÈzio e Simpson. A partir desta construÁ„o geomÈtrica, deduza as fÛrmulas para aproximar 
+ D√™ a interpreta√ß√£o geom√©trica dos m√©todos do ponto m√©dio, trap√©zio e Simpson. A partir desta constru√ß√£o geom√©trica, deduza as f√≥rmulas para aproximar 
  $$\int_a^bf(x)dx.$$
- Verifique o mÈtodo de Simpson pode ser entendido como uma mÈdia aritmÈtica ponderada entre os mÈtodos de trapÈzio e ponto mÈdio. Encontre os pesos envolvidos. Explique o que s„o os mÈtodos compostos.
+ Verifique o m√©todo de Simpson pode ser entendido como uma m√©dia aritm√©tica ponderada entre os m√©todos de trap√©zio e ponto m√©dio. Encontre os pesos envolvidos. Explique o que s√£o os m√©todos compostos.
  \end{Exercise}
 \begin{Answer}
 $$ I_{Simpson}= \frac{1}{3} I_{Trap}+ \frac{2}{3}I_{PM}$$
 \end{Answer}
 
 
-\begin{Exercise} Calcule numericamente o valor de $\int_2^5e^{4-x^2}dx$ usando os mÈtodos compostos do ponto mÈdio, trapÈzio e Simpson. Obtenha os resultados utilizando, em cada quadratura, o n˙mero de pontos indicado.
+\begin{Exercise} Calcule numericamente o valor de $\int_2^5e^{4-x^2}dx$ usando os m√©todos compostos do ponto m√©dio, trap√©zio e Simpson. Obtenha os resultados utilizando, em cada quadratura, o n√∫mero de pontos indicado.
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-n   & Ponto mÈdio & TrapÈzios & Simpson \\
+n   & Ponto m√©dio & Trap√©zios & Simpson \\
 \hline
 $3$ &~\hspace{40pt}~& ~\hspace{40pt}~& ~\hspace{40pt}\\
 \hline
@@ -1456,7 +1456,7 @@ $9$  & & &\\
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-n   & Ponto mÈdio & TrapÈzios & Simpson \\
+n   & Ponto m√©dio & Trap√©zios & Simpson \\
 \hline
 $3$ & 0.1056606  &  0.7503919  &  0.5005225  \\
 \hline
@@ -1473,7 +1473,7 @@ $9$  &  0.2084204 &   0.2721145  &  0.2306618  \\
 
 
 \begin{Exercise}
-Use as rotinas construÌdas em aula e calcule numericamente o valor das seguintes integrais usando o mÈtodo composto dos trapÈzios para os seguintes n˙meros de pontos:
+Use as rotinas constru√≠das em aula e calcule numericamente o valor das seguintes integrais usando o m√©todo composto dos trap√©zios para os seguintes n√∫meros de pontos:
 $$
 \begin{array}{|c|c|c|c|c|c|}
 \hline
@@ -1497,7 +1497,7 @@ $1025$   &&0.4410407&0.7853981 &1.5873015873016\cdot 10^{-3} &4.6191723776309\cd
 $$
 
 
-Para cada integrando encontre o funÁ„o $I(h)=a_0+a_1h+a_2h^2+a_3h^3+a_4h^4$ que melhor se ajusta aos dados, onde $h=\frac{1}{n-1}$. Discuta os resultados com base no teorema envolvido na construÁ„o do mÈtodo de Romberg.
+Para cada integrando encontre o fun√ß√£o $I(h)=a_0+a_1h+a_2h^2+a_3h^3+a_4h^4$ que melhor se ajusta aos dados, onde $h=\frac{1}{n-1}$. Discuta os resultados com base no teorema envolvido na constru√ß√£o do m√©todo de Romberg.
 \end{Exercise}
 \begin{Answer}
 $$a)I(h)=4.41041\cdot 10^{-1} - 8.49372\cdot 10^{-12}h - 1.22104\cdot 10^{-2}h^2 - 1.22376\cdot 10^{-7}h^3 + 8.14294\cdot 10^{-3}h^4$$
@@ -1510,7 +1510,7 @@ $$a)I(h)=4.41041\cdot 10^{-1} - 8.49372\cdot 10^{-12}h - 1.22104\cdot 10^{-2}h^2
 %\end{document}
 
 \begin{Exercise}
- Calcule os valores da quadratura de Romberg de $R_{1,1}$ atÈ $R_{4,4}$ para $\int_0^\pi \sin(x)dx$. N„o use rotinas prontas neste problema.
+ Calcule os valores da quadratura de Romberg de $R_{1,1}$ at√© $R_{4,4}$ para $\int_0^\pi \sin(x)dx$. N√£o use rotinas prontas neste problema.
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -1544,7 +1544,7 @@ $$a)I(h)=4.41041\cdot 10^{-1} - 8.49372\cdot 10^{-12}h - 1.22104\cdot 10^{-2}h^2
 \end{Answer}
 
 
-\begin{Exercise} Sem usar rotinas prontas, use o mÈtodo de integraÁ„o de Romberg para obter a aproximaÁ„o $R_{3,3}$ das seguintes integrais:
+\begin{Exercise} Sem usar rotinas prontas, use o m√©todo de integra√ß√£o de Romberg para obter a aproxima√ß√£o $R_{3,3}$ das seguintes integrais:
 \begin{itemize}
 \item[a)] $\int_{0}^1 e^{-x^2}dx$
 \item[b)] $\int_{0}^2 \sqrt{2-\cos(x)}dx$
@@ -1554,31 +1554,31 @@ $$a)I(h)=4.41041\cdot 10^{-1} - 8.49372\cdot 10^{-12}h - 1.22104\cdot 10^{-2}h^2
 \begin{Answer}
 0.7468337,2.4606311, 1.6595275.
 \end{Answer}
-\begin{Exercise} Encontre uma express„o para $R_{2,2}$ em termos de $f(x)$ e verifique o mÈtodo de Romberg $R_{2,2}$ È equivalente ao mÈtodo de Simpson.
+\begin{Exercise} Encontre uma express√£o para $R_{2,2}$ em termos de $f(x)$ e verifique o m√©todo de Romberg $R_{2,2}$ √© equivalente ao m√©todo de Simpson.
 \end{Exercise}
 
 \begin{Exercise} Considere o problema de aproximar numericamente o valor de
 $$\int_0^{100} \left(e^{\frac{1}{2}\cos(x)}-1\right)dx$$
-pelo mÈtodo de Romberg. Usando rotinas prontas, faÁa o que se pede.
+pelo m√©todo de Romberg. Usando rotinas prontas, fa√ßa o que se pede.
 \begin{itemize}
 \item Calcule $R(6,k),~~ k=1,\ldots,6$ e observe os valores obtidos.
 \item Calcule $R(7,k),~~ k=1,\ldots,6$ e observe os valores obtidos.
 \item Calcule $R(8,k),~~ k=1,\ldots,6$ e observe os valores obtidos.
-\item Discuta os resultados anteriores e proponha uma estratÈgia mais eficiente para calcular o valor da integral.
+\item Discuta os resultados anteriores e proponha uma estrat√©gia mais eficiente para calcular o valor da integral.
 \end{itemize}
 \end{Exercise}
-\begin{Answer} $R(6,6)=- 10.772065$, $R(7,7)=5.2677002$, $R(8,8)=6.1884951$, $R(9,9)=6.0554327$, $R(10,10)=6.0574643$. O valor desta integral com oito dÌgitos corretos È aproximado por  $6.0574613$.  
+\begin{Answer} $R(6,6)=- 10.772065$, $R(7,7)=5.2677002$, $R(8,8)=6.1884951$, $R(9,9)=6.0554327$, $R(10,10)=6.0574643$. O valor desta integral com oito d√≠gitos corretos √© aproximado por  $6.0574613$.  
 \end{Answer}
 
 \begin{Exercise} Encontre os pesos $w_1$, $w_2$ e $w_3$ tais que o esquema de quadratura dado por
 $$\int_{0}^{1}f(x)dx\approx w_1f(0)+w_2f(1/2)+w_3 f(1)$$
-apresente m·xima ordem de exatid„o. Qual a ordem obtida?
+apresente m√°xima ordem de exatid√£o. Qual a ordem obtida?
 \end{Exercise}
 \begin{Answer}
- $w_1=1/6$, $w_2=2/3$, $w_3=1/6$. O esquema construÌdo È o de Simpson e a ordem de exatid„o È 3.
+ $w_1=1/6$, $w_2=2/3$, $w_3=1/6$. O esquema constru√≠do √© o de Simpson e a ordem de exatid√£o √© 3.
 \end{Answer}
 
-\begin{Exercise} Encontre a ordem de exatid„o do seguinte mÈtodo de integraÁ„o:
+\begin{Exercise} Encontre a ordem de exatid√£o do seguinte m√©todo de integra√ß√£o:
 $$\int_{-1}^1f(x)dx\approx \frac{2}{3}\left[f\left(\frac{-\sqrt{2}}{2}\right)+f(0)+f\left(\frac{\sqrt{2}}{2}\right)\right]$$
 \end{Exercise}
 \begin{Answer}
@@ -1586,15 +1586,15 @@ $$\int_{-1}^1f(x)dx\approx \frac{2}{3}\left[f\left(\frac{-\sqrt{2}}{2}\right)+f(
 \end{Answer}
 
 
-\begin{Exercise} Encontre a ordem de exatid„o do seguinte mÈtodo de integraÁ„o:
+\begin{Exercise} Encontre a ordem de exatid√£o do seguinte m√©todo de integra√ß√£o:
 $$\int_{-1}^1f(x)dx=-\frac{1}{210}f'(-1)+\frac{136}{105} f(-1/2) - \frac{62}{105} f(0) + \frac{136}{105}f(1/2) +\frac{1}{210}f'(1)$$
 \end{Exercise}
 \begin{Answer}
 5
 \end{Answer}
-\begin{Exercise} Encontre os pesos $w_1$, $w_2$ e $w_3$ tal que o mÈtodo de integraÁ„o
+\begin{Exercise} Encontre os pesos $w_1$, $w_2$ e $w_3$ tal que o m√©todo de integra√ß√£o
 $$\int_0^1 f(x)dx \approx w_1 f(1/3)  + w_2f(1/2) + w_3f(2/3)$$
-tenha ordem de exatid„o m·xima. Qual È ordem obtida?
+tenha ordem de exatid√£o m√°xima. Qual √© ordem obtida?
 
 \end{Exercise}
 
@@ -1604,11 +1604,11 @@ $\int_0^1 f(x)dx \approx \frac{3}{2} f(1/3)  -2f(1/2) + \frac{3}{2}f(2/3)$ com o
 
 
 
-\begin{Exercise} Explique por quÍ quando um mÈtodo simples tem estimativa de erro de truncamento local de ordem $h^n$, ent„o o mÈtodo composto associado tem estimativa de erro de ordem $h^{n-1}$.
+\begin{Exercise} Explique por qu√™ quando um m√©todo simples tem estimativa de erro de truncamento local de ordem $h^n$, ent√£o o m√©todo composto associado tem estimativa de erro de ordem $h^{n-1}$.
 \end{Exercise}
 
 
-\begin{Exercise} Quantos pontos s„o envolvidos no esquema de quadratura $R_{3,2}$? Qual a ordem do erro deste esquema de quadratura? Qual a ordem de exatid„o desta quadradura?
+\begin{Exercise} Quantos pontos s√£o envolvidos no esquema de quadratura $R_{3,2}$? Qual a ordem do erro deste esquema de quadratura? Qual a ordem de exatid√£o desta quadradura?
 \end{Exercise}
 \begin{Answer} 5, 4, 3
 \end{Answer}
@@ -1621,9 +1621,9 @@ $\int_0^1 f(x)dx \approx \frac{3}{2} f(1/3)  -2f(1/2) + \frac{3}{2}f(2/3)$ com o
 
 \begin{Exercise} Encontre os pesos $w_1$ e $w_2$ e as abcissas $x_1$ e $x_2$ tais que
 $$\int_{-1}^1f(x)=w_1f(x_1)+w_2f(x_2)$$
-quando $f(x)=x^k, ~k=0,1,2,3$, isto È o mÈtodo apresente m·xima ordem de exatid„o possÌvel com dois pontos.
+quando $f(x)=x^k, ~k=0,1,2,3$, isto √© o m√©todo apresente m√°xima ordem de exatid√£o poss√≠vel com dois pontos.
 
-Use esse mÈtodo para avaliar o valor da integral das seguintes integrais e compare com os valores obtidos para Simpson e trapÈzio, bom como com o valor exato.
+Use esse m√©todo para avaliar o valor da integral das seguintes integrais e compare com os valores obtidos para Simpson e trap√©zio, bom como com o valor exato.
 \begin{itemize}
 \item[a)] $\int_{-1}^1\left(2+x-5x^2+x^3\right)dx$
 \item[b)] $\int_{-1}^1e^{x}dx$
@@ -1635,9 +1635,9 @@ $\int_{-1}^1f(x)dx=f\left(-\frac{\sqrt{3}}{3}\right)+f\left(\frac{\sqrt{3}}{3}\r
 \end{Answer}
 
 
-\begin{Exercise} Encontre os pesos $w_1$, $w_2$ e $w_3$ tal que o mÈtodo de integraÁ„o
+\begin{Exercise} Encontre os pesos $w_1$, $w_2$ e $w_3$ tal que o m√©todo de integra√ß√£o
 $$\int_{-1}^1 f(x)dx \approx w_1 f\left(-\frac{\sqrt{3}}{3}\right)  + w_2f(0) + w_3f\left(\frac{\sqrt{3}}{3}\right)$$
-tenha ordem de exatid„o m·xima. Qual È ordem obtida?
+tenha ordem de exatid√£o m√°xima. Qual √© ordem obtida?
 \end{Exercise}
 \begin{Answer}
 $w_1=w_3=1$ e $w_2=0$ com ordem 3.
@@ -1645,11 +1645,11 @@ $w_1=w_3=1$ e $w_2=0$ com ordem 3.
 
 
 
-\begin{Exercise}Encontre aproximaÁıes para a seguinte integral via Gauss-Legendre com $2,\ 3,\ 4,\ 5,\ 6$ e $7$ pontos e compare com o valor exato
+\begin{Exercise}Encontre aproxima√ß√µes para a seguinte integral via Gauss-Legendre com $2,\ 3,\ 4,\ 5,\ 6$ e $7$ pontos e compare com o valor exato
 $$\int_{-1}^1 x^4e^{x^5}dx.$$
 \end{Exercise}
 
-\begin{Exercise} Encontre aproximaÁıes para as seguintes integrais via Gauss-Legendre com 4 e 5 pontos:
+\begin{Exercise} Encontre aproxima√ß√µes para as seguintes integrais via Gauss-Legendre com 4 e 5 pontos:
 \begin{itemize}
 \item[a)] $\int_0^1 e^{-x^4}dx$
 \item[b)] $\int_1^4 \log(x+e^x)dx$
@@ -1685,11 +1685,11 @@ $16$   &0.4410407  &0.7853982 &0.0015873 & 0.4619172 \\
 \end{center}
 \end{Exercise}
 
-\section*{ExercÌcios finais}
+\section*{Exerc√≠cios finais}
 
-\begin{Exercise} O valor exato da integral imprÛpria $\int_0^1x\ln(x)dx$ È dado por
+\begin{Exercise} O valor exato da integral impr√≥pria $\int_0^1x\ln(x)dx$ √© dado por
 $$\int_0^1x\ln(x)dx=\left.\left(\frac{x^2}{2}\ln x-\frac{x^2}{4}\right)\right|_0^1=-1/4$$
-Aproxime o valor desta integral usando a regra  de Simpson para $n=3$, $n=5$ e $n=7$. Como vocÍ avalia a qualidade do resultado obtido? Por que isso acontece.
+Aproxime o valor desta integral usando a regra  de Simpson para $n=3$, $n=5$ e $n=7$. Como voc√™ avalia a qualidade do resultado obtido? Por que isso acontece.
 \end{Exercise}
 
 
@@ -1698,15 +1698,15 @@ Aproxime o valor desta integral usando a regra  de Simpson para $n=3$, $n=5$ e $
 \end{Answer}
 
 
-\begin{Exercise} O valor exato da integral imprÛpria $\int_0^\infty e^{-x^2}dx$ È dado por $\frac{\sqrt{\pi}}{2}$.
+\begin{Exercise} O valor exato da integral impr√≥pria $\int_0^\infty e^{-x^2}dx$ √© dado por $\frac{\sqrt{\pi}}{2}$.
 Escreva esta integral como
 $$I=\int_0^1 e^{-x^2}dx+\int_0^1 u^{-2} e^{-1/u^2}du=\int_0^1 \left(e^{-x^2}+x^{-2}e^{-1/x^2}\right)dx$$
-e aproxime seu valor usando o esquema de trapÈzios e Simpson para $n=5$, $n=7$ e $n=9$.
+e aproxime seu valor usando o esquema de trap√©zios e Simpson para $n=5$, $n=7$ e $n=9$.
 \end{Exercise}
 
 \begin{Exercise}Estamos interessados em avaliar numericamente a seguinte integral:
 $$\int_0^1 \ln(x)\sin(x)dx$$
-cujo valor com 10 casas decimais corretas È $-.2398117420$.
+cujo valor com 10 casas decimais corretas √© $-.2398117420$.
 \begin{itemize}
 \item[a)] Aproxime esta integral via Gauss-Legendre com $n=2$,$n=3$, $n=4$, $n=5$, $n=6$ e $n=7$.
 \item[b)] Use a identidade
@@ -1716,7 +1716,7 @@ cujo valor com 10 casas decimais corretas È $-.2398117420$.
 &=&-\frac{1}{4}+\int_0^1 \ln(x)\left[\sin(x)-x\right]dx
 \end{eqnarray*}
 e aproxime a integral $\int_0^1 \ln(x)\left[\sin(x)-x\right]dx$ numericamente via Gauss-Legendre com $n=2$, $n=3$, $n=4$, $n=5$, $n=6$ e $n=7$.
-\item[c)] Compare os resultados e discuta levando em consideraÁ„o as respostas ‡s seguintes perguntas: 1)Qual funÁ„o È mais bem-comportada na origem? 2)Na segunda formulaÁ„o, qual porÁ„o da soluÁ„o foi obtida analiticamente e, portanto, sem erro de truncamento?
+\item[c)] Compare os resultados e discuta levando em considera√ß√£o as respostas √†s seguintes perguntas: 1)Qual fun√ß√£o √© mais bem-comportada na origem? 2)Na segunda formula√ß√£o, qual por√ß√£o da solu√ß√£o foi obtida analiticamente e, portanto, sem erro de truncamento?
 \end{itemize}
 \end{Exercise}
 
@@ -1728,7 +1728,7 @@ e aproxime a integral $\int_0^1 \ln(x)\left[\sin(x)-x\right]dx$ numericamente vi
 
 \begin{Exercise} Considere o problema de calcular numericamente a integral $I=\int_{-1}^1f(x)dx$ quando $f(x)=\frac{\cos(x)}{\sqrt{|x|}}$.
 \begin{itemize}
-\item[a)] O que acontece quando se aplica diretamente a quadratura gaussiana com um n˙mero impar de abscissas?
+\item[a)] O que acontece quando se aplica diretamente a quadratura gaussiana com um n√∫mero impar de abscissas?
 \item[b)] Calcule o valor aproximado por quadratura gaussiana com $n=2$, $n=4$, $n=6$ e $n=8$.
 \item[c)] Calcule o valor aproximado da integral removendo a singularidade
 \begin{eqnarray*}
@@ -1736,13 +1736,13 @@ I&=&\int_{-1}^1\frac{\cos(x)}{\sqrt{|x|}}dx=\int_{-1}^1\frac{\cos(x)-1}{\sqrt{|x
 &=&\int_{-1}^1\frac{\cos(x)-1}{\sqrt{|x|}}dx+2\int_{0}^1\frac{1}{\sqrt{x}}dx=\int_{-1}^1\frac{\cos(x)-1}{\sqrt{|x|}}dx+4
 \end{eqnarray*}
 e aplicando quadratura gaussiana com $n=2$, $n=4$, $n=6$ e $n=8$.
-\item[d)] Calcule o valor aproximado da integral removendo a singularidade, considerando a paridade da funÁ„o
+\item[d)] Calcule o valor aproximado da integral removendo a singularidade, considerando a paridade da fun√ß√£o
 \begin{eqnarray*}
 I&=&4+\int_{-1}^1\frac{\cos(x)-1}{\sqrt{|x|}}dx=4+2\int_{0}^1\frac{\cos(x)-1}{\sqrt{x}}dx=4+\sqrt{2}\int_{-1}^1\frac{\cos\left(\frac{1+u}{2}\right)-1}{\sqrt{1+u}}du
 \end{eqnarray*}
 e aplicando quadratura gaussiana com $n=2$, $n=4$, $n=6$ e $n=8$.
-\item[e)] Expandindo a funÁ„o $\cos(x)$ em sÈrie de Taylor, truncando a sÈrie depois  do $n$-Èsimo  termos n„o nulo e integrando analiticamente. \\
-\item[f)] Aproximando a funÁ„o $\cos(x)$ pelo polinÙmio de Taylor  de grau 4 dado por $$P_4(x)=1-\frac{x^2}{2}+\frac{x^4}{24}$$
+\item[e)] Expandindo a fun√ß√£o $\cos(x)$ em s√©rie de Taylor, truncando a s√©rie depois  do $n$-√©simo  termos n√£o nulo e integrando analiticamente. \\
+\item[f)] Aproximando a fun√ß√£o $\cos(x)$ pelo polin√¥mio de Taylor  de grau 4 dado por $$P_4(x)=1-\frac{x^2}{2}+\frac{x^4}{24}$$
 e escrevendo
 \begin{eqnarray*}I&=&\int_{-1}^1\frac{\cos(x)}{\sqrt{|x|}}dx=\int_{-1}^1\frac{\cos(x)-P_4(x)}{\sqrt{|x|}}dx+\int_{-1}^1\frac{P_4(x)}{\sqrt{|x|}}dx\\
 &=&2\underbrace{\int_{0}^1\frac{\cos(x)-P_4(x)}{\sqrt{x}}dx}_{\hbox{Resolver numericamente}}+2\underbrace{\int_{0}^1\left(x^{-1/2}-\frac{x^{3/2}}{2}+\frac{x^{7/2}}{24}\right)dx}_{\hbox{Resolver analiticamente}}
@@ -1767,7 +1767,7 @@ $8$ &2.880694&  3.6166953&3.6180989&$3.6180970$&$3.6180970$\\
 \end{tabular}
 \end{center}
 
-{\bf SoluÁ„o do item e:}
+{\bf Solu√ß√£o do item e:}
 Como $$\cos(x)=1+\sum_{n=1}^\infty(-1)^n\frac{x^{2n}}{(2n)!}$$
 temos
 $$\frac{1-\cos(x)}{\sqrt{x}}=-\sum_{n=1}^\infty(-1)^{n}\frac{x^{2n-1/2}}{(2n)!},~~x\geq0$$
@@ -1776,7 +1776,7 @@ Logo, podemos integrar
 I&=&4+2\int_{0}^1\frac{\cos(x)-1}{\sqrt{|x|}}dx=4-2\sum_{n=1}^\infty(-1)^{n}\int_0^1\frac{x^{2n-1/2}}{(2n)!}dx\\
 &=&4-2\sum_{n=1}^\infty(-1)^{n}\frac{1}{(2n)!(2n+1/2)}
 \end{eqnarray*}
-{\bf SoluÁ„o do item f)}
+{\bf Solu√ß√£o do item f)}
 \begin{eqnarray*}2\int_{0}^1\left(x^{-1/2}-\frac{x^{3/2}}{2}+\frac{x^{7/2}}{24}\right)dx=2\left(2-\frac{1}{5}+\frac{1}{54}\right)=\frac{977}{270}
 \end{eqnarray*}
 \begin{eqnarray*}2\int_{0}^1\frac{\cos(x)-P_4(x)}{\sqrt{x}}dx=\sqrt{2}\int_{-1}^1\frac{\cos\left(\frac{1+u}{2}\right)-P_4\left(\frac{1+u}{2}\right)}{\sqrt{1+u}}du
@@ -1793,30 +1793,30 @@ I&=&4+2\int_{0}^1\frac{\cos(x)-1}{\sqrt{|x|}}dx=4-2\sum_{n=1}^\infty(-1)^{n}\int
 \end{itemize}
 \end{Exercise}
 
-\begin{Exercise}Calcule as integrais $\int_0^{1}\frac{e^x}{|x|^{1/4}}dx$ e $\int_0^1\frac{e^{-x}}{|x|^{4/5}}dx$ usando procedimentos analÌticos e numÈricos.
+\begin{Exercise}Calcule as integrais $\int_0^{1}\frac{e^x}{|x|^{1/4}}dx$ e $\int_0^1\frac{e^{-x}}{|x|^{4/5}}dx$ usando procedimentos anal√≠ticos e num√©ricos.
 \end{Exercise}
 
-\begin{Exercise} Use a tÈcnica de integraÁ„o por partes para obter a seguinte identidade envolvendo integrais imprÛprias:
+\begin{Exercise} Use a t√©cnica de integra√ß√£o por partes para obter a seguinte identidade envolvendo integrais impr√≥prias:
 $$I=\int_0^\infty \frac{\cos(x)}{1+x}dx =\int_0^\infty \frac{\sin(x)}{(1+x)^2}dx.$$
-Aplique as tÈcnicas estudadas para aproximar o valor de I e explique por que a integral da direita È mais bem comportada.
+Aplique as t√©cnicas estudadas para aproximar o valor de I e explique por que a integral da direita √© mais bem comportada.
 \end{Exercise}
 
-\begin{Exercise} Resolva a  equaÁ„o
+\begin{Exercise} Resolva a  equa√ß√£o
 $$x+\int_0^x e^{-y^2}dy=5$$
-com 5 dÌgitos significativos.
+com 5 d√≠gitos significativos.
 
 \end{Exercise}
 \begin{Answer}
 4.1138
 \end{Answer}
 
-\begin{Exercise} [title=CiÍncia dos materiais] O calor especÌfico (molar) de um sÛlido pode ser aproximado pela teoria de Debye usando a seguinte express„o
+\begin{Exercise} [title=Ci√™ncia dos materiais] O calor espec√≠fico (molar) de um s√≥lido pode ser aproximado pela teoria de Debye usando a seguinte express√£o
 $$C_V=9Nk_B\left(\frac{T}{T_D}\right)^3\int_0^{T_D/T} \frac{y^4e^y}{(e^y-1)^2}dy$$
-onde $N$ È a constante de Avogrado dado por $N=6.022\times 10^{23}$ e $k_B$ È a constante de Boltzmann dada por $k_B=1.38\times 10^{-23}$. $T_D$ È temperatura de Debye do sÛlido.
+onde $N$ √© a constante de Avogrado dado por $N=6.022\times 10^{23}$ e $k_B$ √© a constante de Boltzmann dada por $k_B=1.38\times 10^{-23}$. $T_D$ √© temperatura de Debye do s√≥lido.
 \begin{itemize}
-\item[a)] Calcule o calor especÌfico do ferro em quando $T=200K$, $T=300K$ e $T=400K$ supondo $T_D=470K$.
-\item[b)] Calcule a temperatura de Debye de um sÛlido cujo calor especÌfico a temperatura de $300K$ È $24J/K/mol$. Dica: aproxime a integral por um esquema numÈrico com um n˙mero fixo de pontos.
-\item[c)] Melhore sua cultura geral: A lei de Dulong-Petit para o calor especÌfico dos sÛlidos precede a teoria de Debye. Verifique que a equaÁ„o de Debye È consistente com Dulong-Petit, ou seja: $$\lim_{T\to \infty}C_v=3Nk_B.$$ Dica: use $e^y\approx 1+y$ quando $y\approx 0$
+\item[a)] Calcule o calor espec√≠fico do ferro em quando $T=200K$, $T=300K$ e $T=400K$ supondo $T_D=470K$.
+\item[b)] Calcule a temperatura de Debye de um s√≥lido cujo calor espec√≠fico a temperatura de $300K$ √© $24J/K/mol$. Dica: aproxime a integral por um esquema num√©rico com um n√∫mero fixo de pontos.
+\item[c)] Melhore sua cultura geral: A lei de Dulong-Petit para o calor espec√≠fico dos s√≥lidos precede a teoria de Debye. Verifique que a equa√ß√£o de Debye √© consistente com Dulong-Petit, ou seja: $$\lim_{T\to \infty}C_v=3Nk_B.$$ Dica: use $e^y\approx 1+y$ quando $y\approx 0$
 \end{itemize}
 
 \end{Exercise}

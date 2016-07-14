@@ -1,20 +1,20 @@
-%Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+%Este trabalho estÃ¡ licenciado sob a LicenÃ§a Creative Commons AtribuiÃ§Ã£o-CompartilhaIgual 3.0 NÃ£o Adaptada. Para ver uma cÃ³pia desta licenÃ§a, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
 \documentclass[main.tex]{subfiles}
 \begin{document}
-\chapter{Introdução}
+\chapter{IntroduÃ§Ã£o}
 
-Cálculo numérico é uma disciplina que compreende o estudo de métodos para a computação eficiente da solução de problemas matemáticos. Aliado ao avanço tecnológico dos computadores, o desenvolvimento de métodos numéricos tornou a simulação computacional\index{simulação!computacional} de modelos matemáticos uma prática cotidiana nas mais diversas áreas científicas e tecnológicas. As então chamadas simulações numéricas\index{simulação!numérica} são constituídas de um arranjo de vários esquemas numéricos dedicados a resolver problemas específicos como, por exemplo: resolver equações algébricas, resolver sistemas lineares, interpolar e ajustar pontos, calcular derivadas e integrais, resolver equações diferenciais ordinárias, etc.. Neste livro, abordamos o desenvolvimento, a implementação, utilização e aspectos teóricos de métodos numéricos para a resolução desses problemas.
+CÃ¡lculo numÃ©rico Ã© uma disciplina que compreende o estudo de mÃ©todos para a computaÃ§Ã£o eficiente da soluÃ§Ã£o de problemas matemÃ¡ticos. Aliado ao avanÃ§o tecnolÃ³gico dos computadores, o desenvolvimento de mÃ©todos numÃ©ricos tornou a simulaÃ§Ã£o computacional\index{simulaÃ§Ã£o!computacional} de modelos matemÃ¡ticos uma prÃ¡tica cotidiana nas mais diversas Ã¡reas cientÃ­ficas e tecnolÃ³gicas. As entÃ£o chamadas simulaÃ§Ãµes numÃ©ricas\index{simulaÃ§Ã£o!numÃ©rica} sÃ£o constituÃ­das de um arranjo de vÃ¡rios esquemas numÃ©ricos dedicados a resolver problemas especÃ­ficos como, por exemplo: resolver equaÃ§Ãµes algÃ©bricas, resolver sistemas lineares, interpolar e ajustar pontos, calcular derivadas e integrais, resolver equaÃ§Ãµes diferenciais ordinÃ¡rias, etc.. Neste livro, abordamos o desenvolvimento, a implementaÃ§Ã£o, utilizaÃ§Ã£o e aspectos teÃ³ricos de mÃ©todos numÃ©ricos para a resoluÃ§Ã£o desses problemas.
 
-Os problemas que discutiremos não formam apenas um conjunto de métodos fundamentais, mas são, também, problemas de interesse na engenharia e na matemática aplicada. Estes podem se mostrar intratáveis se dispomos apenas de meios puramente analíticos, como aqueles estudados nos cursos de cálculo e álgebra linear. Por exemplo, o teorema de Abel-Ruffini nos garante que não existe uma fórmula algébrica, isto é, envolvendo apenas operações aritméticas e radicais, para calcular as raízes de uma equação polinomial de qualquer grau, mas apenas casos particulares:
+Os problemas que discutiremos nÃ£o formam apenas um conjunto de mÃ©todos fundamentais, mas sÃ£o, tambÃ©m, problemas de interesse na engenharia e na matemÃ¡tica aplicada. Estes podem se mostrar intratÃ¡veis se dispomos apenas de meios puramente analÃ­ticos, como aqueles estudados nos cursos de cÃ¡lculo e Ã¡lgebra linear. Por exemplo, o teorema de Abel-Ruffini nos garante que nÃ£o existe uma fÃ³rmula algÃ©brica, isto Ã©, envolvendo apenas operaÃ§Ãµes aritmÃ©ticas e radicais, para calcular as raÃ­zes de uma equaÃ§Ã£o polinomial de qualquer grau, mas apenas casos particulares:
 \begin{itemize}
-\item Simplesmente isolar a incógnita para encontrar a raiz de uma equação do primeiro grau;
-\item Fórmula de Bhaskara para encontrar raízes de uma equação do segundo grau;
-\item Fórmula de Cardano para encontrar raízes de uma equação do terceiro grau;
-\item Existe expressão para equações de quarto grau;
-\item Casos simplificados de equações de grau maior que 4 onde alguns coeficientes são nulos também podem ser resolvidos.
+\item Simplesmente isolar a incÃ³gnita para encontrar a raiz de uma equaÃ§Ã£o do primeiro grau;
+\item FÃ³rmula de Bhaskara para encontrar raÃ­zes de uma equaÃ§Ã£o do segundo grau;
+\item FÃ³rmula de Cardano para encontrar raÃ­zes de uma equaÃ§Ã£o do terceiro grau;
+\item Existe expressÃ£o para equaÃ§Ãµes de quarto grau;
+\item Casos simplificados de equaÃ§Ãµes de grau maior que 4 onde alguns coeficientes sÃ£o nulos tambÃ©m podem ser resolvidos.
 \end{itemize}
-Equações não polinomiais podem ser ainda mais complicadas de resolver exatamente, por exemplo:
+EquaÃ§Ãµes nÃ£o polinomiais podem ser ainda mais complicadas de resolver exatamente, por exemplo:
 $$
 \cos(x)=x\qquad \hbox{e}\qquad xe^x= 10
 $$
@@ -26,26 +26,26 @@ y'+xy=x,\\
 y(0)=2,
 \end{array}\right.
 $$
-podemos usar o método de fator integrante e obtemos $y=1+e^{-x^2/2}$. Já o cálculo da solução exata para o problema 
+podemos usar o mÃ©todo de fator integrante e obtemos $y=1+e^{-x^2/2}$. JÃ¡ o cÃ¡lculo da soluÃ§Ã£o exata para o problema 
 $$\left\{
 \begin{array}{l}
 y'+xy=e^{-y},\\
 y(0)=2,
 \end{array}\right.
 $$
-não é possível.
+nÃ£o Ã© possÃ­vel.
 
 Da mesma forma, resolvemos a integral
 $$
 \int_1^2xe^{-x^2}dx
 $$
-pelo método da substituição e obtemos $\frac{1}{2}(e^{-1}-e^{-2})$. Porém a integral
+pelo mÃ©todo da substituiÃ§Ã£o e obtemos $\frac{1}{2}(e^{-1}-e^{-2})$. PorÃ©m a integral
 $$
 \int_1^2 e^{-x^2} dx
 $$
-não pode ser resolvida analiticamente.
+nÃ£o pode ser resolvida analiticamente.
 
-A maioria das modelagem de fenômenos reais chegam em problemas matemáticos onde a solução analítica é difícil (ou impossível) de ser encontrada, mesmo quando provamos que ela existe. Nesse curso propomos calcular aproximações numéricas para esses problemas, que apesar de, em geral, serem diferentes da solução exata, mostraremos que elas podem ser bem próximas.
+A maioria das modelagem de fenÃ´menos reais chegam em problemas matemÃ¡ticos onde a soluÃ§Ã£o analÃ­tica Ã© difÃ­cil (ou impossÃ­vel) de ser encontrada, mesmo quando provamos que ela existe. Nesse curso propomos calcular aproximaÃ§Ãµes numÃ©ricas para esses problemas, que apesar de, em geral, serem diferentes da soluÃ§Ã£o exata, mostraremos que elas podem ser bem prÃ³ximas.
 
-Para entender a construção de aproximações é necessário estudar um pouco como funciona a aritmética de computador e erros de arredondamento. Como computadores, em geral, usam uma base binária para representar números, começaremos falando em mudança de base.
+Para entender a construÃ§Ã£o de aproximaÃ§Ãµes Ã© necessÃ¡rio estudar um pouco como funciona a aritmÃ©tica de computador e erros de arredondamento. Como computadores, em geral, usam uma base binÃ¡ria para representar nÃºmeros, comeÃ§aremos falando em mudanÃ§a de base.
 \end{document}
