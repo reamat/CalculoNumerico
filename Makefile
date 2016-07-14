@@ -16,4 +16,4 @@ dvi: main.tex
 .PHONY: clean
 
 clean:
-	rm -f *.aux *.log *.out *.toc *.bbl *.idx *.ilg *.ind
+	rm -f *.aux *.log *.out *.toc *.bbl *.idx *.ilg *.ind *.blg
