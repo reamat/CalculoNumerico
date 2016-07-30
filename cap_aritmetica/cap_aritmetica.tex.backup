@@ -112,12 +112,28 @@ Primeiramente, vejamos como tratar a parte inteira $X^{\mbox{i}}$. Calculando su
 \end{equation*}
 Observe que $d_0$ é o resto da divisão de $X^{\mbox{i}}$ por $b$, pois $d_1+d_2 b^1\cdots+d_{n-1}\cdot b^{n-2} +d_n\cdot b^{n-1}$ é inteiro e $\frac{d_0}{b}$ é uma fração (lembramos que $d_0<b$). Da mesma forma, o resto da divisão de $d_1+d_2 b^1\cdots+d_{n-1}\cdot b^{n-2} +d_n\cdot b^{n-1}$ por $b$ é $d_1$. Repetimos o processo até encontrar os símbolos $d_0, d_1, d_2, \ldots$.
 
-\begin{ex}[Conversão da parte inteira] Vamos escrever o número $125$ na base $6$. Para tanto, fazemos sucessivas divisões por $6$ como segue:
-  \begin{align*}
-    125 &= 20\cdot 6 + 5\quad(\mbox{$125$ dividido por $6$ é igual a $20$ e resta $5$})\\
-    &= (3\cdot 6 + 2)\cdot 6 + 5 = 3\cdot 6^2 + 2\cdot 6 + 5,
-  \end{align*}
-logo $125 = (325)_6$.
+\begin{ex}[Conversão da parte inteira] Vamos escrever o número $125$ na base $6$. Para encontrar $d_0$, dividimos $125$ por $6$:
+  \begin{equation*}
+    \begin{array}{l}
+      125 \ \ \ |\! \underline{\ 6\ \ } \\
+      \underline{12 }\ \ \ \ \ \ 20\\
+      \ 05\\
+      \ \underline{00}\\
+      \ \ 5
+    \end{array}
+  \end{equation*}
+e encontramos $d_0=5$. Dividindo o quociente por $6$ para encontrar $d_1$:
+\begin{equation*}
+  \begin{array}{l}
+    20 \ \ \ |\! \underline{\ 6\ \ } \\
+    \underline{18 }\ \ \ \ 3\\
+    \ 2
+  \end{array}    
+\end{equation*}
+e obtemos $d_1=2$. Observe que o quociente agora é menor que $6$, ou seja, uma sucessiva divisão por $6$ teria resto igual ao próprio quociente. Assim, concluímos que:
+\begin{equation*}
+  125=(325)_6.
+\end{equation*}
 
 \ifisscilab
 Estes cálculos podem ser feitos no \verb+Scilab+ com o auxílio das funções \verb'modulo' e \verb'int'. A primeira calcula o resto da divisão entre dois números, enquanto que a segunda retorna a parte inteira de um número dado. No nosso exemplo, temos:
@@ -156,14 +172,26 @@ Vamos converter a parte fracionária de um número decimal em uma dada base $b$.
 \end{equation*}
 Observe que a parte inteira desse produto é $d_{-1}$ e $\frac{d_{-2}}{b}+\frac{d_{-3}}{b^2}+\cdots$ é a parte fracionária. Quando multiplicamos $\frac{d_{-2}}{b}+\frac{d_{-3}}{b^2}+\cdots$ por $b$ novamente, encontramos $d_{-2}$. Repetimos o processo até encontrar todos os símbolos.
 
-\begin{ex}[Conversão da parte fracionária] Escrever o número $125,58\overline{3}$ na base $6$. Do exemplo anterior temos que $125=(325)_6$. Assim, nos resta converter a parte fracionária. Para tanto, fazemos sucessivas multiplicações por $6$ como segue:]
-  \begin{align*}
-    0,58\overline{3} &= 3,5\cdot 6^{-1}\quad(\mbox{$0,58\overline{3}$ multiplicado por $6$ é igual a $3,5$})\\
-    &= 3\cdot 6^{-1} + 0,5\cdot 6^{-1}\\
-    &= 3\cdot 6^{-1} + (3\cdot 6^{-1})\cdot 6^{-1}\\
-    &= 3\cdot 6^{-1} + 3\cdot 6^{-2},
-  \end{align*}
-logo $0,58\overline{3} = (0,33)_6$.
+\begin{ex}[Conversão da parte fracionária] Escrever o número $125,58\overline{3}$ na base $6$. Do exemplo anterior temos que $125=(325)_6$. Assim, nos resta converter a parte fracionária, Multiplicando-a por $6$:
+$$
+\begin{array}{l}
+0,58\overline{3}\\
+\underline{\times\ 6}\\
+3,49 \overline{9}
+\end{array}
+$$
+e obtemos $d_{-1}=3$. Agora, multiplicamos $0,49\overline{9}=0,5$ por $6$:
+$$
+\begin{array}{l}
+0,5\\
+\underline{\times\ 6}\\
+3,0
+\end{array}
+$$
+e obtemos $d_{-2}=3$. Portanto:
+$$
+125,58\overline{3}=(325,33)_6
+$$
 \ifisscilab
 As contas feitas aqui, também podem ser feitas no \verb+Scilab+. Você sabe como?
 \fi
@@ -188,9 +216,7 @@ Uma maneira de converter um número dado numa base $b_1$ para uma base $b_2$ é 
   \end{multicols}
 \end{Exercise}
 \begin{Answer}
-  \begin{tiny}
-    a)~$4$; b)~$9$; c)~$b^2$; d)~$7$; e)~$170$; f)~$7,125$; g)~$3,28$
-  \end{tiny}
+  a)~$4$; b)~$9$; c)~$b^2$; d)~$7$; e)~$170$; f)~$7,125$; g)~$3,28$
 \end{Answer}
 
 \begin{Exercise}Escreva os números abaixo na base decimal.
@@ -461,6 +487,17 @@ onde
 % \end{obs}
 
 
+
+
+
+
+
+
+
+
+
+
+
 \subsection{Sistema de ponto flutuante}\index{sistema numérico!de ponto flutuante}
 O sistema de ponto flutuante não possui quantidade fixa de dígitos para as partes inteira e fracionária do número. 
 
@@ -492,7 +529,7 @@ representa o número
 $$
 (-1)^0(1+\BLU{2^{-1}+2^{-3}})\times  2^{\RED{1024}-1023}=(1+0.5+0.125)2=3.25.
 $$
-\end{ex}
+
 
 
 % \begin{equation*}
@@ -537,6 +574,7 @@ $$
 O expoente é representado usando uma representação em binário deslocada. O deslocamento é dado pelo valor do \emph{BIAS}.
 
 
+\novapagina
 \begin{ex}
 Com $64$ bits, temos $11$ dígitos para o expoente e, por definição, $BIAS=1023$.
 
@@ -585,6 +623,8 @@ Outras informações sobre a representação em ponto flutuante podem ser obtida
 \end{obs}
 \fi
 
+
+\novapagina
 \subsection{A precisão e o epsilon de máquina}
 Podemos definir uma máquina $F$ de duas maneiras:
 $$ F(\beta,|M|,|E|,BIAS) \text{ ou } F(\beta,|M|,E_{MIN},E_{MAX})$$
@@ -607,7 +647,7 @@ O \emph{epsilon de máquina}, $\epsilon_{mach}=\epsilon$, é definido como o men
 \end{ex}
 
 
-
+\novapagina
 \subsection{A distribuição dos números}
 Utilizando uma máquina em ponto flutuante temos um número finito de números que podemos representar.
 
@@ -640,11 +680,9 @@ Por simplicidade, a partir daqui nós adotaremos $b=10$.
 
 \ifisscilab
 \begin{obs}
-  No \verb+Scilab+, a representação em ponto flutuante com $n$ dígitos é dada na forma $\pm d_1,d_2d_3\ldots d_n\times 10^{E}$. Consulte sobre o comando \verb'format'!
+  Consulte sobre o comando \verb'format' no \verb+Scilab+.
 \end{obs}
 \fi
-
-Vimos que, em geral, os números não são representados de forma exata nos computadores. Isto nos leva ao chamado erro de arredondamento. Quando resolvemos problemas com técnicas numéricos estaremos sujeitos a este e outros tipos de erros. Nas próximas seções, veremos quais são estes erros e aprenderemos a controlá-los, quando possível.
 
 \section*{Exercícios}
 
@@ -653,28 +691,25 @@ Vimos que, em geral, os números não são representados de forma exata nos comp
 
 
 \section{Origem e Definição de Erros}\index{errors}
-
 Quando fazemos aproximações numéricas, os erros são gerados de várias formas, sendo as principais delas as seguintes:
 \begin{enumerate}
- \item \emph{Precisão dos dados}: equipamentos de medição possuem precisão finita, acarretando erros nas medidas físicas.
- \item \emph{Erros de Arredondamento}: são aqueles relacionados com as limitações que existem na forma representar números de máquina. 
- \item \emph{Erros de Truncamento}: ocorrem quando aproximamos um procedimento formado por uma sequência infinita de passos através de um outro procedimento finito. Por exemplo, a definição de integral é dada por uma soma infinita e, como veremos na terceira área, aproximarmo-la por um soma finita. Esse é um assunto que discutiremos várias vezes no curso, pois o tratamento do erro de truncamento é feito para cada método numérico.
+ \item Erros nos dados de entrada: equipamentos de medição possuem precisão finita, acarretando erros nas medidas físicas.
+ \item Erros de truncamento: ocorrem quando aproximamos um procedimento formado por uma sequência infinita de passos através de um outro procedimento finito. Por exemplo, a definição de integral é dada por uma soma infinita e, como veremos na terceira área, aproximarmo-la por um soma finita. Esse é um assunto que discutiremos várias vezes no curso, pois o tratamento do erro de truncamento é feito para cada método numérico.
+ \item Erros de arredondamento: são aqueles relacionados com as limitações que existem na forma representar números de máquina. Sobre esse tópico dedicamos a subseção (\ref{arredondamento_sec}).
 \end{enumerate}
 
-Uma questão fundamental é a quantificação dos erros que estamos sujeitos ao computar a solução de um dado problema. Para tanto, precisamos definir medidas de erros (ou de exatidão)\index{medida!de erro}\index{medida!de exatidão}. As medidas de erro mais utilizadas são o \emph{erro absoluto}\index{erro!absoluto} e o \emph{erro relativo}\index{erro!relativo}.
-
-\begin{defn}[Erro absoluto e relativo] Seja $x$ um número real e $\overline{x}$ sua aproximação. O \emph{erro absoluto} da aproximação $\overline{x}$ é definido como sendo o número:
+\begin{defn} Seja $x$ um número real e $\bar{x}$ sua aproximação. O \emph{erro absoluto} da aproximação $\bar{x}$ é definido como sendo o número:
   \begin{equation*}
-    |x-\overline{x}|.
+    |x-\bar{x}|.
   \end{equation*}
-O \emph{erro relativo} da aproximação $\overline{x}$ é definido como sendo o número:
+O \emph{erro relativo} da aproximação $\bar{x}$ é definido como sendo o número:
 \begin{equation*}
-\frac{|x-\overline{x}|}{|x|},\quad x\neq 0.
+\frac{|x-\bar{x}|}{|x|} .
 \end{equation*}
 \end{defn}
 
 \begin{obs}
-  Observe que o erro relativo é adimensional e, muitas vezes, é dado em porcentagem. Mais precisamente, o erro relativo em porcentagem da aproximação $\overline{x}$ é dado por:
+  Observe que o erro relativo é adimensional e, muitas vezes, é dado em porcentagem. Ou seja, o erro relativo, em porcentagem, da aproximação $\bar{x}$ é definido por:
   \begin{equation*}
     \frac{|x-\bar{x}|}{|x|}\times 100 \%.
   \end{equation*}
@@ -708,29 +743,25 @@ x=0,\overline{3}\cdot 10^{2}\ \hbox{e}\ \bar{x}=0,3\cdot 10^{2}&0,\overline{3}\c
 $$
 \end{ex}
 
-Outra forma de medir a exatidão de uma aproximação numérica é contar o \emph{número de dígitos significativos corretos} em relação ao valor exato.
+%\begin{defn}
+%A aproximação $\bar{x}$ de um número $x$ da forma $\bar{x}=\pm 0,d_{-1}d_{-2}\cdots d_{s}\c%dots d_n\times 10^m$ possui $s$ {\bf dígitos significativos corretos} se o erro absoluto $|x-\overlin%e{x}|$ satisfazer\footnote{Observação: Não existe uma definição única na literatura para o conceito d%e dígitos significativos corretos, embora não precisamente equivalentes, transmitem a mesmo conceito.%}
+%$$
+%|x-\bar{x}|\leq 0,5\times 10^{m-s}
+%$$
+%\end{defn}
 
-\begin{defn}[Número de dígitos significativos corretos]
-A aproximação $\overline{x}$ de um número $x$ tem $s$ \emph{dígitos significativos corretos} quando\footnote{A definição apresentada aqui é aquela dada por \cite{Burden2013}. Não existe uma definição única na literatura para o conceito de dígitos significativos corretos, embora não precisamente equivalentes, elas transmitem a mesmo conceito.}:
+
+\begin{defn}
+A aproximação $\bar{x}$ de um número $x = \pm 0,d_{-1}d_{-2}d_{-3}\cdots \times 10^m$ possui $s$ {\bf dígitos significativos corretos} se o erro absoluto $|x-\bar{x}|$ satisfazer\footnote{Observação: Não existe uma definição única na literatura para o conceito de dígitos significativos corretos, embora não precisamente equivalentes, transmitem a mesmo conceito.}
 $$
-\frac{|x-\overline{x}|}{|x|} \leq 5\times 10^{-s}
+|x-\bar{x}|\leq 0,5\times 10^{m-s}
 $$
 \end{defn}
 
-\begin{ex} Vejamos os seguintes casos:
+\begin{ex} Veja os seguintes casos:
 \begin{itemize}
-\item[a)] A aproximação de $x=0,\overline{3}$ por $\overline{x}=0,333$ têm $3$ dígitos significativos corretos, pois:
-  \begin{equation*}
-    \frac{|x-\overline{x}|}{|x|} = \frac{0,\overline{3}\times 10^{-3}}{0,\overline{3}\times 10^{0}} = 10^{-3} \leq 5\times 10^{-\pmb{3}}.
-  \end{equation*}
-\item[b)] $\overline{x} = 9,999$ aproxima $x = 10$ com $3$ dígitos significativos corretos, pois:  
-  \begin{equation*}
-    \frac{|x-\overline{x}|}{|x|} = \frac{|10 - 9,999|}{10} < 5\times 10^{-4}.
-  \end{equation*}
-\item[c)] Considere as aproximações $\overline{x}_1 = 1,49$ e $\overline{x}_2 = 1,5$ de $x = 1$. Da definição, temos que $1,49$ aproxima $1$ com um dígito significativo correto (verifique), equanto $1,5$ tem zero dígito significativo correto, pois:
-  \begin{equation*}
-    \frac{|1-1,51|}{|1|} = 5\times 10^{-1} < 5\times 10^{0}.
-  \end{equation*}
+\item[a)] Considere $x=0,\overline{3}$, $\bar{x}=0,333$ e o erro absoluto $\delta=|x-\bar{x}|=0,\overline{3}\times 10^{-3}=0,\overline{3}\times 10^{0-3}$. Essa aproximação tem 3 dígitos significativos corretos.
+\item[b)] Agora, considere $x=10,00\overline{1}=0,1000\overline{1}\times 10^{2}$, $\bar{x}=9,99933=0,999933\times 10^1$ e o erro absoluto $\delta=|x-\bar{x}|=0,178\overline{1}\times 10^{-2}=0,178\overline{1}\times 10^{2-4}$. Essa aproximação possui todos os dígitos diferentes se comparamos um a um, mas tem 4 dígitos significativos corretos.
 \end{itemize}
 \end{ex}
 
@@ -1020,7 +1051,7 @@ Faça o estudo da propagação do erro e decida qual a melhor expressão em cada
 
 
 
-\section{Cancelamento Catastrófico}\index{cancelamento catastrófico}
+\section{Cancelamento Catastrófico}\section{cancelamento catastrófico}
 Operações aritméticas entre números com representação finita pode fazer com que o resultado seja dominado pelos erros de arredondamento. Em geral, esse efeito, denominado cancelamento catastrófico, acontece quando fazemos a diferença de números muito próximos entre si.
 
 \begin{ex}Efetue a operação
