@@ -9,10 +9,10 @@ livro_colaborativo@googlegroups.com
 ## Licença
 Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
-##Sobre o código fonte
+## Sobre o código fonte
 O código fonte está escrito em Latex e as referências bibliográficas em BibTex, testados em computador Linux com o pacote TexLive. O texto está em formatação **utf-8**.
 
-##Compilando
+## Compilando
 O código pode ser compilado usando os compiladores padrão latex, bibtex, etc.. Alternativamente, está disponível um Makefile na pasta principal, de forma que pode-se compilar o código com:
 
 $ make
@@ -25,7 +25,7 @@ Para limpar os arquivos temporários gerados durante a compilação, digite:
 
 $ make clean
 
-##Colaborações
+## Colaborações
 
 Todos são convidados a colaborarem na escrita deste livro. Caso esteja interessado, entre em contato conosco escrevendo para:
 
