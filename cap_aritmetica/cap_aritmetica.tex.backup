@@ -4,9 +4,9 @@
 
 \begin{document}
 
-\chapter{Aritmética de Máquina}\index{aritmética!de máquina}
+\chapter{Aritmética de máquina}\index{aritmética!de máquina}
 
-\section{Sistema de Numeração e Mudança de Base}\index{mudança de base}\index{sistema de numeração}
+\section{Sistema de numeração e mudança de base}\index{mudança de base}\index{sistema de numeração}
 Usualmente, utilizamos o sistema de numeração decimal para representar números. Esse é um sistema de numeração posicional onde a posição do dígito indica a potência de $10$ que o dígito está representando.
 
 \begin{ex}
@@ -42,6 +42,7 @@ Para sistemas de numeração com base $b \geq 10$ é usual utilizar as seguintes
 \end{itemize}
 \end{obs}
 
+
 \begin{ex}[Sistema binário] O sistema de numeração em base dois é chamado de binário e os algarismos binários são conhecidos como \textit{bits}, do inglês \textit{\bf{b}inary dig\bf{its}}. Um \textit{bit} pode assumir dois valores distintos: $0$ ou $1$. Por exemplo:
 \begin{eqnarray*}
 x &=& (1001,101)_{2} \\
@@ -50,6 +51,7 @@ x &=& (1001,101)_{2} \\
 \end{eqnarray*}
 Ou seja, $(1001,101)_{2}$ é igual a $9,625$ no sistema decimal.
 \end{ex}
+
 
 \begin{ex}[Sistema quaternário]
 No sistema quaternário a base $b$ é igual a $4$. Por exemplo:
@@ -112,28 +114,12 @@ Primeiramente, vejamos como tratar a parte inteira $X^{\mbox{i}}$. Calculando su
 \end{equation*}
 Observe que $d_0$ é o resto da divisão de $X^{\mbox{i}}$ por $b$, pois $d_1+d_2 b^1\cdots+d_{n-1}\cdot b^{n-2} +d_n\cdot b^{n-1}$ é inteiro e $\frac{d_0}{b}$ é uma fração (lembramos que $d_0<b$). Da mesma forma, o resto da divisão de $d_1+d_2 b^1\cdots+d_{n-1}\cdot b^{n-2} +d_n\cdot b^{n-1}$ por $b$ é $d_1$. Repetimos o processo até encontrar os símbolos $d_0, d_1, d_2, \ldots$.
 
-\begin{ex}[Conversão da parte inteira] Vamos escrever o número $125$ na base $6$. Para encontrar $d_0$, dividimos $125$ por $6$:
-  \begin{equation*}
-    \begin{array}{l}
-      125 \ \ \ |\! \underline{\ 6\ \ } \\
-      \underline{12 }\ \ \ \ \ \ 20\\
-      \ 05\\
-      \ \underline{00}\\
-      \ \ 5
-    \end{array}
-  \end{equation*}
-e encontramos $d_0=5$. Dividindo o quociente por $6$ para encontrar $d_1$:
-\begin{equation*}
-  \begin{array}{l}
-    20 \ \ \ |\! \underline{\ 6\ \ } \\
-    \underline{18 }\ \ \ \ 3\\
-    \ 2
-  \end{array}    
-\end{equation*}
-e obtemos $d_1=2$. Observe que o quociente agora é menor que $6$, ou seja, uma sucessiva divisão por $6$ teria resto igual ao próprio quociente. Assim, concluímos que:
-\begin{equation*}
-  125=(325)_6.
-\end{equation*}
+\begin{ex}[Conversão da parte inteira] Vamos escrever o número $125$ na base $6$. Para tanto, fazemos sucessivas divisões por $6$ como segue:
+  \begin{align*}
+    125 &= 20\cdot 6 + 5\quad(\mbox{$125$ dividido por $6$ é igual a $20$ e resta $5$})\\
+    &= (3\cdot 6 + 2)\cdot 6 + 5 = 3\cdot 6^2 + 2\cdot 6 + 5,
+  \end{align*}
+logo $125 = (325)_6$.
 
 \ifisscilab
 Estes cálculos podem ser feitos no \verb+Scilab+ com o auxílio das funções \verb'modulo' e \verb'int'. A primeira calcula o resto da divisão entre dois números, enquanto que a segunda retorna a parte inteira de um número dado. No nosso exemplo, temos:
@@ -148,7 +134,7 @@ Verifique!
 
 \ifisscilab
 \begin{ex}[Scilab]
-  O Scilab oferece algumas funções para a conversão de números inteiros em dada base para a base decimal. Por exemplo, temos:
+  O Scilab oferece algumas funções para a conversão de números inteiros em dada base para a base decimal. Assim temos:
 \begin{verbatim}
 -->bin2dec('1001')
  ans  =
@@ -172,26 +158,14 @@ Vamos converter a parte fracionária de um número decimal em uma dada base $b$.
 \end{equation*}
 Observe que a parte inteira desse produto é $d_{-1}$ e $\frac{d_{-2}}{b}+\frac{d_{-3}}{b^2}+\cdots$ é a parte fracionária. Quando multiplicamos $\frac{d_{-2}}{b}+\frac{d_{-3}}{b^2}+\cdots$ por $b$ novamente, encontramos $d_{-2}$. Repetimos o processo até encontrar todos os símbolos.
 
-\begin{ex}[Conversão da parte fracionária] Escrever o número $125,58\overline{3}$ na base $6$. Do exemplo anterior temos que $125=(325)_6$. Assim, nos resta converter a parte fracionária, Multiplicando-a por $6$:
-$$
-\begin{array}{l}
-0,58\overline{3}\\
-\underline{\times\ 6}\\
-3,49 \overline{9}
-\end{array}
-$$
-e obtemos $d_{-1}=3$. Agora, multiplicamos $0,49\overline{9}=0,5$ por $6$:
-$$
-\begin{array}{l}
-0,5\\
-\underline{\times\ 6}\\
-3,0
-\end{array}
-$$
-e obtemos $d_{-2}=3$. Portanto:
-$$
-125,58\overline{3}=(325,33)_6
-$$
+\begin{ex}[Conversão da parte fracionária] Escrever o número $125,58\overline{3}$ na base $6$. Do exemplo anterior temos que $125=(325)_6$. Assim, nos resta converter a parte fracionária. Para tanto, fazemos sucessivas multiplicações por $6$ como segue:]
+  \begin{align*}
+    0,58\overline{3} &= 3,5\cdot 6^{-1}\quad(\mbox{$0,58\overline{3}$ multiplicado por $6$ é igual a $3,5$})\\
+    &= 3\cdot 6^{-1} + 0,5\cdot 6^{-1}\\
+    &= 3\cdot 6^{-1} + (3\cdot 6^{-1})\cdot 6^{-1}\\
+    &= 3\cdot 6^{-1} + 3\cdot 6^{-2},
+  \end{align*}
+logo $0,58\overline{3} = (0,33)_6$.
 \ifisscilab
 As contas feitas aqui, também podem ser feitas no \verb+Scilab+. Você sabe como?
 \fi
@@ -216,7 +190,9 @@ Uma maneira de converter um número dado numa base $b_1$ para uma base $b_2$ é 
   \end{multicols}
 \end{Exercise}
 \begin{Answer}
-  a)~$4$; b)~$9$; c)~$b^2$; d)~$7$; e)~$170$; f)~$7,125$; g)~$3,28$
+  \begin{tiny}
+    a)~$4$; b)~$9$; c)~$b^2$; d)~$7$; e)~$170$; f)~$7,125$; g)~$3,28$
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise}Escreva os números abaixo na base decimal.
@@ -279,7 +255,7 @@ Uma maneira de converter um número dado numa base $b_1$ para uma base $b_2$ é 
 \end{Answer}
 
 
-\section{Aritmética de Máquina}\index{aritmética!de máquina}
+\section{Representação de números}\index{representação!de números}
 
 Os computadores, em geral, usam a base binária para representar os números, onde as posições, chamadas de bits, assume as condições ``verdadeiro'' ou ``falso'', ou seja, $0$ ou $1$. Cada computador tem um número de bits fixo e, portanto, representa uma quantidade finita de números. Os demais números são tomados por proximidade àqueles conhecidos, gerando erros de arredondamento. Por exemplo, em aritmética de computador, o número $2$ tem representação exata, logo $2^2=4$, mas $\sqrt{3}$ não tem representação finita, logo $(\sqrt{3})^2\neq 3$. 
 
@@ -295,9 +271,9 @@ Veja isso no \verb+Scilab+:
 \end{verbatim}
 \fi
 
-\subsection{Representação de números inteiros}\index{representação!números inteiros}
+\subsection{Números inteiros}\index{representação!números inteiros}
 
-Tipicamente um número inteiro é armazenado num computador como uma sequência de dígitos binários de comprimento fixo denominado registro.
+Tipicamente um número inteiro é armazenado num computador como uma sequência de dígitos binários de comprimento fixo denominado \emph{registro}.
 
 \subsubsection{Representação sem sinal}
 Um registro com $n$ bits da forma
@@ -306,7 +282,9 @@ Um registro com $n$ bits da forma
 d_{n-1}&d_{n-2}&\cdots&d_1&d_0\\\hline
 \end{array}  
 \end{equation*}
-representa o número $(d_{n-1}d_{n-2}...d_1d_0)_2$. Assim é possível representar números inteiros entre
+representa o número $(d_{n-1}d_{n-2}...d_1d_0)_2$. 
+
+Assim é possível representar números inteiros entre
 \begin{equation*}
 \begin{array}{cl}
   (111...111)_2 & = 2^{n-1}+2^{n-2}+\cdots+2^1+2^0=2^n-1.\\
@@ -319,9 +297,15 @@ representa o número $(d_{n-1}d_{n-2}...d_1d_0)_2$. Assim é possível represent
 \end{equation*}
 
 \ifisscilab
-\begin{obs}
-  No \verb+Scilab+, consulte sobre os comandos: \verb+uint8+, \verb+uint16+ e \verb+uint32+.
-\end{obs}
+\begin{ex}
+  No \verb+Scilab+,
+\begin{verbatim}
+-->uint8( bin2dec('00000011') )
+   ans = 3
+-->uint8( bin2dec('11111110') )
+   ans = 254
+\end{verbatim}
+\end{ex}
 \fi
 
 \subsubsection{Representação com bit de sinal}
@@ -332,6 +316,7 @@ O bit mais significativo (o primeiro à esquerda) representa o sinal: por conven
   \end{array}  
 \end{equation*}
 representa o número $(-1)^s(d_{n-2}...d_1d_0)_2$. Assim é possível representar números inteiros entre $-2^{n-1}$ e $2^{n-1}$, com duas representações para o zero: $(1000...000)_2$ e $(00000...000)_2$.
+
 \begin{ex}
 Em um registro com $8$ bits, teremos os números
 \begin{equation*}
@@ -349,11 +334,6 @@ Em um registro com $8$ bits, teremos os números
 \end{equation*}
 \end{ex}
 
-\ifisscilab
-\begin{obs}
-  No \verb+Scilab+, consulte sobre os comandos: \verb+uint8+, \verb+uint16+ e \verb+uint32+.
-\end{obs}
-\fi
 
 \subsubsection{Representação complemento de dois}
 O bit mais significativo (o primeiro à esquerda) representa o coeficiente de $-2^{n-1}$.  Um registro com $n$ bits da forma
@@ -368,10 +348,10 @@ Note que todo registro começando com $1$ será um número negativo.
 
 \begin{ex}
  O registro com $8$ bits $[01000011]$ representa o número
- $-0(2^7)+(1000011)_2=64+2+1=67$.
+ $$-0(2^7)+(1000011)_2=64+2+1=67.$$
 
  O registro com $8$ bits $[10111101]$ representa o número
- $-1(2^7)+(0111101)_2=-128+ 32+16+8+4+1=-67$.
+ $$-1(2^7)+(0111101)_2=-128+ 32+16+8+4+1=-67.$$
 
  Note que podemos obter a representação de $-67$ invertendo os dígitos de $67$ em binário e somando 1.
 \end{ex}
@@ -392,13 +372,19 @@ Em um registro com $8$ bits, teremos os números
 \end{ex}
 
 \ifisscilab
-\begin{obs}
-  No \verb+Scilab+, consulte sobre os comandos: \verb'int8', \verb'int16' e \verb'int32'.
-\end{obs}
+\begin{ex}
+  No \verb+Scilab+,
+\begin{verbatim}
+-->int8( bin2dec('00000011') )
+   ans = 3
+-->int8( bin2dec('11111110') )
+   ans = -2
+\end{verbatim}
+\end{ex}
 \fi
 
 
-\subsection{Sistema de ponto fixo}\index{sistema numéricop!de ponto fixo}
+\subsection{Sistema de ponto fixo}\index{sistema numérico!de ponto fixo}
 
 O sistema de ponto fixo representa as partes inteira e fracionária do número com uma quantidade fixas de dígitos.
 
@@ -441,69 +427,67 @@ Observe que $16$ dígitos são usados para representar a parte fracionária, $15
 \subsection{Normalização}
 Os números $h=6.626\times 10^{-34}$ e $N_A=6.0221\times 10^{23}$ não podem ser armazenados na máquina em ponto fixo do exemplo anterior.
 
-Uma possibilidade é armazenar o \emph{significando}, o \emph{expoente} e o \emph{sinal}. 
-O significando\footnote{Informalmente chamado de mantissa ou coeficiente.} contém os dígitos significativos do número.
-
-A constante
+Entretanto, a constante
 \begin{align*}
    h &=6626  \times 10^{-37} \\
    h &=6.626  \times 10^{-34} \\
    h &=0.6626 \times 10^{-33} \\
    h &=0.006626\times 10^{-31}
 \end{align*}
-possui significando $m=6.626$. Para termos uma \emph{representação única} definimos como notação normalizada
-a segunda opção ($1\leq m<10$) que apresenta apenas um dígito diferente de zero a esquerda do ponto decimal\footnote{Em alguns casos é usada a terceira opção ($0.1\leq m <1$).}.
+pode ser escrita de várias formas diferentes. Para termos uma \emph{representação única} definimos como notação normalizada a segunda opção ($1 \leq m <10$)
+que apresenta apenas um dígito  diferente de zero  a esquerda do ponto decimal ($m=6.626$).
 
-O número $x$ está em \emph{notação normalizada}
+\begin{defn}
+Definimos que 
  $$ x=(-1)^{s}(M)_b \times b^{E}, $$
-onde
+está na \emph{notação normalizada}\footnote{Em algumas referências é usado $(0.1)_b\leq (M)_b <1$.} quando $1\leq (M)_{b}<b$, onde
 \begin{itemize}
- \item $s$ é o sinal ($0$ positivo e $1$ para negativo),
- \item $E$ é o expoente,
+ \item $s$ é o \emph{sinal} ($0$ para positivo e $1$ para negativo),
+ \item $E$ é o \emph{expoente},
  \item $b$ é a base (por ex. $2$, $8$, $10$ ou $16$),
- \item $(M)_b$ é o significando tal que $1\leq(M)_b<b$.
+ \item $(M)_b$ é o significando. O \emph{significando} (também chamado de mantissa ou coeficiente) contém os dígitos significativos do número.
 \end{itemize}
+ 
+\end{defn}
+
 
 \begin{ex}
+  Os números abaixo estão em notação normalizada:
   $$x_1=(-1.011101)_2\times 2^{(100)_2}$$
   $$x_2=(-2.325)_{10}\times  10^{1}$$
 \end{ex}
 
-
-% \begin{defn}[Forma normalizada de ponto flutuante]
-%   Seja $x$ um número real não nulo.\footnote{Se $x = 0$, então $fl(x) = 0,000\ldots 0\times b^0$ será considerada sua representação em ponto flutuante.} A representação de $x$ na forma normalizada em ponto flutuante na base $b\in\mathbb{N}$, $b>1$, e com $n$ {\bf dígitos significativos}\footnote{Na literatura, também encontra-se outros significados para o termo dígitos (algarismos) significativos. Veja, por exemplo, \cite{Burden2013}} é dada por:
-%   \begin{equation*}
-%     fl(x) = 0,d_1d_2d_3\ldots d_n \times b^{E}
-%   \end{equation*}
-% onde, $d_i\in\{0,1,\dotsc,b-1\}$, $d_1\neq 0$ e $E\in\mathbb{Z}$. Os dígitos $d_i$, $i=1,2,\dotsc,n$, formam o significando e $E$ o expoente da representação de $x$.
-% \end{defn}
-% 
-% \begin{ex}
-%   O número $0,05$ é representado na forma normalizada de ponto flutuante na base $2$ e com um dígito significativo  por $0,1\times 2^{-1}$.
-% \end{ex}
-% 
-% \begin{obs}
-%   Salvo especificado ao contrário, quando nos referirmos à representação em ponto flutuante de um número dado, estaremos nos referindo à representação deste número na forma normalizada de ponto flutuante na base dez.
-% \end{obs}
-
-
-
-
-
-
-
-
-
-
+\begin{ex}Represente os números $0,00\overline{51}$ e $1205,41\overline{54}$ em um sistema de ponto fixo de 4 dígitos para a parte inteira e 4 dígitos para a parte fracionária. Depois represente os mesmos números utilizando notação normalizada com 7 dígitos significativos.
+\end{ex}
+\begin{sol} As representações dos números $0,00\overline{51}$ e $1205,41\overline{54}$ no sistema de ponto fixo são $0,0051$ e $1205,4154$, respectivamente. Em notação normalizada, as representações são $5,151515\cdot 10^{-3}$ e $1,205415 \cdot 10^{3}$, respectivamente.
+\end{sol}
+\ifisscilab
+\begin{obs}
+  No \verb+Scilab+, a representação em ponto flutuante com $n$ dígitos é dada na forma $\pm d_1,d_2d_3\ldots d_n\times 10^{E}$. Consulte sobre o comando \verb'format'!
+\end{obs}
+\fi
 
 
 
 \subsection{Sistema de ponto flutuante}\index{sistema numérico!de ponto flutuante}
 O sistema de ponto flutuante não possui quantidade fixa de dígitos para as partes inteira e fracionária do número. 
 
-\begin{ex} Considere o exemplo de uma máquina seguindo o padrão IEEE754 com base $\beta=2$ e um registro de \emph{$64$ bits}.
+Podemos definir uma máquina $F$ em ponto flutuante de dois modos:
+$$ F(\beta,|M|,|E|,BIAS) \text{ ou } F(\beta,|M|,E_{MIN},E_{MAX})$$
+onde
+\begin{itemize}
+ \item $\beta$ é a base (em geral $2$ ou $10$),
+ \item $|M|$ é o número de dígitos da mantissa,
+ \item $|E|$ é o número de dígitos do expoente,
+ \item $BIAS$ é um valor de deslocamento do expoente (veja a seguir),
+ \item $E_{MIN}$ é o menor expoente,
+ \item $E_{MAX}$ é o maior expoente.
+\end{itemize}
 
-Nesse caso $52$ bits são para o significando, $11$ bits para o expoente e $1$ bit para o sinal (o $BIAS=1023$ por definição), tal que o registro
+
+
+Considere uma máquina com um registro de $64$ bits e base $\beta=2$. Pelo padrão IEEE754, $1$ bit é usado para o sinal, $11$ bits para o expoente e $52$ bits são usados para o significando tal que 
+
 $$
 \begin{array}{|c|c|c|c|c|c|c|c|c|c|}
 \hline
@@ -511,13 +495,15 @@ s&c_{10}&c_{9}&\cdots&c_{0}&m_1&m_2&\cdots &m_{51}&m_{52}\\
 \hline
 \end{array}
 $$
-represente o número
+represente o número (o $BIAS=1023$ por definição)
 $$ x=(-1)^{s}M \times 2^{c-BIAS}, $$
 onde a \emph{característica} é representada por
 $$c=(c_{10}c_9\cdots c_1c_0)_2
    =c_{10}2^{10}+\cdots+c_12^1+c_02^0 $$
-e o \emph{significando} por
+e o significando por
 $$M=(1.m_1m_2\cdots m_{51}m_{52})_2.$$
+
+
 
 Em base $2$ não é necessário armazenar o primeiro dígito (por quê?).
 
@@ -532,52 +518,20 @@ $$
 
 
 
-% \begin{equation*}
-%   \begin{array}{|c|c|c|c|c|c|c|c|c|c|}
-%     \hline
-%     s&c_{10}&c_{9}&\cdots&c_{0}&m_{-1}&m_{-2}&\cdots &m_{-50}&m_{-51}\\
-%     \hline
-%   \end{array}
-% \end{equation*}
-% representa o número
-% \begin{equation*}
-%   (-1)^{s}2^{c-1023}(1+m),  
-% \end{equation*}
-% onde:
-% \begin{equation*}
-%   c=c_{10}2^{10}+c_92^9+\cdots+c_12^1+c_02^0  
-% \end{equation*}
-% e
-% \begin{equation*}
-%   m=m_{-1}2^{-1}+m_{-2}2^{-2}+\cdots+m_{-50}2^{-50}+m_{-51}2^{-51}.
-% \end{equation*}
-% Os dígitos $c_{10}, c_9\, \cdots, c_0\ $ compõem a característica e $m_{-1}, m_{-2}\, \cdots, m_{-51}\ $ compõem a mantissa. Por exemplo, o número:
-% \begin{equation*}
-% 0\ 1 0 0 0 0 0 0 0 0 0 0 \ 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0  
-% \end{equation*}
-% representa o número:
-% \begin{equation*}
-%   (-1)^0 2^{1024-1023}(1+2^{-1})=3  
-% \end{equation*}
-% O menor número positivo nesse sistema acontece quando $s=0$, $c=1$ e $m=0$, ou seja:
-% \begin{equation*}
-%   2^{-1022}(1+0)\approx 0,2225\times 10^{-307}.  
-% \end{equation*}
-% O maior número acontece quando $s=0$, $c=2046$ e $m=1-2^{-52}$, ou seja:
-% \begin{equation*}
-%   2^{1023}(2-2^{-52})\approx 0,17977\times 10^{309}.  
-% \end{equation*}
-% \end{ex}
-% 
-
 \subsubsection{O expoente deslocado}
-O expoente é representado usando uma representação em binário deslocada. O deslocamento é dado pelo valor do \emph{BIAS}.
+Uma maneira de representar os expoentes inteiros é deslocar todos eles uma mesma quantidade. Desta forma permitimos a representação de números negativos e a ordem deles continua crescente. O expoente é representado por um inteiro sem sinal do qual é deslocado o \emph{BIAS}.
 
+Tendo $|E|$ dígitos para representar o expoente, geralmente o $BIAS$ é predefinido de tal forma a dividir a tabela ao meio de tal forma que o expoente \textit{um} seja representado pelo sequência $[100...000]$. 
 
-\novapagina
 \begin{ex}
-Com $64$ bits, temos $11$ dígitos para o expoente e, por definição, $BIAS=1023$.
+Com $64$ bits, pelo padrão $IEEE754$, temos que $|E|:=11$. Assim $(100~0000~0000)_2=2^{10}=1024$. Como queremos que esta sequência represente o $1$, definimos $BIAS:=1023$, pois
+$$ 1024-BIAS=1.$$
 
+Com $32$ bits, temos $|E|:=8$ e $BIAS:=127$. E com $128$ bits, temos $|E|:=15$ e $BIAS:=16383$.
+\end{ex}
+
+
+Com $11$ bits temos 
 \begin{align*}
  [111~1111~1111] &= reservado\\
  [111~1111~1110] &= 2046-BIAS      = 1023_{10}= E_{MAX}\\
@@ -587,48 +541,65 @@ Com $64$ bits, temos $11$ dígitos para o expoente e, por definição, $BIAS=102
  [011~1111~1111] &= 1023   ~~ -BIAS =  0_{10} \\
  [011~1111~1110] &= 1022   ~~ -BIAS = -1_{10} \\
      \vdots      &=  \\
- [000~0000~0010] &= 2-BIAS = -1021 \\
+% [000~0000~0010] &= 2-BIAS = -1021 \\
  [000~0000~0001] &= 1-BIAS = -1022 = E_{MIN}\\
  [000~0000~0000] &= reservado
 \end{align*}
-\end{ex}
+
+O maior expoente é dado por $E_{MAX}=1023$ e o menor expoente é dado por $E_{MIN}=-1022$.
 
 
-O menor número representável positivo acontece quando $s=0$, $c=1$ e $M=(1.000...000)_2$, ou seja,
+
+O menor número representável positivo é dado pelo registro
 $$
-MINR=(1+0)_2\times 2^{1-1023} \approx 0.2225\times 10^{-307}.
+[0|000~0000~000\RED{1} |\BLU{0000~0000~0000...0000~0000}]
+$$
+quando $s=0$, $c=\RED{1}$ e $M=(1.\BLU{000...000})_2$, ou seja,
+$$
+MINR=(1+\BLU{0})_2\times 2^{\RED{1}-1023} \approx 0.2225\times 10^{-307}.
 $$
 
-O maior número representável acontece quando $s=0$, $c=2046$ e $M=(1.1111~1111....1111)_2=2-2^{-52}$, ou seja,
+O maior número representável é dado por
+$$
+[0|\RED{111~1111~1110} |\BLU{1111~1111~...1111~1111}]
+$$
+quando $s=0$, $c=2046$ e $M=(1.1111~1111....1111)_2=2-2^{-52}$, ou seja,
 $$
 MAXR=(2-2^{-52})\times 2^{2046-1023} \approx 2^{1024}\approx0.17977\times 10^{309}.
 $$
+
+
+\subsubsection{Casos especiais}
+O \emph{zero} é um caso especial representado pelo registro 
+$$
+[0|\RED{000~0000~0000} |0000~0000~0000...0000~0000]
+$$
+
+
+
 
 Os expoentes \emph{reservados} são usados para casos especiais:
 \begin{itemize}
  \item $c=[0000...0000]$ é usado para representar o zero (se $m=0$) e os números subnormais (se $m\neq 0$).
  \item $c=[1111...1111]$ é usado para representar o infinito (se $m=0$) e NaN (se $m\neq 0$).
 \end{itemize}
+
 Os números subnormais\footnote{Note que poderíamos definir números um pouco menores que o $MINR$.} tem a forma
 $$ x=(-1)^{s}(\RED{0}.m_{1}m_{2}\cdots m_{51}m_{52})_2 \times 2^{1-BIAS}.$$
 
 \ifisscilab
 \begin{obs}
-  O menor número positivo e o maior número positivo representados no \verb+Scilab+ são, respectivamente:
+  O menor número positivo, o maior número e o menor número subnormal representáveis  no \verb+Scilab+ são:
 \begin{verbatim}
--->number_properties('tiny')
--->number_properties('huge')
+-->MINR=number_properties('tiny')
+-->MAXR=number_properties('huge')
+-->number_properties('tiniest')
 \end{verbatim}
-Outras informações sobre a representação em ponto flutuante podem ser obtidas. Veja \verb+help number_properties+.
+Outras informações sobre a representação em ponto flutuante podem ser obtidas com \verb+help number_properties+.
 \end{obs}
 \fi
 
-
-\novapagina
 \subsection{A precisão e o epsilon de máquina}
-Podemos definir uma máquina $F$ de duas maneiras:
-$$ F(\beta,|M|,|E|,BIAS) \text{ ou } F(\beta,|M|,E_{MIN},E_{MAX})$$
-onde $\beta$ é a base, $|M|$ é o número de dígitos da mantissa, $|E|$ é o número de dígitos do expoente, $BIAS$, $E_{MIN}$ é o menor expoente e $E_{MAX}$ é o maior expoente.
 
 A \emph{precisão} $p$ de uma máquina é o número de dígitos significativos usado para representar um número. Note que $p=|M|+1$ em binário e $p=|M|$ para outras bases.
 
@@ -641,13 +612,11 @@ O \emph{epsilon de máquina}, $\epsilon_{mach}=\epsilon$, é definido como o men
 \epsilon &\rightarrow  +(0.0000~0000....0001)_2\times 2^{0}  = 2^{-52} \\ \hline
          &      ~~~~~~~ (1.0000~0000....0001)_2\times 2^{0} \neq 1
 \end{align*}
-
-
-
+Assim $\epsilon = 2^{-52}$.
 \end{ex}
 
 
-\novapagina
+
 \subsection{A distribuição dos números}
 Utilizando uma máquina em ponto flutuante temos um número finito de números que podemos representar.
 
@@ -658,11 +627,6 @@ Se tentarmos armazenar um número que não é representável, devemos utilizar o
 
 Por simplicidade, a partir daqui nós adotaremos $b=10$.
 
-
-
-
-% Em um computador, Um número muito pequeno (\emph{underflow}) geralmente é aproximado por zero e um número muito grande (\emph{overflow}) geralmente faz o cálculo parar. Os demais números são aproximados pelo mais próximo, gerando os erros de arredondamento. O comportamento do computador nestes casos é governado pelo chamado \emph{modo de exceção de ponto flutuante}.
-
 \ifisscilab
 \begin{obs}
   O chamado modo de exceção de ponto flutuante é controlado pela função \verb+ieee+. O padrão do \verb+Scilab+ é \verb+ieee(0)+. Estude os seguintes resultados das seguintes operações usando os diferentes modos de exceção:
@@ -672,17 +636,7 @@ Por simplicidade, a partir daqui nós adotaremos $b=10$.
 \end{obs}
 \fi
 
-
-\begin{ex}Represente os números $0,00\overline{51}$ e $1205,41\overline{54}$ em um sistema de ponto fixo de 4 dígitos para a parte inteira e 4 dígitos para a parte fracionária. Depois represente os mesmos números num sistema de ponto flutuante com 7 dígitos significativos.
-\end{ex}
-\begin{sol} As representações dos números $0,00\overline{51}$ e $1205,41\overline{54}$ no sistema de ponto fixo são $0,0051$ e $1205,4154$, respectivamente. No sistema de ponto flutuante, as representações são $0,5151515\cdot 10^{-2}$ e $0,1205415 \cdot 10^{4}$, respectivamente.
-\end{sol}
-
-\ifisscilab
-\begin{obs}
-  Consulte sobre o comando \verb'format' no \verb+Scilab+.
-\end{obs}
-\fi
+Em geral, os números não são representados de forma exata nos computadores. Isto nos leva ao chamado erro de arredondamento. Quando resolvemos problemas com técnicas numéricas estamos sujeitos a este e outros tipos de erros. Nas próximas seções, veremos quais são estes erros e como controlá-los, quando possível.
 
 \section*{Exercícios}
 
@@ -690,136 +644,135 @@ Por simplicidade, a partir daqui nós adotaremos $b=10$.
 \end{Exercise}
 
 
-\section{Origem e Definição de Erros}\index{errors}
+\section{Tipos de Erros}\index{erros}
+
 Quando fazemos aproximações numéricas, os erros são gerados de várias formas, sendo as principais delas as seguintes:
 \begin{enumerate}
- \item Erros nos dados de entrada: equipamentos de medição possuem precisão finita, acarretando erros nas medidas físicas.
- \item Erros de truncamento: ocorrem quando aproximamos um procedimento formado por uma sequência infinita de passos através de um outro procedimento finito. Por exemplo, a definição de integral é dada por uma soma infinita e, como veremos na terceira área, aproximarmo-la por um soma finita. Esse é um assunto que discutiremos várias vezes no curso, pois o tratamento do erro de truncamento é feito para cada método numérico.
- \item Erros de arredondamento: são aqueles relacionados com as limitações que existem na forma representar números de máquina. Sobre esse tópico dedicamos a subseção (\ref{arredondamento_sec}).
+ \item \emph{Precisão dos dados}: equipamentos de medição possuem precisão finita, acarretando erros nas medidas físicas.
+ \item \emph{Erros de Arredondamento}: são aqueles relacionados com as limitações que existem na forma representar números de máquina. 
+ \item \emph{Erros de Truncamento}: ocorrem quando aproximamos um procedimento formado por uma sequência infinita de passos através de um outro procedimento finito. Por exemplo, a definição de integral é dada por uma soma infinita e, como veremos na terceira área, aproximarmo-la por um soma finita. Esse é um assunto que discutiremos várias vezes no curso, pois o tratamento do erro de truncamento é feito para cada método numérico.
 \end{enumerate}
 
-\begin{defn} Seja $x$ um número real e $\bar{x}$ sua aproximação. O \emph{erro absoluto} da aproximação $\bar{x}$ é definido como sendo o número:
+Uma questão fundamental é a quantificação dos erros que estamos sujeitos ao computar a solução de um dado problema. Para tanto, precisamos definir medidas de erros (ou de exatidão)\index{medida!de erro}\index{medida!de exatidão}. As medidas de erro mais utilizadas são o \emph{erro absoluto}\index{erro!absoluto} e o \emph{erro relativo}\index{erro!relativo}.
+
+\begin{defn}[Erro absoluto e relativo] Seja $x$ um número real e $\overline{x}$ sua aproximação. O \emph{erro absoluto} da aproximação $\overline{x}$ é definido como
   \begin{equation*}
-    |x-\bar{x}|.
+    |x-\overline{x}|.
   \end{equation*}
-O \emph{erro relativo} da aproximação $\bar{x}$ é definido como sendo o número:
+O \emph{erro relativo} da aproximação $\overline{x}$ é definido como
 \begin{equation*}
-\frac{|x-\bar{x}|}{|x|} .
+\frac{|x-\overline{x}|}{|x|},\quad x\neq 0.
 \end{equation*}
 \end{defn}
 
 \begin{obs}
-  Observe que o erro relativo é adimensional e, muitas vezes, é dado em porcentagem. Ou seja, o erro relativo, em porcentagem, da aproximação $\bar{x}$ é definido por:
+  Observe que o erro relativo é adimensional e, muitas vezes, é dado em porcentagem. Mais precisamente, o erro relativo em porcentagem da aproximação $\overline{x}$ é dado por
   \begin{equation*}
     \frac{|x-\bar{x}|}{|x|}\times 100 \%.
   \end{equation*}
 \end{obs}
 
 \begin{ex}
-Se $x=\frac{1}{3}$ e $\bar{x}=0,333$, então o erro absoluto é
+Sejam $x=123456,789$ e sua aproximação $\bar{x}=123000$. O erro absoluto é
 $$
-|x-\bar{x}|=|0,\overline{3}-0,333|=0,000\overline{3}=0,\overline{3}\cdot 10^{-3}
+|x-\bar{x}|=|123456,789-123000|=456,789
 $$
 e o erro relativo é
 $$
-\frac{|x-\bar{x}|}{|x|}=\frac{0,\overline{3}\cdot 10^{-3}}{0,\overline{3}}=10^{-3}=0,1\%
+\frac{|x-\bar{x}|}{|x|}=\frac{456,789}{123456,789}\approx 0,00369999 \text{ ou }0,36\%
 $$
 \end{ex}
+
+\begin{ex}
+Sejam $y=1,23456789$ e $\bar{y}=1,13$. O erro absoluto é
+$$
+|y-\bar{y}|=|1,23456789-1,13|=0,10456789
+$$
+que parece pequeno se compararmos com o exemplo anterior. Entretanto o erro relativo é
+$$
+\frac{|y-\bar{y}|}{|y|}=\frac{0,10456789}{1,23456789}\approx 0,08469999 \text{ ou }8,4\%
+$$
+Note que o erro relativo leva em consideração a escala do problema.
+\end{ex}
+
+
 
 \begin{ex}
 Observe os erros absolutos e relativos em cada caso
 $$
-\begin{array}{|c|c|c|}
+\begin{array}{|c|c|c|c|} \hline
+ x & \bar{x} &\hbox{erro absoluto}&\hbox{erro relativo}\\
 \hline
-&\hbox{erro absoluto}&\hbox{erro relativo}\\
-\hline
-x=0,\overline{3}\cdot 10^{-2}\ \hbox{e}\ \bar{x}=0,3\cdot 10^{-2}&0,\overline{3}\cdot 10^{-3}&\frac{0,\overline{3}\cdot 10^{-3}}{0,\overline{3}\cdot 10^{-2}}=10^{-1}=10\%\\
-\hline
-x=0,\overline{3}\ \hbox{e}\ \bar{x}=0,3&0,\overline{3}\cdot 10^{-1}&\frac{0,\overline{3}\cdot 10^{-1}}{0,\overline{3}}=10^{-1}=10\%\\
-\hline
-x=0,\overline{3}\cdot 10^{2}\ \hbox{e}\ \bar{x}=0,3\cdot 10^{2}&0,\overline{3}\cdot 10^{1}&\frac{0,\overline{3}\cdot 10^{1}}{0,\overline{3}\cdot 10^{2}}=10^{-1}=10\%\\
-\hline
+0,\overline{3}\cdot 10^{-2} & 0,3\cdot 10^{-2}&0,\overline{3}\cdot 10^{-3}&\frac{0,\overline{3}\cdot 10^{-3}}{0,\overline{3}\cdot 10^{-2}}=10^{-1}=10\%\\ \hline
+0,\overline{3}              & 0,3&0,\overline{3}\cdot 10^{-1}&\frac{0,\overline{3}\cdot 10^{-1}}{0,\overline{3}}=10^{-1}=10\%\\ \hline
+0,\overline{3}\cdot 10^{2}\ & 0,3\cdot 10^{2}&0,\overline{3}\cdot 10^{1}&\frac{0,\overline{3}\cdot 10^{1}}{0,\overline{3}\cdot 10^{2}}=10^{-1}=10\%\\ \hline
 \end{array}
 $$
 \end{ex}
 
-%\begin{defn}
-%A aproximação $\bar{x}$ de um número $x$ da forma $\bar{x}=\pm 0,d_{-1}d_{-2}\cdots d_{s}\c%dots d_n\times 10^m$ possui $s$ {\bf dígitos significativos corretos} se o erro absoluto $|x-\overlin%e{x}|$ satisfazer\footnote{Observação: Não existe uma definição única na literatura para o conceito d%e dígitos significativos corretos, embora não precisamente equivalentes, transmitem a mesmo conceito.%}
-%$$
-%|x-\bar{x}|\leq 0,5\times 10^{m-s}
-%$$
-%\end{defn}
+Outra forma de medir a exatidão de uma aproximação numérica é contar o \emph{número de dígitos significativos corretos} em relação ao valor exato.
 
-
-\begin{defn}
-A aproximação $\bar{x}$ de um número $x = \pm 0,d_{-1}d_{-2}d_{-3}\cdots \times 10^m$ possui $s$ {\bf dígitos significativos corretos} se o erro absoluto $|x-\bar{x}|$ satisfazer\footnote{Observação: Não existe uma definição única na literatura para o conceito de dígitos significativos corretos, embora não precisamente equivalentes, transmitem a mesmo conceito.}
+\begin{defn}[Número de dígitos significativos corretos]
+A aproximação $\overline{x}$ de um número $x$ tem $s$ \emph{dígitos significativos corretos} quando\footnote{Esta definição é apresentada em \cite{Burden2013}. Não existe uma definição única na literatura para o conceito de dígitos significativos corretos, embora não precisamente equivalentes, elas transmitem o mesmo conceito.
+Uma maneira de interpretar essa regra é: calcula-se o erro relativo na forma normalizada e a partir da ordem do expoente temos o número de dígitos significativos corretos. Como queremos o expoente, podemos estimar $s$ por
+$$ DIGSE(x,\bar{x})=s \approx int \left|\log_{10} \frac{|x-\overline{x}|}{|x|}\right|. $$
+}
 $$
-|x-\bar{x}|\leq 0,5\times 10^{m-s}
+\frac{|x-\overline{x}|}{|x|} \leq 5\times 10^{-s}.
 $$
 \end{defn}
 
-\begin{ex} Veja os seguintes casos:
+
+\begin{ex} Vejamos os seguintes casos:
 \begin{itemize}
-\item[a)] Considere $x=0,\overline{3}$, $\bar{x}=0,333$ e o erro absoluto $\delta=|x-\bar{x}|=0,\overline{3}\times 10^{-3}=0,\overline{3}\times 10^{0-3}$. Essa aproximação tem 3 dígitos significativos corretos.
-\item[b)] Agora, considere $x=10,00\overline{1}=0,1000\overline{1}\times 10^{2}$, $\bar{x}=9,99933=0,999933\times 10^1$ e o erro absoluto $\delta=|x-\bar{x}|=0,178\overline{1}\times 10^{-2}=0,178\overline{1}\times 10^{2-4}$. Essa aproximação possui todos os dígitos diferentes se comparamos um a um, mas tem 4 dígitos significativos corretos.
+\item[a)] A aproximação de $x=0,333333$ por $\overline{x}=0,333$ tem $3$ dígitos significativos corretos, pois
+  \begin{equation*}
+    \frac{|x-\overline{x}|}{|x|} = \frac{0,000333}{0,333333} \approx 0,000999 \leq 5\times 10^{-\pmb{3}}.
+  \end{equation*}
+\item[b)] Considere as aproximações $\bar{x}_1=0,666$ e $\bar{x}_2=0,667$ de $x=0,666888$. Os erros relativos são
+  $$
+    \frac{|x-\bar{x}_1|}{|x|} = \frac{|0,666888-0,666|}{0,666888} \approx 0,00133...< 5\times 10^{-3}.
+  $$
+  $$
+    \frac{|x-\bar{x}_2|}{|x|} = \frac{|0,666888-0,667|}{0,666888} \approx 0,000167...< 5\times 10^{-\RED{4}}.
+  $$
+  Note que $\bar{x}_1$ possui $3$ dígitos significativos corretos e $\bar{x}_2$ possui $4$ dígitos significativos (o quarto dígito é o dígito $0$ que não aparece a direita, i.e, $\bar{x}_2=0.\RED{6670}$. Isto também leva a conclusão que $x_2$ aproxima melhor o valor de $x$ do que $x_1$ pois está mais próximo de $x$.
+  
+\item[c)] $\overline{x} = 9,999$ aproxima $x = 10$ com $4$ dígitos significativos corretos, pois  
+  \begin{equation*}
+    \frac{|x-\overline{x}|}{|x|} = \frac{|10 - 9,999|}{10} \approx 0,0000999...< 5\times 10^{-4}.
+  \end{equation*}
+\item[d)] Considere as aproximações $\overline{x}_1 = 1,49$ e $\overline{x}_2 = 1,5$ de $x = 1$. Da definição, temos que $1,49$ aproxima $1$ com um dígito significativo correto (verifique), equanto $1,5$ tem zero dígito significativo correto, pois:
+  \begin{equation*}
+    \frac{|1-1,51|}{|1|} = 5\times 10^{-1} < 5\times 10^{0}.
+  \end{equation*}
 \end{itemize}
 \end{ex}
 
-\subsection{Erros de Arredondamento}{\label{arredondamento_sec}}\index{erros!de arredondamento}
+\subsection{Erros de arredondamento}{\label{arredondamento_sec}}\index{erros!de arredondamento}
 Os erros de arredondamento são aqueles gerados quando aproximamos um número real por um número com representação finita.
 
-\begin{ex}
-O número $\frac{1}{3}=0,\overline{3}$ possui um representação infinita tanto na base decimal quanto na base binária. Logo, quando representamos ele no computador geramos um erro de arredondamento que denotaremos por $\epsilon$. Agora considere a seguinte sequência:
-$$
-\left\{\begin{array}{l}
-x_0=\frac{1}{3}\\
-x_{n+1}=4x_n-1,\qquad n\in\mathbb{N}
-\end{array}\right..
-$$
-Observe que $x_0=\frac{1}{3}$, $x_1=4\cdot \frac{1}{3}-1=\frac{1}{3}$, $x_2=\frac{1}{3}$, ou seja, temos uma sequência constante igual a $\frac{1}{3}$. Se calcularmos no computador essa sequência, temos que incluir os erros de arredondamento, ou seja,
-\begin{eqnarray*}
-\tilde{x}_0&=&\frac{1}{3}+\epsilon\\
-\tilde{x}_1&=&4x_0-1=4\left(\frac{1}{3}+\epsilon\right)-1=\frac{1}{3}+4\epsilon\\
-\tilde{x}_2&=&4x_1-1=4\left(\frac{1}{3}+4\epsilon\right)-1=\frac{1}{3}+4^2\epsilon\\
-&\vdots&\\
-\tilde{x}_n&=&\frac{1}{3}+4^n\epsilon
-\end{eqnarray*}
-Portanto o limite da sequência diverge,
+Existem várias formas de arredondar 
 \begin{equation*}
-\lim_{x\to\infty}|\tilde{x}_n|=\infty  
-\end{equation*}
-
-\ifisscilab
-Faça o teste no \verb+Scilab+, colocando:
-\begin{verbatim}
--->x = 1/3
-\end{verbatim}
-e itere algumas vezes a linha de comando:
-\begin{verbatim}
--->x = 4*x-1
-\end{verbatim}
-\fi
-\end{ex}
-
-Existem várias formas de aproximar um número em ponto flutuante da forma:
-\begin{equation*}
-  \pm 0,d_{1}d_{2}d_{3}\ldots d_{k-1}d_kd_{k+1}\ldots d_n 10^e
+  x = \pm d_0,d_1d_2\ldots d_{k-1}d_kd_{k+1}\ldots d_n \times 10^e
 \end{equation*}
 usando $k$ dígitos significativos. As duas principais são as seguintes:
 \begin{enumerate}
-\item Por truncamento: aproximamos o número dado por:
+\item \emph{Arredondamento por truncamento} (ou corte): aproximamos $x$ por
 $$
-\pm 0,d_{1}d_{2}d_{3}\ldots d_{k}\times 10^e
+  \bar{x} = \pm d_{0},d_{1}d_{2}\ldots d_{k}\times 10^e
 $$
 simplesmente descartando os dígitos $d_{j}$ com $j > k$.
-\item Por arredondamento: aproximamos o número dado por:
+\item \emph{Arredondamento por proximidade}: se $d_{k+1}<5$ aproximamos $x$ por
 $$
-\pm 0,\tilde{d}_{1}\tilde{d}_{2}\tilde{d}_{3}\ldots \tilde{d}_{k}\times 10^{\tilde{e}}
+  \bar{x} = \pm d_0,d_1d_2\ldots d_{k}\times 10^{e}
 $$
-que é a aproximação por truncamento do número:
+senão aproximamos $x$ por\footnote{Note que essas duas opções são equivalentes a somar $5$ no dígito a direita do corte e depois arredondar por corte, ou seja, arredondar por corte 
+$$ \pm(d_0,d_1d_2\ldots d_kd_{k+1}+ 5 \times10^{-(k+1)} )\times 10^{e} $$}
 $$
-\pm 0,d_{1}d_{2}d_{3}\ldots d_{k}d_{k+1} \times 10^e \pm 0,5 \times 10^{e-k}
+ \bar{x} = \pm(d_0,d_1d_2\ldots d_{k} + 10^{-k}) \times 10^{e}
 $$
+
 \end{enumerate}
 
 \begin{ex} Represente os números:
@@ -841,6 +794,7 @@ Arredondamento: $0,57$; $0,23$; $-0,68$ e $\pi = 0,31\times 10^1 = 3,1$
 \begin{ex}
   O arredondamento de $0,9999\times 10^{-1}$ com $3$ dígitos significativos é $0,1\times 10^{0}$.
 \end{ex}
+
 
 \section*{Exercícios}
 
@@ -899,7 +853,121 @@ Verifique quantos são os dígitos significativos corretos em cada aproximação
 \end{Answer}
 
 
-\section{Propagação de Erros}\index{erros!propagação}
+\section{Erros nas operações elementares}
+O erro presente nas operações elementares de adição, subtração, multiplicação e divisão é da ordem do epsilon de máquina. Se estivermos usando uma máquina com 64 bits, temos que $\epsilon = 2^{-52} \approx 2,22E16$. 
+
+Este erro é bem pequeno! Assumindo que $x$ e $y$ são representados com todos dígitos corretos, temos aproximadamente 15 dígitos significativos corretos quando fizemos uma das operações $x+y$, $x-y$, $x\times y$ ou $x/y$. 
+
+%%
+%% fornecer exemplo para +,-,*,/
+%%
+
+Mesmo que fizéssemos, por exemplo, $1000$ operações elementares em ponto flutuante sucessivas, teríamos no pior dos casos acumulado todos esses erros e perdido $3$ casas decimais ($1000\times 10^{-15} \approx 10^{-12})$.
+
+Entretanto, quando subtraímos números muito próximos, os problemas aumentam.
+
+\section{Cancelamento catastrófico}\index{cancelamento catastrófico}
+
+Quando fazemos subtrações com números muito próximos entre si ocorre o cancelamento catastrófico, onde podemos perder vários dígitos de precisão em uma única subtração.
+
+\begin{ex}Efetue a operação
+  \begin{equation*}
+    0,987624687925-0,987624=0,687925\times 10^{-6}    
+  \end{equation*}
+usando arredondamento com seis dígitos significativos e observe a diferença se comparado com resultado sem arredondamento.
+\end{ex}
+\begin{sol}
+Os números arredondados com seis dígitos para a mantissa resultam na seguinte diferença
+$$
+0,987625-0,987624=0,100000\times 10^{-5}
+$$
+Observe que os erros relativos entre os números exatos e aproximados no lado esquerdo são bem pequenos,
+\begin{equation*}
+  \frac{|0,987624687925-0,987625|}{|0,987624687925|}=0,00003159  
+\end{equation*}
+e
+\begin{equation*}
+  \frac{|0,987624-0,987624|}{|0,987624|}=0\%,
+\end{equation*}
+enquanto no lado direito o erro relativo é enorme:
+\begin{equation*}
+\frac{|0,100000\times 10^{-5}-0,687925\times 10^{-6}|}{0,687925\times 10^{-6}}=45,36\%.  
+\end{equation*}
+\end{sol}
+
+\begin{ex} Considere o problema de encontrar as raízes da equação de segundo grau
+  \begin{equation*}
+    x^2+300x-0,014=0,
+  \end{equation*}
+usando seis dígitos significativos.
+
+Aplicando a fórmula de Bhaskara com $a=0,100000\times 10^1$, $b=0,300000\times 10^3$ e $c=0,140000\times 10^{-1}$, temos o discriminante:
+\begin{align*}
+  \Delta &= b^2 - 4\cdot a\cdot c\\
+  &=0,300000\times 10^3\times 0,300000\times 10^3 \\
+  &+ 0,400000\times 10^1\times 0,100000\times 10^1\times 0,140000\times 10^{-1}\\
+  &=0,900000\times 10^5 +0,560000\times  10^{-1}\\
+  &=0,900001\times 10^5
+\end{align*}
+e as raízes:
+\begin{align*}
+x_1,x_2 &=\frac{-0,300000\times 10^3\pm \sqrt{\Delta}}{0,200000\times 10^1} \\
+&=\frac{-0,300000\times 10^3\pm \sqrt{0,900001\times 10^5}}{0,200000\times 10^1} \\
+&=\frac{-0,300000\times 10^3\pm 0,300000\times 10^3}{0,200000\times 10^1}\\
+\end{align*}
+Então, as duas raízes são:
+\begin{align*}
+  \tilde{x}_1 &= \frac{-0,300000\times 10^3- 0,300000\times 10^3}{0,200000\times 10^1}\\
+  &=-\frac{0,600000\times 10^3}{0,200000\times 10^1}=-0,300000\times 10^3
+\end{align*}
+e
+\begin{equation*}
+\tilde{x}_2=\frac{-0,300000\times 10^3+ 0,300000\times 10^3}{0,200000\times 10^1}=0,000000\times 10^{0} 
+\end{equation*}
+Agora, os valores das raízes com seis dígitos significativos deveriam ser
+\begin{equation*}
+  x_1=-0,300000\times 10^{3}\quad\hbox{e}\quad x_2=0,466667\times 10^{-4}.  
+\end{equation*}
+Observe que um raiz saiu com seis dígitos significativos corretos, mas a outra não possui nenhum dígito significativo correto.
+\end{ex}
+
+\begin{obs}
+No exemplo anterior $b^2$ é muito maior que $4ac$, ou seja, $b\approx \sqrt{b^2-4ac}$, logo a diferença
+\begin{equation*}
+  -b+\sqrt{b^2-4ac}
+\end{equation*}
+estará próxima de zero. Uma maneira padrão de evitar o cancelamento catastrófico é usar procedimentos analíticos para eliminar essa diferença. Abaixo veremos alguns exemplos.  
+\end{obs}
+
+\begin{ex}Para eliminar o cancelamento catastrófico do exemplo anterior, usamos a seguinte expansão em série de Taylor em torno da origem
+$$
+\sqrt{1-x}=1-{\frac {1}{2}}x+O(x^2) .
+$$
+Substituindo na fórmula de Bhaskara, temos:
+\begin{eqnarray*}
+x&=&\frac{-b\pm \sqrt{b^2-4ac}}{2a}\\
+&=&\frac{-b\pm b\sqrt{1-\frac{4ac}{b^2}}}{2a}\\
+&\approx&\frac{-b\pm b\left(1-\frac{4ac}{2b^2}\right)}{2a}\\
+\end{eqnarray*}
+Observe que $\frac{4ac}{b^2}$ é um número pequeno e por isso a expansão faz sentido. Voltamos no exemplo anterior e calculamos as duas raízes com o nova expressão
+\begin{eqnarray*}
+\tilde{x}_1&=& \frac{-b- b+\frac{4ac}{2b}}{2a} = -\frac{b}{a}+\frac{c}{b}\\
+&=& -\frac{0,300000\times 10^{3}}{0,100000\times 10^{1}}-\frac{0,140000\times 10^{-1}}{0,300000\times 10^3}\\
+&=& -0,300000\times 10^{3}-0,466667\times 10^{-4}\\
+&=& -0,300000\times 10^{3}
+\end{eqnarray*}
+\begin{eqnarray*}
+\tilde{x}_2&=& \frac{-b+ b-\frac{4ac}{2b}}{2a}\\
+&=&-\frac{4ac}{4ab}\\
+&=&-\frac{c}{b}=-\frac{-0,140000\times 10^{-1}}{0,300000\times 10^3}=0,466667\times 10^{-4}\\
+\end{eqnarray*}
+Observe que o efeito catastrófico foi eliminado.
+\end{ex}
+
+
+
+\section{Propagação de erros}\index{erros!propagação}
+
 
 Dado uma função diferenciável $f$, considere $\bar{x}$ uma aproximação para $x$ e $f(\bar{x})$ uma aproximação para $f(x)$. Sabendo o erro $\delta_x=|x-\bar{x}|$, queremos estimar o erro $\delta_f=|f(x)-f(\bar{x})|$. Pelo teorema do valor médio, existe $\epsilon$ contido no intervalo aberto formado por $x$ e $\bar{x}$ tal que
 $$
@@ -921,6 +989,41 @@ De modo geral, quando $f$ depende de várias variáveis, a seguinte estimativa v
 $$
 \delta_f=|f(x_1,x_2,...,x_n)-f(\bar{x}_1, \bar{x}_2,...,\bar{x}_n)|\approx \sum_{i=1}^n\left|\frac{\partial f}{\partial x_i}(x_1, x_2,...,x_n)\right|\delta_{x_i}
 $$
+
+\begin{ex}
+O número $\frac{1}{3}=0,\overline{3}$ possui um representação infinita tanto na base decimal quanto na base binária. Logo, quando representamos ele no computador geramos um erro de arredondamento que denotaremos por $\epsilon$. Agora considere a seguinte sequência:
+$$
+\left\{\begin{array}{l}
+x_0=\frac{1}{3}\\
+x_{n+1}=4x_n-1,\qquad n\in\mathbb{N}
+\end{array}\right..
+$$
+Observe que $x_0=\frac{1}{3}$, $x_1=4\cdot \frac{1}{3}-1=\frac{1}{3}$, $x_2=\frac{1}{3}$, ou seja, temos uma sequência constante igual a $\frac{1}{3}$. Se calcularmos no computador essa sequência, temos que incluir os erros de arredondamento, ou seja,
+\begin{eqnarray*}
+\tilde{x}_0&=&\frac{1}{3}+\epsilon\\
+\tilde{x}_1&=&4x_0-1=4\left(\frac{1}{3}+\epsilon\right)-1=\frac{1}{3}+4\epsilon\\
+\tilde{x}_2&=&4x_1-1=4\left(\frac{1}{3}+4\epsilon\right)-1=\frac{1}{3}+4^2\epsilon\\
+&\vdots&\\
+\tilde{x}_n&=&\frac{1}{3}+4^n\epsilon
+\end{eqnarray*}
+Portanto o limite da sequência diverge,
+\begin{equation*}
+\lim_{x\to\infty}|\tilde{x}_n|=\infty  
+\end{equation*}
+
+\ifisscilab
+Faça o teste no \verb+Scilab+, colocando:
+\begin{verbatim}
+-->x = 1/3
+\end{verbatim}
+e itere algumas vezes a linha de comando:
+\begin{verbatim}
+-->x = 4*x-1
+\end{verbatim}
+\fi
+\end{ex}
+
+
 
 \begin{ex}
   Seja $f(x) = x\exp(x)$. Calcule o erro absoluto em se calcular $f(x)$ sabendo que $x = 2 \pm 0,05$.
@@ -1051,103 +1154,9 @@ Faça o estudo da propagação do erro e decida qual a melhor expressão em cada
 
 
 
-\section{Cancelamento Catastrófico}\section{cancelamento catastrófico}
-Operações aritméticas entre números com representação finita pode fazer com que o resultado seja dominado pelos erros de arredondamento. Em geral, esse efeito, denominado cancelamento catastrófico, acontece quando fazemos a diferença de números muito próximos entre si.
 
-\begin{ex}Efetue a operação
-  \begin{equation*}
-    0,987624687925-0,987624=0,687925\times 10^{-6}    
-  \end{equation*}
-usando arredondamento com seis dígitos significativos e observe a diferença se comparado com resultado sem arredondamento.
-\end{ex}
-\begin{sol}
-Os números arredondados com seis dígitos para a mantissa resultam na seguinte diferença
-$$
-0,987625-0,987624=0,100000\times 10^{-5}
-$$
-Observe que os erros relativos entre os números exatos e aproximados no lado esquerdo são bem pequenos,
-\begin{equation*}
-  \frac{|0,987624687925-0,987625|}{|0,987624687925|}=0,00003159  
-\end{equation*}
-e
-\begin{equation*}
-  \frac{|0,987624-0,987624|}{|0,987624|}=0\%,
-\end{equation*}
-enquanto no lado direito o erro relativo é enorme:
-\begin{equation*}
-\frac{|0,100000\times 10^{-5}-0,687925\times 10^{-6}|}{0,687925\times 10^{-6}}=45,36\%.  
-\end{equation*}
-\end{sol}
+\section{Mais exemplos}
 
-\begin{ex} Considere o problema de encontrar as raízes da equação de segundo grau:
-  \begin{equation*}
-    x^2+300x-0,014=0,
-  \end{equation*}
-usando seis dígitos significativos.
-
-Aplicando a fórmula de Bhaskara com $a=0,100000\times 10^1$, $b=0,300000\times 10^3$ e $c=0,140000\times 10^{-1}$, temos o discriminante:
-\begin{align*}
-  \Delta &= b^2 - 4\cdot a\cdot c\\
-  &=0,300000\times 10^3\times 0,300000\times 10^3 \\
-  &+ 0,400000\times 10^1\times 0,100000\times 10^1\times 0,140000\times 10^{-1}\\
-  &=0,900000\times 10^5 +0,560000\times  10^{-1}\\
-  &=0,900001\times 10^5
-\end{align*}
-e as raízes:
-\begin{align*}
-x_1,x_2 &=\frac{-0,300000\times 10^3\pm \sqrt{\Delta}}{0,200000\times 10^1} \\
-&=\frac{-0,300000\times 10^3\pm \sqrt{0,900001\times 10^5}}{0,200000\times 10^1} \\
-&=\frac{-0,300000\times 10^3\pm 0,300000\times 10^3}{0,200000\times 10^1}\\
-\end{align*}
-Então, as duas raízes são:
-\begin{align*}
-  \tilde{x}_1 &= \frac{-0,300000\times 10^3- 0,300000\times 10^3}{0,200000\times 10^1}\\
-  &=-\frac{0,600000\times 10^3}{0,200000\times 10^1}=-0,300000\times 10^3
-\end{align*}
-e
-\begin{equation*}
-\tilde{x}_2=\frac{-0,300000\times 10^3+ 0,300000\times 10^3}{0,200000\times 10^1}=0,000000\times 10^{0} 
-\end{equation*}
-Agora, os valores das raízes com seis dígitos significativos deveriam ser
-\begin{equation*}
-  x_1=-0,300000\times 10^{3}\quad\hbox{e}\quad x_2=0,466667\times 10^{-4}.  
-\end{equation*}
-Observe que um raiz saiu com seis dígitos significativos corretos, mas a outra não possui nenhum dígito significativo correto.
-\end{ex}
-
-\begin{obs}
-No exemplo anterior $b^2$ é muito maior que $4ac$, ou seja, $b\approx \sqrt{b^2-4ac}$, logo a diferença
-\begin{equation*}
-  -b+\sqrt{b^2-4ac}
-\end{equation*}
-estará próxima de zero. Uma maneira padrão de evitar o cancelamento catastrófico é usar procedimentos analíticos para eliminar essa diferença. Abaixo veremos alguns exemplos.  
-\end{obs}
-
-\begin{ex}Para eliminar o cancelamento catastrófico do exemplo anterior, usamos a seguinte expansão em série de Taylor em torno da origem
-$$
-\sqrt{1-x}=1-{\frac {1}{2}}x+O(x^2) .
-$$
-Substituindo na fórmula de Bhaskara, temos:
-\begin{eqnarray*}
-x&=&\frac{-b\pm \sqrt{b^2-4ac}}{2a}\\
-&=&\frac{-b\pm b\sqrt{1-\frac{4ac}{b^2}}}{2a}\\
-&\approx&\frac{-b\pm b\left(1-\frac{4ac}{2b^2}\right)}{2a}\\
-\end{eqnarray*}
-Observe que $\frac{4ac}{b^2}$ é um número pequeno e por isso a expansão faz sentido. Voltamos no exemplo anterior e calculamos as duas raízes com o nova expressão
-\begin{eqnarray*}
-\tilde{x}_1&=& \frac{-b- b+\frac{4ac}{2b}}{2a}\\
-&=& -\frac{b}{a}+\frac{c}{b}\\
-&=& -\frac{0,300000\times 10^{3}}{0,100000\times 10^{1}}-\frac{0,140000\times 10^{-1}}{0,300000\times 10^3}\\
-&=& -0,300000\times 10^{3}-0,466667\times 10^{-4}\\
-&=& -0,300000\times 10^{3}
-\end{eqnarray*}
-\begin{eqnarray*}
-\tilde{x}_2&=& \frac{-b+ b-\frac{4ac}{2b}}{2a}\\
-&=&-\frac{4ac}{4ab}\\
-&=&-\frac{c}{b}=-\frac{-0,140000\times 10^{-1}}{0,300000\times 10^3}=0,466667\times 10^{-4}\\
-\end{eqnarray*}
-Observe que o efeito catastrófico foi eliminado.
-\end{ex}
 \begin{ex}Observe a seguinte identidade
 $$
 f(x)=\frac{(1+x)-1}{x}=1
