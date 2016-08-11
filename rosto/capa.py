@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# coding: utf-8
 
 #Este trabalho está licenciado sob a Licença
 #Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada.
@@ -46,5 +47,5 @@ xx = np.linspace(1,8)
 yy = tan(x0,xx,*popt)
 plt.plot(xx,yy,'r-')
 
-plt.savefig("capa.png", papertype='a4', bbox_inches='tight')
+plt.savefig("capa.pdf", papertype='a4', bbox_inches='tight')
 
