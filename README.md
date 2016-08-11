@@ -26,17 +26,14 @@ Para limpar os arquivos temporários gerados durante a compilação, digite:
 $ make clean
 
 ## Colaborações
-
 Todos são convidados a colaborarem na escrita deste livro. Caso esteja interessado, entre em contato conosco escrevendo para:
 
 livro_colaborativo@googlegroups.com
 
 ### Fork us on GitHub
-
 Colabore editando diretamente o código fonte disponível no repositório GitHub:
 
 https://github.com/livroscolaborativos/CalculoNumerico
 
 ### Folha de estilo
-
 Para colaborar de forma efetiva, leia nossa [folha de estilo](https://github.com/livroscolaborativos/CalculoNumerico/blob/master/FOLHA_DE_ESTILO.md).
