@@ -11,3 +11,4 @@ a=gca()
 //a.axes_reverse=['on','off','off']
 //a.box='on'
 xs2pdf(0,'cancelamento_euler.pdf')
+exit()
