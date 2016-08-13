@@ -4,7 +4,7 @@ Este documento contém informações sobre os padrões de estilo de escrita e or
 
 ## Regionalização
 
-O livro está escrito em língua portuguesa.
+O livro está escrito em língua portuguesa, seguindo os costumes linguísticos brasileiros. Dá-se prioridade à ortografia prevista no Acordo Ortográfico de 1990.
 
 ## Equações e símbolos matemáticos
 

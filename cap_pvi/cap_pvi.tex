@@ -4,14 +4,28 @@
 
 \begin{document}
 
-\chapter{Problema de valor inicial}\index{problema de valor inicial}
+\chapter{Problemas de valor inicial}\index{problema de valor inicial}
+Neste capítulo, desenvolveremos técnicas numérica para aproximar a solução de problemas de valor inical da forma
+\begin{subequations}\label{PVI}
+\begin{eqnarray}
+y'(t)&=&f(y(t),t)\label{PVI_EDO}\\
+y(t_0)&=&y_0 ~~ \hbox{(condição inicial)}.\label{PVI_CI}
+\end{eqnarray}
+\end{subequations}
 
-Muitos problemas de valor inicial da forma
-\begin{eqnarray*}
-y'(t)&=&f(y(t),t)\\
-y(t_0)&=&y_0 ~~ \hbox{condição inicial}
-\end{eqnarray*}
-não podem ser resolvidos exatamente, ou seja, sabe-se que a solução existe e é única, porém não podemos expressá-la em termos de funções elementares. Por isso é necessário calcular soluções numéricas. Para esse propósito, construímos uma malha de pontos no eixo $t$, $\{t_i\}_{i=1}^N$ e calculamos o valor aproximado da função solução $y(t_i)$ em cada ponto da malha usando esquemas numéricos.
+A ingógnita de um problema de valor inicial é uma função que satisfaz a equação diferencial (\ref{PVI_EDO})  e a condição inicial (\ref{PVI_CI}).
+\begin{ex}Considere o seguinte problema de valor inicial
+\begin{subequations}
+\begin{eqnarray}
+y'(t)&=&2y(t),\\
+y(t_0)&=&1.
+\end{eqnarray}
+\end{subequations}
+A solução desta equação é dada pela função $y(t)=e^{2y}$ pois $y'(t)=2e^{2t}=2y(t)$ e $y(0)=e^0=1$.
+\end{ex}
+
+
+Muito problemas de valor inicial da forma (\ref{PVI}) não podem ser resolvidos exatamente, ou seja, sabe-se que a solução existe e é única, porém não podemos expressá-la em termos de funções elementares. Por isso é necessário calcular aproximações numéricas. Diversos métodos completamente diferentes estão disponíveis para aproximar uma função real. Aqui nos limitaremos a estudar métodos que se fundamentam em tentar calcular $y(t)$ em um conjunto finito de valores de $t$. Esse conjunto de valores para $t$ será denotado por  $\{t_i\}_{i=1}^N$, isto é $\{t_1, t_2, t_3,\ldots, t_N\}$ e calculamos o valor aproximado da função solução $y(t_i)$ em cada ponto da malha usando esquemas numéricos.
 
 
 \section{Método de Euler}\index{método!de Euler}
