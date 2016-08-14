@@ -171,7 +171,7 @@ t &  \hbox{Exato} & \hbox{Euler}~~ h=0,1 & \hbox{Euler}~~ h=0,01\\
 $$
 
 No exemplo \ref{sys_edo}, mostramos como o Método de Euler pode ser facilmente estendido para problemas envolvendo sistemas de equações diferenciais.\index{sistemas!de equações diferenciais}.
-\begin{ex}\label{sys_edo} Resolva o seguinte sistema de equações diferenciais
+\begin{ex}\label{sys_edo} Escreva o processo iterativo de Euler para resolver numericamente o seguinte sistema de equações diferenciais
 \begin{eqnarray*}
 x'&=&-y\\
 y'&=&x\\
@@ -192,31 +192,75 @@ x^{(k+1)}&=&x^{(k)}-hy^{(k)}\\
 y^{(k+1)}&=&y^{(k)}+hx^{(k)}.
 \end{eqnarray*}
 
-\begin{ex} Resolva o problema de valor inicial de segunda ordem dado por
+\begin{ex} Escreva o problema de valor inicial de segunda ordem dado por
 \begin{eqnarray*}
-y''+y'+y&=&\cos(t)\\
-y(0)&=&1\\
-y'(0)&=&0
+y''+y'+y&=&\cos(t),\\
+y(0)&=&1,\\
+y'(0)&=&0,
 \end{eqnarray*}
-e compare com a solução exata para $h=0,1$ e $h=0,01$.
+como um problema envolvendo um sistema de primeira ordem.
 \end{ex}
-Procedemos com a substituição $w=y'$, de forma que obtermos o sistema:
+A fim de transformar a equação diferencial dada em um sistema de equações de primeira ordem, introduzimos a substituição $w=y'$, de forma que obtermos o sistema:
 \begin{eqnarray*}
 y'&=&w\\
 w'&=&-w-y+\cos(t)\\
 y(0)&=&1\\
 w(0)&=&0
 \end{eqnarray*}
-
+Portanto, o Método de Euler produz o seguinte processo iterativo:
 \begin{eqnarray*}
-y^{(k+1)}&=&y^{(k)}+hw^{(k)}\\
-w^{(k+1)}&=&w^{(k)}-hw^{(k)}-hy^{(k)}+h\cos(t^{(k)})\\
-y^{(1)}&=&1\\
-w^{(1)}&=&0
+y^{(k+1)}&=&y^{(k)}+hw^{(k)},\\
+w^{(k+1)}&=&w^{(k)}-hw^{(k)}-hy^{(k)}+h\cos(t^{(k)}),\\
+y^{(1)}&=&1,\\
+w^{(1)}&=&0.
 \end{eqnarray*}
+\section*{Exercícios}
+
+\begin{Exercise}Resolva o problema de valor inicial dado por
+\begin{eqnarray*}
+y'&=& -2y + \sqrt{y}\\
+y(0)&=&1
+\end{eqnarray*}
+com passo $h=0.1$ e $h=0.1$ para obter aproximações para $y(1)$. Compare com a solução exata dada por $y(t) =  \left({1+2 e^{-t}+e^{-2 t}}\right)/{4}$
+\end{Exercise}
+\begin{Answer}
+ 0.4496 com $h=.1$ e 0.4660 com $h=.01$. A solução exata vale $y(1)=\frac{1+2e^{-1}+e^{-2}}{4}= \left(\frac{1+e^{-1}}{2}\right)^2\approx 0.4678$
+\end{Answer}
+
+
+\begin{Exercise}Resolva o problema de valor inicial dado por
+\begin{eqnarray*}
+y'&=& -2y + \sqrt{z}\\
+z'&=& -z + y\\
+y(0)&=&0\\
+z(0)&=&2\\
+\end{eqnarray*}
+com passo $h=0.2$, $h=0.2$, $h=0.02$ e $h=0.002$ para obter aproximações para $y(2)$ e $z(2)$.
+\end{Exercise}
+\begin{Answer}
+$y(2)\approx 0.430202$ e $z(2)=0.617294$ com $h=0.2$, 
+$y(2)\approx 0.435506$ e $z(2)=0.645776$ com $h=0.02$,
+$y(2)\approx 0.435805$ e $z(2)=0.648638$ com $h=0.002$ e 
+$y(2)\approx 0.435832$ e $z(2)=0.648925$ com $h=0.0002$. 
+\end{Answer}
+
+\begin{Exercise}Resolva o problema de valor inicial dado por
+\begin{eqnarray*}
+y'&=& \cos(ty(t))\\
+y(0)&=&1\\
+\end{eqnarray*}
+com passo $h=0.1$, $h=0.01$, $h=0.001$, $h=0.0001$ e $0.00001$ para obter aproximações para $y(2)$. 
+\end{Exercise}
+\begin{Answer}
+$y(2)\approx 1.161793$ com $h=0.1$, 
+$y(2)\approx 1.139573$ com $h=0.01$,
+$y(2)\approx 1.137448$ com $h=0.001$,
+$y(2)\approx 1.137237$ com $h=0.0001$,
+$y(2)\approx 1.137216$ com $h=0.00001$ 
+\end{Answer}
+
 
 \section{Método de Euler melhorado}\index{método!de Euler melhorado}
-
 No método de Euler, usamos a seguinte iteração:
 \begin{eqnarray*}
 y^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)})\\
@@ -235,9 +279,16 @@ y^{(1)}&=&y_i~~ \hbox{condição inicial}
 
 \section*{Exercícios}
 
-\begin{Exercise}
-Refaça o exemplo \ref{ex_euler_1} via método de Euler melhorado.
+\begin{Exercise} Use o Método de Euler melhorado para obter uma aproximação numérica do valor de $y(1)$ quando $y(t)$ satisfaz o seguinte problema de valor inicial
+\begin{eqnarray*}
+ y'(t)&=&-y(t)+ e^{y(t)},\\
+ y(0)&=&0,
+\end{eqnarray*}
+usando passos $h=0,1$ e $h=0,01$.
 \end{Exercise}
+\begin{Answer}
+ $y(1)\approx 1.317078$ quando $h=0,1$ e $y(1)\approx 1.317045 $.
+\end{Answer}
 
 \subsection{Ordem de precisão}\index{ordem de precisão}
 
