@@ -871,7 +871,7 @@ Verifique quantos são os dígitos significativos corretos em cada aproximação
 
 
 \section{Erros nas operações elementares}
-O erro presente nas operações elementares de adição, subtração, multiplicação e divisão é da ordem do epsilon de máquina. Se estivermos usando uma máquina com 64 bits, temos que $\epsilon = 2^{-52} \approx 2,22E16$. 
+O erro presente relativo nas operações elementares de adição, subtração, multiplicação e divisão é da ordem do epsilon de máquina. Se estivermos usando uma máquina com 64 bits, temos que $\epsilon = 2^{-52} \approx 2,22E16$. 
 
 Este erro é bem pequeno! Assumindo que $x$ e $y$ são representados com todos dígitos corretos, temos aproximadamente 15 dígitos significativos corretos quando fizemos uma das operações $x+y$, $x-y$, $x\times y$ ou $x/y$. 
 
@@ -1295,8 +1295,13 @@ e
 \begin{equation*}
   \frac{1}{\exp(-1/\mu)+1}
 \end{equation*}
-com $\mu>0$. Verifique que elas são idênticas como funções reais. Qual dessas expressões é mais adequada quando $\mu$ é um número pequeno. Teste no computador para $\mu=0,1$, $\mu=0,01$ e $\mu=0,001$.
+com $\mu>0$. Verifique que elas são idênticas como funções reais. Teste no computador cada uma delas para $\mu=0,1$, $\mu=0,01$ e $\mu=0,001$. Qual dessas expressões é mais adequada quando $\mu$ é um número pequeno? Por quê?
 \end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+  Quando $\mu$ é pequeno, $e^{1/mu}$ é um número grande. A primeira expressão produz um ''overflow'' (número maior que o máximo representável) quando $\mu$ é pequeno. A segunda expressão, no entanto, reproduz o limite $1$ quando $\mu\to 0+$.
+  \end{tiny}
+\end{Answer}
 
 \begin{Exercise} Encontre expressões alternativas para calcular o valor das seguintes funções quando $x$ é próximo de zero.
 \begin{itemize}
@@ -1320,16 +1325,18 @@ Analise o desempenho destas duas expressões no computador quando $x$ vale $10^{
 \emph{Dica:} Para $|x|<10^{-5}$, $f(x)$ pode ser aproximada por $1/2-x^2/24$ com erro de truncamento inferior a $10^{-22}$.
 \end{Exercise}
 
-\begin{Exercise} Considere a expressão
-$$
-f(x)=\frac{1-\cos(x)}{x^2}
-$$
-para $x$ pequeno. Verifique que
-$$
-\lim_{x\to 0}f(x)=0,5
-$$
-Depois calcule no \verb+Scilab+ $f(x)$ para $x=10^{-5}$, $x=10^{-6}$, $x=10^{-7}$, $x=10^{-8}$, $x=10^{-9}$ e $x=10^{-10}$. Finalmente, faça uma aproximação analítica que elimine o efeito catastrófico.
-\end{Exercise}
+%\begin{Exercise} Considere a expressão
+%$$
+%f(x)=\frac{1-\cos(x)}{x^2}
+%$$
+%para $x$ pequeno. Verifique que
+%$$
+%\lim_{x\to 0}f(x)=0,5
+%$$
+%Depois calcule no \verb+Scilab+ $f(x)$ para $x=10^{-5}$, $x=10^{-6}$, $x=10^{-7}$, $x=10^{-8}$, $x=10^{-9}$ e $x=10^{-10}$. Finalmente, faça uma %aproximação analítica que elimine o efeito catastrófico.
+%\end{Exercise}
+%%Redundante
+
 
 \begin{Exercise}[title=Notas do prof. Guidi] Reescreva as expressões:
   $$\sqrt{e^{2x}+1}-e^x \qquad\hbox{e}\qquad \sqrt{e^{2x}+x^2}-e^x $$

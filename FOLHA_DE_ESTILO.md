@@ -4,7 +4,7 @@ Este documento contém informações sobre os padrões de estilo de escrita e or
 
 ## Regionalização
 
-O livro está escrito em língua portuguesa.
+O livro está escrito em língua portuguesa, seguindo os costumes linguísticos brasileiros. Dá-se prioridade à ortografia prevista no Acordo Ortográfico de 1990.
 
 ## Equações e símbolos matemáticos
 
@@ -28,7 +28,7 @@ O livro deve ser versátil o suficiente para não depender de qualquer pacote co
 
 deve ser inserido no livro como:
 
-    \ifiscilab
+    \ifisscilab
       No Scilab, \verb+%eps+ fornece o $\epsilon$ de máquina.
     \fi
 

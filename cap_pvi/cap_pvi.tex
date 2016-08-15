@@ -3,70 +3,82 @@
 %\documentclass[main.tex]{subfiles}
 %\begin{document}
 
-\chapter{Problema de valor inicial}\index{problema de valor inicial}
+\chapter{Problemas de valor inicial}\index{problema de valor inicial}
+Neste capítulo, desenvolveremos técnicas numérica para aproximar a solução de problemas de valor inical da forma
+\begin{subequations}\label{PVI}
+\begin{eqnarray}
+y'(t)&=&f(y(t),t)\label{PVI_EDO}\\
+y(t_0)&=&y_0 ~~ \hbox{(condição inicial)}.\label{PVI_CI}
+\end{eqnarray}
+\end{subequations}
 
-Muitos problemas de valor inicial da forma
-\begin{eqnarray*}
-y'(t)&=&f(y(t),t)\\
-y(t_0)&=&y_0 ~~ \hbox{condição inicial}
-\end{eqnarray*}
-não podem ser resolvidos exatamente, ou seja, sabe-se que a solução existe e é única, porém não podemos expressá-la em termos de funções elementares. Por isso é necessário calcular soluções numéricas. Para esse propósito, construímos uma malha de pontos no eixo $t$, $\{t_i\}_{i=1}^N$ e calculamos o valor aproximado da função solução $y(t_i)$ em cada ponto da malha usando esquemas numéricos.
+A ingógnita de um problema de valor inicial é uma função que satisfaz a equação diferencial (\ref{PVI_EDO})  e a condição inicial (\ref{PVI_CI}).
+\begin{ex}Considere o seguinte problema de valor inicial
+\begin{subequations}\label{exemplo_y_2y}
+\begin{eqnarray}
+y'(t)&=&2y(t),\\
+y(t_0)&=&1.
+\end{eqnarray}
+\end{subequations}
+A solução desta equação é dada pela função $y(t)=e^{2y}$ pois $y'(t)=2e^{2t}=2y(t)$ e $y(0)=e^0=1$.
+\end{ex}
+
+
+Muito problemas de valor inicial da forma (\ref{PVI}) não podem ser resolvidos exatamente, ou seja, sabe-se que a solução existe e é única, porém não podemos expressá-la em termos de funções elementares. Por isso é necessário calcular aproximações numéricas. Diversos métodos completamente diferentes estão disponíveis para aproximar uma função real. 
+
+Aqui nos limitaremos a estudar métodos que se fundamentam em tentar calcular $y(t)$ em um conjunto finito de valores de $t$. Esse conjunto de valores para $t$ será denotado por  $\{t_i\}_{i=1}^N$, isto é $\{t_1, t_2, t_3,\ldots, t_N\}$ e calculamos o valor aproximado da função solução $y(t_i)$ em cada ponto da malha usando esquemas numéricos.
 
 
 \section{Método de Euler}\index{método!de Euler}
-
-Seja o problema de valor inicial
-
-\begin{eqnarray*}
+Retornemos ao problema de valor inicial (\ref{PVI}) dado por:
+\begin{subequations}\label{PVI_2}
+\begin{eqnarray}
 y'(t)&=&f(y(t),t)\\
-y(0)&=&y_0 ~~ \hbox{condição inicial}
-\end{eqnarray*}
-
-Aproximamos a derivada $y'(t)$ por um esquema de primeira ordem do tipo
-$$y'(t)=\frac{y(t+h)-y(t)}{h}+O(h),~~ h>0$$
-assim temos
+y(0)&=&y_0 ~~ \hbox{(condição inicial)}
+\end{eqnarray}
+\end{subequations}
+O Método de Euler aplicado à solução desse problema consiste em aproximar a derivada $y'(t)$ por um esquema de primeira ordem do tipo
+$$y'(t)=\frac{y(t+h)-y(t)}{h}+O(h),~~ h>0.$$
+Aqui $h$ é o passo do método, que consideraremos uma constante. Assim temos (\ref{PVI_2}) se transforma em:
 \begin{eqnarray*}
 \frac{y(t+h)-y(t)}{h}&=&f(y(t),t)+O(h)\\
-y(t+h)&=&y(t)+hf(y(t),t)+O(h^2)
+y(t+h)&=&y(t)+hf(y(t),t)+O(h^2).
 \end{eqnarray*}
 
-Definindo $y^{(k)}$ como uma aproximação para $y\left((k-1)h\right)$ e $t^{(k)}=(k-1)h$, temos
-\begin{eqnarray*}
-y^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)})\\
-y^{(1)}&=&y_0~~ \hbox{condição inicial}
-\end{eqnarray*}
+Definimos, então, $t^{(k)}=(k-1)h$ e $y^{(k)}$ como a aproximação para $y\left(t^{(k)}\right)$ produzida pelo Método de Euler. Assim, obtemos
+\begin{eqnarray}\label{PVI_EULER}
+y^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)}) ~\hbox{(aproximação da EDO)},\\
+y^{(1)}&=&y_0~~ \hbox{(condição inicial)}.
+\end{eqnarray}
+O problema (\ref{PVI_EULER}) consiste em um esquema iterativo, isto é, $y^{(1)}$ é a condição inicial; $y^{(2)}$ pode ser obtido de $y^{(2)}$; $y^{(3)}$, de $y^{(4)}$ e assim por diante, calculamos o termo $y^{(n)}$ apartir do anterior $y^{(n-1)}$. 
 
-\begin{ex} Considere o problema de valor inicial:
+
+\begin{ex} Retornemos ao o problema de valor inicial do exemplo (\ref{exemplo_y_2y}):
 \begin{eqnarray*}
 y'(t)&=&2y(t)\\
 y(0)&=&1
 \end{eqnarray*}
 \end{ex}
-Sabemos da teoria de equação diferenciais ordinárias, que a solução exata deste problema é única e é dada por
-$$y(t)=e^{2t}.$$
-
-O método de Euler aplicado a este problema produz o seguinte esquema:
+Cuja solução é $y(t)=e^{2t}$. O método de Euler aplicado a este problema produz o seguinte esquema:
 \begin{eqnarray*}
 y^{(k+1)}&=&y^{(k)}+2hy^{(k)}=(1+2h)y^{(k)}\\
 y^{(1)}&=&1,
 \end{eqnarray*}
 cuja solução é dada por
 $$y^{(k)}=(1+2h)^{k-1}.$$
-Como $t=(k-1)h$, a solução aproximada é
+Como $t=(k-1)h$, a solução aproximada pelo Método de Euler é
 $$y(t)\approx \tilde{y}(t)= (1+2h)^{\frac{t}{h}}.$$
-Daí, vemos que se $h\to 0$, então
-$$\tilde{y}(t)\to e^{2t}.$$
+Observe que $\tilde{y}(t) \neq y(t)$, mas se $h$ é pequeno, a aproximação é boa, pois
+$$\lim_{h\to 0+} (1+2h)^{\frac{t}{h}}= e^{2t}.$$
 
-
-
-\begin{ex}{\label{ex_euler_1}} Considere o problema de valor inicial:
+Vamos agora, analisar o desempenho do Método de Euler usando um exemplo mais complicado, porém ainda simples suficiente para que possamos obter a solução exata:  
+\begin{ex}{\label{ex_euler_1}} Considere o problema de valor inicial relacionado à equação logística\index{equação!logística}:
 \begin{eqnarray*}
 y'(t)&=&y(t)(1-y(t))\\
 y(0)&=&1/2
 \end{eqnarray*}
 \end{ex}
-É fácil encontrar a solução exata desta equação pois
-
+Podemos obter a solução exata desta equação usando o método de separação de variáveis\index{método!de separação de variáveis} e o método das frações parciais\index{método das frações parciais}.
 \begin{eqnarray*}
 \frac{dy(t)}{y(t)(1-y(t))}&=&dt\\
 \left(\frac{1}{y}+\frac{1}{1-y}\right)dy&=&dt\\
@@ -75,44 +87,40 @@ y(0)&=&1/2
 \frac{y}{1-y}&=&e^{t+C}\\
 y&=&e^{t+C}(1-y)\\
 y(1+e^{t+C})&=&e^{t+C}\\
-y&=&\frac{e^{t+C}}{1+e^{t+C}}
+y&=&\frac{e^{t+C}}{1+e^{t+C}}.
 \end{eqnarray*}
-ainda $y(0)=\frac{e^C}{1+e^C}=1/2$, temos $e^C=1$ e, portanto,  $C=0$.
+Basta, agora, encontrar a constante $C$ a partir da condição inicial $y(0)=1/2$: 
+$$y(0)=\frac{e^C}{1+e^C}=1/2,$$
+o que implica $e^C=1$ e, portanto,  $C=0$. Assim, a solução exata é dada por $y(t)=\frac{e^t}{1+e^{t}}$
 
-Assim, a solução exata é dada por $y=\frac{e^t}{1+e^{t}}$
-
-O método de Euler produz o seguinte esquema iterativo:
-\begin{eqnarray*}
-y^{(k+1)}&=&y^{(k)}+h y^{(k)}(1-y^{(k)})\\
-y^{(1)}&=&1/2
-\end{eqnarray*}
-Comparação
-$$\begin{array}{|c|c|c|c|}
+Vejamos, agora, o esquema iterativo produzido pelo método de Euler:
+\begin{subequations}\label{ite_logistica}
+\begin{eqnarray}
+y^{(k+1)}&=&y^{(k)}+h y^{(k)}(1-y^{(k)}),\\
+y^{(1)}&=&1/2.
+\end{eqnarray}
+\end{subequations}
+Para fins de comparação, calculamos a solução de (\ref{ex_euler_1}) e de (\ref{ite_logistica}) para alguns valores de $t$ e de passo $h$ e resumimos na tabela (\ref{tab_logistica}).
+\begin{figure}\label{tab_logistica}\caption{Tabela comparativa enter Método de Euler e solução exata para problema \ref{ex_euler_1}.}
+ $$\begin{array}{|c|c|c|c|}
 \hline
 t &  \hbox{Exato} & \hbox{Euler}~~ h=0,1 & \hbox{Euler}~~ h=0,01\\
 \hline
-&&&\\
 0 &  1/2 & 0,5 & 0,5\\
-&&&\\
 \hline
-&&&\\
 1/2 &   \frac{e^{1/2}}{1+e^{1/2}}\approx 0,6224593 & 0,6231476 & 0,6225316\\
-&&&\\
 \hline
-&&&\\
 1 &   \frac{e}{1+e}\approx 0,7310586 & 0,7334030 & 0,7312946\\
-&&&\\
 \hline
-&&&\\
 2 &   \frac{e^2}{1+e^2}\approx  0,8807971 & 0,8854273  & 0,8812533 \\
-&&&\\
 \hline
-&&&\\
 3 &   \frac{e^3}{1+e^3}\approx   0,9525741   & 0,9564754   & 0,9529609 \\
-&&&\\
 \hline
 \end{array}
 $$
+\end{figure}
+
+No exemplo a seguir, apresentamos um problema envolvendo uma equação não-autônoma\index{equção diferencial!não autônoma}, isto é, quando a função $f(y,t)$ depende explicitamente do tempo.
 
 \begin{ex} Resolva o problema de valor inicial
 \begin{eqnarray*}
@@ -132,27 +140,19 @@ $$\begin{array}{|c|c|c|c|}
 \hline
 t &  \hbox{Exato} & \hbox{Euler}~~ h=0,1 & \hbox{Euler}~~ h=0,01\\
 \hline
-&&&\\
 0 &  1 & 1 & 1\\
-&&&\\
 \hline
-&&&\\
 1 &   2e^{-1}\approx 0,7357589 & 0,6973569   &   0,7320647  \\
-&&&\\
 \hline
-&&&\\
 2 &   2e^{-2}+1\approx  1,2706706 &  1,2431533    &   1,2679593     \\
-&&&\\
 \hline
-&&&\\
 3 &   2e^{-3}+2\approx 2,0995741  &  2,0847823 & 2,0980818   \\
-&&&\\
 \hline
 \end{array}
 $$
 
-\newpage
-\begin{ex} Resolva o seguinte sistema de equações diferenciais:
+No exemplo \ref{sys_edo}, mostramos como o Método de Euler pode ser facilmente estendido para problemas envolvendo sistemas de equações diferenciais.\index{sistemas!de equações diferenciais}.
+\begin{ex}\label{sys_edo} Escreva o processo iterativo de Euler para resolver numericamente o seguinte sistema de equações diferenciais
 \begin{eqnarray*}
 x'&=&-y\\
 y'&=&x\\
@@ -161,63 +161,195 @@ y(0)&=&0,\\
 \end{eqnarray*}
 cuja solução exata é $x(t)=\cos(t)$ e $y(t)=\sin(t)$.
 \end{ex}
-Escreva $$z(t)=\left[\begin{array}{c}x(t)\\y(t)\end{array}\right]$$  e temos
+Par aplicar o Método de Euler a um sistema, devemos encarar as diversas incógnitas do sistema como formando um vetor, neste caso, encrevemos: 
+ $$z(t)=\left[\begin{array}{c}x(t)\\y(t)\end{array}\right].$$
+ O sistema é igualmente escrito na forma vetorial:
 \begin{eqnarray*}
-\left[\begin{array}{c}x^{(k+1)}\\y^{(k+1)}\end{array}\right]=\left[\begin{array}{c}x^{(k)}\\y^{(k)}\end{array}\right]+h\left[\begin{array}{c}-y^{(k)}\\x^{(k)}\end{array}\right]
+\left[\begin{array}{c}x^{(k+1)}\\y^{(k+1)}\end{array}\right]=\left[\begin{array}{c}x^{(k)}\\y^{(k)}\end{array}\right]+h\left[\begin{array}{c}-y^{(k)}\\x^{(k)}\end{array}\right].
 \end{eqnarray*}
-
-Equivalente a
+Observe que este processo iterativo é equivalente a:
 \begin{eqnarray*}
 x^{(k+1)}&=&x^{(k)}-hy^{(k)}\\
-y^{(k+1)}&=&y^{(k)}+hx^{(k)}\\
+y^{(k+1)}&=&y^{(k)}+hx^{(k)}.
 \end{eqnarray*}
 
-\begin{ex} Resolva o problema de valor inicial de segunda ordem dado por
+\begin{ex} Escreva o problema de valor inicial de segunda ordem dado por
 \begin{eqnarray*}
-y''+y'+y&=&\cos(t)\\
-y(0)&=&1\\
-y'(0)&=&0
+y''+y'+y&=&\cos(t),\\
+y(0)&=&1,\\
+y'(0)&=&0,
 \end{eqnarray*}
-e compare com a solução exata para $h=0,1$ e $h=0,01$.
+como um problema envolvendo um sistema de primeira ordem.
 \end{ex}
-Procedemos com a substituição $w=y'$, de forma que obtermos o sistema:
+A fim de transformar a equação diferencial dada em um sistema de equações de primeira ordem, introduzimos a substituição $w=y'$, de forma que obtermos o sistema:
 \begin{eqnarray*}
 y'&=&w\\
 w'&=&-w-y+\cos(t)\\
 y(0)&=&1\\
 w(0)&=&0
 \end{eqnarray*}
-
+Portanto, o Método de Euler produz o seguinte processo iterativo:
 \begin{eqnarray*}
-y^{(k+1)}&=&y^{(k)}+hw^{(k)}\\
-w^{(k+1)}&=&w^{(k)}-hw^{(k)}-hy^{(k)}+h\cos(t^{(k)})\\
-y^{(1)}&=&1\\
-w^{(1)}&=&0
+y^{(k+1)}&=&y^{(k)}+hw^{(k)},\\
+w^{(k+1)}&=&w^{(k)}-hw^{(k)}-hy^{(k)}+h\cos(t^{(k)}),\\
+y^{(1)}&=&1,\\
+w^{(1)}&=&0.
 \end{eqnarray*}
+\section*{Exercícios}
 
-\subsection{Método de Euler melhorado}\index{método!de Euler melhorado}
+\begin{Exercise}Resolva o problema de valor inicial dado por
+\begin{eqnarray*}
+y'&=& -2y + \sqrt{y}\\
+y(0)&=&1
+\end{eqnarray*}
+com passo $h=0.1$ e $h=0.1$ para obter aproximações para $y(1)$. Compare com a solução exata dada por $y(t) =  \left({1+2 e^{-t}+e^{-2 t}}\right)/{4}$
+\end{Exercise}
+\begin{Answer}
+ 0.4496 com $h=.1$ e 0.4660 com $h=.01$. A solução exata vale $y(1)=\frac{1+2e^{-1}+e^{-2}}{4}= \left(\frac{1+e^{-1}}{2}\right)^2\approx 0.4678$
+\end{Answer}
+
+
+\begin{Exercise}Resolva o problema de valor inicial dado por
+\begin{eqnarray*}
+y'&=& -2y + \sqrt{z}\\
+z'&=& -z + y\\
+y(0)&=&0\\
+z(0)&=&2\\
+\end{eqnarray*}
+com passo $h=0.2$, $h=0.2$, $h=0.02$ e $h=0.002$ para obter aproximações para $y(2)$ e $z(2)$.
+\end{Exercise}
+\begin{Answer}
+$y(2)\approx 0.430202$ e $z(2)=0.617294$ com $h=0.2$, 
+$y(2)\approx 0.435506$ e $z(2)=0.645776$ com $h=0.02$,
+$y(2)\approx 0.435805$ e $z(2)=0.648638$ com $h=0.002$ e 
+$y(2)\approx 0.435832$ e $z(2)=0.648925$ com $h=0.0002$. 
+\end{Answer}
+
+\begin{Exercise}Resolva o problema de valor inicial dado por
+\begin{eqnarray*}
+y'&=& \cos(ty(t))\\
+y(0)&=&1\\
+\end{eqnarray*}
+com passo $h=0.1$, $h=0.01$, $h=0.001$, $h=0.0001$ e $0.00001$ para obter aproximações para $y(2)$. 
+\end{Exercise}
+\begin{Answer}
+$y(2)\approx 1.161793$ com $h=0.1$, 
+$y(2)\approx 1.139573$ com $h=0.01$,
+$y(2)\approx 1.137448$ com $h=0.001$,
+$y(2)\approx 1.137237$ com $h=0.0001$,
+$y(2)\approx 1.137216$ com $h=0.00001$ 
+\end{Answer}
+
+
+\section{Método de Euler melhorado}\index{método!de Euler melhorado}
+O método de Euler foi o primeiro método que estudamos e sua principal virtude é a simplicidade. Outros métodos, no entanto, podem apresentar resultados superiores. Vamos apresentar agora uma pequena modificação ao Método de Euler, dando origem a um novo método chamado de Método de Euler Modificado ou Método de Euler Melhorado.
 
 No método de Euler, usamos a seguinte iteração:
 \begin{eqnarray*}
 y^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)})\\
-y^{(1)}&=&y_i~~ \hbox{condição inicial}
+y^{(1)}&=&y_0~~ \hbox{(condição inicial)}
 \end{eqnarray*}
-A ideia do método de Euler melhorado é substituir a declividade  $f(y^{(k)},t^{(k)})$ pela média aritmética entre $f(y^{(k)},t^{(k)})$ e $f(y^{(k+1)},t^{(k+1)})$.
 
-No entanto, não dispomos do valor de $y^{(k+1)}$ pelo que aproximamos por
+A ideia do método de Euler Melhorado é substituir a declividade  $f(y^{(k)},t^{(k)})$ pela média aritmética entre $f(y^{(k)},t^{(k)})$ e $f(y^{(k+1)},t^{(k+1)})$, isto é, as declividades avaliadas no início e no fim do intervalo $[t^{(k)},t^{(k+1)}]$.
+
+No entanto, não dispomos do valor de $y^{(k+1)}$ antes de executar o passo. Assim aproximamos esta grandeza pelo valor produzido pelo Método de Euler original:
 $$\tilde{y}^{(k+1)}=y^{(k)}+hf(y^{(k)},t^{(k)}).$$
 
+De posse desta aproximação, calculamos a média aritmética e com esta média realizamos o passo do Método de Euler Melhorado. O processo iterativo de Euler Melhorado é, portanto, dado por:
 \begin{eqnarray*}
 \tilde{y}^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)})\\
 y^{(k+1)}&=&y^{(k)}+\frac{h}{2}\left[f(y^{(k)},t^{(k)})+f(\tilde{y}^{(k+1)},t^{(k+1)})\right]\\
-y^{(1)}&=&y_i~~ \hbox{condição inicial}
+y^{(1)}&=&y_0~~ \hbox{(condição inicial)}
 \end{eqnarray*}
+
+Podemos reescrever este mesmo processo iterativo da seguinte forma:
+\begin{eqnarray*}
+k_1&=&hf(y^{(k)},t^{(k)}),\\
+k_2&=&hf(y^{(k)}+k_1,t^{(k+1)}),\\
+y^{(k+1)}&=&y^{(k)}+\frac{k_1+k_2}{2},\\
+y^{(1)}&=&y_0~~ \hbox{(condição inicial)}.
+\end{eqnarray*}
+Aqui $k_1$ e $k_2$ são variáveis auxiliares que representam as inclinações e devem ser calculadas a cada passo. 
+
 
 \section*{Exercícios}
 
-\begin{Exercise}
-Refaça o exemplo \ref{ex_euler_1} via método de Euler melhorado.
+\begin{Exercise} Use o Método de Euler melhorado para obter uma aproximação numérica do valor de $y(1)$ quando $y(t)$ satisfaz o seguinte problema de valor inicial
+\begin{eqnarray*}
+ y'(t)&=&-y(t)+ e^{y(t)},\\
+ y(0)&=&0,
+\end{eqnarray*}
+usando passos $h=0,1$ e $h=0,01$.
 \end{Exercise}
+\begin{Answer}
+ $y(1)\approx 1.317078$ quando $h=0,1$ e $y(1)\approx 1.317045 $.
+\end{Answer}
+
+
+\begin{Exercise}Use o Método de Euler e o Método de Euler melhorado para obter aproximações numéricas para a solução do seguinte problema de valor inicial para $t\in[0,1]$:
+\begin{eqnarray*}
+ y'(t)&=&-y(t)- y(t)^2,\\
+ y(0)&=&1,
+\end{eqnarray*}
+usando passo $h=0,1$. Complete a tabela abaixo com os valores obtidos e compare com o valores obtidos da solução exata dada por $y(t)=\frac{1}{2e^t-1}$, complete também com o erro absoluto obtido em cada método:
+\begin{tiny}  
+ $$\begin{array}{|c|c|c|c|c|c|}
+\hline
+t &  \hbox{Exato} & \hbox{Euler} & \hbox{Euler Melhorado} & \hbox{Erro Euler} & \hbox{Erro Euler Melhorado}\\
+\hline
+0.0 &  &  & &&\\
+0.1 &  &  & &&\\
+0.2 &  &  & &&\\
+0.3 &  &  & &&\\
+0.4 &  &  & &&\\
+0.5 &  &  & &&\\
+0.6 &  &  & &&\\
+0.7 &  &  & &&\\
+0.8 &  &  & &&\\
+0.9 &  &  & &&\\
+1.0 &  &  & &&\\
+\hline
+\end{array}
+$$
+\end{tiny}
+\end{Exercise}
+\begin{Answer}\begin{tiny}
+ $$\begin{array}{|c|c|c|c|c|c|}
+\hline
+t &  \hbox{Exato} & \hbox{Euler} & \hbox{Euler Melhorado} & \hbox{Erro Euler} & \hbox{Erro Euler Melhorado}\\
+\hline
+0.0&    1.          &1.          &1.          &0.          &0.       \\ 
+0.1&    0.826213    &0.8         &0.828       &0.026213    &0.001787\\  
+0.2&    0.693094    &0.656       &0.695597    &0.037094    &0.002502  \\
+0.3&    0.588333    &0.547366    &0.591057    &0.040967    &0.002724  \\
+0.4&    0.504121    &0.462669    &0.506835    &0.041453    &0.002714  \\
+0.5&    0.435267    &0.394996    &0.437861    &0.040271    &0.002594  \\
+0.6&    0.378181    &0.339894    &0.380609    &0.038287    &0.002428  \\
+0.7&    0.330305    &0.294352    &0.332551    &0.035953    &0.002246  \\
+0.8&    0.289764    &0.256252    &0.291828    &0.033512    &0.002064  \\
+0.9&    0.255154    &0.224061    &0.257043    &0.031093    &0.001889  \\
+1.0&    0.225400    &0.196634    &0.227126    &0.028766    &0.001726\\
+
+\hline
+\end{array}
+$$
+
+\ifisscilab
+      No Scilab, esta tabela pode ser produzida com o código:
+      \begin{verbatim}
+       deff('dy=f(y,t)','dy=-y-y^2')
+       sol_Euler=Euler(f,0,1,10,1)'
+       sol_Euler_mod=Euler_mod(f,0,1,10,1)'
+       deff('y=y_exata(t)','y=1/(2*exp(t)-1)')
+       t=[0:.1:1]'
+       sol_exata=feval(t,y_exata)
+       tabela=[t sol_exata sol_Euler sol_Euler_mod abs(sol_exata-sol_Euler) abs(sol_exata-sol_Euler_mod)]
+      \end{verbatim}
+
+    \fi
+ \end{tiny}
+\end{Answer}
+
 
 \subsection{Ordem de precisão}\index{ordem de precisão}
 
