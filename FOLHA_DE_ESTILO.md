@@ -28,7 +28,7 @@ O livro deve ser versátil o suficiente para não depender de qualquer pacote co
 
 deve ser inserido no livro como:
 
-    \ifiscilab
+    \ifisscilab
       No Scilab, \verb+%eps+ fornece o $\epsilon$ de máquina.
     \fi
 
