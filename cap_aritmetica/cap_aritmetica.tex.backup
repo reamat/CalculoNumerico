@@ -77,7 +77,7 @@ No sistema octal a base é $b=8$ e utilizamos os símbolos em $\{0, 1, 2, 3, 4, 
 
 \ifisscilab
 \begin{ex}[Scilab]
-  O Scilab oferece algumas funções para a conversão de números inteiros em dada base para a base decimal. Por exemplo, temos:
+  O \verb+Scilab+ oferece algumas funções para a conversão de números inteiros em dada base para a base decimal. Por exemplo, temos:
 \begin{verbatim}
 -->bin2dec('1001')
  ans  =
@@ -134,7 +134,7 @@ Verifique!
 
 \ifisscilab
 \begin{ex}[Scilab]
-  O Scilab oferece algumas funções para a conversão de números inteiros em dada base para a base decimal. Assim temos:
+  O \verb+Scilab+ oferece algumas funções para a conversão de números inteiros em dada base para a base decimal. Assim, temos:
 \begin{verbatim}
 -->bin2dec('1001')
  ans  =
@@ -275,7 +275,7 @@ Veja isso no \verb+Scilab+:
 
 Tipicamente um número inteiro é armazenado num computador como uma sequência de dígitos binários de comprimento fixo denominado \emph{registro}.
 
-\subsubsection{Representação sem sinal}
+\subsubsection{Representação sem sinal}\index{representação de números!inteiros!sem sinal}
 Um registro com $n$ bits da forma
 \begin{equation*}
 \begin{array}{|c|c|c|c|c|} \hline
@@ -308,7 +308,7 @@ Assim é possível representar números inteiros entre
 \end{ex}
 \fi
 
-\subsubsection{Representação com bit de sinal}
+\subsubsection{Representação com bit de sinal}\index{representação de números!inteiros!bit de sinal}
 O bit mais significativo (o primeiro à esquerda) representa o sinal: por convenção, $0$ significa positivo e $1$ significa negativo. Um registro com $n$ bits da forma
 \begin{equation*}
   \begin{array}{|c|c|c|c|c|} \hline
@@ -335,7 +335,7 @@ Em um registro com $8$ bits, teremos os números
 \end{ex}
 
 
-\subsubsection{Representação complemento de dois}
+\subsubsection{Representação complemento de dois}\index{representação de números!inteiros!complemento de dois}
 O bit mais significativo (o primeiro à esquerda) representa o coeficiente de $-2^{n-1}$.  Um registro com $n$ bits da forma
 \begin{equation*}
   \begin{array}{|c|c|c|c|c|} \hline
@@ -424,7 +424,7 @@ se o sinal do número estiver representado por uma implementação em complement
 Observe que $16$ dígitos são usados para representar a parte fracionária, $15$ são para representar a parte inteira e um dígito, o $d_{31}$, está relacionado ao sinal do número.
 \end{ex}
 
-\subsection{Normalização}
+\subsection{Normalização}\index{sistema numérico!ponto fixo!normalização}
 Os números $h=6.626\times 10^{-34}$ e $N_A=6.0221\times 10^{23}$ não podem ser armazenados na máquina em ponto fixo do exemplo anterior.
 
 Entretanto, a constante
@@ -470,6 +470,7 @@ está na \emph{notação normalizada}\footnote{Em algumas referências é usado 
 
 
 \subsection{Sistema de ponto flutuante}\index{sistema numérico!de ponto flutuante}
+
 O sistema de ponto flutuante não possui quantidade fixa de dígitos para as partes inteira e fracionária do número. 
 
 Podemos definir uma máquina $F$ em ponto flutuante de dois modos:
@@ -718,7 +719,7 @@ Uma maneira de interpretar essa regra é: calcula-se o erro relativo na forma no
 $$ DIGSE(x,\bar{x})=s \approx int \left|\log_{10} \frac{|x-\overline{x}|}{|x|}\right|. $$
 }
 $$
-\frac{|x-\overline{x}|}{|x|} \leq 5\times 10^{-s}.
+\frac{|x-\overline{x}|}{|x|} < 5\times 10^{-s}.
 $$
 \end{defn}
 
@@ -744,7 +745,7 @@ $$
   \end{equation*}
 \item[d)] Considere as aproximações $\overline{x}_1 = 1,49$ e $\overline{x}_2 = 1,5$ de $x = 1$. Da definição, temos que $1,49$ aproxima $1$ com um dígito significativo correto (verifique), equanto $1,5$ tem zero dígito significativo correto, pois:
   \begin{equation*}
-    \frac{|1-1,51|}{|1|} = 5\times 10^{-1} < 5\times 10^{0}.
+    \frac{|1-1,5|}{|1|} = 5\times 10^{-1} < 5\times 10^{0}.
   \end{equation*}
 \end{itemize}
 \end{ex}
@@ -772,24 +773,41 @@ $$ \pm(d_0,d_1d_2\ldots d_kd_{k+1}+ 5 \times10^{-(k+1)} )\times 10^{e} $$}
 $$
  \bar{x} = \pm(d_0,d_1d_2\ldots d_{k} + 10^{-k}) \times 10^{e}
 $$
-
 \end{enumerate}
-
-\begin{ex} Represente os números:
-  \begin{equation*}
-    0,567;\quad 0,233;\quad -0,6785 \quad\mbox{e}\quad \pi = 0,314159265 \ldots \times 10^1
-  \end{equation*}
-com dois dígitos significativos por truncamento e arredondamento.
-\end{ex}
-\begin{sol}
-Truncamento: $0,56$; $0,23$; $-0,67$ e $\pi =0,31\times 10^1 =3,1$
-
-Arredondamento: $0,57$; $0,23$; $-0,68$ e $\pi = 0,31\times 10^1 = 3,1$  
-\end{sol}
-
 \begin{obs}
   Observe que o arredondamento pode mudar todos os dígitos e o expoente da representação em ponto flutuante de um número dado.
 \end{obs}
+
+
+\begin{ex} Represente os números $x_1 = 0,567$, $x_2 = 0,233$, $x_3 = -0,675$ e $x_4 = 0,314159265 \ldots \times 10^1$ com dois dígitos significativos por truncamento e arredondamento.
+\end{ex}
+\begin{sol} Vejamos cada caso:
+  \begin{itemize}
+  \item Por truncamento:
+    \begin{equation*}
+      x_1=0,56,\quad x_2=0,23,\quad x_3=-0,67\quad\mbox{e}\quad x_4 = 3,1.
+    \end{equation*}
+\ifisscilab
+No \verb+Scilab+, podemos obter a representação de $x_3 = -0,675$ fazendo (verifique):
+\begin{verbatim}
+-->format('e',8)
+-->int(-0.675*1e2)/1e2
+\end{verbatim}
+\fi
+  \item Por arredondamento:
+    \begin{equation*}
+      x_1=0,57;\quad x_2=0,23;\quad x_3=-0,68\quad\mbox{e}\quad x_4 = 3,1.  
+    \end{equation*}
+\ifisscilab
+No \verb+Scilab+, a representação de números por arredondamento é o padrão. Assim, para obtermos a representação desejada de $x_3 = 0,675$ fazemos: podemos obter a representação de $x_3 = -0,675$ fazemos (verifique):
+\begin{verbatim}
+-->format('e',8)
+-->-0.675
+\end{verbatim}
+\fi
+  \end{itemize}
+\end{sol}
+
 
 \begin{ex}
   O arredondamento de $0,9999\times 10^{-1}$ com $3$ dígitos significativos é $0,1\times 10^{0}$.
@@ -1036,7 +1054,7 @@ e itere algumas vezes a linha de comando:
 Como $f'(x) = (1 + x)e^{x}$, temos:
 \begin{align*}
   \delta_f &= |(1 + x)e^{x}|\cdot\delta_x\\
-  &= |3e^2|\cdot 0,05 = 1,084.
+  &= |3e^2|\cdot 0,05 = 1,1084.
 \end{align*}
 Portanto, o erro absoluto em se calcular $f(x)$ quando $x=2\pm 0,05$ é de $1,084$.
 \end{sol}
@@ -1121,7 +1139,7 @@ Suponha que você precise conhecer o valor de $z$ com um erro de $0,5\%$. Como e
     I=\left(\frac{V}{V_0}\right)^\alpha,
   \end{equation*}
 onde $\alpha$ é um número entre $0$ e $1$ e $V_0$ é tensão nominal em volts. Sabendo que $V_0=220\pm 3\%$ e $\alpha=-,8\pm 4\%$, calcule a corrente e o erro relativo associado quando a tensão vale $220\pm 1\%$.\\
-{\bf Obs:} Este problema pode ser resolvido de duas formas distintas: usando a expressão aproximada para a propagação de erro e inspecionando os valores máximos e mínimos que a expressão pode assumir. Pratique os dois métodos.
+\emph{Obs:.} Este problema pode ser resolvido de duas formas distintas: usando a expressão aproximada para a propagação de erro e inspecionando os valores máximos e mínimos que a expressão pode assumir. Pratique os dois métodos.
 \end{Exercise}
 \begin{Answer}
   \begin{tiny}
@@ -1133,7 +1151,7 @@ onde $\alpha$ é um número entre $0$ e $1$ e $V_0$ é tensão nominal em volts.
 $$I=\left(\frac{V}{V_0}\right)^\alpha$$
 Onde $\alpha$ é um número entre 0 e 1 e $V_0$ é a tensão nominal em volts. Sabendo que $V_0=220\pm 3\%$ e $\alpha=0,8\pm 4\%$
 Calcule a corrente e o erro relativo associado quando a tensão vale $220\pm 1\%$.
-{\bf Dica:} lembre que $x^\alpha=e^{\alpha \ln(x)}$
+\emph{Dica:} lembre que $x^\alpha=e^{\alpha \ln(x)}$
 \end{Exercise}
 
 \begin{Exercise}[title= Propagação de erros] Obtenha os valores de $I_d$ no problema \ref{prob_diodo}. Lembre que existem duas expressões disponíveis:
@@ -1163,7 +1181,7 @@ f(x)=\frac{(1+x)-1}{x}=1
 $$
 Calcule o valor da expressão à esquerda para $x=10^{-12}$, $x=10^{-13}$, $x=10^{-14}$, $x=10^{-15}$, $x=10^{-16}$ e $x=10^{-17}$. Observe que quando $x$ se aproxima do $\epsilon$ de máquina a expressão perde o significado. Veja abaixo o gráfico de $f(x)$ em escala logarítmica.
 
-\includegraphics[width=0.8\textwidth]{./cap_aritmetica/pics/cancelamento_0}
+\includegraphics[width=0.8\textwidth]{./cap_aritmetica/pics/cancelamento_0.pdf}
 \end{ex}
 
 \begin{ex} Neste exemplo, estamos interessados em compreender mais detalhadamente o comportamento da expressão
@@ -1197,14 +1215,14 @@ $$
 Podemos resumir esses dados no seguinte gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$:
 
 %\begin{figure}[htp]
-\includegraphics[width=0.8\textwidth]{./cap_aritmetica/pics/cancelamento_euler}
+\includegraphics[width=0.8\textwidth]{./cap_aritmetica/pics/cancelamento_euler.pdf}
 %\caption{Gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$ em escala linear-logarítmica variando de $10^0$ até $10^{18}$ gerado no Scilab 5.4.1.}
 %\end{figure}
 
 Observe que quando $x$ se torna grande, da ordem de $10^{15}$, o gráfico da função deixa de se crescente e apresenta oscilações.  Observe também que a expressão se torna identicamente igual a $1$ depois de um certo limiar. Tais fenômenos não são intrínsecos da função $f(x)=(1+1/x)^x$, mas \emph{\uline{oriundas de erros de arredondamento}}, isto é, são resultados numéricos espúrios. A fim de pôr o comportamento numérico de tal expressão, apresentamos abaixo o gráfico da mesma função, porém restrito à região entre $10^{14}$ e $10^{16}$.
 
 %\begin{figure}
-\includegraphics[width=0.9\textwidth]{./cap_aritmetica/pics/cancelamento_euler2}
+\includegraphics[width=0.9\textwidth]{./cap_aritmetica/pics/cancelamento_euler2.pdf}
 %\caption{Gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$ em escala linear-logarítmica variando de $10^{14}$ até $10^{16}$ gerado no Scilab 5.4.1.}
 ¨%\end{figure}
 \end{ex}
@@ -1213,7 +1231,7 @@ Para compreendermos melhor por que existe um limiar $N$ que, quando atingido tor
 \begin{equation}\label{seq_oper}
 x~\to ~1/x ~\to ~1+1/x ~\to ~(1+1/x)^x
 \end{equation}
-Devido ao limite de precisão da representação de números em ponto flutuante, existe um menor número representável que é maior do que 1. Este número é $1 + $\verb+eps+, onde \verb+eps+ é chamado de {\bf épsilon de máquina} e é o menor número que somado a 1 produz um resultado superior a 1 no sistema de numeração usado. O épsilon de máquina no sistema de numeração ``double'' vale aproximadamente $2,22\times 10^{-16}$.
+Devido ao limite de precisão da representação de números em ponto flutuante, existe um menor número representável que é maior do que 1. Este número é $1 + $\verb+eps+, onde \verb+eps+ é chamado de \emph{épsilon de máquina} e é o menor número que somado a 1 produz um resultado superior a 1 no sistema de numeração usado. O épsilon de máquina no sistema de numeração \emph{double} vale aproximadamente $2,22\times 10^{-16}$.
 \ifisscilab
 No \verb+Scilab+, o epsilon de máquina é a constante \verb+eps+. Observe que:
 \begin{verbatim}
@@ -1300,7 +1318,7 @@ com $\mu>0$. Verifique que elas são idênticas como funções reais. Qual dessa
     \frac{1-\cos(x)}{x^2}= \frac{1}{2} \left(\frac{\sin(x/2)}{x/2}\right)^2.
   \end{equation*}
 Analise o desempenho destas duas expressões no computador quando $x$ vale $10^{-5}$, $10^{-6}$, $10^{-7}$, $10^{-8}$, $10^{-9}$, $10^{-200}$ e $0$. Discuta o resultado.
-{\bf Dica:} Para $|x|<10^{-5}$, $f(x)$ pode ser aproximada por $1/2-x^2/24$ com erro de truncamento inferior a $10^{-22}$.
+\emph{Dica:} Para $|x|<10^{-5}$, $f(x)$ pode ser aproximada por $1/2-x^2/24$ com erro de truncamento inferior a $10^{-22}$.
 \end{Exercise}
 
 \begin{Exercise} Considere a expressão
@@ -1311,7 +1329,7 @@ para $x$ pequeno. Verifique que
 $$
 \lim_{x\to 0}f(x)=0,5
 $$
-Depois calcule no scilab $f(x)$ para $x=10^{-5}$, $x=10^{-6}$, $x=10^{-7}$, $x=10^{-8}$, $x=10^{-9}$ e $x=10^{-10}$. Finalmente, faça uma aproximação analítica que elimine o efeito catastrófico.
+Depois calcule no \verb+Scilab+ $f(x)$ para $x=10^{-5}$, $x=10^{-6}$, $x=10^{-7}$, $x=10^{-8}$, $x=10^{-9}$ e $x=10^{-10}$. Finalmente, faça uma aproximação analítica que elimine o efeito catastrófico.
 \end{Exercise}
 
 \begin{Exercise}[title=Notas do prof. Guidi] Reescreva as expressões:
