@@ -35,7 +35,7 @@ Retornemos ao problema de valor inicial (\ref{PVI}) dado por:
 \begin{subequations}\label{PVI_2}
 \begin{eqnarray}
 y'(t)&=&f(y(t),t)\\
-y(0)&=&y_0 ~~ \hbox{condição inicial}
+y(0)&=&y_0 ~~ \hbox{(condição inicial)}
 \end{eqnarray}
 \end{subequations}
 O Método de Euler aplicado à solução desse problema consiste em aproximar a derivada $y'(t)$ por um esquema de primeira ordem do tipo
@@ -107,25 +107,15 @@ Para fins de comparação, calculamos a solução de (\ref{ex_euler_1}) e de (\r
 \hline
 t &  \hbox{Exato} & \hbox{Euler}~~ h=0,1 & \hbox{Euler}~~ h=0,01\\
 \hline
-&&&\\
 0 &  1/2 & 0,5 & 0,5\\
-&&&\\
 \hline
-&&&\\
 1/2 &   \frac{e^{1/2}}{1+e^{1/2}}\approx 0,6224593 & 0,6231476 & 0,6225316\\
-&&&\\
 \hline
-&&&\\
 1 &   \frac{e}{1+e}\approx 0,7310586 & 0,7334030 & 0,7312946\\
-&&&\\
 \hline
-&&&\\
 2 &   \frac{e^2}{1+e^2}\approx  0,8807971 & 0,8854273  & 0,8812533 \\
-&&&\\
 \hline
-&&&\\
 3 &   \frac{e^3}{1+e^3}\approx   0,9525741   & 0,9564754   & 0,9529609 \\
-&&&\\
 \hline
 \end{array}
 $$
@@ -151,21 +141,13 @@ $$\begin{array}{|c|c|c|c|}
 \hline
 t &  \hbox{Exato} & \hbox{Euler}~~ h=0,1 & \hbox{Euler}~~ h=0,01\\
 \hline
-&&&\\
 0 &  1 & 1 & 1\\
-&&&\\
 \hline
-&&&\\
 1 &   2e^{-1}\approx 0,7357589 & 0,6973569   &   0,7320647  \\
-&&&\\
 \hline
-&&&\\
 2 &   2e^{-2}+1\approx  1,2706706 &  1,2431533    &   1,2679593     \\
-&&&\\
 \hline
-&&&\\
 3 &   2e^{-3}+2\approx 2,0995741  &  2,0847823 & 2,0980818   \\
-&&&\\
 \hline
 \end{array}
 $$
@@ -261,21 +243,35 @@ $y(2)\approx 1.137216$ com $h=0.00001$
 
 
 \section{Método de Euler melhorado}\index{método!de Euler melhorado}
+O método de Euler foi o primeiro método que estudamos e sua principal virtude é a simplicidade. Outros métodos, no entanto, podem apresentar resultados superiores. Vamos apresentar agora uma pequena modificação ao Método de Euler, dando origem a um novo método chamado de Método de Euler Modificado ou Método de Euler Melhorado.
+
 No método de Euler, usamos a seguinte iteração:
 \begin{eqnarray*}
 y^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)})\\
-y^{(1)}&=&y_i~~ \hbox{condição inicial}
+y^{(1)}&=&y_0~~ \hbox{(condição inicial)}
 \end{eqnarray*}
-A ideia do método de Euler melhorado é substituir a declividade  $f(y^{(k)},t^{(k)})$ pela média aritmética entre $f(y^{(k)},t^{(k)})$ e $f(y^{(k+1)},t^{(k+1)})$.
 
-No entanto, não dispomos do valor de $y^{(k+1)}$ pelo que aproximamos por
+A ideia do método de Euler Melhorado é substituir a declividade  $f(y^{(k)},t^{(k)})$ pela média aritmética entre $f(y^{(k)},t^{(k)})$ e $f(y^{(k+1)},t^{(k+1)})$, isto é, as declividades avaliadas no início e no fim do intervalo $[t^{(k)},t^{(k+1)}]$.
+
+No entanto, não dispomos do valor de $y^{(k+1)}$ antes de executar o passo. Assim aproximamos esta grandeza pelo valor produzido pelo Método de Euler original:
 $$\tilde{y}^{(k+1)}=y^{(k)}+hf(y^{(k)},t^{(k)}).$$
 
+De posse desta aproximação, calculamos a média aritmética e com esta média realizamos o passo do Método de Euler Melhorado. O processo iterativo de Euler Melhorado é, portanto, dado por:
 \begin{eqnarray*}
 \tilde{y}^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)})\\
 y^{(k+1)}&=&y^{(k)}+\frac{h}{2}\left[f(y^{(k)},t^{(k)})+f(\tilde{y}^{(k+1)},t^{(k+1)})\right]\\
-y^{(1)}&=&y_i~~ \hbox{condição inicial}
+y^{(1)}&=&y_0~~ \hbox{(condição inicial)}
 \end{eqnarray*}
+
+Podemos reescrever este mesmo processo iterativo da seguinte forma:
+\begin{eqnarray*}
+k_1&=&hf(y^{(k)},t^{(k)}),\\
+k_2&=&hf(y^{(k)}+k_1,t^{(k+1)}),\\
+y^{(k+1)}&=&y^{(k)}+\frac{k_1+k_2}{2},\\
+y^{(1)}&=&y_0~~ \hbox{(condição inicial)}.
+\end{eqnarray*}
+Aqui $k_1$ e $k_2$ são variáveis auxiliares que representam as inclinações e devem ser calculadas a cada passo. 
+
 
 \section*{Exercícios}
 
@@ -289,6 +285,72 @@ usando passos $h=0,1$ e $h=0,01$.
 \begin{Answer}
  $y(1)\approx 1.317078$ quando $h=0,1$ e $y(1)\approx 1.317045 $.
 \end{Answer}
+
+
+\begin{Exercise}Use o Método de Euler e o Método de Euler melhorado para obter aproximações numéricas para a solução do seguinte problema de valor inicial para $t\in[0,1]$:
+\begin{eqnarray*}
+ y'(t)&=&-y(t)- y(t)^2,\\
+ y(0)&=&1,
+\end{eqnarray*}
+usando passo $h=0,1$. Complete a tabela abaixo com os valores obtidos e compare com o valores obtidos da solução exata dada por $y(t)=\frac{1}{2e^t-1}$, complete também com o erro absoluto obtido em cada método:
+\begin{tiny}  
+ $$\begin{array}{|c|c|c|c|c|c|}
+\hline
+t &  \hbox{Exato} & \hbox{Euler} & \hbox{Euler Melhorado} & \hbox{Erro Euler} & \hbox{Erro Euler Melhorado}\\
+\hline
+0.0 &  &  & &&\\
+0.1 &  &  & &&\\
+0.2 &  &  & &&\\
+0.3 &  &  & &&\\
+0.4 &  &  & &&\\
+0.5 &  &  & &&\\
+0.6 &  &  & &&\\
+0.7 &  &  & &&\\
+0.8 &  &  & &&\\
+0.9 &  &  & &&\\
+1.0 &  &  & &&\\
+\hline
+\end{array}
+$$
+\end{tiny}
+\end{Exercise}
+\begin{Answer}\begin{tiny}
+ $$\begin{array}{|c|c|c|c|c|c|}
+\hline
+t &  \hbox{Exato} & \hbox{Euler} & \hbox{Euler Melhorado} & \hbox{Erro Euler} & \hbox{Erro Euler Melhorado}\\
+\hline
+0.0&    1.          &1.          &1.          &0.          &0.       \\ 
+0.1&    0.826213    &0.8         &0.828       &0.026213    &0.001787\\  
+0.2&    0.693094    &0.656       &0.695597    &0.037094    &0.002502  \\
+0.3&    0.588333    &0.547366    &0.591057    &0.040967    &0.002724  \\
+0.4&    0.504121    &0.462669    &0.506835    &0.041453    &0.002714  \\
+0.5&    0.435267    &0.394996    &0.437861    &0.040271    &0.002594  \\
+0.6&    0.378181    &0.339894    &0.380609    &0.038287    &0.002428  \\
+0.7&    0.330305    &0.294352    &0.332551    &0.035953    &0.002246  \\
+0.8&    0.289764    &0.256252    &0.291828    &0.033512    &0.002064  \\
+0.9&    0.255154    &0.224061    &0.257043    &0.031093    &0.001889  \\
+1.0&    0.225400    &0.196634    &0.227126    &0.028766    &0.001726\\
+
+\hline
+\end{array}
+$$
+
+\ifisscilab
+      No Scilab, esta tabela pode ser produzida com o código:
+      \begin{verbatim}
+       deff('dy=f(y,t)','dy=-y-y^2')
+       sol_Euler=Euler(f,0,1,10,1)'
+       sol_Euler_mod=Euler_mod(f,0,1,10,1)'
+       deff('y=y_exata(t)','y=1/(2*exp(t)-1)')
+       t=[0:.1:1]'
+       sol_exata=feval(t,y_exata)
+       tabela=[t sol_exata sol_Euler sol_Euler_mod abs(sol_exata-sol_Euler) abs(sol_exata-sol_Euler_mod)]
+      \end{verbatim}
+
+    \fi
+ \end{tiny}
+\end{Answer}
+
 
 \subsection{Ordem de precisão}\index{ordem de precisão}
 
