@@ -256,7 +256,7 @@ A ideia do método de Euler Melhorado é substituir a declividade  $f(y^{(k)},t^
 No entanto, não dispomos do valor de $y^{(k+1)}$ antes de executar o passo. Assim aproximamos esta grandeza pelo valor produzido pelo Método de Euler original:
 $$\tilde{y}^{(k+1)}=y^{(k)}+hf(y^{(k)},t^{(k)}).$$
 
-De posse desta aproximação, calculamos a média aritmética e com esta média realizamos o passo do Método de Euler Melhorado. O processo iterativo de Euler Melhorado é, portanto, dado por:
+De posse desta aproximação, calculamos a média aritmética e, finalmente, com esta média, realizamos o passo do Método de Euler Melhorado. O processo iterativo de Euler Melhorado é, portanto, dado por:
 \begin{eqnarray*}
 \tilde{y}^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)})\\
 y^{(k+1)}&=&y^{(k)}+\frac{h}{2}\left[f(y^{(k)},t^{(k)})+f(\tilde{y}^{(k+1)},t^{(k+1)})\right]\\
@@ -270,7 +270,7 @@ k_2&=&hf(y^{(k)}+k_1,t^{(k+1)}),\\
 y^{(k+1)}&=&y^{(k)}+\frac{k_1+k_2}{2},\\
 y^{(1)}&=&y_0~~ \hbox{(condição inicial)}.
 \end{eqnarray*}
-Aqui $k_1$ e $k_2$ são variáveis auxiliares que representam as inclinações e devem ser calculadas a cada passo. 
+Aqui $k_1$ e $k_2$ são variáveis auxiliares que representam as inclinações e devem ser calculadas a cada passo. Esta notação é compatível com a notação usada nos métodos de Runge-Kutta, uma família de esquemas iterativos para aproximar problemas de valor inicial, da qual o Método de Euler e o Método de Euler Melhorado são casos particulares. Veremos os métodos de Runge-Kutta na seção \ref{sec_RK}.
 
 
 \section*{Exercícios}
@@ -352,12 +352,11 @@ $$
 \end{Answer}
 
 
-\subsection{Ordem de precisão}\index{ordem de precisão}
-
+\section{Ordem de precisão}\index{ordem de precisão}
 Considere o problema de valor inicial dado por
 \begin{eqnarray*}
-y'(t)&=&f(y(t),t)\\
-y(0)&=&y_i
+y'(t)&=&f(y(t),t),\\
+y(0)&=&y_0.
 \end{eqnarray*}
 
 No método de Euler, aproximamos a derivada $y'(t)$ por um esquema de primeira ordem do tipo
@@ -366,15 +365,18 @@ de forma que tínhamos
 \begin{eqnarray*}
 y(t+h)&=&y(t)+hf(y(t),t)+O(h^2)
 \end{eqnarray*}
-Se fixarmos um instante de tempo $t=Nh$, temos:
+
+Assim $y(h)=y(0)+hf(y_0,t)+O(h^2)= y^{(1)}+O(h^2)$ e concluimos que o erro entre a solução exata $y(h)$ e sua aproximação pelo Método de Euler é dada da ordem de $h^2$. 
+
+No entanto, se fixarmos um instante de tempo $t$, o erro entre a solução exata $y(t)$ e sua aproximação $y^{(N)}$ envolve o acúmulo de $N$ passos, cada um com erro da ordem de $h^2$. Como o número de passos é inversamente proporcional ao tamanho de passo $h$, o erro total é da ordem de $h$. Veja:
 \begin{eqnarray*}
 y(t)&=&\left[y(0)+hf(y(0),0)+O(h^2)\right]+\left[y(h)+hf(y(h),h)+O(h^2)\right]\\
 &+&\ldots \left[y(t-h)+hf(y(t-h),t-h)+O(h^2)\right]\\
-&=&y^{k}+\sum_{j=0}^{N-1}O(h^2)=y^{k}+O(h)
+&=&y^{(N+1)}+\sum_{j=1}^{N}O(h^2)=y^{k}+O(h)
 \end{eqnarray*}
 Por isso, o método de Euler é dito ter ordem global de precisão $h$.
 
-\section{Métodos de Runge-Kutta}\index{método!de Runge-Kutta}
+\section{Métodos de Runge-Kutta}\label{sec_RK}\index{método!de Runge-Kutta}
 
 Os métodos de Runge-Kutta consistem em iterações do tipo:
 $$y^{(k+1)}=y^{(k)}+w_1 k_1 + \ldots + w_n k_n$$
