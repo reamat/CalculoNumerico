@@ -8,7 +8,7 @@
 
 Neste capítulo buscaremos aproximações numéricas para raízes de funções de uma variável que são continuamente diferenciáveis.
 
-\section{Condição de existência de raízes reais}\index{função!raiz}\index{função!zero}
+\section{Existência de raízes reais}\index{função!raiz}\index{função!zero}
 
 Podemos utilizar o teorema do valor intermediário para determinar a existência de raiz real em um intervalo.
 
@@ -30,9 +30,9 @@ Mostre que existe pelo menos uma solução da equação $e^x=x+2$ no intervalo $
 
 De fato, se tomarmos $f(x)=e^x-x-2$, então $f(0)=1-2<0$ e $f(-2)=e^{-2}+2-2>0$. Pelo teorema do valor intermediário, existe $c\in(-2,0)$ tal que $f(c)=0$, ou seja, existe pelo menos uma solução nesse intervalo.
 \end{ex}
-Quando procuramos aproximações para raízes de funções,precisamos inicialmente isolar cada raiz em um intervalo onde a raiz é unica. Ou seja, precisamos garantir a existência e a unicidade da raiz dentro daquele intervalo.
+Quando procuramos aproximações para raízes de funções, precisamos inicialmente isolar cada raiz em um intervalo onde a raiz é única. Ou seja, precisamos garantir a existência e a unicidade da raiz dentro daquele intervalo.
 
-Uma situação quando a exitência e a unicidade é garantida em um intervalo é quando a função troca de sina no intervalo e é monótona nele
+Para garantirmos que exista uma única raiz num intervalo é necessário que a função troque de sinal e seja monótona neste intervalo.
 
 \begin{teo}
 Se $f:[a,b]\to\mathbb{R}$ é um função diferenciável, $f(a)\cdot f(b)<0$ e $f'(x)>0$ (ou $f'(x)<0$) para $x\in(a,b)$, então existe uma única raiz $c$ em $(a,b)$.
@@ -43,15 +43,13 @@ Em outras palavras, se a função corta o eixo $x$ e é sempre crescente (ou sem
 Observamos que existe uma única solução da equação $e^x=x+2$ no intervalo $(-2,0)$. A existência foi estabelecida no exemplo anterior. Para garantir a unicidade, observe que $f'(x)=e^x-1$ e, portanto, $f'(x)<0$ para $x\in(-2,0)$. Logo a raiz é única.
 
 \ifisscilab
-Podemos inspecionar o comportamento da função $f(x) e^x - x - 2$ e de sua derivada fazendo seus gráficos no Scilab. Para tanto, podemos implementar o seguinte código:
+Podemos inspecionar o comportamento da função $f(x)= e^x - x - 2$ e de sua derivada fazendo seus gráficos no Scilab. Para tanto, podemos fazer o seguinte teste:
 \begin{verbatim}
 -->x = linspace(-2,0,50);
--->//grafico de f(x)
--->deff('y = f(x)','y=exp(x)-x-2')
--->plot(x,f(x))
--->//graficando a f'(x)
--->deff('y = fl(x)','y=exp(x)-1')
--->plot(x,fl(x))
+-->deff('y = f(x)','y=exp(x)-x-2')  // define f
+-->plot(x,f(x))                     // grafico de f
+-->deff('y = fl(x)','y=exp(x)-1')   // a derivada
+-->plot(x,fl(x))                    // grafico de f'
 \end{verbatim}
 \fi
 \end{ex}
@@ -85,7 +83,9 @@ possui uma solução para cada $v$ real e que esta solução é única.
 
 \section{Método da bisseção}\index{método!da bisseção}
 
-Suponha que a função contínua $f:[a,b]\to\mathbb{R}$ tal que $f(a)\cdot f(b)<0$, ou seja, $f$ possui uma raiz no intervalo. Suponha também que a raiz é única. Uma primeira aproximação para a raiz pode ser o ponto médio $p=\frac{a+b}{2}$. Se $f(p)\cdot f(a)<0$, então a raiz está a esquerda de $p$, se não, a raiz está a direita de $p$ (veja Fig. \ref{fig:bisection_scheme}). Depois de escolher o intervalo correto, fazemos uma nova aproximação para a raiz tomando o ponto médio do novo intervalo.
+Suponha que a função $f:[a,b]\to\mathbb{R}$ seja contínua e que $f(a)\cdot f(b)<0$, ou seja, $f$ possui uma raiz no intervalo. Uma primeira aproximação para a raiz pode ser o ponto médio $p=\frac{a+b}{2}$.
+
+Se $f(p)\cdot f(a)<0$, então a raiz está a esquerda de $p$, senão, a raiz está a direita de $p$ (veja Fig. \ref{fig:bisection_scheme}). Depois de escolher o intervalo correto, fazemos uma nova aproximação para a raiz tomando o ponto médio do novo intervalo.
 
 \begin{figure}[ht]
   \centering
