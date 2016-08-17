@@ -79,20 +79,35 @@ y'(t)&=&y(t)(1-y(t))\\
 y(0)&=&1/2
 \end{eqnarray*}
 \end{ex}
-Podemos obter a solução exata desta equação usando o método de separação de variáveis\index{método!de separação de variáveis} e o método das frações parciais\index{método das frações parciais}.
-\begin{eqnarray*}
-\frac{dy(t)}{y(t)(1-y(t))}&=&dt\\
-\left(\frac{1}{y}+\frac{1}{1-y}\right)dy&=&dt\\
-\ln(y)-\ln(1-y)&=&t+C\\
-\ln\left(\frac{y}{1-y}\right)&=&t+C\\
-\frac{y}{1-y}&=&e^{t+C}\\
-y&=&e^{t+C}(1-y)\\
-y(1+e^{t+C})&=&e^{t+C}\\
-y&=&\frac{e^{t+C}}{1+e^{t+C}}.
-\end{eqnarray*}
-Basta, agora, encontrar a constante $C$ a partir da condição inicial $y(0)=1/2$: 
-$$y(0)=\frac{e^C}{1+e^C}=1/2,$$
-o que implica $e^C=1$ e, portanto,  $C=0$. Assim, a solução exata é dada por $y(t)=\frac{e^t}{1+e^{t}}$
+Podemos obter a solução exata desta equação usando o método de separação de variáveis\index{método!de separação de variáveis} e o método das frações parciais\index{método das frações parciais}. Para tal escrevemos:
+\begin{equation*}
+\frac{dy(t)}{y(t)(1-y(t))}=dt
+\end{equation*}
+O termo $\frac{1}{y(1-y)}$ pode ser decomposto em frações parciais como $\frac{1}{y}-\frac{1}{1-y}$ e chegamos na seguinte equação diferencial:
+\begin{equation*}
+\left(\frac{1}{y}+\frac{1}{1-y}\right)dy=dt.
+\end{equation*}
+Integrando termo-a-termo, temos a seguinte equação algébrica relacionando $y(t)$ e $t$:
+\begin{equation*}
+\ln(y)-\ln(1-y)=t+C
+\end{equation*}
+Onde $C$ é a constante de integração, que é definida pela condição inicial, isto é, $y=1/2$ em $t=0$. Substituindo, temos $C=0$. O que resulta em:
+\begin{equation*}
+\ln\left(\frac{y}{1-y}\right)=t
+\end{equation*}
+Equivalente a
+\begin{equation*}
+\frac{y}{1-y}=e^{t}
+\end{equation*}
+e
+\begin{equation*}
+y=(1-y)e^{t} 
+\end{equation*}
+Colocando o termo $y$ em evidência, encontramos:
+\begin{equation}
+(1+e^t)y=e^{t} 
+\end{equation}
+E, finalmente, encontramos a solução exata dada por $y(t)=\frac{e^t}{1+e^{t}}$.
 
 Vejamos, agora, o esquema iterativo produzido pelo método de Euler:
 \begin{subequations}\label{ite_logistica}
@@ -102,7 +117,7 @@ y^{(1)}&=&1/2.
 \end{eqnarray}
 \end{subequations}
 Para fins de comparação, calculamos a solução de (\ref{ex_euler_1}) e de (\ref{ite_logistica}) para alguns valores de $t$ e de passo $h$ e resumimos na tabela (\ref{tab_logistica}).
-\begin{figure}\label{tab_logistica}\caption{Tabela comparativa enter Método de Euler e solução exata para problema \ref{ex_euler_1}.}
+\begin{figure}[htp]\label{tab_logistica}\caption{Tabela comparativa enter Método de Euler e solução exata para problema \ref{ex_euler_1}.}
  $$\begin{array}{|c|c|c|c|}
 \hline
 t &  \hbox{Exato} & \hbox{Euler}~~ h=0,1 & \hbox{Euler}~~ h=0,01\\
@@ -256,7 +271,7 @@ A ideia do método de Euler Melhorado é substituir a declividade  $f(y^{(k)},t^
 No entanto, não dispomos do valor de $y^{(k+1)}$ antes de executar o passo. Assim aproximamos esta grandeza pelo valor produzido pelo Método de Euler original:
 $$\tilde{y}^{(k+1)}=y^{(k)}+hf(y^{(k)},t^{(k)}).$$
 
-De posse desta aproximação, calculamos a média aritmética e com esta média realizamos o passo do Método de Euler Melhorado. O processo iterativo de Euler Melhorado é, portanto, dado por:
+De posse desta aproximação, calculamos a média aritmética e, finalmente, com esta média, realizamos o passo do Método de Euler Melhorado. O processo iterativo de Euler Melhorado é, portanto, dado por:
 \begin{eqnarray*}
 \tilde{y}^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)})\\
 y^{(k+1)}&=&y^{(k)}+\frac{h}{2}\left[f(y^{(k)},t^{(k)})+f(\tilde{y}^{(k+1)},t^{(k+1)})\right]\\
@@ -270,7 +285,7 @@ k_2&=&hf(y^{(k)}+k_1,t^{(k+1)}),\\
 y^{(k+1)}&=&y^{(k)}+\frac{k_1+k_2}{2},\\
 y^{(1)}&=&y_0~~ \hbox{(condição inicial)}.
 \end{eqnarray*}
-Aqui $k_1$ e $k_2$ são variáveis auxiliares que representam as inclinações e devem ser calculadas a cada passo. 
+Aqui $k_1$ e $k_2$ são variáveis auxiliares que representam as inclinações e devem ser calculadas a cada passo. Esta notação é compatível com a notação usada nos métodos de Runge-Kutta, uma família de esquemas iterativos para aproximar problemas de valor inicial, da qual o Método de Euler e o Método de Euler Melhorado são casos particulares. Veremos os métodos de Runge-Kutta na seção \ref{sec_RK}.
 
 
 \section*{Exercícios}
@@ -352,29 +367,105 @@ $$
 \end{Answer}
 
 
-\subsection{Ordem de precisão}\index{ordem de precisão}
+\section{Ordem de precisão}\index{ordem de precisão}
 
+\subsection{Ordem de precisão do Método de Euler}
 Considere o problema de valor inicial dado por
 \begin{eqnarray*}
-y'(t)&=&f(y(t),t)\\
-y(0)&=&y_i
+y'(t)&=&f(y(t),t),\\
+y(0)&=&y_0.
 \end{eqnarray*}
 
 No método de Euler, aproximamos a derivada $y'(t)$ por um esquema de primeira ordem do tipo
 $$y'(t)=\frac{y(t+h)-y(t)}{h}+O(h),~~ h>0$$
 de forma que tínhamos
-\begin{eqnarray*}
+\begin{eqnarray}{\label{es_Euler}}
 y(t+h)&=&y(t)+hf(y(t),t)+O(h^2)
-\end{eqnarray*}
-Se fixarmos um instante de tempo $t=Nh$, temos:
-\begin{eqnarray*}
-y(t)&=&\left[y(0)+hf(y(0),0)+O(h^2)\right]+\left[y(h)+hf(y(h),h)+O(h^2)\right]\\
-&+&\ldots \left[y(t-h)+hf(y(t-h),t-h)+O(h^2)\right]\\
-&=&y^{k}+\sum_{j=0}^{N-1}O(h^2)=y^{k}+O(h)
-\end{eqnarray*}
-Por isso, o método de Euler é dito ter ordem global de precisão $h$.
+\end{eqnarray}
 
-\section{Métodos de Runge-Kutta}\index{método!de Runge-Kutta}
+Assim $y(h)=y(0)+hf(y_0,t)+O(h^2)= y^{(1)}+O(h^2)$ e concluimos que o erro entre a solução exata $y(h)$ e sua aproximação pelo Método de Euler é da ordem de $h^2$. 
+
+No entanto, se fixarmos um instante de tempo $t=t_N$, o erro entre a solução exata $y(t_N)$ e sua aproximação $y_N$ envolve o acúmulo de $N$ passos, cada um com erro da ordem de $h^2$. Como o número de passos é inversamente proporcional ao tamanho de passo $h$, o erro total é da ordem de $h$. Observamos que
+\begin{eqnarray*}
+ y(t_1)&=&y(t_0)+hf(y(t_0),t_0)+ch^2\\
+ &=&y_0+hf(y_0,t_0)+ch^2=y_1+ch^2
+\end{eqnarray*}
+onde $ch^2$ substitui $O(h^2)$ para alguma constante $c\neq 0$ e $y_i$ é a aproximação pelo método de Euler para o valor exato $y(t_i)$. Subsequentemente, temos
+\begin{eqnarray*}
+ y(t_2)&=&y(t_1)+hf(y(t_1),t_1)+ch^2\\
+ &=&y_1+ch^2+ch^2=y_1+2ch^2
+\end{eqnarray*}
+Assim obtemos um expressão geral para o valor exato $y(t_N)$ em termos do valor aproximado $y_N$:
+\begin{eqnarray*}
+ y(t_N)&=&y(t_{N_1})+hf(y(t_{N_1}),t_1)+ch^2\\
+ &=&y_{N}+(N-1)ch^2+ch^2=y_N+Nch^2.
+\end{eqnarray*}
+Como $N=(t_f-t_0)/h$, temos
+\begin{eqnarray*}
+ y(t_N)&=&=y_{N}+\frac{t-t_0}{h}ch^2=y_{N}+c_2h,
+\end{eqnarray*}
+onde $c_2=(t-t_0)c$, ou seja, o erro entre o valor exato e o aproximado é de ordem $h$.
+
+\subsection{Ordem de precisão do Método de Euler Melhorado}
+Para obter a do erro de precisão do método de Euler Melhorado vamos seguir o mesmo caminho percorrido para obter a estimativa do método de Euler. Primeiramente, precisamos de um expressão análoga a (\ref{es_Euler}), ou seja, precisamos demonstrar que o erro de cada passo é da ordem de $h^3$:
+\begin{equation}\label{es_Euler_melhorado}
+y(t+h)=y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)+O(h^3)
+\end{equation}
+De fato, tomando a diferença do termo da esquerda o os termos da direita, temos:
+\begin{eqnarray*}
+&&y(t+h)-\left(y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)\right)\\
+&&=y(t)+hy'(t)+\frac{h^2}{2}y''(t)+O(h^3)\\
+&&-\left(y(t)+\frac{h}{2} y'(t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)\right),
+\end{eqnarray*}
+onde usamos uma expansão em série de Taylor para $y(t+h)$ e a equação diferencial $y'(t)=f(y(t),t)$. Portanto,
+\begin{eqnarray*}
+&&y(t+h)-\left(y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)\right)\\
+&&=\frac{h}{2}y'(t)+\frac{h^2}{2}y''(t)-\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)+O(h^3).
+\end{eqnarray*}
+Agora, usamos a série de Taylor de $f(y(t)+hf(y(t),t),t+h)$ e, torno de $(y,t)$:
+\begin{eqnarray*}
+&&y(t+h)-\left(y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)\right)\\
+&&=\frac{h}{2}y'(t)+\frac{h^2}{2}y''(t)+O(h^3)\\
+&&-\frac{h}{2}\left(f(y(t),t)+\frac{\partial f(y(t),t) }{\partial t}h +\frac{\partial f(t,y(t))}{\partial y} hf(t,y(t))+O(h^2)\right).
+\end{eqnarray*}
+Usando a equação diferencial $y'(t)=f(y(t),t)$ obtemos 
+$$
+y''(t)=\frac{f(y(t),t)}{\partial t}+\frac{f(y(t),t)}{\partial y}y'(t)=\frac{f(y(t),t)}{\partial t}+\frac{f(y(t),t)}{\partial y}f(y(t),t).
+$$
+Logo,
+\begin{eqnarray*}
+&&y(t+h)-\left(y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)\right)\\
+&&=\frac{h}{2}y'(t)+\frac{h^2}{2}y''(t)+O(h^3)\\
+&&-\frac{h}{2}\left(f(y(t),t)+hy''(t)+O(h^2)\right)\\
+&&=\frac{h}{2}y'(t)+\frac{h^2}{2}y''(t)\\
+&&-\frac{h}{2}\left(y'(t)+hy''(t)\right)+O(h^3)=O(h^3)
+\end{eqnarray*}
+Portanto, a expressão (\ref{es_Euler_melhorado}) é válida. 
+
+Para obter o erro acumulado em um ponto $t_N$ usamos a expressão (\ref{es_Euler_melhorado}) e repetimos alguns passos feitos na seção anterior:
+\begin{eqnarray*}
+ y(t_1)&=&y(t_0)+\frac{h}{2}f(y(t_0),t_0)+\frac{h}{2}f(y(t_0)+hf(y(t_0),t_0),t_0+h)+ch^3\\
+ &=&y_1+ch^3
+\end{eqnarray*}
+onde $ch^3$ substitui $O(h^3)$ para alguma constante $c\neq 0$ e $y_i$ é a aproximação pelo método de Euler melhorado para o valor exato $y(t_i)$. Subsequentemente, temos
+\begin{eqnarray*}
+ y(t_2)&=&y(t_1)+\frac{h}{2}f(y(t_1),t_1)+\frac{h}{2}f(y(t_1)+hf(y(t_1),t_1),t_1+h)+ch^3\\
+ &=&y_1+ch^3+ch^3=y_1+2ch^3
+\end{eqnarray*}
+Assim obtemos um expressão geral para o valor exato $y(t_N)$ em termos do valor aproximado $y_N$:
+\begin{eqnarray*}
+ y(t_N)=y_{N}+Nch^3.
+\end{eqnarray*}
+Como $N=(t_f-t_0)/h$, temos
+\begin{eqnarray*}
+ y(t_N)&=&=y_{N}+\frac{t-t_0}{h}ch^3=y_{N}+c_2h^2,
+\end{eqnarray*}
+onde $c_2=(t-t_0)c$, ou seja, o erro entre o valor exato e o aproximado é de ordem $h^2$.
+
+
+
+
+\section{Métodos de Runge-Kutta}\label{sec_RK}\index{método!de Runge-Kutta}
 
 Os métodos de Runge-Kutta consistem em iterações do tipo:
 $$y^{(k+1)}=y^{(k)}+w_1 k_1 + \ldots + w_n k_n$$
