@@ -87,21 +87,27 @@ O termo $\frac{1}{y(1-y)}$ pode ser decomposto em frações parciais como $\frac
 \begin{equation*}
 \left(\frac{1}{y}+\frac{1}{1-y}\right)dy=dt.
 \end{equation*}
-Integrando termo-a-termo, temos.
+Integrando termo-a-termo, temos a seguinte equação algébrica relacionando $y(t)$ e $t$:
 \begin{equation*}
 \ln(y)-\ln(1-y)=t+C
 \end{equation*}
-Onde $C$ é a constante de integração, que será definida pela condição inicial.
-\begin{eqnarray*}
-\ln\left(\frac{y}{1-y}\right)&=&t+C\\
-\frac{y}{1-y}&=&e^{t+C}\\
-y&=&e^{t+C}(1-y)\\
-y(1+e^{t+C})&=&e^{t+C}\\
-y&=&\frac{e^{t+C}}{1+e^{t+C}}.
-\end{eqnarray*}
-Basta, agora, encontrar a constante $C$ a partir da condição inicial $y(0)=1/2$: 
-$$y(0)=\frac{e^C}{1+e^C}=1/2,$$
-o que implica $e^C=1$ e, portanto,  $C=0$. Assim, a solução exata é dada por $y(t)=\frac{e^t}{1+e^{t}}$
+Onde $C$ é a constante de integração, que é definida pela condição inicial, isto é, $y=1/2$ em $t=0$. Substituindo, temos $C=0$. O que resulta em:
+\begin{equation*}
+\ln\left(\frac{y}{1-y}\right)=t
+\end{equation*}
+Equivalente a
+\begin{equation*}
+\frac{y}{1-y}=e^{t}
+\end{equation*}
+e
+\begin{equation*}
+y=(1-y)e^{t} 
+\end{equation*}
+Colocando o termo $y$ em evidência, encontramos:
+\begin{equation}
+(1+e^t)y=e^{t} 
+\end{equation}
+E, finalmente, encontramos a solução exata dada por $y(t)=\frac{e^t}{1+e^{t}}$.
 
 Vejamos, agora, o esquema iterativo produzido pelo método de Euler:
 \begin{subequations}\label{ite_logistica}
@@ -111,7 +117,7 @@ y^{(1)}&=&1/2.
 \end{eqnarray}
 \end{subequations}
 Para fins de comparação, calculamos a solução de (\ref{ex_euler_1}) e de (\ref{ite_logistica}) para alguns valores de $t$ e de passo $h$ e resumimos na tabela (\ref{tab_logistica}).
-\begin{figure}\label{tab_logistica}\caption{Tabela comparativa enter Método de Euler e solução exata para problema \ref{ex_euler_1}.}
+\begin{figure}[htp]\label{tab_logistica}\caption{Tabela comparativa enter Método de Euler e solução exata para problema \ref{ex_euler_1}.}
  $$\begin{array}{|c|c|c|c|}
 \hline
 t &  \hbox{Exato} & \hbox{Euler}~~ h=0,1 & \hbox{Euler}~~ h=0,01\\
