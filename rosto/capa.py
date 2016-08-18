@@ -47,5 +47,6 @@ xx = np.linspace(1,8)
 yy = tan(x0,xx,*popt)
 plt.plot(xx,yy,'r-')
 
-plt.savefig("capa.pdf", papertype='a4', bbox_inches='tight')
+#plt.savefig("capa.pdf", papertype='a4', bbox_inches='tight')
+plt.savefig("capa.eps", papertype='a4', bbox_inches='tight')
 

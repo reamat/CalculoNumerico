@@ -13,6 +13,9 @@ dvi: main.tex
 	latex main
 	latex main
 
+epub: main.tex
+	pandoc -o main.epub main.tex
+
 .PHONY: clean
 
 clean:
