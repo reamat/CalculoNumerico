@@ -75,7 +75,7 @@ ax.text (p - 0.25, 0.25, r"$p$", fontsize=14)
 plt.show()
 
 fig_file =  "metodo_da_bissecao"
-#fig.savefig(fig_file+".svg", bbox_inches='tight', pad_inches=0.0)
-fig.savefig(fig_file+".png", bbox_inches='tight', pad_inches=0.0)
+fig.savefig(fig_file+".eps", bbox_inches='tight', pad_inches=0.0)
+#fig.savefig(fig_file+".png", bbox_inches='tight', pad_inches=0.0)
 
 
