@@ -16,13 +16,23 @@ ftp://ftp.ams.org/pub/tex/doc/amsmath/short-math-guide.pdf
 
 O livro está escrito em [LaTex](https://latex-project.org/). O arquivo principal (`main.pdf`) escontra-se no diretório principal (`CalculoNumerico`). O código LaTeX de cada capítulo encontra-se em um subdiretório específico com nome `cap_abrev`, onde `abrev` é uma abreviação que lembre o conteúdo do capítulo. Por exemplo, o código do capítulo sobre técnicas numéricas para sistemas lineares está no subdiretório `cap_linsis`.
 
+### Compatibilidade
+
+O código fonte do livro deve perimitir sua compilação tanto com `latex` como com `pdflatex`. Ao adicionar suas colaborações, certifique-se que elas são compatíveis testando a compilação definida no `Makefile`. Para testar a compilação, use:
+
+    $ make
+
+e
+
+    $ make dvi
+
 ### Capítulos
 
 Dentro de cada subdiretório de um capítulo, por exemplo, `cap_foo` devem estar presentes todos os arquivos referentes ao texto deste. As imagens devem ser colocadas em no subdiretório `cap_foo/pics` e os códigos computacionais em `cap_foo/codes`. De preferência, deve-se criar um subdiretório para cada figura e código computacional. Quando possível, as figuras devem ser acompanhadas de seu código fonte.
 
 ### Figuras
 
-Os arquivos das figuras devem ser fornecidos em formato `EPS` e armazenados no subdiretório `cap_foo/pics`, onde `cap_foo` é o diretório do capítulo que a figura pertence.
+Os arquivos das figuras devem ser fornecidos em formato `EPS` e armazenados no subdiretório `cap_foo/pics`, onde `cap_foo` é o diretório do capítulo que a figura pertence. As figuras devem ser fornecidas no tamanho desejado para o livro, i.e. evite definir o tamanho da figura no código LaTeX.
 
 
 ### Códigos computacionais
