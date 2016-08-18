@@ -20,6 +20,11 @@ O livro está escrito em [LaTex](https://latex-project.org/). O arquivo principa
 
 Dentro de cada subdiretório de um capítulo, por exemplo, `cap_foo` devem estar presentes todos os arquivos referentes ao texto deste. As imagens devem ser colocadas em no subdiretório `cap_foo/pics` e os códigos computacionais em `cap_foo/codes`. De preferência, deve-se criar um subdiretório para cada figura e código computacional. Quando possível, as figuras devem ser acompanhadas de seu código fonte.
 
+### Figuras
+
+Os arquivos das figuras devem ser fornecidos em formato `EPS` e armazenados no subdiretório `cap_foo/pics`, onde `cap_foo` é o diretório do capítulo que a figura pertence.
+
+
 ### Códigos computacionais
 
 O livro deve ser versátil o suficiente para não depender de qualquer pacote computacional em específico. Para tanto, textos envolvendo algum pacote (ou alguma linguagem) computacional devem ser encapsulados dentro de uma declaração `se ... então`. Por exemplo, o texto:
