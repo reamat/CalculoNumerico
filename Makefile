@@ -10,6 +10,7 @@ pdf: main.tex
 dvi: main.tex
 	latex main
 	bibtex main
+	makeindex main
 	latex main
 	latex main
 
