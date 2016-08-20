@@ -1,8 +1,7 @@
 %Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
-\documentclass[main.tex]{subfiles}
-
-\begin{document}
+%\documentclass[main.tex]{subfiles}
+%\begin{document}
 
 \chapter{Problemas de valor inicial}\index{problema de valor inicial}
 Neste capítulo, desenvolveremos técnicas numérica para aproximar a solução de problemas de valor inical da forma
@@ -79,20 +78,35 @@ y'(t)&=&y(t)(1-y(t))\\
 y(0)&=&1/2
 \end{eqnarray*}
 \end{ex}
-Podemos obter a solução exata desta equação usando o método de separação de variáveis\index{método!de separação de variáveis} e o método das frações parciais\index{método das frações parciais}.
-\begin{eqnarray*}
-\frac{dy(t)}{y(t)(1-y(t))}&=&dt\\
-\left(\frac{1}{y}+\frac{1}{1-y}\right)dy&=&dt\\
-\ln(y)-\ln(1-y)&=&t+C\\
-\ln\left(\frac{y}{1-y}\right)&=&t+C\\
-\frac{y}{1-y}&=&e^{t+C}\\
-y&=&e^{t+C}(1-y)\\
-y(1+e^{t+C})&=&e^{t+C}\\
-y&=&\frac{e^{t+C}}{1+e^{t+C}}.
-\end{eqnarray*}
-Basta, agora, encontrar a constante $C$ a partir da condição inicial $y(0)=1/2$: 
-$$y(0)=\frac{e^C}{1+e^C}=1/2,$$
-o que implica $e^C=1$ e, portanto,  $C=0$. Assim, a solução exata é dada por $y(t)=\frac{e^t}{1+e^{t}}$
+Podemos obter a solução exata desta equação usando o método de separação de variáveis\index{método!de separação de variáveis} e o método das frações parciais\index{método das frações parciais}. Para tal escrevemos:
+\begin{equation*}
+\frac{dy(t)}{y(t)(1-y(t))}=dt
+\end{equation*}
+O termo $\frac{1}{y(1-y)}$ pode ser decomposto em frações parciais como $\frac{1}{y}-\frac{1}{1-y}$ e chegamos na seguinte equação diferencial:
+\begin{equation*}
+\left(\frac{1}{y}+\frac{1}{1-y}\right)dy=dt.
+\end{equation*}
+Integrando termo-a-termo, temos a seguinte equação algébrica relacionando $y(t)$ e $t$:
+\begin{equation*}
+\ln(y)-\ln(1-y)=t+C
+\end{equation*}
+Onde $C$ é a constante de integração, que é definida pela condição inicial, isto é, $y=1/2$ em $t=0$. Substituindo, temos $C=0$. O que resulta em:
+\begin{equation*}
+\ln\left(\frac{y}{1-y}\right)=t
+\end{equation*}
+Equivalente a
+\begin{equation*}
+\frac{y}{1-y}=e^{t}
+\end{equation*}
+e
+\begin{equation*}
+y=(1-y)e^{t} 
+\end{equation*}
+Colocando o termo $y$ em evidência, encontramos:
+\begin{equation}
+(1+e^t)y=e^{t} 
+\end{equation}
+E, finalmente, encontramos a solução exata dada por $y(t)=\frac{e^t}{1+e^{t}}$.
 
 Vejamos, agora, o esquema iterativo produzido pelo método de Euler:
 \begin{subequations}\label{ite_logistica}
@@ -102,7 +116,7 @@ y^{(1)}&=&1/2.
 \end{eqnarray}
 \end{subequations}
 Para fins de comparação, calculamos a solução de (\ref{ex_euler_1}) e de (\ref{ite_logistica}) para alguns valores de $t$ e de passo $h$ e resumimos na tabela (\ref{tab_logistica}).
-\begin{figure}\label{tab_logistica}\caption{Tabela comparativa enter Método de Euler e solução exata para problema \ref{ex_euler_1}.}
+\begin{figure}[htp]\label{tab_logistica}\caption{Tabela comparativa enter Método de Euler e solução exata para problema \ref{ex_euler_1}.}
  $$\begin{array}{|c|c|c|c|}
 \hline
 t &  \hbox{Exato} & \hbox{Euler}~~ h=0,1 & \hbox{Euler}~~ h=0,01\\
@@ -206,7 +220,9 @@ y(0)&=&1
 com passo $h=0.1$ e $h=0.1$ para obter aproximações para $y(1)$. Compare com a solução exata dada por $y(t) =  \left({1+2 e^{-t}+e^{-2 t}}\right)/{4}$
 \end{Exercise}
 \begin{Answer}
- 0.4496 com $h=.1$ e 0.4660 com $h=.01$. A solução exata vale $y(1)=\frac{1+2e^{-1}+e^{-2}}{4}= \left(\frac{1+e^{-1}}{2}\right)^2\approx 0.4678$
+  \begin{tiny}
+ $0,4496$ com $h=0,1$ e $0,4660$ com $h=0,01$. A solução exata vale $y(1)=\frac{1+2e^{-1}+e^{-2}}{4}= \left(\frac{1+e^{-1}}{2}\right)^2\approx 0,4678$    
+  \end{tiny}
 \end{Answer}
 
 
@@ -220,10 +236,12 @@ z(0)&=&2\\
 com passo $h=0.2$, $h=0.2$, $h=0.02$ e $h=0.002$ para obter aproximações para $y(2)$ e $z(2)$.
 \end{Exercise}
 \begin{Answer}
-$y(2)\approx 0.430202$ e $z(2)=0.617294$ com $h=0.2$, 
-$y(2)\approx 0.435506$ e $z(2)=0.645776$ com $h=0.02$,
-$y(2)\approx 0.435805$ e $z(2)=0.648638$ com $h=0.002$ e 
-$y(2)\approx 0.435832$ e $z(2)=0.648925$ com $h=0.0002$. 
+  \begin{tiny}
+$y(2)\approx 0,430202$ e $z(2)=0,617294$ com $h=0,2$, 
+$y(2)\approx 0,435506$ e $z(2)=0,645776$ com $h=0,02$,
+$y(2)\approx 0,435805$ e $z(2)=0,648638$ com $h=0,002$ e 
+$y(2)\approx 0,435832$ e $z(2)=0,648925$ com $h=0,0002$.     
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise}Resolva o problema de valor inicial dado por
@@ -234,11 +252,13 @@ y(0)&=&1\\
 com passo $h=0.1$, $h=0.01$, $h=0.001$, $h=0.0001$ e $0.00001$ para obter aproximações para $y(2)$. 
 \end{Exercise}
 \begin{Answer}
-$y(2)\approx 1.161793$ com $h=0.1$, 
-$y(2)\approx 1.139573$ com $h=0.01$,
-$y(2)\approx 1.137448$ com $h=0.001$,
-$y(2)\approx 1.137237$ com $h=0.0001$,
-$y(2)\approx 1.137216$ com $h=0.00001$ 
+  \begin{tiny}
+$y(2)\approx 1,161793$ com $h=0,1$, 
+$y(2)\approx 1,139573$ com $h=0,01$,
+$y(2)\approx 1,137448$ com $h=0,001$,
+$y(2)\approx 1,137237$ com $h=0,0001$,
+$y(2)\approx 1,137216$ com $h=0,00001$
+  \end{tiny}
 \end{Answer}
 
 
@@ -283,7 +303,9 @@ Aqui $k_1$ e $k_2$ são variáveis auxiliares que representam as inclinações e
 usando passos $h=0,1$ e $h=0,01$.
 \end{Exercise}
 \begin{Answer}
- $y(1)\approx 1.317078$ quando $h=0,1$ e $y(1)\approx 1.317045 $.
+  \begin{tiny}
+ $y(1)\approx 1,317078$ quando $h=0,1$ e $y(1)\approx 1,317045$.    
+  \end{tiny}
 \end{Answer}
 
 
@@ -314,7 +336,8 @@ t &  \hbox{Exato} & \hbox{Euler} & \hbox{Euler Melhorado} & \hbox{Erro Euler} & 
 $$
 \end{tiny}
 \end{Exercise}
-\begin{Answer}\begin{tiny}
+\begin{Answer}
+\begin{tiny}
  $$\begin{array}{|c|c|c|c|c|c|}
 \hline
 t &  \hbox{Exato} & \hbox{Euler} & \hbox{Euler Melhorado} & \hbox{Erro Euler} & \hbox{Erro Euler Melhorado}\\
@@ -773,4 +796,4 @@ Adams-Bashforth ordem 4&4.8D-05 &   9.0D-08 &   5.7D-09 &   9.2D-12 &   5.8D-13 
   \end{tiny}
 \end{Answer}
 
-\end{document} 
+%\end{document} 

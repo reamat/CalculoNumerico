@@ -1,14 +1,15 @@
 ]%Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
-\documentclass[main.tex]{subfiles}
-
-\begin{document}
+%\documentclass[main.tex]{subfiles}
+%\begin{document}
 
 \chapter{Solução de equações de uma variável}\index{equações!de uma variável}
 
-Neste capítulo buscaremos aproximações numéricas para raízes de funções de uma variável que são continuamente diferenciáveis.
+Neste capítulo buscaremos aproximações numéricas para a solução de equações de uma variável real. Observamos que resolver uma dada equação de uma variável real é equivalente a encontrar os zeros de uma função apropriada. Com isso, iniciamos este capítulo discutindo sobre condições de existência de raízes de funções reais. Então, apresentamos o método da bisseção como uma primeira abordagem numérica para encontrar zeros de funções.
 
-\section{Condição de existência de raízes reais}\index{função!raiz}\index{função!zero}
+Em seguida, exproramos uma outra abordagem via iteração do ponto fixo. Desta, obtemos o método de Newton, para o qual discutimos sua aplicação e convergência. Por fim, apresentamos o método das secantes como uma das possíveis variações do método de Newton.
+
+\section{Existência de raízes reais}\index{função!raiz}\index{função!zero}
 
 Podemos utilizar o teorema do valor intermediário para determinar a existência de raiz real em um intervalo.
 
@@ -18,7 +19,7 @@ Se $f:[a,b]\to\mathbb{R}$ é um função contínua e $K$ for um número entre $f
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[scale=0.5]{./cap_equacao1d/pics/teorema_do_valor_intermediario/teorema_do_valor_intermediario}
+  \includegraphics[scale=0.5]{./cap_equacao1d/pics/teorema_do_valor_intermediario/teorema_do_valor_intermediario.eps}
   \caption{Teorema do valor intermediário}
   \label{fig:teorema_do_valor_intermediario}
 \end{figure}
@@ -30,9 +31,9 @@ Mostre que existe pelo menos uma solução da equação $e^x=x+2$ no intervalo $
 
 De fato, se tomarmos $f(x)=e^x-x-2$, então $f(0)=1-2<0$ e $f(-2)=e^{-2}+2-2>0$. Pelo teorema do valor intermediário, existe $c\in(-2,0)$ tal que $f(c)=0$, ou seja, existe pelo menos uma solução nesse intervalo.
 \end{ex}
-Quando procuramos aproximações para raízes de funções,precisamos inicialmente isolar cada raiz em um intervalo onde a raiz é unica. Ou seja, precisamos garantir a existência e a unicidade da raiz dentro daquele intervalo.
+Quando procuramos aproximações para raízes de funções, precisamos inicialmente isolar cada raiz em um intervalo onde a raiz é única. Ou seja, precisamos garantir a existência e a unicidade da raiz dentro daquele intervalo.
 
-Uma situação quando a exitência e a unicidade é garantida em um intervalo é quando a função troca de sina no intervalo e é monótona nele
+Para garantirmos que exista uma única raiz num intervalo é necessário que a função troque de sinal e seja monótona neste intervalo.
 
 \begin{teo}
 Se $f:[a,b]\to\mathbb{R}$ é um função diferenciável, $f(a)\cdot f(b)<0$ e $f'(x)>0$ (ou $f'(x)<0$) para $x\in(a,b)$, então existe uma única raiz $c$ em $(a,b)$.
@@ -43,15 +44,13 @@ Em outras palavras, se a função corta o eixo $x$ e é sempre crescente (ou sem
 Observamos que existe uma única solução da equação $e^x=x+2$ no intervalo $(-2,0)$. A existência foi estabelecida no exemplo anterior. Para garantir a unicidade, observe que $f'(x)=e^x-1$ e, portanto, $f'(x)<0$ para $x\in(-2,0)$. Logo a raiz é única.
 
 \ifisscilab
-Podemos inspecionar o comportamento da função $f(x) e^x - x - 2$ e de sua derivada fazendo seus gráficos no Scilab. Para tanto, podemos implementar o seguinte código:
+Podemos inspecionar o comportamento da função $f(x)= e^x - x - 2$ e de sua derivada fazendo seus gráficos no Scilab. Para tanto, podemos fazer o seguinte teste:
 \begin{verbatim}
 -->x = linspace(-2,0,50);
--->//grafico de f(x)
--->deff('y = f(x)','y=exp(x)-x-2')
--->plot(x,f(x))
--->//graficando a f'(x)
--->deff('y = fl(x)','y=exp(x)-1')
--->plot(x,fl(x))
+-->deff('y = f(x)','y=exp(x)-x-2')  // define f
+-->plot(x,f(x))                     // grafico de f
+-->deff('y = fl(x)','y=exp(x)-1')   // a derivada
+-->plot(x,fl(x))                    // grafico de f'
 \end{verbatim}
 \fi
 \end{ex}
@@ -85,11 +84,11 @@ possui uma solução para cada $v$ real e que esta solução é única.
 
 \section{Método da bisseção}\index{método!da bisseção}
 
-Suponha que a função contínua $f:[a,b]\to\mathbb{R}$ tal que $f(a)\cdot f(b)<0$, ou seja, $f$ possui uma raiz no intervalo. Suponha também que a raiz é única. Uma primeira aproximação para a raiz pode ser o ponto médio $p=\frac{a+b}{2}$. Se $f(p)\cdot f(a)<0$, então a raiz está a esquerda de $p$, se não, a raiz está a direita de $p$ (veja Fig. \ref{fig:bisection_scheme}). Depois de escolher o intervalo correto, fazemos uma nova aproximação para a raiz tomando o ponto médio do novo intervalo.
+Suponha que a função $f:[a,b]\to\mathbb{R}$ seja contínua e que $f(a)\cdot f(b)<0$, ou seja, $f(x)$ possui uma raiz no intervalo. A idéia do método da bisseção é de assumir o ponto médio $p$ do intervalo, i.e. $p=\frac{a+b}{2}$, como primeira aproximação para a raíz de $f(x)$. Uma segunda aproximação é obtida analisando o sinal da função nos pontos $x=a$, $x=p$ e $x=b$. Se $f(a)\cdot f(p)<0$, então a raiz está no intervalo $[a, p]$, senão, a raiz está no intervalo $[p, b]$ (veja Figura \ref{fig:bisection_scheme}). Então, escolhemos o intervalo que contém a raiz e tomamos o seu ponto médio como nova aproximação para esta. Seguimos com este procedimento até obtermos a aproximação da raiz com a precisão desejada.
 
-\begin{figure}[ht]
+\begin{figure}
   \centering
-  \includegraphics[scale=0.5]{./cap_equacao1d/pics/metodo_da_bissecao/metodo_da_bissecao}
+  \includegraphics{./cap_equacao1d/pics/metodo_da_bissecao/metodo_da_bissecao}
   \caption{Método da bisseção.}
   \label{fig:bisection_scheme}
 \end{figure}
@@ -265,7 +264,7 @@ onde $I_R$ é a corrente de condução reversa e $v_t$, a tensão térmica dada 
 \item[f)] $V=-30~\mbox{V}$ e $R=1~\mbox{k}\Omega$.
 \item[g)] $V=-30~\mbox{V}$ e $R=10~\mbox{k}\Omega$.
 \end{itemize}\end{minipage}\begin{minipage}[c]{0.4\linewidth}
-\includegraphics[width=0.9\textwidth]{./cap_equacao1d/pics/circuito_diodo}
+\includegraphics[width=0.9\textwidth]{./cap_equacao1d/pics/circuito_diodo.eps}
 \end{minipage}\\
 Dica: $V=RI_d+v_d$.
 \begin{Answer}
@@ -705,7 +704,9 @@ onde $f$ é o fator de atrito, $\varepsilon$ é a rugosidade do tubo em metros, 
 $$x^{(n+1)}=-2 \log_{10} \left( \frac{\varepsilon}{14.8 R_\mathrm{h}} + \frac{2.51x^{(n)}}{\mathrm{Re}} \right)$$
 \end{Exercise}
 \begin{Answer}
-0.0431266
+  \begin{tiny}
+$0.0431266$
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise} Encontre uma solução aproximada para equação algébrica
@@ -819,7 +820,7 @@ converge para $x^*$, desde que $f'(x^{(n)})\neq 0 $ para todo $n\in\mathbb{N}$.
 Considere o problema de calcular a raiz uma função $f$, conforme esboço na figura abaixo
 
 \begin{center}
-\includegraphics[scale=.4]{./cap_equacao1d/pics/fig_Newton}
+\includegraphics[scale=.4]{./cap_equacao1d/pics/fig_Newton.eps}
 \end{center}
 
 Queremos calcular $x^{(1)}$ em função de $x^{(0)}$ sabendo que é o corte da reta tangente em $x^{(0)}$ com o eixo $x$. A equação da reta que passa por $(x^{(0)}, f(x^{(0)})$ e é tangente a curva em $x^{(0)}$ tem inclinação $m=f'(x^{(0)})$ e sua equação é
@@ -935,7 +936,9 @@ trace o gráfico com auxílio do \verb+Scilab+ e verifique que ela possui uma ra
 $$\cos(10x)=e^{-x}.$$ Dica: a primeira raiz positiva está no intervalo $(0,0.02)$. Fique atento.
 \end{Exercise}
 \begin{Answer}
- 0.0198679; 0.533890; 0.735412; 1.13237; 1.38851
+  \begin{tiny}
+ $0.0198679$; $0.533890$; $0.735412$; $1.13237$; $1.38851$.
+  \end{tiny}
 \end{Answer}
 
 
@@ -945,7 +948,9 @@ $$\cos(10x)=e^{-x}.$$ Dica: a primeira raiz positiva está no intervalo $(0,0.02
 \begin{Exercise}\label{new4} Encontre as raízes reais do polinômio $f(x)=\frac{x^5}{100}+x^4+3x+1$ isolando-as pelo método do gráfico e depois usando o método de Newton. Expresse a solução com 7 dígitos significativos.
 \end{Exercise}
 \begin{Answer}
- - 99.99970, - 0.3376513; -1.314006
+  \begin{tiny}
+$-99.99970$, $-0.3376513$; $-1.314006$.
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise}Considere o método de Newton aplicado para encontrar a raiz de $f(x)=x^3-2x+2$. O que acontece quando $x^{(0)}=0$? Escolha um valor adequado para inicializar o método e obter a única raiz real desta equação.
@@ -957,7 +962,9 @@ $$\cos(10x)=e^{-x}.$$ Dica: a primeira raiz positiva está no intervalo $(0,0.02
 \begin{Exercise} Entenda a interpretação geométrica ao método de Newton. Encontre uma valor para iniciar o método de Newton aplicado ao problema $f(x)=xe^{-x}=0$ tal que o esquema iterativo divirja.
 \end{Exercise}
 \begin{Answer}
-$x_0>1$.
+  \begin{tiny}
+$x_0>1$.    
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise}[title= Computação]Aplique o método de Newton à função $f(x)=\frac{1}{x}-u$ e construa um esquema computacional para calcular a inversa de $u$ com base em operações de multiplicação e soma/subtração.
@@ -1119,7 +1126,9 @@ O erro na tabela sempre se refere ao erro absoluto esperado. Nos três últimos 
 Usando  métodos numéricos encontre as primeiras raízes dessa equação. Verifique a j-ésima raiz ($z_j$) pode ser aproximada por $j-1/2$ para $j$ grande. Use o método de Newton para encontrar uma aproximação melhor para $z_j$.
 \end{Exercise}
 \begin{Answer}
- $z_1\approx 0.3252768 $, $z_2\approx 1.5153738$, $z_3\approx 2.497846  $, $z_4\approx 3.5002901$, $z_j\approx j-1/2-(-1)^j\frac{e^{-2j+1}}{\pi}, ~~~j>4$
+  \begin{tiny}
+ $z_1\approx 0.3252768 $, $z_2\approx 1.5153738$, $z_3\approx 2.497846  $, $z_4\approx 3.5002901$, $z_j\approx j-1/2-(-1)^j\frac{e^{-2j+1}}{\pi}, ~~~j>4$    
+  \end{tiny}
 \end{Answer}
 
 
@@ -1135,7 +1144,9 @@ Qual a potência da lâmpada quando ligada em série com uma resistência de val
 \end{itemize}
 \end{Exercise}
 \begin{Answer}
-150W, 133W, 87W, 55W, 6.5W
+  \begin{tiny}
+$150$~W, $133$~W, $87$~W, $55$~W, $6,5$~W    
+  \end{tiny}
 \end{Answer}
 
 %\begin{Exercise} Determine com 3 algarismos signficativos o valor de $R$ para que a potência na lâmpada seja $75W$ na questão anterior?
@@ -1155,7 +1166,9 @@ Responda:
 \end{Exercise}
 
 \begin{Answer}
-a) 42s e 8min2s, b) 14min56s.
+  \begin{tiny}
+a) $42$~s e $8$~min$2$~s, b) $14$~min$56$~s.    
+  \end{tiny}
 \end{Answer}
 
 
@@ -1177,25 +1190,33 @@ Ano & população\\
 Use esses parâmetros para calcular a população em 1980 e compare com o valor do censo.
 \end{Exercise}
 \begin{Answer}
- 118940992
+  \begin{tiny}
+$118940992$
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise}[title=Fluidos]\label{boiaesf} Uma boia esférica flutua na água. Sabendo que a boia tem $10\ell$ de volume e 2Kg de massa. Calcule a altura da porção molhada da boia.
 \end{Exercise}
 \begin{Answer}
- 7.7cm
+  \begin{tiny}
+$7,7$~cm    
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise}[title= Fluidos]\label{boiacil} Uma boia cilíndrica tem secção transversal circular de raio 10cm e comprimento 2m e pesa 10Kg. Sabendo que a boia flutua sobre água com o eixo do cilindro na posição horizontal, calcule a altura da parte molhada da boia.
 \end{Exercise}
 \begin{Answer}
- 4.32cm
+  \begin{tiny}
+$4,32$~cm    
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise} Encontre com 6 casas decimais o ponto da curva $y=\ln x$ mais próximo da origem.
 \end{Exercise}
 \begin{Answer}
-(0.652919,0.426303)
+  \begin{tiny}
+$(0,652919, 0,426303)$    
+  \end{tiny}
 \end{Answer}
 
 
@@ -1203,7 +1224,9 @@ Use esses parâmetros para calcular a população em 1980 e compare com o valor 
 \end{Exercise}
 
 \begin{Answer}
-7.19\% ao mês
+  \begin{tiny}
+$7,19$\% ao mês    
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise}[title= Matemática financeira] O valor de R\$110.000,00 é financiado conforme a seguinte programa de pagamentos:
@@ -1226,7 +1249,9 @@ Calcule a taxa de juros envolvida. A data do empréstimo é o mês zero.
  \end{Exercise}
 
 \begin{Answer}
-4.54\% ao mês.
+  \begin{tiny}
+$4,54$\% ao mês.    
+  \end{tiny}
 \end{Answer}
 
 
@@ -1242,19 +1267,25 @@ onde $T$ é a temperatura em Kelvin e $t$ é tempo em horas.
 \end{Exercise}
 
 \begin{Answer}
-500K, 700K em $t=3\ln(2)$, 26min, 4h27min.
+  \begin{tiny}
+$500$~K, $700$~K em $t=3\ln(2)$, $26$~min, $4$~h$27$~min.    
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise} Encontre os pontos onde a elipse que satisfaz $\frac{x^2}{3}+y^2=1$ intersepta a parábola $y=x^2-2$.
 \end{Exercise}
 \begin{Answer}
-$\left(\pm 1.1101388,-.7675919\right)$, $\left(\pm 1.5602111,0.4342585\right)$
+  \begin{tiny}
+$\left(\pm 1,1101388, -0,7675919\right)$, $\left(\pm 1,5602111, 0,342585\right)$
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise}[title= Otimização] Encontre a área do maior retângulo que é possível inscrever entre a curva $e^{-x^2}\left(1+\cos(x)\right)$ e o eixo $y=0$.
 \end{Exercise}
 \begin{Answer}
-1.5318075
+  \begin{tiny}
+$1,5318075$
+  \end{tiny}
 \end{Answer}
 
 
@@ -1267,7 +1298,9 @@ Onde $C_1(x)$ e $C_2(x)$ são os custos de fornecimento das usinas 1 e 2, respec
 
 \end{Exercise}
 \begin{Answer}
- Aproximadamente 2500 reais por hora.
+  \begin{tiny}
+ Aproximadamente 2500 reais por hora.    
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise}[title= Termodinâmica] A pressão de saturação (em bar) de um dado hidrocarboneto pelo ser modelada pela equação de Antoine:
@@ -1292,14 +1325,18 @@ $$\frac{1}{P}=\sum_i \frac{z_i}{P_i^{sat}}$$
 \end{Exercise}
 
 \begin{Answer}
- a) 332.74K b), 359.33K
+  \begin{tiny}
+ a) $332,74$~K b) $359,33$~K    
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise} Encontre os três primeiros pontos de mínimo da função $$f(x)=e^{-x/11}+x\cos(2x)$$ para $x>0$ com erro inferior a $10^{-7}$.
 \end{Exercise}
 \begin{Answer}
-1.72285751  ,4.76770758,  7.88704085
+  \begin{tiny}
+$1,2285751$, $4,76770758$, $7,88704085$
+  \end{tiny}
 \end{Answer}
 
 
-\end{document} 
+%\end{document} 

@@ -1,8 +1,7 @@
 %Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
-\documentclass[main.tex]{subfiles}
-
-\begin{document}
+%\documentclass[main.tex]{subfiles}
+%\begin{document}
 
 \chapter{Aritmética de máquina}\index{aritmética!de máquina}
 
@@ -983,30 +982,120 @@ Observe que o efeito catastrófico foi eliminado.
 \end{ex}
 
 
+\section{Condicionamento de um problema}
+Geralmente podemos pensar um problema como um mapeamento $f$ onde a partir de valores de entrada $x$ devemos encontrar a saída, a solução $y$, ou seja, $f:x \rightarrow y$, ou simplesmente
+\begin{align}
+   y=f(x)
+\end{align}
+ Entretanto, a entrada do problema $x$ normalmente terá erros (por exemplo, erros na coleta dos dados ou erros na representação dos dados devido a arredondamentos). Assim, ao invés de usar $x$ estamos usando $x^*$ para resolver o problema e encontrar a solução $y^*$, ou seja, estamos resolvendo
+\begin{align}
+   y^*=f(x^*)
+\end{align}
 
-\section{Propagação de erros}\index{erros!propagação}
+Estamos interessados em saber se os erros cometidos na entrada $\Delta x=x-x^* $ influenciaram na saída do problema $\Delta y=y-y^*$.
 
+No caso mais simples, temos que $x \in \mathbb{R}$ e $y \in \mathbb{R}$. Assumindo que $f$ seja diferenciável, a partir da série de Taylor
+\begin{align}
+ f(x+\Delta x) \approx f(x) + f'(x) \Delta x
+\end{align}
+obtemos (subtraindo $f(x)$ dos dois lados)
+\begin{align}
+ \Delta y = f(x+\Delta x)-f(x) \approx f'(x) \Delta x
+\end{align}
+Para relacionarmos os erros relativos, dividimos o lado esquerdo por $y$, o lado direito por $f(x)=y$ e obtemos
+\begin{align}
+ \frac{ \Delta y}{y} \approx \frac{f'(x)}{f(x)}  \frac{x \Delta x}{x} 
+\end{align}
+sugerindo a definição de número de condicionamento de um problema.
 
-Dado uma função diferenciável $f$, considere $\bar{x}$ uma aproximação para $x$ e $f(\bar{x})$ uma aproximação para $f(x)$. Sabendo o erro $\delta_x=|x-\bar{x}|$, queremos estimar o erro $\delta_f=|f(x)-f(\bar{x})|$. Pelo teorema do valor médio, existe $\epsilon$ contido no intervalo aberto formado por $x$ e $\bar{x}$ tal que
-$$
-f(x)-f(\bar{x})=f'(\epsilon)(x-\bar{x}).
-$$
-Como não conhecemos o valor de $\epsilon$, supomos que a derivada $f'(\epsilon)$ é limitada por $M$ ($|f'(\epsilon)|\leq M$) no intervalo fechado formado por $x$ e $\bar{x}$ e obtemos
-$$
-|f(x)-f(\bar{x})|\leq M|x-\bar{x}|.
-$$
-Se $f'(x)$ não varia muito rápido nesse intervalo e supondo $\delta_x$ pequeno, aproximamos $M\approx |f'(x)|$ e temos:
-$$
-|f(x)-f(\bar{x})|\approx |f'(x)||x-\bar{x}|,
-$$
-ou
-$$
-\delta_f\approx |f'(x)|\delta_x.
-$$
-De modo geral, quando $f$ depende de várias variáveis, a seguinte estimativa vale:
+\begin{defn}
+Seja $f$ uma função diferenciável. O \emph{número de condicionamento} de um problema é definido como
+\begin{align}
+  \kappa_f(x) := \left| \frac{ x f'(x)}{f(x)} \right|
+\end{align}
+e fornece uma estimativa de quanto os erros relativos na entrada $\left|\frac{\Delta x}{x}\right|$ serão amplificados na saída $\left|\frac{\Delta y}{y}\right|$.
+\end{defn}
+
+% \footnote{Ou utilizando o teorema do valor médio, dada uma função diferenciável $f$, considere $\bar{x}$ uma aproximação para $x$ e $f(\bar{x})$ uma aproximação para $f(x)$. Sabendo o erro $\delta_x=$, queremos estimar o erro $\delta_f=|f(x)-f(\bar{x})|$. Pelo teorema do valor médio, existe $\epsilon$ contido no intervalo aberto formado por $x$ e $\bar{x}$ tal que
+% $$
+% f(x)-f(\bar{x})=f'(\epsilon)(x-\bar{x}).
+% $$
+% Como não conhecemos o valor de $\epsilon$, supomos que a derivada $f'(\epsilon)$ é limitada por $M$ ($|f'(\epsilon)|\leq M$) no intervalo fechado formado por $x$ e $\bar{x}$ e obtemos
+% $$
+% |f(x)-f(\bar{x})|\leq M|x-\bar{x}|.
+% $$
+% Se $f'(x)$ não varia muito rápido nesse intervalo e supondo $\delta_x$ pequeno, aproximamos $M\approx |f'(x)|$ e temos:
+% $$
+% |f(x)-f(\bar{x})|\approx |f'(x)||x-\bar{x}|,
+% $$
+% ou
+% $$
+% \delta_f\approx |f'(x)|\delta_x.
+% $$
+% }
+
+De modo geral, quando $f$ depende de várias variáveis, podemos obter
+
 $$
 \delta_f=|f(x_1,x_2,...,x_n)-f(\bar{x}_1, \bar{x}_2,...,\bar{x}_n)|\approx \sum_{i=1}^n\left|\frac{\partial f}{\partial x_i}(x_1, x_2,...,x_n)\right|\delta_{x_i}
 $$
+
+Uma matriz de números de condicionamento também poderia ser obtida como em  \cite{gautschi1997numerical}.
+
+\begin{ex}
+Considere o problema de calcular $\sqrt{x}$ em $x=2$. Se usarmos $x^*=1,999$, quanto será o erro relativo na saída? O erro relativo na entrada é
+\begin{align}
+   \left|\frac{\Delta x}{x}\right| = \left|\frac{2-1,999}{2}\right| = 0,0005
+\end{align}
+O número de condicionamento do problema calcular a raiz é
+\begin{align}
+   \kappa_f(x) := \left| \frac{ x f'(x)}{f(x)} \right| =\left| \frac{ x \frac{1}{2\sqrt{x}}}{\sqrt{x}} \right|=\frac{1}{2}
+\end{align}
+Ou seja, os erros na entrada serão diminuídos pela metade. De fato, usando $y=\sqrt{2}=1,4142136...$ e $y^*=\sqrt{1,999}=1,41386...$, obtemos
+\begin{align}
+   \frac{\Delta y}{y} = \frac{\sqrt{2}-\sqrt{1,999}}{\sqrt{2}} \approx  0,000250031...
+\end{align}
+
+\end{ex}
+
+
+\begin{ex}
+ Considere a função $f(x) = \frac{10}{1-x^2}$ e $x^*=0,9995$ com um erro absoluto na entrada de $0,0001$. 
+ 
+ Calculando $y^*=f(x^*)$ temos 
+\begin{align}
+   y^* = \frac{10}{1-(0,9995)^2} \approx 10002,500625157739705173
+\end{align}
+ Mas qual é a estimativa de erro nessa resposta? Quantos dígitos significativos temos nessa resposta?
+ 
+Sabendo que $f'(x)=-10/(1-x^2)^2$, o número de condicionamento é 
+\begin{align}
+   \kappa_f(x) := \left| \frac{ x f'(x)}{f(x)} \right| = \left| \frac{ 2x^2}{1-x^2} \right|
+\end{align}
+o que nos fornece para $x^*=0,9995$,
+\begin{align}
+   \kappa_f(0,9995) \approx 1998,5
+\end{align}
+Como o erro relativo na entrada é 
+\begin{align}
+   \left|\frac{\Delta x}{x}\right| = \left|\frac{0,0001}{0,9995}\right| \approx  0,00010005...
+\end{align}
+temos que o erro na saída será aproximadamente
+\begin{align}
+   \left|\frac{\Delta y}{y}\right| \approx \kappa_f(x) \left|\frac{\Delta x}{x}\right| \approx  1998,5 \times 0,00010005... \approx 0,1999
+\end{align}
+ou seja um erro relativo de aproximadamente $19,99 \%$.
+
+Note que se usarmos $x_1 = 0,9994$ e $x_2 = 0,9996$ (ambos no intervalo do erro absoluto da entrada) encontramos
+\begin{align}
+   y_1^*  &\approx  8335,83 \\
+   y_2^*  &\approx 12520,50
+\end{align}
+confirmando a estimativa de $19,99 \%$.
+
+
+\end{ex}
+
 
 \begin{ex}
 O número $\frac{1}{3}=0,\overline{3}$ possui um representação infinita tanto na base decimal quanto na base binária. Logo, quando representamos ele no computador geramos um erro de arredondamento que denotaremos por $\epsilon$. Agora considere a seguinte sequência:
@@ -1028,6 +1117,8 @@ Portanto o limite da sequência diverge,
 \begin{equation*}
 \lim_{x\to\infty}|\tilde{x}_n|=\infty  
 \end{equation*}
+Qual o número de condicionamento desse problema?
+
 
 \ifisscilab
 Faça o teste no \verb+Scilab+, colocando:
@@ -1170,9 +1261,6 @@ Faça o estudo da propagação do erro e decida qual a melhor expressão em cada
   \end{tiny}
 \end{Answer}
 
-
-
-
 \section{Mais exemplos}
 
 \begin{ex}Observe a seguinte identidade
@@ -1181,7 +1269,7 @@ f(x)=\frac{(1+x)-1}{x}=1
 $$
 Calcule o valor da expressão à esquerda para $x=10^{-12}$, $x=10^{-13}$, $x=10^{-14}$, $x=10^{-15}$, $x=10^{-16}$ e $x=10^{-17}$. Observe que quando $x$ se aproxima do $\epsilon$ de máquina a expressão perde o significado. Veja abaixo o gráfico de $f(x)$ em escala logarítmica.
 
-\includegraphics[width=0.8\textwidth]{./cap_aritmetica/pics/cancelamento_0.pdf}
+\includegraphics[width=0.8\textwidth]{./cap_aritmetica/pics/cancelamento_0.eps}
 \end{ex}
 
 \begin{ex} Neste exemplo, estamos interessados em compreender mais detalhadamente o comportamento da expressão
@@ -1215,14 +1303,14 @@ $$
 Podemos resumir esses dados no seguinte gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$:
 
 %\begin{figure}[htp]
-\includegraphics[width=0.8\textwidth]{./cap_aritmetica/pics/cancelamento_euler.pdf}
+\includegraphics[width=0.8\textwidth]{./cap_aritmetica/pics/cancelamento_euler.eps}
 %\caption{Gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$ em escala linear-logarítmica variando de $10^0$ até $10^{18}$ gerado no Scilab 5.4.1.}
 %\end{figure}
 
 Observe que quando $x$ se torna grande, da ordem de $10^{15}$, o gráfico da função deixa de se crescente e apresenta oscilações.  Observe também que a expressão se torna identicamente igual a $1$ depois de um certo limiar. Tais fenômenos não são intrínsecos da função $f(x)=(1+1/x)^x$, mas \emph{\uline{oriundas de erros de arredondamento}}, isto é, são resultados numéricos espúrios. A fim de pôr o comportamento numérico de tal expressão, apresentamos abaixo o gráfico da mesma função, porém restrito à região entre $10^{14}$ e $10^{16}$.
 
 %\begin{figure}
-\includegraphics[width=0.9\textwidth]{./cap_aritmetica/pics/cancelamento_euler2.pdf}
+\includegraphics[width=0.9\textwidth]{./cap_aritmetica/pics/cancelamento_euler2.eps}
 %\caption{Gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$ em escala linear-logarítmica variando de $10^{14}$ até $10^{16}$ gerado no Scilab 5.4.1.}
 ¨%\end{figure}
 \end{ex}
@@ -1356,23 +1444,6 @@ onde $E$ é a energia cinética da partícula, $m$ é a massa de repouso, $v$ o 
   \end{tiny}
 \end{Answer}
 
-%%%%% \begin{Exercise} Calcule o valor da energia cinética $E$ de um corpo de $1$~Kg que se move a uma velocidade de $10$~m/s usando a fórmula relativística. Para fazer esse cálculo, use o software {\it Maple} com precisão de 10 dígitos, 12 dígitos, 15 dígitos, 20 dígitos e 50 dígitos. Explique o que está acontecendo e proponha uma fórmula alternativa para a energia cinética mais adequada para pequenas velocidades.
-%%%%% \end{Exercise}
-%%%%% \begin{Answer}
-%%%%% $E= \frac{m}{2} v^2 \left(1+\frac{3}{4}\left(\frac{v}{c}\right)^2+\ldots \right)$
-%%%%% \end{Answer}
-
-% \begin{Exercise}Considere a seguinte rotina escrita para ser usada no Scilab:
-% \begin{verbatim}
-%     x=1
-%     while x+1>x
-%         x=x+1
-%     end
-% \end{verbatim}
-% Explique se esta rotina finaliza em tempo finito, em caso afirmativo calcule a ordem de grandeza do tempo de execução supondo que cada passo do laço demore $10^{-7}s$. Justifique sua reposta.
-% \end{Exercise}
-
-
 \begin{Exercise} Deseja-se medir a concentração de dois diferentes oxidantes no ar. Três sensores eletroquímicos estão disponíveis para a medida e apresentam a seguintes respostas:
 $$v_1= 270 [A] +  30 [B],~~~ v_2= 140 [A] +  20 [B] ~~ \hbox{e}~~ v_3= 15 [A] +  200 [B]$$
 as tensões $v_1$, $v_2$ e $v_3$ são dadas em $mV$ e as concentrações em $milimol/l$.
@@ -1486,4 +1557,4 @@ Conclusão, apesar de o sensor $3$ apresentar uma incerteza cinco vezes maior na
   \end{tiny}
 \end{Answer}
 
-\end{document} 
+%\end{document} 
