@@ -57,9 +57,9 @@ ax.text (a - 0.25, 0.35, r"$a$")
 #(b, f(b))
 ax.plot (b, f(b), 'ko', markersize=3)
 ax.text (-2, f(b), r"$f(b)$")
-ax.plot ([-0.1, 0.1], [f(b), f(b)], color='black')
 ax.plot ([0, b], [f(b), f(b)], color='gray', linestyle='dashed')
 ax.plot ([b, b], [f(b), 0], color='gray', linestyle='dashed')
+ax.plot ([-0.1, 0.1], [f(b), f(b)], color='black')
 ax.plot ([b, b], [-0.1, 0.1], color='black')
 ax.text (b - 0.25, -0.75, r"$b$")
 
@@ -67,12 +67,17 @@ ax.text (b - 0.25, -0.75, r"$b$")
 #(p, f(p))
 p = (a + b)/2
 ax.plot (p, f(p), 'ko', markersize=3)
-ax.text (-2, f(p), r"$f(p)$")
-ax.plot ([-0.1, 0.1], [f(p), f(p)], color='black')
+ax.text (-2.75, f(p), r"$f(x^{(0)})$")
 ax.plot ([0, p], [f(p), f(p)], color='gray', linestyle='dashed')
 ax.plot ([p, p], [f(p), 0], color='gray', linestyle='dashed')
+ax.plot ([-0.1, 0.1], [f(p), f(p)], color='black')
 ax.plot ([p, p], [-0.1, 0.1], color='black')
-ax.text (p - 0.25, 0.35, r"$p$")
+ax.text (p - 0.25, 0.35, r"$x^{(0)}$")
+
+#(p1, f(p1))
+p1 = (p + b)/2
+ax.plot ([p1, p1], [-0.1, 0.1], color='black')
+ax.text (p1 - 0.25, -0.75, r"$x^{(1)}$")
 
 #chosen interval
 plt.plot([p,b],[0,0],'r-',lw=1)
