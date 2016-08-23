@@ -393,12 +393,13 @@ No entanto, se fixarmos um instante de tempo $t=t_N$, o erro entre a solução e
 onde $ch^2$ substitui $O(h^2)$ para alguma constante $c\neq 0$ e $y_i$ é a aproximação pelo método de Euler para o valor exato $y(t_i)$. Subsequentemente, temos
 \begin{eqnarray*}
  y(t_2)&=&y(t_1)+hf(y(t_1),t_1)+ch^2\\
- &=&y_1+ch^2+ch^2=y_1+2ch^2
+ &=&y(t_1)+hf(y_1+ch^2,t_1)+ch^2\\
+ &=&y(t_1)+hf(y_1,t_1) +ch^2\\
+ &=&y_1+ch^2+hf(y_1,t_1) +ch^2= y_2+2ch^2.
 \end{eqnarray*}
-Assim obtemos um expressão geral para o valor exato $y(t_N)$ em termos do valor aproximado $y_N$:
+onde usamos o primeiro termo da série de Taylor $hf(y_1+ch^2,t_1)=hf(y_1,t_1)+O(h^3)$ na passagem da segunda para terceira linha. Repetindo sucessivamente o passo anterior, obtemos uma expressão geral para o valor exato $y(t_N)$ em termos do valor aproximado $y_N$:
 \begin{eqnarray*}
- y(t_N)&=&y(t_{N_1})+hf(y(t_{N_1}),t_1)+ch^2\\
- &=&y_{N}+(N-1)ch^2+ch^2=y_N+Nch^2.
+ y(t_N)=y_N+Nch^2.
 \end{eqnarray*}
 Como $N=(t_f-t_0)/h$, temos
 \begin{eqnarray*}
@@ -450,9 +451,11 @@ Para obter o erro acumulado em um ponto $t_N$ usamos a expressão (\ref{es_Euler
 onde $ch^3$ substitui $O(h^3)$ para alguma constante $c\neq 0$ e $y_i$ é a aproximação pelo método de Euler melhorado para o valor exato $y(t_i)$. Subsequentemente, temos
 \begin{eqnarray*}
  y(t_2)&=&y(t_1)+\frac{h}{2}f(y(t_1),t_1)+\frac{h}{2}f(y(t_1)+hf(y(t_1),t_1),t_1+h)+ch^3\\
- &=&y_1+ch^3+ch^3=y_1+2ch^3
+&=&y(t_1)+\frac{h}{2}f(y_1+ch^3,t_1)+\frac{h}{2}f(y_1+ch^3+hf(y_1+ch^3,t_1),t_1+h)+ch^3\\
+&=&y(t_1)+\frac{h}{2}f(y_1,t_1)+\frac{h}{2}f(y_1+hf(y_1,t_1),t_1+h)+ch^3\\
+&=&y_2+ch^3+ch^3=y_2+2ch^3,
 \end{eqnarray*}
-Assim obtemos um expressão geral para o valor exato $y(t_N)$ em termos do valor aproximado $y_N$:
+onde usamos o primeiro termo da série de Taylor $hf(y_1+ch^3,t_1)=hf(y_1,t_1)+O(h^4)$ na passagem da segunda para terceira linha. Assim obtemos um expressão geral para o valor exato $y(t_N)$ em termos do valor aproximado $y_N$:
 \begin{eqnarray*}
  y(t_N)=y_{N}+Nch^3.
 \end{eqnarray*}
@@ -461,9 +464,6 @@ Como $N=(t_f-t_0)/h$, temos
  y(t_N)&=&=y_{N}+\frac{t-t_0}{h}ch^3=y_{N}+c_2h^2,
 \end{eqnarray*}
 onde $c_2=(t-t_0)c$, ou seja, o erro entre o valor exato e o aproximado é de ordem $h^2$.
-
-
-
 
 \section{Métodos de Runge-Kutta}\label{sec_RK}\index{método!de Runge-Kutta}
 
