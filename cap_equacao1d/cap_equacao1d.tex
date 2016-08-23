@@ -1,77 +1,143 @@
 ]%Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
-\documentclass[main.tex]{subfiles}
-
-\begin{document}
+%\documentclass[main.tex]{subfiles}
+%\begin{document}
 
 \chapter{Solução de equações de uma variável}\index{equações!de uma variável}
 
-Neste capítulo buscaremos aproximações numéricas para raízes de funções de uma variável que são continuamente diferenciáveis.
+Neste capítulo buscaremos aproximações numéricas para a solução de \emph{equações de uma variável real}. Observamos que obter uma solução para uma tal dada equação é equivalente a encontrar um \emph{zero de uma função}\index{função!zero de}\index{função!raiz de} apropriada. Com isso, iniciamos este capítulo discutindo sobre condições de existência e unicidade de raízes de funções de uma variável real. Então, apresentamos o \emph{método da bisseção}\index{método da bisseção} como uma primeira abordagem numérica para a solução de tais equações.
 
-\section{Existência de raízes reais}\index{função!raiz}\index{função!zero}
+Em seguida, exploramos uma outra abordagem via \emph{iteração do ponto fixo}\index{iteração do ponto fixo}. Desta, obtemos o \emph{método de Newton}\index{método de Newton}, para o qual discutimos sua aplicação e convergência. Por fim, apresentamos o \emph{método das secantes}\index{método das secantes} como uma das possíveis variações do método de Newton.
 
-Podemos utilizar o teorema do valor intermediário para determinar a existência de raiz real em um intervalo.
+\section{Existência e unicidade}\index{função!}\index{função!zero}
 
-\begin{teo}[Teorema do Valor Intermediário]
-Se $f:[a,b]\to\mathbb{R}$ é um função contínua e $K$ for um número entre $f(a)$ e $f(b)$, então existe $c\in(a,b)$ para o qual $f(c)=K$.
+O \emph{teorema de Bolzano}\footnote{Bernhard Placidus Johann Gonzal Nepomuk Bolzano, 1781 - 1848, matemático do Reino da Boêmia.}\index{teorema de!Bolzano} nos fornece condições suficientes para a existência do zero de uma função. Este é uma aplicação direta do \emph{teorema do valor intermediário}\index{teorema do valor intermediário}.
+
+\begin{teo}[Teorema de Bolzano]\label{teo:teorema_de_Bolzano}
+  Se $f:[a, b]\to\mathbb{R}$, $y = f(x)$, é uma função contínua tal que $f(a)\cdot f(b) < 0$, então existe $x^*\in (a, b)$ tal que $f(x^*) = 0$.
 \end{teo}
+\begin{proof}
+  O resultado é uma consequência imediata do teorema do valor intermediário que estabelece que dada uma função contínua $f:[a, b]\to\mathbb{R}$, $y = f(x)$, tal que $f(a) < f(b)$ (ou $f(b) < f(a)$), então para qualquer $d\in \left(f(a), f(b)\right)$ (ou $k\in \left(f(b), f(a)\right)$) existe $x^*\in (a, b)$ tal que $f(x^*) = k$. Ou seja, nestas notações, se $f(a)\cdot f(b) < 0$, então $f(a) < 0 < f(b)$ (ou $f(b) < 0 < f(a)$). Logo, tomando $k = 0$, temos que existe $x^*\in (a, b)$ tal que $f(x^*) = k = 0$.
+\end{proof}
 
-\begin{figure}[h!]
+Em outras palavras, se $f(x)$ é uma função contínua em um dado intervalo no qual ela troca de sinal, então ela têm pelo menos um zero neste intervalo (veja a Figura~\ref{fig:teorema_de_Bolzano}).
+
+\begin{figure}
   \centering
-  \includegraphics[scale=0.5]{./cap_equacao1d/pics/teorema_do_valor_intermediario/teorema_do_valor_intermediario}
-  \caption{Teorema do valor intermediário}
-  \label{fig:teorema_do_valor_intermediario}
+  \includegraphics{./cap_equacao1d/pics/teorema_de_Bolzano/teorema_de_Bolzano.eps}
+  \caption{Teorema de Bolzano.}
+  \label{fig:teorema_de_Bolzano}
 \end{figure}
 
-Em particular, se $f(a)>0$ e $f(b)<0$, então $0\in [f(b),f(a)]$ e podemos garantir a existência de $c\in(a,b)$ tal que $f(c)=0$, i.e. existe uma raiz no intervalo $(a,b)$. A mesma afirmação é válida se $f(a)<0$ e $f(b)>0$. Em outras palavras, o Teorema do Valor Intermediário afirma que uma função contínua não pode mudar de sinal sem passar por zero.
+% \begin{teo}[Teorema do Valor Intermediário]
+% Se $f:[a,b]\to\mathbb{R}$ é um função contínua e $K$ for um número entre $f(a)$ e $f(b)$, então existe $c\in(a,b)$ para o qual $f(c)=K$.
+% \end{teo}
 
-\begin{ex}
+% \begin{figure}[h!]
+%   \centering
+%   \includegraphics[scale=0.5]{./cap_equacao1d/pics/teorema_do_valor_intermediario/teorema_do_valor_intermediario.eps}
+%   \caption{Teorema do valor intermediário}
+%   \label{fig:teorema_do_valor_intermediario}
+% \end{figure}
+
+% Em particular, se $f(a)>0$ e $f(b)<0$, então $0\in [f(b),f(a)]$ e podemos garantir a existência de $c\in(a,b)$ tal que $f(c)=0$, i.e. existe uma raiz no intervalo $(a,b)$. A mesma afirmação é válida se $f(a)<0$ e $f(b)>0$. Em outras palavras, o Teorema do Valor Intermediário afirma que uma função contínua não pode mudar de sinal sem passar por zero.
+
+\begin{ex}\label{ex:teorema_de_Bolzano}
 Mostre que existe pelo menos uma solução da equação $e^x=x+2$ no intervalo $(-2,0)$.
+\begin{sol}
+Primeiramente, observamos que resolver a equação $e^x = x+2$ é equivalente a resolver $f(x) = 0$ com $f(x)=e^x-x-2$. Agora, como $f(-2)=e^{-2}>0$ e $f(0)=-2<0$, temos do teorema de Bolzano que existe pelo menos um zero de $f(x)$ no intervalo $(-2, 0)$. E, portanto, existe pelo menos uma solução da equação dada no intervalo $(-2, 0)$.
 
-De fato, se tomarmos $f(x)=e^x-x-2$, então $f(0)=1-2<0$ e $f(-2)=e^{-2}+2-2>0$. Pelo teorema do valor intermediário, existe $c\in(-2,0)$ tal que $f(c)=0$, ou seja, existe pelo menos uma solução nesse intervalo.
+\ifisscilab
+Podemos usar o \verb+Scilab+ para estudarmos esta função. Por exemplo, podemos definir a função $f(x)$ e computá-la nos extremos do intervalo dado com os seguintes comandos:
+\begin{verbatim}
+-->deff('y=f(x)','y=exp(x)-x-2')
+-->f(-2),f(0)
+ ans  =
+    0.1353353  
+ ans  =
+  - 1.  
+\end{verbatim}
+Alternativamente (e com maior precisão), podemos verificar diretamente o sinal da função nos pontos desejados com comando \verb+sign+:
+\begin{verbatim}
+-->sign(f(-2)),sign(f(0))
+ ans  =
+    1.  
+ ans  =
+  - 1.  
+\end{verbatim}
+\fi
+\end{sol}
 \end{ex}
-Quando procuramos aproximações para raízes de funções, precisamos inicialmente isolar cada raiz em um intervalo onde a raiz é única. Ou seja, precisamos garantir a existência e a unicidade da raiz dentro daquele intervalo.
 
-Para garantirmos que exista uma única raiz num intervalo é necessário que a função troque de sinal e seja monótona neste intervalo.
+Quando procuramos aproximações para zeros de funções, é aconselhável isolar cada raiz em um intervalo. Desta forma, gostaríamos de poder garantir a existência e a unicidade da raiz dentro de um dado intervalo. A seguinte proposição nos fornece condições suficientes para tanto.
 
-\begin{teo}
-Se $f:[a,b]\to\mathbb{R}$ é um função diferenciável, $f(a)\cdot f(b)<0$ e $f'(x)>0$ (ou $f'(x)<0$) para $x\in(a,b)$, então existe uma única raiz $c$ em $(a,b)$.
-\end{teo}
+\begin{prop}\label{prop:existencia_e_unicidade}
+Se $f:[a, b]\to\mathbb{R}$ é um função diferenciável, $f(a)\cdot f(b)<0$ e $f'(x)>0$ (ou $f'(x)<0$) para todo $x\in(a, b)$, então existe um único $x^*\in (a, b)$ tal que $f(x^*) = 0$.
+\end{prop}
 
-Em outras palavras, se a função corta o eixo $x$ e é sempre crescente (ou sempre decrescente), então a raiz é única.
+Em outras palavras, para garantirmos que exista um único zero de uma dada função diferenciável num intervalo, é suficiente que ela troque de sinal e seja monótona neste intervalo.
+
 \begin{ex}
-Observamos que existe uma única solução da equação $e^x=x+2$ no intervalo $(-2, 0)$. A existência foi estabelecida no exemplo anterior. Para garantir a unicidade, observe que $f'(x)=e^x-1$ e, portanto, $f'(x)<0$ para $x\in(-2, 0)$. Logo a raiz é única.
+No Exemplo~\ref{ex:teorema_de_Bolzano}, mostramos que existe pelo menos um zero de $f(x) = e^{x}-x-2$ no intervalo $(-2,0)$, pois $f(x)$ é contínua e $f(-2)\cdot f(0) < 0$. Agora, observamos que, além disso, $f'(x)=e^x-1$ e, portanto, $f'(x)<0$ para todo $x\in(-2,0)$. Logo, da Proposição~\ref{prop:existencia_e_unicidade}, temos garantida a existência de um único zero no intervalo dado.
 
 \ifisscilab
 Podemos inspecionar o comportamento da função $f(x)= e^x - x - 2$ e de sua derivada fazendo seus gráficos no Scilab. Para tanto, podemos fazer o seguinte teste:
 \begin{verbatim}
 -->x = linspace(-2,0,50);
 -->deff('y = f(x)','y=exp(x)-x-2')  // define f
--->plot(x,f(x))                     // grafico de f
+-->plot(x,f(x));xgrid               // grafico de f
 -->deff('y = fl(x)','y=exp(x)-1')   // a derivada
--->plot(x,fl(x))                    // grafico de f'
+-->plot(x,fl(x));xgrid              // grafico de f'
 \end{verbatim}
 \fi
 \end{ex}
 
+A discussão feita nesta seção, especialmente o teorema de Bolzano, nos fornece os fundamentos para o método da bisseção, o qual discutimos na próxima seção.
+
 \section*{Exercícios}
 
-\begin{Exercise}Mostre que a equação
+\begin{Exercise}\label{exer:existencia_sol1}
+  Mostre que $\cos x = x$ tem solução no intervalo $[0, \pi/2]$.
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+  Observamos que a equação é equivalente a $\cos(x) - x = 0$. Tomando, então, $f(x) = \cos(x) - x$, temos que $f(x)$ é contínua em $[0, \pi/2]$, $f(0) = 1$ e $f(\pi/2) = -\pi/2 < 0$. Logo, do teorema de Bolzano~\ref{teo:teorema_de_Bolzano}, concluímos que a equação dada tem pelo menos uma solução no intervalo $(0, \pi/2)$.    
+  \end{tiny}
+\end{Answer}
+
+\begin{Exercise}
+  Mostre que $\cos x = x$ tem uma única solução no intervalo $[0, \pi/2]$.
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+    No Exercício~\ref{exer:existencia_sol1}, mostramos que a função $f(x) = \cos(x) - x$ tem um zero no intervalo $[0, \pi/2]$. Agora, observamos que $f'(x) = -\sen(x) - 1$. Como $0 < \sen x < 1$ para todo $x\in (0, \pi/2)$, temos que $f'(x) < 0$ em $(0, \pi/2)$, i.e. $f(x)$ é monotonicamente decrescente neste intervalo. Logo, da Proposição~\ref{prop:existencia_e_unicidade}, temos que existe um único zero da função neste intervalo.
+  \end{tiny}
+\end{Answer}
+
+\begin{Exercise}Mostre que a equação:
   \begin{equation*}
     \ln(x)+x^3-\frac{1}{x}=10  
   \end{equation*}
-possui uma única solução positiva. Faça o gráfico e observe.
+possui uma única solução positiva.
 \end{Exercise}
 
-\begin{Exercise} Use o teorema do valor intermediário para mostrar que o erro absoluto ao aproximar a raiz da função $f(x)=e^x-x-2$ por $\overline{x}=-1,841$ é menor que $10^{-3}$.
+\begin{Exercise}\label{exer:teorema_de_Bolzano_exatidao} Use o teorema de Bolzano para mostrar que o erro absoluto ao aproximar o zero da função $f(x)=e^x-x-2$ por $\overline{x}=-1,841$ é menor que $10^{-3}$.
 \end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+    Escolhendo o intervalo $[a, b] = [-1,841-10^{-3}, -1,841+10^{-3}]$, temos $f(a)\approx 5\times 10^{-4} > 0$ e $f(b)\approx -1,2\times 10^{-3} < 0$, i.e. $f(a)\cdot f(b) < 0$. Então, o teorema de Bolzano nos garante que o zero exato $x^*$ de $f(x)$ está no intervalo $(a, b)$. Logo, da escolha feita, $|-1,841 - x^*| < 10^{-3}$.
+  \end{tiny}
+\end{Answer}
 
-\begin{Exercise} Aplique o teorema do valor intermediário a um intervalo adequado e mostre que o erro absoluto associado à aproximação $1,962$ para a solução  exata $x^*$ de:
+\begin{Exercise} Mostre que o erro absoluto associado à aproximação $\overline{x} = 1,962$ para a solução exata $x^*$ de:
   \begin{equation*}
     e^x+\sin (x) +x = 10  
   \end{equation*}
-é inferior a $10^{-4}$.
+é menor que $10^{-4}$.
 \end{Exercise}
+\begin{Answer}
+  Basta aplicar as ideias da solução do Exercício~\ref{exer:teorema_de_Bolzano_exatidao}.
+\end{Answer}
 
 \begin{Exercise}\label{existe_unica} Mostre que a equação
   \begin{equation*}
@@ -83,93 +149,94 @@ possui uma solução para cada $v$ real e que esta solução é única.
 
 \section{Método da bisseção}\index{método!da bisseção}
 
-Suponha que a função $f:[a,b]\to\mathbb{R}$ seja contínua e que $f(a)\cdot f(b)<0$, ou seja, $f$ possui uma raiz no intervalo. Uma primeira aproximação para a raiz pode ser o ponto médio $p=\frac{a+b}{2}$.
-
-Se $f(p)\cdot f(a)<0$, então a raiz está a esquerda de $p$, senão, a raiz está a direita de $p$ (veja Fig. \ref{fig:bisection_scheme}). Depois de escolher o intervalo correto, fazemos uma nova aproximação para a raiz tomando o ponto médio do novo intervalo.
-
-\begin{figure}[ht]
+O \emph{método da bisseção} explora o fato de que uma função contínua $f:[a, b]\to \mathbb{R}$ com $f(a)\cdot f(b) < 0$ tem um zero no intervalo $(a, b)$ (veja o teorema de Bolzano~\ref{teo:teorema_de_Bolzano}). Assim, a ideia para aproximar o zero de uma tal função $f(x)$ é tomar, como primeira aproximação, o ponto médio do intervalo $[a, b]$, i.e.:
+\begin{equation*}
+  x^{(0)} = \frac{(a + b)}{2}. 
+\end{equation*}
+Pode ocorrer de $f(x^{(0)}) = 0$ e, neste caso, o zero de $f(x)$ é $x^* = x^{(0)}$. Caso contrário, se $f(a)\cdot f(x^{(0)}) < 0$, então $x^*\in (a, x^{(0)})$. Neste caso, tomamos como segunda aproximação do zero de $f(x)$ o ponto médio do intervalo $[a, x^{(0)}]$, i.e. $x^{(1)} = (a + x^{(0)})/2$. Noutro caso, temos $f(x^{(0)})\cdot f(b) < 0$ e, então, tomamos $x^{(1)} = (x^{(0)} + b)/2$. Repetimos este procedimento até obtermos a aproximação desejada (veja, Figura~\ref{fig:metodo_da_bissecao}).
+ 
+\begin{figure}
   \centering
-  \includegraphics[scale=0.5]{./cap_equacao1d/pics/metodo_da_bissecao/metodo_da_bissecao}
+  \includegraphics{./cap_equacao1d/pics/metodo_da_bissecao/metodo_da_bissecao.eps}
   \caption{Método da bisseção.}
-  \label{fig:bisection_scheme}
+  \label{fig:metodo_da_bissecao}
 \end{figure}
 
-Em outras palavras, seja $(a^{(0)},b^{(0)})=(a,b)$ o intervalo inicial e $p^{(0)}=\frac{a^{(0)}+b^{(0)}}{2}$ a aproximação inicial. Se $f(p^{(0)})\cdot f(a^{(0)})<0$, então $(a^{(1)}, b^{(1)})=(a^{(0)}, p^{(0)})$, caso contrário, $(a^{(1)}, b^{(1)})=(p^{(0)}, b^{(0)})$. A nova aproximação para a raiz é $p^{(1)}=\frac{a^{(1)}+b^{(1)}}{2}$. Esse procedimento produz uma sequência $p^{(n)}$ que converge para a raiz.
+De forma mais precisa, suponha que queiramos calcular uma aproximação com uma certa precisão $TOL$ para um zero $x^*$ de uma dada função contínua $f:[a, b]\to\mathbb{R}$ tal que $f(a)\cdot f(b) < 0$. Iniciamos, setamos $n=0$ e:
+\begin{equation*}
+  a^{(n)} = a,\quad b^{(n)} = b\quad\text{e}\quad x^{(n)} = \frac{a^{(n)} + b^{(n)}}{2}.
+\end{equation*}
+Verificamos o \emph{critério de parada}\index{critério de parada}, i.e. se $f(x^{(n)}) = 0$ ou:
+\begin{equation*}
+  \displaystyle \frac{|a^{(n)}+ b^{(n)}|}{2} < TOL,
+\end{equation*}
+então $x^{(n)}$ é a aproximação desejada. Caso contrário, preparamos a próxima iteração $n+1$ da seguinte forma: se $f(a^{(n)})\cdot f(x^{(n)}) < 0$, então setamos $a^{(n+1)} = a^{(n)}$ e $b^{(n+1)} = x^{(n)}$; noutro caso, se $f(x^{(n)})\cdot f(b^{(n)}) < 0$, então setamos $a^{(n+1)} = x^{(n)}$ e $b^{(n+1)} = b^{(n)}$. Trocando $n$ por $n+1$, temos a nova aproximação do zero de $f(x)$ dada por:
+\begin{equation*}
+  x^{(n+1)} = \frac{a^{(n+1)} + b^{(n+1)}}{2}.
+\end{equation*}
+Voltamos a verificar o critério de parada acima e, caso não satisfeito, iteramos novamente. Iteramos até obtermos a aproximação desejada ou o número máximo de iterações ter sido atingido.
 
-\begin{ex}Faça 5 iterações do método da bisseção para encontrar a raiz de $f(x)=x^3+5x^2-12$ utilizando $a^{(0)}=1$ e $b^{(0)}=2$.
-$$
-\begin{array}{|c|c|c|c|c|c|c|}
-\hline
-n&a^{(n)}&b^{(n)}&p^{(n)}&f(a^{(n)})&f(b^{(n)})&f(p^{(n)})\\
-\hline
-0&a^{(0)}=1&b^{(0)}=2&p^{(0)}=1,5&-6 &16&2,625  \\
-\hline
-1&a^{(1)}=1&b^{(1)}=p^1=1,5&p^{(1)}=1,25&-6 &2,625&-2,234375  \\
-\hline
-2&a^{(2)}=1,25&b^{(2)}=1,5&p^{(2)}=1,375&&&\\
-\hline
-3&&&&&&\\
-\hline
-4&&&&&&\\
-\hline
-5&&&&&&\\
-\hline
-\end{array}
-$$
+\begin{ex}\label{ex:metodo_da_bissecao}Use o método da bisseção para calcular uma solução de $e^x = x + 2$ no intervalo $[-2, 0]$ com precisão $TOL = 10^{-1}$.
+  \begin{sol}
+    Primeiramente, observamos que resolver a equação dada é equivalente a calcular o zero de $f(x) = e^x - x - 2$. Além disso, temos $f(-2)\cdot f(0) < 0$. Desta forma, podemos iniciar o método da bisseção tomando o intervalo inicial $[a^{(0)}, b^{(0)}] = [-2, 0]$ e:
+    \begin{equation*}
+      x^{(0)} = \frac{a^{(0)} + b^{(0)}}{2} = -1.
+    \end{equation*}
+Apresentamos as iterações na Tabela~\ref{tab:metodo_da_bissecao}. Observamos que a precisão $TOL = 10^{-1}$ foi obtida na quarta iteração com o zero de $f(x)$ sendo aproximado por $x^{(4)} = 1,8125$.
+    \begin{table}
+      \centering
+      \begin{tabular}{l|ccc|c|c}\hline
+        $n$ & $a^{(n)}$ & $b^{(n)}$ & $x^{(n)}$ & $f(a^{(n)})f(x^{(n)})$ & $\displaystyle \frac{|b^{(n)}-a^{(n)}|}{2}$\\\hline
+        $0$ & $-2$ & $0$ & $-1$ & $< 0$ & $1$\\
+        $1$ & $-2$ & $-1$ & $-1,5$ & $<0$ & $0,5$\\
+        $2$ & $-2$ & $-1,5$ & $-1,75$ & $<0$ & $0,25$\\
+        $3$ & $-2$ & $-1,75$ & $-1,875$ & $>0$ & $0,125$\\
+        $4$ & $-1,875$ & $-1,75$ & $-1,8125$ & $<0$ & $0,0625$\\\hline
+      \end{tabular}
+      \caption{Iteração do método da bisseção para o Exemplo~\ref{ex:metodo_da_bissecao}.}
+      \label{tab:metodo_da_bissecao}
+    \end{table}
 
 \ifisscilab
-No console do Scilab, temos:
+Usando o \verb+Scilab+ neste exemplos, temos:
 \begin{verbatim}
--->deff('y=f(x)','y = x^3 + 5*x^2 - 12')
--->//iteracao 0
--->a=1; b=2; p=(a+b)/2;
--->[a,b,p,f(a),f(b),f(p)]
- ans  =
-    1.    2.    1.5  - 6.    16.    2.625  
--->//iteracao 1
--->b = p; p = (a+b)/2;
--->[a,b,p,f(a),f(b),f(p)]
- ans  =
-    1.    1.5    1.25  - 6.    2.625  - 2.234375
+-->deff('y = f(x)','y = exp(x) - x - 2')
+-->a=-2, b=0, x=(a+b)/2, TOL = (b-a)/2, sign(f(a)*f(x))
+-->b=x, x=(a+b)/2, TOL = (b-a)/2, sign(f(a)*f(x))
 \end{verbatim}
-\fi
+e, assim, sucessivamente.
+\fi    
+  \end{sol}
 \end{ex}
 
-Observe que a distância entre $p^{(0)}$ e a raiz $p^*$ não pode exceder metade do intervalo, ou seja $|p^{(0)}-p^*|\leq \frac{b-a}{2}$. Da mesma forma, o erro absoluto entre $p^{(1)}$ e $p^*$ é menor que $\frac{1}{4}$ do intervalo, isto é, $|p^{(1)}-p^*|\leq \frac{b-a}{2^2}$. De modo geral, o erro absoluto na iteração $n$ é estimado por
-$$
-|p^{(n)}-p^*|\leq \frac{b-a}{2^{n+1}},\qquad n\geq 1.
-$$
-Também, se $\epsilon_n:=|p^{(n)}-p^*|$, então vale:
-$$
-\epsilon_{n+1}\leq \frac{1}{2}\left(\epsilon_n\right)^1
-$$
-e, por isso, dizemos que o método da bisseção possui taxa de convergência linear. Um método com taxa de convergência super-linear satisfaz
-$$
-\epsilon_{n+1}\leq C\left(\epsilon_n\right)^m,
-$$
-onde $m>1$ e $C$ é uma constante.
+Observe que a distância entre $x^{(0)}$ e o zero $x^*$ não pode exceder metade do intervalo inicial, ou seja $|x^{(0)}-x^*|\leq \frac{b-a}{2}$. Da mesma forma, o erro absoluto entre $x^{(1)}$ e $x^*$ é menor que $\frac{1}{4}$ do tamanho do intervalo, i.e., $|x^{(1)}-x^*|\leq \frac{b-a}{2^2}$. De modo geral, o erro absoluto na iteração $n$ é estimado por:
+\begin{equation*}
+  |x^{(n)}-x^*|\leq \frac{b-a}{2^{n+1}},\quad n\geq 0.
+\end{equation*}
+Também, denotando $\epsilon_n := |x^{(n)} - x^*|$, temos:
+\begin{equation*}
+\epsilon_{n+1}\leq \frac{1}{2}\left(\epsilon_n\right)^{\pmb{1}}  
+\end{equation*}
+e, por isso, dizemos que o método da bisseção possui \emph{taxa de convergência linear}. 
 
-\begin{ex}Determine quantas iterações são necessárias para encontrar a raiz de $f(x)=x^3+5x^2-12$ com uma precisão de $10^{-3}$, utilizando $a^{(0)}=1$ e $b^{(0)}=2$.
-
-Observe que precisamos da seguinte desigualdade
-$$
-|p^{(n)}-p^*|\leq \frac{b-a}{2^{n+1}}= \frac{1}{2^{n+1}}\leq 10^{-3}.
-$$
-Assim,
-$$
-\log_{2}2^{-(n+1)}\leq \log_{2}10^{-3}
-$$
-ou seja,
-$$
--(n+1)\log_{2}2\leq -3\log_2(10)\Rightarrow  n+1\geq 3\log_2(10)\approx 9,97\Rightarrow  n\approx 8,97
-$$
-Portanto, $n\geq 9$.
+\begin{ex}No Exemplo~\ref{ex:metodo_da_bissecao}, precisamos de $4$ iterações do método da bisseção para computar uma aproximação com precisão de $10^{-1}$ do zero de $f(x) = e^x - x - 2$ tomando como intervalo inicial $[a, b] = [-2, 0]$. Poderíamos ter estimado o número de iterações \emph{a priori}, pois, como vimos acima:
+  \begin{equation*}
+    |x^{(n)}-x^*|\leq \frac{b-a}{2^{n+1}},\quad n\geq 0.
+  \end{equation*}
+Logo, temos:
+\begin{align*}
+  |x^{(n)} - x^*| &< \frac{b - a}{2^{n+1}} = \frac{2}{2^{n+1}}\\
+  &= 2^{-n} < 10^{-1} \Rightarrow  n > -\log_2 10^{-1} \approx 3,32.
+\end{align*}
+O que está de acordo com o experimento numérico realizado naquele exemplo.
 \end{ex}
+
+O método da bisseção tem a boa propriedade de garantia de convergência, bem como de fornecer uma simples estimativa da precisão da aproximação calculada. Entretanto, a taxa de convergência linear é superada por outros métodos. A construção de tais métodos está, normalmente, associada a iteração do ponto fixo, a qual exploramos na próxima seção.
 
 \ifisscilab
 \subsection{Código Scilab: método da bisseção}
 
-O seguinte código é uma implementação no Scilab do algoritmo da bisseção. As variáveis de entrada são:
+O seguinte código é uma implementação no \verb+Scilab+ do algoritmo da bisseção. As variáveis de entrada são:
 \begin{itemize}
 \item \verb+f+ - função objetivo
 \item \verb+a+ - extremo esquerdo do intervalo de inspeção $[a, b]$
@@ -265,7 +332,7 @@ onde $I_R$ é a corrente de condução reversa e $v_t$, a tensão térmica dada 
 \item[f)] $V=-30~\mbox{V}$ e $R=1~\mbox{k}\Omega$.
 \item[g)] $V=-30~\mbox{V}$ e $R=10~\mbox{k}\Omega$.
 \end{itemize}\end{minipage}\begin{minipage}[c]{0.4\linewidth}
-\includegraphics[width=0.9\textwidth]{./cap_equacao1d/pics/circuito_diodo}
+\includegraphics[width=0.9\textwidth]{./cap_equacao1d/pics/circuito_diodo.eps}
 \end{minipage}\\
 Dica: $V=RI_d+v_d$.
 \begin{Answer}
@@ -433,7 +500,7 @@ Assim, $g$ é uma contração em $[a,b]$  se $|g'(x)|<1$ para $a<x<b$.
 
  Além disso, a sequência
   $$x^{(n+1)}=g(x^{(n)})$$
-é convergente para qualquer $x_1\in[a,b]$ e $$\lim_{n\to\infty}x^{(n)}=p.$$
+é convergente para qualquer $x^{(1)}\in[a,b]$ e $$\lim_{n\to\infty}x^{(n)}=p.$$
 \end{teo}
 
 
@@ -442,7 +509,7 @@ Começamos demonstrando que existe pelo menos um ponto fixo. Para tal definimos 
 $$f(a)=a-g(a)\leq a-a=0$$
 e
 $$f(b)=b-g(b)\geq b-b=0$$
-Se $f(a)=a$ ou $f(b)=b$, então o ponto fixo existe. Caso contrário, as desigualdade são estritas e a função muda de sinal no intervalo. Como a função é contínua, pelo teorema do valor intermediário, existe um ponto $x^*$ no intervalo $(a,b)$ tal que $f(x^*)=0$, ou seja, $x^*-g(x^*)=0$. Observe que $x^*$ é um ponto fixo de $g$, pois $g(x^*)=x^*$. 
+Se $f(a)=a$ ou $f(b)=b$, então o ponto fixo existe. Caso contrário, as desigualdade são estritas e a função muda de sinal no intervalo.  Como a função é contínua, pelo teorema de Bolzano~\ref{teo:teorema_de_Bolzano}, existe um ponto $x^*$ no intervalo $(a, b)$ tal que $f(x^*)=0$, ou seja, $x^*-g(x^*)=0$. Observe que $x^*$ é um ponto fixo de $g$, pois $g(x^*)=x^*$. 
 
 Para provar que o ponto fixo é único, observamos que se $x^*$ e $x^{**}$ são pontos fixos, eles devem ser iguais, pois:
 $$|x^*-x^{**}|=|g(x^{*})-g(x^{**})|\leq \beta |x^*-x^{**}|$$
@@ -576,7 +643,7 @@ onde $\epsilon_n=\left|x^{(n)}-x^*\right|$.
 
 Fixaremos, portanto, nos casos quando $|g'(x^*)|<1$.
 
-\subsection{Erro absoluto e tolerância}\index{erros!absoluto}\index{tolerência}
+\subsection{Erro absoluto e tolerância}\index{erros!absoluto}\index{tolerância}
 
 Na prática, quando se aplica uma iteração como esta, não se conhece de antemão o valor do ponto fixo $x^*$. Assim, o erro $\epsilon_n=\left|x^{(n)}-x^*\right|$ precisa ser estimado com base nos valores calculados $x^{(n)}$. Uma abordagem frequente é analisar a evolução da diferença entre dois elementos da sequência:
 $$\Delta_n=\left|x^{(n+1)}-x^{(n)}\right|$$
@@ -734,7 +801,9 @@ onde $f$ é o fator de atrito, $\varepsilon$ é a rugosidade do tubo em metros, 
 $$x^{(n+1)}=-2 \log_{10} \left( \frac{\varepsilon}{14.8 R_\mathrm{h}} + \frac{2.51x^{(n)}}{\mathrm{Re}} \right)$$
 \end{Exercise}
 \begin{Answer}
-0.0431266
+  \begin{tiny}
+$0.0431266$
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise} Encontre uma solução aproximada para equação algébrica
@@ -761,7 +830,7 @@ onde $q=1-10^{-6}$.
 \begin{itemize}
 \item[a)] Calcule o limite $$x_\infty=\lim_{n\to\infty}x^{(n)}$$ analiticamente.
 \item[b)] Considere que o problema de obter o limite da sequência numericamente usando como critério de parada que $|x^{(n+1)}-x^{(n)}|<10^{-5}$. Qual o valor é produzido pelo esquema numérico? Qual o desvio entre o valor obtido pelo esquema numérico e o valor do limite obtido no item a?  Discuta. (Dica: Você não deve implementar o esquema iterativo, obtendo o valor de $x^{(n)}$ analiticamente)
-\item[c)] Qual deve ser a tolerência especificada para obter o resultado com erro relativo inferior a $10^{-2}$?
+\item[c)] Qual deve ser a tolerância especificada para obter o resultado com erro relativo inferior a $10^{-2}$?
 \end{itemize}
 \end{Exercise}
 
@@ -848,7 +917,7 @@ converge para $x^*$, desde que $f'(x^{(n)})\neq 0 $ para todo $n\in\mathbb{N}$.
 Considere o problema de calcular a raiz uma função $f$, conforme esboço na figura abaixo
 
 \begin{center}
-\includegraphics[scale=.4]{./cap_equacao1d/pics/fig_Newton}
+\includegraphics[scale=.4]{./cap_equacao1d/pics/fig_Newton.eps}
 \end{center}
 
 Queremos obter $x^{(1)}$ a partir de $x^{(0)}$ sabendo que $x^{(1)}$ é a intersecção da reta tangente em $x^{(0)}$ com o eixo $x$. A inclinação da reta tangente é dada por (a variação em $y$ sobre a variação em $x$)
@@ -916,7 +985,7 @@ $$\phi''(x^*)=\frac{f''(x^*)}{f'(x^*)}$$
 -->deff('y=f(x)','y=tan(x)-2*x^2')
 -->plot([0:.01:1.3],f)
 \end{verbatim} 
-Observamos facilmente uma raiz no intervalo $(0,5, 0,6)$ e outra no intervalo $(1,2, 1,3)$. Como a função $f(x)$ é contínua fora dos pontos de singularidade da tangente, é fácil verificar que existe pelo menos uma solução nos intervalos dados pelo teorema do valor intermediário:
+Observamos facilmente uma raiz no intervalo $(0,5, 0,6)$ e outra no intervalo $(1,2, 1,3)$. Como a função $f(x)$ é contínua fora dos pontos de singularidade da tangente, é fácil verificar que existe pelo menos uma solução nos intervalos dados pelo teorema de Bolzano~\ref{teo:teorema_de_Bolzano}:
 \begin{eqnarray*}
 f(0,5) &\approx& 0,046302 >0\\
 f(0,6) &\approx& -0,035863 <0\\
@@ -962,7 +1031,9 @@ trace o gráfico com auxílio do \verb+Scilab+ e verifique que ela possui uma ra
 $$\cos(10x)=e^{-x}.$$ Dica: a primeira raiz positiva está no intervalo $(0,0.02)$. Fique atento.
 \end{Exercise}
 \begin{Answer}
- 0.0198679; 0.533890; 0.735412; 1.13237; 1.38851
+  \begin{tiny}
+ $0.0198679$; $0.533890$; $0.735412$; $1.13237$; $1.38851$.
+  \end{tiny}
 \end{Answer}
 
 
@@ -972,7 +1043,9 @@ $$\cos(10x)=e^{-x}.$$ Dica: a primeira raiz positiva está no intervalo $(0,0.02
 \begin{Exercise}\label{new4} Encontre as raízes reais do polinômio $f(x)=\frac{x^5}{100}+x^4+3x+1$ isolando-as pelo método do gráfico e depois usando o método de Newton. Expresse a solução com 7 dígitos significativos.
 \end{Exercise}
 \begin{Answer}
- - 99.99970, - 0.3376513; -1.314006
+  \begin{tiny}
+$-99.99970$, $-0.3376513$; $-1.314006$.
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise}Considere o método de Newton aplicado para encontrar a raiz de $f(x)=x^3-2x+2$. O que acontece quando $x^{(0)}=0$? Escolha um valor adequado para inicializar o método e obter a única raiz real desta equação.
@@ -984,7 +1057,9 @@ $$\cos(10x)=e^{-x}.$$ Dica: a primeira raiz positiva está no intervalo $(0,0.02
 \begin{Exercise} Entenda a interpretação geométrica ao método de Newton. Encontre uma valor para iniciar o método de Newton aplicado ao problema $f(x)=xe^{-x}=0$ tal que o esquema iterativo divirja.
 \end{Exercise}
 \begin{Answer}
-$x_0>1$.
+  \begin{tiny}
+$x_0>1$.    
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise}[title= Computação]Aplique o método de Newton à função $f(x)=\frac{1}{x}-u$ e construa um esquema computacional para calcular a inversa de $u$ com base em operações de multiplicação e soma/subtração.
@@ -1146,7 +1221,9 @@ O erro na tabela sempre se refere ao erro absoluto esperado. Nos três últimos 
 Usando  métodos numéricos encontre as primeiras raízes dessa equação. Verifique a j-ésima raiz ($z_j$) pode ser aproximada por $j-1/2$ para $j$ grande. Use o método de Newton para encontrar uma aproximação melhor para $z_j$.
 \end{Exercise}
 \begin{Answer}
- $z_1\approx 0.3252768 $, $z_2\approx 1.5153738$, $z_3\approx 2.497846  $, $z_4\approx 3.5002901$, $z_j\approx j-1/2-(-1)^j\frac{e^{-2j+1}}{\pi}, ~~~j>4$
+  \begin{tiny}
+ $z_1\approx 0.3252768 $, $z_2\approx 1.5153738$, $z_3\approx 2.497846  $, $z_4\approx 3.5002901$, $z_j\approx j-1/2-(-1)^j\frac{e^{-2j+1}}{\pi}, ~~~j>4$    
+  \end{tiny}
 \end{Answer}
 
 
@@ -1162,7 +1239,9 @@ Qual a potência da lâmpada quando ligada em série com uma resistência de val
 \end{itemize}
 \end{Exercise}
 \begin{Answer}
-150W, 133W, 87W, 55W, 6.5W
+  \begin{tiny}
+$150$~W, $133$~W, $87$~W, $55$~W, $6,5$~W    
+  \end{tiny}
 \end{Answer}
 
 %\begin{Exercise} Determine com 3 algarismos signficativos o valor de $R$ para que a potência na lâmpada seja $75W$ na questão anterior?
@@ -1182,7 +1261,9 @@ Responda:
 \end{Exercise}
 
 \begin{Answer}
-a) 42s e 8min2s, b) 14min56s.
+  \begin{tiny}
+a) $42$~s e $8$~min$2$~s, b) $14$~min$56$~s.    
+  \end{tiny}
 \end{Answer}
 
 
@@ -1204,25 +1285,33 @@ Ano & população\\
 Use esses parâmetros para calcular a população em 1980 e compare com o valor do censo.
 \end{Exercise}
 \begin{Answer}
- 118940992
+  \begin{tiny}
+$118940992$
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise}[title=Fluidos]\label{boiaesf} Uma boia esférica flutua na água. Sabendo que a boia tem $10\ell$ de volume e 2Kg de massa. Calcule a altura da porção molhada da boia.
 \end{Exercise}
 \begin{Answer}
- 7.7cm
+  \begin{tiny}
+$7,7$~cm    
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise}[title= Fluidos]\label{boiacil} Uma boia cilíndrica tem secção transversal circular de raio 10cm e comprimento 2m e pesa 10Kg. Sabendo que a boia flutua sobre água com o eixo do cilindro na posição horizontal, calcule a altura da parte molhada da boia.
 \end{Exercise}
 \begin{Answer}
- 4.32cm
+  \begin{tiny}
+$4,32$~cm    
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise} Encontre com 6 casas decimais o ponto da curva $y=\ln x$ mais próximo da origem.
 \end{Exercise}
 \begin{Answer}
-(0.652919,0.426303)
+  \begin{tiny}
+$(0,652919, 0,426303)$    
+  \end{tiny}
 \end{Answer}
 
 
@@ -1230,7 +1319,9 @@ Use esses parâmetros para calcular a população em 1980 e compare com o valor 
 \end{Exercise}
 
 \begin{Answer}
-7.19\% ao mês
+  \begin{tiny}
+$7,19$\% ao mês    
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise}[title= Matemática financeira] O valor de R\$110.000,00 é financiado conforme a seguinte programa de pagamentos:
@@ -1253,7 +1344,9 @@ Calcule a taxa de juros envolvida. A data do empréstimo é o mês zero.
  \end{Exercise}
 
 \begin{Answer}
-4.54\% ao mês.
+  \begin{tiny}
+$4,54$\% ao mês.    
+  \end{tiny}
 \end{Answer}
 
 
@@ -1269,19 +1362,25 @@ onde $T$ é a temperatura em Kelvin e $t$ é tempo em horas.
 \end{Exercise}
 
 \begin{Answer}
-500K, 700K em $t=3\ln(2)$, 26min, 4h27min.
+  \begin{tiny}
+$500$~K, $700$~K em $t=3\ln(2)$, $26$~min, $4$~h$27$~min.    
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise} Encontre os pontos onde a elipse que satisfaz $\frac{x^2}{3}+y^2=1$ intersepta a parábola $y=x^2-2$.
 \end{Exercise}
 \begin{Answer}
-$\left(\pm 1.1101388,-.7675919\right)$, $\left(\pm 1.5602111,0.4342585\right)$
+  \begin{tiny}
+$\left(\pm 1,1101388, -0,7675919\right)$, $\left(\pm 1,5602111, 0,342585\right)$
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise}[title= Otimização] Encontre a área do maior retângulo que é possível inscrever entre a curva $e^{-x^2}\left(1+\cos(x)\right)$ e o eixo $y=0$.
 \end{Exercise}
 \begin{Answer}
-1.5318075
+  \begin{tiny}
+$1,5318075$
+  \end{tiny}
 \end{Answer}
 
 
@@ -1294,7 +1393,9 @@ Onde $C_1(x)$ e $C_2(x)$ são os custos de fornecimento das usinas 1 e 2, respec
 
 \end{Exercise}
 \begin{Answer}
- Aproximadamente 2500 reais por hora.
+  \begin{tiny}
+ Aproximadamente 2500 reais por hora.    
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise}[title= Termodinâmica] A pressão de saturação (em bar) de um dado hidrocarboneto pelo ser modelada pela equação de Antoine:
@@ -1319,14 +1420,18 @@ $$\frac{1}{P}=\sum_i \frac{z_i}{P_i^{sat}}$$
 \end{Exercise}
 
 \begin{Answer}
- a) 332.74K b), 359.33K
+  \begin{tiny}
+ a) $332,74$~K b) $359,33$~K    
+  \end{tiny}
 \end{Answer}
 
 \begin{Exercise} Encontre os três primeiros pontos de mínimo da função $$f(x)=e^{-x/11}+x\cos(2x)$$ para $x>0$ com erro inferior a $10^{-7}$.
 \end{Exercise}
 \begin{Answer}
-1.72285751  ,4.76770758,  7.88704085
+  \begin{tiny}
+$1,2285751$, $4,76770758$, $7,88704085$
+  \end{tiny}
 \end{Answer}
 
 
-\end{document} 
+%\end{document} 

@@ -19,8 +19,12 @@ pdf: main.tex
 dvi: main.tex
 	latex main
 	bibtex main
+	makeindex main
 	latex main
 	latex main
+
+epub: main.tex
+	pandoc -o main.epub main.tex
 
 .PHONY: clean
 
