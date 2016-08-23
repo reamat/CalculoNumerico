@@ -1,8 +1,7 @@
 %Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
-\documentclass[main.tex]{subfiles}
-
-\begin{document}
+%\documentclass[main.tex]{subfiles}
+%\begin{document}
 
 \chapter{Aritmética de máquina}\index{aritmética!de máquina}
 
@@ -637,7 +636,6 @@ Por simplicidade, a partir daqui nós adotaremos $b=10$.
 \end{obs}
 \fi
 
-Em geral, os números não são representados de forma exata nos computadores. Isto nos leva ao chamado erro de arredondamento. Quando resolvemos problemas com técnicas numéricas estamos sujeitos a este e outros tipos de erros. Nas próximas seções, veremos quais são estes erros e como controlá-los, quando possível.
 
 \section*{Exercícios}
 
@@ -646,12 +644,13 @@ Em geral, os números não são representados de forma exata nos computadores. I
 
 
 \section{Tipos de Erros}\index{erros}
+Em geral, os números não são representados de forma exata nos computadores. Isto nos leva ao chamado erro de arredondamento. Quando resolvemos problemas com técnicas numéricas estamos sujeitos a este e outros tipos de erros. Nesta seção, veremos quais são estes erros e como controlá-los, quando possível.
 
 Quando fazemos aproximações numéricas, os erros são gerados de várias formas, sendo as principais delas as seguintes:
 \begin{enumerate}
- \item \emph{Precisão dos dados}: equipamentos de medição possuem precisão finita, acarretando erros nas medidas físicas.
+ \item \emph{Incerteza dos dados}: equipamentos de medição possuem precisão finita, acarretando erros nas medidas físicas.
  \item \emph{Erros de Arredondamento}: são aqueles relacionados com as limitações que existem na forma representar números de máquina. 
- \item \emph{Erros de Truncamento}: ocorrem quando aproximamos um procedimento formado por uma sequência infinita de passos através de um outro procedimento finito. Por exemplo, a definição de integral é dada por uma soma infinita e, como veremos na terceira área, aproximarmo-la por um soma finita. Esse é um assunto que discutiremos várias vezes no curso, pois o tratamento do erro de truncamento é feito para cada método numérico.
+ \item \emph{Erros de Truncamento}: surgem quando aproximamos um procedimento formado por uma sequência infinita de passos através de um procedimento finito. Por exemplo, a definição de integral é dada por uma soma infinita e a aproximamos por um soma finita. O erro de truncamento deve ser analisado para cada método empregado. 
 \end{enumerate}
 
 Uma questão fundamental é a quantificação dos erros que estamos sujeitos ao computar a solução de um dado problema. Para tanto, precisamos definir medidas de erros (ou de exatidão)\index{medida!de erro}\index{medida!de exatidão}. As medidas de erro mais utilizadas são o \emph{erro absoluto}\index{erro!absoluto} e o \emph{erro relativo}\index{erro!relativo}.
@@ -872,7 +871,7 @@ Verifique quantos são os dígitos significativos corretos em cada aproximação
 
 
 \section{Erros nas operações elementares}
-O erro presente nas operações elementares de adição, subtração, multiplicação e divisão é da ordem do epsilon de máquina. Se estivermos usando uma máquina com 64 bits, temos que $\epsilon = 2^{-52} \approx 2,22E16$. 
+O erro presente relativo nas operações elementares de adição, subtração, multiplicação e divisão é da ordem do epsilon de máquina. Se estivermos usando uma máquina com 64 bits, temos que $\epsilon = 2^{-52} \approx 2,22E16$. 
 
 Este erro é bem pequeno! Assumindo que $x$ e $y$ são representados com todos dígitos corretos, temos aproximadamente 15 dígitos significativos corretos quando fizemos uma das operações $x+y$, $x-y$, $x\times y$ ou $x/y$. 
 
@@ -983,62 +982,118 @@ Observe que o efeito catastrófico foi eliminado.
 \end{ex}
 
 
+\section{Condicionamento de um problema}
+Geralmente podemos pensar um problema como um mapeamento $f$ onde a partir de valores de entrada $x$ devemos encontrar a saída, a solução $y$, ou seja, $f:x \rightarrow y$, ou simplesmente
+\begin{align}
+   y=f(x)
+\end{align}
+ Entretanto, a entrada do problema $x$ normalmente terá erros (por exemplo, erros na coleta dos dados ou erros na representação dos dados devido a arredondamentos). Assim, ao invés de usar $x$ estamos usando $x^*$ para resolver o problema e encontrar a solução $y^*$, ou seja, estamos resolvendo
+\begin{align}
+   y^*=f(x^*)
+\end{align}
 
-\section{Propagação de erros}\index{erros!propagação}
+Estamos interessados em saber se os erros cometidos na entrada $\Delta x=x-x^* $ influenciaram na saída do problema $\Delta y=y-y^*$.
 
+No caso mais simples, temos que $x \in \mathbb{R}$ e $y \in \mathbb{R}$. Assumindo que $f$ seja diferenciável, a partir da série de Taylor
+\begin{align}
+ f(x+\Delta x) \approx f(x) + f'(x) \Delta x
+\end{align}
+obtemos (subtraindo $f(x)$ dos dois lados)
+\begin{align}
+ \Delta y = f(x+\Delta x)-f(x) \approx f'(x) \Delta x
+\end{align}
+Para relacionarmos os erros relativos, dividimos o lado esquerdo por $y$, o lado direito por $f(x)=y$ e obtemos
+\begin{align}
+ \frac{ \Delta y}{y} \approx \frac{f'(x)}{f(x)}  \frac{x \Delta x}{x} 
+\end{align}
+sugerindo a definição de número de condicionamento de um problema.
 
-Dado uma função diferenciável $f$, considere $\bar{x}$ uma aproximação para $x$ e $f(\bar{x})$ uma aproximação para $f(x)$. Sabendo o erro $\delta_x=|x-\bar{x}|$, queremos estimar o erro $\delta_f=|f(x)-f(\bar{x})|$. Pelo teorema do valor médio, existe $\epsilon$ contido no intervalo aberto formado por $x$ e $\bar{x}$ tal que
-$$
-f(x)-f(\bar{x})=f'(\epsilon)(x-\bar{x}).
-$$
-Como não conhecemos o valor de $\epsilon$, supomos que a derivada $f'(\epsilon)$ é limitada por $M$ ($|f'(\epsilon)|\leq M$) no intervalo fechado formado por $x$ e $\bar{x}$ e obtemos
-$$
-|f(x)-f(\bar{x})|\leq M|x-\bar{x}|.
-$$
-Se $f'(x)$ não varia muito rápido nesse intervalo e supondo $\delta_x$ pequeno, aproximamos $M\approx |f'(x)|$ e temos:
-$$
-|f(x)-f(\bar{x})|\approx |f'(x)||x-\bar{x}|,
-$$
-ou
-$$
-\delta_f\approx |f'(x)|\delta_x.
-$$
-De modo geral, quando $f$ depende de várias variáveis, a seguinte estimativa vale:
+\begin{defn}
+Seja $f$ uma função diferenciável. O \emph{número de condicionamento} de um problema é definido como
+\begin{align}
+  \kappa_f(x) := \left| \frac{ x f'(x)}{f(x)} \right|
+\end{align}
+e fornece uma estimativa de quanto os erros relativos na entrada $\left|\frac{\Delta x}{x}\right|$ serão amplificados na saída $\left|\frac{\Delta y}{y}\right|$.
+\end{defn}
+
+% \footnote{Ou utilizando o teorema do valor médio, dada uma função diferenciável $f$, considere $\bar{x}$ uma aproximação para $x$ e $f(\bar{x})$ uma aproximação para $f(x)$. Sabendo o erro $\delta_x=$, queremos estimar o erro $\delta_f=|f(x)-f(\bar{x})|$. Pelo teorema do valor médio, existe $\epsilon$ contido no intervalo aberto formado por $x$ e $\bar{x}$ tal que
+% $$
+% f(x)-f(\bar{x})=f'(\epsilon)(x-\bar{x}).
+% $$
+% Como não conhecemos o valor de $\epsilon$, supomos que a derivada $f'(\epsilon)$ é limitada por $M$ ($|f'(\epsilon)|\leq M$) no intervalo fechado formado por $x$ e $\bar{x}$ e obtemos
+% $$
+% |f(x)-f(\bar{x})|\leq M|x-\bar{x}|.
+% $$
+% Se $f'(x)$ não varia muito rápido nesse intervalo e supondo $\delta_x$ pequeno, aproximamos $M\approx |f'(x)|$ e temos:
+% $$
+% |f(x)-f(\bar{x})|\approx |f'(x)||x-\bar{x}|,
+% $$
+% ou
+% $$
+% \delta_f\approx |f'(x)|\delta_x.
+% $$
+% }
+
+De modo geral, quando $f$ depende de várias variáveis, podemos obter
+
 $$
 \delta_f=|f(x_1,x_2,...,x_n)-f(\bar{x}_1, \bar{x}_2,...,\bar{x}_n)|\approx \sum_{i=1}^n\left|\frac{\partial f}{\partial x_i}(x_1, x_2,...,x_n)\right|\delta_{x_i}
 $$
 
-\begin{ex}
-O número $\frac{1}{3}=0,\overline{3}$ possui um representação infinita tanto na base decimal quanto na base binária. Logo, quando representamos ele no computador geramos um erro de arredondamento que denotaremos por $\epsilon$. Agora considere a seguinte sequência:
-$$
-\left\{\begin{array}{l}
-x_0=\frac{1}{3}\\
-x_{n+1}=4x_n-1,\qquad n\in\mathbb{N}
-\end{array}\right..
-$$
-Observe que $x_0=\frac{1}{3}$, $x_1=4\cdot \frac{1}{3}-1=\frac{1}{3}$, $x_2=\frac{1}{3}$, ou seja, temos uma sequência constante igual a $\frac{1}{3}$. Se calcularmos no computador essa sequência, temos que incluir os erros de arredondamento, ou seja,
-\begin{eqnarray*}
-\tilde{x}_0&=&\frac{1}{3}+\epsilon\\
-\tilde{x}_1&=&4x_0-1=4\left(\frac{1}{3}+\epsilon\right)-1=\frac{1}{3}+4\epsilon\\
-\tilde{x}_2&=&4x_1-1=4\left(\frac{1}{3}+4\epsilon\right)-1=\frac{1}{3}+4^2\epsilon\\
-&\vdots&\\
-\tilde{x}_n&=&\frac{1}{3}+4^n\epsilon
-\end{eqnarray*}
-Portanto o limite da sequência diverge,
-\begin{equation*}
-\lim_{x\to\infty}|\tilde{x}_n|=\infty  
-\end{equation*}
+Uma matriz de números de condicionamento também poderia ser obtida como em  \cite{gautschi1997numerical}.
 
-\ifisscilab
-Faça o teste no \verb+Scilab+, colocando:
-\begin{verbatim}
--->x = 1/3
-\end{verbatim}
-e itere algumas vezes a linha de comando:
-\begin{verbatim}
--->x = 4*x-1
-\end{verbatim}
-\fi
+\begin{ex}
+Considere o problema de calcular $\sqrt{x}$ em $x=2$. Se usarmos $x^*=1,999$, quanto será o erro relativo na saída? O erro relativo na entrada é
+\begin{align}
+   \left|\frac{\Delta x}{x}\right| = \left|\frac{2-1,999}{2}\right| = 0,0005
+\end{align}
+O número de condicionamento do problema calcular a raiz é
+\begin{align}
+   \kappa_f(x) := \left| \frac{ x f'(x)}{f(x)} \right| =\left| \frac{ x \frac{1}{2\sqrt{x}}}{\sqrt{x}} \right|=\frac{1}{2}
+\end{align}
+Ou seja, os erros na entrada serão diminuídos pela metade. De fato, usando $y=\sqrt{2}=1,4142136...$ e $y^*=\sqrt{1,999}=1,41386...$, obtemos
+\begin{align}
+   \frac{\Delta y}{y} = \frac{\sqrt{2}-\sqrt{1,999}}{\sqrt{2}} \approx  0,000250031...
+\end{align}
+
+\end{ex}
+
+
+\begin{ex}
+ Considere a função $f(x) = \frac{10}{1-x^2}$ e $x^*=0,9995$ com um erro absoluto na entrada de $0,0001$. 
+ 
+ Calculando $y^*=f(x^*)$ temos 
+\begin{align}
+   y^* = \frac{10}{1-(0,9995)^2} \approx 10002,500625157739705173
+\end{align}
+ Mas qual é a estimativa de erro nessa resposta? Quantos dígitos significativos temos nessa resposta?
+ 
+Sabendo que $f'(x)=-10/(1-x^2)^2$, o número de condicionamento é 
+\begin{align}
+   \kappa_f(x) := \left| \frac{ x f'(x)}{f(x)} \right| = \left| \frac{ 2x^2}{1-x^2} \right|
+\end{align}
+o que nos fornece para $x^*=0,9995$,
+\begin{align}
+   \kappa_f(0,9995) \approx 1998,5
+\end{align}
+Como o erro relativo na entrada é 
+\begin{align}
+   \left|\frac{\Delta x}{x}\right| = \left|\frac{0,0001}{0,9995}\right| \approx  0,00010005...
+\end{align}
+temos que o erro na saída será aproximadamente
+\begin{align}
+   \left|\frac{\Delta y}{y}\right| \approx \kappa_f(x) \left|\frac{\Delta x}{x}\right| \approx  1998,5 \times 0,00010005... \approx 0,1999
+\end{align}
+ou seja um erro relativo de aproximadamente $19,99 \%$.
+
+Note que se usarmos $x_1 = 0,9994$ e $x_2 = 0,9996$ (ambos no intervalo do erro absoluto da entrada) encontramos
+\begin{align}
+   y_1^*  &\approx  8335,83 \\
+   y_2^*  &\approx 12520,50
+\end{align}
+confirmando a estimativa de $19,99 \%$.
+
+
 \end{ex}
 
 
@@ -1170,10 +1225,43 @@ Faça o estudo da propagação do erro e decida qual a melhor expressão em cada
   \end{tiny}
 \end{Answer}
 
-
-
-
 \section{Mais exemplos}
+
+\begin{ex}
+O número $\frac{1}{3}=0,\overline{3}$ possui um representação infinita tanto na base decimal quanto na base binária. Logo, quando representamos ele no computador geramos um erro de arredondamento que denotaremos por $\epsilon$. Agora considere a seguinte sequência:
+$$
+\left\{\begin{array}{l}
+x_0=\frac{1}{3}\\
+x_{n+1}=4x_n-1,\qquad n\in\mathbb{N}
+\end{array}\right..
+$$
+Observe que $x_0=\frac{1}{3}$, $x_1=4\cdot \frac{1}{3}-1=\frac{1}{3}$, $x_2=\frac{1}{3}$, ou seja, temos uma sequência constante igual a $\frac{1}{3}$. Se calcularmos no computador essa sequência, temos que incluir os erros de arredondamento, ou seja,
+\begin{eqnarray*}
+\tilde{x}_0&=&\frac{1}{3}+\epsilon\\
+\tilde{x}_1&=&4x_0-1=4\left(\frac{1}{3}+\epsilon\right)-1=\frac{1}{3}+4\epsilon\\
+\tilde{x}_2&=&4x_1-1=4\left(\frac{1}{3}+4\epsilon\right)-1=\frac{1}{3}+4^2\epsilon\\
+&\vdots&\\
+\tilde{x}_n&=&\frac{1}{3}+4^n\epsilon
+\end{eqnarray*}
+Portanto o limite da sequência diverge,
+\begin{equation*}
+\lim_{x\to\infty}|\tilde{x}_n|=\infty  
+\end{equation*}
+Qual o número de condicionamento desse problema?
+
+
+\ifisscilab
+Faça o teste no \verb+Scilab+, colocando:
+\begin{verbatim}
+-->x = 1/3
+\end{verbatim}
+e itere algumas vezes a linha de comando:
+\begin{verbatim}
+-->x = 4*x-1
+\end{verbatim}
+\fi
+\end{ex}
+
 
 \begin{ex}Observe a seguinte identidade
 $$
@@ -1181,7 +1269,7 @@ f(x)=\frac{(1+x)-1}{x}=1
 $$
 Calcule o valor da expressão à esquerda para $x=10^{-12}$, $x=10^{-13}$, $x=10^{-14}$, $x=10^{-15}$, $x=10^{-16}$ e $x=10^{-17}$. Observe que quando $x$ se aproxima do $\epsilon$ de máquina a expressão perde o significado. Veja abaixo o gráfico de $f(x)$ em escala logarítmica.
 
-\includegraphics[width=0.8\textwidth]{./cap_aritmetica/pics/cancelamento_0.pdf}
+\includegraphics[width=0.8\textwidth]{./cap_aritmetica/pics/cancelamento_0.eps}
 \end{ex}
 
 \begin{ex} Neste exemplo, estamos interessados em compreender mais detalhadamente o comportamento da expressão
@@ -1215,14 +1303,14 @@ $$
 Podemos resumir esses dados no seguinte gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$:
 
 %\begin{figure}[htp]
-\includegraphics[width=0.8\textwidth]{./cap_aritmetica/pics/cancelamento_euler.pdf}
+\includegraphics[width=0.8\textwidth]{./cap_aritmetica/pics/cancelamento_euler.eps}
 %\caption{Gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$ em escala linear-logarítmica variando de $10^0$ até $10^{18}$ gerado no Scilab 5.4.1.}
 %\end{figure}
 
 Observe que quando $x$ se torna grande, da ordem de $10^{15}$, o gráfico da função deixa de se crescente e apresenta oscilações.  Observe também que a expressão se torna identicamente igual a $1$ depois de um certo limiar. Tais fenômenos não são intrínsecos da função $f(x)=(1+1/x)^x$, mas \emph{\uline{oriundas de erros de arredondamento}}, isto é, são resultados numéricos espúrios. A fim de pôr o comportamento numérico de tal expressão, apresentamos abaixo o gráfico da mesma função, porém restrito à região entre $10^{14}$ e $10^{16}$.
 
 %\begin{figure}
-\includegraphics[width=0.9\textwidth]{./cap_aritmetica/pics/cancelamento_euler2.pdf}
+\includegraphics[width=0.9\textwidth]{./cap_aritmetica/pics/cancelamento_euler2.eps}
 %\caption{Gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$ em escala linear-logarítmica variando de $10^{14}$ até $10^{16}$ gerado no Scilab 5.4.1.}
 ¨%\end{figure}
 \end{ex}
@@ -1296,8 +1384,13 @@ e
 \begin{equation*}
   \frac{1}{\exp(-1/\mu)+1}
 \end{equation*}
-com $\mu>0$. Verifique que elas são idênticas como funções reais. Qual dessas expressões é mais adequada quando $\mu$ é um número pequeno. Teste no computador para $\mu=0,1$, $\mu=0,01$ e $\mu=0,001$.
+com $\mu>0$. Verifique que elas são idênticas como funções reais. Teste no computador cada uma delas para $\mu=0,1$, $\mu=0,01$ e $\mu=0,001$. Qual dessas expressões é mais adequada quando $\mu$ é um número pequeno? Por quê?
 \end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+  Quando $\mu$ é pequeno, $e^{1/mu}$ é um número grande. A primeira expressão produz um ''overflow'' (número maior que o máximo representável) quando $\mu$ é pequeno. A segunda expressão, no entanto, reproduz o limite $1$ quando $\mu\to 0+$.
+  \end{tiny}
+\end{Answer}
 
 \begin{Exercise} Encontre expressões alternativas para calcular o valor das seguintes funções quando $x$ é próximo de zero.
 \begin{itemize}
@@ -1321,16 +1414,18 @@ Analise o desempenho destas duas expressões no computador quando $x$ vale $10^{
 \emph{Dica:} Para $|x|<10^{-5}$, $f(x)$ pode ser aproximada por $1/2-x^2/24$ com erro de truncamento inferior a $10^{-22}$.
 \end{Exercise}
 
-\begin{Exercise} Considere a expressão
-$$
-f(x)=\frac{1-\cos(x)}{x^2}
-$$
-para $x$ pequeno. Verifique que
-$$
-\lim_{x\to 0}f(x)=0,5
-$$
-Depois calcule no \verb+Scilab+ $f(x)$ para $x=10^{-5}$, $x=10^{-6}$, $x=10^{-7}$, $x=10^{-8}$, $x=10^{-9}$ e $x=10^{-10}$. Finalmente, faça uma aproximação analítica que elimine o efeito catastrófico.
-\end{Exercise}
+%\begin{Exercise} Considere a expressão
+%$$
+%f(x)=\frac{1-\cos(x)}{x^2}
+%$$
+%para $x$ pequeno. Verifique que
+%$$
+%\lim_{x\to 0}f(x)=0,5
+%$$
+%Depois calcule no \verb+Scilab+ $f(x)$ para $x=10^{-5}$, $x=10^{-6}$, $x=10^{-7}$, $x=10^{-8}$, $x=10^{-9}$ e $x=10^{-10}$. Finalmente, faça uma %aproximação analítica que elimine o efeito catastrófico.
+%\end{Exercise}
+%%Redundante
+
 
 \begin{Exercise}[title=Notas do prof. Guidi] Reescreva as expressões:
   $$\sqrt{e^{2x}+1}-e^x \qquad\hbox{e}\qquad \sqrt{e^{2x}+x^2}-e^x $$
@@ -1348,23 +1443,6 @@ onde $E$ é a energia cinética da partícula, $m$ é a massa de repouso, $v$ o 
     $4,12451228\times 10^{-16}$~J; $0,002\%$; $0,26654956\times 10^{-14}$~J; $0,002\%$; $4,98497440\times 10^{-13}$~J; $0,057\%$; $1,74927914\times 10^{-12}$~J; $0,522\%$.
   \end{tiny}
 \end{Answer}
-
-%%%%% \begin{Exercise} Calcule o valor da energia cinética $E$ de um corpo de $1$~Kg que se move a uma velocidade de $10$~m/s usando a fórmula relativística. Para fazer esse cálculo, use o software {\it Maple} com precisão de 10 dígitos, 12 dígitos, 15 dígitos, 20 dígitos e 50 dígitos. Explique o que está acontecendo e proponha uma fórmula alternativa para a energia cinética mais adequada para pequenas velocidades.
-%%%%% \end{Exercise}
-%%%%% \begin{Answer}
-%%%%% $E= \frac{m}{2} v^2 \left(1+\frac{3}{4}\left(\frac{v}{c}\right)^2+\ldots \right)$
-%%%%% \end{Answer}
-
-% \begin{Exercise}Considere a seguinte rotina escrita para ser usada no Scilab:
-% \begin{verbatim}
-%     x=1
-%     while x+1>x
-%         x=x+1
-%     end
-% \end{verbatim}
-% Explique se esta rotina finaliza em tempo finito, em caso afirmativo calcule a ordem de grandeza do tempo de execução supondo que cada passo do laço demore $10^{-7}s$. Justifique sua reposta.
-% \end{Exercise}
-
 
 \begin{Exercise} Deseja-se medir a concentração de dois diferentes oxidantes no ar. Três sensores eletroquímicos estão disponíveis para a medida e apresentam a seguintes respostas:
 $$v_1= 270 [A] +  30 [B],~~~ v_2= 140 [A] +  20 [B] ~~ \hbox{e}~~ v_3= 15 [A] +  200 [B]$$
@@ -1479,4 +1557,4 @@ Conclusão, apesar de o sensor $3$ apresentar uma incerteza cinco vezes maior na
   \end{tiny}
 \end{Answer}
 
-\end{document} 
+%\end{document} 
