@@ -341,6 +341,22 @@ Dica: $V=RI_d+v_d$.
   \end{tiny}
 \end{Answer}
 
+\begin{Exercise}[title= Propagação de erros] Obtenha os valores de $I_d$ no problema \ref{prob_diodo}. Lembre que existem duas expressões disponíveis:
+  \begin{equation*}
+    I_d=I_R\left(\exp\left(\frac{v_d}{v_t}\right)-1\right)  
+  \end{equation*}
+e
+\begin{equation*}
+  I_d=\frac{v-v_d}{R}
+\end{equation*}
+Faça o estudo da propagação do erro e decida qual a melhor expressão em cada caso.
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+  a) $0,0294$; b) $2.44e-3$; c) $2.50e-4$; d) $1.09\cdot 10^{-7}$; e) $- 10^{-12}$; f) $-10^{-12}$; g) $- 10^{-12}$  
+  \end{tiny}
+\end{Answer}
+
 
 \section{Iteração de Ponto Fixo}\index{iteração!do ponto fixo}
 
@@ -471,7 +487,7 @@ x^{(6)}&=10e^{-0,0042293}=  9,9577961
 \end{align*}
 \end{ex}
 
-O experimento numérico sugere que a iteração $a$ converge para $1,745528...$ e a iteração $b$ não é convergente.
+O experimento numérico sugere que a iteração a) converge para $1,745528...$ e a iteração b) não é convergente.
 
 Note que queríamos resolver a equação $f(x)=x e^x-10=0$. Ao invés disso, transformamos essa equação em uma equação de iteração do tipo
   $$x^{(n+1)}=g(x^{(n)})$$
@@ -677,7 +693,7 @@ E temos:
 x^*-x^{(N)}
 &=&\sum_{k=0}^\infty \left(x^{(N+k+1)}-x^{(N+k)}\right)\\
 &\approx&\sum_{k=0}^\infty (x^{(N+1)}-x^{(N)}) \left(g'(x^*)\right)^{k}\\
-&=&(x^{(N+1)}-x^{(N)}) \frac{1}{1-g'(x^*)}, \left|g'(x^*)\right|<1
+&=&(x^{(N+1)}-x^{(N)}) \frac{1}{1-g'(x^*)}, \quad \left|g'(x^*)\right|<1
 \end{eqnarray*}
 Tomando módulo, temos:
 \begin{eqnarray*}
@@ -688,9 +704,8 @@ Tomando módulo, temos:
 
 {\bf Conclusões:} Tendo em mente a relação $x^{(n+1)}-x^{(n)}  \approx (x^{(n)}-x^{(n-1)}) g'(x^*)$, concluímos:
 \begin{itemize}
-\item Quando $g'(x^*)<0$, o esquema é alternante e o erro $\epsilon_N$ pode ser estimado diretamente da diferença $\Delta_N$.
-\item Quando $g'(x^*)>0$, o esquema é monótono e $\frac{1}{1-g'(x^*)}>1$, pelo que o erro $\epsilon_N$ é maior que a diferença $\Delta_N$. A relação será tão mais importante quando mais próximo da unidade for $g'(x^*)$, ou seja, quando mais lenta for a convergência.
-\item Como $g'(x^*)\approx \frac{x^{(n+1)}-x^{(n)}}{x^{(n)}-x^{(n-1)}}$, temos
+\item Quando $g'(x^*)<0$, o esquema é alternante, isto é, o sinal do erro se altera a cada passo.  O erro $\epsilon_N$ pode ser estimado diretamente da diferença $\Delta_N$, pois o denominador $1-g'(x^*)>1$.
+\item Quando $0<g'(x^*)<1$, o esquema é monótono e $\frac{1}{1-g'(x^*)}>1$, pelo que o erro $\epsilon_N$ é maior que a diferença $\Delta_N$. A relação será tão mais importante quando mais próximo da unidade for $g'(x^*)$, ou seja, quando mais lenta for a convergência. Para estimar o erro em função da diferença $\Delta_N$, observamos que  $g'(x^*)\approx \frac{x^{(n+1)}-x^{(n)}}{x^{(n)}-x^{(n-1)}}$ e 
 $$\left|g'(x^*)\right|\approx \frac{\Delta_n}{\Delta_{n-1}}$$
 e portanto
 $$\epsilon_N \approx \frac{\Delta_N}{1-\frac{\Delta_n}{\Delta_{n-1}}}.$$
@@ -866,7 +881,7 @@ Prove que $\{x^{(n)}\}$ é sequência de número reais positivos convergindo par
 $$x^{(n+1)}=x^{(n)} - \gamma f(x^{(n)})$$
 onde $\gamma$ é uma constante. Suponha que $f(x)$ possui um zero em $x^*$. Aproxime a função $f(x)$ em torno de $x^*$ por
 $$f(x)=f(x^*)+f'(x^*)(x-x^*)+O\left((x-x^*)^2\right).$$
-Em vista do problema anterior, qual valor de $\gamma$ você escolheria para que a sequência $x^{(n)}$ convirja rapidamente para $x^*$. Que relação você encontra com o método de Newton?
+Em vista do problema anterior, qual valor de $\gamma$ você escolheria para que a sequência $x^{(n)}$ convirja rapidamente para $x^*$. 
 \end{Exercise}
 
 \begin{Exercise} Considere o problema da questão \ref{prob_diodo} e dois seguintes esquemas iterativos.
@@ -920,22 +935,26 @@ Considere o problema de calcular a raiz uma função $f$, conforme esboço na fi
 \includegraphics[scale=.4]{./cap_equacao1d/pics/fig_Newton.eps}
 \end{center}
 
-Queremos obter $x^{(1)}$ a partir de $x^{(0)}$ sabendo que $x^{(1)}$ é a intersecção da reta tangente em $x^{(0)}$ com o eixo $x$. A inclinação da reta tangente é dada por (a variação em $y$ sobre a variação em $x$)
-\begin{align*}
+Queremos calcular $x^{(1)}$ em função de $x^{(0)}$. A ideia é calcular a equação da reta tangente à função $y=f(x)$ no ponto de abscissa $x^{(0)}$ e definir $x^{(1)}$ como a abscissa do ponto em que esta reta cruza o eixo x.  A inclinação da reta tangente é dada por (a variação em $y$ sobre a variação em $x$):
+\begin{equation*}
    f'(x^{(0)}) = \frac{ f(x^{(0)})-0}{x^{(0)}-x^{(1)} }
-\end{align*}
-onde isolando $x^{(1)}$ obtemos
-\begin{align*}
-   x^{(0)}-x^{(1)} &= \frac{ f(x^{(0)})-0}{f'(x^{(0)})}
-\end{align*}
+\end{equation*}
+Como desejamos que a abscissa do ponto em que esta reta cruza o eixo x seja $x^{(1)}$, obtemos:
+\begin{equation*}
+   x^{(0)}-x^{(1)} = \frac{ f(x^{(0)})-0}{f'(x^{(0)})}
+\end{equation*}
 Portanto
-$$x^{(1)}=x^{(0)}-\frac{f(x^{(0)})}{f'(x^{(0)})}$$
+\begin{equation*}
+x^{(1)}=x^{(0)}-\frac{f(x^{(0)})}{f'(x^{(0)})}
+\end{equation*}
 que é uma iteração do método de Newton. Repetimos o processo para calcular $x^{(2)}, x^{(3)},...$. De modo geral, temos
-$$x^{(n+1)}=x^{(n)}-\frac{f(x^{(n)})}{f'(x^{(n)})}.$$
+\begin{equation*}
+x^{(n+1)}=x^{(n)}-\frac{f(x^{(n)})}{f'(x^{(n)})}.
+\end{equation*}
 
 \subsection{Análise de convergência}\index{método de Newton-Raphson!convergência}
 
-Seja $f(x)$ um função com derivada e derivada segunda contínuas tal que $f(x^*)=0$ e $f'(x^*)\neq 0$. Seja também a função $\phi(x)$ definida como
+Seja $f(x)$ um função com derivadas primeira e segunda contínuas tal que $f(x^*)=0$ e $f'(x^*)\neq 0$. Seja também a função $\phi(x)$ definida como
 $$\phi(x)=x-\frac{f(x)}{f'(x)}$$
 Expandimos em série de Taylor em torno de $x^*$ e obtemos
 $$\phi(x)=\phi(x^*)+(x-x^*)\phi'(x^*)+ (x-x^*)^2\frac{\phi''(x^*)}{2}+O\left((x-x^*)^3\right)$$
