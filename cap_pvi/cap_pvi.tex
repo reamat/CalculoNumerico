@@ -40,10 +40,10 @@ y(0)&=&y_0 ~~ \hbox{(condição inicial)}
 O Método de Euler aplicado à solução desse problema consiste em aproximar a derivada $y'(t)$ por um esquema de primeira ordem do tipo
 $$y'(t)=\frac{y(t+h)-y(t)}{h}+O(h),~~ h>0.$$
 Aqui $h$ é o passo do método, que consideraremos uma constante. Assim temos (\ref{PVI_2}) se transforma em:
-\begin{eqnarray*}
-\frac{y(t+h)-y(t)}{h}&=&f(y(t),t)+O(h)\\
-y(t+h)&=&y(t)+hf(y(t),t)+O(h^2).
-\end{eqnarray*}
+\begin{eqnarray}
+\nonumber \frac{y(t+h)-y(t)}{h}&=&f(y(t),t)+O(h)\\
+{\label{erro_local}}y(t+h)&=&y(t)+hf(y(t),t)+O(h^2).
+\end{eqnarray}
 
 Definimos, então, $t^{(k)}=(k-1)h$ e $y^{(k)}$ como a aproximação para $y\left(t^{(k)}\right)$ produzida pelo Método de Euler. Assim, obtemos
 \begin{eqnarray}\label{PVI_EULER}
@@ -367,47 +367,51 @@ $$
 
 
 \section{Ordem de precisão}\index{ordem de precisão}
-
-\subsection{Ordem de precisão do Método de Euler}
 Considere o problema de valor inicial dado por
 \begin{eqnarray*}
 y'(t)&=&f(y(t),t),\\
 y(0)&=&y_0.
 \end{eqnarray*}
+Nessa seção vamos definir a precisão de um método numérico pela ordem do erro acumulado ao calcular o valor da função em um ponto $t_N$ em função do espaçamento da malha $h$. 
 
-No método de Euler, aproximamos a derivada $y'(t)$ por um esquema de primeira ordem do tipo
-$$y'(t)=\frac{y(t+h)-y(t)}{h}+O(h),~~ h>0$$
-de forma que tínhamos
+\subsection{Ordem de precisão do Método de Euler}
+Primeiro lembramos da expressão (\ref{erro_local}) que origina o método de Euler:
 \begin{eqnarray}{\label{es_Euler}}
-y(t+h)&=&y(t)+hf(y(t),t)+O(h^2)
+y(t+h)&=&y(t)+hf(y(t),t)+O(h^2).
 \end{eqnarray}
-
-Assim $y(h)=y(0)+hf(y_0,t)+O(h^2)= y^{(1)}+O(h^2)$ e concluimos que o erro entre a solução exata $y(h)$ e sua aproximação pelo Método de Euler é da ordem de $h^2$. 
-
-No entanto, se fixarmos um instante de tempo $t=t_N$, o erro entre a solução exata $y(t_N)$ e sua aproximação $y_N$ envolve o acúmulo de $N$ passos, cada um com erro da ordem de $h^2$. Como o número de passos é inversamente proporcional ao tamanho de passo $h$, o erro total é da ordem de $h$. Observamos que
+Assim, se $t=0$, temos $y(h)=y(0)+hf(y_0,t)+O(h^2)= y^{(1)}+O(h^2)$ e concluimos que o erro entre a solução exata $y(h)$ e sua aproximação pelo Método de Euler é da ordem de $h^2$. No entanto, se fixarmos um instante de tempo $t=t_N$, o erro entre a solução exata $y(t_N)$ e sua aproximação $y_N$ envolve o acúmulo de $N$ passos, cada um com erro da ordem de $h^2$. Como o número de passos é inversamente proporcional ao tamanho de passo $h$, o erro total é da ordem de $h$. Observamos que
 \begin{eqnarray*}
- y(t_1)&=&y(t_0)+hf(y(t_0),t_0)+ch^2\\
- &=&y_0+hf(y_0,t_0)+ch^2=y_1+ch^2
+ y(t_1)&=&y(t_0)+hf(y(t_0),t_0)+O(h^2)\\
+ &=&y_0+hf(y_0,t_0)+O(h^2)=y_1+O(h^2)
 \end{eqnarray*}
-onde $ch^2$ substitui $O(h^2)$ para alguma constante $c\neq 0$ e $y_i$ é a aproximação pelo método de Euler para o valor exato $y(t_i)$. Subsequentemente, temos
+onde $y_i$ é a aproximação pelo método de Euler para o valor exato $y(t_i)$. Subsequentemente, temos
 \begin{eqnarray*}
- y(t_2)&=&y(t_1)+hf(y(t_1),t_1)+ch^2\\
- &=&y(t_1)+hf(y_1+ch^2,t_1)+ch^2\\
- &=&y(t_1)+hf(y_1,t_1) +ch^2\\
- &=&y_1+ch^2+hf(y_1,t_1) +ch^2= y_2+2ch^2.
+ y(t_2)&=&y(t_1)+hf(y(t_1),t_1)+O(h^2)\\
+ &=&y(t_1)+hf(y_1+O(h^2),t_1)+O(h^2)\\
+ &=&y(t_1)+hf(y_1,t_1) +O(h^2)\\
+ &=&y_1+O(h^2)+hf(y_1,t_1) +O(h^2)= y_2+O(h^2)+O(h^2).
 \end{eqnarray*}
-onde usamos o primeiro termo da série de Taylor $hf(y_1+ch^2,t_1)=hf(y_1,t_1)+O(h^3)$ na passagem da segunda para terceira linha. Repetindo sucessivamente o passo anterior, obtemos uma expressão geral para o valor exato $y(t_N)$ em termos do valor aproximado $y_N$:
+onde usamos o primeiro termo da série de Taylor $hf(y_1+O(h^2),t_1)=hf(y_1,t_1)+O(h^3)$ na passagem da segunda para terceira linha. Repetindo sucessivamente o passo anterior, obtemos uma expressão geral para o valor exato $y(t_N)$ em termos do valor aproximado $y_N$:
 \begin{eqnarray*}
- y(t_N)=y_N+Nch^2.
+ y(t_N)=y_N+N O(h^2) .
 \end{eqnarray*}
 Como $N=(t_f-t_0)/h$, temos
-\begin{eqnarray*}
- y(t_N)&=&=y_{N}+\frac{t-t_0}{h}ch^2=y_{N}+c_2h,
-\end{eqnarray*}
-onde $c_2=(t-t_0)c$, ou seja, o erro entre o valor exato e o aproximado é de ordem $h$.
+\begin{eqnarray}{\label{euler_precisao}}
+ y(t_N)&=&=y_{N}+\frac{t-t_0}{h}ch^2=y_{N}+O(h),
+\end{eqnarray}
+onde $c_2=(t-t_0)c$, ou seja, o erro entre o valor exato e o aproximado é de ordem $h$. Portanto, dizemos que o método de Euler tem ordem de precisão 1 (ou simplesmente ordem 1). O fenômeno que vimos aqui acontece para todos os métodos numéricos explícitos desde que a função $f$ seja analítica, por isso, vale a pena introduzir a definição abaixo:
+
+\begin{defn}{\label{definicao_precisao_PVI}}
+Se $y(t_n)$ pode ser aproximado por uma expressão \\${\bf Y}(f,h,y(t_n),y(t_{n-1}),\cdots,y_0)$ com erro da ordem de $p+1$, ou seja,
+\begin{equation}{\label{erro_local_1}}
+y(t_{n+1})={\bf Y}(f,h,y(t_n),y(t_{n-1}),\cdots,y_0)+O(h^{p+1})
+\end{equation}
+para cada função analítica $f$, dizemos que o método tem erro de truncamento da ordem de $O(h^{p+1})$ e {\bf ordem de precisão $p$}\index{método!de Euler!ordem de precisão}. 
+\end{defn}
+No caso do método de Euler, vale a expressão (\ref{es_Euler}) e, portanto, o método tem erro de truncamento de ordem $O(h^2)$ e ordem de precisão 1. Nos métodos que vamos trabalhar a seguir, ficaremos satisfeitos obtendo o erro de truncamento e usaremos a definição \ref{definicao_precisao_PVI} para concluir que a ordem de precisão é uma unidade menor. 
 
 \subsection{Ordem de precisão do Método de Euler Melhorado}
-Para obter a do erro de precisão do método de Euler Melhorado vamos seguir o mesmo caminho percorrido para obter a estimativa do método de Euler. Primeiramente, precisamos de um expressão análoga a (\ref{es_Euler}), ou seja, precisamos demonstrar que o erro de cada passo é da ordem de $h^3$:
+Para obter a do erro de precisão do método de Euler Melhorado vamos calcular o erro de truncamento do método, ou seja, precisamos demonstrar que:
 \begin{equation}\label{es_Euler_melhorado}
 y(t+h)=y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)+O(h^3)
 \end{equation}
@@ -440,29 +444,7 @@ Logo,
 &&=\frac{h}{2}y'(t)+\frac{h^2}{2}y''(t)\\
 &&-\frac{h}{2}\left(y'(t)+hy''(t)\right)+O(h^3)=O(h^3)
 \end{eqnarray*}
-Portanto, a expressão (\ref{es_Euler_melhorado}) é válida. 
-
-Para obter o erro acumulado em um ponto $t_N$ usamos a expressão (\ref{es_Euler_melhorado}) e repetimos alguns passos feitos na seção anterior:
-\begin{eqnarray*}
- y(t_1)&=&y(t_0)+\frac{h}{2}f(y(t_0),t_0)+\frac{h}{2}f(y(t_0)+hf(y(t_0),t_0),t_0+h)+ch^3\\
- &=&y_1+ch^3
-\end{eqnarray*}
-onde $ch^3$ substitui $O(h^3)$ para alguma constante $c\neq 0$ e $y_i$ é a aproximação pelo método de Euler melhorado para o valor exato $y(t_i)$. Subsequentemente, temos
-\begin{eqnarray*}
- y(t_2)&=&y(t_1)+\frac{h}{2}f(y(t_1),t_1)+\frac{h}{2}f(y(t_1)+hf(y(t_1),t_1),t_1+h)+ch^3\\
-&=&y(t_1)+\frac{h}{2}f(y_1+ch^3,t_1)+\frac{h}{2}f(y_1+ch^3+hf(y_1+ch^3,t_1),t_1+h)+ch^3\\
-&=&y(t_1)+\frac{h}{2}f(y_1,t_1)+\frac{h}{2}f(y_1+hf(y_1,t_1),t_1+h)+ch^3\\
-&=&y_2+ch^3+ch^3=y_2+2ch^3,
-\end{eqnarray*}
-onde usamos o primeiro termo da série de Taylor $hf(y_1+ch^3,t_1)=hf(y_1,t_1)+O(h^4)$ na passagem da segunda para terceira linha. Assim obtemos um expressão geral para o valor exato $y(t_N)$ em termos do valor aproximado $y_N$:
-\begin{eqnarray*}
- y(t_N)=y_{N}+Nch^3.
-\end{eqnarray*}
-Como $N=(t_f-t_0)/h$, temos
-\begin{eqnarray*}
- y(t_N)&=&=y_{N}+\frac{t-t_0}{h}ch^3=y_{N}+c_2h^2,
-\end{eqnarray*}
-onde $c_2=(t-t_0)c$, ou seja, o erro entre o valor exato e o aproximado é de ordem $h^2$.
+Portanto, a expressão (\ref{es_Euler_melhorado}) é válida. Logo, a definição (\ref{definicao_precisao_PVI}) nos faz concluir que o método de Euler Melhorado tem ordem de precisão 2 (ou simplesmente ordem 2).
 
 \section{Métodos de Runge-Kutta}\label{sec_RK}\index{método!de Runge-Kutta}
 
@@ -494,7 +476,7 @@ k_2&=&hf(y^{(n)}+k_1/2,t^{(n)}+h/2)\\
 k_3&=&hf(y^{(n)}+k_2/2,t^{(n)}+h/2)\\
 k_4&=&hf(y^{(n)}+k_3,t^{(n)}+h)\\
 \end{eqnarray*}
-Este método tem ordem de truncamento local de quarta ordem. Uma discussão heurística usando método de Simpson pode ajudar a compreender os estranhos coeficientes:
+Este método tem ordem de precisão 4. Uma discussão heurística usando método de Simpson pode ajudar a compreender os estranhos coeficientes:
 \begin{eqnarray*}
 y({t^{(n+1)}})-y({t^{(n)}})&=&\int_{t^{(n)}}^{t^{(n+1)}}f(y(s),s)ds \\
 &\approx& \frac{h}{6}\left[ f\left(y(t^{(n)}),t^{(n)}\right)+4f\left(y(t^{(n)}+h/2),t^{(n)}+h/2\right)\right.\\
