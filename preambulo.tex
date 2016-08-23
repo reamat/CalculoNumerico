@@ -1,18 +1,66 @@
 %Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
-%%%%%%%%%% PREAMBLE %%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Predefinicoes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newif\ifisslide       % O layout será slide (ou a4)?
+\newif\ifisscilab      % As notas incluirão Scilab? 
+\newif\ifisoctave      % As notas incluirão octave?
 
-%%%%% language settings %%%%
+%\isslidetrue           % formato slide
+\isslidefalse           % formato a4paper
+
+\isscilabtrue           % incluir scilab
+%\isscilabfalse         % não incluir
+
+%\isoctavetrue          % incluir octave
+\isoctavefalse          % não incluir
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Opcões de Linguagem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[brazil]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 %\usepackage{xunicode} é o pacote necessário para a codificação UTF-8 no XeTeX
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Layout das páginas
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifisslide
+  \setlength{\paperwidth}{5in}%
+  \setlength{\paperheight}{4in}%
+  \usepackage[body={4.75in,3.65in},hmarginratio=1:1]{geometry}[2002/07/08]
+\else
+  \usepackage[a4paper,headheight=15.4pt]{geometry}
+  %\usepackage[hmargin=2.5cm,vmargin=2.5cm]{geometry}
+\fi
+
+\usepackage{fancyhdr}
+% \pagestyle{fancyplain}
+% \lhead[\fancyplain{}{\thepage}]%
+%   {\fancyplain{}{\em\rightmark}}
+% \rhead[Cálculo Numérico]%
+%   {\fancyplain{}{\thepage}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[RE]{Cálculo Numérico}
+\fancyhead[LO]{\rightmark}
+\fancyhead[LE,RO]{\thepage}
+
+%license footnote
+\cfoot{\tiny{Licença CC-BY-SA-3.0. Contato: \url{livro_colaborativo@googlegroups.com}}}
+
+%%%% no blank pages between chapters %%%%
+\let\cleardoublepage\clearpage
+
+
+
 %%%% independent chapters %%%%
 \usepackage{subfiles}
 
-%%%%% geometry %%%%%
-%\usepackage[hmargin=2.5cm,vmargin=2.5cm]{geometry}
 
 %%%% ams-latex %%%%
 \usepackage{amsmath}
@@ -67,18 +115,40 @@
 (\ExerciseListName\ \ExerciseHeaderNB)\ ---\ }}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%%% environments %%%%
-\theoremstyle{plain}          %   bold title, italic body
-\newtheorem{teo}{Teorema}[section]
-\newtheorem{lem}{Lema}[section]
-\newtheorem{prop}{Proposição}[section]
-\newtheorem{corol}{Corolário}[section]
-\newtheorem{defn}{Definição}[section]
-\theoremstyle{remark}           % italic title, romman body
-\newtheorem{obs}{Observação}[section]
-\theoremstyle{definition}       % italic title, romman body
-\newtheorem{ex}{Exemplo}[section]
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Formatacoes de estilo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{xcolor}
+\newcommand{\RED}[1]{{\color{red}{#1}}}
+\newcommand{\BLU}[1]{{\color{blue}{#1}}}
+\newcommand{\GRE}[1]{{\color{darkgreen}{#1}}}
+
+%emphasis \emph
+\DeclareTextFontCommand{\emph}{\bfseries}
+
+\newcommand{\sen}{\operatorname{sen}\,}
+\newcommand{\tg}{\operatorname{tg}\,}
+\newcommand{\p}{\partial}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  ambientes 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifisslide
+  \input preambulo_slide.tex
+\else
+  \theoremstyle{plain}          %   bold title, italic body
+  \newtheorem{teo}{Teorema}[section]
+  \newtheorem{lem}{Lema}[section]
+  \newtheorem{prop}{Proposição}[section]
+  \newtheorem{corol}{Corolário}[section]
+  \newtheorem{defn}{Definição}[section]
+  \theoremstyle{remark}           % italic title, romman body
+  \theoremstyle{definition}       % italic title, romman body
+  \newtheorem{obs}{Observação}[section]
+  \newtheorem{ex}{Exemplo}[section]
+\fi
 
 \newenvironment{sol}
 {\let\oldqedsymbol=\qedsymbol
@@ -87,47 +157,13 @@
   {\end{proof}
   \renewcommand{\qedsymbol}{\oldqedsymbol}}
 
-%%%% newcommands %%%%
-\newcommand{\sen}{\operatorname{sen}\,}
-\newcommand{\tg}{\operatorname{tg}\,}
-\newcommand{\p}{\partial}
 
-%%%% page layout %%%%
-\usepackage{fancyhdr}
-\pagestyle{fancyplain}
-\lhead[\fancyplain{}{\em\thepage}]%
-  {\fancyplain{}{\em\rightmark}}
-\rhead[C\'{a}lculo Num\' erico]%
-  {\fancyplain{}{\em\thepage}}
-%license footnote
-\cfoot{\tiny{Licença CC-BY-SA-3.0. Contato: \url{livro_colaborativo@googlegroups.com}}}
-
-%%%% no blank pages between chapters %%%%
-\let\cleardoublepage\clearpage
-
-%emphasis \emph
-\DeclareTextFontCommand{\emph}{\bfseries}
 
 %%%% indexing %%%%
 \usepackage{makeidx}
 \makeindex
 
-\usepackage{xcolor}
-\newcommand{\RED}[1]{{\color{red}{#1}}}
-\newcommand{\BLU}[1]{{\color{blue}{#1}}}
-\newcommand{\GRE}[1]{{\color{darkgreen}{#1}}}
 
-
-%%%% COMPUTATION CODES %%%%
-%%%% scilab?
-\newif\ifisscilab
-\isscilabtrue
-%\isscilabfalse
-
-%%%% octave?
-\newif\ifisoctave
-%\isoctavetrue
-\isoctavefalse
 
 %%%% titlepage figure %%%%
 \usepackage{eso-pic}

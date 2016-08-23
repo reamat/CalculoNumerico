@@ -603,7 +603,7 @@ Outras informações sobre a representação em ponto flutuante podem ser obtida
 
 A \emph{precisão} $p$ de uma máquina é o número de dígitos significativos usado para representar um número. Note que $p=|M|+1$ em binário e $p=|M|$ para outras bases.
 
-O \emph{epsilon de máquina}, $\epsilon_{mach}=\epsilon$, é definido como o menor número representável tal que $1+\epsilon$ seja diferente de $1$.
+O \emph{epsilon de máquina}, $\epsilon_{mach}=\epsilon$, é definido de forma que $1+\epsilon$ seja o menor número representável maior que $1$, isto é, $1+\epsilon$ é representável, mas não existem números representáveis em $(1, 1+\epsilon)$.
 
 \begin{ex}
   Com $64$ bits, temos que o epsilon será dado por
@@ -636,21 +636,32 @@ Por simplicidade, a partir daqui nós adotaremos $b=10$.
 \end{obs}
 \fi
 
-Em geral, os números não são representados de forma exata nos computadores. Isto nos leva ao chamado erro de arredondamento. Quando resolvemos problemas com técnicas numéricas estamos sujeitos a este e outros tipos de erros. Nas próximas seções, veremos quais são estes erros e como controlá-los, quando possível.
 
 \section*{Exercícios}
 
 \begin{Exercise} Explique a diferença entre o sistema de ponto fixo e ponto flutuante.
 \end{Exercise}
 
-
+\ifisscilab
+\begin{Exercise}Considere a seguinte rotina escrita para ser usada no Scilab:
+ \begin{verbatim}
+     x=1
+     while x+1>x
+         x=x+1
+     end
+ \end{verbatim}
+ Explique se esta rotina finaliza em tempo finito, em caso afirmativo calcule a ordem de grandeza do tempo de execução supondo que cada passo do laço demore $10^{-7}s$. Justifique sua reposta.
+ \end{Exercise}
+\fi
+ 
 \section{Tipos de Erros}\index{erros}
+Em geral, os números não são representados de forma exata nos computadores. Isto nos leva ao chamado erro de arredondamento. Quando resolvemos problemas com técnicas numéricas estamos sujeitos a este e outros tipos de erros. Nesta seção, veremos quais são estes erros e como controlá-los, quando possível.
 
 Quando fazemos aproximações numéricas, os erros são gerados de várias formas, sendo as principais delas as seguintes:
 \begin{enumerate}
- \item \emph{Precisão dos dados}: equipamentos de medição possuem precisão finita, acarretando erros nas medidas físicas.
+ \item \emph{Incerteza dos dados}: equipamentos de medição possuem precisão finita, acarretando erros nas medidas físicas.
  \item \emph{Erros de Arredondamento}: são aqueles relacionados com as limitações que existem na forma representar números de máquina. 
- \item \emph{Erros de Truncamento}: ocorrem quando aproximamos um procedimento formado por uma sequência infinita de passos através de um outro procedimento finito. Por exemplo, a definição de integral é dada por uma soma infinita e, como veremos na terceira área, aproximarmo-la por um soma finita. Esse é um assunto que discutiremos várias vezes no curso, pois o tratamento do erro de truncamento é feito para cada método numérico.
+ \item \emph{Erros de Truncamento}: surgem quando aproximamos um procedimento formado por uma sequência infinita de passos através de um procedimento finito. Por exemplo, a definição de integral é dada por uma soma infinita e a aproximamos por um soma finita. O erro de truncamento deve ser analisado para cada método empregado. 
 \end{enumerate}
 
 Uma questão fundamental é a quantificação dos erros que estamos sujeitos ao computar a solução de um dado problema. Para tanto, precisamos definir medidas de erros (ou de exatidão)\index{medida!de erro}\index{medida!de exatidão}. As medidas de erro mais utilizadas são o \emph{erro absoluto}\index{erro!absoluto} e o \emph{erro relativo}\index{erro!relativo}.
@@ -1097,42 +1108,6 @@ confirmando a estimativa de $19,99 \%$.
 \end{ex}
 
 
-\begin{ex}
-O número $\frac{1}{3}=0,\overline{3}$ possui um representação infinita tanto na base decimal quanto na base binária. Logo, quando representamos ele no computador geramos um erro de arredondamento que denotaremos por $\epsilon$. Agora considere a seguinte sequência:
-$$
-\left\{\begin{array}{l}
-x_0=\frac{1}{3}\\
-x_{n+1}=4x_n-1,\qquad n\in\mathbb{N}
-\end{array}\right..
-$$
-Observe que $x_0=\frac{1}{3}$, $x_1=4\cdot \frac{1}{3}-1=\frac{1}{3}$, $x_2=\frac{1}{3}$, ou seja, temos uma sequência constante igual a $\frac{1}{3}$. Se calcularmos no computador essa sequência, temos que incluir os erros de arredondamento, ou seja,
-\begin{eqnarray*}
-\tilde{x}_0&=&\frac{1}{3}+\epsilon\\
-\tilde{x}_1&=&4x_0-1=4\left(\frac{1}{3}+\epsilon\right)-1=\frac{1}{3}+4\epsilon\\
-\tilde{x}_2&=&4x_1-1=4\left(\frac{1}{3}+4\epsilon\right)-1=\frac{1}{3}+4^2\epsilon\\
-&\vdots&\\
-\tilde{x}_n&=&\frac{1}{3}+4^n\epsilon
-\end{eqnarray*}
-Portanto o limite da sequência diverge,
-\begin{equation*}
-\lim_{x\to\infty}|\tilde{x}_n|=\infty  
-\end{equation*}
-Qual o número de condicionamento desse problema?
-
-
-\ifisscilab
-Faça o teste no \verb+Scilab+, colocando:
-\begin{verbatim}
--->x = 1/3
-\end{verbatim}
-e itere algumas vezes a linha de comando:
-\begin{verbatim}
--->x = 4*x-1
-\end{verbatim}
-\fi
-\end{ex}
-
-
 
 \begin{ex}
   Seja $f(x) = x\exp(x)$. Calcule o erro absoluto em se calcular $f(x)$ sabendo que $x = 2 \pm 0,05$.
@@ -1245,23 +1220,43 @@ Calcule a corrente e o erro relativo associado quando a tensão vale $220\pm 1\%
 \emph{Dica:} lembre que $x^\alpha=e^{\alpha \ln(x)}$
 \end{Exercise}
 
-\begin{Exercise}[title= Propagação de erros] Obtenha os valores de $I_d$ no problema \ref{prob_diodo}. Lembre que existem duas expressões disponíveis:
-  \begin{equation*}
-    I_d=I_R\left(\exp\left(\frac{v_d}{v_t}\right)-1\right)  
-  \end{equation*}
-e
-\begin{equation*}
-  I_d=\frac{v-v_d}{R}
-\end{equation*}
-Faça o estudo da propagação do erro e decida qual a melhor expressão em cada caso.
-\end{Exercise}
-\begin{Answer}
-  \begin{tiny}
-  a) $0,0294$; b) $2.44e-3$; c) $2.50e-4$; d) $1.09\cdot 10^{-7}$; e) $- 10^{-12}$; f) $-10^{-12}$; g) $- 10^{-12}$  
-  \end{tiny}
-\end{Answer}
 
 \section{Mais exemplos}
+
+\begin{ex} Considere o seguinte processo iterativo:
+$$
+\left\{\begin{array}{l}
+x_0=\frac{1}{3}\\
+x_{n+1}=4x_n-1,\qquad n\in\mathbb{N}
+\end{array}\right..
+$$
+Observe que $x_0=\frac{1}{3}$, $x_1=4\cdot \frac{1}{3}-1=\frac{1}{3}$, $x_2=\frac{1}{3}$, ou seja, temos uma sequência constante igual a $\frac{1}{3}$. No entanto, ao calcularmos no computador, usando o sistema de numeração 'double', a sequencia obtida não é constante e, de fato, diverge.
+\ifisscilab
+Faça o teste no \verb+Scilab+, colocando:
+\begin{verbatim}
+-->x = 1/3
+\end{verbatim}
+e itere algumas vezes a linha de comando:
+\begin{verbatim}
+-->x = 4*x-1
+\end{verbatim}
+\fi
+
+Para compreender o que acontece, devemos levar em consideração que o número $\frac{1}{3}=0,\overline{3}$ possui um representação infinita tanto na base decimal quanto na base binária. Logo, sua representação de máquina incliu um erro de arredondamento. Seja $\epsilon$ a diferença entre o valor exato de $\frac{1}{3}$ e sua representação de máquina, isto é, $\tilde{x}_0=\frac{1}{3}+\epsilon$. A sequência efetivamente calculada no computador é:
+\begin{eqnarray*}
+\tilde{x}_0&=&\frac{1}{3}+\epsilon\\
+\tilde{x}_1&=&4x_0-1=4\left(\frac{1}{3}+\epsilon\right)-1=\frac{1}{3}+4\epsilon\\
+\tilde{x}_2&=&4x_1-1=4\left(\frac{1}{3}+4\epsilon\right)-1=\frac{1}{3}+4^2\epsilon\\
+&\vdots&\\
+\tilde{x}_n&=&\frac{1}{3}+4^n\epsilon
+\end{eqnarray*}
+Portanto o limite da sequência diverge,
+\begin{equation*}
+\lim_{x\to\infty}|\tilde{x}_n|=\infty  
+\end{equation*}
+Qual o número de condicionamento desse problema?
+\end{ex}
+
 
 \begin{ex}Observe a seguinte identidade
 $$

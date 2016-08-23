@@ -205,6 +205,7 @@ Apresentamos as iterações na Tabela~\ref{tab:metodo_da_bissecao}. Observamos q
       \caption{Iteração do método da bisseção para o Exemplo~\ref{ex:metodo_da_bissecao}.}
       \label{tab:metodo_da_bissecao}
     \end{table}
+
 \ifisscilab
 Usando o \verb+Scilab+ neste exemplos, temos:
 \begin{verbatim}
@@ -217,7 +218,7 @@ e, assim, sucessivamente.
   \end{sol}
 \end{ex}
 
-Vamos, agora, discurtir sobre a \emph{convergência} do método da bisseção. O próximo Teorema~\ref{teo:convergencia_bissecao} nos garante a convergência do método da bisseção.
+Vamos, agora, discutir sobre a \emph{convergência} do método da bisseção. O próximo Teorema~\ref{teo:convergencia_bissecao} nos garante a convergência do método da bisseção.
 
 \begin{teo}[Convergência do método da bisseção]\label{teo:convergencia_bissecao} Sejam $f:[a, b]\to \mathbb{R}$ uma função contínua tal que $f(a)\cdot f(b) < 0$ e $x^*$ o único zero de $f(x)$ no intervalo $(a, b)$. Então, a sequência $\{x^{(n)}\}_{n>=0}$ do método da bisseção satisfaz:
   \begin{equation*}
@@ -232,7 +233,7 @@ i.e., $x^{(n)}\to x^*$ quando $n\to\infty$.
 \end{equation*}
 Por construção do método, temos $[a^{(n)}, b^{(n)}]\subset [a^{(n-1)}, b^{(n-1)}]$ e:
 \begin{equation*}
-  \frac{b^{(n)} - a^{(n)}} = \frac{b^{(n-1)}-a^{(n-1)}}{2}.
+  b^{(n)} - a^{(n)} = \frac{b^{(n-1)}-a^{(n-1)}}{2}.
 \end{equation*}
 Desta forma:
 \begin{equation*}
@@ -244,10 +245,10 @@ Logo, vemos que:
 \end{equation*} 
 \end{proof}
 
-Observamos que a hipótese de que $f(x)$ tenha um único zero no intervalo não é necessária. Se a função tiver mais de um zero no intervalo inicial, as iterações irão convergir para um dos zeros. Veja o Exercício~\label{exer:multiplos_zeros}.
+Observamos que a hipótese de que $f(x)$ tenha um único zero no intervalo não é necessária. Se a função tiver mais de um zero no intervalo inicial, as iterações irão convergir para um dos zeros. Veja o Exercício~\ref{exer:raizes_multiplas}.
 
 \begin{obs}
-  O Teorema~\ref{teo:convergencia_bissecao} nos fornece uma estivamtiva para a convergência do método da bisseção. Aproximadamente, temos:
+  O Teorema~\ref{teo:convergencia_bissecao} nos fornece uma estimativa para a convergência do método da bisseção. Aproximadamente, temos:
   \begin{equation*}
     |x^{(n+1)} - x^*| \lesssim \frac{1}{2}|x^{(n+1)} - x^*|.
   \end{equation*}
@@ -304,11 +305,11 @@ em intervalos de comprimento $0,1$. Então, use o método da bisseção para obt
   \end{tiny}
 \end{Answer}
 
-\begin{ex}
+\begin{ex}\label{exer:raizes_multiplas}
   O polinômio $p(x) = -4 + 8x - 5x^2 + x^3$ tem raízes $x_1=1$ e $x_2=x_3=2$ no intervalo $[1/2, 3]$.
   \begin{itemize}
   \item[a)] Se o método da bisseção for usando com o intervalo inicial $[1/2, 3]$, para qual raiz as iterações convergem?
-  \item[b)] É possível usar o método da bisseção para a raíz $x=2$? Justifique sua resposta.
+  \item[b)] É possível usar o método da bisseção para a raiz $x=2$? Justifique sua resposta.
   \end{itemize}
 \end{ex}
 
@@ -377,70 +378,95 @@ Dica: $V=RI_d+v_d$.
   \end{tiny}
 \end{Answer}
 
+\begin{Exercise}[title= Propagação de erros] Obtenha os valores de $I_d$ no problema \ref{prob_diodo}. Lembre que existem duas expressões disponíveis:
+  \begin{equation*}
+    I_d=I_R\left(\exp\left(\frac{v_d}{v_t}\right)-1\right)  
+  \end{equation*}
+e
+\begin{equation*}
+  I_d=\frac{v-v_d}{R}
+\end{equation*}
+Faça o estudo da propagação do erro e decida qual a melhor expressão em cada caso.
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+  a) $0,0294$; b) $2.44e-3$; c) $2.50e-4$; d) $1.09\cdot 10^{-7}$; e) $- 10^{-12}$; f) $-10^{-12}$; g) $- 10^{-12}$  
+  \end{tiny}
+\end{Answer}
+
 
 \section{Iteração de Ponto Fixo}\index{iteração!do ponto fixo}
 
-\subsection{Exemplo Histórico}
+%\subsection{Exemplo Histórico}
 Vamos analisar o método babilônico para extração da raiz quadrada de um número positivo $A$ usando operações de soma, subtração, divisão e multiplicação.
 
-Seja $x>0$ uma aproximação para $\sqrt{A}$, temos três caso:
+Seja $r>0$ uma aproximação para $\sqrt{A}$. Temos três possibilidades:
 \begin{itemize}
-\item $x>\sqrt{A} \Longrightarrow \frac{A}{x}<\sqrt{A} \Longrightarrow \sqrt{A}\in \left(\frac{A}{x},x\right)$
-\item $x=\sqrt{A} \Longrightarrow \frac{A}{x}=\sqrt{A}$
-\item $x<\sqrt{A} \Longrightarrow \frac{A}{x}>\sqrt{A} \Longrightarrow \sqrt{A}\in \left(x,\frac{A}{x}\right)$
+\item $r>\sqrt{A} \Longrightarrow \frac{A}{r}<\sqrt{A} \Longrightarrow \sqrt{A}\in \left(\frac{A}{r},r\right)$
+\item $r=\sqrt{A} \Longrightarrow \frac{A}{r}=\sqrt{A}$
+\item $r<\sqrt{A} \Longrightarrow \frac{A}{r}>\sqrt{A} \Longrightarrow \sqrt{A}\in \left(r,\frac{A}{r}\right)$
 \end{itemize}
-É natural imaginar que uma melhor aproximação para $\sqrt{A}$ é dada por
-$$y=\frac{x+\frac{A}{x}}{2}$$
+Ou seja, uma aproximação melhor para $\sqrt{A}$ está no intervalo entre $r$ e $\frac{A}{r}$ que pode ser aproximada como
+$$x=\frac{r+\frac{A}{r}}{2}$$
 
-Aplicando esse método repetidas vezes, construímos a seguinte iteração:
+Aplicando esse método repetidas vezes, podemos construir a iteração
 \begin{eqnarray*}
-x^{(n+1)}&=&\frac{x^{(n)}}{2}+\frac{A}{2x^{(n)}}\\
-x^{(0)}&=&x
+x^{(1)}&=&r \\
+x^{(n+1)}&=&\frac{x^{(n)}}{2}+\frac{A}{2x^{(n)}}, \quad n=1,2,3,...
 \end{eqnarray*}
 
 \begin{ex}
-A=5, x=2
-\begin{eqnarray*}
-x^{(n+1)}&=&\frac{x^{(n)}}{2}+\frac{2,5}{x^{(n)}}\\
-x^{(0)}&=&2
-\end{eqnarray*}
+Para obter uma aproximação para $\sqrt{5}$, podemos iniciar com a aproximação inicial $r=2$ e $A=5$.
 
-\begin{eqnarray*}
-x^{(0)}&=&2\\
-x^{(1)}&=&\frac{2}{2}+\frac{2,5}{2}=1+1,25=2,25\\
-x^{(2)}&=&\frac{2,25}{2}+\frac{2,5}{2,25}= 2,2361111  \\
-x^{(3)}&=&\frac{2,2361111}{2}+\frac{2,5}{2,2361111}= 2,236068  \\
-x^{(4)}&=&\frac{2,236068}{2}+\frac{2,5}{2,236068}= 2,236068
-\end{eqnarray*}  
+Temos que 
+\begin{align*}
+x^{(1)} = 2 
+\end{align*}
+e a partir da iteração 
+\begin{align*}
+x^{(n+1)} =\frac{x^{(n)}}{2}+\frac{2,5}{x^{(n)}}
+\end{align*}
+obtemos
+\begin{align*}
+x^{(2)}=&\frac{2}{2}+\frac{2,5}{2}=1+1,25=2,25\\
+x^{(3)}=&\frac{2,25}{2}+\frac{2,5}{2,25}= 2,2361111  \\
+x^{(4)}=&\frac{2,2361111}{2}+\frac{2,5}{2,2361111}= 2,236068  \\
+x^{(5)}=&\frac{2,236068}{2}+\frac{2,5}{2,236068}= 2,236068
+\end{align*}  
 \end{ex}
 
 \begin{ex}
-A=10, x=1
-\begin{eqnarray*}
-x^{(n+1)}&=&\frac{x^{(n)}}{2}+\frac{5}{x^{(n)}}\\
-x^{(0)}&=&1
-\end{eqnarray*}
-\begin{eqnarray*}
-x^{(0)}&=&1\\
-x^{(1)}&=&\frac{1}{2}+\frac{5}{1}=0,5+5=5,5\\
-x^{(2)}&=&\frac{5,5}{2}+\frac{5}{5,5}=3,6590909 \\
-x^{(3)}&=&\frac{3,6590909}{2}+\frac{5}{3,6590909}=3,1960051   \\
-x^{(4)}&=&\frac{3,1960051}{2}+\frac{5}{3,1960051}=3,1624556  \\
-x^{(5)}&=&\frac{3,1624556}{2}+\frac{5}{3,1624556}=3,1622777  \\
-x^{(6)}&=&\frac{3,1622777}{2}+\frac{5}{3,1622777}=3,1622777  \\
-\end{eqnarray*}  
+Para obter uma aproximação para $\sqrt{10}$, podemos iniciar com $r=1$ e $A=10$.
+
+Assim
+\begin{align*}
+x^{(1)}=1 
+\end{align*}
+e a partir de 
+\begin{align*}
+x^{(n+1)}&=\frac{x^{(n)}}{2}+\frac{5}{x^{(n)}}
+\end{align*}
+obtemos
+\begin{align*}
+x^{(2)}&=\frac{1}{2}+\frac{5}{1}=0,5+5=5,5\\
+x^{(3)}&=\frac{5,5}{2}+\frac{5}{5,5}=3,6590909 \\
+x^{(4)}&=\frac{3,6590909}{2}+\frac{5}{3,6590909}=3,1960051   \\
+x^{(5)}&=\frac{3,1960051}{2}+\frac{5}{3,1960051}=3,1624556  \\
+x^{(6)}&=\frac{3,1624556}{2}+\frac{5}{3,1624556}=3,1622777  \\
+x^{(7)}&=\frac{3,1622777}{2}+\frac{5}{3,1622777}=3,1622777  
+\end{align*}  
 \end{ex}
 
-A experimentação numérica sugere que o método funciona, mas três perguntas devem ser respondidas:
+A experimentação numérica sugere que o método funciona, mas surgem três perguntas:
 \begin{enumerate}
 \item Será que a sequência é convergente?
 \item Caso seja convergente, será que o limite $x^*=\lim_{n\to \infty }x_n$ é igual a $\sqrt{A}$?
 \item Caso seja convergente, quão rápida é a convergência?
 \end{enumerate}
 
-A segunda pergunta é a mais fácil de ser respondida:
+A segunda pergunta é a mais fácil de ser respondida. 
 
-Supondo que o limite de $x_n$ exista, basta substituir na iteração:
+Supondo que o limite de $x_n$ exista, basta substituir $x^*$ na iteração:
 \begin{eqnarray*}
 \lim_{n \to \infty }x^{(n+1)}&=&\lim_{n \to \infty }\frac{x^{(n)}}{2}+\lim_{n \to \infty }\frac{A}{2x^{(n)}}\\
 x^*&=&\frac{x^*}{2}+\frac{A}{2x^*}\\
@@ -455,84 +481,94 @@ De fato, podemos provar que o método é convergente para qualquer valor inicial
 
 Para responder essas perguntas, devemos formalizar o conceito de ponto fixo. Antes disso, analisemos mais um exemplo:
 
-\subsection{Outro Exemplo}
-
-Suponha que queiramos resolver a equação:
+\begin{ex}
+Queremos resolver a equação
 $$xe^x=10.$$
-Observamos que o este problema é equivalente a resolver:
+Observe que este problema é equivalente a resolver
 \begin{equation*}
 x=\ln\left(\frac{10}{x}\right)  
 \end{equation*}
-ou:
+ou
 \begin{equation*}
-x=10e^{-x}
+x=10e^{-x}.
 \end{equation*}
 
-Para tanto, vamos propor os seguintes processos iterativos:
+A partir dessas duas equações podemos propor dois processos iterativos diferentes:
+\begin{enumerate}
+ \item [a)] $\displaystyle x^{(n+1)}=\ln \left(\frac{10}{x^{(n)}}\right)$
+ \item [b)] $\displaystyle x^{(n+1)}=10 e^{-x^{(n)}} $
+\end{enumerate}
 
-$$\begin{array}{l}
-a)\left\{\begin{array}{ll}x^{(n+1)}=\ln\left(\frac{10}{x^{(n)}}\right),~~ n\geq 0\\
-x^{(0)}=1
-\end{array}\right.\\ \hbox{e} \\
-b)\left\{\begin{array}{ll}x^{(n+1)}={10}{e^{-x^{(n)}}},~~ n\geq 0\\
-x^{(0)}=1
-\end{array}\right.\end{array}$$
+Supondo que $x^{(1)}=1$ é uma aproximação inicial para a solução deste problema, iterando a primeira equação temos
+\begin{align*}
+x^{(1)} &=1\\
+x^{(2)} &=\ln\left({10}\right)=2,3025851\\
+x^{(3)} &=\ln\left(\frac{10}{2,3025851}\right)=1,4685526\\
+x^{(4)} &=\ln\left(\frac{10}{1,4685526}\right)=1,9183078 \\
+x^{(5)} &=\ln\left(\frac{10}{1,9183078}\right)=1,6511417  \\
+        &\vdots\\
+x^{(11)}&=1,7421335 \\
+x^{(21)}&= 1,7455151\\
+x^{(31)}&= 1,745528\\
+x^{(32)}&= 1,745528
+\end{align*}
 
-O processo $a)$ produz a seguinte sequência:
-\begin{eqnarray*}
-x^{(0)}&=&1\\
-x^{(1)}&=&\ln\left({10}\right)=2,3025851\\
-x^{(2)}&=&\ln\left(\frac{10}{2,3025851}\right)=1,4685526\\
-x^{(3)}&=&\ln\left(\frac{10}{1,4685526}\right)=1,9183078 \\
-x^{(4)}&=&\ln\left(\frac{10}{1,9183078}\right)=1,6511417  \\
-&\vdots&\\
-x^{(10)}&=&1,7421335 \\
-x^{(20)}&=& 1,7455151\\
-x^{(30)}&=& 1,745528\\
-x^{(31)}&=& 1,745528
-\end{eqnarray*}
+Iterando a segunda equação obtemos a sequência
+\begin{align*}
+x^{(1)}&=1\\
+x^{(2)}&=10e^{-1}= 3,6787944   \\
+x^{(3)}&=10e^{- 3,6787944 }= 0,2525340     \\
+x^{(4)}&=10e^{-0,2525340}=  7,7682979      \\
+x^{(5)}&=10e^{-7,7682979}=  0,0042293      \\
+x^{(6)}&=10e^{-0,0042293}=  9,9577961
+\end{align*}
+\end{ex}
 
-O processo $b)$ produz a seguinte sequência:
-\begin{eqnarray*}
-x^{(0)}&=&1\\
-x^{(1)}&=&10e^{-1}= 3,6787944   \\
-x^{(2)}&=&10e^{- 3,6787944 }= 0,2525340     \\
-x^{(3)}&=&10e^{-0,2525340}=  7,7682979      \\
-x^{(4)}&=&10e^{-7,7682979}=  0,0042293      \\
-x^{(5)}&=&10e^{-0,0042293}=  9,9577961
-\end{eqnarray*}
+O experimento numérico sugere que a iteração a) converge para $1,745528...$ e a iteração b) não é convergente.
+
+Note que queríamos resolver a equação $f(x)=x e^x-10=0$. Ao invés disso, transformamos essa equação em uma equação de iteração do tipo
+  $$x^{(n+1)}=g(x^{(n)})$$
+e iteramos até encontrar $p$ tal que $g(p)=p$.
 
 
-O experimento numérico sugere que o processo $a$ não é convergente e que o processo $b$ converge para $1,745528$.
 
-\subsection{Ponto fixo}\index{ponto fixo}
+\subsection{O método do ponto fixo}\index{ponto fixo}
+\begin{defn}
+  Dizemos que  $p$ é um \emph{ponto fixo} de uma função $g$ se $g(p)=p$.
+\end{defn}
 
-Seja $\phi (x)$ uma função, dizemos que $x^*\in D(f)$ é um ponto fixo de $\phi$ se
-$$\phi(x^*)=x^*$$
-
-Seja $\phi:[a,b]\to [a,b]$ um função real tal que
-$$|\phi(x)-\phi(y)|\leq \beta |x-y|,~~~\beta<1.$$
-Então $\phi$ é dita uma contração e existe um único ponto $x^*\in [a,b]$ tal que $\phi(x^*)=x^*$. Além disso, a sequência
-$$x^{(n+1)}=\phi(x^{(n)})$$
-é convergente sempre que $x_0\in[a,b]$ e vale o limite $$\lim_{n\to\infty}x^{(n)}=x^*.$$
+\begin{defn}
+ Uma \emph{contração} é uma função real $g:[a,b]\to [a,b]$ tal que
+ $$|g(x)-g(y)|\leq \beta |x-y|,~~~0\leq \beta<1.$$
+\end{defn}
 
 \begin{obs}
-A desigualdade $|\phi(x)-\phi(y)|\leq \beta |x-y|$ implica que $\phi(x)$ é contínua.  
+A desigualdade $|g(x)-g(y)|\leq \beta |x-y|$ implica que $g$ é contínua.
+
+Assim, $g$ é uma contração em $[a,b]$  se $|g'(x)|<1$ para $a<x<b$.
 \end{obs}
 
-Começamos demonstrando que existe pelo menos um ponto fixo. Para tal definimos a função $f(x)=x-\phi(x)$ e observamos que
-$$f(a)=a-\phi(a)\leq a-a=0$$
+\begin{teo}
+ Se $g:[a,b]\to [a,b]$ é uma contração, então existe um único ponto fixo $p\in [a,b]$ tal que $g(p)=p$.
+
+ Além disso, a sequência
+  $$x^{(n+1)}=g(x^{(n)})$$
+é convergente para qualquer $x^{(1)}\in[a,b]$ e $$\lim_{n\to\infty}x^{(n)}=p.$$
+\end{teo}
+\begin{proof}
+Começamos demonstrando que existe pelo menos um ponto fixo. Para tal definimos a função $f(x)=x-g(x)$ e observamos que
+$$f(a)=a-g(a)\leq a-a=0$$
 e
-$$f(b)=b-\phi(b)\geq b-b=0$$
-Se $f(a)=a$ ou $f(b)=b$, então o ponto fixo existe. Caso contrário, as desigualdade são estritas e a função muda de sinal no intervalo. Como a função é contínua, pelo teorema de Bolzano~\ref{teo:teorema_de_Bolzano}, existe um ponto $x^*$ no intervalo $(a, b)$ tal que $f(x^*)=0$, ou seja, $x^*-\phi(x^*)=0$. Observe que $x^*$ é um ponto fixo de $\phi$, pois $\phi(x^*)=x^*$. 
+$$f(b)=b-g(b)\geq b-b=0$$
+Se $f(a)=a$ ou $f(b)=b$, então o ponto fixo existe. Caso contrário, as desigualdade são estritas e a função muda de sinal no intervalo.  Como a função é contínua, pelo teorema de Bolzano~\ref{teo:teorema_de_Bolzano}, existe um ponto $x^*$ no intervalo $(a, b)$ tal que $f(x^*)=0$, ou seja, $x^*-g(x^*)=0$. Observe que $x^*$ é um ponto fixo de $g$, pois $g(x^*)=x^*$. 
 
 Para provar que o ponto fixo é único, observamos que se $x^*$ e $x^{**}$ são pontos fixos, eles devem ser iguais, pois:
-$$|x^*-x^{**}|=|\phi(x^{*})-\phi(x^{**})|\leq \beta |x^*-x^{**}|$$
+$$|x^*-x^{**}|=|g(x^{*})-g(x^{**})|\leq \beta |x^*-x^{**}|$$
 A desigualdade $|x^*-x^{**}|\leq \beta |x^*-x^{**}|$ com $\beta<1$ implica $|x^*-x^{**}|=0$.
 \\~\\
 
-Para demonstrar a convergência da sequência, observamos a seguinte relação
-$$|x^{(n+1)}-x^*|=|\phi(x^{(n)})-x^*|=|\phi(x^{(n)})-\phi(x^*)|\leq \beta |x^{(n)}-x^*|.$$
+Para demonstrar a convergência da sequência, observamos a relação
+$$|x^{(n+1)}-x^*|=|g(x^{(n)})-x^*|=|g(x^{(n)})-g(x^*)|\leq \beta |x^{(n)}-x^*|.$$
 
 Agora observamos que
 $$|x^{(n)}-x^*|\leq  \beta |x^{(n-1)}-x^*|\leq \beta^2 |x^{(n-2)}-x^*|\leq \cdots \leq \beta^{n}|x^{(0)}-x^*|.$$
@@ -540,11 +576,18 @@ Portanto
 $$\lim_{n\to\infty}|x^{(n)}-x^*|=0$$
 e
 $$\lim_{n\to\infty}x^{(n)}=x^*$$
+\end{proof}
+
 
 Observações:
 \begin{itemize}
-\item A condição $|\phi(x)-\phi(y)|\leq \beta |x-y|$ é satisfeita sempre que $|\phi'(x)|\leq \beta<1$ em todo o intervalo pois
-$$|\phi(x)-\phi(y)|=\left|\int_x^y\phi'(s)ds\right|\leq \int_x^y|\phi'(s)|ds\leq \int_x^y\beta ds=\beta|x-y|,~~ x<y.$$
+\item A condição $|g(x)-g(y)|\leq \beta |x-y|$ é satisfeita sempre que $|g'(x)|\leq \beta<1$ em todo o intervalo pois
+\begin{align*}
+  |g(x)-g(y)| &=\left|\int_x^y g'(s)\;ds\right|\leq \int_x^y|g'(s)| \;ds \\
+              &\leq \int_x^y\beta \;ds =\beta|x-y|,~~ x<y. 
+\end{align*}
+
+
 
 \item A desigualdade estrita $\beta<1$ é necessária.
 
@@ -554,10 +597,11 @@ $$|\phi(x)-\phi(y)|=\left|\int_x^y\phi'(s)ds\right|\leq \int_x^y|\phi'(s)|ds\leq
 
 
 \subsection{Teste de convergência}
-Seja $\phi :[a,b]$ uma função $C^0[a,b]$ e $x^*\in(a,b)$ um ponto fixo de $\phi$. Então $x^*$ é dito estável se existe uma região $(x^*-\delta,x^*+\delta)$ chamada bacia de atração tal que $x^{(n+1)}=\phi(x^{(n)})$ é convergente sempre que $x^{(0)}\in(x^*-\delta,x^*+\delta)$.
+Seja $g :[a,b]$ uma função $C^0[a,b]$ e $x^*\in(a,b)$ um ponto fixo de $g$. Então $x^*$ é dito estável se existe uma região $(x^*-\delta,x^*+\delta)$ chamada bacia de atração tal que $x^{(n+1)}=g(x^{(n)})$ é convergente sempre que $x^{(0)}\in(x^*-\delta,x^*+\delta)$.
 
-Teorema: Se $\phi\in C^1[a,b]$ e  $|\phi'(x^*)|<1$, então $x^*$ é estável. Se $|\phi'(x^*)|>1$ é instável e o teste é inconclusivo se $|\phi'(x^*)|=1$.
-
+\begin{teo}
+ Se $g\in C^1[a,b]$ e  $|g'(x^*)|<1$, então $x^*$ é estável. Se $|g'(x^*)|>1$ é instável e o teste é inconclusivo se $|g'(x^*)|=1$.
+\end{teo}
 
 \begin{ex}
 Considere o problema de encontrar a solução da equação algébrica
@@ -615,40 +659,40 @@ x^{(43)}&=&\cos(x_{42})=\cos(0,7390851 )= 0,7390851
 
 \subsection{Estabilidade e convergência}\index{iteração do ponto fixo!estabilidade}\index{iteração do ponto fixo!convergência}
 
-A fim de compreendermos melhor os conceitos de estabilidade e convergência, considere uma função $\Phi(x)$ com um ponto fixo $x^*=\phi(x^*)$ e analisemos o seguinte processo iterativo:
+A fim de compreendermos melhor os conceitos de estabilidade e convergência, considere uma função $\Phi(x)$ com um ponto fixo $x^*=g(x^*)$ e analisemos o seguinte processo iterativo:
 \begin{eqnarray*}
-x^{(n+1)}&=&\phi\left(x^{(n)}\right)\\
+x^{(n+1)}&=&g\left(x^{(n)}\right)\\
 x^{(0)}&=&x
 \end{eqnarray*}
-Vamos supor que a função $\phi(x)$ pode ser aproximada por seu polinômio de Taylor em torno do ponto fixo:
+Vamos supor que a função $g(x)$ pode ser aproximada por seu polinômio de Taylor em torno do ponto fixo:
 \begin{eqnarray*}
-\phi(x)&=&\phi(x^*)+(x-x^*) \phi'(x^*)+O\left((x-x^*)^2\right), n\geq 0\\
-&=&x^*+(x-x^*) \phi'(x^*)+O\left((x-x^*)^2\right)\\
-&\approx& x^*+(x-x^*) \phi'(x^*)
+g(x)&=&g(x^*)+(x-x^*) g'(x^*)+O\left((x-x^*)^2\right), n\geq 0\\
+&=&x^*+(x-x^*) g'(x^*)+O\left((x-x^*)^2\right)\\
+&\approx& x^*+(x-x^*) g'(x^*)
 \end{eqnarray*}
 
 Substituindo na relação de recorrência, temos
 $$
-x^{(n+1)}=\phi\left(x^{(n)}\right)\approx x^*+(x^{(n)}-x^*) \phi'(x^*)
+x^{(n+1)}=g\left(x^{(n)}\right)\approx x^*+(x^{(n)}-x^*) g'(x^*)
 $$
 Ou seja:
 $$
-\left(x^{(n+1)}-x^*\right)\approx {(x^{(n)}-x^*)} \phi'(x^*)
+\left(x^{(n+1)}-x^*\right)\approx {(x^{(n)}-x^*)} g'(x^*)
 $$
 Tomando módulos, temos:
 $$
-\underbrace{\left|x^{(n+1)}-x^*\right|}_{\epsilon_{n+1}}\approx \underbrace{\left|x^{(n)}-x^*\right|}_{\epsilon_n} \left|\phi'(x^*)\right|,
+\underbrace{\left|x^{(n+1)}-x^*\right|}_{\epsilon_{n+1}}\approx \underbrace{\left|x^{(n)}-x^*\right|}_{\epsilon_n} \left|g'(x^*)\right|,
 $$
 onde $\epsilon_n=\left|x^{(n)}-x^*\right|$.
 
 {\bf Conclusões:}
 \begin{itemize}
-\item Se $|\phi'(x^*)|<1$, então, a distância de $x^{(n)}$ até o ponto fixo $x^*$ está diminuindo a cada passo.
-\item Se $|\phi'(x^*)|>1$, então, a distância de $x^{(n)}$ até o ponto fixo $x^*$ está aumentando a cada passo.
-\item Se $|\phi'(x^*)|=1$, então, nossa aproximação de primeiro ordem não é suficiente para compreender o comportamento da sequência.
+\item Se $|g'(x^*)|<1$, então, a distância de $x^{(n)}$ até o ponto fixo $x^*$ está diminuindo a cada passo.
+\item Se $|g'(x^*)|>1$, então, a distância de $x^{(n)}$ até o ponto fixo $x^*$ está aumentando a cada passo.
+\item Se $|g'(x^*)|=1$, então, nossa aproximação de primeiro ordem não é suficiente para compreender o comportamento da sequência.
 \end{itemize}
 
-Fixaremos, portanto, nos casos quando $|\phi'(x^*)|<1$.
+Fixaremos, portanto, nos casos quando $|g'(x^*)|<1$.
 
 \subsection{Erro absoluto e tolerância}\index{erros!absoluto}\index{tolerância}
 
@@ -667,38 +711,38 @@ x^*-x^{(N)}&=&  \left(x^{(N+1)}-x^{(N)}\right)+\left(x^{(N+2)}-x^{(N+1)}\right)+
 
 Usamos também as expressões:
 \begin{eqnarray*}
-x^{(n+1)}&\approx& x^*+(x^{(n)}-x^*) \phi'(x^*)\\
-x^{(n)}&\approx& x^*+(x^{(n-1)}-x^*) \phi'(x^*)
+x^{(n+1)}&\approx& x^*+(x^{(n)}-x^*) g'(x^*)\\
+x^{(n)}&\approx& x^*+(x^{(n-1)}-x^*) g'(x^*)
 \end{eqnarray*}
 Subtraindo uma da outra, temos:
 \begin{eqnarray*}
-x^{(n+1)}-x^{(n)}&\approx& (x^{(n)}-x^{(n-1)}) \phi'(x^*)
+x^{(n+1)}-x^{(n)}&\approx& (x^{(n)}-x^{(n-1)}) g'(x^*)
 \end{eqnarray*}
 Portanto:
 \begin{eqnarray*}
-x^{(N+k+1)}-x^{(N+k)}&\approx& (x^{(N+1)}-x^{(N)}) \left(\phi'(x^*)\right)^{k}
+x^{(N+k+1)}-x^{(N+k)}&\approx& (x^{(N+1)}-x^{(N)}) \left(g'(x^*)\right)^{k}
 \end{eqnarray*}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 E temos:
 \begin{eqnarray*}
 x^*-x^{(N)}
 &=&\sum_{k=0}^\infty \left(x^{(N+k+1)}-x^{(N+k)}\right)\\
-&\approx&\sum_{k=0}^\infty (x^{(N+1)}-x^{(N)}) \left(\phi'(x^*)\right)^{k}\\
-&=&(x^{(N+1)}-x^{(N)}) \frac{1}{1-\phi'(x^*)}, \left|\phi'(x^*)\right|<1
+&\approx&\sum_{k=0}^\infty (x^{(N+1)}-x^{(N)}) \left(g'(x^*)\right)^{k}\\
+&=&(x^{(N+1)}-x^{(N)}) \frac{1}{1-g'(x^*)}, \quad \left|g'(x^*)\right|<1
 \end{eqnarray*}
 Tomando módulo, temos:
 \begin{eqnarray*}
 \left|x^*-x^{(N)} \right|
-&\approx&\left|x^{(N+1)}-x^{(N)}\right| \frac{1}{1-\phi'(x^*)}\\
-\epsilon_N &\approx&  \frac{\Delta_N}{1-\phi'(x^*)}
+&\approx&\left|x^{(N+1)}-x^{(N)}\right| \frac{1}{1-g'(x^*)}\\
+\epsilon_N &\approx&  \frac{\Delta_N}{1-g'(x^*)}
 \end{eqnarray*}
 
-{\bf Conclusões:} Tendo em mente a relação $x^{(n+1)}-x^{(n)}  \approx (x^{(n)}-x^{(n-1)}) \phi'(x^*)$, concluímos:
+{\bf Conclusões:} Tendo em mente a relação $x^{(n+1)}-x^{(n)}  \approx (x^{(n)}-x^{(n-1)}) g'(x^*)$, concluímos:
 \begin{itemize}
-\item Quando $\phi'(x^*)<0$, o esquema é alternante e o erro $\epsilon_N$ pode ser estimado diretamente da diferença $\Delta_N$.
-\item Quando $\phi'(x^*)>0$, o esquema é monótono e $\frac{1}{1-\phi'(x^*)}>1$, pelo que o erro $\epsilon_N$ é maior que a diferença $\Delta_N$. A relação será tão mais importante quando mais próximo da unidade for $\phi'(x^*)$, ou seja, quando mais lenta for a convergência.
-\item Como $\phi'(x^*)\approx \frac{x^{(n+1)}-x^{(n)}}{x^{(n)}-x^{(n-1)}}$, temos
-$$\left|\phi'(x^*)\right|\approx \frac{\Delta_n}{\Delta_{n-1}}$$
+
+\item Quando $g'(x^*)<0$, o esquema é alternante, isto é, o sinal do erro se altera a cada passo.  O erro $\epsilon_N$ pode ser estimado diretamente da diferença $\Delta_N$, pois o denominador $1-g'(x^*)>1$.
+\item Quando $0<g'(x^*)<1$, o esquema é monótono e $\frac{1}{1-g'(x^*)}>1$, pelo que o erro $\epsilon_N$ é maior que a diferença $\Delta_N$. A relação será tão mais importante quando mais próximo da unidade for $g'(x^*)$, ou seja, quando mais lenta for a convergência. Para estimar o erro em função da diferença $\Delta_N$, observamos que  $g'(x^*)\approx \frac{x^{(n+1)}-x^{(n)}}{x^{(n)}-x^{(n-1)}}$ e 
+$$\left|g'(x^*)\right|\approx \frac{\Delta_n}{\Delta_{n-1}}$$
 e portanto
 $$\epsilon_N \approx \frac{\Delta_N}{1-\frac{\Delta_n}{\Delta_{n-1}}}.$$
 \end{itemize}
@@ -727,11 +771,11 @@ possui uma única solução no intervalo $[0, 1]$. Encontre uma aproximação pa
   \end{equation*}
 é ponto fixo das seguintes funções:
 \begin{itemize}
-\item[a)] $\phi(x)=\ln\left(\frac{10}{x}\right)$
-\item[b)] $\phi(x)=x-\frac{xe^{x}-10}{15}$
-\item[c)] $\phi(x)=x-\frac{xe^{x}-10}{10+e^{x}}$
+\item[a)] $g(x)=\ln\left(\frac{10}{x}\right)$
+\item[b)] $g(x)=x-\frac{xe^{x}-10}{15}$
+\item[c)] $g(x)=x-\frac{xe^{x}-10}{10+e^{x}}$
 \end{itemize}
-Implemente o processo iterativo $x^{(n+1)}=\phi(x^{(n)})$ para $n\geq 0$ e compare o comportamento. Discuta os resultados com base na teoria estudada.
+Implemente o processo iterativo $x^{(n+1)}=g(x^{(n)})$ para $n\geq 0$ e compare o comportamento. Discuta os resultados com base na teoria estudada.
 \end{Exercise}
 
 \begin{Exercise} Verifique (analiticamente) que a única solução real da equação:
@@ -740,11 +784,11 @@ Implemente o processo iterativo $x^{(n+1)}=\phi(x^{(n)})$ para $n\geq 0$ e compa
   \end{equation*}
 é ponto fixo das seguintes funções:
 \begin{itemize}
-\item[a)] $\phi(x)=\cos(x)$
-\item[b)] $\phi(x)=0,4 x+ 0,6\cos(x)$
-\item[c)] $\phi(x)=x+\frac{\cos(x)-x}{1+\sin(x)}$
+\item[a)] $g(x)=\cos(x)$
+\item[b)] $g(x)=0,4 x+ 0,6\cos(x)$
+\item[c)] $g(x)=x+\frac{\cos(x)-x}{1+\sin(x)}$
 \end{itemize}
-Implemente o processo iterativo $x^{(n+1)}=\phi(x^{(n)})$ para $n\geq 0$ e compare o comportamento.Discuta os resultados com base na teoria estudada.
+Implemente o processo iterativo $x^{(n+1)}=g(x^{(n)})$ para $n\geq 0$ e compare o comportamento.Discuta os resultados com base na teoria estudada.
 \end{Exercise}
 
 
@@ -799,7 +843,7 @@ Dica: Verifique que $\cos([0.5,1])\subseteq [0.5,1]$ e depois a mesma identidade
 \end{Exercise}
 
 
-\begin{Exercise}  Use o teorema do ponto fixo aplicado a um intervalo adequado para mostrar que a função $\phi(x)=\ln (100-x)$ possui um ponto fixo estável.
+\begin{Exercise}  Use o teorema do ponto fixo aplicado a um intervalo adequado para mostrar que a função $g(x)=\ln (100-x)$ possui um ponto fixo estável.
 \end{Exercise}
 
 \begin{Exercise}[title=Fluidos] Na hidráulica, o fator de atrito de Darcy é dado pela implicitamente pela equação de Colebrook-White:
@@ -850,19 +894,19 @@ Prove que $\{x^{(n)}\}$ é sequência de número reais positivos convergindo par
 
 \begin{Exercise}[title=Taxa de convergência]
 \begin{itemize}
-\item[a)] Use o teorema do ponto fixo para mostrar que a função $\phi(x)=1-\sin(x)$ possui um único ponto fixo estável o intervalo $[\frac{1}{10},1]$. Construa um método iterativo $x^{(n+1)}=\phi(x^{(n)})$ para encontrar esse ponto fixo. Use o Scilab para encontrar o valor numérico do ponto fixo.
-\item[b)] Verifique que função $\psi(x)=\frac{1}{2}\left[x+1-\sin(x)\right]$ possui um ponto fixo $x^*$ que também é o ponto fixo da função $\phi$ do item a. Use o Scilab para encontrar o valor numérico do ponto fixo através da iteração $x^{(n+1)}=\psi(x^{(n)})$. Qual método é mais rápido?
+\item[a)] Use o teorema do ponto fixo para mostrar que a função $g(x)=1-\sin(x)$ possui um único ponto fixo estável o intervalo $[\frac{1}{10},1]$. Construa um método iterativo $x^{(n+1)}=g(x^{(n)})$ para encontrar esse ponto fixo. Use o Scilab para encontrar o valor numérico do ponto fixo.
+\item[b)] Verifique que função $\psi(x)=\frac{1}{2}\left[x+1-\sin(x)\right]$ possui um ponto fixo $x^*$ que também é o ponto fixo da função $g$ do item a. Use o Scilab para encontrar o valor numérico do ponto fixo através da iteração $x^{(n+1)}=\psi(x^{(n)})$. Qual método é mais rápido?
 \end{itemize}
 \end{Exercise}
 
 
-\begin{Exercise}\it {(Esquemas oscilantes)}
+\begin{Exercise}[title=Esquemas oscilantes](\textit{Esquemas oscilantes})
 \begin{itemize}
-\item[a)] Considere a função $\phi(x)$ e função composta $\psi(x)=\phi\circ \phi=\phi\left(\phi(x)\right)$. Verifique todo ponto fixo de $\phi$ também é ponto fixo de $\psi$.
+\item[a)] Considere a função $g(x)$ e função composta $\psi(x)=g\circ g=g\left(g(x)\right)$. Verifique todo ponto fixo de $g$ também é ponto fixo de $\psi$.
 
-\item[b)]  Considere a função $$\phi(x)=10\exp(-x)$$ e função composta $\psi(x)=\phi\circ \phi=\phi\left(\phi(x)\right)$. Mostre que $\psi$ possui dois pontos fixos que não são pontos fixos de $\phi$.
+\item[b)]  Considere a função $$g(x)=10\exp(-x)$$ e função composta $\psi(x)=g\circ g=g\left(g(x)\right)$. Mostre que $\psi$ possui dois pontos fixos que não são pontos fixos de $g$.
 
-\item[c)]  No problema anterior, o que acontece quando o processo iterativo $x^{(n+1)}=\phi(x^{(n)})$ é inicializado com um ponto fixo de $\psi$ que não é ponto fixo de $\phi$?
+\item[c)]  No problema anterior, o que acontece quando o processo iterativo $x^{(n+1)}=g(x^{(n)})$ é inicializado com um ponto fixo de $\psi$ que não é ponto fixo de $g$?
 \end{itemize}
 \end{Exercise}
 
@@ -873,7 +917,7 @@ Prove que $\{x^{(n)}\}$ é sequência de número reais positivos convergindo par
 $$x^{(n+1)}=x^{(n)} - \gamma f(x^{(n)})$$
 onde $\gamma$ é uma constante. Suponha que $f(x)$ possui um zero em $x^*$. Aproxime a função $f(x)$ em torno de $x^*$ por
 $$f(x)=f(x^*)+f'(x^*)(x-x^*)+O\left((x-x^*)^2\right).$$
-Em vista do problema anterior, qual valor de $\gamma$ você escolheria para que a sequência $x^{(n)}$ convirja rapidamente para $x^*$. Que relação você encontra com o método de Newton?
+Em vista do problema anterior, qual valor de $\gamma$ você escolheria para que a sequência $x^{(n)}$ convirja rapidamente para $x^*$. 
 \end{Exercise}
 
 \begin{Exercise} Considere o problema da questão \ref{prob_diodo} e dois seguintes esquemas iterativos.
@@ -940,24 +984,28 @@ Considere o problema de calcular a raiz uma função $f$, conforme esboço na fi
 \includegraphics[scale=.4]{./cap_equacao1d/pics/fig_Newton.eps}
 \end{center}
 
-Queremos calcular $x^{(1)}$ em função de $x^{(0)}$ sabendo que é o corte da reta tangente em $x^{(0)}$ com o eixo $x$. A equação da reta que passa por $(x^{(0)}, f(x^{(0)})$ e é tangente a curva em $x^{(0)}$ tem inclinação $m=f'(x^{(0)})$ e sua equação é
-$$
-y-f(x^{(0)})=f'(x^{(0)})(x-x^{(0)}).
-$$
-Sabendo que essa reta passa por $(x^{(1)},0)$, temos:
-$$
-0-f(x^{(0)})=f'(x^{(0)})(x^{(1)}-x^{(0)}).
-$$
-Portanto,
-$$x^{(1)}=x^{(0)}-\frac{f(x^{(0)})}{f'(x^{(0)})}$$
-que é uma iteração do método de Newton. Repetimos o processo para calcular $x^{(2)},\ x^{(3)},...$. De modo geral, temos:
-$$x^{(n+1)}=x^{(n)}-\frac{f(x^{(n)})}{f'(x^{(n)})}.$$
+Queremos calcular $x^{(1)}$ em função de $x^{(0)}$. A ideia é calcular a equação da reta tangente à função $y=f(x)$ no ponto de abscissa $x^{(0)}$ e definir $x^{(1)}$ como a abscissa do ponto em que esta reta cruza o eixo x.  A inclinação da reta tangente é dada por (a variação em $y$ sobre a variação em $x$):
+\begin{equation*}
+   f'(x^{(0)}) = \frac{ f(x^{(0)})-0}{x^{(0)}-x^{(1)} }
+\end{equation*}
+Como desejamos que a abscissa do ponto em que esta reta cruza o eixo x seja $x^{(1)}$, obtemos:
+\begin{equation*}
+   x^{(0)}-x^{(1)} = \frac{ f(x^{(0)})-0}{f'(x^{(0)})}
+\end{equation*}
+Portanto
+\begin{equation*}
+x^{(1)}=x^{(0)}-\frac{f(x^{(0)})}{f'(x^{(0)})}
+\end{equation*}
+que é uma iteração do método de Newton. Repetimos o processo para calcular $x^{(2)}, x^{(3)},...$. De modo geral, temos
+\begin{equation*}
+x^{(n+1)}=x^{(n)}-\frac{f(x^{(n)})}{f'(x^{(n)})}.
+\end{equation*}
 
 \subsection{Análise de convergência}\index{método de Newton-Raphson!convergência}
 
-Seja $f(x)$ um função com derivada e derivada segunda contínuas tal que $f(x^*)=0$ e $f'(x^*)\neq 0$. Seja também a função $\phi(x)$ definida como
+Seja $f(x)$ um função com derivadas primeira e segunda contínuas tal que $f(x^*)=0$ e $f'(x^*)\neq 0$. Seja também a função $\phi(x)$ definida como
 $$\phi(x)=x-\frac{f(x)}{f'(x)}$$
-Expandimos em série de Taylor em torno de $x^*$ e obtermos:
+Expandimos em série de Taylor em torno de $x^*$ e obtemos
 $$\phi(x)=\phi(x^*)+(x-x^*)\phi'(x^*)+ (x-x^*)^2\frac{\phi''(x^*)}{2}+O\left((x-x^*)^3\right)$$
 Sabemos que
 \begin{eqnarray*}
@@ -1034,8 +1082,6 @@ Em relação à observação, o erro se deveu à falta de cuidado em compreender
   \end{tiny}
 \end{Answer}
 \fi
-
-\section*{Exercícios}
 
 \ifisscilab
 \begin{Exercise}\label{new1} Considere a equação
