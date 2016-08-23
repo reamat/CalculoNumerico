@@ -19,15 +19,15 @@ O código fonte está escrito em Latex e as referências bibliográficas em BibT
 ## Compilando
 O código pode ser compilado usando os compiladores padrão latex, bibtex, etc.. Alternativamente, está disponível um Makefile na pasta principal, de forma que pode-se compilar o código com:
 
-$ make
+    $ make
 
 Isto gerará o livro em formato PDF (main.pdf). Também, caso prefira em formatodo DVI, pode-se compilar com:
 
-$ make dvi
+    $ make dvi
 
 Para limpar os arquivos temporários gerados durante a compilação, digite:
 
-$ make clean
+    $ make clean
 
 ## Colaborações
 Todos são convidados a colaborarem na escrita deste livro. Caso esteja interessado, entre em contato conosco escrevendo para:
