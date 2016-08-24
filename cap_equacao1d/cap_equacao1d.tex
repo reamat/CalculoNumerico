@@ -1,4 +1,4 @@
-]%Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+%Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
 %\documentclass[main.tex]{subfiles}
 %\begin{document}
@@ -7,7 +7,7 @@
 
 Neste capítulo buscaremos aproximações numéricas para a solução de \emph{equações de uma variável real}. Observamos que obter uma solução para uma tal dada equação é equivalente a encontrar um \emph{zero de uma função}\index{função!zero de}\index{função!raiz de} apropriada. Com isso, iniciamos este capítulo discutindo sobre condições de existência e unicidade de raízes de funções de uma variável real. Então, apresentamos o \emph{método da bisseção}\index{método da bisseção} como uma primeira abordagem numérica para a solução de tais equações.
 
-Em seguida, exploramos uma outra abordagem via \emph{iteração do ponto fixo}\index{iteração do ponto fixo}. Desta, obtemos o \emph{método de Newton}\index{método de Newton}, para o qual discutimos sua aplicação e convergência. Por fim, apresentamos o \emph{método das secantes}\index{método das secantes} como uma das possíveis variações do método de Newton.
+Em seguida, exploramos uma outra abordagem via \emph{iteração do ponto fixo}\index{iteração do ponto fixo}. Desta, obtemos o \emph{método de Newton}\footnote{Sir Isaac Newton, 1642 - 1727, matemático e físico inglês.}\index{método de Newton}, para o qual discutimos sua aplicação e convergência. Por fim, apresentamos o \emph{método das secantes}\index{método das secantes} como uma das possíveis variações do método de Newton.
 
 \section{Existência e unicidade}\index{função!}\index{função!zero}
 
@@ -114,6 +114,15 @@ A discussão feita nesta seção, especialmente o teorema de Bolzano, nos fornec
   \end{tiny}
 \end{Answer}
 
+\begin{Exercise} Interprete a equação $\cos(x)=kx$ como o problema de encontrar a intersecção da curva $y=\cos(x)$ com $y=kx$. Encontre o valor positivo $k$ para o qual essa equação admite exatamente duas raízes positivas distintas.
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+    $k\approx 0,161228$
+  \end{tiny}
+\end{Answer}
+
+
 \begin{Exercise}Mostre que a equação:
   \begin{equation*}
     \ln(x)+x^3-\frac{1}{x}=10  
@@ -209,15 +218,42 @@ e, assim, sucessivamente.
   \end{sol}
 \end{ex}
 
-Observe que a distância entre $x^{(0)}$ e o zero $x^*$ não pode exceder metade do intervalo inicial, ou seja $|x^{(0)}-x^*|\leq \frac{b-a}{2}$. Da mesma forma, o erro absoluto entre $x^{(1)}$ e $x^*$ é menor que $\frac{1}{4}$ do tamanho do intervalo, i.e., $|x^{(1)}-x^*|\leq \frac{b-a}{2^2}$. De modo geral, o erro absoluto na iteração $n$ é estimado por:
+Vamos, agora, discutir sobre a \emph{convergência} do método da bisseção. O próximo Teorema~\ref{teo:convergencia_bissecao} nos garante a convergência do método da bisseção.
+
+\begin{teo}[Convergência do método da bisseção]\label{teo:convergencia_bissecao} Sejam $f:[a, b]\to \mathbb{R}$ uma função contínua tal que $f(a)\cdot f(b) < 0$ e $x^*$ o único zero de $f(x)$ no intervalo $(a, b)$. Então, a sequência $\{x^{(n)}\}_{n>=0}$ do método da bisseção satisfaz:
+  \begin{equation*}
+    |x^{(n)} - x^{*}| < \frac{b - a}{2^{n+1}},\quad\forall n\geq 0,
+  \end{equation*}
+i.e., $x^{(n)}\to x^*$ quando $n\to\infty$.
+\end{teo}
+\begin{proof}
+ Notemos que, a cada iteração, a distância entre a aproximação $x^{(n)}$ e o zero $x^*$ da função é menor que a metade do tamanho do intervalo $[a^{(n)}, b^{(n)}]$ (veja Figura~\ref{fig:metodo_da_bissecao}), i.e.:
 \begin{equation*}
-  |x^{(n)}-x^*|\leq \frac{b-a}{2^{n+1}},\quad n\geq 0.
+  |x^{(n)}-x^*| < \frac{b^{(n)}-a^{(n)}}{2}.
 \end{equation*}
-Também, denotando $\epsilon_n := |x^{(n)} - x^*|$, temos:
+Por construção do método, temos $[a^{(n)}, b^{(n)}]\subset [a^{(n-1)}, b^{(n-1)}]$ e:
 \begin{equation*}
-\epsilon_{n+1}\leq \frac{1}{2}\left(\epsilon_n\right)^{\pmb{1}}  
+  b^{(n)} - a^{(n)} = \frac{b^{(n-1)}-a^{(n-1)}}{2}.
 \end{equation*}
-e, por isso, dizemos que o método da bisseção possui \emph{taxa de convergência linear}. 
+Desta forma:
+\begin{equation*}
+  |x^{(n)}-x^*|  < \frac{b^{(n)}-a^{(n)}}{2} = \frac{b^{(n-1)}-a^{(n-1)}}{2^2} = \cdots = \frac{b^{(0)}-a^{(0)}}{2^{n+1}},\quad \forall n\geq 1.
+\end{equation*}
+Logo, vemos que:
+\begin{equation*}
+  |x^{(n)}-x^*|  < \frac{b-a}{2^{n+1}},\quad \forall n\geq 0.
+\end{equation*} 
+\end{proof}
+
+Observamos que a hipótese de que $f(x)$ tenha um único zero no intervalo não é necessária. Se a função tiver mais de um zero no intervalo inicial, as iterações irão convergir para um dos zeros. Veja o Exercício~\ref{exer:raizes_multiplas}.
+
+\begin{obs}
+  O Teorema~\ref{teo:convergencia_bissecao} nos fornece uma estimativa para a convergência do método da bisseção. Aproximadamente, temos:
+  \begin{equation*}
+    |x^{(n+1)} - x^*| \lesssim \frac{1}{2}|x^{(n+1)} - x^*|.
+  \end{equation*}
+Isto nos leva a concluir que o método da bisseção tem \emph{taxa de convergência} linear.
+\end{obs}
 
 \begin{ex}No Exemplo~\ref{ex:metodo_da_bissecao}, precisamos de $4$ iterações do método da bisseção para computar uma aproximação com precisão de $10^{-1}$ do zero de $f(x) = e^x - x - 2$ tomando como intervalo inicial $[a, b] = [-2, 0]$. Poderíamos ter estimado o número de iterações \emph{a priori}, pois, como vimos acima:
   \begin{equation*}
@@ -254,6 +290,29 @@ A variável de saída é:
 
 \section*{Exercícios}
 
+\begin{Exercise}Considere a equação $\sqrt{x}=\cos(x)$. Use o método da bisseção com intervalo inicial $[a, b] = [0, 1]$ e $x^{(1)} = (a+b)/2$ para calcular a aproximação $x^{(4)}$ da solução desta equação.
+\end{Exercise}
+
+\begin{Exercise} Trace o gráfico e isole as três primeiras raízes positivas da função:
+  \begin{equation*}
+    f(x)=5\sin(x^2)-\exp\left({\frac{x}{10}}\right)  
+  \end{equation*}
+em intervalos de comprimento $0,1$. Então, use o método da bisseção para obter aproximações dos zeros desta função com precisão de $10^{-5}$.
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+    A primeira raiz se encontra no intervalo $(0,4, 0,5)$. A segunda raiz no intervalo $(1,7, 1,8)$. A terceira raiz se encontra no intervalo $(2,5, 2,6)$.    
+  \end{tiny}
+\end{Answer}
+
+\begin{ex}\label{exer:raizes_multiplas}
+  O polinômio $p(x) = -4 + 8x - 5x^2 + x^3$ tem raízes $x_1=1$ e $x_2=x_3=2$ no intervalo $[1/2, 3]$.
+  \begin{itemize}
+  \item[a)] Se o método da bisseção for usando com o intervalo inicial $[1/2, 3]$, para qual raiz as iterações convergem?
+  \item[b)] É possível usar o método da bisseção para a raiz $x=2$? Justifique sua resposta.
+  \end{itemize}
+\end{ex}
+
 \begin{Exercise} Mostre que a equação do problema \ref{existe_unica} possui uma solução no intervalo $[1, v+1]$ para todo $v$ positivo. Dica: defina $f(x)=\ln(x)+x-\frac{1}{x}-v$  e considere a seguinte estimativa:
   \begin{equation*}
     f(v+1)=f(1)+\int_1^{v+1}f'(x)dx\geq -v+\int_1^{v+1}dx=0.  
@@ -265,21 +324,6 @@ Use esta estimativa para iniciar o método de bisseção e obtenha o valor da ra
     $1,390054$; $1,8913954$; $2,4895673$; $3,1641544$; $3,8965468$    
   \end{tiny}
 \end{Answer}
-
-\begin{Exercise} Trace o gráfico e isole as três primeiras raízes positivas da função:
-  \begin{equation*}
-    f(x)=5\sin(x^2)-\exp\left({\frac{x}{10}}\right)  
-  \end{equation*}
-em intervalos de comprimento $0,1$.
-\end{Exercise}
-\begin{Answer}
-  \begin{tiny}
-    A primeira raiz se encontra no intervalo $(0,4, 0,5)$. A segunda raiz no intervalo $(1,7, 1,8)$. A terceira raiz se encontra no intervalo $(2,5, 2,6)$.    
-  \end{tiny}
-\end{Answer}
-
-\begin{Exercise}Utilize o método da bisseção na equação $\sqrt{x}=\cos(x)$ para encontrar $p^{(4)}$ em $[a,b]=[0, 1]$.
-\end{Exercise}
 
 \begin{Exercise}[title=Estática] Considere o seguinte problema físico: uma plataforma está fixa a uma parede através de uma dobradiça cujo momento é dado por:
   \begin{equation*}
@@ -293,13 +337,6 @@ onde $\theta$ é angulo da plataforma com a horizontal e $k$ é uma constante po
   \end{tiny}
 \end{Answer}
 
-\begin{Exercise} Interprete a equação $\cos(x)=kx$ como o problema de encontrar a intersecção da curva $y=\cos(x)$ com $y=kx$. Encontre o valor positivo $k$ para o qual essa equação admite exatamente duas raízes positivas distintas.
-\end{Exercise}
-\begin{Answer}
-  \begin{tiny}
-    $k\approx 0,161228$
-  \end{tiny}
-\end{Answer}
 
 \begin{Exercise} Considere a equação de Lambert dada por:
   \begin{equation*}
@@ -518,9 +555,7 @@ Assim, $g$ é uma contração em $[a,b]$  se $|g'(x)|<1$ para $a<x<b$.
   $$x^{(n+1)}=g(x^{(n)})$$
 é convergente para qualquer $x^{(1)}\in[a,b]$ e $$\lim_{n\to\infty}x^{(n)}=p.$$
 \end{teo}
-
-
-\begin{demo}
+\begin{proof}
 Começamos demonstrando que existe pelo menos um ponto fixo. Para tal definimos a função $f(x)=x-g(x)$ e observamos que
 $$f(a)=a-g(a)\leq a-a=0$$
 e
@@ -541,7 +576,7 @@ Portanto
 $$\lim_{n\to\infty}|x^{(n)}-x^*|=0$$
 e
 $$\lim_{n\to\infty}x^{(n)}=x^*$$
-\end{demo}
+\end{proof}
 
 
 Observações:
@@ -904,29 +939,42 @@ Verifique numericamente que apenas o processo A é convergente para a, b e c; en
 
 \section{Método de Newton-Raphson}\index{método de Newton-Raphson}
 
-Consideremos o problema de encontrar as raízes da equação
-$$f(x)=0$$ onde $f(x)\in C^1$ através do método do ponto fixo.
-Para tal, observamos que um número real $x^*$ é raiz de $f(x)$ se e somente se $x^*$ é um ponto fixo da função
-$$\phi(x)=x+\gamma(x)f(x), ~~\gamma(x)\neq 0$$
-Aqui $\gamma(x)$ é uma função que será escolhida com base nos critérios de convergência do processo iterativo.
+Nesta seção, apresentamos o \emph{método de Newton-Raphson}\footnote{Joseph Raphson, 1648 - 1715, matemático inglês.}\footnote{Também chamado apenas de método de Newton}\index{método de!Newton-Raphson}\index{método de!Newton} para calcular o zero de funções reais de uma variável real. 
 
+Assumimos que $x^*$ é um zero de uma dada função $f(x)$ continuamente diferenciável, i.e. $f(x^*) = 0$. Afim de usar a iteração do ponto fixo, observamos que, equivalentemente, $x^*$ é um ponto fixo da função:
+\begin{equation*}
+  \phi(x)= x + \gamma(x)f(x),\quad\gamma(x)\neq 0,
+\end{equation*}
+onde $\gamma(x)$ é uma função arbitrária que queremos escolher de forma que a iteração do ponto fixo tenha ótima taxa de convergência. 
 
-A derivada de $\phi(x)$ vale
-$$\phi'(x)=1+\gamma(x)f'(x)+\gamma'(x)f(x)$$
-no ponto $x^*$, temos
-$$\phi'(x^*)=1+\gamma(x^*)f'(x^*)+\gamma'(x^*)f(x^*)$$
-como $f(x^*)=0$, temos
-$$\phi'(x^*)=1+\gamma(x^*)f'(x^*)$$
+Do \emph{teorema do ponto fixo}\index{teorema do!ponto fixo} temos que a taxa de convergência é dada em função do valor absoluto da derivada de $\phi(x)$. Calculando a derivada temos:
+\begin{equation*}
+  \phi'(x)=1+\gamma(x)f'(x)+\gamma'(x)f(x).
+\end{equation*}
+No ponto $x = x^*$, temos:
+\begin{equation*}
+  \phi'(x^*) = 1 + \gamma(x^*)f'(x^*) + \gamma'(x^*)f(x^*).
+\end{equation*}
+Como $f(x^*)=0$, temos:
+\begin{equation*}
+  \phi'(x^*) = 1 + \gamma(x^*)f'(x^*).
+\end{equation*}
 
-Sabemos que o processo iterativo converge tão mais rápido quanto menor for $\phi'(x)$ nas  vizinhanças de $x^*$, portanto, supomos que $f'(x^*)\neq 0$ e escolhemos $\gamma(x^*)$ de forma que
-$$\phi'(x^*)=0,$$ ou seja
-$$\gamma(x^*)=-\frac{1}{f'(x^*)}.$$
+Sabemos que o processo iterativo converge tão mais rápido quanto menor for $|\phi'(x)|$ nas vizinhanças de $x^*$. Isto nos leva a escolher:
+\begin{equation*}
+  \phi'(x^*) = 0,
+\end{equation*}
+e, então, temos:
+\begin{equation*}
+  \gamma(x^*) = -\frac{1}{f'(x^*)},
+\end{equation*}
+se $f'(x^*)\neq 0$.
 
-Observe que $x^*$ é raiz de $f(x)$ se, e somente se $x^*$ é ponto fixo de
-$$\phi(x)=x-\frac{f(x)}{f'(x)}$$
-e $\phi'(x^*)=0<1$. Portanto, o teorema do ponto fixo garante que se $x^{(0)}$ for suficientemente próximo a $x^*$, então o processo iterativo dado por
-$$x^{(n+1)}=x^{(n)}-\frac{f(x^{(n)})}{f'(x^{(n)})}$$
-converge para $x^*$, desde que $f'(x^{(n)})\neq 0 $ para todo $n\in\mathbb{N}$.
+A discussão acima nos motiva a introduzir o método de Newton, cujas iterações são dada por:
+\begin{align*}
+  x^{(n+1)} = x^{(n)} - \frac{f\left(x^{(n)}\right)}{f'\left(x^{n}\right)}, \quad n\geq 1,
+\end{align*}
+sendo $x^{(1)}$ uma aproximação inicial dada.
 
 \subsection{Interpretação Geométrica}
 
