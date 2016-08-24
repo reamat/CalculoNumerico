@@ -314,27 +314,7 @@ usando passos $h=0,1$ e $h=0,01$.
  y'(t)&=&-y(t)- y(t)^2,\\
  y(0)&=&1,
 \end{eqnarray*}
-usando passo $h=0,1$. Complete a tabela abaixo com os valores obtidos e compare com o valores obtidos da solução exata dada por $y(t)=\frac{1}{2e^t-1}$, complete também com o erro absoluto obtido em cada método:
-\begin{tiny}  
- $$\begin{array}{|c|c|c|c|c|c|}
-\hline
-t &  \hbox{Exato} & \hbox{Euler} & \hbox{Euler Melhorado} & \hbox{Erro Euler} & \hbox{Erro Euler Melhorado}\\
-\hline
-0.0 &  &  & &&\\
-0.1 &  &  & &&\\
-0.2 &  &  & &&\\
-0.3 &  &  & &&\\
-0.4 &  &  & &&\\
-0.5 &  &  & &&\\
-0.6 &  &  & &&\\
-0.7 &  &  & &&\\
-0.8 &  &  & &&\\
-0.9 &  &  & &&\\
-1.0 &  &  & &&\\
-\hline
-\end{array}
-$$
-\end{tiny}
+usando passo $h=0,1$. Compare os valores da solução exata dada por $y(t)=\frac{1}{2e^t-1}$ com os numéricos nos pontos $t=0$, $t=0.1$, $t=0.2$, $t=0.3$, $t=0.4$, $t=0.5$, $t=0.6$, $t=0.7$, $t=0.8$, $t=0.9$, $t=1.0$.
 \end{Exercise}
 \begin{Answer}
 \begin{tiny}
@@ -381,14 +361,18 @@ Considere o problema de valor inicial dado por
 y'(t)&=&f(y(t),t),\\
 y(0)&=&y_0.
 \end{eqnarray*}
-Nessa seção vamos definir a precisão de um método numérico pela ordem do erro acumulado ao calcular o valor da função em um ponto $t_N$ em função do espaçamento da malha $h$. 
+Nessa seção vamos definir a precisão de um método numérico pela ordem do erro acumulado ao calcular o valor da função em um ponto $t_N$ em função do espaçamento da malha $h$. Se $y(t_n)$ pode ser aproximado por uma expressão que depende de $f$, $h$, $y(t_0)$, $y(t_1)$, $\cdots$, $y(t_n)$, com erro da ordem de $O(h^{p+1})$, ou seja,
+\begin{equation}{\label{erro_local_1}}
+y(t_{n+1})=\mathcal{F}(f, h, y(t_n), y(t_{n-1}), \cdots, y_0) + O(h^{p+1})
+\end{equation}
+para cada função analítica $f$, dizemos que o método tem erro de truncamento da ordem de $O(h^{p})$ ou {\bf ordem de precisão $p$}\index{método!de Euler!ordem de precisão}. Essa afirmação faz sentido quando fazemos a seguinte análise informal: para aproximar $y_1$, acumulamos erros da ordem $O(h^{p+1})$, para calcular $y_2$ acumulamos os erros de $y_1$ e novos erros $O(h^{p+1})$. Para calcular $y_N$, acumulamos todos os erros até $t_N$, ou seja, $N$ vezes $O(h^{p+1})$. Como $N=O(1/h)$, temos que os erros ao calcular $y_N$ são da ordem $O(h^p)$. É verdade que essa análise só vale quando impomos condições de suavidade para $f$ e condições adequada para a expressão $\mathcal{F}(f, h, y(t_n), y(t_{n-1}), \cdots, y_0)$. Para explicar melhor esse pequeno texto, fazemos em detalhes essa operação para o método de Euler na seção \ref{sec_pre_euler}.
 
-\subsection{Ordem de precisão do Método de Euler}
-Primeiro lembramos da expressão (\ref{erro_local}) que origina o método de Euler:
+\subsection{Ordem de precisão do Método de Euler}{\label{sec_pre_euler}}
+Primeiro lembramos da expressão (\ref{erro_local}) que origina a seguinte relação de recorrência:
 \begin{eqnarray}{\label{es_Euler}}
-y(t+h)&=&y(t)+hf(y(t),t)+O(h^2).
+y(t_{n+1})&=&y(t_n)+hf(y(t_n),t_n)+O(h^2).
 \end{eqnarray}
-Assim, se $t=0$, temos $y(h)=y(0)+hf(y_0,t)+O(h^2)= y^{(1)}+O(h^2)$ e concluimos que o erro entre a solução exata $y(h)$ e sua aproximação pelo Método de Euler é da ordem de $h^2$. No entanto, se fixarmos um instante de tempo $t=t_N$, o erro entre a solução exata $y(t_N)$ e sua aproximação $y_N$ envolve o acúmulo de $N$ passos, cada um com erro da ordem de $h^2$. Como o número de passos é inversamente proporcional ao tamanho de passo $h$, o erro total é da ordem de $h$. Observamos que
+Para entender melhor o motivo de na expressão (\ref{es_Euler}) aparecer $O(h^2)$ e o método ser de precisão 1, vamos a seguinte análise informal: observemos que
 \begin{eqnarray*}
  y(t_1)&=&y(t_0)+hf(y(t_0),t_0)+O(h^2)\\
  &=&y_0+hf(y_0,t_0)+O(h^2)=y_1+O(h^2)
@@ -406,21 +390,12 @@ onde usamos o primeiro termo da série de Taylor $hf(y_1+O(h^2),t_1)=hf(y_1,t_1)
 \end{eqnarray*}
 Como $N=(t_f-t_0)/h$, temos
 \begin{eqnarray}{\label{euler_precisao}}
- y(t_N)&=&=y_{N}+\frac{t-t_0}{h}ch^2=y_{N}+O(h),
+ y(t_N)&=&=y_{N}+\frac{t-t_0}{h}O(h^2)=y_{N}+O(h),
 \end{eqnarray}
-onde $c_2=(t-t_0)c$, ou seja, o erro entre o valor exato e o aproximado é de ordem $h$. Portanto, dizemos que o método de Euler tem ordem de precisão 1 (ou simplesmente ordem 1). O fenômeno que vimos aqui acontece para todos os métodos numéricos explícitos desde que a função $f$ seja analítica, por isso, vale a pena introduzir a definição abaixo:
-
-\begin{defn}{\label{definicao_precisao_PVI}}
-Se $y(t_n)$ pode ser aproximado por uma expressão \\${\bf Y}(f,h,y(t_n),y(t_{n-1}),\cdots,y_0)$ com erro da ordem de $p+1$, ou seja,
-\begin{equation}{\label{erro_local_1}}
-y(t_{n+1})={\bf Y}(f,h,y(t_n),y(t_{n-1}),\cdots,y_0)+O(h^{p+1})
-\end{equation}
-para cada função analítica $f$, dizemos que o método tem erro de truncamento da ordem de $O(h^{p+1})$ e {\bf ordem de precisão $p$}\index{método!de Euler!ordem de precisão}. 
-\end{defn}
-No caso do método de Euler, vale a expressão (\ref{es_Euler}) e, portanto, o método tem erro de truncamento de ordem $O(h^2)$ e ordem de precisão 1. Nos métodos que vamos trabalhar a seguir, ficaremos satisfeitos obtendo o erro de truncamento e usaremos a definição \ref{definicao_precisao_PVI} para concluir que a ordem de precisão é uma unidade menor. 
+ou seja, o erro entre o valor exato e o aproximado é de ordem $h$. Uma demonstração mais formal que garante que o erro é limitado por uma expressão que é proporcional a $h$ está discutido na seção \ref{sec_conv_Euler}.
 
 \subsection{Ordem de precisão do Método de Euler Melhorado}
-Para obter a do erro de precisão do método de Euler Melhorado vamos calcular o erro de truncamento do método, ou seja, precisamos demonstrar que:
+Para obter o erro de precisão do método de Euler Melhorado vamos calcular o erro de truncamento do método, ou seja, precisamos demonstrar que:
 \begin{equation}\label{es_Euler_melhorado}
 y(t+h)=y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)+O(h^3)
 \end{equation}
@@ -453,8 +428,14 @@ Logo,
 &&=\frac{h}{2}y'(t)+\frac{h^2}{2}y''(t)\\
 &&-\frac{h}{2}\left(y'(t)+hy''(t)\right)+O(h^3)=O(h^3)
 \end{eqnarray*}
-Portanto, a expressão (\ref{es_Euler_melhorado}) é válida. Logo, a definição (\ref{definicao_precisao_PVI}) nos faz concluir que o método de Euler Melhorado tem ordem de precisão 2 (ou simplesmente ordem 2).
+Portanto, a expressão (\ref{es_Euler_melhorado}) é válida. Logo, usando uma discussão análoga aquela feita na seção \ref{sec_pre_euler} para o método de Euler, concluímos que o método de Euler Melhorado possui ordem de precisão 2.
 
+\section{Convergência}
+Em desenvolvimento
+\subsection{Convergência do método de Euler}\label{sec_conv_Euler}
+Em desenvolvimento
+\subsection{Convergência do método de Euler Melhorado}
+Em desenvolvimento
 \section{Métodos de Runge-Kutta}\label{sec_RK}\index{método!de Runge-Kutta}
 
 Os métodos de Runge-Kutta consistem em iterações do tipo:
