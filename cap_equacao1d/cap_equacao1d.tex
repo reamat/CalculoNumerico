@@ -406,7 +406,7 @@ Nesta seção, discutimos a abordagem da \emph{iteração do ponto fixo} para a 
   \label{fig:defn_ponto_fixo}
 \end{figure}
 
-\begin{ex}
+\begin{ex}\label{ex:ponto_fixo_1}
   Resolver a equação $e^x = x + 2$ é equivalente a resolver $f(x) = 0$, com $f(x) = e^x - x - 2$. Estes são equivalentes a resolver $g(x) = x$, com $g(x) = e^x - 2$. Ou seja, temos:
   \begin{equation*}
     e^x = x + 2 \Leftrightarrow e^x - x - 2 = 0 \Leftrightarrow e^x - 2 = x
@@ -494,51 +494,36 @@ A segunda pergunta é a mais fácil de ser respondida. No caso de $g(x)$ ser con
 % De fato, podemos provar que o método é convergente para qualquer valor inicial positivo $x$. E, ainda, que a convergência é rápida (ainda precisamos definir isso).
 
 Antes de respondermos as perguntas acima, vejamos mais um exemplo.
+
+\begin{ex}\label{ex:ponto_fixo_2}
+  Considere o problema de encontrar o zero da função $f(x) = x\exp(x) - 10$. Uma maneira geral de construir um problema de ponto fixo equivalente é o seguinte:
+  \begin{equation*}
+    f(x) = 0 \Rightarrow \alpha f(x) = 0 \Rightarrow x - \alpha f(x) = x,
+  \end{equation*}
+para qualquer parâmetro $\alpha\neq 0$. Consideremos, então, as seguintes duas funções:
+\begin{equation*}
+  g_1(x) = x - 0,5f(x)\quad\text{e}\quad g_2(x) = x - 0,05f(x).
+\end{equation*}
+Notamos que o ponto fixo destas duas funções coincide com o zero de $f(x)$. Construindo as iterações do ponto fixo:
+\begin{equation*}
+  x_1^{(n+1)} = g_1(x_1^{(n)})\quad\text{e}\quad x_2^{(n+1)} = g_2(x_2^{(n)}),
+\end{equation*}
+tomando $x_1^{(1)} = x_2^{(1)} = 1,7$, obtemos os resultados apresentados na Tabela~\ref{tab:ponto_fixo_2}. Observamos que, enquanto, a iteração do ponto fixo com a função $g_1(x)$ ($\alpha = 0,5$) parece divergir, a iteração com a função $g_2(x)$ ($\alpha = 0,05$) parece convergir.
+\begin{table}
+  \centering
+  \caption{Iterações do ponto fixo para o Exemplo~\ref{ex:ponto_fixo_2}.}\label{tab:ponto_fixo_2}
+  \begin{tabular}{c|rr}\hline
+    $n$ & $x_1^{(n)}$ & $x_2^{(n)}$ \\\hline
+    $1$ & $1,700$ & $1,700$\\
+    $2$ & $2,047$ & $1,735$\\
+    $3$ & $-0,8812$ & $1,743$ \\
+    $4$ & $4,3013$ & $1,746$\\
+    $5$ & $-149,4$ & $1,746$\\\hline
+  \end{tabular}
+\end{table}
+\end{ex}
 % Para responder essas perguntas, devemos formalizar o conceito de ponto fixo. Antes disso, analisemos mais um exemplo:
 
-\begin{ex}\label{ex:duas_sequencias}
-Considere a equação:
-\begin{equation*}
-  xe^x = 10.
-\end{equation*}
-Esta é equivalente às seguintes equações (problemas de ponto fixo):
-\begin{equation*}
-  x=\ln\left(\frac{10}{x}\right)
-\end{equation*}
-e
-\begin{equation*}
-  x=10e^{-x}
-\end{equation*}
-
-A iteração do ponto fixo aplicada a estas duas equações nos fornece as seguintes sequências:
-\begin{enumerate}
- \item [a)] $\displaystyle x^{(n+1)}=\ln \left(\frac{10}{x^{(n)}}\right)$
- \item [b)] $\displaystyle x^{(n+1)}=10 e^{-x^{(n)}} $
-\end{enumerate}
-
-Tomemos $x^{(1)}=1$ como aproximação inicial para a solução deste problema, iterando a primeira sequência, obtemos:
-\begin{align*}
-x^{(1)} &=1\\
-x^{(2)} &=\ln\left(\frac{10}{1}\right)=2,3025851\\
-x^{(3)} &=\ln\left(\frac{10}{2,3025851}\right)=1,4685526\\
-        &\vdots\\
-x^{(21)}&= 1,7455151\\
-x^{(31)}&= 1,745528\\
-x^{(32)}&= 1,745528
-\end{align*}
-
-Iterando a segunda sequência, obtemos:
-\begin{align*}
-x^{(1)}&=1\\
-x^{(2)}&=10e^{-1}= 3,6787944   \\
-x^{(3)}&=10e^{- 3,6787944 }= 0,2525340     \\
-x^{(4)}&=10e^{-0,2525340}=  7,7682979      \\
-x^{(5)}&=10e^{-7,7682979}=  0,0042293      \\
-x^{(6)}&=10e^{-0,0042293}=  9,9577961
-\end{align*}
-
-Este experimento numérico sugere que a iteração a) converge para $1,745528$ e a iteração b) não é convergente.
-\end{ex}
 
 
 % Note que queríamos resolver a equação $f(x)=x e^x-10=0$. Ao invés disso, transformamos essa equação em uma equação de iteração do tipo
@@ -612,23 +597,15 @@ Portanto, como $0\leq\beta<1$, temos:
 ou seja, $x^{(n)}\to x^*$ quando $n\to\infty$.
 \end{proof}
 
-\subsection{Teste de convergência}
-Seja $g :[a,b]$ uma função $C^0[a,b]$ e $x^*\in(a,b)$ um ponto fixo de $g$. Então $x^*$ é dito estável se existe uma região $(x^*-\delta,x^*+\delta)$ chamada bacia de atração tal que $x^{(n+1)}=g(x^{(n)})$ é convergente sempre que $x^{(0)}\in(x^*-\delta,x^*+\delta)$.
-
-\begin{prop}[Teste de convergência]
- Se $g\in C^1[a,b]$ e  $|g'(x^*)|<1$, então $x^*$ é estável. Se $|g'(x^*)|>1$ é instável e o teste é inconclusivo se $|g'(x^*)|=1$.
-\end{prop}
-
-\begin{ex}
-Considere o problema de encontrar a solução da equação:
-\begin{equation*}
-  \cos(x)=x
-\end{equation*}
-Isto é, queremos computar o ponto fixo da $g(x) := \cos(x)$. Mostraremos que o teorema do ponto fixo se aplica a esta função com $[a, b]=[1/2, 1]$. Precisamos mostrar que:
-\begin{enumerate}
-\item[a)] $g\left([1/2,1]\right) \subseteq [1/2,1]$;
-\item[b)] $|g'(x)|<\beta, \quad \beta<1,\quad \forall x\in [1/2,1]$.
-\end{enumerate}
+\begin{ex}\label{ex:ponto_fixo_3}
+Mostre que o Teorema do ponto fixo se aplica a função $g(x) = \cos(x)$ no intervalo $[1/2, 1]$, i.e. que a iteração do ponto fixo converge para a solução da equação $\cos x = x$.
+\end{ex}
+\begin{sol}
+  Basta mostrarmos que:
+  \begin{enumerate}
+  \item[a)] $g\left([1/2,1]\right) \subseteq [1/2,1]$;
+  \item[b)] $|g'(x)|<\beta, \quad 0<\beta<1,\quad \forall x\in [1/2,1]$.
+  \end{enumerate}
 
 Para provar a), observamos que $g(x)$ é decrescente no intervalo, pelo que temos:
 \begin{equation*}
@@ -646,34 +623,60 @@ Da mesma forma, temos a estimativa:
 \end{equation*}
 Assim, $|g'(x)|<0,85$ temos a desigualdade com $\beta=0,85<1$.
 
-Agora, observamos o comportamento numérico da sequência:
+A Tabela~\ref{tab:ponto_fixo_3} apresenta o comportamento numérico da iteração do ponto fixo:
 \begin{align*}
-x^{(0)} & =1\\
-x^{(n+1)} &= \cos(x^{(n)}),\quad n\geq 0.
+x^{(1)} & = 0,7\\
+x^{(n+1)} &= \cos(x^{(n)}),\quad n\geq 1.
 \end{align*}
-Os primeiros termos podem ser calculados numericamente e são dados por:
-\begin{align*}
-x^{(1)}&=\cos(x_0)=\cos(1)=0,5403023\\
-x^{(2)}&=\cos(x_1)=0,8575532\\
-x^{(3)}&=\cos(x_2)=\cos(0,8575532)=0,6542898\\
-x^{(4)}&=\cos(x_3)=\cos(0,6542898)=0,7934804\\
-x^{(5)}&=\cos(x_4)=\cos(0,7934804)=0,7013688\\
-x^{(6)}&=\cos(x_5)=\cos(0,7013688)=0,7639597\\
-x^{(7)}&=\cos(x_6)=\cos(0,7639597)=0,7221024\\
-x^{(8)}&=\cos(x_7)=\cos(0,7221024)=0,7504178\\
-x^{(9)}&=\cos(x_8)=\cos(0,7504178)=0,7314040\\
-x^{(10)}&=\cos(x_9)=\cos(0,7314040)= 0,7442374  \\
-x^{(11)}&=\cos(x_{10})=\cos(0,7442374)=0,7356047  \\
-x^{(12)}&=\cos(x_{11})=\cos(0,7356047)=0,7414251  \\
-x^{(13)}&=\cos(x_{12})=\cos(0,7414251)=0,7375069  \\
-%x_{14}&=&\cos(x_{13})=\cos(0,7375069)=0,7401473  \\
-&\vdots&\\
-x^{(41)}&=&\cos(x_{40})=\cos(0,7390852)= 0,7390851  \\
-x^{(42)}&=&\cos(x_{41})=\cos(0,7390851)= 0,7390851   \\
-x^{(43)}&=&\cos(x_{42})=\cos(0,7390851 )= 0,7390851
-\end{align*}
-\end{ex}
+\begin{table}
+  \centering
+  \begin{tabular}{cc}\hline
+   $n$ & $x^{(n)}$ \\\hline
+   $1$ & $0,700$ \\
+   $2$ & $0,765$ \\
+   $3$ & $0,721$ \\
+   $4$ & $0,751$ \\
+   $5$ & $0,731$ \\
+   $6$ & $0,744$ \\
+   $7$ & $0,735$ \\\hline
+  \end{tabular}
+  \caption{Iteração do ponto fixo para o Exemplo~\ref{ex:ponto_fixo_3}.}
+  \label{tab:ponto_fixo_3}
+\end{table}
+\end{sol}
 
+\subsection{Teste de convergência}
+Seja $g :[a,b]$ uma função $C^0[a,b]$ e $x^*\in(a,b)$ um ponto fixo de $g$. Então $x^*$ é dito estável se existe uma região $(x^*-\delta,x^*+\delta)$ chamada bacia de atração tal que $x^{(n+1)}=g(x^{(n)})$ é convergente sempre que $x^{(0)}\in(x^*-\delta,x^*+\delta)$.
+
+\begin{prop}[Teste de convergência]
+ Se $g\in C^1[a,b]$ e  $|g'(x^*)|<1$, então $x^*$ é estável. Se $|g'(x^*)|>1$ é instável e o teste é inconclusivo quando $|g'(x^*)|=1$.
+\end{prop}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics{./cap_equacao1d/pics/ponto_fixo_instavel/ponto_fixo_instavel.eps}
+        \caption{Iteração instável.}
+        \label{fig:ponto_fixo_instavel}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics{./cap_equacao1d/pics/ponto_fixo_estavel/ponto_fixo_estavel.eps}
+        \caption{Iteração estável}
+        \label{fig:ponto_fixo_estavel.}
+    \end{subfigure}
+    \caption{Ilustração das iterações do ponto fixo para: (a) $y = g_1(x)$ e (b) $y = g_2(x)$. Veja Exemplo~\ref{ex:ponto_fixo_4}.} \label{fig:teste_de_convergencia}
+\end{figure}
+
+\begin{ex}\label{ex:ponto_fixo_4}
+  No Exemplo~\ref{ex:ponto_fixo_2} observamos que a função $g_1(x)$ nos forneceu uma iteração divergente, enquanto que a função $g_2(x)$ forneceu uma iteração convergente (veja a Figura~\ref{fig:teste_de_convergencia}. A razão destes comportamentos é explicada pelo teste da convergência. Com efeito, sabemos que o ponto fixo destas funções está no intervalo $[1,6, 1,8]$ e temos:
+  \begin{equation*}
+    |g_1'(x)| = |1 - 0,5(x+1)e^x| > 4,8,\quad\forall x\in [1,6, 1,8],
+  \end{equation*}
+enquanto:
+\begin{equation*}
+  |g_2'(x)| = |1 - 0,05(x+1)e^x| < 0,962,\quad\forall x\in [1,6, 1,8].
+\end{equation*}
+\end{ex}
 
 \subsection{Estabilidade e convergência}\index{iteração do ponto fixo!estabilidade}\index{iteração do ponto fixo!convergência}
 
@@ -703,14 +706,13 @@ $$
 $$
 onde $\epsilon_n=\left|x^{(n)}-x^*\right|$.
 
-{\bf Conclusões:}
+\begin{obs} A análise acima, concluímos:
 \begin{itemize}
 \item Se $|g'(x^*)|<1$, então, a distância de $x^{(n)}$ até o ponto fixo $x^*$ está diminuindo a cada passo.
 \item Se $|g'(x^*)|>1$, então, a distância de $x^{(n)}$ até o ponto fixo $x^*$ está aumentando a cada passo.
 \item Se $|g'(x^*)|=1$, então, nossa aproximação de primeiro ordem não é suficiente para compreender o comportamento da sequência.
 \end{itemize}
-
-Fixaremos, portanto, nos casos quando $|g'(x^*)|<1$.
+\end{obs}
 
 \subsection{Erro absoluto e tolerância}\index{erros!absoluto}\index{tolerância}
 
@@ -740,7 +742,6 @@ Portanto:
 \begin{eqnarray*}
 x^{(N+k+1)}-x^{(N+k)}&\approx& (x^{(N+1)}-x^{(N)}) \left(g'(x^*)\right)^{k}
 \end{eqnarray*}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 E temos:
 \begin{eqnarray*}
 x^*-x^{(N)}
@@ -755,7 +756,8 @@ Tomando módulo, temos:
 \epsilon_N &\approx&  \frac{\Delta_N}{1-g'(x^*)}
 \end{eqnarray*}
 
-{\bf Conclusões:} Tendo em mente a relação $x^{(n+1)}-x^{(n)}  \approx (x^{(n)}-x^{(n-1)}) g'(x^*)$, concluímos:
+\begin{obs}
+Tendo em mente a relação $x^{(n+1)}-x^{(n)}  \approx (x^{(n)}-x^{(n-1)}) g'(x^*)$, concluímos:
 \begin{itemize}
 
 \item Quando $g'(x^*)<0$, o esquema é alternante, isto é, o sinal do erro se altera a cada passo.  O erro $\epsilon_N$ pode ser estimado diretamente da diferença $\Delta_N$, pois o denominador $1-g'(x^*)>1$.
@@ -763,23 +765,68 @@ Tomando módulo, temos:
 $$\left|g'(x^*)\right|\approx \frac{\Delta_n}{\Delta_{n-1}}$$
 e portanto
 $$\epsilon_N \approx \frac{\Delta_N}{1-\frac{\Delta_n}{\Delta_{n-1}}}.$$
-\end{itemize}
-
-\begin{obs}
-  Deve-se exigir que $\Delta_n<\Delta_{n-1}$
+\end{itemize}  
 \end{obs}
 
 \section*{Exercícios}
+
+\begin{Exercise}
+  Resolver a equação $e^x = x + 2$ é equivalente a calcular os pontos fixos da função $g(x) = e^x + 2$ (veja o Exemplo~\ref{ex:ponto_fixo_1}). Use a iteração do ponto fixo $x^{(n+1)} = g(x^{n})$ com $x^{(1)} = -1,8$ para obter uma aproximação de uma das soluções da equação dada com $8$ dígitos significativos.
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+    $-1,8414057$
+  \end{tiny}
+\end{Answer}
 
 \begin{Exercise}  Mostre que a equação:
   \begin{equation*}
     \cos(x)=x  
   \end{equation*}
-possui uma única solução no intervalo $[0, 1]$. Encontre uma aproximação para esta solução com  4 dígitos significativos.
+possui uma única solução no intervalo $[0, 1]$. Use a iteração do ponto fixo e encontre uma aproximação para esta solução com  4 dígitos significativos.
 \end{Exercise}
 \begin{Answer}
   \begin{tiny}
     $0,7391$
+  \end{tiny}
+\end{Answer}
+
+\begin{Exercise}
+  Mostre que a equação $xe^x = 10$ é equivalente às seguintes equações:
+\begin{equation*}
+  x=\ln\left(\frac{10}{x}\right)\quad\text{e}\quad x=10e^{-x}.
+\end{equation*}
+Destas, considere as seguintes iterações de ponto fixo:
+\begin{enumerate}
+ \item [a)] $\displaystyle x^{(n+1)}=\ln \left(\frac{10}{x^{(n)}}\right)$
+ \item [b)] $\displaystyle x^{(n+1)}=10 e^{-x^{(n)}} $
+\end{enumerate}
+Tomando $x^{(1)} = 1$, verifique se estas sequências são convergentes.
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+Tomemos $x^{(1)}=1$ como aproximação inicial para a solução deste problema, iterando a primeira sequência a), obtemos:
+\begin{align*}
+x^{(1)} &=1\\
+x^{(2)} &=\ln\left(\frac{10}{1}\right)=2,3025851\\
+x^{(3)} &=\ln\left(\frac{10}{2,3025851}\right)=1,4685526\\
+        &\vdots\\
+x^{(21)}&= 1,7455151\\
+x^{(31)}&= 1,745528\\
+x^{(32)}&= 1,745528
+\end{align*}
+
+Iterando a segunda sequência b), obtemos:
+\begin{align*}
+x^{(1)}&=1\\
+x^{(2)}&=10e^{-1}= 3,6787944   \\
+x^{(3)}&=10e^{- 3,6787944 }= 0,2525340     \\
+x^{(4)}&=10e^{-0,2525340}=  7,7682979      \\
+x^{(5)}&=10e^{-7,7682979}=  0,0042293      \\
+x^{(6)}&=10e^{-0,0042293}=  9,9577961
+\end{align*}
+
+Este experimento numérico sugere que a iteração a) converge para $1,745528$ e a iteração b) não é convergente.    
   \end{tiny}
 \end{Answer}
 
