@@ -557,6 +557,8 @@ Afim de estudarmos a convergência da iteração do ponto fixo, apresentamos o T
 
 \subsection{Teorema do ponto fixo}\index{Teorema do!ponto fixo}
 
+O Teorema do ponto fixo nos fornece condições suficientes para a existência e unicidade do ponto fixo, bem como para a convergência das iterações do método.
+
 \begin{defn}
  Uma \emph{contração}\index{contração} é uma função real $g:[a, b]\to [a, b]$ tal que:
  \begin{equation*}
@@ -587,46 +589,28 @@ e
 \begin{equation*}
   f(b)=b-g(b)\geq b-b=0
 \end{equation*}
-Se $f(a)=a$ ou $f(b)=b$, então o ponto fixo existe. Caso contrário, as desigualdade são estritas e a função muda de sinal no intervalo.  Como a função é contínua, pelo teorema de Bolzano~\ref{teo:teorema_de_Bolzano}, existe um ponto $x^*$ no intervalo $(a, b)$ tal que $f(x^*)=0$, ou seja, $x^*-g(x^*)=0$. Observe que $x^*$ é um ponto fixo de $g$, pois $g(x^*)=x^*$. 
+Se $f(a)=a$ ou $f(b)=b$, então o ponto fixo existe. Caso contrário, as desigualdades são estritas e a $f(x)$ muda de sinal no intervalo.  Como esta função é contínua, pelo teorema de Bolzano~\ref{teo:teorema_de_Bolzano}, existe um ponto $x^*$ no intervalo $(a, b)$ tal que $f(x^*)=0$, ou seja, $g(x^*)=x^*$. Isto mostra a existência.
 
 Para provar que o ponto fixo é único, observamos que se $x^*$ e $x^{**}$ são pontos fixos, eles devem ser iguais, pois:
 \begin{equation*}
-  |x^*-x^{**}|=|g(x^{*})-g(x^{**})|\leq \beta |x^*-x^{**}|
+  |x^*-x^{**}| = |g(x^{*})-g(x^{**})| \leq \beta |x^*-x^{**}|.
 \end{equation*}
-A desigualdade $|x^*-x^{**}|\leq \beta |x^*-x^{**}|$ com $\beta<1$ implica $|x^*-x^{**}|=0$.
+A desigualdade $|x^*-x^{**}|\leq \beta |x^*-x^{**}|$ com $0\leq \beta<1$ implica $|x^*-x^{**}|=0$.
 
-Para demonstrar a convergência da sequência, observamos a relação:
+Para demonstrar a convergência da sequência, observamos que:
 \begin{equation*}
-  |x^{(n+1)}-x^*|=|g(x^{(n)})-x^*|=|g(x^{(n)})-g(x^*)|\leq \beta |x^{(n)}-x^*|.
+  |x^{(n+1)}-x^*| = |g(x^{(n)})-x^*| = |g(x^{(n)})-g(x^*)| \leq \beta |x^{(n)}-x^*|.
 \end{equation*}
-
-Agora observamos que:
+Daí, temos:
 \begin{equation*}
   |x^{(n)}-x^*|\leq  \beta |x^{(n-1)}-x^*|\leq \beta^2 |x^{(n-2)}-x^*|\leq \cdots \leq \beta^{n}|x^{(0)}-x^*|.
 \end{equation*}
-Portanto:
+Portanto, como $0\leq\beta<1$, temos:
 \begin{equation*}
-  \lim_{n\to\infty}|x^{(n)}-x^*|=0
+  \lim_{n\to\infty}|x^{(n)}-x^*|=0,
 \end{equation*}
-e
-\begin{equation*}
-  \lim_{n\to\infty}x^{(n)}=x^*.
-\end{equation*}
+ou seja, $x^{(n)}\to x^*$ quando $n\to\infty$.
 \end{proof}
-
-\begin{obs}
-\begin{itemize}
-\item A condição $|g(x)-g(y)|\leq \beta |x-y|$ é satisfeita sempre que $|g'(x)|\leq \beta<1$ em todo o intervalo pois
-  \begin{align*}
-    |g(x)-g(y)| &=\left|\int_x^y g'(s)\;ds\right|\leq \int_x^y|g'(s)| \;ds \\
-              &\leq \int_x^y\beta \;ds =\beta|x-y|,~~ x<y. 
-  \end{align*}
-\item A desigualdade estrita $\beta<1$ é necessária.
-\item A condição $f([a,b])\subseteq [a,b]$ é necessária.
-\end{itemize}
-  
-\end{obs}
-
 
 \subsection{Teste de convergência}
 Seja $g :[a,b]$ uma função $C^0[a,b]$ e $x^*\in(a,b)$ um ponto fixo de $g$. Então $x^*$ é dito estável se existe uma região $(x^*-\delta,x^*+\delta)$ chamada bacia de atração tal que $x^{(n+1)}=g(x^{(n)})$ é convergente sempre que $x^{(0)}\in(x^*-\delta,x^*+\delta)$.
