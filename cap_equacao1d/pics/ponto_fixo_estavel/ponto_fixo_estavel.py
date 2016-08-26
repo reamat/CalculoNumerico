@@ -33,10 +33,11 @@ b = 1.8
 x = np.linspace (a, b)
 
 ax.plot(x, fun(x))
-ax.text(1.625,1.775,"$y = g_2(x)$")
+ax.annotate("$y=g_2(x)$",xytext=(1.61,1.775), xy=(1.61,1.71),arrowprops=dict(arrowstyle="->",lw=0.2))
 
 x = np.linspace(a,b)
 ax.plot(x, x, 'k--')
+ax.annotate("$y=x$",xytext=(1.7,1.78), xy=(1.77,1.77),arrowprops=dict(arrowstyle="->",lw=0.2))
 
 
 #ponto fixo
@@ -55,7 +56,7 @@ ax.arrow(x, fun(x), fun(x)-x, 0, head_width=0.005, length_includes_head=True, co
 x = fun(x)
 ax.text(x-.01,fun(x)+0.01,"$x^{(2)}$")
 ax.plot([x],[fun(x)],'ko',markersize=3)
-ax.arrow(x, x, 0, fun(x)-x, head_width=0.005, length_includes_head=True, color='red', lw=0.1)
+ax.arrow(x, x, 0, fun(x)-x, head_width=0.005, length_includes_head=True, color='red', lw=0.5)
 
 fig_file =  "ponto_fixo_estavel"
 fig.savefig(fig_file+".eps", bbox_inches='tight')
