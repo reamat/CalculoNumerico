@@ -56,7 +56,7 @@ ax.arrow(x, fun(x), fun(x)-x, 0, head_width=0.005, length_includes_head=True, co
 x = fun(x)
 ax.text(x-.01,fun(x)+0.01,"$x^{(2)}$")
 ax.plot([x],[fun(x)],'ko',markersize=3)
-ax.arrow(x, x, 0, fun(x)-x, head_width=0.005, length_includes_head=True, color='red', lw=0.5)
+ax.arrow(x, x, 0, fun(x)-x, head_width=0.005, length_includes_head=True, color='red', lw=0.1)
 
 fig_file =  "ponto_fixo_estavel"
 fig.savefig(fig_file+".eps", bbox_inches='tight')
