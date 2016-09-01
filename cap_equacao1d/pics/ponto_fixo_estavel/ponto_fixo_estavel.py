@@ -33,10 +33,11 @@ b = 1.8
 x = np.linspace (a, b)
 
 ax.plot(x, fun(x))
-ax.text(1.625,1.775,"$y = g_2(x)$")
+ax.annotate("$y=g_2(x)$",xytext=(1.61,1.775), xy=(1.61,1.71),arrowprops=dict(arrowstyle="->",lw=0.2))
 
 x = np.linspace(a,b)
 ax.plot(x, x, 'k--')
+ax.annotate("$y=x$",xytext=(1.7,1.78), xy=(1.77,1.77),arrowprops=dict(arrowstyle="->",lw=0.2))
 
 
 #ponto fixo

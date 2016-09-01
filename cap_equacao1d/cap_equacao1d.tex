@@ -1004,34 +1004,34 @@ Verifique numericamente que apenas o processo A é convergente para a, b e c; en
 
 \section{Método de Newton-Raphson}\index{método de Newton-Raphson}
 
-Nesta seção, apresentamos o \emph{método de Newton-Raphson}\footnote{Joseph Raphson, 1648 - 1715, matemático inglês.}\footnote{Também chamado apenas de método de Newton}\index{método de!Newton-Raphson}\index{método de!Newton} para calcular o zero de funções reais de uma variável real. 
+Nesta seção, apresentamos o \emph{método de Newton-Raphson}\footnote{Joseph Raphson, 1648 - 1715, matemático inglês.}\footnote{Também chamado apenas de método de Newton.}\index{método de!Newton-Raphson}\index{método de!Newton} para calcular o zero de funções reais de uma variável real. 
 
 Assumimos que $x^*$ é um zero de uma dada função $f(x)$ continuamente diferenciável, i.e. $f(x^*) = 0$. Afim de usar a iteração do ponto fixo, observamos que, equivalentemente, $x^*$ é um ponto fixo da função:
 \begin{equation*}
-  \phi(x)= x + \gamma(x)f(x),\quad\gamma(x)\neq 0,
+  g(x)= x + \alpha(x)f(x),\quad\gamma(x)\neq 0,
 \end{equation*}
-onde $\gamma(x)$ é uma função arbitrária que queremos escolher de forma que a iteração do ponto fixo tenha ótima taxa de convergência. 
+onde $\alpha(x)$ é uma função arbitrária que queremos escolher de forma que a iteração do ponto fixo tenha ótima taxa de convergência. 
 
-Do \emph{teorema do ponto fixo}\index{teorema do!ponto fixo} temos que a taxa de convergência é dada em função do valor absoluto da derivada de $\phi(x)$. Calculando a derivada temos:
+Do \emph{Teorema do ponto fixo}\index{teorema do!ponto fixo} temos que a taxa de convergência é dada em função do valor absoluto da derivada de $g(x)$. Calculando a derivada temos:
 \begin{equation*}
-  \phi'(x)=1+\gamma(x)f'(x)+\gamma'(x)f(x).
+  g'(x)=1+\alpha(x)f'(x)+\alpha'(x)f(x).
 \end{equation*}
 No ponto $x = x^*$, temos:
 \begin{equation*}
-  \phi'(x^*) = 1 + \gamma(x^*)f'(x^*) + \gamma'(x^*)f(x^*).
+  g'(x^*) = 1 + \alpha(x^*)f'(x^*) + \alpha'(x^*)f(x^*).
 \end{equation*}
 Como $f(x^*)=0$, temos:
 \begin{equation*}
-  \phi'(x^*) = 1 + \gamma(x^*)f'(x^*).
+  g'(x^*) = 1 + \alpha(x^*)f'(x^*).
 \end{equation*}
 
-Sabemos que o processo iterativo converge tão mais rápido quanto menor for $|\phi'(x)|$ nas vizinhanças de $x^*$. Isto nos leva a escolher:
+Sabemos que o processo iterativo converge tão mais rápido quanto menor for $|g'(x)|$ nas vizinhanças de $x^*$. Isto nos leva a escolher:
 \begin{equation*}
-  \phi'(x^*) = 0,
+  g'(x^*) = 0,
 \end{equation*}
 e, então, temos:
 \begin{equation*}
-  \gamma(x^*) = -\frac{1}{f'(x^*)},
+  \alpha(x^*) = -\frac{1}{f'(x^*)},
 \end{equation*}
 se $f'(x^*)\neq 0$.
 
@@ -1041,60 +1041,146 @@ A discussão acima nos motiva a introduzir o método de Newton, cujas iteraçõe
 \end{align*}
 sendo $x^{(1)}$ uma aproximação inicial dada.
 
-\subsection{Interpretação Geométrica}
+\subsection{Interpretação geométrica}
 
-Considere o problema de calcular a raiz uma função $f$, conforme esboço na figura abaixo
+Seja dada uma função $f(x)$ conforme na Figura~\ref{fig:metodo_de_Newton}. Para tanto, escolhemos uma aproximação inicial $x^{(1)}$ e computamos:
+\begin{equation*}
+  x^{(2)} = x^{(1)} - \frac{f(x^{(1)})}{f'(x^{(1)})}.
+\end{equation*}
+Geometricamente, o ponto $x^{(2)}$ é a interseção da reta tangente ao gráfico da função $f(x)$ no ponto $x = x^{(1)}$ com o eixo das abscissas. Com efeito, a equação desta reta é:
+\begin{equation*}
+  y = f'(x^{(1)})(x - x^{(1)}) + f(x^{(1)}).
+\end{equation*}
+Assim, a interseção desta reta com o eixo das abscissas ocorre quando ($y=0$):
+\begin{equation*}
+  f'(x^{(1)})(x - x^{(1)}) + f(x^{(1)}) = 0\Rightarrow x = x^{(1)} - \frac{f(x^{(1)})}{f'(x^{(1)})}.
+\end{equation*}
 
-\begin{center}
-\includegraphics[scale=.8]{./cap_equacao1d/pics/fig_Newton.eps}
-\end{center}
+\begin{figure}[h]
+  \centering
+  \includegraphics{./cap_equacao1d/pics/metodo_de_Newton/metodo_de_Newton.eps}  
+  \caption{Interpretação do método de Newton.}
+  \label{fig:metodo_de_Newton}
+\end{figure}
 
-Queremos calcular $x^{(1)}$ em função de $x^{(0)}$. A ideia é calcular a equação da reta tangente à função $y=f(x)$ no ponto de abscissa $x^{(0)}$ e definir $x^{(1)}$ como a abscissa do ponto em que esta reta cruza o eixo x.  A inclinação da reta tangente é dada por (a variação em $y$ sobre a variação em $x$):
-\begin{equation*}
-   f'(x^{(0)}) = \frac{ f(x^{(0)})-0}{x^{(0)}-x^{(1)} }
-\end{equation*}
-Como desejamos que a abscissa do ponto em que esta reta cruza o eixo x seja $x^{(1)}$, obtemos:
-\begin{equation*}
-   x^{(0)}-x^{(1)} = \frac{ f(x^{(0)})-0}{f'(x^{(0)})}
-\end{equation*}
-Portanto
-\begin{equation*}
-x^{(1)}=x^{(0)}-\frac{f(x^{(0)})}{f'(x^{(0)})}
-\end{equation*}
-que é uma iteração do método de Newton. Repetimos o processo para calcular $x^{(2)}, x^{(3)},...$. De modo geral, temos
-\begin{equation*}
-x^{(n+1)}=x^{(n)}-\frac{f(x^{(n)})}{f'(x^{(n)})}.
-\end{equation*}
+Ou seja, dado $x^{(n)}$ a próxima aproxição $x^{(n+1)}$ é o ponto de interseção entre o eixo das abscissas e a reta tangente ao gráfico da função no ponto $x = x^{(n)}$. Observe a Figura~\ref{fig:metodo_de_Newton}.
 
 \subsection{Análise de convergência}\index{método de Newton-Raphson!convergência}
 
-Seja $f(x)$ um função com derivadas primeira e segunda contínuas tal que $f(x^*)=0$ e $f'(x^*)\neq 0$. Seja também a função $\phi(x)$ definida como
-$$\phi(x)=x-\frac{f(x)}{f'(x)}$$
-Expandimos em série de Taylor em torno de $x^*$ e obtemos
-$$\phi(x)=\phi(x^*)+(x-x^*)\phi'(x^*)+ (x-x^*)^2\frac{\phi''(x^*)}{2}+O\left((x-x^*)^3\right)$$
-Sabemos que
-\begin{eqnarray*}
-\phi(x^*)&=&x^*-\frac{f(x^*)}{f'(x^*)}=x^*\\
-\phi'(x^*)&=&1-\frac{f'(x^*)f'(x^*)-f(x^*)f''(x^*)}{\left(f'(x^*)\right)^2}=1-1=0
-\end{eqnarray*}
+Seja $f(x)$ um função com derivadas primeira e segunda contínuas tal que $f(x^*)=0$ e $f'(x^*)\neq 0$. Seja também a função $g(x)$ definida como:
+\begin{equation*}
+  g(x)=x-\frac{f(x)}{f'(x)}.
+\end{equation*}
+Expandimos em série de Taylor em torno de $x = x^*$, obtemos:
+\begin{equation*}
+  g(x)=g(x^*)+g'(x^*)(x-x^*) + \frac{g''(x^*)}{2}(x-x^*)^2 + O\left((x-x^*)^3\right).
+\end{equation*}
+Observamos que:
+\begin{align*}
+g(x^*) &= x^*\\
+g'(x^*) &= 1 - \frac{f'(x^*)f'(x^*)-f(x^*)f''(x^*)}{\left(f'(x^*)\right)^2} = 0
+\end{align*}
 Portanto:
-\begin{eqnarray*}
-\phi(x)&=&x^*+ (x-x^*)^2\frac{\phi''(x^*)}{2}+O\left((x-x^*)^3\right)\\
-&\approx&x^*+ (x-x^*)^2\frac{\phi''(x^*)}{2}.
-\end{eqnarray*}
-Logo,
-\begin{eqnarray*}
-x^{(n+1)}&=&\phi(x^{(n)})\\
-&\approx& x^*+ (x^{(n)}-x^*)^2\frac{\phi''(x^*)}{2}
-\end{eqnarray*}
+\begin{equation*}
+g(x) = x^* + \frac{g''(x^*)}{2}(x-x^*)^2 + O\left((x-x^*)^3\right)\\
+\end{equation*}
+Com isso, temos:
+\begin{equation*}
+x^{(n+1)} = g(x^{(n)}) =  x^*+ \frac{g''(x^*)}{2}(x^{(n)}-x^*)^2 + O\left((x-x^*)^3\right),
+\end{equation*}
+ou seja:
+\begin{equation*}
+\left|x^{(n+1)}-x^*\right| \leq C\left|x^{(n)}-x^*\right|^2,
+\end{equation*}
+com constante $C = \left|g''(x^*)/2\right|$. Isto mostra que o método de Newton tem \emph{taxa de convergência quadrática}. Mais precisamente, temos o seguinte teorema.
 
-\begin{eqnarray*}
-\left(x^{(n+1)}-x^*\right) &\approx& (x^{(n)}-x^*)^2\frac{\phi''(x^*)}{2}
-\end{eqnarray*}
+\begin{teo}[Método de Newton]
+  Sejam $f\in C^2([a, b])$ com $x^*\in (a, b)$ tal que $f(x^*) = 0$ e:
+  \begin{equation*}
+    m := \min_{x\in [a, b]}|f'(x)| > 0\quad\text{e}\quad M := \max_{x\in [a, b]} |f''(x)|.
+  \end{equation*}
+Escolhendo $\rho > 0$ tal que:
+\begin{equation*}
+  q := \frac{M}{2m}\rho < 1, 
+\end{equation*}
+definimos a \emph{bacia de atração} do método de Newton pelo conjunto:
+\begin{equation*}
+  K_\rho(x^*) := \left\{x\in\mathbb{R};~|x-x^*| \leq \rho\right\}\subset [a, b].
+\end{equation*}
+Então, para qualquer $x^{(1)}\in K_\rho(x^*)$ a iteração do método de Newton:
+\begin{equation*}
+  x^{(n+1)} = x^{(n)} - \frac{f(x^{(n)})}{f'(x^{(n)})},
+\end{equation*}
+fornece uma sequência $x^{(n)}$ que congerve para $x^*$, i.e. $x^{(n)}\to x^*$ quando $n\to \infty$. Além disso, temos a seguinte estimativa de erro \emph{a priori}:
+\begin{equation*}
+  |x^{(n)} - x^*| \leq \frac{2m}{M}q^{(2^{n-1})},\quad n\geq 2,
+\end{equation*}
+e a seguinte estimativa de erro \emph{a posteriori}:
+\begin{equation*}
+  |x^{(n)} - x^*| \leq \frac{M}{2m}|x^{(n)} - x^{(n-1)}|^2,\quad n\geq 2.
+\end{equation*}
+\end{teo}
+\begin{proof}
+  Para $n\in\mathbb{N}$, $n\geq 2$, temos:
+  \begin{equation}\label{eq:forma}
+    x^{n+1}-x^* = x^{(n)} - \frac{f(x^{(n)})}{f'(x^{(n)})} - x^* = -\frac{1}{f(x^{(n)})}\left[f(x^{(n)})+(x^*-x^{(n)})f'(x^{(n)}\right].
+  \end{equation}
+Agora, para estimar o lado direito desta equação, usamos o polinômio de Taylor de grau $1$ da função $f(x)$ em torno de $x = x^{(n)}$, i.e.:
+\begin{equation*}
+  f(x^*) = f(x^{(n)}) + (x^* - x^{(n)})f'(x^{(n)}) + \int_{x^{(n)}}^{x^*} f''(t)(x^* - t)\,dt.
+\end{equation*}
+Pela mudança de variável $t = x^{(n)} + s(x^{(n)} - x^*)$, observamos que o resto deste polinômio de Taylor na forma intergral é igual a:
+\begin{equation*}
+  R(x^*,x^{(n)}) := (x^* - x^{(n)})^2\int_0^1 f''\left(x^{(n)} + s(x^* - x^{(n)})\right)(1-s)\,ds.
+\end{equation*}
+Assim, da cota da segunda derivade de $f(x)$, temos:
+\begin{equation}\label{eq:est-resto}
+  |R(x^*,x^{(n)})| \leq M|x^*-x^{(n)}|^2\int_0^1 (1-s)\,ds = \frac{M}{2}|x^* - x^{(n)}|^2.
+\end{equation}\label{eq:quadratica}
+Se $x^{(n)}\in K_\rho(x^*)$, então de \eqref{eq:forma} e \eqref{eq:est-resto} temos:
+\begin{equation}
+  |x^{(n+1)} - x^*| \leq \frac{M}{2m}|x^{(n)} - x^*|^2 \leq \frac{M}{2m}\rho^2 < \rho.
+\end{equation}
+Isto mostra que se $x^{(n)}\in K_\rho(x^*)$, então $x^{(n+1)}\in K_\rho(x^*)$, i.e. $x^{(n)}\in K_\rho(x^*)$ para todo $n\in\mathbb{R}$.
 
-\begin{obs} Pode-se mostrar facilmente que
-$$\phi''(x^*)=\frac{f''(x^*)}{f'(x^*)}$$
-\end{obs}
+Agora, obtemos a estimativa \emph{a priori} de \eqref{eq:quadratica}, pois:
+\begin{equation*}
+  |x^{(n)} - x^*| \leq \frac{2m}{M}\left(\frac{M}{2m}|x^{(n-1)}-x^*|\right)^2 \leq \cdots \leq \frac{2m}{M}\left(\frac{M}{2m} |x^{(1)}-x^*|\right)^{2^{n-1}}.
+\end{equation*}
+Logo:
+\begin{equation*}
+  |x^{(n)} - x^*| \leq \frac{2m}{M}q^{2^{n-1}},
+\end{equation*}
+donde também vemos que $x^{(n)}\to x^*$ quando $n\to\infty$, pois $q < 1$.
+
+Por fim, para provarmos a estimativa \emph{a posteriori} tomamos a seguinte expansão em polinômio de Taylor:
+\begin{equation*}
+  f(x^{(n)}) = f(x^{(n-1)}) + (x^{(n)} - x^{(n-1)})f'(x^{(n-1)}) + R(x^{(n)},x^{(n-1)}).
+\end{equation*}
+Aqui, temos:
+\begin{equation*}
+  f(x^{(n-1)}) + (x^{(n)} - x^{(n-1)})f'(x^{(n-1)}) = 0
+\end{equation*}
+e, então, conforme acima:
+\begin{equation*}
+  |f(x^{(n)})| = |R(x^{(n)}),x^{(n-1)}| \leq \frac{M}{2}|x^{(n)} - x^{(n-1)}|^2.
+\end{equation*}
+Com isso e do Teorema do valor médio, concluímos:
+\begin{equation*}
+  |x^{(n)} - x^*| \leq \frac{1}{m}|f(x^{(n)}) - f(x^*)| \leq \frac{M}{2m}|x^{(n)} - x^{(n-1)}|^2.
+\end{equation*}
+\end{proof}
+
+\begin{ex}
+  Estime o raio $\rho$ da bacia de atração $K_\rho(x^*)$ para a função $f(x) = \cos(x) - x$ restrita ao intervalo $[0, \pi/2]$.
+\end{ex}
+\begin{sol}
+  O raio da bacia de atração é tal que:
+  \begin{equation*}
+    \rho < \frac{2m}{M}
+  \end{equation*}
+onde $m := \min |f'(x)|$ e $M := \max |f''(x)|$ com o mínimo e o máximo tomados em um intervalo $[a, b]$ que contenha o zero da função $f(x)$. Aqui, por exemplo, podemos tomar $[a, b] = [0, \pi/2]$. Como, neste caso, $f'(x) = -\sin(x) - 1$, temos que $m = 1$. Também, como $f''(x) = -\cos x$, temos $M = 1$. Assim, concluímos que $\rho < 2$ (lembrando que $K_\rho(x^*)\subset [0, \pi/2]$). Ou seja, neste caso as iterações de Newton convergem para o zero de $f(x)$ para qualquer escolha da aproximação inicial $x^{(1)}\in [0, \pi/2]$.
+\end{sol}
 
 \section*{Exercícios}
 

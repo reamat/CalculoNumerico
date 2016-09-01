@@ -33,10 +33,11 @@ b = 1.8
 x = np.linspace (a, b)
 
 ax.plot(x, fun(x))
-ax.text(1.625,1.9,"$y = g_1(x)$")
+ax.annotate("$y=g_1(x)$",xytext=(1.63,1.875), xy=(1.71,1.975),arrowprops=dict(arrowstyle="->",lw=0.2))
 
 x = np.linspace(a,b)
 ax.plot(x, x, 'k--')
+ax.annotate("$y=x$",xytext=(1.625,1.525), xy=(1.625,1.625),arrowprops=dict(arrowstyle="->",lw=0.2))
 
 
 #ponto fixo
@@ -51,7 +52,7 @@ x = 1.74
 ax.text(x+0.005,fun(x)+0.02,"$x^{(1)}$")
 ax.plot([x],[fun(x)],'ko',markersize=3)
 ax.arrow(x, 1.4, 0, fun(x)-1.4, head_width=0.0075, head_length=0.025, length_includes_head=True, color='red', lw=0.1)
-ax.arrow(x, fun(x), fun(x)-x, 0, head_width=0.01, head_length=0.0075, length_includes_head=True, color='red', lw=0.1)
+ax.arrow(x, fun(x), fun(x)-x, 0, head_width=0.02, head_length=0.0075, length_includes_head=True, color='red', lw=0.5)
 x = fun(x)
 ax.text(x-0.03,fun(x)-0.01,"$x^{(2)}$")
 ax.plot([x],[fun(x)],'ko',markersize=3)
