@@ -1372,7 +1372,7 @@ para aproximações iniciais suficientemente próximas de $x^*$, onde $f(x^*) = 
 \end{equation*}
 sob certas condições. Ou seja, o método das secantes tem \emph{taxa de convergência superlinear}.
 
-\begin{teo}[Método das secantes]
+\begin{teo}[Método das secantes]\label{teo:metodo_das_secantes}
   Seja $f\in C^2([a, b])$ uma função com $x^*\in (a, b)$ tal que $f(x^*) = 0$. Sejam, também:
   \begin{equation*}
     m := \min_{x\in [a, b]} |f'(x)| > 0\quad\text{e}\quad M := \max_{x\in [a,b]} |f''(x)| < \infty.
@@ -1402,7 +1402,7 @@ Com isso, temos:
   \end{align*}
 Então, da cota assumida para primeira derivada de $f(x)$ e do Teorema do valor médio, temos: 
 \begin{equation}\label{eq:secantes-est0}
-  g(x^{(n)},x^{(n-1)}) - x^*| \leq \frac{|x^{(n)} - x^*|}{m}\left|\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} - \frac{f(x^{(n)}) - f(x^*)}{x^{(n)} - x^*}\right|.
+  |g(x^{(n)},x^{(n-1)}) - x^*| \leq \frac{|x^{(n)} - x^*|}{m}\left|\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} - \frac{f(x^{(n)}) - f(x^*)}{x^{(n)} - x^*}\right|.
 \end{equation}
 Agora, iremos estimar este último termo a direita. Para tanto, começamos observando que da expansão em polinômio de Taylor de ordem $0$ da função $f(x)$ com resto na forma integral, temos:
 \begin{align*}
@@ -1455,14 +1455,56 @@ Por fim, mostramos a estimativa de convergência \emph{a posteriori}. Para tanto
 \begin{align*}
   |x^{(n)} - x^*| &\leq \frac{1}{m}|f(x^{(n)} - f(x^*)|\\
   &= \frac{1}{m}\left|f(x^{(n-1)}) + (x^{(n)} - x^{(n-1)})\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}}\right|\\
-  &= \frac{1}{m}|x^{(n)} - x^{(n-1)}|\left|\frac{f(x^{(n-1)}) - f(x^{(n)})}{x^{(n-1)} - x^{(n)}} - \frac{f(x^{(n-1)}) - f(x^{(n-2)})}{x^{(n-1)} - x^{(n-2)}}\right|.
+  &\leq \frac{1}{m}|x^{(n)} - x^{(n-1)}|\left|\frac{f(x^{(n-1)}) - f(x^{(n)})}{x^{(n-1)} - x^{(n)}} - \frac{f(x^{(n-1)}) - f(x^{(n-2)})}{x^{(n-1)} - x^{(n-2)}}\right|.
 \end{align*}
-Observamos que o último termo pode ser estimado como feito acima para o termo análogo na Inequação~\ref{eq:secantes-est0}. Com isso, obtemos a estimativa desejada:
+Observamos que o último termo pode ser estimado como feito acima para o termo análogo na Inequação~\eqref{eq:secantes-est0}. Com isso, obtemos a estimativa desejada:
 \begin{equation*}
   |x^{(n)} - x^*| \leq \frac{M}{2m}|x^{(n)} - x^{(n-1)}||x^{(n)} - x^{(n-2)}|.
 \end{equation*}
 }
 \end{proof}
+
+\begin{prop}[Sequência de Fibonacci]\label{prop:sequencia_de_Fibonacci}\index{sequência de!Fibonacci}
+  A sequência de Fibonacci $\{\gamma_n\}_{n\in\mathbb{N}}$ é assintótica a $\gamma_n \sim \lambda_1^{n+1}/\sqrt{5}$ e:
+\begin{equation*}
+  \lim_{n\to\infty} \frac{\gamma_{n+1}}{\gamma_{n}} = \lambda_1,
+\end{equation*}
+onde $\lambda_1 = (1+\sqrt{5})/2\approx 1,618$ é a porção áurea\index{porção áurea}.
+\end{prop}
+\begin{proof}
+  A sequência de Fibonacci $\{\gamma_n\}_{n\in\mathbb{N}}$ é definida por $\gamma_0 = \gamma_1 = 1$ e $\gamma_{n+1} = \gamma_n + \gamma_{n-1}$, $n\geq 1$. Logo, satisfaz a seguinte equação de diferenças:
+  \begin{equation*}
+    \gamma_{n+2} - \gamma_{n+1} - \gamma_{n} = 0,\quad n\in\mathbb{N}.
+  \end{equation*}
+Tomando $\gamma_n = \lambda^n$, $\lambda\neq 0$ temos:
+\begin{equation*}
+  \lambda^n\left(\lambda^2 - \lambda - 1\right) = 0 \Rightarrow   \lambda^2 - \lambda - 1 = 0 \Rightarrow \lambda_{1,2} = \frac{1 \pm \sqrt{5}}{2}.
+\end{equation*}
+Portanto, $\gamma_n = c_1\lambda_1^n + c_2\lambda_2^n$. Como $\gamma_0 = \gamma_1 = 1$, as constantes satisfazem:
+\begin{equation*}
+  \begin{array}{l}
+    c_1 + c_2 = 1\\
+    c_1\lambda_1 + c_2\lambda_2 = 1
+  \end{array}
+    \Rightarrow
+    c_1 = \frac{1+\sqrt{5}}{2\sqrt{5}},\quad c_2 = -\frac{1-\sqrt{5}}{2\sqrt{5}}.
+\end{equation*}
+Ou seja, obtemos a seguinte forma explícita para os números de Fibonacci:
+\begin{equation*}
+  \gamma_n = \frac{1}{\sqrt{5}}\left[\left(\frac{1+\sqrt{5}}{2}\right)^{n+1} - \left(\frac{1-\sqrt{5}}{2}\right)^{n+1}\right].
+\end{equation*}
+Daí, segue imediatamente o enunciado.
+\end{proof}
+
+\begin{obs}
+  Sob as hipóteses do Teorema~\ref{teo:metodo_das_secantes} e da Proposição~\ref{prop:sequencia_de_Fibonacci}, temos:
+  \begin{align*}
+    \lim_{n\to\infty} \frac{|x^{(n+1)}-x^*|}{|x^{(n)} - x^*|^{\lambda_1}} &\leq \lim_{n\to\infty} \frac{M}{2m}|x^{(n)}-x^*|^{1-\lambda_1}|x^{(n-1)}-x^*| \\
+    &\leq \lim_{n\to\infty} \left(\frac{2m}{M}\right)^{1-\lambda_1}q^{(2-\lambda_1)\lambda_1^{n}/\sqrt{5}} = 0.
+  \end{align*}
+Isto mostra que o método das secantes (nestas hipóteses) tem taxa de convergência superlinear ($\lambda_1 \approx 1,6$).
+\end{obs}
+
 
 \section{Critérios de parada}
 
