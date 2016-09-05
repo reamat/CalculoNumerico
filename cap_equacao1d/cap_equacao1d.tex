@@ -1063,7 +1063,7 @@ Assim, a interseção desta reta com o eixo das abscissas ocorre quando ($y=0$):
   \label{fig:metodo_de_Newton}
 \end{figure}
 
-Ou seja, dado $x^{(n)}$ a próxima aproxição $x^{(n+1)}$ é o ponto de interseção entre o eixo das abscissas e a reta tangente ao gráfico da função no ponto $x = x^{(n)}$. Observe a Figura~\ref{fig:metodo_de_Newton}.
+Ou seja, dado $x^{(n)}$ a próxima aproximação $x^{(n+1)}$ é o ponto de interseção entre o eixo das abscissas e a reta tangente ao gráfico da função no ponto $x = x^{(n)}$. Observe a Figura~\ref{fig:metodo_de_Newton}.
 
 \subsection{Análise de convergência}\index{método de Newton-Raphson!convergência}
 
@@ -1111,7 +1111,7 @@ Então, para qualquer $x^{(1)}\in K_\rho(x^*)$ a iteração do método de Newton
 \begin{equation*}
   x^{(n+1)} = x^{(n)} - \frac{f(x^{(n)})}{f'(x^{(n)})},
 \end{equation*}
-fornece uma sequência $x^{(n)}$ que congerve para $x^*$, i.e. $x^{(n)}\to x^*$ quando $n\to \infty$. Além disso, temos a seguinte estimativa de erro \emph{a priori}:
+fornece uma sequência $x^{(n)}$ que converge para $x^*$, i.e. $x^{(n)}\to x^*$ quando $n\to \infty$. Além disso, temos a seguinte estimativa de erro \emph{a priori}:
 \begin{equation*}
   |x^{(n)} - x^*| \leq \frac{2m}{M}q^{(2^{n-1})},\quad n\geq 2,
 \end{equation*}
@@ -1129,11 +1129,11 @@ Agora, para estimar o lado direito desta equação, usamos o polinômio de Taylo
 \begin{equation*}
   f(x^*) = f(x^{(n)}) + (x^* - x^{(n)})f'(x^{(n)}) + \int_{x^{(n)}}^{x^*} f''(t)(x^* - t)\,dt.
 \end{equation*}
-Pela mudança de variável $t = x^{(n)} + s(x^{(n)} - x^*)$, observamos que o resto deste polinômio de Taylor na forma intergral é igual a:
+Pela mudança de variável $t = x^{(n)} + s(x^{(n)} - x^*)$, observamos que o resto deste polinômio de Taylor na forma integral é igual a:
 \begin{equation*}
   R(x^*,x^{(n)}) := (x^* - x^{(n)})^2\int_0^1 f''\left(x^{(n)} + s(x^* - x^{(n)})\right)(1-s)\,ds.
 \end{equation*}
-Assim, da cota da segunda derivade de $f(x)$, temos:
+Assim, da cota da segunda derivada de $f(x)$, temos:
 \begin{equation}\label{eq:est-resto}
   |R(x^*,x^{(n)})| \leq M|x^*-x^{(n)}|^2\int_0^1 (1-s)\,ds = \frac{M}{2}|x^* - x^{(n)}|^2.
 \end{equation}\label{eq:quadratica}
@@ -1301,18 +1301,28 @@ definida para $x>0$
 
 \section{Método das Secantes}\index{método das secantes}
 
-O Método das Secantes é semelhante ao Método de Newton. Neste método a derivada $f'(x)$ é aproximada pela declividade de um reta secante à curva:
-$$f'(x)\approx \frac{f(x+\Delta x)-f(x)}{\Delta x}$$
+O \emph{método das secantes} é uma variação do método de Newton. Dada uma função $f(x)$, a ideia é aproximar sua derivada pela razão fundamental:
+\begin{equation*}
+  f'(x)\approx \frac{f(x)-f(x_0)}{x-x_0},\quad x\approx x_0.
+\end{equation*}
 
-Assim, em cada passo do método, calcula-se uma nova aproximação com base em duas aproximações anteriores:
-
-$$x^{(n+1)}=x^{(n)} - \frac{f(x^{(n)})}{m}, \qquad m= \frac{f(x^{(n)})-f(x^{(n-1)})}{x^{(n)}-x^{(n-1)}} $$
-
+Mais precisamente, o método de Newton é uma iteração de ponto fixo da forma:
+\begin{equation*}
+  x^{(n+1)} = x^{(n)} - \alpha(x^{(n)})f(x^{(n)}),\quad n\geq 1,
+\end{equation*}
+onde $x^{(1)}$ é uma aproximação inicial dada e $\alpha(x^{(n)}) = 1/f'(x^{(n)})$. Usando a aproximação da derivada acima, com $x = x^{(n)}$ e $x_0 = x^{(n-1)}$, temos:
+\begin{equation*}
+  \alpha(x^{(n)}) = \frac{1}{f'(x^{(n)})} \approx  \frac{x^{(n)} - x^{(n-1)}}{f(x^{(n)}) - f(x^{(n-1)})}.
+\end{equation*}
+Isto nos motiva a introduzir a \emph{iteração do método das secantes} dada por:
+\begin{equation*}
+  x^{(n+1)} = x^{(n)} - f(x^{(n)})\frac{x^{(n)} - x^{(n-1)}}{f(x^{(n)}) - f(x^{(n-1)})},\quad n\geq 2.
+\end{equation*}
+Observe que para inicializarmos a iteração acima precisamos de duas aproximações iniciais, a saber, $x^{(1)}$ e $x^{(2)}$. Maneiras apropriadas de escolher estas aproximações podem ser inferidas da interpretação geométrica do método.
 
 \begin{ex} Encontre as raízes de $f(x)=\cos(x)-x$.\end{ex}
-
+\begin{sol}
 Da inspeção do gráfico das funções $y=\cos(x)$ e $y=x$, sabemos que esta equação possui uma raiz em torno de $x=0,8$. Iniciamos o método com $x_0=0,7$ e $x_1=0,8$.
-
 \begin{center}
 \begin{tabular}{|c|c|c|c|}\hline
 $x^{(n-1)}$ & $x^{(n)}$ & $m$ & $x^{(n+1)}$\\\hline
@@ -1322,10 +1332,250 @@ $0,8$ & $0,7385654$ & $-1,6955107$ & $0,7390784$ \\\hline
  $0,7385654$ & $0,7390784$ &  $-1,6734174$ & $0,7390851$ \\\hline
 $0,7390784$ & $0,7390851$ & $-1,6736095$ & $0,7390851$ \\\hline
 \end{tabular}  
-\end{center}
+\end{center}  
+\end{sol}
+
+\subsection{Interpretação geométrica}
+
+Enquanto, o método de Newton está relacionado às retas tangentes ao gráfico da função objetivo $f(x)$, o método das secantes, como o próprio nome indica, está relacionado às retas secantes.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics{./cap_equacao1d/pics/metodo_das_secantes/metodo_das_secantes.eps}
+  \caption{Método das secantes.}
+  \label{fig:metodo_das_secantes}
+\end{figure}
+
+Sejam $f(x)$ e as aproximações $x^{(1)}$ e $x^{(2)}$ do zero $x^*$ desta função (veja Figura~\ref{fig:metodo_das_secantes}). A iteração do método das secantes fornece:
+\begin{equation*}
+  x^{(3)} = x^{(2)} - f(x^{(2)})\frac{x^{(2)} - x^{(1)}}{f(x^{(2)}) - f(x^{(1)})}.
+\end{equation*}
+De fato, $x^{(3)}$ é o ponto de interseção da reta secante ao gráfico de $f(x)$ pelos pontos $x^{(1)}$ e $x^{(2)}$ com o eixo das abscissas. Com efeito, a equação desta reta secante é:
+\begin{equation*}
+  y = \frac{f(x^{(2)}) - f(x^{(1)})}{x^{(2)} - x^{(1)}}(x - x^{(2)}) + f(x^{(2)}).
+\end{equation*}
+Esta reta intercepta o eixo das abscissas no ponto $x$ tal que $y=0$, i.e.:
+\begin{equation*}
+  \frac{f(x^{(2)}) - f(x^{(1)})}{x^{(2)} - x^{(1)}}(x - x^{(2)}) + f(x^{(2)}) \Rightarrow x = x^{(2)} - f(x^{(2)})\frac{x^{(2)} - x^{(1)}}{f(x^{(2)}) - f(x^{(1)})}.
+\end{equation*}
+
 
 \subsection{Análise de convergência}\index{método das secantes!convergência}
 
+Uma análise assintótica semelhante aquela feita para o método de Newton nos indica que, para uma função $f(x)$ duas vezes diferenciável, as iterações do método da secante satisfazem:
+\begin{equation*}
+  |x^{(n+1)} - x^*| \approx C |x^{(n)} - x^*||x^{(n-1)} - x^*|,
+\end{equation*}
+para aproximações iniciais suficientemente próximas de $x^*$, onde $f(x^*) = 0$. Além disso, veremos que:
+\begin{equation*}
+  |x^{(n+1)} - x^*| \leq C |x^{(n)} - x^*|^{1,6}
+\end{equation*}
+sob certas condições. Ou seja, o método das secantes tem \emph{taxa de convergência superlinear}.
+
+\begin{teo}[Método das secantes]\label{teo:metodo_das_secantes}
+  Seja $f\in C^2([a, b])$ uma função com $x^*\in (a, b)$ tal que $f(x^*) = 0$. Sejam, também:
+  \begin{equation*}
+    m := \min_{x\in [a, b]} |f'(x)| > 0\quad\text{e}\quad M := \max_{x\in [a,b]} |f''(x)| < \infty.
+  \end{equation*}
+Além disso, seja $\rho > 0$ tal que:
+\begin{equation*}
+  q := \frac{M}{2m}\rho < 1,\quad K_\rho(x^*) := \{x\in\mathbb{R};~|x-x^*|\leq \rho\}\subset [a, b].
+\end{equation*}
+Então, para aproximações iniciais $x^{(1)}, x^{(2)}\in K_\rho(x^*)$, com $x^{(1)}\neq x^{(2)}$, temos que as iterações do método das secantes $x^{(n)}\in K_\rho(x^*)$, $n\geq 1$, e $x^{(n)}\to x^*$, quando $n\to\infty$. Além disso, vale a seguinte estimativa de convergência \emph{a priori}:
+\begin{equation*}
+  |x^{(n)} - x^*| \leq \frac{2m}{M}q^{\gamma_{n-1}},\quad n\geq 1,
+\end{equation*}
+onde $\{\gamma_n\}_{n\in\mathbb{N}}$ é a sequência de Fibonacci\footnote{Leonardo Fibonacci, c. 1170 - c. 1250, matemático italiano.}\footnote{A sequência de Fibonacci $\{\gamma_n\}_{n\in\mathbb{N}}$ é definida por $\gamma_0 = \gamma_1 = 1$ e $\gamma_{n+1} = \gamma_{n} - \gamma_{n-1}$, $n\geq 1$.}, bem como vale a estimativa \emph{a posteriori}:
+\begin{equation*}
+  |x^{(n)} - x^*| \leq \frac{M}{2m}|x^{(n)}-x^{(n-1)}||x^{(n-1)}-x^{(n-2)}|,\quad n\geq 3.
+\end{equation*}
+\end{teo}
+\begin{proof}
+  Sejam $n\in\mathbb{N}$, $n\geq 2$, e $x^{(n)}, x^{(n-1)}\in K_\rho(x^*)$, tal que $x^{(n)}\neq x^{(n-1)}$, $x^{(n)}\neq x^*$ e $x^{(n-1)}\neq x^*$. Seja, também:
+  \begin{equation*}
+    g(x^{(n)},x^{(n-1)}) := x^{(n)} - f(x^{(n)})\frac{x^{(n)} - x^{(n-1)}}{f(x^{(n)}) - f(x^{(n-1)})}.
+  \end{equation*}
+Com isso, temos:
+  \begin{align*}
+    &g(x^{(n)},x^{(n-1)}) - x^* = x^{(n)} - f(x^{(n)})\frac{x^{(n)} - x^{(n-1)}}{f(x^{(n)}) - f(x^{(n-1)})} - x^*\\
+    &= \frac{x^{(n)} - x^{(n-1)}}{f(x^{(n)}) - f(x^{(n-1)})}\left\{(x^{(n)} - x^*)\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} - f(x^{(n)}) + f(x^*)\right\}.\\
+  \end{align*}
+Então, da cota assumida para primeira derivada de $f(x)$ e do Teorema do valor médio, temos: 
+\begin{equation}\label{eq:secantes-est0}
+  |g(x^{(n)},x^{(n-1)}) - x^*| \leq \frac{|x^{(n)} - x^*|}{m}\left|\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} - \frac{f(x^{(n)}) - f(x^*)}{x^{(n)} - x^*}\right|.
+\end{equation}
+Agora, iremos estimar este último termo a direita. Para tanto, começamos observando que da expansão em polinômio de Taylor de ordem $0$ da função $f(x)$ com resto na forma integral, temos:
+\begin{align*}
+  \frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} &= -\int_0^1 \frac{d}{dr}f(x^{(n)} + r(x^{(n-1)} - x^{(n)}))\frac{dr}{x^{(n)} - x^{(n-1)}}\\
+  &= \int_0^1 f'(x^{(n)} + r(x^{(n-1)} - x^{(n)}))\,dr
+\end{align*}
+De forma análogo, temos:
+\begin{equation*}
+  \frac{f(x^{(n)}) - f(x^*)}{x^{(n)} - x^*} = \int_0^1 f'(x^{(n)} + r(x^* - x^{(n)}))\,dr
+\end{equation*}
+Logo, temos:
+\begin{equation}\label{eq:secantes-0}
+  \begin{split}
+  &\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} - \frac{f(x^{(n)}) - f(x^*)}{x^{(n)} - x^*} = \\
+  &\int_0^1 \left[f'(x^{(n)} + r(x^{(n-1)} - x^{(n)})) - f'(x^{(n)} + r(x^* - x^{(n)}))\right]\,dr.    
+  \end{split}
+\end{equation}
+Agora, novamente temos:
+\begin{equation*}
+  \begin{split}
+  &f'(x^{(n)} + r(x^{(n-1)} - x^{(n)})) - f'(x^{(n)} + r(x^* - x^{(n)}))\\
+  &= \int_0^r \frac{d}{ds}f'(x^{(n)} + r(x^{(n-1)} - x^{(n)}) + s(x^* - x^{(n-1)}))\,ds\\
+  &= \int_0^r f''(x^{(n)} + r(x^{(n-1)} - x^{(n)}) + s(x^* - x^{(n-1)}))\,ds(x^* - x^{(n-1)}).
+  \end{split}
+\end{equation*}
+Então, retornando à Equação~\eqref{eq:secantes-0} e usando a assumida cota para a segunda derivada, obtemos:
+\begin{equation*}
+  \left|\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} - \frac{f(x^{(n)}) - f(x^*)}{x^{(n)} - x^*} \right| \leq \frac{M}{2}|x^{(n-1)} - x^*|.
+\end{equation*}
+Agora, retornando à Equação~\eqref{eq:secantes-est0}, obtemos:
+\begin{equation*}
+  |g(x^{(n)},x^{(n-1)})-x^*| \leq \frac{M}{2m}|x^{(n)}-x^*||x^{(n-1)}-x^*| \leq \frac{M}{2m}\rho^2 < \rho.
+\end{equation*}
+Portanto, concluímos que as iterações do método da secantes $x^{(n)}$ permanecem no conjunto $K_\rho(x^*)$, se começarem nele. Além disso, temos demonstrado que:
+\begin{equation*}
+  |x^{(n+1)} - x^*| \leq \frac{M}{2m}|x^{(n)} - x^*||x^{(n-1)} - x^*|.
+\end{equation*}
+Com isso, temos:
+\begin{equation*}
+  \rho_n := \frac{M}{2m}|x^{(n)} - x^*| \Rightarrow \rho_{n+1} \leq \rho_{n}\rho_{n-1},\quad n\geq 2.
+\end{equation*}
+Como $\rho_1 \leq q$ e $\rho_2 \leq q$, temos $\rho_n \leq q^{\gamma_{n-1}}$, $n\geq 1$. Isto mostra a estimativa de convergência \emph{a priori}:
+\begin{equation*}
+  |x^{n} - x^*| \leq \frac{2m}{M}q^{\gamma_{n-1}}.
+\end{equation*}
+Além disso, como $\gamma_{n}\to \infty$ quando $n\to\infty$ e $q < 1$, temos que as iterações do método das secantes $x^{(n)}\to x^*$ quando $n\to \infty$.
+
+Por fim, mostramos a estimativa de convergência \emph{a posteriori}. Para tanto, da cota assumida para a primeira derivada e do Teorema do valor médio, temos, para $n\geq 3$:
+\begin{align*}
+  |x^{(n)} - x^*| &\leq \frac{1}{m}|f(x^{(n)} - f(x^*)|\\
+  &= \frac{1}{m}\left|f(x^{(n-1)}) + (x^{(n)} - x^{(n-1)})\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}}\right|\\
+  &= \frac{1}{m}\left|x^{(n)} - x^{(n-1)}\right|\left|\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} + \frac{f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}}\right|.
+\end{align*}
+Agora, da iteração do método das secantes:
+\begin{equation*}
+  x^{(n)} = x^{(n-1)} - f(x^{(n-1)})\frac{x^{(n-1)} - x^{(n-2)}}{f(x^{(n-1)}) - f(x^{(n-2)})}, 
+\end{equation*}
+temos:
+\begin{equation*}
+  \frac{f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} = -\frac{f(x^{(n-1)}) - f(x^{(n-2)})}{x^{(n-1)} - x^{(n-2)}}.
+\end{equation*}
+Logo:
+\begin{equation*}
+  |x^{(n)} - x^*| \leq \frac{1}{m}|x^{(n)} - x^{(n-1)}|\left|\frac{f(x^{(n-1)}) - f(x^{(n)})}{x^{(n-1)} - x^{(n)}} - \frac{f(x^{(n-1)}) - f(x^{(n-2)})}{x^{(n-1)} - x^{(n-2)}}\right|
+\end{equation*}
+Observamos que o último termo pode ser estimado como feito acima para o termo análogo na Inequação~\eqref{eq:secantes-est0}. Com isso, obtemos a estimativa desejada:
+\begin{equation*}
+  |x^{(n)} - x^*| \leq \frac{M}{2m}|x^{(n)} - x^{(n-1)}||x^{(n)} - x^{(n-2)}|.
+\end{equation*}
+\end{proof}
+
+\begin{prop}[Sequência de Fibonacci]\label{prop:sequencia_de_Fibonacci}\index{sequência de!Fibonacci}
+  A sequência de Fibonacci $\{\gamma_n\}_{n\in\mathbb{N}}$ é assintótica a $\gamma_n \sim \lambda_1^{n+1}/\sqrt{5}$ e:
+\begin{equation*}
+  \lim_{n\to\infty} \frac{\gamma_{n+1}}{\gamma_{n}} = \lambda_1,
+\end{equation*}
+onde $\lambda_1 = (1+\sqrt{5})/2\approx 1,618$ é a porção áurea\index{porção áurea}.
+\end{prop}
+\begin{proof}
+  A sequência de Fibonacci $\{\gamma_n\}_{n\in\mathbb{N}}$ é definida por $\gamma_0 = \gamma_1 = 1$ e $\gamma_{n+1} = \gamma_n + \gamma_{n-1}$, $n\geq 1$. Logo, satisfaz a seguinte equação de diferenças:
+  \begin{equation*}
+    \gamma_{n+2} - \gamma_{n+1} - \gamma_{n} = 0,\quad n\in\mathbb{N}.
+  \end{equation*}
+Tomando $\gamma_n = \lambda^n$, $\lambda\neq 0$ temos:
+\begin{equation*}
+  \lambda^n\left(\lambda^2 - \lambda - 1\right) = 0 \Rightarrow   \lambda^2 - \lambda - 1 = 0 \Rightarrow \lambda_{1,2} = \frac{1 \pm \sqrt{5}}{2}.
+\end{equation*}
+Portanto, $\gamma_n = c_1\lambda_1^n + c_2\lambda_2^n$. Como $\gamma_0 = \gamma_1 = 1$, as constantes satisfazem:
+\begin{equation*}
+  \begin{array}{l}
+    c_1 + c_2 = 1\\
+    c_1\lambda_1 + c_2\lambda_2 = 1
+  \end{array}
+    \Rightarrow
+    c_1 = \frac{1+\sqrt{5}}{2\sqrt{5}},\quad c_2 = -\frac{1-\sqrt{5}}{2\sqrt{5}}.
+\end{equation*}
+Ou seja, obtemos a seguinte forma explícita para os números de Fibonacci:
+\begin{equation*}
+  \gamma_n = \frac{1}{\sqrt{5}}\left[\left(\frac{1+\sqrt{5}}{2}\right)^{n+1} - \left(\frac{1-\sqrt{5}}{2}\right)^{n+1}\right].
+\end{equation*}
+Daí, segue imediatamente o enunciado.
+\end{proof}
+
+\begin{obs}
+  Sob as hipóteses do Teorema~\ref{teo:metodo_das_secantes} e da Proposição~\ref{prop:sequencia_de_Fibonacci}, temos:
+  \begin{align*}
+    \lim_{n\to\infty} \frac{|x^{(n+1)}-x^*|}{|x^{(n)} - x^*|^{\lambda_1}} &\leq \lim_{n\to\infty} \frac{M}{2m}|x^{(n)}-x^*|^{1-\lambda_1}|x^{(n-1)}-x^*| \\
+    &\leq \lim_{n\to\infty} \left(\frac{2m}{M}\right)^{1-\lambda_1}q^{(2-\lambda_1)\lambda_1^{n}/\sqrt{5}} = 0.
+  \end{align*}
+Isto mostra que o método das secantes (nestas hipóteses) tem taxa de convergência superlinear ($\lambda_1 \approx 1,6$).
+\end{obs}
+
+
+\section{Critérios de parada}
+
+Quando usamos métodos iterativos precisamos determinar um critério de parada. A Tabela~\ref{tab:quadro_comparativo} indica critérios de parada usuais para os métodos que estudamos neste capítulo.
+
+\begin{table}[h!]
+  \centering
+  \caption{Quadro comparativo.}
+  \label{tab:quadro_comparativo}
+  {\small
+  \begin{tabular}[h!]{cccc} \hline
+    Método & Convergência & Erro & Critério de parada \\ \hline
+    \multirow{2}{*}{Bisseção} & Linear & \multirow{2}{*}{$\displaystyle \epsilon_{n+1}=\frac{1}{2}\epsilon$} & \multirow{2}{*}{$\displaystyle \frac{b_n - a_n}{2} < \text{erro}$} \\
+    & ($p=1$) & & \\
+    & & & \\
+    Iteração & Linear & \multirow{2}{*}{$\displaystyle \epsilon_{n+1}\approx |\phi'(x^*)| \varepsilon_{n}$} & \multirow{2}{*}{$\displaystyle \begin{array}{cc} \frac{|\Delta_n|}{1-\frac{\Delta_n}{\Delta_{n-1}}}< \text{erro} \\ \Delta_{n} < \Delta_{n-1}\end{array}$} \\
+    linear                 & ($p=1$) & & \\
+    & & & \\
+    \multirow{2}{*}{Newton} & Quadrática & \multirow{2}{*}{$\displaystyle \epsilon_{n+1}\approx \frac{1}{2}\left|\frac{f''(x^*)}{f'(x^*)}\right|\varepsilon_{n}^2$} & \multirow{2}{*}{$|\Delta_n|< \text{erro}$} \\
+    & ($p=2$) & & \\
+    & & & \\
+    \multirow{3}{*}{Secante} & \multirow{3}{*}{$\displaystyle \begin{array}{rl} p &= {\displaystyle \frac{\sqrt{5}+1}{2}}\\
+  &\approx 1,618\end{array}$} & \multirow{3}{*}{$\displaystyle \begin{array}{rl} \varepsilon_{n+1} &\approx \displaystyle \left|\frac{f''(x^*)}{f'(x^*)}\right| \varepsilon_{n}\varepsilon_{n-1} \\
+    &\approx M \varepsilon_{n}^\phi\end{array}$} & \multirow{3}{*}{$|\Delta_n|< \text{erro}$}\\
+    & & & \\
+    & & & \\
+    & & & \\ \hline
+  \end{tabular}
+}
+\end{table}
+
+
+\begin{obs}
+O erro na tabela sempre se refere ao erro absoluto esperado. Nos três últimos métodos, é comum que se exija como critério de parada que a condição seja satisfeita por alguns poucos passos consecutivos. Outros critérios podem ser usados. No métodos das secantes, deve-se ter o cuidado de evitar divisões por zero quando $x_{n+1}-x_n$ muito pequeno em relação à resolução do sistema de numeração.  
+\end{obs}
+
+\section*{Exercícios}
+
+\begin{Exercise} Refaça as questões \ref{new1}, \ref{new2}, \ref{new3}  e \ref{new4}, usando o método das secantes.
+\end{Exercise}
+
+\begin{Exercise} Dê uma interpretação geométrica ao método das secantes. Qual a vantagem do método das secantes sobre o método de Newton?
+\end{Exercise}
+
+\begin{Exercise} Aplique o método das secantes para resolver a equação
+  \begin{equation*}
+    e^{-x^2}=2x  
+  \end{equation*}
+\end{Exercise}
+
+\begin{Exercise} Refaça o problema \ref{prob_diodo} usando o método de Newton e das secantes.
+\end{Exercise}
+
+\begin{Exercise}
+  Seja dada uma função $f(x)$ duas vezes continuamente diferenciável. Faça uma análise assintótica para mostrar que as iterações do método das secantes satisfazem:
+  \begin{equation*}
+    |x^{(n+1)} - x^*| \approx C |x^{(n)} - x^*||x^{(n-1)} - x^*|,    
+  \end{equation*}
+para aproximações iniciais $x^{(1)}$ e $x^{(2)}$ suficientemente próximas de $x^*$, onde $f(x^*) = 0$.
+\end{Exercise}
+\begin{Answer}
 Seja $f(x)\in C^2$ um função tal que $f(x^*)=0$ e $f'(x^*)\neq 0$. Considere o processo iterativo do método das secantes:
 $$x^{(n+1)}=x^{(n)}- \frac{f(x^{(n)})}{f(x^{(n)})-f(x^{(n-1)})}(x^{(n)}-x^{(n-1)})$$
 Esta expressão pode ser escrita como:
@@ -1377,62 +1627,8 @@ Portanto:
 ou, equivalentemente:
 \begin{equation}
   x^{(n+1)}-x^*\approx \frac{1}{2}\frac{f''(x^*)}{f'(x^*)} \left(x^{(n)}-x^*\right) \left(x^{(n-1)}-x^*\right)
-\end{equation}
-
-Pode-se mostrar que
-\begin{equation}
-  |x^{(n+1)}-x^*|\approx M |x^{(n)}-x^*|^\phi,~~ n\hbox{ grande}
-\end{equation}
-com $\phi=\frac{\sqrt{5}+1}{2}\approx 1,618$ e $M$ é uma constante.
-
-
-\begin{table}[h!]
-  \centering
-  \caption{Quadro comparativo.}
-  \label{tab:quadro_comparativo}
-  {\small
-  \begin{tabular}[h!]{cccc} \hline
-    Método & Convergência & Erro & Critério de parada \\ \hline
-    \multirow{2}{*}{Bisseção} & Linear & \multirow{2}{*}{$\displaystyle \epsilon_{n+1}=\frac{1}{2}\epsilon$} & \multirow{2}{*}{$\displaystyle \frac{b_n - a_n}{2} < \text{erro}$} \\
-    & ($p=1$) & & \\
-    & & & \\
-    Iteração & Linear & \multirow{2}{*}{$\displaystyle \epsilon_{n+1}\approx |\phi'(x^*)| \varepsilon_{n}$} & \multirow{2}{*}{$\displaystyle \begin{array}{cc} \frac{|\Delta_n|}{1-\frac{\Delta_n}{\Delta_{n-1}}}< \text{erro} \\ \Delta_{n} < \Delta_{n-1}\end{array}$} \\
-    linear                 & ($p=1$) & & \\
-    & & & \\
-    \multirow{2}{*}{Newton} & Quadrática & \multirow{2}{*}{$\displaystyle \epsilon_{n+1}\approx \frac{1}{2}\left|\frac{f''(x^*)}{f'(x^*)}\right|\varepsilon_{n}^2$} & \multirow{2}{*}{$|\Delta_n|< \text{erro}$} \\
-    & ($p=2$) & & \\
-    & & & \\
-    \multirow{3}{*}{Secante} & \multirow{3}{*}{$\displaystyle \begin{array}{rl} p &= {\displaystyle \frac{\sqrt{5}+1}{2}}\\
-  &\approx 1,618\end{array}$} & \multirow{3}{*}{$\displaystyle \begin{array}{rl} \varepsilon_{n+1} &\approx \displaystyle \left|\frac{f''(x^*)}{f'(x^*)}\right| \varepsilon_{n}\varepsilon_{n-1} \\
-    &\approx M \varepsilon_{n}^\phi\end{array}$} & \multirow{3}{*}{$|\Delta_n|< \text{erro}$}\\
-    & & & \\
-    & & & \\
-    & & & \\ \hline
-  \end{tabular}
-}
-\end{table}
-
-
-\begin{obs}
-O erro na tabela sempre se refere ao erro absoluto esperado. Nos três últimos métodos, é comum que se exija como critério de parada que a condição seja satisfeita por alguns poucos passos consecutivos. Outros critérios podem ser usados. No métodos das secantes, deve-se ter o cuidado de evitar divisões por zero quando $x_{n+1}-x_n$ muito pequeno em relação à resolução do sistema de numeração.  
-\end{obs}
-
-\section*{Exercícios}
-
-\begin{Exercise} Refaça as questões \ref{new1}, \ref{new2}, \ref{new3}  e \ref{new4}, usando o método das secantes.
-\end{Exercise}
-
-\begin{Exercise} Dê uma interpretação geométrica ao método das secantes. Qual a vantagem do método das secantes sobre o método de Newton?
-\end{Exercise}
-
-\begin{Exercise} Aplique o método das secantes para resolver a equação
-  \begin{equation*}
-    e^{-x^2}=2x  
-  \end{equation*}
-\end{Exercise}
-
-\begin{Exercise} Refaça o problema \ref{prob_diodo} usando o método de Newton e das secantes.
-\end{Exercise}
+\end{equation}  
+\end{Answer}
 
 \section*{Exercícios finais}
 
