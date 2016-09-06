@@ -3,7 +3,7 @@
 %\documentclass[main.tex]{subfiles}
 %\begin{document}
 
-\chapter{Resolução de sistemas lineares}\index{sistema linear}
+\chapter{Solução de sistemas lineares}\index{sistema linear}
 
 Muitos problemas da engenharia, física e matemática estão associados a resolução de sistemas de equações lineares. Nesse capítulo trataremos das técnicas empregadas para obter a solução desses sistemas. 
 
@@ -38,7 +38,7 @@ b_{m}
 \end{bmatrix}
 $$
 
-Vários fatores podem ser analisados nas técnicas utilizadas: método direto ou iterativo, tempo de execução ou estabilidade. Qual técnica é a melhor? na próxima seção trataremos do custo computacional que ajudará a responder essa pergunta considerando a eficiência.
+Vários fatores podem ser analisados nas técnicas utilizadas: método direto ou iterativo, tempo de execução ou estabilidade. Qual técnica é a melhor? Na próxima seção, tratamos do custo computacional que ajudará a responder essa pergunta considerando a eficiência.
 
 
 \section{Complexidade de Algoritmos em Álgebra Linear}
@@ -557,7 +557,7 @@ Observe que tais expressões são analiticamente idênticas às anteriores, no e
 x+y+z&=&0\\
 x+10z&=&-48\\
 10y+z&=&25
-\end{eqnarray*} Usando eliminação gaussiana com pivoteamento parcial (não use o computador para resolver essa questão).
+\end{eqnarray*} Usando eliminação gaussiana com pivotamento parcial (não use o computador para resolver essa questão).
 \end{Exercise}
 \begin{Answer}
   \begin{tiny}
@@ -783,39 +783,74 @@ Observe que pequenas variações nos coeficientes das matrizes fazem as soluçõ
 
 Para introduzir essa ideia formalmente, precisamos definir o número de condicionamento. Informalmente falando, o número de condicionamento mede o quanto a solução de um problema em função de alterações nos dados de entrada. Para construir matematicamente este conceito, precisamos de uma medida destas variações. Como tanto os dados de entrada como os dados de saída são expressos na forma vetorial, precisaremos do conceito de norma vetorial. Por isso, faremos uma breve interrupção de nossa discussão para introduzir as definições de norma de vetores e matrizes na próxima seção.
 
-\subsection{Norma $L_p$ de vetores}\index{vetor!norma}
+\subsection{Norma de vetores}\index{norma de!vetores}
 
-Definimos a norma $L_p$ ou $L^p$ de um vetor em $\mathbb{R}^n$ para $p\geq 1$ como
-$$\|v\|_p=\left(|v_1|^p+|v_2|^p+\cdots |v_n|^p\right)^{1/p}$$
-E a norma $L_\infty$ ou $L^{\infty}$ como
+Definimos a \emph{norma $L^p$}\index{norma!$L^p$}, $1 \leq p \leq \infty$, de um vetor em $v = (v_1, v_2, \ldots, v_n)\in \mathbb{R}^n$ por:
+\begin{equation*}
+  \|v\|_p := \left(\sum_{i=1}^n |v_i|^p\right)^{1/p} = \left(|v_1|^p+|v_2|^p+ \cdots + |v_n|^p\right)^{1/p},\quad 1\leq p < \infty.
+\end{equation*}
+Para $p=\infty$, definimos a norma $L^{\infty}$\index{norma!$L^\infty$} (\emph{norma do máximo}) por:
+\begin{equation*}
+  \|v\|_\infty = \max_{1\leq j\leq n} \{|v_j|\}.
+\end{equation*}
 
-$$\|v\|_\infty=\max_{j=1}^n|v_j|$$
+\begin{prop}[Propriedades de normas]
+  Sejam dados $\alpha\in\mathbb{R}$ um escalar e os vetores $u,v\in\mathbb{R}^n$. Então, para cada $1\leq p \leq \infty$, valem as seguintes propriedades:
+  \begin{itemize}
+  \item[a)] $\|u\|_p = 0 \Leftrightarrow u = 0$.
+  \item[b)] $\|\alpha u\|_p = |\alpha|\|u\|_p$.
+  \item[c)] $\|u + v\|_p \leq \|u\|_p + \|v\|_p$ (\emph{desigualdade triangular}).
+  \item[d)] $\|u\|_p\to\|u\|_\infty$ quando $p\to\infty$.
+  \end{itemize}
+\end{prop}
+\begin{proof} Demonstramos cada item em separado.
+  \begin{itemize}
+  \item[a)] Se $u = 0$, então segue imediatamente da definição da norma $L^p$, $1\leq p \leq \infty$, que $\|u\|_p = 0$. Reciprocamente, se  $\|u\|_\infty = 0$, então, para cada $i=1, 2, \ldots, n$, temos:
+    \begin{equation*}
+      |u_i| \leq \max_{1\leq j \leq n}\{|u_j|\} = \|u\|_{\infty} = 0\Rightarrow u_i = 0.
+    \end{equation*}
+Isto é, $u = 0$. Agora, se $\|u\|_p = 0$, $1\leq p < \infty$, então:
+\begin{equation*}
+  0 = \|u\|_p^p := \sum_{i=1}^n |u_i|^p \leq n\|u\|_\infty \Rightarrow  \|u\|_\infty = 0.
+\end{equation*}
+Logo, pelo resultado para a norma do máximo, concluímos que $u=0$.
+\item[b)] Segue imediatamente da definição da norma $L^p$, $1\leq p \leq \infty$. 
+\item[c)] Em construção ...
+\item[d)] Em construção ...
+\end{itemize}
+\end{proof}
 
-{\bf Propriedades:} Se $\lambda$ é um real (ou complexo) e $u$ e  $v$ são vetores, temos:
-\begin{eqnarray*}
-\|v\|&=&0 \Longleftrightarrow v=0\\
-\|\lambda v\|&=&|\lambda| \|v\|\\
-\|u+v\| &\leq & \|u\| + \|v\|~~~~ (\hbox{desigualdade do triângulo})\\
-\lim_{p\to\infty}\|u\|_p &=& \|u\|_{\infty}
-\end{eqnarray*}
+\begin{ex}
+  Calcule a norma $L^1$, $L^2$ e $L^\infty$ do vetor coluna $v = (1, 2, -3, 0)$.
+\end{ex}
+\begin{sol}
+  \begin{align*}
+    \|v\|_1 &= 1+2+3+0=6\\
+    \|v\|_2 &= \sqrt{1+2^2+3^2+0^2}=\sqrt{14}\\
+    \|v\|_\infty &= \max\{1,2,3,0\}=3
+  \end{align*}
+\ifisscilab
+No \verb+Scilab+ podemos computar normas $L^p$'s de vetores usando o comando \verb+norm+. Neste exemplo, temos:
+\begin{verbatim}
+-->norm(v,1), norm(v,'inf'), norm(v,2)
+ ans  =
+    6.  
+ ans  =
+    3.  
+ ans  =
+    3.7416574  
+\end{verbatim}
+\fi
+\end{sol}
 
 
-{\bf Exemplo: } Calcule a norma $L^1$, $L^2$ e $L^\infty$ de
-$$v=\left[\begin{array}{c}1\\2\\-3\\0
-\end{array}\right]$$
+\subsection{Norma de matrizes}\index{norma de!matrizes}
 
-\begin{eqnarray*}
-\|v\|_1&=&1+2+3+0=6\\
-\|v\|_2&=&\sqrt{1+2^2+3^2+0^2}=\sqrt{14}\\
-\|v\|_\infty&=&\max\{1,2,3,0\}=3
-\end{eqnarray*}
-
-
-\subsection{Norma matricial}\index{matriz!norma}
-
-Definimos a norma operacional em $L^p$ de uma matriz $A:\mathbb{R}^{n}\to \mathbb{R}^{n}$ da seguinte forma:
-$$\|A\|_p = \sup_{\|v\|_p=1} \|Av\|_p$$
-ou seja, a norma p de uma matriz é o máximo valor assumido pela norma de $Av$ entre todos os vetores de norma unitária.
+Definimos a norma induzida $L^p$ de uma matriz $A = [a_{i,j}]_{i,j=1}^{n,n}$ da seguinte forma:
+\begin{equation*}
+  \|A\|_p = \sup_{\|v\|_p=1} \|Av\|_p,
+\end{equation*}
+ou seja, a norma $p$ de uma matriz é o máximo valor assumido pela norma de $Av$ entre todos os vetores de norma unitária.
 
 Temos as seguintes propriedades, se $A$ e $B$ são matrizes, $I$ é a matriz identidade, $v$ é um vetor e $\lambda$ é um real (ou complexo):
 \begin{eqnarray*}
@@ -836,22 +871,38 @@ Casos especiais:
 \end{eqnarray*}
 onde $\sigma(M)$ é o conjunto de autovalores da matriz $M$.
 
-{\bf Exemplo:}
+\begin{ex}
 Calcule as normas $1$, $2$ e $\infty$ da seguinte matriz:
-$$A=\left[
+\begin{equation*}
+  A=\left[
 \begin{array}{ccc}
 3 & -5 & 7\\
 1 & -2 & 4\\
 -8 & 1 & -7\\
 \end{array}
-\right]$$
-
-{\bf Solução}
-\begin{eqnarray*}
-\|A\|_1&=&\max\{12,8,18\}=18\\
-\|A\|_\infty&=&\max\{15,7,16\}=16\\
-\|A\|_2&=&\sqrt{\max\{0,5865124; 21,789128 ;195,62436\}}= 13,986578
-\end{eqnarray*}
+\right]
+\end{equation*}
+\end{ex}
+\begin{sol}
+  \begin{align*}
+    \|A\|_1 &= \max\{12, 8, 18\}=18\\
+    \|A\|_\infty &= \max\{15, 7, 16\}=16\\
+    \|A\|_2 &= \sqrt{\max\{0,5865124, 21,789128, 195,62436\}}= 13,98657
+  \end{align*}
+\ifisscilab
+No \verb+Scilab+ podemos computar normas $L^p$'s de matrizes usando o comando \verb+norm+. Neste exemplo, temos:
+\begin{verbatim}
+-->A = [3 -5 7;1 -2 4;-8 1 -7];
+-->norm(A,1), norm(A,'inf'), norm(A,2)
+ ans  =
+    18.  
+ ans  =
+    16.  
+ ans  =
+    13.986578
+\end{verbatim}
+\fi
+\end{sol}
 
 \subsection{Número de condicionamento}\index{número de condicionamento}
 
@@ -934,7 +985,7 @@ $k_1=k_\infty=6888, k_2=\sqrt{26656567}$ e $k_1=180, k_2= 128,40972  $ e $k_\inf
   \end{tiny}
 \end{Answer}
 
-\begin{Exercise}Usando a norma $1$, calcule o número de condicionameto da matriz
+\begin{Exercise}Usando a norma $1$, calcule o número de condicionamento da matriz
 $$A=\left[
 \begin{array}{cc}
 1 & 2\\
