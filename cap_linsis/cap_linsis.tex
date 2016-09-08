@@ -38,292 +38,11 @@ b_{m}
 \end{bmatrix}
 $$
 
-Vários fatores podem ser analisados nas técnicas utilizadas: método direto ou iterativo, tempo de execução ou estabilidade. Qual técnica é a melhor? na próxima seção trataremos do custo computacional que ajudará a responder essa pergunta considerando a eficiência.
+%Vários fatores podem ser analisados nas técnicas utilizadas: método direto ou iterativo, tempo de execução, estabilidade. Qual técnica é a melhor? na próxima seção trataremos do custo computacional que ajudará a responder essa pergunta considerando a eficiência.
 
 
-\section{Complexidade de Algoritmos em Álgebra Linear}
-Dados dois algoritmos diferentes para resolver o mesmo problema, como podemos escolher qual desses algoritmos é o melhor? Se pensarmos em termos de \emph{eficiência} (ou custo computacional), queremos saber qual desses algoritmos consome menos recursos para realizar a mesma tarefa.
 
-Em geral podemos responder essa pergunta de duas formas: em termos de tempo ou de espaço.
-
-Quando tratamos de \emph{eficiência espacial}, queremos saber quanta memória (em geral RAM) é utilizada pelo algoritmo para armazenar os dados, sejam matrizes, vetores ou escalares.
-
-Quando tratamos de \emph{eficiência temporal}, queremos saber quanto tempo um algoritmo leva para realizar determinada tarefa. Vamos nos concentrar nessa segunda opção, que em geral é a mais difícil de ser respondida.
-
-Obviamente o tempo vai depender do tipo de computador utilizado. É razoável de se pensar que o tempo vai ser proporcional ao número de operações de ponto flutuante (flops) feito pelo algoritmo (observe que o tempo total não depende apenas disso, mas também de outros fatores como memória, taxas de transferências de dados da memória para o cpu, redes,...). Entretanto vamos nos concentrar na contagem do número de operações (flops) para realizar determinada tarefa.
-
-No passado (antes dos anos 80), os computadores demoravam mais tempo para realizar operações como multiplicação e divisão, se comparados a adição ou subtração. Assim, em livros clássicos eram contados apenas o custo das operações $\times$ e $/$. Nos computadores atuais as quatro operações básicas  levam o mesmo tempo. Entretanto, na maioria dos algoritmos de álgebra linear o custo associado as multiplicações e divisões é proporcional ao custo das somas e subtrações (pois a maioria dessas operações podem ser escritas como a combinação de produtos internos). Dessa forma, na maior parte deste material levaremos em conta somente multiplicações e divisões, a não ser que mencionado o contrário.
-
-Tenha em mente que a ideia é estimar o custo a medida que o tamanho dos vetores e matrizes cresce muito (para $n$ grande).
-
-\begin{ex}[Produto escalar-vetor]
-Qual o custo para multiplicar um escalar por um vetor?
-\end{ex}
-\begin{sol}
-Seja $a \in \mathbf{R}$ e $\vec{x} \in \mathbf{R}^n$, temos que
-\begin{equation}
-  a \vec{x} = [a\times x_1 , a\times x_2 , ... ,a\times x_n]
-\end{equation}
-São realizadas $n$ multiplicações, ou seja, o custo total de operações é
-\begin{equation}
-  \mathcal{O}(n) \text{flops}
-\end{equation}
-\end{sol}
-
-\begin{ex}[Produto vetor-vetor]
-Qual o custo para calcular o produto interno $\vec{x}\cdot\vec{y}$?
-\end{ex}
-\begin{sol}
-Sejam $\vec{x}, \vec{y} \in \mathbf{R}^n$, temos que
-\begin{equation}
-  \vec{x}\cdot\vec{y} = x_1 \times y_1 + x_2\times y_2 + ... +x_n\times y_n
-\end{equation}
-
-São realizadas $n$ multiplicações (cada produto $x_i$ por $y_i$) e $n-1$ somas, ou seja, o custo total de operações é
-\begin{equation}
-  \mathcal{O}(n)+\mathcal{O}(n-1) = \mathcal{O}(2n-1)  \text{~flops}
-\end{equation}
-Se contarmos apenas $\times$ e $/$, teremos
-\begin{equation}
-  \mathcal{O}(n) \text{ flops}
-\end{equation}
-\end{sol}
-
-
-\begin{ex}[Produto matriz-vetor]
-Qual o custo para calcular o produto de matriz por vetor $A \vec{x}$?
-\end{ex}
-\begin{sol}
- Sejam $A \in \mathbf{R}^{n\times n}$ e $\vec{x} \in \mathbf{R}^n$, temos que
-\begin{equation}
-  \matddd{a_{11}}{a_{12}}{\cdots a_{1n}}{\vdots}{}{\vdots}{a_{n1}}{}{\cdots a_{nn}} \vetddd{x_1}{\vdots }{x_n}
-  =\vetddd{ a_{11}\times x_1 + a_{12}x_2 +...+a_{1n}\times x_n }{\vdots }{a_{n1}\times x_1 + a_{n2}x_2 +...+a_{nn}\times x_n} 
-\end{equation}
-
-Para obter o primeiro elemento do vetor do lado direito devemos multiplicar a  primeira linha de $A$ pelo vetor coluna $\vec{x}$. Note que esse é exatamente o custo do produto vetor-vetor do exemplo anterior. Como o custo para cada elemento do vetor do lado direito é o mesmo e temos $n$ elementos, teremos que o custo para multiplicar $A \vec{x}$ é
-\begin{equation}
-  n \cdot \mathcal{O}( 2n-1) = \mathcal{O}(2n^2-n) \text{~flops}
-\end{equation}
-A medida que $n \rightarrow \infty$, temos que 
-\begin{equation}
-  \mathcal{O}(2n^2-n) =\mathcal{O}(2n^2)=\mathcal{O}(n^2) \text{~flops}
-\end{equation}
-
-Se contarmos apenas $\times$ e $/$, teremos
-\begin{equation}
-  n\cdot \mathcal{O}(n) = \mathcal{O}(n^2) \text{~flops}
-\end{equation}
-\end{sol}
-
-\begin{ex}[Produto matriz-matriz]
-Qual o custo para calcular o produto de duas matrizes  $A B$?
-\end{ex}
-\begin{sol}
-Sejam $A, B \in \mathbf{R}^{n\times n}$ temos que 
-\begin{equation}
-  \matddd{a_{11}}{a_{12}}{\cdots a_{1n}}{\vdots}{}{\vdots}{a_{n1}}{}{\cdots a_{nn}}
-  \matddd{b_{11}}{b_{12}}{\cdots a_{1n}}{\vdots}{}{\vdots}{b_{n1}}{}{\cdots b_{nn}} 
- =\matddd{c_{11}}{c_{12}}{\cdots c_{1n}}{\vdots}{}{\vdots}{c_{n1}}{}{\cdots c_{nn}} 
-\end{equation}
-onde o elemento $c_{ij}$ é o produto da linha $i$ de $A$ pela coluna $j$ de $B$,
-\begin{equation}
-  c_{ij}=  a_{i1}\times b_{1j} + a_{i2}\times b_{2j} +...+a_{i2}\times b_{2j}
-\end{equation}
-Note que esse produto tem o custo do produto vetor-vetor, ou seja, $\mathcal{O}(2n-1)$. Como temos $n\times n$ elementos em $C$, o custo total para multiplicar duas matrizes é
-\begin{equation}
-  n\times n \times \mathcal{O}(2n-1)=\mathcal{O}(2n^3-n^2) \text{~flops}
-\end{equation}
-
-Se contarmos apenas $\times$ e $/$, teremos
-\begin{equation}
-  n\times n \times \mathcal{O}(n)  = \mathcal{O}(n^3) \text{~flops}
-\end{equation}
-\end{sol}
-
-
-
-
-
-\section{Sistemas triangulares}
-Considere um sistema linear onde a matriz é triangular superior, ou seja, 
-
-$$\begin{bmatrix}
-a_{11} & a_{12} & \cdots & a_{1n}\\
-0      & a_{22} & \cdots & a_{2n}\\
-\vdots & \vdots & \ddots & \vdots\\
-0      & \dots  & 0     & a_{nn}
-\end{bmatrix}
-\begin{bmatrix}
-x_{1} \\
-x_{2} \\
-\vdots \\
-x_{n}
-\end{bmatrix} 
- =\begin{bmatrix}
-b_{1} \\
-b_{2} \\
-\vdots \\
-b_{n}
-\end{bmatrix}
-$$
-tal que todos elementos abaixo da diagonal são iguais a zero.
-
-Podemos resolver esse sistema iniciando pela última equação e isolando $x_n$ obtemos
-\begin{equation}
- x_n = b_n/a_{nn}
-\end{equation}
-
-Substituindo $x_n$ na penúltima equação
-\begin{equation}
- a_{n-1,n-1}x_{n-1}+a_{nn}x_n = b_{n-1}
-\end{equation}
-e isolando $x_{n-1}$ obtemos
-\begin{equation}
- x_{n-1} = (b_{n-1}-a_{nn}x_n)/a_{n-1,n-1}
-\end{equation}
-e continuando desta forma até a primeira equação obteremos
-\begin{equation}
- x_{1} = (b_{1}-a_{22}x_2 \cdots -a_{nn}x_n)/a_{11}.
-\end{equation}
-De forma geral, temos que
-\begin{equation}
- x_{i} = (b_{i}-a_{i+1,i+1}x_{i+1} \cdots -a_{nn}x_n)/a_{ii}, \quad i=2,...,n
-\end{equation}
-
-
-
-\subsection{Algoritmo para resolução de um sistema triangular superior}
-
-Para resolver um sistema triangular superior iniciamos da última linha em direção a primeira.
-
-\begin{verbatim}
-1.  function [x]=solveU(U,b)          # U:= matriz triangular superior
-2.      n=size(U,1)                   # b:= vetor
-3.      x(n)=b(n)/U(n,n)
-4.      for i=n-1:-1:1
-5.          x(i)=(b(i)-U(i,i+1:n)*x(i+1:n)  )/U(i,i)
-6.      end
-7.  endfunction
-
-\end{verbatim}
-
-\subsection{Algoritmo para resolução de um sistema triangular inferior}
-Para resolver um sistema triangular inferior podemos fazer o processo inverso iniciando da primeira equação.
-
-\begin{verbatim}
-1. function [x]=solveL(L,b)           # L: matriz triangular inferior
-2.    n=size(L,1)                     # b: vetor
-3.    x(1)=b(1)/L(1,1)
-4.    for i=2:n
-5.        x(i)=(b(i)-L(i,1:i-1)*x(1:i-1)  )/L(i,i)
-6.    end
-7.endfunction
-\end{verbatim}
-
-
-\subsubsection{Custo computacional}
-Vamos contar o número total de flops para resolver um sistema triangular inferior. Note que o custo para um sistema triangular superior será o mesmo.
-
-Na linha 3, temos uma divisão, portanto 1 flop.
-
-Na linha 5 quando $i=2$, temos
-
-\verb#     x(2)=(b(2)-L(2,1:1)*x(1:1))/L(2,2)#,
-
-ou seja, 1 subtração+1 multiplicação + 1 divisão $=3$ flops.
-
-Quando $i=3$, \verb#x(3)=(b(3)-L(3,1:2)*x(1:2))/L(3,3)# temos 1 subtração+(2 multiplicações + 1 soma) +1 divisão, ou seja, $(1+(2+1)+1)=5$ flops.
-
-Quando $i=4$, \verb#x(4)=(b(4)-L(4,1:3)*x(1:3))/L(4,4)# temos 1 subtração+(3 multiplicações + 2 somas) +1 divisão, ou seja, $(1+(3+2)+1)=7$ flops.
-
-Até que para $i=n$, \verb#x(n)=(b(n)-L(n,1:n-1)*x(1:n-1))/L(n,n)#, com $1$ subtração+($n-1$ multiplicações + $n-2$ somas) + $1$ divisão, ou seja, $1+(n-1+n-2)+1=2n-1$ flops.
-
-Somando todos esses custos temos que o custo para resolver um sistema triangular inferior é
-\begin{equation}
-  1 +3+5+7+...+2n-1=  \sum_{k=1}^n(2k-1) = 2 \sum_{k=1}^nk -\sum_{k=1}^n1
-\end{equation}
-e utilizando que a soma dos $k$ inteiros é uma progressão aritmética
-\begin{equation}
-  2 \mathcal{O}(  n(n+1)/2 ) -\mathcal{O}(n)= \mathcal{O}(n^2) \text{~flops}
-\end{equation}
-
-Se contarmos apenas $\times$ e $/$, teremos (faça as contas)
-\begin{equation}
-  \mathcal{O}( (n^2+n)/2 ) \text{~flops}
-\end{equation}
-
-
-\section{Fatoração LU}
-Considere um sistema linear onde a matriz $A$ é densa\footnote{Diferentemente de uma matriz esparsa, uma matriz densa possui a maioria dos elementos diferentes de zero.}. Para resolver o sistema, podemos transformar a matriz $A$ nas matrizes $L$, triangular inferior, e $U$, triangular superior de tal forma que $A=LU$.
-
-Sendo assim o sistema pode ser reescrito tal que
-\begin{align}
-  Ax &=b \\
-  (LU)x &=b \\
-  L(Ux) &=b \\
-  L y = b \quad & \text{ e } \quad Ux=y
-\end{align}
-Assim ao invés de resolvermos o sistema original, devemos resolver um sistema triangular inferior e um sistema triangular superior.
-
-
-\subsection{Algoritmo para fatoração LU}
-O algoritmo para fatoração $LU$ pode ser escrito como
-\begin{verbatim}
- 1. function [L,A]=fatoraLU(A)
- 2.     n=size(A,1)
- 3.     L=eye(n,n)
- 4.     for j=1:n-1
- 5.         for i=j+1:n
- 6.             L(i,j    )=A(i,j)/A(j,j)
- 7.             A(i,j+1:n)=A(i,j+1:n)-L(i,j)*A(j,j+1:n)
- 8.             A(i,j    )=0
- 9.         end
-10.     end
-11. endfunction
-\end{verbatim}
-
-\subsubsection{Custo computacional}
-Podemos analisar o custo computacional reduzindo o problema em problemas menores. Vamos contar apenas o número de multiplicações e divisões.
-
-Na linha 4, iniciamos com $j=1$. Desta forma $i$ varia de $2$ até $n$ na linha 5.
-
-A linha 6 terá sempre 1 flop.
-
-A linha 7, com $j=1$ tem um bloco de tamanho \verb#2:n# contabilizando $n-1$ flops do produto por \verb#L(i,j)#. 
-
-Nas linhas 6-8 são feitas $\mathcal{O}(1 + (n-1))=\mathcal{O}(n)$ flops independente do valor de $i$. Como $i$ varia de 2 até n, teremos que o bloco é repetido $n-1$ vezes, ou seja, o custo das linhas 5-9 é
-\begin{equation}
-   (n-1)\times \mathcal{O}(n)=\mathcal{O}((n-1)n)
-\end{equation}
-
-Voltamos a linha 4 quando $j=2$. Das linhas 6-8 teremos $n-1$ flops (o bloco terá um elemento a menos) que será repetido $n-2$ vezes, pois \verb#i=3:n#, ou seja,
-\begin{equation}
-   (n-2)\times \mathcal{O}(n-1)=\mathcal{O}((n-2)(n-1))
-\end{equation}
-
-Para $j=3$, temos $\mathcal{O}((n-3)(n-2))$.
-
-Para $j=n-2$, temos $\mathcal{O}(2\cdot 3)$.
-
-Finalmente, para $j=n-1$, temos $\mathcal{O}(1\cdot 2)$.
-
-
-Somando todos esses custos, temos
-\begin{align*}
-  & \mathcal{O}( (n-1)n+(n-2)(n-1)+...+2\cdot 3+1\cdot 2) \\
- =& \mathcal{O}( \sum_{k=1}^{n-1}k(k+1) ) 
- = \mathcal{O}( \sum_{k=1}^{n-1}k^2 + \sum_{k=1}^{n-1}k )\\
- =&\mathcal{O}( (n-1)n(2n-1)/6 + n(n-1)/2) = \mathcal{O}(n^3/3 -n/3) \text{~flops}
-\end{align*}
-contando somente multiplicações e divisões.
-
-
-
-
-
-
-
-\section{Eliminação gaussiana com pivotamento parcial}\index{eliminação gaussiana!com pivotamento parcial}
+\section{Eliminação gaussiana}\index{eliminação gaussiana}
 Lembramos que algumas operações feitas nas linhas de um sistema não alteram a solução:
 \begin{enumerate}
 \item Multiplicação de um linha por um número
@@ -332,17 +51,15 @@ Lembramos que algumas operações feitas nas linhas de um sistema não alteram a
 \end{enumerate}
 
 O processo que transforma um sistema em outro com mesma solução, mas que apresenta uma forma triangular é chamado eliminação Gaussiana. A solução do sistema pode ser obtida fazendo substituição regressiva.
-\begin{ex}[Eliminação Gaussiana sem pivotamento parcial] Resolva o sistema:
-  \begin{equation*}
-    \left\{\begin{array}{c}
-        x+y+z=1\\
-        2x+y-z=0\\
-        2x+2y+z=1
-      \end{array}\right.  
-  \end{equation*}
+\begin{ex}[Eliminação Gaussiana sem pivotamento] Resolva o sistema
+  \begin{align}
+    x+y+z  &=1\\
+    2x+y-z &=0\\
+    2x+2y+z&=1
+  \end{align}
 \end{ex}
 \begin{sol}
-Escrevemos a matriz completa do sistema:
+A matriz completa do sistema é escrita como
 \begin{equation*}
   \left[\begin{array}{ccc|c}
       1 &1& 1&1\\
@@ -355,59 +72,60 @@ Escrevemos a matriz completa do sistema:
       0 & 0 &-1&-1
     \end{array}\right]
 \end{equation*}
-Encontramos $-z=-1$, ou seja, $z=1$. Substituímos na segunda equação e temos $-y-3z=-2$, ou seja, $y=-1$ e, finalmente $x+y+z=1$, resultando em $x=1$.
+Encontramos $-z=-1$, ou seja, $z=1$. Substituindo na segunda equação, temos $-y-3z=-2$, ou seja, $y=-1$ e finalmente $x+y+z=1$, resultando em $x=1$.
 \end{sol}
 
-A Eliminação Gaussiana com pivotamento parcial consiste em fazer uma permutação de linhas de forma a escolher o maior pivô (em módulo) a cada passo.
+\subsection{Eliminação Gaussiana com pivotamento parcial}
+A Eliminação Gaussiana com \emph{pivotamento parcial} consiste em fazer uma permutação de linhas de forma a escolher o maior pivô (em módulo) a cada passo.
 
-\begin{ex}[Eliminação Gaussiana com pivotamento parcial] Resolva o sistema:
-$$\left\{
-\begin{array}{c}
-x+y+z=1\\
-2x+y-z=0\\
-2x+2z+z=1
-\end{array}\right.
-$$
+\begin{ex}[Eliminação Gaussiana com pivotamento parcial] Resolva o sistema
+\begin{align}
+  x+y+z &=1\\
+  2x+y-z&=0\\
+  2x+2z+z&=1
+\end{align}
+
 \end{ex}
+
 \begin{sol}
-Escrevemos a matriz completa do sistema:
-\begin{eqnarray*}\left[
-\begin{array}{ccc|c}
-1 &1& 1&1\\
-2 &1& -1&0\\
-2 & 2 &1&1
-\end{array}
-\right] &\sim& \left[
-\begin{array}{ccc|c}
-2 &1& -1&0\\
-1 &1& 1&1\\
-2 & 2 &1&1
-\end{array}
-\right] \\ & \sim & \left[
-\begin{array}{ccc|c}
-2 &1& -1&0\\
-0 &1/2& 3/2&1\\
-0 & 1 &2&1
-\end{array}
-\right]\\ & \sim & \left[
-\begin{array}{ccc|c}
-2 &1& -1&0\\
-0 & 1 &2&1\\
-0 &1/2& 3/2&1
-\end{array}
-\right]\\ & \sim & \left[
-\begin{array}{ccc|c}
-2 &1& -1&0\\
-0 & 1 &2&1\\
-0 &0& 1/2&1/2
-\end{array}
-\right]
-\end{eqnarray*}
+A matriz completa do sistema é
+\begin{align}
+  \begin{bmatrix}
+  1 &1&  1&1\\
+  \RED{2} &1& -1&0\\
+  2 & 2 &1&1
+  \end{bmatrix}
+&\sim
+  \begin{bmatrix}
+  2 &1& -1&0\\
+  1 &1&  1&1\\
+  2 &2&  1&1
+  \end{bmatrix} 
+&\sim 
+  \begin{bmatrix}
+  2 &1& -1&0\\
+  0 &1/2& 3/2&1\\
+  0 & 1 &2&1
+  \end{bmatrix}\\
+&\sim
+  \begin{bmatrix}
+  2 &1& -1&0\\
+  0 & 1 &2&1\\
+  0 &1/2& 3/2&1
+  \end{bmatrix}
+&\sim 
+  \begin{bmatrix}
+  2 &1& -1&0\\
+  0 & 1 &2&1\\
+  0 &0& 1/2&1/2
+  \end{bmatrix}
+\end{align}
+
 Encontramos $1/2z=1/2$, ou seja, $z=1$. Substituímos na segunda equação e temos $y+2z=1$, ou seja, $y=-1$ e, finalmente $2x+y-z=0$, resultando em $x=1$.
 \end{sol}
 
 \begin{ex}
-Resolva o seguinte sistema por eliminação gaussiana com pivotamento parcial.
+Resolva o sistema por eliminação gaussiana com pivotamento parcial.
 \begin{equation*}
 \left[
 \begin{array}{ccc}
@@ -432,6 +150,7 @@ z
 \right]  
 \end{equation*}
 \end{ex}
+
 \begin{sol}
 Construímos a matriz completa:
 \begin{eqnarray*}\left[
@@ -740,6 +459,377 @@ $$\left[
   \end{tiny}
 \end{Answer}
 \fi
+
+
+
+\section{Complexidade de Algoritmos em Álgebra Linear}
+Dados dois algoritmos diferentes para resolver o mesmo problema, como podemos escolher qual desses algoritmos é o melhor? Se pensarmos em termos de \emph{eficiência} (ou custo computacional), queremos saber qual desses algoritmos consome menos recursos para realizar a mesma tarefa.
+
+Em geral podemos responder essa pergunta de duas formas: em termos de tempo ou de espaço.
+
+Quando tratamos de \emph{eficiência espacial}, queremos saber quanta memória (em geral RAM) é utilizada pelo algoritmo para armazenar os dados, sejam matrizes, vetores ou escalares.
+
+Quando tratamos de \emph{eficiência temporal}, queremos saber quanto tempo um algoritmo leva para realizar determinada tarefa. Vamos nos concentrar nessa segunda opção, que em geral é a mais difícil de ser respondida.
+
+Obviamente o tempo vai depender do tipo de computador utilizado. É razoável de se pensar que o tempo vai ser proporcional ao número de operações de ponto flutuante (flops) feito pelo algoritmo (observe que o tempo total não depende apenas disso, mas também de outros fatores como memória, taxas de transferências de dados da memória para o cpu, redes,...). Entretanto vamos nos concentrar na contagem do número de operações (flops) para realizar determinada tarefa.
+
+No passado (antes dos anos 80), os computadores demoravam mais tempo para realizar operações como multiplicação e divisão, se comparados a adição ou subtração. Assim, em livros clássicos eram contados apenas o custo das operações $\times$ e $/$. Nos computadores atuais as quatro operações básicas  levam o mesmo tempo. Entretanto, na maioria dos algoritmos de álgebra linear o custo associado as multiplicações e divisões é proporcional ao custo das somas e subtrações (pois a maioria dessas operações podem ser escritas como a combinação de produtos internos). Dessa forma, na maior parte deste material levaremos em conta somente multiplicações e divisões, a não ser que mencionado o contrário.
+
+Tenha em mente que a ideia é estimar o custo a medida que o tamanho dos vetores e matrizes cresce muito (para $n$ grande).
+
+\begin{ex}[Produto escalar-vetor]
+Qual o custo para multiplicar um escalar por um vetor?
+\end{ex}
+\begin{sol}
+Seja $a \in \mathbf{R}$ e $\vec{x} \in \mathbf{R}^n$, temos que
+\begin{equation}
+  a \vec{x} = [a\times x_1 , a\times x_2 , ... ,a\times x_n]
+\end{equation}
+usando $n$ multiplicações, ou seja, um custo computacional, $C$, de
+\begin{equation}
+  C = n \text{~flops}.
+\end{equation}
+\end{sol}
+
+\begin{ex}[Produto vetor-vetor]
+Qual o custo para calcular o produto interno $\vec{x}\cdot\vec{y}$?
+\end{ex}
+\begin{sol}
+Sejam $\vec{x}, \vec{y} \in \mathbf{R}^n$, temos que
+\begin{equation}
+  \vec{x}\cdot\vec{y} = x_1 \times y_1 + x_2\times y_2 + ... +x_n\times y_n
+\end{equation}
+
+São realizadas $n$ multiplicações (cada produto $x_i$ por $y_i$) e $n-1$ somas, ou seja, o custo total de operações é de
+\begin{equation}
+  C := (n)+(n-1) = 2n-1 \text{~flops}
+\end{equation}
+\end{sol}
+
+
+\begin{ex}[Produto matriz-vetor]
+Qual o custo para calcular o produto de matriz por vetor $A \vec{x}$?
+\end{ex}
+\begin{sol}
+ Sejam $A \in \mathbf{R}^{n\times n}$ e $\vec{x} \in \mathbf{R}^n$, temos que
+\begin{equation}
+  \matddd{a_{11}}{a_{12}}{\cdots a_{1n}}{\vdots}{}{\vdots}{a_{n1}}{}{\cdots a_{nn}} \vetddd{x_1}{\vdots }{x_n}
+  =\vetddd{ a_{11}\times x_1 + a_{12}x_2 +...+a_{1n}\times x_n }{\vdots }{a_{n1}\times x_1 + a_{n2}x_2 +...+a_{nn}\times x_n} 
+\end{equation}
+
+Para obter o primeiro elemento do vetor do lado direito devemos multiplicar a  primeira linha de $A$ pelo vetor coluna $\vec{x}$. Note que esse é exatamente o custo do produto vetor-vetor do exemplo anterior. Como o custo para cada elemento do vetor do lado direito é o mesmo e temos $n$ elementos, teremos que o custo para multiplicar matriz-vetor é\footnote{Contando apenas multiplicações/divisões obtemos
+\begin{equation}
+  n\cdot \mathcal{O}(n) = \mathcal{O}(n^2) \text{~flops.}
+\end{equation}
+} 
+\begin{equation}
+  C:=n \cdot ( 2n-1) = 2n^2-n \text{~flops}.
+\end{equation}
+
+A medida que $n \rightarrow \infty$, temos  
+\begin{equation}
+  \mathcal{O}(2n^2-n) =\mathcal{O}(2n^2)=\mathcal{O}(n^2) \text{~flops.}
+\end{equation}
+
+\end{sol}
+
+\begin{ex}[Produto matriz-matriz]
+Qual o custo para calcular o produto de duas matrizes  $A B$?
+\end{ex}
+\begin{sol}
+Sejam $A, B \in \mathbf{R}^{n\times n}$ temos que 
+\begin{equation}
+  \matddd{a_{11}}{a_{12}}{\cdots a_{1n}}{\vdots}{}{\vdots}{a_{n1}}{}{\cdots a_{nn}}
+  \matddd{b_{11}}{b_{12}}{\cdots a_{1n}}{\vdots}{}{\vdots}{b_{n1}}{}{\cdots b_{nn}} 
+ =\matddd{c_{11}}{c_{12}}{\cdots c_{1n}}{\vdots}{}{\vdots}{c_{n1}}{}{\cdots c_{nn}} 
+\end{equation}
+onde o elemento $d_{ij}$ é o produto da linha $i$ de $A$ pela coluna $j$ de $B$,
+\begin{equation}
+  d_{ij}=  a_{i1}\times b_{1j} + a_{i2}\times b_{2j} +...+a_{i2}\times b_{2j}
+\end{equation}
+Note que esse produto tem o custo do produto vetor-vetor, ou seja, $2n-1$. Como temos $n\times n$ elementos em $D$, o custo total para multiplicar duas matrizes é\footnote{Contando apenas $\times$ e $/$ obtemos
+\begin{equation}
+  n\times n \times(n)  = n^3 \text{~flops.}
+\end{equation}
+}
+\begin{equation}
+  C= n\times n \times (2n-1)= 2n^3-n^2 \text{~flops.}
+\end{equation}
+
+\end{sol}
+
+
+
+
+
+\section{Sistemas triangulares}
+Considere um sistema linear onde a matriz é triangular superior, ou seja, 
+$$\begin{bmatrix}
+a_{11} & a_{12} & \cdots & a_{1n}\\
+0      & a_{22} & \cdots & a_{2n}\\
+\vdots & \vdots & \ddots & \vdots\\
+0      & \dots  & 0     & a_{nn}
+\end{bmatrix}
+\begin{bmatrix}
+x_{1} \\
+x_{2} \\
+\vdots \\
+x_{n}
+\end{bmatrix} 
+ =\begin{bmatrix}
+b_{1} \\
+b_{2} \\
+\vdots \\
+b_{n}
+\end{bmatrix}
+$$
+tal que todos elementos abaixo da diagonal são iguais a zero.
+
+Podemos resolver esse sistema iniciando pela última equação e isolando $x_n$ obtemos
+\begin{equation}
+ x_n = b_n/a_{nn}
+\end{equation}
+
+Substituindo $x_n$ na penúltima equação
+\begin{equation}
+ a_{n-1,n-1}x_{n-1}+a_{nn}x_n = b_{n-1}
+\end{equation}
+e isolando $x_{n-1}$ obtemos
+\begin{equation}
+ x_{n-1} = (b_{n-1}-a_{nn}x_n)/a_{n-1,n-1}
+\end{equation}
+e continuando desta forma até a primeira equação obteremos
+\begin{equation}
+ x_{1} = (b_{1}-a_{22}x_2 \cdots -a_{nn}x_n)/a_{11}.
+\end{equation}
+De forma geral, temos que
+\begin{equation}
+ x_{i} = (b_{i}-a_{i+1,i+1}x_{i+1} \cdots -a_{nn}x_n)/a_{ii}, \quad i=2,\dots,n.
+\end{equation}
+
+
+
+\subsection{Algoritmo para resolução de um sistema triangular superior}
+
+Para resolver um sistema triangular superior iniciamos da última linha em direção a primeira.
+
+\begin{verbatim}
+1.  function [x]=solveU(U,b)  # U:= matriz triangular superior
+2.      n=size(U,1)           # b:= vetor
+3.      x(n)=b(n)/U(n,n)
+4.      for i=n-1:-1:1
+5.          x(i)=(b(i)-U(i,i+1:n)*x(i+1:n)  )/U(i,i)
+6.      end
+7.  endfunction
+
+\end{verbatim}
+
+\subsection{Algoritmo para resolução de um sistema triangular inferior}
+Para resolver um sistema triangular inferior podemos fazer o processo inverso iniciando da primeira equação.
+
+\begin{verbatim}
+1. function [x]=solveL(L,b)   # L: matriz triangular inferior
+2.    n=size(L,1)             # b: vetor
+3.    x(1)=b(1)/L(1,1)
+4.    for i=2:n
+5.        x(i)=(b(i)-L(i,1:i-1)*x(1:i-1)  )/L(i,i)
+6.    end
+7.endfunction
+\end{verbatim}
+
+
+\subsubsection{Custo computacional}
+Vamos contar o número total de flops para resolver um sistema triangular inferior. Note que o custo para um sistema triangular superior será o mesmo.
+
+Na linha 3, temos uma divisão, portanto 1 flop.
+
+Na linha 5 quando $i=2$, temos
+
+\verb#     x(2)=(b(2)-L(2,1:1)*x(1:1))/L(2,2)#,
+
+ou seja, 1 subtração+1 multiplicação + 1 divisão $=3$ flops.
+
+Quando $i=3$,
+
+\verb#     x(3)=(b(3)-L(3,1:2)*x(1:2))/L(3,3)#
+
+temos 1 subtração+(2 multiplicações + 1 soma) +1 divisão $=5$ flops.
+
+Quando $i=4$, temos 1 subtração+(3 multiplicações + 2 somas) +1 divisão $=7$ flops.
+
+Até que para $i=n$, temos
+
+\verb#     x(n)=(b(n)-L(n,1:n-1)*x(1:n-1))/L(n,n)#,
+
+com $1$ subtração+($n-1$ multiplicações + $n-2$ somas) + $1$ divisão, ou seja, $1+(n-1+n-2)+1=2n-1$ flops.
+
+Somando todos esses custos\footnote{Contando apenas multiplicações/divisões obtemos
+\begin{equation}
+  (n^2+n)/2  \text{~flops}.
+\end{equation}} temos que o custo para resolver um sistema triangular inferior é
+\begin{equation}
+  1 +3+5+7+...+2n-1=  \sum_{k=1}^n(2k-1) = 2 \sum_{k=1}^nk -\sum_{k=1}^n1
+\end{equation}
+e utilizando que a soma dos $k$ inteiros é uma progressão aritmética\footnote{Temos que $\displaystyle \sum_{k=1}^n k =n(n+1)/2, \quad\quad \sum_{k=1}^n 1=n$}
+\begin{equation}
+  2 ( n(n+1)/2 ) -n=  n^2 \text{~flops}.
+\end{equation}
+
+
+
+
+
+
+
+\section{Fatoração LU}
+Considere um sistema linear onde a matriz $A$ é densa\footnote{Diferentemente de uma matriz esparsa, uma matriz densa possui a maioria dos elementos diferentes de zero.}. Para resolver o sistema, podemos transformar a matriz $A$ nas matrizes $L$, triangular inferior, e $U$, triangular superior de tal forma que $A=LU$.
+
+Sendo assim o sistema pode ser reescrito tal que
+\begin{align}
+  Ax &=b \\
+  (LU)x &=b \\
+  L(Ux) &=b \\
+  L y = b \quad & \text{ e } \quad Ux=y
+\end{align}
+Assim ao invés de resolvermos o sistema original, devemos resolver um sistema triangular inferior e um sistema triangular superior.
+
+A matriz $U$ da fatoração\footnote{Não vamos usar pivotamento nesse primeiro exemplo.} $LU$ é a matriz obtida ao final do escalonamento da matriz $A$.
+
+A matriz $L$ inicia igual a identidade $I$. Os elementos da matriz $L$ são os múltiplos do primeiro elemento da linha de $A$ \underline{a ser zerado} dividido pelo pivô acima na mesma coluna.
+
+Por exemplo, para zerar o primeiro elemento da segunda linha de $A$, calculamos
+$$L_{21}=A_{21}/A_{11}$$
+e fazemos 
+$$A_{2,:} \Leftarrow A_{2,:} - L_{21}A_{1,:}$$
+
+Note que usaremos $A_{i,:}$ para nos referenciarmos a linha $i$ de $A$. Da mesma forma, se necessário usaremos $A_{:,j}$ para nos referenciarmos a linha $j$ de $A$.
+
+Para zerar o primeiro elemento da terceira linha de $A$, temos
+$$L_{31}=A_{31}/A_{11}$$
+e fazemos 
+$$A_{3,:} \Leftarrow A_{3,:} - L_{31}A_{1,:}$$
+até chegarmos ao último elemento da primeira coluna de $A$.
+
+Repetimos o processo para as próximas colunas, escalonando a matriz $A$ e coletando os elementos $L_{ij}$ abaixo da diagonal\footnote{Perceba que a partir da segunda coluna para calcular $L_{ij}$ não usamos os elementos de $A$, mas os elementos da matriz $A$ em processo de escalonamento}.
+
+
+
+
+
+\subsection{Algoritmo para fatoração LU}
+O algoritmo para fatoração $LU$ pode ser escrito como
+\begin{verbatim}
+ 1. function [L,A]=fatoraLU(A)
+ 2.     n=size(A,1)
+ 3.     L=eye(n,n)
+ 4.     for j=1:n-1
+ 5.         for i=j+1:n
+ 6.             L(i,j    )=A(i,j)/A(j,j)
+ 7.             A(i,j+1:n)=A(i,j+1:n)-L(i,j)*A(j,j+1:n)
+ 8.             A(i,j    )=0
+ 9.         end
+10.     end
+11. endfunction
+\end{verbatim}
+
+\subsubsection{Custo computacional}
+Podemos analisar o custo computacional reduzindo o problema em problemas menores. % Vamos contar apenas o número de multiplicações e divisões.
+
+Na linha 4, iniciamos com $j=1$. Desta forma $i$ varia de $2$ até $n$ na linha 5.
+
+A linha 6 terá sempre 1 flop.
+
+A linha 7, com $j=1$ tem um bloco de tamanho \verb#2:n# contabilizando $n-1$ flops do produto e $n-1$ flops da subtração. 
+
+Nas linhas 6-8 são feitas $(2(n-1)+1)= 2n-1$ flops independente do valor de $i$. Como $i$ varia de $2$ até $n$, teremos que o bloco é repetido $n-1$ vezes, ou seja, o custo das linhas 5-9 é
+\begin{equation}
+   (n-1)\times (2(n-1)+1)=2(n-1)^2+(n-1)
+\end{equation}
+
+Voltamos a linha 4 quando $j=2$. Das linhas 6-8 teremos $n-2$ flops (o bloco terá um elemento a menos) que será repetido $n-2$ vezes, pois \verb#i=3:n#, ou seja,
+\begin{equation}
+   (n-2)\times(2(n-2)+1)=2(n-2)^2+(n-2)
+\end{equation}
+
+Para $j=3$, temos $2(n-3)^2+(n-3)$.
+
+Para $j=n-2$, temos $2(2)^2+2$.
+
+Finalmente, para $j=n-1$, temos $2\cdot 1^2+1$.
+
+
+Somando todos esses custos, temos
+\begin{align*}
+  (n-1)+2(n-1)^2 + & (n-2)+2(n-2)^2+... %\\&
+   + (2)+2(2)^2+1+2\cdot 1\\
+ =& \sum_{k=1}^{n-1}2k^2+k \\ 
+ =& 2\sum_{k=1}^{n-1}k^2+\sum_{k=1}^{n-1}k\\
+ =& 2 \frac{(n-1)n(2n-1)}{6}+ \frac{n(n-1)}{2} \\
+ =& \frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6} \text{~flops}.
+\end{align*}
+% \begin{align*}
+%   & \mathcal{O}( (n-1)n+(n-2)(n-1)+...+2\cdot 3+1\cdot 2) \\
+%  =& \mathcal{O}( \sum_{k=1}^{n-1}k(k+1) ) 
+%  = \mathcal{O}( \sum_{k=1}^{n-1}k^2 + \sum_{k=1}^{n-1}k )\\
+%  =&\mathcal{O}( (n-1)n(2n-1)/6 + n(n-1)/2) = \mathcal{O}(n^3/3 -n/3) \text{~flops}
+% \end{align*}
+%contando somente multiplicações e divisões.
+
+
+
+
+\subsection{Custo computacional para resolver um sistema linear usando fatoração LU}
+Para calcularmos o custo computacional de um algoritmo completo, uma estratégia é separar o algoritmo em partes menores mais fáceis de calcular.
+
+Para resolver o sistema, devemos primeiro fatorar a matriz $A$ nas matrizes $L$ e $U$. Vimos que o custo é
+$$\frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6} \text{~flops}.$$
+
+Depois devemos resolver os sistemas $Ly=b$ e $Ux=y$. O custo de resolver os dois sistemas é  (devemos contar duas vezes)
+$$ 2 n^2\text{~flops}.$$
+
+Somando esses $3$ custos, temos que o custo para resolver um sistema linear usando fatoração $LU$ é 
+$$\frac{2n^3}{3}+\frac{3n^2}{2}-\frac{n}{6} \text{~flops}.$$
+
+Quando $n$ cresce, prevalessem os termos de mais alta ordem, ou seja,
+$$\mathcal{O}(\frac{2n^3}{3}+\frac{3n^2}{2}-\frac{n}{6}) = \mathcal{O}(\frac{2n^3}{3}+\frac{3n^2}{2})=\mathcal{O}(\frac{2n^3}{3})$$
+
+\subsection{Custo para resolver m sistemas lineares}
+Devemos apenas multiplicar $m$ pelo custo de resolver um sistema linear usando fatoração $LU$, ou seja, o custo será 
+$$m(\frac{2n^3}{3}+\frac{3n^2}{2}-\frac{n}{6})=\frac{2mn^3}{3}+\frac{3mn^2}{2}-\frac{mn}{6}$$
+e com $m=n$ temos
+$$\frac{2n^4}{3}+\frac{3n^3}{2}-\frac{n^2}{6}.$$
+
+Porém, se estivermos resolvendo $n$ sistemas com \textit{a mesma matriz $A$ }(e diferente lado direito $\vec b$ para cada sistema) podemos fazer a fatoração LU uma única vez e contar apenas o custo de resolver os sistemas triangulares obtidos.
+
+Custo para fatoração LU de $A$: $\frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6}$.
+
+Custo para resolver $m$ sistemas triangulares inferiores: $m n^2 $.
+
+Custo para resolver $m$ sistemas triangulares superiores: $m n^2 $.
+
+Somando esses custos obtemos
+$$\frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6}+2m n^2 $$
+que quando $m=n$ obtemos
+$$\frac{8n^3}{3}-\frac{n^2}{2}-\frac{n}{6} \text{~flops}.$$
+
+\subsection{Custo para calcular a matriz inversa de $A$}
+Como vemos em Álgebra Linear, um método para obter a matriz $A^{-1}$ é realizar o escalonamento da matriz $[A|I]$ onde $I$ é a matriz identidade. Ao terminar o escalonamento, o bloco do lado direito conterá $A^{-1}$.
+
+Isto é equivalente a resolver $n$ sistemas lineares com a mesma matriz $A$ e os vetores da base canônica $\vec e_i = [0,...,0,1,0,....0]^T$ tal que
+$$ A \vec x_i = \vec e_i, \quad\quad i=1:n $$
+onde $\vec x_i$ serão as colunas da matriz $A$ inversa, já que $A X=I$.
+
+O custo para resolver esses $n$ sistemas lineares foi calculado na seção anterior como
+$$\frac{8n^3}{3}-\frac{n^2}{2}-\frac{n}{6}.$$
+
+\begin{ex}
+ Qual o melhor método para resolver um sistema linear: via fatoração LU ou calculando a inversa de $A$ e obtendo $x=A^{-1}b$?
+\end{ex}
+
+
+
+
+
 
 \section{Condicionamento de sistemas lineares}\index{sistema linear!condicionamento}\index{matriz!condicionamento}
 
