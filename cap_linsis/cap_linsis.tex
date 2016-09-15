@@ -837,41 +837,24 @@ Quando lidamos com matrizes no corpo do números reais (ou complexos), existem a
 
 Um caso típico de sistema mal-condicionado é aquele cujos coeficiente estão muito próximos ao de um problema singular. Considere o seguinte exemplo:
 
-\begin{ex} Observe que o problema
-$$\left\{ \begin{array}{l}71x+41y=100\\
-\lambda x+30y=70
-\end{array}
-\right.$$
+\begin{ex} Observe que o sistema
+\begin{equation}
+\matdd{71}{41}{\lambda}{30}\vetdd{x}{y}=\vetdd{100}{70}
+\end{equation}
 é impossível quando $\lambda= \frac{71\times 30}{41}\approx 51,95122$.
 
-Agora, verifique o que acontece quando resolvemos os seguintes sistemas lineares:
-$$\left\{ \begin{array}{l}71x+41y=100\\
-52x+30y=70
-\end{array}
-\right. \\ \hbox{ e }
-\left\{ \begin{array}{l}71x+41y=100\\
-51x+30y=70
-\end{array}
-\right. \\
-$$
-A solução do primeiro problema é $x=-65$ e $y=115$. Já para o segundo problema é $x=\frac{10}{3}$ e $y=-\frac{10}{3}$.
+Considere os próximos três sistemas:
+\begin{enumerate}
+ \item [a)] $\matdd{71}{41}{51}{30}\vetdd{x}{y}=\vetdd{100}{70}$, com solução $\vetdd{10/3}{-10/3}$,
+ \item [b)] $\matdd{71}{41}{52}{30}\vetdd{x}{y}=\vetdd{100}{70}$, com solução $\vetdd{-65}{115}$,
+ \item [c)] $\matdd{71}{41}{52}{30}\vetdd{x}{y}=\vetdd{100,4}{69,3}$, com solução $\vetdd{-85,35}{150,25}$.
+\end{enumerate}
 
-Igualmente, observe os seguintes dois problemas:
-$$\left\{ \begin{array}{l}71x+41y=100\\
-52x+30y=70
-\end{array}
-\right. \\ \hbox{ e }
-\left\{ \begin{array}{l}71x+41y=100,4\\
-52x+30y=69,3
-\end{array}
-\right. \\
-$$
-A solução do primeiro problema é $x=-65$ e $y=115$ e do segundo problema é $x=-85,35$ e $y=150,25$.
-
-Observe que pequenas variações nos coeficientes das matrizes fazem as soluções ficarem bem distintas, isto é, pequenas variações nos dados de entrada acarretaram em grandes variações na solução do sistema. Quando isso acontece, dizemos que o problema é mal-condicionados.
+Pequenas variações nos coeficientes das matrizes fazem as soluções ficarem bem distintas, isto é, pequenas variações nos dados de entrada acarretaram em grandes variações na solução do sistema. Quando isso acontece, dizemos que o problema é mal-condicionado.
 \end{ex}
 
-Para introduzir essa ideia formalmente, precisamos definir o número de condicionamento. Informalmente falando, o número de condicionamento mede o quanto a solução de um problema em função de alterações nos dados de entrada. Para construir matematicamente este conceito, precisamos de uma medida destas variações. Como tanto os dados de entrada como os dados de saída são expressos na forma vetorial, precisaremos do conceito de norma vetorial. Por isso, faremos uma breve interrupção de nossa discussão para introduzir as definições de norma de vetores e matrizes na próxima seção.
+%Para introduzir essa ideia formalmente, precisamos definir o número de condicionamento. Informalmente falando, o número de condicionamento mede o quanto a solução de um problema em função de alterações nos dados de entrada.
+Precisamos uma maneira de medir essas variações. Como os dados de entrada e os dados de saída são vetores (ou matrizes), precisamos introduzir as definições de norma de vetores e matrizes.
 
 \subsection{Norma $L_p$ de vetores}\index{vetor!norma}
 
@@ -1100,30 +1083,41 @@ norm(f,'inf')
 
 
 \section{Métodos iterativos para sistemas lineares}\index{métodos iterativos!sistemas lineares}
+Na seção anterior tratamos de métodos diretos para a resolução de sistemas lineares. Em um \emph{método direto} (por exemplo, solução via fatoração LU) obtemos uma aproximação da solução depois de realizarmos um número finito de operações (só teremos a solução ao final do processo).
+
+Veremos nessa seção dois \emph{métodos iterativos} básicos para obter uma aproximação para a solução de um sistema linear. Geralmente em um método iterativo iniciamos com uma aproximação para a solução (que pode ser ruim) e vamos melhorando essa aproximação através de sucessivas iterações.
+
+
+
 
 \subsection{Método de Jacobi}\index{método de!Jacobi}
+O método de Jacobi pode ser obtido a partir do sistema linear
+\begin{align}
+a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n&=y_1\\
+a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n&=y_2\\
+&\vdots     \\
+a_{n1}x_1+a_{n2}x_2+\cdots+a_{nn}x_n&=y_n
+\end{align}
 
-Considere o problema $Ax=y$, ou seja,
-\begin{eqnarray*}
-a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n&=&y_1\\
-a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n&=&y_2\\
-\vdots \hspace{100pt}\vdots~~~~&=&~\vdots\\
-a_{n1}x_1+a_{n2}x_2+\cdots+a_{nn}x_n&=&y_n
-\end{eqnarray*}
+Isolando o elemento $x_1$ da primeira equação temos
+\begin{equation}
+x_1^{(k+1)}= \frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}} 
+\end{equation}
+Note que utilizaremos os elementos $x_i^{(k)}$ da iteração $k$ (a direita da equação) para estimar o elemento $x_1$ da próxima iteração. 
 
-Os elementos $x_j$ são calculados iterativamente conforme:
+Da mesma forma, isolando o elemento $x_i$ de cada equação $i$, para todo $i=2,...,n$ podemos construir a iteração
 \begin{eqnarray*}
 x_1^{(k+1)}&=& \frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}}\\
 x_2^{(k+1)}&=&\frac{y_2 - \left(a_{21}x_1^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}\\
 &\vdots&\\
-x_n^{(k+1)}&=&\frac{y_2 - \left(a_{n1}x_1^{(k)}+\cdots+a_{n(n-1)}x_{n-1}^{(k)}\right)}{a_{nn}}
+x_n^{(k+1)}&=&\frac{y_2 - \left(a_{n1}x_1^{(k)}+\cdots+a_{n,n-1}x_{n-1}^{(k)}\right)}{a_{nn}}
 \end{eqnarray*}
 
-Em notação mais compacta, o método de Jacobi consiste na iteração:
-\begin{align*}
-  &x^{(0)} = \text{aprox. inicial}\\
-  &x_i^{(k)} = \frac{y_i - \displaystyle{\sum_{\substack{j=1\\j\neq i}}^{n} a_{ij}x_j^{(k)}}}{a_{ii}}
-\end{align*}
+Em notação mais compacta, o método de Jacobi consiste na iteração
+\begin{align}\displaystyle
+  x^{(1)}   &= \text{aproximação inicial}\\
+  x_i^{(k)} &= \left(y_i - \sum_{\substack{j=1\\j\ne i}}^{n} a_{ij}x_j^{(k)} \right)/{a_{ii}}
+\end{align}
 
 {\bf Exemplo:} Resolva o sistema $$\left\{\begin{array}{l}10x+y=23\\x+8y=26\end{array}\right.$$
 usando o método de Jacobi iniciando com $x^{(0)}=y^{(0)}=0$.
@@ -1141,7 +1135,7 @@ y^{(2)}&=&\frac{26-x^{(1)}}{8}=2,9625\\
 \ifisscilab
 \subsubsection{Código Scilab: Jacobi}
 
-\verbatiminput{./rotinas/Metodo_de_Jacobi/jacobi.sci}
+\verbatiminput{./cap_linsis/codes/metodo_de_jacobi/jacobi.sci}
 \fi
 
 \subsection{Método de Gauss-Seidel}\index{método de!Gauss-Seidel}
