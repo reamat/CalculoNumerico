@@ -1,4 +1,4 @@
-function [x,normr]=jacobi(A,b,x,tol,N)
+function [x,deltax]=jacobi(A,b,x,tol,N)
 n=size(A,1)
 convergiu=%F                //FALSE;
 
