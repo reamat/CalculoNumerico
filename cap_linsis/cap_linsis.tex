@@ -5,20 +5,23 @@
 
 \chapter{Solução de sistemas lineares}\index{sistema linear}
 
-Muitos problemas da engenharia, física e matemática estão associados a resolução de sistemas de equações lineares. Nesse capítulo trataremos das técnicas empregadas para obter a solução desses sistemas. 
+Muitos problemas da engenharia, física e matemática estão associados a solução de sistemas de equações lineares. Nesse capítulo, tratamos de técnicas numéricas empregadas para obter a solução desses sistemas. Iniciamos por uma rápida revisão do Método de Eliminação Gaussiana do ponto de vista computacional. No contexto de análise da propagação dos erros de arredondamento, introduzimos o Método de Eliminação Gaussiana com Pivotamento Parcial, bem como, apresentamos o conceito de condicionamento de um sistema linear. Então, passamos a discutir sobre técnicas iterativos, mais especificamente, sobre os Métodos de Jacobi e Gauss-Seidel.
 
 
-Considere o sistema de equações lineares
+Considere o sistema de equações lineares:
 \begin{align*}
 a_{11}x_1 + a_{12}x_2 + \cdots +a_{1n}x_n &= b_1\\
 a_{21}x_1 + a_{22}x_2 + \cdots +a_{2n}x_n &= b_2\\
-                                          &\vdots \\
+                                      &\vdots \\
 a_{m1}x_1 + a_{m2}x_2 + \cdots +a_{mn}x_n &= b_m
 \end{align*}
-onde $m$ é o número de equações e $n$ é o número de incógnitas.  Este sistema pode ser escrito na forma matricial
-$$Ax=b$$
-onde
-$$A=\begin{bmatrix}
+onde $m$ é o número de equações e $n$ é o número de incógnitas.  Este sistema pode ser escrito na forma matricial:
+\begin{equation*}
+  Ax = b
+\end{equation*}
+onde:
+\begin{equation*}
+  A=\begin{bmatrix}
 a_{11} & a_{12} & \cdots & a_{1n}\\
 a_{21} & a_{22} & \cdots & a_{2n}\\
 \vdots & \vdots & \ddots & \vdots\\
@@ -36,7 +39,9 @@ b_{2} \\
 \vdots \\
 b_{m}
 \end{bmatrix}
-$$
+\end{equation*}
+
+Salvo especificado ao contrário, assumiremos ao longo deste capítulo que a matriz dos coeficientes $A$ é uma matriz real não-singular.
 
 %Vários fatores podem ser analisados nas técnicas utilizadas: método direto ou iterativo, tempo de execução, estabilidade. Qual técnica é a melhor? na próxima seção trataremos do custo computacional que ajudará a responder essa pergunta considerando a eficiência.
 
@@ -559,9 +564,6 @@ Note que esse produto tem o custo do produto vetor-vetor, ou seja, $2n-1$. Como 
 \end{sol}
 
 
-
-
-
 \section{Sistemas triangulares}
 Considere um sistema linear onde a matriz é triangular superior, ou seja, 
 $$\begin{bmatrix}
@@ -825,10 +827,6 @@ $$\frac{8n^3}{3}-\frac{n^2}{2}-\frac{n}{6}.$$
 \begin{ex}
  Qual o melhor método para resolver um sistema linear: via fatoração LU ou calculando a inversa de $A$ e obtendo $x=A^{-1}b$?
 \end{ex}
-
-
-
-
 
 
 \section{Condicionamento de sistemas lineares}\index{sistema linear!condicionamento}\index{matriz!condicionamento}
@@ -1239,11 +1237,356 @@ y^{(3)}&=&\frac{26-x^{(3)}}{8}=2,9995312
 \verbatiminput{./cap_linsis/codes/metodo_de_gauss-seidel/gauss_seidel.sci}
 \fi
 
-\section{Convergência}\index{métodos iterativos!sistemas lineares!convergência}
-Uma condição suficiente porém não necessária para que os métodos de Gauss-Seidel e Jacobi convirjam é a que a matriz seja diagonal dominante estrita.
+\subsection{Análise de convergência}\index{métodos iterativos!sistemas lineares!convergência}
+
+Nesta seção, discutimos sobre a análise de convergência de métodos iterativos para solução de sistema lineares. Para tanto, consideramos um sistema linear $Ax = b$, onde $A = [a_{i,j}]_{i,j=1}^{n,n}$ é a matriz (real) dos coeficientes, $b = (a_j)_{j=1}^n$ é um vetor dos termos constantes e $x = (x_j)_{j=1}^n$ é o vetor incógnita. No decorrer, assumimos que $A$ é uma matriz não-singular.
+
+Geralmente, métodos iterativos são construídos como uma iteração de ponto fixo. No caso de um sistema linear, reescreve-se a equação matricial em um problema de ponto fixo equivalente, i.e.:
+\begin{equation*}
+  Ax = b \Leftrightarrow x = Tx + c,
+\end{equation*}
+onde $T = [t_{i,j}]_{i,j=1}^{n,n}$ é chamada de \emph{matriz da iteração}\index{matriz de!iteração} e $c = (c_j)_{j=1}^n$ de \emph{vetor da iteração}\index{vetor de!iteração}. Construídos a matriz $T$ e o vetor $c$, o método iterativo consiste em computar a iteração:
+\begin{equation*}
+  x^{(k+1)} = Tx^{(k)} + c,\quad n\geq 1, 
+\end{equation*}
+onde $x^{(1)}$ é uma aproximação inicial dada.
+
+Afim de construirmos as matrizes e os vetores de iteração do método de Jacobi e de Gauss-Seidel, decompomos a matriz $A$ da seguinte forma:
+\begin{equation*}
+  A = L + D + U,
+\end{equation*}
+onde $D$ é a matriz diagonal $D = \diag(a_{11}, a_{22}, \ldots, a_{nn})$, i.e.:
+\begin{equation*}
+  D := \begin{bmatrix}
+    a_{11} & 0 & 0 & \cdots & 0\\
+    0 & a_{22} & 0 & \cdots & 0\\
+    0 & 0 & a_{33} & \cdots & 0\\
+    \vdots & \vdots & \vdots & \ddots & \vdots\\
+    0 & 0 & 0 & \cdots & a_{nn}
+  \end{bmatrix},
+\end{equation*}
+e, respectivamente, $L$ e $U$ são as seguintes matrizes triangular inferior e superior:
+\begin{equation*}
+  L := \begin{bmatrix}
+    0 & 0 & 0 & \cdots & 0\\
+    a_{21} & 0 & 0 & \cdots & 0\\
+    a_{31} & a_{32} & 0 &\cdots & 0\\
+    \vdots & \vdots & \vdots & \ddots & \vdots\\
+    a_{n1} & a_{n2} & a_{n3} & \cdots & 0
+  \end{bmatrix},\quad
+  U := \begin{bmatrix}
+    0 & a_{12} & a_{13} & \cdots & a_{1n}\\
+    0 & 0 & a_{23} & \cdots & a_{2n}\\
+    0 & 0 & 0 & \cdots & a_{3n}\\
+    \vdots & \vdots & \vdots & \ddots & \vdots\\
+    0 & 0 & 0 & \cdots & 0
+  \end{bmatrix}.
+\end{equation*}
+
+\begin{ex}\label{ex:sislin}
+  Considere o seguinte sistema linear:
+  \begin{align*}
+    3x_1 + x_2 - x_3 &= 2\\
+    -x_1 -4x_2 + x_3 &= -10\\
+    x_1 - 2x_2 - 5x_3 &= 10
+  \end{align*}
+Escreva o sistema na sua forma matricial $Ax = b$ identificando a matriz dos coeficientes $A$, o vetor incógnita $x$ e o vetor dos termos constantes $b$. Em seguida, faça a decomposição $A = L + D + U$.
+\end{ex}
+\begin{sol}
+ A forma matricial deste sistema é $Ax = b$, onde:
+\begin{equation*}
+  A =
+  \begin{bmatrix}
+    3 & 1 & -1\\
+    -1 & -4 & 1\\
+    1 & -2 & -5
+  \end{bmatrix},\quad
+  x =
+  \begin{bmatrix}
+    x_1\\
+    x_2\\
+    x_3
+  \end{bmatrix}\quad\text{e}\quad
+  b =
+  \begin{bmatrix}
+    2\\
+    -10\\
+    10
+  \end{bmatrix}.
+\end{equation*}
+A decomposição da matriz $A$ nas matrizes $L$ triangular inferior, $D$ diagonal e $U$ triangular superior é:
+\begin{equation*}
+  \underbrace{\begin{bmatrix}
+    3 & 1 & -1\\
+    -1 & -4 & 1\\
+    1 & -2 & -5
+  \end{bmatrix}}_{A} =
+  \underbrace{\begin{bmatrix}
+    0 & 0 & 0\\
+    -1 & 0 & 0\\
+    1 & -2 & 0
+  \end{bmatrix}}_{L} +
+  \underbrace{\begin{bmatrix}
+    3 & 0 & 0\\
+    0 & -4 & 0\\
+    0 & 0 & -5
+  \end{bmatrix}}_{D} + 
+  \underbrace{\begin{bmatrix}
+    0 & 1 & -1\\
+    0 & 0 & 1\\
+    0 & 0 & 0
+  \end{bmatrix}}_{U}.
+\end{equation*}
+\ifisscilab
+No \verb+Scilab+, podemos construir as matrizes $L$, $D$ e $U$, da seguinte forma:
+\begin{verbatim}
+-->A = [3 1 -1;-1 -4 1;1 -2 -5];
+-->D = eye(A).*A;
+-->L = tril(A)-D;
+-->U=triu(A)-D;
+\end{verbatim}
+\fi  
+\end{sol}
+
+\subsubsection{Iteração de Jacobi}
+
+Vamos, agora, usar a decomposição discutida acima para construir a matriz de iteração $T_J$\index{Método de Jacobi!matriz de iteração} e o vetor de iteração $c_J$\index{Método de Jacobi!vetor de iteração} associado ao método de Jacobi. Neste caso, temos:
+\begin{align*}
+  Ax = b &\Leftrightarrow (L + D + U)x = b\\
+  &\Leftrightarrow Dx = -(L+U)x + b\\
+  &\Leftrightarrow x = \underbrace{-D^{-1}(L+U)}_{=: T_J}x + \underbrace{D^{-1}b}_{=: c_J}.
+\end{align*}
+Ou seja, a iteração do método de Jacobi escrita na forma matricial é:
+\begin{equation*}
+  x^{(k+1)} = T_Jx^{(k)} + c_J,\quad k\geq 1,
+\end{equation*}
+com $x^{(1)}$ uma aproximação inicial dada, sendo $T_J := -D^{-1}(L+U)$ a matriz de iteração e $c_J = D^{-1}b$ o vetor da iteração.
+
+\begin{ex}
+  Construa a matriz de iteração $T_J$ e o vetor de iteração $c_J$ do método de Jacobi para o sistema dado no Exemplo~\ref{ex:sislin}. 
+\end{ex}
+\begin{sol}
+  A matriz de iteração é dada por:
+  \begin{equation*}
+    T_J := -D^{-1}(L + U) = -
+    \underbrace{\begin{bmatrix}
+      \frac{1}{3} & 0 & 0\\
+      0 & -\frac{1}{4} & 0\\
+      0 & 0 & -\frac{1}{5}
+    \end{bmatrix}}_{D^{-1}}
+  \underbrace{\begin{bmatrix}
+    0 & 1 & -1\\
+    -1 & 0 & 1\\
+    1 & 2 & 0
+  \end{bmatrix}}_{(L + U)} =
+\begin{bmatrix}
+  0 & -\frac{1}{3} & \frac{1}{3}\\
+  -\frac{1}{4} & 0 & \frac{1}{4}\\
+  \frac{1}{5} & \frac{2}{5} & 0
+\end{bmatrix}.
+  \end{equation*}
+O vetor da iteração de Jacobi é:
+\begin{equation*}
+  c_J := D^{-1}b = 
+    \underbrace{\begin{bmatrix}
+      \frac{1}{3} & 0 & 0\\
+      0 & -\frac{1}{4} & 0\\
+      0 & 0 & -\frac{1}{5}
+    \end{bmatrix}}_{D^{-1}}
+    \underbrace{\begin{bmatrix}
+      2\\
+      -10\\
+      10
+    \end{bmatrix}}_{b} = 
+    \begin{bmatrix}
+      \frac{2}{3}\\
+      \frac{5}{2}\\
+      -2
+    \end{bmatrix}.
+\end{equation*}
+\ifisscilab
+No \verb+Scilab+, podemos computar $T_J$ e $c_J$ da seguinte forma:
+\begin{verbatim}
+-->TJ = -inv(D)*(L+U);
+-->cJ = inv(D)*b;
+\end{verbatim}
+\fi
+\end{sol}
+
+\subsubsection{Iteração de Gauss-Seidel}
+
+A forma matricial da iteração do método de Gauss-Seidel também pode ser construída com base na decomposição $A = L + D + U$. Para tando, fazemos:
+\begin{align*}
+  Ax = b &\Leftrightarrow (L + D + U)x = b\\
+  &\Leftrightarrow (L + D)x = -Ux + b\\
+  &\Leftrightarrow x = \underbrace{-(L + D)^{-1}U}_{=: T_G}x + \underbrace{(L+D)^{-1}b}_{=: c_G}
+\end{align*}
+Ou seja, a iteração do método de Gauss-Seidel escrita na forma matricial é:
+\begin{equation*}
+  x^{(k+1)} = T_Gx^{(k)} + c_G,\quad k\geq 1,
+\end{equation*}
+com $x^{(1)}$ uma aproximação inicial dada, sendo $T_G := -(L+D)^{-1}U$ a matriz de iteração e $c_J = (L+D)^{-1}b$ o vetor da iteração.
+
+\begin{ex}
+  Construa a matriz de iteração $T_G$ e o vetor de iteração $c_G$ do método de Gauss-Seidel para o sistema dado no Exemplo~\ref{ex:sislin}.
+\end{ex}
+\begin{sol}
+  A matriz de iteração é dada por:
+  \begin{equation*}
+    T_G := -(L+D)^{-1}U = -
+    -\underbrace{\begin{bmatrix}
+      3 & 0 & 0\\
+      -1 & -4 & 0\\
+      1 & -2 & -5
+    \end{bmatrix}^{-1}}_{(L + D)^{-1}}
+  \underbrace{\begin{bmatrix}
+    0 & 1 & -1\\
+    0 & 0 & 1\\
+    0 & 0 & 0
+  \end{bmatrix}}_{U} =
+\begin{bmatrix}
+  0 & -\frac{1}{3} & \frac{1}{3}\\
+  0 & \frac{1}{12} & \frac{1}{6}\\
+  0 & -\frac{1}{10} & 0
+\end{bmatrix}.
+  \end{equation*}
+O vetor da iteração de Gauss-Seidel é:
+\begin{equation*}
+  c_G := (L+D)^{-1}b = 
+    \underbrace{\begin{bmatrix}
+      3 & 0 & 0\\
+      -1 & -4 & 0\\
+      1 & -2 & -5
+    \end{bmatrix}^{-1}}_{(L + D)^{-1}}
+    \underbrace{\begin{bmatrix}
+      2\\
+      -10\\
+      10
+    \end{bmatrix}}_{b} = 
+    \begin{bmatrix}
+      \frac{2}{3}\\
+      \frac{7}{3}\\
+      -\frac{28}{10}
+    \end{bmatrix}.
+\end{equation*}
+\ifisscilab
+No \verb+Scilab+, podemos computar $T_G$ e $c_G$ da seguinte forma:
+\begin{verbatim}
+-->TG = -inv(L+D)*U;
+-->cG = inv(L+D)*b;
+\end{verbatim}
+\fi
+\end{sol}
+
+\subsubsection{Condições de convergência}
+
+Aqui, vamos discutir condições necessárias e suficientes para a convergência de métodos iterativos. Isto é, dado um sistema $Ax = b$ e uma iteração:
+\begin{equation*}
+  x^{(k+1)} = Tx^{(k)} + c,\quad k\geq 1,
+\end{equation*}
+$x^{(1)}$ dado, estabelecemos condições nas quais $x^{(k)}\to x^{*}$, onde $x^*$ é a solução do sistema dado, i.e. $x^* = Tx^* + c$ ou, equivalentemente, $Ax^* = b$.
+
+\begin{lem}\label{lema:matriz_convergente}
+  Seja $T$ uma matriz real $n\times n$. O limite $\displaystyle\lim_{k\to\infty} \|T^k\|_p = 0$, $1\leq p \leq \infty$, se, e somente se, $\rho(T) < 1$. 
+\end{lem}
+\begin{proof}
+  Aqui, fazemos apenas um esboço da demonstração. Para mais detalhes, veja \cite{Isaacson1994a}, Teorema 4, pág. 14.
+
+  Primeiramente, suponhamos que $\|T\|_p < 1$, $1\leq p \leq \infty$. Como (veja \cite{Isaacson1994a}, Lema 2, pág. 12):
+  \begin{equation*}
+    \rho(T) \leq \|T\|_p,
+  \end{equation*}
+temos $\rho(T) < 1$, o que mostra a implicação.
+
+  Agora, suponhamos que $\rho(T) < 1$ e seja $0 < \epsilon < 1 - \rho(T)$. Então, existe $1\leq p \leq \infty$ tal que (veja \cite{Isaacson1994a}, Teorema 3, página 12):
+  \begin{equation*}
+    \|T\|_p \leq \rho(T) + \epsilon < 1.
+  \end{equation*}
+Assim, temos:
+\begin{equation*}
+  \lim_{k\to\infty} \|T^k\|_p \leq \lim_{k\to\infty} \|T\|_p^m = 0.
+\end{equation*}
+Da equivalência entre as normas segue a recíproca.
+\end{proof}
+
+\begin{obs}\label{obs:matriz_convergente}
+  Observamos que:
+  \begin{equation*}
+    \lim_{k\to\infty} \|T^k\|_p = 0,\quad,1\leq p\leq \infty,\Leftrightarrow \lim_{k\to\infty} t_{ij}^k = 0,\quad 1\leq i,j\leq n.
+  \end{equation*}
+\end{obs}
+
+\begin{lem}\label{lema:inversa}
+  Se $\rho(T) < 1$, então existe $(I - T)^{-1}$ e:
+  \begin{equation*}
+    (I - T)^{-1} = \sum_{k=0}^\infty T^k.
+  \end{equation*}
+\end{lem}
+\begin{proof}
+  Primeiramente, provamos a existência de $(I - T)^{-1}$. Seja $\lambda$ um autovalor de $T$ e $x$ um autovetor associado, i.e. $Tx = \lambda x$. Então, $(I-T)x = (1-\lambda)x$. Além disso, temos $|\lambda| < \rho(T) < 1$, logo $(1 - \lambda) \neq 0$, o que garante que $(I - T)$ é não singular.
+  Agora, mostramos que $(I - T)^{-1}$ admite a expansão acima. Do Lema~\ref{lema:matriz_convergente} e da Observação~\ref{obs:matriz_convergente} temos:
+  \begin{equation*}
+   (I - T)\sum_{k=0}^\infty T^k =  \lim_{m\to\infty} (I - T)\sum_{k=0}^m T^k = \lim_{m\to\infty} (I - T^{m+1}) = I,
+  \end{equation*}
+o que mostra que $\displaystyle (I - T)^{-1} = \sum_{k=0}^\infty T^k$.
+\end{proof}
+
+\begin{teo}\label{teo:convergencia}
+  A sequência recursiva $\{x^{(k)}\}_{k\in\mathbb{N}}$ dada por:
+  \begin{equation*}
+    x^{(k+1)} = Tx^{(k)} + c
+  \end{equation*}
+converge para solução de $x = Tx + c$ para qualquer escolha de $x^{(1)}$ se, e somente se, $\rho(T) < 1$.
+\end{teo}
+\begin{proof}
+  Primeiramente, assumimos que $\rho(T) < 1$. Observamos que:
+  \begin{align*}
+    x^{(k+1)} &= Tx^{(k)} + c = T(Tx^{(k-1)} + c) + c \\
+    &= T^2x^{(k-1)} + (I + T)c \\
+    &\vdots\\
+    &= T^{(k)}x^{(1)} + \left(\sum_{k=0}^{k-1}T^k\right)c.
+  \end{align*}
+Daí, do Lema~\ref{lema:matriz_convergente} e do Lema~\ref{lema:inversa} temos:
+\begin{equation*}
+  \lim_{k\to\infty} x^{(k)} = (I - T)^{(-1)}c.
+\end{equation*}
+Ora, se $x^*$ é a solução de $x = Tx + c$, então $(I - T)x^* = c$, i.e. $x^* = (I - T)^{-1}c$. Logo, temos demonstrado que $x^{(k)}$ converge para a solução de  $x = Tx + c$, para qualquer escolha de $x^{(1)}$.
+
+Agora, suponhamos que $x^{(k)}$ converge para $x^*$ solução de $x = Tx + c$, para qualquer escolha de $x^{(1)}$. Seja, então, $y$ um vetor arbitrário e $x^{(1)} = x^* - y$. Observamos que:
+\begin{align*}
+  x^* - x^{(k+1)} &= (Tx^* + c) - (Tx^{(k)} + c) \\
+  &= T(x^* - x^{(k)})\\
+  &\vdots\\
+  &= T^{(k)}(x^* - x^{(1)}) = T^{(k)}y.
+\end{align*}
+Logo, para qualquer $1 \leq p \leq\infty$, temos, :
+\begin{equation*}
+  0 = \lim_{k\to\infty} x^* - x^{(k+1)} = \lim_{k\to\infty} T^{(k)}y.
+\end{equation*}
+Como $y$ é arbitrário, da Observação~\ref{obs:matriz_convergente} temos $\displaystyle\lim_{k\to\infty} \|T^{(k)}\|_p = 0$, $1 \leq p \leq \infty$. Então, o Lema~\ref{lema:matriz_convergente} garante que $\rho(T) < 1$.
+\end{proof}
+
+\begin{obs}
+  Pode-se mostrar que tais métodos iterativos tem taxa de convergência super linear com:
+  \begin{equation*}
+    \|x^{(k+1)} - x^*\| \approx \rho(T)^{k}\|x^{(1)} - x^*\|.
+  \end{equation*}
+Para mais detalhes, veja \cite{Isaacson1994a}, pág. 61-64.
+\end{obs}
+
+\begin{ex}
+  Mostre que, para qualquer escolha da aproximação inicial, ambos os métodos de Jacobi e Gauss-Seidel são convergentes quando aplicados ao sistema linear dado no Exemplo~\ref{ex:sislin}.
+\end{ex}
+\begin{sol}
+  Do Teorema~\ref{teo:convergencia}, vemos que é necessário e suficiente que $\rho(T_J) < 1$ e $\rho(T_G) < 1$. Computando estes raios espectrais, obtemos $\rho(T_J) \approx 0,32$ e $\rho(T_G) \approx 0,13$. Isto mostra que ambos os métodos serão convergentes. 
+\end{sol}
+
+\subsubsection{Condição suficiente}
+
+Uma condição suficiente porém não necessária para que os métodos de Gauss-Seidel e Jacobi convirjam é a que a matriz seja \emph{estritamente diagonal dominante}\index{matriz!diagonal dominante}.
 
 \begin{defn}
- Uma matriz $A$ é \emph{estritamente diagonal dominante} quando
+ Uma matriz $A$ é \emph{estritamente diagonal dominante} quando:
 \begin{align}
   |a_{ii}|> \sum_{\substack{j=1\\j\ne i}}^{n} |a_{ij}|, i=1,...,n
 \end{align}
@@ -1261,7 +1604,7 @@ e para ao menos um $i$, $a_{ii}$ é estritamente maior que a soma dos elementos 
  Se a matriz $A$ for diagonal dominante\footnote{E consequentemente estritamente diagonal dominante.}, então os métodos de Jacobi e Gauss-Seidel serão convergentes independente da escolha inicial $x^{(1)}$.
 \end{teo}
 
-Se conhecermos a solução exata $x$ do problema, podemos calcular o erro relativo em cada iteração como
+Se conhecermos a solução exata $x$ do problema, podemos calcular o erro relativo em cada iteração como:
 \begin{align}
    \frac{ \|x-x^{(k)}\|}{\|x\|}.
 \end{align}
@@ -1276,8 +1619,9 @@ Em geral não temos $x$, entretanto podemos estimar o vetor \emph{resíduo} $r^{
 onde $k(A)$ é o número de condicionamento.
 \end{teo}
 
-
-
+\begin{ex}
+  Ambos os métodos de Jacobi e Gauss-Seidel são convergentes para o sistema dado no Exemplo~\ref{ex:sislin}, pois a matriz dos coeficientes deste é uma matriz estritamente diagonal dominante.
+\end{ex}
 
 \section*{Exercícios}
 
