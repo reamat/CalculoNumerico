@@ -592,19 +592,19 @@ Podemos resolver esse sistema iniciando pela última equação e isolando $x_n$ 
 
 Substituindo $x_n$ na penúltima equação
 \begin{equation}
- a_{n-1,n-1}x_{n-1}+a_{nn}x_n = b_{n-1}
+ a_{n-1,n-1}x_{n-1}+a_{n-1,n}x_n = b_{n-1}
 \end{equation}
 e isolando $x_{n-1}$ obtemos
 \begin{equation}
- x_{n-1} = (b_{n-1}-a_{nn}x_n)/a_{n-1,n-1}
+ x_{n-1} = (b_{n-1}-a_{n-1,n}x_n)/a_{n-1,n-1}
 \end{equation}
 e continuando desta forma até a primeira equação obteremos
 \begin{equation}
- x_{1} = (b_{1}-a_{22}x_2 \cdots -a_{nn}x_n)/a_{11}.
+ x_{1} = (b_{1}-a_{12}x_2 \cdots -a_{1n}x_n)/a_{11}.
 \end{equation}
 De forma geral, temos que
 \begin{equation}
- x_{i} = (b_{i}-a_{i+1,i+1}x_{i+1} \cdots -a_{nn}x_n)/a_{ii}, \quad i=2,\dots,n.
+ x_{i} = (b_{i}-a_{i,i+1}x_{i+1} \cdots -a_{i,n}x_n)/a_{i,i}, \quad i=2,\dots,n.
 \end{equation}
 
 
@@ -614,8 +614,8 @@ De forma geral, temos que
 Para resolver um sistema triangular superior iniciamos da última linha em direção a primeira.
 
 \begin{verbatim}
-1.  function [x]=solveU(U,b)  # U:= matriz triangular superior
-2.      n=size(U,1)           # b:= vetor
+1.  function [x]=solveU(U,b)  // U:= matriz triangular superior
+2.      n=size(U,1)           // b:= vetor
 3.      x(n)=b(n)/U(n,n)
 4.      for i=n-1:-1:1
 5.          x(i)=(b(i)-U(i,i+1:n)*x(i+1:n)  )/U(i,i)
@@ -628,8 +628,8 @@ Para resolver um sistema triangular superior iniciamos da última linha em dire�
 Para resolver um sistema triangular inferior podemos fazer o processo inverso iniciando da primeira equação.
 
 \begin{verbatim}
-1. function [x]=solveL(L,b)   # L: matriz triangular inferior
-2.    n=size(L,1)             # b: vetor
+1. function [x]=solveL(L,b)   // L: matriz triangular inferior
+2.    n=size(L,1)             // b: vetor
 3.    x(1)=b(1)/L(1,1)
 4.    for i=2:n
 5.        x(i)=(b(i)-L(i,1:i-1)*x(1:i-1)  )/L(i,i)
@@ -837,41 +837,24 @@ Quando lidamos com matrizes no corpo do números reais (ou complexos), existem a
 
 Um caso típico de sistema mal-condicionado é aquele cujos coeficiente estão muito próximos ao de um problema singular. Considere o seguinte exemplo:
 
-\begin{ex} Observe que o problema
-$$\left\{ \begin{array}{l}71x+41y=100\\
-\lambda x+30y=70
-\end{array}
-\right.$$
+\begin{ex} Observe que o sistema
+\begin{equation}
+\matdd{71}{41}{\lambda}{30}\vetdd{x}{y}=\vetdd{100}{70}
+\end{equation}
 é impossível quando $\lambda= \frac{71\times 30}{41}\approx 51,95122$.
 
-Agora, verifique o que acontece quando resolvemos os seguintes sistemas lineares:
-$$\left\{ \begin{array}{l}71x+41y=100\\
-52x+30y=70
-\end{array}
-\right. \\ \hbox{ e }
-\left\{ \begin{array}{l}71x+41y=100\\
-51x+30y=70
-\end{array}
-\right. \\
-$$
-A solução do primeiro problema é $x=-65$ e $y=115$. Já para o segundo problema é $x=\frac{10}{3}$ e $y=-\frac{10}{3}$.
+Considere os próximos três sistemas:
+\begin{enumerate}
+ \item [a)] $\matdd{71}{41}{51}{30}\vetdd{x}{y}=\vetdd{100}{70}$, com solução $\vetdd{10/3}{-10/3}$,
+ \item [b)] $\matdd{71}{41}{52}{30}\vetdd{x}{y}=\vetdd{100}{70}$, com solução $\vetdd{-65}{115}$,
+ \item [c)] $\matdd{71}{41}{52}{30}\vetdd{x}{y}=\vetdd{100,4}{69,3}$, com solução $\vetdd{-85,35}{150,25}$.
+\end{enumerate}
 
-Igualmente, observe os seguintes dois problemas:
-$$\left\{ \begin{array}{l}71x+41y=100\\
-52x+30y=70
-\end{array}
-\right. \\ \hbox{ e }
-\left\{ \begin{array}{l}71x+41y=100,4\\
-52x+30y=69,3
-\end{array}
-\right. \\
-$$
-A solução do primeiro problema é $x=-65$ e $y=115$ e do segundo problema é $x=-85,35$ e $y=150,25$.
-
-Observe que pequenas variações nos coeficientes das matrizes fazem as soluções ficarem bem distintas, isto é, pequenas variações nos dados de entrada acarretaram em grandes variações na solução do sistema. Quando isso acontece, dizemos que o problema é mal-condicionados.
+Pequenas variações nos coeficientes das matrizes fazem as soluções ficarem bem distintas, isto é, pequenas variações nos dados de entrada acarretaram em grandes variações na solução do sistema. Quando isso acontece, dizemos que o problema é mal-condicionado.
 \end{ex}
 
-Para introduzir essa ideia formalmente, precisamos definir o número de condicionamento. Informalmente falando, o número de condicionamento mede o quanto a solução de um problema em função de alterações nos dados de entrada. Para construir matematicamente este conceito, precisamos de uma medida destas variações. Como tanto os dados de entrada como os dados de saída são expressos na forma vetorial, precisaremos do conceito de norma vetorial. Por isso, faremos uma breve interrupção de nossa discussão para introduzir as definições de norma de vetores e matrizes na próxima seção.
+%Para introduzir essa ideia formalmente, precisamos definir o número de condicionamento. Informalmente falando, o número de condicionamento mede o quanto a solução de um problema em função de alterações nos dados de entrada.
+Precisamos uma maneira de medir essas variações. Como os dados de entrada e os dados de saída são vetores (ou matrizes), precisamos introduzir as definições de norma de vetores e matrizes.
 
 \subsection{Norma de vetores}\index{norma de!vetores}
 
@@ -1151,96 +1134,150 @@ norm(f,'inf')
 
 
 \section{Métodos iterativos para sistemas lineares}\index{métodos iterativos!sistemas lineares}
+Na seção anterior tratamos de métodos diretos para a resolução de sistemas lineares. Em um \emph{método direto} (por exemplo, solução via fatoração LU) obtemos uma aproximação da solução depois de realizarmos um número finito de operações (só teremos a solução ao final do processo).
+
+Veremos nessa seção dois \emph{métodos iterativos} básicos para obter uma aproximação para a solução de um sistema linear. Geralmente em um método iterativo iniciamos com uma aproximação para a solução (que pode ser ruim) e vamos melhorando essa aproximação através de sucessivas iterações.
+
+
+
 
 \subsection{Método de Jacobi}\index{método de!Jacobi}
+O método de Jacobi pode ser obtido a partir do sistema linear
+\begin{align}
+a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n&=y_1\\
+a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n&=y_2\\
+&\vdots     \\
+a_{n1}x_1+a_{n2}x_2+\cdots+a_{nn}x_n&=y_n
+\end{align}
 
-Considere o problema $Ax=y$, ou seja,
-\begin{eqnarray*}
-a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n&=&y_1\\
-a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n&=&y_2\\
-\vdots \hspace{100pt}\vdots~~~~&=&~\vdots\\
-a_{n1}x_1+a_{n2}x_2+\cdots+a_{nn}x_n&=&y_n
-\end{eqnarray*}
+Isolando o elemento $x_1$ da primeira equação temos
+\begin{equation}
+x_1^{(k+1)}= \frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}} 
+\end{equation}
+Note que utilizaremos os elementos $x_i^{(k)}$ da iteração $k$ (a direita da equação) para estimar o elemento $x_1$ da próxima iteração. 
 
-Os elementos $x_j$ são calculados iterativamente conforme:
-\begin{eqnarray*}
-x_1^{(k+1)}&=& \frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}}\\
-x_2^{(k+1)}&=&\frac{y_2 - \left(a_{21}x_1^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}\\
+Da mesma forma, isolando o elemento $x_i$ de cada equação $i$, para todo $i=2,...,n$ podemos construir a iteração
+\begin{align}
+x_1^{(k+1)}&=\frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}}\\
+x_2^{(k+1)}&=\frac{y_2 - \left(a_{21}x_1^{(k)}+a_{23}x_3^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}\\
 &\vdots&\\
-x_n^{(k+1)}&=&\frac{y_2 - \left(a_{n1}x_1^{(k)}+\cdots+a_{n(n-1)}x_{n-1}^{(k)}\right)}{a_{nn}}
-\end{eqnarray*}
+x_n^{(k+1)}&=\frac{y_2 - \left(a_{n1}x_1^{(k)}+\cdots+a_{n,n-2}x_{n-2}^{(k)}+a_{n,n-1}x_{n-1}^{(k)}\right)}{a_{nn}}
+\end{align}
 
-Em notação mais compacta, o método de Jacobi consiste na iteração:
+Em notação mais compacta, o método de Jacobi consiste na iteração
+\begin{align}\displaystyle
+  x^{(1)}   &= \text{aproximação inicial}\\
+  x_i^{(k)} &= \left(y_i - \sum_{\substack{j=1\\j\ne i}}^{n} a_{ij}x_j^{(k)} \right)/{a_{ii}}
+\end{align}
+
+\begin{ex}
+Resolva o sistema
+\begin{align}
+ 10x+y&=23\\
+ x+8y &=26
+\end{align}
+usando o método de Jacobi iniciando com $x^{(1)}=y^{(1)}=0$.
 \begin{align*}
-  &x^{(0)} = \text{aprox. inicial}\\
-  &x_i^{(k)} = \frac{y_i - \displaystyle{\sum_{\substack{j=1\\j\neq i}}^{n} a_{ij}x_j^{(k)}}}{a_{ii}}
+x^{(k+1)}&=\frac{23-y^{(k)}}{10}\\
+y^{(k+1)}&=\frac{26-x^{(k)}}{8}\\
+x^{(2)}&=\frac{23-y^{(1)}}{10}=2,3\\
+y^{(2)}&=\frac{26-x^{(1)}}{8}=3,25\\
+x^{(3)}&=\frac{23-y^{(2)}}{10}=1,975 \\
+y^{(3)}&=\frac{26-x^{(2)}}{8}=2,9625
 \end{align*}
-
-{\bf Exemplo:} Resolva o sistema $$\left\{\begin{array}{l}10x+y=23\\x+8y=26\end{array}\right.$$
-usando o método de Jacobi iniciando com $x^{(0)}=y^{(0)}=0$.
-\begin{eqnarray*}
-x^{(k+1)}&=&\frac{23-y^{(k)}}{10}\\
-y^{(k+1)}&=&\frac{26-x^{(k)}}{8}\\
-\\
-x^{(1)}&=&\frac{23-y^{(0)}}{10}=2,3\\
-y^{(1)}&=&\frac{26-x^{(0)}}{8}=3,25\\
-\\
-x^{(2)}&=&\frac{23-y^{(1)}}{10}=1,975 \\
-y^{(2)}&=&\frac{26-x^{(1)}}{8}=2,9625\\
-\end{eqnarray*}
+\end{ex}
 
 \ifisscilab
 \subsubsection{Código Scilab: Jacobi}
 
-\verbatiminput{./rotinas/Metodo_de_Jacobi/jacobi.sci}
+\verbatiminput{./cap_linsis/codes/metodo_de_jacobi/jacobi.sci}
 \fi
 
 \subsection{Método de Gauss-Seidel}\index{método de!Gauss-Seidel}
 
-Considere o problema $Ax=y$, ou seja,
-\begin{eqnarray*}
-a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n&=&y_1\\
-a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n&=&y_2\\
-\vdots \hspace{100pt}\vdots~~~~&=&~\vdots\\
-a_{n1}x_1+a_{22}x_2+\cdots+a_{nn}x_n&=&y_n
-\end{eqnarray*}
+Assim como no método de Jacobi, no método de Gauss-Seidel também isolamos o elemento $x_i$ da equação $i$. Porém perceba que a equação para $x_2^{(k+1)}$ depende de $x_1^{(k)}$ na iteração $k$. Intuitivamente podemos pensar em usar $x_1^{(k+1)}$ que acabou de ser calculado e temos
 
-Os elementos $x_j$ são calculados iterativamente conforme:
-\begin{eqnarray*}
-x_1^{(k+1)}&=& \frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}}\\
-x_2^{(k+1)}&=&\frac{y_2 - \left(a_{11}x_1^{(k+1)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{22}}\\
-&\vdots&\\
-x_n^{(k+1)}&=&\frac{y_2 - \left(a_{n1}x_1^{(k+1)}+\cdots+a_{n(n-1)}x_{n-1}^{(k+1)}\right)}{A_{nn}}
-\end{eqnarray*}
+\begin{align}
+x_2^{(k+1)}&=\frac{y_2 - \left(a_{21}x_1^{(k+1)}+a_{23}x_3^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}
+\end{align}
 
-Em notação mais compacta, o método de Gauss-Seidel consiste na iteração:
+Aplicando esse raciocínio podemos construir o método de Gauss-Seidel como
 \begin{align*}
-  &x^{(0)} = \text{aprox. inicial}\\
-  &x_i^{(k)} = \frac{y_i - \displaystyle{\sum_{j=1}^{i-1} a_{ij}x_j^{(k+1)}} - \displaystyle{\sum_{j=i+1}^{n} a_{ij}x_j^{(k)}}}{a_{ii}}
+x_1^{(k+1)}&=\frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}}\\
+x_2^{(k+1)}&=\frac{y_2 - \left(a_{21}x_1^{(k+1)}+a_{23}x_3^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}\\
+&\vdots\\
+x_n^{(k+1)}&=\frac{y_2 - \left(a_{n1}x_1^{(k+1)}+\cdots+a_{n(n-1)}x_{n-1}^{(k+1)}\right)}{a_{nn}}
 \end{align*}
 
+Em notação mais compacta, o método de Gauss-Seidel consiste na iteração:
+\begin{align*}\displaystyle
+  &x^{(1)} = \text{aproximação inicial}\\
+  &x_i^{(k)} = \frac{y_i - \sum_{j=1}^{i-1} a_{ij}x_j^{(k+1)} -\sum_{j=i+1}^{n} a_{ij}x_j^{(k)}}{a_{ii}}
+\end{align*}
 
-{\bf Exemplo:} Resolva o sistema $$\left\{\begin{array}{l}10x+y=23\\x+8y=26\end{array}\right.$$
-usando o método de Guass-Seidel iniciando com $x^{(0)}=y^{(0)}=0$.
+\begin{ex}
+Resolva o sistema
+\begin{align*}
+10x+y=23\\
+x+8y=26
+\end{align*}
+usando o método de Guass-Seidel iniciando com $x^{(1)}=y^{(1)}=0$.
 \begin{eqnarray*}
 x^{(k+1)}&=&\frac{23-y^{(k)}}{10}\\
 y^{(k+1)}&=&\frac{26-x^{(k+1)}}{8}\\
-\\
-x^{(1)}&=&\frac{23-y^{(0)}}{10}=2,3\\
-y^{(1)}&=&\frac{26-x^{(1)}}{8}=2,9625\\
-\\
-x^{(2)}&=&\frac{23-y^{(1)}}{10}=2,00375  \\
-y^{(2)}&=&\frac{26-x^{(2)}}{8}=2,9995312
+x^{(2)}&=&\frac{23-y^{(1)}}{10}=2,3\\
+y^{(2)}&=&\frac{26-x^{(2)}}{8}=2,9625\\
+x^{(3)}&=&\frac{23-y^{(2)}}{10}=2,00375  \\
+y^{(3)}&=&\frac{26-x^{(3)}}{8}=2,9995312
 \end{eqnarray*}
+\end{ex}
+
 
 \ifisscilab
 \subsubsection{Código Scilab: Gauss-Seidel}
 
-\verbatiminput{./rotinas/Metodo_de_Gauss-Seidel/gauss.sci}
+\verbatiminput{./cap_linsis/codes/metodo_de_gauss-seidel/gauss_seidel.sci}
 \fi
 
-\section{Análise de convergência}\index{métodos iterativos!sistemas lineares!convergência}
-Uma condição suficiente porém não necessária para que os métodos de Gauss-Seidel e Jacobi convirjam é a que a matriz seja diagonal dominante estrita. Veja \cite{Burden2013}.
+\section{Convergência}\index{métodos iterativos!sistemas lineares!convergência}
+Uma condição suficiente porém não necessária para que os métodos de Gauss-Seidel e Jacobi convirjam é a que a matriz seja diagonal dominante estrita.
+
+\begin{defn}
+ Uma matriz $A$ é \emph{estritamente diagonal dominante} quando
+\begin{align}
+  |a_{ii}|> \sum_{\substack{j=1\\j\ne i}}^{n} |a_{ij}|, i=1,...,n
+\end{align}
+\end{defn}
+
+\begin{defn}
+ Uma matriz $A$ é \emph{diagonal dominante} quando
+\begin{align}
+  |a_{ii}| \geq \sum_{\substack{j=1\\j\ne i}}^{n} |a_{ij}|, i=1,...,n
+\end{align}
+e para ao menos um $i$, $a_{ii}$ é estritamente maior que a soma dos elementos fora da diagonal.
+\end{defn}
+
+\begin{teo}
+ Se a matriz $A$ for diagonal dominante\footnote{E consequentemente estritamente diagonal dominante.}, então os métodos de Jacobi e Gauss-Seidel serão convergentes independente da escolha inicial $x^{(1)}$.
+\end{teo}
+
+Se conhecermos a solução exata $x$ do problema, podemos calcular o erro relativo em cada iteração como
+\begin{align}
+   \frac{ \|x-x^{(k)}\|}{\|x\|}.
+\end{align}
+
+Em geral não temos $x$, entretanto podemos estimar o vetor \emph{resíduo} $r^{(k)}=b-A\tilde{x^{(k)}}$. Note que quando o erro tende a zero, o resíduo também tende a zero. 
+
+\begin{teo}
+ O erro relativo e o resíduo estão relacionados como (veja \cite{Burden2013})
+\begin{align}
+  \frac{ \|x-x^{(k)}\|}{\|x\|} \leq  \kappa(A) \frac{\|r\|}{\|b\|}
+\end{align}
+onde $k(A)$ é o número de condicionamento.
+\end{teo}
+
+
+
 
 \section*{Exercícios}
 
