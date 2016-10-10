@@ -57,7 +57,7 @@ $$\begin{bmatrix}
 a_1\\a_2\\a_3\\ \vdots \\a_n
 \end{bmatrix}=
 \begin{bmatrix}
-y_0\\y_1\\y_2\\ \vdots \\y_n
+y_1\\y_2\\y_3\\ \vdots \\y_n
 \end{bmatrix}
 $$
 A matriz envolvida é uma matriz de Vandermonde de ordem $n$ cujo determinante é dado por
@@ -105,36 +105,36 @@ p(x) &= a_1 + a_2 (x-x_1) + a_3 (x-x_1)(x-x_2) + \cdots \\
 Podemos encontrar os coeficientes $a_i$ resolvendo o sistema linear
 \begin{small}
 \begin{align*}
-&a_1 &= y_1\\
-&a_1+a_2(x_1-x_0) &= y_1\\
-&a_1+a_2(x_2-x_0)+a_3(x_2-x_0)(x_2-x_1) &= y_2\\
+&a_1               &= y_1\\
+&a_1+a_2(x_2-x_1)  &= y_2\\
+&a_1+a_2(x_3-x_1)+a_3(x_3-x_1)(x_3-x_2) &= y_3\\
 &\vdots&\\
-&a_1+a_2(x_n-x_0)+\cdots + a_n(x_n-x_0)\cdots (x_n-x_{n-1}) &= y_n
+&a_1+a_2(x_n-x_1)+\cdots + a_n(x_n-x_1)\cdots (x_n-x_{n-1}) &= y_n
 \end{align*}
 \end{small}
-O qual é equivalente à sua forma matricial:
+que pode ser escrito na forma matricial como
 \begin{small}
   \begin{equation*}
     \begin{bmatrix}
-      1 & 0 & 0  & \!\cdots\!&0\\
-      1& (x_1-x_0)&0 &\!\cdots\!&0\\
-      1&(x_2-x_0)&(x_2-x_0)(x_2-x_1) &\!\cdots\!&0\\
+      1& 0        & 0   & \!\cdots\!&0\\
+      1&(x_2-x_1) & 0 &\!\cdots\!&0\\
+      1&(x_3-x_1) &(x_3-x_1)(x_3-x_2) &\!\cdots\!&0\\
       \vdots&\vdots&\vdots&\!\ddots\!&\vdots\\
-      1&(x_n-x_0)&(x_n-x_0)(x_n-x_1) &\!\cdots\!& (x_{n}-x_0)\cdots(x_n-x_{n-1})\\
+      1&(x_n-x_1) &(x_n-x_1)(x_n-x_2) &\!\cdots\!& (x_n-x_1)\cdots(x_n-x_{n-1})\\
     \end{bmatrix}\begin{bmatrix}
-      a_0\\a_1\\a_2\\ \vdots \\a_n
+      a_1\\a_2\\a_3\\ \vdots \\a_n
     \end{bmatrix} = 
     \begin{bmatrix}
-      y_0\\y_1\\y_2\\ \vdots \\y_n
+      y_1\\y_2\\y_3\\ \vdots \\y_n
     \end{bmatrix}
   \end{equation*}
 \end{small}
 
 Este é um sistema triangular inferior que pode ser facilmente resolvido conforme:
 \begin{eqnarray*}
-a_0&=&y_0\\
-a_1&=&\frac{y_1-a_0}{x_1-x_0}=\frac{y_1-y_0}{x_1-x_0}\\
-a_2&=&\frac{y_2-a_1(x_2-x_0)-a_0}{(x_2-x_0)(x_2-x_1)}=\frac{\frac{y_2-y_1}{(x_2-x_1)}-\frac{y_1-y_0}{(x_1-x_0)}}{(x_2-x_0)}\\
+a_1&=&y_1\\
+a_2&=&\frac{y_2-a_1}{x_2-x_1}=\frac{y_2-y_1}{x_2-x_1}\\
+a_3&=&\frac{y_3-a_2(x_3-x_1)-a_1}{(x_3-x_1)(x_3-x_2)}=\frac{\frac{y_3-y_2}{(x_3-x_2)}-\frac{y_2-y_1}{(x_2-x_1)}}{(x_3-x_1)}\\
 &\ldots&
 \end{eqnarray*}
 A solução deste sistema pode ser escrita em termos das Diferenças Divididas de Newton, definidas recursivamente conforme:
@@ -145,23 +145,17 @@ f[x_j,x_{j+1},x_{j+2}]&=&\frac{f[x_{j+1},x_{j+2}]-f[x_j,x_{j+1}]}{x_{j+2}-x_j}\\
 &\vdots&
 \end{eqnarray*}
 Nesta notação, temos
-$a_k=f[x_0,x_1,x_2,\ldots,x_k]$
+$a_k=f[x_1,x_2,\ldots,x_k]$
 
 Podemos esquematizar o método na seguinte tabela:
 $$
 \begin{array}{|c|c|c|c|c|}\hline
- j&x_j&f[x_j]&f[x_{j-1},x_j]&f[x_{j-2},x_{j-1},x_j]\\\hline
-&&&&\\
-0& x_0 & f[x_0]&&\\
-&&&&\\
-&&&f[x_0,x_1]=\frac{f[x_1]-f[x_0]}{x_1-x_0}&\\
-&&&&\\
-1&x_1&f[x_1]&&f[x_0,x_1,x_2]=\frac{f[x_1,x_2]-f[x_0,x_1]}{x_2-x_0}\\
-&&&&\\
+j &x_j&f[x_j]&f[x_{j-1},x_j]&f[x_{j-2},x_{j-1},x_j]\\\hline
+1 & x_1 & f[x_1]&&\\
 &&&f[x_1,x_2]=\frac{f[x_2]-f[x_1]}{x_2-x_1}&\\
-&&&&\\
-2&x_2&f[x_2]&&\\
-&&&&\\ \hline
+2 & x_2&f[x_2]&&f[x_1,x_2,x_3]=\frac{f[x_2,x_3]-f[x_1,x_2]}{x_3-x_1}\\
+&&&f[x_2,x_3]=\frac{f[x_3]-f[x_2]}{x_3-x_2}&\\
+3 & x_2&f[x_2]&&\\\hline
 \end{array}
 $$
 
@@ -172,21 +166,13 @@ $$(-1,3),(0,1),(1,3),(3,43)$$
 \begin{equation*}
 \begin{array}{|c||c|c|c|c|c|}\hline
  j&x_j&f[x_j]&f[x_{j-1},x_j]&f[x_{j-2},x_{j-1},x_j]&f[x_{j-3},x_{j-2},x_{j-1},x_j]\\\hline
-&&&&&\\
-0& -1 & 3&&&\\
-&&&&&\\
+1& -1 & 3&&&\\
 &&&\frac{1-3}{0-(-1)}=-2&&\\
-&&&&&\\
-1&0&1&&\frac{2-(-2)}{1-(-1)}=2&\\
-&&&&&\\
+2&0&1&&\frac{2-(-2)}{1-(-1)}=2&\\
 &&&\frac{3-1}{1-0}=2&&\frac{6-2}{3-(-1)}=1\\
-&&&&&\\
-2&1&3&&\frac{20-2}{3-0}=6&\\
-&&&&&\\
+3&1&3&&\frac{20-2}{3-0}=6&\\
 &&&\frac{43-3}{3-1}=20&&\\
-&&&&&\\
-3&3&43&&&\\
-&&&&&\\\hline
+4&3&43&&&\\\hline
 \end{array}  
 \end{equation*}
 
@@ -374,22 +360,169 @@ através do polinômio interpolador que coincide com $f(x)$ nos pontos $x=0$ e $
   \end{tiny}
 \end{Answer}
 
-\section{Ajuste de curvas pelo método dos mínimos quadrados}\index{método!dos mínimos quadrados}\index{ajuste de curvas}
 
-No problema de interpolação, desejamos encontrar uma função $f(x)$ tal que
-$$f(x_j)=y_j$$
-para um conjunto de pontos dados.
 
-Existem diversas situações em que desejamos encontrar uma função que se aproxime desses pontos.
+\section{Ajuste de curvas}\index{método!dos mínimos quadrados}\index{ajuste de curvas}
+
+% No problema de interpolação, desejamos encontrar uma função $f(x)$ tal que
+% $$f(x_j)=y_j$$
+% para um conjunto de pontos dados.
+\begin{defn}
+O problema de \emph{ajuste de curvas} consiste em dado um conjunto de $N$ pontos $(x_j,y_j)$, encontre a função $f(x)$ de uma família de funções que melhor aproxima os pontos dados.
+\end{defn}
+
+Por exemplo, dado um conjunto de $15$ pontos como na figura \ref{minquad} encontre a reta que melhor se ajusta aos pontos.
 \begin{figure}[htp]
 \begin{center}
 \includegraphics[width=15cm,angle=0]{./cap_aproxfun/pics/ajuste_reta.eps}
-{\caption{Conjunto de 15 pontos e a reta que melhor se ajuste a eles pelo critério do mínimos quadrados.}}
+\caption{A reta que melhor se ajusta aos 15 pontos dados utilizando o critério dos mínimos quadrados.}
+\label{minquad}
 \end{center}
 \end{figure}
 
-No problema de ajuste de curvas, busca-se a função $f(x)$ de família de funções dadas que melhor se aproxima de um conjunto de pontos dados. O critério mais usado para o ajuste é critério dos mínimos quadrados, ou seja, buscamos a função $f(x)$ da família que minimiza a soma dos erros elevados ao quadrado:
-$$E_q=\left[f(x_1)-y_1\right]^2+\left[f(x_2)-y_2\right]^2+\cdots +\left[f(x_n)-y_n\right]^2=\sum_{j=1}^n \left[f(x_j)-y_j\right]^2$$
+Geralmente o critério mais usado consiste em minimizar a soma do quadrado das distâncias entre a coordenadas $y_j$ e a função desejada em $f(x_j)$. Ou seja, encontre a  função $f(x)$ tal que 
+\begin{align}
+  R &=(f(x_1)-y_1)^2+(f(x_2)-y_2)^2+\cdots +(f(x_N)-y_N)^2\\
+    &=\sum_{j=1}^N (f(x_j)-y_j)^2
+\end{align}
+seja o menor possível, que fornece o nome do método como \emph{método dos mínimos quadrados}.  Note que o \emph{resíduo} em $x_j$ é definido como $r_j=|f(x_j)-y_j|$. 
+
+
+
+
+\subsection{O problema linear}
+
+Dado um conjunto de $N$ pontos, desejamos encontrar a \textit{reta} que melhor se ajusta a esses pontos de tal forma a minimizar o resíduo.
+
+Ou seja, encontre a curva $f(x)=a_1+a_2 x$ tal que 
+\begin{align}
+  R(a_1,a_2) &=\sum_{j=1}^N (f(x_j)-y_j)^2 = \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2
+\end{align}
+seja o menor possível.
+
+O objetivo é encontrar $a_1, a_2$ e geralmente temos muito mais equações do que incógnitas, i.e.,
+\begin{align}
+ a_1+a_2 x_1 &=y_1 \\
+ a_1+a_2 x_2 &=y_2 \\
+ a_1+a_2 x_3 &=y_3 \\
+  \vdots     &= \vdots \\
+ a_N+a_2 x_N &=y_N   
+\end{align}
+ou simplesmente $V\vec a= \vec y$.
+
+O mínimo de $R$ ocorre quando quando a derivada primeira é igual a zero:
+\begin{align}
+  \frac{\partial R}{\partial a_1} &= \frac{\partial }{\partial a_1} \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2 =0 \\
+  \frac{\partial R}{\partial a_2} &= \frac{\partial }{\partial a_2} \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2 =0 
+\end{align}
+ou seja,
+\begin{align}
+   2 \sum_{j=1}^N (a_1 + a_2 x_j-y_j)\cdot 1 &=0 \\
+   2 \sum_{j=1}^N (a_1 + a_2 x_j-y_j)\cdot x_j &=0 
+\end{align}
+e isolando as incógnitas temos
+\begin{align}
+   a_1\sum_{j=1}^N 1 + a_2 \sum_{j=1}^Nx_j &=\sum_{j=1}^N y_j\\
+   a_1\sum_{j=1}^N x_j + a_2 \sum_{j=1}^Nx_j^2 &=\sum_{j=1}^N y_jx_j
+\end{align}
+
+Na forma matricial obtemos
+\begin{equation}
+  \begin{bmatrix}
+     \sum_{j=1}^N 1 &  \sum_{j=1}^N x_j \\
+     \sum_{j=1}^N x_j &  \sum_{j=1}^N x_j^2 
+  \end{bmatrix}
+  \begin{bmatrix}
+     a_1 \\
+     a_2 
+  \end{bmatrix}=
+  \begin{bmatrix}
+     \sum_{j=1}^N y_j \\
+     \sum_{j=1}^N x_j y_j 
+  \end{bmatrix}
+\end{equation}
+
+Observe que é equivalente ao problema matricial
+\begin{equation}
+   Ma := V^TV a = V^Ty
+\end{equation}
+
+
+% Considere o sistema linear dado por
+% $Ax=b$
+% onde $A$ é uma matriz $n\times m$ e $b$ é um vetor de $n$ linhas. Assumimos as seguintes hipóteses:
+% \begin{itemize}
+% \item $n\geq m$. O número de linhas é igual ou superior ao número de colunas. (Mais equações que incógnitas)
+% \item O posto de $A$ é $m$, i.e., existem $m$ linhas L.I. Isso implica que $Av=0$ apenas quando $v=0$
+% \end{itemize}
+
+% Neste caso, não seremos necessariamente capazes de encontrar um vetor $x$ que satisfaça exatamente a equação $Ax=b$, pelo que estamos interessamos no problema de encontrar o vetor $x$ (ordem m) que minimiza o erro quadrático dado por:
+% \begin{equation}\label{defEm}
+% E:=\sum_{j=1}^N \left[z_i- b_i\right]^2
+% \end{equation}
+% onde $z=Ax$ e $z_i$ é linha $i$ do vetor $z$, dado por:
+% \begin{equation}\label{Axi}
+% z_j=(Ax)_j=\sum_{j=1}^m a_{ij} x_j,\quad j=1,\cdots,n
+% \end{equation}
+% onde $a_{ij}$ é o elemento de $A$ na linha $i$ e coluna $j$.
+% Substituindo (\ref{Axi}) em (\ref{defEm})
+% \begin{equation}\label{erro}
+% E:=\sum_{j=1}^N \left[\sum_{j=1}^m a_{ij} x_j- b_i\right]^2
+% \end{equation}
+% Esta é uma função diferenciável nos coeficientes $x_j$ e portanto todo ponto de mínimo acontece quando $\nabla E=0$, ou seja, quando $$\frac{\partial}{\partial x_l}E=0,\forall 1\leq l \leq m $$
+
+% O que implica a seguinte condição
+% \begin{eqnarray*}
+% 0=\frac{\partial}{\partial x_l}E=\sum_{j=1}^N 2\left[\sum_{j=1}^m a_{ij} x_j- b_i\right] a_{il}, ~~~l=1,\cdots, m
+% \end{eqnarray*}
+% Equivalente a
+% \begin{eqnarray*}
+% \sum_{j=1}^N\sum_{j=1}^m  a_{il}x_j a_{ij}=\sum_{j=1}^Na_{il}b_i,~~~l=1,\cdots, m
+% \end{eqnarray*}
+% que pode ser reescrito na forma vetorial como:
+% \begin{eqnarray}\label{cond_vet}
+% \left[
+% \begin{array}{c}
+% \sum_{j=1}^N\sum_{j=1}^m   a_{i1}x_ja_{ij}\\
+% \sum_{j=1}^N\sum_{j=1}^m   a_{i2}x_ja_{ij}\\
+% \vdots\\
+% \sum_{j=1}^N\sum_{j=1}^m   a_{im}x_ja_{ij}\\
+% \end{array}
+% \right]
+% =
+% \left[
+% \begin{array}{c}
+% \sum_{j=1}^Na_{i1}b_i\\
+% \sum_{j=1}^Na_{i2}b_i\\
+% \vdots\\
+% \sum_{j=1}^Na_{im}b_i
+% \end{array}
+% \right]
+% \end{eqnarray}
+% Observamos agora que a expressão (\ref{cond_vet}) é equivalente ao seguinte problema matricial:
+% 
+% \begin{equation}\framebox[100 pt][c]{$A^TA x = A^Tb$}\end{equation}
+
+\begin{teo}
+A matriz $M=V^TV$ é quadrada de ordem $2$ e é inversível sempre que o posto da matriz $V$ é igual a número de colunas $m$.
+\end{teo}
+\begin{proof}
+Para provar que $M$ é invertível precisamos mostrar que $Mv=0$ implica $v=0$:
+$$Mv=0\Longrightarrow V^TVv=0$$
+tomando o produto interno da expressão $0=V^TVv$ com $v$, temos:
+$$0=\left<V^TVv,v\right>=\left<Vv,Vv\right>=\|Vv\|^2$$
+Então se $Mv=0$, $Vv=0$, como o posto de $V$ é igual ao número de colunas, $v=0$.
+\end{proof}
+\begin{lem}
+ A matrix $M=V^TV$ é simétrica.
+\end{lem}
+\begin{proof}
+Isso é facilmente provado pelo seguinte argumento:
+$$M^T=(V^TV)^T=(V)^T(V^T)^T=V^TV=M$$
+\end{proof}
+
+
+
 
 \begin{ex} Encontre a função do tipo $f(x)=ax$ que melhor se aproxima dos seguintes pontos:
   \begin{equation*}
@@ -447,86 +580,66 @@ Portanto a função que procuramos é $f(x)=-0,3 +2,3x$.
 \end{sol}
 
 
+\subsection{Ajuste polinomial}
 
-\section{O caso linear}
+Dado um conjunto de $n$ pontos, desejamos encontrar o \textit{polinômio} que melhor se ajusta a esses pontos de tal forma a minimizar o resíduo, ou seja, encontrar a curva $p(x)=a_1+a_2 x+...+a_Nx^{N-1}$ tal que 
+\begin{align}
+  R(a_1,...,a_N) &=\sum_{j=1}^N (p(x_j)-y_j)^2 \\
+                 &=\sum_{j=1}^N (a_1 + a_2 x_j+...+a_Nx_j^{N-1}-y_j)^2
+\end{align}
+seja o menor possível.
 
-\subsection{O método dos mínimos quadrados}
+O objetivo é encontrar as incógnitas $a_j$ que minimizam a soma do quadrado do resíduo.
 
-Considere o sistema linear dado por
-$Ax=b$
-onde $A$ é uma matriz $n\times m$ e $b$ é um vetor de $n$ linhas. Assumimos as seguintes hipóteses:
-\begin{itemize}
-\item $n\geq m$. O número de linhas é igual ou superior ao número de colunas. (Mais equações que incógnitas)
-\item O posto de $A$ é $m$, i.e., existem $m$ linhas L.I. Isso implica que $Av=0$ apenas quando $v=0$
-\end{itemize}
+O mínimo de $R$ encontra-se quando a derivada primeira é igual a zero:
+\begin{align}
+  \frac{\partial R}{\partial a_1} &= \frac{\partial }{\partial a_1} \sum_{j=1}^N (a_1 + a_2 x_j+...+a_Nx_j^{N-1}-y_j)^2 =0 \\
+  \vdots &= \vdots \\
+  \frac{\partial R}{\partial a_N} &= \frac{\partial }{\partial a_N} \sum_{j=1}^N (a_1 + a_2 x_j+...+a_Nx_j^{N-1}-y_j)^2 =0 
+\end{align}
+ou seja,
+\begin{align}
+   2 \sum_{j=1}^N (a_1 + a_2 x_j+...+a_Nx_j^{N-1}-y_j)\cdot 1 &=0 \\
+  \vdots &= \vdots \\
+   2 \sum_{j=1}^N (a_1 + a_2 x_j+...+a_Nx_j^{N-1}-y_j)\cdot x_j^{N-1} &=0 
+\end{align}
+e isolando as incógnitas temos
+\begin{align}
+   a_1\sum_{j=1}^N 1 + a_2 \sum_{j=1}^Nx_j &=\sum_{j=1}^N y_j\\
+   a_1\sum_{j=1}^N x_j + a_2 \sum_{j=1}^Nx_j^2 &=\sum_{j=1}^N y_jx_j
+\end{align}
 
-Neste caso, não seremos necessariamente capazes de encontrar um vetor $x$ que satisfaça exatamente a equação $Ax=b$, pelo que estamos interessamos no problema de encontrar o vetor $x$ (ordem m) que minimiza o erro quadrático dado por:
-\begin{equation}\label{defEm}
-E:=\sum_{i=1}^n \left[z_i- b_i\right]^2
+Na forma matricial obtemos
+\begin{equation}
+  \begin{bmatrix}
+     \sum_{j=1}^N 1 &  \sum_{j=1}^N x_j \\
+     \sum_{j=1}^N x_j &  \sum_{j=1}^N x_j^2 
+  \end{bmatrix}
+  \begin{bmatrix}
+     a_1 \\
+     a_2 
+  \end{bmatrix}=
+  \begin{bmatrix}
+     \sum_{j=1}^N y_j \\
+     \sum_{j=1}^N x_j y_j 
+  \end{bmatrix}
 \end{equation}
-onde $z=Ax$ e $z_i$ é linha $i$ do vetor $z$, dado por:
-\begin{equation}\label{Axi}
-z_i=(Ax)_i=\sum_{j=1}^m a_{ij} x_j,\quad i=1,\cdots,n
-\end{equation}
-onde $a_{ij}$ é o elemento de $A$ na linha $i$ e coluna $j$.
-Substituindo (\ref{Axi}) em (\ref{defEm})
-\begin{equation}\label{erro}
-E:=\sum_{i=1}^n \left[\sum_{j=1}^m a_{ij} x_j- b_i\right]^2
-\end{equation}
-Esta é uma função diferenciável nos coeficientes $x_j$ e portanto todo ponto de mínimo acontece quando $\nabla E=0$, ou seja, quando $$\frac{\partial}{\partial x_l}E=0,\forall 1\leq l \leq m $$
-O que implica a seguinte condição
-\begin{eqnarray*}
-0=\frac{\partial}{\partial x_l}E=\sum_{i=1}^n 2\left[\sum_{j=1}^m a_{ij} x_j- b_i\right] a_{il}, ~~~l=1,\cdots, m
-\end{eqnarray*}
-Equivalente a
-\begin{eqnarray*}
-\sum_{i=1}^n\sum_{j=1}^m  a_{il}x_j a_{ij}=\sum_{i=1}^na_{il}b_i,~~~l=1,\cdots, m
-\end{eqnarray*}
-que pode ser reescrito na forma vetorial como:
-\begin{eqnarray}\label{cond_vet}
-\left[
-\begin{array}{c}
-\sum_{i=1}^n\sum_{j=1}^m   a_{i1}x_ja_{ij}\\
-\sum_{i=1}^n\sum_{j=1}^m   a_{i2}x_ja_{ij}\\
-\vdots\\
-\sum_{i=1}^n\sum_{j=1}^m   a_{im}x_ja_{ij}\\
-\end{array}
-\right]
-=
-\left[
-\begin{array}{c}
-\sum_{i=1}^na_{i1}b_i\\
-\sum_{i=1}^na_{i2}b_i\\
-\vdots\\
-\sum_{i=1}^na_{im}b_i
-\end{array}
-\right]
-\end{eqnarray}
-Observamos agora que a expressão (\ref{cond_vet}) é equivalente ao seguinte problema matricial:
 
-\begin{equation}\framebox[100 pt][c]{$A^TA x = A^Tb$}\end{equation}
+Observe que é equivalente ao problema matricial
+\begin{equation}
+   Ma := V^TV a = V^Ty
+\end{equation}
 
-\begin{teo}
-A matriz $M=A^TA$ é quadrada de ordem $m$ e é invertível sempre que o posto da matriz $A$ é igual a número de colunas $m$.
-\end{teo}
-\begin{proof}
-Para provar que $M$ é invertível precisamos mostrar que $Mv=0$ implica $v=0$:
-$$Mv=0\Longrightarrow A^TAv=0$$
-tomando o produto interno da expressão $0=A^TAv$ com $v$, temos:
-$$0=\left<A^TAv,v\right>=\left<Av,Av\right>=\|Av\|^2$$
-Então se $Mv=0$ $Av=0$, como o posto de $A$ é igual ao número de colunas, $v=0$.
-\end{proof}
-Outra propriedade importante é que $M$ é simétrica, ou seja, $M=M^T$. Isso é facilmente provado pelo seguinte argumento:
-$$M^T=(A^TA)^T=(A)^T(A^T)^T=A^TA=M$$
+
 
 
 \subsection{Ajuste linear de curvas}
-Seja $f_1(x), f_2(x),\ldots, f_m(x)$ um conjunto de $m$ funções e $(x_1,y_1), (x_2,y_2), \ldots, (x_n,y_n)$ um conjunto de $n$ pontos. Procuram-se os coeficientes $a_1,a_2,\ldots, a_m$ tais que a função dada por
+Seja $f_1(x), f_2(x),\ldots, f_m(x)$ um conjunto de $m$ funções e $(x_1,y_1), (x_2,y_2), \ldots, (x_N,y_N)$ um conjunto de $n$ pontos. Procuram-se os coeficientes $a_1,a_2,\ldots, a_m$ tais que a função dada por
 $$f(x)=a_1f_1(x)+a_2f_2(x)+\ldots+a_mf_m(x)$$
 minimiza o erro dado por
-$$E_q= \sum_{i=1}^n \left[f(x_i)-y_i\right]^2$$
+$$E_q= \sum_{j=1}^N \left[f(x_i)-y_i\right]^2$$
 como $f(x)=\sum_{j=1}^m a_jf_j(x)$, temos
-$$E_q= \sum_{i=1}^n \left[\sum_{j=1}^m a_jf_j(x_i)-y_i\right]^2$$
+$$E_q= \sum_{j=1}^N \left[\sum_{j=1}^m a_jf_j(x_i)-y_i\right]^2$$
 
 Este problema é equivalente a resolver pelo métodos dos mínimos quadrados o seguinte sistema linear:
 $$
@@ -536,7 +649,7 @@ f_1(x_1)&f_2(x_1) & \cdots & f_m(x_1)\\
 f_1(x_2)&f_2(x_2) & \cdots & f_m(x_2)\\
 f_1(x_3)&f_2(x_3) & \cdots & f_m(x_3)\\
 \vdots & \vdots & \ddots & \vdots\\
-f_1(x_n)&f_2(x_n) & \cdots & f_m(x_n)
+f_1(x_N)&f_2(x_N) & \cdots & f_m(x_N)
 \end{array}
 \right]
 \left[
@@ -551,7 +664,7 @@ y_1\\
 y_2\\
 y_3\\
 \vdots\\
-y_n
+y_N
 \end{array}
 \right]
 $$
