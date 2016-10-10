@@ -57,7 +57,7 @@ $$\begin{bmatrix}
 a_1\\a_2\\a_3\\ \vdots \\a_n
 \end{bmatrix}=
 \begin{bmatrix}
-y_0\\y_1\\y_2\\ \vdots \\y_n
+y_1\\y_2\\y_3\\ \vdots \\y_n
 \end{bmatrix}
 $$
 A matriz envolvida é uma matriz de Vandermonde de ordem $n$ cujo determinante é dado por
@@ -360,22 +360,169 @@ através do polinômio interpolador que coincide com $f(x)$ nos pontos $x=0$ e $
   \end{tiny}
 \end{Answer}
 
-\section{Ajuste de curvas pelo método dos mínimos quadrados}\index{método!dos mínimos quadrados}\index{ajuste de curvas}
 
-No problema de interpolação, desejamos encontrar uma função $f(x)$ tal que
-$$f(x_j)=y_j$$
-para um conjunto de pontos dados.
 
-Existem diversas situações em que desejamos encontrar uma função que se aproxime desses pontos.
+\section{Ajuste de curvas}\index{método!dos mínimos quadrados}\index{ajuste de curvas}
+
+% No problema de interpolação, desejamos encontrar uma função $f(x)$ tal que
+% $$f(x_j)=y_j$$
+% para um conjunto de pontos dados.
+\begin{defn}
+O problema de \emph{ajuste de curvas} consiste em dado um conjunto de $N$ pontos $(x_j,y_j)$, encontre a função $f(x)$ de uma família de funções que melhor aproxima os pontos dados.
+\end{defn}
+
+Por exemplo, dado um conjunto de $15$ pontos como na figura \ref{minquad} encontre a reta que melhor se ajusta aos pontos.
 \begin{figure}[htp]
 \begin{center}
 \includegraphics[width=15cm,angle=0]{./cap_aproxfun/pics/ajuste_reta.eps}
-{\caption{Conjunto de 15 pontos e a reta que melhor se ajuste a eles pelo critério do mínimos quadrados.}}
+\caption{A reta que melhor se ajusta aos 15 pontos dados utilizando o critério dos mínimos quadrados.}
+\label{minquad}
 \end{center}
 \end{figure}
 
-No problema de ajuste de curvas, busca-se a função $f(x)$ de família de funções dadas que melhor se aproxima de um conjunto de pontos dados. O critério mais usado para o ajuste é critério dos mínimos quadrados, ou seja, buscamos a função $f(x)$ da família que minimiza a soma dos erros elevados ao quadrado:
-$$E_q=\left[f(x_1)-y_1\right]^2+\left[f(x_2)-y_2\right]^2+\cdots +\left[f(x_n)-y_n\right]^2=\sum_{j=1}^n \left[f(x_j)-y_j\right]^2$$
+Geralmente o critério mais usado consiste em minimizar a soma do quadrado das distâncias entre a coordenadas $y_j$ e a função desejada em $f(x_j)$. Ou seja, encontre a  função $f(x)$ tal que 
+\begin{align}
+  R &=(f(x_1)-y_1)^2+(f(x_2)-y_2)^2+\cdots +(f(x_N)-y_N)^2\\
+    &=\sum_{j=1}^N (f(x_j)-y_j)^2
+\end{align}
+seja o menor possível, que fornece o nome do método como \emph{método dos mínimos quadrados}.  Note que o \emph{resíduo} em $x_j$ é definido como $r_j=|f(x_j)-y_j|$. 
+
+
+
+
+\subsection{O problema linear}
+
+Dado um conjunto de $N$ pontos, desejamos encontrar a \textit{reta} que melhor se ajusta a esses pontos de tal forma a minimizar o resíduo.
+
+Ou seja, encontre a curva $f(x)=a_1+a_2 x$ tal que 
+\begin{align}
+  R(a_1,a_2) &=\sum_{j=1}^N (f(x_j)-y_j)^2 = \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2
+\end{align}
+seja o menor possível.
+
+O objetivo é encontrar $a_1, a_2$ e geralmente temos muito mais equações do que incógnitas, i.e.,
+\begin{align}
+ a_1+a_2 x_1 &=y_1 \\
+ a_1+a_2 x_2 &=y_2 \\
+ a_1+a_2 x_3 &=y_3 \\
+  \vdots     &= \vdots \\
+ a_N+a_2 x_N &=y_N   
+\end{align}
+ou simplesmente $V\vec a= \vec y$.
+
+O mínimo de $R$ ocorre quando quando a derivada primeira é igual a zero:
+\begin{align}
+  \frac{\partial R}{\partial a_1} &= \frac{\partial }{\partial a_1} \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2 =0 \\
+  \frac{\partial R}{\partial a_2} &= \frac{\partial }{\partial a_2} \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2 =0 
+\end{align}
+ou seja,
+\begin{align}
+   2 \sum_{j=1}^N (a_1 + a_2 x_j-y_j)\cdot 1 &=0 \\
+   2 \sum_{j=1}^N (a_1 + a_2 x_j-y_j)\cdot x_j &=0 
+\end{align}
+e isolando as incógnitas temos
+\begin{align}
+   a_1\sum_{j=1}^N 1 + a_2 \sum_{j=1}^Nx_j &=\sum_{j=1}^N y_j\\
+   a_1\sum_{j=1}^N x_j + a_2 \sum_{j=1}^Nx_j^2 &=\sum_{j=1}^N y_jx_j
+\end{align}
+
+Na forma matricial obtemos
+\begin{equation}
+  \begin{bmatrix}
+     \sum_{j=1}^N 1 &  \sum_{j=1}^N x_j \\
+     \sum_{j=1}^N x_j &  \sum_{j=1}^N x_j^2 
+  \end{bmatrix}
+  \begin{bmatrix}
+     a_1 \\
+     a_2 
+  \end{bmatrix}=
+  \begin{bmatrix}
+     \sum_{j=1}^N y_j \\
+     \sum_{j=1}^N x_j y_j 
+  \end{bmatrix}
+\end{equation}
+
+Observe que é equivalente ao problema matricial
+\begin{equation}
+   Ma := V^TV a = V^Ty
+\end{equation}
+
+
+% Considere o sistema linear dado por
+% $Ax=b$
+% onde $A$ é uma matriz $n\times m$ e $b$ é um vetor de $n$ linhas. Assumimos as seguintes hipóteses:
+% \begin{itemize}
+% \item $n\geq m$. O número de linhas é igual ou superior ao número de colunas. (Mais equações que incógnitas)
+% \item O posto de $A$ é $m$, i.e., existem $m$ linhas L.I. Isso implica que $Av=0$ apenas quando $v=0$
+% \end{itemize}
+
+% Neste caso, não seremos necessariamente capazes de encontrar um vetor $x$ que satisfaça exatamente a equação $Ax=b$, pelo que estamos interessamos no problema de encontrar o vetor $x$ (ordem m) que minimiza o erro quadrático dado por:
+% \begin{equation}\label{defEm}
+% E:=\sum_{j=1}^N \left[z_i- b_i\right]^2
+% \end{equation}
+% onde $z=Ax$ e $z_i$ é linha $i$ do vetor $z$, dado por:
+% \begin{equation}\label{Axi}
+% z_j=(Ax)_j=\sum_{j=1}^m a_{ij} x_j,\quad j=1,\cdots,n
+% \end{equation}
+% onde $a_{ij}$ é o elemento de $A$ na linha $i$ e coluna $j$.
+% Substituindo (\ref{Axi}) em (\ref{defEm})
+% \begin{equation}\label{erro}
+% E:=\sum_{j=1}^N \left[\sum_{j=1}^m a_{ij} x_j- b_i\right]^2
+% \end{equation}
+% Esta é uma função diferenciável nos coeficientes $x_j$ e portanto todo ponto de mínimo acontece quando $\nabla E=0$, ou seja, quando $$\frac{\partial}{\partial x_l}E=0,\forall 1\leq l \leq m $$
+
+% O que implica a seguinte condição
+% \begin{eqnarray*}
+% 0=\frac{\partial}{\partial x_l}E=\sum_{j=1}^N 2\left[\sum_{j=1}^m a_{ij} x_j- b_i\right] a_{il}, ~~~l=1,\cdots, m
+% \end{eqnarray*}
+% Equivalente a
+% \begin{eqnarray*}
+% \sum_{j=1}^N\sum_{j=1}^m  a_{il}x_j a_{ij}=\sum_{j=1}^Na_{il}b_i,~~~l=1,\cdots, m
+% \end{eqnarray*}
+% que pode ser reescrito na forma vetorial como:
+% \begin{eqnarray}\label{cond_vet}
+% \left[
+% \begin{array}{c}
+% \sum_{j=1}^N\sum_{j=1}^m   a_{i1}x_ja_{ij}\\
+% \sum_{j=1}^N\sum_{j=1}^m   a_{i2}x_ja_{ij}\\
+% \vdots\\
+% \sum_{j=1}^N\sum_{j=1}^m   a_{im}x_ja_{ij}\\
+% \end{array}
+% \right]
+% =
+% \left[
+% \begin{array}{c}
+% \sum_{j=1}^Na_{i1}b_i\\
+% \sum_{j=1}^Na_{i2}b_i\\
+% \vdots\\
+% \sum_{j=1}^Na_{im}b_i
+% \end{array}
+% \right]
+% \end{eqnarray}
+% Observamos agora que a expressão (\ref{cond_vet}) é equivalente ao seguinte problema matricial:
+% 
+% \begin{equation}\framebox[100 pt][c]{$A^TA x = A^Tb$}\end{equation}
+
+\begin{teo}
+A matriz $M=V^TV$ é quadrada de ordem $2$ e é inversível sempre que o posto da matriz $V$ é igual a número de colunas $m$.
+\end{teo}
+\begin{proof}
+Para provar que $M$ é invertível precisamos mostrar que $Mv=0$ implica $v=0$:
+$$Mv=0\Longrightarrow V^TVv=0$$
+tomando o produto interno da expressão $0=V^TVv$ com $v$, temos:
+$$0=\left<V^TVv,v\right>=\left<Vv,Vv\right>=\|Vv\|^2$$
+Então se $Mv=0$, $Vv=0$, como o posto de $V$ é igual ao número de colunas, $v=0$.
+\end{proof}
+\begin{lem}
+ A matrix $M=V^TV$ é simétrica.
+\end{lem}
+\begin{proof}
+Isso é facilmente provado pelo seguinte argumento:
+$$M^T=(V^TV)^T=(V)^T(V^T)^T=V^TV=M$$
+\end{proof}
+
+
+
 
 \begin{ex} Encontre a função do tipo $f(x)=ax$ que melhor se aproxima dos seguintes pontos:
   \begin{equation*}
@@ -433,86 +580,73 @@ Portanto a função que procuramos é $f(x)=-0,3 +2,3x$.
 \end{sol}
 
 
+\subsection{Ajuste polinomial}
 
-\section{O caso linear}
+Dado um conjunto de $n$ pontos, desejamos encontrar o \textit{polinômio} de grau $p$ que melhor se ajusta a esses pontos de tal forma a minimizar o resíduo, ou seja, encontrar a curva $f(x)=a_1+a_2 x+...+a_{p+1}x^{p}$ tal que 
+\begin{align}
+  R(a_1,...,a_{p+1}) &=\sum_{j=1}^N (f(x_j)-y_j)^2 \\
+                 &=\sum_{j=1}^N (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2
+\end{align}
+seja o menor possível.
 
-\subsection{O método dos mínimos quadrados}
+O objetivo é encontrar as incógnitas $a_i$ que minimizam a soma do quadrado do resíduo.
 
-Considere o sistema linear dado por
-$Ax=b$
-onde $A$ é uma matriz $n\times m$ e $b$ é um vetor de $n$ linhas. Assumimos as seguintes hipóteses:
-\begin{itemize}
-\item $n\geq m$. O número de linhas é igual ou superior ao número de colunas. (Mais equações que incógnitas)
-\item O posto de $A$ é $m$, i.e., existem $m$ linhas L.I. Isso implica que $Av=0$ apenas quando $v=0$
-\end{itemize}
+O mínimo de $R$ encontra-se quando a derivada primeira é igual a zero:
+\begin{align}
+  \frac{\partial R}{\partial a_1}     &= \frac{\partial }{\partial a_1}     \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2 =0 \\
+  \vdots &= \vdots \\
+  \frac{\partial R}{\partial a_{p+1}} &= \frac{\partial }{\partial a_{p+1}} \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2 =0 
+\end{align}
+ou seja,
+\begin{align}
+   2 \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)\cdot 1    &=0 \\
+  \vdots &= \vdots \\
+   2 \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)\cdot x_j^p&=0 
+\end{align}
+e isolando as incógnitas temos
+\begin{align}
+   a_1\sum_{j=1}^n 1     + a_2 \sum_{j=1}^Nx_j      +...+a_{p+1} \sum_{j=1}^Nx_j^{p} &=\sum_{j=1}^N y_j\\
+  \vdots &= \vdots \\
+   a_1\sum_{j=1}^n x_j^p + a_2 \sum_{j=1}^Nx_j^{p+1}+...+a_{p+1} \sum_{j=1}^Nx_j^{2p} &=\sum_{j=1}^N y_jx_j^{p}
+\end{align}
 
-Neste caso, não seremos necessariamente capazes de encontrar um vetor $x$ que satisfaça exatamente a equação $Ax=b$, pelo que estamos interessamos no problema de encontrar o vetor $x$ (ordem m) que minimiza o erro quadrático dado por:
-\begin{equation}\label{defEm}
-E:=\sum_{i=1}^n \left[z_i- b_i\right]^2
+Na forma matricial obtemos
+\begin{equation}
+  \begin{bmatrix}
+     \sum 1     &  \sum  x_j   & \cdots & \sum x_j^p\\
+     \sum x_j   &  \sum  x_j^2 &        & \sum x_j^{p+1}\\
+     \vdots     &              & \ddots & \vdots    \\
+     \sum x_j^p &  \sum  x_j^{p+1} & \cdots & \sum x_j^{2p}
+  \end{bmatrix}
+  \begin{bmatrix}
+     a_1 \\
+     a_2 \\
+     \vdots \\
+     a_{p+1}
+  \end{bmatrix}=
+  \begin{bmatrix}
+     \sum y_j \\
+     \sum x_j y_j \\
+     \vdots \\
+     \sum x_j^p y_j 
+  \end{bmatrix}
 \end{equation}
-onde $z=Ax$ e $z_i$ é linha $i$ do vetor $z$, dado por:
-\begin{equation}\label{Axi}
-z_i=(Ax)_i=\sum_{j=1}^m a_{ij} x_j,\quad i=1,\cdots,n
-\end{equation}
-onde $a_{ij}$ é o elemento de $A$ na linha $i$ e coluna $j$.
-Substituindo (\ref{Axi}) em (\ref{defEm})
-\begin{equation}\label{erro}
-E:=\sum_{i=1}^n \left[\sum_{j=1}^m a_{ij} x_j- b_i\right]^2
-\end{equation}
-Esta é uma função diferenciável nos coeficientes $x_j$ e portanto todo ponto de mínimo acontece quando $\nabla E=0$, ou seja, quando $$\frac{\partial}{\partial x_l}E=0,\forall 1\leq l \leq m $$
-O que implica a seguinte condição
-\begin{eqnarray*}
-0=\frac{\partial}{\partial x_l}E=\sum_{i=1}^n 2\left[\sum_{j=1}^m a_{ij} x_j- b_i\right] a_{il}, ~~~l=1,\cdots, m
-\end{eqnarray*}
-Equivalente a
-\begin{eqnarray*}
-\sum_{i=1}^n\sum_{j=1}^m  a_{il}x_j a_{ij}=\sum_{i=1}^na_{il}b_i,~~~l=1,\cdots, m
-\end{eqnarray*}
-que pode ser reescrito na forma vetorial como:
-\begin{eqnarray}\label{cond_vet}
-\left[
-\begin{array}{c}
-\sum_{i=1}^n\sum_{j=1}^m   a_{i1}x_ja_{ij}\\
-\sum_{i=1}^n\sum_{j=1}^m   a_{i2}x_ja_{ij}\\
-\vdots\\
-\sum_{i=1}^n\sum_{j=1}^m   a_{im}x_ja_{ij}\\
-\end{array}
-\right]
-=
-\left[
-\begin{array}{c}
-\sum_{i=1}^na_{i1}b_i\\
-\sum_{i=1}^na_{i2}b_i\\
-\vdots\\
-\sum_{i=1}^na_{im}b_i
-\end{array}
-\right]
-\end{eqnarray}
-Observamos agora que a expressão (\ref{cond_vet}) é equivalente ao seguinte problema matricial:
 
-\begin{equation}\framebox[100 pt][c]{$A^TA x = A^Tb$}\end{equation}
+Na forma matricial temos 
+\begin{equation}
+   Ma := V^TV a = V^Ty
+\end{equation}
 
-\begin{teo}
-A matriz $M=A^TA$ é quadrada de ordem $m$ e é invertível sempre que o posto da matriz $A$ é igual a número de colunas $m$.
-\end{teo}
-\begin{proof}
-Para provar que $M$ é invertível precisamos mostrar que $Mv=0$ implica $v=0$:
-$$Mv=0\Longrightarrow A^TAv=0$$
-tomando o produto interno da expressão $0=A^TAv$ com $v$, temos:
-$$0=\left<A^TAv,v\right>=\left<Av,Av\right>=\|Av\|^2$$
-Então se $Mv=0$ $Av=0$, como o posto de $A$ é igual ao número de colunas, $v=0$.
-\end{proof}
-Outra propriedade importante é que $M$ é simétrica, ou seja, $M=M^T$. Isso é facilmente provado pelo seguinte argumento:
-$$M^T=(A^TA)^T=(A)^T(A^T)^T=A^TA=M$$
+
 
 
 \subsection{Ajuste linear de curvas}
-Seja $f_1(x), f_2(x),\ldots, f_m(x)$ um conjunto de $m$ funções e $(x_1,y_1), (x_2,y_2), \ldots, (x_n,y_n)$ um conjunto de $n$ pontos. Procuram-se os coeficientes $a_1,a_2,\ldots, a_m$ tais que a função dada por
+Seja $f_1(x), f_2(x),\ldots, f_m(x)$ um conjunto de $m$ funções e $(x_i,y_i)$ um conjunto de $n$ pontos. Procuram-se os coeficientes $a_1,a_2,\ldots, a_m$ tais que a função dada por
 $$f(x)=a_1f_1(x)+a_2f_2(x)+\ldots+a_mf_m(x)$$
-minimiza o erro dado por
-$$E_q= \sum_{i=1}^n \left[f(x_i)-y_i\right]^2$$
+minimiza o resíduo dado por
+$$R= \sum_{j=1}^n \left[f(x_i)-y_i\right]^2$$
 como $f(x)=\sum_{j=1}^m a_jf_j(x)$, temos
-$$E_q= \sum_{i=1}^n \left[\sum_{j=1}^m a_jf_j(x_i)-y_i\right]^2$$
+$$R= \sum_{j=1}^n \left[\sum_{j=1}^m a_jf_j(x_i)-y_i\right]^2$$
 
 Este problema é equivalente a resolver pelo métodos dos mínimos quadrados o seguinte sistema linear:
 $$
@@ -560,7 +694,7 @@ $$
   \end{center}
 \end{ex}
 \begin{sol}
-Desejamos então encontrar os valores de $a$ e $b$ tais que a função $f(x)=ax+b$ melhor se ajusta aos pontos da tabela. Afim de usar  o critério dos mínimos quadrados, escrevemos o problema na forma matricial dada por:
+Desejamos encontrar os valores de $a$ e $b$ tais que a função $f(x)=ax+b$ melhor se ajusta aos pontos da tabela. Afim de usar  o critério dos mínimos quadrados, escrevemos o problema na forma matricial dada por:
 $$
 \left[\begin{array}{cc}
 0,01 &1\\
@@ -751,31 +885,31 @@ $x_i$ & $y_i$& $ax_i^2+bx_i+c$& $ax_i^2+bx_i+c-y_i$\\
 
 \section{Aproximando problemas não lineares por problemas lineares}
 
-Eventualmente, problemas de ajuste de curvas podem recair num sistema não linear. Por exemplo, se desejamos ajustar a função $y=Ae^{bx}$ ao conjunto de pontos $(x_0,y_0)$, $(x_1,y_1)$ e $(x_2,y_2)$, temos que minimizar o funcional
+Eventualmente, problemas de ajuste de curvas podem recair num sistema não linear. Por exemplo, para ajustar função $y=Ae^{bx}$ ao conjunto de pontos $(x_1,y_1)$, $(x_2,y_2)$ e $(x_3,y_3)$, temos que minimizar o resíduo\footnote{A soma do quadrado dos resíduos.} 
 $$
-E_q=(Ae^{x_0b}-y_0)^2+(Ae^{x_1b}-y_1)^2+(Ae^{x_2b}-y_2)^2
+R=(Ae^{x_1b}-y_1)^2+(Ae^{x_2b}-y_2)^2+(Ae^{x_3b}-y_3)^2
 $$
 ou seja, resolver o sistema
 \begin{align*}
-\frac{\partial E_q}{\partial A} &= 2(Ae^{x_0b}-y_0)e^{x_0b}+2(Ae^{x_1b}-y_1)e^{x_1b}+2(Ae^{x_2b}-y_2)e^{x_2b}=0\\
-\frac{\partial E_q}{\partial b} &= 2Ax_0(Ae^{x_0b}-y_0)e^{x_0b} + 2Ax_1(Ae^{x_1b}-y_1)e^{x_1b} \\
-&+ 2x_2A(Ae^{x_2b}-y_2)e^{x_2b}=0
+\frac{\partial R}{\partial A} &= 2(Ae^{x_1b}-y_1)e^{x_1b}+2(Ae^{x_2b}-y_2)e^{x_2b}+2(Ae^{x_3b}-y_3)e^{x_3b}=0\\
+\frac{\partial R}{\partial b} &= 2Ax_1(Ae^{x_1b}-y_1)e^{x_1b} + 2Ax_2(Ae^{x_2b}-y_2)e^{x_2b} \\
+&+ 2Ax_3(Ae^{x_3b}-y_3)e^{x_3b}=0
 \end{align*}
 que é não linear em $A$ e $b$. Esse sistema pode ser resolvido pelo método de Newton-Raphson, o que pode se tornar custoso, ou mesmo inviável quando não dispomos de uma boa aproximação da solução para inicializar o método.
 
 Felizmente, algumas famílias de curvas admitem uma transformação que nos leva a um problema linear. No caso da curva $y=Ae^{bx}$, observe que $\ln y=\ln A+bx$. Assim, em vez de ajustar a curva original $y=Ae^{bx}$ a tabela de pontos, ajustamos a curva submetida a transformação logarítmica
 $$
-z=\ln A+bx:=B+bx.
+\tilde y:=a_1+a_2 \tilde x=\ln A+bx.
 $$
-Usamos os três pontos $(x_0,\ln y_0):=(x_0, \tilde{y}_0)$, $(x_1,\ln y_1):=(x_1,\tilde{y}_1)$ e $(x_2,\ln y_2):=(x_2,\tilde{y}_2)$ e resolvemos o sistema linear
+Usamos os pontos $(\tilde x_j,\tilde y_j):=(x_j,\ln y_j)$, $j=1,2,3$ e resolvemos o sistema linear
 $$
-A^T A \left[\begin{array}{c} B\\b \end{array}\right]=A^T\left[\begin{array}{c}\tilde{y}_0\\\tilde{y}_1\\\tilde{y}_2 \end{array}\right],
+V^T V \left[\begin{array}{c} a_1\\a_2 \end{array}\right]=V^T\left[\begin{array}{c}\tilde{y}_1\\\tilde{y}_2\\\tilde{y}_3 \end{array}\right],
 $$
 onde
 $$
-A=\left[\begin{array}{cc} 1&x_0\\1&x_1\\1&x_2 \end{array}\right]
+A=\left[\begin{array}{cc} 1&x_1\\1&x_2\\1&x_3 \end{array}\right]
 $$
-\begin{ex}Encontre uma curva da forma $y=Ae^x$ que melhor ajusta os pontos $(1,2)$, $(2,3)$ e $(3,5)$.
+\begin{ex}Encontre uma curva da forma $y=Ae^x$ que melhor ajusta os pontos $(1, 2)$, $(2, 3)$ e $(3, 5)$.
 \end{ex}
 Temos
 $$
@@ -794,22 +928,15 @@ Mesmo quando se deseja resolver o sistema não linear, a solução do problema l
 
 A próxima tabela apresenta algumas curvas e transformações que linearizam o problema de ajuste.
 $$
-\begin{array}{|c|c|c|}
-\hline
-\hbox{curva}&\hbox{transformação}&\hbox{problema linearizado}\\
-\hline
-y=ae^{bx}&Y=\ln y&Y=\ln a+ bx\\
-\hline
-y=ax^b&Y=\ln y&Y=\ln a+ b\ln x\\
-\hline
-y=ax^be^{cx}&Y=\ln y&Y=\ln a+ b\ln x+cx\\
-\hline
-y=ae^{(b+cx)^2}&Y=\ln y&Y=\ln a+b^2+ bc x+c^2x^2\\
-\hline
-y=\frac{a}{b+x}&Y=\frac{1}{y}&Y=\frac{b}{a}+\frac{1}{a}x\\
-\hline
-\begin{array}{c}y=A\cos(\omega x+\phi)\\ \omega\ \hbox{conhecido}\end{array}&-&\begin{array}{c}y=a\cos(\omega x)-b\sin(\omega x),\\a=A\cos(\phi),\ b=A\sin(\phi)\end{array}\\
-\hline
+\begin{array}{|c|c|c|}   \hline
+\hbox{curva}    &\hbox{transformação}&\hbox{problema linearizado}\\ \hline
+y=ae^{bx}       &\tilde y=\ln y       & \tilde y=\ln a+ bx\\ \hline
+y=ax^b          &\tilde y=\ln y       & \tilde y=\ln a+ b\ln x\\ \hline
+y=ax^be^{cx}    &\tilde y=\ln y       & \tilde y=\ln a+ b\ln x+cx\\ \hline
+y=ae^{(b+cx)^2} &\tilde y=\ln y       & \tilde y=\ln a+b^2+ bc x+c^2x^2\\ \hline
+y=\frac{a}{b+x} &\tilde y=\frac{1}{y} & \tilde y=\frac{b}{a}+\frac{1}{a}x\\ \hline
+y=A\cos(\omega x+\phi)   & - &  y=a\cos(\omega x)-b\sin(\omega x) \\
+\omega\ \hbox{conhecido} &   &  a=A\cos(\phi),\ b=A\sin(\phi) \\ \hline
 \end{array}
 $$
 
