@@ -1,0 +1,343 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html xml:lang="pt" > 
+<head><title>Complexidade de Algoritmos em Algebra Linear</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,3,notoc*,next --> 
+<meta name="src" content="main.tex"> 
+<meta name="date" content="2016-10-14 14:04:00"> 
+<link rel="stylesheet" type="text/css" href="main.css"> 
+</head><body 
+>
+   <!--l. 470--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse24.html" >next</a>] [<a 
+href="mainse22.html" >prev</a>] [<a 
+href="mainse22.html#tailmainse22.html" >prev-tail</a>] [<a 
+href="#tailmainse16.html">tail</a>] [<a 
+href="mainli10.html#mainli11.html" >up</a>] </p></div>
+   <h3 class="sectionHead"><span class="titlemark">4.2   </span> <a 
+ id="x39-580004.2"></a>Complexidade de Algoritmos em Álgebra Linear</h3>
+<!--l. 471--><p class="noindent" >Dados dois algoritmos diferentes para resolver o mesmo problema, como podemos
+escolher qual desses algoritmos é o melhor? Se pensarmos em termos de
+<span 
+class="ec-lmbx-12">efici</span><span 
+class="ec-lmbx-12">ência </span>(ou custo computacional), queremos saber qual desses algoritmos
+consome menos recursos para realizar a mesma tarefa.
+<!--l. 473--><p class="indent" >   Em geral podemos responder essa pergunta de duas formas: em termos de
+tempo ou de espaço.
+<!--l. 475--><p class="indent" >   Quando tratamos de <span 
+class="ec-lmbx-12">efici</span><span 
+class="ec-lmbx-12">ência espacial</span>, queremos saber quanta memória
+(em geral RAM) é utilizada pelo algoritmo para armazenar os dados, sejam
+matrizes, vetores ou escalares.
+<!--l. 477--><p class="indent" >   Quando tratamos de <span 
+class="ec-lmbx-12">efici</span><span 
+class="ec-lmbx-12">ência temporal</span>, queremos saber quanto
+tempo um algoritmo leva para realizar determinada tarefa. Vamos nos
+concentrar nessa segunda opção, que em geral é a mais difícil de ser
+respondida.
+<!--l. 479--><p class="indent" >   Obviamente o tempo vai depender do tipo de computador utilizado. É razoável
+de se pensar que o tempo vai ser proporcional ao número de operações de ponto
+flutuante (flops) feito pelo algoritmo (observe que o tempo total não depende
+apenas disso, mas também de outros fatores como memória, taxas de
+transferências de dados da memória para o cpu, redes,...). Entretanto vamos nos
+concentrar na contagem do número de operações (flops) para realizar determinada
+tarefa.
+<!--l. 481--><p class="indent" >   No passado (antes dos anos 80), os computadores demoravam mais tempo para
+realizar operações como multiplicação e divisão, se comparados a adição ou
+subtração. Assim, em livros clássicos eram contados apenas o custo das operações
+<span 
+class="lmsy-10x-x-120">&#x00D7; </span>e <span 
+class="lmmi-12">&#x2215;</span>. Nos computadores atuais as quatro operações básicas levam o mesmo
+tempo. Entretanto, na maioria dos algoritmos de álgebra linear o custo associado
+as multiplicações e divisões é proporcional ao custo das somas e subtrações (pois
+a maioria dessas operações podem ser escritas como a combinação de
+produtos internos). Dessa forma, na maior parte deste material levaremos em
+conta somente multiplicações e divisões, a não ser que mencionado o
+contrário.
+                                                                          
+
+                                                                          
+<!--l. 483--><p class="indent" >   Tenha em mente que a ideia é estimar o custo a medida que o tamanho dos
+vetores e matrizes cresce muito (para <span 
+class="lmmi-12">n </span>grande).
+   <div class="newtheorem">
+<!--l. 485--><p class="noindent" ><span class="head">
+<a 
+ id="x39-58001r1"></a>
+<span 
+class="ec-lmbx-12">Exemplo 4.2.1 </span>(Produto escalar-vetor)<span 
+class="ec-lmbx-12">.</span>  </span>Qual o custo para multiplicar um
+escalar por um vetor?
+   </div>
+<!--l. 488--><p class="indent" >
+   <div class="proof">
+<!--l. 488--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Seja <span 
+class="lmmi-12">a </span><span 
+class="lmsy-10x-x-120">&isin;</span><span 
+class="rm-lmbx-12">R</span> e <img 
+src="main549x.png" alt="&#x20D7;x"  class="vec" > <span 
+class="lmsy-10x-x-120">&isin;</span><span 
+class="rm-lmbx-12">R</span><sup><span 
+class="lmmi-8">n</span></sup>, temos que
+   <table 
+class="equation"><tr><td><a 
+ id="x39-58002r9"></a>
+   <center class="math-display" >
+<img 
+src="main550x.png" alt="a&#x20D7;x =  [a &#x00D7; x1,a &#x00D7; x2,...,a &#x00D7; xn]
+" class="math-display" ></center></td><td class="equation-label">(4.9)</td></tr></table>
+<!--l. 492--><p class="nopar" >
+usando <span 
+class="lmmi-12">n </span>multiplicações, ou seja, um custo computacional, <span 
+class="lmmi-12">C</span>, de
+   <table 
+class="equation"><tr><td><a 
+ id="x39-58003r10"></a>
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main551x.png" alt="C =  n flops.
+" class="math-display" ></center></td><td class="equation-label">(4.10)</td></tr></table>
+<!--l. 496--><p class="nopar" >
+                                                                         <span 
+class="msam-10x-x-120">&#x2662;</span>
+   </div>
+   <div class="newtheorem">
+<!--l. 499--><p class="noindent" ><span class="head">
+<a 
+ id="x39-58004r2"></a>
+<span 
+class="ec-lmbx-12">Exemplo 4.2.2 </span>(Produto vetor-vetor)<span 
+class="ec-lmbx-12">.</span>  </span>Qual   o   custo   para   calcular   o
+produto interno <img 
+src="main552x.png" alt="&#x20D7;x"  class="vec" > <span 
+class="lmsy-10x-x-120">&sdot;</span><img 
+src="main553x.png" alt="&#x20D7;y"  class="vec" >?
+   </div>
+<!--l. 502--><p class="indent" >
+   <div class="proof">
+<!--l. 502--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Sejam <img 
+src="main554x.png" alt="&#x20D7;x"  class="vec" ><span 
+class="lmmi-12">,</span><img 
+src="main555x.png" alt="&#x20D7;y"  class="vec" > <span 
+class="lmsy-10x-x-120">&isin;</span><span 
+class="rm-lmbx-12">R</span><sup><span 
+class="lmmi-8">n</span></sup>, temos que
+   <table 
+class="equation"><tr><td><a 
+ id="x39-58005r11"></a>
+   <center class="math-display" >
+<img 
+src="main556x.png" alt="&#x20D7;x &sdot;&#x20D7;y = x1 &#x00D7; y1 + x2 &#x00D7; y2 + ...+ xn &#x00D7; yn
+" class="math-display" ></center></td><td class="equation-label">(4.11)</td></tr></table>
+<!--l. 506--><p class="nopar" >
+                                                                          
+
+                                                                          
+<!--l. 508--><p class="indent" >   São realizadas <span 
+class="lmmi-12">n </span>multiplicações (cada produto <span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">i</span></sub> por <span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">i</span></sub>) e <span 
+class="lmmi-12">n </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1 </span>somas, ou
+seja, o custo total de operações é de
+   <table 
+class="equation"><tr><td><a 
+ id="x39-58006r12"></a>
+   <center class="math-display" >
+<img 
+src="main557x.png" alt="C := (n) + (n &minus; 1) = 2n &minus; 1 flops
+" class="math-display" ></center></td><td class="equation-label">(4.12)</td></tr></table>
+<!--l. 511--><p class="nopar" >
+                                                                         <span 
+class="msam-10x-x-120">&#x2662;</span>
+   </div>
+   <div class="newtheorem">
+<!--l. 515--><p class="noindent" ><span class="head">
+<a 
+ id="x39-58007r3"></a>
+<span 
+class="ec-lmbx-12">Exemplo 4.2.3 </span>(Produto matriz-vetor)<span 
+class="ec-lmbx-12">.</span>  </span>Qual  o  custo  para  calcular  o
+produto de matriz por vetor <span 
+class="lmmi-12">A</span><img 
+src="main558x.png" alt="&#x20D7;x"  class="vec" >?
+   </div>
+<!--l. 518--><p class="indent" >
+   <div class="proof">
+<!--l. 518--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Sejam <span 
+class="lmmi-12">A </span><span 
+class="lmsy-10x-x-120">&isin;</span><span 
+class="rm-lmbx-12">R</span><sup><span 
+class="lmmi-8">n</span><span 
+class="lmsy8-">&#x00D7;</span><span 
+class="lmmi-8">n</span></sup> e <img 
+src="main559x.png" alt="&#x20D7;x"  class="vec" > <span 
+class="lmsy-10x-x-120">&isin;</span><span 
+class="rm-lmbx-12">R</span><sup><span 
+class="lmmi-8">n</span></sup>, temos que
+   <table 
+class="equation"><tr><td><a 
+ id="x39-58008r13"></a>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main560x.png" alt="&lfloor;                &rfloor; &lfloor;   &rfloor;    &lfloor;                                &rfloor;
+|a11  a12  &sdot;&sdot;&sdot;a1n| | x1|    |a11 &#x00D7; x1 + a12x2 + ...+ a1n &#x00D7; xn |
+||  .          .  || ||  .||    ||                .               ||
+||  ..          ..  || ||  ..|| =  ||                ..               ||
+&lceil;                &rceil; &lceil;   &rceil;    &lceil;                                &rceil;
+ an1       &sdot;&sdot;&sdot;ann    xn      an1 &#x00D7; x1 + an2x2 + ...+ ann &#x00D7; xn
+" class="math-display" ></center></td><td class="equation-label">(4.13)</td></tr></table>
+<!--l. 523--><p class="nopar" >
+<!--l. 525--><p class="indent" >   Para obter o primeiro elemento do vetor do lado direito devemos
+multiplicar a primeira linha de <span 
+class="lmmi-12">A </span>pelo vetor coluna <img 
+src="main561x.png" alt="&#x20D7;x"  class="vec" >. Note que esse
+é exatamente o custo do produto vetor-vetor do exemplo anterior.
+Como o custo para cada elemento do vetor do lado direito é o mesmo e
+temos <span 
+class="lmmi-12">n </span>elementos, teremos que o custo para multiplicar matriz-vetor
+é<span class="footnote-mark"><a 
+href="main40.html#fn1x7"><sup class="textsuperscript">1</sup></a></span><a 
+ id="x39-58009f1"></a>
+   <table 
+class="equation"><tr><td><a 
+ id="x39-58011r15"></a>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main563x.png" alt="C := n &sdot; (2n &minus; 1) = 2n2 &minus; n flops.
+" class="math-display" ></center></td><td class="equation-label">(4.15)</td></tr></table>
+<!--l. 532--><p class="nopar" >
+<!--l. 534--><p class="indent" >   A medida que <span 
+class="lmmi-12">n </span><span 
+class="lmsy-10x-x-120">&rarr;&infin;</span>, temos
+   <table 
+class="equation"><tr><td><a 
+ id="x39-58012r16"></a>
+   <center class="math-display" >
+<img 
+src="main564x.png" alt="O (2n2 &minus; n) = O (2n2) = O (n2) flops.
+" class="math-display" ></center></td><td class="equation-label">(4.16)</td></tr></table>
+<!--l. 537--><p class="nopar" >
+                                                                         <span 
+class="msam-10x-x-120">&#x2662;</span>
+   </div>
+   <div class="newtheorem">
+<!--l. 541--><p class="noindent" ><span class="head">
+<a 
+ id="x39-58013r4"></a>
+<span 
+class="ec-lmbx-12">Exemplo 4.2.4 </span>(Produto matriz-matriz)<span 
+class="ec-lmbx-12">.</span>  </span>Qual  o  custo  para  calcular  o
+produto de duas matrizes <span 
+class="lmmi-12">AB</span>?
+   </div>
+<!--l. 544--><p class="indent" >
+   <div class="proof">
+<!--l. 544--><p class="indent" >   <span class="head">
+                                                                          
+
+                                                                          
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Sejam <span 
+class="lmmi-12">A,B </span><span 
+class="lmsy-10x-x-120">&isin;</span><span 
+class="rm-lmbx-12">R</span><sup><span 
+class="lmmi-8">n</span><span 
+class="lmsy8-">&#x00D7;</span><span 
+class="lmmi-8">n</span></sup> temos que
+   <table 
+class="equation"><tr><td><a 
+ id="x39-58014r17"></a>
+   <center class="math-display" >
+<img 
+src="main565x.png" alt="&lfloor;                &rfloor; &lfloor;                &rfloor;   &lfloor;                &rfloor;
+|a11  a12  &sdot;&sdot;&sdot;a1n| |b11  b12  &sdot;&sdot;&sdot;a1n|   | c11 c12  &sdot;&sdot;&sdot;c1n|
+|| .           .  || || .          .   ||   ||  .          .  ||
+|| ..           ..  || || ..          ..   || = ||  ..          ..  ||
+&lceil;                &rceil; &lceil;                &rceil;   &lceil;                &rceil;
+ an1       &sdot;&sdot;&sdot;ann   bn1       &sdot;&sdot;&sdot;bnn      cn1      &sdot;&sdot;&sdot;cnn
+" class="math-display" ></center></td><td class="equation-label">(4.17)</td></tr></table>
+<!--l. 550--><p class="nopar" >
+onde o elemento <span 
+class="lmmi-12">d</span><sub><span 
+class="lmmi-8">ij</span></sub> é o produto da linha <span 
+class="lmmi-12">i </span>de <span 
+class="lmmi-12">A </span>pela coluna <span 
+class="lmmi-12">j </span>de <span 
+class="lmmi-12">B</span>,
+   <table 
+class="equation"><tr><td><a 
+ id="x39-58015r18"></a>
+   <center class="math-display" >
+<img 
+src="main566x.png" alt="dij = ai1 &#x00D7; b1j + ai2 &#x00D7; b2j + ...+ ai2 &#x00D7; b2j
+" class="math-display" ></center></td><td class="equation-label">(4.18)</td></tr></table>
+<!--l. 554--><p class="nopar" >
+Note que esse produto tem o custo do produto vetor-vetor, ou seja, <span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">n</span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1</span>. Como
+temos <span 
+class="lmmi-12">n </span><span 
+class="lmsy-10x-x-120">&#x00D7; </span><span 
+class="lmmi-12">n </span>elementos em <span 
+class="lmmi-12">D</span>, o custo total para multiplicar duas matrizes
+                                                                          
+
+                                                                          
+é<span class="footnote-mark"><a 
+href="main41.html#fn2x7"><sup class="textsuperscript">2</sup></a></span><a 
+ id="x39-58016f2"></a>
+   <table 
+class="equation"><tr><td><a 
+ id="x39-58018r20"></a>
+   <center class="math-display" >
+<img 
+src="main568x.png" alt="C =  n &#x00D7; n &#x00D7; (2n &minus; 1) = 2n3 &minus; n2 flops.
+" class="math-display" ></center></td><td class="equation-label">(4.20)</td></tr></table>
+<!--l. 562--><p class="nopar" >
+                                                                         <span 
+class="msam-10x-x-120">&#x2662;</span>
+   </div>
+                                                                          
+
+                                                                          
+   <!--l. 567--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse24.html" >next</a>] [<a 
+href="mainse22.html" >prev</a>] [<a 
+href="mainse22.html#tailmainse22.html" >prev-tail</a>] [<a 
+href="mainse16.html" >front</a>] [<a 
+href="mainli10.html#mainli11.html" >up</a>] </p></div>
+<!--l. 567--><p class="indent" >   <a 
+ id="tailmainse16.html"></a>  
+</body></html> 

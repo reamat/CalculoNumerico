@@ -1,0 +1,2799 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html xml:lang="pt" > 
+<head><title>Integraçao numerica</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,3,notoc*,next --> 
+<meta name="src" content="main.tex"> 
+<meta name="date" content="2016-10-14 15:35:00"> 
+<link rel="stylesheet" type="text/css" href="main.css"> 
+</head><body 
+>
+   <!--l. 706--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse48.html" >next</a>] [<a 
+href="mainse46.html" >prev</a>] [<a 
+href="mainse46.html#tailmainse46.html" >prev-tail</a>] [<a 
+href="mainse22.html#tailmainse34.html">tail</a>] [<a 
+href="mainap1.html#mainse47.html" >up</a>] </p></div>
+   <h3 class="sectionHead"><span class="titlemark">7.3   </span> <a 
+ id="x79-1240007.3"></a>Integração numérica</h3>
+<a 
+ id="dx79-124001"></a>
+<!--l. 708--><p class="noindent" >Considere o problema de calcular a área entre uma função positiva, o eixo <span 
+class="lmmi-12">x </span>e as
+retas <span 
+class="lmmi-12">x </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">a </span>e <span 
+class="lmmi-12">x </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">b</span>. O valor exato dessa área é calculada fazendo uma
+aproximação por retângulos com bases iguais e depois tomando o limite quando o
+número de retângulos tende ao infinito:
+   <center class="math-display" >
+<img 
+src="main1124x.png" alt="         &sum;n
+A =  lim     f (xi)hn,
+    n&rarr; &infin; i=1  " class="math-display" ></center>
+onde <span 
+class="lmmi-12">h</span><sub><span 
+class="lmmi-8">n</span></sub> <span 
+class="rm-lmr-12">=</span> <img 
+src="main1125x.png" alt="b&minus;a
+ n"  class="frac" align="middle"> é o tamanho da base dos retângulo e <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">i</span></sub><span 
+class="rm-lmr-12">)</span>, <span 
+class="rm-lmr-12">1 </span><span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="lmmi-12">i </span><span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="lmmi-12">n</span>,
+<span 
+class="lmmi-12">a </span><span 
+class="rm-lmr-12">+ (</span><span 
+class="lmmi-12">i </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1)</span><span 
+class="lmmi-12">h </span><span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">i</span></sub> <span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="lmmi-12">a </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">ih</span>, é a altura dos retângulos. Essa definição é
+generalizada para cálculo de integrais num intervalo <span 
+class="rm-lmr-12">[</span><span 
+class="lmmi-12">a,b</span><span 
+class="rm-lmr-12">]</span>:
+   <center class="math-display" >
+<img 
+src="main1126x.png" alt="&int;                 n
+  b              &sum;
+ a f(x)dx =  lnim&rarr;&infin;    f (xi)hn.
+                 i=1  " class="math-display" ></center> A
+Figura&#x00A0;<a 
+href="#x79-1240021">7.1<!--tex4ht:ref: fig:int_101 --></a> mostra um exemplo quando <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) = </span><span 
+class="lmmi-12">x</span><sup><span 
+class="rm-lmr-8">2</span></sup> <span 
+class="rm-lmr-12">+ 1</span>, <span 
+class="rm-lmr-12">0 </span><span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="lmmi-12">x </span><span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="rm-lmr-12">2</span>. Temos a
+                                                                          
+
+                                                                          
+aproximação por um retângulo com base <span 
+class="lmmi-12">h</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">= 2</span>, depois com dois retângulos
+de base <span 
+class="lmmi-12">h</span><sub><span 
+class="rm-lmr-8">2</span></sub> <span 
+class="rm-lmr-12">= 1 </span>e, finalmente com quatro retângulo de bases <span 
+class="lmmi-12">h</span><sub><span 
+class="rm-lmr-8">3</span></sub> <span 
+class="rm-lmr-12">= 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">5</span>.
+<hr class="figure"><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x79-1240021"></a>
+                                                                          
+
+                                                                          
+<!--l. 719--><p class="noindent" ><img 
+src="main1127x.png" alt="PIC" class="graphics" width="428.59937pt" height="323.20607pt" ><!--tex4ht:graphics  
+name="main1127x.png" src="./cap_derint/pics/int_1.eps"  
+-->
+<br /> <div class="caption" 
+><span class="id">Figura&#x00A0;7.1: </span><span  
+class="content">Aproximação por retângulos.</span></div><!--tex4ht:label?: x79-1240021 -->
+                                                                          
+
+                                                                          
+<!--l. 722--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 724--><p class="indent" >   Os valores aproximados para a integral são dados na tabela:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1128x.png" alt="|-------------|------------|-------------------------|---------|----------|
+|             |            |                         |         |          |
+|-------------|--h1-=-2----|---------h2-=-1----------|h3-=--0,5-|h4-=--0,25-|
+|&int;2(x2 + 1)dx |h f (1) = 4 |h f(0,5) + h f(1,5) = 4,5 |  4,625  | 4,65625  |
+|-0-----------|-1------------2----------2----------------------------------
+|             |
+" class="math-display" ></center></td></tr></table>
+<!--l. 730--><p class="nopar" >
+Observe que
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1129x.png" alt="                [      ]
+&int; 2  2           x3      2   8
+  (x  + 1)dx =   ---+ x   =  --+ 2 = 4,6666667
+ 0               3       0   3
+" class="math-display" ></center></td></tr></table>
+<!--l. 734--><p class="nopar" >
+                                                                          
+
+                                                                          
+   <h4 class="subsectionHead"><span class="titlemark">7.3.1   </span> <a 
+ id="x79-1250007.3.1"></a>Regras de Newton-Cotes</h4>
+<a 
+ id="dx79-125001"></a>
+<!--l. 738--><p class="noindent" >A integral de uma função num intervalo <span 
+class="rm-lmr-12">[</span><span 
+class="lmmi-12">a,b</span><span 
+class="rm-lmr-12">]</span>, também chamada de quadratura
+numérica, é aproximada pela soma:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1130x.png" alt="&int; b          &sum;n
+ a f(x )dx &asymp;    aif(xi),
+             i=1
+" class="math-display" ></center></td></tr></table>
+<!--l. 741--><p class="nopar" >
+onde <span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">i</span></sub>, <span 
+class="rm-lmr-12">1 </span><span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="lmmi-12">i </span><span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="lmmi-12">n</span>, são pontos distintos do intervalo <span 
+class="rm-lmr-12">[</span><span 
+class="lmmi-12">a,b</span><span 
+class="rm-lmr-12">]</span>. Nesta definição, a
+integral <span 
+class="lmex-10">&int;</span>
+ <sub><span 
+class="rm-lmr-8">0</span></sub><sup><span 
+class="rm-lmr-8">2</span></sup><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sup><span 
+class="rm-lmr-8">2</span></sup> <span 
+class="rm-lmr-12">+ 1)</span><span 
+class="lmmi-12">dx </span>usando uma aproximação por retângulo usa apenas um
+ponto, o ponto médio do intervalo (<span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">= 1</span>), e a soma se reduz a uma parcela
+(<span 
+class="rm-lmr-12">(2 </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">0)</span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(1)</span>). A fórmula geral para essa caso, chamado de regra do ponto médio
+é:
+   <table 
+class="equation"><tr><td><a 
+ id="x79-125002r7"></a>
+   <center class="math-display" >
+<img 
+src="main1131x.png" alt="&int; b                  (      )
+   f(x)dx &asymp;  (b &minus; a)f  a-+-b  := hf (x ).
+ a                       2            1
+" class="math-display" ></center></td><td class="equation-label">(7.7)</td></tr></table>
+<!--l. 745--><p class="nopar" >
+                                                                          
+
+                                                                          
+<!--l. 747--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x79-1260007.3.1"></a>Regra do ponto médio</h5>
+<a 
+ id="dx79-126001"></a>
+<!--l. 748--><p class="noindent" >A regra do ponto médio (<a 
+href="#x79-125002r7">7.7<!--tex4ht:ref: ponto_medio_1 --></a>) pode ser deduzida mais formalmente usando a
+expansão de Taylor
+   <center class="math-display" >
+<img 
+src="main1132x.png" alt="                                f &prime;&prime;(&xi;(x))
+f (x) = f(x1) + f&prime;(x1 )(x &minus; x1 ) +---------(x &minus; x1)2
+                                    2   " class="math-display" ></center> que
+leva a integral
+   <center class="math-display" >
+<img 
+src="main1133x.png" alt="&int; b          &int; b            &prime;    &int; b            &int; b f&prime;&prime;(&xi;(x))-       2
+ a f(x )dx =   a f(x1)dx + f (x1)  a (x &minus; x1)dx + a     2    (x &minus; x1) dx.  " class="math-display" ></center>
+Usando o teorema do valor médio para integrais e que <span 
+class="lmmi-12">h </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">b</span><span 
+class="lmsy-10x-x-120">&minus;</span><span 
+class="lmmi-12">a </span>e <span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">= (</span><span 
+class="lmmi-12">a </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">b</span><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">&#x2215;</span><span 
+class="rm-lmr-12">2</span>,
+temos:
+                                                                          
+
+                                                                          
+<table 
+class="align-star">
+    <tr><td 
+class="align-odd"> <span 
+class="lmex-10">&int;</span>
+  <sub><span 
+class="lmmi-8">a</span></sub><sup><span 
+class="lmmi-8">b</span></sup><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">dx</span></td>    <td 
+class="align-even"> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">hf</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub>
+<span 
+class="rm-lmr-8">1</span></sub><span 
+class="rm-lmr-12">) + </span><span 
+class="lmmi-12">f</span><span 
+class="lmsy-10x-x-120">&prime;</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="rm-lmr-12">)</span> <span 
+class="lmex-10">&int;</span>
+  <sub><span 
+class="lmmi-8">a</span></sub><sup><span 
+class="lmmi-8">b</span></sup><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">x</span><sub>
+<span 
+class="rm-lmr-8">1</span></sub><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">dx </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">f</span><span 
+class="lmsy-10x-x-120">&prime;&prime;</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">&eta;</span><span 
+class="rm-lmr-12">)</span> <span 
+class="lmex-10">&int;</span>
+  <sub><span 
+class="lmmi-8">a</span></sub><sup><span 
+class="lmmi-8">b</span></sup><img 
+src="main1134x.png" alt="1-
+2"  class="frac" align="middle"><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="rm-lmr-12">)</span><sup><span 
+class="rm-lmr-8">2</span></sup><span 
+class="lmmi-12">dx</span></td>    <td 
+class="align-label"></td>    <td 
+class="align-label">
+    </td></tr><tr><td 
+class="align-odd"></td>               <td 
+class="align-even"> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">hf</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="rm-lmr-12">) + </span><span 
+class="lmmi-12">f</span><span 
+class="lmsy-10x-x-120">&prime;</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="rm-lmr-12">)</span><img 
+src="main1135x.png" alt="[          ]
+  (x &minus;-x1)2
+      2"  class="left" align="middle"><sub><span 
+class="lmmi-8">a</span></sub><sup><span 
+class="lmmi-8">b</span></sup> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">f</span><span 
+class="lmsy-10x-x-120">&prime;&prime;</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">&eta;</span><span 
+class="rm-lmr-12">)</span><img 
+src="main1136x.png" alt="[1-       3]
+ 6(x &minus; x1 )"  class="left" align="middle"><sub><span 
+class="lmmi-8">a</span></sub><sup><span 
+class="lmmi-8">b</span></sup></td>       <td 
+class="align-label"></td>    <td 
+class="align-label">
+    </td></tr><tr><td 
+class="align-odd"></td>               <td 
+class="align-even"> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">hf</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="rm-lmr-12">) + </span><span 
+class="lmmi-12">f</span><span 
+class="lmsy-10x-x-120">&prime;</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="rm-lmr-12">)</span><img 
+src="main1137x.png" alt="[                      ]
+  (b &minus;-x1-)2  (a &minus;-x1-)2
+      2    &minus;     2"  class="left" align="middle"></td>                     <td 
+class="align-label"></td>    <td 
+class="align-label">
+    </td></tr><tr><td 
+class="align-odd"></td>               <td 
+class="align-even"> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">f</span><span 
+class="lmsy-10x-x-120">&prime;&prime;</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">&eta;</span><span 
+class="rm-lmr-12">)</span><img 
+src="main1138x.png" alt="[                       ]
+ 1(b &minus; x1)3 &minus; 1(a &minus; x1)3
+ 6            6"  class="left" align="middle"></td>                             <td 
+class="align-label"></td>    <td 
+class="align-label">
+    </td></tr><tr><td 
+class="align-odd"></td>               <td 
+class="align-even"> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">hf</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="rm-lmr-12">) +</span> <img 
+src="main1139x.png" alt="h3f-&prime;&prime;(&eta;)
+    3"  class="frac" align="middle"><span 
+class="lmmi-12">.</span></td>                                          <td 
+class="align-label"></td>    <td 
+class="align-label"></td></tr></table>
+para <span 
+class="lmmi-12">a </span><span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="lmmi-12">&eta; </span><span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="lmmi-12">b</span>.
+   <div class="newtheorem">
+<!--l. 766--><p class="noindent" ><span class="head">
+<a 
+ id="x79-126002r1"></a>
+<span 
+class="ec-lmbx-12">Exemplo 7.3.1.</span>  </span>Use a regra do ponto médio para aproximar a integral
+   <center class="math-display" >
+<img 
+src="main1140x.png" alt="&int; 1   2
+   e&minus;x dx.
+ 0
+" class="math-display" ></center> Depois divida a integral em duas
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main1141x.png" alt="&int; 1&#x2215;2          &int; 1
+     e&minus; x2dx +     e &minus;x2dx.
+ 0              1&#x2215;2
+" class="math-display" ></center> e aplique a regra do ponto médio em cada uma delas. Finalmente, repita o
+processo dividindo em quatro integrais.
+<!--l. 777--><p class="indent" >   Usando o intervalo <span 
+class="rm-lmr-12">[0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">1]</span>, temos <span 
+class="lmmi-12">h </span><span 
+class="rm-lmr-12">= 1 </span>e <span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">&#x2215;</span><span 
+class="rm-lmr-12">2</span>. A regra do ponto médio
+resulta em
+   <center class="math-display" >
+<img 
+src="main1142x.png" alt="&int; 1
+   e&minus;x2dx &asymp; 1 &sdot; e&minus;1&#x2215;4 = 0,7788008
+ 0
+" class="math-display" ></center> Usando dois intervalos, <span 
+class="rm-lmr-12">[0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">1</span><span 
+class="lmmi-12">&#x2215;</span><span 
+class="rm-lmr-12">2] </span>e <span 
+class="rm-lmr-12">[1</span><span 
+class="lmmi-12">&#x2215;</span><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">1] </span>e usando a regra do ponto médio
+em cada um dos intervalos, temos:
+   <center class="math-display" >
+<img 
+src="main1143x.png" alt="&int;
+  1 &minus;x2           &minus; 1&#x2215;16        &minus;9&#x2215;16
+ 0 e   dx &asymp;  0,5 &sdot; e    +  0,5 &sdot; e    ) = 0,4697065  + 0,2848914 =  0,7545979
+" class="math-display" ></center> Agora, usando quatro intervalos, temos
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main1144x.png" alt="&int; 1   2
+   e&minus;x dx &asymp;  0,25 &sdot;e&minus; 1&#x2215;64+0,25 &sdot;e&minus;9&#x2215;64+0,25 &sdot;e&minus;25&#x2215;64+0,25&sdot;e&minus;49&#x2215;64 = 0,7487471
+ 0
+" class="math-display" ></center> Observe que o valor da integral é
+   <center class="math-display" >
+<img 
+src="main1145x.png" alt="&int; 1
+   e&minus;x2dx =  0,7468241330.
+ 0
+" class="math-display" ></center>
+   </div>
+<!--l. 796--><p class="indent" >   A forma natural de obter as regras de integração é usar o polinômio de
+Lagrange que passa pelo pontos <span 
+class="lmsy-10x-x-120">{</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">i</span></sub><span 
+class="lmmi-12">,f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">i</span></sub><span 
+class="rm-lmr-12">))</span><span 
+class="lmsy-10x-x-120">}</span><sub><span 
+class="lmmi-8">i</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">n</span></sup>
+   <center class="math-display" >
+<img 
+src="main1146x.png" alt="                                &sum;n               n&prod;          (n+1)
+f (x) = Pn(x ) + termo de erro =     f(xi)Li(x) +   (x &minus; xi)f-----(&xi;(x)).
+                                 i=1              i=1          (n + 1)!  " class="math-display" ></center> e
+integramos
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main1147x.png" alt="&int; b          &sum;n [      &int; b       ]       1    &int; b&prod;n
+   f (x)dx =     f (xi)    Li(x)dx  +  --------     (x &minus; xi)f(n+1)(&xi;(x))dx.
+ a           i=1        a             (n + 1 )!  a i=1 " class="math-display" ></center> A
+fórmula de quadratura então é
+   <center class="math-display" >
+<img 
+src="main1148x.png" alt="&int;             n
+  b          &sum;
+ a f (x)dx &asymp;    aif(xi),
+             i=1  " class="math-display" ></center>
+onde
+   <center class="math-display" >
+<img 
+src="main1149x.png" alt="     &int; b
+a  =    L (x)dx
+ i    a   i
+" class="math-display" ></center>
+                                                                          
+
+                                                                          
+<!--l. 813--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x79-1270007.3.1"></a>Regra do Trapézio</h5>
+<a 
+ id="dx79-127001"></a>
+<!--l. 815--><p class="noindent" >A regra do trapézio consiste em aproximar a integral por um trapézio em vez de
+um retângulo, como fizemos. Para isso, o polinômio de Lagrange deve ser uma
+reta, como mostra a figura.
+<div class="center" 
+>
+<!--l. 816--><p class="noindent" >
+<!--l. 817--><p class="noindent" ><img 
+src="main1150x.png" alt="PIC" class="graphics" width="428.59937pt" height="323.20607pt" ><!--tex4ht:graphics  
+name="main1150x.png" src="./cap_derint/pics/int_2.eps"  
+--></div>
+<!--l. 820--><p class="indent" >   O polinômio de Lagrange de primeira ordem que passa por <span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">0</span></sub><span 
+class="lmmi-12">,f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">0</span></sub><span 
+class="rm-lmr-12">)) := (</span><span 
+class="lmmi-12">a,f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">a</span><span 
+class="rm-lmr-12">))</span>
+e <span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="lmmi-12">,f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="rm-lmr-12">)) := (</span><span 
+class="lmmi-12">b,f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">b</span><span 
+class="rm-lmr-12">)) </span>é dado por
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main1151x.png" alt="P1(x) = f (x0) (x-&minus;-x0)-+ f(x1)-(x-&minus;--x1) = f (x0 )(x &minus;-x0)&minus;  f(x1)(x-&minus;-x1),
+              (x1 &minus; x0)        (x0 &minus; x1)            h                h " class="math-display" ></center>
+onde <span 
+class="lmmi-12">h </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">0</span></sub>. Podemos integrar a função <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) </span>aproximando-a por esse
+polinômio:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1152x.png" alt="&int; b               &int; b(x &minus; x0 )          &int; b (x &minus; x1)
+   f(x)dx = f (x0)   -------- dx &minus; f(x1)    --------dx
+ a             &int;   a     h                a    h
+          + -1   b(x &minus; x  )(x &minus; x  )f &prime;&prime;(&xi;(x))dx.
+            2!  a       0       1
+" class="math-display" ></center></td></tr></table>
+<!--l. 830--><p class="nopar" >
+Pelo teorema do valor médio, existe <span 
+class="lmmi-12">a </span><span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="lmmi-12">&eta; </span><span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="lmmi-12">b </span>tal que <span 
+class="lmex-10">&int;</span>
+ <sub><span 
+class="lmmi-8">a</span></sub><sup><span 
+class="lmmi-8">b</span></sup><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">&xi;</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">))</span><span 
+class="lmmi-12">g</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">dx </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">&eta;</span><span 
+class="rm-lmr-12">)</span> <span 
+class="lmex-10">&int;</span><sub>
+<span 
+class="lmmi-8">a</span></sub><sup><span 
+class="lmmi-8">b</span></sup><span 
+class="lmmi-12">g</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">dx</span>
+e, portanto,
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1153x.png" alt="                  [          ]          [          ]
+&int; b                 (x &minus; x0)2 x1          (x &minus; x1 )2 x1
+   f(x)dx =  f(x0)  ---------   &minus;  f(x1)  ---------
+ a                 [   2h     x0             2]h     x0
+             f&prime;&prime;(&eta;)  x3   x2                   x1
+          +  ------ ---&minus; ---(x1 + x0) + x0x1x
+               2    3     2                   x0
+                  (x1 &minus; x0)2         (x0 &minus; x1 )2
+          =  f(x0)---------- + f(x1) ----------
+              &prime;&prime;   (  23h   2            2h         3    2                  )
+          +  f-(&eta;)- x-1&minus;  x1(x  + x ) + x x x  &minus; x-0+  x0(x  + x ) &minus; x x x
+               2     3    2   1    0     0 1 1    3    2   1    0     0 1 0
+                    2          2
+          =  f(x0)h--+  f(x1)h--
+                  2h         2h
+             f&prime;&prime;(&eta;)2x31 &minus;-3x21(x1 +-x0) +-6x21x0 &minus;-2x30 +-3x20(x1-+-x0) &minus;-6x1x20
+          +    2                              6
+             h                   f&prime;&prime;(&eta;)(                        )
+          =  -(f (x0) + f (x1)) +------ x30 &minus; 3x20x1 + 3x21x0 &minus; x31
+             2                    12
+             h-                  h3f&prime;&prime;(&eta;)-
+          =  2(f (x0) + f (x1)) &minus;  12
+" class="math-display" ></center></td></tr></table>
+<!--l. 843--><p class="nopar" >
+   <div class="newtheorem">
+<!--l. 845--><p class="noindent" ><span class="head">
+<a 
+ id="x79-127002r2"></a>
+<span 
+class="ec-lmbx-12">Exemplo 7.3.2.</span>  </span>Use a regra do trapézio para aproximar a integral
+   <center class="math-display" >
+<img 
+src="main1154x.png" alt="&int; 1
+   e&minus;x2dx.
+ 0
+                                                                          
+
+                                                                          
+" class="math-display" ></center> Depois divida a integral em duas
+   <center class="math-display" >
+<img 
+src="main1155x.png" alt="&int; 1&#x2215;2   2      &int; 1    2
+     e&minus; xdx +     e &minus;x dx.
+ 0              1&#x2215;2
+" class="math-display" ></center> e aplica a regra do trapézio em cada uma delas. Finalmente, repita o processo
+dividindo em quatro integrais.
+   </div>
+<!--l. 856--><p class="indent" >   Usando o intervalo <span 
+class="rm-lmr-12">[0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">1]</span>, temos <span 
+class="lmmi-12">h </span><span 
+class="rm-lmr-12">= 1</span>, <span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">0</span></sub> <span 
+class="rm-lmr-12">= 0 </span>e <span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">= 1</span>. A regra do trapézio
+resulta em
+   <center class="math-display" >
+<img 
+src="main1156x.png" alt="&int; 1   2      1
+   e&minus;x dx &asymp;  -(e0 + e&minus;1) = 0,6839397
+ 0           2  " class="math-display" ></center>
+Usando dois intervalos, <span 
+class="rm-lmr-12">[0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">1</span><span 
+class="lmmi-12">&#x2215;</span><span 
+class="rm-lmr-12">2] </span>e <span 
+class="rm-lmr-12">[1</span><span 
+class="lmmi-12">&#x2215;</span><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">1] </span>e usando a regra do trapézio em cada um
+dos intervalos, temos:
+                                                                          
+
+                                                                          
+<table 
+class="align-star">
+             <tr><td 
+class="align-odd"> <span 
+class="lmex-10">&int;</span>
+  <sub><span 
+class="rm-lmr-8">0</span></sub><sup><span 
+class="rm-lmr-8">1</span></sup><span 
+class="lmmi-12">e</span><sup><span 
+class="lmsy8-">&minus;</span><span 
+class="lmmi-8">x</span><sup><span 
+class="rm-lmr-6">2</span></sup>
+      </sup><span 
+class="lmmi-12">dx</span></td>             <td 
+class="align-even"> <span 
+class="lmsy-10x-x-120">&asymp;</span><img 
+src="main1157x.png" alt="0,5
+ 2"  class="frac" align="middle"><img 
+src="main1158x.png" alt="(          )
+  e0 + e&minus; 1&#x2215;4"  class="left" align="middle"> <span 
+class="rm-lmr-12">+</span> <img 
+src="main1159x.png" alt="0,5
+ 2"  class="frac" align="middle"><img 
+src="main1160x.png" alt="(           )
+ e&minus;1&#x2215;4 + e&minus; 1"  class="left" align="middle"></td>             <td 
+class="align-label"></td>             <td 
+class="align-label">
+             </td></tr><tr><td 
+class="align-odd"></td>                        <td 
+class="align-even"> <span 
+class="rm-lmr-12">= 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">4447002 + 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">2866701 = 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">7313703</span><span 
+class="lmmi-12">.</span></td>             <td 
+class="align-label"></td>             <td 
+class="align-label"></td></tr></table>
+Agora, usando quatro intervalos, temos
+<table 
+class="align-star">
+          <tr><td 
+class="align-odd"> <span 
+class="lmex-10">&int;</span>
+  <sub><span 
+class="rm-lmr-8">0</span></sub><sup><span 
+class="rm-lmr-8">1</span></sup><span 
+class="lmmi-12">e</span><sup><span 
+class="lmsy8-">&minus;</span><span 
+class="lmmi-8">x</span><sup><span 
+class="rm-lmr-6">2</span></sup>
+      </sup><span 
+class="lmmi-12">dx</span></td>          <td 
+class="align-even"> <span 
+class="lmsy-10x-x-120">&asymp;</span><img 
+src="main1161x.png" alt="0,25-
+ 2"  class="frac" align="middle"><img 
+src="main1162x.png" alt="( 0    &minus;1&#x2215;16)
+ e  + e"  class="left" align="middle"> <span 
+class="rm-lmr-12">+</span> <img 
+src="main1163x.png" alt="0,25
+ 2"  class="frac" align="middle"><img 
+src="main1164x.png" alt="(  &minus;1&#x2215;16    &minus;1&#x2215;4)
+  e     + e"  class="left" align="middle"></td>           <td 
+class="align-label"></td>          <td 
+class="align-label">
+          </td></tr><tr><td 
+class="align-odd"></td>                     <td 
+class="align-even"> <span 
+class="rm-lmr-12">+</span> <img 
+src="main1165x.png" alt="0,25
+----
+  2"  class="frac" align="middle"><img 
+src="main1166x.png" alt="(             )
+ e&minus;1&#x2215;4 + e&minus;9&#x2215;16"  class="left" align="middle"> <span 
+class="rm-lmr-12">+</span> <img 
+src="main1167x.png" alt="0,25
+----
+  2"  class="frac" align="middle"><img 
+src="main1168x.png" alt="(            )
+ e&minus;9&#x2215;16 + e &minus;1"  class="left" align="middle"></td>          <td 
+class="align-label"></td>          <td 
+class="align-label">
+          </td></tr><tr><td 
+class="align-odd"></td>                     <td 
+class="align-even"> <span 
+class="rm-lmr-12">= 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">7429841</span></td>                                          <td 
+class="align-label"></td>          <td 
+class="align-label"></td></tr></table>
+<!--l. 872--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x79-1280007.3.1"></a>Regra de Simpson</h5>
+<a 
+ id="dx79-128001"></a>
+                                                                          
+
+                                                                          
+<!--l. 873--><p class="noindent" >A regra de Simpson consiste em aproximar a integral usando três pontos do
+intervalo:
+   <center class="math-display" >
+<img 
+src="main1169x.png" alt="                 a + b
+x0 = a,    x1 := ----- = x0 + h     e     x2 := b = x1 + h.
+                   2  " class="math-display" ></center>
+com <span 
+class="lmmi-12">h </span><span 
+class="rm-lmr-12">= (</span><span 
+class="lmmi-12">b </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">a</span><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">&#x2215;</span><span 
+class="rm-lmr-12">2</span>. Para isso, o polinômio de Lagrange deve ser uma
+parábola:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1170x.png" alt="P2(x) = f (x0)-(x &minus;-x1)(x &minus;-x2)-+  f(x1)-(x-&minus;-x0)(x-&minus;-x2)-
+              (x0 &minus; x1)(x0 &minus; x2)        (x1 &minus; x0)(x1 &minus; x2)
+              (x &minus; x0 )(x &minus; x1 )
+      + f(x2) ------------------.
+              (x2 &minus; x0 )(x2 &minus; x1)
+" class="math-display" ></center></td></tr></table>
+<!--l. 883--><p class="nopar" >
+Se usarmos o mesma metodologia da regra dos trapézios, calcularemos
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main1171x.png" alt="&int; b         &int; b           &int; b(x &minus; x )(x &minus; x )(x &minus; x )
+   f(x)dx =    P2 (x)dx +    -------0-------1------2-f &prime;&prime;&prime;(&xi;(x))dx
+ a           a             a             6  " class="math-display" ></center> e
+obteremos o fórmula de Simpson com um erro de quarta ordem. O fato é que a
+regra de Simpson tem ordem cinco e, para isso, usaremos uma abordagem
+alternativa. Considere o polinômio de Taylor
+   <center class="math-display" >
+<img 
+src="main1172x.png" alt="                &prime;            f&prime;&prime;(x1)-      2  f-&prime;&prime;&prime;(x1)       3  f(4)(&xi;-(x-))       4
+f(x) = f (x1 )+f (x1)(x&minus; x1)+    2  (x &minus; x1 )+   6   (x&minus; x1) +     24    (x &minus; x1)," class="math-display" ></center>
+onde <span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">0</span></sub> <span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="lmmi-12">&xi;</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) </span><span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">2</span></sub> e integre no intervalo <span 
+class="rm-lmr-12">[</span><span 
+class="lmmi-12">a,b</span><span 
+class="rm-lmr-12">] = [</span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">0</span></sub><span 
+class="lmmi-12">,x</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="rm-lmr-12">]</span>:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1173x.png" alt="&int; b          [                      (x &minus; x )2   f &prime;&prime;(x  )
+   f (x )dx =  f(x1 )(x &minus; x1 ) + f &prime;(x1)-----1-- + -----1-(x &minus; x1)3
+ a                          ]           2          6
+             f&prime;&prime;&prime;(x1)           x2
+           + -------(x &minus; x1 )4
+               24             x0
+             -1-&int; x2 (4)             4
+           + 24  x  f  (&xi;(x ))(x &minus; x1) dx,
+                  0
+                                                                          
+
+                                                                          
+" class="math-display" ></center></td></tr></table>
+<!--l. 899--><p class="nopar" >
+Pelo teorema do valor médio, existe <span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">0</span></sub> <span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="lmmi-12">&eta; </span><span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">2</span></sub> tal que
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1174x.png" alt="&int; b          [                      (x &minus; x )2   f &prime;&prime;(x  )
+   f (x )dx =  f(x1 )(x &minus; x1 ) + f &prime;(x1)-----1-- + -----1-(x &minus; x1)3
+ a                                      2          6
+             f &prime;&prime;&prime;(x1)         ]x2
+           + -------(x &minus; x1)4
+               24             x0
+             f(4)(&eta; )&int; x2
+           + -------    (x &minus; x1)4dx
+             [ 24    x0
+                                &prime;   (x-&minus;-x1)2   f-&prime;&prime;(x1-)        3
+           =  f(x1 )(x &minus; x1 ) + f (x1)   2     +    6   (x &minus; x1)
+               &prime;&prime;&prime;             ]x2
+           + f--(x1)(x &minus; x )4
+               24         1
+              (4)             x0
+           + f---(&eta;-)[(x &minus; x )5]x2
+               120         1   x0
+" class="math-display" ></center></td></tr></table>
+<!--l. 910--><p class="nopar" >
+Usando o fato que
+   <center class="math-display" >
+<img 
+src="main1175x.png" alt="         3            3     3
+(x2 &minus; x1)  &minus; (x0 &minus; x1) =  2h ,
+" class="math-display" ></center>
+   <center class="math-display" >
+<img 
+src="main1176x.png" alt="         4           4
+(x2 &minus; x1) &minus; (x0 &minus; x1)  = 0  " class="math-display" ></center>
+e
+   <center class="math-display" >
+<img 
+src="main1177x.png" alt="         5            5     5
+(x2 &minus; x1)  &minus; (x0 &minus; x1) =  2h ,  " class="math-display" ></center>
+temos
+   <center class="math-display" >
+<img 
+src="main1178x.png" alt="&int; b                    h3          h5f(4)(&eta; )
+   f(x)dx =  2hf(x1) + ---f&prime;&prime;(x1) + ---------.
+ a                      3             60  " class="math-display" ></center>
+Usando a diferenças finitas centrais para a derivada segunda:
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main1179x.png" alt="          f(x ) &minus; 2f(x ) + f(x )   h2
+f &prime;&prime;(x1 ) = ---0-------21-------2--+ ---f(4)(&eta;1),
+                    h              12  " class="math-display" ></center>
+<span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">0</span></sub> <span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="lmmi-12">&eta;</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">2</span></sub>, temos <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1180x.png" alt="&int;                            (                                     )
+  b                        h3- f(x0-) &minus;-2f-(x1) +-f-(x2) h2- (4)
+  a f(x)dx  =   2hf (x1) + 3             h2           +  12f   (&eta;1)
+                 5  (4)
+            +   h-f---(&eta;)
+                   60
+                h                            h5 ( 1          1       )
+            =   --(f(x0) + 4f(x1) + f(x2)) &minus; ---  -f(4)(&eta;1) &minus; --f(4)(&eta;)  .
+                3                            12   3          5
+" class="math-display" ></center>
+</div>Pode-se mostrar que é possível escolher <span 
+class="lmmi-12">&eta;</span><sub><span 
+class="rm-lmr-8">2</span></sub> que substitua <span 
+class="lmmi-12">&eta; </span>e <span 
+class="lmmi-12">&eta;</span><sub><span 
+class="rm-lmr-8">1</span></sub> com a seguinte
+estimativa
+   <center class="math-display" >
+<img 
+src="main1181x.png" alt="&int; b          h-                           h5- (4)
+ a f(x)dx =  3 (f(x0) + 4f(x1) + f(x2)) &minus; 90f   (&eta;2).
+" class="math-display" ></center>
+                                                                          
+
+                                                                          
+   <div class="newtheorem">
+<!--l. 941--><p class="noindent" ><span class="head">
+<a 
+ id="x79-128003r3"></a>
+<span 
+class="ec-lmbx-12">Exemplo 7.3.3.</span>  </span>Use a regra de Simpson para aproximar a integral
+   <center class="math-display" >
+<img 
+src="main1182x.png" alt="&int;
+  1 &minus;x2
+ 0 e   dx.
+" class="math-display" ></center> Depois divida a integral em duas
+   <center class="math-display" >
+<img 
+src="main1183x.png" alt="&int; 1&#x2215;2   2      &int; 1    2
+     e&minus; xdx +     e &minus;x dx.
+ 0              1&#x2215;2
+" class="math-display" ></center> e aplica a regra de Simpson em cada uma delas.
+   </div>
+<!--l. 952--><p class="indent" >   Usando o intervalo <span 
+class="rm-lmr-12">[0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">1]</span>, temos <span 
+class="lmmi-12">h </span><span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">&#x2215;</span><span 
+class="rm-lmr-12">2</span>, <span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">0</span></sub> <span 
+class="rm-lmr-12">= 0</span>, <span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">&#x2215;</span><span 
+class="rm-lmr-12">2 </span>e <span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">2</span></sub> <span 
+class="rm-lmr-12">= 1</span>. A regra de
+Simpson resulta em
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main1184x.png" alt="&int; 1   2      0,5
+   e&minus;x dx &asymp;  ---(e0 + 4e&minus; 1&#x2215;4 + e&minus;1) = 0,7471804
+ 0           3  " class="math-display" ></center>
+Usando dois intervalos, <span 
+class="rm-lmr-12">[0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">1</span><span 
+class="lmmi-12">&#x2215;</span><span 
+class="rm-lmr-12">2] </span>e <span 
+class="rm-lmr-12">[1</span><span 
+class="lmmi-12">&#x2215;</span><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">1] </span>e usando a regra do trapézio em cada um
+dos intervalos, temos:
+   <center class="math-display" >
+<img 
+src="main1185x.png" alt="&int; 1   2      0,25                     0,25
+   e&minus;x dx &asymp;  ----(e0+4e &minus;1&#x2215;16+e &minus;1&#x2215;4)+ ----(e&minus;1&#x2215;4+4e &minus;9&#x2215;16+e &minus;1) = 0,7468554
+ 0            3                        3
+" class="math-display" ></center>
+<!--l. 961--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">7.3.2   </span> <a 
+ id="x79-1290007.3.2"></a>Regras compostas</h4>
+<a 
+ id="dx79-129001"></a>
+<!--l. 963--><p class="noindent" >Vimos que em todas as estimativas de erro que derivamos, o erro depende do
+tamanho do intervalo de integração. Uma estratégia para reduzir o erro
+consiste em particionar o intervalo de integração em diversos subintervalos
+menores:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1186x.png" alt="&int; b          &sum;n &int; xi+1
+   f(x)dx =          f (x)dx
+ a           i=1  xi
+" class="math-display" ></center></td></tr></table>
+<!--l. 966--><p class="nopar" >
+onde <span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">i</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">a </span><span 
+class="rm-lmr-12">+ (</span><span 
+class="lmmi-12">i </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1)</span><span 
+class="lmmi-12">h</span>, <span 
+class="lmmi-12">h </span><span 
+class="rm-lmr-12">= (</span><span 
+class="lmmi-12">b </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">a</span><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">&#x2215;n </span>e <span 
+class="lmmi-12">i </span><span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&hellip;</span><span 
+class="lmmi-12">,n </span><span 
+class="rm-lmr-12">+ 1</span>, sendo <span 
+class="lmmi-12">n </span>o número de
+subintervalos da partição do intervalo de integração. Depois, aplica-se um método
+simples de integração em cada subintervalo.
+<!--l. 969--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x79-1300007.3.2"></a>Método composto dos trapézios</h5>
+<a 
+ id="dx79-130001"></a>
+<!--l. 970--><p class="noindent" >A <span 
+class="ec-lmbx-12">regra composta dos trap</span><span 
+class="ec-lmbx-12">ézios </span>assume a seguinte forma:
+<table 
+class="align-star">
+                <tr><td 
+class="align-odd"> <span 
+class="lmex-10">&int;</span>
+  <sub><span 
+class="lmmi-8">a</span></sub><sup><span 
+class="lmmi-8">b</span></sup><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">dx</span></td>                <td 
+class="align-even"> <span 
+class="rm-lmr-12">=</span> <span 
+class="lmex-10">&sum;</span><sub>
+<span 
+class="lmmi-8">i</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">n</span></sup> <span 
+class="lmex-10">&int;</span>
+  <sub><span 
+class="lmmi-8">x</span><sub><span 
+class="lmmi-6">i</span></sub></sub><sup><span 
+class="lmmi-8">x</span><sub><span 
+class="lmmi-6">i</span><span 
+class="rm-lmr-6">+1</span></sub>
+       </sup><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="lmmi-12">dx</span></td>                            <td 
+class="align-label"></td>                <td 
+class="align-label">
+                </td></tr><tr><td 
+class="align-odd"></td>                            <td 
+class="align-even"> <span 
+class="lmsy-10x-x-120">&asymp;</span><span 
+class="lmex-10">&sum;</span>
+   <sub><span 
+class="lmmi-8">i</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">n</span></sup><img 
+src="main1187x.png" alt="xi+1 &minus; xi
+---------
+    2"  class="frac" align="middle"><img 
+src="main1188x.png" alt="[f (xi) + f(xi+1)]"  class="left" align="middle"> </td>                <td 
+class="align-label"></td>                <td 
+class="align-label"></td></tr></table>
+Como <span 
+class="lmmi-12">h </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">i</span><span 
+class="rm-lmr-8">+1</span></sub> <span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">i</span></sub>, temos:
+                                                                          
+
+                                                                          
+<table 
+class="align-star">
+    <tr><td 
+class="align-odd"> <span 
+class="lmex-10">&int;</span>
+  <sub><span 
+class="lmmi-8">a</span></sub><sup><span 
+class="lmmi-8">b</span></sup><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="lmmi-12">dx</span></td>    <td 
+class="align-even"> <span 
+class="lmsy-10x-x-120">&asymp;</span><img 
+src="main1189x.png" alt="h
+--
+2"  class="frac" align="middle"> <span 
+class="lmex-10">&sum;</span>
+    <sub><span 
+class="lmmi-8">k</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span><sub><span 
+class="lmmi-6">i</span></sub>
+    </sup><img 
+src="main1190x.png" alt="[f(xk) + f(xk+1)]"  class="left" align="middle"></td>                              <td 
+class="align-label"></td>    <td 
+class="align-label">
+    </td></tr><tr><td 
+class="align-odd"></td>               <td 
+class="align-even"> <span 
+class="rm-lmr-12">=</span> <img 
+src="main1191x.png" alt="h-
+2"  class="frac" align="middle"><img 
+src="main1192x.png" alt="[f(x ) + 2f(x ) + 2f (x  ) + &sdot;&sdot;&sdot; + 2f(x ) + f(x    )]
+    1         2        3             Ni       Ni+1"  class="left" align="middle"></td>    <td 
+class="align-label"></td>    <td 
+class="align-label">
+    </td></tr><tr><td 
+class="align-odd"></td>               <td 
+class="align-even"> <span 
+class="rm-lmr-12">=</span> <img 
+src="main1193x.png" alt="h
+2-"  class="frac" align="middle"><img 
+src="main1194x.png" alt="[f(x1) + f(xNi+1)]"  class="left" align="middle"> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">h</span><span 
+class="lmex-10">&sum;</span>
+  <sub><span 
+class="lmmi-8">i</span><span 
+class="rm-lmr-8">=2</span></sub><sup><span 
+class="lmmi-8">N</span><sub><span 
+class="lmmi-6">i</span></sub>
+    </sup><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">i</span></sub><span 
+class="rm-lmr-12">)</span></td>                    <td 
+class="align-label"></td>    <td 
+class="align-label"></td></tr></table>
+<!--l. 983--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x79-1310007.3.2"></a>Código Scilab: Trapézio Composto</h5>
+<!--l. 984--><p class="noindent" >O código Scilab abaixo é uma implementação do método do trapézio composto
+para calcular:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1195x.png" alt="&int; b                                 &sum;n
+   f (x )dx = h-[f(x1) + f(xn+1)] + h   f (xi) + O (h3),
+ a           2                      i=2
+" class="math-display" ></center></td></tr></table>
+                                                                          
+
+                                                                          
+<!--l. 987--><p class="nopar" >
+onde <span 
+class="lmmi-12">h </span><span 
+class="rm-lmr-12">= (</span><span 
+class="lmmi-12">b</span><span 
+class="lmsy-10x-x-120">&minus;</span><span 
+class="lmmi-12">a</span><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">&#x2215;n </span>e <span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">i</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">a </span><span 
+class="rm-lmr-12">+ (</span><span 
+class="lmmi-12">i</span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1)</span><span 
+class="lmmi-12">h</span>, <span 
+class="lmmi-12">i </span><span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&hellip;</span><span 
+class="lmmi-12">,n </span><span 
+class="rm-lmr-12">+ 1</span>. Os parâmetros de entrada
+são: <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">f</span></span></span> o integrando definido como uma função no Scilab, <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">a</span></span></span> o limite inferior de
+integração, <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">b</span></span></span> o limite superior de integração, <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">n</span></span></span> o número de subintervalos
+desejado. A variável de saída é <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">y</span></span></span> e corresponde a aproximação calculada de
+<span 
+class="lmex-10">&int;</span>
+ <sub><span 
+class="lmmi-8">a</span></sub><sup><span 
+class="lmmi-8">b</span></sup><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="lmmi-12">dx</span>.
+   <div class="verbatiminput">
+<span 
+class="ec-lmtt-12">function</span><span 
+class="ec-lmtt-12">&#x00A0;[y]</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;trap_comp(f,a,b,n)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;h</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;(b-a)/n</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;x</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;linspace(a,b,n+1)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;y</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;h*(f(x(1))</span><span 
+class="ec-lmtt-12">&#x00A0;+</span><span 
+class="ec-lmtt-12">&#x00A0;f(x(n+1)))/2</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;for</span><span 
+class="ec-lmtt-12">&#x00A0;i</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;2:n</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;y</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;y</span><span 
+class="ec-lmtt-12">&#x00A0;+</span><span 
+class="ec-lmtt-12">&#x00A0;h*f(x(i))</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;end</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">endfunction</span>
+   </div>
+<!--l. 993--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x79-1320007.3.2"></a>Método composto de Simpson</h5>
+<a 
+ id="dx79-132001"></a>
+<!--l. 994--><p class="noindent" >Já a regra composta de Simpson assume a seguinte forma:
+                                                                          
+
+                                                                          
+<table 
+class="align-star">
+      <tr><td 
+class="align-odd"> <span 
+class="lmex-10">&int;</span>
+  <sub><span 
+class="lmmi-8">a</span></sub><sup><span 
+class="lmmi-8">b</span></sup><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="lmmi-12">dx</span></td>      <td 
+class="align-even"> <span 
+class="rm-lmr-12">=</span> <span 
+class="lmex-10">&sum;</span><sub>
+<span 
+class="lmmi-8">k</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">n</span></sup> <span 
+class="lmex-10">&int;</span>
+  <sub><span 
+class="lmmi-8">x</span><sub><span 
+class="lmmi-6">k</span></sub></sub><sup><span 
+class="lmmi-8">x</span><sub><span 
+class="lmmi-6">k</span><span 
+class="rm-lmr-6">+1</span></sub>
+        </sup><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">dx</span></td>                                     <td 
+class="align-label"></td>      <td 
+class="align-label">
+      </td></tr><tr><td 
+class="align-odd"></td>                 <td 
+class="align-even"> <span 
+class="lmsy-10x-x-120">&asymp;</span><span 
+class="lmex-10">&sum;</span>
+   <sub><span 
+class="lmmi-8">k</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">n</span></sup><img 
+src="main1196x.png" alt="xx+1-&minus;-xk-
+    6"  class="frac" align="middle"><img 
+src="main1197x.png" alt="[           (          )           ]
+ f(xk ) + 4f  xk+1 +-xk- + f (xk+1)
+                  2"  class="left" align="middle"></td>      <td 
+class="align-label"></td>      <td 
+class="align-label"></td></tr></table>
+onde, como anteriormente, <span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">k</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">a </span><span 
+class="rm-lmr-12">+ (</span><span 
+class="lmmi-12">k </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1)</span><span 
+class="lmmi-12">h</span>, <span 
+class="lmmi-12">h </span><span 
+class="rm-lmr-12">= (</span><span 
+class="lmmi-12">b </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">a</span><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">&#x2215;n </span>e <span 
+class="lmmi-12">i </span><span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&hellip;</span><span 
+class="lmmi-12">,n </span><span 
+class="rm-lmr-12">+ 1</span>,
+sendo <span 
+class="lmmi-12">n </span>o número de subintervalos da partição do intervalo de integração.
+Podemos simplificar o somatório acima, escrevendo:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1198x.png" alt="&int; b            [         n&sum;&minus; 1            &sum;n                  ]
+   f(x)dx &asymp;  h- f(x1) + 2    f(x2i+1) + 4   f(x2i) + f(x2n+1) +  O (h5 )
+ a           3           i=1             i=1
+" class="math-display" ></center></td></tr></table>
+<!--l. 1002--><p class="nopar" >
+onde, agora, <span 
+class="lmmi-12">h </span><span 
+class="rm-lmr-12">= (</span><span 
+class="lmmi-12">b </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">a</span><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">&#x2215;</span><span 
+class="rm-lmr-12">(2</span><span 
+class="lmmi-12">n</span><span 
+class="rm-lmr-12">)</span>, <span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">i</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">a </span><span 
+class="rm-lmr-12">+ (</span><span 
+class="lmmi-12">i </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1)</span><span 
+class="lmmi-12">h</span>, <span 
+class="lmmi-12">i </span><span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&hellip;</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">n </span><span 
+class="rm-lmr-12">+ 1</span>.
+<!--l. 1006--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x79-1330007.3.2"></a>Código Scilab: Simpson Composto</h5>
+<!--l. 1007--><p class="noindent" >O código Scilab abaixo é uma implementação do método de Simpson composto
+para calcular:
+   <table 
+class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main1199x.png" alt="&int; b            [          n&sum;&minus;1            &sum;n                  ]
+   f (x )dx = h- f (x1 ) + 2   f (x2i+1) + 4   f (x2i) + f(x2n+1)  + O (h3),
+ a           3            i=1            i=1
+" class="math-display" ></center></td></tr></table>
+<!--l. 1010--><p class="nopar" >
+onde <span 
+class="lmmi-12">h </span><span 
+class="rm-lmr-12">= (</span><span 
+class="lmmi-12">b </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">a</span><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">&#x2215;</span><span 
+class="rm-lmr-12">(2</span><span 
+class="lmmi-12">n</span><span 
+class="rm-lmr-12">) </span>e <span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">i</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">a </span><span 
+class="rm-lmr-12">+ (</span><span 
+class="lmmi-12">i </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1)</span><span 
+class="lmmi-12">h</span>, <span 
+class="lmmi-12">i </span><span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&hellip;</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">n </span><span 
+class="rm-lmr-12">+ 1</span>. Os parâmetros de
+entrada são: <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">f</span></span></span> o integrando definido como uma função no Scilab, <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">a</span></span></span> o limite
+inferior de integração, <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">b</span></span></span> o limite superior de integração, <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">n</span></span></span> o número de
+subintervalos desejado. A variável de saída é <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">y</span></span></span> e corresponde a aproximação
+calculada de <span 
+class="lmex-10">&int;</span>
+  <sub><span 
+class="lmmi-8">a</span></sub><sup><span 
+class="lmmi-8">b</span></sup><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="lmmi-12">dx</span>. <div class="verbatiminput"></div>
+   <div class="newtheorem">
+<!--l. 1015--><p class="noindent" ><span class="head">
+<a 
+ id="x79-133001r4"></a>
+<span 
+class="ec-lmbx-12">Exemplo 7.3.4.</span>  </span>Calcule numericamente a integral
+   <center class="math-display" >
+<img 
+src="main1200x.png" alt="&int; 2
+   x2ex2dx
+ 0
+" class="math-display" ></center> pelas regras compostas do ponto médio, trapézio e Simpson variando o
+número de intervalos <br 
+class="newline" /><span 
+class="lmmi-12">N</span><sub><span 
+class="lmmi-8">i</span></sub> <span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&#x00A0;</span><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&#x00A0;</span><span 
+class="rm-lmr-12">3</span><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&#x00A0;</span><span 
+class="rm-lmr-12">6</span><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&#x00A0;</span><span 
+class="rm-lmr-12">12</span><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&#x00A0;</span><span 
+class="rm-lmr-12">24</span><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&#x00A0;</span><span 
+class="rm-lmr-12">48</span><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&#x00A0;</span><span 
+class="rm-lmr-12">96</span>.
+   </div>
+   <table 
+class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main1201x.png" alt="|----|-------------|----------|-----------|
+|-n--|ponto-m-édio-|Trapézios-|-Simpson---|
+|    |             |          |           |
+|-1--|-5,4365637---|218,3926--|76,421909--|
+|    |             |          |           |
+|-2--|-21,668412---|111,91458-|51,750469--|
+| 3  | 31,678746   |80,272022  |47,876505  |
+|----|-------------|----------|-----------|
+| 6  | 41,755985   |55,975384  |46,495785  |
+|----|-------------|----------|-----------|
+|12  | 45,137529   |48,865685  |46,380248  |
+|----|-------------|----------|-----------|
+|24  | 46,057757   |47,001607  |46,372373  |
+|----|-------------|----------|-----------|
+|48--|-46,292964---|46,529682--|-46,37187--|
+|    |             |          |           |
+|96--|-46,352096----46,411323---46,371838--
+|    |
+" class="math-display" ></center></td></tr></table>
+<!--l. 1035--><p class="nopar" >
+<!--l. 1037--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">7.3.3   </span> <a 
+ id="x79-1340007.3.3"></a>O método de Romberg</h4>
+<a 
+ id="dx79-134001"></a>
+<!--l. 1038--><p class="noindent" >O método de Romberg é um método simplificado para construir quadraturas de
+alta ordem.
+<!--l. 1040--><p class="indent" >   Considere o método de trapézios composto aplicado à integral
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main1202x.png" alt="&int; b
+   f (x )dx
+ a  " class="math-display" ></center>
+Defina <span 
+class="lmmi-12">I</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">h</span><span 
+class="rm-lmr-12">) </span>a aproximação desta integral pelo método dos trapézios composto
+com malha de largura constante igual a h. Aqui <span 
+class="lmmi-12">h </span><span 
+class="rm-lmr-12">=</span> <img 
+src="main1203x.png" alt="b&minus;a
+ Ni"  class="frac" align="middle"> para algum <span 
+class="lmmi-12">N</span><sub><span 
+class="lmmi-8">i</span></sub> inteiro,
+i.e.:
+   <center class="math-display" >
+<img 
+src="main1204x.png" alt="          &lfloor;        &sum;Ni             &rfloor;
+I(h ) = h-&lceil;f(a) + 2    f(xj) + f (b)&rceil;, Ni =  b &minus;-a
+        2          j=2                         h
+" class="math-display" ></center>
+   <div class="newtheorem">
+<!--l. 1045--><p class="noindent" ><span class="head">
+<a 
+ id="x79-134002r1"></a>
+<span 
+class="ec-lmbx-12">Teorema 7.3.1.</span>  </span><span 
+class="ec-lmri-12">Se </span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) </span><span 
+class="ec-lmri-12">é uma fun</span><span 
+class="ec-lmri-12">ç</span><span 
+class="ec-lmri-12">ão anal</span><span 
+class="ec-lmri-12">ítica no intervalo </span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">a,b</span><span 
+class="rm-lmr-12">)</span><span 
+class="ec-lmri-12">, ent</span><span 
+class="ec-lmri-12">ão a</span>
+<span 
+class="ec-lmri-12">fun</span><span 
+class="ec-lmri-12">ç</span><span 
+class="ec-lmri-12">ão </span><span 
+class="lmmi-12">I</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">h</span><span 
+class="rm-lmr-12">) </span><span 
+class="ec-lmri-12">admite uma representa</span><span 
+class="ec-lmri-12">ç</span><span 
+class="ec-lmri-12">ão na forma</span>
+   <center class="math-display" >
+<img 
+src="main1205x.png" alt="I(h) = I0 + I2h2 + I4h4 + I6h6 + ...
+" class="math-display" ></center>
+                                                                          
+
+                                                                          
+   </div>
+<!--l. 1048--><p class="indent" >   Para um demonstração, veja [4]. Em especial observamos que
+   <center class="math-display" >
+<img 
+src="main1206x.png" alt="&int; b
+   f (x )dx = lhim&rarr;0 I(h) = I0
+ a   " class="math-display" ></center> Ou
+seja, o valor exato da integral procurada é dado pelo coeficiente <span 
+class="lmmi-12">I</span><sub><span 
+class="rm-lmr-8">0</span></sub>.
+<!--l. 1052--><p class="indent" >   A ideia central do método de Romberg, agora, consiste em usar a extrapolação
+de Richardson para construir métodos de maior ordem a partir do métodos dos
+trapézios para o intervalo <span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">a,b</span><span 
+class="rm-lmr-12">)</span>
+   <div class="newtheorem">
+<!--l. 1053--><p class="noindent" ><span class="head">
+<a 
+ id="x79-134003r5"></a>
+<span 
+class="ec-lmbx-12">Exemplo 7.3.5.</span>  </span>Construção do método de quarta ordem. <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1207x.png" alt="  I (h ) =   I0 + I2h2 + I4h4 + I6h6 + ...
+
+  (  )              2       4      6
+I   h-  =   I0 + I2h--+ I4h--+ I6 h--+ ...
+    2              4      16      64
+" class="math-display" ></center>
+</div>Usamos agora uma eliminação gaussiana para obter o termo <span 
+class="lmmi-12">I</span><sub><span 
+class="rm-lmr-8">0</span></sub>: <div class="eqnarray">
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main1208x.png" alt="4I (h&#x2215;2) &minus; I(h)        1        5
+--------------- = I0 &minus; --I4h4 &minus;  --I6h6 + ...
+       3               4        16
+" class="math-display" ></center>
+</div>Vamos agora aplicar a fórmula para <span 
+class="lmmi-12">h </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">b </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">a</span>, <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1209x.png" alt="            h
+  I(h)  =   --[f (a) + f(b)]
+            2
+I(h&#x2215;2)  =   h-[f (a) + 2f (c) + f(b)], c = a-+-b
+            4                              2
+" class="math-display" ></center>
+</div>
+<!--l. 1068--><p class="indent" >   <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1210x.png" alt="4I(h&#x2215;2) &minus; I(h)      h                         h
+--------------- =   --[f(a) + 2f (c) + f (b)] &minus;--[f (a) + f (b)]
+      3             3                         6
+                =   h-[f(a) + 4f (c) + f (b)]
+                    6
+" class="math-display" ></center>
+</div>Observe que esquema coincide com o método de Simpson.
+   </div>
+<!--l. 1075--><p class="indent" >   A partir de agora, usaremos a seguinte notação <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1211x.png" alt=" R1,1 =   I(h)
+ R2,1 =   I(h&#x2215;2 )
+
+ R3,1 =   I(h&#x2215;4 )
+       ..
+       .
+Rn,1  =   I(h&#x2215;2n &minus;1)
+" class="math-display" ></center>
+</div>
+<!--l. 1084--><p class="indent" >   Observamos que os pontos envolvidos na quadratura <span 
+class="lmmi-12">R</span><sub><span 
+class="lmmi-8">k,</span><span 
+class="rm-lmr-8">1</span></sub> são os mesmos
+pontos envolvidos na quadratura <span 
+class="lmmi-12">R</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">k </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">1) </span>acrescidos dos pontos centrais, assim,
+temos a seguinte fórmula de recorrência:
+   <center class="math-display" >
+<img 
+src="main1212x.png" alt="       1          h   2&sum;k&minus; 2 (              h  )
+Rk,1 = -Rk &minus;1,1 + -----    f  a + (2i &minus; 1 )----
+       2         2k&minus;1 i=1                2k&minus;1
+" class="math-display" ></center>
+<!--l. 1087--><p class="indent" >   Definimos <span 
+class="lmmi-12">R</span><sub><span 
+class="lmmi-8">k,</span><span 
+class="rm-lmr-8">2</span></sub> para <span 
+class="lmmi-12">k </span><span 
+class="lmsy-10x-x-120">&ge; </span><span 
+class="rm-lmr-12">2 </span>como o esquema de ordem quatro obtido da fórmula
+do exemplo <a 
+href="#x79-134003r5">7.3.5<!--tex4ht:ref: exemplo_romberg_1 --></a>:
+   <center class="math-display" >
+<img 
+src="main1213x.png" alt="        4R   &minus; R
+Rk,2 =  --k,1----k&minus;1,1
+              3  " class="math-display" ></center> Os
+valores <span 
+class="lmmi-12">R</span><sub><span 
+class="lmmi-8">k,</span><span 
+class="rm-lmr-8">2</span></sub> representam então os valores obtidos pelo método de Simpson
+composto aplicado a uma malha composta de <span 
+class="rm-lmr-12">2</span><sup><span 
+class="lmmi-8">k</span><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">1</span></sup> <span 
+class="rm-lmr-12">+ 1 </span>pontos.
+<!--l. 1091--><p class="indent" >   Similarmente os valores de <span 
+class="lmmi-12">R</span><sub><span 
+class="lmmi-8">k,j</span></sub> são os valores obtidos pela quadratura
+de ordem <span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">j </span>obtida via extrapolação de Richardson. Pode-se mostrar
+que
+   <center class="math-display" >
+<img 
+src="main1214x.png" alt="                Rk,j&minus;1-&minus;-Rk&minus;-1,j&minus;1
+Rk,j = Rk,j&minus;1 +      4j&minus; 1 &minus; 1    .
+" class="math-display" ></center>
+   <div class="newtheorem">
+<!--l. 1094--><p class="noindent" ><span class="head">
+<a 
+ id="x79-134009r6"></a>
+                                                                          
+
+                                                                          
+<span 
+class="ec-lmbx-12">Exemplo 7.3.6.</span>  </span>Construa o esquema de Romberg para aproximar o valor
+de <span 
+class="lmex-10">&int;</span>
+  <sub><span 
+class="rm-lmr-8">0</span></sub><sup><span 
+class="rm-lmr-8">2</span></sup><span 
+class="lmmi-12">e</span><sup><span 
+class="lmsy8-">&minus;</span><span 
+class="lmmi-8">x</span><sup><span 
+class="rm-lmr-6">2</span></sup></sup><span 
+class="lmmi-12">dx </span>com erro de ordem 8.
+<!--l. 1097--><p class="indent" >   O que nos fornece os seguintes resultados:
+   <center class="math-display" >
+<img 
+src="main1215x.png" alt="|----------|-----------|----------|-----------|
+| 55,59815  | 0,000000  | 0,000000  | 0,000000  |
+|          |           |          |           |
+|30,517357 |22,157092  | 0,000000  | 0,000000  |
+|          |           |          |           |
+|20,644559 |17,353626  |17,033395 | 0,000000  |
+|          |           |          |           |
+|17,565086-|16,538595---16,484259--111666,,,444777555555444333--|
+|          |
+" class="math-display" ></center>
+<!--l. 1109--><p class="indent" >   Ou seja, temos:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1216x.png" alt="&int; 2   2
+    ex dx &asymp; 16,475543
+  0
+" class="math-display" ></center></td></tr></table>
+<!--l. 1112--><p class="nopar" >
+usando uma aproximação de ordem 8.
+   </div>
+   <div class="newtheorem">
+                                                                          
+
+                                                                          
+<!--l. 1117--><p class="noindent" ><span class="head">
+<a 
+ id="x79-134010r7"></a>
+<span 
+class="ec-lmbx-12">Exemplo 7.3.7.</span>  </span>Construa o esquema de Romberg para aproximar o valor
+de <span 
+class="lmex-10">&int;</span>
+  <sub><span 
+class="rm-lmr-8">0</span></sub><sup><span 
+class="rm-lmr-8">2</span></sup><span 
+class="lmmi-12">x</span><sup><span 
+class="rm-lmr-8">2</span></sup><span 
+class="lmmi-12">e</span><sup><span 
+class="lmmi-8">x</span><sup><span 
+class="rm-lmr-6">2</span></sup></sup><span 
+class="lmmi-12">dx </span>com erro de ordem 12.
+<!--l. 1119--><p class="indent" >   O que nos fornece:
+   <center class="math-display" >
+<img 
+src="main1217x.png" alt="|----------|----------|-----------|----------|-----------|----------|
+|          |          |           |          |           |          |
+|218,3926--|----------|-----------|----------|-----------|----------|
+|          |          |           |          |           |          |
+|111,91458-|76,421909-|-----------|----------|-----------|----------|
+|66,791497  |51,750469 |50,105706  |          |           |          |
+|----------|----------|-----------|----------|-----------|----------|
+|51,892538  |46,926218 |46,604601  |46,549028 |           |          |
+|----------|----------|-----------|----------|-----------|----------|
+|47,782846  |46,412949 |46,378731  |46,375146 |46,374464  |          |
+|----------|----------|-----------|----------|-----------|----------|
+|46,72661--|46,374531---46,37197---46,371863---46,37185---444666,,,333777111888444777--
+|          |
+" class="math-display" ></center>
+<!--l. 1133--><p class="indent" >   Ou seja, temos:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1218x.png" alt="&int; 2  2 x2
+ 0  x e  dx &asymp; 46,371847
+" class="math-display" ></center></td></tr></table>
+<!--l. 1136--><p class="nopar" >
+com uma aproximação de ordem 12.
+   </div>
+<!--l. 1141--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">7.3.4   </span> <a 
+ id="x79-1350007.3.4"></a>Ordem de precisão</h4>
+<a 
+ id="dx79-135001"></a>
+<!--l. 1143--><p class="noindent" >Todos os métodos de quadratura que vimos até o momento são da forma
+   <center class="math-display" >
+<img 
+src="main1219x.png" alt="&int; b          &sum;N
+   f (x )dx &asymp;    wjf (xj)
+ a           j=1
+" class="math-display" ></center>
+   <div class="newtheorem">
+<!--l. 1145--><p class="noindent" ><span class="head">
+<a 
+ id="x79-135002r8"></a>
+<span 
+class="ec-lmbx-12">Exemplo 7.3.8.</span>  </span>
+      <ul class="itemize1">
+      <li class="itemize">Método do trapézio <div class="eqnarray">
+                                                                          
+
+                                                                          
+      <center class="math-display" >
+      <img 
+src="main1220x.png" alt="&int; b                         b &minus; a
+   f(x)dx   &asymp;   [f (a ) + f (b)]----
+ a                            2
+            =   b &minus;-af(a) + b-&minus;-af (b)
+                  2           2
+                                     &sum;2
+           :=   w1f(x1) + w2f (x2) =    wjf (xj)
+                                     j=1
+      " class="math-display" ></center>
+      </div>
+      </li>
+      <li class="itemize">Método do trapézio com dois intervalos <div class="eqnarray">
+      <center class="math-display" >
+      <img 
+src="main1221x.png" alt="                [          (      )       ]
+&int; b                          a + b          b &minus; a
+ a f (x)dx  &asymp;    f (a) + 2f  --2--  + f (b) --4--
+                                    (      )
+                 b &minus;-a       b &minus;-a    a +-b    b-&minus;-a
+            =     4   f(a) +   2  f    2     +   4  f (b)
+                                                 3
+                                                &sum;
+            :=  w1f (x1) + w2f (x2) + w3f (x3) =   wjf (xj)
+                                                j=1
+      " class="math-display" ></center>
+      </div>
+                                                                          
+
+                                                                          
+      </li>
+      <li class="itemize">Método de Simpson <div class="eqnarray">
+      <center class="math-display" >
+      <img 
+src="main1222x.png" alt="&int;               [          (      )       ]
+  bf (x )dx  &asymp;    f (a) + 4f  a-+-b  + f (b)  b &minus;-a
+ a                             2              6
+                                       (     )
+            =   b-&minus;-a f(a) + 2(b &minus;-a)f  a-+-b  +  b &minus;-af(b)
+                  6             3         2         6
+                &sum;3
+            :=     wjf (xj)
+                j=1
+      " class="math-display" ></center>
+      </div>
+      </li>
+      <li class="itemize">Método de Simpson com dois intervalos <div class="eqnarray">
+      <center class="math-display" >
+      <img 
+src="main1223x.png" alt="                [          (       )      (      )
+&int; b                          3a + b         a + b
+   f(x)dx   &asymp;    f(a) + 4f   ------- + 2f   -----
+ a                 (       )   4   ]          2
+                     a +-3b-         b &minus;-a
+            +   4f     4     + f(b)   12
+                                   (       )           (      )
+                b-&minus;-a       b-&minus;-a    3a-+-b-    b &minus;-a   a-+-b
+            =    12  f (a ) +  3   f     4    +    6  f    2
+                       (       )
+            +   b-&minus;-af   a +-3b- + b-&minus;-a f(b)
+                  3        4         12
+                 5
+            :=   &sum;  wjf (xj)
+                j=1
+      " class="math-display" ></center>
+      </div>
+      </li></ul>
+   </div>
+<!--l. 1180--><p class="indent" >   A principal técnica que temos usado para desenvolver os métodos numéricos é
+o <span 
+class="ec-lmbx-12">polin</span><span 
+class="ec-lmbx-12">ômio de Taylor</span>:
+   <center class="math-display" >
+<img 
+src="main1224x.png" alt="                      2           n
+f(x ) = a0 + a1x + a2x + ...+  anx  + Rn (x)
+" class="math-display" ></center>
+<!--l. 1183--><p class="indent" >   Integrando termo a termo, temos: <div class="eqnarray">
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main1225x.png" alt="&int; b            &int; b        &int; b        &int; b
+   f(x)dx   =     a0dx +     a1xdx +    a2x2dx +  ...+
+ a             &int;a          a&int;         a
+                 ba  xndx +   bR  (x)dx
+                a   n        a   n
+                             b2 &minus; a2     b3 &minus; a3
+            =  a0(b &minus; a) + a1------- + a2------- + ...+
+                   n+1    n+1   2&int;           3
+               a  b---&minus;--a----+   bR  (x)dx
+                n    n + 1       a   n
+" class="math-display" ></center>
+</div>
+<!--l. 1191--><p class="indent" >   Neste momento, é natural investigar o desempenho de um esquema numérico
+aplicado a funções do tipo <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) = </span><span 
+class="lmmi-12">x</span><sup><span 
+class="lmmi-8">n</span></sup>.
+   <div class="newtheorem">
+<!--l. 1193--><p class="noindent" ><span class="head">
+<a 
+ id="x79-135008r1"></a>
+<span 
+class="ec-lmbx-12">Defini</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão 7.3.1.</span>  </span><span 
+class="ec-lmri-12">A </span><span 
+class="ec-lmbx-12">ordem de precis</span><span 
+class="ec-lmbx-12">ão </span><span 
+class="ec-lmri-12">ou </span><span 
+class="ec-lmbx-12">ordem de exatid</span><span 
+class="ec-lmbx-12">ão </span><span 
+class="ec-lmri-12">de um</span>
+<span 
+class="ec-lmri-12">esquema de quadratura num</span><span 
+class="ec-lmri-12">érica como o maior inteiro positivo </span><span 
+class="ec-lmbx-12">n </span><span 
+class="ec-lmri-12">para o qual</span>
+<span 
+class="ec-lmri-12">o esquema </span><span 
+class="ec-lmri-12">é exato para todas as fun</span><span 
+class="ec-lmri-12">ç</span><span 
+class="ec-lmri-12">ões do tipo </span><span 
+class="lmmi-12">x</span><sup><span 
+class="lmmi-8">k</span></sup> <span 
+class="ec-lmri-12">com </span><span 
+class="rm-lmr-12">0 </span><span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="lmmi-12">k </span><span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="lmmi-12">n</span><span 
+class="ec-lmri-12">, ou seja,</span>
+<span 
+class="ec-lmri-12">Um esquema </span><span 
+class="ec-lmri-12">é dito de ordem </span><span 
+class="lmmi-12">n </span><span 
+class="ec-lmri-12">se</span>
+   <center class="math-display" >
+<img 
+src="main1226x.png" alt=" n            &int;
+&sum;               b                  k
+   wjf (xj) =  a f(x)dx,   f(x) = x , k = 0,1,...n
+j=1
+" class="math-display" ></center> <span 
+class="ec-lmri-12">ou, equivalentemente:</span>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main1227x.png" alt="           &int;
+&sum;n     k     b k      bk+1-&minus;-ak+1--
+   wjx j =  a x dx =     k + 1   ,  k = 0,1,...n
+j=1
+" class="math-display" ></center>
+   </div>
+   <div class="newtheorem">
+<!--l. 1200--><p class="noindent" ><span class="head">
+<a 
+ id="x79-135009r1"></a>
+<span 
+class="ec-lmbx-12">Observa</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão 7.3.1.</span>  </span>Se o método tem ordem <span 
+class="rm-lmr-12">0 </span>ou mais, então
+   <center class="math-display" >
+<img 
+src="main1228x.png" alt="&sum;n
+   wj =  b &minus; a
+j=1
+" class="math-display" ></center>
+   </div>
+   <div class="newtheorem">
+<!--l. 1204--><p class="noindent" ><span class="head">
+<a 
+ id="x79-135010r9"></a>
+<span 
+class="ec-lmbx-12">Exemplo 7.3.9.</span>  </span>A ordem de precisão do esquema de trapézios é 1:
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main1229x.png" alt="&int;                                  2
+  b                      b-&minus;-a    &sum;
+ a f(x)dx &asymp;  [f(a ) + f (b)] 2   =  j=1 wjf (xj )  " class="math-display" ></center>
+onde <span 
+class="lmmi-12">w</span><sub><span 
+class="lmmi-8">j</span></sub> <span 
+class="rm-lmr-12">=</span> <img 
+src="main1230x.png" alt="b&minus;a
+ 2"  class="frac" align="middle">, <span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">a </span>e <span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">2</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">b</span>.
+<table 
+class="align-star">
+              <tr><td 
+class="align-odd"></td>              <td 
+class="align-even"><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">k </span><span 
+class="rm-lmr-12">= 0) :</span>    <span 
+class="lmex-10">&sum;</span>
+    <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">n</span></sup><span 
+class="lmmi-12">w</span><sub>
+<span 
+class="lmmi-8">j</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">b </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">a</span></td>                                  <td 
+class="align-label"></td>              <td 
+class="align-label">
+              </td></tr><tr><td 
+class="align-odd"></td>              <td 
+class="align-even"><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">k </span><span 
+class="rm-lmr-12">= 1) :</span>    <span 
+class="lmex-10">&sum;</span>
+    <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">n</span></sup><span 
+class="lmmi-12">w</span><sub>
+<span 
+class="lmmi-8">j</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub> <span 
+class="rm-lmr-12">= (</span><span 
+class="lmmi-12">a </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">b</span><span 
+class="rm-lmr-12">)</span><img 
+src="main1231x.png" alt="b-&minus;-a
+  2"  class="frac" align="middle"> <span 
+class="rm-lmr-12">=</span> <img 
+src="main1232x.png" alt=" 2    2
+b-&minus;-a--
+  2"  class="frac" align="middle"></td>               <td 
+class="align-label"></td>              <td 
+class="align-label">
+              </td></tr><tr><td 
+class="align-odd"></td>              <td 
+class="align-even"><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">k </span><span 
+class="rm-lmr-12">= 2) :</span>    <span 
+class="lmex-10">&sum;</span>
+    <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">n</span></sup><span 
+class="lmmi-12">w</span><sub>
+<span 
+class="lmmi-8">j</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub><sup><span 
+class="rm-lmr-8">2</span></sup> <span 
+class="rm-lmr-12">= (</span><span 
+class="lmmi-12">a</span><sup><span 
+class="rm-lmr-8">2</span></sup> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">b</span><sup><span 
+class="rm-lmr-8">2</span></sup><span 
+class="rm-lmr-12">)</span><img 
+src="main1233x.png" alt="b &minus; a
+--2--"  class="frac" align="middle"><span 
+class="lmmi-12">&ne;</span><img 
+src="main1234x.png" alt="b3 &minus; a3
+--3----"  class="frac" align="middle"></td>              <td 
+class="align-label"></td>              <td 
+class="align-label"></td></tr></table>
+   </div>
+   <div class="newtheorem">
+<!--l. 1214--><p class="noindent" ><span class="head">
+<a 
+ id="x79-135011r10"></a>
+                                                                          
+
+                                                                          
+<span 
+class="ec-lmbx-12">Exemplo 7.3.10.</span>  </span>A ordem de precisão do esquema de Simpson é 3:
+   <center class="math-display" >
+<img 
+src="main1235x.png" alt="&int; b          [          ( a + b)       ] b &minus; a   &sum;3
+   f (x )dx &asymp;  f (a ) + 4f  -----  + f(b)  ----- =    wjf (xj)
+ a                          2              6     j=1  " class="math-display" ></center>
+onde <span 
+class="lmmi-12">w</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">w</span><sub><span 
+class="rm-lmr-8">3</span></sub> <span 
+class="rm-lmr-12">=</span> <img 
+src="main1236x.png" alt="b&minus;a
+ 6"  class="frac" align="middle">,<span 
+class="lmmi-12">w</span><sub><span 
+class="rm-lmr-8">2</span></sub> <span 
+class="rm-lmr-12">= 4</span><img 
+src="main1237x.png" alt="b&minus;-a
+ 6"  class="frac" align="middle">, <span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">a</span>, <span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">2</span></sub> <span 
+class="rm-lmr-12">=</span> <img 
+src="main1238x.png" alt="a+b
+ 2"  class="frac" align="middle"> e <span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">3</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">b</span>
+<table 
+class="align-star">
+   <tr><td 
+class="align-odd"></td>   <td 
+class="align-even"><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">k </span><span 
+class="rm-lmr-12">= 0) :</span>    <span 
+class="lmex-10">&sum;</span>
+    <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">n</span></sup><span 
+class="lmmi-12">w</span><sub>
+<span 
+class="lmmi-8">j</span></sub> <span 
+class="rm-lmr-12">= (1 + 4 + 1)</span><img 
+src="main1239x.png" alt="b &minus;-a
+  6"  class="frac" align="middle"> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">b </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">a</span></td>                            <td 
+class="align-label"></td>   <td 
+class="align-label">
+   </td></tr><tr><td 
+class="align-odd"></td>   <td 
+class="align-even"><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">k </span><span 
+class="rm-lmr-12">= 1) :</span>    <span 
+class="lmex-10">&sum;</span>
+    <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">n</span></sup><span 
+class="lmmi-12">w</span><sub>
+<span 
+class="lmmi-8">j</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub> <span 
+class="rm-lmr-12">= (</span><span 
+class="lmmi-12">a </span><span 
+class="rm-lmr-12">+ 4</span><img 
+src="main1240x.png" alt="a + b
+-----
+  2"  class="frac" align="middle"> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">b</span><span 
+class="rm-lmr-12">)</span><img 
+src="main1241x.png" alt="b &minus; a
+-----
+  6"  class="frac" align="middle"> <span 
+class="rm-lmr-12">= (</span><span 
+class="lmmi-12">a </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">b</span><span 
+class="rm-lmr-12">)</span><img 
+src="main1242x.png" alt="b &minus; a
+-----
+  2"  class="frac" align="middle"> <span 
+class="rm-lmr-12">=</span> <img 
+src="main1243x.png" alt="b2 &minus; a2
+-------
+  2"  class="frac" align="middle"></td>   <td 
+class="align-label"></td>   <td 
+class="align-label">
+   </td></tr><tr><td 
+class="align-odd"></td>   <td 
+class="align-even"><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">k </span><span 
+class="rm-lmr-12">= 2) :</span>    <span 
+class="lmex-10">&sum;</span>
+    <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">n</span></sup><span 
+class="lmmi-12">w</span><sub>
+<span 
+class="lmmi-8">j</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub><sup><span 
+class="rm-lmr-8">2</span></sup> <span 
+class="rm-lmr-12">= (</span><span 
+class="lmmi-12">a</span><sup><span 
+class="rm-lmr-8">2</span></sup> <span 
+class="rm-lmr-12">+ 4</span><img 
+src="main1244x.png" alt="(      )
+  a-+-b
+    2"  class="left" align="middle"><sup><span 
+class="rm-lmr-8">2</span></sup> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">b</span><sup><span 
+class="rm-lmr-8">2</span></sup><span 
+class="rm-lmr-12">)</span><img 
+src="main1245x.png" alt="b &minus;-a
+ 6"  class="frac" align="middle"> <span 
+class="rm-lmr-12">=</span> <img 
+src="main1246x.png" alt=" 3    3
+b-&minus;--a-
+   3"  class="frac" align="middle"></td>           <td 
+class="align-label"></td>   <td 
+class="align-label">
+   </td></tr><tr><td 
+class="align-odd"></td>   <td 
+class="align-even"><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">k </span><span 
+class="rm-lmr-12">= 3) :</span>    <span 
+class="lmex-10">&sum;</span>
+    <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">n</span></sup><span 
+class="lmmi-12">w</span><sub>
+<span 
+class="lmmi-8">j</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub><sup><span 
+class="rm-lmr-8">3</span></sup> <span 
+class="rm-lmr-12">= (</span><span 
+class="lmmi-12">a</span><sup><span 
+class="rm-lmr-8">3</span></sup> <span 
+class="rm-lmr-12">+ 4</span><img 
+src="main1247x.png" alt="(      )
+  a-+-b
+    2"  class="left" align="middle"><sup><span 
+class="rm-lmr-8">3</span></sup> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">b</span><sup><span 
+class="rm-lmr-8">3</span></sup><span 
+class="rm-lmr-12">)</span><img 
+src="main1248x.png" alt="b &minus;-a
+ 6"  class="frac" align="middle"> <span 
+class="rm-lmr-12">=</span> <img 
+src="main1249x.png" alt=" 4    4
+b-&minus;--a-
+   4"  class="frac" align="middle"></td>           <td 
+class="align-label"></td>   <td 
+class="align-label">
+   </td></tr><tr><td 
+class="align-odd"></td>   <td 
+class="align-even"><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">k </span><span 
+class="rm-lmr-12">= 4) :</span>    <span 
+class="lmex-10">&sum;</span>
+    <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">n</span></sup><span 
+class="lmmi-12">w</span><sub>
+<span 
+class="lmmi-8">j</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub><sup><span 
+class="rm-lmr-8">4</span></sup> <span 
+class="rm-lmr-12">= (</span><span 
+class="lmmi-12">a</span><sup><span 
+class="rm-lmr-8">4</span></sup> <span 
+class="rm-lmr-12">+ 4</span><img 
+src="main1250x.png" alt="( a + b)
+  -----
+    2"  class="left" align="middle"><sup><span 
+class="rm-lmr-8">4</span></sup> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">b</span><sup><span 
+class="rm-lmr-8">4</span></sup><span 
+class="rm-lmr-12">)</span><img 
+src="main1251x.png" alt="b &minus; a
+-----
+ 6"  class="frac" align="middle"><span 
+class="lmmi-12">&ne;</span><img 
+src="main1252x.png" alt="b5 &minus; a5
+-------
+   4"  class="frac" align="middle"></td>            <td 
+class="align-label"></td>   <td 
+class="align-label"></td></tr></table>
+                                                                          
+
+                                                                          
+   </div>
+   <div class="newtheorem">
+<!--l. 1226--><p class="noindent" ><span class="head">
+<a 
+ id="x79-135012r11"></a>
+<span 
+class="ec-lmbx-12">Exemplo 7.3.11.</span>  </span>Encontre os pesos <span 
+class="lmmi-12">w</span><sub><span 
+class="lmmi-8">j</span></sub> e as abscissas <span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub> tais que o esquema
+de dois pontos
+   <center class="math-display" >
+<img 
+src="main1253x.png" alt="&int; 1
+    f(x)dx =  w1f(x1) + w2f (x2)
+ &minus;1
+" class="math-display" ></center> é de ordem 3.
+   </div>
+<!--l. 1231--><p class="indent" >
+   <div class="proof">
+<!--l. 1231--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Temos um sistema de quatro equações e quatro incógnitas dado por:
+<div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1254x.png" alt="     w1 + w2  =   2
+x1w1  + x2w2  =   0
+  2      2        2
+x 1w1 + x2w2  =   3-
+  3      3
+x 1w1 + x2w2  =   0
+" class="math-display" ></center>
+</div>
+<!--l. 1240--><p class="indent" >   Da segunda e quarta equação, temos:
+   <center class="math-display" >
+<img 
+src="main1255x.png" alt="w1-     x2-     x32-
+w   = &minus; x  =  &minus; x3
+  2      1       1   " class="math-display" ></center>
+Como <span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="lmmi-12">&ne;</span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">2</span></sub>, temos <span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmsy-10x-x-120">&minus;</span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">2</span></sub> e <span 
+class="lmmi-12">w</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">w</span><sub><span 
+class="rm-lmr-8">2</span></sub>. Da primeira equação, temos
+<span 
+class="lmmi-12">w</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">w</span><sub><span 
+class="rm-lmr-8">2</span></sub> <span 
+class="rm-lmr-12">= 1</span>. Da terceira equação, temos <span 
+class="lmsy-10x-x-120">&minus;</span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">2</span></sub> <span 
+class="rm-lmr-12">=</span> <img 
+src="main1256x.png" alt="&radic;-
+33-"  class="frac" align="middle">.
+<!--l. 1244--><p class="indent" >   Esse esquema de ordem de precisão três e dois pontos chama-se quadratura de
+Gauss-Legendre com dois pontos:
+   <center class="math-display" >
+<img 
+src="main1257x.png" alt="               ( &radic; -)     (  &radic; --)
+&int; 1              --3-        --3-
+ &minus;1f (x)dx = f    3   + f  &minus;  3
+" class="math-display" ></center>                                                                         <span 
+class="msam-10x-x-120">&#x2662;</span>
+                                                                          
+
+                                                                          
+   </div>
+   <div class="newtheorem">
+<!--l. 1248--><p class="noindent" ><span class="head">
+<a 
+ id="x79-135014r12"></a>
+<span 
+class="ec-lmbx-12">Exemplo 7.3.12.</span>  </span>Comparação
+   <center class="math-display" >
+<img 
+src="main1258x.png" alt="|----------|----------------|-------------|----------------|-------------------|
+|   f(x)   |     Exato      |  Trapézio   |   Simpson      |Gauss-Legendre (2) |
+|----------|----------------|-------------|----------------|-------------------|
+|          |                |             |                |                   |
+|          |       &minus; 1      |  &minus;1         | e&minus;1 + 4e0 + e1 |    &minus; &minus;&radic;3   &radic;3-    |
+|    ex    |   e&minus; e         | e   + e     | ------3------- |   e   3 + e 3     |
+|          |    &asymp; 2,35040    |  &asymp; 3,08616   |                |    &asymp; 2,34270       |
+|          |                |             | &asymp; 2,36205      |                   |
+|          |                |             |                |                   |
+|----------|----------------|-------------|----------------|-------------------|
+|          |                |             |                |                   |
+|          |   16   4&radic; --   |             |                |                   |
+|x2&#x2218;3-+-x3-|    9 &minus; 9  2    |  3,41421    |    1,13807      |     1,15411       |
+|          |    &asymp; 1,14924    |             |                |                   |
+|          |                |             |                |                   |
+|          |                |             |                |                   |
+|----------|----------------|-------------|----------------|-------------------|
+|          |                |             |                |                   |
+|   2 x3   | e&minus;-e&minus;1-          |             |                |                   |
+|  x e     |   3  &asymp; 0,78347 |  3,08616    |    1,02872      |     0,67905       |
+|          |                |             |                |                   |
+|----------|-------------------------------------------------------------------
+|          |  " class="math-display" ></center>
+   </div>
+<!--l. 1271--><p class="noindent" >
+                                                                          
+
+                                                                          
+   <h4 class="subsectionHead"><span class="titlemark">7.3.5   </span> <a 
+ id="x79-1360007.3.5"></a>Quadratura de Gauss-Legendre</h4>
+<a 
+ id="dx79-136001"></a>
+<!--l. 1273--><p class="noindent" >A quadratura de Gauss-Legendre de <span 
+class="lmmi-12">n </span>pontos é o esquema numérico
+   <center class="math-display" >
+<img 
+src="main1259x.png" alt="&int;
+  1          &sum;n
+ &minus;1 f(x)dx =    wjf (xj)
+             j=1  " class="math-display" ></center>
+cuja ordem de exatidão é <span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">n </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1</span>.
+      <ul class="itemize1">
+      <li class="itemize">O problema de encontrar os <span 
+class="lmmi-12">n </span>pesos e <span 
+class="lmmi-12">n </span>abscissas é equivalente a um
+      sistema não linear com <span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">n </span>equações e <span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">n </span>incógnitas.
+      </li>
+      <li class="itemize">Pode-se mostrar que este problema sempre tem solução e que a solução
+      é única se <span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="lmmi-12">&#x003C; x</span><sub><span 
+class="rm-lmr-8">2</span></sub> <span 
+class="lmmi-12">&#x003C;</span> <span 
+class="lmmi-12">&hellip;</span> <span 
+class="lmmi-12">&#x003C; x</span><sub><span 
+class="lmmi-8">n</span></sub>
+      </li>
+      <li class="itemize">As abscissas são das pelos zeros do enésimo polinômio de Legendre,
+      <span 
+class="lmmi-12">P</span><sub><span 
+class="lmmi-8">n</span></sub><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)</span>.
+      </li>
+      <li class="itemize">Os pesos são dados por
+      <center class="math-display" >
+      <img 
+src="main1260x.png" alt="     --------2---------
+wj = (      2)   &prime;    2.
+       1 &minus; x j [Pn(xj)]
+      " class="math-display" ></center>
+      </li>
+      <li class="itemize">Estes dados são tabelados e facilmente encontrados.</li></ul>
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1261x.png" alt="|---|------------------|--------|
+|   |                  |        |
+|n--|-------xj---------|--wj----|
+|   |                  |        |
+|   |                  |        |
+|1  |        0         |   2    |
+|   |                  |        |
+|   |                  |        |
+|---|------------------|--------|
+|   |                  |        |
+|   |        &radic;3-       |        |
+|2  |      ± -3-       |   1    |
+|   |                  |        |
+|---|------------------|--------|
+|   |                  |        |
+|   |                  |        |
+|   |        0         |   8    |
+|   |                  |   9    |
+|3  |                  |        |
+|   |        &#x2218; --      |        |
+|   |      ±   35       |   59    |
+|   |                  |        |
+|---|------------------|--------|
+|   |                  |        |
+|   | &#x2218; ---------------|        |
+|   |         &#x2218;        | 18+-&radic;30 |
+|   |±  (3 &minus; 2  6&#x2215;5)&#x2215;7 |   36   |
+|4  |                  |        |
+|   | &#x2218; ------&#x2218;--------|    &radic;-- |
+|   |±  (3 + 2  6&#x2215;5)&#x2215;7 | 18&minus;--30 |
+|   |                  |   36   |
+|   |                  |        |
+|---|---------------------------
+|   |
+" class="math-display" ></center></td></tr></table>
+<!--l. 1312--><p class="nopar" >
+   <div class="newtheorem">
+<!--l. 1314--><p class="noindent" ><span class="head">
+<a 
+ id="x79-136002r13"></a>
+<span 
+class="ec-lmbx-12">Exemplo 7.3.13.</span>  </span>Aproximar
+   <table 
+class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main1262x.png" alt="&int; 1 &radic; -------
+      1 + x2dx
+ &minus;1
+" class="math-display" ></center></td></tr></table>
+<!--l. 1317--><p class="nopar" >
+pelo método de Gauss-Legendre com 3 pontos.
+   </div>
+<!--l. 1320--><p class="indent" >
+   <div class="proof">
+<!--l. 1320--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span>
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1263x.png" alt="        (  &#x2218; --)               ( &#x2218; -)
+     5- (    3-)   8-       5- (   3)
+I3 = 9f  &minus;   5   + 9 f(0) + 9f     5  &asymp;  2,2943456
+" class="math-display" ></center></td></tr></table>
+<!--l. 1323--><p class="nopar" >
+No Scilab: <div class="verbatiminput"></div>                                                                                   <span 
+class="msam-10x-x-120">&#x2662;</span>
+   </div>
+   <div class="newtheorem">
+<!--l. 1331--><p class="noindent" ><span class="head">
+<a 
+ id="x79-136003r14"></a>
+                                                                          
+
+                                                                          
+<span 
+class="ec-lmbx-12">Exemplo 7.3.14.</span>  </span>Aproximar
+   <center class="math-display" >
+<img 
+src="main1264x.png" alt="&int; 1 &radic; -------
+      1 + x2dx
+ &minus;1
+" class="math-display" ></center> pelo método de Gauss-Legendre com 4 pontos.
+   </div>
+<!--l. 1335--><p class="indent" >
+   <div class="proof">
+<!--l. 1335--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span>
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-47">
+I4=f(x4(1))*w4(1)+f(-x4(1))*w4(1)+f(x4(2))*w4(2)+f(-x4(2))*w4(2)
+</div>
+<!--l. 1338--><p class="nopar" >                                                                         <span 
+class="msam-10x-x-120">&#x2662;</span>
+   </div>
+   <div class="newtheorem">
+<!--l. 1343--><p class="noindent" ><span class="head">
+<a 
+ id="x79-136004r15"></a>
+<span 
+class="ec-lmbx-12">Exemplo 7.3.15.</span>  </span>Aproximar
+   <center class="math-display" >
+<img 
+src="main1265x.png" alt="&int;
+  1&radic; -----2-
+ 0   1 + x dx
+" class="math-display" ></center> pelo método de Gauss-Legendre com <span 
+class="rm-lmr-12">3</span><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&#x00A0;</span><span 
+class="rm-lmr-12">4 </span>e <span 
+class="rm-lmr-12">5 </span>pontos.
+   </div>
+<!--l. 1347--><p class="indent" >
+   <div class="proof">
+<!--l. 1347--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Para tanto, fazemos a mudança de variáveis <span 
+class="lmmi-12">u </span><span 
+class="rm-lmr-12">= 2</span><span 
+class="lmmi-12">x </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1</span>:
+   <table 
+class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main1266x.png" alt="&int; 1&radic; -------       &int; 1&#x2218; ----(------)2-
+     1 + x2dx =  1-     1 +   u-+-1- du
+ 0               2  &minus;1          2
+" class="math-display" ></center></td></tr></table>
+<!--l. 1351--><p class="nopar" >
+E, então aplicamos a quadratura gaussiana nesta última integral.
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-48">
+deff(&#8217;y=f(u)&#8217;,&#8217;y=sqrt(1+(u+1)^2/4)/2&#8217;)
+&#x00A0;<br />I3=f(0)*w3(1)+f(x3(2))*w3(2)+f(-x3(2))*w3(2)
+&#x00A0;<br />I4=f(x4(1))*w4(1)+f(-x4(1))*w4(1)+f(x4(2))*w4(2)+f(-x4(2))*w4(2)
+&#x00A0;<br />I5=f(0)*w5(1)+f(x5(2))*w5(2)+f(-x5(2))*w5(2)+f(x5(3))*w5(3)&#x00A0;...
+&#x00A0;<br />&#x00A0;&#x00A0;+f(-x5(3))*w5(3)
+</div>
+<!--l. 1360--><p class="nopar" >                                                                         <span 
+class="msam-10x-x-120">&#x2662;</span>
+   </div>
+                                                                          
+
+                                                                          
+   <!--l. 1364--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse48.html" >next</a>] [<a 
+href="mainse46.html" >prev</a>] [<a 
+href="mainse46.html#tailmainse46.html" >prev-tail</a>] [<a 
+href="mainse34.html" >front</a>] [<a 
+href="mainap1.html#mainse47.html" >up</a>] </p></div>
+<!--l. 1364--><p class="indent" >   <a 
+ id="tailmainse34.html"></a>   
+</body></html> 
