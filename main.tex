@@ -13,9 +13,11 @@
 \author{}
 \date{\today}
 
+\ifishtml
+\else
 \AddToShipoutPicture*{\BackgroundPic}
+\fi
 \maketitle
-
 
 \chapter*{Organizadores}
 \addcontentsline{toc}{chapter}{Organizadores}
@@ -58,7 +60,12 @@ Este livro busca abordar os tópicos de um curso de introdução ao cálculo num
 Ao longo do livro, fazemos ênfase na utilização do \emph{software} livre \verb+Scilab+ para a implementação dos métodos numéricos abordados. Recomendamos que o leitor tenha à sua disposição um computador com o \verb+Scilab+ instalado. Não é necessário estar familiarizado com a linguagem \verb+Scilab+, mas recomendamos a leitura do Apêndice~\ref{cap:scilab}, no qual apresentamos uma rápida introdução a este pacote computacional. Alternativamente, existem algumas soluções em nuvem que fornecem acesso ao Scilab via internet. Por exemplo, a plataforma virtual rollApp (\url{https://www.rollapp.com/app/scilab}).
 \fi
 
+\ifisslide
 %\tableofcontents
+\else
+\tableofcontents
+\addcontentsline{toc}{chapter}{Sumário}
+\fi
 
 \mainmatter
 
@@ -77,26 +84,25 @@ Ao longo do livro, fazemos ênfase na utilização do \emph{software} livre \ver
 \fi
 
 %resposta dos exercícios
+\ifishtml
+\else
 \chapter*{Resposta dos Exercícios}
 \addcontentsline{toc}{chapter}{Respostas dos Exercícios}
 Recomendamos ao leitor o uso criterioso das respostas aqui apresentadas. Devido a ainda muito constante atualização do livro, as respostas podem conter imprecisões e erros.
+
 \shipoutAnswer  
+\fi
 
 %references
 \nocite{*}
 \bibliographystyle{plain}
 
-\begingroup
-\chapter*{Referências Bibliográficas}
-\renewcommand{\chapter}[2]{}
-\addcontentsline{toc}{chapter}{Referências Bibliográficas}
 \bibliography{main}
-\endgroup
+\addcontentsline{toc}{chapter}{Referências Bibliográficas}
 
-\begingroup
 \chapter*{Colaboradores}
-\renewcommand{\chapter}[2]{}
 \addcontentsline{toc}{chapter}{Colaboradores}
+
 Até o momento não temos registro de colaborações externas ao corpo de organizadores. Ajude-nos a mudar isso editando você mesmo este livro. Seja o primeiro a ter o registro de sua colaboração neste espaço. O código fonte está disponível no repositório GitHub:
 \begin{center}
   \url{https://github.com/livroscolaborativos/CalculoNumerico}
@@ -105,11 +111,12 @@ Dúvidas, escreva para a lista de emails:
 \begin{center}
   \url{livro_colaborativo@googlegroups.com}
 \end{center}
-\endgroup
 
-
+\ifishtml
+\else
 \clearpage
 \addcontentsline{toc}{chapter}{Índice Remissivo}
 \printindex
+\fi
 
 \end{document}

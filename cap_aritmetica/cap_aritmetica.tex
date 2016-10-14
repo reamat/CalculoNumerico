@@ -18,7 +18,7 @@ Usualmente, utilizamos o sistema de numeração decimal para representar número
 
 O sistema de numeração posicional também pode ser usado com outras bases. Vejamos a seguinte definição.
 
-\begin{defn}[Sistema de numeração de base $b$]\label{def:sistema_de_numeração}
+\begin{defn}[Sistema de numeração de base $b$]\label{def:sistema_de_numeracao}
 Dado um número natural $b>1$ e o conjunto de símbolos $\{\pmb{,}, \pmb{-},  \pmb{0}, \pmb{1}, \pmb{2},\dotsc, \pmb{b-1}\}$\footnote{Para $b>10$, veja a Observação \ref{obs:sistema_de_numeracao}}, a sequência de símbolos
 \begin{equation*}
 \left(d_nd_{n-1} \cdots d_1d_0,d_{-1}d_{-2} \cdots \right)_b  
@@ -94,7 +94,7 @@ No sistema octal a base é $b=8$ e utilizamos os símbolos em $\{0, 1, 2, 3, 4, 
 \end{ex}
 \fi
 
-A partir da Definição \ref{def:sistema_de_numeração} acabamos de mostrar vários exemplos de conversão de números de uma sistema de numeração de base $b$ para o sistema decimal. Agora, vamos estudar como fazer o processo inverso. Isto é, dado um número decimal $(X)_{10}$ queremos escrevê-lo em uma outra base $b$, i.e., queremos obter a seguinte representação:
+A partir da Definição \ref{def:sistema_de_numeracao} acabamos de mostrar vários exemplos de conversão de números de uma sistema de numeração de base $b$ para o sistema decimal. Agora, vamos estudar como fazer o processo inverso. Isto é, dado um número decimal $(X)_{10}$ queremos escrevê-lo em uma outra base $b$, i.e., queremos obter a seguinte representação:
 \begin{align*}
   (X)_{10} &= (d_nd_{n-1}\cdots d_0,d_{-1}\cdots)_{b} \\
   &= d_n\cdot b^{n}+d_{n-1}\cdot b^{n-1}+\cdots + d_0\cdot b^0+d_{-1}\cdot b^{-1}+d_{-2}\cdot b^{-2}+\cdots        
@@ -172,7 +172,7 @@ As contas feitas aqui, também podem ser feitas no \verb+Scilab+. Você sabe com
 
 Uma maneira de converter um número dado numa base $b_1$ para uma base $b_2$ é fazer em duas partes: primeiro converter o número dado na base $b_2$ para base decimal e depois converter para a base $b_1$.
 
-\section*{Exercícios}
+\subsection{Exercícios}
 
 \indent 
 \begin{Exercise} Converta para base decimal cada um dos seguintes números:
@@ -253,7 +253,6 @@ Uma maneira de converter um número dado numa base $b_1$ para uma base $b_2$ é 
   \end{tiny}
 \end{Answer}
 
-
 \section{Representação de números}\index{representação!de números}
 
 Os computadores, em geral, usam a base binária para representar os números, onde as posições, chamadas de bits, assume as condições ``verdadeiro'' ou ``falso'', ou seja, $0$ ou $1$. Cada computador tem um número de bits fixo e, portanto, representa uma quantidade finita de números. Os demais números são tomados por proximidade àqueles conhecidos, gerando erros de arredondamento. Por exemplo, em aritmética de computador, o número $2$ tem representação exata, logo $2^2=4$, mas $\sqrt{3}$ não tem representação finita, logo $(\sqrt{3})^2\neq 3$. 
@@ -276,11 +275,14 @@ Tipicamente um número inteiro é armazenado num computador como uma sequência 
 
 \subsubsection{Representação sem sinal}\index{representação de números!inteiros!sem sinal}
 Um registro com $n$ bits da forma
-\begin{equation*}
-\begin{array}{|c|c|c|c|c|} \hline
-d_{n-1}&d_{n-2}&\cdots&d_1&d_0\\\hline
-\end{array}  
-\end{equation*}
+\begin{tabular}{|c|c|c|c|c|}\hline
+    $d_{n-1}$ & $d_{n-2}$ & $\cdots$ & $d_1$ & $d_0$\\\hline
+\end{tabular}
+% \begin{equation*}
+%   \begin{array}{|c|c|c|c|c|}\hline
+%     d_{n-1} & d_{n-2} & \cdots & d_1 &d_0\\\hline
+%   \end{array}  
+% \end{equation*}
 representa o número $(d_{n-1}d_{n-2}...d_1d_0)_2$. 
 
 Assim é possível representar números inteiros entre
@@ -609,7 +611,7 @@ O \emph{epsilon de máquina}, $\epsilon_{mach}=\epsilon$, é definido de forma q
   Com $64$ bits, temos que o epsilon será dado por
 \begin{align*}
   1      &\rightarrow ~~(1.0000~0000....0000)_2\times 2^{0} \\
-\epsilon &\rightarrow  +(0.0000~0000....0001)_2\times 2^{0}  = 2^{-52} \\ \hline
+\epsilon &\rightarrow  +(0.0000~0000....0001)_2\times 2^{0}  = 2^{-52} \\
          &      ~~~~~~~ (1.0000~0000....0001)_2\times 2^{0} \neq 1
 \end{align*}
 Assim $\epsilon = 2^{-52}$.
@@ -636,8 +638,7 @@ Por simplicidade, a partir daqui nós adotaremos $b=10$.
 \end{obs}
 \fi
 
-
-\section*{Exercícios}
+\subsection{Exercícios}
 
 \begin{Exercise} Explique a diferença entre o sistema de ponto fixo e ponto flutuante.
 \end{Exercise}
@@ -652,9 +653,9 @@ Por simplicidade, a partir daqui nós adotaremos $b=10$.
  \end{verbatim}
  Explique se esta rotina finaliza em tempo finito, em caso afirmativo calcule a ordem de grandeza do tempo de execução supondo que cada passo do laço demore $10^{-7}s$. Justifique sua reposta.
  \end{Exercise}
-\fi
  
 \section{Tipos de Erros}\index{erros}
+
 Em geral, os números não são representados de forma exata nos computadores. Isto nos leva ao chamado erro de arredondamento. Quando resolvemos problemas com técnicas numéricas estamos sujeitos a este e outros tipos de erros. Nesta seção, veremos quais são estes erros e como controlá-los, quando possível.
 
 Quando fazemos aproximações numéricas, os erros são gerados de várias formas, sendo as principais delas as seguintes:
@@ -760,7 +761,7 @@ $$
 \end{itemize}
 \end{ex}
 
-\subsection{Erros de arredondamento}{\label{arredondamento_sec}}\index{erros!de arredondamento}
+\subsection{Erros de arredondamento}\index{erros!de arredondamento}
 Os erros de arredondamento são aqueles gerados quando aproximamos um número real por um número com representação finita.
 
 Existem várias formas de arredondar 
@@ -824,7 +825,7 @@ No \verb+Scilab+, a representação de números por arredondamento é o padrão.
 \end{ex}
 
 
-\section*{Exercícios}
+\subsection{Exercícios}
 
 \begin{Exercise} Calcule os erros absoluto e relativo das aproximações $\bar{x}$ para $x$.
   \begin{itemize}
@@ -880,6 +881,7 @@ Verifique quantos são os dígitos significativos corretos em cada aproximação
   \end{tiny}
 \end{Answer}
 
+\fi
 
 \section{Erros nas operações elementares}
 O erro presente relativo nas operações elementares de adição, subtração, multiplicação e divisão é da ordem do epsilon de máquina. Se estivermos usando uma máquina com 64 bits, temos que $\epsilon = 2^{-52} \approx 2,22E16$. 
@@ -1186,7 +1188,7 @@ $$
 $$
 \end{sol}
 
-\section*{Exercícios}
+\subsection{Exercícios}
 
 \begin{Exercise}Considere que a variável $x\approx 2$ é conhecida com um erro relativo de $1\%$ e a variável $y\approx 10$ com um erro relativo de $10\%$. Calcule o erro relativo associado a $z$ quando:
   \begin{equation*}
@@ -1219,7 +1221,6 @@ Onde $\alpha$ é um número entre 0 e 1 e $V_0$ é a tensão nominal em volts. S
 Calcule a corrente e o erro relativo associado quando a tensão vale $220\pm 1\%$.
 \emph{Dica:} lembre que $x^\alpha=e^{\alpha \ln(x)}$
 \end{Exercise}
-
 
 \section{Mais exemplos}
 
@@ -1262,9 +1263,15 @@ Qual o número de condicionamento desse problema?
 $$
 f(x)=\frac{(1+x)-1}{x}=1
 $$
-Calcule o valor da expressão à esquerda para $x=10^{-12}$, $x=10^{-13}$, $x=10^{-14}$, $x=10^{-15}$, $x=10^{-16}$ e $x=10^{-17}$. Observe que quando $x$ se aproxima do $\epsilon$ de máquina a expressão perde o significado. Veja abaixo o gráfico de $f(x)$ em escala logarítmica.
+Calcule o valor da expressão à esquerda para $x=10^{-12}$, $x=10^{-13}$, $x=10^{-14}$, $x=10^{-15}$, $x=10^{-16}$ e $x=10^{-17}$. Observe que quando $x$ se aproxima do $\epsilon$ de máquina a expressão perde o significado. Veja a Figura~\ref{fig:cancelamento_0} com o gráfico de $f(x)$ em escala logarítmica.
 
-\includegraphics[width=0.8\textwidth]{./cap_aritmetica/pics/cancelamento_0.eps}
+\begin{figure}
+  \centering
+  \includegraphics[width=0.8\textwidth]{./cap_aritmetica/pics/cancelamento_0}  
+  \caption{Oi. Eu estou aqui!}
+  \label{fig:cancelamento_0}
+\end{figure}
+
 \end{ex}
 
 \begin{ex} Neste exemplo, estamos interessados em compreender mais detalhadamente o comportamento da expressão
@@ -1369,7 +1376,7 @@ Observe a perda de informação ao deslocar a mantissa de $1/n$. Para evidenciar
 Seguindo nesta analogia, o fenômeno de perda de significância pode ser interpretado como a seguir: imagine que você deseje obter o peso de um gato (aproximadamente $4$Kg). Dois processos estão disponíveis: colocar o gato diretamente na balança ou medir seu peso com o gato e, depois, sem o gato. Na balança de ponto flutuante, a incerteza associada na medida do peso do gato (sozinho) é aproximadamente $10\%$ de $4$Kg, isto é, $400$g. Já a incerteza associada à medida da uma pessoa (aproximadamente $70$Kg) com o gato é de $10\%$ do peso total, isto é, aproximadamente $7$Kg. Esta incerteza é da mesma ordem de grandeza da medida a ser realizada, tornado o processo impossível de ser realizado, já que teríamos uma incerteza da ordem de $14$Kg (devido à dupla medição) sobre uma grandeza de $4$Kg.    
 \end{ex}
 
-\section*{Exercícios}
+\subsection{Exercícios}
 
 \begin{Exercise} Considere as expressões:
   \begin{equation*}
