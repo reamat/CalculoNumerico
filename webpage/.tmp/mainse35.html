@@ -1,0 +1,680 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html xml:lang="pt" > 
+<head><title>Metodo de Euler</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,3,notoc*,minitoc<,next --> 
+<meta name="src" content="main.tex"> 
+<meta name="date" content="2016-10-14 12:52:00"> 
+<link rel="stylesheet" type="text/css" href="main.css"> 
+</head><body 
+>
+   <!--l. 32--><div class="crosslinks"><p class="noindent">[<a 
+href="mainli24.html" >prev</a>] [<a 
+href="mainli24.html#tailmainli24.html" >prev-tail</a>] [<a 
+href="mainse24.html#tailmainse35.html">tail</a>] [<a 
+href="mainli24.html# " >up</a>] </p></div>
+                                                                          
+
+                                                                          
+   <h3 class="sectionHead"><span class="titlemark">8.1   </span> <a 
+ id="x83-1400008.1"></a>Método de Euler</h3>
+<a 
+ id="dx83-140001"></a>
+<!--l. 33--><p class="noindent" >Retornemos ao problema de valor inicial (<a 
+href="mainch8.html#x82-1390020">8.1<!--tex4ht:ref: PVI --></a>) dado por: <div class="subequations"><a 
+ id="x83-1400020"></a> <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1334x.png" alt="y&prime;(t)  =   f(y(t),t)                            (8.3a)
+y(0)  =   y  (condição inicial)                (8.3b)
+           0
+" class="math-display" ></center>
+</div>
+</div>
+<!--l. 40--><p class="indent" >   O Método de Euler aplicado à solução desse problema consiste em aproximar
+a derivada <span 
+class="lmmi-12">y</span><span 
+class="lmsy-10x-x-120">&prime;</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><span 
+class="rm-lmr-12">) </span>por um esquema de primeira ordem do tipo
+   <center class="math-display" >
+<img 
+src="main1335x.png" alt="y&prime;(t) = y(t +-h-) &minus;-y(t)-+ O (h), h &#x003E; 0.
+              h  " class="math-display" ></center>
+Aqui <span 
+class="lmmi-12">h </span>é o passo do método, que consideraremos uma constante. Assim temos
+(<a 
+href="#x83-1400020">8.3<!--tex4ht:ref: PVI_2 --></a>) se transforma em: <div class="eqnarray">
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main1336x.png" alt="y(t + h) &minus; y(t)
+--------------- =   f(y(t),t) + O(h )
+      h                                   2
+      y(t + h)  =   y(t) + hf (y(t),t) + O (h ).         (8.4)
+" class="math-display" ><a 
+ id="x83-140004r8.4"></a></center>
+</div>
+<!--l. 48--><p class="indent" >   Definimos, então, <span 
+class="lmmi-12">t</span><sup><span 
+class="rm-lmr-8">(</span><span 
+class="lmmi-8">k</span><span 
+class="rm-lmr-8">)</span></sup> <span 
+class="rm-lmr-12">= (</span><span 
+class="lmmi-12">k </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1)</span><span 
+class="lmmi-12">h </span>e <span 
+class="lmmi-12">y</span><sup><span 
+class="rm-lmr-8">(</span><span 
+class="lmmi-8">k</span><span 
+class="rm-lmr-8">)</span></sup> como a aproximação para <span 
+class="lmmi-12">y</span><img 
+src="main1337x.png" alt="( (k))
+ t"  class="left" align="middle">
+produzida pelo Método de Euler. Assim, obtemos <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1338x.png" alt=" (k+1)       (k)       (k) (k)
+y      =   y   + hf(y   ,t  ) (aproxima ção da EDO  ),      (8.5)
+  y(1)  =   y  (condição inicial).                           (8.6)
+            0
+" class="math-display" ><a 
+ id="x83-140005r8.5"></a></center>
+</div>O problema (<a 
+href="#x83-140005r8.5">8.5<!--tex4ht:ref: PVI_EULER --></a>) consiste em um esquema iterativo, isto é, <span 
+class="lmmi-12">y</span><sup><span 
+class="rm-lmr-8">(1)</span></sup> é a condição
+inicial; <span 
+class="lmmi-12">y</span><sup><span 
+class="rm-lmr-8">(2)</span></sup> pode ser obtido de <span 
+class="lmmi-12">y</span><sup><span 
+class="rm-lmr-8">(2)</span></sup>; <span 
+class="lmmi-12">y</span><sup><span 
+class="rm-lmr-8">(3)</span></sup>, de <span 
+class="lmmi-12">y</span><sup><span 
+class="rm-lmr-8">(4)</span></sup> e assim por diante, calculamos o
+termo <span 
+class="lmmi-12">y</span><sup><span 
+class="rm-lmr-8">(</span><span 
+class="lmmi-8">n</span><span 
+class="rm-lmr-8">)</span></sup> apartir do anterior <span 
+class="lmmi-12">y</span><sup><span 
+class="rm-lmr-8">(</span><span 
+class="lmmi-8">n</span><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">1)</span></sup>.
+   <div class="newtheorem">
+<!--l. 56--><p class="noindent" ><span class="head">
+<a 
+ id="x83-140006r1"></a>
+<span 
+class="ec-lmbx-12">Exemplo 8.1.1.</span>  </span>Retornemos ao o problema de valor inicial do exemplo (<a 
+href="mainch8.html#x82-1390050">8.2<!--tex4ht:ref: exemplo_y_2y --></a>):
+<div class="eqnarray">
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main1339x.png" alt=" &prime;
+y(t)  =  2y (t)
+y(0)  =  1
+" class="math-display" ></center>
+</div>
+   </div>
+<!--l. 62--><p class="indent" >   Cuja solução é <span 
+class="lmmi-12">y</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><span 
+class="rm-lmr-12">) = </span><span 
+class="lmmi-12">e</span><sup><span 
+class="rm-lmr-8">2</span><span 
+class="lmmi-8">t</span></sup>. O método de Euler aplicado a este problema produz
+o seguinte esquema: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1340x.png" alt=" (k+1)      (k)      (k)            (k)
+y       =  y   + 2hy    = (1 + 2h)y
+  y (1)  =  1,
+" class="math-display" ></center>
+</div>cuja solução é dada por
+   <center class="math-display" >
+<img 
+src="main1341x.png" alt="y(k) = (1 + 2h )k&minus; 1.  " class="math-display" ></center>
+Como <span 
+class="lmmi-12">t </span><span 
+class="rm-lmr-12">= (</span><span 
+class="lmmi-12">k </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1)</span><span 
+class="lmmi-12">h</span>, a solução aproximada pelo Método de Euler é
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main1342x.png" alt="                      t
+y(t) &asymp; &#x02DC;y(t) = (1 + 2h )h.  " class="math-display" ></center>
+Observe que <span 
+class="lmmi-12">&#x1EF9;</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">&ne;</span><span 
+class="lmmi-12">y</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><span 
+class="rm-lmr-12">)</span>, mas se <span 
+class="lmmi-12">h </span>é pequeno, a aproximação é boa, pois
+   <center class="math-display" >
+<img 
+src="main1343x.png" alt="             th    2t
+hli&rarr;m0+ (1 + 2h )  = e .
+" class="math-display" ></center>
+<!--l. 74--><p class="indent" >   Vamos agora, analisar o desempenho do Método de Euler usando um exemplo
+mais complicado, porém ainda simples suficiente para que possamos obter a
+solução exata:
+   <div class="newtheorem">
+<!--l. 75--><p class="noindent" ><span class="head">
+<a 
+ id="x83-140009r2"></a>
+<span 
+class="ec-lmbx-12">Exemplo 8.1.2.</span>  </span> Considere o problema de valor inicial relacionado à equação
+logística<a 
+ id="dx83-140010"></a>: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1344x.png" alt=" &prime;
+y(t)  =  y (t)(1 &minus; y(t))
+y(0)  =  1&#x2215;2
+" class="math-display" ></center>
+</div>
+   </div>
+<!--l. 81--><p class="indent" >   Podemos obter a solução exata desta equação usando o método de separação
+de variáveis<a 
+ id="dx83-140012"></a> e o método das frações parciais<a 
+ id="dx83-140013"></a>. Para tal escrevemos:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1345x.png" alt="----dy(t)-----
+y(t)(1 &minus; y (t)) = dt
+" class="math-display" ></center></td></tr></table>
+<!--l. 84--><p class="nopar" >
+O termo <img 
+src="main1346x.png" alt="--1---
+y(1&minus;y)"  class="frac" align="middle"> pode ser decomposto em frações parciais como <img 
+src="main1347x.png" alt="1
+y"  class="frac" align="middle"> <span 
+class="lmsy-10x-x-120">&minus;</span><img 
+src="main1348x.png" alt="-1-
+1&minus;y"  class="frac" align="middle"> e chegamos
+na seguinte equação diferencial:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1349x.png" alt="(           )
+  1-+  -1---- dy = dt.
+  y    1 &minus; y
+" class="math-display" ></center></td></tr></table>
+                                                                          
+
+                                                                          
+<!--l. 88--><p class="nopar" >
+Integrando termo-a-termo, temos a seguinte equação algébrica relacionando <span 
+class="lmmi-12">y</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><span 
+class="rm-lmr-12">) </span>e
+<span 
+class="lmmi-12">t</span>:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1350x.png" alt="ln (y ) &minus; ln(1 &minus; y) = t + C
+" class="math-display" ></center></td></tr></table>
+<!--l. 92--><p class="nopar" >
+Onde <span 
+class="lmmi-12">C </span>é a constante de integração, que é definida pela condição inicial, isto é,
+<span 
+class="lmmi-12">y </span><span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">&#x2215;</span><span 
+class="rm-lmr-12">2 </span>em <span 
+class="lmmi-12">t </span><span 
+class="rm-lmr-12">= 0</span>. Substituindo, temos <span 
+class="lmmi-12">C </span><span 
+class="rm-lmr-12">= 0</span>. O que resulta em:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1351x.png" alt="  (      )
+ln   --y--- =  t
+    1 &minus; y
+" class="math-display" ></center></td></tr></table>
+<!--l. 96--><p class="nopar" >
+Equivalente a
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main1352x.png" alt="--y---   t
+1 &minus; y = e
+" class="math-display" ></center></td></tr></table>
+<!--l. 100--><p class="nopar" >
+e
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1353x.png" alt="y = (1 &minus; y)et
+" class="math-display" ></center></td></tr></table>
+<!--l. 104--><p class="nopar" >
+Colocando o termo <span 
+class="lmmi-12">y </span>em evidência, encontramos:
+   <table 
+class="equation"><tr><td><a 
+ id="x83-140014r7"></a>
+   <center class="math-display" >
+<img 
+src="main1354x.png" alt="(1 + et)y = et
+" class="math-display" ></center></td><td class="equation-label">(8.7)</td></tr></table>
+<!--l. 108--><p class="nopar" >
+E, finalmente, encontramos a solução exata dada por <span 
+class="lmmi-12">y</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><span 
+class="rm-lmr-12">) =</span> <img 
+src="main1355x.png" alt="-et-
+1+et"  class="frac" align="middle">.
+<!--l. 111--><p class="indent" >   Vejamos, agora, o esquema iterativo produzido pelo método de Euler:
+                                                                          
+
+                                                                          
+<table 
+class="align">
+                       <tr><td 
+class="align-odd"><span 
+class="lmmi-12">y</span><sup><span 
+class="rm-lmr-8">(</span><span 
+class="lmmi-8">k</span><span 
+class="rm-lmr-8">+1)</span></sup></td>                       <td 
+class="align-even"> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">y</span><sup><span 
+class="rm-lmr-8">(</span><span 
+class="lmmi-8">k</span><span 
+class="rm-lmr-8">)</span></sup> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">hy</span><sup><span 
+class="rm-lmr-8">(</span><span 
+class="lmmi-8">k</span><span 
+class="rm-lmr-8">)</span></sup><span 
+class="rm-lmr-12">(1 </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">y</span><sup><span 
+class="rm-lmr-8">(</span><span 
+class="lmmi-8">k</span><span 
+class="rm-lmr-8">)</span></sup><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">,</span></td>                                              <td 
+class="align-label"><a 
+ id="x83-140015r8"></a>(8.8)
+                       </td></tr><tr><td 
+class="align-odd"><span 
+class="lmmi-12">y</span><sup><span 
+class="rm-lmr-8">(1)</span></sup></td>                         <td 
+class="align-even"> <span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">&#x2215;</span><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">.</span></td>                                                              <td 
+class="align-label"><a 
+ id="x83-140016r9"></a>(8.9)                       </td></tr></table>
+<!--l. 118--><p class="indent" >   Para fins de comparação, calculamos a solução de <a 
+href="#x83-140009r2">8.1.2<!--tex4ht:ref: ex_euler_1 --></a> e de (<span 
+class="ec-lmbx-12">??</span>) para alguns
+valores de <span 
+class="lmmi-12">t </span>e de passo <span 
+class="lmmi-12">h </span>e resumimos na Tabela&#x00A0;<a 
+href="#x83-1400171">8.1<!--tex4ht:ref: tab:log --></a>.
+   <div class="table">
+                                                                          
+
+                                                                          
+<!--l. 121--><p class="indent" >   <a 
+ id="x83-1400171"></a><hr class="float"><div class="float" 
+>
+                                                                          
+
+                                                                          
+ <div class="caption" 
+><span class="id">Tabela&#x00A0;8.1: </span><span  
+class="content">Tabela comparativa enter Método de Euler e solução exata para
+problema <a 
+href="#x83-140009r2">8.1.2<!--tex4ht:ref: ex_euler_1 --></a>.</span></div><!--tex4ht:label?: x83-1400171 -->
+<div class="tabular"> <table id="TBL-30" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-30-1g"><col 
+id="TBL-30-1"></colgroup><colgroup id="TBL-30-2g"><col 
+id="TBL-30-2"></colgroup><colgroup id="TBL-30-3g"><col 
+id="TBL-30-3"></colgroup><colgroup id="TBL-30-4g"><col 
+id="TBL-30-4"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-30-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-30-1-1"  
+class="td11"> <span 
+class="lmmi-12">t </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-30-1-2"  
+class="td11">     Exato        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-30-1-3"  
+class="td11">Euler<span 
+class="lmmi-12">&#x00A0;</span><span 
+class="lmmi-12">&#x00A0;h </span><span 
+class="rm-lmr-12">= 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">1</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-30-1-4"  
+class="td11">Euler<span 
+class="lmmi-12">&#x00A0;</span><span 
+class="lmmi-12">&#x00A0;h </span><span 
+class="rm-lmr-12">= 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">01</span></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-30-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-30-2-1"  
+class="td11"> <span 
+class="rm-lmr-12">0  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-30-2-2"  
+class="td11">      <span 
+class="rm-lmr-12">1</span><span 
+class="lmmi-12">&#x2215;</span><span 
+class="rm-lmr-12">2          </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-30-2-3"  
+class="td11">     <span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">5        </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-30-2-4"  
+class="td11">      <span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">5         </span></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-30-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-30-3-1"  
+class="td11"><span 
+class="rm-lmr-12">1</span><span 
+class="lmmi-12">&#x2215;</span><span 
+class="rm-lmr-12">2</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-30-3-2"  
+class="td11"><img 
+src="main1356x.png" alt="-e1&#x2215;2--
+1+e1&#x2215;2"  class="frac" align="middle"> <span 
+class="lmsy-10x-x-120">&asymp; </span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">6224593</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-30-3-3"  
+class="td11">  <span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">6231476    </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-30-3-4"  
+class="td11">   <span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">6225316    </span></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-30-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-30-4-1"  
+class="td11"> <span 
+class="rm-lmr-12">1  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-30-4-2"  
+class="td11"> <img 
+src="main1357x.png" alt=" e
+1+e-"  class="frac" align="middle"> <span 
+class="lmsy-10x-x-120">&asymp; </span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">7310586 </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-30-4-3"  
+class="td11">  <span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">7334030    </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-30-4-4"  
+class="td11">   <span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">7312946    </span></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-30-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-30-5-1"  
+class="td11"> <span 
+class="rm-lmr-12">2  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-30-5-2"  
+class="td11"> <img 
+src="main1358x.png" alt="-e22
+1+e"  class="frac" align="middle"> <span 
+class="lmsy-10x-x-120">&asymp; </span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">8807971 </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-30-5-3"  
+class="td11">  <span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">8854273    </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-30-5-4"  
+class="td11">   <span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">8812533    </span></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-30-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-30-6-1"  
+class="td11"> <span 
+class="rm-lmr-12">3  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-30-6-2"  
+class="td11"> <img 
+src="main1359x.png" alt="-e3-
+1+e3"  class="frac" align="middle"> <span 
+class="lmsy-10x-x-120">&asymp; </span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">9525741 </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-30-6-3"  
+class="td11">  <span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">9564754    </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-30-6-4"  
+class="td11">   <span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">9529609    </span></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-30-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-30-7-1"  
+class="td11">   </td></tr></table></div>
+                                                                          
+
+                                                                          
+   </div><hr class="endfloat" />
+   </div>
+<!--l. 134--><p class="indent" >   No exemplo a seguir, apresentamos um problema envolvendo uma equação
+não-autônoma<a 
+ id="dx83-140018"></a>, isto é, quando a função <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">y,t</span><span 
+class="rm-lmr-12">) </span>depende explicitamente do
+tempo.
+   <div class="newtheorem">
+<!--l. 136--><p class="noindent" ><span class="head">
+<a 
+ id="x83-140019r3"></a>
+<span 
+class="ec-lmbx-12">Exemplo 8.1.3.</span>  </span>Resolva o problema de valor inicial <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1360x.png" alt="  y&prime;  =   &minus; y + t
+y(0)  =   1,
+" class="math-display" ></center>
+</div>cuja solução exata é <span 
+class="lmmi-12">y</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><span 
+class="rm-lmr-12">) = 2</span><span 
+class="lmmi-12">e</span><sup><span 
+class="lmsy8-">&minus;</span><span 
+class="lmmi-8">t</span></sup> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">t </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1</span>.
+   </div>
+<!--l. 143--><p class="indent" >   O esquema recursivo de Euler fica: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1361x.png" alt=" (k+1 )                      (k)
+y      =   y(k) &minus; hy(k) + ht
+ y(0)  =   1
+                                                                          
+
+                                                                          
+" class="math-display" ></center>
+</div>
+<!--l. 149--><p class="indent" >   Comparação
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1362x.png" alt="|--|---------------------|---------------|----------------|
+|t |       Exato         |Euler  h =  0,1 |Euler  h = 0,01 |
+|--|---------------------|---------------|----------------|
+|0 |          1          |       1       |       1        |
+|--|----&minus;1---------------|---------------|----------------|
+|1-|--2e---&asymp;-0,7357589---|---0,6973569----|---0,7320647----|
+|  |  &minus;2                 |               |                |
+|2-|2e---+-1-&asymp;-1,2706706-|---1,2431533----|---1,2679593----|
+|  |  &minus;3                 |               |                |
+|3-|2e---+-2-&asymp;-2,0995741-----2,0847823--------2,0980818-----
+|  |
+" class="math-display" ></center></td></tr></table>
+<!--l. 158--><p class="nopar" >
+<!--l. 160--><p class="indent" >   No exemplo <a 
+href="#x83-140023r4">8.1.4<!--tex4ht:ref: sys_edo --></a>, mostramos como o Método de Euler pode ser facilmente
+estendido para problemas envolvendo sistemas de equações diferenciais.<a 
+ id="dx83-140022"></a>.
+   <div class="newtheorem">
+<!--l. 161--><p class="noindent" ><span class="head">
+<a 
+ id="x83-140023r4"></a>
+<span 
+class="ec-lmbx-12">Exemplo 8.1.4.</span>  </span> Escreva o processo iterativo de Euler para resolver
+numericamente o seguinte sistema de equações diferenciais <div class="eqnarray">
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main1363x.png" alt="   &prime;
+  x   =  &minus; y
+  y&prime;  =  x
+
+x(0)  =  1
+y(0)  =  0,
+" class="math-display" ></center>
+</div>cuja solução exata é <span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><span 
+class="rm-lmr-12">) =</span> <span 
+class="rm-lmr-12">cos</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><span 
+class="rm-lmr-12">) </span>e <span 
+class="lmmi-12">y</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><span 
+class="rm-lmr-12">) =</span> <span 
+class="rm-lmr-12">sin</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><span 
+class="rm-lmr-12">)</span>.
+   </div>
+<!--l. 170--><p class="indent" >   Par aplicar o Método de Euler a um sistema, devemos encarar as diversas
+incógnitas do sistema como formando um vetor, neste caso, encrevemos:
+   <center class="math-display" >
+<img 
+src="main1364x.png" alt="       &lfloor;      &rfloor;
+
+z(t) = |&lceil; x(t) |&rceil;.
+         y(t)  " class="math-display" ></center> O
+sistema é igualmente escrito na forma vetorial: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1365x.png" alt="&lfloor;   (k+1) &rfloor;   &lfloor;   (k) &rfloor;    &lfloor;     (k) &rfloor;
+| x      | = | x    | + h|  &minus; y   | .
+&lceil; y (k+1) &rceil;   &lceil; y (k) &rceil;    &lceil;   x(k)  &rceil;
+" class="math-display" ></center>
+</div>Observe que este processo iterativo é equivalente a: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1366x.png" alt="x(k+1 ) =   x(k) &minus; hy (k)
+ (k+1 )      (k)      (k)
+y      =   y   + hx   .
+" class="math-display" ></center>
+</div>
+   <div class="newtheorem">
+<!--l. 182--><p class="noindent" ><span class="head">
+<a 
+ id="x83-140027r5"></a>
+<span 
+class="ec-lmbx-12">Exemplo 8.1.5.</span>  </span>Escreva o problema de valor inicial de segunda ordem dado por
+<div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1367x.png" alt=" &prime;&prime;    &prime;
+y  + y + y  =   cos(t),
+      y (0 ) =   1,
+      y&prime;(0 ) =   0,
+" class="math-display" ></center>
+</div>como um problema envolvendo um sistema de primeira ordem.
+   </div>
+<!--l. 190--><p class="indent" >   A fim de transformar a equação diferencial dada em um sistema de equações
+de primeira ordem, introduzimos a substituição <span 
+class="lmmi-12">w </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">y</span><span 
+class="lmsy-10x-x-120">&prime;</span>, de forma que obtermos o
+sistema: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1368x.png" alt="    &prime;
+   y   =  w
+  w &prime;  =  &minus; w &minus; y + cos(t)
+
+ y(0)  =  1
+w (0)  =  0
+" class="math-display" ></center>
+</div>Portanto, o Método de Euler produz o seguinte processo iterativo: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1369x.png" alt="  (k+1)       (k)      (k)
+ y      =   y   + hw   ,
+w (k+1)  =   w(k) &minus; hw (k) &minus; hy (k) + hcos(t(k)),
+   y(1)  =   1,
+    (1)
+  w     =   0.
+" class="math-display" ></center>
+</div>
+                                                                          
+
+                                                                          
+   <!--l. 204--><div class="crosslinks"><p class="noindent">[<a 
+href="mainli24.html" >prev</a>] [<a 
+href="mainli24.html#tailmainli24.html" >prev-tail</a>] [<a 
+href="mainse35.html" >front</a>] [<a 
+href="mainli24.html# " >up</a>] </p></div>
+<!--l. 204--><p class="indent" >   <a 
+ id="tailmainse35.html"></a>  
+</body></html> 

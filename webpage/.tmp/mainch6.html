@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html xml:lang="pt" > 
+<head><title>6 Aproximaçao de funçoes</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,3,notoc*,minitoc<,next --> 
+<meta name="src" content="main.tex"> 
+<meta name="date" content="2016-10-14 12:52:00"> 
+<link rel="stylesheet" type="text/css" href="main.css"> 
+</head><body 
+>
+   <!--l. 6--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse35.html" >next</a>] [<a 
+href="mainli18.html" >prev</a>] [<a 
+href="mainli18.html#tailmainli18.html" >prev-tail</a>] [<a 
+href="#tailmainch6.html">tail</a>] [<a 
+href="main.html#mainch8.html" >up</a>] </p></div>
+   <h2 class="chapterHead"><span class="titlemark">Capítulo&#x00A0;6</span><br /><a 
+ id="x61-950006"></a>Aproximação de funções</h2><div class="chapterTOCS">
+   &#x00A0;<span class="sectionToc" >6.1 <a 
+href="mainse24.html#x62-960006.1">Interpolação polinomial</a></span>
+<br />   &#x00A0;<span class="sectionToc" >6.2 <a 
+href="mainse25.html#x63-970006.2">Diferenças divididas de Newton</a></span>
+<br />   &#x00A0;<span class="sectionToc" >6.3 <a 
+href="mainse26.html#x65-990006.3">Polinômios de Lagrange</a></span>
+<br />   &#x00A0;<span class="sectionToc" >6.4 <a 
+href="mainse27.html#x66-1000006.4">Aproximação de funções reais por polinômios interpoladores</a></span>
+<br />   &#x00A0;<span class="sectionToc" >6.5 <a 
+href="mainse28.html#x68-1020006.5">Ajuste de curvas</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >6.5.1 <a 
+href="mainse28.html#x68-1030006.5.1">O problema linear</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >6.5.2 <a 
+href="mainse28.html#x68-1040006.5.2">Ajuste polinomial</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >6.5.3 <a 
+href="mainse28.html#x68-1050006.5.3">Ajuste linear de curvas</a></span>
+<br />   &#x00A0;<span class="sectionToc" >6.6 <a 
+href="mainse29.html#x70-1070006.6">Aproximando problemas não lineares por problemas lineares</a></span>
+<br />   &#x00A0;<span class="sectionToc" >6.7 <a 
+href="mainse30.html#x72-1080006.7">Interpolação linear segmentada</a></span>
+<br />   &#x00A0;<span class="sectionToc" >6.8 <a 
+href="mainse31.html#x73-1090006.8">Interpolação cúbica segmentada - spline</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >6.8.1 <a 
+href="mainse31.html#x73-1100006.8.1">Spline natural</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >6.8.2 <a 
+href="mainse31.html#x73-1110006.8.2">Spline fixado</a></span>
+   </div>
+<a 
+ id="dx61-95001"></a>
+<!--l. 8--><p class="indent" >   O problema geral de interpolação pode ser definido como:
+<!--l. 12--><p class="indent" >   Seja <img 
+src="main796x.png" alt="{(xi,yi)}"  class="left" align="middle"><sub><span 
+class="lmmi-8">i</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">n</span></sup> um conjunto de pares ordenados tais que <span 
+class="lmmi-12">x</span><sub>
+<span 
+class="lmmi-8">i</span></sub><span 
+class="lmmi-12">&ne;</span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub> se <span 
+class="lmmi-12">i </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">j</span>,
+encontre uma função <span 
+class="lmmi-12">f </span><span 
+class="lmsy-10x-x-120">&isin;<span 
+class="htf-calligraphy">F</span> </span>(uma família de funções) tal que
+   <center class="math-display" >
+<img 
+src="main797x.png" alt="f(xi) = yi,i = 1,...,n
+" class="math-display" ></center>
+   <div class="newtheorem">
+<!--l. 15--><p class="noindent" ><span class="head">
+<a 
+ id="x61-95002r2"></a>
+<span 
+class="ec-lmbx-12">Exemplo 6.0.2.</span>  </span>Encontrar uma função <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) </span>da forma <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) = </span><span 
+class="lmmi-12">ae</span><sup><span 
+class="lmmi-8">bx</span></sup> onde <span 
+class="lmmi-12">a </span>e <span 
+class="lmmi-12">b </span>são
+                                                                          
+
+                                                                          
+constantes tal que <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(1) = 1 </span>e <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(2) = 5</span>. Este problema equivale a resolver o
+seguinte sistema de equações: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main798x.png" alt=" aeb =   1
+  2b
+ae   =   5
+" class="math-display" ></center>
+</div>Dividindo a segunda equação pela primeira, temos <span 
+class="lmmi-12">e</span><sup><span 
+class="lmmi-8">b</span></sup> <span 
+class="rm-lmr-12">= 5</span>, logo, <span 
+class="lmmi-12">b </span><span 
+class="rm-lmr-12">=</span> <span 
+class="rm-lmr-12">ln</span><span 
+class="rm-lmr-12">(5)</span>.
+Substituindo este valor em qualquer das equações, temos <span 
+class="lmmi-12">a </span><span 
+class="rm-lmr-12">=</span> <img 
+src="main799x.png" alt="1
+5"  class="frac" align="middle">. Assim
+   <center class="math-display" >
+<img 
+src="main800x.png" alt="f(x) = 1eln(5)x = 1-5x = 5x&minus;1.
+       5         5
+" class="math-display" ></center>
+   </div>
+   <div class="newtheorem">
+<!--l. 23--><p class="noindent" ><span class="head">
+<a 
+ id="x61-95004r3"></a>
+<span 
+class="ec-lmbx-12">Exemplo 6.0.3.</span>  </span>Encontrar a função polinomial do tipo <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) = </span><span 
+class="lmmi-12">a </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">bx </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">cx</span><sup><span 
+class="rm-lmr-8">2</span></sup> que
+passe pelos pontos <span 
+class="rm-lmr-12">(</span><span 
+class="lmsy-10x-x-120">&minus;</span><span 
+class="rm-lmr-12">1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">2)</span>, <span 
+class="rm-lmr-12">(0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">1)</span>, <span 
+class="rm-lmr-12">(1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">6)</span>. Observamos que podemos encontrar os
+coeficientes <span 
+class="lmmi-12">a</span>, <span 
+class="lmmi-12">b </span>e <span 
+class="lmmi-12">c </span>através do seguinte sistema linear: <div class="eqnarray">
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main801x.png" alt="a &minus; b + c  =   2
+
+        a  =   1
+a + b + c  =   6
+" class="math-display" ></center>
+</div>cuja solução é dada por <span 
+class="lmmi-12">a </span><span 
+class="rm-lmr-12">= 1</span>, <span 
+class="lmmi-12">b </span><span 
+class="rm-lmr-12">= 2 </span>e <span 
+class="lmmi-12">c </span><span 
+class="rm-lmr-12">= 3</span>. Portanto
+   <center class="math-display" >
+<img 
+src="main802x.png" alt="f(x) = 1 + 2x + 3x2.
+" class="math-display" ></center>
+   </div>
+
+
+
+
+
+
+
+
+
+
+
+                                                                          
+
+                                                                          
+   <!--l. 6--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse35.html" >next</a>] [<a 
+href="mainli18.html" >prev</a>] [<a 
+href="mainli18.html#tailmainli18.html" >prev-tail</a>] [<a 
+href="mainch6.html" >front</a>] [<a 
+href="main.html#mainch8.html" >up</a>] </p></div>
+<!--l. 6--><p class="indent" >   <a 
+ id="tailmainch6.html"></a>  
+</body></html> 

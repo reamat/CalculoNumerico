@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html xml:lang="pt" > 
+<head><title>Metodos de Runge-Kutta</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,3,notoc*,minitoc<,next --> 
+<meta name="src" content="main.tex"> 
+<meta name="date" content="2016-10-14 13:56:00"> 
+<link rel="stylesheet" type="text/css" href="main.css"> 
+</head><body 
+>
+   <!--l. 430--><div class="crosslinks"><p class="noindent">[<a 
+href="mainli24.html" >prev</a>] [<a 
+href="mainli24.html#tailmain" >prev-tail</a>] [<a 
+href="mainse28.html#tailmainse39.html">tail</a>] [<a 
+href="mainli24.html# " >up</a>] </p></div>
+   <h3 class="sectionHead"><span class="titlemark">8.5   </span> <a 
+ id="x89-1500008.5"></a>Métodos de Runge-Kutta</h3>
+<a 
+ id="dx89-150001"></a>
+<!--l. 432--><p class="noindent" >Os métodos de Runge-Kutta consistem em iterações do tipo:
+   <center class="math-display" >
+<img 
+src="main1399x.png" alt="y(k+1) = y (k) + w k + ...+ w  k
+                1 1          n n  " class="math-display" ></center>
+onde <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1400x.png" alt="k1  =  hf (y(k),t(k))
+            (k)         (k)
+k2  =  hf (y   + &alpha;2,1k1,t   + &beta;2h )
+k3  =  hf (y(k) + &alpha;3,1k1 + &alpha;3,2k2,t(k) + &beta;3h)
+    .
+    ..
+k   =  hf (y(k) + &alpha;  k +  &alpha;  k  + ...&alpha;     k    ,t(k) + &beta; h )
+ n                n,1 1    n,2  2       n,n&minus;1 n&minus; 1       n
+" class="math-display" ></center>
+                                                                          
+
+                                                                          
+</div>
+<!--l. 443--><p class="indent" >   Os coeficientes são escolhidos de forma que a expansão em Taylor de <span 
+class="lmmi-12">y</span><sup><span 
+class="rm-lmr-8">(</span><span 
+class="lmmi-8">k</span><span 
+class="rm-lmr-8">+1)</span></sup> e
+<span 
+class="lmmi-12">y</span><sup><span 
+class="rm-lmr-8">(</span><span 
+class="lmmi-8">k</span><span 
+class="rm-lmr-8">)</span></sup> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">w</span><sub>
+<span 
+class="rm-lmr-8">1</span></sub><span 
+class="lmmi-12">k</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">+</span> <span 
+class="lmmi-12">&hellip;</span> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">w</span><sub><span 
+class="lmmi-8">n</span></sub><span 
+class="lmmi-12">k</span><sub><span 
+class="lmmi-8">n</span></sub> coincidam até ordem <span 
+class="lmmi-12">n </span><span 
+class="rm-lmr-12">+ 1</span>.
+   <div class="newtheorem">
+<!--l. 445--><p class="noindent" ><span class="head">
+<a 
+ id="x89-150003r1"></a>
+<span 
+class="ec-lmbx-12">Exemplo 8.5.1.</span>  </span>O   método   de   Euler   melhorado   é   um   exemplo   de
+Runge-Kutta de segunda ordem
+   <center class="math-display" >
+<img 
+src="main1401x.png" alt="y(n+1) = y(n) + k1-+-k2
+                  2
+" class="math-display" ></center> onde <span 
+class="lmmi-12">k</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">hf</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">y</span><sup><span 
+class="rm-lmr-8">(</span><span 
+class="lmmi-8">n</span><span 
+class="rm-lmr-8">)</span></sup><span 
+class="lmmi-12">,t</span><sup><span 
+class="rm-lmr-8">(</span><span 
+class="lmmi-8">n</span><span 
+class="rm-lmr-8">)</span></sup><span 
+class="rm-lmr-12">) </span>e <span 
+class="lmmi-12">k</span><sub>
+<span 
+class="rm-lmr-8">2</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">hf</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">y</span><sup><span 
+class="rm-lmr-8">(</span><span 
+class="lmmi-8">n</span><span 
+class="rm-lmr-8">)</span></sup> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">k</span><sub>
+<span 
+class="rm-lmr-8">1</span></sub><span 
+class="lmmi-12">,t</span><sup><span 
+class="rm-lmr-8">(</span><span 
+class="lmmi-8">n</span><span 
+class="rm-lmr-8">)</span></sup> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">h</span><span 
+class="rm-lmr-12">)</span>
+   </div>
+<!--l. 450--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">8.5.1   </span> <a 
+ id="x89-1510008.5.1"></a>Métodos de Runge-Kutta - Quarta ordem</h4>
+<a 
+ id="dx89-151001"></a>
+<!--l. 452--><p class="noindent" >
+   <center class="math-display" >
+<img 
+src="main1402x.png" alt=" (n+1)    (n)   k1 + 2k2 + 2k3 + k4
+y     =  y   + ---------6---------  " class="math-display" ></center>
+onde <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1403x.png" alt="            (n) (n)
+k1  =  hf (y  ,t  )
+k2  =  hf (y(n) + k1&#x2215;2,t(n) + h&#x2215;2)
+            (n)        (n)
+k3  =  hf (y   + k2&#x2215;2,t   + h&#x2215;2)
+k4  =  hf (y(n) + k3,t(n) + h)
+" class="math-display" ></center>
+</div>Este método tem ordem de precisão 4. Uma discussão heurística usando
+método de Simpson pode ajudar a compreender os estranhos coeficientes:
+<div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1404x.png" alt="                      &int; t(n+1)
+y(t(n+1)) &minus; y(t(n))  =    (n)  f (y (s),s)ds
+                       t [ (          )      (                      )
+                   &asymp;   h-f  y(t(n)),t(n)  + 4f  y(t(n) + h&#x2215;2),t(n) + h&#x2215;2
+                       6(                  ) ]
+                   +   f  y(t(n) + h ),t(n) + h
+
+                       k1 + 4 (k2+k23) + k4
+                   &asymp;   --------6---------
+" class="math-display" ></center>
+</div>onde <span 
+class="lmmi-12">k</span><sub><span 
+class="rm-lmr-8">1</span></sub> e <span 
+class="lmmi-12">k</span><sub><span 
+class="rm-lmr-8">4</span></sub> representam as inclinações nos extremos e <span 
+class="lmmi-12">k</span><sub><span 
+class="rm-lmr-8">2</span></sub> e <span 
+class="lmmi-12">k</span><sub><span 
+class="rm-lmr-8">3</span></sub> são duas
+aproximações diferentes para a inclinação no meio do intervalo.
+                                                                          
+
+                                                                          
+   <!--l. 470--><div class="crosslinks"><p class="noindent">[<a 
+href="mainli24.html" >prev</a>] [<a 
+href="mainli24.html#tailmain" >prev-tail</a>] [<a 
+href="mainse39.html" >front</a>] [<a 
+href="mainli24.html# " >up</a>] </p></div>
+<!--l. 470--><p class="indent" >   <a 
+ id="tailmainse39.html"></a>   
+</body></html> 
