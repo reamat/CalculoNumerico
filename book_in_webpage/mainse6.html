@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="Description" CONTENT="Cálculo Numérico - Um Livro Colaborativo, 
+   Instituto de Matemática e Estatística (IME), Universidade Federal do Rio Grande do Sul (UFRGS)."/>
+  <title>Cálculo Numérico - Um Livro Colaborative</title>
+  <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
+  <link href='http://fonts.googleapis.com/css?family=Open Sans:400,700' rel='stylesheet' type='text/css'/>
+  <link rel="stylesheet" href="../bootstrap-3.3.5-dist/css/bootstrap.css"/>
+  <link rel="stylesheet" type="text/css" href="new_main.css"/> 
+</head>
+<body>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61232881-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<!--Navigation menu-->
+<div class="nav" style="margin-top:5px">
+  <div class="container">
+    <ul class="pull-left">
+      <li><a href="../index.html">Página do Projeto</a></li>
+      <li><a href="https://github.com/livroscolaborativos/CalculoNumerico" target="_blanck">Repositório GitHub</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1 align="center">Cálculo Numérico</h1>
+    <h2 align="center">Um Livro Colaborativo</h2>
+  </div>
+</div>
+
+
+
+   <!--l. 998--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse11.html" >next</a>] [<a 
+href="mainse9.html" >prev</a>] [<a 
+href="mainse9.html#tailmainse9.html" >prev-tail</a>] [<a 
+href="mainse3.html#tailmainse6.html">tail</a>] [<a 
+href="mainch2.html#mainse10.html" >up</a>] </p></div>
+   <h3 class="sectionHead"><span class="titlemark">2.6   </span> <a 
+ id="x19-280002.6"></a>Condicionamento de um problema</h3>
+<!--l. 999--><p class="noindent" >Geralmente podemos pensar um problema como um mapeamento <span 
+class="lmmi-12">f </span>onde a partir
+de valores de entrada <span 
+class="lmmi-12">x </span>devemos encontrar a saída, a solução <span 
+class="lmmi-12">y</span>, ou seja,
+<span 
+class="lmmi-12">f </span><span 
+class="rm-lmr-12">: </span><span 
+class="lmmi-12">x </span><span 
+class="lmsy-10x-x-120">&rarr; </span><span 
+class="lmmi-12">y</span>, ou simplesmente
+<table 
+class="align">
+                                 <tr><td 
+class="align-odd"><span 
+class="lmmi-12">y </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)</span></td>                                 <td 
+class="align-even"></td>                                 <td 
+class="align-label"><a 
+ id="x19-28001r1"></a>(2.1)                                 </td></tr></table>
+Entretanto, a entrada do problema <span 
+class="lmmi-12">x </span>normalmente terá erros (por exemplo,
+erros na coleta dos dados ou erros na representação dos dados devido a
+arredondamentos). Assim, ao invés de usar <span 
+class="lmmi-12">x </span>estamos usando <span 
+class="lmmi-12">x</span><sup><span 
+class="lmsy8-">&lowast;</span></sup> para resolver o
+problema e encontrar a solução <span 
+class="lmmi-12">y</span><sup><span 
+class="lmsy8-">&lowast;</span></sup>, ou seja, estamos resolvendo
+                                                                          
+
+                                                                          
+<table 
+class="align">
+                                <tr><td 
+class="align-odd"><span 
+class="lmmi-12">y</span><sup><span 
+class="lmsy8-">&lowast;</span></sup> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sup><span 
+class="lmsy8-">&lowast;</span></sup><span 
+class="rm-lmr-12">)</span></td>                                <td 
+class="align-even"></td>                                <td 
+class="align-label"><a 
+ id="x19-28002r2"></a>(2.2)                                </td></tr></table>
+<!--l. 1008--><p class="indent" >   Estamos interessados em saber se os erros cometidos na entrada <span 
+class="rm-lmr-12">&Delta;</span><span 
+class="lmmi-12">x </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">x </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">x</span><sup><span 
+class="lmsy8-">&lowast;</span></sup>
+influenciaram na saída do problema <span 
+class="rm-lmr-12">&Delta;</span><span 
+class="lmmi-12">y </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">y </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">y</span><sup><span 
+class="lmsy8-">&lowast;</span></sup>.
+<!--l. 1010--><p class="indent" >   No caso mais simples, temos que <span 
+class="lmmi-12">x </span><span 
+class="lmsy-10x-x-120">&isin; </span><span 
+class="msbm-10x-x-120">&#x211D; </span>e <span 
+class="lmmi-12">y </span><span 
+class="lmsy-10x-x-120">&isin; </span><span 
+class="msbm-10x-x-120">&#x211D;</span>. Assumindo que <span 
+class="lmmi-12">f </span>seja
+diferenciável, a partir da série de Taylor
+<table 
+class="align">
+                       <tr><td 
+class="align-odd"><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x </span><span 
+class="rm-lmr-12">+ &Delta;</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) </span><span 
+class="lmsy-10x-x-120">&asymp; </span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) + </span><span 
+class="lmmi-12">f</span><span 
+class="lmsy-10x-x-120">&prime;</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)&Delta;</span><span 
+class="lmmi-12">x</span></td>                       <td 
+class="align-even"></td>                       <td 
+class="align-label"><a 
+ id="x19-28003r3"></a>(2.3)                       </td></tr></table>
+obtemos (subtraindo <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) </span>dos dois lados)
+                                                                          
+
+                                                                          
+<table 
+class="align">
+                    <tr><td 
+class="align-odd"><span 
+class="rm-lmr-12">&Delta;</span><span 
+class="lmmi-12">y </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x </span><span 
+class="rm-lmr-12">+ &Delta;</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) </span><span 
+class="lmsy-10x-x-120">&asymp; </span><span 
+class="lmmi-12">f</span><span 
+class="lmsy-10x-x-120">&prime;</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)&Delta;</span><span 
+class="lmmi-12">x</span></td>                    <td 
+class="align-even"></td>                    <td 
+class="align-label"><a 
+ id="x19-28004r4"></a>(2.4)                    </td></tr></table>
+Para relacionarmos os erros relativos, dividimos o lado esquerdo por <span 
+class="lmmi-12">y</span>, o lado
+direito por <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) = </span><span 
+class="lmmi-12">y </span>e obtemos
+<table 
+class="align">
+                             <tr><td 
+class="align-odd"><img 
+src="main127x.png" alt="&Delta;y--
+ y"  class="frac" align="middle"> <span 
+class="lmsy-10x-x-120">&asymp;</span><img 
+src="main128x.png" alt=" &prime;
+f-(x)
+f(x )"  class="frac" align="middle"><img 
+src="main129x.png" alt="x&Delta;x--
+  x"  class="frac" align="middle"></td>                             <td 
+class="align-even"></td>                             <td 
+class="align-label"><a 
+ id="x19-28005r5"></a>(2.5)                             </td></tr></table>
+sugerindo a definição de número de condicionamento de um problema.
+   <div class="newtheorem">
+<!--l. 1024--><p class="noindent" ><span class="head">
+<a 
+ id="x19-28006r1"></a>
+<span 
+class="ec-lmbx-12">Defini</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão 2.6.1.</span>  </span><span 
+class="ec-lmri-12">Seja </span><span 
+class="lmmi-12">f </span><span 
+class="ec-lmri-12">uma fun</span><span 
+class="ec-lmri-12">ç</span><span 
+class="ec-lmri-12">ão diferenci</span><span 
+class="ec-lmri-12">ável. O </span><span 
+class="ec-lmbxi-10x-x-120">n</span><span 
+class="ec-lmbxi-10x-x-120">úmero de</span>
+<span 
+class="ec-lmbxi-10x-x-120">condicionamento </span><span 
+class="ec-lmri-12">de um problema </span><span 
+class="ec-lmri-12">é definido como</span>
+                                                                          
+
+                                                                          
+<table 
+class="align">
+                             <tr><td 
+class="align-odd"><span 
+class="lmmi-12">&kappa;</span><sub><span 
+class="lmmi-8">f</span></sub><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) := </span><img 
+src="main130x.png" alt="|       |
+||xf &prime;(x) ||
+||-------||
+  f(x )"  class="left" align="middle"></td>                             <td 
+class="align-even"></td>                             <td 
+class="align-label"><a 
+ id="x19-28007r6"></a>(2.6)                             </td></tr></table>
+<span 
+class="ec-lmri-12">e fornece uma estimativa de quanto os erros relativos na entrada </span><img 
+src="main131x.png" alt="|  |
+||&Delta;x||
+ x"  class="left" align="middle"> <span 
+class="ec-lmri-12">ser</span><span 
+class="ec-lmri-12">ão</span>
+<span 
+class="ec-lmri-12">amplificados na sa</span><span 
+class="ec-lmri-12">ída </span><img 
+src="main132x.png" alt="||&Delta;y||
+|y-|"  class="left" align="middle"><span 
+class="ec-lmri-12">.</span>
+   </div>
+<!--l. 1050--><p class="indent" >   De modo geral, quando <span 
+class="lmmi-12">f </span>depende de várias variáveis, podemos obter
+<!--l. 1052--><p class="indent" >
+   <center class="math-display" >
+<img 
+src="main133x.png" alt="                                           |                |
+                                        &sum;n ||&part;f              ||
+&delta;f = |f(x1,x2,...,xn ) &minus; f (¯x1, ¯x2,...,¯xn)| &asymp;  ||---(x1,x2,...,xn)||&delta;xi
+                                        i=1 &part;xi
+" class="math-display" ></center>
+<!--l. 1056--><p class="indent" >   Uma matriz de números de condicionamento também poderia ser obtida como
+em [5].
+   <div class="newtheorem">
+<!--l. 1058--><p class="noindent" ><span class="head">
+<a 
+ id="x19-28008r1"></a>
+                                                                          
+
+                                                                          
+<span 
+class="ec-lmbx-12">Exemplo 2.6.1.</span>  </span>Considere o problema de calcular <img 
+src="main134x.png" alt="&radic; --
+  x"  class="sqrt" > em <span 
+class="lmmi-12">x </span><span 
+class="rm-lmr-12">= 2</span>. Se usarmos
+<span 
+class="lmmi-12">x</span><sup><span 
+class="lmsy8-">&lowast;</span></sup> <span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">999</span>, quanto será o erro relativo na saída? O erro relativo na entrada
+é
+<table 
+class="align">
+                       <tr><td 
+class="align-odd"><img 
+src="main135x.png" alt="|   |
+||&Delta;x ||
+||---||
+  x"  class="left" align="middle"> <span 
+class="rm-lmr-12">= </span><img 
+src="main136x.png" alt="||2 &minus; 1,999||
+||---------||
+     2"  class="left" align="middle"> <span 
+class="rm-lmr-12">= 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">0005</span></td>                       <td 
+class="align-even"></td>                       <td 
+class="align-label"><a 
+ id="x19-28009r7"></a>(2.7)                       </td></tr></table>
+O número de condicionamento do problema calcular a raiz é
+<table 
+class="align">
+                      <tr><td 
+class="align-odd"><span 
+class="lmmi-12">&kappa;</span><sub><span 
+class="lmmi-8">f</span></sub><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) := </span><img 
+src="main137x.png" alt="|       |
+||xf &prime;(x) ||
+||-f(x-)-||"  class="left" align="middle"> <span 
+class="rm-lmr-12">= </span><img 
+src="main138x.png" alt="|    |
+||x 21&radic;x||
+||&radic;x--||
+|    |"  class="left" align="middle"> <span 
+class="rm-lmr-12">=</span> <img 
+src="main139x.png" alt="1
+2-"  class="frac" align="middle"></td>                      <td 
+class="align-even"></td>                      <td 
+class="align-label"><a 
+ id="x19-28010r8"></a>(2.8)                      </td></tr></table>
+                                                                          
+
+                                                                          
+Ou seja, os erros na entrada serão diminuídos pela metade. De fato, usando
+<span 
+class="lmmi-12">y </span><span 
+class="rm-lmr-12">=</span> <img 
+src="main140x.png" alt="&radic; --
+  2"  class="sqrt" > <span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">4142136</span><span 
+class="lmmi-12">... </span>e <span 
+class="lmmi-12">y</span><sup><span 
+class="lmsy8-">&lowast;</span></sup> <span 
+class="rm-lmr-12">=</span> <img 
+src="main141x.png" alt="&radic; ------
+  1,999"  class="sqrt" > <span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">41386</span><span 
+class="lmmi-12">...</span>, obtemos
+<table 
+class="align">
+                   <tr><td 
+class="align-odd"><img 
+src="main142x.png" alt="&Delta;y
+----
+ y"  class="frac" align="middle"> <span 
+class="rm-lmr-12">=</span> <img 
+src="main143x.png" alt="&radic;2-&minus;  &radic;1,999--
+-----&radic;-------
+       2"  class="frac" align="middle"> <span 
+class="lmsy-10x-x-120">&asymp; </span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">000250031</span><span 
+class="lmmi-12">...</span></td>                   <td 
+class="align-even"></td>                   <td 
+class="align-label"><a 
+ id="x19-28011r9"></a>(2.9)                   </td></tr></table>
+   </div>
+   <div class="newtheorem">
+<!--l. 1075--><p class="noindent" ><span class="head">
+<a 
+ id="x19-28012r2"></a>
+<span 
+class="ec-lmbx-12">Exemplo 2.6.2.</span>  </span>Considere a função <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) =</span> <img 
+src="main144x.png" alt="--10-
+1&minus; x2"  class="frac" align="middle">  e <span 
+class="lmmi-12">x</span><sup><span 
+class="lmsy8-">&lowast;</span></sup> <span 
+class="rm-lmr-12">= 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">9995 </span>com um
+erro absoluto na entrada de <span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">0001</span>.
+<!--l. 1078--><p class="indent" >   Calculando <span 
+class="lmmi-12">y</span><sup><span 
+class="lmsy8-">&lowast;</span></sup> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sup><span 
+class="lmsy8-">&lowast;</span></sup><span 
+class="rm-lmr-12">) </span>temos
+                                                                          
+
+                                                                          
+<table 
+class="align">
+             <tr><td 
+class="align-odd"><span 
+class="lmmi-12">y</span><sup><span 
+class="lmsy8-">&lowast;</span></sup> <span 
+class="rm-lmr-12">=</span> <img 
+src="main145x.png" alt="-----10------
+1 &minus; (0,9995 )2"  class="frac" align="middle"> <span 
+class="lmsy-10x-x-120">&asymp; </span><span 
+class="rm-lmr-12">10002</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">500625157739705173</span></td>             <td 
+class="align-even"></td>             <td 
+class="align-label"><a 
+ id="x19-28013r10"></a>(2.10)             </td></tr></table>
+Mas qual é a estimativa de erro nessa resposta? Quantos dígitos significativos
+temos nessa resposta?
+<!--l. 1084--><p class="indent" >   Sabendo que <span 
+class="lmmi-12">f</span><span 
+class="lmsy-10x-x-120">&prime;</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) = </span><span 
+class="lmsy-10x-x-120">&minus;</span><span 
+class="rm-lmr-12">10</span><span 
+class="lmmi-12">&#x2215;</span><span 
+class="rm-lmr-12">(1 </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">x</span><sup><span 
+class="rm-lmr-8">2</span></sup><span 
+class="rm-lmr-12">)</span><sup><span 
+class="rm-lmr-8">2</span></sup>, o número de condicionamento
+é
+<table 
+class="align">
+                       <tr><td 
+class="align-odd"><span 
+class="lmmi-12">&kappa;</span><sub><span 
+class="lmmi-8">f</span></sub><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) := </span><img 
+src="main146x.png" alt="|      |
+||xf&prime;(x)||
+|| f(x) ||"  class="left" align="middle"> <span 
+class="rm-lmr-12">= </span><img 
+src="main147x.png" alt="|      |
+||-2x2--||
+||1 &minus; x2||"  class="left" align="middle"></td>                       <td 
+class="align-even"></td>                       <td 
+class="align-label"><a 
+ id="x19-28014r11"></a>(2.11)                       </td></tr></table>
+o que nos fornece para <span 
+class="lmmi-12">x</span><sup><span 
+class="lmsy8-">&lowast;</span></sup> <span 
+class="rm-lmr-12">= 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">9995</span>,
+                                                                          
+
+                                                                          
+<table 
+class="align">
+                           <tr><td 
+class="align-odd"><span 
+class="lmmi-12">&kappa;</span><sub><span 
+class="lmmi-8">f</span></sub><span 
+class="rm-lmr-12">(0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">9995) </span><span 
+class="lmsy-10x-x-120">&asymp; </span><span 
+class="rm-lmr-12">1998</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">5</span></td>                           <td 
+class="align-even"></td>                           <td 
+class="align-label"><a 
+ id="x19-28015r12"></a>(2.12)                           </td></tr></table>
+Como o erro relativo na entrada é
+<table 
+class="align">
+                     <tr><td 
+class="align-odd"><img 
+src="main148x.png" alt="|   |
+||&Delta;x-||
+|| x ||"  class="left" align="middle"> <span 
+class="rm-lmr-12">= </span><img 
+src="main149x.png" alt="|       |
+||0,0001-||
+||0,9995 ||"  class="left" align="middle"><span 
+class="lmsy-10x-x-120">&asymp; </span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">00010005</span><span 
+class="lmmi-12">...</span></td>                     <td 
+class="align-even"></td>                     <td 
+class="align-label"><a 
+ id="x19-28016r13"></a>(2.13)                     </td></tr></table>
+temos que o erro na saída será aproximadamente
+                                                                          
+
+                                                                          
+<table 
+class="align">
+        <tr><td 
+class="align-odd"><img 
+src="main150x.png" alt="||   ||
+||&Delta;y-||
+| y |"  class="left" align="middle"><span 
+class="lmsy-10x-x-120">&asymp; </span><span 
+class="lmmi-12">&kappa;</span><sub><span 
+class="lmmi-8">f</span></sub><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)</span><img 
+src="main151x.png" alt="||    ||
+||&Delta;x--||
+| x  |"  class="left" align="middle"><span 
+class="lmsy-10x-x-120">&asymp; </span><span 
+class="rm-lmr-12">1998</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">5 </span><span 
+class="lmsy-10x-x-120">&#x00D7; </span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">00010005</span><span 
+class="lmmi-12">... </span><span 
+class="lmsy-10x-x-120">&asymp; </span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">1999</span></td>        <td 
+class="align-even"></td>        <td 
+class="align-label"><a 
+ id="x19-28017r14"></a>(2.14)        </td></tr></table>
+ou seja um erro relativo de aproximadamente <span 
+class="rm-lmr-12">19</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">99%</span>.
+<!--l. 1102--><p class="indent" >   Note que se usarmos <span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">= 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">9994 </span>e <span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">2</span></sub> <span 
+class="rm-lmr-12">= 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">9996 </span>(ambos no intervalo do erro
+absoluto da entrada) encontramos
+<table 
+class="align">
+                              <tr><td 
+class="align-odd"><span 
+class="lmmi-12">y</span><sub><span 
+class="rm-lmr-8">1</span></sub><sup><span 
+class="lmsy8-">&lowast;</span></sup></td>                              <td 
+class="align-even"> <span 
+class="lmsy-10x-x-120">&asymp; </span><span 
+class="rm-lmr-12">8335</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">83</span></td>                                                             <td 
+class="align-label"><a 
+ id="x19-28018r15"></a>(2.15)
+                              </td></tr><tr><td 
+class="align-odd"><span 
+class="lmmi-12">y</span><sub><span 
+class="rm-lmr-8">2</span></sub><sup><span 
+class="lmsy8-">&lowast;</span></sup></td>                              <td 
+class="align-even"> <span 
+class="lmsy-10x-x-120">&asymp; </span><span 
+class="rm-lmr-12">12520</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">50</span></td>                                                            <td 
+class="align-label"><a 
+ id="x19-28019r16"></a>(2.16)                              </td></tr></table>
+confirmando a estimativa de <span 
+class="rm-lmr-12">19</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">99%</span>.
+   </div>
+   <div class="newtheorem">
+<!--l. 1114--><p class="noindent" ><span class="head">
+<a 
+ id="x19-28020r3"></a>
+                                                                          
+
+                                                                          
+<span 
+class="ec-lmbx-12">Exemplo 2.6.3.</span>  </span>Seja  <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)  =  </span><span 
+class="lmmi-12">x</span> <span 
+class="rm-lmr-12">exp</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)</span>.  Calcule  o  erro  absoluto  em  se
+calcular <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) </span>sabendo que <span 
+class="lmmi-12">x </span><span 
+class="rm-lmr-12">= 2 </span><span 
+class="lmsy-10x-x-120">± </span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">05</span>.
+   </div>
+<!--l. 1117--><p class="indent" >
+   <div class="proof">
+<!--l. 1117--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Temos que <span 
+class="lmmi-12">x </span><span 
+class="lmsy-10x-x-120">&asymp; </span><span 
+class="rm-lmr-12">2 </span>com erro absoluto de <span 
+class="lmmi-12">&delta;</span><sub><span 
+class="lmmi-8">x</span></sub> <span 
+class="rm-lmr-12">= 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">05</span>. Neste caso,
+calculamos <span 
+class="lmmi-12">&delta;</span><sub><span 
+class="lmmi-8">f</span></sub>, i.e. o erro absoluto em se calcular <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)</span>, por:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main152x.png" alt="&delta;f = |f&prime;(x)|&delta;x.
+" class="math-display" ></center></td></tr></table>
+<!--l. 1121--><p class="nopar" >
+Como <span 
+class="lmmi-12">f</span><span 
+class="lmsy-10x-x-120">&prime;</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) = (1 + </span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">e</span><sup><span 
+class="lmmi-8">x</span></sup>, temos:
+                                                                          
+
+                                                                          
+<table 
+class="align-star">
+                         <tr><td 
+class="align-odd"><span 
+class="lmmi-12">&delta;</span><sub><span 
+class="lmmi-8">f</span></sub></td>                         <td 
+class="align-even"> <span 
+class="rm-lmr-12">= </span><span 
+class="lmsy-10x-x-120">|</span><span 
+class="rm-lmr-12">(1 + </span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">e</span><sup><span 
+class="lmmi-8">x</span></sup><span 
+class="lmsy-10x-x-120">|&sdot; </span><span 
+class="lmmi-12">&delta;</span><sub>
+<span 
+class="lmmi-8">x</span></sub></td>                               <td 
+class="align-label"></td>                         <td 
+class="align-label">
+                         </td></tr><tr><td 
+class="align-odd"></td>                           <td 
+class="align-even"> <span 
+class="rm-lmr-12">= </span><span 
+class="lmsy-10x-x-120">|</span><span 
+class="rm-lmr-12">3</span><span 
+class="lmmi-12">e</span><sup><span 
+class="rm-lmr-8">2</span></sup><span 
+class="lmsy-10x-x-120">|&sdot; </span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">05 = 1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">1084</span><span 
+class="lmmi-12">.</span></td>                         <td 
+class="align-label"></td>                         <td 
+class="align-label"></td></tr></table>
+Portanto, o erro absoluto em se calcular <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) </span>quando <span 
+class="lmmi-12">x </span><span 
+class="rm-lmr-12">= 2 </span><span 
+class="lmsy-10x-x-120">± </span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">05 </span>é de
+<span 
+class="rm-lmr-12">1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">084</span>.                                                                                          <span 
+class="msam-10x-x-120">&#x2662;</span>
+   </div>
+   <div class="newtheorem">
+<!--l. 1130--><p class="noindent" ><span class="head">
+<a 
+ id="x19-28021r4"></a>
+<span 
+class="ec-lmbx-12">Exemplo 2.6.4.</span>  </span>Calcule o erro relativo ao medir <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x,y</span><span 
+class="rm-lmr-12">) =</span> <img 
+src="main153x.png" alt=" 2
+xx+21"  class="frac" align="middle"><span 
+class="lmmi-12">e</span><sup><span 
+class="rm-lmr-8">2</span><span 
+class="lmmi-8">y</span></sup> sabendo
+que <span 
+class="lmmi-12">x </span><span 
+class="lmsy-10x-x-120">&asymp; </span><span 
+class="rm-lmr-12">3 </span>é conhecido com <span 
+class="rm-lmr-12">10% </span>de erro e <span 
+class="lmmi-12">y </span><span 
+class="lmsy-10x-x-120">&asymp; </span><span 
+class="rm-lmr-12">2 </span>é conhecido com <span 
+class="rm-lmr-12">3% </span>de erro.
+   </div>
+<!--l. 1132--><p class="indent" >
+   <div class="proof">
+<!--l. 1132--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Calculamos as derivadas parciais de <span 
+class="lmmi-12">f</span>:
+   <center class="math-display" >
+<img 
+src="main154x.png" alt="        3      3                2y
+&part;f-=  2x--&minus;-(2x--+-2x)e2y = &minus; 2e--
+&part;x           x4                x3
+                                                                          
+
+                                                                          
+" class="math-display" ></center> e
+   <center class="math-display" >
+<img 
+src="main155x.png" alt="        2
+&part;f-=  2x--+-1e2y
+&part;y       x2
+" class="math-display" ></center> Calculamos o erro absoluto em termos do erro relativo:
+   <center class="math-display" >
+<img 
+src="main156x.png" alt="&delta;x-=  0,1 &rArr;  &delta;x = 3 &sdot; 0,1 = 0,3
+|x |
+" class="math-display" ></center>
+   <center class="math-display" >
+<img 
+src="main157x.png" alt="&delta;y
+|y| = 0,03 &rArr; &delta;y = 2 &sdot; 0,03 = 0,06  " class="math-display" ></center>
+Aplicando a expressão para estimar o erro em <span 
+class="lmmi-12">f </span>temos
+                                                                          
+
+                                                                          
+<table 
+class="align-star">
+               <tr><td 
+class="align-odd"><span 
+class="lmmi-12">&delta;</span><sub><span 
+class="lmmi-8">f</span></sub></td>               <td 
+class="align-even"> <span 
+class="rm-lmr-12">= </span><img 
+src="main158x.png" alt="||   ||
+||&part;f-||
+|&part;x |"  class="left" align="middle"><span 
+class="lmmi-12">&delta;</span><sub><span 
+class="lmmi-8">x</span></sub> <span 
+class="rm-lmr-12">+ </span><img 
+src="main159x.png" alt="||   ||
+||&part;f-||
+|&part;y |"  class="left" align="middle"><span 
+class="lmmi-12">&delta;</span><sub><span 
+class="lmmi-8">y</span></sub></td>                                     <td 
+class="align-label"></td>               <td 
+class="align-label">
+               </td></tr><tr><td 
+class="align-odd"></td>                 <td 
+class="align-even"> <span 
+class="rm-lmr-12">=</span> <img 
+src="main160x.png" alt="2e4
+----
+ 27"  class="frac" align="middle"> <span 
+class="lmsy-10x-x-120">&sdot; </span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">3 + 2</span><img 
+src="main161x.png" alt="9 + 1
+-----
+  9"  class="frac" align="middle"><span 
+class="lmmi-12">e</span><sup><span 
+class="rm-lmr-8">4</span></sup> <span 
+class="lmsy-10x-x-120">&sdot; </span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">06 = 8</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">493045557</span></td>               <td 
+class="align-label"></td>               <td 
+class="align-label"></td></tr></table>
+Portanto, o erro relativo ao calcular <span 
+class="lmmi-12">f </span>é estimado por
+   <center class="math-display" >
+<img 
+src="main162x.png" alt="&delta;f-   8,493045557--
+|f| =     9+1e4    =  14%
+          9
+" class="math-display" ></center>                                                                         <span 
+class="msam-10x-x-120">&#x2662;</span>
+   </div>
+   <div class="newtheorem">
+<!--l. 1159--><p class="noindent" ><span class="head">
+<a 
+ id="x19-28022r5"></a>
+                                                                          
+
+                                                                          
+<span 
+class="ec-lmbx-12">Exemplo 2.6.5.</span>  </span>No  exemplo  anterior,  reduza  o  erro  relativo  em  <span 
+class="lmmi-12">x </span>pela
+metade e calcule o erro relativo em <span 
+class="lmmi-12">f</span>. Depois, repita o processo reduzindo o
+erro relativo em <span 
+class="lmmi-12">y </span>pela metade.
+   </div>
+<!--l. 1161--><p class="indent" >
+   <div class="proof">
+<!--l. 1161--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Na  primeira  situação  temos  <span 
+class="lmmi-12">x </span><span 
+class="rm-lmr-12">=  3  </span>com  erro  relativo  de  <span 
+class="rm-lmr-12">5%</span>
+e  <span 
+class="lmmi-12">&delta;</span><sub><span 
+class="lmmi-8">x</span></sub>  <span 
+class="rm-lmr-12">=  0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">05 </span><span 
+class="lmsy-10x-x-120">&sdot; </span><span 
+class="rm-lmr-12">3  =  0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">15</span>.  Calculamos  <span 
+class="lmmi-12">&delta;</span><sub><span 
+class="lmmi-8">f</span></sub>  <span 
+class="rm-lmr-12">=  7</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">886399450  </span>e  o  erro  relativo
+em  <span 
+class="lmmi-12">f  </span>de  <span 
+class="rm-lmr-12">13%</span>.  Na  segunda  situação,  temos  <span 
+class="lmmi-12">y  </span><span 
+class="rm-lmr-12">=  2  </span>com  erro  de  <span 
+class="rm-lmr-12">1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">5%  </span>e
+<span 
+class="lmmi-12">&delta;</span><sub><span 
+class="lmmi-8">y</span></sub> <span 
+class="rm-lmr-12">= 2 </span><span 
+class="lmsy-10x-x-120">&sdot; </span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">015 = 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">03</span>. Calculamos <span 
+class="lmmi-12">&delta;</span><sub><span 
+class="lmmi-8">f</span></sub> <span 
+class="rm-lmr-12">= 4</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">853168892 </span>e o erro relativo em <span 
+class="lmmi-12">f</span>
+de <span 
+class="rm-lmr-12">8%</span>. Observe que mesma o erro relativo em <span 
+class="lmmi-12">x </span>sendo maior, o erro em <span 
+class="lmmi-12">y </span>é
+mais significante na função.                                                             <span 
+class="msam-10x-x-120">&#x2662;</span>
+   </div>
+   <div class="newtheorem">
+<!--l. 1166--><p class="noindent" ><span class="head">
+<a 
+ id="x19-28023r6"></a>
+<span 
+class="ec-lmbx-12">Exemplo 2.6.6.</span>  </span>Considere um triângulo retângulo onde a hipotenusa e um
+dos catetos são conhecidos a menos de um erro: hipotenusa <span 
+class="lmmi-12">a </span><span 
+class="rm-lmr-12">= 3 </span><span 
+class="lmsy-10x-x-120">± </span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">01</span>
+metros e cateto <span 
+class="lmmi-12">b </span><span 
+class="rm-lmr-12">= 2 </span><span 
+class="lmsy-10x-x-120">± </span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">01 </span>metros. Calcule o erro absoluto ao calcular a
+área dessa triângulo.
+   </div>
+<!--l. 1169--><p class="indent" >
+   <div class="proof">
+<!--l. 1169--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Primeiro vamos encontrar a expressão para a área em função da
+hipotenusa <span 
+class="lmmi-12">a </span>e um cateto <span 
+class="lmmi-12">b</span>. A tamanho de segundo cateto <span 
+class="lmmi-12">c </span>é dado pelo
+teorema de Pitágoras, <span 
+class="lmmi-12">a</span><sup><span 
+class="rm-lmr-8">2</span></sup> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">b</span><sup><span 
+class="rm-lmr-8">2</span></sup> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">c</span><sup><span 
+class="rm-lmr-8">2</span></sup>, ou seja, <span 
+class="lmmi-12">c </span><span 
+class="rm-lmr-12">=</span> <img 
+src="main163x.png" alt="&radic; -------
+  a2 &minus; b2"  class="sqrt" >. Portanto a área é
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main164x.png" alt="           &radic; -------
+     bc   b--a2 &minus;-b2
+A =  2 =      2     .
+" class="math-display" ></center> Agora calculamos as derivadas
+   <center class="math-display" >
+<img 
+src="main165x.png" alt="&part;A-   ----ab----
+&part;a =  2&radic;a2--&minus;-b2,
+" class="math-display" ></center>
+   <center class="math-display" >
+<img 
+src="main166x.png" alt="      &radic; -------
+&part;A-   --a2-&minus;-b2   ----b2----
+&part;b  =     2    &minus;  2&radic;a2--&minus;-b2,  " class="math-display" ></center> e
+substituindo na estimativa para o erro <span 
+class="lmmi-12">&delta;</span><sub><span 
+class="lmmi-8">A</span></sub> em termos de <span 
+class="lmmi-12">&delta;</span><sub><span 
+class="lmmi-8">a</span></sub> <span 
+class="rm-lmr-12">= 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">01 </span>e <span 
+class="lmmi-12">&delta;</span><sub><span 
+class="lmmi-8">b</span></sub> <span 
+class="rm-lmr-12">= 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">01</span>:
+<div class="eqnarray">
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main167x.png" alt="        |   |     |   |
+        ||&part;A ||     ||&part;A ||
+&delta;A   &asymp;  ||&part;a-||&delta;a + ||&part;b-||&delta;b
+          &radic; --        &radic;--
+         3--5-        -5--
+     &asymp;    5  &sdot; 0,01 +  10 &sdot; 0,01 = 0,01565247584
+" class="math-display" ></center>
+</div>Em termos do erro relativo temos erro na hipotenusa de <img 
+src="main168x.png" alt="0,01
+ 3"  class="frac" align="middle"> <span 
+class="lmsy-10x-x-120">&asymp; </span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">333%</span>, erro no
+cateto de <img 
+src="main169x.png" alt="0,01
+-2-"  class="frac" align="middle"> <span 
+class="rm-lmr-12">= 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">5% </span>e erro na área de
+   <center class="math-display" >
+<img 
+src="main170x.png" alt="0,0156&radic;5247584--
+    2-32&minus;22    = 0,7%
+       2
+" class="math-display" ></center>                                                                         <span 
+class="msam-10x-x-120">&#x2662;</span>
+   </div>
+<!--l. 1191--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.6.1   </span> <a 
+ id="x19-290002.6.1"></a>Exercícios</h4>
+   <div class="newtheorem">
+<!--l. 1193--><p class="noindent" ><span class="head">
+<a 
+ id="x19-29001r1"></a>
+                                                                          
+
+                                                                          
+<span 
+class="ec-lmbx-12">E 2.6.1.</span>  </span>Considere que a variável <span 
+class="lmmi-12">x </span><span 
+class="lmsy-10x-x-120">&asymp; </span><span 
+class="rm-lmr-12">2 </span>é conhecida com um erro relativo de <span 
+class="rm-lmr-12">1%</span>
+e a variável <span 
+class="lmmi-12">y </span><span 
+class="lmsy-10x-x-120">&asymp; </span><span 
+class="rm-lmr-12">10 </span>com um erro relativo de <span 
+class="rm-lmr-12">10%</span>. Calcule o erro relativo associado
+a <span 
+class="lmmi-12">z </span>quando:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main171x.png" alt="     --y4-- x
+z =  1 + y4e .
+" class="math-display" ></center></td></tr></table>
+<!--l. 1196--><p class="nopar" >
+Suponha que você precise conhecer o valor de <span 
+class="lmmi-12">z </span>com um erro de <span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">5%</span>. Como
+engenheiro, você propõe uma melhoria na medição da variável <span 
+class="lmmi-12">x </span>ou <span 
+class="lmmi-12">y</span>?
+Explique.
+   </div>
+<!--l. 1199--><p class="noindent" >
+   <div class="proof">
+<!--l. 1199--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Resposta.</span> </span> <span 
+class="rm-lmr-6">2%</span>
+                                                                         <span 
+class="msam-10x-x-120">&#x2662;</span>
+   </div>
+   <div class="newtheorem">
+<!--l. 1205--><p class="noindent" ><span class="head">
+<a 
+ id="x19-29002r2"></a>
+<span 
+class="ec-lmbx-12">E 2.6.2.</span>  </span>A corrente <span 
+class="lmmi-12">I </span>em ampères e a tensão <span 
+class="lmmi-12">V </span>em volts em uma lâmpada se
+relacionam conforme a seguinte expressão:
+   <table 
+class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main172x.png" alt="    ( V ) &alpha;
+I =   ---  ,
+      V0
+" class="math-display" ></center></td></tr></table>
+<!--l. 1208--><p class="nopar" >
+onde <span 
+class="lmmi-12">&alpha; </span>é um número entre <span 
+class="rm-lmr-12">0 </span>e <span 
+class="rm-lmr-12">1 </span>e <span 
+class="lmmi-12">V</span> <sub><span 
+class="rm-lmr-8">0</span></sub> é tensão nominal em volts. Sabendo que
+<span 
+class="lmmi-12">V</span> <sub><span 
+class="rm-lmr-8">0</span></sub> <span 
+class="rm-lmr-12">= 220 </span><span 
+class="lmsy-10x-x-120">± </span><span 
+class="rm-lmr-12">3% </span>e <span 
+class="lmmi-12">&alpha; </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmsy-10x-x-120">&minus;</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">8 </span><span 
+class="lmsy-10x-x-120">± </span><span 
+class="rm-lmr-12">4%</span>, calcule a corrente e o erro relativo associado
+quando a tensão vale <span 
+class="rm-lmr-12">220 </span><span 
+class="lmsy-10x-x-120">± </span><span 
+class="rm-lmr-12">1%</span>.<br 
+class="newline" /><span 
+class="ec-lmbx-12">Obs:. </span>Este problema pode ser resolvido de duas formas distintas: usando
+a expressão aproximada para a propagação de erro e inspecionando os
+valores máximos e mínimos que a expressão pode assumir. Pratique os dois
+métodos.
+   </div>
+<!--l. 1212--><p class="noindent" >
+   <div class="proof">
+<!--l. 1212--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Resposta.</span> </span> <span 
+class="rm-lmr-6">3</span><span 
+class="lmmi-6">,</span><span 
+class="rm-lmr-6">2% </span><span 
+class="ec-lmr-6">pela aproxima</span><span 
+class="ec-lmr-6">ç</span><span 
+class="ec-lmr-6">ão ou </span><span 
+class="rm-lmr-6">3</span><span 
+class="lmmi-6">,</span><span 
+class="rm-lmr-6">4% </span><span 
+class="ec-lmr-6">pela segundo m</span><span 
+class="ec-lmr-6">étodo </span><img 
+src="main173x.png" alt="(0,96758&le;I &le;1,0342)"  class="left" align="middle"><span 
+class="ec-lmr-6">.</span>
+                                                                         <span 
+class="msam-10x-x-120">&#x2662;</span>
+   </div>
+   <div class="newtheorem">
+<!--l. 1218--><p class="noindent" ><span class="head">
+<a 
+ id="x19-29003r3"></a>
+<span 
+class="ec-lmbx-12">E 2.6.3.</span>  </span>A corrente <span 
+class="lmmi-12">I </span>em ampères e a tensão <span 
+class="lmmi-12">V </span>em volts em uma lâmpada
+se relacionam conforme a seguinte expressão:
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main174x.png" alt="    ( V )&alpha;
+I =  ---
+     V0
+" class="math-display" ></center> Onde <span 
+class="lmmi-12">&alpha; </span>é um número entre 0 e 1 e <span 
+class="lmmi-12">V</span> <sub><span 
+class="rm-lmr-8">0</span></sub> é a tensão nominal em volts. Sabendo
+que <span 
+class="lmmi-12">V</span> <sub><span 
+class="rm-lmr-8">0</span></sub>  <span 
+class="rm-lmr-12">= 220 </span><span 
+class="lmsy-10x-x-120">± </span><span 
+class="rm-lmr-12">3% </span>e <span 
+class="lmmi-12">&alpha; </span><span 
+class="rm-lmr-12">= 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">8 </span><span 
+class="lmsy-10x-x-120">± </span><span 
+class="rm-lmr-12">4% </span>Calcule a corrente e o erro relativo
+associado quando a tensão vale <span 
+class="rm-lmr-12">220 </span><span 
+class="lmsy-10x-x-120">± </span><span 
+class="rm-lmr-12">1%</span>. <span 
+class="ec-lmbx-12">Dica: </span>lembre que <span 
+class="lmmi-12">x</span><sup><span 
+class="lmmi-8">&alpha;</span></sup> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">e</span><sup><span 
+class="lmmi-8">&alpha;</span> <span 
+class="rm-lmr-8">ln</span><span 
+class="rm-lmr-8">(</span><span 
+class="lmmi-8">x</span><span 
+class="rm-lmr-8">)</span></sup>
+   </div>
+                                                                          
+
+                                                                          
+   <!--l. 1225--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse11.html" >next</a>] [<a 
+href="mainse9.html" >prev</a>] [<a 
+href="mainse9.html#tailmainse9.html" >prev-tail</a>] [<a 
+href="mainse6.html" >front</a>] [<a 
+href="mainch2.html#mainse10.html" >up</a>] </p></div>
+<!--l. 1225--><p class="indent" >   <a 
+ id="tailmainse6.html"></a>   
+<div class="panel-footer">
+  <p align="center">
+    <img src="../favicon.ico" alt="UFRGS"> UFRGS - IME - Cálculo Numérico - Um Livro Colaborativo. Contato: <a href="mailto:livroscolaborativos@gmail.com" target="_top">livroscolaborativos@gmail.com</a>
+    </img>
+  </p>
+</div>
+</body>
+</html>
