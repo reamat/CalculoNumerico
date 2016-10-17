@@ -1,0 +1,1687 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html xml:lang="pt" > 
+<head><title>Ajuste de curvas</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,3,notoc*,next --> 
+<meta name="src" content="main.tex"> 
+<meta name="date" content="2016-10-14 15:35:00"> 
+<link rel="stylesheet" type="text/css" href="main.css"> 
+</head><body 
+>
+   <!--l. 365--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse40.html" >next</a>] [<a 
+href="mainse38.html" >prev</a>] [<a 
+href="mainse38.html#tailmainse38.html" >prev-tail</a>] [<a 
+href="#tailmainse28.html">tail</a>] [<a 
+href="mainch8.html#mainse39.html" >up</a>] </p></div>
+   <h3 class="sectionHead"><span class="titlemark">6.5   </span> <a 
+ id="x68-1020006.5"></a>Ajuste de curvas</h3>
+<a 
+ id="dx68-102001"></a>
+<a 
+ id="dx68-102002"></a>
+   <div class="newtheorem">
+<!--l. 370--><p class="noindent" ><span class="head">
+<a 
+ id="x68-102003r1"></a>
+<span 
+class="ec-lmbx-12">Defini</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão 6.5.1.</span>  </span><span 
+class="ec-lmri-12">O problema de </span><span 
+class="ec-lmbxi-10x-x-120">ajuste de curvas </span><span 
+class="ec-lmri-12">consiste em dado um</span>
+<span 
+class="ec-lmri-12">conjunto de </span><span 
+class="lmmi-12">N </span><span 
+class="ec-lmri-12">pontos </span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub><span 
+class="lmmi-12">,y</span><sub><span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">)</span><span 
+class="ec-lmri-12">, encontre a fun</span><span 
+class="ec-lmri-12">ç</span><span 
+class="ec-lmri-12">ão </span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) </span><span 
+class="ec-lmri-12">de uma fam</span><span 
+class="ec-lmri-12">ília de</span>
+<span 
+class="ec-lmri-12">fun</span><span 
+class="ec-lmri-12">ç</span><span 
+class="ec-lmri-12">ões que melhor aproxima os pontos dados.</span>
+   </div>
+<!--l. 374--><p class="noindent" >Por exemplo, dado um conjunto de <span 
+class="rm-lmr-12">15 </span>pontos como na figura <a 
+href="#x68-1020041">6.1<!--tex4ht:ref: minquad --></a> encontre a reta
+que melhor se ajusta aos pontos. <hr class="figure"><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x68-1020041"></a>
+                                                                          
+
+                                                                          
+<div class="center" 
+>
+<!--l. 376--><p class="noindent" >
+<!--l. 377--><p class="noindent" ><img 
+src="main867x.png" alt="PIC" class="graphics" width="426.79134pt" height="193.08252pt" ><!--tex4ht:graphics  
+name="main867x.png" src="./cap_aproxfun/pics/ajuste_reta.eps"  
+-->
+<br /> <div class="caption" 
+><span class="id">Figura&#x00A0;6.1: </span><span  
+class="content">A reta que melhor se ajusta aos 15 pontos dados utilizando o
+critério dos mínimos quadrados.</span></div><!--tex4ht:label?: x68-1020041 -->
+</div>
+                                                                          
+
+                                                                          
+<!--l. 381--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 383--><p class="indent" >   Geralmente o critério mais usado consiste em minimizar a soma do quadrado
+das distâncias entre a coordenadas <span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">j</span></sub> e a função desejada em <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">)</span>. Ou seja,
+encontre a função <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) </span>tal que
+<table 
+class="align">
+          <tr><td 
+class="align-odd"><span 
+class="lmmi-12">R</span></td>          <td 
+class="align-even"> <span 
+class="rm-lmr-12">= (</span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="rm-lmr-12">) </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">y</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="rm-lmr-12">)</span><sup><span 
+class="rm-lmr-8">2</span></sup> <span 
+class="rm-lmr-12">+ (</span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub>
+<span 
+class="rm-lmr-8">2</span></sub><span 
+class="rm-lmr-12">) </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">y</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="rm-lmr-12">)</span><sup><span 
+class="rm-lmr-8">2</span></sup> <span 
+class="rm-lmr-12">+</span> <img 
+src="main868x.png" alt="&sdot;&sdot;&sdot;"  class="@cdots" > <span 
+class="rm-lmr-12">+ (</span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub>
+<span 
+class="lmmi-8">N</span></sub><span 
+class="rm-lmr-12">) </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">N</span></sub><span 
+class="rm-lmr-12">)</span><sup><span 
+class="rm-lmr-8">2</span></sup></td>                    <td 
+class="align-label"><a 
+ id="x68-102005r1"></a>(6.1)
+          </td></tr><tr><td 
+class="align-odd"></td>           <td 
+class="align-even"> <span 
+class="rm-lmr-12">=</span> <span 
+class="lmex-10">&sum;</span>
+   <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span></sup><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub>
+<span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">) </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">)</span><sup><span 
+class="rm-lmr-8">2</span></sup></td>                                                  <td 
+class="align-label"><a 
+ id="x68-102006r2"></a>(6.2)          </td></tr></table>
+seja o menor possível, que fornece o nome do método como <span 
+class="ec-lmbx-12">m</span><span 
+class="ec-lmbx-12">étodo</span>
+<span 
+class="ec-lmbx-12">dos m</span><span 
+class="ec-lmbx-12">ínimos quadrados</span>. Note que o <span 
+class="ec-lmbx-12">res</span><span 
+class="ec-lmbx-12">íduo </span>em <span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub> é definido como
+<span 
+class="lmmi-12">r</span><sub><span 
+class="lmmi-8">j</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmsy-10x-x-120">|</span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">) </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">j</span></sub><span 
+class="lmsy-10x-x-120">|</span>.
+   <h4 class="subsectionHead"><span class="titlemark">6.5.1   </span> <a 
+ id="x68-1030006.5.1"></a>O problema linear</h4>
+<!--l. 395--><p class="noindent" >Dado um conjunto de <span 
+class="lmmi-12">N </span>pontos, desejamos encontrar a <span 
+class="ec-lmri-12">reta </span>que melhor se ajusta
+a esses pontos de tal forma a minimizar o resíduo.
+<!--l. 397--><p class="indent" >   Ou seja, encontre a curva <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) = </span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">x </span>tal que
+                                                                          
+
+                                                                          
+<table 
+class="align">
+             <tr><td 
+class="align-odd"><span 
+class="lmmi-12">R</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="lmmi-12">,a</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="rm-lmr-12">)</span></td>             <td 
+class="align-even"> <span 
+class="rm-lmr-12">=</span> <span 
+class="lmex-10">&sum;</span>
+   <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span></sup><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub>
+<span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">) </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">)</span><sup><span 
+class="rm-lmr-8">2</span></sup> <span 
+class="rm-lmr-12">=</span> <span 
+class="lmex-10">&sum;</span><sub>
+<span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span></sup><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">a</span><sub>
+<span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub> <span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">)</span><sup><span 
+class="rm-lmr-8">2</span></sup></td>                          <td 
+class="align-label"><a 
+ id="x68-103001r3"></a>(6.3)             </td></tr></table>
+seja o menor possível.
+<!--l. 403--><p class="indent" >   O objetivo é encontrar <span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="lmmi-12">,a</span><sub><span 
+class="rm-lmr-8">2</span></sub> e geralmente temos muito mais equações do que
+incógnitas, i.e.,
+<table 
+class="align">
+                             <tr><td 
+class="align-odd"><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub></td>                              <td 
+class="align-even"> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">y</span><sub><span 
+class="rm-lmr-8">1</span></sub></td>                                                           <td 
+class="align-label"><a 
+ id="x68-103002r4"></a>(6.4)
+                             </td></tr><tr><td 
+class="align-odd"><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">2</span></sub></td>                              <td 
+class="align-even"> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">y</span><sub><span 
+class="rm-lmr-8">2</span></sub></td>                                                           <td 
+class="align-label"><a 
+ id="x68-103003r5"></a>(6.5)
+                             </td></tr><tr><td 
+class="align-odd"><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">3</span></sub></td>                              <td 
+class="align-even"> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">y</span><sub><span 
+class="rm-lmr-8">3</span></sub></td>                                                           <td 
+class="align-label"><a 
+ id="x68-103004r6"></a>(6.6)
+                             </td></tr><tr><td 
+class="align-odd"><img 
+src="main869x.png" alt=".
+.."  class="vdots" ></td>                                       <td 
+class="align-even"> <span 
+class="rm-lmr-12">=</span> <img 
+src="main870x.png" alt=".
+.."  class="vdots" ></td>                                                            <td 
+class="align-label"><a 
+ id="x68-103005r7"></a>(6.7)
+                             </td></tr><tr><td 
+class="align-odd"><span 
+class="lmmi-12">a</span><sub><span 
+class="lmmi-8">N</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">N</span></sub></td>                             <td 
+class="align-even"> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">N</span></sub></td>                                                          <td 
+class="align-label"><a 
+ id="x68-103006r8"></a>(6.8)                             </td></tr></table>
+ou simplesmente <span 
+class="lmmi-12">V</span> <img 
+src="main871x.png" alt="&#x20D7;a"  class="vec" > <span 
+class="rm-lmr-12">=</span> <img 
+src="main872x.png" alt="&#x20D7;y"  class="vec" >.
+<!--l. 413--><p class="indent" >   O mínimo de <span 
+class="lmmi-12">R </span>ocorre quando quando a derivada primeira é igual a
+zero:
+                                                                          
+
+                                                                          
+<table 
+class="align">
+                    <tr><td 
+class="align-odd"><img 
+src="main873x.png" alt="-&part;R-
+&part;a1"  class="frac" align="middle"></td>                    <td 
+class="align-even"> <span 
+class="rm-lmr-12">=</span> <img 
+src="main874x.png" alt="-&part;--
+&part;a1"  class="frac" align="middle"> <span 
+class="lmex-10">&sum;</span>
+      <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span></sup><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">a</span><sub>
+<span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub> <span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">)</span><sup><span 
+class="rm-lmr-8">2</span></sup> <span 
+class="rm-lmr-12">= 0</span></td>                                        <td 
+class="align-label"><a 
+ id="x68-103007r9"></a>(6.9)
+                    </td></tr><tr><td 
+class="align-odd"><img 
+src="main875x.png" alt=" &part;R
+----
+&part;a2"  class="frac" align="middle"></td>                    <td 
+class="align-even"> <span 
+class="rm-lmr-12">=</span> <img 
+src="main876x.png" alt=" &part;
+----
+&part;a2"  class="frac" align="middle"> <span 
+class="lmex-10">&sum;</span>
+      <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span></sup><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">a</span><sub>
+<span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub> <span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">)</span><sup><span 
+class="rm-lmr-8">2</span></sup> <span 
+class="rm-lmr-12">= 0</span></td>                                        <td 
+class="align-label"><a 
+ id="x68-103008r10"></a>(6.10)                    </td></tr></table>
+ou seja,
+<table 
+class="align">
+                       <tr><td 
+class="align-odd"><span 
+class="rm-lmr-12">2</span> <span 
+class="lmex-10">&sum;</span>
+  <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span></sup><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">a</span><sub>
+<span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub> <span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">) </span><span 
+class="lmsy-10x-x-120">&sdot; </span><span 
+class="rm-lmr-12">1</span></td>                        <td 
+class="align-even"> <span 
+class="rm-lmr-12">= 0</span></td>                                              <td 
+class="align-label"><a 
+ id="x68-103009r11"></a>(6.11)
+                       </td></tr><tr><td 
+class="align-odd"><span 
+class="rm-lmr-12">2</span> <span 
+class="lmex-10">&sum;</span>
+  <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span></sup><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">a</span><sub>
+<span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub> <span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">) </span><span 
+class="lmsy-10x-x-120">&sdot; </span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub></td>                       <td 
+class="align-even"> <span 
+class="rm-lmr-12">= 0</span></td>                                              <td 
+class="align-label"><a 
+ id="x68-103010r12"></a>(6.12)                       </td></tr></table>
+e isolando as incógnitas temos
+                                                                          
+
+                                                                          
+<table 
+class="align">
+                       <tr><td 
+class="align-odd"><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="lmex-10">&sum;</span>
+   <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span></sup><span 
+class="rm-lmr-12">1 + </span><span 
+class="lmmi-12">a</span><sub>
+<span 
+class="rm-lmr-8">2</span></sub> <span 
+class="lmex-10">&sum;</span>
+<sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span></sup><span 
+class="lmmi-12">x</span><sub>
+<span 
+class="lmmi-8">j</span></sub></td>                         <td 
+class="align-even"> <span 
+class="rm-lmr-12">=</span> <span 
+class="lmex-10">&sum;</span>
+   <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span></sup><span 
+class="lmmi-12">y</span><sub>
+<span 
+class="lmmi-8">j</span></sub></td>                                                <td 
+class="align-label"><a 
+ id="x68-103011r13"></a>(6.13)
+                       </td></tr><tr><td 
+class="align-odd"><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="lmex-10">&sum;</span>
+   <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span></sup><span 
+class="lmmi-12">x</span><sub>
+<span 
+class="lmmi-8">j</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">2</span></sub> <span 
+class="lmex-10">&sum;</span>
+<sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span></sup><span 
+class="lmmi-12">x</span><sub>
+<span 
+class="lmmi-8">j</span></sub><sup><span 
+class="rm-lmr-8">2</span></sup></td>                       <td 
+class="align-even"> <span 
+class="rm-lmr-12">=</span> <span 
+class="lmex-10">&sum;</span><sub>
+<span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span></sup><span 
+class="lmmi-12">y</span><sub>
+<span 
+class="lmmi-8">j</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub></td>                                              <td 
+class="align-label"><a 
+ id="x68-103012r14"></a>(6.14)                       </td></tr></table>
+<!--l. 429--><p class="indent" >   Na forma matricial obtemos
+   <table 
+class="equation"><tr><td><a 
+ id="x68-103013r15"></a>
+   <center class="math-display" >
+<img 
+src="main877x.png" alt="&lfloor; &sum;N       &sum;N     &rfloor; &lfloor;  &rfloor;    &lfloor; &sum;N       &rfloor;
+|   j=11     j=1 xj| |a1| =  |   j=1 yj |
+&lceil;&sum;N    x   &sum;N   x2&rceil; &lceil;a &rceil;    &lceil;&sum;N    x y &rceil;
+   j=1  j    j=1  j     2       j=1  j j
+" class="math-display" ></center></td><td class="equation-label">(6.15)</td></tr></table>
+<!--l. 443--><p class="nopar" >
+<!--l. 445--><p class="indent" >   Observe que é equivalente ao problema matricial
+   <table 
+class="equation"><tr><td><a 
+ id="x68-103014r16"></a>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main878x.png" alt="         T        T
+M a := V  V a = V  y
+" class="math-display" ></center></td><td class="equation-label">(6.16)</td></tr></table>
+<!--l. 448--><p class="nopar" >
+   <div class="newtheorem">
+<!--l. 506--><p class="noindent" ><span class="head">
+<a 
+ id="x68-103015r1"></a>
+<span 
+class="ec-lmbx-12">Teorema 6.5.1.</span>  </span><span 
+class="ec-lmri-12">A matriz </span><span 
+class="lmmi-12">M </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">V</span> <sup><span 
+class="lmmi-8">T</span> </sup><span 
+class="lmmi-12">V </span><span 
+class="ec-lmri-12">é quadrada de ordem </span><span 
+class="rm-lmr-12">2 </span><span 
+class="ec-lmri-12">e </span><span 
+class="ec-lmri-12">é invers</span><span 
+class="ec-lmri-12">ível</span>
+<span 
+class="ec-lmri-12">sempre que o posto da matriz </span><span 
+class="lmmi-12">V </span><span 
+class="ec-lmri-12">é igual a n</span><span 
+class="ec-lmri-12">úmero de colunas </span><span 
+class="lmmi-12">m</span><span 
+class="ec-lmri-12">.</span>
+   </div>
+<!--l. 509--><p class="indent" >
+   <div class="proof">
+<!--l. 510--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmri-12">Demonstra</span><span 
+class="ec-lmri-12">ç</span><span 
+class="ec-lmri-12">ão.</span> </span>Para  provar  que  <span 
+class="lmmi-12">M  </span>é  invertível  precisamos  mostrar  que
+<span 
+class="lmmi-12">Mv </span><span 
+class="rm-lmr-12">= 0 </span>implica <span 
+class="lmmi-12">v </span><span 
+class="rm-lmr-12">= 0</span>:
+   <center class="math-display" >
+<img 
+src="main879x.png" alt="              T
+M v = 0 =&rArr;  V  V v = 0
+" class="math-display" ></center> tomando o produto interno da expressão <span 
+class="rm-lmr-12">0 = </span><span 
+class="lmmi-12">V</span> <sup><span 
+class="lmmi-8">T</span> </sup><span 
+class="lmmi-12">V v </span>com <span 
+class="lmmi-12">v</span>, temos:
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main880x.png" alt="    &#x27E8;        &#x27E9;
+0 =  V TV v,v  = &#x27E8;V v,V v&#x27E9; = &#x2225;V v&#x2225;2
+" class="math-display" ></center> Então se <span 
+class="lmmi-12">Mv </span><span 
+class="rm-lmr-12">= 0</span>, <span 
+class="lmmi-12">V v </span><span 
+class="rm-lmr-12">= 0</span>, como o posto de <span 
+class="lmmi-12">V </span>é igual ao número de colunas,
+<span 
+class="lmmi-12">v </span><span 
+class="rm-lmr-12">= 0</span>.                                                                                         __
+   </div>
+   <div class="newtheorem">
+<!--l. 516--><p class="noindent" ><span class="head">
+<a 
+ id="x68-103016r1"></a>
+<span 
+class="ec-lmbx-12">Lema 6.5.1.</span>  </span><span 
+class="ec-lmri-12">A matrix </span><span 
+class="lmmi-12">M </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">V</span> <sup><span 
+class="lmmi-8">T</span> </sup><span 
+class="lmmi-12">V </span><span 
+class="ec-lmri-12">é sim</span><span 
+class="ec-lmri-12">étrica.</span>
+   </div>
+<!--l. 519--><p class="indent" >
+   <div class="proof">
+<!--l. 520--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmri-12">Demonstra</span><span 
+class="ec-lmri-12">ç</span><span 
+class="ec-lmri-12">ão.</span> </span>Isso é facilmente provado pelo seguinte argumento:
+   <center class="math-display" >
+<img 
+src="main881x.png" alt="M  T = (V TV )T =  (V)T (V T)T =  VT V = M
+" class="math-display" ></center>                                                                         __
+                                                                          
+
+                                                                          
+   </div>
+   <div class="newtheorem">
+<!--l. 527--><p class="noindent" ><span class="head">
+<a 
+ id="x68-103017r1"></a>
+<span 
+class="ec-lmbx-12">Exemplo 6.5.1.</span>  </span>Encontre a função do tipo <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) = </span><span 
+class="lmmi-12">ax </span>que melhor se aproxima
+dos seguintes pontos:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main882x.png" alt="(0, &minus; 0,1),(1, 2 ),(2, 3,7) e (3, 7 ).
+" class="math-display" ></center></td></tr></table>
+<!--l. 530--><p class="nopar" >
+   </div>
+<!--l. 532--><p class="indent" >
+   <div class="proof">
+<!--l. 532--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Defina
+   <center class="math-display" >
+<img 
+src="main883x.png" alt="                 2              2             2              2
+Eq = [f(x1) &minus; y1] + [f(x2) &minus; y2] + [f(x3) &minus; y3] + [f(x4) &minus; y4]   " class="math-display" ></center>
+temos que <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main884x.png" alt="                   2            2              2            2
+Eq  =   [f (0 ) + 0,1] + [f(1) &minus; 2] + [f(2) &minus; 3,7] + [f(3) &minus; 7]
+    =   [0,1]2 + [a &minus; 2]2 + [2a &minus; 3,7]2 + [3a &minus; 7]2
+" class="math-display" ></center>
+</div>
+<!--l. 540--><p class="indent" >   Devemos encontrar o parâmetro <span 
+class="lmmi-12">a </span>que minimiza o erro, portanto, calculamos:
+<div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main885x.png" alt="&part;Eq-  =  2 [a &minus; 2] + 4[2a &minus; 3,7] + 6[3a &minus;  7] = 28a &minus; 60,8
+&part;a
+" class="math-display" ></center>
+</div>Portanto o valor de <span 
+class="lmmi-12">a </span>que minimiza o erro é <span 
+class="lmmi-12">a </span><span 
+class="rm-lmr-12">=</span> <img 
+src="main886x.png" alt="60,8
+28"  class="frac" align="middle">.
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-43">
+x=[0&#x00A0;1&#x00A0;2&#x00A0;3]&#8217;
+&#x00A0;<br />y=[-.1&#x00A0;2&#x00A0;3.7&#x00A0;7]&#8217;
+&#x00A0;<br />plot2d(x,y,style=-4)
+</div>
+<!--l. 550--><p class="nopar" >                                                                         <span 
+class="msam-10x-x-120">&#x2662;</span>
+   </div>
+   <div class="newtheorem">
+<!--l. 554--><p class="noindent" ><span class="head">
+<a 
+ id="x68-103020r2"></a>
+<span 
+class="ec-lmbx-12">Exemplo 6.5.2.</span>  </span>Encontre a função do tipo <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) = </span><span 
+class="lmmi-12">bx </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a </span>que melhor aproxima
+os pontos:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main887x.png" alt="(0, &minus; 0,1),(1, 2 ),(2, 3,7) e (3, 7 ).
+" class="math-display" ></center></td></tr></table>
+<!--l. 557--><p class="nopar" >
+   </div>
+<!--l. 559--><p class="indent" >
+   <div class="proof">
+<!--l. 559--><p class="indent" >   <span class="head">
+                                                                          
+
+                                                                          
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main888x.png" alt="                   2            2              2            2
+Eq  =   [f(0) + 0,1]  + [f (1) &minus; 2 ] + [f (2) &minus; 3,7] + [f (3 ) &minus; 7]
+    =   [a + 0,1]2 + [a + b &minus; 2]2 + [a + 2b &minus; 3,7]2 + [a + 3b &minus; 7 ]2
+" class="math-display" ></center>
+</div>
+<!--l. 565--><p class="indent" >   Devemos encontrar os parâmetros <span 
+class="lmmi-12">a b </span>que minimizam o erro, por isso,
+calculamos as derivadas parciais: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main889x.png" alt="&part;Eq-  =  2 [a + 0,1] + 2 [a + b &minus; 2] + 2[a + 2b &minus; 3,7] + 2[a + 3b &minus; 7]
+ &part;a
+&part;Eq-
+ &part;b   =  2 [a + b &minus; 2] + 4 [a + 2b &minus; 3,7] + 6[a + 3b &minus; 7]
+" class="math-display" ></center>
+</div>
+<!--l. 573--><p class="indent" >   O erro mínimo acontece quando as derivadas são nulas, ou seja: <div class="eqnarray">
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main890x.png" alt=" 8a + 12b  =  25,2
+
+12a + 28b  =  60,8
+" class="math-display" ></center>
+</div>Cuja solução é dada por <span 
+class="lmmi-12">a </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmsy-10x-x-120">&minus;</span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">3 </span>e <span 
+class="lmmi-12">b </span><span 
+class="rm-lmr-12">= 2</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">3</span>. Portanto a função que procuramos é
+<span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) = </span><span 
+class="lmsy-10x-x-120">&minus;</span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">3 + 2</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">3</span><span 
+class="lmmi-12">x</span>.                                                                       <span 
+class="msam-10x-x-120">&#x2662;</span>
+   </div>
+<!--l. 583--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">6.5.2   </span> <a 
+ id="x68-1040006.5.2"></a>Ajuste polinomial</h4>
+<!--l. 585--><p class="noindent" >Dado um conjunto de <span 
+class="lmmi-12">n </span>pontos, desejamos encontrar o <span 
+class="ec-lmri-12">polin</span><span 
+class="ec-lmri-12">ômio </span>de grau <span 
+class="lmmi-12">p </span>que
+melhor se ajusta a esses pontos de tal forma a minimizar o resíduo, ou seja,
+encontrar a curva <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) = </span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">x </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">... </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="lmmi-8">p</span><span 
+class="rm-lmr-8">+1</span></sub><span 
+class="lmmi-12">x</span><sup><span 
+class="lmmi-8">p</span></sup> tal que
+<table 
+class="align">
+             <tr><td 
+class="align-odd"><span 
+class="lmmi-12">R</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="lmmi-12">,...,a</span><sub><span 
+class="lmmi-8">p</span><span 
+class="rm-lmr-8">+1</span></sub><span 
+class="rm-lmr-12">)</span></td>             <td 
+class="align-even"> <span 
+class="rm-lmr-12">=</span> <span 
+class="lmex-10">&sum;</span>
+   <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span></sup><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub>
+<span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">) </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">)</span><sup><span 
+class="rm-lmr-8">2</span></sup></td>                                            <td 
+class="align-label"><a 
+ id="x68-104001r17"></a>(6.17)
+             </td></tr><tr><td 
+class="align-odd"></td>                          <td 
+class="align-even"> <span 
+class="rm-lmr-12">=</span> <span 
+class="lmex-10">&sum;</span>
+   <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span></sup><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">a</span><sub>
+<span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">... </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="lmmi-8">p</span><span 
+class="rm-lmr-8">+1</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub><sup><span 
+class="lmmi-8">p</span></sup> <span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">y</span><sub>
+<span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">)</span><sup><span 
+class="rm-lmr-8">2</span></sup></td>                          <td 
+class="align-label"><a 
+ id="x68-104002r18"></a>(6.18)             </td></tr></table>
+                                                                          
+
+                                                                          
+seja o menor possível.
+<!--l. 592--><p class="indent" >   O objetivo é encontrar as incógnitas <span 
+class="lmmi-12">a</span><sub><span 
+class="lmmi-8">i</span></sub> que minimizam a soma do quadrado do
+resíduo.
+<!--l. 594--><p class="indent" >   O mínimo de <span 
+class="lmmi-12">R </span>encontra-se quando a derivada primeira é igual a
+zero:
+<table 
+class="align">
+        <tr><td 
+class="align-odd"><img 
+src="main891x.png" alt="&part;R
+----
+&part;a1"  class="frac" align="middle"></td>          <td 
+class="align-even"> <span 
+class="rm-lmr-12">=</span> <img 
+src="main892x.png" alt=" &part;
+----
+&part;a1"  class="frac" align="middle"> <span 
+class="lmex-10">&sum;</span>
+      <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">n</span></sup><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">a</span><sub>
+<span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">... </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="lmmi-8">p</span><span 
+class="rm-lmr-8">+1</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub><sup><span 
+class="lmmi-8">p</span></sup> <span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">y</span><sub>
+<span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">)</span><sup><span 
+class="rm-lmr-8">2</span></sup> <span 
+class="rm-lmr-12">= 0</span></td>                  <td 
+class="align-label"><a 
+ id="x68-104003r19"></a>(6.19)
+        </td></tr><tr><td 
+class="align-odd"><img 
+src="main893x.png" alt="..."  class="vdots" ></td>             <td 
+class="align-even"> <span 
+class="rm-lmr-12">=</span> <img 
+src="main894x.png" alt="..."  class="vdots" ></td>                                                                <td 
+class="align-label"><a 
+ id="x68-104004r20"></a>(6.20)
+        </td></tr><tr><td 
+class="align-odd"><img 
+src="main895x.png" alt="-&part;R---
+&part;ap+1"  class="frac" align="middle"></td>        <td 
+class="align-even"> <span 
+class="rm-lmr-12">=</span> <img 
+src="main896x.png" alt="--&part;---
+&part;ap+1"  class="frac" align="middle"> <span 
+class="lmex-10">&sum;</span>
+       <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">n</span></sup><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">a</span><sub>
+<span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">... </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="lmmi-8">p</span><span 
+class="rm-lmr-8">+1</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub><sup><span 
+class="lmmi-8">p</span></sup> <span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">y</span><sub>
+<span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">)</span><sup><span 
+class="rm-lmr-8">2</span></sup> <span 
+class="rm-lmr-12">= 0</span></td>                <td 
+class="align-label"><a 
+ id="x68-104005r21"></a>(6.21)        </td></tr></table>
+ou seja,
+                                                                          
+
+                                                                          
+<table 
+class="align">
+                <tr><td 
+class="align-odd"><span 
+class="rm-lmr-12">2</span> <span 
+class="lmex-10">&sum;</span>
+  <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">n</span></sup><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">a</span><sub>
+<span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">... </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="lmmi-8">p</span><span 
+class="rm-lmr-8">+1</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub><sup><span 
+class="lmmi-8">p</span></sup> <span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">y</span><sub>
+<span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">) </span><span 
+class="lmsy-10x-x-120">&sdot; </span><span 
+class="rm-lmr-12">1</span></td>                  <td 
+class="align-even"> <span 
+class="rm-lmr-12">= 0</span></td>                                <td 
+class="align-label"><a 
+ id="x68-104006r22"></a>(6.22)
+                </td></tr><tr><td 
+class="align-odd"><img 
+src="main897x.png" alt=".
+.."  class="vdots" ></td>                                                           <td 
+class="align-even"> <span 
+class="rm-lmr-12">=</span> <img 
+src="main898x.png" alt=".
+.."  class="vdots" ></td>                                 <td 
+class="align-label"><a 
+ id="x68-104007r23"></a>(6.23)
+                </td></tr><tr><td 
+class="align-odd"><span 
+class="rm-lmr-12">2</span> <span 
+class="lmex-10">&sum;</span>
+  <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">n</span></sup><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">a</span><sub>
+<span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">... </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="lmmi-8">p</span><span 
+class="rm-lmr-8">+1</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub><sup><span 
+class="lmmi-8">p</span></sup> <span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">y</span><sub>
+<span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">) </span><span 
+class="lmsy-10x-x-120">&sdot; </span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub><sup><span 
+class="lmmi-8">p</span></sup></td>                <td 
+class="align-even"> <span 
+class="rm-lmr-12">= 0</span></td>                                <td 
+class="align-label"><a 
+ id="x68-104008r24"></a>(6.24)                </td></tr></table>
+e isolando as incógnitas temos
+<table 
+class="align">
+             <tr><td 
+class="align-odd"><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="lmex-10">&sum;</span>
+   <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">n</span></sup><span 
+class="rm-lmr-12">1 + </span><span 
+class="lmmi-12">a</span><sub>
+<span 
+class="rm-lmr-8">2</span></sub> <span 
+class="lmex-10">&sum;</span>
+<sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span></sup><span 
+class="lmmi-12">x</span><sub>
+<span 
+class="lmmi-8">j</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">... </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub><span 
+class="lmmi-8">p</span><span 
+class="rm-lmr-8">+1</span></sub> <span 
+class="lmex-10">&sum;</span>
+     <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span></sup><span 
+class="lmmi-12">x</span><sub>
+<span 
+class="lmmi-8">j</span></sub><sup><span 
+class="lmmi-8">p</span></sup></td>                  <td 
+class="align-even"> <span 
+class="rm-lmr-12">=</span> <span 
+class="lmex-10">&sum;</span><sub>
+<span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span></sup><span 
+class="lmmi-12">y</span><sub>
+<span 
+class="lmmi-8">j</span></sub></td>                             <td 
+class="align-label"><a 
+ id="x68-104009r25"></a>(6.25)
+             </td></tr><tr><td 
+class="align-odd"><img 
+src="main899x.png" alt="..."  class="vdots" ></td>                                                                  <td 
+class="align-even"> <span 
+class="rm-lmr-12">=</span> <img 
+src="main900x.png" alt="..."  class="vdots" ></td>                                      <td 
+class="align-label"><a 
+ id="x68-104010r26"></a>(6.26)
+             </td></tr><tr><td 
+class="align-odd"><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="lmex-10">&sum;</span>
+   <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">n</span></sup><span 
+class="lmmi-12">x</span><sub>
+<span 
+class="lmmi-8">j</span></sub><sup><span 
+class="lmmi-8">p</span></sup> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub>
+<span 
+class="rm-lmr-8">2</span></sub> <span 
+class="lmex-10">&sum;</span>
+<sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span></sup><span 
+class="lmmi-12">x</span><sub>
+<span 
+class="lmmi-8">j</span></sub><sup><span 
+class="lmmi-8">p</span><span 
+class="rm-lmr-8">+1</span></sup> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">... </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">a</span><sub>
+<span 
+class="lmmi-8">p</span><span 
+class="rm-lmr-8">+1</span></sub> <span 
+class="lmex-10">&sum;</span>
+     <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span></sup><span 
+class="lmmi-12">x</span><sub>
+<span 
+class="lmmi-8">j</span></sub><sup><span 
+class="rm-lmr-8">2</span><span 
+class="lmmi-8">p</span></sup></td>             <td 
+class="align-even"> <span 
+class="rm-lmr-12">=</span> <span 
+class="lmex-10">&sum;</span><sub>
+<span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">N</span></sup><span 
+class="lmmi-12">y</span><sub>
+<span 
+class="lmmi-8">j</span></sub><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub><sup><span 
+class="lmmi-8">p</span></sup></td>                          <td 
+class="align-label"><a 
+ id="x68-104011r27"></a>(6.27)             </td></tr></table>
+<!--l. 613--><p class="indent" >   Na forma matricial obtemos
+   <table 
+class="equation"><tr><td><a 
+ id="x68-104012r28"></a>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main901x.png" alt="&lfloor; &sum;      &sum;             &sum;    &rfloor; &lfloor;     &rfloor;   &lfloor;  &sum;    &rfloor;
+|    1      xj   &sdot;&sdot;&sdot;     xpj | |  a1 |   |    yj |
+|| &sum;      &sum;            &sum;  p+1|| ||     ||   || &sum;     ||
+||   xj      x2j          xj  || ||  a2 ||   ||   xjyj||
+||   ..            ..      ..  || ||  ..  || = ||    ..  ||
+|&lceil;   .              .     .  |&rceil; |&lceil;  .  |&rceil;   |&lceil;    .  |&rceil;
+  &sum; xp  &sum;  xp+1  &sdot;&sdot;&sdot;  &sum;  x2p    a         &sum; xpy
+     j      j             j      p+1         j j
+" class="math-display" ></center></td><td class="equation-label">(6.28)</td></tr></table>
+<!--l. 633--><p class="nopar" >
+<!--l. 635--><p class="indent" >   Na forma matricial temos
+   <table 
+class="equation"><tr><td><a 
+ id="x68-104013r29"></a>
+   <center class="math-display" >
+<img 
+src="main902x.png" alt="M a := V TV a = V Ty
+" class="math-display" ></center></td><td class="equation-label">(6.29)</td></tr></table>
+<!--l. 638--><p class="nopar" >
+<!--l. 643--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">6.5.3   </span> <a 
+ id="x68-1050006.5.3"></a>Ajuste linear de curvas</h4>
+<!--l. 644--><p class="noindent" >Seja <span 
+class="lmmi-12">f</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">,f</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&hellip;</span><span 
+class="lmmi-12">,f</span><sub><span 
+class="lmmi-8">m</span></sub><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) </span>um conjunto de <span 
+class="lmmi-12">m </span>funções e <span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">i</span></sub><span 
+class="lmmi-12">,y</span><sub><span 
+class="lmmi-8">i</span></sub><span 
+class="rm-lmr-12">) </span>um conjunto de <span 
+class="lmmi-12">n</span>
+pontos. Procuram-se os coeficientes <span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="lmmi-12">,a</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&hellip;</span><span 
+class="lmmi-12">,a</span><sub><span 
+class="lmmi-8">m</span></sub> tais que a função dada
+por
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main903x.png" alt="f(x) = a1f1(x) + a2f2(x) + ...+ amfm (x )  " class="math-display" ></center>
+minimiza o resíduo dado por
+   <center class="math-display" >
+<img 
+src="main904x.png" alt="     &sum;n
+R  =    [f(xi) &minus; yi]2
+     j=1   " class="math-display" ></center>
+como <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) =</span> <span 
+class="lmex-10">&sum;</span>
+  <sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">m</span></sup><span 
+class="lmmi-12">a</span><sub>
+<span 
+class="lmmi-8">j</span></sub><span 
+class="lmmi-12">f</span><sub><span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">)</span>, temos
+   <center class="math-display" >
+<img 
+src="main905x.png" alt="        &lfloor;               &rfloor;2
+    &sum;n  &lceil;&sum;m             &rceil;
+R =         ajfj(xi) &minus; yi
+    j=1  j=1
+" class="math-display" ></center>
+<!--l. 651--><p class="indent" >   Este problema é equivalente a resolver pelo métodos dos mínimos quadrados o
+seguinte sistema linear:
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main906x.png" alt="&lfloor;                              &rfloor;           &lfloor;    &rfloor;
+   f (x )  f (x )  &sdot;&sdot;&sdot;  f (x )   &lfloor;     &rfloor;     y
+||   1  1    2  1         m  1  ||   a1      ||  1 ||
+||  f1(x2)  f2(x2)  &sdot;&sdot;&sdot;  fm(x2) || ||     ||   || y2 ||
+||                              || || a2  ||   ||    ||
+||  f1(x3)  f2(x3)  &sdot;&sdot;&sdot;  fm(x3) || ||  .  || = || y3 ||
+||    .       .     .       .   || ||  ..  ||   ||  . ||
+||    ..       ..      ..     ..   || &lceil;     &rceil;   ||  .. ||
+&lceil;                              &rceil;   am      &lceil;    &rceil;
+   f1(xn )  f2(xn )  &sdot;&sdot;&sdot;  fm(xn)               yn
+" class="math-display" ></center>
+   <div class="newtheorem">
+<!--l. 681--><p class="noindent" ><span class="head">
+<a 
+ id="x68-105001r3"></a>
+<span 
+class="ec-lmbx-12">Exemplo 6.5.3.</span>  </span>Encontre a reta que melhor aproxima o seguinte conjunto de
+dados:
+<div class="center" 
+>
+<!--l. 682--><p class="noindent" >
+<div class="tabular"> <table id="TBL-15" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-15-1g"><col 
+id="TBL-15-1"></colgroup><colgroup id="TBL-15-2g"><col 
+id="TBL-15-2"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-15-1-1"  
+class="td11"> <span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">i</span></sub> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-1-2"  
+class="td11"> <span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">i</span></sub>   </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-15-2-1"  
+class="td11"><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">01</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-2-2"  
+class="td11"> <span 
+class="rm-lmr-12">1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">99 </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-15-3-1"  
+class="td11"><span 
+class="rm-lmr-12">1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">02</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-3-2"  
+class="td11"> <span 
+class="rm-lmr-12">4</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">55 </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-15-4-1"  
+class="td11"><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">04</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-4-2"  
+class="td11"> <span 
+class="rm-lmr-12">7</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">20 </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-15-5-1"  
+class="td11"><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">95</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-5-2"  
+class="td11"> <span 
+class="rm-lmr-12">9</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">51 </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-15-6-1"  
+class="td11"><span 
+class="rm-lmr-12">3</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">55</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-6-2"  
+class="td11"><span 
+class="rm-lmr-12">10</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">82</span></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-15-7-1"  
+class="td11">   </td></tr></table></div></div>
+   </div>
+<!--l. 696--><p class="indent" >
+   <div class="proof">
+<!--l. 696--><p class="indent" >   <span class="head">
+                                                                          
+
+                                                                          
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Desejamos  encontrar  os  valores  de  <span 
+class="lmmi-12">a </span>e  <span 
+class="lmmi-12">b </span>tais  que  a  função
+<span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) = </span><span 
+class="lmmi-12">ax </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">b </span>melhor se ajusta aos pontos da tabela. Afim de usar o critério
+dos mínimos quadrados, escrevemos o problema na forma matricial dada
+por:
+   <center class="math-display" >
+<img 
+src="main907x.png" alt="&lfloor;         &rfloor;         &lfloor;        &rfloor;
+| 0,01  1 |         |  1,99  |
+||         || &lfloor;   &rfloor;   ||        ||
+|| 1,02  1 ||         ||  4,55  ||
+||         || |&lceil; a |&rceil; = ||        ||
+|| 2,04  1 ||   b     ||   7,2  ||
+|| 2,95  1 ||         ||  9,51  ||
+|&lceil;         |&rceil;         |&lceil;        |&rceil;
+  3,55  1              10,82
+" class="math-display" ></center>
+<!--l. 723--><p class="indent" >   Multiplicamos agora ambos os lados pela transposta:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main908x.png" alt="&lfloor;                              &rfloor;
+
+|&lceil; 0,01  1,02  2,04  2,95   3,55  |&rceil;
+   1     1     1     1     1
+" class="math-display" ></center></td></tr></table>
+<!--l. 730--><p class="nopar" >
+o que fornece:
+                                                                          
+
+                                                                          
+<table 
+class="align-star">
+           <tr><td 
+class="align-odd"></td>           <td 
+class="align-even"><img 
+src="main909x.png" alt="&lfloor;                              &rfloor;
+   0,01  1,02  2,04  2,95  3,55
+|&lceil;                              |&rceil;
+    1     1     1     1     1"  class="left" align="middle"><img 
+src="main910x.png" alt="&lfloor;         &rfloor;
+
+|| 0,01  1 ||
+|| 1,02  1 ||
+||         ||
+|| 2,04  1 ||
+||         ||
+|| 2,95  1 ||
+&lceil;         &rceil;
+  3,55  1"  class="left" align="middle"><img 
+src="main911x.png" alt="&lfloor;    &rfloor;
+   a
+|&lceil;    |&rceil;
+   b"  class="left" align="middle"> <span 
+class="rm-lmr-12">=</span></td>           <td 
+class="align-label"></td>           <td 
+class="align-label">
+           </td></tr><tr><td 
+class="align-odd"></td>           <td 
+class="align-even"><img 
+src="main912x.png" alt="&lfloor;                              &rfloor;
+
+|&lceil;  0,01  1,02  2,04  2,95  3,55 |&rceil;
+    1     1     1     1     1"  class="left" align="middle"><img 
+src="main913x.png" alt="&lfloor;       &rfloor;
+|  1,99 |
+||       ||
+||  4,55 ||
+||       ||
+||  7,2  ||
+||  9,51 ||
+|&lceil;       |&rceil;
+  10,82"  class="left" align="middle"></td>                     <td 
+class="align-label"></td>           <td 
+class="align-label"></td></tr></table>
+   <center class="math-display" >
+<img 
+src="main914x.png" alt="&lfloor;               &rfloor; &lfloor;   &rfloor;   &lfloor;          &rfloor;
+| 26,5071  9,57 | | a | = |  85,8144 |
+&lceil;   9,57      5  &rceil; &lceil; b &rceil;   &lceil;   34,07  &rceil;
+" class="math-display" ></center>
+<!--l. 786--><p class="indent" >   A solução desse sistema é <span 
+class="lmmi-12">a </span><span 
+class="rm-lmr-12">= 2</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">5157653 </span>e <span 
+class="lmmi-12">b </span><span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">9988251</span>
+<!--l. 788--><p class="indent" >   A tabela abaixo mostra os valores dados e os valores ajustados:
+<div class="center" 
+>
+<!--l. 789--><p class="noindent" >
+<div class="tabular"> <table id="TBL-16" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-16-1g"><col 
+id="TBL-16-1"></colgroup><colgroup id="TBL-16-2g"><col 
+id="TBL-16-2"></colgroup><colgroup id="TBL-16-3g"><col 
+id="TBL-16-3"></colgroup><colgroup id="TBL-16-4g"><col 
+id="TBL-16-4"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-16-1-1"  
+class="td11"> <span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">i</span></sub> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-1-2"  
+class="td11"> <span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">i</span></sub>   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-1-3"  
+class="td11"> <span 
+class="lmmi-12">ax</span><sub><span 
+class="lmmi-8">i</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">b  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-1-4"  
+class="td11"><span 
+class="lmmi-12">ax</span><sub><span 
+class="lmmi-8">i</span></sub> <span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">b </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">i</span></sub></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-16-2-1"  
+class="td11"><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">01</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-2-2"  
+class="td11"> <span 
+class="rm-lmr-12">1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">99 </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-2-3"  
+class="td11"><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">0239828</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-2-4"  
+class="td11"> <span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">0339828 </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-16-3-1"  
+class="td11"><span 
+class="rm-lmr-12">1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">02</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-3-2"  
+class="td11"> <span 
+class="rm-lmr-12">4</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">55 </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-3-3"  
+class="td11"><span 
+class="rm-lmr-12">4</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">5649057</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-3-4"  
+class="td11"> <span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">0149057 </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-16-4-1"  
+class="td11"><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">04</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-4-2"  
+class="td11"> <span 
+class="rm-lmr-12">7</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">2  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-4-3"  
+class="td11"><span 
+class="rm-lmr-12">7</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">1309863</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-4-4"  
+class="td11"><span 
+class="lmsy-10x-x-120">&minus;</span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">0690137</span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-16-5-1"  
+class="td11"><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">95</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-5-2"  
+class="td11"> <span 
+class="rm-lmr-12">9</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">51 </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-5-3"  
+class="td11"><span 
+class="rm-lmr-12">9</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">4203327</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-5-4"  
+class="td11"><span 
+class="lmsy-10x-x-120">&minus;</span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">0896673</span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-16-6-1"  
+class="td11"><span 
+class="rm-lmr-12">3</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">55</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-6-2"  
+class="td11"><span 
+class="rm-lmr-12">10</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">82</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-6-3"  
+class="td11"><span 
+class="rm-lmr-12">10</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">929792</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-6-4"  
+class="td11"> <span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">1097919 </span></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-16-7-1"  
+class="td11">   </td></tr></table></div></div>
+                                                                         <span 
+class="msam-10x-x-120">&#x2662;</span>
+   </div>
+                                                                          
+
+                                                                          
+   <!--l. 804--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse40.html" >next</a>] [<a 
+href="mainse38.html" >prev</a>] [<a 
+href="mainse38.html#tailmainse38.html" >prev-tail</a>] [<a 
+href="mainse28.html" >front</a>] [<a 
+href="mainch8.html#mainse39.html" >up</a>] </p></div>
+<!--l. 804--><p class="indent" >   <a 
+ id="tailmainse28.html"></a>   
+</body></html> 
