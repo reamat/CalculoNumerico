@@ -17,7 +17,8 @@ done
 
 cd ..
 ls
-python tbinsert.py
+#python tbinsert.py
+python tbinsert2.py
 
 
 
