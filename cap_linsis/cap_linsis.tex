@@ -9,12 +9,12 @@ Muitos problemas da engenharia, física e matemática estão associados a soluç
 
 
 Considere o sistema de equações lineares:
-\begin{align*}
-a_{11}x_1 + a_{12}x_2 + \cdots +a_{1n}x_n &= b_1\\
-a_{21}x_1 + a_{22}x_2 + \cdots +a_{2n}x_n &= b_2\\
-                                      &\vdots \\
-a_{m1}x_1 + a_{m2}x_2 + \cdots +a_{mn}x_n &= b_m
-\end{align*}
+\begin{eqnarray*}
+a_{11}x_1 + a_{12}x_2 + \cdots +a_{1n}x_n &=& b_1\\
+a_{21}x_1 + a_{22}x_2 + \cdots +a_{2n}x_n &=& b_2\\
+                                      &\vdots& \\
+a_{m1}x_1 + a_{m2}x_2 + \cdots +a_{mn}x_n &=& b_m
+\end{eqnarray*}
 onde $m$ é o número de equações e $n$ é o número de incógnitas.  Este sistema pode ser escrito na forma matricial:
 \begin{equation*}
   Ax = b
@@ -57,11 +57,11 @@ Lembramos que algumas operações feitas nas linhas de um sistema não alteram a
 
 O processo que transforma um sistema em outro com mesma solução, mas que apresenta uma forma triangular é chamado eliminação Gaussiana. A solução do sistema pode ser obtida fazendo substituição regressiva.
 \begin{ex}[Eliminação Gaussiana sem pivotamento] Resolva o sistema
-  \begin{align}
-    x+y+z  &=1\\
-    2x+y-z &=0\\
-    2x+2y+z&=1
-  \end{align}
+  \begin{eqnarray*}
+    x+y+z  &=& 1\\
+    2x+y-z &=& 0\\
+    2x+2y+z&=& 1
+  \end{eqnarray*}
 \end{ex}
 \begin{sol}
 A matriz completa do sistema é escrita como
@@ -84,47 +84,48 @@ Encontramos $-z=-1$, ou seja, $z=1$. Substituindo na segunda equação, temos $-
 A Eliminação Gaussiana com \emph{pivotamento parcial} consiste em fazer uma permutação de linhas de forma a escolher o maior pivô (em módulo) a cada passo.
 
 \begin{ex}[Eliminação Gaussiana com pivotamento parcial] Resolva o sistema
-\begin{align}
-  x+y+z &=1\\
-  2x+y-z&=0\\
-  2x+2z+z&=1
-\end{align}
-
+\begin{eqnarray*}
+  x+y+z  &=& 1\\
+  2x+y-z &=& 0\\
+  2x+2z+z &=& 1
+\end{eqnarray*}
 \end{ex}
 
 \begin{sol}
 A matriz completa do sistema é
-\begin{align}
-  \begin{bmatrix}
-  1 &1&  1&1\\
-  \RED{2} &1& -1&0\\
-  2 & 2 &1&1
-  \end{bmatrix}
-&\sim
-  \begin{bmatrix}
-  2 &1& -1&0\\
-  1 &1&  1&1\\
-  2 &2&  1&1
-  \end{bmatrix} 
-&\sim 
-  \begin{bmatrix}
-  2 &1& -1&0\\
-  0 &1/2& 3/2&1\\
-  0 & 1 &2&1
-  \end{bmatrix}\\
-&\sim
-  \begin{bmatrix}
-  2 &1& -1&0\\
-  0 & 1 &2&1\\
-  0 &1/2& 3/2&1
-  \end{bmatrix}
-&\sim 
-  \begin{bmatrix}
-  2 &1& -1&0\\
-  0 & 1 &2&1\\
-  0 &0& 1/2&1/2
-  \end{bmatrix}
-\end{align}
+\begin{equation*}
+  \begin{split}
+    \begin{bmatrix}
+      1 &1&  1&1\\
+      \RED{2} &1& -1&0\\
+      2 & 2 &1&1
+    \end{bmatrix}
+    &\sim
+    \begin{bmatrix}
+      2 &1& -1&0\\
+      1 &1&  1&1\\
+      2 &2&  1&1
+    \end{bmatrix}\\ 
+    &\sim
+    \begin{bmatrix}
+      2 &1& -1&0\\
+      0 &1/2& 3/2&1\\
+      0 & 1 &2&1
+    \end{bmatrix}\\
+    &\sim
+    \begin{bmatrix}
+      2 &1& -1&0\\
+      0 & 1 &2&1\\
+      0 &1/2& 3/2&1
+    \end{bmatrix}\\
+    &\sim
+    \begin{bmatrix}
+      2 &1& -1&0\\
+      0 & 1 &2&1\\
+      0 &0& 1/2&1/2
+    \end{bmatrix}    
+  \end{split}
+\end{equation*}
 
 Encontramos $1/2z=1/2$, ou seja, $z=1$. Substituímos na segunda equação e temos $y+2z=1$, ou seja, $y=-1$ e, finalmente $2x+y-z=0$, resultando em $x=1$.
 \end{sol}
@@ -687,12 +688,12 @@ e utilizando que a soma dos $k$ inteiros é uma progressão aritmética\footnote
 Considere um sistema linear onde a matriz $A$ é densa\footnote{Diferentemente de uma matriz esparsa, uma matriz densa possui a maioria dos elementos diferentes de zero.}. Para resolver o sistema, podemos transformar a matriz $A$ nas matrizes $L$, triangular inferior, e $U$, triangular superior de tal forma que $A=LU$.
 
 Sendo assim o sistema pode ser reescrito tal que
-\begin{align}
-  Ax &=b \\
-  (LU)x &=b \\
-  L(Ux) &=b \\
-  L y = b \quad & \text{ e } \quad Ux=y
-\end{align}
+\begin{eqnarray*}
+  Ax &=&b \\
+  (LU)x &=&b \\
+  L(Ux) &=&b \\
+  L y = b \quad & \text{ e }& \quad Ux=y
+\end{eqnarray*}
 Assim ao invés de resolvermos o sistema original, devemos resolver um sistema triangular inferior e um sistema triangular superior.
 
 A matriz $U$ da fatoração\footnote{Não vamos usar pivotamento nesse primeiro exemplo.} $LU$ é a matriz obtida ao final do escalonamento da matriz $A$.
@@ -761,14 +762,14 @@ Finalmente, para $j=n-1$, temos $2\cdot 1^2+1$.
 
 
 Somando todos esses custos, temos
-\begin{align*}
-  (n-1)+2(n-1)^2 + & (n-2)+2(n-2)^2+... %\\&
+\begin{eqnarray*}
+  (n-1)+2(n-1)^2 &+&  (n-2)+2(n-2)^2+... %\\&
    + (2)+2(2)^2+1+2\cdot 1\\
- =& \sum_{k=1}^{n-1}2k^2+k \\ 
- =& 2\sum_{k=1}^{n-1}k^2+\sum_{k=1}^{n-1}k\\
- =& 2 \frac{(n-1)n(2n-1)}{6}+ \frac{n(n-1)}{2} \\
- =& \frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6} \text{~flops}.
-\end{align*}
+ &=& \sum_{k=1}^{n-1}2k^2+k \\ 
+ &=& 2\sum_{k=1}^{n-1}k^2+\sum_{k=1}^{n-1}k\\
+ &=& 2 \frac{(n-1)n(2n-1)}{6}+ \frac{n(n-1)}{2} \\
+ &=& \frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6} \text{~flops}.
+\end{eqnarray*}
 % \begin{align*}
 %   & \mathcal{O}( (n-1)n+(n-2)(n-1)+...+2\cdot 3+1\cdot 2) \\
 %  =& \mathcal{O}( \sum_{k=1}^{n-1}k(k+1) ) 
@@ -895,11 +896,11 @@ Logo, pelo resultado para a norma do máximo, concluímos que $u=0$.
   Calcule a norma $L^1$, $L^2$ e $L^\infty$ do vetor coluna $v = (1, 2, -3, 0)$.
 \end{ex}
 \begin{sol}
-  \begin{align*}
-    \|v\|_1 &= 1+2+3+0=6\\
-    \|v\|_2 &= \sqrt{1+2^2+3^2+0^2}=\sqrt{14}\\
-    \|v\|_\infty &= \max\{1,2,3,0\}=3
-  \end{align*}
+  \begin{eqnarray*}
+    \|v\|_1 &=& 1+2+3+0=6\\
+    \|v\|_2 &=& \sqrt{1+2^2+3^2+0^2}=\sqrt{14}\\
+    \|v\|_\infty &=& \max\{1,2,3,0\}=3
+  \end{eqnarray*}
 \ifisscilab
 No \verb+Scilab+ podemos computar normas $L^p$'s de vetores usando o comando \verb+norm+. Neste exemplo, temos:
 \begin{verbatim}
@@ -955,11 +956,11 @@ Calcule as normas $1$, $2$ e $\infty$ da seguinte matriz:
 \end{equation*}
 \end{ex}
 \begin{sol}
-  \begin{align*}
-    \|A\|_1 &= \max\{12, 8, 18\}=18\\
-    \|A\|_\infty &= \max\{15, 7, 16\}=16\\
-    \|A\|_2 &= \sqrt{\max\{0,5865124, 21,789128, 195,62436\}}= 13,98657
-  \end{align*}
+  \begin{eqnarray*}
+    \|A\|_1 &=& \max\{12, 8, 18\}=18\\
+    \|A\|_\infty &=& \max\{15, 7, 16\}=16\\
+    \|A\|_2 &=& \sqrt{\max\{0,5865124, 21,789128, 195,62436\}}= 13,98657
+  \end{eqnarray*}
 \ifisscilab
 No \verb+Scilab+ podemos computar normas $L^p$'s de matrizes usando o comando \verb+norm+. Neste exemplo, temos:
 \begin{verbatim}
@@ -985,12 +986,12 @@ $$Ax+A\delta_x=y+\delta_y$$ e, portanto,
 $$A\delta_x=\delta_y.$$
 
 Queremos avaliar a magnitude do erro relativo em y, representado por $\|\delta_y\|/\|y\|$ em função da magnitude do erro relativo $\|\delta_x\|/\|x\|$.
-\begin{align*}
-\frac{\|\delta_x\|/\|x\|}{\|\delta_y\|/\|y\|} &= \frac{\|\delta_x\|}{\|x\|}\frac{\|y\|}{\|\delta_y\|}\\ 
-&= \frac{\|A^{-1}\delta_y\|}{\|x\|}\frac{\|Ax\|}{\|\delta_y\|} \\
-&\leq \frac{\|A^{-1}\|\|\delta_y\|}{\|x\|}\frac{\|A\|\|x\|}{\|\delta_y\|}\\
-&=\|A\|\|A^{-1}\|  
-\end{align*}
+\begin{eqnarray*}
+\frac{\|\delta_x\|/\|x\|}{\|\delta_y\|/\|y\|} &=& \frac{\|\delta_x\|}{\|x\|}\frac{\|y\|}{\|\delta_y\|}\\ 
+&=& \frac{\|A^{-1}\delta_y\|}{\|x\|}\frac{\|Ax\|}{\|\delta_y\|} \\
+&\leq& \frac{\|A^{-1}\|\|\delta_y\|}{\|x\|}\frac{\|A\|\|x\|}{\|\delta_y\|}\\
+&=& \|A\|\|A^{-1}\|  
+\end{eqnarray*}
 
 Assim, definimos o número de condicionamento de uma matriz inversível $A$ como
 $$k_p(A)=\|A\|_p \|A^{-1}\|_p$$
@@ -1141,12 +1142,12 @@ Veremos nessa seção dois \emph{métodos iterativos} básicos para obter uma ap
 
 \subsection{Método de Jacobi}\index{método de!Jacobi}
 O método de Jacobi pode ser obtido a partir do sistema linear
-\begin{align}
-a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n&=y_1\\
-a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n&=y_2\\
-&\vdots     \\
-a_{n1}x_1+a_{n2}x_2+\cdots+a_{nn}x_n&=y_n
-\end{align}
+\begin{eqnarray*}
+a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n&=&y_1\\
+a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n&=&y_2\\
+&\vdots&     \\
+a_{n1}x_1+a_{n2}x_2+\cdots+a_{nn}x_n&=& y_n
+\end{eqnarray*}
 
 Isolando o elemento $x_1$ da primeira equação temos
 \begin{equation}
@@ -1155,34 +1156,34 @@ x_1^{(k+1)}= \frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_
 Note que utilizaremos os elementos $x_i^{(k)}$ da iteração $k$ (a direita da equação) para estimar o elemento $x_1$ da próxima iteração. 
 
 Da mesma forma, isolando o elemento $x_i$ de cada equação $i$, para todo $i=2,...,n$ podemos construir a iteração
-\begin{align}
-x_1^{(k+1)}&=\frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}}\\
-x_2^{(k+1)}&=\frac{y_2 - \left(a_{21}x_1^{(k)}+a_{23}x_3^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}\\
+\begin{eqnarray*}
+x_1^{(k+1)}&=&\frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}}\\
+x_2^{(k+1)}&=&\frac{y_2 - \left(a_{21}x_1^{(k)}+a_{23}x_3^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}\\
 &\vdots&\\
-x_n^{(k+1)}&=\frac{y_2 - \left(a_{n1}x_1^{(k)}+\cdots+a_{n,n-2}x_{n-2}^{(k)}+a_{n,n-1}x_{n-1}^{(k)}\right)}{a_{nn}}
-\end{align}
+x_n^{(k+1)}&=&\frac{y_2 - \left(a_{n1}x_1^{(k)}+\cdots+a_{n,n-2}x_{n-2}^{(k)}+a_{n,n-1}x_{n-1}^{(k)}\right)}{a_{nn}}
+\end{eqnarray*}
 
 Em notação mais compacta, o método de Jacobi consiste na iteração
-\begin{align}\displaystyle
-  x^{(1)}   &= \text{aproximação inicial}\\
-  x_i^{(k)} &= \left(y_i - \sum_{\substack{j=1\\j\ne i}}^{n} a_{ij}x_j^{(k)} \right)/{a_{ii}}
-\end{align}
+\begin{eqnarray*}
+  x^{(1)}   &=& \text{aproximação inicial}\\
+  x_i^{(k)} &=& \left(y_i - \sum_{\substack{j=1\\j\ne i}}^{n} a_{ij}x_j^{(k)} \right)/{a_{ii}}
+\end{eqnarray*}
 
 \begin{ex}
 Resolva o sistema
-\begin{align}
- 10x+y&=23\\
- x+8y &=26
-\end{align}
+\begin{eqnarray*}
+ 10x+y&=&23\\
+ x+8y &=&26
+\end{eqnarray*}
 usando o método de Jacobi iniciando com $x^{(1)}=y^{(1)}=0$.
-\begin{align*}
-x^{(k+1)}&=\frac{23-y^{(k)}}{10}\\
-y^{(k+1)}&=\frac{26-x^{(k)}}{8}\\
-x^{(2)}&=\frac{23-y^{(1)}}{10}=2,3\\
-y^{(2)}&=\frac{26-x^{(1)}}{8}=3,25\\
-x^{(3)}&=\frac{23-y^{(2)}}{10}=1,975 \\
-y^{(3)}&=\frac{26-x^{(2)}}{8}=2,9625
-\end{align*}
+\begin{eqnarray*}
+x^{(k+1)}&=&\frac{23-y^{(k)}}{10}\\
+y^{(k+1)}&=&\frac{26-x^{(k)}}{8}\\
+x^{(2)}&=&\frac{23-y^{(1)}}{10}=2,3\\
+y^{(2)}&=&\frac{26-x^{(1)}}{8}=3,25\\
+x^{(3)}&=&\frac{23-y^{(2)}}{10}=1,975 \\
+y^{(3)}&=&\frac{26-x^{(2)}}{8}=2,9625
+\end{eqnarray*}
 \end{ex}
 
 \ifisscilab
@@ -1195,30 +1196,30 @@ y^{(3)}&=\frac{26-x^{(2)}}{8}=2,9625
 
 Assim como no método de Jacobi, no método de Gauss-Seidel também isolamos o elemento $x_i$ da equação $i$. Porém perceba que a equação para $x_2^{(k+1)}$ depende de $x_1^{(k)}$ na iteração $k$. Intuitivamente podemos pensar em usar $x_1^{(k+1)}$ que acabou de ser calculado e temos
 
-\begin{align}
-x_2^{(k+1)}&=\frac{y_2 - \left(a_{21}x_1^{(k+1)}+a_{23}x_3^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}
-\end{align}
+\begin{equation*}
+x_2^{(k+1)} =\frac{y_2 - \left(a_{21}x_1^{(k+1)}+a_{23}x_3^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}
+\end{equation*}
 
 Aplicando esse raciocínio podemos construir o método de Gauss-Seidel como
-\begin{align*}
-x_1^{(k+1)}&=\frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}}\\
-x_2^{(k+1)}&=\frac{y_2 - \left(a_{21}x_1^{(k+1)}+a_{23}x_3^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}\\
-&\vdots\\
-x_n^{(k+1)}&=\frac{y_2 - \left(a_{n1}x_1^{(k+1)}+\cdots+a_{n(n-1)}x_{n-1}^{(k+1)}\right)}{a_{nn}}
-\end{align*}
+\begin{eqnarray*}
+x_1^{(k+1)}&=&\frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}}\\
+x_2^{(k+1)}&=&\frac{y_2 - \left(a_{21}x_1^{(k+1)}+a_{23}x_3^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}\\
+&\vdots&\\
+x_n^{(k+1)}&=&\frac{y_2 - \left(a_{n1}x_1^{(k+1)}+\cdots+a_{n(n-1)}x_{n-1}^{(k+1)}\right)}{a_{nn}}
+\end{eqnarray*}
 
 Em notação mais compacta, o método de Gauss-Seidel consiste na iteração:
-\begin{align*}\displaystyle
-  &x^{(1)} = \text{aproximação inicial}\\
-  &x_i^{(k)} = \frac{y_i - \sum_{j=1}^{i-1} a_{ij}x_j^{(k+1)} -\sum_{j=i+1}^{n} a_{ij}x_j^{(k)}}{a_{ii}}
-\end{align*}
+\begin{eqnarray*}
+  x^{(1)} &=& \text{aproximação inicial}\\
+  x_i^{(k)} &=& \frac{y_i - \sum_{j=1}^{i-1} a_{ij}x_j^{(k+1)} -\sum_{j=i+1}^{n} a_{ij}x_j^{(k)}}{a_{ii}}
+\end{eqnarray*}
 
 \begin{ex}
 Resolva o sistema
-\begin{align*}
-10x+y=23\\
-x+8y=26
-\end{align*}
+\begin{eqnarray*}
+  10x+y&=&23\\
+  x+8y&=&26
+\end{eqnarray*}
 usando o método de Guass-Seidel iniciando com $x^{(1)}=y^{(1)}=0$.
 \begin{eqnarray*}
 x^{(k+1)}&=&\frac{23-y^{(k)}}{10}\\
@@ -1285,11 +1286,11 @@ e, respectivamente, $L$ e $U$ são as seguintes matrizes triangular inferior e s
 
 \begin{ex}\label{ex:sislin}
   Considere o seguinte sistema linear:
-  \begin{align*}
-    3x_1 + x_2 - x_3 &= 2\\
-    -x_1 -4x_2 + x_3 &= -10\\
-    x_1 - 2x_2 - 5x_3 &= 10
-  \end{align*}
+  \begin{eqnarray*}
+    3x_1 + x_2 - x_3 &=& 2\\
+    -x_1 -4x_2 + x_3 &=& -10\\
+    x_1 - 2x_2 - 5x_3 &=& 10
+  \end{eqnarray*}
 Escreva o sistema na sua forma matricial $Ax = b$ identificando a matriz dos coeficientes $A$, o vetor incógnita $x$ e o vetor dos termos constantes $b$. Em seguida, faça a decomposição $A = L + D + U$.
 \end{ex}
 \begin{sol}
@@ -1351,11 +1352,11 @@ No \verb+Scilab+, podemos construir as matrizes $L$, $D$ e $U$, da seguinte form
 \subsubsection{Iteração de Jacobi}
 
 Vamos, agora, usar a decomposição discutida acima para construir a matriz de iteração $T_J$\index{Método de Jacobi!matriz de iteração} e o vetor de iteração $c_J$\index{Método de Jacobi!vetor de iteração} associado ao método de Jacobi. Neste caso, temos:
-\begin{align*}
-  Ax = b &\Leftrightarrow (L + D + U)x = b\\
-  &\Leftrightarrow Dx = -(L+U)x + b\\
-  &\Leftrightarrow x = \underbrace{-D^{-1}(L+U)}_{=: T_J}x + \underbrace{D^{-1}b}_{=: c_J}.
-\end{align*}
+\begin{eqnarray*}
+  Ax = b &\Leftrightarrow& (L + D + U)x = b\\
+  &\Leftrightarrow& Dx = -(L+U)x + b\\
+  &\Leftrightarrow& x = \underbrace{-D^{-1}(L+U)}_{=: T_J}x + \underbrace{D^{-1}b}_{=: c_J}.
+\end{eqnarray*}
 Ou seja, a iteração do método de Jacobi escrita na forma matricial é:
 \begin{equation*}
   x^{(k+1)} = T_Jx^{(k)} + c_J,\quad k\geq 1,
@@ -1416,11 +1417,11 @@ No \verb+Scilab+, podemos computar $T_J$ e $c_J$ da seguinte forma:
 \subsubsection{Iteração de Gauss-Seidel}
 
 A forma matricial da iteração do método de Gauss-Seidel também pode ser construída com base na decomposição $A = L + D + U$. Para tando, fazemos:
-\begin{align*}
-  Ax = b &\Leftrightarrow (L + D + U)x = b\\
-  &\Leftrightarrow (L + D)x = -Ux + b\\
-  &\Leftrightarrow x = \underbrace{-(L + D)^{-1}U}_{=: T_G}x + \underbrace{(L+D)^{-1}b}_{=: c_G}
-\end{align*}
+\begin{eqnarray*}
+  Ax = b &\Leftrightarrow& (L + D + U)x = b\\
+  &\Leftrightarrow& (L + D)x = -Ux + b\\
+  &\Leftrightarrow& x = \underbrace{-(L + D)^{-1}U}_{=: T_G}x + \underbrace{(L+D)^{-1}b}_{=: c_G}
+\end{eqnarray*}
 Ou seja, a iteração do método de Gauss-Seidel escrita na forma matricial é:
 \begin{equation*}
   x^{(k+1)} = T_Gx^{(k)} + c_G,\quad k\geq 1,
@@ -1540,12 +1541,12 @@ converge para solução de $x = Tx + c$ para qualquer escolha de $x^{(1)}$ se, e
 \end{teo}
 \begin{proof}
   Primeiramente, assumimos que $\rho(T) < 1$. Observamos que:
-  \begin{align*}
+  \begin{eqnarray*}
     x^{(k+1)} &= Tx^{(k)} + c = T(Tx^{(k-1)} + c) + c \\
     &= T^2x^{(k-1)} + (I + T)c \\
     &\vdots\\
     &= T^{(k)}x^{(1)} + \left(\sum_{k=0}^{k-1}T^k\right)c.
-  \end{align*}
+  \end{eqnarray*}
 Daí, do Lema~\ref{lema:matriz_convergente} e do Lema~\ref{lema:inversa} temos:
 \begin{equation*}
   \lim_{k\to\infty} x^{(k)} = (I - T)^{(-1)}c.
@@ -1553,12 +1554,12 @@ Daí, do Lema~\ref{lema:matriz_convergente} e do Lema~\ref{lema:inversa} temos:
 Ora, se $x^*$ é a solução de $x = Tx + c$, então $(I - T)x^* = c$, i.e. $x^* = (I - T)^{-1}c$. Logo, temos demonstrado que $x^{(k)}$ converge para a solução de  $x = Tx + c$, para qualquer escolha de $x^{(1)}$.
 
 Agora, suponhamos que $x^{(k)}$ converge para $x^*$ solução de $x = Tx + c$, para qualquer escolha de $x^{(1)}$. Seja, então, $y$ um vetor arbitrário e $x^{(1)} = x^* - y$. Observamos que:
-\begin{align*}
+\begin{eqnarray*}
   x^* - x^{(k+1)} &= (Tx^* + c) - (Tx^{(k)} + c) \\
   &= T(x^* - x^{(k)})\\
   &\vdots\\
   &= T^{(k)}(x^* - x^{(1)}) = T^{(k)}y.
-\end{align*}
+\end{eqnarray*}
 Logo, para qualquer $1 \leq p \leq\infty$, temos, :
 \begin{equation*}
   0 = \lim_{k\to\infty} x^* - x^{(k+1)} = \lim_{k\to\infty} T^{(k)}y.
@@ -1587,16 +1588,16 @@ Uma condição suficiente porém não necessária para que os métodos de Gauss-
 
 \begin{defn}
  Uma matriz $A$ é \emph{estritamente diagonal dominante} quando:
-\begin{align}
+\begin{equation*}
   |a_{ii}|> \sum_{\substack{j=1\\j\ne i}}^{n} |a_{ij}|, i=1,...,n
-\end{align}
+\end{equation*}
 \end{defn}
 
 \begin{defn}
  Uma matriz $A$ é \emph{diagonal dominante} quando
-\begin{align}
+\begin{equation*}
   |a_{ii}| \geq \sum_{\substack{j=1\\j\ne i}}^{n} |a_{ij}|, i=1,...,n
-\end{align}
+\end{equation*}
 e para ao menos um $i$, $a_{ii}$ é estritamente maior que a soma dos elementos fora da diagonal.
 \end{defn}
 
@@ -1605,17 +1606,17 @@ e para ao menos um $i$, $a_{ii}$ é estritamente maior que a soma dos elementos 
 \end{teo}
 
 Se conhecermos a solução exata $x$ do problema, podemos calcular o erro relativo em cada iteração como:
-\begin{align}
+\begin{equation*}
    \frac{ \|x-x^{(k)}\|}{\|x\|}.
-\end{align}
+\end{equation*}
 
 Em geral não temos $x$, entretanto podemos estimar o vetor \emph{resíduo} $r^{(k)}=b-A\tilde{x^{(k)}}$. Note que quando o erro tende a zero, o resíduo também tende a zero. 
 
 \begin{teo}
  O erro relativo e o resíduo estão relacionados como (veja \cite{Burden2013})
-\begin{align}
+\begin{equation*}
   \frac{ \|x-x^{(k)}\|}{\|x\|} \leq  \kappa(A) \frac{\|r\|}{\|b\|}
-\end{align}
+\end{equation*}
 onde $k(A)$ é o número de condicionamento.
 \end{teo}
 
@@ -1918,15 +1919,13 @@ O circuito linear da figura \ref{circuitol8} pode ser modelado pelo sistema (\re
 \item[b)] $R_1=R_2=R_3=R_4=2$ e $R_5=50$ e $R_6=R_7=R_8=100$
 \end{itemize}
 
-\begin{subequations}\label{eq_circ}
-\begin{eqnarray}
+\begin{eqnarray*}
 V_1&=&V\\
 \frac{V_1-V_2}{R_1}+\frac{V_3-V_2}{R_2}-\frac{V_2}{R_5}&=&0\\
 \frac{V_2-V_3}{R_2}+\frac{V_4-V_3}{R_3}-\frac{V_3}{R_6}&=&0\\
 \frac{V_3-V_4}{R_3}+\frac{V_5-V_4}{R_4}-\frac{V_4}{R_7}&=&0\\
 \frac{V_4-V_5}{R_4}-\frac{V_5}{R_8}&=&0
-\end{eqnarray}
-\end{subequations}
+\end{eqnarray*}
 
 \begin{center}
 \includegraphics[width=12cm,angle=0]{./cap_linsis/pics/circuito_linear_8.eps}\label{circuitol8}

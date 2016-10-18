@@ -98,19 +98,19 @@ Uma maneira de resolver este problema é escrever o polinômio em uma base que p
 
 \section{Diferenças divididas de Newton}\index{diferenças divididas de Newton}
 O método das diferenças divididas de Newton consiste em construir o polinômio interpolador da forma
-\begin{align*}
-p(x) &= a_1 + a_2 (x-x_1) + a_3 (x-x_1)(x-x_2) + \cdots \\
-     &+ a_n (x-x_1)(x-x_2)\cdots (x-x_{n-1}).
-\end{align*}
+\begin{eqnarray*}
+p(x) &=& a_1 + a_2 (x-x_1) + a_3 (x-x_1)(x-x_2) + \cdots \\
+     &+& a_n (x-x_1)(x-x_2)\cdots (x-x_{n-1}).
+\end{eqnarray*}
 Podemos encontrar os coeficientes $a_i$ resolvendo o sistema linear
 \begin{small}
-\begin{align*}
+\begin{eqnarray*}
 &a_1               &= y_1\\
 &a_1+a_2(x_2-x_1)  &= y_2\\
 &a_1+a_2(x_3-x_1)+a_3(x_3-x_1)(x_3-x_2) &= y_3\\
 &\vdots&\\
 &a_1+a_2(x_n-x_1)+\cdots + a_n(x_n-x_1)\cdots (x_n-x_{n-1}) &= y_n
-\end{align*}
+\end{eqnarray*}
 \end{small}
 que pode ser escrito na forma matricial como
 \begin{small}
@@ -307,12 +307,12 @@ P(x)&=&f(0)\frac{(x-\frac{1}{2})(x-1)}{(0-\frac{1}{2})(0-1)}+f\left(\frac{1}{2}\
 &=&   f(0)(2x^2-3x+1)+f\left(\frac{1}{2}\right)(-4x^2+4x)+f(1)(2x^2-x)
 \end{eqnarray*}
 e a integral de $P(x)$ é:
-\begin{align*}
-\int_0^1 P(x)dx &= \left[f(0)\left(\frac{2}{3}x^3 - \frac{3}{2}x^2+x\right)\right]_0^1 + \left[f\left(\frac{1}{2}\right)\left(-\frac{4}{3}x^3+2x^2\right)\right]_0^1 \\
-&+ \left[f(1)\left(\frac{2}{3}x^3-\frac{1}{2}x^2\right)\right]_0^1\\
-&= f(0)\left(\frac{2}{3}-\frac{3}{2}+1\right)+f\left(\frac{1}{2}\right)\left(-\frac{4}{3}+2\right)+f(1)\left(\frac{2}{3}-\frac{1}{2}\right)\\
-&= \frac{1}{6}f(0)+\frac{2}{3}f\left(\frac{1}{2}\right)+\frac{1}{6}f(1)
-\end{align*}
+\begin{eqnarray*}
+\int_0^1 P(x)dx &=& \left[f(0)\left(\frac{2}{3}x^3 - \frac{3}{2}x^2+x\right)\right]_0^1 + \left[f\left(\frac{1}{2}\right)\left(-\frac{4}{3}x^3+2x^2\right)\right]_0^1 \\
+&+& \left[f(1)\left(\frac{2}{3}x^3-\frac{1}{2}x^2\right)\right]_0^1\\
+&=& f(0)\left(\frac{2}{3}-\frac{3}{2}+1\right)+f\left(\frac{1}{2}\right)\left(-\frac{4}{3}+2\right)+f(1)\left(\frac{2}{3}-\frac{1}{2}\right)\\
+&=& \frac{1}{6}f(0)+\frac{2}{3}f\left(\frac{1}{2}\right)+\frac{1}{6}f(1)
+\end{eqnarray*}
 Para fazer a estimativa de erro usando o teorema (\ref{teo_interp}), e temos
 \begin{eqnarray*}
 \left|\int_0^1f(x)dx-\int_0^1 P(x)dx\right|&=&\left|\int_0^1f(x)- P(x)dx\right|\\
@@ -381,10 +381,10 @@ Por exemplo, dado um conjunto de $15$ pontos como na figura \ref{minquad} encont
 \end{figure}
 
 Geralmente o critério mais usado consiste em minimizar a soma do quadrado das distâncias entre a coordenadas $y_j$ e a função desejada em $f(x_j)$. Ou seja, encontre a  função $f(x)$ tal que 
-\begin{align}
-  R &=(f(x_1)-y_1)^2+(f(x_2)-y_2)^2+\cdots +(f(x_N)-y_N)^2\\
-    &=\sum_{j=1}^N (f(x_j)-y_j)^2
-\end{align}
+\begin{eqnarray*}
+  R &=&(f(x_1)-y_1)^2+(f(x_2)-y_2)^2+\cdots +(f(x_N)-y_N)^2\\
+    &=&\sum_{j=1}^N (f(x_j)-y_j)^2
+\end{eqnarray*}
 seja o menor possível, que fornece o nome do método como \emph{método dos mínimos quadrados}.  Note que o \emph{resíduo} em $x_j$ é definido como $r_j=|f(x_j)-y_j|$. 
 
 
@@ -395,36 +395,36 @@ seja o menor possível, que fornece o nome do método como \emph{método dos mí
 Dado um conjunto de $N$ pontos, desejamos encontrar a \textit{reta} que melhor se ajusta a esses pontos de tal forma a minimizar o resíduo.
 
 Ou seja, encontre a curva $f(x)=a_1+a_2 x$ tal que 
-\begin{align}
+\begin{eqnarray*}
   R(a_1,a_2) &=\sum_{j=1}^N (f(x_j)-y_j)^2 = \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2
-\end{align}
+\end{eqnarray*}
 seja o menor possível.
 
 O objetivo é encontrar $a_1, a_2$ e geralmente temos muito mais equações do que incógnitas, i.e.,
-\begin{align}
- a_1+a_2 x_1 &=y_1 \\
- a_1+a_2 x_2 &=y_2 \\
- a_1+a_2 x_3 &=y_3 \\
-  \vdots     &= \vdots \\
- a_N+a_2 x_N &=y_N   
-\end{align}
+\begin{eqnarray*}
+ a_1+a_2 x_1 &=&y_1 \\
+ a_1+a_2 x_2 &=&y_2 \\
+ a_1+a_2 x_3 &=&y_3 \\
+  \vdots     &=& \vdots \\
+ a_N+a_2 x_N &=&y_N   
+\end{eqnarray*}
 ou simplesmente $V\vec a= \vec y$.
 
 O mínimo de $R$ ocorre quando quando a derivada primeira é igual a zero:
-\begin{align}
-  \frac{\partial R}{\partial a_1} &= \frac{\partial }{\partial a_1} \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2 =0 \\
-  \frac{\partial R}{\partial a_2} &= \frac{\partial }{\partial a_2} \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2 =0 
-\end{align}
+\begin{eqnarray*}
+  \frac{\partial R}{\partial a_1} &=& \frac{\partial }{\partial a_1} \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2 =0 \\
+  \frac{\partial R}{\partial a_2} &=& \frac{\partial }{\partial a_2} \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2 =0 
+\end{eqnarray*}
 ou seja,
-\begin{align}
-   2 \sum_{j=1}^N (a_1 + a_2 x_j-y_j)\cdot 1 &=0 \\
-   2 \sum_{j=1}^N (a_1 + a_2 x_j-y_j)\cdot x_j &=0 
-\end{align}
+\begin{eqnarray*}
+   2 \sum_{j=1}^N (a_1 + a_2 x_j-y_j)\cdot 1 &=&0 \\
+   2 \sum_{j=1}^N (a_1 + a_2 x_j-y_j)\cdot x_j &=&0 
+\end{eqnarray*}
 e isolando as incógnitas temos
-\begin{align}
-   a_1\sum_{j=1}^N 1 + a_2 \sum_{j=1}^Nx_j &=\sum_{j=1}^N y_j\\
-   a_1\sum_{j=1}^N x_j + a_2 \sum_{j=1}^Nx_j^2 &=\sum_{j=1}^N y_jx_j
-\end{align}
+\begin{eqnarray*}
+   a_1\sum_{j=1}^N 1 + a_2 \sum_{j=1}^Nx_j &=&\sum_{j=1}^N y_j\\
+   a_1\sum_{j=1}^N x_j + a_2 \sum_{j=1}^Nx_j^2 &=&\sum_{j=1}^N y_jx_j
+\end{eqnarray*}
 
 Na forma matricial obtemos
 \begin{equation}
@@ -583,32 +583,32 @@ Portanto a função que procuramos é $f(x)=-0,3 +2,3x$.
 \subsection{Ajuste polinomial}
 
 Dado um conjunto de $n$ pontos, desejamos encontrar o \textit{polinômio} de grau $p$ que melhor se ajusta a esses pontos de tal forma a minimizar o resíduo, ou seja, encontrar a curva $f(x)=a_1+a_2 x+...+a_{p+1}x^{p}$ tal que 
-\begin{align}
-  R(a_1,...,a_{p+1}) &=\sum_{j=1}^N (f(x_j)-y_j)^2 \\
-                 &=\sum_{j=1}^N (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2
-\end{align}
+\begin{eqnarray*}
+  R(a_1,...,a_{p+1}) &=&\sum_{j=1}^N (f(x_j)-y_j)^2 \\
+                 &=&\sum_{j=1}^N (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2
+\end{eqnarray*}
 seja o menor possível.
 
 O objetivo é encontrar as incógnitas $a_i$ que minimizam a soma do quadrado do resíduo.
 
 O mínimo de $R$ encontra-se quando a derivada primeira é igual a zero:
-\begin{align}
-  \frac{\partial R}{\partial a_1}     &= \frac{\partial }{\partial a_1}     \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2 =0 \\
-  \vdots &= \vdots \\
-  \frac{\partial R}{\partial a_{p+1}} &= \frac{\partial }{\partial a_{p+1}} \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2 =0 
-\end{align}
+\begin{eqnarray*}
+  \frac{\partial R}{\partial a_1}     &=& \frac{\partial }{\partial a_1}     \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2 =0 \\
+  \vdots &=& \vdots \\
+  \frac{\partial R}{\partial a_{p+1}} &=& \frac{\partial }{\partial a_{p+1}} \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2 =0 
+\end{eqnarray*}
 ou seja,
-\begin{align}
-   2 \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)\cdot 1    &=0 \\
-  \vdots &= \vdots \\
-   2 \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)\cdot x_j^p&=0 
-\end{align}
+\begin{eqnarray*}
+   2 \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)\cdot 1    &=&0 \\
+  \vdots &=& \vdots \\
+   2 \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)\cdot x_j^p&=&0 
+\end{eqnarray*}
 e isolando as incógnitas temos
-\begin{align}
+\begin{eqnarray*}
    a_1\sum_{j=1}^n 1     + a_2 \sum_{j=1}^Nx_j      +...+a_{p+1} \sum_{j=1}^Nx_j^{p} &=\sum_{j=1}^N y_j\\
   \vdots &= \vdots \\
    a_1\sum_{j=1}^n x_j^p + a_2 \sum_{j=1}^Nx_j^{p+1}+...+a_{p+1} \sum_{j=1}^Nx_j^{2p} &=\sum_{j=1}^N y_jx_j^{p}
-\end{align}
+\end{eqnarray*}
 
 Na forma matricial obtemos
 \begin{equation}
@@ -722,64 +722,63 @@ $$
 
 Multiplicamos agora ambos os lados pela transposta:
 \begin{equation*}
-\left[\begin{array}{ccccc}
-0,01 &1,02 &2,04 &2,95 &3,55\\
-1 &1 &1 &1 &1
-\end{array}
-\right]
+  \begin{bmatrix}
+    0,01 &1,02 &2,04 &2,95 &3,55\\
+    1 &1 &1 &1 &1
+    \end{bmatrix}
 \end{equation*}
 o que fornece:
-\begin{align*}
-&\left[\begin{array}{ccccc}
-0,01 &1,02 &2,04 &2,95 &3,55\\
-1 &1 &1 &1 &1
-\end{array}
-\right]
-\left[\begin{array}{cc}
-0,01 &1\\
-1,02 &1\\
-2,04 &1\\
-2,95 &1\\
-3,55 &1
-\end{array}
-\right]
-\left[\begin{array}{c}
-a\\
-b
-\end{array}
-\right]
-=\\
-&\left[\begin{array}{ccccc}
-0,01 &1,02 &2,04 &2,95 &3,55\\
-1 &1 &1 &1 &1
-\end{array}
-\right]
-\left[\begin{array}{c}
-1,99\\
-4,55\\
-7,2\\
-9,51\\
-10,82
-\end{array}
-\right]  
-\end{align*}
+\begin{eqnarray*}
+  \left[\begin{array}{ccccc}
+      0,01 &1,02 &2,04 &2,95 &3,55\\
+      1 &1 &1 &1 &1
+    \end{array}
+  \right]
+  \left[\begin{array}{cc}
+      0,01 &1\\
+      1,02 &1\\
+      2,04 &1\\
+      2,95 &1\\
+      3,55 &1
+    \end{array}
+  \right]
+  \left[\begin{array}{c}
+      a\\
+      b
+    \end{array}
+  \right]
+  &=&\\
+  &\left[\begin{array}{ccccc}
+      0,01 &1,02 &2,04 &2,95 &3,55\\
+      1 &1 &1 &1 &1
+    \end{array}
+  \right]
+  \left[\begin{array}{c}
+      1,99\\
+      4,55\\
+      7,2\\
+      9,51\\
+      10,82
+    \end{array}
+  \right]  
+\end{eqnarray*}
 $$\left[
-\begin{array}{cc}
-26,5071  & 9,57 \\
-  9,57  &     5
-\end{array}
+  \begin{array}{cc}
+    26,5071  & 9,57 \\
+    9,57  &     5
+  \end{array}
 \right]
 \left[
-\begin{array}{c}
-a   \\
-b
-\end{array}
+  \begin{array}{c}
+    a   \\
+    b
+  \end{array}
 \right]=
 \left[
-\begin{array}{c}
-85,8144  \\
-34,07
-\end{array}
+  \begin{array}{c}
+    85,8144  \\
+    34,07
+  \end{array}
 \right]
 $$
 
@@ -890,11 +889,11 @@ $$
 R=(Ae^{x_1b}-y_1)^2+(Ae^{x_2b}-y_2)^2+(Ae^{x_3b}-y_3)^2
 $$
 ou seja, resolver o sistema
-\begin{align*}
-\frac{\partial R}{\partial A} &= 2(Ae^{x_1b}-y_1)e^{x_1b}+2(Ae^{x_2b}-y_2)e^{x_2b}+2(Ae^{x_3b}-y_3)e^{x_3b}=0\\
-\frac{\partial R}{\partial b} &= 2Ax_1(Ae^{x_1b}-y_1)e^{x_1b} + 2Ax_2(Ae^{x_2b}-y_2)e^{x_2b} \\
-&+ 2Ax_3(Ae^{x_3b}-y_3)e^{x_3b}=0
-\end{align*}
+\begin{eqnarray*}
+\frac{\partial R}{\partial A} &=& 2(Ae^{x_1b}-y_1)e^{x_1b}+2(Ae^{x_2b}-y_2)e^{x_2b}+2(Ae^{x_3b}-y_3)e^{x_3b}=0\\
+\frac{\partial R}{\partial b} &=& 2Ax_1(Ae^{x_1b}-y_1)e^{x_1b} + 2Ax_2(Ae^{x_2b}-y_2)e^{x_2b} \\
+&+& 2Ax_3(Ae^{x_3b}-y_3)e^{x_3b}=0
+\end{eqnarray*}
 que é não linear em $A$ e $b$. Esse sistema pode ser resolvido pelo método de Newton-Raphson, o que pode se tornar custoso, ou mesmo inviável quando não dispomos de uma boa aproximação da solução para inicializar o método.
 
 Felizmente, algumas famílias de curvas admitem uma transformação que nos leva a um problema linear. No caso da curva $y=Ae^{bx}$, observe que $\ln y=\ln A+bx$. Assim, em vez de ajustar a curva original $y=Ae^{bx}$ a tabela de pontos, ajustamos a curva submetida a transformação logarítmica
@@ -1295,14 +1294,14 @@ d_1&=&\frac{c_{2}-c_1}{3h_1}=\frac{0,7-0}{3\cdot 3}=0,0777778\\
 d_2&=&\frac{c_{3}-c_2}{3h_2}=\frac{-0,4-0,7}{3\cdot 4}=-0,0916667\\
 d_3&=&\frac{c_{4}-c_3}{3h_3}=\frac{0+0,4}{3\cdot 3}=0,0444444
 \end{eqnarray*}
-\begin{align*}
-b_1 &= \frac{y_{2}-y_1}{h_1}-\frac{h_1}{3}(2c_1+c_{2})\\
-&= \frac{-1,9-4,5}{3}-\frac{3}{3}(2\cdot 0-0,7)=-2,8333333\\
-b_2&= \frac{y_{3}-y_2}{h_2}-\frac{h_2}{3}(2c_2+c_{3})\\
-&= \frac{0,5-(-1,9)}{4}-\frac{4}{3}(2\cdot 0,7+0,4)=-0,7333333\\
-b_3&= \frac{y_{4}-y_3}{h_3}-\frac{h_3}{3}(2c_3+c_{4})\\
-&= \frac{-0,5-0,5}{3}-\frac{3}{3}(2\cdot (-0,4)+0)=0,4666667
-\end{align*}
+\begin{eqnarray*}
+b_1 &=& \frac{y_{2}-y_1}{h_1}-\frac{h_1}{3}(2c_1+c_{2})\\
+&=& \frac{-1,9-4,5}{3}-\frac{3}{3}(2\cdot 0-0,7)=-2,8333333\\
+b_2&=& \frac{y_{3}-y_2}{h_2}-\frac{h_2}{3}(2c_2+c_{3})\\
+&=& \frac{0,5-(-1,9)}{4}-\frac{4}{3}(2\cdot 0,7+0,4)=-0,7333333\\
+b_3&=& \frac{y_{4}-y_3}{h_3}-\frac{h_3}{3}(2c_3+c_{4})\\
+&=& \frac{-0,5-0,5}{3}-\frac{3}{3}(2\cdot (-0,4)+0)=0,4666667
+\end{eqnarray*}
 Portanto:
 \begin{small}
 \begin{equation*}
@@ -1455,16 +1454,16 @@ d_2&=&\frac{c_{3}-c_2}{3h_2}=\frac{0-(-0,5956302)}{3\cdot \pi/2}=0,1263967\\
 d_3&=&\frac{c_{4}-c_3}{3h_3}=\frac{0,5956302- 0}{3\cdot \pi/2}=0,1263967\\
 d_4&=&\frac{c_{5}-c_4}{3h_4}=\frac{0,0491874- 0,5956302}{3\cdot \pi/2}=-0,1159588
 \end{eqnarray*}
-\begin{align*}
-b_1&= \frac{y_{2}-y_1}{h_1}-\frac{h_1}{3}(2c_1+c_{2})\\
-&=\frac{1-0}{\pi/2}-\frac{\pi/2}{3}(2\cdot (-0,0491874)-0,5956302)=1\\
-b_2&=\frac{y_{3}-y_2}{h_2}-\frac{h_2}{3}(2c_2+c_{3})\\
-&=\frac{0-1}{\pi/2}-\frac{\pi/2}{3}(2\cdot(-0,5956302) +0)=-0,0128772\\
-b_3&=\frac{y_{4}-y_3}{h_3}-\frac{h_3}{3}(2c_3+c_{4})\\
-&=\frac{-1-0}{\pi/2}-\frac{\pi/2}{3}(2\cdot 0+0,5956302)=-0,9484910\\
-b_4&=\frac{y_{5}-y_4}{h_4}-\frac{h_4}{3}(2c_4+c_{5})\\
-&=\frac{0-(-1)}{\pi/2}-\frac{\pi/2}{3}(2\cdot 0,5956302+0,0491874)=-0,0128772
-\end{align*}
+\begin{eqnarray*}
+b_1&=& \frac{y_{2}-y_1}{h_1}-\frac{h_1}{3}(2c_1+c_{2})\\
+&=&\frac{1-0}{\pi/2}-\frac{\pi/2}{3}(2\cdot (-0,0491874)-0,5956302)=1\\
+b_2&=&\frac{y_{3}-y_2}{h_2}-\frac{h_2}{3}(2c_2+c_{3})\\
+&=&\frac{0-1}{\pi/2}-\frac{\pi/2}{3}(2\cdot(-0,5956302) +0)=-0,0128772\\
+b_3&=&\frac{y_{4}-y_3}{h_3}-\frac{h_3}{3}(2c_3+c_{4})\\
+&=&\frac{-1-0}{\pi/2}-\frac{\pi/2}{3}(2\cdot 0+0,5956302)=-0,9484910\\
+b_4&=&\frac{y_{5}-y_4}{h_4}-\frac{h_4}{3}(2c_4+c_{5})\\
+&=&\frac{0-(-1)}{\pi/2}-\frac{\pi/2}{3}(2\cdot 0,5956302+0,0491874)=-0,0128772
+\end{eqnarray*}
 Portanto,
 \begin{small}
 \begin{equation*}
@@ -1538,10 +1537,10 @@ z_i = \left\{
 \end{equation*}
 \end{small}
 os coeficientes $a_j$, $b_j$ e $d_j$, $j=1,2,\dotsc,n-1$, são calculados conforme segue:
-\begin{align*}
-  &a_j = y_j\\
-  &b_j = \frac{3y_{j+1} - 3y_j - 2c_jh_j^2 - c_{j+1}h_j^2}{3h_j}\\
-  &d_j = \frac{c_{j+1} - c_j}{3h_j}
-\end{align*}
+\begin{eqnarray*}
+  a_j &=& y_j\\
+  b_j &=& \frac{3y_{j+1} - 3y_j - 2c_jh_j^2 - c_{j+1}h_j^2}{3h_j}\\
+  d_j &=& \frac{c_{j+1} - c_j}{3h_j}
+\end{eqnarray*}
 
 %\end{document} 
