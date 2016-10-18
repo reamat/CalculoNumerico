@@ -28,7 +28,7 @@ html: main.tex
 	bibtex main
 	latex main
 	latex main
-	htlatex main "html,3,notoc*,next" "" "-d./html/"
+	htlatex main "html,3,notoc*,info" "" "-d./html/"
 
 epub: main.tex
 	pandoc -o main.epub main.tex
