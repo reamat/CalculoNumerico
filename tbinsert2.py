@@ -14,7 +14,7 @@ for (dirpath, dirnames, filenames) in walk (sdirname):
 
 for index, f in enumerate (lfiles):
     lfiles[index] = os.path.splitext(f)[0]
-print "Source files: ", lfiles
+print("Source files: ", lfiles)
 
 for index, f in enumerate (lfiles):
     print ("Changing %s file." % (f))
