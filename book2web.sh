@@ -3,6 +3,9 @@
 #make clean -C ..
 #make html -B -C ..
 
+mkdir -p ./book_in_webpage
+mkdir -p ./tmp
+
 rm -rf ./book_in_webpage/*
 rm -rf ./tmp/*
 
@@ -16,8 +19,7 @@ for file in *.html; do
 done
 
 cd ..
-ls
-python tbinsert.py
+python tbinsert2.py
 
 
 
