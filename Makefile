@@ -16,6 +16,14 @@ pdf: main.tex
 	pdflatex main
 	pdflatex main
 
+slide: main.tex
+	cp main.tex slide.tex
+	pdflatex slide
+	bibtex slide
+	makeindex slide
+	pdflatex slide
+	pdflatex slide
+
 dvi: main.tex
 	latex main
 	bibtex main
@@ -24,13 +32,14 @@ dvi: main.tex
 	latex main
 
 html: main.tex
+	rm -f ./html/*
 	latex main 
 	bibtex main
 	latex main
 	latex main
 	htlatex main "html,3,notoc*,info" "" "-d./html/"
 
-epub: main.tex
+epub: main.html
 	pandoc -o main.epub main.tex
 
 .PHONY: clean

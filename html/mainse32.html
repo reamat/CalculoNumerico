@@ -1,921 +1,684 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
   "http://www.w3.org/TR/html4/loose.dtd">  
 <html xml:lang="pt" > 
-<head><title>Derivaçao Numerica</title> 
+<head><title>Interpolaçao cubica segmentada - spline</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
 <meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html,3,notoc*,info --> 
 <meta name="src" content="main.tex"> 
-<meta name="date" content="2016-10-18 11:11:00"> 
+<meta name="date" content="2016-10-21 19:32:00"> 
 <link rel="stylesheet" type="text/css" href="main.css"> 
 </head><body 
 >
-   <!--l. 8--><div class="crosslinks"><p class="noindent">[<a 
-href="mainse44.html" >next</a>] [<a 
-href="mainse21.html#tailmainse32.html">tail</a>] [<a 
-href="mainap1.html#mainse43.html" >up</a>] </p></div>
-   <h3 class="sectionHead"><span class="titlemark">7.1   </span> <a 
- id="x75-1140007.1"></a>Derivação Numérica</h3>
+   <!--l. 1107--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse31.html" >prev</a>] [<a 
+href="mainse31.html#tailmainse31.html" >prev-tail</a>] [<a 
+href="mainse19.html#tailmainse32.html">tail</a>] [<a 
+href="mainse38.html#mainse45.html" >up</a>] </p></div>
+   <h3 class="sectionHead"><span class="titlemark">6.8   </span> <a 
+ id="x70-1090006.8"></a>Interpolação cúbica segmentada - spline</h3>
 <a 
- id="dx75-114001"></a>
-<!--l. 10--><p class="noindent" >Dado um conjunto de pontos <span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><sub><span 
-class="lmmi-8">i</span></sub><span 
-class="lmmi-12">,y</span><sub><span 
-class="lmmi-8">i</span></sub><span 
-class="rm-lmr-12">)</span><sub><span 
-class="lmmi-8">i</span><span 
+ id="dx70-109001"></a>
+<a 
+ id="dx70-109002"></a>
+<!--l. 1108--><p class="noindent" >Dado um conjunto de <span 
+class="lmmi-12">n </span>pontos <img 
+src="main869x.png" alt="(xj,yj)"  class="left" align="middle"><sub> <span 
+class="lmmi-8">j</span><span 
 class="rm-lmr-8">=1</span></sub><sup><span 
-class="lmmi-8">n</span></sup>, a derivada <img 
-src="main917x.png" alt="(  )
- dy
- dx"  class="left" align="middle"><sub><span 
-class="lmmi-8">i</span></sub> pode ser calculada de
-várias formas. Na próxima seção trabalharemos com diferenças finitas, que é mais
-adequada quando as abcissas estão próximas e os dados não sofrem perturbações
-significativas. Na seção subsequente trataremos os casos quando os dados oscilam
-via ajuste ou interpolações de curvas.
-<!--l. 12--><p class="noindent" >
-   <h4 class="subsectionHead"><span class="titlemark">7.1.1   </span> <a 
- id="x75-1150007.1.1"></a>Aproximação da derivada por diferenças finitas</h4>
-<a 
- id="dx75-115001"></a>
-<!--l. 14--><p class="noindent" >A derivada <span 
-class="lmmi-12">f</span><span 
-class="lmsy-10x-x-120">&prime;</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">0</span></sub><span 
-class="rm-lmr-12">) </span>de uma função <span 
-class="lmmi-12">f</span><span 
+class="lmmi-8">n</span></sup> tais que <span 
+class="lmmi-12">x</span><sub>
+<span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">+1</span></sub> <span 
+class="lmmi-12">&#x003E; x</span><sub><span 
+class="lmmi-8">j</span></sub>, ou seja, as
+abscissas são distintas e estão em ordem crescente; um spline cúbico que interpola
+estes pontos é uma função <span 
+class="lmmi-12">s</span><span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span>no ponto <span 
+class="rm-lmr-12">) </span>com as seguintes propriedades:
+      <ul class="itemize1">
+      <li class="itemize">Em cada segmento <span 
+class="rm-lmr-12">[</span><span 
 class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">0</span></sub> é
-   <table 
-class="equation-star"><tr><td>
-                                                                          
-
-                                                                          
-   <center class="math-display" >
-<img 
-src="main918x.png" alt="            f (x0 + h ) &minus; f (x0)
-f&prime;(x0) = lim ------------------.
-        h&rarr;0         h
-" class="math-display" ></center></td></tr></table>
-<!--l. 17--><p class="nopar" >
-Da definição, se <span 
-class="lmmi-12">h</span><span 
-class="lmmi-12">&ne;</span><span 
-class="rm-lmr-12">0 </span>é pequeno (não muito pequeno para evitar o cancelamento
-catastrófico), é esperado que uma aproximação para a derivada no ponto <span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">0</span></sub> seja
-dada por:
-   <table 
-class="equation"><tr><td><a 
- id="x75-115002r1"></a>
-   <center class="math-display" >
-<img 
-src="main919x.png" alt="  &prime;      f-(x0 +-h) &minus;-f(x0)
-f (x0) &asymp;         h         .
-" class="math-display" ></center></td><td class="equation-label">(7.1)</td></tr></table>
-<!--l. 21--><p class="nopar" >
-   <div class="newtheorem">
-<!--l. 23--><p class="noindent" ><span class="head">
-<a 
- id="x75-115003r1"></a>
-<span 
-class="ec-lmbx-12">Exemplo 7.1.1.</span>  </span> Calcule a derivada numérica da função <span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) =</span> <span 
-class="rm-lmr-12">cos</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span>no
-ponto <span 
-class="lmmi-12">x </span><span 
-class="rm-lmr-12">= 1 </span>usando <span 
-class="lmmi-12">h </span><span 
-class="rm-lmr-12">= 0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">1</span>, <span 
-class="lmmi-12">h </span><span 
-class="rm-lmr-12">= 0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">01</span>, <span 
-class="lmmi-12">h </span><span 
-class="rm-lmr-12">= 0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">001 </span>e <span 
-class="lmmi-12">h </span><span 
-class="rm-lmr-12">= 0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">0001</span>.
-   </div>
-<!--l. 26--><p class="indent" >
-   <div class="proof">
-<!--l. 26--><p class="indent" >   <span class="head">
-                                                                          
-
-                                                                          
-<span 
-class="ec-lmbx-12">Solu</span><span 
-class="ec-lmbx-12">ç</span><span 
-class="ec-lmbx-12">ão.</span> </span> Usando a fórmula de diferenças dada pela Equação&#x00A0;(<a 
-href="#x75-115002r1">7.1<!--tex4ht:ref: eq:dp --></a>), devemos
-calcular:
-   <table 
-class="equation-star"><tr><td>
-   <center class="math-display" >
-<img 
-src="main920x.png" alt="         cos(1 + h ) &minus; cos(1)
-f &prime;(x) &asymp;  -------------------
-                 h
-" class="math-display" ></center></td></tr></table>
-<!--l. 30--><p class="nopar" >
-para cada valor de <span 
-class="lmmi-12">h </span>solicitado, obtemos a Tabela&#x00A0;<span 
-class="ec-lmbx-12">??</span>.
-   <div class="table">
-<!--l. 34--><p class="indent" >   <a 
- id="x75-1150041"></a><hr class="float"><div class="float" 
-><!--tex4ht:inline--><div class="tabular"> <table id="TBL-25" class="tabular" 
-cellspacing="0" cellpadding="0" rules="groups" 
-><colgroup id="TBL-25-1g"><col 
-id="TBL-25-1"></colgroup><colgroup id="TBL-25-2g"><col 
-id="TBL-25-2"></colgroup><tr 
-class="hline"><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-25-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-25-1-1"  
-class="td11">  <span 
-class="lmmi-12">h  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-25-1-2"  
-class="td11">         <img 
-src="main921x.png" alt="f-(1 +-h-) &minus;-f-(1)
-       h" >            </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-25-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-25-2-1"  
-class="td11"> 0,1  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-25-2-2"  
-class="td11"><img 
-src="main922x.png" alt="0,4535961--&minus;-0,5403023-
-         0,1" > <span 
-class="rm-lmr-12">= </span><span 
-class="lmsy-10x-x-120">&minus;</span><span 
-class="rm-lmr-12">0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">8670618</span></td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-25-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-25-3-1"  
-class="td11"> 0,01  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-25-3-2"  
-class="td11"><img 
-src="main923x.png" alt="0,5318607--&minus;-0,5403023-
-         0,01" > <span 
-class="rm-lmr-12">= </span><span 
-class="lmsy-10x-x-120">&minus;</span><span 
-class="rm-lmr-12">0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">8441584</span></td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-25-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-25-4-1"  
-class="td11"> 0,001 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-25-4-2"  
-class="td11"><img 
-src="main924x.png" alt="0,5403023 &minus;  0,5403023
----------0,001---------" > <span 
-class="rm-lmr-12">= </span><span 
-class="lmsy-10x-x-120">&minus;</span><span 
-class="rm-lmr-12">0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">841741 </span></td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-25-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-25-5-1"  
-class="td11">0,0001</td><td  style="white-space:nowrap; text-align:center;" id="TBL-25-5-2"  
-class="td11"><img 
-src="main925x.png" alt="0,5403023 &minus;  0,5403023
-----------------------
-        0,0001" > <span 
-class="rm-lmr-12">= </span><span 
-class="lmsy-10x-x-120">&minus;</span><span 
-class="rm-lmr-12">0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">841498 </span></td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-25-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-25-6-1"  
-class="td11">     </td></tr></table></div>
-<br /> <div class="caption" 
-><span class="id">Tabela&#x00A0;7.1: </span><span  
-class="content">Exercício&#x00A0;<a 
-href="#x75-115003r1">7.1.1<!--tex4ht:ref: ex:dp --></a>.</span></div><!--tex4ht:label?: x75-1150041 -->
-   </div><hr class="endfloat" />
-   </div>
-<!--l. 46--><p class="indent" >   No <span class="obeylines-h"><span class="verb"><span 
-class="ec-lmtt-12">Scilab</span></span></span>, podemos calcular a aproximação da derivada <span 
-class="lmmi-12">f</span><span 
-class="lmsy-10x-x-120">&prime;</span><span 
-class="rm-lmr-12">(1) </span>com <span 
-class="lmmi-12">h </span><span 
-class="rm-lmr-12">= 0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">1</span>
-usando as seguintes linhas de código:
-                                                                          
-
-                                                                          
-   <div class="verbatim" id="verbatim-45">
-deff(&#8217;y&#x00A0;=&#x00A0;f(x)&#8217;,&#8217;y&#x00A0;=&#x00A0;cos(x)&#8217;)
-&#x00A0;<br />x0&#x00A0;=&#x00A0;1
-&#x00A0;<br />h&#x00A0;=&#x00A0;0.1
-&#x00A0;<br />dp&#x00A0;=&#x00A0;(f(x0+h)&#x00A0;-&#x00A0;f(x0))/h
-</div>
-<!--l. 52--><p class="nopar" >E, similarmente, para outros valores de <span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">0</span></sub> e <span 
-class="lmmi-12">h</span>.                                    <span 
-class="msam-10x-x-120">&#x2662;</span>
-   </div>
-<!--l. 57--><p class="indent" >   Observe que, no exemplo anterior, quanto menor <span 
-class="lmmi-12">h</span>, melhor é a aproximação,
-visto que o valor exato para a derivada é <span 
-class="lmmi-12">f</span><span 
-class="lmsy-10x-x-120">&prime;</span><span 
-class="rm-lmr-12">(1) = </span><span 
-class="lmsy-10x-x-120">&minus;</span> <span 
-class="rm-lmr-12">sin</span><span 
-class="rm-lmr-12">(1) = </span><span 
-class="lmsy-10x-x-120">&minus;</span><span 
-class="rm-lmr-12">0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">8414710</span>.
-Porém, quando <span 
-class="lmmi-12">h </span><span 
-class="rm-lmr-12">= 10</span><sup><span 
-class="lmsy8-">&minus;</span><span 
-class="rm-lmr-8">13</span></sup>, a derivada numérica é <span 
-class="lmsy-10x-x-120">&minus;</span><span 
-class="rm-lmr-12">0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">8404388 </span>(usando
-aritmética <span class="obeylines-h"><span class="verb"><span 
-class="ec-lmtt-12">double</span></span></span>), resultado pior que aquele para <span 
-class="lmmi-12">h </span><span 
-class="rm-lmr-12">= 0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">0001</span>. Além disso, na
-mesma aritmética, quando <span 
-class="lmmi-12">h </span><span 
-class="rm-lmr-12">= 10</span><sup><span 
-class="lmsy8-">&minus;</span><span 
-class="rm-lmr-8">16</span></sup> a derivada numérica calculada é zero
-(cancelamento catastrófico). Isso nos motiva a pensar qual é o melhor
-<span 
-class="lmmi-12">h</span>.
-<!--l. 59--><p class="indent" >   Essa aproximação para a derivada é denominada diferenças progressivas.
-A derivada numérica também pode ser aproximada usando definições
-equivalentes:
-   <center class="math-display" >
-<img 
-src="main926x.png" alt="f&prime;(x ) &asymp; f(x0)-&minus;-f(x0-&minus;-h)-=  yi &minus;-yi&minus;1
-    0            h               h  " class="math-display" ></center> que
-é denominada diferenças regressivas ou
-   <center class="math-display" >
-                                                                          
-
-                                                                          
-<img 
-src="main927x.png" alt="         f(x  + h) &minus; f(x  &minus; h)    y   &minus; y
-f&prime;(x0 ) &asymp; ---0-----------0------=  -i+1----i&minus;1-
-                  2h                  2h  " class="math-display" ></center> que
-é denominada diferenças centrais.
-   <div class="newtheorem">
-<!--l. 68--><p class="noindent" ><span class="head">
-<a 
- id="x75-115005r2"></a>
-<span 
-class="ec-lmbx-12">Exemplo 7.1.2.</span>  </span>Calcule  a  derivada  numérica  da  função  <span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">)  =</span>  <span 
-class="rm-lmr-12">cos</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">)</span>
-no  ponto  <span 
-class="lmmi-12">x  </span><span 
-class="rm-lmr-12">=  1  </span>usando  diferenças  progressivas,  diferenças  regressivas  e
-diferenças centrais com <span 
-class="lmmi-12">h </span><span 
-class="rm-lmr-12">= 0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">1</span>, <span 
-class="lmmi-12">h </span><span 
-class="rm-lmr-12">= 0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">01 </span>e <span 
-class="lmmi-12">h </span><span 
-class="rm-lmr-12">= 0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">001</span>.
-   </div>
-<!--l. 71--><p class="indent" >
-   <div class="proof">
-<!--l. 71--><p class="indent" >   <span class="head">
-<span 
-class="ec-lmbx-12">Solu</span><span 
-class="ec-lmbx-12">ç</span><span 
-class="ec-lmbx-12">ão.</span> </span> A tabela abaixo mostra a derivada numérica para cada valor de
-<span 
-class="lmmi-12">h</span>.
-<div class="center" 
->
-<!--l. 73--><p class="noindent" >
-                                                                          
-
-                                                                          
-<div class="tabular"> <table id="TBL-26" class="tabular" 
-cellspacing="0" cellpadding="0" rules="groups" 
-><colgroup id="TBL-26-1g"><col 
-id="TBL-26-1"></colgroup><colgroup id="TBL-26-2g"><col 
-id="TBL-26-2"></colgroup><tr 
-class="hline"><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-26-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-26-1-1"  
-class="td11">Diferenças </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-1-2"  
-class="td11">             h=0,1                     </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-26-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-26-2-1"  
-class="td11">Progressivas</td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-2-2"  
-class="td11">           <span 
-class="lmsy-10x-x-120">&minus;</span><span 
-class="rm-lmr-12">0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">8670618                 </span></td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-26-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-26-3-1"  
-class="td11">Regressivas </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-3-2"  
-class="td11">   <img 
-src="main928x.png" alt="cos(1)-&minus;-cos(0,9-)
-       0,1"  class="frac" align="middle"> <span 
-class="rm-lmr-12">= </span><span 
-class="lmsy-10x-x-120">&minus;</span><span 
-class="rm-lmr-12">0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">8130766    </span></td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-26-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-26-4-1"  
-class="td11">Centrais     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-4-2"  
-class="td11">  <img 
-src="main929x.png" alt="cos(1,1) &minus; cos(0,9)
-------------------
-        0,2"  class="frac" align="middle"> <span 
-class="rm-lmr-12">= </span><span 
-class="lmsy-10x-x-120">&minus;</span><span 
-class="rm-lmr-12">0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">8400692   </span></td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-26-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-26-5-1"  
-class="td11">Diferenças  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-5-2"  
-class="td11">             h=0,01                    </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-26-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-26-6-1"  
-class="td11">Progressivas</td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-6-2"  
-class="td11">           <span 
-class="lmsy-10x-x-120">&minus;</span><span 
-class="rm-lmr-12">0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">8441584                 </span></td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-26-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-26-7-1"  
-class="td11">Regressivas </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-7-2"  
-class="td11">  <img 
-src="main930x.png" alt="cos(1) &minus; cos(0,99)
-------------------
-      0,01"  class="frac" align="middle"> <span 
-class="rm-lmr-12">= </span><span 
-class="lmsy-10x-x-120">&minus;</span><span 
-class="rm-lmr-12">0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">8387555   </span></td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-26-8-"><td  style="white-space:nowrap; text-align:left;" id="TBL-26-8-1"  
-class="td11">Centrais     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-8-2"  
-class="td11"> <img 
-src="main931x.png" alt="cos(1,01) &minus;-cos(0,99-)
-        0,02"  class="frac" align="middle"> <span 
-class="rm-lmr-12">= </span><span 
-class="lmsy-10x-x-120">&minus;</span><span 
-class="rm-lmr-12">0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">8414570  </span></td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-26-9-"><td  style="white-space:nowrap; text-align:left;" id="TBL-26-9-1"  
-class="td11">Diferenças  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-9-2"  
-class="td11">             h=0,01                    </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-26-10-"><td  style="white-space:nowrap; text-align:left;" id="TBL-26-10-1"  
-class="td11">Progressivas</td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-10-2"  
-class="td11">           <span 
-class="lmsy-10x-x-120">&minus;</span><span 
-class="rm-lmr-12">0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">841741                  </span></td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-26-11-"><td  style="white-space:nowrap; text-align:left;" id="TBL-26-11-1"  
-class="td11">Regressivas </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-11-2"  
-class="td11">  <img 
-src="main932x.png" alt="cos(1) &minus;-cos(0,999-)
-       0,001"  class="frac" align="middle"> <span 
-class="rm-lmr-12">= </span><span 
-class="lmsy-10x-x-120">&minus;</span><span 
-class="rm-lmr-12">0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">8412007   </span></td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-26-12-"><td  style="white-space:nowrap; text-align:left;" id="TBL-26-12-1"  
-class="td11">Centrais     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-12-2"  
-class="td11"><img 
-src="main933x.png" alt="cos(1,001) &minus;-cos(0,999-)
-         0,002"  class="frac" align="middle"> <span 
-class="rm-lmr-12">= </span><span 
-class="lmsy-10x-x-120">&minus;</span><span 
-class="rm-lmr-12">0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">8414708</span></td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-26-13-"><td  style="white-space:nowrap; text-align:left;" id="TBL-26-13-1"  
-class="td11">          </td></tr></table></div></div>
-                                                                         <span 
-class="msam-10x-x-120">&#x2662;</span>
-   </div>
-<!--l. 91--><p class="noindent" >
-   <h4 class="subsectionHead"><span class="titlemark">7.1.2   </span> <a 
- id="x75-1160007.1.2"></a>Erros de truncamento</h4>
-<a 
- id="dx75-116001"></a>
-<!--l. 92--><p class="noindent" >Seja <span 
-class="lmmi-12">D</span><sub><span 
-class="rm-lmr-8">+</span><span 
-class="lmmi-8">,h</span></sub><span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">0</span></sub><span 
-class="rm-lmr-12">) </span>a aproximação da derivada de <span 
-class="lmmi-12">f </span>em <span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">0</span></sub> por diferenças
-progressivas, <span 
-class="lmmi-12">D</span><sub><span 
-class="lmsy8-">&minus;</span><span 
-class="lmmi-8">,h</span></sub><span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">0</span></sub><span 
-class="rm-lmr-12">) </span>a aproximação por diferenças regressivas e <span 
-class="lmmi-12">D</span><sub><span 
-class="rm-lmr-8">0</span><span 
-class="lmmi-8">,h</span></sub><span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">0</span></sub><span 
-class="rm-lmr-12">) </span>a
-aproximação por diferenças centrais, então <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main934x.png" alt="              &prime;         f(x0 + h ) &minus; f (x0 )   &prime;
-D+,hf (x0) &minus; f(x0)  =   ------------------&minus; f (x0)
-                                h  &prime;      h2 &prime;&prime;          3
-                        f(x0)-+-hf-(x0)-+--2 f-(x0-) +-O-(h-) &minus;-f(x0)  &prime;
-                    =                        h                      &minus; f (x0)
-                        h  &prime;&prime;           2
-                    =   --f (x0) + O(h ) = O (h).
-                        2
-" class="math-display" ></center>
-</div>Analogamente: <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main935x.png" alt="              &prime;         f(x0)-&minus;-f-(x0-&minus;-h-)    &prime;
-D &minus;,hf (x0) &minus; f(x0)  =           h         &minus;  f(x0)
-                                (           &prime;      h2  &prime;&prime;          3 )
-                        f(x0)-&minus;--f-(x0) &minus;-hf-(x0-) +-2 f-(x0) +-O-(h-)-    &prime;
-                    =                         h                       &minus; f (x0)
-                          h
-                    =   &minus; -f &prime;&prime;(x0) + O (h2) = O (h).
-                          2
-" class="math-display" ></center>
-</div>Também: <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main936x.png" alt="              &prime;         f(x0 + h ) &minus; f (x0 &minus; h )   &prime;
-D0,hf (x0) &minus; f(x0)  =   ----------------------&minus;  f(x0 )
-                                  2h&prime;      h2  &prime;&prime;          3
-                        f(x0-) +-hf-(x0)-+-2 f-(x0-) +-O-(h-)
-                    =                   2h
-                        f(x  ) &minus; hf &prime;(x ) + h2f &prime;&prime;(x ) + O (h3)
-                    &minus;   ----0--------0-----2-----0--------- &minus; f&prime;(x0)
-                                        2h
-                    =   O (h2).
-" class="math-display" ></center>
-</div>
-   <div class="newtheorem">
-<!--l. 112--><p class="noindent" ><span class="head">
-<a 
- id="x75-116005r3"></a>
-<span 
-class="ec-lmbx-12">Exemplo 7.1.3.</span>  </span>Calcule a derivada numérica e o erro de truncamento de
-<span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) = </span><span 
-class="lmmi-12">e</span><sup><span 
-class="lmsy8-">&minus;</span><span 
-class="lmmi-8">x</span></sup> em <span 
-class="lmmi-12">x </span><span 
+class="lmmi-8">j</span></sub><span 
+class="lmmi-12">,x</span><sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">+1</span></sub><span 
+class="rm-lmr-12">]</span>, <span 
+class="lmmi-12">j </span><span 
 class="rm-lmr-12">= 1</span><span 
 class="lmmi-12">,</span><span 
-class="rm-lmr-12">5 </span>pela fórmula de diferença progressiva para <span 
-class="lmmi-12">h </span><span 
-class="rm-lmr-12">= 0</span><span 
+class="rm-lmr-12">2</span><span 
 class="lmmi-12">,</span><span 
-class="rm-lmr-12">1</span>,
-<span 
-class="lmmi-12">h </span><span 
-class="rm-lmr-12">= 0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">01 </span>e <span 
-class="lmmi-12">h </span><span 
-class="rm-lmr-12">= 0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">001</span>.
-   </div>
-<!--l. 115--><p class="indent" >
-   <div class="proof">
-<!--l. 115--><p class="indent" >   <span class="head">
-<span 
-class="ec-lmbx-12">Solu</span><span 
-class="ec-lmbx-12">ç</span><span 
-class="ec-lmbx-12">ão.</span> </span> Como <span 
-class="lmsy-10x-x-120">|</span><span 
-class="lmmi-12">f</span><span 
-class="lmsy-10x-x-120">&prime;&prime;</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">)</span><span 
-class="lmsy-10x-x-120">| </span><span 
-class="rm-lmr-12">= </span><span 
-class="lmsy-10x-x-120">|</span><span 
-class="lmmi-12">e</span><sup><span 
-class="lmsy8-">&minus;</span><span 
-class="lmmi-8">x</span></sup><span 
-class="lmsy-10x-x-120">| </span><span 
-class="lmmi-12">&#x003C; </span><span 
-class="rm-lmr-12">1</span>, então <span 
-class="lmsy-10x-x-120">|</span><span 
-class="lmmi-12">f</span><span 
-class="lmsy-10x-x-120">&prime;</span><sub>
-<span 
-class="rm-lmr-8">+</span></sub><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">0</span></sub><span 
-class="rm-lmr-12">) </span><span 
-class="lmsy-10x-x-120">&minus; </span><span 
-class="lmmi-12">f</span><span 
-class="lmsy-10x-x-120">&prime;</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">0</span></sub><span 
-class="rm-lmr-12">)</span><span 
-class="lmsy-10x-x-120">| </span><span 
-class="lmmi-12">&#x003C;</span> <img 
-src="main937x.png" alt="h
-2"  class="frac" align="middle">.
-   <center class="math-display" >
-<img 
-src="main938x.png" alt="|------|-----------------------|----------|
-|      |                       |       h  |
-|--h---|diferenças-progressivas-|erro-=--2-|
-|      |                       |          |
-|--0,1--|------&minus;-0,2123364-------|---0,05----|
-| 0,01 |      &minus; 0,2220182       |  0,005   |
-|------|-----------------------|----------|
-|0,001 |      &minus; 0,2230186       | 0,0005   |
-|------|----------------------------------
-|      |
-" class="math-display" ></center> O valor exato da derivada é <span 
-class="lmmi-12">f</span><span 
-class="lmsy-10x-x-120">&prime;</span><span 
-class="rm-lmr-12">(1</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">5) = </span><span 
+class="lmmi-12">&hellip;</span><span 
+class="lmmi-12">n</span><span 
 class="lmsy-10x-x-120">&minus;</span><span 
-class="rm-lmr-12">0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">2231302</span>.                              <span 
-class="msam-10x-x-120">&#x2662;</span>
-   </div>
-<!--l. 133--><p class="noindent" >
-   <h4 class="subsectionHead"><span class="titlemark">7.1.3   </span> <a 
- id="x75-1170007.1.3"></a>Erros de arredondamento</h4>
-<a 
- id="dx75-117001"></a>
-<!--l. 134--><p class="noindent" >Para entender como os erros de arredondamento se propagam ao calcular as
-derivadas numéricas vamos considerar o operador de diferenças finitas
-progressivas
+class="rm-lmr-12">1 </span><span 
+class="lmmi-12">s</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) </span>é um polinômio cúbico.
+      </li>
+      <li class="itemize">para cada ponto, <span 
+class="lmmi-12">s</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">) = </span><span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">j</span></sub>, i.e., o spline interpola os pontos dados.
+      </li>
+      <li class="itemize"><span 
+class="lmmi-12">s</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) </span><span 
+class="lmsy-10x-x-120">&isin; </span><span 
+class="lmmi-12">C</span><sup><span 
+class="rm-lmr-8">2</span></sup>, i.e., é função duas vezes continuamente diferenciável.</li></ul>
+<!--l. 1115--><p class="indent" >   Da primeira hipótese, escrevemos
    <center class="math-display" >
 <img 
-src="main939x.png" alt="D+,hf (x) = f(x-+-h)-&minus;-f(x-).
-                   h  " class="math-display" ></center>
-Nesse contexto temos o valor exato <span 
-class="lmmi-12">f</span><span 
-class="lmsy-10x-x-120">&prime;</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span>para a derivada, a sua aproximação
-numérica <span 
-class="lmmi-12">D</span><sub><span 
-class="rm-lmr-8">+</span><span 
-class="lmmi-8">,h</span></sub><span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span>e a representação em número de máquina do operador
-<span 
-class="lmmi-12">D</span><sub><span 
-class="rm-lmr-8">+</span><span 
-class="lmmi-8">,h</span></sub><span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span>que denotaremos por <span class="overline"><span 
-class="lmmi-12">D</span><sub><span 
-class="rm-lmr-8">+</span><span 
-class="lmmi-8">,h</span></sub><span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">)</span></span>. Seja <span 
-class="lmmi-12">&#x03B5;</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x,h</span><span 
-class="rm-lmr-12">) </span>o erro de arredondamento
-ao calcularmos a derivada e consideremos
+src="main870x.png" alt="s(x) = sj(x),x &isin; [xj,xj+1], j = 1,...,n &minus; 1  " class="math-display" ></center>
+com
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main871x.png" alt="                                   2             3
+sj(x) = aj + bj(x &minus; xj) + cj(x &minus; xj) + dj(x &minus; xj)   " class="math-display" ></center> O
+problema agora consiste em obter os 4 coeficientes de cada um desses <span 
+class="lmmi-12">n </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1</span>
+polinômios cúbicos.
+<!--l. 1121--><p class="indent" >   Veremos que a simples definição de spline produz <span 
+class="rm-lmr-12">4</span><span 
+class="lmmi-12">n</span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">6 </span>equações linearmente
+independentes:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main872x.png" alt="  sj(xj) =   yj,           j = 1,...,n &minus; 1
+
+sj(xj+1 ) =   yj+1,         j = 1,...,n &minus; 1
+ &prime;            &prime;
+sj(xj+1 ) =   sj+1(xj+1),   j = 1,...,n &minus; 2
+s&prime;&prime;(x    ) =   s&prime;&prime; (x   ),   j = 1,...,n &minus; 2
+ j  j+1       j+1  j+1
+" class="math-display" ></center></td></tr></table>
+<!--l. 1129--><p class="nopar" >
+Como
+   <table 
+class="equation"><tr><td><a 
+ id="x70-109003r5"></a>
+   <center class="math-display" >
+<img 
+src="main873x.png" alt="s&prime;j(x) = bj + 2cj(x &minus; xj) + 3dj(x &minus; xj)2
+" class="math-display" ></center></td><td class="equation-label">(6.5)</td></tr></table>
+                                                                          
+
+                                                                          
+<!--l. 1133--><p class="nopar" >
+e
+   <table 
+class="equation"><tr><td><a 
+ id="x70-109004r6"></a>
+   <center class="math-display" >
+<img 
+src="main874x.png" alt=" &prime;&prime;
+sj(x) = 2cj + 6dj(x &minus; xj),
+" class="math-display" ></center></td><td class="equation-label">(6.6)</td></tr></table>
+<!--l. 1137--><p class="nopar" >
+temos, para <span 
+class="lmmi-12">j </span><span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&hellip;</span><span 
+class="lmmi-12">,n </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1</span>, as seguintes equações
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main875x.png" alt="                                                a   =  y ,
+                                                 j       j
+aj + bj(xj+1 &minus; xj) + cj(xj+1 &minus; xj)2 + dj(xj+1 &minus; xj)3 =  yj+1,
+
+              bj + 2cj(xj+1 &minus; xj) + 3dj(xj+1 &minus; xj)2  =  bj+1,
+
+                               cj + 3dj(xj+1 &minus; xj)  =  cj+1,
+" class="math-display" ></center></td></tr></table>
+<!--l. 1146--><p class="nopar" >
+Por simplicidade, definimos
                                                                           
 
                                                                           
    <center class="math-display" >
 <img 
-src="main940x.png" alt="---------                           f(x-+-h)-&minus; f(x-)
-D+,hf (x) = D+,hf (x)(1 + &#x03B5;(x,h)) = ----------------(1 + &#x03B5;(x,h )).
-                                           h  " class="math-display" ></center>
-Também, consideremos
+src="main876x.png" alt="hj = xj+1 &minus; xj  " class="math-display" ></center> e
+temos
+   <table 
+class="equation"><tr><td><a 
+ id="x70-109005r7"></a>
    <center class="math-display" >
 <img 
-src="main941x.png" alt=" ---------
-|f(x + h) &minus; f(x + h)| = &delta;(x,h) &le; &delta;  " class="math-display" ></center>
+src="main877x.png" alt="                    aj  =   yj,
+
+aj + bjhj + cjh2j + djh3j =   yj+1,
+
+    bj + 2cjhj + 3djh2j  =   bj+1,
+
+            cj + 3djhj  =   cj+1,
+" class="math-display" ></center></td><td class="equation-label">(6.7)</td></tr></table>
+<!--l. 1159--><p class="nopar" >
+que podem ser escrita da seguinte maneira
+   <table 
+class="equation"><tr><td><a 
+ id="x70-109006r8"></a>
+   <center class="math-display" >
+<img 
+src="main878x.png" alt="aj = yj,
+                                                                          
+
+                                                                          
+" class="math-display" ></center></td><td class="equation-label">(6.8)</td></tr></table>
+<!--l. 1163--><p class="nopar" >
+   <table 
+class="equation"><tr><td><a 
+ id="x70-109007r9"></a>
+   <center class="math-display" >
+<img 
+src="main879x.png" alt="d =  cj+1-&minus;-cj,
+ j     3hj
+" class="math-display" ></center></td><td class="equation-label">(6.9)</td></tr></table>
+<!--l. 1166--><p class="nopar" >
+   <table 
+class="equation"><tr><td><a 
+ id="x70-109008r10"></a>
+   <center class="math-display" >
+<img 
+src="main880x.png" alt="     yj+1 &minus; yj &minus; cjh2j &minus; cj+1&minus;cjh3j
+bj = --------------------3hj----,
+                  hj
+     3yj+1 &minus; 3yj &minus; 3cjh2j &minus; cj+1h2j + cjh2j
+   = -----------------------------------
+                     3hj
+     3yj+1 &minus; 3yj &minus; 2cjh2j &minus; cj+1h2j
+   = ------------3h--------------
+                    j
+" class="math-display" ></center></td><td class="equation-label">(6.10)</td></tr></table>
+<!--l. 1173--><p class="nopar" >
+Trocando o índice <span 
+class="lmmi-12">j </span>por <span 
+class="lmmi-12">j </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1 </span>na terceira equação (<a 
+href="#x70-109005r7">6.7<!--tex4ht:ref: eq3 --></a>), <span 
+class="lmmi-12">j </span><span 
+class="rm-lmr-12">= 2</span><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&hellip;</span><span 
+class="lmmi-12">,n </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1</span>
+                                                                          
+
+                                                                          
+   <table 
+class="equation"><tr><td><a 
+ id="x70-109009r11"></a>
+   <center class="math-display" >
+<img 
+src="main881x.png" alt="bj&minus; 1 + 2cj&minus;1hj&minus; 1 + 3dj&minus;1h2j&minus; 1 = bj
+" class="math-display" ></center></td><td class="equation-label">(6.11)</td></tr></table>
+<!--l. 1177--><p class="nopar" >
+e, portanto,
+   <table 
+class="equation"><tr><td><a 
+ id="x70-109010r12"></a>
+   <center class="math-display" >
+<img 
+src="main882x.png" alt="                    2        2
+3yj-&minus;-3yj&minus;1-&minus;-2cj&minus;1hj&minus;1-&minus;-cjhj&minus;1 + 2c   h    + c h   &minus;  c   h
+             3hj &minus;1                  j&minus;1 j&minus;1    j j&minus;1    j&minus; 1 j&minus;1
+                                                     2        2
+                                 = 3yj+1-&minus;-3yj-&minus;-2cjhj-&minus;-cj+1hj.
+                                                3hj
+" class="math-display" ></center></td><td class="equation-label">(6.12)</td></tr></table>
+<!--l. 1184--><p class="nopar" >
+Fazendo as simplificações, obtemos:
+   <table 
+class="equation"><tr><td><a 
+ id="x70-109011r13"></a>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main883x.png" alt="                                       y    &minus; y     y  &minus; y
+cj&minus;1hj&minus;1 + cj(2hj + 2hj&minus;1) + cj+1hj =  3-j+1----j &minus; 3-j----j&minus;1.
+                                          hj          hj&minus; 1
+" class="math-display" ></center></td><td class="equation-label">(6.13)</td></tr></table>
+<!--l. 1188--><p class="nopar" >
+É costumeiro acrescentar a incógnita <span 
+class="lmmi-12">c</span><sub><span 
+class="lmmi-8">n</span></sub> ao sistema. A incógnita <span 
+class="lmmi-12">c</span><sub><span 
+class="lmmi-8">n</span></sub> não está
+relacionada a nenhum dos polinômios interpoladores. Ela é uma construção
+artificial que facilita o cálculo dos coeficientes do spline. Portanto, a equação
+acima pode ser resolvida para <span 
+class="lmmi-12">j </span><span 
+class="rm-lmr-12">= 2</span><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&hellip;</span><span 
+class="lmmi-12">,n </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1</span>.
+<!--l. 1191--><p class="indent" >   Para determinar unicamente os <span 
+class="lmmi-12">n </span>coeficientes <span 
+class="lmmi-12">c</span><sub><span 
+class="lmmi-8">n</span></sub> precisamos acrescentar duas
+equações linearmente independentes às <span 
+class="lmmi-12">n </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">2 </span>equações dadas por (<a 
+href="#x70-109011r13">6.13<!--tex4ht:ref: eq_cn_spline --></a>). Essas
+duas equações adicionais definem o tipo de spline usado.
+<!--l. 1193--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">6.8.1   </span> <a 
+ id="x70-1100006.8.1"></a>Spline natural</h4>
+<a 
+ id="dx70-110001"></a>
+<!--l. 1195--><p class="noindent" >Uma forma de definir as duas equações adicionais para completar o sistema (<a 
+href="#x70-109011r13">6.13<!--tex4ht:ref: eq_cn_spline --></a>)
+é impor condições de fronteira livres (ou naturais), ou seja,
+   <table 
+class="equation"><tr><td><a 
+ id="x70-110002r14"></a>
+   <center class="math-display" >
+<img 
+src="main884x.png" alt="S&prime;&prime;(x1) = S &prime;&prime;(xn ) = 0.
+" class="math-display" ></center></td><td class="equation-label">(6.14)</td></tr></table>
+                                                                          
+
+                                                                          
+<!--l. 1198--><p class="nopar" >
+Substituindo na equação (<a 
+href="#x70-109004r6">6.6<!--tex4ht:ref: eq_2derivada --></a>)
+   <center class="math-display" >
+<img 
+src="main885x.png" alt=" &prime;&prime;
+s1(x1) = 2c1 + 6d1 (x1 &minus; x1) = 0 = &rArr; c1 = 0.  " class="math-display" ></center>
 e
    <center class="math-display" >
 <img 
-src="main942x.png" alt=" -----
-|f(x) &minus; f(x)| = &delta;(x,0) &le; &delta;,  " class="math-display" ></center>
-onde <span class="overline"><span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x </span><span 
-class="rm-lmr-12">+ </span><span 
-class="lmmi-12">h</span><span 
-class="rm-lmr-12">)</span></span> e <span class="overline"><span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">)</span></span> são as representação em ponto flutuante dos números
-<span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x </span><span 
-class="rm-lmr-12">+ </span><span 
-class="lmmi-12">h</span><span 
-class="rm-lmr-12">) </span>e <span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">)</span>, respectivamente. A diferença do valor da derivada e sua
-aproximação representada em ponto flutuante pode ser estimada da seguinte
-forma: <div class="eqnarray">
+src="main886x.png" alt=" &prime;&prime;
+sn&minus;1(xn) = 2cn&minus;1 + 6dn&minus;1(xn &minus; xn &minus;1) = 0.  " class="math-display" ></center>
+Usando o fato que
+   <center class="math-display" >
+<img 
+src="main887x.png" alt="cn&minus;1 + 3dn&minus; 1hn &minus;1 = cn  " class="math-display" ></center>
+temos que
                                                                           
 
                                                                           
    <center class="math-display" >
 <img 
-src="main943x.png" alt="|                |     ||        ---------  -----           ||
-||f&prime;(x ) &minus; D---f(x)||  =  ||f&prime;(x) &minus; f(x-+-h)-&minus;-f(x-)(1 + &#x03B5; (x,h ))||
-          +,h          |               h                   |
-                       ||        (---------   -----
-                    =  ||f&prime;(x) &minus;  f-(x +-h) &minus;-f(x) + f-(x-+-h-) &minus;-f-(x +-h)
-                       |                 h                   h
-                                    )       ||
-                    +   f(x-) &minus;-f-(x-) (1 + &#x03B5;)||
-                             h              |
-                       ||        (  f (x + h ) &minus; f (x)  f(x-+-h-) &minus; f (x + h )
-                    =  ||f&prime;(x) +  &minus; ----------------&minus;  --------------------
-                       |-----             h                    h
-                        f(x ) &minus; f (x ))      ||
-                    +   ------------  (1 + &#x03B5;)||
-                       |     h              |   |  ( |--------           |
-                       ||        f(x + h) &minus; f(x )||    ||f (x + h) &minus; f(x + h)||
-                    &le;  ||f&prime;(x) &minus; ----------------|| +  ||-------------------||
-                        |----       |) h        |              h|
-                        ||f (x) &minus; f(x)||           ||f(x + h) &minus; f(x)||
-                    +   ||-----------||  |1 + &#x03B5;| + ||---------------||&#x03B5;
-                              h(|  |  | |)               h
-                               ||&delta;-||  ||&delta;||             &prime;
-                    &le;  M  h +  ||h || + ||h|| |1 + &#x03B5;| + |f(x )|&#x03B5;
-                              (   )
-                                2&delta;-            &prime;
-                    &le;  M  h +   h   |1 + &#x03B5;| + |f (x)|&#x03B5;
-" class="math-display" ></center>
-</div>onde
+src="main888x.png" alt="c =  &minus; 3d   (x  &minus; x   ) + 3d   h    =  0.
+ n       n&minus;1  n    n&minus;1      n&minus;1  n&minus;1  " class="math-display" ></center>
+Essa duas equações para <span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">1</span></sub> e <span 
+class="lmmi-12">c</span><sub><span 
+class="lmmi-8">n</span></sub> juntamente com as equações (<a 
+href="#x70-109011r13">6.13<!--tex4ht:ref: eq_cn_spline --></a>) formam um
+sistema de <span 
+class="lmmi-12">n </span>equações <span 
+class="lmmi-12">Ac </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">z</span>, onde
+   <table 
+class="equation"><tr><td><a 
+ id="x70-110003r15"></a>
    <center class="math-display" >
 <img 
-src="main944x.png" alt="      1-         &prime;&prime;
-M  =  2 x&le;myax&le;x+h|f (y)| " class="math-display" ></center>
-está relacionado com o erro de truncamento.
-<!--l. 168--><p class="indent" >   Esta estimativa mostra que se o valor de <span 
-class="lmmi-12">h </span>for muito pequeno o erro ao
-calcular a aproximação numérica cresce. Isso nos motiva a procurar o valor ótimo
-de <span 
-class="lmmi-12">h </span>que minimiza o erro.
-   <div class="newtheorem">
-<!--l. 170--><p class="noindent" ><span class="head">
-<a 
- id="x75-117003r4"></a>
+src="main889x.png" alt="     &lfloor;                                                            &rfloor;
+        1      0           0       0   &sdot;&sdot;&sdot;         0          0
+     ||                                                            ||
+     || h1  2h2 + 2h1      h2       0   &sdot;&sdot;&sdot;         0          0   ||
+     ||                                                            ||
+     ||  0      h2     2h3 +  2h2  h3   &sdot;&sdot;&sdot;         0          0   ||
+A =  ||  ..       ..          ..       ..    ..          ..          ..  ||
+     ||  .       .          .       .     .          .          .  ||
+     ||                                                            ||
+     |&lceil;  0      0           0      &sdot;&sdot;&sdot;  hn&minus;2  2hn&minus; 2 + 2hn &minus;1 hn&minus;1 |&rceil;
+        0      0           0      &sdot;&sdot;&sdot;   0          0          1
+" class="math-display" ></center></td><td class="equation-label">(6.15)</td></tr></table>
+<!--l. 1225--><p class="nopar" >
+   <table 
+class="equation"><tr><td><a 
+ id="x70-110004r16"></a>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main890x.png" alt="                         &lfloor;                         &rfloor;
+                                      0
+    &lfloor;    &rfloor;               ||      y &minus;y     y &minus;y      ||
+    | c1 |               ||     3-3h22&minus;  3-2h1-1     ||
+    ||    ||               ||      y4&minus;y3    y3&minus;y2     ||
+    || c2 ||               ||     3  h3 &minus;  3 h2       ||
+c = ||  .. ||     e     z = ||            ..            ||
+    |&lceil;  . |&rceil;               ||            .            ||
+      cn                 || 3yn&minus;1&minus;yn&minus;2&minus;  3yn&minus;2&minus;yn&minus;3 ||
+                         |&lceil;     hn&minus; 2        hn&minus;3    |&rceil;
+                                      0
+" class="math-display" ></center></td><td class="equation-label">(6.16)</td></tr></table>
+<!--l. 1241--><p class="nopar" >
+Observe que a matriz <span 
+class="lmmi-12">A </span>é diagonal dominante estrita e, portanto, o sistema
 <span 
-class="ec-lmbx-12">Exemplo 7.1.4.</span>  </span>Estude o comportamento da derivada de <span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) = </span><span 
-class="lmmi-12">e</span><sup><span 
-class="lmsy8-">&minus;</span><span 
-class="lmmi-8">x</span><sup><span 
-class="rm-lmr-6">2</span></sup></sup>  no
-ponto <span 
-class="lmmi-12">x </span><span 
-class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">Ac </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">z </span>possui solução única. Calculado <span 
+class="lmmi-12">c</span>, os valores dos <span 
+class="lmmi-12">a</span><sub><span 
+class="lmmi-8">n</span></sub>, <span 
+class="lmmi-12">b</span><sub><span 
+class="lmmi-8">n</span></sub> e <span 
+class="lmmi-12">d</span><sub><span 
+class="lmmi-8">n</span></sub> são obtidos
+diretamente pelas expressões (<a 
+href="#x70-109006r8">6.8<!--tex4ht:ref: eq_an_spline --></a>), (<a 
+href="#x70-109008r10">6.10<!--tex4ht:ref: eq_bn_spline --></a>) e (<a 
+href="#x70-109007r9">6.9<!--tex4ht:ref: eq_dn_spline --></a>), respectivamente.
+   <div class="newtheorem">
+<!--l. 1244--><p class="noindent" ><span class="head">
+<a 
+ id="x70-110005r1"></a>
+<span 
+class="ec-lmbx-12">Exemplo 6.8.1.</span>  </span>Construa um spline cúbico natural que passe pelos pontos
+<span 
+class="rm-lmr-12">(2</span><span 
 class="lmmi-12">,</span><span 
-class="rm-lmr-12">5 </span>quando <span 
-class="lmmi-12">h </span>fica pequeno.
+class="lmmi-12">&#x00A0;</span><span 
+class="rm-lmr-12">4</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">5)</span>, <span 
+class="rm-lmr-12">(5</span><span 
+class="lmmi-12">, </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">9)</span>, <span 
+class="rm-lmr-12">(9</span><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&#x00A0;</span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">5) </span>e <span 
+class="rm-lmr-12">(12</span><span 
+class="lmmi-12">, </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">5)</span>.
    </div>
-<!--l. 172--><p class="indent" >
+<!--l. 1246--><p class="indent" >
    <div class="proof">
-<!--l. 172--><p class="indent" >   <span class="head">
+<!--l. 1246--><p class="indent" >   <span class="head">
 <span 
 class="ec-lmbx-12">Solu</span><span 
 class="ec-lmbx-12">ç</span><span 
-class="ec-lmbx-12">ão.</span> </span> Segue a tabela com os valores da derivada para vários valores de
-<span 
-class="lmmi-12">h</span>.
+class="ec-lmbx-12">ão.</span> </span> O spline desejado é uma função definida por partes da forma:
    <table 
-class="equation-star"><tr><td>
-   <center class="math-display" >
-<img 
-src="main945x.png" alt="|--------|--------|--------|--------|--------|--------|--------|
-|---h----|--10&minus;2--|--10&minus;4--|--10&minus;6--|--10&minus;7--|--10&minus;8--|--10&minus;9--|
-|D+,hf(1,5)|&minus;0,3125246-&minus;0,3161608-&minus;0,3161973-&minus;0,3161976-&minus;0,3161977-&minus;0,3161977-
-" class="math-display" ></center></td></tr></table>
-<!--l. 183--><p class="nopar" >
-   <table 
-class="equation-star"><tr><td>
+class="equation"><tr><td><a 
+ id="x70-110006r17"></a>
                                                                           
 
                                                                           
    <center class="math-display" >
 <img 
-src="main946x.png" alt="|--------|--------|--------|--------|--------|--------|--------|
-|---h----|--10&minus;10--|--10&minus;11--|--10&minus;12--|--10&minus;13--|--10&minus;14--|--10&minus;15--|
-|D+,hf(1,5)|&minus;0,3161976-&minus;0,3161971-&minus;0,3162332-&minus;0,3158585-&minus;0,3178013-&minus;0,3747003-
-" class="math-display" ></center></td></tr></table>
-<!--l. 192--><p class="nopar" >
+src="main891x.png" alt="       (
+       ||||  a1 + b1(x &minus; 2 ) + c1(x &minus; 2)2 + d1(x &minus; 2)3 ,2 &le; x &#x003C; 5
+       |{
+S(x) = |  a2 + b2(x &minus; 5 ) + c2(x &minus; 5)2 + d2(x &minus; 5)3 ,5 &le; x &#x003C; 9   .
+       ||||                           2            3
+       (  a3 + b3(x &minus; 9 ) + c3(x &minus; 9) + d3(x &minus; 9)  ,9 &le;  x &le; 12
+" class="math-display" ></center></td><td class="equation-label">(6.17)</td></tr></table>
+<!--l. 1254--><p class="nopar" >
+Os coeficientes <span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">1</span></sub>, <span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">2</span></sub> e <span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">3</span></sub> resolvem o sistema <span 
+class="lmmi-12">Ac </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">z</span>, onde
    <table 
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main947x.png" alt="|--------|----&minus;2--|----&minus;4--|----&minus;6--|----&minus;7--|----&minus;8--|----&minus;9--|
-|---h----|--10----|--10----|--10----|--10----|--10----|--10----|
-|D+,hf(1,5)|&minus;0,3125246-&minus;0,3161608-&minus;0,3161973-&minus;0,3161976-&minus;0,3161977-&minus;0,3161977-
+src="main892x.png" alt="     &lfloor;                              &rfloor;   &lfloor;             &rfloor;
+     || 1      0            0       0||   || 1  0   0   0||
+     || 3  2 &sdot; 3 + 2 &sdot; 4    4       0||   || 3  14  4   0||
+A  = ||                              || = ||             ||
+     || 0      4       2 &sdot; 4 + 2 &sdot; 3 3||  || 0  4   14  3||
+     &lceil;                              &rceil;   &lceil;             &rceil;
+       0      0            0       1      0  0   0   1
 " class="math-display" ></center></td></tr></table>
-<!--l. 201--><p class="nopar" >
-<!--l. 204--><p class="indent" >   Observe que o valor exato é <span 
+<!--l. 1268--><p class="nopar" >
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main893x.png" alt="    &lfloor;  &rfloor;           &lfloor;                      &rfloor;    &lfloor;     &rfloor;
+    |c1|           |           0          |    |  0  |
+    ||c ||           ||3 0,5&minus;(&minus;1,9)&minus;  3(&minus;-1,9)&minus;-4,5||    || 8,2 ||
+c = || 2||   e  z =  ||     4           3    || =  ||     ||
+    ||c3||           || 3&minus;0,5&minus;0,5 &minus; 30,5&minus;-(&minus;1,9)||    ||&minus; 2,8 ||
+    |&lceil;  |&rceil;           |&lceil;     3           4    |&rceil;    |&lceil;     |&rceil;
+     c4                        0                  0
+" class="math-display" ></center></td></tr></table>
+<!--l. 1287--><p class="nopar" >
+Observe que <span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">4</span></sub> é um coeficiente artificial para o problema. A solução é <span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">= 0</span>,
+<span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">2</span></sub> <span 
+class="rm-lmr-12">= 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">7</span>, <span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">3</span></sub> <span 
+class="rm-lmr-12">= </span><span 
 class="lmsy-10x-x-120">&minus;</span><span 
 class="rm-lmr-12">0</span><span 
 class="lmmi-12">,</span><span 
-class="rm-lmr-12">3161977 </span>e o <span 
-class="lmmi-12">h </span>ótimo é algo entre <span 
-class="rm-lmr-12">10</span><sup><span 
-class="lmsy8-">&minus;</span><span 
-class="rm-lmr-8">8</span></sup> e
-<span 
-class="rm-lmr-12">10</span><sup><span 
-class="lmsy8-">&minus;</span><span 
-class="rm-lmr-8">9</span></sup>.                                                                                           <span 
+class="rm-lmr-12">4 </span>e <span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">4</span></sub> <span 
+class="rm-lmr-12">= 0</span>. Calculamos os demais coeficientes usando as
+expressões (<a 
+href="#x70-109006r8">6.8<!--tex4ht:ref: eq_an_spline --></a>), (<a 
+href="#x70-109008r10">6.10<!--tex4ht:ref: eq_bn_spline --></a>) e (<a 
+href="#x70-109007r9">6.9<!--tex4ht:ref: eq_dn_spline --></a>): <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main894x.png" alt="a1  =   y1 = 4,5
+a2  =   y2 = &minus; 1,9
+a   =   y  = 0,5
+  3      3
+" class="math-display" ></center>
+</div><div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main895x.png" alt="       c2-&minus;-c1   0,7-&minus;-0
+d1  =    3h    =   3 &sdot; 3 =  0,0777778
+            1
+d2  =  c3-&minus;-c2 = &minus;-0,4-&minus;-0,7 = &minus; 0,0916667
+         3h2         3 &sdot; 4
+       c4-&minus;-c3   0-+-0,4
+d3  =    3h3   =   3 &sdot; 3 = 0,0444444
+" class="math-display" ></center>
+</div><div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main896x.png" alt="b1  =   y2 &minus;-y1&minus;  h1(2c1 + c2)
+          h1      3
+        &minus;-1,9-&minus;-4,5-  3-
+    =       3      &minus; 3 (2 &sdot; 0 &minus; 0,7) = &minus; 2,8333333
+        y &minus;  y    h
+b2  =   -3----2&minus;  -2(2c2 + c3)
+          h2      3
+        0,5 &minus;-(&minus;-1,9)  4-
+    =        4       &minus; 3(2 &sdot; 0,7 + 0,4 ) = &minus; 0,7333333
+        y &minus;  y    h
+b3  =   -4----3&minus;  -3(2c3 + c4)
+          h3      3
+        &minus;-0,5-&minus;-0,5-  3-
+    =       3      &minus; 3 (2 &sdot; (&minus; 0,4) + 0) = 0,4666667
+" class="math-display" ></center>
+</div>Portanto:
+   <table 
+class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main897x.png" alt="       (|
+       |||{  4,5&minus; 2,833(x &minus; 2)+ 0,078(x&minus; 2)3                ,2 &le; x &#x003C; 5
+S (x) =                                 2             3
+       |||  &minus; 1,9 &minus; 0,733(x&minus; 5) + 0,7(x &minus; 5) &minus; 0,092(x&minus; 5 )  ,5 &le; x &#x003C; 9
+       |(  0,5+ 0,467(x &minus; 9)&minus; 0,4(x&minus; 9)2 + 0,044(x &minus; 9)3   ,9 &le; x &le; 12
+" class="math-display" ></center></td></tr></table>
+<!--l. 1315--><p class="nopar" >
+<!--l. 1319--><p class="indent" >   No <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">Scilab</span></span></span>, podemos utilizar:
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-44">
+X&#x00A0;=&#x00A0;[2&#x00A0;5&#x00A0;9&#x00A0;12]&#8217;
+&#x00A0;<br />Y&#x00A0;=&#x00A0;[4.5&#x00A0;-1.9&#x00A0;0.5&#x00A0;-0.5]&#8217;
+&#x00A0;<br />h&#x00A0;=&#x00A0;X(2:4)-X(1:3)
+&#x00A0;<br />A&#x00A0;=&#x00A0;[1&#x00A0;0&#x00A0;0&#x00A0;0;h(1)&#x00A0;2*h(1)+2*h(2)&#x00A0;h(2)&#x00A0;0;&#x00A0;...
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;0&#x00A0;h(2)&#x00A0;2*h(2)+2*h(3)&#x00A0;h(3);0&#x00A0;0&#x00A0;0&#x00A0;1&#x00A0;]
+&#x00A0;<br />z&#x00A0;=&#x00A0;[0,&#x00A0;3*(Y(3)-Y(2))/h(2)-3*(Y(2)-Y(1))/h(1),&#x00A0;...
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;3*(Y(4)-Y(3))/h(3)-3*(Y(3)-Y(2))/h(2),&#x00A0;0]&#8217;
+&#x00A0;<br />c&#x00A0;=&#x00A0;A\z
+&#x00A0;<br />for&#x00A0;i=1:3
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;a(i)&#x00A0;=&#x00A0;Y(i)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;d(i)&#x00A0;=&#x00A0;(c(i+1)-c(i))/(3*h(i))
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;b(i)&#x00A0;=&#x00A0;(Y(i+1)-Y(i))/h(i)-h(i)/3*(2*c(i)+c(i+1))
+&#x00A0;<br />end
+&#x00A0;<br />
+&#x00A0;<br />for&#x00A0;i=1:3
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;P(i)&#x00A0;=&#x00A0;poly([a(i)&#x00A0;b(i)&#x00A0;c(i)&#x00A0;d(i)],&#8217;x&#8217;,&#8217;coeff&#8217;)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;z&#x00A0;=&#x00A0;[X(i):.01:X(i+1)]
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;plot(z,horner(P(i),z-X(i)))
+&#x00A0;<br />end
+</div>
+<!--l. 1340--><p class="nopar" >                                                                         <span 
 class="msam-10x-x-120">&#x2662;</span>
    </div>
-<!--l. 208--><p class="noindent" >
-   <h4 class="subsectionHead"><span class="titlemark">7.1.4   </span> <a 
- id="x75-1180007.1.4"></a>Aproximações de alta ordem</h4>
+<!--l. 1344--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">6.8.2   </span> <a 
+ id="x70-1110006.8.2"></a>Spline fixado</h4>
 <a 
- id="dx75-118001"></a>
-<!--l. 210--><p class="noindent" >Para aproximar a derivada de uma função <span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span>em <span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">0</span></sub>, <span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">1</span></sub> ou <span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">2</span></sub> usaremos os três
-pontos vizinhos <span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">0</span></sub><span 
-class="lmmi-12">,f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">0</span></sub><span 
-class="rm-lmr-12">))</span>, <span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">1</span></sub><span 
-class="lmmi-12">,f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">1</span></sub><span 
-class="rm-lmr-12">)) </span>e <span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">2</span></sub><span 
-class="lmmi-12">,f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">2</span></sub><span 
-class="rm-lmr-12">))</span>. Uma interpolação usando
-polinômios de Lagrange para esses três pontos é da forma: <div class="eqnarray">
+ id="dx70-111001"></a>
+<!--l. 1346--><p class="noindent" >Alternativamente, para completar o sistema (<a 
+href="#x70-109011r13">6.13<!--tex4ht:ref: eq_cn_spline --></a>), podemos impor condições de
+contorno fixadas, ou seja, <div class="eqnarray">
                                                                           
 
                                                                           
    <center class="math-display" >
 <img 
-src="main948x.png" alt="                (x-&minus;-x1-)(x-&minus;-x2-)-        -(x &minus;-x0)(x &minus;-x2)-
-f(x ) =   f(x0) (x  &minus; x  )(x  &minus; x ) + f (x1)(x &minus;  x )(x &minus;  x )
-                  0    1   0    2     &prime;&prime;&prime;    1    0   1    2
-      +   f(x ) (x-&minus;-x0-)(x-&minus;-x1-)-+  f-(&xi;(x))(x &minus; x )(x &minus; x )(x &minus; x ).
-              2 (x2 &minus; x0 )(x2 &minus; x1)       6           0       1       2
+src="main898x.png" alt="S &prime;(x1)  =   f&prime;(x1)
+S&prime;(x )  =   f&prime;(x  ).
+    n           n
 " class="math-display" ></center>
-</div>A derivada de <span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span>é
+</div>Substituindo na equação (<a 
+href="#x70-109003r5">6.5<!--tex4ht:ref: eq_1derivada --></a>)
    <table 
 class="equation"><tr><td><a 
- id="x75-118003r2"></a>
+ id="x70-111003r18"></a>
    <center class="math-display" >
 <img 
-src="main949x.png" alt="  &prime;           --2x-&minus;--x1 &minus;-x2---        ---2x &minus;-x0 &minus;-x2---
-f (x) = f(x0 )(x0 &minus; x1 )(x0 &minus; x2 ) + f (x1)(x1 &minus; x0)(x1 &minus; x2)
+src="main899x.png" alt="s&prime;1(x1) = b1 + 2c1(x1 &minus; x1) + 3dj (x1 &minus; x1 )2 = f &prime;(x1) =&rArr; b1 = f&prime;(x1)
+" class="math-display" ></center></td><td class="equation-label">(6.18)</td></tr></table>
+<!--l. 1354--><p class="nopar" >
+e
+   <table 
+class="equation"><tr><td><a 
+ id="x70-111004r19"></a>
+   <center class="math-display" >
+<img 
+src="main900x.png" alt="s&prime;  (x ) = b    + 2c   (x  &minus; x   ) + 3d (x  &minus; x    )2
+ n&minus;1  n     n&minus;1     n&minus;1  n    n&minus; 1   2 j  n &prime;  n&minus; 1
+         = bn&minus;1 + 2cn&minus;1hn&minus; 1 + 3dn&minus; 1hn&minus;1 = f (xn)
+" class="math-display" ></center></td><td class="equation-label">(6.19)</td></tr></table>
+                                                                          
 
-      + f(x2)---2x-&minus;-x0-&minus;-x1---
-             (x2 &minus; x0)(x2 &minus; x1)
-        f&prime;&prime;&prime;(&xi;(x))
-      + ---------((x &minus; x1)(x &minus; x2) + (x &minus; x0)(2x &minus; x1 &minus; x2))
-           (6 &prime;&prime;&prime;      )
-      + D    f--(&xi;-(x-))  (x &minus; x  )(x &minus; x  )(x &minus; x  ).
-          x      6            0       1       2
-" class="math-display" ></center></td><td class="equation-label">(7.2)</td></tr></table>
-<!--l. 226--><p class="nopar" >
-Trocando <span 
-class="lmmi-12">x </span>por <span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">0</span></sub>, temos
+                                                                          
+<!--l. 1361--><p class="nopar" >
+Usando as equações (<a 
+href="#x70-109007r9">6.9<!--tex4ht:ref: eq_dn_spline --></a>) e (<a 
+href="#x70-109008r10">6.10<!--tex4ht:ref: eq_bn_spline --></a>) para <span 
+class="lmmi-12">j </span><span 
+class="rm-lmr-12">= 1 </span>e <span 
+class="lmmi-12">j </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">n </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1</span>, temos:
+   <table 
+class="equation"><tr><td><a 
+ id="x70-111005r20"></a>
+   <center class="math-display" >
+<img 
+src="main901x.png" alt="                 y2 &minus;-y1     &prime;
+2c1h1 + c2h1 = 3   h    &minus;  3f (x1)
+                    1
+" class="math-display" ></center></td><td class="equation-label">(6.20)</td></tr></table>
+<!--l. 1365--><p class="nopar" >
+e
+   <table 
+class="equation"><tr><td><a 
+ id="x70-111006r21"></a>
+   <center class="math-display" >
+<img 
+src="main902x.png" alt="                        &prime;       yn-&minus;-yn&minus;-1
+cn&minus;1hn &minus;1 + cnhn&minus;1 = 3f (xn) &minus; 3   hn&minus;1
+" class="math-display" ></center></td><td class="equation-label">(6.21)</td></tr></table>
+<!--l. 1369--><p class="nopar" >
+<!--l. 1371--><p class="indent" >   Essas duas equações juntamente com as equações (<a 
+href="#x70-109011r13">6.13<!--tex4ht:ref: eq_cn_spline --></a>) formam um sistema
+de <span 
+class="lmmi-12">n </span>equações <span 
+class="lmmi-12">Ac </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">z</span>, onde
    <table 
 class="equation-star"><tr><td>
                                                                           
@@ -923,445 +686,1024 @@ class="equation-star"><tr><td>
                                                                           
    <center class="math-display" >
 <img 
-src="main950x.png" alt="f &prime;(x ) = f (x )--2x0-&minus;-x1-&minus;-x2---+  f(x )--2x0-&minus;-x0-&minus;-x2---
-     0       0 (x0 &minus; x1)(x0 &minus; x2)      1 (x1 &minus; x0)(x1 &minus; x2)
-                 2x  &minus; x  &minus; x
-       + f(x2) ----0----0----1---
-               (x2 &minus; x0 )(x2 &minus; x1)
-         f-&prime;&prime;&prime;(&xi;(x0))
-       +     6     ((x0 &minus; x1)(x0 &minus; x2) + (x0 &minus; x0)(2x0 &minus; x1 &minus; x2))
-            (  &prime;&prime;&prime;       )
-       + Dx   f--(&xi;(x0))  (x0 &minus; x0 )(x0 &minus; x1 )(x0 &minus; x2).
-                  6
+src="main903x.png" alt="     &lfloor;                                                              &rfloor;
+     | 2h1      h1          0       0   &sdot;&sdot;&sdot;         0           0   |
+     ||                                                              ||
+     ||  h1  2h2 + 2h1      h2       0   &sdot;&sdot;&sdot;         0           0   ||
+     ||                                                              ||
+A =  ||  0       h2     2h3 +  2h2  h3   &sdot;&sdot;&sdot;         0           0   ||
+     ||  ...        ...          ...       ...    ...          ...          ...   ||
+     ||                                                              ||
+     ||  0       0           0      &sdot;&sdot;&sdot;  hn&minus;2  2hn&minus; 2 + 2hn &minus;1 hn &minus;1 ||
+     &lceil;                                                              &rceil;
+        0       0           0      &sdot;&sdot;&sdot;   0         hn&minus;1       2hn&minus;1
 " class="math-display" ></center></td></tr></table>
-<!--l. 236--><p class="nopar" >
-Considerando uma malha equiespaçada onde <span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">1</span></sub> <span 
-class="rm-lmr-12">= </span><span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">0</span></sub> <span 
-class="rm-lmr-12">+ </span><span 
-class="lmmi-12">h </span>e <span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">2</span></sub> <span 
-class="rm-lmr-12">= </span><span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">0</span></sub> <span 
-class="rm-lmr-12">+ 2</span><span 
-class="lmmi-12">h</span>,
-temos:
+<!--l. 1381--><p class="nopar" >
    <table 
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main951x.png" alt="  &prime;               &minus; 3h              &minus; 2h
-f (x0) = f (x0 )(&minus; h-)(&minus;-2h-) + f (x1)(h)(&minus;-h)
-                          &prime;&prime;&prime;
-              --&minus;-h---   f--(&xi;-(x0-))-
-       + f(x2)(2h )(h ) +     6     ((&minus; h )(&minus; 2h ))
-           [                            ]      &prime;&prime;&prime;
-       = -1 &minus; 3-f(x0) + 2f(x1) &minus; 1f (x2) + h2 f--(&xi;(x0-))
-         h    2                  2                3
+src="main904x.png" alt="                         &lfloor;      y2&minus; y1      &prime;        &rfloor;
+                         |    3 -h1--&minus; 3f (x1)     |
+    &lfloor;    &rfloor;               ||      y3&minus;y2    y2&minus;y1     ||
+    || c1 ||               ||     3  h2 &minus;  3 h1       ||
+    || c  ||               ||     3y4&minus;y3&minus;  3y3&minus;y2     ||
+c = ||  2 ||     e     z = ||        h3      h2       ||
+    ||  ... ||               ||            ...            ||
+    &lceil;    &rceil;               ||                         ||
+      cn                 || 3yn&minus;1h&minus;n&minus;yn2&minus;2&minus;  3yn&minus;h2n&minus;&minus;y3n&minus;3 ||
+                         &lceil;      &prime;       yn&minus; yn&minus;1    &rceil;
+                             3f (xn) &minus; 3--hn&minus;1-
 " class="math-display" ></center></td></tr></table>
                                                                           
 
                                                                           
-<!--l. 244--><p class="nopar" >
-Similarmente, trocando <span 
-class="lmmi-12">x </span>por <span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">1</span></sub> ou trocando <span 
-class="lmmi-12">x </span>por <span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">2</span></sub> na expressão (<a 
-href="#x75-118003r2">7.2<!--tex4ht:ref: tres_pontos --></a>), temos
-outras duas expressões <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main952x.png" alt="            1[  1         1      ]     f&prime;&prime;&prime;(&xi;(x  ))
-f&prime;(x1)  =   --&minus; --f(x0) + -f (x2) + h2 -------1--
-            h[  2         2             ]  6
- &prime;          1- 1-                3-          2f-&prime;&prime;&prime;(&xi;(x2))
-f (x2)  =   h  2f(x0) &minus; 2f (x1 ) + 2 f(x2) + h     3
-" class="math-display" ></center>
-</div>Podemos reescrever as três fórmulas da seguinte forma: <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main953x.png" alt="                 1 [  3                     1           ]     f &prime;&prime;&prime;(&xi;(x0))
-     f&prime;(x0)  =   -- &minus; -f(x0) + 2f(x0 + h) &minus; --f(x0 + 2h)  + h2----------
-                 h [  2                    ]2     &prime;&prime;&prime;              3
- f&prime;(x +  h)  =   1- &minus; 1f(x ) + 1f (x +  2h) +  h2f--(&xi;(x0 +-h))
-     0           h    2   0    2    0                  6
-                 1 [1                      3          ]      f&prime;&prime;&prime;(&xi;(x0 + 2h))
-f&prime;(x0 + 2h)  =   -- -f(x0) &minus; 2f (x0 + h ) + -f(x0 + 2h)  + h2 ---------------
-                 h  2                      2                       3
-" class="math-display" ></center>
-</div>ou ainda <div class="eqnarray">
-                                                                          
-
-                                                                          
-   <center class="math-display" >
-<img 
-src="main954x.png" alt="                                                         &prime;&prime;&prime;
-f &prime;(x0)  =   -1-[&minus; 3f (x0) + 4f (x0 + h) &minus; f(x0 + 2h)] + h2f-(&xi;(x0))(7.3)
-            2h                                              3
-  &prime;         -1-                           2f&prime;&prime;&prime;(&xi;-(x0-))-
-f (x0)  =   2h [f(x0 + h) &minus; f(x0 &minus; h)] + h     6                  (7.4)
-             1                                        f &prime;&prime;&prime;(&xi;(x ))
-f &prime;(x0)  =   ---[f(x0 &minus; 2h) &minus; 4f(x0 &minus; h) + 3f (x0 )] + h2-------0--  (7.5)
-            2h                                            3
-" class="math-display" ><a 
- id="x75-118006r7.3"></a><a 
- id="x75-118006r7.4"></a><a 
- id="x75-118006r7.5"></a></center>
-</div>Observe que uma das fórmulas é exatamente as diferenças centrais obtida
-anteriormente.
-<!--l. 271--><p class="indent" >   Analogamente, para construir as fórmulas de cinco pontos tomamos o
-polinômio de Lagrange para cinco pontos e chegamos a cinco fórmulas, sendo uma
-delas a seguinte:
-   <table 
-class="equation"><tr><td><a 
- id="x75-118007r6"></a>
-   <center class="math-display" >
-<img 
-src="main955x.png" alt="          1                                                       h4
-f&prime;(x0) = ----[f(x0 &minus; 2h) &minus; 8f(x0 &minus; h ) + 8f (x0 + h ) &minus; f (x0 + 2h)]+--f(5)(&xi;(x0))
-         12h                                                      30
-" class="math-display" ></center></td><td class="equation-label">(7.6)</td></tr></table>
-<!--l. 274--><p class="nopar" >
+<!--l. 1397--><p class="nopar" >
+Observe que a matriz <span 
+class="lmmi-12">A </span>é diagonal dominante estrita e, portanto, o sistema
+<span 
+class="lmmi-12">Ac </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">z </span>possui solução única. Calculado <span 
+class="lmmi-12">c</span>, os valores dos <span 
+class="lmmi-12">a</span><sub><span 
+class="lmmi-8">n</span></sub>, <span 
+class="lmmi-12">b</span><sub><span 
+class="lmmi-8">n</span></sub> e <span 
+class="lmmi-12">d</span><sub><span 
+class="lmmi-8">n</span></sub> são obtidos
+diretamente pelas expressões (<a 
+href="#x70-109006r8">6.8<!--tex4ht:ref: eq_an_spline --></a>), (<a 
+href="#x70-109008r10">6.10<!--tex4ht:ref: eq_bn_spline --></a>) e (<a 
+href="#x70-109007r9">6.9<!--tex4ht:ref: eq_dn_spline --></a>), respectivamente.
    <div class="newtheorem">
-<!--l. 276--><p class="noindent" ><span class="head">
+<!--l. 1401--><p class="noindent" ><span class="head">
 <a 
- id="x75-118008r5"></a>
-                                                                          
-
-                                                                          
+ id="x70-111007r2"></a>
 <span 
-class="ec-lmbx-12">Exemplo 7.1.5.</span>  </span>Calcule a derivada numérica de <span 
-class="lmmi-12">f</span><span 
+class="ec-lmbx-12">Exemplo 6.8.2.</span>  </span>Construa  um  spline  cúbico  com  fronteira  fixada  que
+interpola a função <span 
+class="lmmi-12">y </span><span 
+class="rm-lmr-12">=</span> <span 
+class="rm-lmr-12">sin</span><span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">x</span><span 
-class="rm-lmr-12">) = </span><span 
-class="lmmi-12">e</span><sup><span 
-class="lmsy8-">&minus;</span><span 
-class="lmmi-8">x</span><sup><span 
-class="rm-lmr-6">2</span></sup></sup>  em <span 
+class="rm-lmr-12">) </span>nos pontos <span 
 class="lmmi-12">x </span><span 
-class="rm-lmr-12">= 1</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">5</span>
-pela fórmula de três e cinco pontos para <span 
-class="lmmi-12">h </span><span 
-class="rm-lmr-12">= 0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">1</span>, <span 
-class="lmmi-12">h </span><span 
-class="rm-lmr-12">= 0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">01 </span>e <span 
-class="lmmi-12">h </span><span 
-class="rm-lmr-12">= 0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">001</span>.
-   </div>
-<!--l. 279--><p class="indent" >
-   <div class="proof">
-<!--l. 279--><p class="indent" >   <span class="head">
+class="rm-lmr-12">= 0</span>, <span 
+class="lmmi-12">x </span><span 
+class="rm-lmr-12">=</span> <img 
+src="main905x.png" alt="&pi;
+2"  class="frac" align="middle">, <span 
+class="lmmi-12">x </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">&pi;</span>, <span 
+class="lmmi-12">x </span><span 
+class="rm-lmr-12">=</span> <img 
+src="main906x.png" alt="3&pi;-
+2"  class="frac" align="middle">  e
 <span 
-class="ec-lmbx-12">Solu</span><span 
-class="ec-lmbx-12">ç</span><span 
-class="ec-lmbx-12">ão.</span> </span> A tabela mostra os resultados:
+class="lmmi-12">x </span><span 
+class="rm-lmr-12">= 2</span><span 
+class="lmmi-12">&pi;</span>.
+   </div>
+<!--l. 1403--><p class="indent" >   O spline desejado passa pelos pontos <span 
+class="rm-lmr-12">(0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">0)</span>, <span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">&pi;&#x2215;</span><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">1)</span>, <span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">&pi;,</span><span 
+class="rm-lmr-12">0)</span>, <span 
+class="rm-lmr-12">(3</span><span 
+class="lmmi-12">&pi;&#x2215;</span><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">,</span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1) </span>e <span 
+class="rm-lmr-12">(2</span><span 
+class="lmmi-12">&pi;,</span><span 
+class="rm-lmr-12">0)</span>
+e tem a forma:
+   <table 
+class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main956x.png" alt="|--------------------------|------------|---------------|-------------------|
-|            h             |  h = 0,1   |   h = 0,01    |    h = 0,001      |
-|--------------------------|------------|---------------|-------------------|
-| diferenças progressivas   |&minus; 0,2809448  | &minus; 0,3125246   |   &minus; 0,3158289      |
-|--------------------------|------------|---------------|-------------------|
-|  diferen ças regressivas  |&minus; 0,3545920  | &minus; 0,3199024   |   &minus; 0,3165667      |
-|--------------------------|------------|---------------|-------------------|
-| três pontos usando  (7.3)  |&minus; 0,3127746  | &minus; 0,3161657   |   &minus; 0,3161974      |
-|--------------------------|------------|---------------|-------------------|
-|-três-pontos-usando--(7.4)--|&minus;-0,3177684--|-&minus;-0,3162135---|---&minus;-0,3161978------|
-|                          |            |               |                   |
-|-três-pontos-usando--(7.5)--|&minus;-0,3135824--|-&minus;-0,3161665---|---&minus;-0,3161974------|
-|                          |            |               |                   |
-|cinco--pontos-usando-(7.6)-|&minus;-0,3162384---&minus;-0,316197677---&minus; 0,3161976736860--
-|                          |
-" class="math-display" ></center> O valor exato da derivada é <span 
+src="main907x.png" alt="        (
+        |||| a1 + b1x + c1x2 + d1x3                      ,0 &le;  x &#x003C; &pi;2
+        ||||             &pi;           &pi; 2          &pi; 3      &pi;
+        { a2 + b2(x &minus; 2 ) + c2(x &minus; 2) + d2(x &minus; 2)     , 2 &le; x &#x003C; &pi;
+S (x) = ||                           2            3              3&pi;   .
+        |||| a3 + b3(x &minus; &pi;) + c3(x &minus; &pi;) +  d3(x &minus; &pi;)     ,&pi; &le;  x &#x003C;  2
+        ||( a4 + b4(x &minus; 3&pi;) + c4(x &minus; 3&pi;)2 + d4(x &minus;  3&pi;)3 , 3&pi;&le;  x &le; 2&pi;
+                       2           2             2      2
+" class="math-display" ></center></td></tr></table>
+<!--l. 1411--><p class="nopar" >
+Observe que ele satisfaz as condição de contorno <span 
 class="lmmi-12">f</span><span 
 class="lmsy-10x-x-120">&prime;</span><span 
-class="rm-lmr-12">(1</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">5) = </span><span 
+class="rm-lmr-12">(0) = </span><span 
+class="lmmi-12">cos</span><span 
+class="rm-lmr-12">(0) = 1 </span>e
+<span 
+class="lmmi-12">f</span><span 
+class="lmsy-10x-x-120">&prime;</span><span 
+class="rm-lmr-12">(2</span><span 
+class="lmmi-12">&pi;</span><span 
+class="rm-lmr-12">) = </span><span 
+class="lmmi-12">cos</span><span 
+class="rm-lmr-12">(2</span><span 
+class="lmmi-12">&pi;</span><span 
+class="rm-lmr-12">) = 1</span>.
+<!--l. 1414--><p class="indent" >   Os coeficientes <span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">1</span></sub>, <span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">2</span></sub>, <span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">3</span></sub> e <span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">4</span></sub> resolvem o sistema <span 
+class="lmmi-12">Ac </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">z</span>, onde:
+   <table 
+class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main908x.png" alt="     &lfloor;                            &rfloor;
+     ||   &pi;   &pi;&#x2215;2    0    0     0  ||
+     || &pi; &#x2215;2  2 &pi;  &pi; &#x2215;2   0     0  ||
+     ||                            ||
+     ||   0   &pi;&#x2215;2   2&pi;   &pi;&#x2215;2    0  ||
+A  = ||                            ||
+     ||   0    0   &pi; &#x2215;2  2 &pi;  &pi; &#x2215;2 ||
+     ||                            ||
+     |   0    0     0   &pi;&#x2215;2   &pi;   |
+     &lceil;                            &rceil;
+" class="math-display" ></center></td></tr></table>
+<!--l. 1423--><p class="nopar" >
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main909x.png" alt="    &lfloor;    &rfloor;               &lfloor;                   &rfloor;   &lfloor;          &rfloor;
+    |  c1|               |    3 1&minus;&pi;&#x2215;20&minus; 3 &sdot; 1   |   |  6&#x2215;&pi; &minus; 3 |
+    ||    ||               ||                   ||   ||          ||
+    ||  c2||               ||    30&pi;&minus;&#x2215;12 &minus; 31&minus;&pi;&#x2215;20   ||   ||  &minus; 12&#x2215;&pi;  ||
+    ||    ||               ||     &minus;1&minus;0    0&minus;1   ||   ||          ||
+c = ||  c3||      e    z = ||   3 &pi;&#x2215;2-&minus;  3&pi;&#x2215;2   || = ||     0    ||
+    ||    ||               ||   0&minus;(&minus;-1)-   (&minus;1)&minus;0 ||   ||          ||
+    |&lceil;  c4|&rceil;               |&lceil; 3  &pi;&#x2215;2  &minus; 3  &pi;&#x2215;2  |&rceil;   |&lceil;   12&#x2215;&pi;   |&rceil;
+       c                     3 &sdot; 1 &minus; 30&minus;(&minus;1)        3 &minus; 6 &#x2215;&pi;
+        5                             &pi;&#x2215;2
+" class="math-display" ></center></td></tr></table>
+                                                                          
+
+                                                                          
+<!--l. 1445--><p class="nopar" >
+Aqui <span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">5</span></sub> é um coeficiente artificial para o problema. A solução é <span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">= </span><span 
 class="lmsy-10x-x-120">&minus;</span><span 
 class="rm-lmr-12">0</span><span 
 class="lmmi-12">,</span><span 
-class="rm-lmr-12">3161976736856</span>.                     <span 
-class="msam-10x-x-120">&#x2662;</span>
-   </div>
+class="rm-lmr-12">0491874</span>,
+<span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">2</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmsy-10x-x-120">&minus;</span><span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">5956302</span>, <span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">3</span></sub> <span 
+class="rm-lmr-12">= 0</span>, <span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">4</span></sub> <span 
+class="rm-lmr-12">= 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">5956302 </span>e <span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">5</span></sub> <span 
+class="rm-lmr-12">= 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">0491874</span>. Calculamos os demais
+coeficientes usando as expressões (<a 
+href="#x70-109006r8">6.8<!--tex4ht:ref: eq_an_spline --></a>), (<a 
+href="#x70-109008r10">6.10<!--tex4ht:ref: eq_bn_spline --></a>) e (<a 
+href="#x70-109007r9">6.9<!--tex4ht:ref: eq_dn_spline --></a>): <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main910x.png" alt="a1  =   y1 = 0
+
+a2  =   y2 = 1
+a3  =   y3 = 0
+
+a4  =   y3 = &minus; 1
+" class="math-display" ></center>
+</div><div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main911x.png" alt="        c2 &minus; c1   &minus; 0,5956302 &minus; (&minus; 0,0491874)
+d1  =   -------=  ----------------------------= &minus; 0,1159588
+          3h1               3 &sdot; &pi; &#x2215;2
+        c3 &minus;-c2   0-&minus;-(&minus;-0,5956302-)-
+d2  =     3h2  =       3 &sdot; &pi;&#x2215;2      = 0,1263967
+        c &minus;  c    0,5956302 &minus; 0
+d3  =   -4----3=  --------------=  0,1263967
+          3h3         3 &sdot; &pi; &#x2215;2
+        c5 &minus;-c4   0,0491874-&minus;-0,5956302-
+d4  =     3h   =          3 &sdot; &pi;&#x2215;2        = &minus; 0,1159588
+            4
+" class="math-display" ></center>
+</div><div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main912x.png" alt="        y2 &minus; y1   h1
+b1  =   --h----&minus;  3-(2c1 + c2)
+           1
+    =   1 &minus;-0&minus;  &pi;&#x2215;2-(2 &sdot; (&minus; 0,0491874 ) &minus; 0,5956302 ) = 1
+        &pi; &#x2215;2     3
+        y3 &minus; y2   h2
+b2  =   -------&minus;  --(2c2 + c3)
+          h2      3
+        0 &minus;-1-  &pi;&#x2215;2-
+    =   &pi; &#x2215;2 &minus;   3  (2 &sdot; (&minus; 0,5956302 ) + 0) = &minus; 0,0128772
+
+b3  =   y4 &minus;-y3-&minus; h3(2c3 + c4)
+          h3      3
+        &minus; 1 &minus; 0   &pi;&#x2215;2
+    =   -------&minus;  ----(2 &sdot; 0 + 0,5956302 ) = &minus; 0,9484910
+         &pi; &#x2215;2      3
+b   =   y5 &minus;-y4-&minus; h4(2c +  c )
+ 4        h4      3    4    5
+        0 &minus; (&minus; 1)   &pi; &#x2215;2
+    =   ---------&minus; ----(2 &sdot; 0,5956302 + 0,0491874 ) = &minus; 0,0128772
+          &pi;&#x2215;2        3
+" class="math-display" ></center>
+</div>Portanto,
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main913x.png" alt="       (
+       || x &minus; 0,049x2 &minus; 0,12x3                            ,0 &le; x &#x003C; &pi;
+       ||||                                                         2
+       |{ 1 + &minus; 0,01(x &minus; &pi;2) &minus; 0,6(x &minus; &pi;2)2 + 0,13(x &minus; &pi;2)3    , &pi;2 &le; x &#x003C; &pi;
+S(x) = |                          3                               3&pi;-
+       |||| &minus; 0,95(x&minus; &pi; )+ 0,13(x &minus; &pi;)                      ,&pi; &le; x &#x003C;  2
+       ||( &minus; 1 &minus; 0,01(x &minus; 3&pi;)+  0,6(x &minus; 3&pi;)2 &minus; 0,12(x&minus; 3&pi;)3 , 3&pi;-&le; x &le; 2&pi;
+                        2           2              2      2
+" class="math-display" ></center></td></tr></table>
                                                                           
 
                                                                           
-<!--l. 303--><p class="noindent" >
-   <h4 class="subsectionHead"><span class="titlemark">7.1.5   </span> <a 
- id="x75-1190007.1.5"></a>Aproximação para a segunda derivada</h4>
-<a 
- id="dx75-119001"></a>
-<!--l. 305--><p class="noindent" >Para aproximar a derivada segunda, considere as expansões em série de
-Taylor
-   <center class="math-display" >
-<img 
-src="main957x.png" alt="                                2           3
-f (x0 + h ) = f(x0) + hf&prime;(x0) + h-f&prime;&prime;(x0) + h--f&prime;&prime;&prime;(x0) + O (h4)
-                               2           6
-" class="math-display" ></center>
-   <center class="math-display" >
-<img 
-src="main958x.png" alt="                                2          3
-f(x0 &minus; h) = f (x0 ) &minus; hf &prime;(x0) + h-f&prime;&prime;(x0) &minus; h-f &prime;&prime;&prime;(x0) + O (h4).
-                               2           6  " class="math-display" ></center>
-Somando as duas expressões, temos:
-   <center class="math-display" >
-<img 
-src="main959x.png" alt="                                   2 &prime;&prime;          4
-f(x0 + h) + f(x0 &minus; h) = 2f (x0) + h f (x0) + O(h )  " class="math-display" ></center> ou
-seja, uma aproximação de segunda ordem para a derivada segunda em <span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">0</span></sub>
-é
-   <center class="math-display" >
-<img 
-src="main960x.png" alt=" &prime;&prime;       f(x0-+-h)-&minus;-2f-(x0-) +-f-(x0 &minus;-h-)     2      2             2
-f (x0) =               h2               +  O(h ) := D 0,hf(x0 ) + O (h ),  " class="math-display" ></center>
-onde
-   <center class="math-display" >
-<img 
-src="main961x.png" alt="  2          f(x0-+-h) &minus;-2f(x0)-+-f(x0-&minus;-h)-
-D 0,hf(x0 ) =               h2              .
-" class="math-display" ></center>
-   <div class="newtheorem">
-<!--l. 324--><p class="noindent" ><span class="head">
-<a 
- id="x75-119002r6"></a>
+<!--l. 1478--><p class="nopar" >
+<!--l. 1482--><p class="indent" >   No <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">Scilab</span></span></span>, podemos resolver este problema fazendo: <div class="verbatiminput">
 <span 
-class="ec-lmbx-12">Exemplo 7.1.6.</span>  </span>Calcule a derivada segunda numérica de <span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) = </span><span 
-class="lmmi-12">e</span><sup><span 
-class="lmsy8-">&minus;</span><span 
-class="lmmi-8">x</span><sup><span 
-class="rm-lmr-6">2</span></sup></sup>  em
+class="ec-lmtt-12">//limpa</span><span 
+class="ec-lmtt-12">&#x00A0;memoria</span>
 <span 
-class="lmmi-12">x </span><span 
-class="rm-lmr-12">= 1</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">5 </span>para <span 
-class="lmmi-12">h </span><span 
-class="rm-lmr-12">= 0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">1</span>, <span 
-class="lmmi-12">h </span><span 
-class="rm-lmr-12">= 0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">01 </span>e <span 
-class="lmmi-12">h </span><span 
-class="rm-lmr-12">= 0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">001</span>.
-   </div>
-<!--l. 327--><p class="indent" >
-   <div class="proof">
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">clear</span><span 
+class="ec-lmtt-12">&#x00A0;A,</span><span 
+class="ec-lmtt-12">&#x00A0;B,</span><span 
+class="ec-lmtt-12">&#x00A0;a,</span><span 
+class="ec-lmtt-12">&#x00A0;b,</span><span 
+class="ec-lmtt-12">&#x00A0;c,</span><span 
+class="ec-lmtt-12">&#x00A0;d</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">//pontos</span><span 
+class="ec-lmtt-12">&#x00A0;fornecidos</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">xi</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;[0;</span><span 
+class="ec-lmtt-12">&#x00A0;%pi/2;</span><span 
+class="ec-lmtt-12">&#x00A0;%pi;</span><span 
+class="ec-lmtt-12">&#x00A0;3*%pi/2;</span><span 
+class="ec-lmtt-12">&#x00A0;2*%pi]</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">yi</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;sin(xi)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">//numero</span><span 
+class="ec-lmtt-12">&#x00A0;de</span><span 
+class="ec-lmtt-12">&#x00A0;pontos</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">n</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;5</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">disp(</span><span 
+class="ts1-lmtt12-">&#8217;</span><span 
+class="ec-lmtt-12">Pontos</span><span 
+class="ec-lmtt-12">&#x00A0;fornecidos:</span><span 
+class="ts1-lmtt12-">&#8217;</span><span 
+class="ec-lmtt-12">)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">disp([xi,</span><span 
+class="ec-lmtt-12">&#x00A0;yi])</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">//vetor</span><span 
+class="ec-lmtt-12">&#x00A0;h</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">h</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;xi(2:n)</span><span 
+class="ec-lmtt-12">&#x00A0;-</span><span 
+class="ec-lmtt-12">&#x00A0;xi(1:n-1);</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">//matriz</span><span 
+class="ec-lmtt-12">&#x00A0;A</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">for</span><span 
+class="ec-lmtt-12">&#x00A0;i=1:n</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;for</span><span 
+class="ec-lmtt-12">&#x00A0;j=1:n</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;if</span><span 
+class="ec-lmtt-12">&#x00A0;((j==1)</span><span 
+class="ec-lmtt-12">&#x00A0;&amp;</span><span 
+class="ec-lmtt-12">&#x00A0;(i==1))</span><span 
+class="ec-lmtt-12">&#x00A0;then</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;A(i,j)</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;2*h(1);</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;elseif</span><span 
+class="ec-lmtt-12">&#x00A0;(j</span><span 
+class="ec-lmtt-12">&#x00A0;==</span><span 
+class="ec-lmtt-12">&#x00A0;i-1)</span><span 
+class="ec-lmtt-12">&#x00A0;then</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;A(i,j)</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;h(i-1);</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;elseif</span><span 
+class="ec-lmtt-12">&#x00A0;((i&#x003E;1)</span><span 
+class="ec-lmtt-12">&#x00A0;&amp;</span><span 
+class="ec-lmtt-12">&#x00A0;(i&#x003C;n)</span><span 
+class="ec-lmtt-12">&#x00A0;&amp;</span><span 
+class="ec-lmtt-12">&#x00A0;(i==j))</span><span 
+class="ec-lmtt-12">&#x00A0;then</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;A(i,j)</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;2*(h(i)</span><span 
+class="ec-lmtt-12">&#x00A0;+</span><span 
+class="ec-lmtt-12">&#x00A0;h(i-1));</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;elseif</span><span 
+class="ec-lmtt-12">&#x00A0;(j==i+1)</span><span 
+class="ec-lmtt-12">&#x00A0;then</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;A(i,j)</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;h(i);</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;elseif</span><span 
+class="ec-lmtt-12">&#x00A0;((j==n)</span><span 
+class="ec-lmtt-12">&#x00A0;&amp;</span><span 
+class="ec-lmtt-12">&#x00A0;(i==n))</span><span 
+class="ec-lmtt-12">&#x00A0;then</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;A(i,j)</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;2*h(n-1);</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;else</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;A(i,j)</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;0;</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;end</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;end</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">end</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">disp(</span><span 
+class="ts1-lmtt12-">&#8217;</span><span 
+class="ec-lmtt-12">Matriz</span><span 
+class="ec-lmtt-12">&#x00A0;A:</span><span 
+class="ts1-lmtt12-">&#8217;</span><span 
+class="ec-lmtt-12">)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">disp(A)</span>
                                                                           
 
                                                                           
-<!--l. 327--><p class="indent" >   <span class="head">
 <span 
-class="ec-lmbx-12">Solu</span><span 
-class="ec-lmbx-12">ç</span><span 
-class="ec-lmbx-12">ão.</span> </span> A tabela mostra os resultados:
-   <center class="math-display" >
-<img 
-src="main962x.png" alt="|-----------|----------|-----------|----------|
-|    h      | h = 0,1  | h = 0,01  |h = 0,001 |
-|-----------|----------|-----------|----------|
-|D20,hf(1,5) |0,7364712  |0,7377814  |0,7377944  |
-|-----------|----------------------------------
-|           |
-" class="math-display" ></center> Observe que <span 
-class="lmmi-12">f</span><span 
-class="lmsy-10x-x-120">&prime;&prime;</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) = (4</span><span 
-class="lmmi-12">x</span><sup><span 
-class="rm-lmr-8">2</span></sup> <span 
-class="lmsy-10x-x-120">&minus; </span><span 
-class="rm-lmr-12">2)</span><span 
-class="lmmi-12">e</span><sup><span 
-class="lmsy8-">&minus;</span><span 
-class="lmmi-8">x</span><sup><span 
-class="rm-lmr-6">2</span></sup></sup>  e <span 
-class="lmmi-12">f</span><span 
-class="lmsy-10x-x-120">&prime;&prime;</span><span 
-class="rm-lmr-12">(1</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">5) = 0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">7377946</span>.                    <span 
-class="msam-10x-x-120">&#x2662;</span>
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">//vetor</span><span 
+class="ec-lmtt-12">&#x00A0;z</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">for</span><span 
+class="ec-lmtt-12">&#x00A0;i=1:n</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;if</span><span 
+class="ec-lmtt-12">&#x00A0;((i==1))</span><span 
+class="ec-lmtt-12">&#x00A0;then</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;z(i)</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;3*(yi(2)-yi(1))/h(1)</span><span 
+class="ec-lmtt-12">&#x00A0;-</span><span 
+class="ec-lmtt-12">&#x00A0;3*cos(xi(1));</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;elseif</span><span 
+class="ec-lmtt-12">&#x00A0;((i&#x003E;1)</span><span 
+class="ec-lmtt-12">&#x00A0;&amp;</span><span 
+class="ec-lmtt-12">&#x00A0;(i</span><span 
+class="ec-lmtt-12">&#x00A0;&#x003C;</span><span 
+class="ec-lmtt-12">&#x00A0;n))</span><span 
+class="ec-lmtt-12">&#x00A0;then</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;z(i)</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;3*(yi(i+1)-yi(i))/h(i)</span><span 
+class="ec-lmtt-12">&#x00A0;...</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;-</span><span 
+class="ec-lmtt-12">&#x00A0;3*(yi(i)</span><span 
+class="ec-lmtt-12">&#x00A0;-</span><span 
+class="ec-lmtt-12">&#x00A0;yi(i-1))/h(i-1);</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;elseif</span><span 
+class="ec-lmtt-12">&#x00A0;(i</span><span 
+class="ec-lmtt-12">&#x00A0;==</span><span 
+class="ec-lmtt-12">&#x00A0;n)</span><span 
+class="ec-lmtt-12">&#x00A0;then</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;z(i)</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;3*cos(xi(n))</span><span 
+class="ec-lmtt-12">&#x00A0;-</span><span 
+class="ec-lmtt-12">&#x00A0;3*(yi(n)</span><span 
+class="ec-lmtt-12">&#x00A0;-</span><span 
+class="ec-lmtt-12">&#x00A0;yi(n-1))/h(n-1);</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;end</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">end</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">disp(</span><span 
+class="ts1-lmtt12-">&#8217;</span><span 
+class="ec-lmtt-12">Vetor</span><span 
+class="ec-lmtt-12">&#x00A0;z:</span><span 
+class="ts1-lmtt12-">&#8217;</span><span 
+class="ec-lmtt-12">)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">disp(z)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">//coeficientes</span><span 
+class="ec-lmtt-12">&#x00A0;c</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">c</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;inv(A)*z</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">disp(</span><span 
+class="ts1-lmtt12-">&#8217;</span><span 
+class="ec-lmtt-12">Coeficientes</span><span 
+class="ec-lmtt-12">&#x00A0;c:</span><span 
+class="ts1-lmtt12-">&#8217;</span><span 
+class="ec-lmtt-12">)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">disp(c)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">//coeficientes</span><span 
+class="ec-lmtt-12">&#x00A0;a</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">a</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;yi(1:n-1);</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">disp(</span><span 
+class="ts1-lmtt12-">&#8217;</span><span 
+class="ec-lmtt-12">Coeficientes</span><span 
+class="ec-lmtt-12">&#x00A0;a:</span><span 
+class="ts1-lmtt12-">&#8217;</span><span 
+class="ec-lmtt-12">)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">disp(a)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">//coeficientes</span><span 
+class="ec-lmtt-12">&#x00A0;b</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">for</span><span 
+class="ec-lmtt-12">&#x00A0;j=1:n-1</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;b(j)</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;(3*yi(j+1)</span><span 
+class="ec-lmtt-12">&#x00A0;-</span><span 
+class="ec-lmtt-12">&#x00A0;3*yi(j)</span><span 
+class="ec-lmtt-12">&#x00A0;-</span><span 
+class="ec-lmtt-12">&#x00A0;2*c(j)*h(j)^2</span><span 
+class="ec-lmtt-12">&#x00A0;...</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;-</span><span 
+class="ec-lmtt-12">&#x00A0;c(j+1)*h(j)^2)/(3*h(j));</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">end</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">disp(</span><span 
+class="ts1-lmtt12-">&#8217;</span><span 
+class="ec-lmtt-12">Coeficientes</span><span 
+class="ec-lmtt-12">&#x00A0;b:</span><span 
+class="ts1-lmtt12-">&#8217;</span><span 
+class="ec-lmtt-12">)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">disp(b)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">//coeficientes</span><span 
+class="ec-lmtt-12">&#x00A0;d</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">for</span><span 
+class="ec-lmtt-12">&#x00A0;j=1:n-1</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;d(j)</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;(c(j+1)</span><span 
+class="ec-lmtt-12">&#x00A0;-</span><span 
+class="ec-lmtt-12">&#x00A0;c(j))/(3*h(j));</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">end</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">disp(</span><span 
+class="ts1-lmtt12-">&#8217;</span><span 
+class="ec-lmtt-12">Coeficientes</span><span 
+class="ec-lmtt-12">&#x00A0;d:</span><span 
+class="ts1-lmtt12-">&#8217;</span><span 
+class="ec-lmtt-12">)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">disp(d)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">//spline</span><span 
+class="ec-lmtt-12">&#x00A0;cubico</span><span 
+class="ec-lmtt-12">&#x00A0;obtido</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">function</span><span 
+class="ec-lmtt-12">&#x00A0;[y]</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;s(x)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;for</span><span 
+class="ec-lmtt-12">&#x00A0;i=1:n-2</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;if</span><span 
+class="ec-lmtt-12">&#x00A0;((x&#x003E;=xi(i))</span><span 
+class="ec-lmtt-12">&#x00A0;&amp;</span><span 
+class="ec-lmtt-12">&#x00A0;(x&#x003C;xi(i+1)))</span><span 
+class="ec-lmtt-12">&#x00A0;then</span>
+                                                                          
+
+                                                                          
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;y</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;a(i)</span><span 
+class="ec-lmtt-12">&#x00A0;+</span><span 
+class="ec-lmtt-12">&#x00A0;b(i)*(x-xi(i))</span><span 
+class="ec-lmtt-12">&#x00A0;...</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;+</span><span 
+class="ec-lmtt-12">&#x00A0;c(i)*(x-xi(i))^2</span><span 
+class="ec-lmtt-12">&#x00A0;+</span><span 
+class="ec-lmtt-12">&#x00A0;d(i)*(x-xi(i))^3;</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;end</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;end</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;if</span><span 
+class="ec-lmtt-12">&#x00A0;((x&#x003E;=xi(n-1))</span><span 
+class="ec-lmtt-12">&#x00A0;&amp;</span><span 
+class="ec-lmtt-12">&#x00A0;(x&#x003C;=xi(n)))</span><span 
+class="ec-lmtt-12">&#x00A0;then</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;y</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;a(n-1)</span><span 
+class="ec-lmtt-12">&#x00A0;+</span><span 
+class="ec-lmtt-12">&#x00A0;b(n-1)*(x-xi(n-1))</span><span 
+class="ec-lmtt-12">&#x00A0;...</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;+</span><span 
+class="ec-lmtt-12">&#x00A0;c(n-1)*(x-xi(n-1))^2</span><span 
+class="ec-lmtt-12">&#x00A0;+</span><span 
+class="ec-lmtt-12">&#x00A0;d(n-1)*(x-xi(n-1))^3;</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;end</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">endfunction</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br />
    </div>
-<!--l. 341--><p class="noindent" >
-   <h4 class="subsectionHead"><span class="titlemark">7.1.6   </span> <a 
- id="x75-1200007.1.6"></a>Derivada via ajuste ou interpolação</h4>
-<a 
- id="dx75-120001"></a>
-<a 
- id="dx75-120002"></a>
-<!--l. 343--><p class="noindent" >Dado os valores de uma função em pontos <span 
-class="lmsy-10x-x-120">{</span><span 
+<!--l. 1486--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">6.8.3   </span> <a 
+ id="x70-1120006.8.3"></a>Resumo sobre Splines</h4>
+<!--l. 1488--><p class="noindent" >Dado um conjunto de pontos <span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">x</span><sub><span 
 class="lmmi-8">i</span></sub><span 
 class="lmmi-12">,y</span><sub><span 
 class="lmmi-8">i</span></sub><span 
-class="rm-lmr-12">)</span><span 
-class="lmsy-10x-x-120">}</span><sub><span 
-class="lmmi-8">i</span><span 
-class="rm-lmr-8">=1</span></sub><sup><span 
-class="lmmi-8">N</span></sup>, as derivadas <img 
-src="main963x.png" alt="(  )
- ddyx"  class="left" align="middle"><sub><span 
-class="lmmi-8">i</span></sub>
-podem ser obtidas através da derivada de uma curva que melhor ajusta ou
-interpola os pontos. Esse tipo de técnica é necessário quando os pontos são muito
-espaçados entre si ou quando a função oscila muito. Por exemplo, dado os
-pontos <span 
-class="rm-lmr-12">(0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">1)</span>, <span 
-class="rm-lmr-12">(1</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">2)</span>, <span 
-class="rm-lmr-12">(2</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">5)</span>, <span 
-class="rm-lmr-12">(3</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">9)</span>, a parábola que melhor ajusta os pontos
-é
-                                                                          
-
-                                                                          
-   <center class="math-display" >
-<img 
-src="main964x.png" alt="Q (x) = 0,95 + 0,45x + 0,75x2.  " class="math-display" ></center>
-Usando esse ajuste para calcular as derivadas, temos:
-   <center class="math-display" >
-<img 
-src="main965x.png" alt="Q &prime;(x) = 0,45 + 1,5x  " class="math-display" ></center> e
-<div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main966x.png" alt=" &prime;         &prime;                     &prime;         &prime;
-y (x1) &asymp; Q (x1) = 0,45,         y (x2) &asymp; Q (x2) = 1,95,
-y&prime;(x3) &asymp; Q &prime;(x3) = 3,45     e      y&prime;(x4) &asymp; Q &prime;(x4 ) = 4,95
-" class="math-display" ></center>
-</div>
-<!--l. 356--><p class="indent" >   Agora olhe o gráfico da seguinte tabela de pontos.
-                                                                          
-
-                                                                          
-   <center class="math-display" >
-<img 
-src="main967x.png" alt="|----|------|
-|    |      |
-|-x--|-y----|
-| 0  |1,95  |
-|----|------|
-| 1  |1,67  |
-|----|------|
-| 2  |3,71  |
-|----|------|
-| 3  |3,37  |
-|----|------|
-|-4--|5,12--|
-|    |      |
-|-5--|5,79--|
-|    |      |
-|-6--|7,50--|
-| 7  |7,55  |
-|----|------|
-| 8  |9,33  |
-|----|------|
-| 9  |9,41  |
-|----|------|
-|10--|11,48--|
-|    |
-" class="math-display" ></center>
-<div class="center" 
->
-<!--l. 386--><p class="noindent" >
-                                                                          
-
-                                                                          
-<!--l. 387--><p class="noindent" ><img 
-src="main968x.png" alt="PIC" class="graphics" width="306.14374pt" height="230.86249pt" ><!--tex4ht:graphics  
-name="main968x.png" src="./cap_derint/pics/graf_der.eps"  
---></div>
-<!--l. 390--><p class="indent" >   Observe que as derivadas calculadas por diferenças finitas oscilam entre um
-valor pequeno e um grande em cada intervalo e além disso, a fórmula progressiva
-difere da regressiva significantemente. Por exemplo, por diferenças regressivas
-<span 
-class="lmmi-12">f</span><span 
-class="lmsy-10x-x-120">&prime;</span><span 
-class="rm-lmr-12">(7) </span><span 
-class="lmsy-10x-x-120">&asymp;</span><img 
-src="main969x.png" alt="(7,55&minus;7,50)
-    1"  class="frac" align="middle"> <span 
-class="rm-lmr-12">= 0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">05 </span>e por diferenças progressivas <span 
-class="lmmi-12">f</span><span 
-class="lmsy-10x-x-120">&prime;</span><span 
-class="rm-lmr-12">(7) </span><span 
-class="lmsy-10x-x-120">&asymp;</span><img 
-src="main970x.png" alt="(9,33&minus;7,55)
-    1"  class="frac" align="middle"> <span 
+class="rm-lmr-12">)</span>, <span 
+class="lmmi-12">i </span><span 
 class="rm-lmr-12">= 1</span><span 
 class="lmmi-12">,</span><span 
-class="rm-lmr-12">78</span>. A
-melhor forma de calcular a derivada aqui é fazer um ajuste de curva. A reta que
-melhor ajusta os dados da tabela é <span 
-class="lmmi-12">y </span><span 
-class="rm-lmr-12">= </span><span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) = 1</span><span 
+class="rm-lmr-12">2</span><span 
 class="lmmi-12">,</span><span 
-class="rm-lmr-12">2522727 + 0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">9655455</span><span 
-class="lmmi-12">x</span>. Usando
-esse ajuste, temos <span 
-class="lmmi-12">f</span><span 
-class="lmsy-10x-x-120">&prime;</span><span 
-class="rm-lmr-12">(7) </span><span 
-class="lmsy-10x-x-120">&asymp; </span><span 
-class="rm-lmr-12">0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">9655455</span>.
+class="lmmi-12">&hellip;</span><span 
+class="lmmi-12">,n</span>, um spline cúbico é a seguinte
+função interpoladora definida por partes:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main914x.png" alt="       (|                           2            3
+       ||||  a1 + b1(x &minus; x1)+ c1(x&minus; x1) + d1(x&minus; x1 )                  ,x1 &le; x &#x003C; x2
+       ||{  a2 + b2(x &minus; x2)+ c2(x&minus; x2)2 + d2(x&minus; x2 )3                  ,x2 &le; x &#x003C; x3
+S(x) =            .                                                    .
+       ||||          ..                                                    ..
+       |||(                                       2                3
+          an&minus;1 + bn&minus; 1(x &minus; xn&minus; 1)+ cn&minus;1(x&minus;  xn&minus;1) + dn&minus;1(x &minus; xn&minus;1)   ,xn&minus;1 &le; x &le; xn
+" class="math-display" ></center></td></tr></table>
+<!--l. 1496--><p class="nopar" >
                                                                           
 
                                                                           
-   <!--l. 392--><div class="crosslinks"><p class="noindent">[<a 
-href="mainse44.html" >next</a>] [<a 
+<!--l. 1499--><p class="indent" >   Definindo-se <span 
+class="lmmi-12">h</span><sub><span 
+class="lmmi-8">j</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">+1</span></sub> <span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub>, os coeficientes <span 
+class="lmmi-12">c</span><sub><span 
+class="lmmi-8">j</span></sub>, <span 
+class="lmmi-12">j </span><span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&hellip;</span><span 
+class="lmmi-12">,n</span>, são solução do
+sistema linear <span 
+class="lmmi-12">Ac </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">z</span>, onde:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main915x.png" alt="|--------------------------------------|--------------------------------------|
+|Spline Natural                         |Spline Fixado                         |
+| &prime;&prime;           &prime;&prime;                        | &prime;        &prime;      &prime;          &prime;         |
+|s1(x1) =(-0-e-sn&minus;1(xn) =-0-------------|s1(x1) =(-f-(x1)-e sn&minus;1(xn)-=-f-(xn)---|
+|      || 1            ,j = i = 1       |      || 2h           ,j = i = 1       |
+|      ||||                               |      ||||    1                          |
+|      |||| hi&minus;1         ,j = i&minus; 1,i &#x003C; n  |      |||| hi&minus;1         ,j = i&minus; 1        |
+|      ||||                               |      ||||                               |
+|      { 2(hi + hi&minus;1) ,j = i,1 &#x003C; i &#x003C; n  |      { 2(hi + hi&minus; 1) ,j = i,1 &#x003C; i &#x003C; n |
+|ai,j = ||                               |ai,j = ||                               |
+|      |||| hi           ,j = i+ 1,i &#x003E; 1  |      |||| hi           ,j = i+ 1        |
+|      |||| 1            ,j = i = n       |      |||| 2hn &minus;1       ,j = i = n       |
+|      ||||                               |      ||||                               |
+|      ( 0            ,caso contrário. |      ( 0            ,caso contrário.  |
+|                                      |                                      |
+|    (                                 |    (                                 |
+|    |||  0                  ,i = 1      |    |||  3y2&minus;y1&minus;  3f&prime;(x1)    ,i = 1      |
+|    |{                                 |    |{     h1                          |
+|zi = | 3yi+1h&minus;i-yi &minus; 3yi&minus;hiyi&minus;&minus;11  ,1 &#x003C; i &#x003C; n  |zi = | 3yi+h1i&minus;yi&minus; 3yih&minus;iy&minus;i&minus;11  ,1 &#x003C; i &#x003C; n  |
+|    |||(                                 |    |||(    &prime;        yn&minus;-yn&minus;1-             |
+--------0------------------,i =-n--------------3f-(xn)&minus;-3--hn&minus;1---,i-=-n-------
+" class="math-display" ></center></td></tr></table>
+<!--l. 1540--><p class="nopar" >
+os coeficientes <span 
+class="lmmi-12">a</span><sub><span 
+class="lmmi-8">j</span></sub>, <span 
+class="lmmi-12">b</span><sub><span 
+class="lmmi-8">j</span></sub> e <span 
+class="lmmi-12">d</span><sub><span 
+class="lmmi-8">j</span></sub>, <span 
+class="lmmi-12">j </span><span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&hellip;</span><span 
+class="lmmi-12">,n </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">1</span>, são calculados conforme segue:
+<div class="eqnarray">
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main916x.png" alt="aj  =   yj
+        3yj+1 &minus; 3yj &minus; 2cjh2j &minus; cj+1h2j
+bj  =   ------------3h--------------
+                       j
+d   =   cj+1 &minus;-cj
+ j         3hj
+" class="math-display" ></center>
+</div>
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+   <!--l. 6--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse31.html" >prev</a>] [<a 
+href="mainse31.html#tailmainse31.html" >prev-tail</a>] [<a 
 href="mainse32.html" >front</a>] [<a 
-href="mainap1.html#mainse43.html" >up</a>] </p></div>
-<!--l. 392--><p class="indent" >   <a 
+href="mainse38.html#mainse45.html" >up</a>] </p></div>
+<!--l. 6--><p class="indent" >   <a 
  id="tailmainse32.html"></a>   
 </body></html> 
