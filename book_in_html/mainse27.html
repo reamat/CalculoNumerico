@@ -1,536 +1,214 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
   "http://www.w3.org/TR/html4/loose.dtd">  
 <html xml:lang="pt" > 
-<head><title>Aproximaçao de funçoes reais por polinomios interpoladores</title> 
+<head><title>Polinomios de Lagrange</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
 <meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html,3,notoc*,info --> 
 <meta name="src" content="main.tex"> 
-<meta name="date" content="2016-10-18 11:11:00"> 
+<meta name="date" content="2016-10-21 19:32:00"> 
 <link rel="stylesheet" type="text/css" href="main.css"> 
 </head><body 
 >
-   <!--l. 247--><div class="crosslinks"><p class="noindent">[<a 
-href="mainse38.html" >next</a>] [<a 
+   <!--l. 206--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse41.html" >next</a>] [<a 
 href="mainse26.html" >prev</a>] [<a 
 href="mainse26.html#tailmainse26.html" >prev-tail</a>] [<a 
 href="#tailmainse27.html">tail</a>] [<a 
-href="mainch8.html#mainse37.html" >up</a>] </p></div>
-   <h3 class="sectionHead"><span class="titlemark">6.4   </span> <a 
- id="x66-1000006.4"></a>Aproximação de funções reais por polinômios interpoladores</h3>
+href="mainse38.html#mainse40.html" >up</a>] </p></div>
+   <h3 class="sectionHead"><span class="titlemark">6.3   </span> <a 
+ id="x64-990006.3"></a>Polinômios de Lagrange</h3>
 <a 
- id="dx66-100001"></a>
-   <div class="newtheorem">
-<!--l. 249--><p class="noindent" ><span class="head">
-<a 
- id="x66-100002r1"></a>
-<span 
-class="ec-lmbx-12">Teorema 6.4.1.</span>  </span> <span 
-class="ec-lmri-12">Dados </span><span 
-class="lmmi-12">n </span><span 
-class="rm-lmr-12">+ 1 </span><span 
-class="ec-lmri-12">pontos distintos, </span><span 
+ id="dx64-99001"></a>
+<!--l. 207--><p class="noindent" >Outra maneira clássica de resolver o problema da interpolação polinomial é
+através dos polinômios de Lagrange. Dado um conjunto de pontos <span 
+class="lmsy-10x-x-120">{</span><span 
 class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">0</span></sub><span 
-class="lmmi-12">,</span><span 
-class="lmmi-12">&#x00A0;x</span><sub><span 
-class="rm-lmr-8">1</span></sub><span 
-class="lmmi-12">,</span><span 
-class="lmmi-12">&#x00A0;</span><img 
-src="main774x.png" alt="&sdot;&sdot;&sdot;"  class="@cdots" ><span style="margin-left:0.3em" class="thinspace"></span><span 
-class="lmmi-12">,</span><span 
-class="lmmi-12">&#x00A0;x</span><sub><span 
-class="lmmi-8">n</span></sub><span 
-class="ec-lmri-12">, dentro de</span>
-<span 
-class="ec-lmri-12">um intervalo </span><span 
-class="rm-lmr-12">[</span><span 
-class="lmmi-12">a,b</span><span 
-class="rm-lmr-12">]  </span><span 
-class="ec-lmri-12">e uma fun</span><span 
-class="ec-lmri-12">ç</span><span 
-class="ec-lmri-12">ão </span><span 
-class="lmmi-12">f  </span><span 
-class="ec-lmri-12">com </span><span 
+class="lmmi-8">j</span></sub><span 
+class="lmsy-10x-x-120">}</span><sub><span 
+class="lmmi-8">j</span><span 
+class="rm-lmr-8">=1</span></sub><sup><span 
+class="lmmi-8">n</span></sup>
+distintos dois a dois, definimos os polinômios de Lagrange como os polinômios de
+grau <span 
 class="lmmi-12">n </span><span 
-class="rm-lmr-12">+ 1  </span><span 
-class="ec-lmri-12">derivadas cont</span><span 
-class="ec-lmri-12">ínuas nesse</span>
-<span 
-class="ec-lmri-12">intervalo (</span><span 
-class="lmmi-12">f </span><span 
-class="lmsy-10x-x-120">&isin; </span><span 
-class="lmmi-12">C</span><sup><span 
-class="lmmi-8">n</span><span 
-class="rm-lmr-8">+1</span></sup><span 
-class="rm-lmr-12">[</span><span 
-class="lmmi-12">a,b</span><span 
-class="rm-lmr-12">]</span><span 
-class="ec-lmri-12">), ent</span><span 
-class="ec-lmri-12">ão para cada </span><span 
-class="lmmi-12">x </span><span 
-class="ec-lmri-12">em </span><span 
-class="rm-lmr-12">[</span><span 
-class="lmmi-12">a,b</span><span 
-class="rm-lmr-12">]</span><span 
-class="ec-lmri-12">, existe um n</span><span 
-class="ec-lmri-12">úmero </span><span 
-class="lmmi-12">&xi;</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">)</span>
-<span 
-class="ec-lmri-12">em </span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">a,b</span><span 
-class="rm-lmr-12">) </span><span 
-class="ec-lmri-12">tal que</span>
-   <center class="math-display" >
-<img 
-src="main775x.png" alt="                (n+1)
-f(x) = P (x) + f----(&xi;(x))(x &minus; x  )(x &minus; x  )&sdot;&sdot;&sdot;(x &minus; x ),
-                 (n + 1)!        0       1          n
-" class="math-display" ></center> <span 
-class="ec-lmri-12">onde </span><span 
-class="lmmi-12">P</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span><span 
-class="ec-lmri-12">é o polin</span><span 
-class="ec-lmri-12">ômio interpolador. Em especial, pode-se dizer que</span>
-   <center class="math-display" >
-<img 
-src="main776x.png" alt="                ---M----
-|f (x) &minus; P(x )| &le; (n + 1)! |(x &minus; x0)(x &minus; x1)&sdot;&sdot; &sdot;(x &minus; xn )|,
-" class="math-display" ></center> <span 
-class="ec-lmri-12">onde</span>
-   <center class="math-display" >
-<img 
-src="main777x.png" alt="M  =  max  |f(n+1)(&xi;(x))|
-      x&isin;[a,b]
-" class="math-display" ></center>
-   </div>
-   <div class="newtheorem">
-<!--l. 264--><p class="noindent" ><span class="head">
-<a 
- id="x66-100003r1"></a>
-<span 
-class="ec-lmbx-12">Exemplo 6.4.1.</span>  </span>Considere a função <span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) =</span> <span 
-class="rm-lmr-12">cos</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span>e o polinômio <span 
-class="lmmi-12">P</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span>de
-grau 2 tal que <span 
-class="lmmi-12">P</span><span 
-class="rm-lmr-12">(0) =</span> <span 
-class="rm-lmr-12">cos</span><span 
-class="rm-lmr-12">(0) = 1</span>, <span 
-class="lmmi-12">P</span><span 
-class="rm-lmr-12">(</span><img 
-src="main778x.png" alt="12"  class="frac" align="middle"><span 
-class="rm-lmr-12">) =</span> <span 
-class="rm-lmr-12">cos</span><span 
-class="rm-lmr-12">(</span><img 
-src="main779x.png" alt="12"  class="frac" align="middle"><span 
-class="rm-lmr-12">) </span>e <span 
-class="lmmi-12">P</span><span 
-class="rm-lmr-12">(1) =</span> <span 
-class="rm-lmr-12">cos</span><span 
-class="rm-lmr-12">(1)</span>. Use a
-fórmula de Lagrange para encontrar <span 
-class="lmmi-12">P</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">)</span>. Encontre o erro máximo que se
-assume ao aproximar o valor de <span 
-class="rm-lmr-12">cos</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span>pelo de <span 
-class="lmmi-12">P</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span>no intervalo <span 
-class="rm-lmr-12">[0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">1]</span>. Trace
-os gráficos de <span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span>e <span 
-class="lmmi-12">P</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span>no intervalo <span 
-class="rm-lmr-12">[0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">1] </span>no mesmo plano cartesiano e,
-depois, trace o gráfico da diferença <span 
-class="rm-lmr-12">cos</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span><span 
 class="lmsy-10x-x-120">&minus; </span><span 
-class="lmmi-12">P</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">)</span>. Encontre o erro efetivo
-máximo <span 
-class="lmsy-10x-x-120">|</span> <span 
-class="rm-lmr-12">cos</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span><span 
+class="rm-lmr-12">1 </span>que satisfazem
+   <center class="math-display" >
+<img 
+src="main764x.png" alt="         (
+         |{
+Lk(xj) =    1, se k = j
+         |(  0, se k &frasl;= j  " class="math-display" ></center>
+Assim, o polinômio de grau <span 
+class="lmmi-12">n </span><span 
 class="lmsy-10x-x-120">&minus; </span><span 
-class="lmmi-12">P</span><span 
+class="rm-lmr-12">1 </span>que interpola os pontos dados, tais
+<span 
+class="lmmi-12">p</span><span 
 class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">)</span><span 
-class="lmsy-10x-x-120">|</span>.
-   </div>
-<!--l. 268--><p class="noindent" ><div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main780x.png" alt="            (x &minus;  1)(x &minus; 1)      ( 1) (x &minus; 0)(x &minus; 1)         (x &minus; 0)(x &minus; 1)
-P (x)  =  1 -----21--------+  cos  -- -1------1----- + cos(1)------------21-
-            (0 &minus; 2)(0 &minus; 1 )       2  (2 &minus; 0)(2 &minus; 1)         (1 &minus; 0)(1 &minus; 2)
-       &asymp;  1 &minus; 0,0299720583066x  &minus;  0,4297256358252x2
-" class="math-display" ></center>
-</div>
-                                                                          
-
-                                                                          
-   <div class="verbatim" id="verbatim-42">
-L1=poly([.5&#x00A0;1],&#8217;x&#8217;);L1=L1/horner(L1,0)
-&#x00A0;<br />L2=poly([0&#x00A0;1],&#8217;x&#8217;);L2=L2/horner(L2,0.5)
-&#x00A0;<br />L3=poly([0&#x00A0;.5],&#8217;x&#8217;);L3=L3/horner(L3,1)
-&#x00A0;<br />P=L1+cos(.5)*L2+cos(1)*L3
-&#x00A0;<br />x=[0:.05:1]
-&#x00A0;<br />plot(x,cos)
-&#x00A0;<br />plot(x,horner(P,x),&#8217;red&#8217;)
-&#x00A0;<br />plot(x,horner(P,x)-cos(x))
-</div>
-<!--l. 283--><p class="nopar" >
-<!--l. 286--><p class="indent" >   Para encontrar o erro máximo, precisamos estimar <span 
-class="lmsy-10x-x-120">|</span><span 
-class="lmmi-12">f</span><span 
-class="lmsy-10x-x-120">&prime;&prime;&prime;</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">)</span><span 
-class="lmsy-10x-x-120">| </span><span 
-class="rm-lmr-12">= </span><span 
-class="lmsy-10x-x-120">|</span> <span 
-class="rm-lmr-12">sin</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">)</span><span 
-class="lmsy-10x-x-120">|&le;</span> <span 
-class="rm-lmr-12">sin</span><span 
-class="rm-lmr-12">(1) </span><span 
-class="lmmi-12">&#x003C; </span><span 
-class="rm-lmr-12">0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">85</span>
-e
-   <center class="math-display" >
-<img 
-src="main781x.png" alt="     ||  (    1 )       ||
-max  ||x  x &minus; -- (x &minus; 1 )||
-x&isin;[0,1]       2 " class="math-display" ></center> O
-polinômio de grau três <span 
-class="lmmi-12">Q</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub><span 
 class="rm-lmr-12">) = </span><span 
-class="lmmi-12">x</span><img 
-src="main782x.png" alt="(    1)
- x &minus; 2"  class="left" align="middle"> <span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x </span><span 
-class="lmsy-10x-x-120">&minus; </span><span 
-class="rm-lmr-12">1) </span>tem um mínimo (negativo) em
-<span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">1</span></sub> <span 
-class="rm-lmr-12">=</span> <img 
-src="main783x.png" alt="  &radic;-
-3+6-3-"  class="frac" align="middle"> e um máximo (positivo) em <span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">2</span></sub> <span 
-class="rm-lmr-12">=</span> <img 
-src="main784x.png" alt="  &radic; -
-3&minus;6-3"  class="frac" align="middle">. Logo:
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">j</span></sub><span 
+class="lmmi-12">,j </span><span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&hellip;</span><span 
+class="lmmi-12">,n </span>é dado por
    <center class="math-display" >
 <img 
-src="main785x.png" alt="     |  (      )       |
-     ||       1-        ||
-mxa&isin;x[0,1]|x  x &minus; 2  (x &minus; 1)| &le; max {|Q (x1)|, |Q (x2)|} &asymp; 0,0481125.  " class="math-display" ></center>
-Portanto:
-   <center class="math-display" >
-<img 
-src="main786x.png" alt="                0,85                              &minus; 3
-|f(x ) &minus; P (x)| &#x003C; 3! 0,0481125 &asymp;  0,0068159 &#x003C; 7 &sdot; 10
+src="main765x.png" alt="                                            n&sum;
+p(x) = y1L1(x) + y2L2(x ) + &sdot;&sdot;&sdot; + ynLn(x ) =   ykLk(x)
+                                           k=1
 " class="math-display" ></center>
-<!--l. 299--><p class="indent" >   Para encontrar o erro efetivo máximo, basta encontrar o máximo de
-<span 
-class="lmsy-10x-x-120">|</span><span 
-class="lmmi-12">P</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span><span 
-class="lmsy-10x-x-120">&minus; </span><span 
-class="lmmi-12">cos</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">)</span><span 
-class="lmsy-10x-x-120">|</span>. O mínimo (negativo) de <span 
-class="lmmi-12">P</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span><span 
-class="lmsy-10x-x-120">&minus; </span><span 
-class="lmmi-12">cos</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span>acontece em
-<span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">1</span></sub> <span 
-class="rm-lmr-12">= 4</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">29 </span><span 
-class="lmsy-10x-x-120">&sdot; </span><span 
-class="rm-lmr-12">10</span><sup><span 
-class="lmsy8-">&minus;</span><span 
-class="rm-lmr-8">3</span></sup> e o máximo (positivo) acontece em <span 
-class="lmmi-12">x</span><sub>
-<span 
-class="rm-lmr-8">2</span></sub> <span 
-class="rm-lmr-12">= 3</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">29 </span><span 
-class="lmsy-10x-x-120">&sdot; </span><span 
-class="rm-lmr-12">10</span><sup><span 
-class="lmsy8-">&minus;</span><span 
-class="rm-lmr-8">3</span></sup>. Portanto, o
-erro máximo efetivo é <span 
-class="rm-lmr-12">4</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">29 </span><span 
-class="lmsy-10x-x-120">&sdot; </span><span 
-class="rm-lmr-12">10</span><sup><span 
-class="lmsy8-">&minus;</span><span 
-class="rm-lmr-8">3</span></sup>.
-   <div class="newtheorem">
-<!--l. 301--><p class="noindent" ><span class="head">
-<a 
- id="x66-100005r2"></a>
-<span 
-class="ec-lmbx-12">Exemplo 6.4.2.</span>  </span> Considere o problema de aproximar o valor da integral
-<span 
-class="lmex-10">&int;</span>
- <sub><span 
-class="rm-lmr-8">0</span></sub><sup><span 
-class="rm-lmr-8">1</span></sup><span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">)</span><span 
-class="lmmi-12">dx </span>pelo valor da integral do polinômio <span 
-class="lmmi-12">P</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span>que coincide com <span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">)</span>
-nos pontos <span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">0</span></sub> <span 
-class="rm-lmr-12">= 0</span>, <span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">1</span></sub> <span 
-class="rm-lmr-12">=</span> <img 
-src="main787x.png" alt="1
-2"  class="frac" align="middle"> e <span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">2</span></sub> <span 
-class="rm-lmr-12">= 1</span>. Use a fórmula de Lagrange para encontrar
-<span 
-class="lmmi-12">P</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">)</span>. Obtenha o valor de <span 
-class="lmex-10">&int;</span>
-  <sub><span 
-class="rm-lmr-8">0</span></sub><sup><span 
-class="rm-lmr-8">1</span></sup><span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">)</span><span 
-class="lmmi-12">dx </span>e encontre uma expressão para o erro
-de truncamento.
-   </div>
-<!--l. 304--><p class="indent" >   O polinômio interpolador de <span 
-class="lmmi-12">f</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span>é <div class="eqnarray">
-   <center class="math-display" >
                                                                           
 
                                                                           
-<img 
-src="main788x.png" alt="               (x &minus; 1)(x &minus; 1)     (1) (x &minus; 0 )(x &minus; 1)        (x &minus; 0)(x &minus; 1)
-P (x)  =  f (0)-----21-------- + f  -- --1------1---- + f (1)------------21-
-               (0 &minus; 2)(0 &minus; 1)      2  ( 2 &minus; 0 )( 2 &minus; 1)      (1 &minus; 0)(1 &minus; 2)
-                  2              ( 1)      2                2
-       =  f (0)(2x  &minus;  3x + 1) + f  -- (&minus; 4x +  4x) + f(1)(2x  &minus; x)
-                                   2
-" class="math-display" ></center>
-</div>e a integral de <span 
-class="lmmi-12">P</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span>é: <div class="eqnarray">
+<!--l. 218--><p class="indent" >   Para construir os polinômios de Lagrange, podemos analisar a sua forma
+fatorada, ou seja:
    <center class="math-display" >
 <img 
-src="main789x.png" alt="&int; 1             [    ( 2     3       )]1   [  (1 )(   4        ) ]1
-   P (x )dx  =    f(0)  -x3 &minus; --x2 + x    +  f  --   &minus; -x3 + 2x2
- 0              [    ( 3     2   )]    0       2      3           0
-                       2-3   1- 2  1
-            +    f(1)  3x  &minus; 2 x   0
-                    ( 2   3    )     ( 1) (  4     )       ( 2   1 )
-            =   f(0)  --&minus; --+ 1  + f   --  &minus; --+ 2   + f(1)  --&minus; --
-                      3   2(  )        2     3               3   2
-                1-      2-   1-    1-
-            =   6f(0) + 3 f  2  +  6f(1)
-" class="math-display" ></center>
-</div>Para fazer a estimativa de erro usando o teorema (<a 
-href="#x66-100002r1">6.4.1<!--tex4ht:ref: teo_interp --></a>), e temos <div class="eqnarray">
+src="main766x.png" alt="            n
+Lk (x) = ck&prod;  (x &minus; xj)
+           j=1
+           j&frasl;=i  " class="math-display" ></center>
+onde o coeficiente <span 
+class="lmmi-12">c</span><sub><span 
+class="lmmi-8">k</span></sub> é obtido da condição <span 
+class="lmmi-12">L</span><sub><span 
+class="lmmi-8">k</span></sub><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">k</span></sub><span 
+class="rm-lmr-12">) = 1</span>:
    <center class="math-display" >
 <img 
-src="main790x.png" alt="|                       |     |                 |
-||&int; 1          &int; 1       ||     ||&int; 1              ||
-| 0 f(x )dx &minus;   0 P (x )dx|  =  | 0 f(x ) &minus; P (x)dx|
-                              &int; 1
-                           &le;     |f(x ) &minus; P (x)|dx
-                               0 &int;   | (      )        |
-                              M--  1 ||       1-        ||
-                           &le;   6   0 |x  x &minus;  2  (x &minus; 1)|dx
-                              M  [ &int; 1&#x2215;2 (     1)
-                           =  ---      x  x &minus;  -- (x &minus; 1)dx
-                               6    0          2
-                              &int; 1   (     1)          ]
-                           &minus;      x  x &minus;  -- (x &minus; 1)dx
-                                1&#x2215;2[      ( 2   )]
-                              M--  1--     -1-     -M--
-                           =   6   64 &minus;  &minus; 64    = 192 .
+src="main767x.png" alt="             n
+L  (x ) = c &prod;  (x &minus;  x ) = &rArr; c =  -----1------
+  k  k     kj=1  k    j       k   &prod;n
+            j&frasl;=i                      (xk &minus; xj)
+                                  jj=&frasl;=1i  " class="math-display" ></center>
+Portanto,
+   <center class="math-display" >
+<img 
+src="main768x.png" alt="         &prod;n  (x &minus; xj)
+Lk (x) =    ---------
+         j=1(xk &minus; xj)
+         j&frasl;=i
 " class="math-display" ></center>
-</div>Lembramos que <span 
-class="lmmi-12">M </span><span 
-class="rm-lmr-12">=</span> <span 
-class="rm-lmr-12">max</span> <sub><span 
-class="lmmi-8">x</span><span 
-class="lmsy8-">&isin;</span><span 
-class="rm-lmr-8">[0</span><span 
-class="lmmi-8">,</span><span 
-class="rm-lmr-8">1]</span></sub><span 
-class="lmsy-10x-x-120">|</span><span 
-class="lmmi-12">f</span><span 
-class="lmsy-10x-x-120">&prime;&prime;&prime;</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">)</span><span 
-class="lmsy-10x-x-120">|</span>.
    <div class="newtheorem">
-<!--l. 327--><p class="noindent" ><span class="head">
+<!--l. 225--><p class="noindent" ><span class="head">
 <a 
- id="x66-100009r1"></a>
+ id="x64-99002r1"></a>
 <span 
 class="ec-lmbx-12">Observa</span><span 
 class="ec-lmbx-12">ç</span><span 
-class="ec-lmbx-12">ão 6.4.1.</span>  </span>Existem   estimativas   melhores   para   o   erro   de
-truncamento para este esquema de integração numérica. Veremos com mais
-detalhes tais esquemas na teoria de integração numérica.
+class="ec-lmbx-12">ão 6.3.1.</span>  </span>O  problema  de  interpolação  quando  escrito  usando
+como base os polinômios de Lagrange produz um sistema linear diagonal.
    </div>
    <div class="newtheorem">
-<!--l. 330--><p class="noindent" ><span class="head">
+<!--l. 228--><p class="noindent" ><span class="head">
 <a 
- id="x66-100010r3"></a>
+ id="x64-99003r1"></a>
 <span 
-class="ec-lmbx-12">Exemplo 6.4.3.</span>  </span>Use o resultado do exemplo anterior para aproximar o valor
-das seguintes integrais:<br 
-class="newline" />
-<!--l. 333--><p class="indent" >   a) <span 
-class="lmex-10">&int;</span>
-  <sub><span 
-class="rm-lmr-8">0</span></sub><sup><span 
-class="rm-lmr-8">1</span></sup> <span 
-class="rm-lmr-12">ln</span><span 
+class="ec-lmbx-12">Exemplo 6.3.1.</span>  </span>Encontre o polinômio da forma <span 
+class="lmmi-12">p</span><span 
 class="rm-lmr-12">(</span><span 
-class="lmmi-12">x </span><span 
-class="rm-lmr-12">+ 1)</span><span 
-class="lmmi-12">dx</span><br 
-class="newline" />
-<!--l. 335--><p class="indent" >   b) <span 
-class="lmex-10">&int;</span>
-  <sub><span 
-class="rm-lmr-8">0</span></sub><sup><span 
-class="rm-lmr-8">1</span></sup><span 
-class="lmmi-12">e</span><sup><span 
-class="lmsy8-">&minus;</span><span 
-class="lmmi-8">x</span><sup><span 
-class="rm-lmr-6">2</span></sup>
-      </sup><span 
-class="lmmi-12">dx</span>
-                                                                          
-
-                                                                          
-   </div>
-<!--l. 338--><p class="indent" >
-   <div class="proof">
-<!--l. 338--><p class="indent" >   <span class="head">
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) = </span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="rm-lmr-12">+</span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">+</span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">3</span></sub><span 
+class="lmmi-12">x</span><sup><span 
+class="rm-lmr-8">2</span></sup><span 
+class="rm-lmr-12">+</span><span 
+class="lmmi-12">a</span><sub>
 <span 
-class="ec-lmbx-12">Solu</span><span 
-class="ec-lmbx-12">ç</span><span 
-class="ec-lmbx-12">ão.</span> </span> Usando a fórmula obtida, temos que
+class="rm-lmr-8">4</span></sub><span 
+class="lmmi-12">x</span><sup><span 
+class="rm-lmr-8">3</span></sup>
+que passa pelos pontos
    <center class="math-display" >
 <img 
-src="main791x.png" alt="&int; 1
-   ln (x +  1)dx &asymp; 0,39 ± -1-
- 0                      96
+src="main769x.png" alt="(0,0 ),(1,1),(2,4),(3,9)  " class="math-display" ></center>
+Escrevemos: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main770x.png" alt="           (x &minus; 1)(x &minus; 2)(x &minus; 3)     1  3    2   11
+L1(x)  =   --------------------- = &minus; -x  + x  &minus;  --x + 1
+           (0 &minus; 1)(0 &minus; 2)(0 &minus; 3)     6           6
+           x(x-&minus;-2)(x-&minus;-3)-   1-3   5- 2
+L2(x)  =   1(1 &minus; 2)(1 &minus; 3) =  2x  &minus; 2 x + 3x
+
+L3(x)  =   x(x-&minus;-1)(x-&minus;-3)-= &minus; 1-x3 + 2x2 &minus; 3x
+           2(2 &minus; 1)(2 &minus; 3)     2            2
+           x(x &minus; 1)(x &minus; 2)    1     1      1
+L4(x)  =   ----------------=  -x3 &minus; --x2 + -x
+           3(3 &minus; 1)(3 &minus; 2)    6     2      3
 " class="math-display" ></center>
+</div>Assim temos:
    <center class="math-display" >
 <img 
-src="main792x.png" alt="&int; 1   2             3,87
-   e&minus; xdx &asymp;  0,75 ± ----
- 0                  192
-" class="math-display" ></center>                                                                         <span 
-class="msam-10x-x-120">&#x2662;</span>
+src="main771x.png" alt="P (x) = 0 &sdot; L1(x) + 1 &sdot; L2 (x) + 4 &sdot; L3 (x) + 9 &sdot; L4 (x) = x2
+" class="math-display" ></center>
+   </div>
+   <div class="newtheorem">
+<!--l. 241--><p class="noindent" ><span class="head">
+<a 
+ id="x64-99005r2"></a>
+<span 
+class="ec-lmbx-12">Exemplo 6.3.2.</span>  </span>Encontre o polinômio da forma <span 
+class="lmmi-12">p</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) = </span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="rm-lmr-12">+</span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">+</span><span 
+class="lmmi-12">a</span><sub><span 
+class="rm-lmr-8">3</span></sub><span 
+class="lmmi-12">x</span><sup><span 
+class="rm-lmr-8">2</span></sup><span 
+class="rm-lmr-12">+</span><span 
+class="lmmi-12">a</span><sub>
+<span 
+class="rm-lmr-8">4</span></sub><span 
+class="lmmi-12">x</span><sup><span 
+class="rm-lmr-8">3</span></sup>
+que passa pelos pontos
+   <center class="math-display" >
+<img 
+src="main772x.png" alt="(0,0 ),(1,1),(2,0),(3,1)
+" class="math-display" ></center> Como as abscissas são as mesmas do exemplo anterior, podemos utilizar os
+mesmos polinômios de Lagrange, assim temos:
+   <center class="math-display" >
+<img 
+src="main773x.png" alt="                                                    2-3     2   10-
+p(x) = 0 &sdot; L1(x ) + 1 &sdot; L2(x ) + 0 &sdot; L3(x ) + 1 &sdot; L4(x) = 3x &minus; 3x + 3 x
+" class="math-display" ></center>
    </div>
                                                                           
 
                                                                           
-   <!--l. 348--><div class="crosslinks"><p class="noindent">[<a 
-href="mainse38.html" >next</a>] [<a 
+   <!--l. 247--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse41.html" >next</a>] [<a 
 href="mainse26.html" >prev</a>] [<a 
 href="mainse26.html#tailmainse26.html" >prev-tail</a>] [<a 
 href="mainse27.html" >front</a>] [<a 
-href="mainch8.html#mainse37.html" >up</a>] </p></div>
-<!--l. 348--><p class="indent" >   <a 
+href="mainse38.html#mainse40.html" >up</a>] </p></div>
+<!--l. 247--><p class="indent" >   <a 
  id="tailmainse27.html"></a>  
 </body></html> 

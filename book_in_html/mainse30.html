@@ -1,330 +1,601 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
   "http://www.w3.org/TR/html4/loose.dtd">  
 <html xml:lang="pt" > 
-<head><title>Interpolaçao linear segmentada</title> 
+<head><title>Aproximando problemas nao lineares por problemas lineares</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
 <meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html,3,notoc*,info --> 
 <meta name="src" content="main.tex"> 
-<meta name="date" content="2016-10-18 11:11:00"> 
+<meta name="date" content="2016-10-21 19:32:00"> 
 <link rel="stylesheet" type="text/css" href="main.css"> 
 </head><body 
 >
-   <!--l. 1060--><div class="crosslinks"><p class="noindent">[<a 
-href="mainli22.html" >next</a>] [<a 
+   <!--l. 885--><div class="crosslinks"><p class="noindent">[<a 
+href="mainli16.html" >next</a>] [<a 
 href="mainse29.html" >prev</a>] [<a 
 href="mainse29.html#tailmainse29.html" >prev-tail</a>] [<a 
-href="mainse20.html#tailmainse30.html">tail</a>] [<a 
-href="mainch8.html#mainli21.html" >up</a>] </p></div>
-   <h3 class="sectionHead"><span class="titlemark">6.7   </span> <a 
- id="x72-1080006.7"></a>Interpolação linear segmentada</h3>
-<a 
- id="dx72-108001"></a>
-<!--l. 1061--><p class="noindent" >Considere o conjunto <img 
-src="main863x.png" alt="(xi,yi)"  class="left" align="middle"><sub> <span 
-class="lmmi-8">j</span><span 
-class="rm-lmr-8">=1</span></sub><sup><span 
-class="lmmi-8">n</span></sup> de <span 
-class="lmmi-12">n </span>pontos. Assumiremos que <span 
-class="lmmi-12">x</span><sub>
-<span 
-class="lmmi-8">i</span><span 
-class="rm-lmr-8">+1</span></sub> <span 
-class="lmmi-12">&#x003E; x</span><sub><span 
-class="lmmi-8">i</span></sub>, ou
-seja, as abscissas são distintas e estão em ordem crescente. A função linear que
-interpola os pontos <span 
-class="lmmi-12">x</span><sub><span 
-class="lmmi-8">i</span></sub> e <span 
-class="lmmi-12">x</span><sub><span 
-class="lmmi-8">i</span><span 
-class="rm-lmr-8">+1</span></sub> no intervalo <span 
-class="lmmi-12">i </span>é dada por
-   <center class="math-display" >
-<img 
-src="main864x.png" alt="          (xi+1-&minus;-x)-      --(x &minus;-xi)-
-Pi(x) = yi(x   &minus;  x ) + yi+1(x   &minus; x )
-            i+1    i          i+1    i
-" class="math-display" ></center>
-<!--l. 1064--><p class="indent" >   O resultado da interpolação linear segmentada é a seguinte função contínua
-definida por partes no intervalo <span 
-class="rm-lmr-12">[</span><span 
+href="#tailmainse30.html">tail</a>] [<a 
+href="mainse38.html#mainse43.html" >up</a>] </p></div>
+   <h3 class="sectionHead"><span class="titlemark">6.6   </span> <a 
+ id="x67-1070006.6"></a>Aproximando problemas não lineares por problemas lineares</h3>
+<!--l. 887--><p class="noindent" >Eventualmente, problemas de ajuste de curvas podem recair num
+sistema não linear. Por exemplo, para ajustar função <span 
+class="lmmi-12">y </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">Ae</span><sup><span 
+class="lmmi-8">bx</span></sup> ao
+conjunto de pontos <span 
+class="rm-lmr-12">(</span><span 
 class="lmmi-12">x</span><sub><span 
 class="rm-lmr-8">1</span></sub><span 
-class="lmmi-12">,x</span><sub><span 
-class="lmmi-8">n</span></sub><span 
-class="rm-lmr-12">]</span>:
+class="lmmi-12">,y</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="rm-lmr-12">)</span>, <span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">,y</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="rm-lmr-12">) </span>e <span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">3</span></sub><span 
+class="lmmi-12">,y</span><sub><span 
+class="rm-lmr-8">3</span></sub><span 
+class="rm-lmr-12">)</span>, temos que minimizar o
+resíduo<span class="footnote-mark"><a 
+href="main68.html#fn1x9"><sup class="textsuperscript">1</sup></a></span><a 
+ id="x67-107001f1"></a> 
    <center class="math-display" >
 <img 
-src="main865x.png" alt="f(x) = Pi(x),   x &isin; [xi,xi+1 ]
+src="main835x.png" alt="R =  (Aex1b &minus; y1)2 + (Aex2b &minus; y2)2 + (Aex3b &minus; y3)2   " class="math-display" ></center> ou
+seja, resolver o sistema <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main836x.png" alt="&part;R            x1b      x1b       x2b      x2b       x3b      x3b
+&part;A-- =   2(Ae    &minus; y1)e   + 2(Ae    &minus; y2)e   + 2 (Ae    &minus; y3)e   =  0
+&part;R
+---- =   2Ax1 (Aex1b &minus; y1)ex1b + 2Ax2 (Aex2b &minus; y2)ex2b
+ &part;b
+     +   2Ax3 (Aex3b &minus; y3)ex3b = 0
+" class="math-display" ></center>
+</div>que é não linear em <span 
+class="lmmi-12">A </span>e <span 
+class="lmmi-12">b</span>. Esse sistema pode ser resolvido pelo método
+de Newton-Raphson, o que pode se tornar custoso, ou mesmo inviável
+quando não dispomos de uma boa aproximação da solução para inicializar o
+método.
+<!--l. 899--><p class="indent" >   Felizmente, algumas famílias de curvas admitem uma transformação que
+nos leva a um problema linear. No caso da curva <span 
+class="lmmi-12">y </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">Ae</span><sup><span 
+class="lmmi-8">bx</span></sup>, observe que
+<span 
+class="rm-lmr-12">ln</span> <span 
+class="lmmi-12">y </span><span 
+class="rm-lmr-12">=</span> <span 
+class="rm-lmr-12">ln</span> <span 
+class="lmmi-12">A </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">bx</span>. Assim, em vez de ajustar a curva original <span 
+class="lmmi-12">y </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">Ae</span><sup><span 
+class="lmmi-8">bx</span></sup> a tabela de
+pontos, ajustamos a curva submetida a transformação logarítmica
+   <center class="math-display" >
+<img 
+src="main837x.png" alt="&#x02DC;y := a  + a &#x02DC;x = ln A + bx.
+      1    2  " class="math-display" ></center>
+Usamos os pontos <span 
+class="rm-lmr-12">(</span><img 
+src="main838x.png" alt="x&#x02DC;"  class="tilde" ><sub><span 
+class="lmmi-8">j</span></sub><span 
+class="lmmi-12">,</span><span 
+class="lmmi-12">&#x1EF9;</span><sub><span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">) := (</span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">j</span></sub><span 
+class="lmmi-12">,</span> <span 
+class="rm-lmr-12">ln</span> <span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">j</span></sub><span 
+class="rm-lmr-12">)</span>, <span 
+class="lmmi-12">j </span><span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">2</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">3 </span>e resolvemos o sistema
+linear
+   <center class="math-display" >
+<img 
+src="main839x.png" alt="                  &lfloor;     &rfloor;
+     &lfloor;     &rfloor;
+                  ||  &#x02DC;y1 ||
+V TV |&lceil;  a1 |&rceil; = V T||     ||,
+        a         |&lceil;  &#x02DC;y2 |&rceil;
+         2           &#x02DC;y3  " class="math-display" ></center>
+onde
+   <center class="math-display" >
+<img 
+src="main840x.png" alt="     &lfloor;       &rfloor;
+     | 1  x1 |
+     ||       ||
+A =  || 1  x2 ||
+     &lceil;       &rceil;
+       1  x3
 " class="math-display" ></center>
    <div class="newtheorem">
-<!--l. 1067--><p class="noindent" ><span class="head">
+<!--l. 911--><p class="noindent" ><span class="head">
 <a 
- id="x72-108002r1"></a>
-                                                                          
-
-                                                                          
+ id="x67-107003r1"></a>
 <span 
-class="ec-lmbx-12">Exemplo 6.7.1.</span>  </span>Construa uma função linear por partes que interpola os
-pontos <span 
-class="rm-lmr-12">(0</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">0)</span>, <span 
+class="ec-lmbx-12">Exemplo 6.6.1.</span>  </span>Encontre uma curva da forma <span 
+class="lmmi-12">y </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">Ae</span><sup><span 
+class="lmmi-8">x</span></sup> que melhor ajusta
+os pontos <span 
 class="rm-lmr-12">(1</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">4)</span>, <span 
-class="rm-lmr-12">(2</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">3)</span>, <span 
-class="rm-lmr-12">(3</span><span 
-class="lmmi-12">,</span><span 
-class="rm-lmr-12">0)</span>, <span 
-class="rm-lmr-12">(4</span><span 
-class="lmmi-12">,</span><span 
+class="lmmi-12">, </span><span 
 class="rm-lmr-12">2)</span>, <span 
-class="rm-lmr-12">(5</span><span 
+class="rm-lmr-12">(2</span><span 
+class="lmmi-12">, </span><span 
+class="rm-lmr-12">3) </span>e <span 
+class="rm-lmr-12">(3</span><span 
+class="lmmi-12">, </span><span 
+class="rm-lmr-12">5)</span>.
+   </div>
+<!--l. 913--><p class="indent" >   Temos
+   <center class="math-display" >
+<img 
+src="main841x.png" alt="     &lfloor;      &rfloor;
+
+     || 1  1 ||
+A  = ||      ||
+     |&lceil; 1  2 |&rceil;
+       1  3 " class="math-display" ></center> e
+a solução do sistema leva em <span 
+class="lmmi-12">B </span><span 
+class="rm-lmr-12">= 0</span><span 
 class="lmmi-12">,</span><span 
-class="rm-lmr-12">0)</span>.
-<!--l. 1070--><p class="indent" >   A função procurada pode ser construída da seguinte forma:
-   <table 
-class="equation-star"><tr><td>
+class="rm-lmr-12">217442 </span>e <span 
+class="lmmi-12">b </span><span 
+class="rm-lmr-12">= 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">458145</span>. Portanto,
+<span 
+class="lmmi-12">A </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">e</span><sup><span 
+class="rm-lmr-8">0</span><span 
+class="lmmi-8">,</span><span 
+class="rm-lmr-8">217442</span></sup> <span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">24289</span>.
+   <div class="newtheorem">
+<!--l. 919--><p class="noindent" ><span class="head">
+<a 
+ id="x67-107004r1"></a>
+<span 
+class="ec-lmbx-12">Observa</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão 6.6.1.</span>  </span>Os coeficientes obtidos a partir dessa linearização são
+aproximados,  ou  seja,  são  diferentes  daqueles  obtidos  quando  aplicamos
+mínimos quadrados não linear. Observe que estamos minimizando <span 
+class="lmex-10">&sum;</span>
+   <sub><span 
+class="lmmi-8">i</span></sub><span 
+class="rm-lmr-12">[</span><span 
+class="rm-lmr-12">ln</span> <span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">i</span></sub><span 
+class="lmsy-10x-x-120">&minus;</span>
+<span 
+class="rm-lmr-12">ln</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">i</span></sub><span 
+class="rm-lmr-12">))]</span><sup><span 
+class="rm-lmr-8">2</span></sup>  em vez de <span 
+class="lmex-10">&sum;</span><sub>
+<span 
+class="lmmi-8">i</span></sub><span 
+class="rm-lmr-12">[</span><span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">i</span></sub> <span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><sub><span 
+class="lmmi-8">i</span></sub><span 
+class="rm-lmr-12">)]</span><sup><span 
+class="rm-lmr-8">2</span></sup>. No exemplo resolvido, a solução do
+sistema não linear original seria <span 
+class="lmmi-12">A </span><span 
+class="rm-lmr-12">= 1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">19789 </span>e <span 
+class="lmmi-12">B </span><span 
+class="rm-lmr-12">= 0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">474348</span>
+   </div>
+   <div class="newtheorem">
+<!--l. 923--><p class="noindent" ><span class="head">
+<a 
+ id="x67-107005r2"></a>
+<span 
+class="ec-lmbx-12">Observa</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão 6.6.2.</span>  </span>Mesmo quando se deseja resolver o sistema não linear,
+a solução do problema linearizado pode ser usada para construir condições
+iniciais.
+   </div>
+<!--l. 928--><p class="indent" >   A próxima tabela apresenta algumas curvas e transformações que linearizam o
+problema de ajuste.
    <center class="math-display" >
-<img 
-src="main866x.png" alt="       (
-       ||||  0x&minus;-1+ 1 x&minus;0  ,0 &le; x &#x003C; 1
-       |{   0&minus; 1    1&minus;0
-f(x ) = | 4x1&minus;&minus;-22 + 3 x2&minus;&minus;11 ,1 &le; x &#x003C; 2
-       ||||   x&minus; 3    x&minus;2
-       (  32&minus;-3 + 0 3&minus;2 ,2 &le; x &le; 3
-" class="math-display" ></center></td></tr></table>
-<!--l. 1079--><p class="nopar" >
-Simplificando, obtemos:
-   <table 
-class="equation-star"><tr><td>
-   <center class="math-display" >
-<img 
-src="main867x.png" alt="       (
-       ||
-       |||{  x         ,0 &le; x &#x003C; 1
-f(x) =
-       |||  &minus; x + 5   ,1 &le; x &#x003C; 2
-       ||(  &minus; 3x + 9  ,2 &le; x &le; 3
-" class="math-display" ></center></td></tr></table>
-<!--l. 1089--><p class="nopar" >
                                                                           
 
                                                                           
-   </div>
-<!--l. 1092--><p class="indent" >   A Figura <a 
-href="#x72-1080032">6.2<!--tex4ht:ref: fig:linear_segmentada --></a> é um esboço da função <span 
+<img 
+src="main842x.png" alt="|------------------|---------------|--------------------------|
+|------curva-------|transforma-ção-|---problema-linearizado----|
+|           bx      |               |                          |
+|----y-=--ae-------|---y&#x02DC;=--ln-y----|------y&#x02DC;=--ln-a-+-bx-------|
+|           b      |               |                          |
+|-----y-=-ax-------|---y&#x02DC;=--ln-y----|-----&#x02DC;y-=-ln-a +-bln-x------|
+|   y =  axbecx     |   y&#x02DC;=  ln y    |   &#x02DC;y = ln a + bln x + cx   |
+|------------------|---------------|--------------------------|
+|  y =  ae(b+cx)2   |   y&#x02DC;=  ln y    |&#x02DC;y = ln a + b2 + bcx + c2x2|
+|------------------|---------------|--------------------------|
+|     y = ba+x      |    y&#x02DC;=  1y     |       &#x02DC;y =  ba + 1ax        |
+|------------------|---------------|--------------------------|
+|y = A cos(&omega;x + &#x03D5;) |      &minus;        |y =  acos(&omega;x ) &minus; b sin (&omega;x )|
+|                  |               |                          |
+|---&omega;-conhecido----|----------------a-=-A-cos(&#x03D5;),-b =-A-sin(&#x03D5;-)-
+|                  |
+" class="math-display" ></center>
+   <div class="newtheorem">
+<!--l. 942--><p class="noindent" ><span class="head">
+<a 
+ id="x67-107006r2"></a>
+<span 
+class="ec-lmbx-12">Exemplo 6.6.2.</span>  </span>Encontre a função <span 
+class="lmmi-12">f </span>da forma <span 
+class="lmmi-12">y </span><span 
+class="rm-lmr-12">= </span><span 
 class="lmmi-12">f</span><span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">x</span><span 
-class="rm-lmr-12">) </span>obtida. Ela foi gerada no <span class="obeylines-h"><span class="verb"><span 
-class="ec-lmtt-12">Scilab</span></span></span>
-usando os comandos: <div class="verbatiminput">
-<span 
-class="ec-lmtt-12">//pontos</span><span 
-class="ec-lmtt-12">&#x00A0;fornecidos</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">xi</span><span 
-class="ec-lmtt-12">&#x00A0;=</span><span 
-class="ec-lmtt-12">&#x00A0;[0;1;2;3;4;5]</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">yi</span><span 
-class="ec-lmtt-12">&#x00A0;=</span><span 
-class="ec-lmtt-12">&#x00A0;[0;4;3;0;2;0]</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">//numero</span><span 
-class="ec-lmtt-12">&#x00A0;de</span><span 
-class="ec-lmtt-12">&#x00A0;pontos</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">n</span><span 
-class="ec-lmtt-12">&#x00A0;=</span><span 
-class="ec-lmtt-12">&#x00A0;6</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">//funcao</span><span 
-class="ec-lmtt-12">&#x00A0;interpoladora</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">function</span><span 
-class="ec-lmtt-12">&#x00A0;[y]</span><span 
-class="ec-lmtt-12">&#x00A0;=</span><span 
-class="ec-lmtt-12">&#x00A0;f(x)</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;for</span><span 
-class="ec-lmtt-12">&#x00A0;i=1:n-2</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;if</span><span 
-class="ec-lmtt-12">&#x00A0;((x&#x003E;=xi(i))</span><span 
-class="ec-lmtt-12">&#x00A0;&amp;</span><span 
-class="ec-lmtt-12">&#x00A0;(x&#x003C;xi(i+1)))</span><span 
-class="ec-lmtt-12">&#x00A0;then</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;y</span><span 
-class="ec-lmtt-12">&#x00A0;=</span><span 
-class="ec-lmtt-12">&#x00A0;yi(i)*(x-xi(i+1))/(xi(i)</span><span 
-class="ec-lmtt-12">&#x00A0;-</span><span 
-class="ec-lmtt-12">&#x00A0;xi(i+1))</span><span 
-class="ec-lmtt-12">&#x00A0;...</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;+</span><span 
-class="ec-lmtt-12">&#x00A0;yi(i+1)*(x-xi(i))/(xi(i+1)</span><span 
-class="ec-lmtt-12">&#x00A0;-</span><span 
-class="ec-lmtt-12">&#x00A0;xi(i));</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;end</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;end</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br />
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;if</span><span 
-class="ec-lmtt-12">&#x00A0;((x&#x003E;=xi(n-1))</span><span 
-class="ec-lmtt-12">&#x00A0;&amp;</span><span 
-class="ec-lmtt-12">&#x00A0;(x&#x003C;=xi(n)))</span><span 
-class="ec-lmtt-12">&#x00A0;then</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;y</span><span 
-class="ec-lmtt-12">&#x00A0;=</span><span 
-class="ec-lmtt-12">&#x00A0;yi(n-1)*(x-xi(n))/(xi(n-1)</span><span 
-class="ec-lmtt-12">&#x00A0;-</span><span 
-class="ec-lmtt-12">&#x00A0;xi(n))</span><span 
-class="ec-lmtt-12">&#x00A0;...</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;+</span><span 
-class="ec-lmtt-12">&#x00A0;yi(n)*(x-xi(n-1))/(xi(n)</span><span 
-class="ec-lmtt-12">&#x00A0;-</span><span 
-class="ec-lmtt-12">&#x00A0;xi(n-1));</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;end</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">endfunction</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">//graficando</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">xx</span><span 
-class="ec-lmtt-12">&#x00A0;=</span><span 
-class="ec-lmtt-12">&#x00A0;linspace(xi(1),xi(n),500)</span><span 
-class="ts1-lmtt12-">&#8217;</span><span 
-class="ec-lmtt-12">;</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">clear</span><span 
-class="ec-lmtt-12">&#x00A0;yy</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">for</span><span 
-class="ec-lmtt-12">&#x00A0;i=1:max(size(xx))</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">&#x00A0;</span><span 
-class="ec-lmtt-12">&#x00A0;yy(i)</span><span 
-class="ec-lmtt-12">&#x00A0;=</span><span 
-class="ec-lmtt-12">&#x00A0;f(xx(i))</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">end</span>
-<span 
-class="ec-lmtt-12">&#x00A0;</span><br /><span 
-class="ec-lmtt-12">plot(xi,yi,</span><span 
-class="ts1-lmtt12-">&#8217;</span><span 
-class="ec-lmtt-12">r.</span><span 
-class="ts1-lmtt12-">&#8217;</span><span 
-class="ec-lmtt-12">,xx,yy,</span><span 
-class="ts1-lmtt12-">&#8217;</span><span 
-class="ec-lmtt-12">b-</span><span 
-class="ts1-lmtt12-">&#8217;</span><span 
-class="ec-lmtt-12">)</span>
+class="rm-lmr-12">) = </span><span 
+class="lmmi-12">A</span> <span 
+class="rm-lmr-12">cos</span><span 
+class="rm-lmr-12">(2</span><span 
+class="lmmi-12">&pi;x </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">&#x03D5;</span><span 
+class="rm-lmr-12">)</span>
+que ajusta a tabela de pontos
+   <center class="math-display" >
+<img 
+src="main843x.png" alt="|----|--------|
+|    |        |
+|-xi-|---yi---|
+|    |        |
+|0,0 |  9,12   |
+|0,1 |  1,42   |
+|    |        |
+|0,2 | -7,76  |
+|    |        |
+|0,3 |- 11,13 |
+|    |        |
+|0,4 | -11,6  |
+|    |        |
+|0,5 | -6,44  |
+|0,6 |  1,41   |
+|    |        |
+|0,7 | 11,01  |
+|    |        |
+|0,8 | 14,73  |
+|    |        |
+|0,9 | 13,22  |
+|    |        |
+|1,0-|--9,93----
+|    |
+" class="math-display" ></center>
    </div>
-<!--l. 1098--><p class="indent" >   <hr class="figure"><div class="figure" 
->
+<!--l. 964--><p class="indent" >
+   <div class="proof">
+<!--l. 964--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Usando o fato que <span 
+class="lmmi-12">y </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">A</span> <span 
+class="rm-lmr-12">cos</span><span 
+class="rm-lmr-12">(2</span><span 
+class="lmmi-12">&pi;x </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">&#x03D5;</span><span 
+class="rm-lmr-12">) = </span><span 
+class="lmmi-12">a</span> <span 
+class="rm-lmr-12">cos</span><span 
+class="rm-lmr-12">(2</span><span 
+class="lmmi-12">&pi;x</span><span 
+class="rm-lmr-12">) </span><span 
+class="lmsy-10x-x-120">&minus;</span><span 
+class="lmmi-12">b</span> <span 
+class="rm-lmr-12">sin</span><span 
+class="rm-lmr-12">(2</span><span 
+class="lmmi-12">&pi;x</span><span 
+class="rm-lmr-12">)</span>,
+onde <span 
+class="lmmi-12">a </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">A</span> <span 
+class="rm-lmr-12">cos</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">&#x03D5;</span><span 
+class="rm-lmr-12">) </span>e <span 
+class="lmmi-12">b </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">A</span> <span 
+class="rm-lmr-12">sin</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">&#x03D5;</span><span 
+class="rm-lmr-12">)</span>, <span 
+class="lmmi-12">z </span><span 
+class="rm-lmr-12">= [</span><div class="array"> <table id="TBL-23" class="array" 
+cellpadding="0" cellspacing="0"  
+><colgroup id="TBL-23-1g"><col 
+id="TBL-23-1"><col 
+id="TBL-23-2"></colgroup><tr  
+ style="vertical-align:baseline;"><td  style="white-space:nowrap; text-align:center;" 
+><div class="td11"><span 
+class="lmmi-12">a</span></div></td><td  style="white-space:nowrap; text-align:center;" 
+><div class="td11"><span 
+class="lmmi-12">b</span></div></td> </tr></table>                                                                            </div><span 
+class="rm-lmr-12">]</span><sup><span 
+class="lmmi-8">T</span> </sup>
+é solução do problema
+   <center class="math-display" >
+<img 
+src="main844x.png" alt="  T        T
+B  Bz  = B  y,
+" class="math-display" ></center> onde
+   <center class="math-display" >
+<img 
+src="main845x.png" alt="                                      &lfloor;                           &rfloor;
+
+                                      ||      1.           0.      ||
+                                      ||  0,8090170   &minus; 0,5877853  ||
+                                      ||                           ||
+                                      ||  0,3090170   &minus; 0,9510565  ||
+                                      ||                           ||
+     &lfloor;                           &rfloor;    || &minus; 0,3090170  &minus; 0,9510565  ||
+     |  cos(2&pi;x0 )  &minus; sin(2&pi;x0 ) |    ||                           ||
+     ||                           ||    || &minus; 0,8090170  &minus; 0,5877853  ||
+     ||  cos(2&pi;x1 )  &minus; sin(2&pi;x1 ) ||    ||                           ||
+B  = ||      ..                    || =  || &minus; 1,0000000   0,0000000   ||.
+     |&lceil;      .                    |&rceil;    || &minus; 0,8090170   0,5877853   ||
+        cos(2 &pi;x  )  &minus; sin (2 &pi;x  )      ||                           ||
+               10            10       || &minus; 0,3090170   0,9510565   ||
+                                      ||                           ||
+                                      ||  0,3090170    0,9510565   ||
+                                      ||                           ||
+                                      ||  0,8090170    0,5877853   ||
+                                      &lceil;                           &rceil;
+                                         1,0000000    0,0000000
+" class="math-display" ></center> Assim, <span 
+class="lmmi-12">a </span><span 
+class="rm-lmr-12">= 7</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">9614704 </span>e <span 
+class="lmmi-12">b </span><span 
+class="rm-lmr-12">= 11</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">405721 </span>e obtemos o seguinte sistema:
+   <center class="math-display" >
+<img 
+src="main846x.png" alt="(
+|{
+   A cos(&#x03D5;) = 7,9614704  .
+|(  A sin(&#x03D5;) = 11,405721
+" class="math-display" ></center> Observe que
+   <center class="math-display" >
+<img 
+src="main847x.png" alt="  2             2            2
+A   = 7,9614704  + 11,405721
+" class="math-display" ></center> e, escolhendo <span 
+class="lmmi-12">A &#x003E; </span><span 
+class="rm-lmr-12">0</span>, <span 
+class="lmmi-12">A </span><span 
+class="rm-lmr-12">= 13</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">909546 </span>e
+   <center class="math-display" >
+<img 
+src="main848x.png" alt="         11,405721
+sin(&#x03D5;) = ---------- = 0,8199923
+         13,909546
+" class="math-display" ></center> Assim, como <span 
+class="rm-lmr-12">cos</span> <span 
+class="lmmi-12">&#x03D5; </span>também é positivo, <span 
+class="lmmi-12">&#x03D5; </span>é um ângulo do primeiro quadrante:
+   <center class="math-display" >
+<img 
+src="main849x.png" alt="&#x03D5; = 0,9613976
+" class="math-display" ></center> Portanto <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) = 13</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">909546</span> <span 
+class="rm-lmr-12">cos</span><span 
+class="rm-lmr-12">(2</span><span 
+class="lmmi-12">&pi;x</span><span 
+class="rm-lmr-12">+0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">9613976)</span>. Observe que nesse exemplo
                                                                           
 
                                                                           
+a solução do problema linear é a mesma do problema não linear.            <span 
+class="msam-10x-x-120">&#x2662;</span>
+   </div>
+   <div class="newtheorem">
+<!--l. 1004--><p class="noindent" ><span class="head">
 <a 
- id="x72-1080032"></a>
+ id="x67-107007r3"></a>
+<span 
+class="ec-lmbx-12">Exemplo 6.6.3.</span>  </span>Encontre a função <span 
+class="lmmi-12">f </span>da forma <span 
+class="lmmi-12">y </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) =</span> <img 
+src="main850x.png" alt="-a-
+b+x"  class="frac" align="middle"> que ajusta
+a tabela de pontos
+   <center class="math-display" >
+<img 
+src="main851x.png" alt="|----|----|
+|xi  | yi |
+|----|----|
+|0,0 |101 |
+|    |    |
+|0,2 |85  |
+|    |    |
+|0,4 |75  |
+|    |    |
+|0,6 |66  |
+|0,8 |60  |
+|    |    |
+|1,0 |55  |
+|----|-----
+|    |
+" class="math-display" ></center> usando uma das transformações tabeladas.
+   </div>
+<!--l. 1022--><p class="indent" >
+   <div class="proof">
+<!--l. 1022--><p class="indent" >   <span class="head">
                                                                           
 
                                                                           
-<div class="center" 
->
-<!--l. 1099--><p class="noindent" >
-<!--l. 1100--><p class="noindent" ><img 
-src="main868x.png" alt="PIC" class="graphics" width="306.14374pt" height="230.86249pt" ><!--tex4ht:graphics  
-name="main868x.png" src="./cap_aproxfun/pics/interpolacao_linear_segmentada.eps"  
--->
-<br /> <div class="caption" 
-><span class="id">Figura&#x00A0;6.2: </span><span  
-class="content">Interpolação linear segmentada.</span></div><!--tex4ht:label?: x72-1080032 -->
-</div>
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Usando o fato que <span 
+class="lmmi-12">Y </span><span 
+class="rm-lmr-12">=</span> <img 
+src="main852x.png" alt="1
+y"  class="frac" align="middle"> <span 
+class="rm-lmr-12">=</span> <img 
+src="main853x.png" alt="b
+a"  class="frac" align="middle"><span 
+class="rm-lmr-12">+</span><img 
+src="main854x.png" alt="1
+a"  class="frac" align="middle"><span 
+class="lmmi-12">x</span>, <span 
+class="lmmi-12">z </span><span 
+class="rm-lmr-12">= [</span><div class="array"> <table id="TBL-24" class="array" 
+cellpadding="0" cellspacing="0"  
+><colgroup id="TBL-24-1g"><col 
+id="TBL-24-1"><col 
+id="TBL-24-2"></colgroup><tr  
+ style="vertical-align:baseline;"><td  style="white-space:nowrap; text-align:center;" 
+><div class="td11"><img 
+src="main855x.png" alt="b
+a"  class="frac" align="middle"></div></td><td  style="white-space:nowrap; text-align:center;" 
+><div class="td11"><img 
+src="main856x.png" alt="1
+a"  class="frac" align="middle"></div></td> </tr></table>                                                                                                        </div><span 
+class="rm-lmr-12">]</span><sup><span 
+class="lmmi-8">T</span> </sup>
+é solução do problema
+   <center class="math-display" >
+<img 
+src="main857x.png" alt="AT Az  = AT Y,
+" class="math-display" ></center> onde
+   <center class="math-display" >
+<img 
+src="main858x.png" alt="     &lfloor;       &rfloor;    &lfloor;        &rfloor;
+     | 1  x1 |    | 1  0,0 |
+     ||       ||    ||        ||
+     || 1  x2 ||    || 1  0,2 ||
+     || 1  x  ||    || 1  0,4 ||
+A =  ||     3 || =  ||        ||
+     || 1  x4 ||    || 1  0,6 ||
+     ||       ||    ||        ||
+     || 1  x5 ||    || 1  0,8 ||
+     &lceil;       &rceil;    &lceil;        &rceil;
+       1  x6        1  1,0
+" class="math-display" ></center> e
+   <center class="math-display" >
                                                                           
 
                                                                           
-<!--l. 1104--><p class="indent" >   </div><hr class="endfigure">
+<img 
+src="main859x.png" alt="     &lfloor;      &rfloor;   &lfloor;            &rfloor;
+     | 1&#x2215;y1 |   | 0,0099010  |
+     ||      ||   ||            ||
+     || 1&#x2215;y2 ||   || 0,0117647  ||
+     ||      ||   ||            ||
+Y =  || 1&#x2215;y3 || = || 0,0133333  ||
+     || 1&#x2215;y4 ||   || 0,0151515  ||
+     ||      ||   ||            ||
+     || 1&#x2215;y5 ||   || 0,0166667  ||
+     &lceil;      &rceil;   &lceil;            &rceil;
+       1&#x2215;y6       0,0181818
+" class="math-display" ></center> Assim, <img 
+src="main860x.png" alt="1a"  class="frac" align="middle">  <span 
+class="rm-lmr-12">=  0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">0082755 </span>e <img 
+src="main861x.png" alt="ba"  class="frac" align="middle">  <span 
+class="rm-lmr-12">=  0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">0100288 </span>e, então, <span 
+class="lmmi-12">a </span><span 
+class="rm-lmr-12">=  120</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">83924 </span>e <span 
+class="lmmi-12">b </span><span 
+class="rm-lmr-12">=</span>
+<span 
+class="rm-lmr-12">1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">2118696</span>, ou seja, <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">x</span><span 
+class="rm-lmr-12">) =</span> <img 
+src="main862x.png" alt="-120,83924--
+1,2118696+x"  class="frac" align="middle">.                                                <span 
+class="msam-10x-x-120">&#x2662;</span>
+   </div>
                                                                           
 
                                                                           
-   <!--l. 1107--><div class="crosslinks"><p class="noindent">[<a 
-href="mainli22.html" >next</a>] [<a 
+   <!--l. 1060--><div class="crosslinks"><p class="noindent">[<a 
+href="mainli16.html" >next</a>] [<a 
 href="mainse29.html" >prev</a>] [<a 
 href="mainse29.html#tailmainse29.html" >prev-tail</a>] [<a 
 href="mainse30.html" >front</a>] [<a 
-href="mainch8.html#mainli21.html" >up</a>] </p></div>
-<!--l. 1107--><p class="indent" >   <a 
+href="mainse38.html#mainse43.html" >up</a>] </p></div>
+<!--l. 1060--><p class="indent" >   <a 
  id="tailmainse30.html"></a>  
 </body></html> 
