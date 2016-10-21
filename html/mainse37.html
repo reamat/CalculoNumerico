@@ -1,0 +1,428 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html xml:lang="pt" > 
+<head><title>Ordem de precisao</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,3,notoc*,info --> 
+<meta name="src" content="main.tex"> 
+<meta name="date" content="2016-10-18 11:11:00"> 
+<link rel="stylesheet" type="text/css" href="main.css"> 
+</head><body 
+>
+   <!--l. 349--><div class="crosslinks"><p class="noindent">[<a 
+href="mainli20.html" >prev</a>] [<a 
+href="mainli20.html#tailmainli20.html" >prev-tail</a>] [<a 
+href="mainse27.html#tailmainse37.html">tail</a>] [<a 
+href="mainli24.html# " >up</a>] </p></div>
+   <h3 class="sectionHead"><span class="titlemark">8.3   </span> <a 
+ id="x87-1440008.3"></a>Ordem de precisão</h3>
+<a 
+ id="dx87-144001"></a>
+<!--l. 350--><p class="noindent" >Considere o problema de valor inicial dado por <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1228x.png" alt="y&prime;(t)  =  f (y(t),t),
+
+y(0)  =  y0.
+" class="math-display" ></center>
+</div>Nessa seção vamos definir a precisão de um método numérico pela ordem do erro
+acumulado ao calcular o valor da função em um ponto <span 
+class="lmmi-12">t</span><sub><span 
+class="lmmi-8">N</span></sub> em função do
+espaçamento da malha <span 
+class="lmmi-12">h</span>. Se <span 
+class="lmmi-12">y</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><sub><span 
+class="lmmi-8">n</span></sub><span 
+class="rm-lmr-12">) </span>pode ser aproximado por uma expressão que
+depende de <span 
+class="lmmi-12">f</span>, <span 
+class="lmmi-12">h</span>, <span 
+class="lmmi-12">y</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><sub><span 
+class="rm-lmr-8">0</span></sub><span 
+class="rm-lmr-12">)</span>, <span 
+class="lmmi-12">y</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="rm-lmr-12">)</span>, <img 
+src="main1229x.png" alt="&sdot;&sdot;&sdot;"  class="@cdots" ><span style="margin-left:0.3em" class="thinspace"></span>, <span 
+class="lmmi-12">y</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><sub><span 
+class="lmmi-8">n</span></sub><span 
+class="rm-lmr-12">)</span>, com erro da ordem de <span 
+class="lmmi-12">O</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">h</span><sup><span 
+class="lmmi-8">p</span><span 
+class="rm-lmr-8">+1</span></sup><span 
+class="rm-lmr-12">)</span>, ou
+seja,
+   <table 
+class="equation"><tr><td><a 
+ id="x87-144003r8"></a>
+   <center class="math-display" >
+<img 
+src="main1230x.png" alt="y(tn+1) = F (f,h,y(tn),y(tn&minus;1),&sdot;&sdot;&sdot;,y0) + O (hp+1)
+                                                                          
+
+                                                                          
+" class="math-display" ></center></td><td class="equation-label">(8.8)</td></tr></table>
+<!--l. 358--><p class="nopar" >
+para cada função analítica <span 
+class="lmmi-12">f</span>, dizemos que o método tem erro de truncamento da
+ordem de <span 
+class="lmmi-12">O</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">h</span><sup><span 
+class="lmmi-8">p</span></sup><span 
+class="rm-lmr-12">) </span>ou <span 
+class="ec-lmbx-12">ordem de precis</span><span 
+class="ec-lmbx-12">ão </span><span 
+class="lmmi-12">p</span><a 
+ id="dx87-144004"></a>. Essa afirmação faz sentido quando
+fazemos a seguinte análise informal: para aproximar <span 
+class="lmmi-12">y</span><sub><span 
+class="rm-lmr-8">1</span></sub>, acumulamos erros da
+ordem <span 
+class="lmmi-12">O</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">h</span><sup><span 
+class="lmmi-8">p</span><span 
+class="rm-lmr-8">+1</span></sup><span 
+class="rm-lmr-12">)</span>, para calcular <span 
+class="lmmi-12">y</span><sub>
+<span 
+class="rm-lmr-8">2</span></sub> acumulamos os erros de <span 
+class="lmmi-12">y</span><sub><span 
+class="rm-lmr-8">1</span></sub> e novos erros
+<span 
+class="lmmi-12">O</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">h</span><sup><span 
+class="lmmi-8">p</span><span 
+class="rm-lmr-8">+1</span></sup><span 
+class="rm-lmr-12">)</span>. Para calcular <span 
+class="lmmi-12">y</span><sub>
+<span 
+class="lmmi-8">N</span></sub>, acumulamos todos os erros até <span 
+class="lmmi-12">t</span><sub><span 
+class="lmmi-8">N</span></sub>, ou seja, <span 
+class="lmmi-12">N</span>
+vezes <span 
+class="lmmi-12">O</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">h</span><sup><span 
+class="lmmi-8">p</span><span 
+class="rm-lmr-8">+1</span></sup><span 
+class="rm-lmr-12">)</span>. Como <span 
+class="lmmi-12">N </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">O</span><span 
+class="rm-lmr-12">(1</span><span 
+class="lmmi-12">&#x2215;h</span><span 
+class="rm-lmr-12">)</span>, temos que os erros ao calcular <span 
+class="lmmi-12">y</span><sub>
+<span 
+class="lmmi-8">N</span></sub> são
+da ordem <span 
+class="lmmi-12">O</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">h</span><sup><span 
+class="lmmi-8">p</span></sup><span 
+class="rm-lmr-12">)</span>. É verdade que essa análise só vale quando impomos
+condições de suavidade para <span 
+class="lmmi-12">f </span>e condições adequada para a expressão
+<span 
+class="lmsy-10x-x-120"><span 
+class="htf-calligraphy">F</span></span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">f,h,y</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><sub><span 
+class="lmmi-8">n</span></sub><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">,y</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><sub><span 
+class="lmmi-8">n</span><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">1</span></sub><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">,</span><img 
+src="main1231x.png" alt="&sdot;&sdot;&sdot;"  class="@cdots" ><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="lmmi-12">,y</span><sub><span 
+class="rm-lmr-8">0</span></sub><span 
+class="rm-lmr-12">)</span>. Para explicar melhor esse pequeno texto,
+fazemos em detalhes essa operação para o método de Euler na seção
+<a 
+href="#x87-1450008.3.1">8.3.1<!--tex4ht:ref: sec_pre_euler --></a>.
+<!--l. 361--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">8.3.1   </span> <a 
+ id="x87-1450008.3.1"></a>Ordem de precisão do Método de Euler</h4>
+<!--l. 362--><p class="noindent" >Primeiro lembramos da expressão (<a 
+href="mainse35.html#x83-140004r8.4">8.4<!--tex4ht:ref: erro_local --></a>) que origina a seguinte relação de
+recorrência: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1232x.png" alt="y(tn+1 ) =   y(tn) + hf(y(tn),tn) + O (h2).            (8.9)
+" class="math-display" ><a 
+ id="x87-145001r8.9"></a></center>
+</div>Para entender melhor o motivo de na expressão (<a 
+href="#x87-145001r8.9">8.9<!--tex4ht:ref: es_Euler --></a>) aparecer <span 
+class="lmmi-12">O</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">h</span><sup><span 
+class="rm-lmr-8">2</span></sup><span 
+class="rm-lmr-12">) </span>e o
+método ser de precisão 1, vamos a seguinte análise informal: observemos que
+<div class="eqnarray">
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main1233x.png" alt="                                    2
+y(t1)  =  y (t0) + hf(y(t0),t0) + O (h )
+       =  y  + hf (y ,t ) + O(h2) = y  + O (h2)
+           0        0 0             1
+" class="math-display" ></center>
+</div>onde <span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">i</span></sub> é a aproximação pelo método de Euler para o valor exato <span 
+class="lmmi-12">y</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><sub><span 
+class="lmmi-8">i</span></sub><span 
+class="rm-lmr-12">)</span>.
+Subsequentemente, temos <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1234x.png" alt="                                    2
+y (t2)  =   y(t1) + hf (y(t1),t1) + O (h )
+       =   y(t1) + hf (y1 + O (h2),t1) + O (h2)
+                                 2
+       =   y(t1) + hf (y1,t1) + O (h )
+       =   y1 + O (h2) + hf(y1,t1) + O (h2) = y2 + O (h2 ) + O (h2).
+" class="math-display" ></center>
+</div>onde usamos o primeiro termo da série de Taylor <span 
+class="lmmi-12">hf</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">y</span><sub><span 
+class="rm-lmr-8">1</span></sub> <span 
+class="rm-lmr-12">+</span><span 
+class="lmmi-12">O</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">h</span><sup><span 
+class="rm-lmr-8">2</span></sup><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">,t</span><sub>
+<span 
+class="rm-lmr-8">1</span></sub><span 
+class="rm-lmr-12">) = </span><span 
+class="lmmi-12">hf</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">y</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="lmmi-12">,t</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="rm-lmr-12">)+</span><span 
+class="lmmi-12">O</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">h</span><sup><span 
+class="rm-lmr-8">3</span></sup><span 
+class="rm-lmr-12">)</span>
+na passagem da segunda para terceira linha. Repetindo sucessivamente o passo
+anterior, obtemos uma expressão geral para o valor exato <span 
+class="lmmi-12">y</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><sub><span 
+class="lmmi-8">N</span></sub><span 
+class="rm-lmr-12">) </span>em termos do
+valor aproximado <span 
+class="lmmi-12">y</span><sub><span 
+class="lmmi-8">N</span></sub>: <div class="eqnarray">
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main1235x.png" alt="                    2
+y(tN) = yN  + N O (h  ).
+" class="math-display" ></center>
+</div>Como <span 
+class="lmmi-12">N </span><span 
+class="rm-lmr-12">= (</span><span 
+class="lmmi-12">t</span><sub><span 
+class="lmmi-8">f</span></sub> <span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">t</span><sub><span 
+class="rm-lmr-8">0</span></sub><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">&#x2215;h</span>, temos <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1236x.png" alt="                   t &minus; t0
+y(tN)  =   = yN +  -----O (h2) = yN + O (h),         (8.10)
+                     h
+" class="math-display" ><a 
+ id="x87-145005r8.10"></a></center>
+</div>ou seja, o erro entre o valor exato e o aproximado é de ordem <span 
+class="lmmi-12">h</span>. Uma
+demonstração mais formal que garante que o erro é limitado por uma expressão
+que é proporcional a <span 
+class="lmmi-12">h </span>está discutido na seção <a 
+href="mainse38.html#x88-1480008.4.1">8.4.1<!--tex4ht:ref: sec_conv_Euler --></a>.
+<!--l. 388--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">8.3.2   </span> <a 
+ id="x87-1460008.3.2"></a>Ordem de precisão do Método de Euler Melhorado</h4>
+<!--l. 389--><p class="noindent" >Para obter o erro de precisão do método de Euler Melhorado vamos calcular o
+erro de truncamento do método, ou seja, precisamos demonstrar que:
+   <table 
+class="equation"><tr><td><a 
+ id="x87-146001r11"></a>
+   <center class="math-display" >
+<img 
+src="main1237x.png" alt="                  h           h                                 3
+y(t + h) = y(t) + 2f (y (t),t) +-2f(y(t) + hf(t,y(t))),t + h ) + O (h )
+" class="math-display" ></center></td><td class="equation-label">(8.11)</td></tr></table>
+<!--l. 392--><p class="nopar" >
+De fato, tomando a diferença do termo da esquerda o os termos da direita, temos:
+<div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1238x.png" alt="          (                                               )
+                   h           h
+y(t + h ) &minus; y(t) + 2f(y(t),t) + 2-f(y(t) + hf (t,y (t))),t + h)
+
+           &prime;     h2- &prime;&prime;         3
+= y(t) + hy (t) +  2 y (t) + O (h )
+  (       h        h                          )
+&minus;  y (t) + --y&prime;(t) + -f (y(t) + hf (t,y(t))),t + h)  ,
+          2        2
+" class="math-display" ></center>
+</div>onde usamos uma expansão em série de Taylor para <span 
+class="lmmi-12">y</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">h</span><span 
+class="rm-lmr-12">) </span>e a equação
+diferencial <span 
+class="lmmi-12">y</span><span 
+class="lmsy-10x-x-120">&prime;</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><span 
+class="rm-lmr-12">) = </span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">y</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">,t</span><span 
+class="rm-lmr-12">)</span>. Portanto, <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1239x.png" alt="          (                                               )
+                   h           h
+y(t + h ) &minus; y(t) + -f(y(t),t) + --f(y(t) + hf (t,y (t))),t + h)
+                   2           2
+  h- &prime;     h2- &prime;&prime;     h-                                3
+= 2 y (t) +  2 y (t) &minus; 2 f(y(t) + hf (t,y (t))),t + h) + O (h ).
+" class="math-display" ></center>
+</div>Agora, usamos a série de Taylor de <span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">y</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><span 
+class="rm-lmr-12">) + </span><span 
+class="lmmi-12">hf</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">y</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">,t</span><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">,t </span><span 
+class="rm-lmr-12">+ </span><span 
+class="lmmi-12">h</span><span 
+class="rm-lmr-12">) </span>e, torno de <span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">y,t</span><span 
+class="rm-lmr-12">)</span>:
+<div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1240x.png" alt="           (                                               )
+                   h-           h-
+y (t + h) &minus;   y(t) + 2 f(y(t),t) + 2f (y(t) + hf (t,y(t))),t + h)
+             2
+=  h-y&prime;(t) + h-y&prime;&prime;(t) + O(h3 )
+   2(       2                                              )
+  h              &part;f (y(t),t)    &part;f (t,y(t))                2
+&minus; --  f(y(t),t) + ----------h + ----------hf (t,y(t)) + O (h ) .
+   2                 &part;t            &part;y
+" class="math-display" ></center>
+</div>Usando a equação diferencial <span 
+class="lmmi-12">y</span><span 
+class="lmsy-10x-x-120">&prime;</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><span 
+class="rm-lmr-12">) = </span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">y</span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">t</span><span 
+class="rm-lmr-12">)</span><span 
+class="lmmi-12">,t</span><span 
+class="rm-lmr-12">) </span>obtemos
+   <center class="math-display" >
+<img 
+src="main1241x.png" alt=" &prime;&prime;     f(y(t),t)-  f-(y(t),t) &prime;     f-(y(t),t)   f(y(t),t)-
+y (t) =    &part;t    +    &part;y    y (t) =    &part;t    +     &part;y   f (y (t),t).  " class="math-display" ></center>
+                                                                          
+
+                                                                          
+Logo, <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1242x.png" alt="          (                                               )
+                   h-          h-
+y(t + h ) &minus; y(t) + 2f(y(t),t) + 2 f(y(t) + hf (t,y (t))),t + h)
+
+  h- &prime;     h2- &prime;&prime;         3
+= 2 y (t) +  2 y (t) + O (h )
+  h (                         )
+&minus; -- f(y(t),t) + hy&prime;&prime;(t) + O(h2)
+  2         2
+= h-y&prime;(t) + h--y&prime;&prime;(t)
+  2         2
+  h   &prime;       &prime;&prime;          3        3
+&minus; 2-(y(t) + hy (t)) + O (h ) = O (h )
+" class="math-display" ></center>
+</div>Portanto, a expressão (<a 
+href="#x87-146001r11">8.11<!--tex4ht:ref: es_Euler_melhorado --></a>) é válida. Logo, usando uma discussão análoga aquela
+feita na seção <a 
+href="#x87-1450008.3.1">8.3.1<!--tex4ht:ref: sec_pre_euler --></a> para o método de Euler, concluímos que o método de Euler
+Melhorado possui ordem de precisão 2.
+                                                                          
+
+                                                                          
+   <!--l. 424--><div class="crosslinks"><p class="noindent">[<a 
+href="mainli20.html" >prev</a>] [<a 
+href="mainli20.html#tailmainli20.html" >prev-tail</a>] [<a 
+href="mainse37.html" >front</a>] [<a 
+href="mainli24.html# " >up</a>] </p></div>
+<!--l. 424--><p class="indent" >   <a 
+ id="tailmainse37.html"></a>   
+</body></html> 

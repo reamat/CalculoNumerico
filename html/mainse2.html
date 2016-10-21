@@ -1,0 +1,1350 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html xml:lang="pt" > 
+<head><title>Representaçao de numeros</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,3,notoc*,info --> 
+<meta name="src" content="main.tex"> 
+<meta name="date" content="2016-10-18 11:11:00"> 
+<link rel="stylesheet" type="text/css" href="main.css"> 
+</head><body 
+>
+   <!--l. 269--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse6.html" >next</a>] [<a 
+href="mainse1.html" >prev</a>] [<a 
+href="mainse1.html#tailmainse1.html" >prev-tail</a>] [<a 
+href="#tailmainse2.html">tail</a>] [<a 
+href="mainch2.html#mainse3.html" >up</a>] </p></div>
+   <h3 class="sectionHead"><span class="titlemark">2.2   </span> <a 
+ id="x11-100002.2"></a>Representação de números</h3>
+<a 
+ id="dx11-10001"></a>
+<!--l. 271--><p class="noindent" >Os computadores, em geral, usam a base binária para representar os números,
+onde as posições, chamadas de bits, assume as condições &#8220;verdadeiro&#8221; ou
+&#8220;falso&#8221;, ou seja, <span 
+class="rm-lmr-12">0 </span>ou <span 
+class="rm-lmr-12">1</span>. Cada computador tem um número de bits fixo
+e, portanto, representa uma quantidade finita de números. Os demais
+números são tomados por proximidade àqueles conhecidos, gerando erros de
+arredondamento. Por exemplo, em aritmética de computador, o número <span 
+class="rm-lmr-12">2 </span>tem
+representação exata, logo <span 
+class="rm-lmr-12">2</span><sup><span 
+class="rm-lmr-8">2</span></sup> <span 
+class="rm-lmr-12">= 4</span>, mas <img 
+src="main35x.png" alt="&radic; --
+  3"  class="sqrt" > não tem representação finita, logo
+<span 
+class="rm-lmr-12">(</span><img 
+src="main36x.png" alt="&radic;3--"  class="sqrt" ><span 
+class="rm-lmr-12">)</span><sup><span 
+class="rm-lmr-8">2</span></sup><span 
+class="lmmi-12">&ne;</span><span 
+class="rm-lmr-12">3</span>.
+<!--l. 274--><p class="indent" >   Veja isso no <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">Scilab</span></span></span>:
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-4">
+--&#x003E;2^2&#x00A0;==&#x00A0;4
+&#x00A0;<br />&#x00A0;ans&#x00A0;&#x00A0;=
+&#x00A0;<br />&#x00A0;&#x00A0;T
+&#x00A0;<br />--&#x003E;sqrt(3)^2&#x00A0;==&#x00A0;3
+&#x00A0;<br />&#x00A0;ans&#x00A0;&#x00A0;=
+&#x00A0;<br />&#x00A0;&#x00A0;F
+</div>
+<!--l. 282--><p class="nopar" >
+<!--l. 285--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.2.1   </span> <a 
+ id="x11-110002.2.1"></a>Números inteiros</h4>
+<a 
+ id="dx11-11001"></a>
+<!--l. 287--><p class="noindent" >Tipicamente um número inteiro é armazenado num computador como uma
+sequência de dígitos binários de comprimento fixo denominado <span 
+class="ec-lmbx-12">registro</span>.
+<!--l. 289--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x11-120002.2.1"></a>Representação sem sinal</h5>
+<a 
+ id="dx11-12001"></a>
+<!--l. 290--><p class="noindent" >Um registro com <span 
+class="lmmi-12">n </span>bits da forma <!--tex4ht:inline--><div class="tabular"> <table id="TBL-2" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-2-1g"><col 
+id="TBL-2-1"></colgroup><colgroup id="TBL-2-2g"><col 
+id="TBL-2-2"></colgroup><colgroup id="TBL-2-3g"><col 
+id="TBL-2-3"></colgroup><colgroup id="TBL-2-4g"><col 
+id="TBL-2-4"></colgroup><colgroup id="TBL-2-5g"><col 
+id="TBL-2-5"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-2-1-1"  
+class="td11"><span 
+class="lmmi-12">d</span><sub><span 
+class="lmmi-8">n</span><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">1</span></sub></td><td  style="white-space:nowrap; text-align:center;" id="TBL-2-1-2"  
+class="td11"><span 
+class="lmmi-12">d</span><sub><span 
+class="lmmi-8">n</span><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">2</span></sub></td><td  style="white-space:nowrap; text-align:center;" id="TBL-2-1-3"  
+class="td11"><img 
+src="main37x.png" alt="&sdot;&sdot;&sdot;"  class="@cdots" ><span style="margin-left:0.3em" class="thinspace"></span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-2-1-4"  
+class="td11"><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">1</span></sub></td><td  style="white-space:nowrap; text-align:center;" id="TBL-2-1-5"  
+class="td11"><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">0</span></sub></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-2-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-2-2-1"  
+class="td11">    </td> </tr></table>
+</div> representa o número <span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">d</span><sub><span 
+class="lmmi-8">n</span><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">1</span></sub><span 
+class="lmmi-12">d</span><sub><span 
+class="lmmi-8">n</span><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">...d</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">0</span></sub><span 
+class="rm-lmr-12">)</span><sub><span 
+class="rm-lmr-8">2</span></sub>.
+<!--l. 301--><p class="indent" >   Assim é possível representar números inteiros entre
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main38x.png" alt="(111...111)2 = 2n&minus;1 + 2n&minus; 2 + &sdot;&sdot;&sdot; + 21 + 20 = 2n &minus; 1.
+
+           ...
+
+(000...011)2 = 3
+(000...010)2 = 2
+
+(000...001)2 = 1
+(000...000)2 = 0
+" class="math-display" ></center></td></tr></table>
+<!--l. 311--><p class="nopar" >
+   <div class="newtheorem">
+<!--l. 314--><p class="noindent" ><span class="head">
+<a 
+ id="x11-12002r1"></a>
+<span 
+class="ec-lmbx-12">Exemplo 2.2.1.</span>  </span>No <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">Scilab</span></span></span>,
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-5">
+--&#x003E;uint8(&#x00A0;bin2dec(&#8217;00000011&#8217;)&#x00A0;)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;ans&#x00A0;=&#x00A0;3
+&#x00A0;<br />--&#x003E;uint8(&#x00A0;bin2dec(&#8217;11111110&#8217;)&#x00A0;)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;ans&#x00A0;=&#x00A0;254
+</div>
+<!--l. 321--><p class="nopar" >
+   </div>
+<!--l. 325--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x11-130002.2.1"></a>Representação com bit de sinal</h5>
+<a 
+ id="dx11-13001"></a>
+<!--l. 326--><p class="noindent" >O bit mais significativo (o primeiro à esquerda) representa o sinal: por convenção,
+<span 
+class="rm-lmr-12">0 </span>significa positivo e <span 
+class="rm-lmr-12">1 </span>significa negativo. Um registro com <span 
+class="lmmi-12">n </span>bits da forma
+<!--tex4ht:inline--><div class="tabular"> <table id="TBL-3" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-3-1g"><col 
+id="TBL-3-1"></colgroup><colgroup id="TBL-3-2g"><col 
+id="TBL-3-2"></colgroup><colgroup id="TBL-3-3g"><col 
+id="TBL-3-3"></colgroup><colgroup id="TBL-3-4g"><col 
+id="TBL-3-4"></colgroup><colgroup id="TBL-3-5g"><col 
+id="TBL-3-5"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-1-1"  
+class="td11"><span 
+class="lmmi-12">s</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-1-2"  
+class="td11"><span 
+class="lmmi-12">d</span><sub><span 
+class="lmmi-8">n</span><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">2</span></sub></td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-1-3"  
+class="td11"><img 
+src="main39x.png" alt="&sdot;&sdot;&sdot;"  class="@cdots" ><span style="margin-left:0.3em" class="thinspace"></span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-1-4"  
+class="td11"><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">1</span></sub></td><td  style="white-space:nowrap; text-align:center;" id="TBL-3-1-5"  
+class="td11"><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">0</span></sub></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-3-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-3-2-1"  
+class="td11">  </td></tr></table>
+</div> representa o número <span 
+class="rm-lmr-12">(</span><span 
+class="lmsy-10x-x-120">&minus;</span><span 
+class="rm-lmr-12">1)</span><sup><span 
+class="lmmi-8">s</span></sup><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">d</span><sub>
+<span 
+class="lmmi-8">n</span><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">...d</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">0</span></sub><span 
+class="rm-lmr-12">)</span><sub><span 
+class="rm-lmr-8">2</span></sub>. Assim é possível representar números
+inteiros entre <span 
+class="lmsy-10x-x-120">&minus;</span><span 
+class="rm-lmr-12">2</span><sup><span 
+class="lmmi-8">n</span><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">1</span></sup> e <span 
+class="rm-lmr-12">2</span><sup><span 
+class="lmmi-8">n</span><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">1</span></sup>, com duas representações para o zero: <span 
+class="rm-lmr-12">(1000</span><span 
+class="lmmi-12">...</span><span 
+class="rm-lmr-12">000)</span><sub>
+<span 
+class="rm-lmr-8">2</span></sub> e
+<span 
+class="rm-lmr-12">(00000</span><span 
+class="lmmi-12">...</span><span 
+class="rm-lmr-12">000)</span><sub><span 
+class="rm-lmr-8">2</span></sub>.
+   <div class="newtheorem">
+<!--l. 332--><p class="noindent" ><span class="head">
+<a 
+ id="x11-13002r2"></a>
+<span 
+class="ec-lmbx-12">Exemplo 2.2.2.</span>  </span>Em um registro com <span 
+class="rm-lmr-12">8 </span>bits, teremos os números
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main40x.png" alt="(11111111 )2 = &minus; (26 + &sdot;&sdot;&sdot; + 2 + 1) = &minus; 127
+
+            ...
+
+(10000001 )2 = &minus; 1
+(10000000 )2 = &minus; 0
+                6
+(01111111 )2 = 2 +  &sdot;&sdot;&sdot; + 2 + 1 = 127
+            ..
+            .
+(00000010 )2 = 2
+(00000001 )  = 1
+           2
+(00000000 )2 = 0
+" class="math-display" ></center></td></tr></table>
+<!--l. 346--><p class="nopar" >
+   </div>
+<!--l. 350--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x11-140002.2.1"></a>Representação complemento de dois</h5>
+<a 
+ id="dx11-14001"></a>
+<!--l. 351--><p class="noindent" >O bit mais significativo (o primeiro à esquerda) representa
+o coeficiente de <span 
+class="lmsy-10x-x-120">&minus;</span><span 
+class="rm-lmr-12">2</span><sup><span 
+class="lmmi-8">n</span><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">1</span></sup>. Um registro com <span 
+class="lmmi-12">n </span>bits da forma:
+<!--tex4ht:inline--><div class="tabular"> <table id="TBL-4" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-4-1g"><col 
+id="TBL-4-1"></colgroup><colgroup id="TBL-4-2g"><col 
+id="TBL-4-2"></colgroup><colgroup id="TBL-4-3g"><col 
+id="TBL-4-3"></colgroup><colgroup id="TBL-4-4g"><col 
+id="TBL-4-4"></colgroup><colgroup id="TBL-4-5g"><col 
+id="TBL-4-5"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-4-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-4-1-1"  
+class="td11"><span 
+class="lmmi-12">d</span><sub><span 
+class="lmmi-8">n</span><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">1</span></sub></td><td  style="white-space:nowrap; text-align:center;" id="TBL-4-1-2"  
+class="td11"><span 
+class="lmmi-12">d</span><sub><span 
+class="lmmi-8">n</span><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">2</span></sub></td><td  style="white-space:nowrap; text-align:center;" id="TBL-4-1-3"  
+class="td11"><img 
+src="main41x.png" alt="&sdot;&sdot;&sdot;"  class="@cdots" ><span style="margin-left:0.3em" class="thinspace"></span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-4-1-4"  
+class="td11"><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">1</span></sub></td><td  style="white-space:nowrap; text-align:center;" id="TBL-4-1-5"  
+class="td11"><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">0</span></sub></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-4-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-4-2-1"  
+class="td11">    </td></tr></table>
+</div> representa o número <span 
+class="lmsy-10x-x-120">&minus;</span><span 
+class="lmmi-12">d</span><sub><span 
+class="lmmi-8">n</span><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">1</span></sub><span 
+class="rm-lmr-12">2</span><sup><span 
+class="lmmi-8">n</span><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">1</span></sup> <span 
+class="rm-lmr-12">+ (</span><span 
+class="lmmi-12">d</span><sub>
+<span 
+class="lmmi-8">n</span><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">...d</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">0</span></sub><span 
+class="rm-lmr-12">)</span><sub><span 
+class="rm-lmr-8">2</span></sub>.
+<!--l. 357--><p class="indent" >   Note que todo registro começando com <span 
+class="rm-lmr-12">1 </span>será um número negativo.
+   <div class="newtheorem">
+<!--l. 359--><p class="noindent" ><span class="head">
+<a 
+ id="x11-14002r3"></a>
+<span 
+class="ec-lmbx-12">Exemplo 2.2.3.</span>  </span>O registro com <span 
+class="rm-lmr-12">8 </span>bits <span 
+class="rm-lmr-12">[01000011] </span>representa o número:
+   <table 
+class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main42x.png" alt="     7
+&minus; 0 (2 ) + (1000011 )2 = 64 + 2 + 1 = 67.
+" class="math-display" ></center></td></tr></table>
+<!--l. 363--><p class="nopar" >
+<!--l. 365--><p class="indent" >   O registro com <span 
+class="rm-lmr-12">8 </span>bits <span 
+class="rm-lmr-12">[10111101] </span>representa o número:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main43x.png" alt="&minus; 1(27) + (0111101)2 = &minus; 128 + 32 + 16 + 8 + 4 + 1 = &minus; 67.
+" class="math-display" ></center></td></tr></table>
+<!--l. 368--><p class="nopar" >
+<!--l. 370--><p class="indent" >   Note que podemos obter a representação de <span 
+class="lmsy-10x-x-120">&minus;</span><span 
+class="rm-lmr-12">67 </span>invertendo os dígitos de <span 
+class="rm-lmr-12">67</span>
+em binário e somando 1.
+   </div>
+   <div class="newtheorem">
+<!--l. 373--><p class="noindent" ><span class="head">
+<a 
+ id="x11-14003r4"></a>
+<span 
+class="ec-lmbx-12">Exemplo 2.2.4.</span>  </span>Em um registro com <span 
+class="rm-lmr-12">8 </span>bits, teremos os números
+   <table 
+class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main44x.png" alt="(11111111 ) = &minus; 27 + 26 + &sdot;&sdot;&sdot; + 2 + 1 = &minus; 1
+           2
+           ...
+                 7
+(10000001 )2 = &minus; 2 + 1 = &minus; 127
+(10000000 )2 = &minus; 27 = &minus; 128
+                6
+(01111111 )2 = 2 + &sdot;&sdot;&sdot; + 2 + 1 = 127
+           ..
+           .
+(00000010 )2 = 2
+
+(00000001 )2 = 1
+(00000000 )2 = 0
+" class="math-display" ></center></td></tr></table>
+<!--l. 387--><p class="nopar" >
+   </div>
+   <div class="newtheorem">
+<!--l. 391--><p class="noindent" ><span class="head">
+<a 
+ id="x11-14004r5"></a>
+<span 
+class="ec-lmbx-12">Exemplo 2.2.5.</span>  </span>No <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">Scilab</span></span></span>,
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-6">
+--&#x003E;int8(&#x00A0;bin2dec(&#8217;00000011&#8217;)&#x00A0;)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;ans&#x00A0;=&#x00A0;3
+&#x00A0;<br />--&#x003E;int8(&#x00A0;bin2dec(&#8217;11111110&#8217;)&#x00A0;)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;ans&#x00A0;=&#x00A0;-2
+</div>
+<!--l. 398--><p class="nopar" >
+   </div>
+<!--l. 403--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.2.2   </span> <a 
+ id="x11-150002.2.2"></a>Sistema de ponto fixo</h4>
+<a 
+ id="dx11-15001"></a>
+<!--l. 405--><p class="noindent" >O sistema de ponto fixo representa as partes inteira e fracionária do número com
+uma quantidade fixas de dígitos.
+   <div class="newtheorem">
+<!--l. 407--><p class="noindent" ><span class="head">
+<a 
+ id="x11-15002r6"></a>
+<span 
+class="ec-lmbx-12">Exemplo 2.2.6.</span>  </span>Em um computador de 32 bits que usa o sistema de ponto fixo, o
+registro <!--tex4ht:inline--><div class="tabular"> <table id="TBL-5" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-5-1g"><col 
+id="TBL-5-1"></colgroup><colgroup id="TBL-5-2g"><col 
+id="TBL-5-2"></colgroup><colgroup id="TBL-5-3g"><col 
+id="TBL-5-3"></colgroup><colgroup id="TBL-5-4g"><col 
+id="TBL-5-4"></colgroup><colgroup id="TBL-5-5g"><col 
+id="TBL-5-5"></colgroup><colgroup id="TBL-5-6g"><col 
+id="TBL-5-6"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-5-1-1"  
+class="td11"><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">31</span></sub></td><td  style="white-space:nowrap; text-align:center;" id="TBL-5-1-2"  
+class="td11"><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">30</span></sub></td><td  style="white-space:nowrap; text-align:center;" id="TBL-5-1-3"  
+class="td11"><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">29</span></sub></td><td  style="white-space:nowrap; text-align:center;" id="TBL-5-1-4"  
+class="td11"><img 
+src="main45x.png" alt="&sdot;&sdot;&sdot;"  class="@cdots" ><span style="margin-left:0.3em" class="thinspace"></span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-5-1-5"  
+class="td11"><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">1</span></sub></td><td  style="white-space:nowrap; text-align:center;" id="TBL-5-1-6"  
+class="td11"><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">0</span></sub></td></tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-5-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-5-2-1"  
+class="td11"> </td> </tr></table>
+</div> pode representar o número
+      <ul class="itemize1">
+      <li class="itemize"><span 
+class="rm-lmr-12">(</span><span 
+class="lmsy-10x-x-120">&minus;</span><span 
+class="rm-lmr-12">1)</span><sup><span 
+class="lmmi-8">d</span><sub><span 
+class="rm-lmr-6">31</span></sub></sup><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">d</span><sub>
+<span 
+class="rm-lmr-8">30</span></sub><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">29</span></sub><img 
+src="main46x.png" alt="&sdot;&sdot;&sdot;"  class="@cdots" ><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">17</span></sub><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">16</span></sub><span 
+class="lmmi-12">,d</span><sub><span 
+class="rm-lmr-8">15</span></sub><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">14</span></sub><img 
+src="main47x.png" alt="&sdot;&sdot; &sdot;"  class="@cdots" ><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">0</span></sub><span 
+class="rm-lmr-12">)</span><sub><span 
+class="rm-lmr-8">2</span></sub> se o sinal for representado por um
+      dígito. Observe que nesse caso o zero possui duas representações
+      possíveis:
+      <table 
+class="equation-star"><tr><td>
+      <center class="math-display" >
+                                                                          
+
+                                                                          
+      <img 
+src="main48x.png" alt="10000000000000000000000000000000
+      " class="math-display" ></center></td></tr></table>
+      <!--l. 418--><p class="nopar" >
+      e
+      <table 
+class="equation-star"><tr><td>
+      <center class="math-display" >
+      <img 
+src="main49x.png" alt="00000000000000000000000000000000
+      " class="math-display" ></center></td></tr></table>
+      <!--l. 422--><p class="nopar" >
+      </li>
+      <li class="itemize"><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">30</span></sub><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">29</span></sub><img 
+src="main50x.png" alt="&sdot;&sdot;&sdot;"  class="@cdots" ><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">17</span></sub><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">16</span></sub><span 
+class="rm-lmr-12">)</span><sub><span 
+class="rm-lmr-8">2</span></sub> <span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">31</span></sub><span 
+class="rm-lmr-12">(2</span><sup><span 
+class="rm-lmr-8">15</span></sup> <span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">2</span><sup><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">16</span></sup><span 
+class="rm-lmr-12">) + (0</span><span 
+class="lmmi-12">,d</span><sub>
+<span 
+class="rm-lmr-8">15</span></sub><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">14</span></sub><img 
+src="main51x.png" alt="&sdot;&sdot;&sdot;"  class="@cdots" ><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">0</span></sub><span 
+class="rm-lmr-12">)</span><sub><span 
+class="rm-lmr-8">2</span></sub> se o sinal do
+      número estiver representado por uma implementação em complemento
+      de um. Observe que o zero também possui duas representações
+      possíveis:
+      <table 
+class="equation-star"><tr><td>
+      <center class="math-display" >
+      <img 
+src="main52x.png" alt="11111111111111111111111111111111
+      " class="math-display" ></center></td></tr></table>
+                                                                          
+
+                                                                          
+      <!--l. 427--><p class="nopar" >
+      e
+      <table 
+class="equation-star"><tr><td>
+      <center class="math-display" >
+      <img 
+src="main53x.png" alt="00000000000000000000000000000000
+      " class="math-display" ></center></td></tr></table>
+      <!--l. 431--><p class="nopar" >
+      </li>
+      <li class="itemize"><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">30</span></sub><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">29</span></sub><img 
+src="main54x.png" alt="&sdot;&sdot;&sdot;"  class="@cdots" ><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">17</span></sub><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">16</span></sub><span 
+class="rm-lmr-12">)</span><sub><span 
+class="rm-lmr-8">2</span></sub> <span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">31</span></sub><span 
+class="rm-lmr-12">2</span><sup><span 
+class="rm-lmr-8">15</span></sup> <span 
+class="rm-lmr-12">+ (0</span><span 
+class="lmmi-12">,d</span><sub>
+<span 
+class="rm-lmr-8">15</span></sub><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">14</span></sub><img 
+src="main55x.png" alt="&sdot;&sdot;&sdot;"  class="@cdots" ><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">0</span></sub><span 
+class="rm-lmr-12">)</span><sub><span 
+class="rm-lmr-8">2</span></sub> se o sinal do número estiver
+      representado por uma implementação em complemento de dois. Nesse caso o
+      zero é unicamente representado por
+      <table 
+class="equation-star"><tr><td>
+      <center class="math-display" >
+      <img 
+src="main56x.png" alt="00000000000000000000000000000000
+      " class="math-display" ></center></td></tr></table>
+      <!--l. 436--><p class="nopar" >
+      </li></ul>
+<!--l. 438--><p class="noindent" >Observe que <span 
+class="rm-lmr-12">16 </span>dígitos são usados para representar a parte fracionária, <span 
+class="rm-lmr-12">15 </span>são para
+representar a parte inteira e um dígito, o <span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">31</span></sub>, está relacionado ao sinal do
+número.
+                                                                          
+
+                                                                          
+   </div>
+<!--l. 441--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.2.3   </span> <a 
+ id="x11-160002.2.3"></a>Normalização</h4>
+<a 
+ id="dx11-16001"></a>
+<!--l. 442--><p class="noindent" >Os números <span 
+class="lmmi-12">h </span><span 
+class="rm-lmr-12">= 6</span><span 
+class="lmmi-12">.</span><span 
+class="rm-lmr-12">626 </span><span 
+class="lmsy-10x-x-120">&#x00D7; </span><span 
+class="rm-lmr-12">10</span><sup><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">34</span></sup> e <span 
+class="lmmi-12">N</span><sub>
+<span 
+class="lmmi-8">A</span></sub> <span 
+class="rm-lmr-12">= 6</span><span 
+class="lmmi-12">.</span><span 
+class="rm-lmr-12">0221 </span><span 
+class="lmsy-10x-x-120">&#x00D7; </span><span 
+class="rm-lmr-12">10</span><sup><span 
+class="rm-lmr-8">23</span></sup> não podem ser armazenados
+na máquina em ponto fixo do exemplo anterior.
+<!--l. 444--><p class="indent" >   Entretanto, a constante
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main57x.png" alt="h = 6626 &#x00D7; 10&minus; 37
+              &minus;34
+h = 6.626 &#x00D7; 10
+h = 0.6626 &#x00D7; 10&minus;33
+                 &minus; 31
+h = 0.006626 &#x00D7; 10
+" class="math-display" ></center></td></tr></table>
+<!--l. 452--><p class="nopar" >
+pode ser escrita de várias formas diferentes. Para termos uma <span 
+class="ec-lmbx-12">representa</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão</span>
+<span 
+class="ec-lmbx-12">única </span>definimos como notação normalizada a segunda opção (<span 
+class="rm-lmr-12">1 </span><span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="lmmi-12">m &#x003C; </span><span 
+class="rm-lmr-12">10</span>) que
+apresenta apenas um dígito diferente de zero a esquerda do ponto decimal
+(<span 
+class="lmmi-12">m </span><span 
+class="rm-lmr-12">= 6</span><span 
+class="lmmi-12">.</span><span 
+class="rm-lmr-12">626</span>).
+   <div class="newtheorem">
+<!--l. 456--><p class="noindent" ><span class="head">
+<a 
+ id="x11-16002r1"></a>
+<span 
+class="ec-lmbx-12">Defini</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão 2.2.1.</span>  </span><span 
+class="ec-lmri-12">Definimos que</span>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main58x.png" alt="         s        E
+x = (&minus; 1) (M  )b &#x00D7; b ,  " class="math-display" ></center> <span 
+class="ec-lmri-12">est</span><span 
+class="ec-lmri-12">á na </span><span 
+class="ec-lmbxi-10x-x-120">nota</span><span 
+class="ec-lmbxi-10x-x-120">ç</span><span 
+class="ec-lmbxi-10x-x-120">ão</span>
+<span 
+class="ec-lmbxi-10x-x-120">normalizada</span><span class="footnote-mark"><a 
+href="main12.html#fn2x3"><sup class="textsuperscript">2</sup></a></span><a 
+ id="x11-16003f2"></a> 
+<span 
+class="ec-lmri-12">quando </span><span 
+class="rm-lmr-12">1 </span><span 
+class="lmsy-10x-x-120">&le; </span><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">M</span><span 
+class="rm-lmr-12">)</span><sub><span 
+class="lmmi-8">b</span></sub> <span 
+class="lmmi-12">&#x003C; b</span><span 
+class="ec-lmri-12">, onde</span>
+      <ul class="itemize1">
+      <li class="itemize"><span 
+class="lmmi-12">s </span><span 
+class="ec-lmri-12">é o </span><span 
+class="ec-lmbxi-10x-x-120">sinal </span><span 
+class="ec-lmri-12">(</span><span 
+class="rm-lmr-12">0 </span><span 
+class="ec-lmri-12">para positivo e </span><span 
+class="rm-lmr-12">1 </span><span 
+class="ec-lmri-12">para negativo),</span>
+      </li>
+      <li class="itemize"><span 
+class="lmmi-12">E </span><span 
+class="ec-lmri-12">é o </span><span 
+class="ec-lmbxi-10x-x-120">expoente</span><span 
+class="ec-lmri-12">,</span>
+      </li>
+      <li class="itemize"><span 
+class="lmmi-12">b </span><span 
+class="ec-lmri-12">é a base (por ex. </span><span 
+class="rm-lmr-12">2</span><span 
+class="ec-lmri-12">, </span><span 
+class="rm-lmr-12">8</span><span 
+class="ec-lmri-12">, </span><span 
+class="rm-lmr-12">10 </span><span 
+class="ec-lmri-12">ou </span><span 
+class="rm-lmr-12">16</span><span 
+class="ec-lmri-12">),</span>
+      </li>
+      <li class="itemize"><span 
+class="rm-lmr-12">(</span><span 
+class="lmmi-12">M</span><span 
+class="rm-lmr-12">)</span><sub><span 
+class="lmmi-8">b</span></sub> <span 
+class="ec-lmri-12">é o significando. O </span><span 
+class="ec-lmbxi-10x-x-120">significando </span><span 
+class="ec-lmri-12">(tamb</span><span 
+class="ec-lmri-12">ém chamado de mantissa</span>
+      <span 
+class="ec-lmri-12">ou coeficiente) cont</span><span 
+class="ec-lmri-12">ém os d</span><span 
+class="ec-lmri-12">ígitos significativos do n</span><span 
+class="ec-lmri-12">úmero.</span></li></ul>
+   </div>
+   <div class="newtheorem">
+<!--l. 470--><p class="noindent" ><span class="head">
+<a 
+ id="x11-16004r7"></a>
+<span 
+class="ec-lmbx-12">Exemplo 2.2.7.</span>  </span>Os números abaixo estão em notação normalizada:
+   <center class="math-display" >
+<img 
+src="main59x.png" alt="                      (100)2
+x1 = (&minus; 1.011101 )2 &#x00D7; 2
+" class="math-display" ></center>
+   <center class="math-display" >
+<img 
+src="main60x.png" alt="                     1
+x2 = (&minus; 2.325)10 &#x00D7; 10
+" class="math-display" ></center>
+   </div>
+   <div class="newtheorem">
+<!--l. 476--><p class="noindent" ><span class="head">
+<a 
+ id="x11-16005r8"></a>
+<span 
+class="ec-lmbx-12">Exemplo 2.2.8.</span>  </span>Represente os números <span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">00</span><span class="overline"><span 
+class="rm-lmr-12">51</span></span> e <span 
+class="rm-lmr-12">1205</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">41</span><span class="overline"><span 
+class="rm-lmr-12">54</span></span> em um sistema
+de  ponto  fixo  de  4  dígitos  para  a  parte  inteira  e  4  dígitos  para  a
+parte fracionária. Depois represente os mesmos números utilizando notação
+normalizada com 7 dígitos significativos.
+   </div>
+<!--l. 478--><p class="indent" >
+   <div class="proof">
+<!--l. 478--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> As representações dos números <span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">00</span><span class="overline"><span 
+class="rm-lmr-12">51</span></span> e <span 
+class="rm-lmr-12">1205</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">41</span><span class="overline"><span 
+class="rm-lmr-12">54</span></span> no sistema de
+ponto fixo são <span 
+class="rm-lmr-12">0</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">0051 </span>e <span 
+class="rm-lmr-12">1205</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">4154</span>, respectivamente. Em notação normalizada,
+as representações são <span 
+class="rm-lmr-12">5</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">151515 </span><span 
+class="lmsy-10x-x-120">&sdot; </span><span 
+class="rm-lmr-12">10</span><sup><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">3</span></sup> e <span 
+class="rm-lmr-12">1</span><span 
+class="lmmi-12">,</span><span 
+class="rm-lmr-12">205415 </span><span 
+class="lmsy-10x-x-120">&sdot; </span><span 
+class="rm-lmr-12">10</span><sup><span 
+class="rm-lmr-8">3</span></sup>, respectivamente.    <span 
+class="msam-10x-x-120">&#x2662;</span>
+   </div>
+   <div class="newtheorem">
+<!--l. 481--><p class="noindent" ><span class="head">
+<a 
+ id="x11-16006r1"></a>
+                                                                          
+
+                                                                          
+<span 
+class="ec-lmbx-12">Observa</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão 2.2.1.</span>  </span>No <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">Scilab</span></span></span>, a representação em ponto flutuante com
+<span 
+class="lmmi-12">n </span>dígitos é dada na forma <span 
+class="lmsy-10x-x-120">±</span><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">1</span></sub><span 
+class="lmmi-12">,d</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
+class="lmmi-12">d</span><sub><span 
+class="rm-lmr-8">3</span></sub><span 
+class="lmmi-12">&hellip;</span><span 
+class="lmmi-12">d</span><sub><span 
+class="lmmi-8">n</span></sub> <span 
+class="lmsy-10x-x-120">&#x00D7; </span><span 
+class="rm-lmr-12">10</span><sup><span 
+class="lmmi-8">E</span></sup>. Consulte sobre o comando
+<span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">format</span></span></span>!
+   </div>
+<!--l. 488--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.2.4   </span> <a 
+ id="x11-170002.2.4"></a>Sistema de ponto flutuante</h4>
+<a 
+ id="dx11-17001"></a>
+<!--l. 490--><p class="noindent" >O sistema de ponto flutuante não possui quantidade fixa de dígitos para as partes
+inteira e fracionária do número.
+<!--l. 492--><p class="indent" >   Podemos definir uma máquina <span 
+class="lmmi-12">F </span>em ponto flutuante de dois modos:
+   <center class="math-display" >
+<img 
+src="main61x.png" alt="F (&beta;,|M  |,|E|,BIAS  ) ou F(&beta;,|M |,EMIN ,EMAX  )  " class="math-display" ></center>
+onde
+      <ul class="itemize1">
+      <li class="itemize"><span 
+class="lmmi-12">&beta; </span>é a base (em geral <span 
+class="rm-lmr-12">2 </span>ou <span 
+class="rm-lmr-12">10</span>),
+      </li>
+      <li class="itemize"><span 
+class="lmsy-10x-x-120">|</span><span 
+class="lmmi-12">M</span><span 
+class="lmsy-10x-x-120">| </span>é o número de dígitos da mantissa,
+      </li>
+      <li class="itemize"><span 
+class="lmsy-10x-x-120">|</span><span 
+class="lmmi-12">E</span><span 
+class="lmsy-10x-x-120">| </span>é o número de dígitos do expoente,
+      </li>
+      <li class="itemize"><span 
+class="lmmi-12">BIAS </span>é um valor de deslocamento do expoente (veja a seguir),
+      </li>
+      <li class="itemize"><span 
+class="lmmi-12">E</span><sub><span 
+class="lmmi-8">MIN</span></sub> é o menor expoente,
+                                                                          
+
+                                                                          
+      </li>
+      <li class="itemize"><span 
+class="lmmi-12">E</span><sub><span 
+class="lmmi-8">MAX</span></sub> é o maior expoente.</li></ul>
+<!--l. 506--><p class="indent" >   Considere uma máquina com um registro de <span 
+class="rm-lmr-12">64 </span>bits e base
+<span 
+class="lmmi-12">&beta; </span><span 
+class="rm-lmr-12">= 2</span>. Pelo padrão IEEE754, <span 
+class="rm-lmr-12">1 </span>bit é usado para o sinal, <span 
+class="rm-lmr-12">11 </span>bits
+para o expoente e <span 
+class="rm-lmr-12">52 </span>bits são usados para o significando tal que
+<!--tex4ht:inline--><div class="tabular"> <table id="TBL-6" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-6-1g"><col 
+id="TBL-6-1"></colgroup><colgroup id="TBL-6-2g"><col 
+id="TBL-6-2"></colgroup><colgroup id="TBL-6-3g"><col 
+id="TBL-6-3"></colgroup><colgroup id="TBL-6-4g"><col 
+id="TBL-6-4"></colgroup><colgroup id="TBL-6-5g"><col 
+id="TBL-6-5"></colgroup><colgroup id="TBL-6-6g"><col 
+id="TBL-6-6"></colgroup><colgroup id="TBL-6-7g"><col 
+id="TBL-6-7"></colgroup><colgroup id="TBL-6-8g"><col 
+id="TBL-6-8"></colgroup><colgroup id="TBL-6-9g"><col 
+id="TBL-6-9"></colgroup><colgroup id="TBL-6-10g"><col 
+id="TBL-6-10"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-6-1-1"  
+class="td11"><span 
+class="lmmi-12">s</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-6-1-2"  
+class="td11"><span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">10</span></sub></td><td  style="white-space:nowrap; text-align:center;" id="TBL-6-1-3"  
+class="td11"><span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">9</span></sub></td><td  style="white-space:nowrap; text-align:center;" id="TBL-6-1-4"  
+class="td11"><img 
+src="main62x.png" alt="&sdot;&sdot;&sdot;"  class="@cdots" ><span style="margin-left:0.3em" class="thinspace"></span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-6-1-5"  
+class="td11"><span 
+class="lmmi-12">c</span><sub><span 
+class="rm-lmr-8">0</span></sub></td><td  style="white-space:nowrap; text-align:center;" id="TBL-6-1-6"  
+class="td11"><span 
+class="lmmi-12">m</span><sub><span 
+class="rm-lmr-8">1</span></sub></td><td  style="white-space:nowrap; text-align:center;" id="TBL-6-1-7"  
+class="td11"><span 
+class="lmmi-12">m</span><sub><span 
+class="rm-lmr-8">2</span></sub></td><td  style="white-space:nowrap; text-align:center;" id="TBL-6-1-8"  
+class="td11"><img 
+src="main63x.png" alt="&sdot;&sdot;&sdot;"  class="@cdots" ><span style="margin-left:0.3em" class="thinspace"></span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-6-1-9"  
+class="td11"><span 
+class="lmmi-12">m</span><sub><span 
+class="rm-lmr-8">51</span></sub></td><td  style="white-space:nowrap; text-align:center;" id="TBL-6-1-10"  
+class="td11"><span 
+class="lmmi-12">m</span><sub><span 
+class="rm-lmr-8">52</span></sub></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-6-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-6-2-1"  
+class="td11">  </td></tr></table>
+</div> represente o número (o <span 
+class="lmmi-12">BIAS </span><span 
+class="rm-lmr-12">= 1023 </span>por definição)
+   <center class="math-display" >
+<img 
+src="main64x.png" alt="x =  (&minus; 1)sM &#x00D7; 2c&minus;BIAS,  " class="math-display" ></center>
+onde a <span 
+class="ec-lmbx-12">caracter</span><span 
+class="ec-lmbx-12">ística </span>é representada por
+   <center class="math-display" >
+<img 
+src="main65x.png" alt="c = (c10c9&sdot;&sdot;&sdot;c1c0)2 = c10210 + &sdot;&sdot;&sdot; + c121 + c020   " class="math-display" ></center> e o
+significando por
+   <center class="math-display" >
+<img 
+src="main66x.png" alt="M  = (1.m1m2  &sdot;&sdot;&sdot;m51m52 )2.
+                                                                          
+
+                                                                          
+" class="math-display" ></center>
+<!--l. 518--><p class="indent" >   Em base <span 
+class="rm-lmr-12">2 </span>não é necessário armazenar o primeiro dígito (por quê?).
+<!--l. 520--><p class="indent" >   Por exemplo, o registro
+   <center class="math-display" >
+<img 
+src="main67x.png" alt="[0|100  0000 0000|1010 0000 0000...0000 0000]  " class="math-display" ></center>
+representa o número
+   <center class="math-display" >
+<img 
+src="main68x.png" alt="     0     &minus; 1   &minus; 3    1024&minus; 1023
+(&minus; 1)(1 + 2   + 2  ) &#x00D7; 2         = (1 + 0.5 + 0.125 )2 = 3.25.
+" class="math-display" ></center>
+<!--l. 531--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x11-180002.2.4"></a>O expoente deslocado</h5>
+<!--l. 532--><p class="noindent" >Uma maneira de representar os expoentes inteiros é deslocar todos eles uma
+mesma quantidade. Desta forma permitimos a representação de números
+negativos e a ordem deles continua crescente. O expoente é representado por um
+inteiro sem sinal do qual é deslocado o <span 
+class="ec-lmbx-12">BIAS</span>.
+<!--l. 534--><p class="indent" >   Tendo <span 
+class="lmsy-10x-x-120">|</span><span 
+class="lmmi-12">E</span><span 
+class="lmsy-10x-x-120">| </span>dígitos para representar o expoente, geralmente o <span 
+class="lmmi-12">BIAS </span>é
+predefinido de tal forma a dividir a tabela ao meio de tal forma que o expoente
+<span 
+class="ec-lmri-12">um </span>seja representado pelo sequência <span 
+class="rm-lmr-12">[100</span><span 
+class="lmmi-12">...</span><span 
+class="rm-lmr-12">000]</span>.
+   <div class="newtheorem">
+<!--l. 536--><p class="noindent" ><span class="head">
+                                                                          
+
+                                                                          
+<a 
+ id="x11-18001r9"></a>
+<span 
+class="ec-lmbx-12">Exemplo 2.2.9.</span>  </span>Com <span 
+class="rm-lmr-12">64 </span>bits, pelo padrão <span 
+class="lmmi-12">IEEE</span><span 
+class="rm-lmr-12">754</span>, temos que <span 
+class="lmsy-10x-x-120">|</span><span 
+class="lmmi-12">E</span><span 
+class="lmsy-10x-x-120">| </span><span 
+class="rm-lmr-12">:= 11</span>.
+Assim <span 
+class="rm-lmr-12">(100</span><span 
+class="lmmi-12">&#x00A0;</span><span 
+class="rm-lmr-12">0000</span><span 
+class="lmmi-12">&#x00A0;</span><span 
+class="rm-lmr-12">0000)</span><sub><span 
+class="rm-lmr-8">2</span></sub> <span 
+class="rm-lmr-12">= 2</span><sup><span 
+class="rm-lmr-8">10</span></sup> <span 
+class="rm-lmr-12">= 1024</span>. Como queremos que esta sequência
+represente o <span 
+class="rm-lmr-12">1</span>, definimos <span 
+class="lmmi-12">BIAS </span><span 
+class="rm-lmr-12">:= 1023</span>, pois
+   <center class="math-display" >
+<img 
+src="main69x.png" alt="1024 &minus; BIAS   = 1.
+" class="math-display" ></center>
+<!--l. 540--><p class="indent" >   Com <span 
+class="rm-lmr-12">32 </span>bits, temos <span 
+class="lmsy-10x-x-120">|</span><span 
+class="lmmi-12">E</span><span 
+class="lmsy-10x-x-120">| </span><span 
+class="rm-lmr-12">:= 8 </span>e <span 
+class="lmmi-12">BIAS </span><span 
+class="rm-lmr-12">:= 127</span>. E com <span 
+class="rm-lmr-12">128 </span>bits, temos
+<span 
+class="lmsy-10x-x-120">|</span><span 
+class="lmmi-12">E</span><span 
+class="lmsy-10x-x-120">| </span><span 
+class="rm-lmr-12">:= 15 </span>e <span 
+class="lmmi-12">BIAS </span><span 
+class="rm-lmr-12">:= 16383</span>.
+   </div>
+<!--l. 544--><p class="indent" >   Com <span 
+class="rm-lmr-12">11 </span>bits temos
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main70x.png" alt="[111 1111 1111 ] = reservado
+
+[111 1111 1110 ] = 2046 &minus; BIAS  =  102310 = EMAX
+               ..
+               . =
+[100 0000 0001 ] = 210 + 1 &minus; BIAS =  210
+                   10
+[100 0000 0000 ] = 2    &minus;  BIAS   = 110
+[011 1111 1111 ] = 1023  &minus; BIAS   = 010
+
+[011 1111 1110 ] = 1022  &minus; BIAS   = &minus; 110
+               ... =
+
+[000 0000 0001 ] = 1 &minus; BIAS  = &minus; 1022 =  EMIN
+[000 0000 0000 ] = reservado
+" class="math-display" ></center></td></tr></table>
+<!--l. 559--><p class="nopar" >
+<!--l. 561--><p class="indent" >   O maior expoente é dado por <span 
+class="lmmi-12">E</span><sub><span 
+class="lmmi-8">MAX</span></sub> <span 
+class="rm-lmr-12">= 1023 </span>e o menor expoente é dado por
+<span 
+class="lmmi-12">E</span><sub><span 
+class="lmmi-8">MIN</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmsy-10x-x-120">&minus;</span><span 
+class="rm-lmr-12">1022</span>.
+<!--l. 565--><p class="indent" >   O menor número representável positivo é dado pelo registro
+   <center class="math-display" >
+<img 
+src="main71x.png" alt="[0|000  0000 0001|0000 0000 0000...0000 0000]  " class="math-display" ></center>
+quando <span 
+class="lmmi-12">s </span><span 
+class="rm-lmr-12">= 0</span>, <span 
+class="lmmi-12">c </span><span 
+class="rm-lmr-12">=</span> <span 
+class="rm-lmr-12">1</span> e <span 
+class="lmmi-12">M </span><span 
+class="rm-lmr-12">= (1</span><span 
+class="lmmi-12">.</span><span 
+class="rm-lmr-12">000</span><span 
+class="lmmi-12">...</span><span 
+class="rm-lmr-12">000</span><span 
+class="rm-lmr-12">)</span><sub><span 
+class="rm-lmr-8">2</span></sub>, ou seja,
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main72x.png" alt="                      1&minus;1023               &minus;307
+M IN  R = (1 + 0)2 &#x00D7; 2      &asymp; 0.2225 &#x00D7; 10    .
+" class="math-display" ></center>
+<!--l. 574--><p class="indent" >   O maior número representável é dado por
+   <center class="math-display" >
+<img 
+src="main73x.png" alt="[0|111 1111 1110|1111 1111  ...1111  1111]  " class="math-display" ></center>
+quando <span 
+class="lmmi-12">s </span><span 
+class="rm-lmr-12">= 0</span>, <span 
+class="lmmi-12">c </span><span 
+class="rm-lmr-12">= 2046 </span>e <span 
+class="lmmi-12">M </span><span 
+class="rm-lmr-12">= (1</span><span 
+class="lmmi-12">.</span><span 
+class="rm-lmr-12">1111</span><span 
+class="lmmi-12">&#x00A0;</span><span 
+class="rm-lmr-12">1111</span><span 
+class="lmmi-12">....</span><span 
+class="rm-lmr-12">1111)</span><sub><span 
+class="rm-lmr-8">2</span></sub> <span 
+class="rm-lmr-12">= 2 </span><span 
+class="lmsy-10x-x-120">&minus; </span><span 
+class="rm-lmr-12">2</span><sup><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">52</span></sup>, ou
+seja,
+   <center class="math-display" >
+<img 
+src="main74x.png" alt="M AXR   =  (2 &minus; 2 &minus;52) &#x00D7; 22046&minus;1023 &asymp; 21024 &asymp; 0.17977 &#x00D7; 10309.
+" class="math-display" ></center>
+<!--l. 584--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x11-190002.2.4"></a>Casos especiais</h5>
+<!--l. 585--><p class="noindent" >O <span 
+class="ec-lmbx-12">zero </span>é um caso especial representado pelo registro
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main75x.png" alt="[0|000  0000 0000|0000 0000 0000...0000 0000]
+" class="math-display" ></center>
+<!--l. 593--><p class="indent" >   Os expoentes <span 
+class="ec-lmbx-12">reservados </span>são usados para casos especiais:
+      <ul class="itemize1">
+      <li class="itemize"><span 
+class="lmmi-12">c </span><span 
+class="rm-lmr-12">=  [0000</span><span 
+class="lmmi-12">...</span><span 
+class="rm-lmr-12">0000] </span>é usado para representar o zero (se <span 
+class="lmmi-12">m </span><span 
+class="rm-lmr-12">=  0</span>) e os
+      números subnormais (se <span 
+class="lmmi-12">m</span><span 
+class="lmmi-12">&ne;</span><span 
+class="rm-lmr-12">0</span>).
+      </li>
+      <li class="itemize"><span 
+class="lmmi-12">c </span><span 
+class="rm-lmr-12">= [1111</span><span 
+class="lmmi-12">...</span><span 
+class="rm-lmr-12">1111] </span>é usado para representar o infinito (se <span 
+class="lmmi-12">m </span><span 
+class="rm-lmr-12">= 0</span>) e NaN
+      (se <span 
+class="lmmi-12">m</span><span 
+class="lmmi-12">&ne;</span><span 
+class="rm-lmr-12">0</span>).</li></ul>
+<!--l. 599--><p class="indent" >   Os números subnormais<span class="footnote-mark"><a 
+href="main13.html#fn3x3"><sup class="textsuperscript">3</sup></a></span><a 
+ id="x11-19001f3"></a> 
+tem a forma
+   <center class="math-display" >
+<img 
+src="main76x.png" alt="x = (&minus; 1)s(0.m1m2  &sdot;&sdot;&sdot;m51m52 )2 &#x00D7; 21&minus;BIAS.
+" class="math-display" ></center>
+   <div class="newtheorem">
+<!--l. 603--><p class="noindent" ><span class="head">
+<a 
+ id="x11-19002r2"></a>
+<span 
+class="ec-lmbx-12">Observa</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão 2.2.2.</span>  </span>O menor número positivo, o maior número e o menor
+número subnormal representáveis no <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">Scilab</span></span></span> são:
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-7">
+--&#x003E;MINR=number_properties(&#8217;tiny&#8217;)
+&#x00A0;<br />--&#x003E;MAXR=number_properties(&#8217;huge&#8217;)
+&#x00A0;<br />--&#x003E;number_properties(&#8217;tiniest&#8217;)
+</div>
+<!--l. 609--><p class="nopar" >Outras informações sobre a representação em ponto flutuante podem ser obtidas
+com <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">help</span><span 
+class="ec-lmtt-12">&#x00A0;number_properties</span></span></span>.
+   </div>
+   <h4 class="subsectionHead"><span class="titlemark">2.2.5   </span> <a 
+ id="x11-200002.2.5"></a>A precisão e o epsilon de máquina</h4>
+<!--l. 616--><p class="noindent" >A <span 
+class="ec-lmbx-12">precis</span><span 
+class="ec-lmbx-12">ão </span><span 
+class="lmmi-12">p </span>de uma máquina é o número de dígitos significativos usado para
+representar um número. Note que <span 
+class="lmmi-12">p </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmsy-10x-x-120">|</span><span 
+class="lmmi-12">M</span><span 
+class="lmsy-10x-x-120">| </span><span 
+class="rm-lmr-12">+ 1 </span>em binário e <span 
+class="lmmi-12">p </span><span 
+class="rm-lmr-12">= </span><span 
+class="lmsy-10x-x-120">|</span><span 
+class="lmmi-12">M</span><span 
+class="lmsy-10x-x-120">| </span>para outras
+bases.
+<!--l. 618--><p class="indent" >   O <span 
+class="ec-lmbx-12">epsilon de m</span><span 
+class="ec-lmbx-12">áquina</span>, <span 
+class="lmmi-12">&#x03F5;</span><sub><span 
+class="lmmi-8">mach</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">&#x03F5;</span>, é definido de forma que <span 
+class="rm-lmr-12">1 + </span><span 
+class="lmmi-12">&#x03F5; </span>seja o menor
+número representável maior que <span 
+class="rm-lmr-12">1</span>, isto é, <span 
+class="rm-lmr-12">1 + </span><span 
+class="lmmi-12">&#x03F5; </span>é representável, mas não existem
+números representáveis em <span 
+class="rm-lmr-12">(1</span><span 
+class="lmmi-12">, </span><span 
+class="rm-lmr-12">1 + </span><span 
+class="lmmi-12">&#x03F5;</span><span 
+class="rm-lmr-12">)</span>.
+   <div class="newtheorem">
+<!--l. 620--><p class="noindent" ><span class="head">
+<a 
+ id="x11-20001r10"></a>
+<span 
+class="ec-lmbx-12">Exemplo 2.2.10.</span>  </span>Com <span 
+class="rm-lmr-12">64 </span>bits, temos que o epsilon será dado por
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main77x.png" alt="1 &rarr;   (1.0000 0000....0000 )2 &#x00D7; 20
+                                0    &minus;52
+ &#x03F5; &rarr; + (0.0000  0000....0001)2 &#x00D7; 2 =  2
+       (1.0000 0000....0001 )2 &#x00D7; 20 &frasl;= 1
+" class="math-display" ></center></td></tr></table>
+<!--l. 628--><p class="nopar" >
+Assim <span 
+class="lmmi-12">&#x03F5; </span><span 
+class="rm-lmr-12">= 2</span><sup><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">52</span></sup>.
+   </div>
+<!--l. 634--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.2.6   </span> <a 
+ id="x11-210002.2.6"></a>A distribuição dos números</h4>
+<!--l. 635--><p class="noindent" >Utilizando uma máquina em ponto flutuante temos um número finito de números
+que podemos representar.
+<!--l. 637--><p class="indent" >   Um número muito pequeno geralmente é aproximado por zero (underflow) e
+um número muito grande (overflow) geralmente faz o cálculo parar. Além disso, os
+números não estão uniformemente espaçados no eixo real. Números pequenos
+estão bem próximos enquanto que números com expoentes grandes estão bem
+distantes.
+<!--l. 640--><p class="indent" >   Se tentarmos armazenar um número que não é representável, devemos utilizar
+o número mais próximo, gerando os erros de arredondamento.
+<!--l. 642--><p class="indent" >   Por simplicidade, a partir daqui nós adotaremos <span 
+class="lmmi-12">b </span><span 
+class="rm-lmr-12">= 10</span>.
+   <div class="newtheorem">
+<!--l. 645--><p class="noindent" ><span class="head">
+<a 
+ id="x11-21001r3"></a>
+<span 
+class="ec-lmbx-12">Observa</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão 2.2.3.</span>  </span>O chamado modo de exceção de ponto flutuante é
+controlado pela função <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">ieee</span></span></span>. O padrão do <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">Scilab</span></span></span> é <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">ieee(0)</span></span></span>. Estude os
+seguintes resultados das seguintes operações usando os diferentes modos de
+exceção:
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-8">
+--&#x003E;2*number_properties(&#8217;huge&#8217;),&#x00A0;1/2^999,&#x00A0;1/0,&#x00A0;1/-0
+</div>
+<!--l. 649--><p class="nopar" >
+   </div>
+<!--l. 653--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">2.2.7   </span> <a 
+ id="x11-220002.2.7"></a>Exercícios</h4>
+   <div class="newtheorem">
+<!--l. 655--><p class="noindent" ><span class="head">
+<a 
+ id="x11-22001r1"></a>
+<span 
+class="ec-lmbx-12">E 2.2.1.</span>  </span>Explique a diferença entre o sistema de ponto fixo e ponto flutuante.
+   </div>
+   <div class="newtheorem">
+<!--l. 659--><p class="noindent" ><span class="head">
+<a 
+ id="x11-22002r2"></a>
+<span 
+class="ec-lmbx-12">E 2.2.2.</span>  </span>Considere a seguinte rotina escrita para ser usada no Scilab:
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-9">
+&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;x=1
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;while&#x00A0;x+1&#x003E;x
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;x=x+1
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;end
+&#x00A0;<br />&#x00A0;
+</div>
+<!--l. 665--><p class="nopar" >Explique se esta rotina finaliza em tempo finito, em caso afirmativo calcule a
+ordem de grandeza do tempo de execução supondo que cada passo do laço demore
+<span 
+class="rm-lmr-12">10</span><sup><span 
+class="lmsy8-">&minus;</span><span 
+class="rm-lmr-8">7</span></sup><span 
+class="lmmi-12">s</span>. Justifique sua reposta.
+   </div>
+                                                                          
+
+                                                                          
+   <!--l. 669--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse6.html" >next</a>] [<a 
+href="mainse1.html" >prev</a>] [<a 
+href="mainse1.html#tailmainse1.html" >prev-tail</a>] [<a 
+href="mainse2.html" >front</a>] [<a 
+href="mainch2.html#mainse3.html" >up</a>] </p></div>
+<!--l. 669--><p class="indent" >   <a 
+ id="tailmainse2.html"></a>   
+</body></html> 

@@ -1,5 +1,25 @@
 %Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Layout das páginas
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\paperwidth}{5in}%
+\setlength{\paperheight}{4in}%
+\usepackage[body={4.75in,3.65in},hmarginratio=1:1]{geometry}[2002/07/08]
+
+%%%% titlepage figure %%%%
+\usepackage{eso-pic}
+\newcommand\BackgroundPic{%
+\put(0,0){%
+\parbox[b][\paperheight]{\paperwidth}{%
+\vfill
+\centering
+\includegraphics[width=\paperwidth,height=\paperheight,%
+keepaspectratio]{./rosto/capa.eps}%
+\vfill
+}}}
+
+
 %%%% DAGO  %%%%%%%%%%%%%%%%%%%%%%%%%%
 \renewcommand{\cleardoublepage}{\clearpage}
 %\usepackage[screen,\Margins]{geometry}[2002/07/08]
@@ -184,7 +204,7 @@
   \end{myprop}\end{minipage}\end{lrbox}\fcolorbox{blue}{blue9}{\usebox{\@tempboxa}}}\makeatother
 %--------------------------------------------------------------------------
 \makeatletter\newenvironment{corol}{    \setlength{\fboxrule}{2pt}\setlength{\fboxsep}{10pt}\noindent %
-  \begin{lrbox}{\@tempboxa}\begin{minipage}{\Caixawidth}\begin{mycorl}}{%
+  \begin{lrbox}{\@tempboxa}\begin{minipage}{\Caixawidth}\begin{mycorol}}{%
   \end{mycorol}\end{minipage}\end{lrbox}\fcolorbox{blue}{blue9}{\usebox{\@tempboxa}}}\makeatother
 %--------------------------------------------------------------------------
 \makeatletter\newenvironment{defn}{    \setlength{\fboxrule}{2pt}\setlength{\fboxsep}{10pt}\noindent %
@@ -203,3 +223,22 @@
 %   \begin{lrbox}{\@tempboxa}\begin{minipage}{\Caixawidth}\begin{myex}}{%
 %   \end{myex}\end{minipage}\end{lrbox}\fcolorbox{blue}{blue9}{\usebox{\@tempboxa}}}\makeatother
 %--------------------------------------------------------------------------
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% Exercises and Answers %%%%
+\usepackage[answerdelayed,lastexercise]{exercise}
+\usepackage{chngcntr}
+\counterwithin{Exercise}{section}
+\counterwithin{Answer}{section}
+\renewcommand{\ExerciseHeaderTitle}{({\it \ExerciseTitle})}
+\renewcommand{\ExerciseName}{E}
+\renewcommand{\ExerciseHeader}{{\textbf{\large\ExerciseName~\ExerciseHeaderNB\ExerciseHeaderTitle\ExerciseHeaderOrigin}}}
+\renewcommand{\ExerciseHeader}{\textbf{\ExerciseName\ \ExerciseHeaderNB.}\,}
+
+% change font for answers header
+\renewcommand{\AnswerHeader}{\tiny\textbf{\ExerciseName\ \ExerciseHeaderNB.}\smallskip}
+% change font for answers list header
+\renewcommand{\AnswerListHeader}{{\tiny\textbf{\AnswerListName\
+(\ExerciseListName\ \ExerciseHeaderNB)\ ---\ }}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+

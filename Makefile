@@ -23,13 +23,22 @@ dvi: main.tex
 	latex main
 	latex main
 
+html: main.tex
+	latex main 
+	bibtex main
+	latex main
+	latex main
+	htlatex main "html,3,notoc*,info" "" "-d./html/"
+
 epub: main.tex
 	pandoc -o main.epub main.tex
 
 .PHONY: clean
 
 clean:
-	rm -f *.aux *.log *.out *.toc *.bbl *.idx *.ilg *.ind *.blg *.backup
+	rm -f *.aux *.log *.out *.toc *.bbl \
+		*.idx *.ilg *.ind *.blg *.backup \
+		*.4tc *.lg *.tmp *.xref *.png *.html
 	rm -f ${CAP1}/*.aux ${CAP1}/*.log ${CAP1}/*.backup
 	rm -f ${CAP2}/*.aux ${CAP2}/*.log ${CAP2}/*.backup
 	rm -f ${CAP3}/*.aux ${CAP3}/*.log ${CAP3}/*.backup

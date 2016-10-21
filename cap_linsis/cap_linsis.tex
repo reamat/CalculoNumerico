@@ -5,42 +5,49 @@
 
 \chapter{Solução de sistemas lineares}\index{sistema linear}
 
-Neste parte de nosso curso, estamos interessados em técnicas para resolução de sistemas de equações algébricas lineares. 
+Muitos problemas da engenharia, física e matemática estão associados a solução de sistemas de equações lineares. Nesse capítulo, tratamos de técnicas numéricas empregadas para obter a solução desses sistemas. Iniciamos por uma rápida revisão do Método de Eliminação Gaussiana do ponto de vista computacional. No contexto de análise da propagação dos erros de arredondamento, introduzimos o Método de Eliminação Gaussiana com Pivotamento Parcial, bem como, apresentamos o conceito de condicionamento de um sistema linear. Então, passamos a discutir sobre técnicas iterativos, mais especificamente, sobre os Métodos de Jacobi e Gauss-Seidel.
 
-Trataremos de sistemas de equações algébricas lineares da seguinte forma:
+
+Considere o sistema de equações lineares:
 \begin{eqnarray*}
-a_{11}x_1 + a_{12}x_2 + \cdots +a_{1n}x_n &=& y_1\\
-a_{21}x_1 + a_{22}x_2 + \cdots +a_{2n}x_n &=& y_2\\
- &\vdots &\\
-a_{m1}x_1 + a_{m2}x_2 + \cdots +a_{mn}x_n &=& y_m\\
+a_{11}x_1 + a_{12}x_2 + \cdots +a_{1n}x_n &=& b_1\\
+a_{21}x_1 + a_{22}x_2 + \cdots +a_{2n}x_n &=& b_2\\
+                                      &\vdots& \\
+a_{m1}x_1 + a_{m2}x_2 + \cdots +a_{mn}x_n &=& b_m
 \end{eqnarray*}
-Observe que $m$ é o número de equações e $n$ é o número de incógnitas.  Podemos escrever este problema na forma matricial
-$$Ax=y$$
-onde
-$$A=\left[\begin{array}{cccc}
+onde $m$ é o número de equações e $n$ é o número de incógnitas.  Este sistema pode ser escrito na forma matricial:
+\begin{equation*}
+  Ax = b
+\end{equation*}
+onde:
+\begin{equation*}
+  A=\begin{bmatrix}
 a_{11} & a_{12} & \cdots & a_{1n}\\
 a_{21} & a_{22} & \cdots & a_{2n}\\
 \vdots & \vdots & \ddots & \vdots\\
 a_{m1} & a_{m2} & \cdots & a_{mn}
-\end{array}
-\right]~~~x=\left[\begin{array}{c}
+\end{bmatrix},
+x=\begin{bmatrix}
 x_{1} \\
 x_{2} \\
 \vdots \\
 x_{n}
-\end{array}
-\right]~~~y=\left[\begin{array}{c}
-y_{1} \\
-y_{2} \\
+\end{bmatrix}
+ \text{ e } b=\begin{bmatrix}
+b_{1} \\
+b_{2} \\
 \vdots \\
-y_{m}
-\end{array}
-\right]$$
+b_{m}
+\end{bmatrix}
+\end{equation*}
 
-Daremos mais atenção ao caso $m=n$, isto é, quando a matriz $A$ que envolvia no sistema linear é quadrada.
+Salvo especificado ao contrário, assumiremos ao longo deste capítulo que a matriz dos coeficientes $A$ é uma matriz real não-singular.
+
+%Vários fatores podem ser analisados nas técnicas utilizadas: método direto ou iterativo, tempo de execução, estabilidade. Qual técnica é a melhor? na próxima seção trataremos do custo computacional que ajudará a responder essa pergunta considerando a eficiência.
 
 
-\section{Eliminação gaussiana com pivoteamento parcial}\index{eliminação gaussiana!com pivoteamento parcial}
+
+\section{Eliminação gaussiana}\index{eliminação gaussiana}
 Lembramos que algumas operações feitas nas linhas de um sistema não alteram a solução:
 \begin{enumerate}
 \item Multiplicação de um linha por um número
@@ -49,17 +56,15 @@ Lembramos que algumas operações feitas nas linhas de um sistema não alteram a
 \end{enumerate}
 
 O processo que transforma um sistema em outro com mesma solução, mas que apresenta uma forma triangular é chamado eliminação Gaussiana. A solução do sistema pode ser obtida fazendo substituição regressiva.
-\begin{ex}[Eliminação Gaussiana sem pivotamento parcial] Resolva o sistema:
-  \begin{equation*}
-    \left\{\begin{array}{c}
-        x+y+z=1\\
-        2x+y-z=0\\
-        2x+2y+z=1
-      \end{array}\right.  
-  \end{equation*}
+\begin{ex}[Eliminação Gaussiana sem pivotamento] Resolva o sistema
+  \begin{eqnarray*}
+    x+y+z  &=& 1\\
+    2x+y-z &=& 0\\
+    2x+2y+z&=& 1
+  \end{eqnarray*}
 \end{ex}
 \begin{sol}
-Escrevemos a matriz completa do sistema:
+A matriz completa do sistema é escrita como
 \begin{equation*}
   \left[\begin{array}{ccc|c}
       1 &1& 1&1\\
@@ -72,59 +77,61 @@ Escrevemos a matriz completa do sistema:
       0 & 0 &-1&-1
     \end{array}\right]
 \end{equation*}
-Encontramos $-z=-1$, ou seja, $z=1$. Substituímos na segunda equação e temos $-y-3z=-2$, ou seja, $y=-1$ e, finalmente $x+y+z=1$, resultando em $x=1$.
+Encontramos $-z=-1$, ou seja, $z=1$. Substituindo na segunda equação, temos $-y-3z=-2$, ou seja, $y=-1$ e finalmente $x+y+z=1$, resultando em $x=1$.
 \end{sol}
 
-A Eliminação Gaussiana com pivotamento parcial consiste em fazer uma permutação de linhas de forma a escolher o maior pivô (em módulo) a cada passo.
+\subsection{Eliminação Gaussiana com pivotamento parcial}
+A Eliminação Gaussiana com \emph{pivotamento parcial} consiste em fazer uma permutação de linhas de forma a escolher o maior pivô (em módulo) a cada passo.
 
-\begin{ex}[Eliminação Gaussiana com pivotamento parcial] Resolva o sistema:
-$$\left\{
-\begin{array}{c}
-x+y+z=1\\
-2x+y-z=0\\
-2x+2z+z=1
-\end{array}\right.
-$$
-\end{ex}
-\begin{sol}
-Escrevemos a matriz completa do sistema:
-\begin{eqnarray*}\left[
-\begin{array}{ccc|c}
-1 &1& 1&1\\
-2 &1& -1&0\\
-2 & 2 &1&1
-\end{array}
-\right] &\sim& \left[
-\begin{array}{ccc|c}
-2 &1& -1&0\\
-1 &1& 1&1\\
-2 & 2 &1&1
-\end{array}
-\right] \\ & \sim & \left[
-\begin{array}{ccc|c}
-2 &1& -1&0\\
-0 &1/2& 3/2&1\\
-0 & 1 &2&1
-\end{array}
-\right]\\ & \sim & \left[
-\begin{array}{ccc|c}
-2 &1& -1&0\\
-0 & 1 &2&1\\
-0 &1/2& 3/2&1
-\end{array}
-\right]\\ & \sim & \left[
-\begin{array}{ccc|c}
-2 &1& -1&0\\
-0 & 1 &2&1\\
-0 &0& 1/2&1/2
-\end{array}
-\right]
+\begin{ex}[Eliminação Gaussiana com pivotamento parcial] Resolva o sistema
+\begin{eqnarray*}
+  x+y+z  &=& 1\\
+  2x+y-z &=& 0\\
+  2x+2z+z &=& 1
 \end{eqnarray*}
+\end{ex}
+
+\begin{sol}
+A matriz completa do sistema é
+\begin{equation*}
+  \begin{split}
+    \begin{bmatrix}
+      1 &1&  1&1\\
+      \RED{2} &1& -1&0\\
+      2 & 2 &1&1
+    \end{bmatrix}
+    &\sim
+    \begin{bmatrix}
+      2 &1& -1&0\\
+      1 &1&  1&1\\
+      2 &2&  1&1
+    \end{bmatrix}\\ 
+    &\sim
+    \begin{bmatrix}
+      2 &1& -1&0\\
+      0 &1/2& 3/2&1\\
+      0 & 1 &2&1
+    \end{bmatrix}\\
+    &\sim
+    \begin{bmatrix}
+      2 &1& -1&0\\
+      0 & 1 &2&1\\
+      0 &1/2& 3/2&1
+    \end{bmatrix}\\
+    &\sim
+    \begin{bmatrix}
+      2 &1& -1&0\\
+      0 & 1 &2&1\\
+      0 &0& 1/2&1/2
+    \end{bmatrix}    
+  \end{split}
+\end{equation*}
+
 Encontramos $1/2z=1/2$, ou seja, $z=1$. Substituímos na segunda equação e temos $y+2z=1$, ou seja, $y=-1$ e, finalmente $2x+y-z=0$, resultando em $x=1$.
 \end{sol}
 
 \begin{ex}
-Resolva o seguinte sistema por eliminação gaussiana com pivotamento parcial.
+Resolva o sistema por eliminação gaussiana com pivotamento parcial.
 \begin{equation*}
 \left[
 \begin{array}{ccc}
@@ -149,6 +156,7 @@ z
 \right]  
 \end{equation*}
 \end{ex}
+
 \begin{sol}
 Construímos a matriz completa:
 \begin{eqnarray*}\left[
@@ -274,7 +282,7 @@ Observe que tais expressões são analiticamente idênticas às anteriores, no e
 x+y+z&=&0\\
 x+10z&=&-48\\
 10y+z&=&25
-\end{eqnarray*} Usando eliminação gaussiana com pivoteamento parcial (não use o computador para resolver essa questão).
+\end{eqnarray*} Usando eliminação gaussiana com pivotamento parcial (não use o computador para resolver essa questão).
 \end{Exercise}
 \begin{Answer}
   \begin{tiny}
@@ -458,81 +466,463 @@ $$\left[
 \end{Answer}
 \fi
 
+
+
+\section{Complexidade de Algoritmos em Álgebra Linear}
+Dados dois algoritmos diferentes para resolver o mesmo problema, como podemos escolher qual desses algoritmos é o melhor? Se pensarmos em termos de \emph{eficiência} (ou custo computacional), queremos saber qual desses algoritmos consome menos recursos para realizar a mesma tarefa.
+
+Em geral podemos responder essa pergunta de duas formas: em termos de tempo ou de espaço.
+
+Quando tratamos de \emph{eficiência espacial}, queremos saber quanta memória (em geral RAM) é utilizada pelo algoritmo para armazenar os dados, sejam matrizes, vetores ou escalares.
+
+Quando tratamos de \emph{eficiência temporal}, queremos saber quanto tempo um algoritmo leva para realizar determinada tarefa. Vamos nos concentrar nessa segunda opção, que em geral é a mais difícil de ser respondida.
+
+Obviamente o tempo vai depender do tipo de computador utilizado. É razoável de se pensar que o tempo vai ser proporcional ao número de operações de ponto flutuante (flops) feito pelo algoritmo (observe que o tempo total não depende apenas disso, mas também de outros fatores como memória, taxas de transferências de dados da memória para o cpu, redes,...). Entretanto vamos nos concentrar na contagem do número de operações (flops) para realizar determinada tarefa.
+
+No passado (antes dos anos 80), os computadores demoravam mais tempo para realizar operações como multiplicação e divisão, se comparados a adição ou subtração. Assim, em livros clássicos eram contados apenas o custo das operações $\times$ e $/$. Nos computadores atuais as quatro operações básicas  levam o mesmo tempo. Entretanto, na maioria dos algoritmos de álgebra linear o custo associado as multiplicações e divisões é proporcional ao custo das somas e subtrações (pois a maioria dessas operações podem ser escritas como a combinação de produtos internos). Dessa forma, na maior parte deste material levaremos em conta somente multiplicações e divisões, a não ser que mencionado o contrário.
+
+Tenha em mente que a ideia é estimar o custo a medida que o tamanho dos vetores e matrizes cresce muito (para $n$ grande).
+
+\begin{ex}[Produto escalar-vetor]
+Qual o custo para multiplicar um escalar por um vetor?
+\end{ex}
+\begin{sol}
+Seja $a \in \mathbf{R}$ e $\vec{x} \in \mathbf{R}^n$, temos que
+\begin{equation}
+  a \vec{x} = [a\times x_1 , a\times x_2 , ... ,a\times x_n]
+\end{equation}
+usando $n$ multiplicações, ou seja, um custo computacional, $C$, de
+\begin{equation}
+  C = n \text{~flops}.
+\end{equation}
+\end{sol}
+
+\begin{ex}[Produto vetor-vetor]
+Qual o custo para calcular o produto interno $\vec{x}\cdot\vec{y}$?
+\end{ex}
+\begin{sol}
+Sejam $\vec{x}, \vec{y} \in \mathbf{R}^n$, temos que
+\begin{equation}
+  \vec{x}\cdot\vec{y} = x_1 \times y_1 + x_2\times y_2 + ... +x_n\times y_n
+\end{equation}
+
+São realizadas $n$ multiplicações (cada produto $x_i$ por $y_i$) e $n-1$ somas, ou seja, o custo total de operações é de
+\begin{equation}
+  C := (n)+(n-1) = 2n-1 \text{~flops}
+\end{equation}
+\end{sol}
+
+
+\begin{ex}[Produto matriz-vetor]
+Qual o custo para calcular o produto de matriz por vetor $A \vec{x}$?
+\end{ex}
+\begin{sol}
+ Sejam $A \in \mathbf{R}^{n\times n}$ e $\vec{x} \in \mathbf{R}^n$, temos que
+\begin{equation}
+  \matddd{a_{11}}{a_{12}}{\cdots a_{1n}}{\vdots}{}{\vdots}{a_{n1}}{}{\cdots a_{nn}} \vetddd{x_1}{\vdots }{x_n}
+  =\vetddd{ a_{11}\times x_1 + a_{12}x_2 +...+a_{1n}\times x_n }{\vdots }{a_{n1}\times x_1 + a_{n2}x_2 +...+a_{nn}\times x_n} 
+\end{equation}
+
+Para obter o primeiro elemento do vetor do lado direito devemos multiplicar a  primeira linha de $A$ pelo vetor coluna $\vec{x}$. Note que esse é exatamente o custo do produto vetor-vetor do exemplo anterior. Como o custo para cada elemento do vetor do lado direito é o mesmo e temos $n$ elementos, teremos que o custo para multiplicar matriz-vetor é\footnote{Contando apenas multiplicações/divisões obtemos
+\begin{equation}
+  n\cdot \mathcal{O}(n) = \mathcal{O}(n^2) \text{~flops.}
+\end{equation}
+} 
+\begin{equation}
+  C:=n \cdot ( 2n-1) = 2n^2-n \text{~flops}.
+\end{equation}
+
+A medida que $n \rightarrow \infty$, temos  
+\begin{equation}
+  \mathcal{O}(2n^2-n) =\mathcal{O}(2n^2)=\mathcal{O}(n^2) \text{~flops.}
+\end{equation}
+
+\end{sol}
+
+\begin{ex}[Produto matriz-matriz]
+Qual o custo para calcular o produto de duas matrizes  $A B$?
+\end{ex}
+\begin{sol}
+Sejam $A, B \in \mathbf{R}^{n\times n}$ temos que 
+\begin{equation}
+  \matddd{a_{11}}{a_{12}}{\cdots a_{1n}}{\vdots}{}{\vdots}{a_{n1}}{}{\cdots a_{nn}}
+  \matddd{b_{11}}{b_{12}}{\cdots a_{1n}}{\vdots}{}{\vdots}{b_{n1}}{}{\cdots b_{nn}} 
+ =\matddd{c_{11}}{c_{12}}{\cdots c_{1n}}{\vdots}{}{\vdots}{c_{n1}}{}{\cdots c_{nn}} 
+\end{equation}
+onde o elemento $d_{ij}$ é o produto da linha $i$ de $A$ pela coluna $j$ de $B$,
+\begin{equation}
+  d_{ij}=  a_{i1}\times b_{1j} + a_{i2}\times b_{2j} +...+a_{i2}\times b_{2j}
+\end{equation}
+Note que esse produto tem o custo do produto vetor-vetor, ou seja, $2n-1$. Como temos $n\times n$ elementos em $D$, o custo total para multiplicar duas matrizes é\footnote{Contando apenas $\times$ e $/$ obtemos
+\begin{equation}
+  n\times n \times(n)  = n^3 \text{~flops.}
+\end{equation}
+}
+\begin{equation}
+  C= n\times n \times (2n-1)= 2n^3-n^2 \text{~flops.}
+\end{equation}
+
+\end{sol}
+
+
+\section{Sistemas triangulares}
+Considere um sistema linear onde a matriz é triangular superior, ou seja, 
+$$\begin{bmatrix}
+a_{11} & a_{12} & \cdots & a_{1n}\\
+0      & a_{22} & \cdots & a_{2n}\\
+\vdots & \vdots & \ddots & \vdots\\
+0      & \dots  & 0     & a_{nn}
+\end{bmatrix}
+\begin{bmatrix}
+x_{1} \\
+x_{2} \\
+\vdots \\
+x_{n}
+\end{bmatrix} 
+ =\begin{bmatrix}
+b_{1} \\
+b_{2} \\
+\vdots \\
+b_{n}
+\end{bmatrix}
+$$
+tal que todos elementos abaixo da diagonal são iguais a zero.
+
+Podemos resolver esse sistema iniciando pela última equação e isolando $x_n$ obtemos
+\begin{equation}
+ x_n = b_n/a_{nn}
+\end{equation}
+
+Substituindo $x_n$ na penúltima equação
+\begin{equation}
+ a_{n-1,n-1}x_{n-1}+a_{n-1,n}x_n = b_{n-1}
+\end{equation}
+e isolando $x_{n-1}$ obtemos
+\begin{equation}
+ x_{n-1} = (b_{n-1}-a_{n-1,n}x_n)/a_{n-1,n-1}
+\end{equation}
+e continuando desta forma até a primeira equação obteremos
+\begin{equation}
+ x_{1} = (b_{1}-a_{12}x_2 \cdots -a_{1n}x_n)/a_{11}.
+\end{equation}
+De forma geral, temos que
+\begin{equation}
+ x_{i} = (b_{i}-a_{i,i+1}x_{i+1} \cdots -a_{i,n}x_n)/a_{i,i}, \quad i=2,\dots,n.
+\end{equation}
+
+
+
+\subsection{Algoritmo para resolução de um sistema triangular superior}
+
+Para resolver um sistema triangular superior iniciamos da última linha em direção a primeira.
+
+\begin{verbatim}
+1.  function [x]=solveU(U,b)  // U:= matriz triangular superior
+2.      n=size(U,1)           // b:= vetor
+3.      x(n)=b(n)/U(n,n)
+4.      for i=n-1:-1:1
+5.          x(i)=(b(i)-U(i,i+1:n)*x(i+1:n)  )/U(i,i)
+6.      end
+7.  endfunction
+
+\end{verbatim}
+
+\subsection{Algoritmo para resolução de um sistema triangular inferior}
+Para resolver um sistema triangular inferior podemos fazer o processo inverso iniciando da primeira equação.
+
+\begin{verbatim}
+1. function [x]=solveL(L,b)   // L: matriz triangular inferior
+2.    n=size(L,1)             // b: vetor
+3.    x(1)=b(1)/L(1,1)
+4.    for i=2:n
+5.        x(i)=(b(i)-L(i,1:i-1)*x(1:i-1)  )/L(i,i)
+6.    end
+7.endfunction
+\end{verbatim}
+
+
+\subsubsection{Custo computacional}
+Vamos contar o número total de flops para resolver um sistema triangular inferior. Note que o custo para um sistema triangular superior será o mesmo.
+
+Na linha 3, temos uma divisão, portanto 1 flop.
+
+Na linha 5 quando $i=2$, temos
+
+\verb#     x(2)=(b(2)-L(2,1:1)*x(1:1))/L(2,2)#,
+
+ou seja, 1 subtração+1 multiplicação + 1 divisão $=3$ flops.
+
+Quando $i=3$,
+
+\verb#     x(3)=(b(3)-L(3,1:2)*x(1:2))/L(3,3)#
+
+temos 1 subtração+(2 multiplicações + 1 soma) +1 divisão $=5$ flops.
+
+Quando $i=4$, temos 1 subtração+(3 multiplicações + 2 somas) +1 divisão $=7$ flops.
+
+Até que para $i=n$, temos
+
+\verb#     x(n)=(b(n)-L(n,1:n-1)*x(1:n-1))/L(n,n)#,
+
+com $1$ subtração+($n-1$ multiplicações + $n-2$ somas) + $1$ divisão, ou seja, $1+(n-1+n-2)+1=2n-1$ flops.
+
+Somando todos esses custos\footnote{Contando apenas multiplicações/divisões obtemos
+\begin{equation}
+  (n^2+n)/2  \text{~flops}.
+\end{equation}} temos que o custo para resolver um sistema triangular inferior é
+\begin{equation}
+  1 +3+5+7+...+2n-1=  \sum_{k=1}^n(2k-1) = 2 \sum_{k=1}^nk -\sum_{k=1}^n1
+\end{equation}
+e utilizando que a soma dos $k$ inteiros é uma progressão aritmética\footnote{Temos que $\displaystyle \sum_{k=1}^n k =n(n+1)/2, \quad\quad \sum_{k=1}^n 1=n$}
+\begin{equation}
+  2 ( n(n+1)/2 ) -n=  n^2 \text{~flops}.
+\end{equation}
+
+
+
+
+
+
+
+\section{Fatoração LU}
+Considere um sistema linear onde a matriz $A$ é densa\footnote{Diferentemente de uma matriz esparsa, uma matriz densa possui a maioria dos elementos diferentes de zero.}. Para resolver o sistema, podemos transformar a matriz $A$ nas matrizes $L$, triangular inferior, e $U$, triangular superior de tal forma que $A=LU$.
+
+Sendo assim o sistema pode ser reescrito tal que
+\begin{eqnarray*}
+  Ax &=&b \\
+  (LU)x &=&b \\
+  L(Ux) &=&b \\
+  L y = b \quad & \text{ e }& \quad Ux=y
+\end{eqnarray*}
+Assim ao invés de resolvermos o sistema original, devemos resolver um sistema triangular inferior e um sistema triangular superior.
+
+A matriz $U$ da fatoração\footnote{Não vamos usar pivotamento nesse primeiro exemplo.} $LU$ é a matriz obtida ao final do escalonamento da matriz $A$.
+
+A matriz $L$ inicia igual a identidade $I$. Os elementos da matriz $L$ são os múltiplos do primeiro elemento da linha de $A$ \underline{a ser zerado} dividido pelo pivô acima na mesma coluna.
+
+Por exemplo, para zerar o primeiro elemento da segunda linha de $A$, calculamos
+$$L_{21}=A_{21}/A_{11}$$
+e fazemos 
+$$A_{2,:} \Leftarrow A_{2,:} - L_{21}A_{1,:}$$
+
+Note que usaremos $A_{i,:}$ para nos referenciarmos a linha $i$ de $A$. Da mesma forma, se necessário usaremos $A_{:,j}$ para nos referenciarmos a linha $j$ de $A$.
+
+Para zerar o primeiro elemento da terceira linha de $A$, temos
+$$L_{31}=A_{31}/A_{11}$$
+e fazemos 
+$$A_{3,:} \Leftarrow A_{3,:} - L_{31}A_{1,:}$$
+até chegarmos ao último elemento da primeira coluna de $A$.
+
+Repetimos o processo para as próximas colunas, escalonando a matriz $A$ e coletando os elementos $L_{ij}$ abaixo da diagonal\footnote{Perceba que a partir da segunda coluna para calcular $L_{ij}$ não usamos os elementos de $A$, mas os elementos da matriz $A$ em processo de escalonamento}.
+
+
+
+
+
+\subsection{Algoritmo para fatoração LU}
+O algoritmo para fatoração $LU$ pode ser escrito como
+\begin{verbatim}
+ 1. function [L,A]=fatoraLU(A)
+ 2.     n=size(A,1)
+ 3.     L=eye(n,n)
+ 4.     for j=1:n-1
+ 5.         for i=j+1:n
+ 6.             L(i,j    )=A(i,j)/A(j,j)
+ 7.             A(i,j+1:n)=A(i,j+1:n)-L(i,j)*A(j,j+1:n)
+ 8.             A(i,j    )=0
+ 9.         end
+10.     end
+11. endfunction
+\end{verbatim}
+
+\subsubsection{Custo computacional}
+Podemos analisar o custo computacional reduzindo o problema em problemas menores. % Vamos contar apenas o número de multiplicações e divisões.
+
+Na linha 4, iniciamos com $j=1$. Desta forma $i$ varia de $2$ até $n$ na linha 5.
+
+A linha 6 terá sempre 1 flop.
+
+A linha 7, com $j=1$ tem um bloco de tamanho \verb#2:n# contabilizando $n-1$ flops do produto e $n-1$ flops da subtração. 
+
+Nas linhas 6-8 são feitas $(2(n-1)+1)= 2n-1$ flops independente do valor de $i$. Como $i$ varia de $2$ até $n$, teremos que o bloco é repetido $n-1$ vezes, ou seja, o custo das linhas 5-9 é
+\begin{equation}
+   (n-1)\times (2(n-1)+1)=2(n-1)^2+(n-1)
+\end{equation}
+
+Voltamos a linha 4 quando $j=2$. Das linhas 6-8 teremos $n-2$ flops (o bloco terá um elemento a menos) que será repetido $n-2$ vezes, pois \verb#i=3:n#, ou seja,
+\begin{equation}
+   (n-2)\times(2(n-2)+1)=2(n-2)^2+(n-2)
+\end{equation}
+
+Para $j=3$, temos $2(n-3)^2+(n-3)$.
+
+Para $j=n-2$, temos $2(2)^2+2$.
+
+Finalmente, para $j=n-1$, temos $2\cdot 1^2+1$.
+
+
+Somando todos esses custos, temos
+\begin{eqnarray*}
+  (n-1)+2(n-1)^2 &+&  (n-2)+2(n-2)^2+... %\\&
+   + (2)+2(2)^2+1+2\cdot 1\\
+ &=& \sum_{k=1}^{n-1}2k^2+k \\ 
+ &=& 2\sum_{k=1}^{n-1}k^2+\sum_{k=1}^{n-1}k\\
+ &=& 2 \frac{(n-1)n(2n-1)}{6}+ \frac{n(n-1)}{2} \\
+ &=& \frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6} \text{~flops}.
+\end{eqnarray*}
+% \begin{align*}
+%   & \mathcal{O}( (n-1)n+(n-2)(n-1)+...+2\cdot 3+1\cdot 2) \\
+%  =& \mathcal{O}( \sum_{k=1}^{n-1}k(k+1) ) 
+%  = \mathcal{O}( \sum_{k=1}^{n-1}k^2 + \sum_{k=1}^{n-1}k )\\
+%  =&\mathcal{O}( (n-1)n(2n-1)/6 + n(n-1)/2) = \mathcal{O}(n^3/3 -n/3) \text{~flops}
+% \end{align*}
+%contando somente multiplicações e divisões.
+
+
+
+
+\subsection{Custo computacional para resolver um sistema linear usando fatoração LU}
+Para calcularmos o custo computacional de um algoritmo completo, uma estratégia é separar o algoritmo em partes menores mais fáceis de calcular.
+
+Para resolver o sistema, devemos primeiro fatorar a matriz $A$ nas matrizes $L$ e $U$. Vimos que o custo é
+$$\frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6} \text{~flops}.$$
+
+Depois devemos resolver os sistemas $Ly=b$ e $Ux=y$. O custo de resolver os dois sistemas é  (devemos contar duas vezes)
+$$ 2 n^2\text{~flops}.$$
+
+Somando esses $3$ custos, temos que o custo para resolver um sistema linear usando fatoração $LU$ é 
+$$\frac{2n^3}{3}+\frac{3n^2}{2}-\frac{n}{6} \text{~flops}.$$
+
+Quando $n$ cresce, prevalessem os termos de mais alta ordem, ou seja,
+$$\mathcal{O}(\frac{2n^3}{3}+\frac{3n^2}{2}-\frac{n}{6}) = \mathcal{O}(\frac{2n^3}{3}+\frac{3n^2}{2})=\mathcal{O}(\frac{2n^3}{3})$$
+
+\subsection{Custo para resolver m sistemas lineares}
+Devemos apenas multiplicar $m$ pelo custo de resolver um sistema linear usando fatoração $LU$, ou seja, o custo será 
+$$m(\frac{2n^3}{3}+\frac{3n^2}{2}-\frac{n}{6})=\frac{2mn^3}{3}+\frac{3mn^2}{2}-\frac{mn}{6}$$
+e com $m=n$ temos
+$$\frac{2n^4}{3}+\frac{3n^3}{2}-\frac{n^2}{6}.$$
+
+Porém, se estivermos resolvendo $n$ sistemas com \textit{a mesma matriz $A$ }(e diferente lado direito $\vec b$ para cada sistema) podemos fazer a fatoração LU uma única vez e contar apenas o custo de resolver os sistemas triangulares obtidos.
+
+Custo para fatoração LU de $A$: $\frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6}$.
+
+Custo para resolver $m$ sistemas triangulares inferiores: $m n^2 $.
+
+Custo para resolver $m$ sistemas triangulares superiores: $m n^2 $.
+
+Somando esses custos obtemos
+$$\frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6}+2m n^2 $$
+que quando $m=n$ obtemos
+$$\frac{8n^3}{3}-\frac{n^2}{2}-\frac{n}{6} \text{~flops}.$$
+
+\subsection{Custo para calcular a matriz inversa de $A$}
+Como vemos em Álgebra Linear, um método para obter a matriz $A^{-1}$ é realizar o escalonamento da matriz $[A|I]$ onde $I$ é a matriz identidade. Ao terminar o escalonamento, o bloco do lado direito conterá $A^{-1}$.
+
+Isto é equivalente a resolver $n$ sistemas lineares com a mesma matriz $A$ e os vetores da base canônica $\vec e_i = [0,...,0,1,0,....0]^T$ tal que
+$$ A \vec x_i = \vec e_i, \quad\quad i=1:n $$
+onde $\vec x_i$ serão as colunas da matriz $A$ inversa, já que $A X=I$.
+
+O custo para resolver esses $n$ sistemas lineares foi calculado na seção anterior como
+$$\frac{8n^3}{3}-\frac{n^2}{2}-\frac{n}{6}.$$
+
+\begin{ex}
+ Qual o melhor método para resolver um sistema linear: via fatoração LU ou calculando a inversa de $A$ e obtendo $x=A^{-1}b$?
+\end{ex}
+
+
 \section{Condicionamento de sistemas lineares}\index{sistema linear!condicionamento}\index{matriz!condicionamento}
 
 Quando lidamos com matrizes no corpo do números reais (ou complexos), existem apenas duas alternativas: i) a matriz é inversível; ii) a matriz não é inversível e, neste caso, é chamada de matriz singular. Ao lidarmos em aritmética de precisão finita, encontramos uma situação mais sutil: alguns problema lineares são mais difíceis de serem resolvidos, pois os erros de arredondamento se propagam de forma mais significativa que em outros problemas. Neste caso falamos de problemas bem-condicionados e mal-condicionados. Intuitivamente falando, um problema bem-condicionado é um problema em que os erros de arredondamento se propagam de forma menos importante; enquanto problemas mal-condicionados são problemas em que os erros se propagam de forma mais relevante.
 
 Um caso típico de sistema mal-condicionado é aquele cujos coeficiente estão muito próximos ao de um problema singular. Considere o seguinte exemplo:
 
-\begin{ex} Observe que o problema
-$$\left\{ \begin{array}{l}71x+41y=100\\
-\lambda x+30y=70
-\end{array}
-\right.$$
+\begin{ex} Observe que o sistema
+\begin{equation}
+\matdd{71}{41}{\lambda}{30}\vetdd{x}{y}=\vetdd{100}{70}
+\end{equation}
 é impossível quando $\lambda= \frac{71\times 30}{41}\approx 51,95122$.
 
-Agora, verifique o que acontece quando resolvemos os seguintes sistemas lineares:
-$$\left\{ \begin{array}{l}71x+41y=100\\
-52x+30y=70
-\end{array}
-\right. \\ \hbox{ e }
-\left\{ \begin{array}{l}71x+41y=100\\
-51x+30y=70
-\end{array}
-\right. \\
-$$
-A solução do primeiro problema é $x=-65$ e $y=115$. Já para o segundo problema é $x=\frac{10}{3}$ e $y=-\frac{10}{3}$.
+Considere os próximos três sistemas:
+\begin{enumerate}
+ \item [a)] $\matdd{71}{41}{51}{30}\vetdd{x}{y}=\vetdd{100}{70}$, com solução $\vetdd{10/3}{-10/3}$,
+ \item [b)] $\matdd{71}{41}{52}{30}\vetdd{x}{y}=\vetdd{100}{70}$, com solução $\vetdd{-65}{115}$,
+ \item [c)] $\matdd{71}{41}{52}{30}\vetdd{x}{y}=\vetdd{100,4}{69,3}$, com solução $\vetdd{-85,35}{150,25}$.
+\end{enumerate}
 
-Igualmente, observe os seguintes dois problemas:
-$$\left\{ \begin{array}{l}71x+41y=100\\
-52x+30y=70
-\end{array}
-\right. \\ \hbox{ e }
-\left\{ \begin{array}{l}71x+41y=100,4\\
-52x+30y=69,3
-\end{array}
-\right. \\
-$$
-A solução do primeiro problema é $x=-65$ e $y=115$ e do segundo problema é $x=-85,35$ e $y=150,25$.
-
-Observe que pequenas variações nos coeficientes das matrizes fazem as soluções ficarem bem distintas, isto é, pequenas variações nos dados de entrada acarretaram em grandes variações na solução do sistema. Quando isso acontece, dizemos que o problema é mal-condicionados.
+Pequenas variações nos coeficientes das matrizes fazem as soluções ficarem bem distintas, isto é, pequenas variações nos dados de entrada acarretaram em grandes variações na solução do sistema. Quando isso acontece, dizemos que o problema é mal-condicionado.
 \end{ex}
 
-Para introduzir essa ideia formalmente, precisamos definir o número de condicionamento. Informalmente falando, o número de condicionamento mede o quanto a solução de um problema em função de alterações nos dados de entrada. Para construir matematicamente este conceito, precisamos de uma medida destas variações. Como tanto os dados de entrada como os dados de saída são expressos na forma vetorial, precisaremos do conceito de norma vetorial. Por isso, faremos uma breve interrupção de nossa discussão para introduzir as definições de norma de vetores e matrizes na próxima seção.
+%Para introduzir essa ideia formalmente, precisamos definir o número de condicionamento. Informalmente falando, o número de condicionamento mede o quanto a solução de um problema em função de alterações nos dados de entrada.
+Precisamos uma maneira de medir essas variações. Como os dados de entrada e os dados de saída são vetores (ou matrizes), precisamos introduzir as definições de norma de vetores e matrizes.
 
-\subsection{Norma $L_p$ de vetores}\index{vetor!norma}
+\subsection{Norma de vetores}\index{norma de!vetores}
 
-Definimos a norma $L_p$ ou $L^p$ de um vetor em $\mathbb{R}^n$ para $p\geq 1$ como
-$$\|v\|_p=\left(|v_1|^p+|v_2|^p+\cdots |v_n|^p\right)^{1/p}$$
-E a norma $L_\infty$ ou $L^{\infty}$ como
+Definimos a \emph{norma $L^p$}\index{norma!$L^p$}, $1 \leq p \leq \infty$, de um vetor em $v = (v_1, v_2, \ldots, v_n)\in \mathbb{R}^n$ por:
+\begin{equation*}
+  \|v\|_p := \left(\sum_{i=1}^n |v_i|^p\right)^{1/p} = \left(|v_1|^p+|v_2|^p+ \cdots + |v_n|^p\right)^{1/p},\quad 1\leq p < \infty.
+\end{equation*}
+Para $p=\infty$, definimos a norma $L^{\infty}$\index{norma!$L^\infty$} (\emph{norma do máximo}) por:
+\begin{equation*}
+  \|v\|_\infty = \max_{1\leq j\leq n} \{|v_j|\}.
+\end{equation*}
 
-$$\|v\|_\infty=\max_{j=1}^n|v_j|$$
+\begin{prop}[Propriedades de normas]
+  Sejam dados $\alpha\in\mathbb{R}$ um escalar e os vetores $u,v\in\mathbb{R}^n$. Então, para cada $1\leq p \leq \infty$, valem as seguintes propriedades:
+  \begin{itemize}
+  \item[a)] $\|u\|_p = 0 \Leftrightarrow u = 0$.
+  \item[b)] $\|\alpha u\|_p = |\alpha|\|u\|_p$.
+  \item[c)] $\|u + v\|_p \leq \|u\|_p + \|v\|_p$ (\emph{desigualdade triangular}).
+  \item[d)] $\|u\|_p\to\|u\|_\infty$ quando $p\to\infty$.
+  \end{itemize}
+\end{prop}
+\begin{proof} Demonstramos cada item em separado.
+  \begin{itemize}
+  \item[a)] Se $u = 0$, então segue imediatamente da definição da norma $L^p$, $1\leq p \leq \infty$, que $\|u\|_p = 0$. Reciprocamente, se  $\|u\|_\infty = 0$, então, para cada $i=1, 2, \ldots, n$, temos:
+    \begin{equation*}
+      |u_i| \leq \max_{1\leq j \leq n}\{|u_j|\} = \|u\|_{\infty} = 0\Rightarrow u_i = 0.
+    \end{equation*}
+Isto é, $u = 0$. Agora, se $\|u\|_p = 0$, $1\leq p < \infty$, então:
+\begin{equation*}
+  0 = \|u\|_p^p := \sum_{i=1}^n |u_i|^p \leq n\|u\|_\infty \Rightarrow  \|u\|_\infty = 0.
+\end{equation*}
+Logo, pelo resultado para a norma do máximo, concluímos que $u=0$.
+\item[b)] Segue imediatamente da definição da norma $L^p$, $1\leq p \leq \infty$. 
+\item[c)] Em construção ...
+\item[d)] Em construção ...
+\end{itemize}
+\end{proof}
 
-{\bf Propriedades:} Se $\lambda$ é um real (ou complexo) e $u$ e  $v$ são vetores, temos:
-\begin{eqnarray*}
-\|v\|&=&0 \Longleftrightarrow v=0\\
-\|\lambda v\|&=&|\lambda| \|v\|\\
-\|u+v\| &\leq & \|u\| + \|v\|~~~~ (\hbox{desigualdade do triângulo})\\
-\lim_{p\to\infty}\|u\|_p &=& \|u\|_{\infty}
-\end{eqnarray*}
+\begin{ex}
+  Calcule a norma $L^1$, $L^2$ e $L^\infty$ do vetor coluna $v = (1, 2, -3, 0)$.
+\end{ex}
+\begin{sol}
+  \begin{eqnarray*}
+    \|v\|_1 &=& 1+2+3+0=6\\
+    \|v\|_2 &=& \sqrt{1+2^2+3^2+0^2}=\sqrt{14}\\
+    \|v\|_\infty &=& \max\{1,2,3,0\}=3
+  \end{eqnarray*}
+\ifisscilab
+No \verb+Scilab+ podemos computar normas $L^p$'s de vetores usando o comando \verb+norm+. Neste exemplo, temos:
+\begin{verbatim}
+-->norm(v,1), norm(v,'inf'), norm(v,2)
+ ans  =
+    6.  
+ ans  =
+    3.  
+ ans  =
+    3.7416574  
+\end{verbatim}
+\fi
+\end{sol}
 
 
-{\bf Exemplo: } Calcule a norma $L^1$, $L^2$ e $L^\infty$ de
-$$v=\left[\begin{array}{c}1\\2\\-3\\0
-\end{array}\right]$$
+\subsection{Norma de matrizes}\index{norma de!matrizes}
 
-\begin{eqnarray*}
-\|v\|_1&=&1+2+3+0=6\\
-\|v\|_2&=&\sqrt{1+2^2+3^2+0^2}=\sqrt{14}\\
-\|v\|_\infty&=&\max\{1,2,3,0\}=3
-\end{eqnarray*}
-
-
-\subsection{Norma matricial}\index{matriz!norma}
-
-Definimos a norma operacional em $L^p$ de uma matriz $A:\mathbb{R}^{n}\to \mathbb{R}^{n}$ da seguinte forma:
-$$\|A\|_p = \sup_{\|v\|_p=1} \|Av\|_p$$
-ou seja, a norma p de uma matriz é o máximo valor assumido pela norma de $Av$ entre todos os vetores de norma unitária.
+Definimos a norma induzida $L^p$ de uma matriz $A = [a_{i,j}]_{i,j=1}^{n,n}$ da seguinte forma:
+\begin{equation*}
+  \|A\|_p = \sup_{\|v\|_p=1} \|Av\|_p,
+\end{equation*}
+ou seja, a norma $p$ de uma matriz é o máximo valor assumido pela norma de $Av$ entre todos os vetores de norma unitária.
 
 Temos as seguintes propriedades, se $A$ e $B$ são matrizes, $I$ é a matriz identidade, $v$ é um vetor e $\lambda$ é um real (ou complexo):
 \begin{eqnarray*}
@@ -553,22 +943,38 @@ Casos especiais:
 \end{eqnarray*}
 onde $\sigma(M)$ é o conjunto de autovalores da matriz $M$.
 
-{\bf Exemplo:}
+\begin{ex}
 Calcule as normas $1$, $2$ e $\infty$ da seguinte matriz:
-$$A=\left[
+\begin{equation*}
+  A=\left[
 \begin{array}{ccc}
 3 & -5 & 7\\
 1 & -2 & 4\\
 -8 & 1 & -7\\
 \end{array}
-\right]$$
-
-{\bf Solução}
-\begin{eqnarray*}
-\|A\|_1&=&\max\{12,8,18\}=18\\
-\|A\|_\infty&=&\max\{15,7,16\}=16\\
-\|A\|_2&=&\sqrt{\max\{0,5865124; 21,789128 ;195,62436\}}= 13,986578
-\end{eqnarray*}
+\right]
+\end{equation*}
+\end{ex}
+\begin{sol}
+  \begin{eqnarray*}
+    \|A\|_1 &=& \max\{12, 8, 18\}=18\\
+    \|A\|_\infty &=& \max\{15, 7, 16\}=16\\
+    \|A\|_2 &=& \sqrt{\max\{0,5865124, 21,789128, 195,62436\}}= 13,98657
+  \end{eqnarray*}
+\ifisscilab
+No \verb+Scilab+ podemos computar normas $L^p$'s de matrizes usando o comando \verb+norm+. Neste exemplo, temos:
+\begin{verbatim}
+-->A = [3 -5 7;1 -2 4;-8 1 -7];
+-->norm(A,1), norm(A,'inf'), norm(A,2)
+ ans  =
+    18.  
+ ans  =
+    16.  
+ ans  =
+    13.986578
+\end{verbatim}
+\fi
+\end{sol}
 
 \subsection{Número de condicionamento}\index{número de condicionamento}
 
@@ -580,12 +986,12 @@ $$Ax+A\delta_x=y+\delta_y$$ e, portanto,
 $$A\delta_x=\delta_y.$$
 
 Queremos avaliar a magnitude do erro relativo em y, representado por $\|\delta_y\|/\|y\|$ em função da magnitude do erro relativo $\|\delta_x\|/\|x\|$.
-\begin{align*}
-\frac{\|\delta_x\|/\|x\|}{\|\delta_y\|/\|y\|} &= \frac{\|\delta_x\|}{\|x\|}\frac{\|y\|}{\|\delta_y\|}\\ 
-&= \frac{\|A^{-1}\delta_y\|}{\|x\|}\frac{\|Ax\|}{\|\delta_y\|} \\
-&\leq \frac{\|A^{-1}\|\|\delta_y\|}{\|x\|}\frac{\|A\|\|x\|}{\|\delta_y\|}\\
-&=\|A\|\|A^{-1}\|  
-\end{align*}
+\begin{eqnarray*}
+\frac{\|\delta_x\|/\|x\|}{\|\delta_y\|/\|y\|} &=& \frac{\|\delta_x\|}{\|x\|}\frac{\|y\|}{\|\delta_y\|}\\ 
+&=& \frac{\|A^{-1}\delta_y\|}{\|x\|}\frac{\|Ax\|}{\|\delta_y\|} \\
+&\leq& \frac{\|A^{-1}\|\|\delta_y\|}{\|x\|}\frac{\|A\|\|x\|}{\|\delta_y\|}\\
+&=& \|A\|\|A^{-1}\|  
+\end{eqnarray*}
 
 Assim, definimos o número de condicionamento de uma matriz inversível $A$ como
 $$k_p(A)=\|A\|_p \|A^{-1}\|_p$$
@@ -651,7 +1057,7 @@ $k_1=k_\infty=6888, k_2=\sqrt{26656567}$ e $k_1=180, k_2= 128,40972  $ e $k_\inf
   \end{tiny}
 \end{Answer}
 
-\begin{Exercise}Usando a norma $1$, calcule o número de condicionameto da matriz
+\begin{Exercise}Usando a norma $1$, calcule o número de condicionamento da matriz
 $$A=\left[
 \begin{array}{cc}
 1 & 2\\
@@ -727,96 +1133,496 @@ norm(f,'inf')
 
 
 \section{Métodos iterativos para sistemas lineares}\index{métodos iterativos!sistemas lineares}
+Na seção anterior tratamos de métodos diretos para a resolução de sistemas lineares. Em um \emph{método direto} (por exemplo, solução via fatoração LU) obtemos uma aproximação da solução depois de realizarmos um número finito de operações (só teremos a solução ao final do processo).
+
+Veremos nessa seção dois \emph{métodos iterativos} básicos para obter uma aproximação para a solução de um sistema linear. Geralmente em um método iterativo iniciamos com uma aproximação para a solução (que pode ser ruim) e vamos melhorando essa aproximação através de sucessivas iterações.
+
+
+
 
 \subsection{Método de Jacobi}\index{método de!Jacobi}
-
-Considere o problema $Ax=y$, ou seja,
+O método de Jacobi pode ser obtido a partir do sistema linear
 \begin{eqnarray*}
 a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n&=&y_1\\
 a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n&=&y_2\\
-\vdots \hspace{100pt}\vdots~~~~&=&~\vdots\\
-a_{n1}x_1+a_{n2}x_2+\cdots+a_{nn}x_n&=&y_n
+&\vdots&     \\
+a_{n1}x_1+a_{n2}x_2+\cdots+a_{nn}x_n&=& y_n
 \end{eqnarray*}
 
-Os elementos $x_j$ são calculados iterativamente conforme:
+Isolando o elemento $x_1$ da primeira equação temos
+\begin{equation}
+x_1^{(k+1)}= \frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}} 
+\end{equation}
+Note que utilizaremos os elementos $x_i^{(k)}$ da iteração $k$ (a direita da equação) para estimar o elemento $x_1$ da próxima iteração. 
+
+Da mesma forma, isolando o elemento $x_i$ de cada equação $i$, para todo $i=2,...,n$ podemos construir a iteração
 \begin{eqnarray*}
-x_1^{(k+1)}&=& \frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}}\\
-x_2^{(k+1)}&=&\frac{y_2 - \left(a_{21}x_1^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}\\
+x_1^{(k+1)}&=&\frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}}\\
+x_2^{(k+1)}&=&\frac{y_2 - \left(a_{21}x_1^{(k)}+a_{23}x_3^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}\\
 &\vdots&\\
-x_n^{(k+1)}&=&\frac{y_2 - \left(a_{n1}x_1^{(k)}+\cdots+a_{n(n-1)}x_{n-1}^{(k)}\right)}{a_{nn}}
+x_n^{(k+1)}&=&\frac{y_2 - \left(a_{n1}x_1^{(k)}+\cdots+a_{n,n-2}x_{n-2}^{(k)}+a_{n,n-1}x_{n-1}^{(k)}\right)}{a_{nn}}
 \end{eqnarray*}
 
-Em notação mais compacta, o método de Jacobi consiste na iteração:
-\begin{align*}
-  &x^{(0)} = \text{aprox. inicial}\\
-  &x_i^{(k)} = \frac{y_i - \displaystyle{\sum_{\substack{j=1\\j\neq i}}^{n} a_{ij}x_j^{(k)}}}{a_{ii}}
-\end{align*}
+Em notação mais compacta, o método de Jacobi consiste na iteração
+\begin{eqnarray*}
+  x^{(1)}   &=& \text{aproximação inicial}\\
+  x_i^{(k)} &=& \left(y_i - \sum_{\substack{j=1\\j\ne i}}^{n} a_{ij}x_j^{(k)} \right)/{a_{ii}}
+\end{eqnarray*}
 
-{\bf Exemplo:} Resolva o sistema $$\left\{\begin{array}{l}10x+y=23\\x+8y=26\end{array}\right.$$
-usando o método de Jacobi iniciando com $x^{(0)}=y^{(0)}=0$.
+\begin{ex}
+Resolva o sistema
+\begin{eqnarray*}
+ 10x+y&=&23\\
+ x+8y &=&26
+\end{eqnarray*}
+usando o método de Jacobi iniciando com $x^{(1)}=y^{(1)}=0$.
 \begin{eqnarray*}
 x^{(k+1)}&=&\frac{23-y^{(k)}}{10}\\
 y^{(k+1)}&=&\frac{26-x^{(k)}}{8}\\
-\\
-x^{(1)}&=&\frac{23-y^{(0)}}{10}=2,3\\
-y^{(1)}&=&\frac{26-x^{(0)}}{8}=3,25\\
-\\
-x^{(2)}&=&\frac{23-y^{(1)}}{10}=1,975 \\
-y^{(2)}&=&\frac{26-x^{(1)}}{8}=2,9625\\
+x^{(2)}&=&\frac{23-y^{(1)}}{10}=2,3\\
+y^{(2)}&=&\frac{26-x^{(1)}}{8}=3,25\\
+x^{(3)}&=&\frac{23-y^{(2)}}{10}=1,975 \\
+y^{(3)}&=&\frac{26-x^{(2)}}{8}=2,9625
 \end{eqnarray*}
+\end{ex}
 
 \ifisscilab
 \subsubsection{Código Scilab: Jacobi}
 
-\verbatiminput{./rotinas/Metodo_de_Jacobi/jacobi.sci}
+\verbatiminput{./cap_linsis/codes/metodo_de_jacobi/jacobi.sci}
 \fi
 
 \subsection{Método de Gauss-Seidel}\index{método de!Gauss-Seidel}
 
-Considere o problema $Ax=y$, ou seja,
-\begin{eqnarray*}
-a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n&=&y_1\\
-a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n&=&y_2\\
-\vdots \hspace{100pt}\vdots~~~~&=&~\vdots\\
-a_{n1}x_1+a_{22}x_2+\cdots+a_{nn}x_n&=&y_n
-\end{eqnarray*}
+Assim como no método de Jacobi, no método de Gauss-Seidel também isolamos o elemento $x_i$ da equação $i$. Porém perceba que a equação para $x_2^{(k+1)}$ depende de $x_1^{(k)}$ na iteração $k$. Intuitivamente podemos pensar em usar $x_1^{(k+1)}$ que acabou de ser calculado e temos
 
-Os elementos $x_j$ são calculados iterativamente conforme:
+\begin{equation*}
+x_2^{(k+1)} =\frac{y_2 - \left(a_{21}x_1^{(k+1)}+a_{23}x_3^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}
+\end{equation*}
+
+Aplicando esse raciocínio podemos construir o método de Gauss-Seidel como
 \begin{eqnarray*}
-x_1^{(k+1)}&=& \frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}}\\
-x_2^{(k+1)}&=&\frac{y_2 - \left(a_{11}x_1^{(k+1)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{22}}\\
+x_1^{(k+1)}&=&\frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}}\\
+x_2^{(k+1)}&=&\frac{y_2 - \left(a_{21}x_1^{(k+1)}+a_{23}x_3^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}\\
 &\vdots&\\
-x_n^{(k+1)}&=&\frac{y_2 - \left(a_{n1}x_1^{(k+1)}+\cdots+a_{n(n-1)}x_{n-1}^{(k+1)}\right)}{A_{nn}}
+x_n^{(k+1)}&=&\frac{y_2 - \left(a_{n1}x_1^{(k+1)}+\cdots+a_{n(n-1)}x_{n-1}^{(k+1)}\right)}{a_{nn}}
 \end{eqnarray*}
 
 Em notação mais compacta, o método de Gauss-Seidel consiste na iteração:
-\begin{align*}
-  &x^{(0)} = \text{aprox. inicial}\\
-  &x_i^{(k)} = \frac{y_i - \displaystyle{\sum_{j=1}^{i-1} a_{ij}x_j^{(k+1)}} - \displaystyle{\sum_{j=i+1}^{n} a_{ij}x_j^{(k)}}}{a_{ii}}
-\end{align*}
+\begin{eqnarray*}
+  x^{(1)} &=& \text{aproximação inicial}\\
+  x_i^{(k)} &=& \frac{y_i - \sum_{j=1}^{i-1} a_{ij}x_j^{(k+1)} -\sum_{j=i+1}^{n} a_{ij}x_j^{(k)}}{a_{ii}}
+\end{eqnarray*}
 
-
-{\bf Exemplo:} Resolva o sistema $$\left\{\begin{array}{l}10x+y=23\\x+8y=26\end{array}\right.$$
-usando o método de Guass-Seidel iniciando com $x^{(0)}=y^{(0)}=0$.
+\begin{ex}
+Resolva o sistema
+\begin{eqnarray*}
+  10x+y&=&23\\
+  x+8y&=&26
+\end{eqnarray*}
+usando o método de Guass-Seidel iniciando com $x^{(1)}=y^{(1)}=0$.
 \begin{eqnarray*}
 x^{(k+1)}&=&\frac{23-y^{(k)}}{10}\\
 y^{(k+1)}&=&\frac{26-x^{(k+1)}}{8}\\
-\\
-x^{(1)}&=&\frac{23-y^{(0)}}{10}=2,3\\
-y^{(1)}&=&\frac{26-x^{(1)}}{8}=2,9625\\
-\\
-x^{(2)}&=&\frac{23-y^{(1)}}{10}=2,00375  \\
-y^{(2)}&=&\frac{26-x^{(2)}}{8}=2,9995312
+x^{(2)}&=&\frac{23-y^{(1)}}{10}=2,3\\
+y^{(2)}&=&\frac{26-x^{(2)}}{8}=2,9625\\
+x^{(3)}&=&\frac{23-y^{(2)}}{10}=2,00375  \\
+y^{(3)}&=&\frac{26-x^{(3)}}{8}=2,9995312
 \end{eqnarray*}
+\end{ex}
+
 
 \ifisscilab
 \subsubsection{Código Scilab: Gauss-Seidel}
 
-\verbatiminput{./rotinas/Metodo_de_Gauss-Seidel/gauss.sci}
+\verbatiminput{./cap_linsis/codes/metodo_de_gauss-seidel/gauss_seidel.sci}
 \fi
 
-\section{Análise de convergência}\index{métodos iterativos!sistemas lineares!convergência}
-Uma condição suficiente porém não necessária para que os métodos de Gauss-Seidel e Jacobi convirjam é a que a matriz seja diagonal dominante estrita. Veja \cite{Burden2013}.
+\subsection{Análise de convergência}\index{métodos iterativos!sistemas lineares!convergência}
+
+Nesta seção, discutimos sobre a análise de convergência de métodos iterativos para solução de sistema lineares. Para tanto, consideramos um sistema linear $Ax = b$, onde $A = [a_{i,j}]_{i,j=1}^{n,n}$ é a matriz (real) dos coeficientes, $b = (a_j)_{j=1}^n$ é um vetor dos termos constantes e $x = (x_j)_{j=1}^n$ é o vetor incógnita. No decorrer, assumimos que $A$ é uma matriz não-singular.
+
+Geralmente, métodos iterativos são construídos como uma iteração de ponto fixo. No caso de um sistema linear, reescreve-se a equação matricial em um problema de ponto fixo equivalente, i.e.:
+\begin{equation*}
+  Ax = b \Leftrightarrow x = Tx + c,
+\end{equation*}
+onde $T = [t_{i,j}]_{i,j=1}^{n,n}$ é chamada de \emph{matriz da iteração}\index{matriz de!iteração} e $c = (c_j)_{j=1}^n$ de \emph{vetor da iteração}\index{vetor de!iteração}. Construídos a matriz $T$ e o vetor $c$, o método iterativo consiste em computar a iteração:
+\begin{equation*}
+  x^{(k+1)} = Tx^{(k)} + c,\quad n\geq 1, 
+\end{equation*}
+onde $x^{(1)}$ é uma aproximação inicial dada.
+
+Afim de construirmos as matrizes e os vetores de iteração do método de Jacobi e de Gauss-Seidel, decompomos a matriz $A$ da seguinte forma:
+\begin{equation*}
+  A = L + D + U,
+\end{equation*}
+onde $D$ é a matriz diagonal $D = \diag(a_{11}, a_{22}, \ldots, a_{nn})$, i.e.:
+\begin{equation*}
+  D := \begin{bmatrix}
+    a_{11} & 0 & 0 & \cdots & 0\\
+    0 & a_{22} & 0 & \cdots & 0\\
+    0 & 0 & a_{33} & \cdots & 0\\
+    \vdots & \vdots & \vdots & \ddots & \vdots\\
+    0 & 0 & 0 & \cdots & a_{nn}
+  \end{bmatrix},
+\end{equation*}
+e, respectivamente, $L$ e $U$ são as seguintes matrizes triangular inferior e superior:
+\begin{equation*}
+  L := \begin{bmatrix}
+    0 & 0 & 0 & \cdots & 0\\
+    a_{21} & 0 & 0 & \cdots & 0\\
+    a_{31} & a_{32} & 0 &\cdots & 0\\
+    \vdots & \vdots & \vdots & \ddots & \vdots\\
+    a_{n1} & a_{n2} & a_{n3} & \cdots & 0
+  \end{bmatrix},\quad
+  U := \begin{bmatrix}
+    0 & a_{12} & a_{13} & \cdots & a_{1n}\\
+    0 & 0 & a_{23} & \cdots & a_{2n}\\
+    0 & 0 & 0 & \cdots & a_{3n}\\
+    \vdots & \vdots & \vdots & \ddots & \vdots\\
+    0 & 0 & 0 & \cdots & 0
+  \end{bmatrix}.
+\end{equation*}
+
+\begin{ex}\label{ex:sislin}
+  Considere o seguinte sistema linear:
+  \begin{eqnarray*}
+    3x_1 + x_2 - x_3 &=& 2\\
+    -x_1 -4x_2 + x_3 &=& -10\\
+    x_1 - 2x_2 - 5x_3 &=& 10
+  \end{eqnarray*}
+Escreva o sistema na sua forma matricial $Ax = b$ identificando a matriz dos coeficientes $A$, o vetor incógnita $x$ e o vetor dos termos constantes $b$. Em seguida, faça a decomposição $A = L + D + U$.
+\end{ex}
+\begin{sol}
+ A forma matricial deste sistema é $Ax = b$, onde:
+\begin{equation*}
+  A =
+  \begin{bmatrix}
+    3 & 1 & -1\\
+    -1 & -4 & 1\\
+    1 & -2 & -5
+  \end{bmatrix},\quad
+  x =
+  \begin{bmatrix}
+    x_1\\
+    x_2\\
+    x_3
+  \end{bmatrix}\quad\text{e}\quad
+  b =
+  \begin{bmatrix}
+    2\\
+    -10\\
+    10
+  \end{bmatrix}.
+\end{equation*}
+A decomposição da matriz $A$ nas matrizes $L$ triangular inferior, $D$ diagonal e $U$ triangular superior é:
+\begin{equation*}
+  \underbrace{\begin{bmatrix}
+    3 & 1 & -1\\
+    -1 & -4 & 1\\
+    1 & -2 & -5
+  \end{bmatrix}}_{A} =
+  \underbrace{\begin{bmatrix}
+    0 & 0 & 0\\
+    -1 & 0 & 0\\
+    1 & -2 & 0
+  \end{bmatrix}}_{L} +
+  \underbrace{\begin{bmatrix}
+    3 & 0 & 0\\
+    0 & -4 & 0\\
+    0 & 0 & -5
+  \end{bmatrix}}_{D} + 
+  \underbrace{\begin{bmatrix}
+    0 & 1 & -1\\
+    0 & 0 & 1\\
+    0 & 0 & 0
+  \end{bmatrix}}_{U}.
+\end{equation*}
+\ifisscilab
+No \verb+Scilab+, podemos construir as matrizes $L$, $D$ e $U$, da seguinte forma:
+\begin{verbatim}
+-->A = [3 1 -1;-1 -4 1;1 -2 -5];
+-->D = eye(A).*A;
+-->L = tril(A)-D;
+-->U=triu(A)-D;
+\end{verbatim}
+\fi  
+\end{sol}
+
+\subsubsection{Iteração de Jacobi}
+
+Vamos, agora, usar a decomposição discutida acima para construir a matriz de iteração $T_J$\index{Método de Jacobi!matriz de iteração} e o vetor de iteração $c_J$\index{Método de Jacobi!vetor de iteração} associado ao método de Jacobi. Neste caso, temos:
+\begin{eqnarray*}
+  Ax = b &\Leftrightarrow& (L + D + U)x = b\\
+  &\Leftrightarrow& Dx = -(L+U)x + b\\
+  &\Leftrightarrow& x = \underbrace{-D^{-1}(L+U)}_{=: T_J}x + \underbrace{D^{-1}b}_{=: c_J}.
+\end{eqnarray*}
+Ou seja, a iteração do método de Jacobi escrita na forma matricial é:
+\begin{equation*}
+  x^{(k+1)} = T_Jx^{(k)} + c_J,\quad k\geq 1,
+\end{equation*}
+com $x^{(1)}$ uma aproximação inicial dada, sendo $T_J := -D^{-1}(L+U)$ a matriz de iteração e $c_J = D^{-1}b$ o vetor da iteração.
+
+\begin{ex}
+  Construa a matriz de iteração $T_J$ e o vetor de iteração $c_J$ do método de Jacobi para o sistema dado no Exemplo~\ref{ex:sislin}. 
+\end{ex}
+\begin{sol}
+  A matriz de iteração é dada por:
+  \begin{equation*}
+    T_J := -D^{-1}(L + U) = -
+    \underbrace{\begin{bmatrix}
+      \frac{1}{3} & 0 & 0\\
+      0 & -\frac{1}{4} & 0\\
+      0 & 0 & -\frac{1}{5}
+    \end{bmatrix}}_{D^{-1}}
+  \underbrace{\begin{bmatrix}
+    0 & 1 & -1\\
+    -1 & 0 & 1\\
+    1 & 2 & 0
+  \end{bmatrix}}_{(L + U)} =
+\begin{bmatrix}
+  0 & -\frac{1}{3} & \frac{1}{3}\\
+  -\frac{1}{4} & 0 & \frac{1}{4}\\
+  \frac{1}{5} & \frac{2}{5} & 0
+\end{bmatrix}.
+  \end{equation*}
+O vetor da iteração de Jacobi é:
+\begin{equation*}
+  c_J := D^{-1}b = 
+    \underbrace{\begin{bmatrix}
+      \frac{1}{3} & 0 & 0\\
+      0 & -\frac{1}{4} & 0\\
+      0 & 0 & -\frac{1}{5}
+    \end{bmatrix}}_{D^{-1}}
+    \underbrace{\begin{bmatrix}
+      2\\
+      -10\\
+      10
+    \end{bmatrix}}_{b} = 
+    \begin{bmatrix}
+      \frac{2}{3}\\
+      \frac{5}{2}\\
+      -2
+    \end{bmatrix}.
+\end{equation*}
+\ifisscilab
+No \verb+Scilab+, podemos computar $T_J$ e $c_J$ da seguinte forma:
+\begin{verbatim}
+-->TJ = -inv(D)*(L+U);
+-->cJ = inv(D)*b;
+\end{verbatim}
+\fi
+\end{sol}
+
+\subsubsection{Iteração de Gauss-Seidel}
+
+A forma matricial da iteração do método de Gauss-Seidel também pode ser construída com base na decomposição $A = L + D + U$. Para tando, fazemos:
+\begin{eqnarray*}
+  Ax = b &\Leftrightarrow& (L + D + U)x = b\\
+  &\Leftrightarrow& (L + D)x = -Ux + b\\
+  &\Leftrightarrow& x = \underbrace{-(L + D)^{-1}U}_{=: T_G}x + \underbrace{(L+D)^{-1}b}_{=: c_G}
+\end{eqnarray*}
+Ou seja, a iteração do método de Gauss-Seidel escrita na forma matricial é:
+\begin{equation*}
+  x^{(k+1)} = T_Gx^{(k)} + c_G,\quad k\geq 1,
+\end{equation*}
+com $x^{(1)}$ uma aproximação inicial dada, sendo $T_G := -(L+D)^{-1}U$ a matriz de iteração e $c_J = (L+D)^{-1}b$ o vetor da iteração.
+
+\begin{ex}
+  Construa a matriz de iteração $T_G$ e o vetor de iteração $c_G$ do método de Gauss-Seidel para o sistema dado no Exemplo~\ref{ex:sislin}.
+\end{ex}
+\begin{sol}
+  A matriz de iteração é dada por:
+  \begin{equation*}
+    T_G := -(L+D)^{-1}U = -
+    -\underbrace{\begin{bmatrix}
+      3 & 0 & 0\\
+      -1 & -4 & 0\\
+      1 & -2 & -5
+    \end{bmatrix}^{-1}}_{(L + D)^{-1}}
+  \underbrace{\begin{bmatrix}
+    0 & 1 & -1\\
+    0 & 0 & 1\\
+    0 & 0 & 0
+  \end{bmatrix}}_{U} =
+\begin{bmatrix}
+  0 & -\frac{1}{3} & \frac{1}{3}\\
+  0 & \frac{1}{12} & \frac{1}{6}\\
+  0 & -\frac{1}{10} & 0
+\end{bmatrix}.
+  \end{equation*}
+O vetor da iteração de Gauss-Seidel é:
+\begin{equation*}
+  c_G := (L+D)^{-1}b = 
+    \underbrace{\begin{bmatrix}
+      3 & 0 & 0\\
+      -1 & -4 & 0\\
+      1 & -2 & -5
+    \end{bmatrix}^{-1}}_{(L + D)^{-1}}
+    \underbrace{\begin{bmatrix}
+      2\\
+      -10\\
+      10
+    \end{bmatrix}}_{b} = 
+    \begin{bmatrix}
+      \frac{2}{3}\\
+      \frac{7}{3}\\
+      -\frac{28}{10}
+    \end{bmatrix}.
+\end{equation*}
+\ifisscilab
+No \verb+Scilab+, podemos computar $T_G$ e $c_G$ da seguinte forma:
+\begin{verbatim}
+-->TG = -inv(L+D)*U;
+-->cG = inv(L+D)*b;
+\end{verbatim}
+\fi
+\end{sol}
+
+\subsubsection{Condições de convergência}
+
+Aqui, vamos discutir condições necessárias e suficientes para a convergência de métodos iterativos. Isto é, dado um sistema $Ax = b$ e uma iteração:
+\begin{equation*}
+  x^{(k+1)} = Tx^{(k)} + c,\quad k\geq 1,
+\end{equation*}
+$x^{(1)}$ dado, estabelecemos condições nas quais $x^{(k)}\to x^{*}$, onde $x^*$ é a solução do sistema dado, i.e. $x^* = Tx^* + c$ ou, equivalentemente, $Ax^* = b$.
+
+\begin{lem}\label{lema:matriz_convergente}
+  Seja $T$ uma matriz real $n\times n$. O limite $\displaystyle\lim_{k\to\infty} \|T^k\|_p = 0$, $1\leq p \leq \infty$, se, e somente se, $\rho(T) < 1$. 
+\end{lem}
+\begin{proof}
+  Aqui, fazemos apenas um esboço da demonstração. Para mais detalhes, veja \cite{Isaacson1994a}, Teorema 4, pág. 14.
+
+  Primeiramente, suponhamos que $\|T\|_p < 1$, $1\leq p \leq \infty$. Como (veja \cite{Isaacson1994a}, Lema 2, pág. 12):
+  \begin{equation*}
+    \rho(T) \leq \|T\|_p,
+  \end{equation*}
+temos $\rho(T) < 1$, o que mostra a implicação.
+
+  Agora, suponhamos que $\rho(T) < 1$ e seja $0 < \epsilon < 1 - \rho(T)$. Então, existe $1\leq p \leq \infty$ tal que (veja \cite{Isaacson1994a}, Teorema 3, página 12):
+  \begin{equation*}
+    \|T\|_p \leq \rho(T) + \epsilon < 1.
+  \end{equation*}
+Assim, temos:
+\begin{equation*}
+  \lim_{k\to\infty} \|T^k\|_p \leq \lim_{k\to\infty} \|T\|_p^m = 0.
+\end{equation*}
+Da equivalência entre as normas segue a recíproca.
+\end{proof}
+
+\begin{obs}\label{obs:matriz_convergente}
+  Observamos que:
+  \begin{equation*}
+    \lim_{k\to\infty} \|T^k\|_p = 0,\quad,1\leq p\leq \infty,\Leftrightarrow \lim_{k\to\infty} t_{ij}^k = 0,\quad 1\leq i,j\leq n.
+  \end{equation*}
+\end{obs}
+
+\begin{lem}\label{lema:inversa}
+  Se $\rho(T) < 1$, então existe $(I - T)^{-1}$ e:
+  \begin{equation*}
+    (I - T)^{-1} = \sum_{k=0}^\infty T^k.
+  \end{equation*}
+\end{lem}
+\begin{proof}
+  Primeiramente, provamos a existência de $(I - T)^{-1}$. Seja $\lambda$ um autovalor de $T$ e $x$ um autovetor associado, i.e. $Tx = \lambda x$. Então, $(I-T)x = (1-\lambda)x$. Além disso, temos $|\lambda| < \rho(T) < 1$, logo $(1 - \lambda) \neq 0$, o que garante que $(I - T)$ é não singular.
+  Agora, mostramos que $(I - T)^{-1}$ admite a expansão acima. Do Lema~\ref{lema:matriz_convergente} e da Observação~\ref{obs:matriz_convergente} temos:
+  \begin{equation*}
+   (I - T)\sum_{k=0}^\infty T^k =  \lim_{m\to\infty} (I - T)\sum_{k=0}^m T^k = \lim_{m\to\infty} (I - T^{m+1}) = I,
+  \end{equation*}
+o que mostra que $\displaystyle (I - T)^{-1} = \sum_{k=0}^\infty T^k$.
+\end{proof}
+
+\begin{teo}\label{teo:convergencia}
+  A sequência recursiva $\{x^{(k)}\}_{k\in\mathbb{N}}$ dada por:
+  \begin{equation*}
+    x^{(k+1)} = Tx^{(k)} + c
+  \end{equation*}
+converge para solução de $x = Tx + c$ para qualquer escolha de $x^{(1)}$ se, e somente se, $\rho(T) < 1$.
+\end{teo}
+\begin{proof}
+  Primeiramente, assumimos que $\rho(T) < 1$. Observamos que:
+  \begin{eqnarray*}
+    x^{(k+1)} &= Tx^{(k)} + c = T(Tx^{(k-1)} + c) + c \\
+    &= T^2x^{(k-1)} + (I + T)c \\
+    &\vdots\\
+    &= T^{(k)}x^{(1)} + \left(\sum_{k=0}^{k-1}T^k\right)c.
+  \end{eqnarray*}
+Daí, do Lema~\ref{lema:matriz_convergente} e do Lema~\ref{lema:inversa} temos:
+\begin{equation*}
+  \lim_{k\to\infty} x^{(k)} = (I - T)^{(-1)}c.
+\end{equation*}
+Ora, se $x^*$ é a solução de $x = Tx + c$, então $(I - T)x^* = c$, i.e. $x^* = (I - T)^{-1}c$. Logo, temos demonstrado que $x^{(k)}$ converge para a solução de  $x = Tx + c$, para qualquer escolha de $x^{(1)}$.
+
+Agora, suponhamos que $x^{(k)}$ converge para $x^*$ solução de $x = Tx + c$, para qualquer escolha de $x^{(1)}$. Seja, então, $y$ um vetor arbitrário e $x^{(1)} = x^* - y$. Observamos que:
+\begin{eqnarray*}
+  x^* - x^{(k+1)} &= (Tx^* + c) - (Tx^{(k)} + c) \\
+  &= T(x^* - x^{(k)})\\
+  &\vdots\\
+  &= T^{(k)}(x^* - x^{(1)}) = T^{(k)}y.
+\end{eqnarray*}
+Logo, para qualquer $1 \leq p \leq\infty$, temos, :
+\begin{equation*}
+  0 = \lim_{k\to\infty} x^* - x^{(k+1)} = \lim_{k\to\infty} T^{(k)}y.
+\end{equation*}
+Como $y$ é arbitrário, da Observação~\ref{obs:matriz_convergente} temos $\displaystyle\lim_{k\to\infty} \|T^{(k)}\|_p = 0$, $1 \leq p \leq \infty$. Então, o Lema~\ref{lema:matriz_convergente} garante que $\rho(T) < 1$.
+\end{proof}
+
+\begin{obs}
+  Pode-se mostrar que tais métodos iterativos tem taxa de convergência super linear com:
+  \begin{equation*}
+    \|x^{(k+1)} - x^*\| \approx \rho(T)^{k}\|x^{(1)} - x^*\|.
+  \end{equation*}
+Para mais detalhes, veja \cite{Isaacson1994a}, pág. 61-64.
+\end{obs}
+
+\begin{ex}
+  Mostre que, para qualquer escolha da aproximação inicial, ambos os métodos de Jacobi e Gauss-Seidel são convergentes quando aplicados ao sistema linear dado no Exemplo~\ref{ex:sislin}.
+\end{ex}
+\begin{sol}
+  Do Teorema~\ref{teo:convergencia}, vemos que é necessário e suficiente que $\rho(T_J) < 1$ e $\rho(T_G) < 1$. Computando estes raios espectrais, obtemos $\rho(T_J) \approx 0,32$ e $\rho(T_G) \approx 0,13$. Isto mostra que ambos os métodos serão convergentes. 
+\end{sol}
+
+\subsubsection{Condição suficiente}
+
+Uma condição suficiente porém não necessária para que os métodos de Gauss-Seidel e Jacobi convirjam é a que a matriz seja \emph{estritamente diagonal dominante}\index{matriz!diagonal dominante}.
+
+\begin{defn}
+ Uma matriz $A$ é \emph{estritamente diagonal dominante} quando:
+\begin{equation*}
+  |a_{ii}|> \sum_{\substack{j=1\\j\ne i}}^{n} |a_{ij}|, i=1,...,n
+\end{equation*}
+\end{defn}
+
+\begin{defn}
+ Uma matriz $A$ é \emph{diagonal dominante} quando
+\begin{equation*}
+  |a_{ii}| \geq \sum_{\substack{j=1\\j\ne i}}^{n} |a_{ij}|, i=1,...,n
+\end{equation*}
+e para ao menos um $i$, $a_{ii}$ é estritamente maior que a soma dos elementos fora da diagonal.
+\end{defn}
+
+\begin{teo}
+ Se a matriz $A$ for diagonal dominante\footnote{E consequentemente estritamente diagonal dominante.}, então os métodos de Jacobi e Gauss-Seidel serão convergentes independente da escolha inicial $x^{(1)}$.
+\end{teo}
+
+Se conhecermos a solução exata $x$ do problema, podemos calcular o erro relativo em cada iteração como:
+\begin{equation*}
+   \frac{ \|x-x^{(k)}\|}{\|x\|}.
+\end{equation*}
+
+Em geral não temos $x$, entretanto podemos estimar o vetor \emph{resíduo} $r^{(k)}=b-A\tilde{x^{(k)}}$. Note que quando o erro tende a zero, o resíduo também tende a zero. 
+
+\begin{teo}
+ O erro relativo e o resíduo estão relacionados como (veja \cite{Burden2013})
+\begin{equation*}
+  \frac{ \|x-x^{(k)}\|}{\|x\|} \leq  \kappa(A) \frac{\|r\|}{\|b\|}
+\end{equation*}
+onde $k(A)$ é o número de condicionamento.
+\end{teo}
+
+\begin{ex}
+  Ambos os métodos de Jacobi e Gauss-Seidel são convergentes para o sistema dado no Exemplo~\ref{ex:sislin}, pois a matriz dos coeficientes deste é uma matriz estritamente diagonal dominante.
+\end{ex}
 
 \section*{Exercícios}
 
@@ -1107,21 +1913,19 @@ $$
 \section*{Exercícios finais}
 
 \begin{Exercise}[title=Eletricidade]\label{circuito1}
-\Question O circuito linear da figura \ref{circuitol8} pode ser modelado pelo sistema (\ref{eq_circ}). Escreva esse sistema na forma matricial sendo as tensões $V_1$, $V_2$, $V_3$, $V_4$ e $V_5$ as cinco incógnitas. Resolva esse problema quando $V=127$ e
+O circuito linear da figura \ref{circuitol8} pode ser modelado pelo sistema (\ref{eq_circ}). Escreva esse sistema na forma matricial sendo as tensões $V_1$, $V_2$, $V_3$, $V_4$ e $V_5$ as cinco incógnitas. Resolva esse problema quando $V=127$ e
 \begin{itemize}
 \item[a)] $R_1=R_2=R_3=R_4=2$ e $R_5=R_6=R_7=100$ e $R_8=50$
 \item[b)] $R_1=R_2=R_3=R_4=2$ e $R_5=50$ e $R_6=R_7=R_8=100$
 \end{itemize}
 
-\begin{subequations}\label{eq_circ}
-\begin{eqnarray}
+\begin{eqnarray*}
 V_1&=&V\\
 \frac{V_1-V_2}{R_1}+\frac{V_3-V_2}{R_2}-\frac{V_2}{R_5}&=&0\\
 \frac{V_2-V_3}{R_2}+\frac{V_4-V_3}{R_3}-\frac{V_3}{R_6}&=&0\\
 \frac{V_3-V_4}{R_3}+\frac{V_5-V_4}{R_4}-\frac{V_4}{R_7}&=&0\\
 \frac{V_4-V_5}{R_4}-\frac{V_5}{R_8}&=&0
-\end{eqnarray}
-\end{subequations}
+\end{eqnarray*}
 
 \begin{center}
 \includegraphics[width=12cm,angle=0]{./cap_linsis/pics/circuito_linear_8.eps}\label{circuitol8}

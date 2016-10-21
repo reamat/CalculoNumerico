@@ -28,31 +28,20 @@ Usando a fórmula de diferenças dada pela Equação~\eqref{eq:dp}, devemos calc
 \begin{equation*}
   f'(x) \approx \frac{cos(1 + h) - cos(1)}{h}
 \end{equation*}
-para cada valor de $h$ solicitado. Fazendo isso, obtemos a seguinte tabela:
-\begin{equation*}
-\begin{array}{|c|c|}
-\hline
-\vspace{-10pt}&\\
-h & \dfrac{f(1+h)-f(1)}{h} \\
-\vspace{-10pt}&\\
-\hline
-\vspace{-10pt}&\\
-0,1 & \dfrac{0,4535961-0,5403023}{0,1}=- 0,8670618\\
-\vspace{-10pt}&\\
-\hline
-\vspace{-10pt}&\\
-0,01 & \dfrac{0,5318607-0,5403023}{0,01}=- 0,8441584\\
-\vspace{-10pt}&\\
-\hline
-\vspace{-10pt}&\\
-0,001 & \dfrac{0,5403023-0,5403023}{0,001}=- 0,841741\\
-\vspace{-10pt}&\\
-\hline
-\vspace{-10pt}&\\
-0,0001 & \dfrac{0,5403023-0,5403023}{0,0001}=-0,841498\\
-\hline
-\end{array}  
-\end{equation*}
+para cada valor de $h$ solicitado, obtemos a Tabela~\ref{tab:ex_dp}.
+
+\begin{table}
+  \centering
+  \begin{tabular}{|c|c|}\hline
+    $h$ & $\dfrac{f(1+h)-f(1)}{h}$ \\ \hline
+    0,1 & $\displaystyle \dfrac{0,4535961-0,5403023}{0,1}=- 0,8670618$\\\hline
+    0,01 & $\displaystyle \dfrac{0,5318607-0,5403023}{0,01}=- 0,8441584$\\\hline
+    0,001 & $\displaystyle \dfrac{0,5403023-0,5403023}{0,001}=- 0,841741$\\\hline
+    0,0001 & $\displaystyle \dfrac{0,5403023-0,5403023}{0,0001}=-0,841498$\\\hline
+  \end{tabular}
+  \caption{Exercício~\ref{ex:dp}.}
+  \label{tab:ex-dp}
+\end{table}
 \ifisscilab
 No \verb+Scilab+, podemos calcular a aproximação da derivada $f'(1)$ com $h=0,1$ usando as seguintes linhas de código:
 \begin{verbatim}
@@ -113,12 +102,12 @@ D_{-,h}f(x_0)-f'(x_0)&=&\frac{f(x_0)-f(x_0-h)}{h}-f'(x_0)\\
 &=&-\frac{h}{2}f''(x_0)+O(h^2)=O(h).\\
 \end{eqnarray*}
 Também:
-\begin{align*}
-D_{0,h}f(x_0)-f'(x_0)&= \frac{f(x_0+h)-f(x_0-h)}{2h}-f'(x_0)\\
-&= \frac{f(x_0)+hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)}{2h} \\
-&- \frac{f(x_0)-hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)}{2h}-f'(x_0)\\
-&= O(h^2).
-\end{align*}
+\begin{eqnarray*}
+D_{0,h}f(x_0)-f'(x_0)&=& \frac{f(x_0+h)-f(x_0-h)}{2h}-f'(x_0)\\
+&=& \frac{f(x_0)+hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)}{2h} \\
+&-& \frac{f(x_0)-hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)}{2h}-f'(x_0)\\
+&=& O(h^2).
+\end{eqnarray*}
 
 \begin{ex}
 Calcule a derivada numérica e o erro de truncamento de $f(x)=e^{-x}$ em $x=1,5$ pela fórmula de diferença progressiva para $h=0,1$, $h=0,01$ e $h=0,001$.
@@ -159,17 +148,17 @@ $$
 |\overline{f(x)}-f(x)|=\delta(x,0)\leq \delta,
 $$
 onde $\overline{f(x+h)}$ e $\overline{f(x)}$ são as representação em ponto flutuante dos números $f(x+h)$ e $f(x)$, respectivamente. A diferença do valor da derivada e sua aproximação representada em ponto flutuante pode ser estimada da seguinte forma:
-\begin{align*}
-\left|f'(x)-\overline{D_{+,h}f(x)}\right|&= \left| f'(x)-\frac{\overline{f(x+h)}-\overline{f(x)}}{h}(1+\varepsilon(x,h)) \right|\\
-&= \left| f'(x)-\left(\frac{\overline{f(x+h)}-\overline{f(x)}}{h}+\frac{f(x+h)-f(x+h)}{h}\right.\right. \\
-&+ \left.\left.\frac{f(x)-f(x)}{h}\right)(1+\varepsilon) \right|\\
-&= \left| f'(x)+\left(-\frac{f(x+h)-f(x)}{h}-\frac{\overline{f(x+h)}-f(x+h)}{h}\right.\right.\\
-&+ \left.\left. \frac{\overline{f(x)}-f(x)}{h}\right)(1+\varepsilon) \right|\\
-&\leq \left|f'(x)-\frac{f(x+h)-f(x)}{h}\right| +\left(\left|\frac{\overline{f(x+h)}-f(x+h)}{h}\right|\right.\\
-&+\left.\left|\frac{\overline{f(x)}-f(x)}{h}\right| \right)|1+\varepsilon| + \left|\frac{f(x+h)-f(x)}{h}\right|\varepsilon\\
-&\leq Mh +\left(\left|\frac{\delta}{h}\right|+\left|\frac{\delta}{h}\right| \right)|1+\varepsilon| +|f'(x)|\varepsilon\\
-&\leq Mh +\left(\frac{2\delta}{h}\right)|1+\varepsilon| +|f'(x)|\varepsilon
-\end{align*}
+\begin{eqnarray*}
+\left|f'(x)-\overline{D_{+,h}f(x)}\right|&=& \left| f'(x)-\frac{\overline{f(x+h)}-\overline{f(x)}}{h}(1+\varepsilon(x,h)) \right|\\
+&=& \left| f'(x)-\left(\frac{\overline{f(x+h)}-\overline{f(x)}}{h}+\frac{f(x+h)-f(x+h)}{h}\right.\right. \\
+&+& \left.\left.\frac{f(x)-f(x)}{h}\right)(1+\varepsilon) \right|\\
+&=& \left| f'(x)+\left(-\frac{f(x+h)-f(x)}{h}-\frac{\overline{f(x+h)}-f(x+h)}{h}\right.\right.\\
+&+& \left.\left. \frac{\overline{f(x)}-f(x)}{h}\right)(1+\varepsilon) \right|\\
+&\leq& \left|f'(x)-\frac{f(x+h)-f(x)}{h}\right| +\left(\left|\frac{\overline{f(x+h)}-f(x+h)}{h}\right|\right.\\
+&+&\left.\left|\frac{\overline{f(x)}-f(x)}{h}\right| \right)|1+\varepsilon| + \left|\frac{f(x+h)-f(x)}{h}\right|\varepsilon\\
+&\leq& Mh +\left(\left|\frac{\delta}{h}\right|+\left|\frac{\delta}{h}\right| \right)|1+\varepsilon| +|f'(x)|\varepsilon\\
+&\leq& Mh +\left(\frac{2\delta}{h}\right)|1+\varepsilon| +|f'(x)|\varepsilon
+\end{eqnarray*}
 onde
 $$
 M=\frac{1}{2}\max_{x\leq y\leq x+h}|f''(y)|
@@ -219,12 +208,12 @@ Observe que o valor exato é $-0,3161977$ e o $h$ ótimo é algo entre $10^{-8}$
 \subsection{Aproximações de alta ordem}\index{fórmula de diferenças finitas!alta ordem}
 
 Para aproximar a derivada de uma função $f(x)$ em $x_0$, $x_1$ ou $x_2$ usaremos os três pontos vizinhos $(x_0,f(x_0))$, $(x_{1},f(x_{1}))$ e $(x_{2},f(x_{2}))$. Uma interpolação usando polinômios de Lagrange para esses três pontos é da forma:
-\begin{align*}
-f(x)&=f(x_0)\frac{(x-x_{1})(x-x_{2})}{(x_0-x_{1})(x_0-x_{2})}
+\begin{eqnarray*}
+f(x)&=&f(x_0)\frac{(x-x_{1})(x-x_{2})}{(x_0-x_{1})(x_0-x_{2})}
 +f(x_{1})\frac{(x-x_{0})(x-x_{2})}{(x_{1}-x_{0})(x_{1}-x_{2})}\\
-&+f(x_{2})\frac{(x-x_{0})(x-x_{1})}{(x_{2}-x_{0})(x_{2}-x_{1})} 
+&+&f(x_{2})\frac{(x-x_{0})(x-x_{1})}{(x_{2}-x_{0})(x_{2}-x_{1})} 
 +\frac{f'''(\xi(x))}{6}(x-x_0)(x-x_{1})(x-x_{2}).
-\end{align*}
+\end{eqnarray*}
 A derivada de $f(x)$ é
 \begin{equation}\label{tres_pontos}
   \begin{split}
@@ -713,39 +702,37 @@ onde $h_n=\frac{b-a}{n}$ é o tamanho da base dos retângulo e $f(x_i)$, $1\leq 
 $$
 \int_a^bf(x)dx=\lim_{n\to\infty}\sum_{i=1}^nf(x_i)h_n.
 $$
-A figura abaixo mostra um exemplo quando $f(x)=x^2+1$, $0\leq x\leq 2$. Temos a aproximação por um retângulo com base $h_1=2$, depois com dois retângulos de base $h_2=1$ e, finalmente com quatro retângulo de bases $h_3=0,5$.
-\begin{center}
-\includegraphics[scale=0.7]{./cap_derint/pics/int_1.eps}
-\end{center}
+A Figura~\ref{fig:int_101} mostra um exemplo quando $f(x)=x^2+1$, $0\leq x\leq 2$. Temos a aproximação por um retângulo com base $h_1=2$, depois com dois retângulos de base $h_2=1$ e, finalmente com quatro retângulo de bases $h_3=0,5$.
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.7]{./cap_derint/pics/int_1.eps}
+  \caption{Aproximação por retângulos.}
+  \label{fig:int_101}
+\end{figure}
 
-Os valores aproximados para a integral são dados na tabela:
-$$
-\begin{array}{|c|c|c|c|c|}
-\hline
-&h_1=2&h_2=1&h_3=0,5&h_4=0,25\\
-\hline
-\int_0^2(x^2+1)dx&h_1f(1)=4&h_2f(0,5)+h_2f(1,5)=4,5&4,625&4,65625\\
-\hline
-\end{array}
-$$
-Observe que
-$$
-\int_0^2(x^2+1)dx=\left[\frac{x^3}{3}+x\right]_0^2=\frac{8}{3}+2=4,6666667
-$$
+Os valores aproximados para a integral são dados na seguinte tabela:
+\begin{tabular}{|c|c|c|c|c|}\hline
+  & $h_1=2$ & $h_2=1$ & $h_3=0,5$ & $h_4=0,25$ \\ \hline
+  $\displaystyle \int_0^2(x^2+1)dx$ & $h_1f(1)=4$ & $h_2f(0,5)+h_2f(1,5)=4,5$ & $4,625$ & $4,65625$\\\hline  
+\end{tabular}
+Observe que:
+\begin{equation*}
+  \int_0^2(x^2+1)\,dx = \left[\frac{x^3}{3}+x\right]_0^2 = \frac{8}{3}+2=4,6666667
+\end{equation*}
 
 \subsection{Regras de Newton-Cotes}\index{integração numérica!regras de Newton-Cotes}
 
-A integral de uma função num intervalo $[a,b]$, também chamada de quadratura numérica, é aproximada pela soma:
+A integral de uma função num intervalo $[a, b]$, também chamada de quadratura numérica, é aproximada pela soma:
 \begin{equation*}
-\int_a^bf(x)dx\approx\sum_{i=1}^na_if(x_i),  
+  \int_a^b f(x)\,dx \approx \sum_{i=1}^n a_if(x_i),
 \end{equation*}
 onde $x_i$, $1\leq i\leq n$, são pontos distintos do intervalo $[a,b]$. Nesta definição, a integral $\int_0^2(x^2+1)dx$ usando uma aproximação por retângulo usa apenas um ponto, o ponto médio do intervalo ($x_1=1$), e a soma se reduz a uma parcela ($(2-0)f(1)$). A fórmula geral para essa caso, chamado de regra do ponto médio é:
-\begin{equation}{\label{ponto_médio_1}}
+\begin{equation}\label{ponto_medio_1}
 \int_a^bf(x)dx\approx (b-a)f\left(\frac{a+b}{2}\right):=hf(x_1).
 \end{equation}
 
 \subsubsection{Regra do ponto médio}\index{integração numérica!regra do ponto médio}
-A regra do ponto médio (\ref{ponto_médio_1}) pode ser deduzida mais formalmente usando a expansão de Taylor
+A regra do ponto médio \eqref{ponto_medio_1} pode ser deduzida mais formalmente usando a expansão de Taylor
 $$
 f(x)=f(x_1)+f'(x_1)(x-x_1)+\frac{f''(\xi(x))}{2}(x-x_1)^2
 $$
@@ -754,13 +741,13 @@ $$
 \int_a^b f(x)dx=\int_a^b f(x_1) dx+f'(x_1)\int_a^b(x-x_1)dx +\int_a^b\frac{f''(\xi(x))}{2}(x-x_1)^2dx.
 $$
 Usando o teorema do valor médio para integrais e que $h=b-a$ e $x_1=(a+b)/2$, temos:
-\begin{align*}
-\int_a^b f(x)dx &= h f(x_1) + f'(x_1)\int_a^b(x-x_1)dx+f''(\eta)\int_a^b\frac{1}{2}(x-x_1)^2dx\\
-&= h f(x_1) +f'(x_1)\left[\frac{(x-x_1)^2}{2}\right]_a^b+f''(\eta)\left[\frac{1}{6}(x-x_1)^3\right]_a^b\\
-&= h f(x_1) +f'(x_1)\left[\frac{(b-x_1)^2}{2}-\frac{(a-x_1)^2}{2}\right]\\
-&+f''(\eta)\left[\frac{1}{6}(b-x_1)^3-\frac{1}{6}(a-x_1)^3\right]\\
-&= h f(x_1) +\frac{h^3f''(\eta)}{3}.
-\end{align*}
+\begin{eqnarray*}
+\int_a^b f(x)dx &=& h f(x_1) + f'(x_1)\int_a^b(x-x_1)dx+f''(\eta)\int_a^b\frac{1}{2}(x-x_1)^2dx\\
+&=& h f(x_1) +f'(x_1)\left[\frac{(x-x_1)^2}{2}\right]_a^b+f''(\eta)\left[\frac{1}{6}(x-x_1)^3\right]_a^b\\
+&=& h f(x_1) +f'(x_1)\left[\frac{(b-x_1)^2}{2}-\frac{(a-x_1)^2}{2}\right]\\
+&+& f''(\eta)\left[\frac{1}{6}(b-x_1)^3-\frac{1}{6}(a-x_1)^3\right]\\
+&=& h f(x_1) +\frac{h^3f''(\eta)}{3}.
+\end{eqnarray*}
 para $a\leq \eta\leq b$.
 
 \begin{ex}
@@ -858,16 +845,16 @@ $$
 \int_0^1e^{-x^2}dx\approx \frac{1}{2}(e^{0}+e^{-1})=0,6839397
 $$
 Usando dois intervalos, $[0,1/2]$ e $[1/2,1]$ e usando a regra do trapézio em cada um dos intervalos, temos:
-\begin{align*}
-\int_0^1e^{-x^2}dx &\approx \frac{0,5}{2}\left(e^{0}+e^{-1/4}\right) + \frac{0,5}{2}\left(e^{-1/4}+e^{-1}\right) \\
-&= 0,4447002+0,2866701 =0,7313703.
-\end{align*}
+\begin{eqnarray*}
+\int_0^1e^{-x^2}dx &\approx& \frac{0,5}{2}\left(e^{0}+e^{-1/4}\right) + \frac{0,5}{2}\left(e^{-1/4}+e^{-1}\right) \\
+&=& 0,4447002+0,2866701 =0,7313703.
+\end{eqnarray*}
 Agora, usando quatro intervalos, temos
-\begin{align*}
-\int_0^1e^{-x^2}dx &\approx \frac{0,25}{2}\left(e^{0}+e^{-1/16}\right) + \frac{0,25}{2}\left(e^{-1/16}+e^{-1/4}\right) \\
-&+ \frac{0,25}{2}\left(e^{-1/4}+e^{-9/16}\right)+\frac{0,25}{2}\left(e^{-9/16}+e^{-1}\right) \\
-&= 0,7429841
-\end{align*}
+\begin{eqnarray*}
+\int_0^1e^{-x^2}dx &\approx& \frac{0,25}{2}\left(e^{0}+e^{-1/16}\right) + \frac{0,25}{2}\left(e^{-1/16}+e^{-1/4}\right) \\
+&+& \frac{0,25}{2}\left(e^{-1/4}+e^{-9/16}\right)+\frac{0,25}{2}\left(e^{-9/16}+e^{-1}\right) \\
+&=& 0,7429841
+\end{eqnarray*}
 
 \subsubsection{Regra de Simpson}\index{integração numérica!regra de Simpson}
 A regra de Simpson consiste em aproximar a integral usando três pontos do intervalo:
@@ -968,16 +955,16 @@ onde $x_i = a + (i-1)h$, $h = (b-a)/n$ e $i = 1,2,\dotsc,n+1$, sendo $n$ o núme
 
 \subsubsection{Método composto dos trapézios}\index{integração numérica!método composto!dos trapézios}
 A \emph{regra composta dos trapézios} assume a seguinte forma:
-\begin{align*}
-  \int_{a}^b f(x)dx &= \sum_{i=1}^{n} \int_{x_i}^{x_{i+1}}f(x)\,dx \\
-  &\approx \sum_{i=1}^{n} \frac{x_{i+1}-x_i}{2}\left[f(x_i)+f(x_{i+1})\right]
-\end{align*}
+\begin{eqnarray*}
+  \int_{a}^b f(x)dx &=& \sum_{i=1}^{n} \int_{x_i}^{x_{i+1}}f(x)\,dx \\
+  &\approx& \sum_{i=1}^{n} \frac{x_{i+1}-x_i}{2}\left[f(x_i)+f(x_{i+1})\right]
+\end{eqnarray*}
 Como $h = x_{i+1} - x_i$, temos:
-\begin{align*}
-\int_{a}^b f(x)\,dx &\approx \frac{h}{2}\sum_{k=1}^{N_i}\left[f(x_k)+f(x_{k+1})\right]\\
-& = \frac{h}{2}\left[f(x_1)+2f(x_2)+2f(x_3)+\cdots + 2f(x_{N_i})+f(x_{N_i+1})\right]\\
-& = \frac{h}{2}\left[f(x_1) + f(x_{N_i+1})\right] + h\sum_{i=2}^{N_i} f(x_i)
-\end{align*}
+\begin{eqnarray*}
+\int_{a}^b f(x)\,dx &\approx& \frac{h}{2}\sum_{k=1}^{N_i}\left[f(x_k)+f(x_{k+1})\right]\\
+&=& \frac{h}{2}\left[f(x_1)+2f(x_2)+2f(x_3)+\cdots + 2f(x_{N_i})+f(x_{N_i+1})\right]\\
+&=& \frac{h}{2}\left[f(x_1) + f(x_{N_i+1})\right] + h\sum_{i=2}^{N_i} f(x_i)
+\end{eqnarray*}
 
 \ifisscilab
 \subsubsection{Código Scilab: Trapézio Composto}
@@ -992,10 +979,10 @@ onde $h = (b-a)/n$ e $x_i = a + (i-1)h$, $i=1,2,\dotsc,n+1$. Os parâmetros de e
 
 \subsubsection{Método composto de Simpson}\index{integração numérica!método composto!de Simpson}
 Já a regra composta de Simpson assume a seguinte forma:
-\begin{align*}
-  \int_{a}^b f(x)\,dx &= \sum_{k=1}^{n} \int_{x_k}^{x_{k+1}} f(x)dx \\
-  &\approx \sum_{k=1}^{n} \frac{x_{x+1}-x_k}{6}\left[f(x_k) + 4f\left(\frac{x_{k+1}+x_k}{2}\right)+f(x_{k+1})\right]
-\end{align*}
+\begin{eqnarray*}
+  \int_{a}^b f(x)\,dx &=& \sum_{k=1}^{n} \int_{x_k}^{x_{k+1}} f(x)dx \\
+  &\approx& \sum_{k=1}^{n} \frac{x_{x+1}-x_k}{6}\left[f(x_k) + 4f\left(\frac{x_{k+1}+x_k}{2}\right)+f(x_{k+1})\right]
+\end{eqnarray*}
 onde, como anteriormente, $x_k = a + (k-1)h$, $h = (b-a)/n$ e $i = 1,2,\dotsc,n+1$, sendo $n$ o número de subintervalos da partição do intervalo de integração. Podemos simplificar o somatório acima, escrevendo:
 \begin{equation*}
   \int_{a}^b f(x)\,dx \approx \frac{h}{3}\left[f(x_1) + 2\sum_{i=1}^{n-1} f(x_{2i+1}) + 4\sum_{i=1}^{n} f(x_{2i}) + f(x_{2n+1})\right] + O(h^5)
@@ -1018,21 +1005,19 @@ $$
 $$
 pelas regras compostas do ponto médio, trapézio e Simpson variando o número de intervalos \\$N_i=1,\ 2,\ 3,\ 6,\ 12,\ 24,\ 48,\ 96$.
 \end{ex}
-\begin{equation*}
-\begin{array}{|c|c|c|c|}
-\hline
-n&\hbox{ponto médio}&\hbox{Trapézios}&\hbox{Simpson}\\\hline
-1&5,4365637&218,3926&76,421909\\\hline
-2&21,668412&111,91458&51,750469\\\hline
-3&31,678746&80,272022&47,876505\\\hline
-6&41,755985&55,975384&46,495785\\\hline
-12&45,137529&48,865685&46,380248\\\hline
-24&46,057757&47,001607&46,372373\\\hline
-48&46,292964&46,529682&46,37187\\\hline
-96&46,352096&46,411323&46,371838\\
-\hline
-\end{array}  
-\end{equation*}
+\begin{sol}
+  \begin{tabular}{c|ccc}\hline
+    $n$ &  Ponto Médio &  Trapézios & Simpson\\ \hline
+    1 & 5,4365637&218,3926&76,421909\\
+2&21,668412&111,91458&51,750469\\
+3&31,678746&80,272022&47,876505\\
+6&41,755985&55,975384&46,495785\\
+12&45,137529&48,865685&46,380248\\
+24&46,057757&47,001607&46,372373\\
+48&46,292964&46,529682&46,37187\\
+96&46,352096&46,411323&46,371838
+  \end{tabular}
+\end{sol}
 
 \subsection{O método de Romberg}\index{integração numérica!método de Romberg}
 O método de Romberg é um método simplificado para construir quadraturas de alta ordem.
@@ -1095,16 +1080,12 @@ $$R_{k,j}=R_{k,j-1}+\frac{R_{k,j-1}-R_{k-1,j-1}}{4^{j-1}-1}.$$
 Construa o esquema de Romberg para aproximar o valor de $\int_0^2e^{-x^2}dx$ com erro de ordem 8.
 
 O que nos fornece os seguintes resultados:
-$$
-\begin{array}{|c|c|c|c|}
-\hline
+\begin{tabular}{|c|c|c|c|}\hline
     55,59815  &   0,000000    &       0,000000  &         0,000000         \\
     30,517357 &   22,157092 &   0,000000   &        0,000000         \\
     20,644559 &   17,353626 &   17,033395 &   0,000000         \\
-    17,565086 &   16,538595  &  16,484259 &   \pmb{16,475543}  \\
-\hline
-\end{array}
-$$
+    17,565086 &   16,538595  &  16,484259 &   \pmb{16,475543}  \\\hline
+\end{tabular}
 
 Ou seja, temos:
 \begin{equation*}
@@ -1117,18 +1098,14 @@ usando uma aproximação de ordem 8.
 \begin{ex} Construa o esquema de Romberg para aproximar o valor de $\int_0^2x^2e^{x^2}dx$ com erro de ordem 12.
 
 O que nos fornece:
-$$
-\begin{array}{|c|c|c|c|c|c|}
-\hline
+\begin{tabular}{|c|c|c|c|c|c|}\hline
      218,3926  &          &           &            &           &         \\  \hline
     111,91458  &  76,421909 &           &            &           &         \\ \hline
     66,791497  &  51,750469 &   50,105706 &            &           &         \\  \hline
     51,892538  &  46,926218 &   46,604601 &   46,549028  &           &         \\  \hline
     47,782846  &  46,412949 &   46,378731 &   46,375146  &  46,374464  &         \\  \hline
-    46,72661   &  46,374531 &   46,37197  &   46,371863  &  46,37185   &  \pmb{46,371847}\\
-\hline
-\end{array}
-$$
+    46,72661   &  46,374531 &   46,37197  &   46,371863  &  46,37185   &  \pmb{46,371847}\\\hline
+\end{tabular}
 
 Ou seja, temos:
 \begin{equation*}
@@ -1204,23 +1181,23 @@ $$\sum_{j=1}^n w_j=b-a$$
 \begin{ex} A ordem de precisão do esquema de trapézios é 1:
 $$\int_a^b f(x)dx \approx \left[f(a)+f(b)\right]\frac{b-a}{2}=\sum_{j=1}^2w_jf(x_j)$$
 onde $w_j=\frac{b-a}{2}$, $x_1=a$ e $x_2=b$.
-\begin{align*}
+\begin{eqnarray*}
   &(k=0):\quad\sum_{j=1}^n w_j = b-a\\
   &(k=1):\quad\sum_{j=1}^n w_jx_j = (a+b)\frac{b-a}{2}=\frac{b^2-a^2}{2}\\
   &(k=2):\quad\sum_{j=1}^n w_jx_j^2 = (a^2+b^2)\frac{b-a}{2}\neq\frac{b^3-a^3}{3}
-\end{align*}
+\end{eqnarray*}
 \end{ex}
 
 \begin{ex} A ordem de precisão do esquema de Simpson é 3:
 $$\int_a^b f(x)dx \approx \left[f(a)+4f\left(\frac{a+b}{2}\right)+f(b)\right]\frac{b-a}{6}=\sum_{j=1}^3w_jf(x_j)$$
 onde $w_1=w_3=\frac{b-a}{6}$,$w_2=4\frac{b-a}{6}$, $x_1=a$, $x_2=\frac{a+b}{2}$ e $x_3=b$
-\begin{align*}
+\begin{eqnarray*}
   &(k=0):\quad\sum_{j=1}^n w_j = (1+4+1)\frac{b-a}{6}=b-a\\
   &(k=1):\quad\sum_{j=1}^n w_jx_j = (a+4\frac{a+b}{2}+b)\frac{b-a}{6} = (a+b)\frac{b-a}{2} = \frac{b^2-a^2}{2}\\
   &(k=2):\quad\sum_{j=1}^n w_jx_j^2 = (a^2+4\left(\frac{a+b}{2}\right)^2+b^2)\frac{b-a}{6} = \frac{b^3-a^3}{3}\\
   &(k=3):\quad\sum_{j=1}^n w_jx_j^3 = (a^3+4\left(\frac{a+b}{2}\right)^3+b^3)\frac{b-a}{6}= \frac{b^4-a^4}{4}\\
   &(k=4):\quad\sum_{j=1}^n w_jx_j^4 = (a^4+4\left(\frac{a+b}{2}\right)^4+b^4)\frac{b-a}{6}\neq \frac{b^5-a^5}{4}
-\end{align*}
+\end{eqnarray*}
 \end{ex}
 
 \begin{ex} 
@@ -1247,7 +1224,8 @@ $$\int_{-1}^1 f(x)dx = f\left(\frac{\sqrt{3}}{3}\right)+f\left(-\frac{\sqrt{3}}{
 
 \begin{ex} Comparação
   \begin{small}
-$$\begin{array}{|c|c|c|c|c|}
+$$
+\begin{array}{|c|c|c|c|c|}
 \hline
 f(x)&\hbox{Exato}&\hbox{Trapézio} &\hbox{Simpson} & \hbox{Gauss-Legendre (2)}\\
 \hline
@@ -1283,33 +1261,15 @@ $$w_j = \frac{2}{\left( 1-x_j^2 \right) [P'_n(x_j)]^2}.$$
 \item Estes dados são tabelados e facilmente encontrados.
 \end{itemize}
 
-\begin{equation*}
-  \begin{array}{|c|c|c|}
-\hline
-n&x_j&w_j\\
-\hline
-&&\\
-1& 0 & 2\\
-&&\\
-\hline
-&&\\
-2& \pm \frac{\sqrt{3}}{3}&1\\
-&&\\
-\hline
-&&\\
-& 0&\frac{8}{9}\\
-3&&\\
-& \pm \sqrt{\frac{3}{5}}&\frac{5}{9}\\
-&&\\
-\hline
-&&\\
-&\pm\sqrt{\Big( 3 - 2\sqrt{6/5} \Big)/7}&\tfrac{18+\sqrt{30}}{36}\\
-4&&\\
-&\pm\sqrt{\Big( 3 + 2\sqrt{6/5} \Big)/7}&\tfrac{18-\sqrt{30}}{36}\\
-&&\\
-\hline
-\end{array}
-\end{equation*}
+\begin{tabular}{|c|c|c|}\hline
+n&$x_j$&$w_j$\\\hline
+1& 0 & 2\\\hline
+2& $\displaystyle \pm \frac{\sqrt{3}}{3}$ & 1\\\hline
+\multirow{2}{*}{3} &0& $\displaystyle \frac{8}{9}$\\
+& $\displaystyle \pm \sqrt{\frac{3}{5}}$ & $\displaystyle \frac{5}{9}$ \\\hline
+\multirow{2}{*}{4} & $\displaystyle \pm\sqrt{\Big( 3 - 2\sqrt{6/5} \Big)/7}$ & $\displaystyle \tfrac{18+\sqrt{30}}{36}$\\
+& $\displaystyle \pm\sqrt{\Big( 3 + 2\sqrt{6/5} \Big)/7}$ & $\displaystyle \tfrac{18-\sqrt{30}}{36}$\\\hline
+\end{tabular}
 
 \begin{ex} Aproximar
   \begin{equation*}
