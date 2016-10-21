@@ -1,13 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
   "http://www.w3.org/TR/html4/loose.dtd">  
 <html xml:lang="pt" > 
-<head><title>Estabilidade</title> 
+<head><title>Metodos de passo multiplo - Adams-Bashforth</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
 <meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html,3,notoc*,info --> 
 <meta name="src" content="main.tex"> 
-<meta name="date" content="2016-10-18 11:11:00"> 
+<meta name="date" content="2016-10-21 19:32:00"> 
 <link rel="stylesheet" type="text/css" href="main.css"> 
   <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
   <link href='http://fonts.googleapis.com/css?family=Open Sans:400,700' rel='stylesheet' type='text/css'>
@@ -46,91 +46,79 @@
 	</div>
 	</div>
 
-   <!--l. 507--><div class="crosslinks"><p class="noindent">[<a 
+   <!--l. 470--><div class="crosslinks"><p class="noindent">[<a 
 href="mainse41.html" >prev</a>] [<a 
 href="mainse41.html#tailmainse41.html" >prev-tail</a>] [<a 
-href="#tailmainse42.html">tail</a>] [<a 
-href="mainli24.html# " >up</a>] </p></div>
-   <h3 class="sectionHead"><span class="titlemark">8.8   </span> <a 
- id="x92-1540008.8"></a>Estabilidade</h3>
+href="mainse29.html#tailmainse42.html">tail</a>] [<a 
+href="mainli18.html# " >up</a>] </p></div>
+   <h3 class="sectionHead"><span class="titlemark">8.6   </span> <a 
+ id="x87-1520008.6"></a>Métodos de passo múltiplo - Adams-Bashforth</h3>
 <a 
- id="dx92-154001"></a>
-<!--l. 509--><p class="noindent" >Consideremos o seguinte problema de teste:
+ id="dx87-152001"></a>
+<!--l. 472--><p class="noindent" >O método de Adams-Bashforth consiste de um esquema recursivo do
+tipo:
    <center class="math-display" >
 <img 
-src="main1256x.png" alt="(
-|{    y&prime;  =  &minus; &alpha;y
-
-|(  y(0)  =  1  " class="math-display" ></center>
-cuja solução exata é dada por <span 
-class="lmmi-12">y</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">t</span><span 
-class="rm-lmr-12">) = </span><span 
-class="lmmi-12">e</span><sup><span 
-class="lmsy8-">&minus;</span><span 
-class="lmmi-8">&alpha;t</span></sup>.
-<!--l. 513--><p class="indent" >   Considere agora o método de Euler aplicado a este problema com passa
-<span 
-class="lmmi-12">h</span>:
-   <center class="math-display" >
-<img 
-src="main1257x.png" alt="(
-|{  y(k+1) =   y(k) &minus; &alpha;hy (k)
-
-|(    y(1) =   1  " class="math-display" ></center> A
-solução exata do esquema de Euler é dada por
-                                                                          
-
-                                                                          
-   <center class="math-display" >
-<img 
-src="main1258x.png" alt=" (k+1)           k
-y     =  (1 &minus; &alpha;h )  " class="math-display" ></center> e,
-portanto,
-   <center class="math-display" >
-<img 
-src="main1259x.png" alt="&#x02DC;y(t) = y(k+1) = (1 &minus; &alpha;h )t&#x2215;h
+src="main1249x.png" alt=" (n+1)    (n)  &sum;k       (n&minus;j) (n&minus;j)
+y     = y   +     wjf(y     ,t     )
+              j=0
 " class="math-display" ></center>
-<!--l. 520--><p class="indent" >   Fixamos um <span 
-class="lmmi-12">&alpha; &#x003E; </span><span 
-class="rm-lmr-12">0</span>, de forma que <span 
-class="lmmi-12">y</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">t</span><span 
-class="rm-lmr-12">) </span><span 
-class="lmsy-10x-x-120">&rarr; </span><span 
-class="rm-lmr-12">0</span>. Mas observamos que <span 
-class="lmmi-12">&#x1EF9;</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">t</span><span 
-class="rm-lmr-12">) </span><span 
-class="lmsy-10x-x-120">&rarr; </span><span 
-class="rm-lmr-12">0</span>
-somente quando <span 
-class="lmsy-10x-x-120">|</span><span 
-class="rm-lmr-12">1 </span><span 
-class="lmsy-10x-x-120">&minus; </span><span 
-class="lmmi-12">&alpha;h</span><span 
-class="lmsy-10x-x-120">| </span><span 
-class="lmmi-12">&#x003C; </span><span 
-class="rm-lmr-12">1 </span>e solução positivas somente quando <span 
-class="lmmi-12">&alpha;h &#x003C; </span><span 
-class="rm-lmr-12">1</span>.
-<!--l. 522--><p class="indent" >   <span 
-class="ec-lmbx-12">Conclus</span><span 
-class="ec-lmbx-12">ão: </span>Se o passo <span 
-class="lmmi-12">h </span>for muito grande, o método pode se tornar instável,
-produzindo solução espúrias.
+   <div class="newtheorem">
+<!--l. 475--><p class="noindent" ><span class="head">
+<a 
+ id="x87-152002r1"></a>
+<span 
+class="ec-lmbx-12">Exemplo 8.6.1.</span>  </span>Adams-Bashforth de segunda ordem
+   <center class="math-display" >
+<img 
+src="main1250x.png" alt=" (n+1)    (n)  h-[   ( (n) (n))     ( (n&minus;1) (n&minus;1))]
+y      = y   + 2  3f  y   ,t    &minus; f  y     ,t
+" class="math-display" ></center>
                                                                           
 
                                                                           
-   <!--l. 524--><div class="crosslinks"><p class="noindent">[<a 
+   </div>
+   <div class="newtheorem">
+<!--l. 478--><p class="noindent" ><span class="head">
+<a 
+ id="x87-152003r2"></a>
+<span 
+class="ec-lmbx-12">Exemplo 8.6.2.</span>  </span>Adams-Bashforth de terceira ordem
+   <center class="math-display" >
+<img 
+src="main1251x.png" alt=" (n+1)    (n)   h [    (  (n) (n))       ( (n&minus;1) (n&minus; 1))      ( (n&minus;2) (n&minus;2)) ]
+y     = y   +  ---23f  y   ,t   &minus;  16f  y    ,t      + 5f  y     ,t
+               12
+" class="math-display" ></center>
+   </div>
+   <div class="newtheorem">
+<!--l. 481--><p class="noindent" ><span class="head">
+<a 
+ id="x87-152004r3"></a>
+<span 
+class="ec-lmbx-12">Exemplo 8.6.3.</span>  </span>Adams-Bashforth de quarta ordem
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1252x.png" alt=" (n+1)    (n)   h [    (  (n) (n))       ( (n&minus;1) (n&minus; 1))
+y     = y   +  24-55f  y   ,t   &minus;  59f  y    ,t
+            ( (n&minus;2) (n&minus;2))     (  (n&minus; 3)  (n&minus;3))]
+      + 37f  y     ,t      &minus;  9f y     ,t
+" class="math-display" ></center></td></tr></table>
+<!--l. 487--><p class="nopar" >
+   </div>
+<!--l. 489--><p class="indent" >   Os métodos de passo múltiplo evitam os múltiplos estágios do métodos de
+Runge-Kutta, mas exigem ser "iniciados"com suas condições iniciais.
+                                                                          
+
+                                                                          
+   <!--l. 491--><div class="crosslinks"><p class="noindent">[<a 
 href="mainse41.html" >prev</a>] [<a 
 href="mainse41.html#tailmainse41.html" >prev-tail</a>] [<a 
 href="mainse42.html" >front</a>] [<a 
-href="mainli24.html# " >up</a>] </p></div>
-<!--l. 524--><p class="indent" >   <a 
+href="mainli18.html# " >up</a>] </p></div>
+<!--l. 491--><p class="indent" >   <a 
  id="tailmainse42.html"></a>  
 <div class="panel panel-default">
 	    <div class="panel-body">

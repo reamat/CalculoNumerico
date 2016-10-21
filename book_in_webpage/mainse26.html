@@ -1,13 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
   "http://www.w3.org/TR/html4/loose.dtd">  
 <html xml:lang="pt" > 
-<head><title>Polinomios de Lagrange</title> 
+<head><title>Diferenças divididas de Newton</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
 <meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html,3,notoc*,info --> 
 <meta name="src" content="main.tex"> 
-<meta name="date" content="2016-10-18 11:11:00"> 
+<meta name="date" content="2016-10-21 19:32:00"> 
 <link rel="stylesheet" type="text/css" href="main.css"> 
   <link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
   <link href='http://fonts.googleapis.com/css?family=Open Sans:400,700' rel='stylesheet' type='text/css'>
@@ -46,206 +46,219 @@
 	</div>
 	</div>
 
-   <!--l. 206--><div class="crosslinks"><p class="noindent">[<a 
-href="mainse37.html" >next</a>] [<a 
-href="mainli12.html" >prev</a>] [<a 
-href="mainli12.html#tailmainli12.html" >prev-tail</a>] [<a 
-href="mainse18.html#tailmainse26.html">tail</a>] [<a 
-href="mainch8.html#mainli20.html" >up</a>] </p></div>
-   <h3 class="sectionHead"><span class="titlemark">6.3   </span> <a 
- id="x65-990006.3"></a>Polinômios de Lagrange</h3>
+   <!--l. 99--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse40.html" >next</a>] [<a 
+href="mainse25.html" >prev</a>] [<a 
+href="mainse25.html#tailmainse25.html" >prev-tail</a>] [<a 
+href="#tailmainse26.html">tail</a>] [<a 
+href="mainse38.html#mainse39.html" >up</a>] </p></div>
+   <h3 class="sectionHead"><span class="titlemark">6.2   </span> <a 
+ id="x63-970006.2"></a>Diferenças divididas de Newton</h3>
 <a 
- id="dx65-99001"></a>
-<!--l. 207--><p class="noindent" >Outra maneira clássica de resolver o problema da interpolação polinomial é
-através dos polinômios de Lagrange. Dado um conjunto de pontos <span 
-class="lmsy-10x-x-120">{</span><span 
-class="lmmi-12">x</span><sub><span 
-class="lmmi-8">j</span></sub><span 
-class="lmsy-10x-x-120">}</span><sub><span 
-class="lmmi-8">j</span><span 
-class="rm-lmr-8">=1</span></sub><sup><span 
-class="lmmi-8">n</span></sup>
-distintos dois a dois, definimos os polinômios de Lagrange como os polinômios de
-grau <span 
-class="lmmi-12">n </span><span 
-class="lmsy-10x-x-120">&minus; </span><span 
-class="rm-lmr-12">1 </span>que satisfazem
+ id="dx63-97001"></a>
+<!--l. 100--><p class="noindent" >O método das diferenças divididas de Newton consiste em construir o polinômio
+interpolador da forma <div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main764x.png" alt="         (
-         |{
-Lk(xj) =    1, se k = j
-         |(  0, se k &frasl;= j  " class="math-display" ></center>
-Assim, o polinômio de grau <span 
-class="lmmi-12">n </span><span 
-class="lmsy-10x-x-120">&minus; </span><span 
-class="rm-lmr-12">1 </span>que interpola os pontos dados, tais
-<span 
-class="lmmi-12">p</span><span 
-class="rm-lmr-12">(</span><span 
+src="main754x.png" alt="p (x ) =   a1 + a2(x &minus; x1) + a3(x &minus; x1)(x &minus; x2) + &sdot;&sdot;&sdot;
+
+      +   an(x &minus; x1)(x &minus; x2) &sdot;&sdot;&sdot;(x &minus; xn&minus;1).
+" class="math-display" ></center>
+</div>Podemos encontrar os coeficientes <span 
+class="lmmi-12">a</span><sub><span 
+class="lmmi-8">i</span></sub> resolvendo o sistema linear  <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main755x.png" alt="                       a                         =  y
+                        1                            1
+                a1 + a2(x2 &minus; x1)                 =  y2
+      a1 + a2(x3 &minus; x1)+ a3(x3 &minus; x1)(x3 &minus; x2)      =  y3
+                        .
+                        ..
+a  + a (x &minus; x ) + &sdot;&sdot;&sdot;+ a (x  &minus; x )&sdot;&sdot;&sdot;(x  &minus; x    ) =  y
+ 1    2  n    1         n  n    1      n   n&minus; 1      n
+" class="math-display" ></center>
+</div>
+que pode ser escrito na forma matricial como
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main756x.png" alt="&lfloor;                                                            &rfloor;
+                                                               &lfloor;   &rfloor;   &lfloor;  &rfloor;
+||1      0              0          &sdot;&sdot;&sdot;             0          ||   a1     y1
+||1  (x2 &minus; x1)          0          &sdot;&sdot;&sdot;             0          || ||   ||   ||  ||
+||                                                            || || a2||   ||y2||
+||1  (x3 &minus; x1)  (x3 &minus; x1 )(x3 &minus; x2) &sdot;&sdot;&sdot;             0          || ||   ||   ||  ||
+|| ..     ..              ..          ..              ..          || || a3|| = ||y3||
+|| .     .              .            .             .          || || .. ||   || ..||
+||1  (x  &minus; x )  (x &minus; x  )(x  &minus; x )  &sdot;&sdot;&sdot;  (x &minus; x  )&sdot;&sdot;&sdot;(x  &minus; x   )|| |&lceil; . |&rceil;   |&lceil; .|&rceil;
+&lceil;     n    1     n    1  n    2          n    1      n   n&minus; 1&rceil;   an     yn
+" class="math-display" ></center></td></tr></table>
+<!--l. 130--><p class="nopar" >
+<!--l. 133--><p class="indent" >   Este é um sistema triangular inferior que pode ser facilmente resolvido
+conforme: <div class="eqnarray">
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main757x.png" alt="a1  =   y1
+        -y2 &minus;-a1   y2-&minus;-y1-
+a2  =   x  &minus; x  =  x  &minus; x
+          2    1    2    1       -y3&minus;y2-   -y2&minus;-y1-
+        y3-&minus;-a2(x3-&minus;-x1)-&minus;-a1    (x3&minus;x2) &minus;-(x2&minus;-x1)-
+a3  =     (x3 &minus; x1)(x3 &minus; x2)  =     (x3 &minus; x1)
+    ...
+" class="math-display" ></center>
+</div>A solução deste sistema pode ser escrita em termos das Diferenças Divididas de
+Newton, definidas recursivamente conforme: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main758x.png" alt="          f[xj ] =   yj
+                    f[x   ] &minus; f[x ]
+     f[xj,xj+1 ] =   ---j+1-------j-
+                       xj+1 &minus; xj
+                    f[xj+1,xj+2] &minus; f [xj,xj+1]
+f[xj,xj+1,xj+2 ] =   ------------------------
+                           xj+2 &minus; xj
+                 ...
+" class="math-display" ></center>
+</div>Nesta notação, temos <span 
+class="lmmi-12">a</span><sub><span 
+class="lmmi-8">k</span></sub> <span 
+class="rm-lmr-12">= </span><span 
+class="lmmi-12">f</span><span 
+class="rm-lmr-12">[</span><span 
 class="lmmi-12">x</span><sub><span 
-class="lmmi-8">j</span></sub><span 
-class="rm-lmr-12">) = </span><span 
-class="lmmi-12">y</span><sub><span 
-class="lmmi-8">j</span></sub><span 
-class="lmmi-12">,j </span><span 
-class="rm-lmr-12">= 1</span><span 
+class="rm-lmr-8">1</span></sub><span 
+class="lmmi-12">,x</span><sub><span 
+class="rm-lmr-8">2</span></sub><span 
 class="lmmi-12">,</span><span 
 class="lmmi-12">&hellip;</span><span 
-class="lmmi-12">,n </span>é dado por
-   <center class="math-display" >
-<img 
-src="main765x.png" alt="                                            n&sum;
-p(x) = y1L1(x) + y2L2(x ) + &sdot;&sdot;&sdot; + ynLn(x ) =   ykLk(x)
-                                           k=1
-" class="math-display" ></center>
-                                                                          
-
-                                                                          
-<!--l. 218--><p class="indent" >   Para construir os polinômios de Lagrange, podemos analisar a sua forma
-fatorada, ou seja:
-   <center class="math-display" >
-<img 
-src="main766x.png" alt="            n
-Lk (x) = ck&prod;  (x &minus; xj)
-           j=1
-           j&frasl;=i  " class="math-display" ></center>
-onde o coeficiente <span 
-class="lmmi-12">c</span><sub><span 
-class="lmmi-8">k</span></sub> é obtido da condição <span 
-class="lmmi-12">L</span><sub><span 
+class="lmmi-12">,x</span><sub><span 
 class="lmmi-8">k</span></sub><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><sub><span 
-class="lmmi-8">k</span></sub><span 
-class="rm-lmr-12">) = 1</span>:
-   <center class="math-display" >
-<img 
-src="main767x.png" alt="             n
-L  (x ) = c &prod;  (x &minus;  x ) = &rArr; c =  -----1------
-  k  k     kj=1  k    j       k   &prod;n
-            j&frasl;=i                      (xk &minus; xj)
-                                  jj=&frasl;=1i  " class="math-display" ></center>
-Portanto,
-   <center class="math-display" >
-<img 
-src="main768x.png" alt="         &prod;n  (x &minus; xj)
-Lk (x) =    ---------
-         j=1(xk &minus; xj)
-         j&frasl;=i
-" class="math-display" ></center>
-   <div class="newtheorem">
-<!--l. 225--><p class="noindent" ><span class="head">
-<a 
- id="x65-99002r1"></a>
-<span 
-class="ec-lmbx-12">Observa</span><span 
-class="ec-lmbx-12">ç</span><span 
-class="ec-lmbx-12">ão 6.3.1.</span>  </span>O  problema  de  interpolação  quando  escrito  usando
-como base os polinômios de Lagrange produz um sistema linear diagonal.
-   </div>
-   <div class="newtheorem">
-<!--l. 228--><p class="noindent" ><span class="head">
-<a 
- id="x65-99003r1"></a>
-<span 
-class="ec-lmbx-12">Exemplo 6.3.1.</span>  </span>Encontre o polinômio da forma <span 
-class="lmmi-12">p</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) = </span><span 
-class="lmmi-12">a</span><sub><span 
-class="rm-lmr-8">1</span></sub><span 
-class="rm-lmr-12">+</span><span 
-class="lmmi-12">a</span><sub><span 
-class="rm-lmr-8">2</span></sub><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">+</span><span 
-class="lmmi-12">a</span><sub><span 
-class="rm-lmr-8">3</span></sub><span 
-class="lmmi-12">x</span><sup><span 
-class="rm-lmr-8">2</span></sup><span 
-class="rm-lmr-12">+</span><span 
-class="lmmi-12">a</span><sub>
-<span 
-class="rm-lmr-8">4</span></sub><span 
-class="lmmi-12">x</span><sup><span 
-class="rm-lmr-8">3</span></sup>
-que passa pelos pontos
-   <center class="math-display" >
-<img 
-src="main769x.png" alt="(0,0 ),(1,1),(2,4),(3,9)  " class="math-display" ></center>
-Escrevemos: <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main770x.png" alt="           (x &minus; 1)(x &minus; 2)(x &minus; 3)     1  3    2   11
-L1(x)  =   --------------------- = &minus; -x  + x  &minus;  --x + 1
-           (0 &minus; 1)(0 &minus; 2)(0 &minus; 3)     6           6
-           x(x-&minus;-2)(x-&minus;-3)-   1-3   5- 2
-L2(x)  =   1(1 &minus; 2)(1 &minus; 3) =  2x  &minus; 2 x + 3x
+class="rm-lmr-12">]</span>
+<!--l. 150--><p class="indent" >   Podemos esquematizar o método na seguinte tabela:
+                                                                          
 
-L3(x)  =   x(x-&minus;-1)(x-&minus;-3)-= &minus; 1-x3 + 2x2 &minus; 3x
-           2(2 &minus; 1)(2 &minus; 3)     2            2
-           x(x &minus; 1)(x &minus; 2)    1     1      1
-L4(x)  =   ----------------=  -x3 &minus; --x2 + -x
-           3(3 &minus; 1)(3 &minus; 2)    6     2      3
-" class="math-display" ></center>
-</div>Assim temos:
+                                                                          
    <center class="math-display" >
 <img 
-src="main771x.png" alt="P (x) = 0 &sdot; L1(x) + 1 &sdot; L2 (x) + 4 &sdot; L3 (x) + 9 &sdot; L4 (x) = x2
+src="main759x.png" alt="|--|---|------|--------------------|----------------------------|
+|  |   |      |                    |                            |
+|j-|xj-|f-[xj]-|-----f[xj&minus;1,xj]-----|------f-[xj&minus;-2,xj&minus;1,xj]-------|
+|1 |x  |f [x ] |                    |                            |
+|  | 1 |    1 |                    |                            |
+|  |   |      |f[x1,x2] = f[x2]&minus;-f[x1]|                            |
+|  |   |      |             x2&minus; x1  |                            |
+|2 |x2 |f [x2] |                    |f [x1,x2,x3] = f[x2,x3x]&minus;&minus;fx[x1,x2] |
+|  |   |      |           f[x ]&minus; f[x ]|                   3  1     |
+|  |   |      |f[x2,x3] = --3x3&minus;-x22-|                            |
+|  |   |      |                    |                            |
+|3-|x2--f-[x2]---------------------------------------------------
+|  |
 " class="math-display" ></center>
+   <div class="newtheorem">
+<!--l. 162--><p class="noindent" ><span class="head">
+<a 
+ id="x63-97006r1"></a>
+<span 
+class="ec-lmbx-12">Exemplo 6.2.1.</span>  </span>Encontrar o polinômio que passe pelos seguintes pontos
+   <center class="math-display" >
+<img 
+src="main760x.png" alt="(&minus; 1,3),(0,1),(1,3),(3,43 )
+" class="math-display" ></center>
+   <table 
+class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main761x.png" alt="|--||---|------|-------------|---------------|--------------------|
+|j ||xj |f [xj] | f[xj&minus;1,xj]  |f[xj&minus;2,xj&minus; 1,xj] |f[xj&minus;3,xj&minus;2,xj&minus; 1,xj] |
+|--||---|------|-------------|---------------|--------------------|
+|1 ||&minus; 1|  3   |             |               |                    |
+|  ||   |      |-1&minus;3--       |               |                    |
+|  ||   |      |0&minus;(&minus;1) = &minus; 2 |               |                    |
+|2 ||0  |  1   |             |  2&minus;(&minus;2)=  2   |                    |
+|  ||   |      |             |  1&minus;(&minus;1)       |                    |
+|  ||   |      |  3&minus;1 = 2    |               |     -6&minus;2--= 1      |
+|  ||   |      |  1&minus;0        |               |     3&minus; (&minus; 1)          |
+|3 ||1  |  3   |             |   230&minus;&minus;02=  6    |                    |
+|  ||   |      |             |               |                    |
+|  ||   |      | 433&minus;&minus;31 = 20   |               |                    |
+|  ||   |      |             |               |                    |
+|4-||3-----43-----------------------------------------------------
+|  ||
+" class="math-display" ></center></td></tr></table>
+<!--l. 177--><p class="nopar" >
+<!--l. 181--><p class="indent" >   Portanto <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main762x.png" alt="P (x)  =  3 &minus; 2(x + 1) + 2(x + 1)x + (x + 1)x(x &minus; 1)
+            3     2
+       =  x  + 2x  &minus; x + 1
+" class="math-display" ></center>
+</div>
+                                                                          
+
+                                                                          
+   </div>
+<!--l. 188--><p class="noindent" >
+   <h4 class="likesubsectionHead"><a 
+ id="x63-980006.2"></a>Exercícios</h4>
+   <div class="newtheorem">
+<!--l. 191--><p class="noindent" ><span class="head">
+<a 
+ id="x63-98001r1"></a>
+<span 
+class="ec-lmbx-12">E 6.2.1.</span>  </span> Considere o seguinte conjunto de pontos:
+   <center class="math-display" >
+<img 
+src="main763x.png" alt="(&minus; 2, &minus; 47),(0, &minus; 3),(1,4)(2,41)
+" class="math-display" ></center>. Encontre o polinômio interpolador usando os métodos vistos.
+   </div>
+<!--l. 194--><p class="noindent" >
+   <div class="proof">
+<!--l. 194--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Resposta.</span> </span> <span 
+class="rm-lmr-6">5</span><span 
+class="lmmi-6">x</span><sup><span 
+class="rm-lmr-5">3</span></sup> <span 
+class="rm-lmr-6">+ 2</span><span 
+class="lmmi-6">x </span><span 
+class="lmsy6-">&minus; </span><span 
+class="rm-lmr-6">3</span>
+                                                                         <span 
+class="msam-10x-x-120">&#x2662;</span>
    </div>
    <div class="newtheorem">
-<!--l. 241--><p class="noindent" ><span class="head">
+<!--l. 201--><p class="noindent" ><span class="head">
 <a 
- id="x65-99005r2"></a>
+ id="x63-98002r2"></a>
+                                                                          
+
+                                                                          
 <span 
-class="ec-lmbx-12">Exemplo 6.3.2.</span>  </span>Encontre o polinômio da forma <span 
-class="lmmi-12">p</span><span 
-class="rm-lmr-12">(</span><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">) = </span><span 
-class="lmmi-12">a</span><sub><span 
-class="rm-lmr-8">1</span></sub><span 
-class="rm-lmr-12">+</span><span 
-class="lmmi-12">a</span><sub><span 
-class="rm-lmr-8">2</span></sub><span 
-class="lmmi-12">x</span><span 
-class="rm-lmr-12">+</span><span 
-class="lmmi-12">a</span><sub><span 
-class="rm-lmr-8">3</span></sub><span 
-class="lmmi-12">x</span><sup><span 
-class="rm-lmr-8">2</span></sup><span 
-class="rm-lmr-12">+</span><span 
-class="lmmi-12">a</span><sub>
-<span 
-class="rm-lmr-8">4</span></sub><span 
-class="lmmi-12">x</span><sup><span 
-class="rm-lmr-8">3</span></sup>
-que passa pelos pontos
-   <center class="math-display" >
-<img 
-src="main772x.png" alt="(0,0 ),(1,1),(2,0),(3,1)
-" class="math-display" ></center> Como as abscissas são as mesmas do exemplo anterior, podemos utilizar os
-mesmos polinômios de Lagrange, assim temos:
-   <center class="math-display" >
-<img 
-src="main773x.png" alt="                                                    2-3     2   10-
-p(x) = 0 &sdot; L1(x ) + 1 &sdot; L2(x ) + 0 &sdot; L3(x ) + 1 &sdot; L4(x) = 3x &minus; 3x + 3 x
-" class="math-display" ></center>
+class="ec-lmbx-12">E 6.2.2.</span>  </span>No  <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">Scilab</span></span></span>,  faça  um  gráfico  com  os  pontos  e  o  polinômio
+interpolador do Exercício&#x00A0;<a 
+href="#x63-98001r1">6.2.1<!--tex4ht:ref: exer:interp1 --></a>.
    </div>
                                                                           
 
                                                                           
-   <!--l. 247--><div class="crosslinks"><p class="noindent">[<a 
-href="mainse37.html" >next</a>] [<a 
-href="mainli12.html" >prev</a>] [<a 
-href="mainli12.html#tailmainli12.html" >prev-tail</a>] [<a 
+   <!--l. 206--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse40.html" >next</a>] [<a 
+href="mainse25.html" >prev</a>] [<a 
+href="mainse25.html#tailmainse25.html" >prev-tail</a>] [<a 
 href="mainse26.html" >front</a>] [<a 
-href="mainch8.html#mainli20.html" >up</a>] </p></div>
-<!--l. 247--><p class="indent" >   <a 
- id="tailmainse26.html"></a>  
+href="mainse38.html#mainse39.html" >up</a>] </p></div>
+<!--l. 206--><p class="indent" >   <a 
+ id="tailmainse26.html"></a>   
 <div class="panel panel-default">
 	    <div class="panel-body">
 	    	<div class="row">
