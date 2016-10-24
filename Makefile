@@ -1,4 +1,4 @@
-\#Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+#Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
 CAP1=cap_aritmetica
 CAP2=cap_derint
@@ -10,42 +10,34 @@ CAP7=cap_pvi
 CAP8=cap_scilab
 
 pdf: main.tex
-	echo "\isbooktrue\n\isslidefalse\n\ishtmlfalse" > main.knd
 	pdflatex main
 	bibtex main
 	makeindex main
 	pdflatex main
 	pdflatex main
-	rm -f main.knd
 
 slide: main.tex
-	echo "\isbookfalse\n\isslidetrue\n\ishtmlfalse" > main.knd
 	cp main.tex slide.tex
 	pdflatex slide
 	bibtex slide
 	makeindex slide
 	pdflatex slide
 	pdflatex slide
-	rm -f main.knd
 
 dvi: main.tex
-	echo "\isbooktrue\n\isslidefalse\n\ishtmlfalse" > main.knd
 	latex main
 	bibtex main
 	makeindex main
 	latex main
 	latex main
-	rm -f main.knd
 
 html: main.tex
 	rm -f ./html/*
-	echo "\isbookfalse\n\isslidefalse\n\ishtmltrue" > main.knd
 	latex main 
 	bibtex main
 	latex main
 	latex main
 	htlatex main "myconfig,html,3,notoc*,info" "" "-d./html/"
-	rm -f main.knd
 
 epub: ./html/main.html
 	./html2epub.sh
