@@ -37,10 +37,10 @@ html: main.tex
 	bibtex main
 	latex main
 	latex main
-	htlatex main "html,3,notoc*,info" "" "-d./html/"
+	htlatex main "myconfig,html,3,notoc*,info" "" "-d./html/"
 
-epub: main.html
-	pandoc -o main.epub main.tex
+epub: ./html/main.html
+	./html2epub.sh
 
 .PHONY: clean
 
