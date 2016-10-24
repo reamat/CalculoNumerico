@@ -10,7 +10,7 @@ CAP7=cap_pvi
 CAP8=cap_scilab
 
 pdf: main.tex
-	echo "\isbooktrue\n\isslidefalse\n\ishtmlfalse" > main.knd
+	echo "\isbooktrue \isslidefalse \ishtmlfalse" > main.knd
 	pdflatex main
 	bibtex main
 	makeindex main
@@ -19,7 +19,7 @@ pdf: main.tex
 	rm -f main.knd
 
 slide: main.tex
-	echo "\isbookfalse\n\isslidetrue\n\ishtmlfalse" > main.knd
+	echo "\isbookfalse \isslidetrue \ishtmlfalse" > main.knd
 	cp main.tex slide.tex
 	pdflatex slide
 	bibtex slide
@@ -29,7 +29,7 @@ slide: main.tex
 	rm -f main.knd
 
 dvi: main.tex
-	echo "\isbooktrue\n\isslidefalse\n\ishtmlfalse" > main.knd
+	echo "\isbooktrue \isslidefalse \ishtmlfalse" > main.knd
 	latex main
 	bibtex main
 	makeindex main
@@ -39,7 +39,7 @@ dvi: main.tex
 
 html: main.tex
 	rm -f ./html/*
-	echo "\isbookfalse\n\isslidefalse\n\ishtmltrue" > main.knd
+	echo "\isbookfalse \isslidefalse \ishtmltrue" > main.knd
 	latex main 
 	bibtex main
 	latex main
@@ -64,7 +64,3 @@ clean:
 	rm -f ${CAP6}/*.aux ${CAP6}/*.log ${CAP6}/*.backup
 	rm -f ${CAP7}/*.aux ${CAP7}/*.log ${CAP7}/*.backup
 	rm -f ${CAP8}/*.aux ${CAP8}/*.log ${CAP8}/*.backup
-
-
-
-
