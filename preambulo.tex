@@ -10,20 +10,21 @@
 \newif\ifisscilab      % As notas incluirão Scilab? 
 \newif\ifisoctave      % As notas incluirão octave?
 
-\isbooktrue           % formato slide
-%\isbookfalse           % formato a4paper
+\def\tfn{main.knd}  % Arquivo que guarda as definições do tipo de saída
+\def \tdata{}           % Definições do tipo de saída: book, slide ou html.
 
-%\isslidetrue           % formato slide
-\isslidefalse           % formato a4paper
+\openin1=\tfn\relax % Leitura das definições de saída
+\read1 to \tdata
+\closein1
 
-%\ishtmltrue           % formato html
-\ishtmlfalse 
+\tdata                     % Definições de saída
 
-\isscilabtrue           % incluir scilab
-%\isscilabfalse         % não incluir
+\count201=0  %  Selecione 0 para Scilab e 1 para Octave.
 
-%\isoctavetrue          % incluir octave
-\isoctavefalse          % não incluir
+\ifcase\count202
+    \isscilabtrue \isoctavefalse %
+    \or \isscilabfalse \isoctavetrue
+\fi
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

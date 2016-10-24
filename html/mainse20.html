@@ -3,11 +3,10 @@
 <html xml:lang="pt" > 
 <head><title>Metodos iterativos para sistemas lineares</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
-<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
-<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
 <!-- html,3,notoc*,info --> 
 <meta name="src" content="main.tex"> 
-<meta name="date" content="2016-10-21 19:32:00"> 
 <link rel="stylesheet" type="text/css" href="main.css"> 
 </head><body 
 >
@@ -21,19 +20,18 @@ href="mainse22.html#mainse33.html" >up</a>] </p></div>
  id="x51-740004.6"></a>Métodos iterativos para sistemas lineares</h3>
 <a 
  id="dx51-74001"></a>
-<!--l. 1136--><p class="noindent" >Na seção anterior tratamos de métodos diretos para a resolução de sistemas
-lineares. Em um <span 
+<!--l. 1136--><p class="noindent" >Na seção anterior tratamos de métodos diretos para a resolução de sistemas lineares.
+Em um <span 
 class="ec-lmbx-12">m</span><span 
-class="ec-lmbx-12">étodo direto </span>(por exemplo, solução via fatoração LU)
-obtemos uma aproximação da solução depois de realizarmos um número finito de
-operações (só teremos a solução ao final do processo).
+class="ec-lmbx-12">étodo direto </span>(por exemplo, solução via fatoração LU) obtemos uma
+aproximação da solução depois de realizarmos um número finito de operações (só
+teremos a solução ao final do processo).
 <!--l. 1138--><p class="indent" >   Veremos nessa seção dois <span 
 class="ec-lmbx-12">m</span><span 
-class="ec-lmbx-12">étodos iterativos </span>básicos para obter uma
-aproximação para a solução de um sistema linear. Geralmente em um
-método iterativo iniciamos com uma aproximação para a solução (que pode
-ser ruim) e vamos melhorando essa aproximação através de sucessivas
-iterações.
+class="ec-lmbx-12">étodos iterativos </span>básicos para obter uma aproximação
+para a solução de um sistema linear. Geralmente em um método iterativo iniciamos
+com uma aproximação para a solução (que pode ser ruim) e vamos melhorando essa
+aproximação através de sucessivas iterações.
 <!--l. 1143--><p class="noindent" >
    <h4 class="subsectionHead"><span class="titlemark">4.6.1   </span> <a 
  id="x51-750004.6.1"></a>Método de Jacobi</h4>
@@ -42,24 +40,30 @@ iterações.
 <!--l. 1144--><p class="noindent" >O método de Jacobi pode ser obtido a partir do sistema linear <div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main610x.png" alt="a11x1 + a12x2 + &sdot;&sdot;&sdot; + a1nxn  =  y1
-a21x1 + a22x2 + &sdot;&sdot;&sdot; + a2nxn  =  y2
-                             ..
-                             .
-an1x1 + an2x2 + &sdot;&sdot;&sdot; + annxn  =  yn
+src="main1200x.png" alt=" a11x1 + a12x2 + &#x22C5;&#x22C5;&#x22C5; + a1nxn =   y1
+
+ a21x1 + a22x2 + &#x22C5;&#x22C5;&#x22C5; + a2nxn =   y2
+                              ..
+                              .
+an1x1 + an2x2 + &#x22C5;&#x22C5;&#x22C5; + annxn  =   yn
 " class="math-display" ></center>
 </div>
 <!--l. 1152--><p class="indent" >   Isolando o elemento <span 
 class="lmmi-12">x</span><sub><span 
 class="rm-lmr-8">1</span></sub> da primeira equação temos
+                                                                                <img 
+src="main1202x.png" alt="PICT" >
+<img 
+src="main1205x.png" alt="PICT" >
+                                                                                
    <table 
 class="equation"><tr><td><a 
  id="x51-75003r24"></a>
    <center class="math-display" >
 <img 
-src="main611x.png" alt="              (                     )
-         y1 &minus;  a12x(2k)+ &sdot;&sdot;&sdot; + a1nx(k)
-x (k1+1) = -------------------------n---
+src="main1203x.png" alt="              (                     )
+ (k+1)   y1 -  a12x(2k) + &#x22C5;&#x22C5;&#x22C5; + a1nx (kn)
+x1    =  -----------------------------
                       a11
 " class="math-display" ></center></td><td class="equation-label">(4.24)</td></tr></table>
 <!--l. 1155--><p class="nopar" >
@@ -76,37 +80,39 @@ class="rm-lmr-8">1</span></sub> da próxima iteração.
 <!--l. 1158--><p class="indent" >   Da mesma forma, isolando o elemento <span 
 class="lmmi-12">x</span><sub><span 
 class="lmmi-8">i</span></sub> de cada equação <span 
-class="lmmi-12">i</span>, para todo
-<span 
+class="lmmi-12">i</span>, para todo <span 
 class="lmmi-12">i </span><span 
 class="rm-lmr-12">= 2</span><span 
-class="lmmi-12">,...,n </span>podemos construir a iteração <div class="eqnarray">
+class="lmmi-12">,...,n</span>
+podemos construir a iteração <div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main612x.png" alt="                (                     )
-           y  &minus;  a  x(k)+ &sdot;&sdot;&sdot; + a  x(k)
-x(k+1) =   -1-----12-2-----------1n-n---
- 1              (       a11                    )
-           y  &minus;  a  x(k)+ a  x(k)+ &sdot;&sdot;&sdot; + a  x(k)
-x(k+1) =   -2-----21-1-----23-3-----------2n-n---
- 2                          a22
-        ..
-        .       (                                      )
-           y2 &minus;  an1x(1k)+ &sdot;&sdot;&sdot; + an,n&minus; 2x(kn)&minus;2 + an,n&minus; 1x (kn)&minus;1
-x(nk+1) =   ---------------------------------------------
-                                ann
+src="main1204x.png" alt="                 (    (k)             (k))
+  (k+1)      y1 ---a12x2--+-&#x22C5;&#x22C5;&#x22C5; +-a1nx-n--
+x 1     =               a11
+                 (    (k)       (k)            (k))
+  (k+1)      y2 ---a21x1--+-a23x3--+-&#x22C5;&#x22C5;&#x22C5; +-a2nx-n--
+x 2     =                    a22
+        .
+        ..        (                                      )
+            y -   a  x(k)+ &#x22C5;&#x22C5;&#x22C5; + a    x (k) + a     x(k)
+x (k+1)  =   -2-----n1-1-----------n,n-2--n--2----n,n-1-n--1-
+  n                              ann
 " class="math-display" ></center>
 </div>
-<!--l. 1166--><p class="indent" >   Em notação mais compacta, o método de Jacobi consiste na iteração
-<div class="eqnarray">
+<!--l. 1166--><p class="indent" >   Em notação mais compacta, o método de Jacobi consiste na iteração <div class="eqnarray">
+                                                                                <img 
+src="main1206x.png" alt="PICT" >
+<img 
+src="main1210x.png" alt="PICT" >
+                                                                                
    <center class="math-display" >
 <img 
-src="main613x.png" alt="x(1) =   aproxima ção inicial
-         (               )
- (k)     |     &sum;n     (k)|
-xi   =   |(yi &minus;    aijxj  |) &#x2215;aii
-               j=1
-               j&frasl;=i
+src="main1207x.png" alt="x(1)  =   aproxima ção inicial
+         (              )
+ (k)      ||     &#x2211;n     (k)||
+xi   =   (yi -    aijxj ) &#x2215;aii
+               jj=&#x2044;=1i
 " class="math-display" ></center>
 </div>
    <div class="newtheorem">
@@ -115,13 +121,10 @@ xi   =   |(yi &minus;    aijxj  |) &#x2215;aii
  id="x51-75006r1"></a>
 <span 
 class="ec-lmbx-12">Exemplo 4.6.1.</span>  </span>Resolva o sistema <div class="eqnarray">
-                                                                          
-
-                                                                          
    <center class="math-display" >
 <img 
-src="main614x.png" alt="10x +  y  =  23
-  x + 8y  =  26
+src="main1208x.png" alt="10x + y  =   23
+ x + 8y  =   26
 " class="math-display" ></center>
 </div>usando o método de Jacobi iniciando com <span 
 class="lmmi-12">x</span><sup><span 
@@ -132,27 +135,25 @@ class="rm-lmr-8">(1)</span></sup> <span
 class="rm-lmr-12">= 0</span>. <div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main615x.png" alt="  (k+1)      23 &minus; y(k)
-x       =   ---------
-               10 (k)
-y (k+1)  =   26 &minus;-x---
-               8
-            23 &minus; y(1)
-   x(2)  =   ---------= 2,3
-               10 (1)
-    (2)      26 &minus;-x---
-   y    =      8     = 3,25
-            23 &minus; y(2)
-   x(3)  =   ---------= 1,975
+src="main1209x.png" alt="           23 - y (k)
+x(k+1)  =  ---------
                10
-    (3)      26 &minus;-x(2)-
-   y    =      8     = 2,9625
+ (k+1)     26---x-(k)
+y       =      8
+           23 - y (1)
+  x(2)  =  --------- = 2,3
+              10
+   (2)     26---x-(1)
+  y     =      8     = 3,25
+                  (2)
+  x(3)  =  23---y--- = 1,975
+              10
+   (3)     26 - x (2)
+  y     =  --------- = 2,9625
+               8
 " class="math-display" ></center>
 </div>
    </div>
-                                                                          
-
-                                                                          
 <!--l. 1190--><p class="noindent" >
    <h5 class="subsubsectionHead"><a 
  id="x51-760004.6.1"></a>Código Scilab: Jacobi</h5>
@@ -261,6 +262,11 @@ class="ec-lmtt-12">&#x00A0;</span><span
 class="ec-lmtt-12">&#x00A0;deltax=max(</span><span 
 class="ec-lmtt-12">&#x00A0;abs(x-xnew)</span><span 
 class="ec-lmtt-12">&#x00A0;)</span>
+                                                                                <img 
+src="main1213x.png" alt="PICT" >
+<img 
+src="main1215x.png" alt="PICT" >
+                                                                                
 <span 
 class="ec-lmtt-12">&#x00A0;</span><br /><span 
 class="ec-lmtt-12">&#x00A0;</span><span 
@@ -354,9 +360,6 @@ class="ec-lmtt-12">endfunction</span>
 class="ec-lmtt-12">&#x00A0;</span><br />
    </div>
 <!--l. 1195--><p class="noindent" >
-                                                                          
-
-                                                                          
    <h4 class="subsectionHead"><span class="titlemark">4.6.2   </span> <a 
  id="x51-770004.6.2"></a>Método de Gauss-Seidel</h4>
 <a 
@@ -370,57 +373,61 @@ class="lmmi-12">x</span><sub><span
 class="rm-lmr-8">2</span></sub><sup><span 
 class="rm-lmr-8">(</span><span 
 class="lmmi-8">k</span><span 
-class="rm-lmr-8">+1)</span></sup> depende de
-<span 
-class="lmmi-12">x</span><sub><span 
-class="rm-lmr-8">1</span></sub><sup><span 
-class="rm-lmr-8">(</span><span 
-class="lmmi-8">k</span><span 
-class="rm-lmr-8">)</span></sup> na iteração <span 
-class="lmmi-12">k</span>. Intuitivamente podemos pensar em usar <span 
+class="rm-lmr-8">+1)</span></sup> depende de <span 
 class="lmmi-12">x</span><sub>
 <span 
 class="rm-lmr-8">1</span></sub><sup><span 
 class="rm-lmr-8">(</span><span 
 class="lmmi-8">k</span><span 
-class="rm-lmr-8">+1)</span></sup> que acabou de
-ser calculado e temos
+class="rm-lmr-8">)</span></sup>
+na iteração <span 
+class="lmmi-12">k</span>. Intuitivamente podemos pensar em usar <span 
+class="lmmi-12">x</span><sub><span 
+class="rm-lmr-8">1</span></sub><sup><span 
+class="rm-lmr-8">(</span><span 
+class="lmmi-8">k</span><span 
+class="rm-lmr-8">+1)</span></sup> que acabou de ser
+calculado e temos
    <table 
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main616x.png" alt="             (     (k+1)       (k)               )
- (k+1)   y2 &minus;--a21x-1---+--a23x3--+-&sdot;&sdot;&sdot; +-a2nx-(kn)-
-x2    =                    a
-                            22
+src="main1214x.png" alt="              (    (k+1)       (k)            (k))
+x (k+1) = y2----a21x1----+-a23x-3-+--&#x22C5;&#x22C5;&#x22C5; +-a2nxn--
+  2                         a22
 " class="math-display" ></center></td></tr></table>
 <!--l. 1201--><p class="nopar" >
 <!--l. 1203--><p class="indent" >   Aplicando esse raciocínio podemos construir o método de Gauss-Seidel como
 <div class="eqnarray">
+                                                                                <img 
+src="main1216x.png" alt="PICT" >
+<img 
+src="main1219x.png" alt="PICT" >
+                                                                                
    <center class="math-display" >
 <img 
-src="main617x.png" alt="                (                     )
-           y &minus;   a  x(k) + &sdot;&sdot;&sdot; + a x (k)
-x(k+1)  =   -1-----12-2-----------1n--n---
- 1              (       a11                      )
-           y &minus;   a  x(k+1 )+ a  x(k)+ &sdot;&sdot;&sdot; + a  x(k)
-x(k+1)  =   -2-----21-1-------23-3-----------2n-n---
- 2                           a22
-        ..
-        .       (                             )
-           y2 &minus;  an1x(1k+1)+ &sdot;&sdot;&sdot; + an(n&minus; 1)x(nk&minus;+11)
-x(kn+1)  =   -------------------------------------
-                           ann
+src="main1217x.png" alt="                (     (k)               )
+ (k+1)      y1 - a12x 2 +  &#x22C5;&#x22C5;&#x22C5; + a1nx(nk)
+x1      =   -----------------------------
+                (     (k+a11)1      (k)               )
+ (k+1)      y2 - a21x 1   +  a23x3  + &#x22C5;&#x22C5;&#x22C5; + a2nx (kn)
+x2      =   ----------------------------------------
+                              a22
+        ...
+                (     (k+1)                (k+1))
+ (k+1)      y2 --an1x-1----+-&#x22C5;&#x22C5;&#x22C5; +-an(n-1)xn-1---
+xn      =                   ann
 " class="math-display" ></center>
 </div>
 <!--l. 1211--><p class="indent" >   Em notação mais compacta, o método de Gauss-Seidel consiste na iteração:
 <div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main618x.png" alt="x (1)  =  aproxima ção inicial
-              &sum;i &minus;1    (k+1)  &sum;n         (k)
-x (k)  =   yi &minus;--j=1aijxj----&minus;---j=i+1aijxj--
-  i                      aii
+src="main1218x.png" alt=" (1)
+x    =   aproxima ção inicial
+ (k)     yi - &#x2211;i- 1aijx(jk+1 )- &#x2211;n     aijx(jk)
+xi   =   -------j=1-------------j=i+1------
+                         aii
 " class="math-display" ></center>
 </div>
    <div class="newtheorem">
@@ -429,13 +436,16 @@ x (k)  =   yi &minus;--j=1aijxj----&minus;---j=i+1aijxj--
  id="x51-77004r2"></a>
 <span 
 class="ec-lmbx-12">Exemplo 4.6.2.</span>  </span>Resolva o sistema <div class="eqnarray">
-                                                                          
-
-                                                                          
+                                                                                <img 
+src="main1220x.png" alt="PICT" >
+<img 
+src="main1223x.png" alt="PICT" >
+                                                                                
    <center class="math-display" >
 <img 
-src="main619x.png" alt="10x +  y  =  23
-  x + 8y  =  26
+src="main1221x.png" alt="10x + y  =   23
+
+ x + 8y  =   26
 " class="math-display" ></center>
 </div>usando o método de Guass-Seidel iniciando com <span 
 class="lmmi-12">x</span><sup><span 
@@ -446,27 +456,29 @@ class="rm-lmr-8">(1)</span></sup> <span
 class="rm-lmr-12">= 0</span>. <div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main620x.png" alt=" (k+1 )     23 &minus; y(k)
-x      =   ---------
-              10 (k+1)
-y(k+1 ) =   26-&minus;-x-----
-                8
-           23 &minus; y(1)
-  x(2) =   ---------=  2,3
-              10 (2)
-   (2)     26-&minus;-x---
-  y    =       8    =  2,9625
-           23 &minus; y(2)
-  x(3) =   ---------=  2,00375
-              10
-   (3)     26-&minus;-x(3)
-  y    =       8    =  2,9995312
+src="main1222x.png" alt="            23 - y(k)
+x (k+1)  =   ---------
+               10
+  (k+1)      26 --x(k+1)
+y       =       8
+            23 - y(1)
+   x(2)  =   ---------= 2,3
+               10
+    (2)      26 --x(2)-
+   y    =      8     = 2,9625
+                  (2)
+   x(3)  =   23 --y---= 2,00375
+               10
+    (3)      26 - x(3)
+   y    =   ---8-----= 2,9995312
 " class="math-display" ></center>
 </div>
    </div>
-                                                                          
-
-                                                                          
+                                                                                <img 
+src="main1224x.png" alt="PICT" >
+<img 
+src="main1225x.png" alt="PICT" >
+                                                                                
 <!--l. 1236--><p class="noindent" >
    <h5 class="subsubsectionHead"><a 
  id="x51-780004.6.2"></a>Código Scilab: Gauss-Seidel</h5>
@@ -666,19 +678,21 @@ class="ec-lmtt-12">endfunction</span>
 class="ec-lmtt-12">&#x00A0;</span><br />
    </div>
 <!--l. 1241--><p class="noindent" >
-                                                                          
-
-                                                                          
    <h4 class="subsectionHead"><span class="titlemark">4.6.3   </span> <a 
  id="x51-790004.6.3"></a>Análise de convergência</h4>
 <a 
  id="dx51-79001"></a>
-<!--l. 1243--><p class="noindent" >Nesta seção, discutimos sobre a análise de convergência de métodos iterativos
-para solução de sistema lineares. Para tanto, consideramos um sistema linear
-<span 
+                                                                                <img 
+src="main1226x.png" alt="PICT" >
+<img 
+src="main1229x.png" alt="PICT" >
+                                                                                
+<!--l. 1243--><p class="noindent" >Nesta seção, discutimos sobre a análise de convergência de métodos iterativos para
+solução de sistema lineares. Para tanto, consideramos um sistema linear <span 
 class="lmmi-12">Ax </span><span 
 class="rm-lmr-12">= </span><span 
-class="lmmi-12">b</span>, onde <span 
+class="lmmi-12">b</span>, onde
+<span 
 class="lmmi-12">A </span><span 
 class="rm-lmr-12">= [</span><span 
 class="lmmi-12">a</span><sub><span 
@@ -695,8 +709,8 @@ class="lmmi-8">j</span></sub><span
 class="rm-lmr-12">)</span><sub><span 
 class="lmmi-8">j</span><span 
 class="rm-lmr-8">=1</span></sub><sup><span 
-class="lmmi-8">n</span></sup> é um
-vetor dos termos constantes e <span 
+class="lmmi-8">n</span></sup> é um vetor dos termos
+constantes e <span 
 class="lmmi-12">x </span><span 
 class="rm-lmr-12">= (</span><span 
 class="lmmi-12">x</span><sub><span 
@@ -704,17 +718,17 @@ class="lmmi-8">j</span></sub><span
 class="rm-lmr-12">)</span><sub><span 
 class="lmmi-8">j</span><span 
 class="rm-lmr-8">=1</span></sub><sup><span 
-class="lmmi-8">n</span></sup> é o vetor incógnita. No decorrer,
-assumimos que <span 
-class="lmmi-12">A </span>é uma matriz não-singular.
-<!--l. 1245--><p class="indent" >   Geralmente, métodos iterativos são construídos como uma iteração de ponto
-fixo. No caso de um sistema linear, reescreve-se a equação matricial em um
-problema de ponto fixo equivalente, i.e.:
+class="lmmi-8">n</span></sup> é o vetor incógnita. No decorrer, assumimos que <span 
+class="lmmi-12">A </span>é uma
+matriz não-singular.
+<!--l. 1245--><p class="indent" >   Geralmente, métodos iterativos são construídos como uma iteração de ponto fixo.
+No caso de um sistema linear, reescreve-se a equação matricial em um problema de
+ponto fixo equivalente, i.e.:
    <table 
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main621x.png" alt="Ax =  b &hArr; x =  Tx + c,
+src="main1227x.png" alt="Ax =  b &#x21D4; x = T x + c,
 " class="math-display" ></center></td></tr></table>
 <!--l. 1248--><p class="nopar" >
 onde <span 
@@ -739,37 +753,39 @@ class="rm-lmr-12">)</span><sub><span
 class="lmmi-8">j</span><span 
 class="rm-lmr-8">=1</span></sub><sup><span 
 class="lmmi-8">n</span></sup> de <span 
-class="ec-lmbx-12">vetor</span>
+class="ec-lmbx-12">vetor da</span>
 <span 
-class="ec-lmbx-12">da itera</span><span 
+class="ec-lmbx-12">itera</span><span 
 class="ec-lmbx-12">ç</span><span 
 class="ec-lmbx-12">ão</span><a 
  id="dx51-79003"></a>. Construídos a matriz <span 
 class="lmmi-12">T </span>e o vetor <span 
-class="lmmi-12">c</span>, o método iterativo consiste em
-computar a iteração:
+class="lmmi-12">c</span>, o método iterativo consiste em computar
+a iteração:
    <table 
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main622x.png" alt=" (k+1)      (k)
-x     = T x   + c,  n &ge; 1,
+src="main1228x.png" alt="  (k+1)      (k)
+x      = T x   + c,  n &#x2265; 1,
 " class="math-display" ></center></td></tr></table>
 <!--l. 1252--><p class="nopar" >
 onde <span 
 class="lmmi-12">x</span><sup><span 
 class="rm-lmr-8">(1)</span></sup> é uma aproximação inicial dada.
-                                                                          
-
-                                                                          
-<!--l. 1255--><p class="indent" >   Afim de construirmos as matrizes e os vetores de iteração do método de
-Jacobi e de Gauss-Seidel, decompomos a matriz <span 
+<!--l. 1255--><p class="indent" >   Afim de construirmos as matrizes e os vetores de iteração do método de Jacobi e de
+Gauss-Seidel, decompomos a matriz <span 
 class="lmmi-12">A </span>da seguinte forma:
    <table 
 class="equation-star"><tr><td>
+                                                                                <img 
+src="main1230x.png" alt="PICT" >
+<img 
+src="main1234x.png" alt="PICT" >
+                                                                                
    <center class="math-display" >
 <img 
-src="main623x.png" alt="A =  L + D +  U,
+src="main1231x.png" alt="A =  L + D + U,
 " class="math-display" ></center></td></tr></table>
 <!--l. 1258--><p class="nopar" >
 onde <span 
@@ -783,7 +799,7 @@ class="rm-lmr-8">11</span></sub><span
 class="lmmi-12">,a</span><sub><span 
 class="rm-lmr-8">22</span></sub><span 
 class="lmmi-12">,</span><span 
-class="lmmi-12">&hellip;</span><span 
+class="lmmi-12">&#x2026;</span><span 
 class="lmmi-12">,a</span><sub><span 
 class="lmmi-8">nn</span></sub><span 
 class="rm-lmr-12">)</span>, i.e.:
@@ -791,38 +807,34 @@ class="rm-lmr-12">)</span>, i.e.:
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main624x.png" alt="      &lfloor;                       &rfloor;
-
-      ||a11   0   0   &sdot;&sdot;&sdot;   0  ||
-      || 0   a    0   &sdot;&sdot;&sdot;   0  ||
-      ||      22               ||
-D :=  || 0    0   a33 &sdot;&sdot;&sdot;   0  ||,
-      || .    .    .         . ||
-      || ..    ..    ..   ...    .. ||
-      &lceil;                       &rceil;
-        0    0   0   &sdot;&sdot;&sdot;  ann
+src="main1232x.png" alt="     &#x230A;                       &#x230B;
+     | a11  0    0   &#x22C5;&#x22C5;&#x22C5;   0 |
+     ||                       ||
+     ||  0  a22   0   &#x22C5;&#x22C5;&#x22C5;   0 ||
+     ||                       ||
+D := ||  0   0   a33  &#x22C5;&#x22C5;&#x22C5;   0 || ,
+     ||  ..    ..   ..   ..    .. ||
+     |&#x2308;  .    .   .     .   . |&#x2309;
+        0   0    0   &#x22C5;&#x22C5;&#x22C5;  a
+                           nn
 " class="math-display" ></center></td></tr></table>
 <!--l. 1268--><p class="nopar" >
 e, respectivamente, <span 
 class="lmmi-12">L </span>e <span 
-class="lmmi-12">U </span>são as seguintes matrizes triangular inferior e
-superior:
+class="lmmi-12">U </span>são as seguintes matrizes triangular inferior e superior:
    <table 
 class="equation-star"><tr><td>
-                                                                          
-
-                                                                          
    <center class="math-display" >
 <img 
-src="main625x.png" alt="     &lfloor;                      &rfloor;         &lfloor;                     &rfloor;
-     |  0    0    0   &sdot;&sdot;&sdot;  0|         |0  a12  a13  &sdot;&sdot;&sdot;  a1n|
-     ||                      ||         ||                     ||
-     || a21   0    0   &sdot;&sdot;&sdot;  0||         ||0   0   a23  &sdot;&sdot;&sdot;  a2n||
-L := || a    a     0   &sdot;&sdot;&sdot;  0||,  U  :=  ||0   0    0   &sdot;&sdot;&sdot;  a  || .
-     ||  31   32             ||         ||                   3n||
-     ||  ...    ...    ...   ...  ...||         ||...   ...    ...   ...   ... ||
-     |&lceil;                      |&rceil;         |&lceil;                     |&rceil;
-       an1  an2  an3  &sdot;&sdot;&sdot;  0           0   0    0   &sdot;&sdot;&sdot;   0
+src="main1233x.png" alt="     &#x230A;                     &#x230B;         &#x230A;                     &#x230B;
+     | 0    0    0   &#x22C5;&#x22C5;&#x22C5;  0|         | 0  a12 a13  &#x22C5;&#x22C5;&#x22C5;  a1n|
+     ||                     ||         ||                     ||
+     ||a21   0    0   &#x22C5;&#x22C5;&#x22C5;  0||         || 0  0   a23  &#x22C5;&#x22C5;&#x22C5;  a2n||
+L := ||a    a     0   &#x22C5;&#x22C5;&#x22C5;  0|| ,  U := || 0  0    0   &#x22C5;&#x22C5;&#x22C5;  a  || .
+     ||  31    32             ||         ||                   3n||
+     ||  ...    ...    ...   ...  ...||         || ...   ...   ...   ...   ... ||
+     |&#x2308;                     |&#x2309;         |&#x2308;                     |&#x2309;
+      an1  an2  an3  &#x22C5;&#x22C5;&#x22C5;  0            0  0    0   &#x22C5;&#x22C5;&#x22C5;   0
 " class="math-display" ></center></td></tr></table>
 <!--l. 1285--><p class="nopar" >
    <div class="newtheorem">
@@ -833,23 +845,20 @@ L := || a    a     0   &sdot;&sdot;&sdot;  0||,  U  :=  ||0   0    0   &sdot;&sd
 class="ec-lmbx-12">Exemplo 4.6.3.</span>  </span> Considere o seguinte sistema linear: <div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main626x.png" alt="  3x1 + x2 &minus; x3  =  2
-&minus; x1 &minus; 4x2 + x3  =  &minus; 10
+src="main1236x.png" alt="  3x1 + x2 - x3  =   2
+- x1 - 4x2 + x3  =   - 10
 
-x1 &minus; 2x2 &minus; 5x3   =  10
+ x1 - 2x2 - 5x3  =   10
 " class="math-display" ></center>
 </div>Escreva o sistema na sua forma matricial <span 
 class="lmmi-12">Ax </span><span 
 class="rm-lmr-12">= </span><span 
-class="lmmi-12">b </span>identificando a matriz dos
-                                                                          
-
-                                                                          
-coeficientes <span 
+class="lmmi-12">b </span>identificando a matriz dos coeficientes
+<span 
 class="lmmi-12">A</span>, o vetor incógnita <span 
 class="lmmi-12">x </span>e o vetor dos termos constantes <span 
-class="lmmi-12">b</span>. Em seguida,
-faça a decomposição <span 
+class="lmmi-12">b</span>. Em seguida, faça a
+decomposição <span 
 class="lmmi-12">A </span><span 
 class="rm-lmr-12">= </span><span 
 class="lmmi-12">L </span><span 
@@ -861,6 +870,11 @@ class="lmmi-12">U</span>.
 <!--l. 1296--><p class="indent" >
    <div class="proof">
 <!--l. 1296--><p class="indent" >   <span class="head">
+                                                                                <img 
+src="main1238x.png" alt="PICT" >
+<img 
+src="main1241x.png" alt="PICT" >
+                                                                                
 <span 
 class="ec-lmbx-12">Solu</span><span 
 class="ec-lmbx-12">ç</span><span 
@@ -872,12 +886,12 @@ class="lmmi-12">b</span>, onde:
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main627x.png" alt="     &lfloor;             &rfloor;        &lfloor;  &rfloor;           &lfloor;    &rfloor;
-
-     || 3    1   &minus; 1 ||       ||x1||           || 2  ||
-A =  ||&minus; 1  &minus; 4   1 ||,  x =  ||x ||   e  b =  ||&minus; 10|| .
-     |&lceil;             |&rceil;        |&lceil; 2|&rceil;           |&lceil;    |&rceil;
-       1   &minus; 2  &minus; 5          x3              10
+src="main1239x.png" alt="     &#x230A;            &#x230B;        &#x230A;   &#x230B;          &#x230A;    &#x230B;
+     | 3    1   - 1|       | x1|          |  2 |
+     ||            ||        ||   ||          ||    ||
+A =  ||- 1  - 4  1 || ,  x = || x2||   e  b = ||- 10|| .
+     &#x2308;            &#x2309;        &#x2308;   &#x2309;          &#x2308;    &#x2309;
+       1   - 2  - 5          x3             10
 " class="math-display" ></center></td></tr></table>
 <!--l. 1317--><p class="nopar" >
 A decomposição da matriz <span 
@@ -890,14 +904,13 @@ triangular superior é:
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main628x.png" alt=" &lfloor;            &rfloor;    &lfloor;           &rfloor;   &lfloor;           &rfloor;   &lfloor;          &rfloor;
-
- || 3    1  &minus; 1||    || 0    0   0||   ||3   0    0 ||   || 0  1  &minus; 1 ||
- ||            || =  ||           || + ||           || + ||          ||.
- |&lceil;&minus; 1  &minus; 4  1 |&rceil;    |&lceil;&minus; 1   0   0|&rceil;   |&lceil;0  &minus; 4   0 |&rceil;   |&lceil; 0  0   1 |&rceil;
-   1   &minus; 2 &minus; 5       1   &minus; 2  0     0   0   &minus; 5      0  0   0
-&#x25DF;------&#x25DD;&#x25DC;------&#x25DE;   &#x25DF;-----&#x25DD;&#x25DC;-----&#x25DE;   &#x25DF;-----&#x25DD;&#x25DC;-----&#x25DE;  &#x25DF;----&#x25DD;&#x25DC;----&#x25DE;
-       A                 L               D              U
+src="main1240x.png" alt="&#x230A;            &#x230B;    &#x230A;           &#x230B;  &#x230A;           &#x230B;   &#x230A;         &#x230B;
+| 3    1   - 1|   | 0    0   0|  | 3   0   0 |   | 0  1  - 1|
+||            ||    ||           ||  ||           ||   ||         ||
+||- 1  - 4  1 || =  ||- 1   0   0||+ || 0  - 4  0 || + || 0  0  1 || .
+&#x2308;            &#x2309;    &#x2308;           &#x2309;  &#x2308;           &#x2309;   &#x2308;         &#x2309;
+&#x25DF;-1----&#x25DD;&#x25DC;2--- 5-&#x25DE;  &#x25DF;-1--&#x25DD;-&#x25DC;-2--0&#x25DE;  &#x25DF;-0---0&#x25DD;&#x25DC;--- 5-&#x25DE; &#x25DF;-0--0&#x25DD;&#x25DC;-0--&#x25DE;
+       A                L              D              U
 " class="math-display" ></center></td></tr></table>
 <!--l. 1340--><p class="nopar" >
 No <span class="obeylines-h"><span class="verb"><span 
@@ -905,48 +918,52 @@ class="ec-lmtt-12">Scilab</span></span></span>, podemos construir as matrizes <s
 class="lmmi-12">L</span>, <span 
 class="lmmi-12">D </span>e <span 
 class="lmmi-12">U</span>, da seguinte forma:
-                                                                          
-
-                                                                          
+                                                                                <img 
+src="main1242x.png" alt="PICT" >
+<img 
+src="main1245x.png" alt="PICT" >
+                                                                                
    <div class="verbatim" id="verbatim-29">
 --&#x003E;A&#x00A0;=&#x00A0;[3&#x00A0;1&#x00A0;-1;-1&#x00A0;-4&#x00A0;1;1&#x00A0;-2&#x00A0;-5];
 &#x00A0;<br />--&#x003E;D&#x00A0;=&#x00A0;eye(A).*A;
 &#x00A0;<br />--&#x003E;L&#x00A0;=&#x00A0;tril(A)-D;
 &#x00A0;<br />--&#x003E;U=triu(A)-D;
 </div>
-<!--l. 1348--><p class="nopar" >                                                                         <span 
+<!--l. 1348--><p class="nopar" >                                                                              <span 
 class="msam-10x-x-120">&#x2662;</span>
    </div>
 <!--l. 1352--><p class="noindent" >
    <h5 class="subsubsectionHead"><a 
  id="x51-800004.6.3"></a>Iteração de Jacobi</h5>
-<!--l. 1354--><p class="noindent" >Vamos, agora, usar a decomposição discutida acima para construir a matriz de
-iteração <span 
+<!--l. 1354--><p class="noindent" >Vamos, agora, usar a decomposição discutida acima para construir a matriz de iteração
+<span 
 class="lmmi-12">T</span><sub><span 
 class="lmmi-8">J</span></sub><a 
  id="dx51-80001"></a> e o vetor de iteração <span 
 class="lmmi-12">c</span><sub><span 
 class="lmmi-8">J</span></sub><a 
- id="dx51-80002"></a> associado ao método de Jacobi. Neste caso,
-temos: <div class="eqnarray">
+ id="dx51-80002"></a> associado ao método de Jacobi. Neste caso, temos:
+<div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main629x.png" alt="Ax  = b  &hArr;   (L + D  + U )x = b
-         &hArr;   Dx  =  &minus; (L + U )x + b
-                     &minus; 1              &minus;1
-         &hArr;   x =  &minus;&#x25DF; D--(L&#x25DD;&#x25DC;-+--U)&#x25DE; x + D&#x25DF; &#x25DD;&#x25DC;-b&#x25DE;.
-                       =:TJ          =:cJ
+src="main1243x.png" alt="Ax  = b  &#x21D4;   (L + D  + U )x =  b
+         &#x21D4;   Dx  = - (L + U )x + b
+                     -1              - 1
+         &#x21D4;   x = -&#x25DF;-D---(&#x25DD;L&#x25DC;-+-U-)&#x25DE;x + D&#x25DF;-&#x25DD;&#x25DC;b&#x25DE;.
+                      =:TJ          =:cJ
 " class="math-display" ></center>
 </div>Ou seja, a iteração do método de Jacobi escrita na forma matricial é:
    <table 
 class="equation-star"><tr><td>
-                                                                          
-
-                                                                          
    <center class="math-display" >
+                                                                                <img 
+src="main1246x.png" alt="PICT" >
 <img 
-src="main630x.png" alt=" (k+1 )      (k)
-x     = TJ x   + cJ,  k &ge; 1,
+src="main1248x.png" alt="PICT" >
+                                                                                
+<img 
+src="main1244x.png" alt=" (k+1)       (k)
+x     = TJ x   + cJ,  k &#x2265; 1,
 " class="math-display" ></center></td></tr></table>
 <!--l. 1363--><p class="nopar" >
 com <span 
@@ -956,21 +973,21 @@ class="lmmi-12">T</span><sub>
 <span 
 class="lmmi-8">J</span></sub> <span 
 class="rm-lmr-12">:= </span><span 
-class="lmsy-10x-x-120">&minus;</span><span 
+class="lmsy-10x-x-120">-</span><span 
 class="lmmi-12">D</span><sup><span 
-class="lmsy8-">&minus;</span><span 
+class="lmsy8-">-</span><span 
 class="rm-lmr-8">1</span></sup><span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">L </span><span 
 class="rm-lmr-12">+ </span><span 
 class="lmmi-12">U</span><span 
-class="rm-lmr-12">) </span>a matriz de
-iteração e <span 
+class="rm-lmr-12">) </span>a matriz de iteração
+e <span 
 class="lmmi-12">c</span><sub><span 
 class="lmmi-8">J</span></sub> <span 
 class="rm-lmr-12">= </span><span 
 class="lmmi-12">D</span><sup><span 
-class="lmsy8-">&minus;</span><span 
+class="lmsy8-">-</span><span 
 class="rm-lmr-8">1</span></sup><span 
 class="lmmi-12">b </span>o vetor da iteração.
    <div class="newtheorem">
@@ -982,8 +999,8 @@ class="ec-lmbx-12">Exemplo 4.6.4.</span>  </span>Construa a matriz de iteração <
 class="lmmi-12">T</span><sub><span 
 class="lmmi-8">J</span></sub> e o vetor de iteração <span 
 class="lmmi-12">c</span><sub><span 
-class="lmmi-8">J</span></sub>
-do método de Jacobi para o sistema dado no Exemplo&#x00A0;<a 
+class="lmmi-8">J</span></sub> do
+método de Jacobi para o sistema dado no Exemplo&#x00A0;<a 
 href="#x51-79004r3">4.6.3<!--tex4ht:ref: ex:sislin --></a>.
    </div>
 <!--l. 1369--><p class="indent" >
@@ -997,29 +1014,34 @@ class="ec-lmbx-12">ão.</span> </span> A matriz de iteração é dada por:
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main631x.png" alt="                          &lfloor;           &rfloor; &lfloor;           &rfloor;    &lfloor;           &rfloor;
-                           1                                     1  1
-                          ||3   0    0 || || 0   1  &minus; 1||    || 0   &minus; 3  3||
-T   :=  &minus; D &minus;1(L + U) = &minus;  ||     1     || ||           || =  ||  1       1|| .
-  J                       |&lceil;0  &minus; 4   0 |&rceil; |&lceil;&minus; 1  0   1 |&rceil;    |&lceil;&minus; 4   0   4|&rceil;
-                           0   0   &minus; 1    1   2   0        1    2   0
-                         &#x25DF;------&#x25DD;&#x25DC;----5-&#x25DE;&#x25DF;-----&#x25DD;&#x25DC;-----&#x25DE;     5    5
-                               D&minus;1          (L+U)
+src="main1247x.png" alt="                         &#x230A;           &#x230B; &#x230A;           &#x230B;   &#x230A;           &#x230B;
+                          1                                    1  1
+                         ||3   0    0 || || 0   1  - 1||   || 0   - 3  3||
+TJ :=  - D- 1(L + U ) = - ||0  - 1   0 || ||- 1  0   1 || = ||- 1   0   1|| .
+                         |&#x2308;     4     |&#x2309; |&#x2308;           |&#x2309;   |&#x2308;  4       4|&#x2309;
+                          0   0   - 15    1   2   0       15    25   0
+                         &#x25DF;-----&#x25DD;&#x25DC;-----&#x25DE; &#x25DF;----&#x25DD;&#x25DC;-----&#x25DE;
+                              D-1          (L+U)
 " class="math-display" ></center></td></tr></table>
 <!--l. 1388--><p class="nopar" >
 O vetor da iteração de Jacobi é:
+                                                                                <img 
+src="main1249x.png" alt="PICT" >
+<img 
+src="main1251x.png" alt="PICT" >
+                                                                                
    <table 
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main632x.png" alt="              &lfloor;           &rfloor; &lfloor;    &rfloor;    &lfloor;   &rfloor;
-               1   0    0      2        2
-              ||3          || ||    ||    || 3 ||
-cJ := D &minus;1b =  ||0  &minus; 14   0 || ||&minus; 10|| =  || 52 || .
-              |&lceil;           |&rceil; |&lceil;    |&rceil;    |&lceil;   |&rceil;
-               0   0   &minus; 15    10       &minus; 2
-             &#x25DF;-----&#x25DD;&#x25DC;------&#x25DE;&#x25DF;-&#x25DD;&#x25DC;--&#x25DE;
-                   D&minus;1         b
+src="main1250x.png" alt="              &#x230A;           &#x230B; &#x230A;    &#x230B;   &#x230A;   &#x230B;
+               1                        2
+              ||3   0    0 || || 2  ||   ||  3||
+cJ := D - 1b = ||0 - 1   0 || ||- 10|| = ||  5|| .
+              |&#x2308;     4     |&#x2309; |&#x2308;    |&#x2309;   |&#x2308;  2|&#x2309;
+               0   0   - 1    10      - 2
+              &#x25DF;-----&#x25DD;&#x25DC;----5&#x25DE; &#x25DF;-&#x25DD;&#x25DC;-&#x25DE;
+                   D-1         b
 " class="math-display" ></center></td></tr></table>
 <!--l. 1407--><p class="nopar" >
 No <span class="obeylines-h"><span class="verb"><span 
@@ -1028,14 +1050,16 @@ class="lmmi-12">T</span><sub><span
 class="lmmi-8">J</span></sub> e <span 
 class="lmmi-12">c</span><sub><span 
 class="lmmi-8">J</span></sub> da seguinte forma:
-                                                                          
-
-                                                                          
+                                                                                <img 
+src="main1252x.png" alt="PICT" >
+<img 
+src="main1255x.png" alt="PICT" >
+                                                                                
    <div class="verbatim" id="verbatim-30">
 --&#x003E;TJ&#x00A0;=&#x00A0;-inv(D)*(L+U);
 &#x00A0;<br />--&#x003E;cJ&#x00A0;=&#x00A0;inv(D)*b;
 </div>
-<!--l. 1413--><p class="nopar" >                                                                         <span 
+<!--l. 1413--><p class="nopar" >                                                                              <span 
 class="msam-10x-x-120">&#x2662;</span>
    </div>
 <!--l. 1417--><p class="noindent" >
@@ -1053,23 +1077,20 @@ class="lmmi-12">U</span>. Para tando, fazemos:
 <div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main633x.png" alt="Ax =  b &hArr;    (L + D + U )x = b
-        &hArr;    (L + D )x = &minus; Ux + b
-                           &minus;1              &minus;1
-        &hArr;    x = &minus;&#x25DF;-(L-+&#x25DD;D&#x25DC;-)--U&#x25DE;x + (&#x25DF;L-+-D&#x25DD;&#x25DC;-)--b&#x25DE;
+src="main1253x.png" alt="Ax = b  &#x21D4;    (L +  D + U )x = b
+
+        &#x21D4;    (L +  D )x =  - Ux + b
+        &#x21D4;    x = - (L +  D )-1U x + (L + D )-1b
+                 &#x25DF;-----&#x25DD;&#x25DC;-----&#x25DE;    &#x25DF;----&#x25DD;&#x25DC;----&#x25DE;
                       =:TG              =:cG
 " class="math-display" ></center>
-</div>Ou seja, a iteração do método de Gauss-Seidel escrita na forma matricial
-é:
+</div>Ou seja, a iteração do método de Gauss-Seidel escrita na forma matricial é:
    <table 
 class="equation-star"><tr><td>
-                                                                          
-
-                                                                          
    <center class="math-display" >
 <img 
-src="main634x.png" alt="  (k+1)       (k)
-x      = TGx    + cG,  k &ge; 1,
+src="main1254x.png" alt="  (k+1)       (k)
+x      = TGx    + cG,  k &#x2265; 1,
 " class="math-display" ></center></td></tr></table>
 <!--l. 1428--><p class="nopar" >
 com <span 
@@ -1079,16 +1100,16 @@ class="lmmi-12">T</span><sub>
 <span 
 class="lmmi-8">G</span></sub> <span 
 class="rm-lmr-12">:= </span><span 
-class="lmsy-10x-x-120">&minus;</span><span 
+class="lmsy-10x-x-120">-</span><span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">L </span><span 
 class="rm-lmr-12">+ </span><span 
 class="lmmi-12">D</span><span 
 class="rm-lmr-12">)</span><sup><span 
-class="lmsy8-">&minus;</span><span 
+class="lmsy8-">-</span><span 
 class="rm-lmr-8">1</span></sup><span 
-class="lmmi-12">U </span>a matriz de
-iteração e <span 
+class="lmmi-12">U </span>a matriz de iteração
+e <span 
 class="lmmi-12">c</span><sub><span 
 class="lmmi-8">J</span></sub> <span 
 class="rm-lmr-12">= (</span><span 
@@ -1096,7 +1117,7 @@ class="lmmi-12">L </span><span
 class="rm-lmr-12">+ </span><span 
 class="lmmi-12">D</span><span 
 class="rm-lmr-12">)</span><sup><span 
-class="lmsy8-">&minus;</span><span 
+class="lmsy8-">-</span><span 
 class="rm-lmr-8">1</span></sup><span 
 class="lmmi-12">b </span>o vetor da iteração.
    <div class="newtheorem">
@@ -1108,8 +1129,8 @@ class="ec-lmbx-12">Exemplo 4.6.5.</span>  </span>Construa a matriz de iteração <
 class="lmmi-12">T</span><sub><span 
 class="lmmi-8">G</span></sub> e o vetor de iteração <span 
 class="lmmi-12">c</span><sub><span 
-class="lmmi-8">G</span></sub>
-do método de Gauss-Seidel para o sistema dado no Exemplo&#x00A0;<a 
+class="lmmi-8">G</span></sub> do
+método de Gauss-Seidel para o sistema dado no Exemplo&#x00A0;<a 
 href="#x51-79004r3">4.6.3<!--tex4ht:ref: ex:sislin --></a>.
    </div>
 <!--l. 1434--><p class="indent" >
@@ -1123,28 +1144,34 @@ class="ec-lmbx-12">ão.</span> </span> A matriz de iteração é dada por:
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main635x.png" alt="                            &lfloor;            &rfloor; &minus;1 &lfloor;         &rfloor;    &lfloor;     1   1&rfloor;
-                            | 3    0   0 |    |0  1  &minus; 1|    |0  &minus; 3   3|
-                &minus;1          ||            ||    ||         ||    ||    1-   1||
-TG := &minus; (L + D )  U =  &minus; &minus;  ||&minus; 1  &minus; 4  0 ||    ||0  0   1 || =  ||0   12   6|| .
-                            &lceil; 1   &minus; 2  &minus; 5&rceil;   &lceil;0  0   0 &rceil;    &lceil;0  &minus; 1-  0&rceil;
-                           &#x25DF;-------&#x25DD;&#x25DC;-------&#x25DE;&#x25DF;----&#x25DD;&#x25DC;----&#x25DE;          10
-                                 (L+D )&minus;1           U
+src="main1257x.png" alt="                            &#x230A;            &#x230B; -1&#x230A;         &#x230B;    &#x230A;          &#x230B;
+                            | 3    0   0 |   |0   1  - 1|   |0  - 1   1|
+                            ||            ||   ||         ||    ||     3   3||
+TG := - (L + D )-1U  = - -  ||- 1  - 4  0 ||   ||0   0  1 || =  ||0   112   16|| .
+                            &#x2308;            &#x2309;   &#x2308;         &#x2309;    &#x2308;          &#x2309;
+                              1   - 2  - 5    0   0  0       0  - 110  0
+                            &#x25DF;------&#x25DD;&#x25DC;-------&#x25DE;&#x25DF;----&#x25DD;&#x25DC;----&#x25DE;
+                                 (L+D )-1          U
 " class="math-display" ></center></td></tr></table>
 <!--l. 1453--><p class="nopar" >
 O vetor da iteração de Gauss-Seidel é:
    <table 
 class="equation-star"><tr><td>
+                                                                                <img 
+src="main1259x.png" alt="PICT" >
+<img 
+src="main1261x.png" alt="PICT" >
+                                                                                
    <center class="math-display" >
 <img 
-src="main636x.png" alt="                     &lfloor;            &rfloor;    &lfloor;    &rfloor;   &lfloor;     &rfloor;
-                                    &minus;1             2
-                     || 3    0   0 ||    || 2  ||   ||  3  ||
-c  := (L + D )&minus;1b =  ||&minus; 1  &minus; 4  0 ||    ||&minus; 10|| = ||  7  ||.
- G                   |&lceil;            |&rceil;    |&lceil;    |&rceil;   |&lceil;  3  |&rceil;
-                       1   &minus; 2 &minus; 5       10       &minus; 28
-                    &#x25DF;-------&#x25DD;&#x25DC;-------&#x25DE;&#x25DF;--&#x25DD;&#x25DC;-&#x25DE;       10
-                          (L+D )&minus;1        b
+src="main1260x.png" alt="                    &#x230A;             &#x230B;- 1&#x230A;    &#x230B;    &#x230A;    &#x230B;
+                    |  3   0    0 |   |  2 |    | 23  |
+              - 1   ||             ||   ||    ||    ||    ||
+cG := (L +  D)  b = || - 1  - 4  0 ||   ||- 10|| =  || 73  ||.
+                    &#x2308;             &#x2309;   &#x2308;    &#x2309;    &#x2308;  28&#x2309;
+                       1   - 2 - 5      10       - 10
+                    &#x25DF;-------&#x25DD;&#x25DC;--1----&#x25DE;&#x25DF;-&#x25DD;&#x25DC;--&#x25DE;
+                          (L+D )          b
 " class="math-display" ></center></td></tr></table>
 <!--l. 1472--><p class="nopar" >
 No <span class="obeylines-h"><span class="verb"><span 
@@ -1153,21 +1180,23 @@ class="lmmi-12">T</span><sub><span
 class="lmmi-8">G</span></sub> e <span 
 class="lmmi-12">c</span><sub><span 
 class="lmmi-8">G</span></sub> da seguinte forma:
-                                                                          
-
-                                                                          
+                                                                                <img 
+src="main1262x.png" alt="PICT" >
+<img 
+src="main1264x.png" alt="PICT" >
+                                                                                
    <div class="verbatim" id="verbatim-31">
 --&#x003E;TG&#x00A0;=&#x00A0;-inv(L+D)*U;
 &#x00A0;<br />--&#x003E;cG&#x00A0;=&#x00A0;inv(L+D)*b;
 </div>
-<!--l. 1478--><p class="nopar" >                                                                         <span 
+<!--l. 1478--><p class="nopar" >                                                                              <span 
 class="msam-10x-x-120">&#x2662;</span>
    </div>
 <!--l. 1482--><p class="noindent" >
    <h5 class="subsubsectionHead"><a 
  id="x51-820004.6.3"></a>Condições de convergência</h5>
-<!--l. 1484--><p class="noindent" >Aqui, vamos discutir condições necessárias e suficientes para a convergência de
-métodos iterativos. Isto é, dado um sistema <span 
+<!--l. 1484--><p class="noindent" >Aqui, vamos discutir condições necessárias e suficientes para a convergência de métodos
+iterativos. Isto é, dado um sistema <span 
 class="lmmi-12">Ax </span><span 
 class="rm-lmr-12">= </span><span 
 class="lmmi-12">b </span>e uma iteração:
@@ -1175,8 +1204,8 @@ class="lmmi-12">b </span>e uma iteração:
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main637x.png" alt=" (k+1 )     (k)
-x     = T x   + c,  k &ge; 1,
+src="main1263x.png" alt=" (k+1)      (k)
+x     = T x   + c,  k &#x2265; 1,
 " class="math-display" ></center></td></tr></table>
 <!--l. 1487--><p class="nopar" >
 <span 
@@ -1186,21 +1215,21 @@ class="lmmi-12">x</span><sup><span
 class="rm-lmr-8">(</span><span 
 class="lmmi-8">k</span><span 
 class="rm-lmr-8">)</span></sup> <span 
-class="lmsy-10x-x-120">&rarr; </span><span 
+class="lmsy-10x-x-120">&#x2192; </span><span 
 class="lmmi-12">x</span><sup><span 
-class="lmsy8-">&lowast;</span></sup>, onde <span 
+class="lmsy8-">*</span></sup>, onde <span 
 class="lmmi-12">x</span><sup><span 
-class="lmsy8-">&lowast;</span></sup> é a solução do
-sistema dado, i.e. <span 
+class="lmsy8-">*</span></sup> é a solução do sistema
+dado, i.e. <span 
 class="lmmi-12">x</span><sup><span 
-class="lmsy8-">&lowast;</span></sup> <span 
+class="lmsy8-">*</span></sup> <span 
 class="rm-lmr-12">= </span><span 
 class="lmmi-12">Tx</span><sup><span 
-class="lmsy8-">&lowast;</span></sup> <span 
+class="lmsy8-">*</span></sup> <span 
 class="rm-lmr-12">+ </span><span 
 class="lmmi-12">c </span>ou, equivalentemente, <span 
 class="lmmi-12">Ax</span><sup><span 
-class="lmsy8-">&lowast;</span></sup> <span 
+class="lmsy8-">*</span></sup> <span 
 class="rm-lmr-12">= </span><span 
 class="lmmi-12">b</span>.
    <div class="newtheorem">
@@ -1208,50 +1237,52 @@ class="lmmi-12">b</span>.
 <a 
  id="x51-82001r1"></a>
 <span 
-class="ec-lmbx-12">Lema 4.6.1.</span>  </span> <span 
-class="ec-lmri-12">Seja </span><span 
-class="lmmi-12">T </span><span 
-class="ec-lmri-12">uma matriz real </span><span 
+class="ec-lmbx-12">Lema 4.6.1.</span>  </span>  <span 
+class="ec-lmri-12">Seja  </span><span 
+class="lmmi-12">T  </span><span 
+class="ec-lmri-12">uma  matriz  real  </span><span 
 class="lmmi-12">n </span><span 
 class="lmsy-10x-x-120">&#x00D7; </span><span 
 class="lmmi-12">n</span><span 
-class="ec-lmri-12">. O limite</span> <span 
+class="ec-lmri-12">.  O  limite</span>  <span 
 class="rm-lmr-12">lim</span> <sub><span 
 class="lmmi-8">k</span><span 
-class="lmsy8-">&rarr;&infin;</span></sub><span 
+class="lmsy8-">&#x2192;&#x221E;</span></sub><span 
 class="lmsy-10x-x-120">&#x2225;</span><span 
 class="lmmi-12">T</span><sup><span 
 class="lmmi-8">k</span></sup><span 
 class="lmsy-10x-x-120">&#x2225;</span><sub>
 <span 
-class="lmmi-8">p</span></sub> <span 
-class="rm-lmr-12">= 0</span><span 
+class="lmmi-8">p</span></sub>  <span 
+class="rm-lmr-12">=  0</span><span 
 class="ec-lmri-12">,</span>
 <span 
 class="rm-lmr-12">1 </span><span 
-class="lmsy-10x-x-120">&le; </span><span 
+class="lmsy-10x-x-120">&#x2264; </span><span 
 class="lmmi-12">p </span><span 
-class="lmsy-10x-x-120">&le;&infin;</span><span 
+class="lmsy-10x-x-120">&#x2264;&#x221E;</span><span 
 class="ec-lmri-12">, se, e somente se, </span><span 
-class="lmmi-12">&rho;</span><span 
+class="lmmi-12">&#x03C1;</span><span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">T</span><span 
 class="rm-lmr-12">) </span><span 
 class="lmmi-12">&#x003C; </span><span 
 class="rm-lmr-12">1</span><span 
 class="ec-lmri-12">.</span>
-                                                                          
-
-                                                                          
    </div>
 <!--l. 1493--><p class="indent" >
    <div class="proof">
 <!--l. 1494--><p class="indent" >   <span class="head">
+                                                                                <img 
+src="main1265x.png" alt="PICT" >
+<img 
+src="main1269x.png" alt="PICT" >
+                                                                                
 <span 
 class="ec-lmri-12">Demonstra</span><span 
 class="ec-lmri-12">ç</span><span 
-class="ec-lmri-12">ão.</span> </span>Aqui,  fazemos  apenas  um  esboço  da  demonstração.  Para
-mais detalhes, veja [8], Teorema 4, pág. 14.
+class="ec-lmri-12">ão.</span> </span>Aqui,  fazemos  apenas  um  esboço  da  demonstração.  Para  mais
+detalhes, veja [8], Teorema 4, pág. 14.
 <!--l. 1496--><p class="indent" >   Primeiramente, suponhamos que <span 
 class="lmsy-10x-x-120">&#x2225;</span><span 
 class="lmmi-12">T</span><span 
@@ -1260,26 +1291,26 @@ class="lmmi-8">p</span></sub> <span
 class="lmmi-12">&#x003C; </span><span 
 class="rm-lmr-12">1</span>, <span 
 class="rm-lmr-12">1 </span><span 
-class="lmsy-10x-x-120">&le; </span><span 
+class="lmsy-10x-x-120">&#x2264; </span><span 
 class="lmmi-12">p </span><span 
-class="lmsy-10x-x-120">&le;&infin;</span>. Como (veja [8], Lema
-2, pág. 12):
+class="lmsy-10x-x-120">&#x2264;&#x221E;</span>. Como (veja [8], Lema 2, pág.
+12):
    <table 
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main638x.png" alt="&rho;(T ) &le; &#x2225;T &#x2225;p,
+src="main1266x.png" alt="&#x03C1;(T ) &#x2264; &#x2225;T &#x2225;p,
 " class="math-display" ></center></td></tr></table>
 <!--l. 1499--><p class="nopar" >
 temos <span 
-class="lmmi-12">&rho;</span><span 
+class="lmmi-12">&#x03C1;</span><span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">T</span><span 
 class="rm-lmr-12">) </span><span 
 class="lmmi-12">&#x003C; </span><span 
 class="rm-lmr-12">1</span>, o que mostra a implicação.
 <!--l. 1502--><p class="indent" >   Agora, suponhamos que <span 
-class="lmmi-12">&rho;</span><span 
+class="lmmi-12">&#x03C1;</span><span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">T</span><span 
 class="rm-lmr-12">) </span><span 
@@ -1288,36 +1319,33 @@ class="rm-lmr-12">1 </span>e seja <span
 class="rm-lmr-12">0 </span><span 
 class="lmmi-12">&#x003C; &#x03F5; &#x003C; </span><span 
 class="rm-lmr-12">1 </span><span 
-class="lmsy-10x-x-120">&minus; </span><span 
-class="lmmi-12">&rho;</span><span 
+class="lmsy-10x-x-120">- </span><span 
+class="lmmi-12">&#x03C1;</span><span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">T</span><span 
-class="rm-lmr-12">)</span>. Então, existe
-<span 
+class="rm-lmr-12">)</span>. Então, existe <span 
 class="rm-lmr-12">1 </span><span 
-class="lmsy-10x-x-120">&le; </span><span 
+class="lmsy-10x-x-120">&#x2264; </span><span 
 class="lmmi-12">p </span><span 
-class="lmsy-10x-x-120">&le;&infin; </span>tal que (veja [8], Teorema 3, página 12):
+class="lmsy-10x-x-120">&#x2264;&#x221E;</span>
+tal que (veja [8], Teorema 3, página 12):
    <table 
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main639x.png" alt="&#x2225;T&#x2225;p &le; &rho; (T) + &#x03F5; &#x003C; 1.
+src="main1267x.png" alt="&#x2225;T &#x2225;p &#x2264; &#x03C1;(T ) + &#x03F5; &#x003C; 1.
 " class="math-display" ></center></td></tr></table>
-                                                                          
-
-                                                                          
 <!--l. 1505--><p class="nopar" >
 Assim, temos:
    <table 
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main640x.png" alt="       k              m
-lki&rarr;m&infin; &#x2225;T  &#x2225;p &le; kli&rarr;m&infin; &#x2225;T &#x2225;p = 0.
+src="main1268x.png" alt="       k             m
+lkim&#x2192;&#x221E; &#x2225;T  &#x2225;p &#x2264; kli&#x2192;m&#x221E; &#x2225;T&#x2225;p  = 0.
 " class="math-display" ></center></td></tr></table>
 <!--l. 1509--><p class="nopar" >
-Da equivalência entre as normas segue a recíproca.                              __
+Da equivalência entre as normas segue a recíproca.                                     __
    </div>
    <div class="newtheorem">
 <!--l. 1513--><p class="noindent" ><span class="head">
@@ -1331,13 +1359,10 @@ class="ec-lmbx-12">ão 4.6.1.</span>  </span> Observamos que:
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main641x.png" alt=" lim  &#x2225;Tk&#x2225;p = 0,  ,1 &le; p &le; &infin;,  &hArr;  lim  tk = 0,  1 &le;  i,j &le; n.
-k&rarr; &infin;                             k&rarr;&infin;  ij
+src="main1271x.png" alt="       k                              k
+lkim&#x2192;&#x221E; &#x2225;T  &#x2225;p = 0,  ,1 &#x2264; p &#x2264; &#x221E;, &#x21D4;  kl&#x2192;im&#x221E; tij = 0,  1 &#x2264; i,j &#x2264; n.
 " class="math-display" ></center></td></tr></table>
 <!--l. 1517--><p class="nopar" >
-                                                                          
-
-                                                                          
    </div>
    <div class="newtheorem">
 <!--l. 1520--><p class="noindent" ><span class="head">
@@ -1346,7 +1371,7 @@ k&rarr; &infin;                             k&rarr;&infin;  ij
 <span 
 class="ec-lmbx-12">Lema 4.6.2.</span>  </span> <span 
 class="ec-lmri-12">Se </span><span 
-class="lmmi-12">&rho;</span><span 
+class="lmmi-12">&#x03C1;</span><span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">T</span><span 
 class="rm-lmr-12">) </span><span 
@@ -1356,19 +1381,24 @@ class="ec-lmri-12">, ent</span><span
 class="ec-lmri-12">ão existe </span><span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">I </span><span 
-class="lmsy-10x-x-120">&minus; </span><span 
+class="lmsy-10x-x-120">- </span><span 
 class="lmmi-12">T</span><span 
 class="rm-lmr-12">)</span><sup><span 
-class="lmsy8-">&minus;</span><span 
+class="lmsy8-">-</span><span 
 class="rm-lmr-8">1</span></sup> <span 
 class="ec-lmri-12">e:</span>
    <table 
 class="equation-star"><tr><td>
    <center class="math-display" >
+                                                                                <img 
+src="main1274x.png" alt="PICT" >
 <img 
-src="main642x.png" alt="            &sum;&infin;
-(I &minus; T )&minus;1 =    T k.
-            k=0
+src="main1276x.png" alt="PICT" >
+                                                                                
+<img 
+src="main1272x.png" alt="             &#x221E;&#x2211;
+(I - T )-1 =    T k.
+             k=0
 " class="math-display" ></center></td></tr></table>
 <!--l. 1524--><p class="nopar" >
    </div>
@@ -1381,89 +1411,86 @@ class="ec-lmri-12">ç</span><span
 class="ec-lmri-12">ão.</span> </span>Primeiramente, provamos a existência de <span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">I </span><span 
-class="lmsy-10x-x-120">&minus; </span><span 
+class="lmsy-10x-x-120">- </span><span 
 class="lmmi-12">T</span><span 
 class="rm-lmr-12">)</span><sup><span 
-class="lmsy8-">&minus;</span><span 
+class="lmsy8-">-</span><span 
 class="rm-lmr-8">1</span></sup>. Seja <span 
-class="lmmi-12">&lambda;</span>
-um autovalor de <span 
+class="lmmi-12">&#x03BB; </span>um
+autovalor de <span 
 class="lmmi-12">T </span>e <span 
 class="lmmi-12">x </span>um autovetor associado, i.e. <span 
 class="lmmi-12">Tx </span><span 
 class="rm-lmr-12">= </span><span 
-class="lmmi-12">&lambda;x</span>. Então,
-<span 
+class="lmmi-12">&#x03BB;x</span>. Então, <span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">I </span><span 
-class="lmsy-10x-x-120">&minus; </span><span 
+class="lmsy-10x-x-120">- </span><span 
 class="lmmi-12">T</span><span 
 class="rm-lmr-12">)</span><span 
 class="lmmi-12">x </span><span 
 class="rm-lmr-12">= (1 </span><span 
-class="lmsy-10x-x-120">&minus; </span><span 
-class="lmmi-12">&lambda;</span><span 
+class="lmsy-10x-x-120">- </span><span 
+class="lmmi-12">&#x03BB;</span><span 
 class="rm-lmr-12">)</span><span 
-class="lmmi-12">x</span>. Além disso, temos <span 
+class="lmmi-12">x</span>.
+Além disso, temos <span 
 class="lmsy-10x-x-120">|</span><span 
-class="lmmi-12">&lambda;</span><span 
+class="lmmi-12">&#x03BB;</span><span 
 class="lmsy-10x-x-120">| </span><span 
-class="lmmi-12">&#x003C; &rho;</span><span 
+class="lmmi-12">&#x003C; &#x03C1;</span><span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">T</span><span 
 class="rm-lmr-12">) </span><span 
 class="lmmi-12">&#x003C; </span><span 
 class="rm-lmr-12">1</span>, logo <span 
 class="rm-lmr-12">(1 </span><span 
-class="lmsy-10x-x-120">&minus; </span><span 
-class="lmmi-12">&lambda;</span><span 
+class="lmsy-10x-x-120">- </span><span 
+class="lmmi-12">&#x03BB;</span><span 
 class="rm-lmr-12">)</span><span 
-class="lmmi-12">&ne;</span><span 
-class="rm-lmr-12">0</span>, o que
-garante que <span 
+class="lmmi-12">&#x2260;</span><span 
+class="rm-lmr-12">0</span>, o que garante que <span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">I </span><span 
-class="lmsy-10x-x-120">&minus; </span><span 
+class="lmsy-10x-x-120">- </span><span 
 class="lmmi-12">T</span><span 
-class="rm-lmr-12">) </span>é não singular. Agora, mostramos que <span 
+class="rm-lmr-12">) </span>é não
+singular. Agora, mostramos que <span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">I </span><span 
-class="lmsy-10x-x-120">&minus; </span><span 
+class="lmsy-10x-x-120">- </span><span 
 class="lmmi-12">T</span><span 
 class="rm-lmr-12">)</span><sup><span 
-class="lmsy8-">&minus;</span><span 
-class="rm-lmr-8">1</span></sup> admite a
-expansão acima. Do Lema&#x00A0;<a 
-href="#x51-82001r1">4.6.1<!--tex4ht:ref: lema:matriz_convergente --></a> e da Observação&#x00A0;<a 
+class="lmsy8-">-</span><span 
+class="rm-lmr-8">1</span></sup> admite a expansão acima. Do Lema&#x00A0;<a 
+href="#x51-82001r1">4.6.1<!--tex4ht:ref: lema:matriz_convergente --></a> e
+da Observação&#x00A0;<a 
 href="#x51-82002r1">4.6.1<!--tex4ht:ref: obs:matriz_convergente --></a> temos:
    <table 
 class="equation-star"><tr><td>
-                                                                          
-
-                                                                          
    <center class="math-display" >
 <img 
-src="main643x.png" alt="       &sum;&infin;                    m&sum;
-(I &minus; T )   Tk =  lim  (I &minus; T)    T k = lim (I &minus; T m+1) = I,
-       k=0      m &rarr;&infin;         k=0      m&rarr; &infin;
+src="main1275x.png" alt="        &#x221E;                    m
+(I - T )&#x2211;   Tk =  lim  (I - T) &#x2211;  T k = lim (I - T m+1) = I,
+       k=0      m &#x2192;&#x221E;         k=0      m &#x2192; &#x221E;
 " class="math-display" ></center></td></tr></table>
 <!--l. 1531--><p class="nopar" >
 o que mostra que <span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">I </span><span 
-class="lmsy-10x-x-120">&minus; </span><span 
+class="lmsy-10x-x-120">- </span><span 
 class="lmmi-12">T</span><span 
 class="rm-lmr-12">)</span><sup><span 
-class="lmsy8-">&minus;</span><span 
+class="lmsy8-">-</span><span 
 class="rm-lmr-8">1</span></sup> <span 
 class="rm-lmr-12">=</span> <span 
-class="lmex-10">&sum;</span><sub>
+class="lmex-10">&#x2211;</span><sub>
 <span 
 class="lmmi-8">k</span><span 
 class="rm-lmr-8">=0</span></sub><sup><span 
-class="lmsy8-">&infin;</span></sup><span 
+class="lmsy8-">&#x221E;</span></sup><span 
 class="lmmi-12">T</span><sup><span 
-class="lmmi-8">k</span></sup>.                                          __
+class="lmmi-8">k</span></sup>.                                                 __
    </div>
    <div class="newtheorem">
 <!--l. 1535--><p class="noindent" ><span class="head">
@@ -1481,14 +1508,20 @@ class="rm-lmr-8">)</span></sup><span
 class="lmsy-10x-x-120">}</span><sub>
 <span 
 class="lmmi-8">k</span><span 
-class="lmsy8-">&isin;</span><span 
+class="lmsy8-">&#x2208;</span><span 
 class="msbm-10x-x-80">&#x2115;</span></sub>  <span 
 class="ec-lmri-12">dada por:</span>
    <table 
 class="equation-star"><tr><td>
+                                                                                <img 
+src="main1277x.png" alt="PICT" >
+<img 
+src="main1281x.png" alt="PICT" >
+                                                                                
    <center class="math-display" >
 <img 
-src="main644x.png" alt="x (k+1) = T x(k) + c
+src="main1278x.png" alt=" (k+1)      (k)
+x     =  Tx   +  c
 " class="math-display" ></center></td></tr></table>
 <!--l. 1539--><p class="nopar" >
 <span 
@@ -1503,10 +1536,9 @@ class="lmmi-12">c </span><span
 class="ec-lmri-12">para qualquer escolha de </span><span 
 class="lmmi-12">x</span><sup><span 
 class="rm-lmr-8">(1)</span></sup> <span 
-class="ec-lmri-12">se, e somente</span>
+class="ec-lmri-12">se, e somente se,</span>
 <span 
-class="ec-lmri-12">se, </span><span 
-class="lmmi-12">&rho;</span><span 
+class="lmmi-12">&#x03C1;</span><span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">T</span><span 
 class="rm-lmr-12">) </span><span 
@@ -1517,14 +1549,11 @@ class="ec-lmri-12">.</span>
 <!--l. 1542--><p class="indent" >
    <div class="proof">
 <!--l. 1543--><p class="indent" >   <span class="head">
-                                                                          
-
-                                                                          
 <span 
 class="ec-lmri-12">Demonstra</span><span 
 class="ec-lmri-12">ç</span><span 
 class="ec-lmri-12">ão.</span> </span>Primeiramente, assumimos que <span 
-class="lmmi-12">&rho;</span><span 
+class="lmmi-12">&#x03C1;</span><span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">T</span><span 
 class="rm-lmr-12">) </span><span 
@@ -1533,27 +1562,33 @@ class="rm-lmr-12">1</span>. Observamos que:
 <div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main645x.png" alt="x(k+1)  = T x(k) + c = T (T x(k&minus;1) + c) + c
-             = T 2x(k&minus;1) + (I + T )c
+src="main1279x.png" alt=" (k+1)
+x      =  Tx (k) + c = T(T x(k-1) + c) + c
+             = T 2x(k- 1) + (I + T)c
 
                        ...
-               (k) (1)   (&sum;k &minus;1  k)
-           =  T   x   +    k=0T    c.
+               (k) (1)   (&#x2211;k -1  k)
+           =  T  x   +     k=0T   c.
 " class="math-display" ></center>
 </div>Daí, do Lema&#x00A0;<a 
 href="#x51-82001r1">4.6.1<!--tex4ht:ref: lema:matriz_convergente --></a> e do Lema&#x00A0;<a 
 href="#x51-82003r2">4.6.2<!--tex4ht:ref: lema:inversa --></a> temos:
    <table 
 class="equation-star"><tr><td>
+                                                                                <img 
+src="main1282x.png" alt="PICT" >
+<img 
+src="main1285x.png" alt="PICT" >
+                                                                                
    <center class="math-display" >
 <img 
-src="main646x.png" alt="      (k)          (&minus; 1)
-kli&rarr;m&infin; x   = (I &minus; T )   c.
+src="main1280x.png" alt=" lim  x(k) = (I - T )(-1)c.
+k&#x2192; &#x221E;
 " class="math-display" ></center></td></tr></table>
 <!--l. 1553--><p class="nopar" >
 Ora, se <span 
 class="lmmi-12">x</span><sup><span 
-class="lmsy8-">&lowast;</span></sup> é a solução de <span 
+class="lmsy8-">*</span></sup> é a solução de <span 
 class="lmmi-12">x </span><span 
 class="rm-lmr-12">= </span><span 
 class="lmmi-12">Tx </span><span 
@@ -1561,24 +1596,24 @@ class="rm-lmr-12">+ </span><span
 class="lmmi-12">c</span>, então <span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">I </span><span 
-class="lmsy-10x-x-120">&minus; </span><span 
+class="lmsy-10x-x-120">- </span><span 
 class="lmmi-12">T</span><span 
 class="rm-lmr-12">)</span><span 
 class="lmmi-12">x</span><sup><span 
-class="lmsy8-">&lowast;</span></sup> <span 
+class="lmsy8-">*</span></sup> <span 
 class="rm-lmr-12">= </span><span 
 class="lmmi-12">c</span>, i.e. <span 
 class="lmmi-12">x</span><sup><span 
-class="lmsy8-">&lowast;</span></sup> <span 
+class="lmsy8-">*</span></sup> <span 
 class="rm-lmr-12">= (</span><span 
 class="lmmi-12">I </span><span 
-class="lmsy-10x-x-120">&minus; </span><span 
+class="lmsy-10x-x-120">- </span><span 
 class="lmmi-12">T</span><span 
 class="rm-lmr-12">)</span><sup><span 
-class="lmsy8-">&minus;</span><span 
+class="lmsy8-">-</span><span 
 class="rm-lmr-8">1</span></sup><span 
-class="lmmi-12">c</span>.
-Logo, temos demonstrado que <span 
+class="lmmi-12">c</span>. Logo,
+temos demonstrado que <span 
 class="lmmi-12">x</span><sup><span 
 class="rm-lmr-8">(</span><span 
 class="lmmi-8">k</span><span 
@@ -1587,26 +1622,23 @@ class="lmmi-12">x </span><span
 class="rm-lmr-12">= </span><span 
 class="lmmi-12">Tx </span><span 
 class="rm-lmr-12">+ </span><span 
-class="lmmi-12">c</span>, para
-qualquer escolha de <span 
+class="lmmi-12">c</span>, para qualquer
+escolha de <span 
 class="lmmi-12">x</span><sup><span 
 class="rm-lmr-8">(1)</span></sup>.
-                                                                          
-
-                                                                          
 <!--l. 1556--><p class="indent" >   Agora, suponhamos que <span 
 class="lmmi-12">x</span><sup><span 
 class="rm-lmr-8">(</span><span 
 class="lmmi-8">k</span><span 
 class="rm-lmr-8">)</span></sup> converge para <span 
 class="lmmi-12">x</span><sup><span 
-class="lmsy8-">&lowast;</span></sup> solução de <span 
+class="lmsy8-">*</span></sup> solução de <span 
 class="lmmi-12">x </span><span 
 class="rm-lmr-12">= </span><span 
 class="lmmi-12">Tx </span><span 
 class="rm-lmr-12">+ </span><span 
-class="lmmi-12">c</span>, para
-qualquer escolha de <span 
+class="lmmi-12">c</span>, para qualquer
+escolha de <span 
 class="lmmi-12">x</span><sup><span 
 class="rm-lmr-8">(1)</span></sup>. Seja, então, <span 
 class="lmmi-12">y </span>um vetor arbitrário e <span 
@@ -1614,30 +1646,31 @@ class="lmmi-12">x</span><sup><span
 class="rm-lmr-8">(1)</span></sup> <span 
 class="rm-lmr-12">= </span><span 
 class="lmmi-12">x</span><sup><span 
-class="lmsy8-">&lowast;</span></sup> <span 
-class="lmsy-10x-x-120">&minus; </span><span 
-class="lmmi-12">y</span>.
-Observamos que: <div class="eqnarray">
+class="lmsy8-">*</span></sup> <span 
+class="lmsy-10x-x-120">- </span><span 
+class="lmmi-12">y</span>. Observamos que:
+<div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main647x.png" alt="x &lowast; &minus; x (k+1) = (T x&lowast; + c) &minus; (T x(k) + c)
-                  =  T(x&lowast; &minus; x(k))
-
-                         ...
-                 (k)  &lowast;    (1)     (k)
-             = T   (x  &minus; x  ) = T   y.
+src="main1283x.png" alt=" *    (k+1)        *           (k)
+x  - x      =  (Tx  + c) - (Tx   +  c)
+                  = T (x* - x(k))
+                         .
+                         ..
+                (k)  *    (1)     (k)
+            =  T   (x -  x  ) = T   y.
 " class="math-display" ></center>
 </div>Logo, para qualquer <span 
 class="rm-lmr-12">1 </span><span 
-class="lmsy-10x-x-120">&le; </span><span 
+class="lmsy-10x-x-120">&#x2264; </span><span 
 class="lmmi-12">p </span><span 
-class="lmsy-10x-x-120">&le;&infin;</span>, temos, :
+class="lmsy-10x-x-120">&#x2264;&#x221E;</span>, temos, :
    <table 
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main648x.png" alt="          &lowast;    (k+1)         (k)
-0 = lki&rarr;m&infin; x  &minus; x      = kli&rarr;m&infin; T  y.
+src="main1284x.png" alt="         *    (k+1)         (k)
+0 = lkim&#x2192;&#x221E; x  - x     =  lkim&#x2192;&#x221E; T   y.
 " class="math-display" ></center></td></tr></table>
 <!--l. 1566--><p class="nopar" >
 Como <span 
@@ -1645,7 +1678,7 @@ class="lmmi-12">y </span>é arbitrário, da Observação&#x00A0;<a
 href="#x51-82002r1">4.6.1<!--tex4ht:ref: obs:matriz_convergente --></a> temos <span 
 class="rm-lmr-12">lim</span> <sub><span 
 class="lmmi-8">k</span><span 
-class="lmsy8-">&rarr;&infin;</span></sub><span 
+class="lmsy8-">&#x2192;&#x221E;</span></sub><span 
 class="lmsy-10x-x-120">&#x2225;</span><span 
 class="lmmi-12">T</span><sup><span 
 class="rm-lmr-8">(</span><span 
@@ -1656,25 +1689,22 @@ class="lmsy-10x-x-120">&#x2225;</span><sub>
 class="lmmi-8">p</span></sub> <span 
 class="rm-lmr-12">= 0</span>, <span 
 class="rm-lmr-12">1 </span><span 
-class="lmsy-10x-x-120">&le; </span><span 
+class="lmsy-10x-x-120">&#x2264; </span><span 
 class="lmmi-12">p </span><span 
-class="lmsy-10x-x-120">&le;&infin;</span>.
+class="lmsy-10x-x-120">&#x2264;&#x221E;</span>.
 Então, o Lema&#x00A0;<a 
 href="#x51-82001r1">4.6.1<!--tex4ht:ref: lema:matriz_convergente --></a> garante que <span 
-class="lmmi-12">&rho;</span><span 
+class="lmmi-12">&#x03C1;</span><span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">T</span><span 
 class="rm-lmr-12">) </span><span 
 class="lmmi-12">&#x003C; </span><span 
-class="rm-lmr-12">1</span>.                                        __
+class="rm-lmr-12">1</span>.                                                __
    </div>
    <div class="newtheorem">
 <!--l. 1570--><p class="noindent" ><span class="head">
 <a 
  id="x51-82007r2"></a>
-                                                                          
-
-                                                                          
 <span 
 class="ec-lmbx-12">Observa</span><span 
 class="ec-lmbx-12">ç</span><span 
@@ -1684,7 +1714,7 @@ convergência super linear com:
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main649x.png" alt="&#x2225;x(k+1) &minus; x&lowast;&#x2225; &asymp; &rho;(T)k&#x2225;x(1) &minus; x &lowast;&#x2225;.
+src="main1287x.png" alt="&#x2225;x (k+1) - x*&#x2225; &#x2248; &#x03C1;(T )k&#x2225;x(1) - x*&#x2225;.
 " class="math-display" ></center></td></tr></table>
 <!--l. 1574--><p class="nopar" >
 Para mais detalhes, veja [8], pág. 61-64.
@@ -1694,67 +1724,66 @@ Para mais detalhes, veja [8], pág. 61-64.
 <a 
  id="x51-82008r6"></a>
 <span 
-class="ec-lmbx-12">Exemplo 4.6.6.</span>  </span>Mostre que, para qualquer escolha da aproximação inicial,
-ambos  os  métodos  de  Jacobi  e  Gauss-Seidel  são  convergentes  quando
-aplicados ao sistema linear dado no Exemplo&#x00A0;<a 
+class="ec-lmbx-12">Exemplo 4.6.6.</span>  </span>Mostre  que,  para  qualquer  escolha  da  aproximação  inicial,
+ambos os métodos de Jacobi e Gauss-Seidel são convergentes quando aplicados ao
+sistema linear dado no Exemplo&#x00A0;<a 
 href="#x51-79004r3">4.6.3<!--tex4ht:ref: ex:sislin --></a>.
    </div>
 <!--l. 1581--><p class="indent" >
    <div class="proof">
+                                                                                <img 
+src="main1289x.png" alt="PICT" >
+<img 
+src="main1291x.png" alt="PICT" >
+                                                                                
 <!--l. 1581--><p class="indent" >   <span class="head">
 <span 
 class="ec-lmbx-12">Solu</span><span 
 class="ec-lmbx-12">ç</span><span 
-class="ec-lmbx-12">ão.</span> </span>  Do  Teorema&#x00A0;<a 
-href="#x51-82004r1">4.6.1<!--tex4ht:ref: teo:convergencia --></a>,  vemos  que  é  necessário  e  suficiente  que
-<span 
-class="lmmi-12">&rho;</span><span 
+class="ec-lmbx-12">ão.</span> </span> Do Teorema&#x00A0;<a 
+href="#x51-82004r1">4.6.1<!--tex4ht:ref: teo:convergencia --></a>, vemos que é necessário e suficiente que <span 
+class="lmmi-12">&#x03C1;</span><span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">T</span><sub><span 
 class="lmmi-8">J</span></sub><span 
-class="rm-lmr-12">)  </span><span 
-class="lmmi-12">&#x003C;  </span><span 
-class="rm-lmr-12">1  </span>e  <span 
-class="lmmi-12">&rho;</span><span 
+class="rm-lmr-12">) </span><span 
+class="lmmi-12">&#x003C; </span><span 
+class="rm-lmr-12">1</span>
+e  <span 
+class="lmmi-12">&#x03C1;</span><span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">T</span><sub><span 
 class="lmmi-8">G</span></sub><span 
 class="rm-lmr-12">)  </span><span 
 class="lmmi-12">&#x003C;  </span><span 
-class="rm-lmr-12">1</span>.  Computando  estes  raios  espectrais,  obtemos
-<span 
-class="lmmi-12">&rho;</span><span 
+class="rm-lmr-12">1</span>.  Computando  estes  raios  espectrais,  obtemos  <span 
+class="lmmi-12">&#x03C1;</span><span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">T</span><sub><span 
 class="lmmi-8">J</span></sub><span 
 class="rm-lmr-12">)  </span><span 
-class="lmsy-10x-x-120">&asymp; </span><span 
+class="lmsy-10x-x-120">&#x2248; </span><span 
 class="rm-lmr-12">0</span><span 
 class="lmmi-12">,</span><span 
-class="rm-lmr-12">32 </span>e <span 
-class="lmmi-12">&rho;</span><span 
+class="rm-lmr-12">32  </span>e
+<span 
+class="lmmi-12">&#x03C1;</span><span 
 class="rm-lmr-12">(</span><span 
 class="lmmi-12">T</span><sub><span 
 class="lmmi-8">G</span></sub><span 
-class="rm-lmr-12">)  </span><span 
-class="lmsy-10x-x-120">&asymp; </span><span 
+class="rm-lmr-12">) </span><span 
+class="lmsy-10x-x-120">&#x2248; </span><span 
 class="rm-lmr-12">0</span><span 
 class="lmmi-12">,</span><span 
-class="rm-lmr-12">13</span>. Isto mostra que ambos os métodos serão
-convergentes.                                                                                <span 
+class="rm-lmr-12">13</span>. Isto mostra que ambos os métodos serão convergentes.              <span 
 class="msam-10x-x-120">&#x2662;</span>
    </div>
-                                                                          
-
-                                                                          
 <!--l. 1585--><p class="noindent" >
    <h5 class="subsubsectionHead"><a 
  id="x51-830004.6.3"></a>Condição suficiente</h5>
-<!--l. 1587--><p class="noindent" >Uma condição suficiente porém não necessária para que os métodos de
-Gauss-Seidel e Jacobi convirjam é a que a matriz seja <span 
-class="ec-lmbx-12">estritamente diagonal</span>
-<span 
-class="ec-lmbx-12">dominante</span><a 
+<!--l. 1587--><p class="noindent" >Uma condição suficiente porém não necessária para que os métodos de Gauss-Seidel e
+Jacobi convirjam é a que a matriz seja <span 
+class="ec-lmbx-12">estritamente diagonal dominante</span><a 
  id="dx51-83001"></a>.
    <div class="newtheorem">
 <!--l. 1589--><p class="noindent" ><span class="head">
@@ -1774,10 +1803,10 @@ class="ec-lmri-12">quando:</span>
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main650x.png" alt="        n
-|a | &#x003E; &sum;  |a |,i = 1,...,n
-  ii    j=1   ij
-       j&frasl;=i
+src="main1290x.png" alt="      &#x2211;n
+|aii| &#x003E;    |aij|,i = 1,...,n
+      j=1
+       j&#x2044;=i
 " class="math-display" ></center></td></tr></table>
 <!--l. 1593--><p class="nopar" >
    </div>
@@ -1785,6 +1814,11 @@ src="main650x.png" alt="        n
 <!--l. 1596--><p class="noindent" ><span class="head">
 <a 
  id="x51-83003r2"></a>
+                                                                                <img 
+src="main1292x.png" alt="PICT" >
+<img 
+src="main1295x.png" alt="PICT" >
+                                                                                
 <span 
 class="ec-lmbx-12">Defini</span><span 
 class="ec-lmbx-12">ç</span><span 
@@ -1796,15 +1830,11 @@ class="ec-lmbxi-10x-x-120">diagonal dominante </span><span
 class="ec-lmri-12">quando</span>
    <table 
 class="equation-star"><tr><td>
-                                                                          
-
-                                                                          
    <center class="math-display" >
 <img 
-src="main651x.png" alt="       &sum;n
-|aii| &ge;    |aij|,i = 1,...,n
-       j=1
-       j&frasl;=i
+src="main1293x.png" alt="      &#x2211;n
+|aii| &#x2265;    |aij|,i = 1,...,n
+      j=j&#x2044;=1i
 " class="math-display" ></center></td></tr></table>
 <!--l. 1600--><p class="nopar" >
 <span 
@@ -1833,27 +1863,24 @@ class="ec-lmri-12">,</span>
 class="ec-lmri-12">ent</span><span 
 class="ec-lmri-12">ão os m</span><span 
 class="ec-lmri-12">étodos de Jacobi e Gauss-Seidel ser</span><span 
-class="ec-lmri-12">ão convergentes independente</span>
+class="ec-lmri-12">ão convergentes independente da</span>
 <span 
-class="ec-lmri-12">da escolha inicial </span><span 
+class="ec-lmri-12">escolha inicial </span><span 
 class="lmmi-12">x</span><sup><span 
 class="rm-lmr-8">(1)</span></sup><span 
 class="ec-lmri-12">.</span>
    </div>
 <!--l. 1608--><p class="indent" >   Se conhecermos a solução exata <span 
-class="lmmi-12">x </span>do problema, podemos calcular o erro
-relativo em cada iteração como:
+class="lmmi-12">x </span>do problema, podemos calcular o erro relativo em
+cada iteração como:
    <table 
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main652x.png" alt="      (k)
-&#x2225;x-&minus;-x--&#x2225;-.
-   &#x2225;x&#x2225;
+src="main1294x.png" alt="&#x2225;x -  x(k)&#x2225;
+---------- .
+    &#x2225;x&#x2225;
 " class="math-display" ></center></td></tr></table>
-                                                                          
-
-                                                                          
 <!--l. 1611--><p class="nopar" >
 <!--l. 1613--><p class="indent" >   Em geral não temos <span 
 class="lmmi-12">x</span>, entretanto podemos estimar o vetor <span 
@@ -1865,10 +1892,10 @@ class="rm-lmr-8">(</span><span
 class="lmmi-8">k</span><span 
 class="rm-lmr-8">)</span></sup> <span 
 class="rm-lmr-12">= </span><span 
-class="lmmi-12">b</span><span 
-class="lmsy-10x-x-120">&minus;</span><span 
+class="lmmi-12">b </span><span 
+class="lmsy-10x-x-120">- </span><span 
 class="lmmi-12">A</span><img 
-src="main653x.png" alt="x&#x02DC;(k)"  class="tilde" >. Note que quando o erro tende a zero, o resíduo também tende a
+src="main1297x.png" alt="x&#x02DC;(k)"  class="tilde" >. Note que quando o erro tende a zero, o resíduo também tende a
 zero.
    <div class="newtheorem">
 <!--l. 1615--><p class="noindent" ><span class="head">
@@ -1878,16 +1905,13 @@ zero.
 class="ec-lmbx-12">Teorema 4.6.3.</span>  </span><span 
 class="ec-lmri-12">O erro relativo e o res</span><span 
 class="ec-lmri-12">íduo est</span><span 
-class="ec-lmri-12">ão relacionados como</span>
-<span 
-class="ec-lmri-12">(veja [3])</span>
+class="ec-lmri-12">ão relacionados como (veja [3])</span>
    <table 
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main654x.png" alt="       (k)
-&#x2225;x-&minus;--x--&#x2225; &le;  &kappa;(A)&#x2225;r-&#x2225;
-    &#x2225;x&#x2225;           &#x2225;b &#x2225;
+src="main1298x.png" alt="&#x2225;x---x-(k)&#x2225;        &#x2225;r&#x2225;-
+   &#x2225;x &#x2225;    &#x2264; &#x03BA;(A )&#x2225;b&#x2225;
 " class="math-display" ></center></td></tr></table>
 <!--l. 1619--><p class="nopar" >
 <span 
@@ -1904,14 +1928,16 @@ class="ec-lmri-12">úmero de condicionamento.</span>
 <a 
  id="x51-83007r7"></a>
 <span 
-class="ec-lmbx-12">Exemplo 4.6.7.</span>  </span>Ambos   os   métodos   de   Jacobi   e   Gauss-Seidel   são
-convergentes  para  o  sistema  dado  no  Exemplo&#x00A0;<a 
-href="#x51-79004r3">4.6.3<!--tex4ht:ref: ex:sislin --></a>,  pois  a  matriz  dos
-coeficientes deste é uma matriz estritamente diagonal dominante.
+class="ec-lmbx-12">Exemplo 4.6.7.</span>  </span>Ambos os métodos de Jacobi e Gauss-Seidel são convergentes
+para o sistema dado no Exemplo&#x00A0;<a 
+href="#x51-79004r3">4.6.3<!--tex4ht:ref: ex:sislin --></a>, pois a matriz dos coeficientes deste é uma
+matriz estritamente diagonal dominante.
    </div>
-                                                                          
-
-                                                                          
+                                                                                <img 
+src="main1300x.png" alt="PICT" >
+<img 
+src="main1302x.png" alt="PICT" >
+                                                                                
    <!--l. 1627--><div class="crosslinks"><p class="noindent">[<a 
 href="mainse34.html" >next</a>] [<a 
 href="mainli7.html" >prev</a>] [<a 

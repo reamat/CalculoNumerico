@@ -10,34 +10,42 @@ CAP7=cap_pvi
 CAP8=cap_scilab
 
 pdf: main.tex
+	echo "\isbooktrue\n\isslidefalse\n\ishtmlfalse" > main.knd
 	pdflatex main
 	bibtex main
 	makeindex main
 	pdflatex main
 	pdflatex main
+	rm -f main.knd
 
 slide: main.tex
+	echo "\isbookfalse\n\isslidetrue\n\ishtmlfalse" > main.knd
 	cp main.tex slide.tex
 	pdflatex slide
 	bibtex slide
 	makeindex slide
 	pdflatex slide
 	pdflatex slide
+	rm -f main.knd
 
 dvi: main.tex
+	echo "\isbooktrue\n\isslidefalse\n\ishtmlfalse" > main.knd
 	latex main
 	bibtex main
 	makeindex main
 	latex main
 	latex main
+	rm -f main.knd
 
-html: main.tex
+html2: main.tex
+	echo "\isbookfalse\n\isslidefalse\n\ishtmltrue" > main.knd
 	rm -f ./html/*
 	latex main 
 	bibtex main
 	latex main
 	latex main
 	htlatex main "html,3,notoc*,info" "" "-d./html/"
+	rm -f main.knd
 
 epub: main.html
 	pandoc -o main.epub main.tex
@@ -56,7 +64,4 @@ clean:
 	rm -f ${CAP6}/*.aux ${CAP6}/*.log ${CAP6}/*.backup
 	rm -f ${CAP7}/*.aux ${CAP7}/*.log ${CAP7}/*.backup
 	rm -f ${CAP8}/*.aux ${CAP8}/*.log ${CAP8}/*.backup
-
-
-
 
