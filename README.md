@@ -17,17 +17,40 @@ Este trabalho está licenciado sob a Licença Creative Commons Atribuição-Comp
 O código fonte está escrito em Latex e as referências bibliográficas em BibTex, testados em computador Linux com o pacote TexLive. O texto está em formatação **utf-8**.
 
 ## Compilando
-O código pode ser compilado usando os compiladores padrão latex, bibtex, etc.. Alternativamente, está disponível um Makefile na pasta principal, de forma que pode-se compilar o código com:
+O código LaTeX pode ser compilado com:
 
     $ make
 
-Isto gerará o livro em formato PDF (main.pdf). Também, caso prefira em formatodo DVI, pode-se compilar com:
+Isto gera o livro em formato PDF (main.pdf), o qual é o formato principal. Também, o código pode ser compilado em formato DVI:
 
     $ make dvi
 
-Para limpar os arquivos temporários gerados durante a compilação, digite:
+Alguma vezes a compilação pode gerar erros devido a incompatibilidade com antigos arquivos temporários. Para limpar os arquivos temporários gerados durante a compilação, digite:
 
     $ make clean
+
+Alternativamente, o livro pode ser compilado com os comandos usuais `latex main`, `bibtex main`, `pdflatex main`, `makeindex main`. Lembrando que `main.tex` é o arquivo LaTeX principal.
+
+### Outros formatos
+O livro também pode ser compilado em formato slides, HTML e EPUB, digitando:
+
+- Slides:
+
+    $ make slide
+
+Este comando cria o arquivo `slides.pdf` contendo o livro em formato de slides.
+
+- HTML:
+
+    $ make html
+
+Este comando cria a pasta `./html` onde todo os arquivos da versão HTML do livro são colocados.
+
+- EPUB:
+
+    $ make epub
+
+Este comando cria o arquivo `main.epub` contendo o livro em formato EPUB.
 
 ## Colaborações
 Todos são convidados a colaborarem na escrita deste livro. Caso esteja interessado, entre em contato conosco escrevendo para:

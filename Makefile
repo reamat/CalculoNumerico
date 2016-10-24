@@ -1,4 +1,4 @@
-\#Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+#Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
 CAP1=cap_aritmetica
 CAP2=cap_derint
@@ -49,6 +49,18 @@ html: main.tex
 
 epub: ./html/main.html
 	./html2epub.sh
+
+all: main.tex
+	make clean
+	make pdf
+	make clean
+	make slide
+	make clean
+	make dvi
+	make clean
+	make html -B
+	make clean
+	make epub
 
 .PHONY: clean
 
