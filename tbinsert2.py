@@ -1,4 +1,5 @@
 #/usr/bin/python
+# -*- coding: utf-8 -*-
 
 import os
 from os import walk
@@ -26,9 +27,35 @@ for index, f in enumerate (lfiles):
     #replace meta charset
     text = text.replace("iso-8859-1","utf-8")
     
-    #include on head
+    #include head
     head_aux_file = open("head_aux.html", "r")
     head_include = head_aux_file.read()
+    
+    #get chapterHead or sectionHead to include in <meta> keywords
+    s=-1
+    e=-1
+    s = text.find('<h2 class="chapterHead">')
+    if (s != -1):
+        auxText = text[s:]
+        s = auxText.find('</a>')+4
+        e = auxText.index('</h2>')
+        kw = auxText[s:e]
+    else:
+        s = text.find('<h3 class="sectionHead">')
+        if (s != -1):
+            auxText = text[s:]
+            s = auxText.find('</a>')+4
+            e = auxText.index('</h3>')
+            kw = auxText[s:e]
+        else:
+            kw = []
+    head1 = "<meta name='keywords' content='"
+    head1 += "Livro, Cálculo Numérico, Métodos, Análise"
+    if (len(kw) != 0):
+        head1 += ", " + kw 
+    head1 += "'>\n"
+    head_include = head1 + head_include;
+    
     text = text.replace("</head><body \n>", head_include)
 
     #include on bottom
