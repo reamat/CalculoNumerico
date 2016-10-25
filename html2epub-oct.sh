@@ -5,7 +5,7 @@ make clean
 mkdir -p ./.tmp1
 rm -rf ./.tmp1/*
 
-echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabtrue \isoctavefalse" > main.knd
+echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavetrue" > main.knd
 latex main 
 bibtex main
 latex main
