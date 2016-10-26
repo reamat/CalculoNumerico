@@ -9,10 +9,10 @@ O problema geral de interpolação pode ser definido como:
 
 %Sejam    $\mathcal{F}$ uma família de funções $f:D\to E$ e $\left\{(x_i,y_i)\right\}_{i=1}^N$ um conjunto de pares ordenados tais que $x_i\in D$ e $y_i\in E$, encontrar uma função $f$ da família dada tal que $f(x_i)=y_i$ para cada $1\leq i \leq N$.
 
-Seja $\left\{(x_i,y_i)\right\}_{i=1}^n$ um conjunto de pares ordenados tais que $x_i \ne x_j$ se $i=j$, encontre  uma função $f \in \mathcal{F}$ (uma família de funções) tal que
+Seja $\left\{(x_i,y_i)\right\}_{i=1}^n$ um conjunto de pares ordenados tais que $x_i \ne x_j$ se $i\ne j$, encontre  uma função $f \in \mathcal{F}$ (uma dada família de funções) tal que
 $$f(x_i)=y_i, \;\;\; i=1,...,n$$
 
-\begin{ex} Encontrar uma função $f(x)$ da forma $f(x)=a e^{bx}$ onde $a$ e $b$ são constantes tal que $f(1)=1$ e $f(2)=5$. Este problema equivale a resolver o seguinte sistema de equações:
+\begin{ex} Encontrar a função $f(x)$ da forma $f(x)=a e^{bx}$ onde $a$ e $b$ são constantes tal que $f(1)=1$ e $f(2)=5$. Este problema equivale a resolver o seguinte sistema de equações:
 \begin{eqnarray*}
 ae^b&=&1\\
 ae^{2b}&=&5
@@ -31,10 +31,9 @@ cuja solução é dada por $a=1$, $b=2$ e $c=3$. Portanto $$f(x)=1+2x+3x^2.$$
 
 \section{Interpolação polinomial}\index{interpolação!polinomial}
 
-Interpolação polinomial é o caso particular do problema geral de interpolação quando a família de funções é constituída de polinômios.
+Interpolação polinomial é um caso particular do problema geral de interpolação. Nesse caso, a família de funções é constituída de polinômios.
 
-\begin{teo}\label{teo_interp_poli} Seja $\{(x_i,y_i)\}_{i=1}^{n}$ um conjunto de $n$ pares ordenados de números reais tais que $x_i \ne x_j$ se $i=j$.
-Existe um único polinômio $p(x)$ de grau $n-1$ ou inferior que passa por todos os pontos dados.
+\begin{teo}\label{teo_interp_poli} Seja $\{(x_i,y_i)\}_{i=1}^{n}$ um conjunto de $n$ pares ordenados de números reais tais que $x_i \ne x_j$ se $i\ne j$, então existe um único polinômio $p(x)$ de grau $n-1$ ou inferior que passa por todos os pontos dados, isto é, $p(x_i)=y_i, i=1,\ldots, n$.
 \end{teo}
 \begin{proof} Observe que o problema de encontrar os coeficientes $a_1$, $a_2$,\ldots, $a_n$ do polinômio
 $$p(x)=a_1+a_2x+a_3x^2+\cdots a_nx^{n-1}=\sum_{k=1}^n a_k x^{k-1}$$
@@ -98,19 +97,19 @@ Uma maneira de resolver este problema é escrever o polinômio em uma base que p
 
 \section{Diferenças divididas de Newton}\index{diferenças divididas de Newton}
 O método das diferenças divididas de Newton consiste em construir o polinômio interpolador da forma
-\begin{align*}
-p(x) &= a_1 + a_2 (x-x_1) + a_3 (x-x_1)(x-x_2) + \cdots \\
-     &+ a_n (x-x_1)(x-x_2)\cdots (x-x_{n-1}).
-\end{align*}
+\begin{eqnarray*}
+p(x) &=& a_1 + a_2 (x-x_1) + a_3 (x-x_1)(x-x_2) + \cdots \\
+     &+& a_n (x-x_1)(x-x_2)\cdots (x-x_{n-1}).
+\end{eqnarray*}
 Podemos encontrar os coeficientes $a_i$ resolvendo o sistema linear
 \begin{small}
-\begin{align*}
+\begin{eqnarray*}
 &a_1               &= y_1\\
 &a_1+a_2(x_2-x_1)  &= y_2\\
 &a_1+a_2(x_3-x_1)+a_3(x_3-x_1)(x_3-x_2) &= y_3\\
 &\vdots&\\
 &a_1+a_2(x_n-x_1)+\cdots + a_n(x_n-x_1)\cdots (x_n-x_{n-1}) &= y_n
-\end{align*}
+\end{eqnarray*}
 \end{small}
 que pode ser escrito na forma matricial como
 \begin{small}
@@ -185,7 +184,7 @@ P(x)&=&3-2(x+1)+2(x+1)x+(x+1)x(x-1)\\
 \end{eqnarray*}
 \end{ex}
 
-\section*{Exercícios}
+\subsection*{Exercícios}
 
 
 \begin{Exercise}\label{exer:interp1}
@@ -246,7 +245,7 @@ $$p(x)=0\cdot L_1(x)+1\cdot L_2(x)+0\cdot L_3(x)+1\cdot L_4(x)=\frac{2}{3}x^3-3x
 
 \section{Aproximação de funções reais por polinômios interpoladores}\index{aproximação!de funções!por polinômios}
 
-\begin{teo}{\label{teo_interp}}
+\begin{teo}\label{teo_interp}
 Dados $n+1$ pontos distintos, $x_0,\ x_1,\ \cdots,\ x_n$, dentro de um intervalo $[a,b]$ e uma função $f$ com $n+1$ derivadas contínuas nesse intervalo ($f\in C^{n+1}[a,b]$), então para cada $x$ em $[a,b]$, existe um número $\xi(x)$ em $(a,b)$ tal que
 $$
 f(x)=P(x)+\frac{f^{(n+1)}(\xi(x))}{(n+1)!}(x-x_0)(x-x_1)\cdots(x-x_n),
@@ -307,13 +306,13 @@ P(x)&=&f(0)\frac{(x-\frac{1}{2})(x-1)}{(0-\frac{1}{2})(0-1)}+f\left(\frac{1}{2}\
 &=&   f(0)(2x^2-3x+1)+f\left(\frac{1}{2}\right)(-4x^2+4x)+f(1)(2x^2-x)
 \end{eqnarray*}
 e a integral de $P(x)$ é:
-\begin{align*}
-\int_0^1 P(x)dx &= \left[f(0)\left(\frac{2}{3}x^3 - \frac{3}{2}x^2+x\right)\right]_0^1 + \left[f\left(\frac{1}{2}\right)\left(-\frac{4}{3}x^3+2x^2\right)\right]_0^1 \\
-&+ \left[f(1)\left(\frac{2}{3}x^3-\frac{1}{2}x^2\right)\right]_0^1\\
-&= f(0)\left(\frac{2}{3}-\frac{3}{2}+1\right)+f\left(\frac{1}{2}\right)\left(-\frac{4}{3}+2\right)+f(1)\left(\frac{2}{3}-\frac{1}{2}\right)\\
-&= \frac{1}{6}f(0)+\frac{2}{3}f\left(\frac{1}{2}\right)+\frac{1}{6}f(1)
-\end{align*}
-Para fazer a estimativa de erro usando o teorema (\ref{teo_interp}), e temos
+\begin{eqnarray*}
+\int_0^1 P(x)dx &=& \left[f(0)\left(\frac{2}{3}x^3 - \frac{3}{2}x^2+x\right)\right]_0^1 + \left[f\left(\frac{1}{2}\right)\left(-\frac{4}{3}x^3+2x^2\right)\right]_0^1 \\
+&+& \left[f(1)\left(\frac{2}{3}x^3-\frac{1}{2}x^2\right)\right]_0^1\\
+&=& f(0)\left(\frac{2}{3}-\frac{3}{2}+1\right)+f\left(\frac{1}{2}\right)\left(-\frac{4}{3}+2\right)+f(1)\left(\frac{2}{3}-\frac{1}{2}\right)\\
+&=& \frac{1}{6}f(0)+\frac{2}{3}f\left(\frac{1}{2}\right)+\frac{1}{6}f(1)
+\end{eqnarray*}
+Para fazer a estimativa de erro usando o Teorema~\ref{teo_interp}, e temos
 \begin{eqnarray*}
 \left|\int_0^1f(x)dx-\int_0^1 P(x)dx\right|&=&\left|\int_0^1f(x)- P(x)dx\right|\\
 &\leq&\int_0^1|f(x)- P(x)|dx\\
@@ -345,10 +344,10 @@ $$
 $$  
 \end{sol}
 
-\section*{Exercícios}
+\subsection*{Exercícios}
 
 \begin{Exercise}
-  Use as mesmas técnicas usadas o resultado do Exemplo~(\ref{exemp_simpson}) para obter uma aproximação do valor de:
+  Use as mesmas técnicas usadas o resultado do Exemplo~\ref{exemp_simpson} para obter uma aproximação do valor de:
   \begin{equation*}
     \int_0^1 f(x)dx
   \end{equation*}
@@ -381,10 +380,10 @@ Por exemplo, dado um conjunto de $15$ pontos como na figura \ref{minquad} encont
 \end{figure}
 
 Geralmente o critério mais usado consiste em minimizar a soma do quadrado das distâncias entre a coordenadas $y_j$ e a função desejada em $f(x_j)$. Ou seja, encontre a  função $f(x)$ tal que 
-\begin{align}
-  R &=(f(x_1)-y_1)^2+(f(x_2)-y_2)^2+\cdots +(f(x_N)-y_N)^2\\
-    &=\sum_{j=1}^N (f(x_j)-y_j)^2
-\end{align}
+\begin{eqnarray*}
+  R &=&(f(x_1)-y_1)^2+(f(x_2)-y_2)^2+\cdots +(f(x_N)-y_N)^2\\
+    &=&\sum_{j=1}^N (f(x_j)-y_j)^2
+\end{eqnarray*}
 seja o menor possível, que fornece o nome do método como \emph{método dos mínimos quadrados}.  Note que o \emph{resíduo} em $x_j$ é definido como $r_j=|f(x_j)-y_j|$. 
 
 
@@ -395,36 +394,36 @@ seja o menor possível, que fornece o nome do método como \emph{método dos mí
 Dado um conjunto de $N$ pontos, desejamos encontrar a \textit{reta} que melhor se ajusta a esses pontos de tal forma a minimizar o resíduo.
 
 Ou seja, encontre a curva $f(x)=a_1+a_2 x$ tal que 
-\begin{align}
+\begin{eqnarray*}
   R(a_1,a_2) &=\sum_{j=1}^N (f(x_j)-y_j)^2 = \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2
-\end{align}
+\end{eqnarray*}
 seja o menor possível.
 
 O objetivo é encontrar $a_1, a_2$ e geralmente temos muito mais equações do que incógnitas, i.e.,
-\begin{align}
- a_1+a_2 x_1 &=y_1 \\
- a_1+a_2 x_2 &=y_2 \\
- a_1+a_2 x_3 &=y_3 \\
-  \vdots     &= \vdots \\
- a_N+a_2 x_N &=y_N   
-\end{align}
+\begin{eqnarray*}
+ a_1+a_2 x_1 &=&y_1 \\
+ a_1+a_2 x_2 &=&y_2 \\
+ a_1+a_2 x_3 &=&y_3 \\
+  \vdots     &=& \vdots \\
+ a_N+a_2 x_N &=&y_N   
+\end{eqnarray*}
 ou simplesmente $V\vec a= \vec y$.
 
 O mínimo de $R$ ocorre quando quando a derivada primeira é igual a zero:
-\begin{align}
-  \frac{\partial R}{\partial a_1} &= \frac{\partial }{\partial a_1} \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2 =0 \\
-  \frac{\partial R}{\partial a_2} &= \frac{\partial }{\partial a_2} \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2 =0 
-\end{align}
+\begin{eqnarray*}
+  \frac{\partial R}{\partial a_1} &=& \frac{\partial }{\partial a_1} \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2 =0 \\
+  \frac{\partial R}{\partial a_2} &=& \frac{\partial }{\partial a_2} \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2 =0 
+\end{eqnarray*}
 ou seja,
-\begin{align}
-   2 \sum_{j=1}^N (a_1 + a_2 x_j-y_j)\cdot 1 &=0 \\
-   2 \sum_{j=1}^N (a_1 + a_2 x_j-y_j)\cdot x_j &=0 
-\end{align}
+\begin{eqnarray*}
+   2 \sum_{j=1}^N (a_1 + a_2 x_j-y_j)\cdot 1 &=&0 \\
+   2 \sum_{j=1}^N (a_1 + a_2 x_j-y_j)\cdot x_j &=&0 
+\end{eqnarray*}
 e isolando as incógnitas temos
-\begin{align}
-   a_1\sum_{j=1}^N 1 + a_2 \sum_{j=1}^Nx_j &=\sum_{j=1}^N y_j\\
-   a_1\sum_{j=1}^N x_j + a_2 \sum_{j=1}^Nx_j^2 &=\sum_{j=1}^N y_jx_j
-\end{align}
+\begin{eqnarray*}
+   a_1\sum_{j=1}^N 1 + a_2 \sum_{j=1}^Nx_j &=&\sum_{j=1}^N y_j\\
+   a_1\sum_{j=1}^N x_j + a_2 \sum_{j=1}^Nx_j^2 &=&\sum_{j=1}^N y_jx_j
+\end{eqnarray*}
 
 Na forma matricial obtemos
 \begin{equation}
@@ -582,50 +581,57 @@ Portanto a função que procuramos é $f(x)=-0,3 +2,3x$.
 
 \subsection{Ajuste polinomial}
 
-Dado um conjunto de $n$ pontos, desejamos encontrar o \textit{polinômio} que melhor se ajusta a esses pontos de tal forma a minimizar o resíduo, ou seja, encontrar a curva $p(x)=a_1+a_2 x+...+a_Nx^{N-1}$ tal que 
-\begin{align}
-  R(a_1,...,a_N) &=\sum_{j=1}^N (p(x_j)-y_j)^2 \\
-                 &=\sum_{j=1}^N (a_1 + a_2 x_j+...+a_Nx_j^{N-1}-y_j)^2
-\end{align}
+Dado um conjunto de $n$ pontos, desejamos encontrar o \textit{polinômio} de grau $p$ que melhor se ajusta a esses pontos de tal forma a minimizar o resíduo, ou seja, encontrar a curva $f(x)=a_1+a_2 x+...+a_{p+1}x^{p}$ tal que 
+\begin{eqnarray*}
+  R(a_1,...,a_{p+1}) &=&\sum_{j=1}^N (f(x_j)-y_j)^2 \\
+                 &=&\sum_{j=1}^N (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2
+\end{eqnarray*}
 seja o menor possível.
 
-O objetivo é encontrar as incógnitas $a_j$ que minimizam a soma do quadrado do resíduo.
+O objetivo é encontrar as incógnitas $a_i$ que minimizam a soma do quadrado do resíduo.
 
 O mínimo de $R$ encontra-se quando a derivada primeira é igual a zero:
-\begin{align}
-  \frac{\partial R}{\partial a_1} &= \frac{\partial }{\partial a_1} \sum_{j=1}^N (a_1 + a_2 x_j+...+a_Nx_j^{N-1}-y_j)^2 =0 \\
-  \vdots &= \vdots \\
-  \frac{\partial R}{\partial a_N} &= \frac{\partial }{\partial a_N} \sum_{j=1}^N (a_1 + a_2 x_j+...+a_Nx_j^{N-1}-y_j)^2 =0 
-\end{align}
+\begin{eqnarray*}
+  \frac{\partial R}{\partial a_1}     &=& \frac{\partial }{\partial a_1}     \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2 =0 \\
+  \vdots &=& \vdots \\
+  \frac{\partial R}{\partial a_{p+1}} &=& \frac{\partial }{\partial a_{p+1}} \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2 =0 
+\end{eqnarray*}
 ou seja,
-\begin{align}
-   2 \sum_{j=1}^N (a_1 + a_2 x_j+...+a_Nx_j^{N-1}-y_j)\cdot 1 &=0 \\
-  \vdots &= \vdots \\
-   2 \sum_{j=1}^N (a_1 + a_2 x_j+...+a_Nx_j^{N-1}-y_j)\cdot x_j^{N-1} &=0 
-\end{align}
+\begin{eqnarray*}
+   2 \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)\cdot 1    &=&0 \\
+  \vdots &=& \vdots \\
+   2 \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)\cdot x_j^p&=&0 
+\end{eqnarray*}
 e isolando as incógnitas temos
-\begin{align}
-   a_1\sum_{j=1}^N 1 + a_2 \sum_{j=1}^Nx_j &=\sum_{j=1}^N y_j\\
-   a_1\sum_{j=1}^N x_j + a_2 \sum_{j=1}^Nx_j^2 &=\sum_{j=1}^N y_jx_j
-\end{align}
+\begin{eqnarray*}
+   a_1\sum_{j=1}^n 1     + a_2 \sum_{j=1}^Nx_j      +...+a_{p+1} \sum_{j=1}^Nx_j^{p} &=\sum_{j=1}^N y_j\\
+  \vdots &= \vdots \\
+   a_1\sum_{j=1}^n x_j^p + a_2 \sum_{j=1}^Nx_j^{p+1}+...+a_{p+1} \sum_{j=1}^Nx_j^{2p} &=\sum_{j=1}^N y_jx_j^{p}
+\end{eqnarray*}
 
 Na forma matricial obtemos
 \begin{equation}
   \begin{bmatrix}
-     \sum_{j=1}^N 1 &  \sum_{j=1}^N x_j \\
-     \sum_{j=1}^N x_j &  \sum_{j=1}^N x_j^2 
+     \sum 1     &  \sum  x_j   & \cdots & \sum x_j^p\\
+     \sum x_j   &  \sum  x_j^2 &        & \sum x_j^{p+1}\\
+     \vdots     &              & \ddots & \vdots    \\
+     \sum x_j^p &  \sum  x_j^{p+1} & \cdots & \sum x_j^{2p}
   \end{bmatrix}
   \begin{bmatrix}
      a_1 \\
-     a_2 
+     a_2 \\
+     \vdots \\
+     a_{p+1}
   \end{bmatrix}=
   \begin{bmatrix}
-     \sum_{j=1}^N y_j \\
-     \sum_{j=1}^N x_j y_j 
+     \sum y_j \\
+     \sum x_j y_j \\
+     \vdots \\
+     \sum x_j^p y_j 
   \end{bmatrix}
 \end{equation}
 
-Observe que é equivalente ao problema matricial
+Na forma matricial temos 
 \begin{equation}
    Ma := V^TV a = V^Ty
 \end{equation}
@@ -634,12 +640,12 @@ Observe que é equivalente ao problema matricial
 
 
 \subsection{Ajuste linear de curvas}
-Seja $f_1(x), f_2(x),\ldots, f_m(x)$ um conjunto de $m$ funções e $(x_1,y_1), (x_2,y_2), \ldots, (x_N,y_N)$ um conjunto de $n$ pontos. Procuram-se os coeficientes $a_1,a_2,\ldots, a_m$ tais que a função dada por
+Seja $f_1(x), f_2(x),\ldots, f_m(x)$ um conjunto de $m$ funções e $(x_i,y_i)$ um conjunto de $n$ pontos. Procuram-se os coeficientes $a_1,a_2,\ldots, a_m$ tais que a função dada por
 $$f(x)=a_1f_1(x)+a_2f_2(x)+\ldots+a_mf_m(x)$$
-minimiza o erro dado por
-$$E_q= \sum_{j=1}^N \left[f(x_i)-y_i\right]^2$$
+minimiza o resíduo dado por
+$$R= \sum_{j=1}^n \left[f(x_i)-y_i\right]^2$$
 como $f(x)=\sum_{j=1}^m a_jf_j(x)$, temos
-$$E_q= \sum_{j=1}^N \left[\sum_{j=1}^m a_jf_j(x_i)-y_i\right]^2$$
+$$R= \sum_{j=1}^n \left[\sum_{j=1}^m a_jf_j(x_i)-y_i\right]^2$$
 
 Este problema é equivalente a resolver pelo métodos dos mínimos quadrados o seguinte sistema linear:
 $$
@@ -649,7 +655,7 @@ f_1(x_1)&f_2(x_1) & \cdots & f_m(x_1)\\
 f_1(x_2)&f_2(x_2) & \cdots & f_m(x_2)\\
 f_1(x_3)&f_2(x_3) & \cdots & f_m(x_3)\\
 \vdots & \vdots & \ddots & \vdots\\
-f_1(x_N)&f_2(x_N) & \cdots & f_m(x_N)
+f_1(x_n)&f_2(x_n) & \cdots & f_m(x_n)
 \end{array}
 \right]
 \left[
@@ -664,7 +670,7 @@ y_1\\
 y_2\\
 y_3\\
 \vdots\\
-y_N
+y_n
 \end{array}
 \right]
 $$
@@ -687,7 +693,7 @@ $$
   \end{center}
 \end{ex}
 \begin{sol}
-Desejamos então encontrar os valores de $a$ e $b$ tais que a função $f(x)=ax+b$ melhor se ajusta aos pontos da tabela. Afim de usar  o critério dos mínimos quadrados, escrevemos o problema na forma matricial dada por:
+Desejamos encontrar os valores de $a$ e $b$ tais que a função $f(x)=ax+b$ melhor se ajusta aos pontos da tabela. Afim de usar  o critério dos mínimos quadrados, escrevemos o problema na forma matricial dada por:
 $$
 \left[\begin{array}{cc}
 0,01 &1\\
@@ -715,64 +721,63 @@ $$
 
 Multiplicamos agora ambos os lados pela transposta:
 \begin{equation*}
-\left[\begin{array}{ccccc}
-0,01 &1,02 &2,04 &2,95 &3,55\\
-1 &1 &1 &1 &1
-\end{array}
-\right]
+  \begin{bmatrix}
+    0,01 &1,02 &2,04 &2,95 &3,55\\
+    1 &1 &1 &1 &1
+    \end{bmatrix}
 \end{equation*}
 o que fornece:
-\begin{align*}
-&\left[\begin{array}{ccccc}
-0,01 &1,02 &2,04 &2,95 &3,55\\
-1 &1 &1 &1 &1
-\end{array}
-\right]
-\left[\begin{array}{cc}
-0,01 &1\\
-1,02 &1\\
-2,04 &1\\
-2,95 &1\\
-3,55 &1
-\end{array}
-\right]
-\left[\begin{array}{c}
-a\\
-b
-\end{array}
-\right]
-=\\
-&\left[\begin{array}{ccccc}
-0,01 &1,02 &2,04 &2,95 &3,55\\
-1 &1 &1 &1 &1
-\end{array}
-\right]
-\left[\begin{array}{c}
-1,99\\
-4,55\\
-7,2\\
-9,51\\
-10,82
-\end{array}
-\right]  
-\end{align*}
+\begin{eqnarray*}
+  \left[\begin{array}{ccccc}
+      0,01 &1,02 &2,04 &2,95 &3,55\\
+      1 &1 &1 &1 &1
+    \end{array}
+  \right]
+  \left[\begin{array}{cc}
+      0,01 &1\\
+      1,02 &1\\
+      2,04 &1\\
+      2,95 &1\\
+      3,55 &1
+    \end{array}
+  \right]
+  \left[\begin{array}{c}
+      a\\
+      b
+    \end{array}
+  \right]
+  &=&\\
+  &\left[\begin{array}{ccccc}
+      0,01 &1,02 &2,04 &2,95 &3,55\\
+      1 &1 &1 &1 &1
+    \end{array}
+  \right]
+  \left[\begin{array}{c}
+      1,99\\
+      4,55\\
+      7,2\\
+      9,51\\
+      10,82
+    \end{array}
+  \right]  
+\end{eqnarray*}
 $$\left[
-\begin{array}{cc}
-26,5071  & 9,57 \\
-  9,57  &     5
-\end{array}
+  \begin{array}{cc}
+    26,5071  & 9,57 \\
+    9,57  &     5
+  \end{array}
 \right]
 \left[
-\begin{array}{c}
-a   \\
-b
-\end{array}
+  \begin{array}{c}
+    a   \\
+    b
+  \end{array}
 \right]=
 \left[
-\begin{array}{c}
-85,8144  \\
-34,07
-\end{array}
+  \begin{array}{c}
+    85,8144  \\
+    34,07
+  \end{array}
 \right]
 $$
 
@@ -794,7 +799,7 @@ $3,55$ & $10,82$ & $10,929792$ & $0,1097919$ \\
 \end{center}
 \end{sol}
 
-\section*{Exercícios}
+\subsection*{Exercícios}
 
 \begin{Exercise}Encontrar  a parábola $y=ax^2+bx+c$ que melhor aproxima o seguinte conjunto de dados:
   \begin{center}
@@ -878,31 +883,31 @@ $x_i$ & $y_i$& $ax_i^2+bx_i+c$& $ax_i^2+bx_i+c-y_i$\\
 
 \section{Aproximando problemas não lineares por problemas lineares}
 
-Eventualmente, problemas de ajuste de curvas podem recair num sistema não linear. Por exemplo, se desejamos ajustar a função $y=Ae^{bx}$ ao conjunto de pontos $(x_0,y_0)$, $(x_1,y_1)$ e $(x_2,y_2)$, temos que minimizar o funcional
+Eventualmente, problemas de ajuste de curvas podem recair num sistema não linear. Por exemplo, para ajustar função $y=Ae^{bx}$ ao conjunto de pontos $(x_1,y_1)$, $(x_2,y_2)$ e $(x_3,y_3)$, temos que minimizar o resíduo\footnote{A soma do quadrado dos resíduos.} 
 $$
-E_q=(Ae^{x_0b}-y_0)^2+(Ae^{x_1b}-y_1)^2+(Ae^{x_2b}-y_2)^2
+R=(Ae^{x_1b}-y_1)^2+(Ae^{x_2b}-y_2)^2+(Ae^{x_3b}-y_3)^2
 $$
 ou seja, resolver o sistema
-\begin{align*}
-\frac{\partial E_q}{\partial A} &= 2(Ae^{x_0b}-y_0)e^{x_0b}+2(Ae^{x_1b}-y_1)e^{x_1b}+2(Ae^{x_2b}-y_2)e^{x_2b}=0\\
-\frac{\partial E_q}{\partial b} &= 2Ax_0(Ae^{x_0b}-y_0)e^{x_0b} + 2Ax_1(Ae^{x_1b}-y_1)e^{x_1b} \\
-&+ 2x_2A(Ae^{x_2b}-y_2)e^{x_2b}=0
-\end{align*}
+\begin{eqnarray*}
+\frac{\partial R}{\partial A} &=& 2(Ae^{x_1b}-y_1)e^{x_1b}+2(Ae^{x_2b}-y_2)e^{x_2b}+2(Ae^{x_3b}-y_3)e^{x_3b}=0\\
+\frac{\partial R}{\partial b} &=& 2Ax_1(Ae^{x_1b}-y_1)e^{x_1b} + 2Ax_2(Ae^{x_2b}-y_2)e^{x_2b} \\
+&+& 2Ax_3(Ae^{x_3b}-y_3)e^{x_3b}=0
+\end{eqnarray*}
 que é não linear em $A$ e $b$. Esse sistema pode ser resolvido pelo método de Newton-Raphson, o que pode se tornar custoso, ou mesmo inviável quando não dispomos de uma boa aproximação da solução para inicializar o método.
 
 Felizmente, algumas famílias de curvas admitem uma transformação que nos leva a um problema linear. No caso da curva $y=Ae^{bx}$, observe que $\ln y=\ln A+bx$. Assim, em vez de ajustar a curva original $y=Ae^{bx}$ a tabela de pontos, ajustamos a curva submetida a transformação logarítmica
 $$
-z=\ln A+bx:=B+bx.
+\tilde y:=a_1+a_2 \tilde x=\ln A+bx.
 $$
-Usamos os três pontos $(x_0,\ln y_0):=(x_0, \tilde{y}_0)$, $(x_1,\ln y_1):=(x_1,\tilde{y}_1)$ e $(x_2,\ln y_2):=(x_2,\tilde{y}_2)$ e resolvemos o sistema linear
+Usamos os pontos $(\tilde x_j,\tilde y_j):=(x_j,\ln y_j)$, $j=1,2,3$ e resolvemos o sistema linear
 $$
-A^T A \left[\begin{array}{c} B\\b \end{array}\right]=A^T\left[\begin{array}{c}\tilde{y}_0\\\tilde{y}_1\\\tilde{y}_2 \end{array}\right],
+V^T V \left[\begin{array}{c} a_1\\a_2 \end{array}\right]=V^T\left[\begin{array}{c}\tilde{y}_1\\\tilde{y}_2\\\tilde{y}_3 \end{array}\right],
 $$
 onde
 $$
-A=\left[\begin{array}{cc} 1&x_0\\1&x_1\\1&x_2 \end{array}\right]
+A=\left[\begin{array}{cc} 1&x_1\\1&x_2\\1&x_3 \end{array}\right]
 $$
-\begin{ex}Encontre uma curva da forma $y=Ae^x$ que melhor ajusta os pontos $(1,2)$, $(2,3)$ e $(3,5)$.
+\begin{ex}Encontre uma curva da forma $y=Ae^x$ que melhor ajusta os pontos $(1, 2)$, $(2, 3)$ e $(3, 5)$.
 \end{ex}
 Temos
 $$
@@ -921,22 +926,15 @@ Mesmo quando se deseja resolver o sistema não linear, a solução do problema l
 
 A próxima tabela apresenta algumas curvas e transformações que linearizam o problema de ajuste.
 $$
-\begin{array}{|c|c|c|}
-\hline
-\hbox{curva}&\hbox{transformação}&\hbox{problema linearizado}\\
-\hline
-y=ae^{bx}&Y=\ln y&Y=\ln a+ bx\\
-\hline
-y=ax^b&Y=\ln y&Y=\ln a+ b\ln x\\
-\hline
-y=ax^be^{cx}&Y=\ln y&Y=\ln a+ b\ln x+cx\\
-\hline
-y=ae^{(b+cx)^2}&Y=\ln y&Y=\ln a+b^2+ bc x+c^2x^2\\
-\hline
-y=\frac{a}{b+x}&Y=\frac{1}{y}&Y=\frac{b}{a}+\frac{1}{a}x\\
-\hline
-\begin{array}{c}y=A\cos(\omega x+\phi)\\ \omega\ \hbox{conhecido}\end{array}&-&\begin{array}{c}y=a\cos(\omega x)-b\sin(\omega x),\\a=A\cos(\phi),\ b=A\sin(\phi)\end{array}\\
-\hline
+\begin{array}{|c|c|c|}   \hline
+\hbox{curva}    &\hbox{transformação}&\hbox{problema linearizado}\\ \hline
+y=ae^{bx}       &\tilde y=\ln y       & \tilde y=\ln a+ bx\\ \hline
+y=ax^b          &\tilde y=\ln y       & \tilde y=\ln a+ b\ln x\\ \hline
+y=ax^be^{cx}    &\tilde y=\ln y       & \tilde y=\ln a+ b\ln x+cx\\ \hline
+y=ae^{(b+cx)^2} &\tilde y=\ln y       & \tilde y=\ln a+b^2+ bc x+c^2x^2\\ \hline
+y=\frac{a}{b+x} &\tilde y=\frac{1}{y} & \tilde y=\frac{b}{a}+\frac{1}{a}x\\ \hline
+y=A\cos(\omega x+\phi)   & - &  y=a\cos(\omega x)-b\sin(\omega x) \\
+\omega\ \hbox{conhecido} &   &  a=A\cos(\phi),\ b=A\sin(\phi) \\ \hline
 \end{array}
 $$
 
@@ -1129,11 +1127,11 @@ s_{j}''(x_{j+1})&=&s_{j+1}''(x_{j+1}),~~ &j=1,\ldots, n-2
 \end{array}
 \end{equation*}
 Como
-\begin{equation}{\label{eq_1derivada}}
+\begin{equation}\label{eq_1derivada}
 s'_j(x)=b_j+2c_j(x-x_j)+3d_j(x-x_j)^2
 \end{equation}
 e
-\begin{equation}{\label{eq_2derivada}}
+\begin{equation}\label{eq_2derivada}
 s''_j(x)=2c_j+6d_j(x-x_j),
 \end{equation}
 temos, para $j=1,\ldots, n-1$, as seguintes equações
@@ -1154,23 +1152,25 @@ e temos
 \begin{array}{rcl}
 a_j&=&y_j,\\
 a_j+b_jh_j+c_jh_j^2+d_jh_j^3&=&y_{j+1},\\
-{\label{eq3}}b_j+2c_jh_j+3d_jh_j^2&=&b_{j+1},\\
-\nonumber c_j+3d_jh_j&=&c_{j+1},
+b_j+2c_jh_j+3d_jh_j^2&=&b_{j+1},\label{eq3}\\
+c_j+3d_jh_j&=&c_{j+1},
 \end{array}
 \end{equation}
 que podem ser escrita da seguinte maneira
-\begin{equation}{\label{eq_an_spline}}
+\begin{equation}\label{eq_an_spline}
 a_j=y_j,
 \end{equation}
-\begin{equation}{\label{eq_dn_spline}}
+\begin{equation}\label{eq_dn_spline}
 d_j=\frac{c_{j+1}-c_j}{3h_j},
 \end{equation}
-\begin{eqnarray}
-\nonumber b_j&=&\frac{y_{j+1}-y_j-c_jh_j^2-\frac{c_{j+1}-c_j}{3h_j}h_j^3}{h_j},\\
-\nonumber &=&\frac{3y_{j+1}-3y_j-3c_jh_j^2-c_{j+1}h_j^2+c_jh_j^2}{3h_j}\\
-{\label{eq_bn_spline}}&=&\frac{3y_{j+1}-3y_j-2c_jh_j^2-c_{j+1}h_j^2}{3h_j}
-\end{eqnarray}
-Trocando o índice $j$ por $j-1$ na terceira equação (\ref{eq3}), $j=2,\ldots, n-1$
+\begin{equation}\label{eq_bn_spline}
+  \begin{split}
+    b_j &= \frac{y_{j+1}-y_j-c_jh_j^2-\frac{c_{j+1}-c_j}{3h_j}h_j^3}{h_j},\\
+    &= \frac{3y_{j+1}-3y_j-3c_jh_j^2-c_{j+1}h_j^2+c_jh_j^2}{3h_j}\\
+    &= \frac{3y_{j+1}-3y_j-2c_jh_j^2-c_{j+1}h_j^2}{3h_j}
+  \end{split}
+\end{equation}
+Trocando o índice $j$ por $j-1$ na terceira equação \eqref{eq3}, $j=2,\ldots, n-1$
 \begin{equation}
 b_{j-1}+2c_{j-1}h_{j-1}+3d_{j-1}h_{j-1}^2=b_{j}  
 \end{equation}
@@ -1182,20 +1182,20 @@ e, portanto,
   \end{split}
 \end{equation}
 Fazendo as simplificações, obtemos:
-\begin{equation}{\label{eq_cn_spline}}
-c_{j-1}h_{j-1}+c_j(2h_j+2h_{j-1})+c_{j+1}h_j=3\frac{y_{j+1}-y_j}{h_j}-3\frac{y_{j}-y_{j-1}}{h_{j-1}}.
+\begin{equation}\label{eq_cn_spline}
+  c_{j-1}h_{j-1}+c_j(2h_j+2h_{j-1})+c_{j+1}h_j=3\frac{y_{j+1}-y_j}{h_j}-3\frac{y_{j}-y_{j-1}}{h_{j-1}}.
 \end{equation}
 É costumeiro acrescentar a incógnita $c_n$ ao sistema. A incógnita $c_n$ não está relacionada a nenhum dos polinômios interpoladores. Ela é uma construção artificial que facilita o cálculo dos coeficientes do spline. Portanto, a equação acima pode ser resolvida para $j=2, \ldots, n-1$.
 
-Para determinar unicamente os $n$ coeficientes $c_n$ precisamos acrescentar duas equações linearmente independentes às $n-2$ equações dadas por (\ref{eq_cn_spline}). Essas duas equações adicionais definem o tipo de spline usado.
+Para determinar unicamente os $n$ coeficientes $c_n$ precisamos acrescentar duas equações linearmente independentes às $n-2$ equações dadas por \eqref{eq_cn_spline}. Essas duas equações adicionais definem o tipo de spline usado.
 
 \subsection{Spline natural}\index{spline!natural}
 
-Uma forma de definir as duas equações adicionais para completar o sistema (\ref{eq_cn_spline}) é impor condições de fronteira livres (ou naturais), ou seja,
+Uma forma de definir as duas equações adicionais para completar o sistema \eqref{eq_cn_spline} é impor condições de fronteira livres (ou naturais), ou seja,
 \begin{equation}
 S''(x_1)=S''(x_n)=0.
 \end{equation}
-Substituindo na equação (\ref{eq_2derivada})
+Substituindo na equação \eqref{eq_2derivada}
 $$
 s''_1(x_1)=2c_1+6d_1(x_1-x_1)=0 \Longrightarrow c_1=0.
 $$
@@ -1211,7 +1211,7 @@ temos que
 $$
 c_n=-3d_{n-1}(x_{n}-x_{n-1})+3d_{n-1}h_{n-1}=0.
 $$
-Essa duas equações para $c_1$ e $c_n$ juntamente com as equações (\ref{eq_cn_spline}) formam um sistema de $n$ equações $Ac=z$, onde
+Essa duas equações para $c_1$ e $c_n$ juntamente com as equações \eqref{eq_cn_spline} formam um sistema de $n$ equações $Ac=z$, onde
 \begin{equation}
 A=\left[\begin{array}{ccccccc}
 1 &0&0&0 &\cdots&0&0\\
@@ -1238,53 +1238,53 @@ z = \left[\begin{array}{c}
 0
 \end{array}\right]
 \end{equation}
-Observe que a matriz $A$ é diagonal dominante estrita e, portanto, o sistema $Ac=z$ possui solução única. Calculado $c$, os valores dos $a_n$, $b_n$ e $d_n$ são obtidos diretamente pelas expressões (\ref{eq_an_spline}), (\ref{eq_bn_spline}) e (\ref{eq_dn_spline}), respectivamente.
+Observe que a matriz $A$ é diagonal dominante estrita e, portanto, o sistema $Ac=z$ possui solução única. Calculado $c$, os valores dos $a_n$, $b_n$ e $d_n$ são obtidos diretamente pelas expressões \eqref{eq_an_spline}, \eqref{eq_bn_spline} e \eqref{eq_dn_spline}, respectivamente.
 
 \begin{ex}Construa um spline cúbico natural que passe pelos pontos $(2,~4,5)$, $(5,-1,9)$, $(9,~0,5)$ e $(12,-0,5)$.
 \end{ex}
 \begin{sol}
 O spline desejado é uma função definida por partes da forma:
 \begin{equation}
-f(x)=\left\{\begin{array}{ll}
-a_1+b_1(x-2)+c_1(x-2)^2+d_1(x-2)^3 &, 2\leq x <5\\
-a_2+b_2(x-5)+c_2(x-5)^2+d_2(x-5)^3 &, 5\leq x <9\\
-a_3+b_3(x-9)+c_3(x-9)^2+d_3(x-9)^3 &, 9\leq x \leq 12
+S(x)=\left\{\begin{array}{ll}
+    a_1+b_1(x-2)+c_1(x-2)^2+d_1(x-2)^3 &, 2\leq x <5\\
+    a_2+b_2(x-5)+c_2(x-5)^2+d_2(x-5)^3 &, 5\leq x <9\\
+    a_3+b_3(x-9)+c_3(x-9)^2+d_3(x-9)^3 &, 9\leq x \leq 12
 \end{array}\right..  
 \end{equation}
 Os coeficientes $c_1$, $c_2$ e $c_3$ resolvem o sistema $Ac = z$, onde
-$$
-A=\left[\begin{array}{cccc}
-1 &0&0&0 \\
-3&2\cdot 3+2\cdot 4&4&0\\
-0&4&2\cdot 4+2\cdot 3&3\\
-0&0&0&1
-\end{array}\right]=\left[\begin{array}{cccc}
-1 &0&0&0 \\
-3&14&4&0\\
-0&4&14&3\\
-0&0&0&1
-\end{array}\right]
-$$
-$$
-c = \left[\begin{array}{c}
+\begin{equation*}
+A = \begin{bmatrix}
+  1 &0&0&0 \\
+  3&2\cdot 3+2\cdot 4&4&0\\
+  0&4&2\cdot 4+2\cdot 3&3\\
+  0&0&0&1
+\end{bmatrix} = \begin{bmatrix}
+  1 &0&0&0 \\
+  3&14&4&0\\
+  0&4&14&3\\
+  0&0&0&1
+\end{bmatrix}  
+\end{equation*}
+\begin{equation*}
+c = \begin{bmatrix}
 c_1\\
 c_2\\
 c_3\\
 c_4
-\end{array}\right]\qquad \hbox{e}\qquad
-z=\left[\begin{array}{c}
+\end{bmatrix} \quad \hbox{e}\quad
+z = \begin{bmatrix}
 0\\
 3\frac{0,5-(-1,9)}{4}-3\frac{(-1,9)-4,5}{3}\\
 3\frac{-0,5-0,5}{3}-3\frac{0,5-(-1,9)}{4}\\
 0
-\end{array}\right]=\left[\begin{array}{c}
+\end{bmatrix} = \begin{bmatrix}
 0\\
 8,2\\
 -2,8\\
 0
-\end{array}\right]
-$$
-Observe que $c_4$ é um coeficiente artificial para o problema. A solução é  $c_1=0$, $c_2=0,7$, $c_3=-0,4$ e $c_4=0$. Calculamos os demais coeficientes usando as expressões (\ref{eq_an_spline}), (\ref{eq_bn_spline}) e (\ref{eq_dn_spline}):
+\end{bmatrix}  
+\end{equation*}
+Observe que $c_4$ é um coeficiente artificial para o problema. A solução é  $c_1=0$, $c_2=0,7$, $c_3=-0,4$ e $c_4=0$. Calculamos os demais coeficientes usando as expressões \eqref{eq_an_spline}, \eqref{eq_bn_spline} e \eqref{eq_dn_spline}:
 \begin{eqnarray*}
 a_1&=&y_1=4,5\\
 a_2&=&y_2=-1,9\\
@@ -1295,18 +1295,18 @@ d_1&=&\frac{c_{2}-c_1}{3h_1}=\frac{0,7-0}{3\cdot 3}=0,0777778\\
 d_2&=&\frac{c_{3}-c_2}{3h_2}=\frac{-0,4-0,7}{3\cdot 4}=-0,0916667\\
 d_3&=&\frac{c_{4}-c_3}{3h_3}=\frac{0+0,4}{3\cdot 3}=0,0444444
 \end{eqnarray*}
-\begin{align*}
-b_1 &= \frac{y_{2}-y_1}{h_1}-\frac{h_1}{3}(2c_1+c_{2})\\
-&= \frac{-1,9-4,5}{3}-\frac{3}{3}(2\cdot 0-0,7)=-2,8333333\\
-b_2&= \frac{y_{3}-y_2}{h_2}-\frac{h_2}{3}(2c_2+c_{3})\\
-&= \frac{0,5-(-1,9)}{4}-\frac{4}{3}(2\cdot 0,7+0,4)=-0,7333333\\
-b_3&= \frac{y_{4}-y_3}{h_3}-\frac{h_3}{3}(2c_3+c_{4})\\
-&= \frac{-0,5-0,5}{3}-\frac{3}{3}(2\cdot (-0,4)+0)=0,4666667
-\end{align*}
+\begin{eqnarray*}
+b_1 &=& \frac{y_{2}-y_1}{h_1}-\frac{h_1}{3}(2c_1+c_{2})\\
+&=& \frac{-1,9-4,5}{3}-\frac{3}{3}(2\cdot 0-0,7)=-2,8333333\\
+b_2&=& \frac{y_{3}-y_2}{h_2}-\frac{h_2}{3}(2c_2+c_{3})\\
+&=& \frac{0,5-(-1,9)}{4}-\frac{4}{3}(2\cdot 0,7+0,4)=-0,7333333\\
+b_3&=& \frac{y_{4}-y_3}{h_3}-\frac{h_3}{3}(2c_3+c_{4})\\
+&=& \frac{-0,5-0,5}{3}-\frac{3}{3}(2\cdot (-0,4)+0)=0,4666667
+\end{eqnarray*}
 Portanto:
 \begin{small}
 \begin{equation*}
-f(x)=\left\{\begin{array}{ll}
+S(x)=\left\{\begin{array}{ll}
 4,5-2,833(x-2)+0,078(x-2)^3 &\!, 2\leq x<5\\
 -1,9-0,733(x-5)+0,7(x-5)^2-0,092(x-5)^3 &\!, 5\leq x<9\\
 0,5+0,467(x-9)-0,4(x-9)^2+0,044(x-9)^3 &\!, 9\leq x\leq 12
@@ -1342,12 +1342,12 @@ end
 
 \subsection{Spline fixado}\index{spline!fixado}
 
-Alternativamente, para completar o sistema (\ref{eq_cn_spline}), podemos impor condições de contorno fixadas, ou seja,
+Alternativamente, para completar o sistema \eqref{eq_cn_spline}, podemos impor condições de contorno fixadas, ou seja,
 \begin{eqnarray*}
 S'(x_1)&=&f'(x_1)\\
 S'(x_n)&=&f'(x_n).
 \end{eqnarray*}
-Substituindo na equação (\ref{eq_1derivada})
+Substituindo na equação \eqref{eq_1derivada}
 \begin{equation}
 s'_1(x_1)=b_1+2c_1(x_1-x_1)+3d_j(x_1-x_1)^2=f'(x_1)\Longrightarrow b_1=f'(x_1)  
 \end{equation}
@@ -1358,7 +1358,7 @@ s'_{n-1}(x_n) &= b_{n-1}+2c_{n-1}(x_n-x_{n-1})+3d_j(x_n-x_{n-1})^2 \\
 &= b_{n-1}+2c_{n-1}h_{n-1}+3d_{n-1}h_{n-1}^2=f'(x_n)
   \end{split}
 \end{equation}
-Usando as equações (\ref{eq_dn_spline}) e (\ref{eq_bn_spline}) para $j=1$ e $j=n-1$, temos:
+Usando as equações \eqref{eq_dn_spline} e \eqref{eq_bn_spline} para $j=1$ e $j=n-1$, temos:
 \begin{equation}
 2c_1h_1+c_{2}h_1=3\frac{y_{2}-y_1}{h_1}-3f'(x_1)  
 \end{equation}
@@ -1367,7 +1367,7 @@ e
 c_{n-1}h_{n-1}+c_{n}h_{n-1}=3f'(x_n)-3\frac{y_{n}-y_{n-1}}{h_{n-1}}  
 \end{equation}
 
-Essas duas equações juntamente com as equações (\ref{eq_cn_spline}) formam um sistema de $n$ equações $Ac = z$, onde
+Essas duas equações juntamente com as equações \eqref{eq_cn_spline} formam um sistema de $n$ equações $Ac = z$, onde
 \begin{equation*}
 A=\left[\begin{array}{ccccccc}
 2h_1 &h_1&0&0 &\cdots&0&0\\
@@ -1394,14 +1394,14 @@ z = \left[\begin{array}{c}
 3f'(x_n)-3\frac{y_{n}-y_{n-1}}{h_{n-1}}
 \end{array}\right]  
 \end{equation*}
-Observe que a matriz $A$ é diagonal dominante estrita e, portanto, o sistema $Ac = z$ possui solução única. Calculado $c$, os valores dos $a_n$, $b_n$ e $d_n$ são obtidos diretamente pelas expressões (\ref{eq_an_spline}), (\ref{eq_bn_spline}) e (\ref{eq_dn_spline}), respectivamente.
+Observe que a matriz $A$ é diagonal dominante estrita e, portanto, o sistema $Ac = z$ possui solução única. Calculado $c$, os valores dos $a_n$, $b_n$ e $d_n$ são obtidos diretamente pelas expressões \eqref{eq_an_spline}, \eqref{eq_bn_spline} e \eqref{eq_dn_spline}, respectivamente.
 
 
 \begin{ex}Construa um spline cúbico com fronteira fixada que interpola a função $y=\sin (x)$ nos pontos $x=0$, $x=\frac{\pi}{2}$, $x=\pi$, $x=\frac{3\pi}{2}$ e $x=2\pi$.
 \end{ex}
 O spline desejado passa pelos pontos $(0,0)$, $(\pi/2,1)$, $(\pi,0)$, $(3\pi/2,-1)$ e $(2\pi,0)$ e tem a forma:
 \begin{equation*}
-f(x)=\left\{\begin{array}{ll}
+S(x)=\left\{\begin{array}{ll}
 a_1+b_1x+c_1x^2+d_1x^3&, 0\leq x<\frac{\pi}{2}\\
 a_2+b_2(x-\frac{\pi}{2})+c_2(x-\frac{\pi}{2})^2+d_2(x-\frac{\pi}{2})^3&, \frac{\pi}{2}\leq x<\pi\\
 a_3+b_3(x-\pi)+c_3(x-\pi)^2+d_3(x-\pi)^3&, \pi\leq x<\frac{3\pi}{2}\\
@@ -1442,7 +1442,7 @@ z = \left[\begin{array}{c}
 3-6/\pi
 \end{array}\right]  
 \end{equation*}
-Aqui $c_5$ é um coeficiente artificial para o problema. A solução é  $c_1=-0,0491874$, $c_2=-0,5956302$, $c_3=0$, $c_4=0,5956302$ e $c_5=0,0491874$. Calculamos os demais coeficientes usando as expressões (\ref{eq_an_spline}), (\ref{eq_bn_spline}) e (\ref{eq_dn_spline}):
+Aqui $c_5$ é um coeficiente artificial para o problema. A solução é  $c_1=-0,0491874$, $c_2=-0,5956302$, $c_3=0$, $c_4=0,5956302$ e $c_5=0,0491874$. Calculamos os demais coeficientes usando as expressões \eqref{eq_an_spline}, \eqref{eq_bn_spline} e \eqref{eq_dn_spline}:
 \begin{eqnarray*}
 a_1&=&y_1=0\\
 a_2&=&y_2=1\\
@@ -1455,20 +1455,20 @@ d_2&=&\frac{c_{3}-c_2}{3h_2}=\frac{0-(-0,5956302)}{3\cdot \pi/2}=0,1263967\\
 d_3&=&\frac{c_{4}-c_3}{3h_3}=\frac{0,5956302- 0}{3\cdot \pi/2}=0,1263967\\
 d_4&=&\frac{c_{5}-c_4}{3h_4}=\frac{0,0491874- 0,5956302}{3\cdot \pi/2}=-0,1159588
 \end{eqnarray*}
-\begin{align*}
-b_1&= \frac{y_{2}-y_1}{h_1}-\frac{h_1}{3}(2c_1+c_{2})\\
-&=\frac{1-0}{\pi/2}-\frac{\pi/2}{3}(2\cdot (-0,0491874)-0,5956302)=1\\
-b_2&=\frac{y_{3}-y_2}{h_2}-\frac{h_2}{3}(2c_2+c_{3})\\
-&=\frac{0-1}{\pi/2}-\frac{\pi/2}{3}(2\cdot(-0,5956302) +0)=-0,0128772\\
-b_3&=\frac{y_{4}-y_3}{h_3}-\frac{h_3}{3}(2c_3+c_{4})\\
-&=\frac{-1-0}{\pi/2}-\frac{\pi/2}{3}(2\cdot 0+0,5956302)=-0,9484910\\
-b_4&=\frac{y_{5}-y_4}{h_4}-\frac{h_4}{3}(2c_4+c_{5})\\
-&=\frac{0-(-1)}{\pi/2}-\frac{\pi/2}{3}(2\cdot 0,5956302+0,0491874)=-0,0128772
-\end{align*}
+\begin{eqnarray*}
+b_1&=& \frac{y_{2}-y_1}{h_1}-\frac{h_1}{3}(2c_1+c_{2})\\
+&=&\frac{1-0}{\pi/2}-\frac{\pi/2}{3}(2\cdot (-0,0491874)-0,5956302)=1\\
+b_2&=&\frac{y_{3}-y_2}{h_2}-\frac{h_2}{3}(2c_2+c_{3})\\
+&=&\frac{0-1}{\pi/2}-\frac{\pi/2}{3}(2\cdot(-0,5956302) +0)=-0,0128772\\
+b_3&=&\frac{y_{4}-y_3}{h_3}-\frac{h_3}{3}(2c_3+c_{4})\\
+&=&\frac{-1-0}{\pi/2}-\frac{\pi/2}{3}(2\cdot 0+0,5956302)=-0,9484910\\
+b_4&=&\frac{y_{5}-y_4}{h_4}-\frac{h_4}{3}(2c_4+c_{5})\\
+&=&\frac{0-(-1)}{\pi/2}-\frac{\pi/2}{3}(2\cdot 0,5956302+0,0491874)=-0,0128772
+\end{eqnarray*}
 Portanto,
 \begin{small}
 \begin{equation*}
-f(x)=\left\{\begin{array}{ll}
+S(x)=\left\{\begin{array}{ll}
 x-0,049x^2-0,12x^3&, 0\leq x<\frac{\pi}{2}\\
 1+-0,01(x-\frac{\pi}{2})-0,6(x-\frac{\pi}{2})^2+0,13(x-\frac{\pi}{2})^3&, \frac{\pi}{2}\leq x<\pi\\
 -0,95(x-\pi)+0,13(x-\pi)^3&, \pi\leq x<\frac{3\pi}{2}\\
@@ -1482,17 +1482,17 @@ No \verb+Scilab+, podemos resolver este problema fazendo:
 \verbatiminput{./cap_aproxfun/codes/splines/ex_spline_fixado.sce}
 \fi
 
-\subsubsection{Resumo sobre Splines}
+\subsection{Resumo sobre Splines}
 
-Dado um conjunto de pontos $(x_i,y_i)$, $i=1,2,\ldots,n$, um spline cúbico é a seguinte função definida por partes:
+Dado um conjunto de pontos $(x_i,y_i)$, $i=1,2,\ldots,n$, um spline cúbico é a seguinte função interpoladora definida por partes:
 \begin{small}
 \begin{equation*}
-  s(x) \!=\! \left\{\begin{array}{ll}
+  S(x) \!=\! \left\{\begin{array}{ll}
        \!\!\!a_1 \!+\! b_1(x\!-\!x_1) \!+\! c_1(x\!-\!x_1)^2 \!+\! d_1(x\!-\!x_1)^3 &\!\!\!\!\!, x_1\leq x < x_2\\
       \!\!\!a_2 \!+\! b_2(x\!-\!x_2) \!+\! c_2(x\!-\!x_2)^2 \!+\! d_2(x\!-\!x_2)^3 &\!\!\!\!\!, x_2 \leq x < x_3\\
       \qquad\qquad \vdots & \qquad\vdots \\
       \!\!\!a_{n-1} \!+\! b_{n-1}(x\!-\!x_{n-1}) \!+\! c_{n-1}(x\!-\!x_{n-1})^2 \!+\! d_{n-1}(x\!-\!x_{n-1})^3 &\!\!\!\!\!, x_{n-1} \leq x \leq x_n \end{array}\right.
-\end{equation*}  
+\end{equation*}
 \end{small}
 
 Definindo-se $h_j = x_{j+1} - x_j$, os coeficientes $c_j$, $j=1,2,\dotsc,n$, são solução do sistema linear $Ac = z$, onde:
@@ -1534,14 +1534,15 @@ z_i = \left\{
     3f'(x_n) - 3\frac{y_n - y_{n-1}}{h_{n-1}} &, i=n
   \end{array}
 \right. \\ \hline
+\multicolumn{2}{c}{}
   \end{array}
 \end{equation*}
 \end{small}
 os coeficientes $a_j$, $b_j$ e $d_j$, $j=1,2,\dotsc,n-1$, são calculados conforme segue:
-\begin{align*}
-  &a_j = y_j\\
-  &b_j = \frac{3y_{j+1} - 3y_j - 2c_jh_j^2 - c_{j+1}h_j^2}{3h_j}\\
-  &d_j = \frac{c_{j+1} - c_j}{3h_j}
-\end{align*}
+\begin{eqnarray*}
+  a_j &=& y_j\\
+  b_j &=& \frac{3y_{j+1} - 3y_j - 2c_jh_j^2 - c_{j+1}h_j^2}{3h_j}\\
+  d_j &=& \frac{c_{j+1} - c_j}{3h_j}
+\end{eqnarray*}
 
 %\end{document} 
