@@ -1,0 +1,371 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html xml:lang="pt" > 
+<head><title>Aproximando problemas nao lineares por problemas lineares</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,3,notoc*,info --> 
+<meta name="src" content="main.tex"> 
+<meta name="date" content="2016-10-24 16:45:00"> 
+<link rel="stylesheet" type="text/css" href="main.css"> 
+</head><body 
+>
+   <!--l. 885--><div class="crosslinks"><p class="noindent"><a 
+href="mainse38.html#mainse43.html" >Voltar</a></p></div>
+   <h3 class="sectionHead"><span class="titlemark">6.6   </span> <a 
+ id="x67-1070006.6"></a>Aproximando problemas não lineares por problemas lineares</h3>
+<!--l. 887--><p class="noindent" >Eventualmente, problemas de ajuste de curvas podem recair num
+sistema não linear. Por exemplo, para ajustar função <img 
+src="main3103x.png" alt="y = Aebx  "  class="math" > ao
+conjunto de pontos <img 
+src="main3104x.png" alt="(x1,y1)  "  class="math" >, <img 
+src="main3105x.png" alt="(x2,y2)  "  class="math" > e <img 
+src="main3106x.png" alt="(x3,y3)  "  class="math" >, temos que minimizar o
+resíduo<span class="footnote-mark"><a 
+href="main68.html#fn1x9"><sup class="textsuperscript">1</sup></a></span><a 
+ id="x67-107001f1"></a> 
+   <center class="math-display" >
+<img 
+src="main3107x.png" alt="R =  (Aex1b &minus; y1)2 + (Aex2b &minus; y2)2 + (Aex3b &minus; y3)2   " class="math-display" ></center> ou
+seja, resolver o sistema <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main3108x.png" alt="&part;R            x1b      x1b       x2b      x2b       x3b      x3b
+&part;A-- =   2(Ae    &minus; y1)e   + 2(Ae    &minus; y2)e   + 2 (Ae    &minus; y3)e   =  0
+&part;R
+---- =   2Ax1 (Aex1b &minus; y1)ex1b + 2Ax2 (Aex2b &minus; y2)ex2b
+ &part;b
+     +   2Ax3 (Aex3b &minus; y3)ex3b = 0
+" class="math-display" ></center>
+</div>que é não linear em <img 
+src="main3109x.png" alt="A  "  class="math" > e <img 
+src="main3110x.png" alt="b  "  class="math" >. Esse sistema pode ser resolvido pelo método
+de Newton-Raphson, o que pode se tornar custoso, ou mesmo inviável
+quando não dispomos de uma boa aproximação da solução para inicializar o
+método.
+<!--l. 899--><p class="indent" >   Felizmente, algumas famílias de curvas admitem uma transformação que nos
+leva a um problema linear. No caso da curva <img 
+src="main3111x.png" alt="       bx
+y = Ae  "  class="math" >, observe que
+<img 
+src="main3112x.png" alt="ln y = lnA  + bx  "  class="math" >. Assim, em vez de ajustar a curva original <img 
+src="main3113x.png" alt="y = Aebx  "  class="math" > a tabela
+de pontos, ajustamos a curva submetida a transformação logarítmica
+   <center class="math-display" >
+<img 
+src="main3114x.png" alt="&#x02DC;y := a  + a &#x02DC;x = ln A + bx.
+      1    2  " class="math-display" ></center>
+Usamos os pontos <img 
+src="main3115x.png" alt="(x&#x02DC;j,&#x02DC;yj) :=  (xj, ln yj)  "  class="math" >, <img 
+src="main3116x.png" alt="j =  1,2,3  "  class="math" > e resolvemos o sistema
+linear
+   <center class="math-display" >
+<img 
+src="main3117x.png" alt="                  &lfloor;     &rfloor;
+     &lfloor;     &rfloor;
+                  ||  &#x02DC;y1 ||
+V TV |&lceil;  a1 |&rceil; = V T||     ||,
+        a         |&lceil;  &#x02DC;y2 |&rceil;
+         2           &#x02DC;y3  " class="math-display" ></center>
+onde
+   <center class="math-display" >
+<img 
+src="main3118x.png" alt="     &lfloor;       &rfloor;
+     | 1  x1 |
+     ||       ||
+A =  || 1  x2 ||
+     &lceil;       &rceil;
+       1  x3
+" class="math-display" ></center>
+   <div class="newtheorem">
+<!--l. 911--><p class="noindent" ><span class="head">
+<a 
+ id="x67-107003r1"></a>
+<span 
+class="ec-lmbx-12">Exemplo 6.6.1.</span>  </span>Encontre uma curva da forma <img 
+src="main3119x.png" alt="y = Aex  "  class="math" > que melhor ajusta
+os pontos <img 
+src="main3120x.png" alt="(1,2)  "  class="math" >, <img 
+src="main3121x.png" alt="(2,3)  "  class="math" > e <img 
+src="main3122x.png" alt="(3,5)  "  class="math" >.
+   </div>
+<!--l. 913--><p class="indent" >   Temos
+   <center class="math-display" >
+<img 
+src="main3123x.png" alt="     &lfloor;      &rfloor;
+
+     || 1  1 ||
+A  = ||      ||
+     |&lceil; 1  2 |&rceil;
+       1  3 " class="math-display" ></center> e a
+solução do sistema leva em <img 
+src="main3124x.png" alt="B =  0,217442  "  class="math" > e <img 
+src="main3125x.png" alt="b = 0,458145  "  class="math" >. Portanto,
+<img 
+src="main3126x.png" alt="A  = e0,217442 = 1,24289  "  class="math" >.
+   <div class="newtheorem">
+<!--l. 919--><p class="noindent" ><span class="head">
+<a 
+ id="x67-107004r1"></a>
+<span 
+class="ec-lmbx-12">Observa</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão 6.6.1.</span>  </span>Os coeficientes obtidos a partir dessa linearização são
+aproximados,  ou  seja,  são  diferentes  daqueles  obtidos  quando  aplicamos
+mínimos   quadrados   não   linear.   Observe   que   estamos   minimizando
+<img 
+src="main3127x.png" alt="&sum; [lny  &minus; ln (f(x ))]2
+ i    i         i   "  class="math" > em vez de <img 
+src="main3128x.png" alt="&sum;  [y  &minus; f(x )]2
+ i  i      i   "  class="math" >. No exemplo resolvido, a
+solução do sistema não linear original seria <img 
+src="main3129x.png" alt="A  = 1,19789  "  class="math" > e <img 
+src="main3130x.png" alt="B  = 0,474348  "  class="math" >
+   </div>
+   <div class="newtheorem">
+<!--l. 923--><p class="noindent" ><span class="head">
+<a 
+ id="x67-107005r2"></a>
+<span 
+class="ec-lmbx-12">Observa</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão 6.6.2.</span>  </span>Mesmo quando se deseja resolver o sistema não linear,
+a solução do problema linearizado pode ser usada para construir condições
+iniciais.
+   </div>
+<!--l. 928--><p class="indent" >   A próxima tabela apresenta algumas curvas e transformações que linearizam o
+problema de ajuste.
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main3131x.png" alt="|------------------|---------------|--------------------------|
+|------curva-------|transforma-ção-|---problema-linearizado----|
+|           bx      |               |                          |
+|----y-=--ae-------|---y&#x02DC;=--ln-y----|------y&#x02DC;=--ln-a-+-bx-------|
+|           b      |               |                          |
+|-----y-=-ax-------|---y&#x02DC;=--ln-y----|-----&#x02DC;y-=-ln-a +-bln-x------|
+|   y =  axbecx     |   y&#x02DC;=  ln y    |   &#x02DC;y = ln a + bln x + cx   |
+|------------------|---------------|--------------------------|
+|  y =  ae(b+cx)2   |   y&#x02DC;=  ln y    |&#x02DC;y = ln a + b2 + bcx + c2x2|
+|------------------|---------------|--------------------------|
+|     y = ba+x      |    y&#x02DC;=  1y     |       &#x02DC;y =  ba + 1ax        |
+|------------------|---------------|--------------------------|
+|y = A cos(&omega;x + &#x03D5;) |      &minus;        |y =  acos(&omega;x ) &minus; b sin (&omega;x )|
+|                  |               |                          |
+|---&omega;-conhecido----|----------------a-=-A-cos(&#x03D5;),-b =-A-sin(&#x03D5;-)-
+|                  |
+" class="math-display" ></center>
+   <div class="newtheorem">
+<!--l. 942--><p class="noindent" ><span class="head">
+<a 
+ id="x67-107006r2"></a>
+<span 
+class="ec-lmbx-12">Exemplo 6.6.2.</span>  </span>Encontre        a        função        <img 
+src="main3132x.png" alt="f  "  class="math" >       da        forma
+<img 
+src="main3133x.png" alt="y = f (x) = A cos(2&pi;x + &#x03D5; )  "  class="math" > que ajusta a tabela de pontos
+   <center class="math-display" >
+<img 
+src="main3134x.png" alt="|----|--------|
+|    |        |
+|-xi-|---yi---|
+|    |        |
+|0,0 |  9,12   |
+|0,1 |  1,42   |
+|    |        |
+|0,2 | -7,76  |
+|    |        |
+|0,3 |- 11,13 |
+|    |        |
+|0,4 | -11,6  |
+|    |        |
+|0,5 | -6,44  |
+|0,6 |  1,41   |
+|    |        |
+|0,7 | 11,01  |
+|    |        |
+|0,8 | 14,73  |
+|    |        |
+|0,9 | 13,22  |
+|    |        |
+|1,0-|--9,93----
+|    |
+" class="math-display" ></center>
+   </div>
+<!--l. 964--><p class="indent" >
+   <div class="proof">
+<!--l. 964--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span>                                Usando                                     o
+fato que <img 
+src="main3135x.png" alt="y = A cos(2&pi;x + &#x03D5; ) = a cos(2&pi;x ) &minus; b sin(2&pi;x )  "  class="math" >, onde <img 
+src="main3136x.png" alt="a = A cos(&#x03D5;)  "  class="math" >
+e <img 
+src="main3137x.png" alt="b = A sin(&#x03D5;)  "  class="math" >, <img 
+src="main3138x.png" alt="z = [ a  b ]T  "  class="math" > é solução do problema
+   <center class="math-display" >
+<img 
+src="main3139x.png" alt="  T        T
+B  Bz  = B  y,
+" class="math-display" ></center> onde
+   <center class="math-display" >
+<img 
+src="main3140x.png" alt="                                      &lfloor;                           &rfloor;
+
+                                      ||      1.           0.      ||
+                                      ||  0,8090170   &minus; 0,5877853  ||
+                                      ||                           ||
+                                      ||  0,3090170   &minus; 0,9510565  ||
+                                      ||                           ||
+     &lfloor;                           &rfloor;    || &minus; 0,3090170  &minus; 0,9510565  ||
+     |  cos(2&pi;x0 )  &minus; sin(2&pi;x0 ) |    ||                           ||
+     ||                           ||    || &minus; 0,8090170  &minus; 0,5877853  ||
+     ||  cos(2&pi;x1 )  &minus; sin(2&pi;x1 ) ||    ||                           ||
+B  = ||      ..                    || =  || &minus; 1,0000000   0,0000000   ||.
+     |&lceil;      .                    |&rceil;    || &minus; 0,8090170   0,5877853   ||
+        cos(2 &pi;x  )  &minus; sin (2 &pi;x  )      ||                           ||
+               10            10       || &minus; 0,3090170   0,9510565   ||
+                                      ||                           ||
+                                      ||  0,3090170    0,9510565   ||
+                                      ||                           ||
+                                      ||  0,8090170    0,5877853   ||
+                                      &lceil;                           &rceil;
+                                         1,0000000    0,0000000
+" class="math-display" ></center> Assim, <img 
+src="main3141x.png" alt="a = 7,9614704  "  class="math" > e <img 
+src="main3142x.png" alt="b = 11,405721  "  class="math" > e obtemos o seguinte sistema:
+   <center class="math-display" >
+<img 
+src="main3143x.png" alt="(
+|{
+   A cos(&#x03D5;) = 7,9614704  .
+|(  A sin(&#x03D5;) = 11,405721
+" class="math-display" ></center> Observe que
+   <center class="math-display" >
+<img 
+src="main3144x.png" alt="  2             2            2
+A   = 7,9614704  + 11,405721
+" class="math-display" ></center> e, escolhendo <img 
+src="main3145x.png" alt="A &#x003E; 0  "  class="math" >, <img 
+src="main3146x.png" alt="A  = 13,909546  "  class="math" > e
+   <center class="math-display" >
+<img 
+src="main3147x.png" alt="         11,405721
+sin(&#x03D5;) = ---------- = 0,8199923
+         13,909546
+" class="math-display" ></center> Assim,  como  <img 
+src="main3148x.png" alt="cos&#x03D5;  "  class="math" > também  é  positivo,  <img 
+src="main3149x.png" alt="&#x03D5;  "  class="math" > é  um  ângulo  do  primeiro
+quadrante:
+   <center class="math-display" >
+<img 
+src="main3150x.png" alt="&#x03D5; = 0,9613976
+                                                                          
+
+                                                                          
+" class="math-display" ></center> Portanto <img 
+src="main3151x.png" alt="f(x) = 13,909546 cos(2&pi;x +  0,9613976 )  "  class="math" >. Observe que nesse exemplo
+a solução do problema linear é a mesma do problema não linear.          <img 
+src="main3152x.png" alt="&#x2662; "  class="math" >
+   </div>
+   <div class="newtheorem">
+<!--l. 1004--><p class="noindent" ><span class="head">
+<a 
+ id="x67-107007r3"></a>
+<span 
+class="ec-lmbx-12">Exemplo 6.6.3.</span>  </span>Encontre  a  função  <img 
+src="main3153x.png" alt="f  "  class="math" >  da  forma  <img 
+src="main3154x.png" alt="y =  f(x) = -a-
+            b+x  "  class="math" >  que
+ajusta a tabela de pontos
+   <center class="math-display" >
+<img 
+src="main3155x.png" alt="|----|----|
+|x   | y  |
+|--i-|--i-|
+|0,0 |101 |
+|    |    |
+|0,2 |85  |
+|    |    |
+|0,4 |75  |
+|    |    |
+|0,6 |66  |
+|    |    |
+|0,8 |60  |
+|1,0 |55  |
+|----|-----
+|    |
+" class="math-display" ></center> usando uma das transformações tabeladas.
+   </div>
+<!--l. 1022--><p class="indent" >
+   <div class="proof">
+<!--l. 1022--><p class="indent" >   <span class="head">
+                                                                          
+
+                                                                          
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Usando o fato que <img 
+src="main3156x.png" alt="     1   b   1
+Y =  y = a + ax  "  class="math" >, <img 
+src="main3157x.png" alt="      b  1  T
+z = [ a  a ]  "  class="math" > é solução
+do problema
+   <center class="math-display" >
+<img 
+src="main3158x.png" alt="AT Az  = AT Y,
+" class="math-display" ></center> onde
+   <center class="math-display" >
+<img 
+src="main3159x.png" alt="     &lfloor;       &rfloor;    &lfloor;        &rfloor;
+     | 1  x1 |    | 1  0,0 |
+     ||       ||    ||        ||
+     || 1  x2 ||    || 1  0,2 ||
+     || 1  x  ||    || 1  0,4 ||
+A =  ||     3 || =  ||        ||
+     || 1  x4 ||    || 1  0,6 ||
+     ||       ||    ||        ||
+     || 1  x5 ||    || 1  0,8 ||
+     &lceil;       &rceil;    &lceil;        &rceil;
+       1  x6        1  1,0
+" class="math-display" ></center> e
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main3160x.png" alt="     &lfloor;      &rfloor;   &lfloor;            &rfloor;
+     | 1&#x2215;y1 |   | 0,0099010  |
+     ||      ||   ||            ||
+     || 1&#x2215;y2 ||   || 0,0117647  ||
+     ||      ||   ||            ||
+Y =  || 1&#x2215;y3 || = || 0,0133333  ||
+     || 1&#x2215;y4 ||   || 0,0151515  ||
+     ||      ||   ||            ||
+     || 1&#x2215;y5 ||   || 0,0166667  ||
+     &lceil;      &rceil;   &lceil;            &rceil;
+       1&#x2215;y6       0,0181818
+" class="math-display" ></center> Assim, <img 
+src="main3161x.png" alt="1a = 0,0082755  "  class="math" > e <img 
+src="main3162x.png" alt="ba =  0,0100288  "  class="math" > e, então, <img 
+src="main3163x.png" alt="a = 120,83924  "  class="math" > e <img 
+src="main3164x.png" alt="b = 1,2118696  "  class="math" >,
+ou seja, <img 
+src="main3165x.png" alt="f (x) = -120,83924--
+        1,2118696+x  "  class="math" >.                                                           <img 
+src="main3166x.png" alt="&#x2662; "  class="math" >
+   </div>
+                                                                          
+
+                                                                          
+   <!--l. 1060--><div class="crosslinks"><p class="noindent"><a 
+href="mainse38.html#mainse43.html" >Voltar</a></p></div>
+<!--l. 1060--><p class="indent" >   <a 
+ id="tailmainse30.html"></a>  
+</body></html> 

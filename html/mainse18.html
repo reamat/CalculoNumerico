@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html xml:lang="pt" > 
+<head><title>Fatoraçao LU</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,3,notoc*,info --> 
+<meta name="src" content="main.tex"> 
+<meta name="date" content="2016-10-24 16:45:00"> 
+<link rel="stylesheet" type="text/css" href="main.css"> 
+</head><body 
+>
+   <!--l. 687--><div class="crosslinks"><p class="noindent"><a 
+href="mainse22.html#mainse28.html" >Voltar</a></p></div>
+   <h3 class="sectionHead"><span class="titlemark">4.4   </span> <a 
+ id="x45-630004.4"></a>Fatoração LU</h3>
+<!--l. 688--><p class="noindent" >Considere um sistema linear onde a matriz <img 
+src="main2081x.png" alt="A  "  class="math" > é
+densa<span class="footnote-mark"><a 
+href="main46.html#fn5x7"><sup class="textsuperscript">5</sup></a></span><a 
+ id="x45-63001f5"></a> .
+Para resolver o sistema, podemos transformar a matriz <img 
+src="main2082x.png" alt="A  "  class="math" > nas matrizes <img 
+src="main2083x.png" alt="L  "  class="math" >,
+triangular inferior, e <img 
+src="main2084x.png" alt="U  "  class="math" >, triangular superior de tal forma que <img 
+src="main2085x.png" alt="A  = LU  "  class="math" >.
+<!--l. 690--><p class="indent" >   Sendo assim o sistema pode ser reescrito tal que <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main2086x.png" alt="      Ax   =   b
+
+  (LU )x   =   b
+  L (Ux )  =   b
+
+Ly = b     e     U x = y
+" class="math-display" ></center>
+</div>Assim ao invés de resolvermos o sistema original, devemos resolver um sistema
+triangular inferior e um sistema triangular superior.
+<!--l. 699--><p class="indent" >   A matriz <img 
+src="main2087x.png" alt="U  "  class="math" > da fatoração<span class="footnote-mark"><a 
+href="main47.html#fn6x7"><sup class="textsuperscript">6</sup></a></span><a 
+ id="x45-63003f6"></a> 
+<img 
+src="main2088x.png" alt="LU  "  class="math" > é a matriz obtida ao final do escalonamento da matriz <img 
+src="main2089x.png" alt="A  "  class="math" >.
+                                                                          
+
+                                                                          
+<!--l. 701--><p class="indent" >   A matriz <img 
+src="main2090x.png" alt="L  "  class="math" > inicia igual a identidade <img 
+src="main2091x.png" alt="I  "  class="math" >. Os elementos da matriz <img 
+src="main2092x.png" alt="L  "  class="math" > são os
+múltiplos do primeiro elemento da linha de <img 
+src="main2093x.png" alt="A  "  class="math" > <span class="underline">a ser zerado</span> dividido pelo pivô
+acima na mesma coluna.
+<!--l. 703--><p class="indent" >   Por exemplo, para zerar o primeiro elemento da segunda linha de <img 
+src="main2094x.png" alt="A  "  class="math" >,
+calculamos
+   <center class="math-display" >
+<img 
+src="main2095x.png" alt="L21 = A21 &#x2215;A11   " class="math-display" ></center> e
+fazemos
+   <center class="math-display" >
+<img 
+src="main2096x.png" alt="A2,: &lArr; A2,: &minus; L21A1,:
+" class="math-display" ></center>
+<!--l. 708--><p class="indent" >   Note que usaremos <img 
+src="main2097x.png" alt="Ai,:   "  class="math" > para nos referenciarmos a linha <img 
+src="main2098x.png" alt="i  "  class="math" > de <img 
+src="main2099x.png" alt="A  "  class="math" >. Da mesma
+forma, se necessário usaremos <img 
+src="main2100x.png" alt="A
+  :,j  "  class="math" > para nos referenciarmos a linha <img 
+src="main2101x.png" alt="j  "  class="math" > de
+<img 
+src="main2102x.png" alt="A  "  class="math" >.
+<!--l. 710--><p class="indent" >   Para zerar o primeiro elemento da terceira linha de <img 
+src="main2103x.png" alt="A  "  class="math" >, temos
+   <center class="math-display" >
+<img 
+src="main2104x.png" alt="L31 = A31 &#x2215;A11   " class="math-display" ></center> e
+fazemos
+   <center class="math-display" >
+<img 
+src="main2105x.png" alt="A3,: &lArr; A3,: &minus; L31A1,:   " class="math-display" ></center> até
+chegarmos ao último elemento da primeira coluna de <img 
+src="main2106x.png" alt="A  "  class="math" >.
+<!--l. 716--><p class="indent" >   Repetimos o processo para as próximas colunas, escalonando
+a matriz <img 
+src="main2107x.png" alt="A  "  class="math" > e coletando os elementos <img 
+src="main2108x.png" alt="Lij  "  class="math" > abaixo da
+diagonal<span class="footnote-mark"><a 
+href="main48.html#fn7x7"><sup class="textsuperscript">7</sup></a></span><a 
+ id="x45-63004f7"></a> .
+   <h4 class="subsectionHead"><span class="titlemark">4.4.1   </span> <a 
+ id="x45-640004.4.1"></a>Algoritmo para fatoração LU</h4>
+<!--l. 723--><p class="noindent" >O algoritmo para fatoração <img 
+src="main2112x.png" alt="LU  "  class="math" > pode ser escrito como
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-24">
+&#x00A0;1.&#x00A0;function&#x00A0;[L,A]=fatoraLU(A)
+&#x00A0;<br />&#x00A0;2.&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;n=size(A,1)
+&#x00A0;<br />&#x00A0;3.&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;L=eye(n,n)
+&#x00A0;<br />&#x00A0;4.&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;for&#x00A0;j=1:n-1
+&#x00A0;<br />&#x00A0;5.&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;for&#x00A0;i=j+1:n
+&#x00A0;<br />&#x00A0;6.&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;L(i,j&#x00A0;&#x00A0;&#x00A0;&#x00A0;)=A(i,j)/A(j,j)
+&#x00A0;<br />&#x00A0;7.&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;A(i,j+1:n)=A(i,j+1:n)-L(i,j)*A(j,j+1:n)
+&#x00A0;<br />&#x00A0;8.&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;A(i,j&#x00A0;&#x00A0;&#x00A0;&#x00A0;)=0
+&#x00A0;<br />&#x00A0;9.&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;end
+&#x00A0;<br />10.&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;end
+&#x00A0;<br />11.&#x00A0;endfunction
+</div>
+<!--l. 736--><p class="nopar" >
+<!--l. 738--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x45-650004.4.1"></a>Custo computacional</h5>
+<!--l. 739--><p class="noindent" >Podemos analisar o custo computacional reduzindo o problema em problemas
+menores.
+<!--l. 741--><p class="indent" >   Na linha 4, iniciamos com <img 
+src="main2113x.png" alt="j = 1  "  class="math" >. Desta forma <img 
+src="main2114x.png" alt="i  "  class="math" > varia de <img 
+src="main2115x.png" alt="2  "  class="math" > até <img 
+src="main2116x.png" alt="n  "  class="math" > na linha
+5.
+<!--l. 743--><p class="indent" >   A linha 6 terá sempre 1 flop.
+<!--l. 745--><p class="indent" >   A linha 7, com <img 
+src="main2117x.png" alt="j = 1  "  class="math" > tem um bloco de tamanho <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">2:n</span></span></span> contabilizando <img 
+src="main2118x.png" alt="n &minus; 1  "  class="math" >
+flops do produto e <img 
+src="main2119x.png" alt="n &minus; 1  "  class="math" > flops da subtração.
+<!--l. 747--><p class="indent" >   Nas linhas 6-8 são feitas <img 
+src="main2120x.png" alt="(2(n &minus; 1) + 1) = 2n &minus; 1  "  class="math" > flops independente do valor
+de <img 
+src="main2121x.png" alt="i  "  class="math" >. Como <img 
+src="main2122x.png" alt="i  "  class="math" > varia de <img 
+src="main2123x.png" alt="2  "  class="math" > até <img 
+src="main2124x.png" alt="n  "  class="math" >, teremos que o bloco é repetido <img 
+src="main2125x.png" alt="n &minus; 1  "  class="math" > vezes,
+ou seja, o custo das linhas 5-9 é
+   <table 
+class="equation"><tr><td><a 
+ id="x45-65001r21"></a>
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main2126x.png" alt="                                   2
+(n &minus; 1) &#x00D7; (2(n &minus; 1) + 1) = 2(n &minus; 1) +  (n &minus; 1)
+" class="math-display" ></center></td><td class="equation-label">(4.21)</td></tr></table>
+<!--l. 750--><p class="nopar" >
+<!--l. 752--><p class="indent" >   Voltamos a linha 4 quando <img 
+src="main2127x.png" alt="j = 2  "  class="math" >. Das linhas 6-8 teremos <img 
+src="main2128x.png" alt="n &minus; 2  "  class="math" > flops (o
+bloco terá um elemento a menos) que será repetido <img 
+src="main2129x.png" alt="n &minus; 2  "  class="math" > vezes, pois <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">i=3:n</span></span></span>, ou
+seja,
+   <table 
+class="equation"><tr><td><a 
+ id="x45-65002r22"></a>
+   <center class="math-display" >
+<img 
+src="main2130x.png" alt="(n &minus; 2) &#x00D7; (2(n &minus; 2) + 1) = 2(n &minus; 2)2 + (n &minus; 2)
+" class="math-display" ></center></td><td class="equation-label">(4.22)</td></tr></table>
+<!--l. 755--><p class="nopar" >
+<!--l. 757--><p class="indent" >   Para <img 
+src="main2131x.png" alt="j = 3  "  class="math" >, temos <img 
+src="main2132x.png" alt="         2
+2 (n &minus;  3) + (n &minus; 3)  "  class="math" >.
+<!--l. 759--><p class="indent" >   Para <img 
+src="main2133x.png" alt="j = n &minus; 2  "  class="math" >, temos <img 
+src="main2134x.png" alt="2(2)2 + 2  "  class="math" >.
+<!--l. 761--><p class="indent" >   Finalmente, para <img 
+src="main2135x.png" alt="j = n &minus; 1  "  class="math" >, temos <img 
+src="main2136x.png" alt="2 &sdot; 12 + 1  "  class="math" >.
+<!--l. 764--><p class="indent" >   Somando todos esses custos, temos <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main2137x.png" alt="                  2                       2                 2
+(n &minus; 1) + 2(n &minus; 1)   +   (n &minus;  2) + 2(n &minus; 2 ) + ...+ (2) + 2(2) + 1 + 2 &sdot; 1
+                         n&sum;&minus;1  2
+                     =      2k  + k
+                         k=1
+                          n&sum;&minus;1  2  n&minus;&sum; 1
+                     =   2    k +     k
+                          k=1     k=1
+                          (n-&minus;-1)n(2n-&minus;-1-)   n(n-&minus;-1)-
+                     =   2        6        +     2
+                         2n3   n2    n
+                     =   ----&minus; ---&minus;  --flops.
+                          3     2    6
+" class="math-display" ></center>
+</div>
+<!--l. 784--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">4.4.2   </span> <a 
+ id="x45-660004.4.2"></a>Custo computacional para resolver um sistema linear usando fatoração
+LU</h4>
+<!--l. 785--><p class="noindent" >Para calcularmos o custo computacional de um algoritmo completo, uma
+estratégia é separar o algoritmo em partes menores mais fáceis de calcular.
+<!--l. 787--><p class="indent" >   Para resolver o sistema, devemos primeiro fatorar a matriz <img 
+src="main2138x.png" alt="A  "  class="math" > nas matrizes
+<img 
+src="main2139x.png" alt="L  "  class="math" > e <img 
+src="main2140x.png" alt="U  "  class="math" >. Vimos que o custo é
+   <center class="math-display" >
+<img 
+src="main2141x.png" alt="   3    2
+2n--&minus;  n--&minus; n- flops.
+ 3      2    6
+" class="math-display" ></center>
+<!--l. 790--><p class="indent" >   Depois devemos resolver os sistemas <img 
+src="main2142x.png" alt="Ly = b  "  class="math" > e <img 
+src="main2143x.png" alt="U x = y  "  class="math" >. O custo de resolver
+os dois sistemas é (devemos contar duas vezes)
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main2144x.png" alt="   2
+2n   flops.
+" class="math-display" ></center>
+<!--l. 793--><p class="indent" >   Somando esses <img 
+src="main2145x.png" alt="3  "  class="math" > custos, temos que o custo para resolver um sistema linear
+usando fatoração <img 
+src="main2146x.png" alt="LU  "  class="math" > é
+   <center class="math-display" >
+<img 
+src="main2147x.png" alt="  3      2
+2n--+ 3n--&minus;  n-flops.
+ 3      2    6
+" class="math-display" ></center>
+<!--l. 796--><p class="indent" >   Quando <img 
+src="main2148x.png" alt="n  "  class="math" > cresce, prevalessem os termos de mais alta ordem, ou
+seja,
+   <center class="math-display" >
+<img 
+src="main2149x.png" alt="     3      2              3      2         3
+O (2n--+  3n--&minus; n-) = O( 2n--+ 3n--) = O( 2n-)
+    3      2    6         3     2          3
+" class="math-display" ></center>
+                                                                          
+
+                                                                          
+<!--l. 799--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">4.4.3   </span> <a 
+ id="x45-670004.4.3"></a>Custo para resolver m sistemas lineares</h4>
+<!--l. 800--><p class="noindent" >Devemos apenas multiplicar <img 
+src="main2150x.png" alt="m  "  class="math" > pelo custo de resolver um sistema linear usando
+fatoração <img 
+src="main2151x.png" alt="LU  "  class="math" >, ou seja, o custo será
+   <center class="math-display" >
+<img 
+src="main2152x.png" alt="   2n3   3n2    n     2mn3    3mn2     mn
+m (----+ ----&minus;  --) = ------+ ------&minus;  ----
+    3     2     6       3       2       6  " class="math-display" ></center> e
+com <img 
+src="main2153x.png" alt="m  = n  "  class="math" > temos
+   <center class="math-display" >
+<img 
+src="main2154x.png" alt="  4      3     2
+2n--+  3n--&minus; n--.
+ 3      2     6
+" class="math-display" ></center>
+<!--l. 805--><p class="indent" >   Porém, se estivermos resolvendo <img 
+src="main2155x.png" alt="n  "  class="math" > sistemas com <span 
+class="ec-lmri-12">a mesma matriz</span> <img 
+src="main2156x.png" alt="A  "  class="math" > (e
+diferente lado direito <img 
+src="main2157x.png" alt="&#x20D7;b  "  class="math" > para cada sistema) podemos fazer a fatoração LU uma
+única vez e contar apenas o custo de resolver os sistemas triangulares
+obtidos.
+<!--l. 807--><p class="indent" >   Custo para fatoração LU de <img 
+src="main2158x.png" alt="A  "  class="math" >: <img 
+src="main2159x.png" alt="  3    2
+2n3-&minus;  n2-&minus;  n6   "  class="math" >.
+<!--l. 809--><p class="indent" >   Custo para resolver <img 
+src="main2160x.png" alt="m  "  class="math" > sistemas triangulares inferiores: <img 
+src="main2161x.png" alt="mn2   "  class="math" >.
+<!--l. 811--><p class="indent" >   Custo para resolver <img 
+src="main2162x.png" alt="m  "  class="math" > sistemas triangulares superiores: <img 
+src="main2163x.png" alt="   2
+mn   "  class="math" >.
+<!--l. 813--><p class="indent" >   Somando esses custos obtemos
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main2164x.png" alt="   3    2
+2n--&minus;  n--&minus; n-+  2mn2
+ 3     2    6   " class="math-display" ></center> que
+quando <img 
+src="main2165x.png" alt="m  = n  "  class="math" > obtemos
+   <center class="math-display" >
+<img 
+src="main2166x.png" alt="8n3-   n2-  n-
+ 3  &minus;   2 &minus;  6 flops.
+" class="math-display" ></center>
+<!--l. 818--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">4.4.4   </span> <a 
+ id="x45-680004.4.4"></a>Custo para calcular a matriz inversa de <img 
+src="main2167x.png" alt="A  "  class="math" ></h4>
+<!--l. 819--><p class="noindent" >Como vemos em Álgebra Linear, um método para obter a matriz <img 
+src="main2168x.png" alt="  &minus;1
+A   "  class="math" > é realizar
+o escalonamento da matriz <img 
+src="main2169x.png" alt="[A|I]  "  class="math" > onde <img 
+src="main2170x.png" alt="I  "  class="math" > é a matriz identidade. Ao terminar o
+escalonamento, o bloco do lado direito conterá <img 
+src="main2171x.png" alt="A&minus;1   "  class="math" >.
+<!--l. 821--><p class="indent" >   Isto é equivalente a resolver <img 
+src="main2172x.png" alt="n  "  class="math" > sistemas lineares com a mesma matriz <img 
+src="main2173x.png" alt="A  "  class="math" > e os
+vetores da base canônica <img 
+src="main2174x.png" alt="                   T
+&#x20D7;ei = [0,...,0,1,0,....0 ]  "  class="math" > tal que
+   <center class="math-display" >
+<img 
+src="main2175x.png" alt="A &#x20D7;xi = &#x20D7;ei,     i = 1 : n  " class="math-display" ></center>
+onde <img 
+src="main2176x.png" alt="&#x20D7;xi  "  class="math" > serão as colunas da matriz <img 
+src="main2177x.png" alt="A  "  class="math" > inversa, já que <img 
+src="main2178x.png" alt="AX   = I  "  class="math" >.
+<!--l. 825--><p class="indent" >   O custo para resolver esses <img 
+src="main2179x.png" alt="n  "  class="math" > sistemas lineares foi calculado na seção anterior
+como
+   <center class="math-display" >
+<img 
+src="main2180x.png" alt="8n3    n2   n
+----&minus;  ---&minus; --.
+ 3     2    6
+" class="math-display" ></center>
+   <div class="newtheorem">
+<!--l. 828--><p class="noindent" ><span class="head">
+<a 
+ id="x45-68001r1"></a>
+<span 
+class="ec-lmbx-12">Exemplo 4.4.1.</span>  </span>Qual o melhor método para resolver um sistema linear: via
+fatoração LU ou calculando a inversa de <img 
+src="main2181x.png" alt="A  "  class="math" > e obtendo <img 
+src="main2182x.png" alt="      &minus;1
+x = A   b  "  class="math" >?
+   </div>
+                                                                          
+
+                                                                          
+   <!--l. 833--><div class="crosslinks"><p class="noindent"><a 
+href="mainse22.html#mainse28.html" >Voltar</a></p></div>
+<!--l. 833--><p class="indent" >   <a 
+ id="tailmainse18.html"></a>   
+</body></html> 

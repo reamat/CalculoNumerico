@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html xml:lang="pt" > 
+<head><title>Diferenças divididas de Newton</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,3,notoc*,info --> 
+<meta name="src" content="main.tex"> 
+<meta name="date" content="2016-10-24 16:45:00"> 
+<link rel="stylesheet" type="text/css" href="main.css"> 
+</head><body 
+>
+   <!--l. 99--><div class="crosslinks"><p class="noindent"><a 
+href="mainse38.html#mainse39.html" >Voltar</a></p></div>
+   <h3 class="sectionHead"><span class="titlemark">6.2   </span> <a 
+ id="x63-970006.2"></a>Diferenças divididas de Newton</h3>
+<a 
+ id="dx63-97001"></a>
+<!--l. 100--><p class="noindent" >O método das diferenças divididas de Newton consiste em construir o polinômio
+interpolador da forma <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main2836x.png" alt="p (x ) =   a1 + a2(x &minus; x1) + a3(x &minus; x1)(x &minus; x2) + &sdot;&sdot;&sdot;
+
+      +   an(x &minus; x1)(x &minus; x2) &sdot;&sdot;&sdot;(x &minus; xn&minus;1).
+" class="math-display" ></center>
+</div>Podemos encontrar os coeficientes <img 
+src="main2837x.png" alt="ai  "  class="math" > resolvendo o sistema linear  <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main2838x.png" alt="                       a                         =  y
+                        1                            1
+                a1 + a2(x2 &minus; x1)                 =  y2
+      a1 + a2(x3 &minus; x1)+ a3(x3 &minus; x1)(x3 &minus; x2)      =  y3
+                        .
+                        ..
+a  + a (x &minus; x ) + &sdot;&sdot;&sdot;+ a (x  &minus; x )&sdot;&sdot;&sdot;(x  &minus; x    ) =  y
+ 1    2  n    1         n  n    1      n   n&minus; 1      n
+" class="math-display" ></center>
+</div>
+que pode ser escrito na forma matricial como
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main2839x.png" alt="&lfloor;                                                            &rfloor;
+                                                               &lfloor;   &rfloor;   &lfloor;  &rfloor;
+||1      0              0          &sdot;&sdot;&sdot;             0          ||   a1     y1
+||1  (x2 &minus; x1)          0          &sdot;&sdot;&sdot;             0          || ||   ||   ||  ||
+||                                                            || || a2||   ||y2||
+||1  (x3 &minus; x1)  (x3 &minus; x1 )(x3 &minus; x2) &sdot;&sdot;&sdot;             0          || ||   ||   ||  ||
+|| ..     ..              ..          ..              ..          || || a3|| = ||y3||
+|| .     .              .            .             .          || || .. ||   || ..||
+||1  (x  &minus; x )  (x &minus; x  )(x  &minus; x )  &sdot;&sdot;&sdot;  (x &minus; x  )&sdot;&sdot;&sdot;(x  &minus; x   )|| |&lceil; . |&rceil;   |&lceil; .|&rceil;
+&lceil;     n    1     n    1  n    2          n    1      n   n&minus; 1&rceil;   an     yn
+" class="math-display" ></center></td></tr></table>
+<!--l. 130--><p class="nopar" >
+<!--l. 133--><p class="indent" >   Este é um sistema triangular inferior que pode ser facilmente resolvido
+conforme: <div class="eqnarray">
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main2840x.png" alt="a1  =   y1
+        -y2 &minus;-a1   y2-&minus;-y1-
+a2  =   x  &minus; x  =  x  &minus; x
+          2    1    2    1       -y3&minus;y2-   -y2&minus;-y1-
+        y3-&minus;-a2(x3-&minus;-x1)-&minus;-a1    (x3&minus;x2) &minus;-(x2&minus;-x1)-
+a3  =     (x3 &minus; x1)(x3 &minus; x2)  =     (x3 &minus; x1)
+    ...
+" class="math-display" ></center>
+</div>A solução deste sistema pode ser escrita em termos das Diferenças Divididas de
+Newton, definidas recursivamente conforme: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main2841x.png" alt="          f[xj ] =   yj
+                    f[x   ] &minus; f[x ]
+     f[xj,xj+1 ] =   ---j+1-------j-
+                       xj+1 &minus; xj
+                    f[xj+1,xj+2] &minus; f [xj,xj+1]
+f[xj,xj+1,xj+2 ] =   ------------------------
+                           xj+2 &minus; xj
+                 ...
+" class="math-display" ></center>
+</div>Nesta notação, temos <img 
+src="main2842x.png" alt="ak = f [x1,x2,...,xk]  "  class="math" >
+<!--l. 150--><p class="indent" >   Podemos esquematizar o método na seguinte tabela:
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main2843x.png" alt="|--|---|------|--------------------|----------------------------|
+|  |   |      |                    |                            |
+|j-|xj-|f-[xj]-|-----f[xj&minus;1,xj]-----|------f-[xj&minus;-2,xj&minus;1,xj]-------|
+|1 |x  |f [x ] |                    |                            |
+|  | 1 |    1 |                    |                            |
+|  |   |      |f[x1,x2] = f[x2]&minus;-f[x1]|                            |
+|  |   |      |             x2&minus; x1  |                            |
+|2 |x2 |f [x2] |                    |f [x1,x2,x3] = f[x2,x3x]&minus;&minus;fx[x1,x2] |
+|  |   |      |           f[x ]&minus; f[x ]|                   3  1     |
+|  |   |      |f[x2,x3] = --3x3&minus;-x22-|                            |
+|  |   |      |                    |                            |
+|3-|x2--f-[x2]---------------------------------------------------
+|  |
+" class="math-display" ></center>
+   <div class="newtheorem">
+<!--l. 162--><p class="noindent" ><span class="head">
+<a 
+ id="x63-97006r1"></a>
+<span 
+class="ec-lmbx-12">Exemplo 6.2.1.</span>  </span>Encontrar o polinômio que passe pelos seguintes pontos
+   <center class="math-display" >
+<img 
+src="main2844x.png" alt="(&minus; 1,3),(0,1),(1,3),(3,43 )
+" class="math-display" ></center>
+   <table 
+class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main2845x.png" alt="|--||---|------|-------------|---------------|--------------------|
+|j ||xj |f [xj] | f[xj&minus;1,xj]  |f[xj&minus;2,xj&minus; 1,xj] |f[xj&minus;3,xj&minus;2,xj&minus; 1,xj] |
+|--||---|------|-------------|---------------|--------------------|
+|1 ||&minus; 1|  3   |             |               |                    |
+|  ||   |      |-1&minus;3--       |               |                    |
+|  ||   |      |0&minus;(&minus;1) = &minus; 2 |               |                    |
+|2 ||0  |  1   |             |  2&minus;(&minus;2)=  2   |                    |
+|  ||   |      |             |  1&minus;(&minus;1)       |                    |
+|  ||   |      |  3&minus;1 = 2    |               |     -6&minus;2--= 1      |
+|  ||   |      |  1&minus;0        |               |     3&minus; (&minus; 1)          |
+|3 ||1  |  3   |             |   230&minus;&minus;02=  6    |                    |
+|  ||   |      |             |               |                    |
+|  ||   |      | 433&minus;&minus;31 = 20   |               |                    |
+|  ||   |      |             |               |                    |
+|4-||3-----43-----------------------------------------------------
+|  ||
+" class="math-display" ></center></td></tr></table>
+<!--l. 177--><p class="nopar" >
+<!--l. 181--><p class="indent" >   Portanto <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main2846x.png" alt="P (x)  =  3 &minus; 2(x + 1) + 2(x + 1)x + (x + 1)x(x &minus; 1)
+            3     2
+       =  x  + 2x  &minus; x + 1
+" class="math-display" ></center>
+</div>
+                                                                          
+
+                                                                          
+   </div>
+<!--l. 188--><p class="noindent" >
+   <h4 class="likesubsectionHead"><a 
+ id="x63-980006.2"></a>Exercícios</h4>
+   <div class="newtheorem">
+<!--l. 191--><p class="noindent" ><span class="head">
+<a 
+ id="x63-98001r1"></a>
+<span 
+class="ec-lmbx-12">E 6.2.1.</span>  </span> Considere o seguinte conjunto de pontos:
+   <center class="math-display" >
+<img 
+src="main2847x.png" alt="(&minus; 2, &minus; 47),(0, &minus; 3),(1,4)(2,41)
+" class="math-display" ></center>. Encontre o polinômio interpolador usando os métodos vistos.
+   </div>
+<!--l. 194--><p class="noindent" >
+   <div class="proof">
+<!--l. 194--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Resposta.</span> </span> <img 
+src="main2848x.png" alt="5x3+2x&minus; 3  "  class="math" >
+                                                                       <img 
+src="main2849x.png" alt="&#x2662; "  class="math" >
+   </div>
+   <div class="newtheorem">
+<!--l. 201--><p class="noindent" ><span class="head">
+<a 
+ id="x63-98002r2"></a>
+                                                                          
+
+                                                                          
+<span 
+class="ec-lmbx-12">E 6.2.2.</span>  </span>No  <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">Scilab</span></span></span>,  faça  um  gráfico  com  os  pontos  e  o  polinômio
+interpolador do Exercício&#x00A0;<a 
+href="#x63-98001r1">6.2.1<!--tex4ht:ref: exer:interp1 --></a>.
+   </div>
+                                                                          
+
+                                                                          
+   <!--l. 206--><div class="crosslinks"><p class="noindent"><a 
+href="mainse38.html#mainse39.html" >Voltar</a></p></div>
+<!--l. 206--><p class="indent" >   <a 
+ id="tailmainse26.html"></a>   
+</body></html> 

@@ -1,0 +1,753 @@
+%Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+
+%\documentclass[main.tex]{subfiles}
+%\begin{document}
+
+\chapter{Problemas de valor inicial}\index{problema de valor inicial}
+Neste capítulo, desenvolveremos técnicas numérica para aproximar a solução de problemas de valor inical da forma
+\begin{subequations}\label{PVI}
+\begin{eqnarray}
+y'(t)&=&f(y(t),t)\label{PVI_EDO}\\
+y(t_0)&=&y_0 ~~ \hbox{(condição inicial)}.\label{PVI_CI}
+\end{eqnarray}
+\end{subequations}
+
+A ingógnita de um problema de valor inicial é uma função que satisfaz a equação diferencial (\ref{PVI_EDO})  e a condição inicial (\ref{PVI_CI}).
+\begin{ex}Considere o seguinte problema de valor inicial
+\begin{subequations}\label{exemplo_y_2y}
+\begin{eqnarray}
+y'(t)&=&2y(t),\\
+y(t_0)&=&1.
+\end{eqnarray}
+\end{subequations}
+A solução desta equação é dada pela função $y(t)=e^{2y}$ pois $y'(t)=2e^{2t}=2y(t)$ e $y(0)=e^0=1$.
+\end{ex}
+
+
+Muito problemas de valor inicial da forma (\ref{PVI}) não podem ser resolvidos exatamente, ou seja, sabe-se que a solução existe e é única, porém não podemos expressá-la em termos de funções elementares. Por isso é necessário calcular aproximações numéricas. Diversos métodos completamente diferentes estão disponíveis para aproximar uma função real. 
+
+Aqui nos limitaremos a estudar métodos que se fundamentam em tentar calcular $y(t)$ em um conjunto finito de valores de $t$. Esse conjunto de valores para $t$ será denotado por  $\{t_i\}_{i=1}^N$, isto é $\{t_1, t_2, t_3,\ldots, t_N\}$ e calculamos o valor aproximado da função solução $y(t_i)$ em cada ponto da malha usando esquemas numéricos.
+
+
+\section{Método de Euler}\index{método!de Euler}
+Retornemos ao problema de valor inicial (\ref{PVI}) dado por:
+\begin{subequations}\label{PVI_2}
+\begin{eqnarray}
+y'(t)&=&f(y(t),t)\\
+y(0)&=&y_0 ~~ \hbox{(condição inicial)}
+\end{eqnarray}
+\end{subequations}
+O Método de Euler aplicado à solução desse problema consiste em aproximar a derivada $y'(t)$ por um esquema de primeira ordem do tipo
+$$y'(t)=\frac{y(t+h)-y(t)}{h}+O(h),~~ h>0.$$
+Aqui $h$ é o passo do método, que consideraremos uma constante. Assim temos (\ref{PVI_2}) se transforma em:
+\begin{eqnarray}
+\nonumber \frac{y(t+h)-y(t)}{h}&=&f(y(t),t)+O(h)\\
+{\label{erro_local}}y(t+h)&=&y(t)+hf(y(t),t)+O(h^2).
+\end{eqnarray}
+
+Definimos, então, $t^{(k)}=(k-1)h$ e $y^{(k)}$ como a aproximação para $y\left(t^{(k)}\right)$ produzida pelo Método de Euler. Assim, obtemos
+\begin{eqnarray}\label{PVI_EULER}
+y^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)}) ~\hbox{(aproximação da EDO)},\\
+y^{(1)}&=&y_0~~ \hbox{(condição inicial)}.
+\end{eqnarray}
+O problema (\ref{PVI_EULER}) consiste em um esquema iterativo, isto é, $y^{(1)}$ é a condição inicial; $y^{(2)}$ pode ser obtido de $y^{(2)}$; $y^{(3)}$, de $y^{(4)}$ e assim por diante, calculamos o termo $y^{(n)}$ apartir do anterior $y^{(n-1)}$. 
+
+
+\begin{ex} Retornemos ao o problema de valor inicial do exemplo (\ref{exemplo_y_2y}):
+\begin{eqnarray*}
+y'(t)&=&2y(t)\\
+y(0)&=&1
+\end{eqnarray*}
+\end{ex}
+Cuja solução é $y(t)=e^{2t}$. O método de Euler aplicado a este problema produz o seguinte esquema:
+\begin{eqnarray*}
+y^{(k+1)}&=&y^{(k)}+2hy^{(k)}=(1+2h)y^{(k)}\\
+y^{(1)}&=&1,
+\end{eqnarray*}
+cuja solução é dada por
+$$y^{(k)}=(1+2h)^{k-1}.$$
+Como $t=(k-1)h$, a solução aproximada pelo Método de Euler é
+$$y(t)\approx \tilde{y}(t)= (1+2h)^{\frac{t}{h}}.$$
+Observe que $\tilde{y}(t) \neq y(t)$, mas se $h$ é pequeno, a aproximação é boa, pois
+$$\lim_{h\to 0+} (1+2h)^{\frac{t}{h}}= e^{2t}.$$
+
+Vamos agora, analisar o desempenho do Método de Euler usando um exemplo mais complicado, porém ainda simples suficiente para que possamos obter a solução exata:  
+\begin{ex}\label{ex_euler_1} Considere o problema de valor inicial relacionado à equação logística\index{equação!logística}:
+\begin{eqnarray*}
+y'(t)&=&y(t)(1-y(t))\\
+y(0)&=&1/2
+\end{eqnarray*}
+\end{ex}
+Podemos obter a solução exata desta equação usando o método de separação de variáveis\index{método!de separação de variáveis} e o método das frações parciais\index{método das frações parciais}. Para tal escrevemos:
+\begin{equation*}
+\frac{dy(t)}{y(t)(1-y(t))}=dt
+\end{equation*}
+O termo $\frac{1}{y(1-y)}$ pode ser decomposto em frações parciais como $\frac{1}{y}-\frac{1}{1-y}$ e chegamos na seguinte equação diferencial:
+\begin{equation*}
+\left(\frac{1}{y}+\frac{1}{1-y}\right)dy=dt.
+\end{equation*}
+Integrando termo-a-termo, temos a seguinte equação algébrica relacionando $y(t)$ e $t$:
+\begin{equation*}
+\ln(y)-\ln(1-y)=t+C
+\end{equation*}
+Onde $C$ é a constante de integração, que é definida pela condição inicial, isto é, $y=1/2$ em $t=0$. Substituindo, temos $C=0$. O que resulta em:
+\begin{equation*}
+\ln\left(\frac{y}{1-y}\right)=t
+\end{equation*}
+Equivalente a
+\begin{equation*}
+\frac{y}{1-y}=e^{t}
+\end{equation*}
+e
+\begin{equation*}
+y=(1-y)e^{t} 
+\end{equation*}
+Colocando o termo $y$ em evidência, encontramos:
+\begin{equation}
+(1+e^t)y=e^{t} 
+\end{equation}
+E, finalmente, encontramos a solução exata dada por $y(t)=\frac{e^t}{1+e^{t}}$.
+
+Vejamos, agora, o esquema iterativo produzido pelo método de Euler:
+\begin{eqnarray*}
+y^{(k+1)}&=& y^{(k)}+h y^{(k)}(1-y^{(k)}), \\
+y^{(1)}&=& 1/2.
+\end{eqnarray*}
+
+
+Para fins de comparação, calculamos a solução de \ref{ex_euler_1} e de \eqref{ite_logistica} para alguns valores de $t$ e de passo $h$ e resumimos na Tabela~\ref{tab:log}.
+
+\begin{table}
+  \caption{Tabela comparativa enter Método de Euler e solução exata para problema \ref{ex_euler_1}.}
+  \label{tab:log}
+  \begin{tabular}{|c|c|c|c|}\hline
+    $t$ & $\hbox{Exato}$ & $\hbox{Euler}~~ h=0,1$ & $\hbox{Euler}~~ h=0,01$\\\hline
+    $0$ & $1/2$ & $0,5$ & $0,5$\\\hline
+    $1/2$ & $\frac{e^{1/2}}{1+e^{1/2}}\approx 0,6224593$ & $0,6231476$ & $0,6225316$\\\hline
+    $1$ & $\frac{e}{1+e}\approx 0,7310586$ & $0,7334030$ & $0,7312946$\\\hline
+    $2$ & $\frac{e^2}{1+e^2}\approx  0,8807971$ & $0,8854273$  & $0,8812533$ \\\hline
+    $3$ & $\frac{e^3}{1+e^3}\approx   0,9525741$  & $0,9564754$ & $0,9529609$ \\\hline
+  \end{tabular}
+\end{table}
+
+
+No exemplo a seguir, apresentamos um problema envolvendo uma equação não-autônoma\index{equação diferencial!não autônoma}, isto é, quando a função $f(y,t)$ depende explicitamente do tempo.
+
+\begin{ex} Resolva o problema de valor inicial
+  \begin{eqnarray*}
+    y'&=&-y+t\\
+    y(0)&=&1,
+  \end{eqnarray*}
+cuja solução exata é $y(t)=2e^{-t}+t-1$.
+\end{ex}
+O esquema recursivo de Euler fica:
+\begin{eqnarray*}
+  y^{(k+1)}&=&y({k})- hy({k})+ht^{(k)}\\
+  y(0)&=&1
+\end{eqnarray*}
+
+Comparação
+\begin{equation*}
+\begin{array}{|c|c|c|c|}\hline
+t &  \hbox{Exato} & \hbox{Euler}~~ h=0,1 & \hbox{Euler}~~ h=0,01\\\hline
+0 &  1 & 1 & 1\\\hline
+1 &   2e^{-1}\approx 0,7357589 & 0,6973569   &   0,7320647  \\\hline
+2 &   2e^{-2}+1\approx  1,2706706 &  1,2431533    &   1,2679593     \\\hline
+3 &   2e^{-3}+2\approx 2,0995741  &  2,0847823 & 2,0980818   \\\hline
+\end{array}  
+\end{equation*}
+
+No exemplo \ref{sys_edo}, mostramos como o Método de Euler pode ser facilmente estendido para problemas envolvendo sistemas de equações diferenciais.\index{sistemas!de equações diferenciais}.
+\begin{ex}\label{sys_edo} Escreva o processo iterativo de Euler para resolver numericamente o seguinte sistema de equações diferenciais
+\begin{eqnarray*}
+x'&=&-y\\
+y'&=&x\\
+x(0)&=&1\\
+y(0)&=&0,\\
+\end{eqnarray*}
+cuja solução exata é $x(t)=\cos(t)$ e $y(t)=\sin(t)$.
+\end{ex}
+Par aplicar o Método de Euler a um sistema, devemos encarar as diversas incógnitas do sistema como formando um vetor, neste caso, encrevemos: 
+ $$z(t)=\left[\begin{array}{c}x(t)\\y(t)\end{array}\right].$$
+ O sistema é igualmente escrito na forma vetorial:
+\begin{eqnarray*}
+\left[\begin{array}{c}x^{(k+1)}\\y^{(k+1)}\end{array}\right]=\left[\begin{array}{c}x^{(k)}\\y^{(k)}\end{array}\right]+h\left[\begin{array}{c}-y^{(k)}\\x^{(k)}\end{array}\right].
+\end{eqnarray*}
+Observe que este processo iterativo é equivalente a:
+\begin{eqnarray*}
+x^{(k+1)}&=&x^{(k)}-hy^{(k)}\\
+y^{(k+1)}&=&y^{(k)}+hx^{(k)}.
+\end{eqnarray*}
+
+\begin{ex} Escreva o problema de valor inicial de segunda ordem dado por
+\begin{eqnarray*}
+y''+y'+y&=&\cos(t),\\
+y(0)&=&1,\\
+y'(0)&=&0,
+\end{eqnarray*}
+como um problema envolvendo um sistema de primeira ordem.
+\end{ex}
+A fim de transformar a equação diferencial dada em um sistema de equações de primeira ordem, introduzimos a substituição $w=y'$, de forma que obtermos o sistema:
+\begin{eqnarray*}
+y'&=&w\\
+w'&=&-w-y+\cos(t)\\
+y(0)&=&1\\
+w(0)&=&0
+\end{eqnarray*}
+Portanto, o Método de Euler produz o seguinte processo iterativo:
+\begin{eqnarray*}
+y^{(k+1)}&=&y^{(k)}+hw^{(k)},\\
+w^{(k+1)}&=&w^{(k)}-hw^{(k)}-hy^{(k)}+h\cos(t^{(k)}),\\
+y^{(1)}&=&1,\\
+w^{(1)}&=&0.
+\end{eqnarray*}
+\section*{Exercícios}
+
+\begin{Exercise}Resolva o problema de valor inicial dado por
+\begin{eqnarray*}
+y'&=& -2y + \sqrt{y}\\
+y(0)&=&1
+\end{eqnarray*}
+com passo $h=0.1$ e $h=0.1$ para obter aproximações para $y(1)$. Compare com a solução exata dada por $y(t) =  \left({1+2 e^{-t}+e^{-2 t}}\right)/{4}$
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+ $0,4496$ com $h=0,1$ e $0,4660$ com $h=0,01$. A solução exata vale $y(1)=\frac{1+2e^{-1}+e^{-2}}{4}= \left(\frac{1+e^{-1}}{2}\right)^2\approx 0,4678$    
+  \end{tiny}
+\end{Answer}
+
+
+\begin{Exercise}Resolva o problema de valor inicial dado por
+\begin{eqnarray*}
+y'&=& -2y + \sqrt{z}\\
+z'&=& -z + y\\
+y(0)&=&0\\
+z(0)&=&2\\
+\end{eqnarray*}
+com passo $h=0.2$, $h=0.2$, $h=0.02$ e $h=0.002$ para obter aproximações para $y(2)$ e $z(2)$.
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+$y(2)\approx 0,430202$ e $z(2)=0,617294$ com $h=0,2$, 
+$y(2)\approx 0,435506$ e $z(2)=0,645776$ com $h=0,02$,
+$y(2)\approx 0,435805$ e $z(2)=0,648638$ com $h=0,002$ e 
+$y(2)\approx 0,435832$ e $z(2)=0,648925$ com $h=0,0002$.     
+  \end{tiny}
+\end{Answer}
+
+\begin{Exercise}Resolva o problema de valor inicial dado por
+\begin{eqnarray*}
+y'&=& \cos(ty(t))\\
+y(0)&=&1\\
+\end{eqnarray*}
+com passo $h=0.1$, $h=0.01$, $h=0.001$, $h=0.0001$ e $0.00001$ para obter aproximações para $y(2)$. 
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+$y(2)\approx 1,161793$ com $h=0,1$, 
+$y(2)\approx 1,139573$ com $h=0,01$,
+$y(2)\approx 1,137448$ com $h=0,001$,
+$y(2)\approx 1,137237$ com $h=0,0001$,
+$y(2)\approx 1,137216$ com $h=0,00001$
+  \end{tiny}
+\end{Answer}
+
+
+\section{Método de Euler melhorado}\index{método!de Euler melhorado}
+O método de Euler foi o primeiro método que estudamos e sua principal virtude é a simplicidade. Outros métodos, no entanto, podem apresentar resultados superiores. Vamos apresentar agora uma pequena modificação ao Método de Euler, dando origem a um novo método chamado de Método de Euler Modificado ou Método de Euler Melhorado.
+
+No método de Euler, usamos a seguinte iteração:
+\begin{eqnarray*}
+y^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)})\\
+y^{(1)}&=&y_0~~ \hbox{(condição inicial)}
+\end{eqnarray*}
+
+A ideia do método de Euler Melhorado é substituir a declividade  $f(y^{(k)},t^{(k)})$ pela média aritmética entre $f(y^{(k)},t^{(k)})$ e $f(y^{(k+1)},t^{(k+1)})$, isto é, as declividades avaliadas no início e no fim do intervalo $[t^{(k)},t^{(k+1)}]$.
+
+No entanto, não dispomos do valor de $y^{(k+1)}$ antes de executar o passo. Assim aproximamos esta grandeza pelo valor produzido pelo Método de Euler original:
+$$\tilde{y}^{(k+1)}=y^{(k)}+hf(y^{(k)},t^{(k)}).$$
+
+De posse desta aproximação, calculamos a média aritmética e, finalmente, com esta média, realizamos o passo do Método de Euler Melhorado. O processo iterativo de Euler Melhorado é, portanto, dado por:
+\begin{eqnarray*}
+\tilde{y}^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)})\\
+y^{(k+1)}&=&y^{(k)}+\frac{h}{2}\left[f(y^{(k)},t^{(k)})+f(\tilde{y}^{(k+1)},t^{(k+1)})\right]\\
+y^{(1)}&=&y_0~~ \hbox{(condição inicial)}
+\end{eqnarray*}
+
+Podemos reescrever este mesmo processo iterativo da seguinte forma:
+\begin{eqnarray*}
+k_1&=&hf(y^{(k)},t^{(k)}),\\
+k_2&=&hf(y^{(k)}+k_1,t^{(k+1)}),\\
+y^{(k+1)}&=&y^{(k)}+\frac{k_1+k_2}{2},\\
+y^{(1)}&=&y_0~~ \hbox{(condição inicial)}.
+\end{eqnarray*}
+Aqui $k_1$ e $k_2$ são variáveis auxiliares que representam as inclinações e devem ser calculadas a cada passo. Esta notação é compatível com a notação usada nos métodos de Runge-Kutta, uma família de esquemas iterativos para aproximar problemas de valor inicial, da qual o Método de Euler e o Método de Euler Melhorado são casos particulares. Veremos os métodos de Runge-Kutta na seção \ref{sec_RK}.
+
+
+\section*{Exercícios}
+
+\begin{Exercise} Use o Método de Euler melhorado para obter uma aproximação numérica do valor de $y(1)$ quando $y(t)$ satisfaz o seguinte problema de valor inicial
+\begin{eqnarray*}
+ y'(t)&=&-y(t)+ e^{y(t)},\\
+ y(0)&=&0,
+\end{eqnarray*}
+usando passos $h=0,1$ e $h=0,01$.
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+ $y(1)\approx 1,317078$ quando $h=0,1$ e $y(1)\approx 1,317045$.    
+  \end{tiny}
+\end{Answer}
+
+
+\begin{Exercise}Use o Método de Euler e o Método de Euler melhorado para obter aproximações numéricas para a solução do seguinte problema de valor inicial para $t\in[0,1]$:
+\begin{eqnarray*}
+ y'(t)&=&-y(t)- y(t)^2,\\
+ y(0)&=&1,
+\end{eqnarray*}
+usando passo $h=0,1$. Compare os valores da solução exata dada por $y(t)=\frac{1}{2e^t-1}$ com os numéricos nos pontos $t=0$, $t=0.1$, $t=0.2$, $t=0.3$, $t=0.4$, $t=0.5$, $t=0.6$, $t=0.7$, $t=0.8$, $t=0.9$, $t=1.0$.
+\end{Exercise}
+\begin{Answer}
+\begin{tiny}
+ $$\begin{array}{|c|c|c|c|c|c|}
+\hline
+t &  \hbox{Exato} & \hbox{Euler} & \hbox{Euler Melhorado} & \hbox{Erro Euler} & \hbox{Erro Euler Melhorado}\\
+\hline
+0.0&    1.          &1.          &1.          &0.          &0.       \\ 
+0.1&    0.826213    &0.8         &0.828       &0.026213    &0.001787\\  
+0.2&    0.693094    &0.656       &0.695597    &0.037094    &0.002502  \\
+0.3&    0.588333    &0.547366    &0.591057    &0.040967    &0.002724  \\
+0.4&    0.504121    &0.462669    &0.506835    &0.041453    &0.002714  \\
+0.5&    0.435267    &0.394996    &0.437861    &0.040271    &0.002594  \\
+0.6&    0.378181    &0.339894    &0.380609    &0.038287    &0.002428  \\
+0.7&    0.330305    &0.294352    &0.332551    &0.035953    &0.002246  \\
+0.8&    0.289764    &0.256252    &0.291828    &0.033512    &0.002064  \\
+0.9&    0.255154    &0.224061    &0.257043    &0.031093    &0.001889  \\
+1.0&    0.225400    &0.196634    &0.227126    &0.028766    &0.001726\\
+
+\hline
+\end{array}
+$$
+
+\ifisscilab
+      No Scilab, esta tabela pode ser produzida com o código:
+      \begin{verbatim}
+       deff('dy=f(y,t)','dy=-y-y^2')
+       sol_Euler=Euler(f,0,1,10,1)'
+       sol_Euler_mod=Euler_mod(f,0,1,10,1)'
+       deff('y=y_exata(t)','y=1/(2*exp(t)-1)')
+       t=[0:.1:1]'
+       sol_exata=feval(t,y_exata)
+       tabela=[t sol_exata sol_Euler sol_Euler_mod abs(sol_exata-sol_Euler) abs(sol_exata-sol_Euler_mod)]
+      \end{verbatim}
+
+    \fi
+ \end{tiny}
+\end{Answer}
+
+
+\section{Ordem de precisão}\index{ordem de precisão}
+Considere o problema de valor inicial dado por
+\begin{eqnarray*}
+y'(t)&=&f(y(t),t),\\
+y(0)&=&y_0.
+\end{eqnarray*}
+Nessa seção vamos definir a precisão de um método numérico pela ordem do erro acumulado ao calcular o valor da função em um ponto $t_N$ em função do espaçamento da malha $h$. Se $y(t_n)$ pode ser aproximado por uma expressão que depende de $f$, $h$, $y(t_0)$, $y(t_1)$, $\cdots$, $y(t_n)$, com erro da ordem de $O(h^{p+1})$, ou seja,
+\begin{equation}{\label{erro_local_1}}
+y(t_{n+1})=\mathcal{F}(f, h, y(t_n), y(t_{n-1}), \cdots, y_0) + O(h^{p+1})
+\end{equation}
+para cada função analítica $f$, dizemos que o método tem erro de truncamento da ordem de $O(h^{p})$ ou {\bf ordem de precisão $p$}\index{método!de Euler!ordem de precisão}. Essa afirmação faz sentido quando fazemos a seguinte análise informal: para aproximar $y_1$, acumulamos erros da ordem $O(h^{p+1})$, para calcular $y_2$ acumulamos os erros de $y_1$ e novos erros $O(h^{p+1})$. Para calcular $y_N$, acumulamos todos os erros até $t_N$, ou seja, $N$ vezes $O(h^{p+1})$. Como $N=O(1/h)$, temos que os erros ao calcular $y_N$ são da ordem $O(h^p)$. É verdade que essa análise só vale quando impomos condições de suavidade para $f$ e condições adequada para a expressão $\mathcal{F}(f, h, y(t_n), y(t_{n-1}), \cdots, y_0)$. Para explicar melhor esse pequeno texto, fazemos em detalhes essa operação para o método de Euler na seção \ref{sec_pre_euler}.
+
+\subsection{Ordem de precisão do Método de Euler}{\label{sec_pre_euler}}
+Primeiro lembramos da expressão (\ref{erro_local}) que origina a seguinte relação de recorrência:
+\begin{eqnarray}{\label{es_Euler}}
+y(t_{n+1})&=&y(t_n)+hf(y(t_n),t_n)+O(h^2).
+\end{eqnarray}
+Para entender melhor o motivo de na expressão (\ref{es_Euler}) aparecer $O(h^2)$ e o método ser de precisão 1, vamos a seguinte análise informal: observemos que
+\begin{eqnarray*}
+ y(t_1)&=&y(t_0)+hf(y(t_0),t_0)+O(h^2)\\
+ &=&y_0+hf(y_0,t_0)+O(h^2)=y_1+O(h^2)
+\end{eqnarray*}
+onde $y_i$ é a aproximação pelo método de Euler para o valor exato $y(t_i)$. Subsequentemente, temos
+\begin{eqnarray*}
+ y(t_2)&=&y(t_1)+hf(y(t_1),t_1)+O(h^2)\\
+ &=&y(t_1)+hf(y_1+O(h^2),t_1)+O(h^2)\\
+ &=&y(t_1)+hf(y_1,t_1) +O(h^2)\\
+ &=&y_1+O(h^2)+hf(y_1,t_1) +O(h^2)= y_2+O(h^2)+O(h^2).
+\end{eqnarray*}
+onde usamos o primeiro termo da série de Taylor $hf(y_1+O(h^2),t_1)=hf(y_1,t_1)+O(h^3)$ na passagem da segunda para terceira linha. Repetindo sucessivamente o passo anterior, obtemos uma expressão geral para o valor exato $y(t_N)$ em termos do valor aproximado $y_N$:
+\begin{eqnarray*}
+ y(t_N)=y_N+N O(h^2) .
+\end{eqnarray*}
+Como $N=(t_f-t_0)/h$, temos
+\begin{eqnarray}{\label{euler_precisao}}
+ y(t_N)&=&=y_{N}+\frac{t-t_0}{h}O(h^2)=y_{N}+O(h),
+\end{eqnarray}
+ou seja, o erro entre o valor exato e o aproximado é de ordem $h$. Uma demonstração mais formal que garante que o erro é limitado por uma expressão que é proporcional a $h$ está discutido na seção \ref{sec_conv_Euler}.
+
+\subsection{Ordem de precisão do Método de Euler Melhorado}
+Para obter o erro de precisão do método de Euler Melhorado vamos calcular o erro de truncamento do método, ou seja, precisamos demonstrar que:
+\begin{equation}\label{es_Euler_melhorado}
+y(t+h)=y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)+O(h^3)
+\end{equation}
+De fato, tomando a diferença do termo da esquerda o os termos da direita, temos:
+\begin{eqnarray*}
+&&y(t+h)-\left(y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)\right)\\
+&&=y(t)+hy'(t)+\frac{h^2}{2}y''(t)+O(h^3)\\
+&&-\left(y(t)+\frac{h}{2} y'(t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)\right),
+\end{eqnarray*}
+onde usamos uma expansão em série de Taylor para $y(t+h)$ e a equação diferencial $y'(t)=f(y(t),t)$. Portanto,
+\begin{eqnarray*}
+&&y(t+h)-\left(y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)\right)\\
+&&=\frac{h}{2}y'(t)+\frac{h^2}{2}y''(t)-\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)+O(h^3).
+\end{eqnarray*}
+Agora, usamos a série de Taylor de $f(y(t)+hf(y(t),t),t+h)$ e, torno de $(y,t)$:
+\begin{eqnarray*}
+&&y(t+h)-\left(y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)\right)\\
+&&=\frac{h}{2}y'(t)+\frac{h^2}{2}y''(t)+O(h^3)\\
+&&-\frac{h}{2}\left(f(y(t),t)+\frac{\partial f(y(t),t) }{\partial t}h +\frac{\partial f(t,y(t))}{\partial y} hf(t,y(t))+O(h^2)\right).
+\end{eqnarray*}
+Usando a equação diferencial $y'(t)=f(y(t),t)$ obtemos 
+$$
+y''(t)=\frac{f(y(t),t)}{\partial t}+\frac{f(y(t),t)}{\partial y}y'(t)=\frac{f(y(t),t)}{\partial t}+\frac{f(y(t),t)}{\partial y}f(y(t),t).
+$$
+Logo,
+\begin{eqnarray*}
+&&y(t+h)-\left(y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)\right)\\
+&&=\frac{h}{2}y'(t)+\frac{h^2}{2}y''(t)+O(h^3)\\
+&&-\frac{h}{2}\left(f(y(t),t)+hy''(t)+O(h^2)\right)\\
+&&=\frac{h}{2}y'(t)+\frac{h^2}{2}y''(t)\\
+&&-\frac{h}{2}\left(y'(t)+hy''(t)\right)+O(h^3)=O(h^3)
+\end{eqnarray*}
+Portanto, a expressão (\ref{es_Euler_melhorado}) é válida. Logo, usando uma discussão análoga aquela feita na seção \ref{sec_pre_euler} para o método de Euler, concluímos que o método de Euler Melhorado possui ordem de precisão 2.
+
+\section{Convergência}
+Em desenvolvimento
+\subsection{Convergência do método de Euler}\label{sec_conv_Euler}
+Em desenvolvimento
+\subsection{Convergência do método de Euler Melhorado}
+Em desenvolvimento
+\section{Métodos de Runge-Kutta}\label{sec_RK}\index{método!de Runge-Kutta}
+
+Os métodos de Runge-Kutta consistem em iterações do tipo:
+$$y^{(k+1)}=y^{(k)}+w_1 k_1 + \ldots + w_n k_n$$
+onde
+\begin{eqnarray*}
+k_1&=&hf(y^{(k)},t^{(k)})\\
+k_2&=&hf(y^{(k)}+\alpha_{2,1}k_1,t^{(k)}+\beta_{2}h)\\
+k_3&=&hf(y^{(k)}+\alpha_{3,1}k_1+\alpha_{3,2}k_2,t^{(k)}+\beta_{3}h)\\
+&\vdots&\\
+k_n&=&hf(y^{(k)}+\alpha_{n,1}k_1+\alpha_{n,2}k_2+\ldots \alpha_{n,n-1}k_{n-1},t^{(k)}+\beta_{n}h)\\
+\end{eqnarray*}
+
+Os coeficientes são escolhidos de forma que a expansão em Taylor de $y^{(k+1)}$ e $y^{(k)}+w_1 k_1 + \ldots + w_n k_n$ coincidam até ordem $n+1$.
+
+\begin{ex} O método de Euler melhorado é um exemplo de Runge-Kutta de segunda ordem
+$$y^{(n+1)}=y^{(n)}+\frac{k_1+k_2}{2}$$
+onde $k_1=hf(y^{(n)},t^{(n)})$ e $k_2=hf(y^{(n)}+k_1,t^{(n)}+h)$
+\end{ex}
+
+\subsection{Métodos de Runge-Kutta - Quarta ordem}\index{método!de Runge-Kutta!de quarta ordem}
+
+$$y^{(n+1)}=y^{(n)}+\frac{k_1+2k_2+2k_3+k_4}{6}$$
+onde
+\begin{eqnarray*}
+k_1&=&hf(y^{(n)},t^{(n)})\\
+k_2&=&hf(y^{(n)}+k_1/2,t^{(n)}+h/2)\\
+k_3&=&hf(y^{(n)}+k_2/2,t^{(n)}+h/2)\\
+k_4&=&hf(y^{(n)}+k_3,t^{(n)}+h)\\
+\end{eqnarray*}
+Este método tem ordem de precisão 4. Uma discussão heurística usando método de Simpson pode ajudar a compreender os estranhos coeficientes:
+\begin{eqnarray*}
+y({t^{(n+1)}})-y({t^{(n)}})&=&\int_{t^{(n)}}^{t^{(n+1)}}f(y(s),s)ds \\
+&\approx& \frac{h}{6}\left[ f\left(y(t^{(n)}),t^{(n)}\right)+4f\left(y(t^{(n)}+h/2),t^{(n)}+h/2\right)\right.\\
+&+&\left.f\left(y(t^{(n)}+h),t^{(n)}+h\right)\right]\\
+&\approx& \frac{k_1+4(\frac{k_2+k_3}{2})+k_4}{6}
+\end{eqnarray*}
+onde $k_1$ e $k_4$ representam as inclinações nos extremos e $k_2$ e $k_3$ são duas aproximações diferentes para a inclinação no meio do intervalo.
+
+
+\section{Métodos de passo múltiplo - Adams-Bashforth}\index{método!de passo múltiplo!Adams-Bashforth}
+
+O método de Adams-Bashforth consiste de um esquema recursivo do tipo:
+$$y^{(n+1)}=y^{(n)}+\sum_{j=0}^k w_jf(y^{(n-j)},t^{(n-j)})$$
+
+\begin{ex} Adams-Bashforth de segunda ordem
+$$y^{(n+1)}=y^{(n)}+\frac{h}{2}\left[3f\left(y^{(n)},t^{(n)}\right)-f\left(y^{(n-1)},t^{(n-1)}\right)\right]$$
+\end{ex}
+\begin{ex} Adams-Bashforth de terceira ordem
+$$y^{(n+1)}=y^{(n)}+\frac{h}{12}\left[23f\left(y^{(n)},t^{(n)}\right)-16f\left(y^{(n-1)},t^{(n-1)}\right)+5f\left(y^{(n-2)},t^{(n-2)}\right)\right]$$
+\end{ex}
+\begin{ex} Adams-Bashforth de quarta ordem
+  \begin{equation*}
+    \begin{split}
+      y^{(n+1)} &= y^{(n)} + \frac{h}{24}\left[55f\left(y^{(n)},t^{(n)}\right)-59f\left(y^{(n-1)},t^{(n-1)}\right)\right.\\
+        &+\left. 37f\left(y^{(n-2)},t^{(n-2)}\right)-9f\left(y^{(n-3)},t^{(n-3)}\right)\right]    
+    \end{split}
+  \end{equation*}
+\end{ex}
+Os métodos de passo múltiplo evitam os múltiplos estágios do métodos de Runge-Kutta, mas exigem ser "iniciados" com suas condições iniciais.
+
+\section{Métodos de passo múltiplo - Adams-Moulton}\index{método de passo múltiplo!Adams-Moulton}
+
+O método de Adams-Moulton consiste de um esquema recursivo do tipo:
+$$y^{(n+1)}=y^{(n)}+\sum_{j=-1}^k w_jf(y^{(n-j)},t^{(n-j)})$$
+
+\begin{ex} Adams-Moulton de quarta ordem
+  \begin{equation*}
+    \begin{split}
+      y^{(n+1)} &= y^{(n)} + \frac{h}{24}\left[9f\left(y^{(n+1)},t^{(n+1)}\right) + 19f\left(y^{(n)},t^{(n)}\right) \right.\\
+      &-\left. 5f\left(y^{(n-1)},t^{(n-1)}\right) + f\left(y^{(n-2)},t^{(n-2)}\right)\right]      
+    \end{split}
+  \end{equation*}
+$$$$
+\end{ex}
+O método de Adams-Moulton é implícito, ou seja, exige que a cada passo, uma equação em $y^{(n+1)}$ seja resolvida.
+
+\section{Estabilidade}\index{estabilidade}
+
+Consideremos o seguinte problema de teste:
+$$\left\{\begin{array}{rcl}y'&=&-\alpha y\\y(0)&=&1\end{array}\right.$$
+cuja solução exata é dada por $y(t)=e^{-\alpha t}$.
+
+Considere agora o método de Euler aplicado a este problema com passa $h$:
+$$\left\{\begin{array}{rcl}y^{(k+1)}&=&y^{(k)}-\alpha h y^{(k)}\\y^{(1)}&=&1\end{array}\right.$$
+A solução exata do esquema de Euler é dada por
+$$y^{(k+1)}=(1-\alpha h)^{k}$$
+e, portanto,
+$$\tilde{y}(t)=y^{(k+1)}=(1-\alpha h)^{t/h}$$
+
+Fixamos um $\alpha>0$, de forma que $y(t)\to 0$. Mas observamos que $\tilde{y}(t)\to 0$ somente quando $|1-\alpha h|<1$ e solução positivas somente quando $\alpha h<1$.
+
+{\bf Conclusão:} Se o passo $h$ for muito grande, o método pode se tornar instável, produzindo solução espúrias.
+
+\section*{Exercícios}
+
+\begin{Exercise} Resolva o problema 1 pelos diversos métodos e verifique heuristicamente a estabilidade para diversos valores de $h$.
+\end{Exercise}
+
+\section{Exercícios finais}
+
+\begin{Exercise} Considere o seguinte modelo para o crescimento de uma colônia de bactérias:
+$$\frac{dy}{dt}=\alpha y (A-y)$$
+onde $y$ indica a densidade de bactérias em unidades arbitrárias na colônia e $\alpha$ e $A$ são constantes positivas.
+Pergunta-se:
+\begin{itemize}
+\item[a)] Qual a solução quando a condição inicial $y(0)$ é igual a $0$ ou $A$?
+\item[b)] O que acontece quando a condição inicial $y(0)$ é um número entre $0$ e $A$?
+\item[c)] O que acontece quando a condição inicial $y(0)$ é um número negativo?
+\item[d)] O que acontece quando a condição inicial $y(0)$ é um número positivo maior que A?
+\item[e)] Se $A=10$ e $\alpha=1$ e $y(0)=1$, use métodos numéricos para obter tempo necessário para que a população dobre?
+\item[f)] Se $A=10$ e $\alpha=1$ e $y(0)=4$, use métodos numéricos para obter tempo necessário para que a população dobre?
+\end{itemize}
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+Os valores exatos para os itens e e f são:$\frac{1}{10}\ln\left(\frac{9}{4}\right)$ e $\frac{1}{10}\ln\left(6\right)$    
+  \end{tiny}
+\end{Answer}
+
+\begin{Exercise} Considere o seguinte modelo para a evolução da velocidade de um objeto em queda (unidades no SI):
+$$v'=g-\alpha v^2$$
+Sabendo que $g=9,8$ e $\alpha=10^{-2}$ e $v(0)=0$. Pede-se a velocidade ao tocar o solo, sabendo que a altura inicial era 100.
+
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+O valor exato é $\sqrt{\frac{g}{\alpha}\left[1-e^{{-200\alpha}}\right]}$ em $t=\frac{1}{\sqrt{g\alpha}}\tanh^{-1}\left(\sqrt{1-e^{{-200\alpha}}}\right)$    
+  \end{tiny}
+\end{Answer}
+
+
+\begin{Exercise} Considere o seguinte modelo para o oscilador não-linear de Van der Pol:
+$$y''(t) - \alpha (A-y(t)^2)y'(t) + w_0^2y(t)=0$$
+onde $A$, $\alpha$ e $w_0$ são constantes positivas.
+\begin{itemize}
+\item Encontre a frequência e a amplitude de oscilações quando $w_0=1$, $\alpha=.1$ e $A=10$. (Teste diversas condições iniciais)
+\item Estude a dependência da frequência e da amplitude com os parâmetros  $A$, $\alpha$ e $w_0$. (Teste diversas condições iniciais)
+\item Que diferenças existem entre esse oscilador não-linear e o oscilador linear?
+\end{itemize}
+\end{Exercise}
+
+\begin{Exercise} Considere o seguinte modelo para um oscilador não-linear:
+\begin{eqnarray*}
+y''(t)-\alpha(A-z(t))y'(t)+w_0^2 y(t)&=&0\\
+Cz'(t)+z(t)&=&y(t)^2
+\end{eqnarray*}
+onde $A$, $\alpha$, $w_0$ e $C$ são constantes positivas.
+\begin{itemize}
+\item Encontre a frequência e a amplitude de oscilações quando $w_0=1$, $\alpha=.1$, $A=10$ e $C=10$. (Teste diversas condições iniciais)
+\item Estude a dependência da frequência e da amplitude com os parâmetros  $A$, $\alpha$, $w_0$ e $C$. (Teste diversas condições iniciais)
+\end{itemize}
+\end{Exercise}
+
+\begin{Exercise} Considere o seguinte modelo para o controle de temperatura em um processo químico:
+\begin{eqnarray*}
+CT'(t)+T(t)&=&\kappa P(t)+T_{ext}\\
+P'(t)&=&\alpha(T_{set}-T(t))
+\end{eqnarray*}
+onde $C$, $\alpha$ e $\kappa$ são constantes positivas e $P(t)$ indica o potência do aquecedor. Sabendo que $T_{set}$ é a temperatura desejada, interprete o funcionamento esse sistema de controle.
+\begin{itemize}
+\item Calcule a solução quando a temperatura externa $T_{ext}=0$, $T_{set}=1000$, $C=10$, $\kappa=.1$ e $\alpha=.1$. Considere condições iniciais nulas.
+\item Quanto tempo demora o sistema para atingir a temperatura 900K?
+\item Refaça os dois primeiros itens com $\alpha=0.2$ e $\alpha=1$
+\item Faça testes para verificar a influência de $T_{ext}$, $\alpha$ e $\kappa$ na temperatura final.
+\end{itemize}
+\end{Exercise}
+
+\begin{Exercise} Considere a equação do pêndulo dada por:
+$$\frac{d^2\theta(t)}{dt^2}+\frac{g}{l}\sin(\theta(t))=0$$
+onde $g$ é o módulo da aceleração da gravidade e $l$ é o comprimento da haste.
+\begin{itemize}
+\item Mostre analiticamente que a energia total do sistema dada por
+$$\frac{1}{2}\left(\frac{d\theta(t)}{dt}\right)^2-\frac{g}{l}\cos(\theta(t))$$
+é mantida constante.
+\item Resolva numericamente esta equação para $g=9,8m/s^2$ e $l=1m$ e as seguintes condições iniciais:
+\subitem $\theta(0)=0.5$ e $\theta'(0)=0$.
+\subitem $\theta(0)=1.0$ e $\theta'(0)=0$.
+\subitem $\theta(0)=1.5$ e $\theta'(0)=0$.
+\subitem $\theta(0)=2.0$ e $\theta'(0)=0$.
+\subitem $\theta(0)=2.5$ e $\theta'(0)=0$.
+\subitem $\theta(0)=3.0$ e $\theta'(0)=0$.
+\end{itemize}
+Em todos os casos, verifique se o método numérico reproduz a lei de conservação de energia e calcule período e amplitude.
+\end{Exercise}
+
+\begin{Exercise} Considere o modelo simplificado de FitzHugh-Nagumo para o potencial elétrico sobre a membrana de um neurônio:
+\begin{eqnarray*}
+\frac{d V}{dt}& = &  V-V^3/3 - W +  I  \\
+\frac{d W}{dt} & = & 0.08(V+0.7 - 0.8W)
+\end{eqnarray*}
+onde $I$ é a corrente de excitação.
+\begin{itemize}
+\item Encontre o único estado estacionário $\left(V_0,W_0\right)$ com $I=0$.
+\item Resolva numericamente o sistema com condições iniciais dadas por $\left(V_0,W_0\right)$ e
+\subitem $I=0$
+\subitem $I=0.2$
+\subitem $I=0.4$
+\subitem $I=0.8$
+\subitem $I=e^{-t/200}$
+\end{itemize}
+\end{Exercise}
+
+
+\begin{Exercise} Considere o problema de valor inicial dado por
+\begin{eqnarray*}
+\frac{d u(t)}{dt} &=& -u(t) + e^{-t} \\
+u(0)&=&0
+\end{eqnarray*}
+Resolva analiticamente este problema usando as técnicas elementares de equações diferenciais ordinárias. A seguir encontre aproximações numéricas usando os métodos de Euler, Euler modificado, Runge-Kutta Clássico e Adams-Bashforth de ordem 4 conforme pedido nos itens.
+\begin{itemize}
+\item[a)]  Construa uma tabela apresentando valores com 7 algarismos significativos para comparar a solução analítica com as aproximações numéricas produzidas pelos métodos sugeridos. Construa também uma tabela para o erro absoluto obtido por cada método numérico em relação à solução analítica. Nesta última tabela, expresse o erro com 2 algarismos significativos em formato científico. Dica: $format('e',8)$ para a segunda tabela.
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+&0.5&1.0&1.5&2.0&2.5\\
+\hline
+Analítico&&&&&\\
+\hline
+Euler&&&&&\\
+\hline
+Euler modificado&&&&&\\
+\hline
+Runge-Kutta Clássico&&&&&\\
+\hline
+Adams-Bashforth ordem 4&&&&&\\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+&0.5&1.0&1.5&2.0&2.5\\
+\hline
+Euler&&&&&\\
+\hline
+Euler modificado&&&&&\\
+\hline
+Runge-Kutta Clássico&&&&&\\
+\hline
+Adams-Bashforth ordem 4&&&&&\\
+\hline
+\end{tabular}
+\end{center}
+
+\item[b)] Calcule o valor produzido por cada um desses método para $u(1)$ com passo $h=0.1$, $h=0.05$, $h=0.01$, $h=0.005$ e $h=0.001$. Complete a tabela com os valores para o erro absoluto encontrado.
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+&0.1&0.05&0.01&0.005&0.001\\
+\hline
+Euler&&&&&\\
+\hline
+Euler modificado&&&&&   \\
+\hline
+Runge-Kutta Clássico&&&&&\\
+\hline
+Adams-Bashforth ordem 4&&&&&\\
+\hline
+\end{tabular}
+\end{center}
+
+\end{itemize}
+
+\end{Exercise}
+
+
+\begin{Answer}
+  \begin{tiny}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+&0.5&1.0&1.5&2.0&2.5\\
+\hline
+Analítico&  0.3032653 &   0.3678794  &  0.3346952  &  0.2706706 &   0.2052125  \\
+\hline
+Euler& 0.3315955 &   0.3969266 &   0.3563684 &   0.2844209  &  0.2128243\\
+\hline
+Euler modificado &0.3025634 &   0.3671929 &   0.3342207 &   0.2704083  &  0.2051058 \\
+\hline
+Runge-Kutta Clássico& 0.3032649  &  0.3678790  &  0.3346949  &  0.2706703  &  0.2052124\\
+\hline
+Adams-Bashforth ordem 4& 0.3032421  &  0.3678319 &   0.3346486  &  0.2706329  &  0.2051848  \\
+\hline
+\end{tabular}
+\end{center}
+
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+&0.5&1.0&1.5&2.0&2.5\\
+\hline
+Euler& 2.8D-02  &  2.9D-02  &  2.2D-02  &  1.4D-02 &   7.6D-03\\
+\hline
+Euler modificado& 7.0D-04  &  6.9D-04   & 4.7D-04 &   2.6D-04 &   1.1D-04\\
+\hline
+Runge-Kutta Clássico& 4.6D-07 &   4.7D-07    &3.5D-07  &  2.2D-07 &   1.2D-07\\
+\hline
+Adams-Bashforth ordem 4&  2.3D-05 &   4.8D-05  &  4.7D-05  &  3.8D-05  &  2.8D-05 \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+&0.1&0.05&0.01&0.005&0.001\\
+\hline
+Euler&2.9D-02  &  5.6D-03 &   2.8D-03 &   5.5D-04 &   2.8D-04\\
+\hline
+Euler modificado&6.9D-04 &   2.5D-05  &  6.2D-06 &   2.5D-07 &   6.1D-08   \\
+\hline
+Runge-Kutta Clássico& 4.7D-07 &   6.9D-10 &   4.3D-11   & 6.8D-14  &  4.4D-15\\
+\hline
+Adams-Bashforth ordem 4&4.8D-05 &   9.0D-08 &   5.7D-09 &   9.2D-12 &   5.8D-13  \\
+\hline
+\end{tabular}
+\end{center}    
+  \end{tiny}
+\end{Answer}
+
+%\end{document} 

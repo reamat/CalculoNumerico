@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html xml:lang="pt" > 
+<head><title>4 Soluçao de sistemas lineares</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,3,notoc*,info --> 
+<meta name="src" content="main.tex"> 
+<meta name="date" content="2016-10-24 16:45:00"> 
+<link rel="stylesheet" type="text/css" href="main.css"> 
+</head><body 
+>
+   <!--l. 6--><div class="crosslinks"><p class="noindent"><a 
+href="main.html#mainse22.html" >Voltar</a></p></div>
+   <h2 class="chapterHead"><span class="titlemark">Capítulo&#x00A0;4</span><br /><a 
+ id="x36-540004"></a>Solução de sistemas lineares</h2>
+<a 
+ id="dx36-54001"></a>
+<!--l. 8--><p class="noindent" >Muitos problemas da engenharia, física e matemática estão associados à
+solução de sistemas de equações lineares. Nesse capítulo, tratamos de
+técnicas numéricas empregadas para obter a solução desses sistemas.
+Iniciamos por uma rápida revisão do Método de Eliminação Gaussiana do
+ponto de vista computacional. No contexto de análise da propagação
+dos erros de arredondamento, introduzimos o Método de Eliminação
+Gaussiana com Pivotamento Parcial, bem como, apresentamos o conceito de
+condicionamento de um sistema linear. Então, passamos a discutir sobre
+técnicas iterativos, mais especificamente, sobre os Métodos de Jacobi e
+Gauss-Seidel.
+<!--l. 11--><p class="indent" >   Considere o sistema de equações lineares: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main1911x.png" alt="  a11x1 + a12x2 + &sdot;&sdot;&sdot; + a1nxn  =   b1
+  a  x +  a x  + &sdot;&sdot;&sdot; + a  x   =   b
+   21 1    22 2         2n n       2
+                               ...
+
+am1x1 + am2x2 +  &sdot;&sdot;&sdot; + amnxn  =   bm
+" class="math-display" ></center>
+</div>onde <img 
+src="main1912x.png" alt="m  "  class="math" > é o número de equações e <img 
+src="main1913x.png" alt="n  "  class="math" > é o número de incógnitas. Este sistema
+pode ser escrito na forma matricial:
+   <table 
+class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main1914x.png" alt="Ax =  b
+" class="math-display" ></center></td></tr></table>
+<!--l. 21--><p class="nopar" >
+onde:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main1915x.png" alt="     &lfloor;                    &rfloor;      &lfloor;  &rfloor;        &lfloor;   &rfloor;
+      a     a    &sdot;&sdot;&sdot;  a           x            b
+     ||  11    12        1n ||      || 1||        || 1 ||
+     ||a21   a22  &sdot;&sdot;&sdot;  a2n ||      ||x2||        || b2 ||
+A =  || .     .   .     .  ||,x =  || .||  e b = || . ||
+     || ..     ..    ..   ..  ||      || ..||        || .. ||
+     &lceil;                    &rceil;      &lceil;  &rceil;        &lceil;   &rceil;
+      am1  am2   &sdot;&sdot;&sdot;  amn         xn          bm
+" class="math-display" ></center></td></tr></table>
+<!--l. 42--><p class="nopar" >
+<!--l. 44--><p class="indent" >   Salvo especificado ao contrário, assumiremos ao longo deste capítulo que a
+matriz dos coeficientes <img 
+src="main1916x.png" alt="A  "  class="math" > é uma matriz real não-singular.
+   <div class="sectionTOCS">
+   &#x00A0;<span class="sectionToc" >4.1 <a 
+href="mainse15.html#x37-550004.1">Eliminação gaussiana</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >4.1.1 <a 
+href="mainse15.html#x37-560004.1.1">Eliminação Gaussiana com pivotamento parcial</a></span>
+<br />   &#x00A0;<span class="sectionToc" >4.2 <a 
+href="mainse16.html#x39-580004.2">Complexidade de Algoritmos em Álgebra Linear</a></span>
+<br />   &#x00A0;<span class="sectionToc" >4.3 <a 
+href="mainse17.html#x42-590004.3">Sistemas triangulares</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >4.3.1 <a 
+href="mainse17.html#x42-600004.3.1">Algoritmo para resolução de um sistema triangular superior</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >4.3.2 <a 
+href="mainse17.html#x42-610004.3.2">Algoritmo para resolução de um sistema triangular inferior</a></span>
+<br />   &#x00A0;<span class="sectionToc" >4.4 <a 
+href="mainse18.html#x45-630004.4">Fatoração LU</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >4.4.1 <a 
+href="mainse18.html#x45-640004.4.1">Algoritmo para fatoração LU</a></span>
+                                                                          
+
+                                                                          
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >4.4.2 <a 
+href="mainse18.html#x45-660004.4.2">Custo computacional para resolver um sistema linear
+usando fatoração LU</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >4.4.3 <a 
+href="mainse18.html#x45-670004.4.3">Custo para resolver m sistemas lineares</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >4.4.4 <a 
+href="mainse18.html#x45-680004.4.4">Custo para calcular a matriz inversa de <img 
+src="main1917x.png" alt="A  "  class="math" ></a></span>
+<br />   &#x00A0;<span class="sectionToc" >4.5 <a 
+href="mainse19.html#x49-690004.5">Condicionamento de sistemas lineares</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >4.5.1 <a 
+href="mainse19.html#x49-700004.5.1">Norma de vetores</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >4.5.2 <a 
+href="mainse19.html#x49-710004.5.2">Norma de matrizes</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >4.5.3 <a 
+href="mainse19.html#x49-720004.5.3">Número de condicionamento</a></span>
+<br />   &#x00A0;<span class="sectionToc" >4.6 <a 
+href="mainse20.html#x51-740004.6">Métodos iterativos para sistemas lineares</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >4.6.1 <a 
+href="mainse20.html#x51-750004.6.1">Método de Jacobi</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >4.6.2 <a 
+href="mainse20.html#x51-770004.6.2">Método de Gauss-Seidel</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >4.6.3 <a 
+href="mainse20.html#x51-790004.6.3">Análise de convergência</a></span>
+<br />   &#x00A0;<span class="sectionToc" >4.7 <a 
+href="mainse21.html#x54-850004.7">Método da potência para cálculo de autovalores</a></span>
+<br />   &#x00A0;<span class="sectionToc" >4.8 <a 
+href="mainse22.html#x56-870004.8">Exercícios finais</a></span>
+   </div>
+
+
+
+
+
+
+
+
+
+
+
+                                                                          
+
+                                                                          
+   <!--l. 6--><div class="crosslinks"><p class="noindent"><a 
+href="main.html#mainse22.html" >Voltar</a></p></div>
+<!--l. 6--><p class="indent" >   <a 
+ id="tailmainch4.html"></a>  
+</body></html> 

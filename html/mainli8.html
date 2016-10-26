@@ -1,0 +1,329 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html xml:lang="pt" > 
+<head><title>Exerc<img 
+src="ec-lmr12-19.png" alt="i" class="12x-x-19" />cios</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,3,notoc*,info --> 
+<meta name="src" content="main.tex"> 
+<meta name="date" content="2016-10-24 16:45:00"> 
+<link rel="stylesheet" type="text/css" href="main.css"> 
+</head><body 
+>
+   <!--l. 1627--><div class="crosslinks"><p class="noindent"><a 
+href="mainse22.html#mainse34.html" >Voltar</a></p></div>
+   <h3 class="likesectionHead"><a 
+ id="x53-840004.6.3"></a>Exercícios</h3>
+   <div class="newtheorem">
+<!--l. 1629--><p class="noindent" ><span class="head">
+<a 
+ id="x53-84001r1"></a>
+<span 
+class="ec-lmbx-12">E 4.6.1.</span>  </span>Considere o problema de 5 incógnitas e cinco equações dado por
+<!--l. 1631--><p class="indent" >   <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main2502x.png" alt="              x1 &minus; x2  =  1
+
+      &minus; x1 + 2x2 &minus; x3  =  1
+&minus; x2 + (2 + &#x03B5;)x3 &minus; x4  =  1
+      &minus; x +  2x &minus;  x   =  1
+         3     4    5
+              x4 &minus; x5  =  1
+" class="math-display" ></center>
+</div>
+      <ul class="itemize1">
+      <li class="itemize">Escreva na forma <img 
+src="main2503x.png" alt="Ax  = b  "  class="math" > e resolva usando Eliminação Gaussiana para
+      <img 
+src="main2504x.png" alt="      &minus;3
+&#x03B5; = 10   "  class="math" > no <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">Scilab</span></span></span>.
+      </li>
+      <li class="itemize">Obtenha o vetor incógnita <img 
+src="main2505x.png" alt="x  "  class="math" > com <img 
+src="main2506x.png" alt="&#x03B5; = 10&minus;3   "  class="math" > usando o comando <img 
+src="main2507x.png" alt="A\b  "  class="math" >.
+                                                                          
+
+                                                                          
+      </li>
+      <li class="itemize">Obtenha  o  vetor  incógnita  <img 
+src="main2508x.png" alt="x  "  class="math" > com  <img 
+src="main2509x.png" alt="      &minus;3
+&#x03B5; = 10   "  class="math" >  usando  Jacobi  com
+      tolerância <img 
+src="main2510x.png" alt="  &minus; 2
+10   "  class="math" >. Compare o resultado com o resultado obtido no item
+      d.
+      </li>
+      <li class="itemize">Obtenha o vetor incógnita <img 
+src="main2511x.png" alt="x  "  class="math" > com <img 
+src="main2512x.png" alt="&#x03B5; = 10&minus;3   "  class="math" > usando Gauss-Seidel com
+      tolerância <img 
+src="main2513x.png" alt="10&minus; 2   "  class="math" >. Compare o resultado com o resultado obtido no item
+      d.
+      </li>
+      <li class="itemize">Discuta  com  base  na  relação  esperada  entre  tolerância  e  exatidão
+      conforme estudado na primeira área para problemas de uma variável.</li></ul>
+   </div>
+<!--l. 1648--><p class="noindent" >
+   <div class="proof">
+<!--l. 1648--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Resposta.</span> </span>
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-32">
+epsilon=1e-3;
+&#x00A0;<br />
+&#x00A0;<br />A=[1&#x00A0;-1&#x00A0;0&#x00A0;0&#x00A0;0;&#x00A0;-1&#x00A0;2&#x00A0;-1&#x00A0;0&#x00A0;0;&#x00A0;0&#x00A0;-1&#x00A0;(2+epsilon)&#x00A0;-1&#x00A0;0;&#x00A0;0&#x00A0;0&#x00A0;-1&#x00A0;2&#x00A0;-1;&#x00A0;0&#x00A0;0&#x00A0;0&#x00A0;1&#x00A0;-1]
+&#x00A0;<br />
+&#x00A0;<br />v=[1&#x00A0;1&#x00A0;1&#x00A0;1&#x00A0;1]&#8217;
+&#x00A0;<br />xgauss=gauss([A&#x00A0;v])
+&#x00A0;<br />
+&#x00A0;<br />function&#x00A0;x=q_Jacobi()
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;x0=[0&#x00A0;0&#x00A0;0&#x00A0;0&#x00A0;0]&#8217;
+&#x00A0;<br />
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;i=0
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;controle=0
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;while&#x00A0;controle&#x003C;3&#x00A0;&amp;&#x00A0;i&#x003C;1000
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;i=i+1
+&#x00A0;<br />
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;x(1)=1+x0(2)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;x(2)=(1+x0(3)+x0(1))/2
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;x(3)=(1+x0(2)+x0(4))/(2+epsilon)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;x(4)=(1+x0(3)+x0(5))/2
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;x(5)=x0(4)-1
+&#x00A0;<br />
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;delta=norm(x-x0,2)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;if&#x00A0;delta&#x003C;1e-6&#x00A0;then
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;controle=controle+1
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;else
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;controle=0
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;end
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;mprintf(&#8217;i=%d,&#x00A0;x1=%f,&#x00A0;x5=%f,&#x00A0;tol=%.12f\n&#8217;,i,x(1),x(5),delta)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;x0=x;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;end
+&#x00A0;<br />
+&#x00A0;<br />endfunction
+&#x00A0;<br />
+&#x00A0;<br />function&#x00A0;x=q_Gauss_Seidel()
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;x0=[0&#x00A0;0&#x00A0;0&#x00A0;0&#x00A0;0]&#8217;
+&#x00A0;<br />
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;i=0
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;controle=0
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;while&#x00A0;controle&#x003C;3&#x00A0;&amp;&#x00A0;i&#x003C;15000
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;i=i+1
+&#x00A0;<br />
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;x(1)=1+x0(2)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;x(2)=(1+x0(3)+x(1))/2
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;x(3)=(1+x(2)+x0(4))/(2+epsilon)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;x(4)=(1+x(3)+x0(5))/2
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;x(5)=x(4)-1
+&#x00A0;<br />
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;delta=norm(x-x0,2)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;if&#x00A0;delta&#x003C;1e-2&#x00A0;then
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;controle=controle+1
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;else
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;controle=0
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;end
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;mprintf(&#8217;i=%d,&#x00A0;x1=%f,&#x00A0;x5=%f,&#x00A0;tol=%.12f\n&#8217;,i,x(1),x(5),delta)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;x0=x;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;end
+&#x00A0;<br />
+&#x00A0;<br />endfunction
+</div>
+<!--l. 1709--><p class="nopar" >
+                                                                       <img 
+src="main2514x.png" alt="&#x2662; "  class="math" >
+   </div>
+   <div class="newtheorem">
+<!--l. 1713--><p class="noindent" ><span class="head">
+<a 
+ id="x53-84003r2"></a>
+                                                                          
+
+                                                                          
+<span 
+class="ec-lmbx-12">E 4.6.2.</span>  </span>Resolva o seguinte sistema pelo método de Jacobi e Gauss-Seidel:
+   <center class="math-display" >
+<img 
+src="main2515x.png" alt="(
+||
+|||{  5x1 + x2 + x3    =  50
+
+|||  &minus; x1 + 3x2 &minus; x3  =  10
+||(  x  + 2x  + 10x   =  &minus; 30
+    1     2      3
+" class="math-display" ></center> Use como critério de paragem tolerância inferior a <img 
+src="main2516x.png" alt="10&minus;3   "  class="math" >  e inicialize com
+<img 
+src="main2517x.png" alt="  0    0    0
+x  = y  =  z =  0  "  class="math" >.
+   </div>
+   <div class="newtheorem">
+<!--l. 1723--><p class="noindent" ><span class="head">
+<a 
+ id="x53-84004r3"></a>
+<span 
+class="ec-lmbx-12">E 4.6.3.</span>  </span>Refaça a questão <a 
+href="mainli6.html#x38-57009r6">4.1.6<!--tex4ht:ref: trid --></a> construindo um algoritmo que implemente
+os métodos de Jacobi e Gauss-Seidel.
+   </div>
+   <div class="newtheorem">
+<!--l. 1726--><p class="noindent" ><span class="head">
+<a 
+ id="x53-84005r4"></a>
+<span 
+class="ec-lmbx-12">E 4.6.4.</span>  </span>Considere o seguinte sistema de equações lineares: <div class="eqnarray">
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main2518x.png" alt="            x1 &minus; x2  =  0
+&minus; xj&minus;1 + 5xj &minus; xj+1  =  cos(j&#x2215;10 ), 2 &le; j &le; 10
+
+                x11  =  x10&#x2215;2                         (4.25)
+" class="math-display" ></center>
+</div>Construa a iteração para encontrar a solução deste problema pelos métodos de
+Gauss-Seidel e Jacobi. Usando esses métodos, encontre uma solução aproximada
+com erro absoluto inferior a <img 
+src="main2519x.png" alt="  &minus; 5
+10   "  class="math" >.
+   </div>
+<!--l. 1734--><p class="noindent" >
+   <div class="proof">
+<!--l. 1734--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Resposta.</span> </span> <img 
+src="main2520x.png" alt="0.324295  "  class="math" ><span 
+class="ec-lmr-6">,</span> <img 
+src="main2521x.png" alt="0.324295  "  class="math" ><span 
+class="ec-lmr-6">,</span> <img 
+src="main2522x.png" alt="0.317115  "  class="math" ><span 
+class="ec-lmr-6">,</span> <img 
+src="main2523x.png" alt="0.305943  "  class="math" ><span 
+class="ec-lmr-6">,</span> <img 
+src="main2524x.png" alt="0.291539  "  class="math" ><span 
+class="ec-lmr-6">,</span> <img 
+src="main2525x.png" alt="0.274169  "  class="math" ><span 
+class="ec-lmr-6">,</span> <img 
+src="main2526x.png" alt="0.253971  "  class="math" ><span 
+class="ec-lmr-6">,</span> <img 
+src="main2527x.png" alt="0.230846  "  class="math" ><span 
+class="ec-lmr-6">,</span> <img 
+src="main2528x.png" alt="0.203551  "  class="math" ><span 
+class="ec-lmr-6">,</span>
+<img 
+src="main2529x.png" alt="0.165301  "  class="math" ><span 
+class="ec-lmr-6">,</span> <img 
+src="main2530x.png" alt="0.082650  "  class="math" >
+<!--l. 1739--><p class="indent" >   <span 
+class="ec-lmr-6">Exemplos de rotinas:</span>
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-33">
+function&#x00A0;x=jacobi()
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;x0=zeros(11,1)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;k=0;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;controle=0;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;while&#x00A0;controle&#x003C;3&#x00A0;&amp;&#x00A0;k&#x003C;1000
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;k=k+1
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;x(1)=x0(2)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;for&#x00A0;j=2:10
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;x(j)=(cos(j/10)+x0(j-1)+x0(j+1))/5
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;end
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;x(11)=x0(10)/2
+&#x00A0;<br />
+&#x00A0;<br />
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;delta=norm(x-x0)&#x00A0;//norma&#x00A0;2
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;if&#x00A0;delta&#x003C;1e-5&#x00A0;then
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;controle=controle+1
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;else
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;controle=0;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;end
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;mprintf(&#8217;k=%d,&#x00A0;x=[%f,%f,%f],&#x00A0;tol=%.12f\n&#8217;,k,x(1),x(2),x(3),delta)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;x0=x;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;end
+&#x00A0;<br />
+&#x00A0;<br />
+&#x00A0;<br />endfunction
+&#x00A0;<br />
+&#x00A0;<br />function&#x00A0;x=gs()
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;x0=zeros(11,1)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;k=0;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;controle=0;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;while&#x00A0;controle&#x003C;3&#x00A0;&amp;&#x00A0;k&#x003C;1000
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;k=k+1
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;x(1)=x0(2)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;for&#x00A0;j=2:10
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;x(j)=(cos(j/10)+x(j-1)+x0(j+1))/5
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;end
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;x(11)=x0(10)/2
+&#x00A0;<br />
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;delta=norm(x-x0)&#x00A0;//norma&#x00A0;2
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;if&#x00A0;delta&#x003C;1e-5&#x00A0;then
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;controle=controle+1
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;else
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;controle=0;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;end
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;mprintf(&#8217;k=%d,&#x00A0;x=[%f,%f,%f],&#x00A0;tol=%.12f\n&#8217;,k,x(1),x(2),x(3),delta)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;x0=x;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;end
+&#x00A0;<br />endfunction
+</div>
+<!--l. 1789--><p class="nopar" >
+                                                                       <img 
+src="main2531x.png" alt="&#x2662; "  class="math" >
+   </div>
+   <div class="newtheorem">
+<!--l. 1794--><p class="noindent" ><span class="head">
+<a 
+ id="x53-84007r5"></a>
+<span 
+class="ec-lmbx-12">E 4.6.5.</span>  </span>Resolva o problema <a 
+href="mainse22.html#x56-87001r1">4.8.1<!--tex4ht:ref: circuito1 --></a> pelos métodos de Jacobi e Gauss-Seidel.
+   </div>
+   <div class="newtheorem">
+                                                                          
+
+                                                                          
+<!--l. 1797--><p class="noindent" ><span class="head">
+<a 
+ id="x53-84008r6"></a>
+<span 
+class="ec-lmbx-12">E 4.6.6.</span>  </span>Faça uma permutação de linhas no sistema abaixo e resolva pelos
+métodos de Jacobi e Gauss-Seidel: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main2532x.png" alt="x +  10x  + 3x  = 27
+ 1      2     3
+        4x1 + x3 = 6
+ 2x  + x  + 4x  = 12
+   1    2     3
+" class="math-display" ></center>
+</div>
+   </div>
+<!--l. 1804--><p class="noindent" >
+   <div class="proof">
+<!--l. 1804--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Resposta.</span> </span> <span 
+class="ec-lmr-6">Permute as linhas 1 e 2.</span>
+                                                                       <img 
+src="main2533x.png" alt="&#x2662; "  class="math" >
+   </div>
+                                                                          
+
+                                                                          
+   <!--l. 1811--><div class="crosslinks"><p class="noindent"><a 
+href="mainse22.html#mainse34.html" >Voltar</a></p></div>
+<!--l. 1811--><p class="indent" >   <a 
+ id="tailmainli8.html"></a>  
+</body></html> 

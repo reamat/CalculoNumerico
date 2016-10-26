@@ -1,0 +1,936 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html xml:lang="pt" > 
+<head><title>Derivaçao Numerica</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,3,notoc*,info --> 
+<meta name="src" content="main.tex"> 
+<meta name="date" content="2016-10-24 16:45:00"> 
+<link rel="stylesheet" type="text/css" href="main.css"> 
+</head><body 
+>
+   <!--l. 8--><div class="crosslinks"><p class="noindent"><a 
+href="mainap1.html#mainse46.html" >Voltar</a></p></div>
+   <h3 class="sectionHead"><span class="titlemark">7.1   </span> <a 
+ id="x72-1140007.1"></a>Derivação Numérica</h3>
+<a 
+ id="dx72-114001"></a>
+<!--l. 10--><p class="noindent" >Dado um conjunto de pontos <img 
+src="main3320x.png" alt="(x ,y)n
+  i  ii=1   "  class="math" >, a derivada <img 
+src="main3321x.png" alt="(  )
+ dy
+ dx i  "  class="math" > pode ser calculada de
+várias formas. Na próxima seção trabalharemos com diferenças finitas, que é mais
+adequada quando as abcissas estão próximas e os dados não sofrem perturbações
+significativas. Na seção subsequente trataremos os casos quando os dados oscilam
+via ajuste ou interpolações de curvas.
+<!--l. 12--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">7.1.1   </span> <a 
+ id="x72-1150007.1.1"></a>Aproximação da derivada por diferenças finitas</h4>
+<a 
+ id="dx72-115001"></a>
+<!--l. 14--><p class="noindent" >A derivada <img 
+src="main3322x.png" alt="f&prime;(x0 )  "  class="math" > de uma função <img 
+src="main3323x.png" alt="f(x )  "  class="math" > no ponto <img 
+src="main3324x.png" alt="x0   "  class="math" > é
+                                                                          
+
+                                                                          
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main3325x.png" alt="f&prime;(x0) = lim f-(x0 +-h-) &minus;-f-(x0).
+        h&rarr;0         h
+" class="math-display" ></center></td></tr></table>
+<!--l. 17--><p class="nopar" >
+Da definição, se <img 
+src="main3326x.png" alt="h &frasl;= 0  "  class="math" > é pequeno (não muito pequeno para evitar o
+cancelamento catastrófico), é esperado que uma aproximação para a derivada no
+ponto <img 
+src="main3327x.png" alt="x
+ 0   "  class="math" > seja dada por:
+   <table 
+class="equation"><tr><td><a 
+ id="x72-115002r1"></a>
+   <center class="math-display" >
+<img 
+src="main3328x.png" alt="  &prime;      f-(x0 +-h) &minus;-f(x0)
+f (x0) &asymp;         h         .
+" class="math-display" ></center></td><td class="equation-label">(7.1)</td></tr></table>
+<!--l. 21--><p class="nopar" >
+   <div class="newtheorem">
+<!--l. 23--><p class="noindent" ><span class="head">
+<a 
+ id="x72-115003r1"></a>
+<span 
+class="ec-lmbx-12">Exemplo 7.1.1.</span>  </span> Calcule a derivada numérica da função <img 
+src="main3329x.png" alt="f(x) = cos(x)  "  class="math" > no
+ponto <img 
+src="main3330x.png" alt="x = 1  "  class="math" > usando <img 
+src="main3331x.png" alt="h = 0,1  "  class="math" >, <img 
+src="main3332x.png" alt="h = 0,01  "  class="math" >, <img 
+src="main3333x.png" alt="h = 0,001  "  class="math" > e <img 
+src="main3334x.png" alt="h =  0,0001  "  class="math" >.
+                                                                          
+
+                                                                          
+   </div>
+<!--l. 26--><p class="indent" >
+   <div class="proof">
+<!--l. 26--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Usando a fórmula de diferenças dada pela Equação&#x00A0;(<a 
+href="#x72-115002r1">7.1<!--tex4ht:ref: eq:dp --></a>), devemos
+calcular:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main3335x.png" alt="  &prime;      cos(1 + h ) &minus; cos(1)
+f (x) &asymp;  -------------------
+                 h
+" class="math-display" ></center></td></tr></table>
+<!--l. 30--><p class="nopar" >
+para cada valor de <img 
+src="main3336x.png" alt="h  "  class="math" > solicitado, obtemos a Tabela&#x00A0;<span 
+class="ec-lmbx-12">??</span>.
+   <div class="table">
+<!--l. 34--><p class="indent" >   <a 
+ id="x72-1150041"></a><hr class="float"><div class="float" 
+><!--tex4ht:inline--><div class="tabular"> <table id="TBL-20" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-20-1g"><col 
+id="TBL-20-1"></colgroup><colgroup id="TBL-20-2g"><col 
+id="TBL-20-2"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-20-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-20-1-1"  
+class="td11"> <img 
+src="main3337x.png" alt="h  "  class="math" >  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-20-1-2"  
+class="td11">         <img 
+src="main3338x.png" alt="f-(1 +-h-) &minus;-f-(1)
+       h  "  class="math" >            </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-20-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-20-2-1"  
+class="td11"> 0,1  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-20-2-2"  
+class="td11"><img 
+src="main3339x.png" alt="0,4535961--&minus;-0,5403023- = &minus; 0,8670618
+         0,1  "  class="math" ></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-20-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-20-3-1"  
+class="td11"> 0,01  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-20-3-2"  
+class="td11"><img 
+src="main3340x.png" alt="0,5318607--&minus;-0,5403023- = &minus; 0,8441584
+         0,01  "  class="math" ></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-20-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-20-4-1"  
+class="td11"> 0,001 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-20-4-2"  
+class="td11"><img 
+src="main3341x.png" alt="0,5403023-&minus;--0,5403023-
+         0,001          = &minus; 0,841741  "  class="math" > </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-20-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-20-5-1"  
+class="td11">0,0001</td><td  style="white-space:nowrap; text-align:center;" id="TBL-20-5-2"  
+class="td11"><img 
+src="main3342x.png" alt="0,5403023 &minus;  0,5403023
+---------------------- = &minus; 0,841498
+        0,0001  "  class="math" > </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-20-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-20-6-1"  
+class="td11">     </td></tr></table></div>
+<br /> <div class="caption" 
+><span class="id">Tabela&#x00A0;7.1: </span><span  
+class="content">Exercício&#x00A0;<a 
+href="#x72-115003r1">7.1.1<!--tex4ht:ref: ex:dp --></a>.</span></div><!--tex4ht:label?: x72-1150041 -->
+   </div><hr class="endfloat" />
+   </div>
+<!--l. 46--><p class="indent" >   No <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">Scilab</span></span></span>, podemos calcular a aproximação da derivada <img 
+src="main3343x.png" alt="f &prime;(1)  "  class="math" > com <img 
+src="main3344x.png" alt="h = 0,1  "  class="math" >
+usando as seguintes linhas de código:
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-45">
+deff(&#8217;y&#x00A0;=&#x00A0;f(x)&#8217;,&#8217;y&#x00A0;=&#x00A0;cos(x)&#8217;)
+&#x00A0;<br />x0&#x00A0;=&#x00A0;1
+&#x00A0;<br />h&#x00A0;=&#x00A0;0.1
+&#x00A0;<br />dp&#x00A0;=&#x00A0;(f(x0+h)&#x00A0;-&#x00A0;f(x0))/h
+</div>
+<!--l. 52--><p class="nopar" >E, similarmente, para outros valores de <img 
+src="main3345x.png" alt="x0   "  class="math" > e <img 
+src="main3346x.png" alt="h  "  class="math" >.                              <img 
+src="main3347x.png" alt="&#x2662; "  class="math" >
+   </div>
+<!--l. 57--><p class="indent" >   Observe que, no exemplo anterior, quanto menor <img 
+src="main3348x.png" alt="h  "  class="math" >, melhor é a aproximação,
+visto que o valor exato para a derivada é <img 
+src="main3349x.png" alt="f&prime;(1) = &minus; sin(1) = &minus; 0,8414710  "  class="math" >. Porém,
+quando <img 
+src="main3350x.png" alt="h = 10 &minus;13   "  class="math" >, a derivada numérica é <img 
+src="main3351x.png" alt="&minus; 0,8404388  "  class="math" > (usando aritmética
+<span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">double</span></span></span>), resultado pior que aquele para <img 
+src="main3352x.png" alt="h = 0,0001  "  class="math" >. Além disso, na mesma
+aritmética, quando <img 
+src="main3353x.png" alt="      &minus; 16
+h = 10   "  class="math" > a derivada numérica calculada é zero
+(cancelamento catastrófico). Isso nos motiva a pensar qual é o melhor
+<img 
+src="main3354x.png" alt="h  "  class="math" >.
+<!--l. 59--><p class="indent" >   Essa aproximação para a derivada é denominada diferenças progressivas.
+A derivada numérica também pode ser aproximada usando definições
+equivalentes:
+   <center class="math-display" >
+<img 
+src="main3355x.png" alt="f&prime;(x ) &asymp; f(x0)-&minus;-f(x0-&minus;-h)-=  yi &minus;-yi&minus;1
+    0            h               h  " class="math-display" ></center> que
+é denominada diferenças regressivas ou
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main3356x.png" alt="         f(x  + h) &minus; f(x  &minus; h)    y   &minus; y
+f&prime;(x0 ) &asymp; ---0-----------0------=  -i+1----i&minus;1-
+                  2h                  2h  " class="math-display" ></center> que
+é denominada diferenças centrais.
+   <div class="newtheorem">
+<!--l. 68--><p class="noindent" ><span class="head">
+<a 
+ id="x72-115005r2"></a>
+<span 
+class="ec-lmbx-12">Exemplo 7.1.2.</span>  </span>Calcule  a  derivada  numérica  da  função  <img 
+src="main3357x.png" alt="f(x) = cos(x)  "  class="math" >
+no  ponto  <img 
+src="main3358x.png" alt="x = 1  "  class="math" >  usando  diferenças  progressivas,  diferenças  regressivas  e
+diferenças centrais com <img 
+src="main3359x.png" alt="h = 0,1  "  class="math" >, <img 
+src="main3360x.png" alt="h = 0,01  "  class="math" > e <img 
+src="main3361x.png" alt="h = 0,001  "  class="math" >.
+   </div>
+<!--l. 71--><p class="indent" >
+   <div class="proof">
+<!--l. 71--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> A tabela abaixo mostra a derivada numérica para cada valor de
+<img 
+src="main3362x.png" alt="h  "  class="math" >.
+<div class="center" 
+>
+<!--l. 73--><p class="noindent" >
+                                                                          
+
+                                                                          
+<div class="tabular"> <table id="TBL-21" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-21-1g"><col 
+id="TBL-21-1"></colgroup><colgroup id="TBL-21-2g"><col 
+id="TBL-21-2"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-21-1-1"  
+class="td11">Diferenças </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-1-2"  
+class="td11">              h=0,1                      </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-21-2-1"  
+class="td11">Progressivas</td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-2-2"  
+class="td11">           <img 
+src="main3363x.png" alt="&minus; 0,8670618  "  class="math" >                 </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-21-3-1"  
+class="td11">Regressivas </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-3-2"  
+class="td11">   <img 
+src="main3364x.png" alt="cos(1)-&minus;-cos(0,9-)
+       0,1       =  &minus; 0,8130766  "  class="math" >    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-21-4-1"  
+class="td11">Centrais     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-4-2"  
+class="td11">  <img 
+src="main3365x.png" alt="cos(1,1) &minus; cos(0,9)
+------------------ =  &minus; 0,8400692
+        0,2  "  class="math" >   </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-21-5-1"  
+class="td11">Diferenças  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-5-2"  
+class="td11">              h=0,01                     </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-21-6-1"  
+class="td11">Progressivas</td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-6-2"  
+class="td11">           <img 
+src="main3366x.png" alt="&minus; 0,8441584  "  class="math" >                 </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-21-7-1"  
+class="td11">Regressivas </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-7-2"  
+class="td11">  <img 
+src="main3367x.png" alt="cos(1) &minus; cos(0,99)
+------------------= &minus; 0,8387555
+      0,01  "  class="math" >   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-8-"><td  style="white-space:nowrap; text-align:left;" id="TBL-21-8-1"  
+class="td11">Centrais     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-8-2"  
+class="td11"> <img 
+src="main3368x.png" alt="cos(1,01) &minus;-cos(0,99-)=  &minus; 0,8414570
+        0,02  "  class="math" >  </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-9-"><td  style="white-space:nowrap; text-align:left;" id="TBL-21-9-1"  
+class="td11">Diferenças  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-9-2"  
+class="td11">              h=0,01                     </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-10-"><td  style="white-space:nowrap; text-align:left;" id="TBL-21-10-1"  
+class="td11">Progressivas</td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-10-2"  
+class="td11">           <img 
+src="main3369x.png" alt="&minus;  0,841741  "  class="math" >                 </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-11-"><td  style="white-space:nowrap; text-align:left;" id="TBL-21-11-1"  
+class="td11">Regressivas </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-11-2"  
+class="td11">  <img 
+src="main3370x.png" alt="cos(1) &minus;-cos(0,999-)=  &minus; 0,8412007
+       0,001  "  class="math" >   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-12-"><td  style="white-space:nowrap; text-align:left;" id="TBL-21-12-1"  
+class="td11">Centrais     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-12-2"  
+class="td11"><img 
+src="main3371x.png" alt="cos(1,001) &minus;-cos(0,999-)
+         0,002         =  &minus; 0,8414708  "  class="math" ></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-13-"><td  style="white-space:nowrap; text-align:left;" id="TBL-21-13-1"  
+class="td11">          </td></tr></table></div></div>
+                                                                       <img 
+src="main3372x.png" alt="&#x2662; "  class="math" >
+   </div>
+<!--l. 91--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">7.1.2   </span> <a 
+ id="x72-1160007.1.2"></a>Erros de truncamento</h4>
+<a 
+ id="dx72-116001"></a>
+<!--l. 92--><p class="noindent" >Seja <img 
+src="main3373x.png" alt="D+,hf (x0)  "  class="math" > a aproximação da derivada de <img 
+src="main3374x.png" alt="f  "  class="math" > em <img 
+src="main3375x.png" alt="x0   "  class="math" > por diferenças
+progressivas, <img 
+src="main3376x.png" alt="D    f(x )
+  &minus;,h   0  "  class="math" > a aproximação por diferenças regressivas e <img 
+src="main3377x.png" alt="D   f(x )
+ 0,h   0  "  class="math" > a
+aproximação por diferenças centrais, então <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main3378x.png" alt="              &prime;         f(x0 + h ) &minus; f (x0 )   &prime;
+D+,hf (x0) &minus; f(x0)  =   ------------------&minus; f (x0)
+                                h  &prime;      h2 &prime;&prime;          3
+                        f(x0)-+-hf-(x0)-+--2 f-(x0-) +-O-(h-) &minus;-f(x0)  &prime;
+                    =                        h                      &minus; f (x0)
+                        h  &prime;&prime;           2
+                    =   --f (x0) + O(h ) = O (h).
+                        2
+" class="math-display" ></center>
+</div>Analogamente: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main3379x.png" alt="              &prime;         f(x0)-&minus;-f-(x0-&minus;-h-)    &prime;
+D &minus;,hf (x0) &minus; f(x0)  =           h         &minus;  f(x0)
+                                (           &prime;      h2  &prime;&prime;          3 )
+                        f(x0)-&minus;--f-(x0) &minus;-hf-(x0-) +-2 f-(x0) +-O-(h-)-    &prime;
+                    =                         h                       &minus; f (x0)
+                          h
+                    =   &minus; -f &prime;&prime;(x0) + O (h2) = O (h).
+                          2
+" class="math-display" ></center>
+</div>Também: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main3380x.png" alt="              &prime;         f(x0 + h ) &minus; f (x0 &minus; h )   &prime;
+D0,hf (x0) &minus; f(x0)  =   ----------------------&minus;  f(x0 )
+                                  2h&prime;      h2  &prime;&prime;          3
+                        f(x0-) +-hf-(x0)-+-2 f-(x0-) +-O-(h-)
+                    =                   2h
+                        f(x  ) &minus; hf &prime;(x ) + h2f &prime;&prime;(x ) + O (h3)
+                    &minus;   ----0--------0-----2-----0--------- &minus; f&prime;(x0)
+                                        2h
+                    =   O (h2).
+" class="math-display" ></center>
+</div>
+   <div class="newtheorem">
+<!--l. 112--><p class="noindent" ><span class="head">
+<a 
+ id="x72-116005r3"></a>
+<span 
+class="ec-lmbx-12">Exemplo 7.1.3.</span>  </span>Calcule  a  derivada  numérica  e  o  erro  de  truncamento
+de  <img 
+src="main3381x.png" alt="f(x) = e&minus;x  "  class="math" >  em  <img 
+src="main3382x.png" alt="x = 1,5  "  class="math" >  pela  fórmula  de  diferença  progressiva  para
+<img 
+src="main3383x.png" alt="h =  0,1  "  class="math" >, <img 
+src="main3384x.png" alt="h =  0,01  "  class="math" > e <img 
+src="main3385x.png" alt="h = 0,001  "  class="math" >.
+   </div>
+<!--l. 115--><p class="indent" >
+   <div class="proof">
+<!--l. 115--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Como <img 
+src="main3386x.png" alt="  &prime;&prime;       &minus; x
+|f (x)| = |e   | &#x003C; 1  "  class="math" >, então <img 
+src="main3387x.png" alt="  &prime;         &prime;       h
+|f+ (x0 ) &minus; f (x0)| &#x003C; 2   "  class="math" >.
+   <center class="math-display" >
+<img 
+src="main3388x.png" alt="|------|-----------------------|----------|
+|      |                       |       h  |
+|--h---|diferenças-progressivas-|erro-=--2-|
+|      |                       |          |
+|--0,1--|------&minus;-0,2123364-------|---0,05----|
+| 0,01 |      &minus; 0,2220182       |  0,005   |
+|------|-----------------------|----------|
+|0,001 |      &minus; 0,2230186       | 0,0005   |
+|------|----------------------------------
+|      |
+" class="math-display" ></center> O valor exato da derivada é <img 
+src="main3389x.png" alt="f&prime;(1,5) = &minus; 0,2231302  "  class="math" >.                          <img 
+src="main3390x.png" alt="&#x2662; "  class="math" >
+   </div>
+<!--l. 133--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">7.1.3   </span> <a 
+ id="x72-1170007.1.3"></a>Erros de arredondamento</h4>
+<a 
+ id="dx72-117001"></a>
+<!--l. 134--><p class="noindent" >Para entender como os erros de arredondamento se propagam ao calcular as
+derivadas numéricas vamos considerar o operador de diferenças finitas
+progressivas
+   <center class="math-display" >
+<img 
+src="main3391x.png" alt="D+,hf (x) = f(x-+-h)-&minus;-f(x-).
+                   h  " class="math-display" ></center> Nesse
+contexto temos o valor exato <img 
+src="main3392x.png" alt="f&prime;(x)  "  class="math" > para a derivada, a sua aproximação numérica
+<img 
+src="main3393x.png" alt="D+,hf (x)  "  class="math" > e a representação em número de máquina do operador <img 
+src="main3394x.png" alt="D+,hf (x)  "  class="math" > que
+denotaremos por <img 
+src="main3395x.png" alt="---------
+D+,hf (x )  "  class="math" >. Seja <img 
+src="main3396x.png" alt="&#x03B5;(x,h)  "  class="math" > o erro de arredondamento ao
+calcularmos a derivada e consideremos
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main3397x.png" alt="---------                           f(x-+-h)-&minus; f(x-)
+D+,hf (x) = D+,hf (x)(1 + &#x03B5;(x,h)) = ----------------(1 + &#x03B5;(x,h )).
+                                           h  " class="math-display" ></center>
+Também, consideremos
+   <center class="math-display" >
+<img 
+src="main3398x.png" alt="|f(x-+-h)-&minus; f(x + h)| = &delta;(x,h) &le; &delta;  " class="math-display" ></center>
+e
+   <center class="math-display" >
+<img 
+src="main3399x.png" alt=" -----
+|f(x) &minus; f(x)| = &delta;(x,0) &le; &delta;,  " class="math-display" ></center>
+onde <img 
+src="main3400x.png" alt="f(x-+-h)-  "  class="math" > e <img 
+src="main3401x.png" alt="f(x)-  "  class="math" > são as representação em ponto flutuante dos números
+<img 
+src="main3402x.png" alt="f (x + h )  "  class="math" > e <img 
+src="main3403x.png" alt="f(x)  "  class="math" >, respectivamente. A diferença do valor da derivada e sua
+aproximação representada em ponto flutuante pode ser estimada da seguinte
+forma: <div class="eqnarray">
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main3404x.png" alt="|                |     ||        ---------  -----           ||
+||f&prime;(x ) &minus; D---f(x)||  =  ||f&prime;(x) &minus; f(x-+-h)-&minus;-f(x-)(1 + &#x03B5; (x,h ))||
+          +,h          |               h                   |
+                       ||        (---------   -----
+                    =  ||f&prime;(x) &minus;  f-(x +-h) &minus;-f(x) + f-(x-+-h-) &minus;-f-(x +-h)
+                       |                 h                   h
+                                    )       ||
+                    +   f(x-) &minus;-f-(x-) (1 + &#x03B5;)||
+                             h              |
+                       ||        (  f (x + h ) &minus; f (x)  f(x-+-h-) &minus; f (x + h )
+                    =  ||f&prime;(x) +  &minus; ----------------&minus;  --------------------
+                       |-----             h                    h
+                        f(x ) &minus; f (x ))      ||
+                    +   ------------  (1 + &#x03B5;)||
+                       |     h              |   |  ( |--------           |
+                       ||        f(x + h) &minus; f(x )||    ||f (x + h) &minus; f(x + h)||
+                    &le;  ||f&prime;(x) &minus; ----------------|| +  ||-------------------||
+                        |----       |) h        |              h|
+                        ||f (x) &minus; f(x)||           ||f(x + h) &minus; f(x)||
+                    +   ||-----------||  |1 + &#x03B5;| + ||---------------||&#x03B5;
+                              h(|  |  | |)               h
+                               ||&delta;-||  ||&delta;||             &prime;
+                    &le;  M  h +  ||h || + ||h|| |1 + &#x03B5;| + |f(x )|&#x03B5;
+                              (   )
+                                2&delta;-            &prime;
+                    &le;  M  h +   h   |1 + &#x03B5;| + |f (x)|&#x03B5;
+" class="math-display" ></center>
+</div>onde
+   <center class="math-display" >
+<img 
+src="main3405x.png" alt="      1-         &prime;&prime;
+M  =  2 x&le;myax&le;x+h|f (y)| " class="math-display" ></center>
+está relacionado com o erro de truncamento.
+<!--l. 168--><p class="indent" >   Esta estimativa mostra que se o valor de <img 
+src="main3406x.png" alt="h  "  class="math" > for muito pequeno o erro ao
+calcular a aproximação numérica cresce. Isso nos motiva a procurar o valor ótimo
+de <img 
+src="main3407x.png" alt="h  "  class="math" > que minimiza o erro.
+   <div class="newtheorem">
+<!--l. 170--><p class="noindent" ><span class="head">
+<a 
+ id="x72-117003r4"></a>
+<span 
+class="ec-lmbx-12">Exemplo 7.1.4.</span>  </span>Estude o comportamento da derivada de <img 
+src="main3408x.png" alt="         &minus;x2
+f (x) = e   "  class="math" >  no
+ponto <img 
+src="main3409x.png" alt="x = 1,5  "  class="math" > quando <img 
+src="main3410x.png" alt="h  "  class="math" > fica pequeno.
+   </div>
+<!--l. 172--><p class="indent" >
+   <div class="proof">
+<!--l. 172--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Segue a tabela com os valores da derivada para vários valores de
+<img 
+src="main3411x.png" alt="h  "  class="math" >.
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main3412x.png" alt="|--------|--------|--------|--------|--------|--------|--------|
+|---h----|--10&minus;2--|--10&minus;4--|--10&minus;6--|--10&minus;7--|--10&minus;8--|--10&minus;9--|
+|D+,hf(1,5)|&minus;0,3125246-&minus;0,3161608-&minus;0,3161973-&minus;0,3161976-&minus;0,3161977-&minus;0,3161977-
+" class="math-display" ></center></td></tr></table>
+<!--l. 183--><p class="nopar" >
+   <table 
+class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main3413x.png" alt="|--------|--------|--------|--------|--------|--------|--------|
+|---h----|--10&minus;10--|--10&minus;11--|--10&minus;12--|--10&minus;13--|--10&minus;14--|--10&minus;15--|
+|D+,hf(1,5)|&minus;0,3161976-&minus;0,3161971-&minus;0,3162332-&minus;0,3158585-&minus;0,3178013-&minus;0,3747003-
+" class="math-display" ></center></td></tr></table>
+<!--l. 192--><p class="nopar" >
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main3414x.png" alt="|--------|--------|--------|--------|--------|--------|--------|
+|---h----|--10&minus;2--|--10&minus;4--|--10&minus;6--|--10&minus;7--|--10&minus;8--|--10&minus;9--|
+|D+,hf(1,5)|&minus;0,3125246-&minus;0,3161608-&minus;0,3161973-&minus;0,3161976-&minus;0,3161977-&minus;0,3161977-
+" class="math-display" ></center></td></tr></table>
+<!--l. 201--><p class="nopar" >
+<!--l. 204--><p class="indent" >   Observe que o valor exato é <img 
+src="main3415x.png" alt="&minus; 0,3161977  "  class="math" > e o <img 
+src="main3416x.png" alt="h  "  class="math" > ótimo é algo entre <img 
+src="main3417x.png" alt="10&minus;8   "  class="math" > e
+<img 
+src="main3418x.png" alt="10&minus; 9   "  class="math" >.                                                                                       <img 
+src="main3419x.png" alt="&#x2662; "  class="math" >
+   </div>
+<!--l. 208--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">7.1.4   </span> <a 
+ id="x72-1180007.1.4"></a>Aproximações de alta ordem</h4>
+<a 
+ id="dx72-118001"></a>
+<!--l. 210--><p class="noindent" >Para aproximar a derivada de uma função <img 
+src="main3420x.png" alt="f(x)  "  class="math" > em <img 
+src="main3421x.png" alt="x
+ 0   "  class="math" >, <img 
+src="main3422x.png" alt="x
+  1   "  class="math" > ou <img 
+src="main3423x.png" alt="x
+ 2   "  class="math" >
+usaremos os três pontos vizinhos <img 
+src="main3424x.png" alt="(x0,f(x0))  "  class="math" >, <img 
+src="main3425x.png" alt="(x1,f (x1))  "  class="math" > e <img 
+src="main3426x.png" alt="(x2,f(x2 ))  "  class="math" >. Uma
+interpolação usando polinômios de Lagrange para esses três pontos é da forma:
+<div class="eqnarray">
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main3427x.png" alt="                (x-&minus;-x1-)(x-&minus;-x2-)-        -(x &minus;-x0)(x &minus;-x2)-
+f(x ) =   f(x0) (x  &minus; x  )(x  &minus; x ) + f (x1)(x &minus;  x )(x &minus;  x )
+                  0    1   0    2     &prime;&prime;&prime;    1    0   1    2
+      +   f(x ) (x-&minus;-x0-)(x-&minus;-x1-)-+  f-(&xi;(x))(x &minus; x )(x &minus; x )(x &minus; x ).
+              2 (x2 &minus; x0 )(x2 &minus; x1)       6           0       1       2
+" class="math-display" ></center>
+</div>A derivada de <img 
+src="main3428x.png" alt="f(x)  "  class="math" > é
+   <table 
+class="equation"><tr><td><a 
+ id="x72-118003r2"></a>
+   <center class="math-display" >
+<img 
+src="main3429x.png" alt="  &prime;           --2x-&minus;--x1 &minus;-x2---        ---2x &minus;-x0 &minus;-x2---
+f (x) = f(x0 )(x0 &minus; x1 )(x0 &minus; x2 ) + f (x1)(x1 &minus; x0)(x1 &minus; x2)
+
+      + f(x2)---2x-&minus;-x0-&minus;-x1---
+             (x2 &minus; x0)(x2 &minus; x1)
+        f&prime;&prime;&prime;(&xi;(x))
+      + ---------((x &minus; x1)(x &minus; x2) + (x &minus; x0)(2x &minus; x1 &minus; x2))
+           (6 &prime;&prime;&prime;      )
+      + D    f--(&xi;-(x-))  (x &minus; x  )(x &minus; x  )(x &minus; x  ).
+          x      6            0       1       2
+" class="math-display" ></center></td><td class="equation-label">(7.2)</td></tr></table>
+<!--l. 226--><p class="nopar" >
+Trocando <img 
+src="main3430x.png" alt="x  "  class="math" > por <img 
+src="main3431x.png" alt="x0   "  class="math" >, temos
+   <table 
+class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main3432x.png" alt="f &prime;(x ) = f (x )--2x0-&minus;-x1-&minus;-x2---+  f(x )--2x0-&minus;-x0-&minus;-x2---
+     0       0 (x0 &minus; x1)(x0 &minus; x2)      1 (x1 &minus; x0)(x1 &minus; x2)
+                 2x  &minus; x  &minus; x
+       + f(x2) ----0----0----1---
+               (x2 &minus; x0 )(x2 &minus; x1)
+         f-&prime;&prime;&prime;(&xi;(x0))
+       +     6     ((x0 &minus; x1)(x0 &minus; x2) + (x0 &minus; x0)(2x0 &minus; x1 &minus; x2))
+            (  &prime;&prime;&prime;       )
+       + Dx   f--(&xi;(x0))  (x0 &minus; x0 )(x0 &minus; x1 )(x0 &minus; x2).
+                  6
+" class="math-display" ></center></td></tr></table>
+<!--l. 236--><p class="nopar" >
+Considerando uma malha equiespaçada onde <img 
+src="main3433x.png" alt="x1 = x0 + h  "  class="math" > e <img 
+src="main3434x.png" alt="x2 =  x0 + 2h  "  class="math" >,
+temos:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main3435x.png" alt="  &prime;               &minus; 3h              &minus; 2h
+f (x0) = f (x0 )(&minus; h-)(&minus;-2h-) + f (x1)(h)(&minus;-h)
+                          &prime;&prime;&prime;
+              --&minus;-h---   f--(&xi;-(x0-))-
+       + f(x2)(2h )(h ) +     6     ((&minus; h )(&minus; 2h ))
+           [                            ]      &prime;&prime;&prime;
+       = -1 &minus; 3-f(x0) + 2f(x1) &minus; 1f (x2) + h2 f--(&xi;(x0-))
+         h    2                  2                3
+" class="math-display" ></center></td></tr></table>
+                                                                          
+
+                                                                          
+<!--l. 244--><p class="nopar" >
+Similarmente, trocando <img 
+src="main3436x.png" alt="x  "  class="math" > por <img 
+src="main3437x.png" alt="x1   "  class="math" > ou trocando <img 
+src="main3438x.png" alt="x  "  class="math" > por <img 
+src="main3439x.png" alt="x2   "  class="math" > na expressão (<a 
+href="#x72-118003r2">7.2<!--tex4ht:ref: tres_pontos --></a>),
+temos outras duas expressões <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main3440x.png" alt="            1[  1         1      ]     f&prime;&prime;&prime;(&xi;(x  ))
+f&prime;(x1)  =   --&minus; --f(x0) + -f (x2) + h2 -------1--
+            h[  2         2             ]  6
+ &prime;          1- 1-                3-          2f-&prime;&prime;&prime;(&xi;(x2))
+f (x2)  =   h  2f(x0) &minus; 2f (x1 ) + 2 f(x2) + h     3
+" class="math-display" ></center>
+</div>Podemos reescrever as três fórmulas da seguinte forma: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main3441x.png" alt="                 1 [  3                     1           ]     f &prime;&prime;&prime;(&xi;(x0))
+     f&prime;(x0)  =   -- &minus; -f(x0) + 2f(x0 + h) &minus; --f(x0 + 2h)  + h2----------
+                 h [  2                    ]2     &prime;&prime;&prime;              3
+ f&prime;(x +  h)  =   1- &minus; 1f(x ) + 1f (x +  2h) +  h2f--(&xi;(x0 +-h))
+     0           h    2   0    2    0                  6
+                 1 [1                      3          ]      f&prime;&prime;&prime;(&xi;(x0 + 2h))
+f&prime;(x0 + 2h)  =   -- -f(x0) &minus; 2f (x0 + h ) + -f(x0 + 2h)  + h2 ---------------
+                 h  2                      2                       3
+" class="math-display" ></center>
+</div>ou ainda <div class="eqnarray">
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main3442x.png" alt="                                                         &prime;&prime;&prime;
+f &prime;(x0)  =   -1-[&minus; 3f (x0) + 4f (x0 + h) &minus; f(x0 + 2h)] + h2f-(&xi;(x0))(7.3)
+            2h                                              3
+  &prime;         -1-                           2f&prime;&prime;&prime;(&xi;-(x0-))-
+f (x0)  =   2h [f(x0 + h) &minus; f(x0 &minus; h)] + h     6                  (7.4)
+             1                                        f &prime;&prime;&prime;(&xi;(x ))
+f &prime;(x0)  =   ---[f(x0 &minus; 2h) &minus; 4f(x0 &minus; h) + 3f (x0 )] + h2-------0--  (7.5)
+            2h                                            3
+" class="math-display" ><a 
+ id="x72-118006r7.3"></a><a 
+ id="x72-118006r7.4"></a><a 
+ id="x72-118006r7.5"></a></center>
+</div>Observe que uma das fórmulas é exatamente as diferenças centrais obtida
+anteriormente.
+<!--l. 271--><p class="indent" >   Analogamente, para construir as fórmulas de cinco pontos tomamos o
+polinômio de Lagrange para cinco pontos e chegamos a cinco fórmulas, sendo uma
+delas a seguinte:
+   <table 
+class="equation"><tr><td><a 
+ id="x72-118007r6"></a>
+   <center class="math-display" >
+<img 
+src="main3443x.png" alt="          1                                                       h4
+f&prime;(x0) = ----[f(x0 &minus; 2h) &minus; 8f(x0 &minus; h ) + 8f (x0 + h ) &minus; f (x0 + 2h)]+--f(5)(&xi;(x0))
+         12h                                                      30
+" class="math-display" ></center></td><td class="equation-label">(7.6)</td></tr></table>
+<!--l. 274--><p class="nopar" >
+   <div class="newtheorem">
+<!--l. 276--><p class="noindent" ><span class="head">
+<a 
+ id="x72-118008r5"></a>
+                                                                          
+
+                                                                          
+<span 
+class="ec-lmbx-12">Exemplo 7.1.5.</span>  </span>Calcule a derivada numérica de <img 
+src="main3444x.png" alt="        &minus; x2
+f(x) = e   "  class="math" > em <img 
+src="main3445x.png" alt="x = 1,5  "  class="math" >
+pela fórmula de três e cinco pontos para <img 
+src="main3446x.png" alt="h = 0,1  "  class="math" >, <img 
+src="main3447x.png" alt="h = 0,01  "  class="math" > e <img 
+src="main3448x.png" alt="h = 0,001  "  class="math" >.
+   </div>
+<!--l. 279--><p class="indent" >
+   <div class="proof">
+<!--l. 279--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> A tabela mostra os resultados:
+   <center class="math-display" >
+<img 
+src="main3449x.png" alt="|--------------------------|------------|---------------|-------------------|
+|            h             |  h = 0,1   |   h = 0,01    |    h = 0,001      |
+|--------------------------|------------|---------------|-------------------|
+| diferenças progressivas   |&minus; 0,2809448  | &minus; 0,3125246   |   &minus; 0,3158289      |
+|--------------------------|------------|---------------|-------------------|
+|  diferen ças regressivas  |&minus; 0,3545920  | &minus; 0,3199024   |   &minus; 0,3165667      |
+|--------------------------|------------|---------------|-------------------|
+| três pontos usando  (7.3)  |&minus; 0,3127746  | &minus; 0,3161657   |   &minus; 0,3161974      |
+|--------------------------|------------|---------------|-------------------|
+|-três-pontos-usando--(7.4)--|&minus;-0,3177684--|-&minus;-0,3162135---|---&minus;-0,3161978------|
+|                          |            |               |                   |
+|-três-pontos-usando--(7.5)--|&minus;-0,3135824--|-&minus;-0,3161665---|---&minus;-0,3161974------|
+|                          |            |               |                   |
+|cinco--pontos-usando-(7.6)-|&minus;-0,3162384---&minus;-0,316197677---&minus; 0,3161976736860--
+|                          |
+" class="math-display" ></center> O valor exato da derivada é <img 
+src="main3450x.png" alt=" &prime;
+f (1,5) = &minus; 0,3161976736856  "  class="math" >.                 <img 
+src="main3451x.png" alt="&#x2662; "  class="math" >
+   </div>
+                                                                          
+
+                                                                          
+<!--l. 303--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">7.1.5   </span> <a 
+ id="x72-1190007.1.5"></a>Aproximação para a segunda derivada</h4>
+<a 
+ id="dx72-119001"></a>
+<!--l. 305--><p class="noindent" >Para aproximar a derivada segunda, considere as expansões em série de
+Taylor
+   <center class="math-display" >
+<img 
+src="main3452x.png" alt="                                2           3
+f (x0 + h ) = f(x0) + hf&prime;(x0) + h-f&prime;&prime;(x0) + h--f&prime;&prime;&prime;(x0) + O (h4)
+                               2           6
+" class="math-display" ></center>
+   <center class="math-display" >
+<img 
+src="main3453x.png" alt="                                2          3
+f(x0 &minus; h) = f (x0 ) &minus; hf &prime;(x0) + h-f&prime;&prime;(x0) &minus; h-f &prime;&prime;&prime;(x0) + O (h4).
+                               2           6  " class="math-display" ></center>
+Somando as duas expressões, temos:
+   <center class="math-display" >
+<img 
+src="main3454x.png" alt="                                   2 &prime;&prime;          4
+f(x0 + h) + f(x0 &minus; h) = 2f (x0) + h f (x0) + O(h )  " class="math-display" ></center> ou
+seja, uma aproximação de segunda ordem para a derivada segunda em <img 
+src="main3455x.png" alt="x0   "  class="math" >
+é
+   <center class="math-display" >
+<img 
+src="main3456x.png" alt=" &prime;&prime;       f(x0-+-h)-&minus;-2f-(x0-) +-f-(x0 &minus;-h-)     2      2             2
+f (x0) =               h2               +  O(h ) := D 0,hf(x0 ) + O (h ),  " class="math-display" ></center>
+onde
+   <center class="math-display" >
+<img 
+src="main3457x.png" alt="  2          f(x0-+-h) &minus;-2f(x0)-+-f(x0-&minus;-h)-
+D 0,hf(x0 ) =               h2              .
+" class="math-display" ></center>
+   <div class="newtheorem">
+<!--l. 324--><p class="noindent" ><span class="head">
+<a 
+ id="x72-119002r6"></a>
+<span 
+class="ec-lmbx-12">Exemplo 7.1.6.</span>  </span>Calcule a derivada segunda numérica de <img 
+src="main3458x.png" alt="f(x) = e&minus; x2   "  class="math" >  em
+<img 
+src="main3459x.png" alt="x =  1,5  "  class="math" > para <img 
+src="main3460x.png" alt="h = 0,1  "  class="math" >, <img 
+src="main3461x.png" alt="h = 0,01  "  class="math" > e <img 
+src="main3462x.png" alt="h = 0,001  "  class="math" >.
+   </div>
+<!--l. 327--><p class="indent" >
+   <div class="proof">
+                                                                          
+
+                                                                          
+<!--l. 327--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> A tabela mostra os resultados:
+   <center class="math-display" >
+<img 
+src="main3463x.png" alt="|-----------|----------|-----------|----------|
+|    h      | h = 0,1  | h = 0,01  |h = 0,001 |
+|-----------|----------|-----------|----------|
+|D20,hf(1,5)-|0,7364712---0,7377814---0,7377944---
+|           |
+" class="math-display" ></center> Observe que <img 
+src="main3464x.png" alt=" &prime;&prime;        2      &minus;x2
+f (x) = (4x  &minus; 2)e   "  class="math" >  e <img 
+src="main3465x.png" alt=" &prime;&prime;
+f (1,5) = 0,7377946  "  class="math" >.              <img 
+src="main3466x.png" alt="&#x2662; "  class="math" >
+   </div>
+<!--l. 341--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">7.1.6   </span> <a 
+ id="x72-1200007.1.6"></a>Derivada via ajuste ou interpolação</h4>
+<a 
+ id="dx72-120001"></a>
+<a 
+ id="dx72-120002"></a>
+<!--l. 343--><p class="noindent" >Dado os valores de uma função em pontos <img 
+src="main3467x.png" alt="{ (xi,yi)}Ni=1   "  class="math" >, as derivadas <img 
+src="main3468x.png" alt="( dy)
+  dx i  "  class="math" >
+podem ser obtidas através da derivada de uma curva que melhor ajusta ou
+interpola os pontos. Esse tipo de técnica é necessário quando os pontos são muito
+espaçados entre si ou quando a função oscila muito. Por exemplo, dado os pontos
+<img 
+src="main3469x.png" alt="(0,1)  "  class="math" >, <img 
+src="main3470x.png" alt="(1,2)  "  class="math" >, <img 
+src="main3471x.png" alt="(2,5)  "  class="math" >, <img 
+src="main3472x.png" alt="(3,9 )  "  class="math" >, a parábola que melhor ajusta os pontos
+é
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main3473x.png" alt="Q (x) = 0,95 + 0,45x + 0,75x2.  " class="math-display" ></center>
+Usando esse ajuste para calcular as derivadas, temos:
+   <center class="math-display" >
+<img 
+src="main3474x.png" alt="Q &prime;(x) = 0,45 + 1,5x  " class="math-display" ></center> e
+<div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main3475x.png" alt=" &prime;         &prime;                     &prime;         &prime;
+y (x1) &asymp; Q (x1) = 0,45,         y (x2) &asymp; Q (x2) = 1,95,
+y&prime;(x3) &asymp; Q &prime;(x3) = 3,45     e      y&prime;(x4) &asymp; Q &prime;(x4 ) = 4,95
+" class="math-display" ></center>
+</div>
+<!--l. 356--><p class="indent" >   Agora olhe o gráfico da seguinte tabela de pontos.
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main3476x.png" alt="|----|------|
+|    |      |
+|-x--|-y----|
+| 0  |1,95  |
+|----|------|
+| 1  |1,67  |
+|----|------|
+| 2  |3,71  |
+|----|------|
+| 3  |3,37  |
+|----|------|
+|-4--|5,12--|
+|    |      |
+|-5--|5,79--|
+|    |      |
+|-6--|7,50--|
+| 7  |7,55  |
+|----|------|
+| 8  |9,33  |
+|----|------|
+| 9  |9,41  |
+|----|------|
+|10--|11,48--|
+|    |
+" class="math-display" ></center>
+<div class="center" 
+>
+<!--l. 386--><p class="noindent" >
+                                                                          
+
+                                                                          
+<!--l. 387--><p class="noindent" ><img 
+src="main3477x.png" alt="PIC" class="graphics" width="306.14374pt" height="230.86249pt" ><!--tex4ht:graphics  
+name="main3477x.png" src="./cap_derint/pics/graf_der.eps"  
+--></div>
+<!--l. 390--><p class="indent" >   Observe que as derivadas calculadas por diferenças finitas oscilam entre um
+valor pequeno e um grande em cada intervalo e além disso, a fórmula progressiva
+difere da regressiva significantemente. Por exemplo, por diferenças regressivas
+<img 
+src="main3478x.png" alt="f &prime;(7) &asymp; (7,55&minus;7,50)=  0,05
+            1  "  class="math" > e por diferenças progressivas <img 
+src="main3479x.png" alt="f&prime;(7) &asymp;  (9,33&minus;7,55)-= 1,78
+           1  "  class="math" >.
+A melhor forma de calcular a derivada aqui é fazer um ajuste de curva. A reta que
+melhor ajusta os dados da tabela é <img 
+src="main3480x.png" alt="y = f (x ) = 1,2522727  + 0,9655455x  "  class="math" >. Usando
+esse ajuste, temos <img 
+src="main3481x.png" alt="  &prime;
+f (7) &asymp; 0,9655455  "  class="math" >.
+                                                                          
+
+                                                                          
+   <!--l. 392--><div class="crosslinks"><p class="noindent"><a 
+href="mainap1.html#mainse46.html" >Voltar</a></p></div>
+<!--l. 392--><p class="indent" >   <a 
+ id="tailmainse33.html"></a>   
+</body></html> 

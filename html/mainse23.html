@@ -1,0 +1,464 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html xml:lang="pt" > 
+<head><title>O metodo de Newton para sistemas</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,3,notoc*,info --> 
+<meta name="src" content="main.tex"> 
+<meta name="date" content="2016-10-24 16:45:00"> 
+<link rel="stylesheet" type="text/css" href="main.css"> 
+</head><body 
+>
+   <!--l. 107--><div class="crosslinks"><p class="noindent"><a 
+href="mainse36.html#mainch8.html" >Voltar</a></p></div>
+   <h3 class="sectionHead"><span class="titlemark">5.1   </span> <a 
+ id="x58-890005.1"></a>O método de Newton para sistemas</h3>
+<a 
+ id="dx58-89001"></a>
+<!--l. 108--><p class="noindent" >Vamos agora construir o método de Newton-Raphson, ou seja, o método de
+Newton generalizado para sistemas. Assumimos, portanto, que a função <img 
+src="main2672x.png" alt="F (x)  "  class="math" > é
+diferenciável e que existe um ponto <img 
+src="main2673x.png" alt="x&lowast;  "  class="math" > tal que <img 
+src="main2674x.png" alt="F (x&lowast;) = 0  "  class="math" >. Seja <img 
+src="main2675x.png" alt="x(k)   "  class="math" > uma
+aproximação para <img 
+src="main2676x.png" alt=" &lowast;
+x  "  class="math" >, queremos construir uma nova aproximação <img 
+src="main2677x.png" alt=" (k+1)
+x   "  class="math" >
+através da linearização de <img 
+src="main2678x.png" alt="F(x )  "  class="math" > no ponto <img 
+src="main2679x.png" alt=" (k)
+x   "  class="math" >.
+      <ul class="itemize1">
+      <li class="itemize">Linearização da função <img 
+src="main2680x.png" alt="F(x)  "  class="math" > no ponto <img 
+src="main2681x.png" alt="x(k)   "  class="math" >:
+      <table 
+class="equation-star"><tr><td>
+      <center class="math-display" >
+      <img 
+src="main2682x.png" alt="            (k)       ( (k)) (     (k))     (      (k) 2)
+F (x) = F (x  ) + JF  x     x &minus; x    + O   &#x2225;x &minus; x  &#x2225;
+      " class="math-display" ></center></td></tr></table>
+                                                                          
+
+                                                                          
+      <!--l. 114--><p class="nopar" >
+      </li>
+      <li class="itemize">A aproximação <img 
+src="main2683x.png" alt="x(k)   "  class="math" > é definida como o ponto <img 
+src="main2684x.png" alt="x  "  class="math" > em que a linearização
+      <img 
+src="main2685x.png" alt="             (   ) (       )
+F (x (k)) + JF  x(k)   x &minus; x(k) "  class="math" > é nula, ou seja:
+      <center class="math-display" >
+      <img 
+src="main2686x.png" alt="             (   ) (            )
+F (x(k)) + JF  x(k)  x(k+1) &minus; x (k) = 0
+      " class="math-display" ></center></li></ul>
+<!--l. 119--><p class="indent" >   Supondo que a matriz jacobina seja inversível no ponto <img 
+src="main2687x.png" alt="x (k)   "  class="math" >, temos:
+<div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main2688x.png" alt="   ( (k)) ( (k+1)    (k))           (k)
+JF  x     x     &minus; x      =   &minus; F (x  )
+             (k+1)    (k)         &minus;1(  (k))     (k)
+           x     &minus;  x    =   &minus; J F  x    F(x   )
+                   (k+1)       (k)    &minus; 1( (k))    (k)
+                  x      =   x   &minus; JF   x    F (x  )
+" class="math-display" ></center>
+</div>
+<!--l. 126--><p class="indent" >   Desta forma, o método iterativo de Newton-Raphson para encontrar as raízes
+de <img 
+src="main2689x.png" alt="F (x) = 0  "  class="math" > é dado por:
+   <table 
+class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main2690x.png" alt="(                       (    )
+|{ x (k+1)  =   x(k) &minus; J&minus; 1 x(k) F (x(k)), n &ge;  0
+                     F
+|(    x(0)  =   dado inicial
+" class="math-display" ></center></td></tr></table>
+<!--l. 132--><p class="nopar" >
+   <div class="newtheorem">
+<!--l. 134--><p class="noindent" ><span class="head">
+<a 
+ id="x58-89003r1"></a>
+<span 
+class="ec-lmbx-12">Observa</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão 5.1.1.</span>  </span>Usamos subíndices para indicar o elemento de um vetor
+e super-índices para indicar o passo da iteração. Assim <img 
+src="main2691x.png" alt=" (k)
+x   "  class="math" >  se refere à
+iteração <img 
+src="main2692x.png" alt="k  "  class="math" > e <img 
+src="main2693x.png" alt=" (k)
+xi  "  class="math" > se refere à componente <img 
+src="main2694x.png" alt="i  "  class="math" > no vetor <img 
+src="main2695x.png" alt=" (k)
+x   "  class="math" >.
+   </div>
+   <div class="newtheorem">
+<!--l. 136--><p class="noindent" ><span class="head">
+<a 
+ id="x58-89004r2"></a>
+<span 
+class="ec-lmbx-12">Observa</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão 5.1.2.</span>  </span>A notação <img 
+src="main2696x.png" alt=" &minus;1 ( (k))
+JF   x "  class="math" > enfatiza que a jacobiana deve
+ser calculada a cada passo.
+   </div>
+   <div class="newtheorem">
+<!--l. 138--><p class="noindent" ><span class="head">
+<a 
+ id="x58-89005r3"></a>
+<span 
+class="ec-lmbx-12">Observa</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão 5.1.3.</span>  </span>Podemos definir o passo <img 
+src="main2697x.png" alt="&Delta; (k)   "  class="math" > como
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main2698x.png" alt="&Delta;(k) = x(k+1) &minus; x(k)
+" class="math-display" ></center> Assim, <img 
+src="main2699x.png" alt="  (k)      &minus;1 ( (k))     (k)
+&Delta;    = &minus; JF   x    F (x   )  "  class="math" >, ou seja, <img 
+src="main2700x.png" alt="  (k)
+&Delta;   "  class="math" > resolve o problema linear:
+   <center class="math-display" >
+<img 
+src="main2701x.png" alt="   (  (k))  (k)        (k)
+JF   x    &Delta;   =  &minus; F(x   )
+" class="math-display" ></center> Em geral, é menos custoso resolver o sistema acima do que calcular o inverso
+da jacobiana e multiplicar pelo vetor <img 
+src="main2702x.png" alt="    (k)
+F (x  )  "  class="math" >.
+   </div>
+   <div class="newtheorem">
+<!--l. 145--><p class="noindent" ><span class="head">
+<a 
+ id="x58-89006r1"></a>
+<span 
+class="ec-lmbx-12">Exemplo 5.1.1.</span>  </span>Retornamos ao nosso exemplo inicial, isto é, resolver
+numericamente os seguinte sistema não-linear: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main2703x.png" alt="x21     2
+---+ x 2 =   1
+ 3    2
+x2 + x2- =   1
+ 1    4
+" class="math-display" ></center>
+</div>Para tal, definimos a função <img 
+src="main2704x.png" alt="F (x )  "  class="math" >:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main2705x.png" alt="        &lfloor; x2          &rfloor;
+        | -1-+ x22 &minus; 1 |
+F (x) = |&lceil;  3    2     |&rceil;
+          x21 + x2-&minus; 1
+                4
+" class="math-display" ></center></td></tr></table>
+<!--l. 158--><p class="nopar" >
+cuja jacobiana é:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main2706x.png" alt="      &lfloor;           &rfloor;
+        2x1-  2x
+JF  = |&lceil;  3      2 |&rceil;
+        2x     x2
+           1   2
+" class="math-display" ></center></td></tr></table>
+<!--l. 165--><p class="nopar" >
+                                                                          
+
+                                                                          
+<!--l. 168--><p class="indent" >   Faremos a implementação numérica no <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">Scilab</span></span></span>. Para tal definimos as funções
+que implementarão <img 
+src="main2707x.png" alt="F(x )  "  class="math" > e a <img 
+src="main2708x.png" alt="JF (x)  "  class="math" >
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-36">
+function&#x00A0;y=F(x)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;y(1)=x(1)^2/3+x(2)^2-1
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;y(2)=x(1)^2+x(2)^2/4-1
+&#x00A0;<br />endfunction
+&#x00A0;<br />
+&#x00A0;<br />function&#x00A0;y=JF(x)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;y(1,1)=2*x(1)/3
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;y(1,2)=2*x(2)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;y(2,1)=2*x(1)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;y(2,2)=x(2)/2
+&#x00A0;<br />endfunction
+</div>
+<!--l. 181--><p class="nopar" >Alternativamente, estas funções poderiam ser escritas como
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-37">
+function&#x00A0;y=F(x)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;y=[x(1)^2/3+x(2)^2-1;&#x00A0;x(1)^2+x(2)^2/4-1]
+&#x00A0;<br />endfunction
+&#x00A0;<br />
+&#x00A0;<br />function&#x00A0;y=JF(x)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;y=[2*x(1)/3&#x00A0;&#x00A0;2*x(2);&#x00A0;2*x(1)&#x00A0;x(2)/2]
+&#x00A0;<br />endfunction
+</div>
+<!--l. 191--><p class="nopar" >Desta forma, se <img 
+src="main2709x.png" alt="x  "  class="math" > é uma aproximação para a raiz, pode-se calcular a próxima
+aproximação através dos comandos:
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-38">
+delta=-JF(x)\F(x)
+&#x00A0;<br />x=x+delta
+</div>
+<!--l. 196--><p class="nopar" >Ou simplesmente
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-39">
+x=x-JF(x)\F(x)
+</div>
+<!--l. 200--><p class="nopar" >Observe que as soluções exatas desse sistema são <img 
+src="main2710x.png" alt="( &#x2218; -9-   &#x2218; 8-)
+ ±   11, ±   11 "  class="math" >.
+   </div>
+   <div class="newtheorem">
+<!--l. 206--><p class="noindent" ><span class="head">
+<a 
+ id="x58-89008r2"></a>
+<span 
+class="ec-lmbx-12">Exemplo 5.1.2.</span>  </span>Encontre uma aproximação para a solução do sistema
+<div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main2711x.png" alt="x2 = cos(x x ) + 1
+ 1        1  2
+sin(x2) = 2cos(x1)
+" class="math-display" ></center>
+</div>que fica próxima ao ponto <img 
+src="main2712x.png" alt="x =  1.5
+ 1  "  class="math" > e <img 
+src="main2713x.png" alt="x  = .5
+ 2  "  class="math" >.<br 
+class="newline" /><span 
+class="ec-lmbx-12">Resp:</span> <img 
+src="main2714x.png" alt="(1,3468109, 0,4603195 )  "  class="math" >.
+   </div>
+<!--l. 214--><p class="indent" >
+   <div class="proof">
+<!--l. 214--><p class="indent" >   <span class="head">
+                                                                          
+
+                                                                          
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Vamos, aqui, dar as principais ideias para se obter a solução.
+Começamos definindo a função <img 
+src="main2715x.png" alt="F(x )  "  class="math" > por:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main2716x.png" alt="        &lfloor;                    &rfloor;
+        | x21 &minus; cos(x1x2) &minus; 1 |
+F(x ) = &lceil;                    &rceil;
+          sin (x2 ) &minus; 2 cos(x1)
+" class="math-display" ></center></td></tr></table>
+<!--l. 220--><p class="nopar" >
+cuja jacobiana é:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main2717x.png" alt="         &lfloor;                                &rfloor;
+         | 2x1 + x2sin(x1x2)  x1 sin(x1x2 )|
+JF(x ) = &lceil;                                &rceil;
+               2 sin (x1)        cos(x2)
+" class="math-display" ></center></td></tr></table>
+<!--l. 227--><p class="nopar" >
+No <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">Scilab</span></span></span>, podemos implementá-las com o seguinte código:
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-40">
+function&#x00A0;y=F(x)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;y(1)&#x00A0;=&#x00A0;x(1)^2-cos(x(1)*x(2))-1
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;y(2)&#x00A0;=&#x00A0;sin(x(2))-2*cos(x(1))
+&#x00A0;<br />endfunction
+&#x00A0;<br />
+&#x00A0;<br />function&#x00A0;y=JF(x)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;y(1,1)&#x00A0;=&#x00A0;2*x(1)+x(2)*sin(x(1)*x(2))
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;y(1,2)&#x00A0;=&#x00A0;x(1)*sin(x(1)*x(2))
+&#x00A0;<br />
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;y(2,1)&#x00A0;=&#x00A0;2*sin(x(1))
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;y(2,2)&#x00A0;=&#x00A0;cos(x(2))
+&#x00A0;<br />endfunction
+</div>
+<!--l. 243--><p class="nopar" >
+<!--l. 245--><p class="indent" >   E agora, basta iterar:
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-41">
+x=[1.5;&#x00A0;.5]
+&#x00A0;<br />x=x-JF(x)\F(x)&#x00A0;(5&#x00A0;vezes)
+</div>
+<!--l. 249--><p class="nopar" >                                                                       <img 
+src="main2718x.png" alt="&#x2662; "  class="math" >
+   </div>
+<!--l. 254--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">5.1.1   </span> <a 
+ id="x58-900005.1.1"></a>Código Scilab: Newton para Sistemas</h4>
+   <div class="verbatiminput">
+<span 
+class="ec-lmtt-12">function</span><span 
+class="ec-lmtt-12">&#x00A0;[x]</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;newton(F,JF,x0,TOL,N)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;x</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;x0</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;k</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;1</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;//iteracoes</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;while</span><span 
+class="ec-lmtt-12">&#x00A0;(k</span><span 
+class="ec-lmtt-12">&#x00A0;&#x003C;=</span><span 
+class="ec-lmtt-12">&#x00A0;N)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;//iteracao</span><span 
+class="ec-lmtt-12">&#x00A0;de</span><span 
+class="ec-lmtt-12">&#x00A0;Newton</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;delta</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;-inv(JF(x))*F(x)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;x</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;x</span><span 
+class="ec-lmtt-12">&#x00A0;+</span><span 
+class="ec-lmtt-12">&#x00A0;delta</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;//criterio</span><span 
+class="ec-lmtt-12">&#x00A0;de</span><span 
+class="ec-lmtt-12">&#x00A0;parada</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;if</span><span 
+class="ec-lmtt-12">&#x00A0;(norm(delta,</span><span 
+class="ts1-lmtt12-">&#8217;</span><span 
+class="ec-lmtt-12">inf</span><span 
+class="ts1-lmtt12-">&#8217;</span><span 
+class="ec-lmtt-12">)&#x003C;TOL)</span><span 
+class="ec-lmtt-12">&#x00A0;then</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;return</span><span 
+class="ec-lmtt-12">&#x00A0;x</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;end</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;k</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;k+1</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;end</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;error(</span><span 
+class="ts1-lmtt12-">&#8217;</span><span 
+class="ec-lmtt-12">Num.</span><span 
+class="ec-lmtt-12">&#x00A0;de</span><span 
+class="ec-lmtt-12">&#x00A0;iter.</span><span 
+class="ec-lmtt-12">&#x00A0;max.</span><span 
+class="ec-lmtt-12">&#x00A0;atingido!</span><span 
+class="ts1-lmtt12-">&#8217;</span><span 
+class="ec-lmtt-12">)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">endfunction</span>
+   </div>
+                                                                          
+
+                                                                          
+   <!--l. 259--><div class="crosslinks"><p class="noindent"><a 
+href="mainse36.html#mainch8.html" >Voltar</a></p></div>
+<!--l. 259--><p class="indent" >   <a 
+ id="tailmainse23.html"></a>   
+</body></html> 

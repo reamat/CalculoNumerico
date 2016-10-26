@@ -1,0 +1,132 @@
+%Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ATENÇÃO
+%
+% POR SEGURANÇA, NÃO EDITE ESTE ARQUIVO.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Predefinicoes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newif\ifisbook        % O layout será book?
+\newif\ifishtml        % O layout será html?
+\newif\ifisslide       % O layout será slide?
+
+\newif\ifisscilab      % As notas incluirão Scilab? 
+\newif\ifisoctave      % As notas incluirão octave?
+
+\def\tfn{main.knd}     % Arquivo que guarda as definições do tipo de saída
+\def \tdata{}          % Definições do tipo de saída: book, slide ou html.
+
+\openin1=\tfn\relax    % Leitura das definições de saída
+\read1 to \tdata
+\closein1
+
+\tdata                 % Definições de saída
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Opcões de Linguagem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%\usepackage{xunicode} é o pacote necessário para a codificação UTF-8 no XeTeX
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[RE]{Cálculo Numérico}
+\fancyhead[LO]{\rightmark}
+\fancyhead[LE,RO]{\thepage}
+
+%license footnote
+\cfoot{\tiny{Licença CC-BY-SA-3.0. Contato: \url{livro_colaborativo@googlegroups.com}}}
+
+%%%% no blank pages between chapters %%%%
+\let\cleardoublepage\clearpage
+
+%%%% independent chapters %%%%
+\usepackage{subfiles}
+
+%%%% ams-latex %%%%
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+%%%% graphics %%%%
+\usepackage{graphics}
+\usepackage{graphicx}
+%\usepackage{caption}
+
+%%%% links %%%%
+\usepackage[hidelinks]{hyperref}
+
+%%%% copy and paste from PDF (correctly) %%%%
+\usepackage{upquote}
+\usepackage{lmodern}
+
+%%%% code insert (verbatim) %%%%
+\usepackage{verbatim}
+
+%%%% indent first line %%%%
+\usepackage{indentfirst}
+
+%%%% comma as a decimal separator %%%%
+\usepackage{icomma}
+
+%%%% citation %%%%
+\usepackage{cite}
+
+%%%% miscellaneous %%%%
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage[normalem]{ulem}
+\renewcommand{\arraystretch}{1.5} %space between rows in tables
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Formatacoes de estilo
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{xcolor}
+\newcommand{\RED}[1]{{\color{red}{#1}}}
+\newcommand{\BLU}[1]{{\color{blue}{#1}}}
+\newcommand{\GRE}[1]{{\color{darkgreen}{#1}}}
+
+%emphasis \emph
+\DeclareTextFontCommand{\emph}{\bfseries}
+
+\newcommand{\sen}{\operatorname{sen}\,}
+\newcommand{\tg}{\operatorname{tg}\,}
+\newcommand{\p}{\partial}
+\newcommand{\Dom}{\operatorname{Dom}\,}
+\newcommand{\diag}{\operatorname{diag}\,}
+
+\newenvironment{sol}
+{\let\oldqedsymbol=\qedsymbol
+  \renewcommand{\qedsymbol}{$\Diamond$}
+  \begin{proof}[\bfseries\upshape Solução]}
+  {\end{proof}
+  \renewcommand{\qedsymbol}{\oldqedsymbol}}
+
+
+%%%% indexing %%%%
+\usepackage{makeidx}
+\makeindex
+
+%%%%% macros  %%%%%%%%%%%%%
+\newcommand{\matdd}[4]{\begin{bmatrix} #1&#2\\#3&#4 \end{bmatrix}}
+\newcommand{\matddd}[9]{\begin{bmatrix} #1&#2&#3 \\ #4&#5&#6 \\ #7&#8&#9 \end{bmatrix}}
+\newcommand{\vetdd}[2]{\begin{bmatrix} #1 \\#2 \end{bmatrix}}
+\newcommand{\vetddd}[3]{\begin{bmatrix} #1 \\ #2\\ #3 \end{bmatrix}}
+
+\ifisslide
+\input preambulo_slide.tex
+\else
+\ifishtml
+\input preambulo_html.tex
+\else
+\input preambulo_book.tex
+\fi
+\fi

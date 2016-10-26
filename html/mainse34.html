@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html xml:lang="pt" > 
+<head><title>Problemas de valor contorno</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,3,notoc*,info --> 
+<meta name="src" content="main.tex"> 
+<meta name="date" content="2016-10-24 16:45:00"> 
+<link rel="stylesheet" type="text/css" href="main.css"> 
+</head><body 
+>
+   <!--l. 485--><div class="crosslinks"><p class="noindent"><a 
+href="mainap1.html#mainse48.html" >Voltar</a></p></div>
+   <h3 class="sectionHead"><span class="titlemark">7.2   </span> <a 
+ id="x74-1220007.2"></a>Problemas de valor contorno</h3>
+<a 
+ id="dx74-122001"></a>
+<!--l. 487--><p class="noindent" >Nesta seção usaremos a aproximação numérica da derivada para resolver
+problemas de valor de contorno da forma
+   <center class="math-display" >
+<img 
+src="main3524x.png" alt="(
+||
+|||{  &minus; uxx = f(x,u), a &#x003C; x &#x003C; b.
+   u(a) = u
+|||          a
+||(  u(b) = ub  " class="math-display" ></center>
+Resolver numericamente o problema acima exige uma discretização do domínio
+<img 
+src="main3525x.png" alt="[a,b]  "  class="math" >, ou seja, dividir o domínio em <img 
+src="main3526x.png" alt="N  "  class="math" > partes iguais, definindo
+   <center class="math-display" >
+<img 
+src="main3527x.png" alt="     b &minus; a
+h =  -----
+      N  " class="math-display" ></center> O
+conjunto de abcissas <img 
+src="main3528x.png" alt="xi  "  class="math" >, <img 
+src="main3529x.png" alt="i = 1,...,N + 1  "  class="math" > formam uma malha para o problema
+discreto. Nosso objetivo é encontrar as ordenadas <img 
+src="main3530x.png" alt="ui = u (xi)  "  class="math" > que satisfazem a
+                                                                          
+
+                                                                          
+versão discreta:
+   <center class="math-display" >
+<img 
+src="main3531x.png" alt="(
+||| &minus; ui+1&minus;2ui+ui&minus;1 = f(x ,u ), 2 &le; i &le; N.
+||{        h2            i i
+  u1 = ua
+||||
+|( uN+1  = ub  " class="math-display" ></center> O
+vetor solução <img 
+src="main3532x.png" alt="(ui)Ni=+11   "  class="math" > do problema é solução do sistema acima, que é linear se
+<img 
+src="main3533x.png" alt="f  "  class="math" > for linear em <img 
+src="main3534x.png" alt="u  "  class="math" > e não linear caso contrário.
+   <div class="newtheorem">
+<!--l. 505--><p class="noindent" ><span class="head">
+<a 
+ id="x74-122002r1"></a>
+<span 
+class="ec-lmbx-12">Exemplo 7.2.1.</span>  </span>Encontre  uma  solução  numérica  para  o  problema  de
+contorno:
+   <center class="math-display" >
+<img 
+src="main3535x.png" alt="(
+||||  &minus; uxx + u = e&minus;x, 0 &#x003C;  x &#x003C; 1.
+|{
+|  u(0) = 1
+||||
+(  u(1) = 2
+" class="math-display" ></center>
+                                                                          
+
+                                                                          
+   </div>
+<!--l. 512--><p class="indent" >
+   <div class="proof">
+<!--l. 512--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Observe que
+   <center class="math-display" >
+<img 
+src="main3536x.png" alt="    -1-
+h = N
+" class="math-display" ></center> e a versão discreta da equação é
+   <center class="math-display" >
+<img 
+src="main3537x.png" alt="(
+||    ui+1&minus;2ui+ui&minus;1-        &minus; xi
+|||{  &minus;      h2     + ui = e   , 2 &le; i &le; N.
+   u  = 1
+|||   1
+||(  uN+1 =  2
+" class="math-display" ></center> ou seja,
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main3538x.png" alt="(
+|||
+||{ u1 =  1
+  &minus; ui+1 + (2 + h2)ui &minus; ui&minus;1 = h2e &minus;xi, 2 &le; i &le; N.
+||||
+|( uN+1  = 2
+" class="math-display" ></center> que é um sistema linear. A sua forma matricial é:
+   <center class="math-display" >
+<img 
+src="main3539x.png" alt="&lfloor;                                            &rfloor;
+                                              &lfloor;       &rfloor;    &lfloor;         &rfloor;
+||  1      0       0    &sdot;&sdot;&sdot;   0     0      0  ||    u             1
+|| &minus; 1  2 + h2    &minus; 1   &sdot;&sdot;&sdot;   0     0      0  ||||    1  ||    ||         ||
+||                                            ||||   u2  ||    || h2e&minus; x2 ||
+||  0     &minus; 1   2 + h2  &sdot;&sdot;&sdot;   0     0      0  ||||       ||    ||         ||
+||  .                        .                ||||   u3  ||    || h2e&minus; x3 ||
+||  ..                         ..              ||||    .  || =  ||    .    ||
+||                                     2      ||||    ..  ||    ||    ..    ||
+||  0      0       0    &sdot;&sdot;&sdot;  &minus; 1  2 + h   &minus; 1 ||||       ||    ||  2 &minus;xN  ||
+||                                            |||&lceil;   uN  |&rceil;    |&lceil; h e     |&rceil;
+|&lceil;  0      0       0    &sdot;&sdot;&sdot;   0     0      1  |&rceil;   u              2
+                                                  N+1
+" class="math-display" ></center> Para <img 
+src="main3540x.png" alt="N  = 10  "  class="math" >, temos a seguinte solução:
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main3541x.png" alt="&lfloor;            &rfloor;
+|  1,000000  |
+||            ||
+|| 1,0735083  ||
+||            ||
+|| 1,1487032  ||
+||            ||
+|| 1,2271979  ||
+|| 1,3105564  ||
+||            ||
+|| 1,4003172  ||
+||            ||
+|| 1,4980159  ||
+||            ||
+|| 1,6052067  ||
+||            ||
+|| 1,7234836  ||
+|| 1,8545022  ||
+|&lceil;            |&rceil;
+   2,000000
+" class="math-display" ></center>                                                                       <img 
+src="main3542x.png" alt="&#x2662; "  class="math" >
+   </div>
+                                                                          
+
+                                                                          
+   <!--l. 547--><div class="crosslinks"><p class="noindent"><a 
+href="mainap1.html#mainse48.html" >Voltar</a></p></div>
+<!--l. 547--><p class="indent" >   <a 
+ id="tailmainse34.html"></a>  
+</body></html> 
