@@ -51,45 +51,45 @@ epub: ./html/main.html
 	./html2epub.sh
 
 pdf-oct: main.tex
-        echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavetrue" > main.knd
-        pdflatex main
-        bibtex main
-        makeindex main
-        pdflatex main
-        pdflatex main
-        rm -f main.knd
+	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavetrue" > main.knd
+	pdflatex main
+	bibtex main
+	makeindex main
+	pdflatex main
+	pdflatex main
+	rm -f main.knd
 
 slide-oct: main.tex
-        echo "\isbookfalse \isslidetrue \ishtmlfalse \isscilabfalse \isoctavetrue" > main.knd
-        cp main.tex slide.tex
-        pdflatex slide
-        bibtex slide
-        makeindex slide
-        pdflatex slide
-        pdflatex slide
-        rm -f main.knd
+	echo "\isbookfalse \isslidetrue \ishtmlfalse \isscilabfalse \isoctavetrue" > main.knd
+	cp main.tex slide.tex
+	pdflatex slide
+	bibtex slide
+	makeindex slide
+	pdflatex slide
+	pdflatex slide
+	rm -f main.knd
 
 dvi-oct: main.tex
-        echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavetrue" > main.knd
-        latex main
-        bibtex main
-        makeindex main
-        latex main
-        latex main
-        rm -f main.knd
+	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavetrue" > main.knd
+	latex main
+	bibtex main
+	makeindex main
+	latex main
+	latex main
+	rm -f main.knd
 
 html-oct: main.tex
-        rm -f ./html/*
-        echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavetrue" > main.knd
-        latex main 
-        bibtex main
-        latex main
-        latex main
-        htlatex main "myconfig,html,3,notoc*,info" "" "-d./html/"
-        rm -f main.knd
+	rm -f ./html/*
+	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavetrue" > main.knd
+	latex main 
+	bibtex main
+	latex main
+	latex main
+	htlatex main "myconfig,html,3,notoc*,info" "" "-d./html/"
+	rm -f main.knd
 
 epub-oct: ./html/main.html
-        ./html2epub-oct.sh
+	./html2epub-oct.sh
 
 all: main.tex
 	make clean
@@ -104,16 +104,16 @@ all: main.tex
 	make epub
 
 all-oct: main.tex
-        make clean
-        make pdf-oct
-        make clean
-        make slide-oct
-        make clean
-        make dvi-oct
-        make clean
-        make html-oct -B
-        make clean
-        make epub-oct
+	make clean
+	make pdf-oct
+	make clean
+	make slide-oct
+	make clean
+	make dvi-oct
+	make clean
+	make html-oct -B
+	make clean
+	make epub-oct
 
 .PHONY: clean
 
