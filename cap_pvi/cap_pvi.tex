@@ -20,11 +20,11 @@ y'(t)&=&2y(t),\\
 y(t_0)&=&1.
 \end{eqnarray}
 \end{subequations}
-A solução desta equação é dada pela função $y(t)=e^{2y}$ pois $y'(t)=2e^{2t}=2y(t)$ e $y(0)=e^0=1$.
+A solução desta equação é dada pela função $y(t)=e^{2t}$ pois $y'(t)=2e^{2t}=2y(t)$ e $y(0)=e^0=1$.
 \end{ex}
 
 
-Muito problemas de valor inicial da forma (\ref{PVI}) não podem ser resolvidos exatamente, ou seja, sabe-se que a solução existe e é única, porém não podemos expressá-la em termos de funções elementares. Por isso é necessário calcular aproximações numéricas. Diversos métodos completamente diferentes estão disponíveis para aproximar uma função real. 
+Muitos problemas de valor inicial da forma (\ref{PVI}) não podem ser resolvidos exatamente, ou seja, sabe-se que a solução existe e é única, porém não podemos expressá-la em termos de funções elementares. Por isso é necessário calcular aproximações numéricas. Diversos métodos completamente diferentes estão disponíveis para aproximar uma função real. 
 
 Aqui nos limitaremos a estudar métodos que se fundamentam em tentar calcular $y(t)$ em um conjunto finito de valores de $t$. Esse conjunto de valores para $t$ será denotado por  $\{t_i\}_{i=1}^N$, isto é $\{t_1, t_2, t_3,\ldots, t_N\}$ e calculamos o valor aproximado da função solução $y(t_i)$ em cada ponto da malha usando esquemas numéricos.
 
@@ -50,7 +50,7 @@ Definimos, então, $t^{(k)}=(k-1)h$ e $y^{(k)}$ como a aproximação para $y\lef
 y^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)}) ~\hbox{(aproximação da EDO)},\\
 y^{(1)}&=&y_0~~ \hbox{(condição inicial)}.
 \end{eqnarray}
-O problema (\ref{PVI_EULER}) consiste em um esquema iterativo, isto é, $y^{(1)}$ é a condição inicial; $y^{(2)}$ pode ser obtido de $y^{(2)}$; $y^{(3)}$, de $y^{(4)}$ e assim por diante, calculamos o termo $y^{(n)}$ apartir do anterior $y^{(n-1)}$. 
+O problema (\ref{PVI_EULER}) consiste em um esquema iterativo, isto é, $y^{(1)}$ é a condição inicial; $y^{(2)}$ pode ser obtido de $y^{(1)}$; $y^{(3)}$, de $y^{(2)}$ e assim por diante, calculamos o termo $y^{(n)}$ apartir do anterior $y^{(n-1)}$. 
 
 
 \begin{ex} Retornemos ao o problema de valor inicial do exemplo (\ref{exemplo_y_2y}):
@@ -116,6 +116,7 @@ y^{(1)}&=& 1/2.
 
 
 Para fins de comparação, calculamos a solução de \ref{ex_euler_1} e de \eqref{ite_logistica} para alguns valores de $t$ e de passo $h$ e resumimos na Tabela~\ref{tab:log}.
+%não há \eqref{ite_logistica} para referenciar
 
 \begin{table}
   \caption{Tabela comparativa enter Método de Euler e solução exata para problema \ref{ex_euler_1}.}
@@ -167,7 +168,7 @@ y(0)&=&0,\\
 \end{eqnarray*}
 cuja solução exata é $x(t)=\cos(t)$ e $y(t)=\sin(t)$.
 \end{ex}
-Par aplicar o Método de Euler a um sistema, devemos encarar as diversas incógnitas do sistema como formando um vetor, neste caso, encrevemos: 
+Para aplicar o Método de Euler a um sistema, devemos encarar as diversas incógnitas do sistema como formando um vetor, neste caso, escrevemos: 
  $$z(t)=\left[\begin{array}{c}x(t)\\y(t)\end{array}\right].$$
  O sistema é igualmente escrito na forma vetorial:
 \begin{eqnarray*}
@@ -187,7 +188,7 @@ y'(0)&=&0,
 \end{eqnarray*}
 como um problema envolvendo um sistema de primeira ordem.
 \end{ex}
-A fim de transformar a equação diferencial dada em um sistema de equações de primeira ordem, introduzimos a substituição $w=y'$, de forma que obtermos o sistema:
+A fim de transformar a equação diferencial dada em um sistema de equações de primeira ordem, introduzimos a substituição $w=y'$, de forma que obteremos o sistema:
 \begin{eqnarray*}
 y'&=&w\\
 w'&=&-w-y+\cos(t)\\
@@ -208,7 +209,7 @@ w^{(1)}&=&0.
 y'&=& -2y + \sqrt{y}\\
 y(0)&=&1
 \end{eqnarray*}
-com passo $h=0.1$ e $h=0.1$ para obter aproximações para $y(1)$. Compare com a solução exata dada por $y(t) =  \left({1+2 e^{-t}+e^{-2 t}}\right)/{4}$
+com passo $h=0,1$ e $h=0,01$ para obter aproximações para $y(1)$. Compare com a solução exata dada por $y(t) =  \left({1+2 e^{-t}+e^{-2 t}}\right)/{4}$
 \end{Exercise}
 \begin{Answer}
   \begin{tiny}
@@ -224,7 +225,7 @@ z'&=& -z + y\\
 y(0)&=&0\\
 z(0)&=&2\\
 \end{eqnarray*}
-com passo $h=0.2$, $h=0.2$, $h=0.02$ e $h=0.002$ para obter aproximações para $y(2)$ e $z(2)$.
+com passo $h=0,2$, $h=0,02$, $h=0,002$ e $h=0,0002$ para obter aproximações para $y(2)$ e $z(2)$.
 \end{Exercise}
 \begin{Answer}
   \begin{tiny}
@@ -240,7 +241,7 @@ $y(2)\approx 0,435832$ e $z(2)=0,648925$ com $h=0,0002$.
 y'&=& \cos(ty(t))\\
 y(0)&=&1\\
 \end{eqnarray*}
-com passo $h=0.1$, $h=0.01$, $h=0.001$, $h=0.0001$ e $0.00001$ para obter aproximações para $y(2)$. 
+com passo $h=0,1$, $h=0.01$, $h=0,001$, $h=0,0001$ e $0,00001$ para obter aproximações para $y(2)$. 
 \end{Exercise}
 \begin{Answer}
   \begin{tiny}
