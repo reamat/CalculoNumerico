@@ -52,40 +52,43 @@ epub: ./html/main.html
 
 pdf-oct: main.tex
 	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavetrue" > main.knd
-	pdflatex main
-	bibtex main
-	makeindex main
-	pdflatex main
-	pdflatex main
+	cp main.tex main-oct.tex
+	pdflatex main-oct
+	bibtex main-oct
+	makeindex main-oct
+	pdflatex main-oct
+	pdflatex main-oct
 	rm -f main.knd
 
 slide-oct: main.tex
 	echo "\isbookfalse \isslidetrue \ishtmlfalse \isscilabfalse \isoctavetrue" > main.knd
-	cp main.tex slide.tex
-	pdflatex slide
-	bibtex slide
-	makeindex slide
-	pdflatex slide
-	pdflatex slide
+	cp main.tex slide-oct.tex
+	pdflatex slide-oct
+	bibtex slide-oct
+	makeindex slide-oct
+	pdflatex slide-oct
+	pdflatex slide-oct
 	rm -f main.knd
 
 dvi-oct: main.tex
 	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavetrue" > main.knd
-	latex main
-	bibtex main
-	makeindex main
-	latex main
-	latex main
+	cp main.tex main-oct.tex
+	latex main-oct
+	bibtex main-oct
+	makeindex main-oct
+	latex main-oct
+	latex main-oct
 	rm -f main.knd
 
 html-oct: main.tex
-	rm -f ./html/*
+	mkdir -p ./html-oct
+	rm -f ./html-oct/*
 	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavetrue" > main.knd
 	latex main 
 	bibtex main
 	latex main
 	latex main
-	htlatex main "myconfig,html,3,notoc*,info" "" "-d./html/"
+	htlatex main "myconfig,html,3,notoc*,info" "" "-d./html-oct/"
 	rm -f main.knd
 
 epub-oct: ./html/main.html

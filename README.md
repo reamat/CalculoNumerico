@@ -77,6 +77,8 @@ Os organizadores também podem decidir por negar por completo seu pedido de inco
 
 Observamos que somente será incorporado à versão oficial do livro material sob licença CC-BY-SA 3.0 (ou equivalente). Isto é, todo o material que deseja incorporar a versão oficial não poderá conter material sob violação de copyright e você deverá explicitamente declarar que está de acordo que seu material seja colocado sob a licença CC-BY-SA 3.0 (veja a [licença](http://creativecommons.org/licenses/by-sa/3.0/)).
 
+Nós só poderemos incorporar suas colaborações à versão oficial do livro após você assinar os termos CLA. As instruções para assinatura dos termos será exibida na lista de discussão referente ao seu "Pull Request". Leia atentamente os termos. Qualquer dúvida sobre estes termos entre em contato pelo email: <livroscolaborativos@gmail.com>
+
 ### Outras formas de colaboração
 Toda a colaração é bem vinda! Caso tenha encontrado algum erro, imprecisão ou tenha alguma sugestão a fazer, escreva para nossa lista de emails:
 
