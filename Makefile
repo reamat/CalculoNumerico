@@ -39,14 +39,16 @@ dvi: main.tex
 	latex main
 	rm -f main.knd
 
-html: main.tex
-	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabtrue \isoctavefalse" > main.knd
+html: main.html
+
+main.html: main.tex
 	rm -f ./html/*
-	latex main 
+	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabtrue \isoctavefalse" > main.knd
+	latex main
 	bibtex main
 	latex main
 	latex main
-	htlatex main "myconfig,html,3,notoc*,info" "" "-d./html/"
+	mk4ht htlatex main "myconfig,html,3,notoc*,info" "" "-d./html/"
 	rm -f main.knd
 
 epub: ./html/main.html
@@ -86,11 +88,11 @@ html-oct: main.tex
 	mkdir -p ./html-oct
 	rm -f ./html-oct/*
 	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavetrue" > main.knd
-	latex main 
+	latex main
 	bibtex main
 	latex main
 	latex main
-	htlatex main "myconfig,html,3,notoc*,info" "" "-d./html-oct/"
+	mk4ht htlatex main "myconfig,html,3,notoc*,info" "" "-d./html-oct/"
 	rm -f main.knd
 
 epub-oct: ./html/main.html
@@ -104,7 +106,7 @@ all: main.tex
 	make clean
 	make dvi
 	make clean
-	make html -B
+	make html
 	make clean
 	make epub
 
@@ -116,7 +118,7 @@ all-oct: main.tex
 	make clean
 	make dvi-oct
 	make clean
-	make html-oct -B
+	make html-oct
 	make clean
 	make epub-oct
 

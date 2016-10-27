@@ -14,7 +14,7 @@ htlatex main "ebook_config,html,3,notoc*,info" "" "-d./.tmp1/"
 rm -f main.knd
 
 
-ebook-convert ./.tmp1/main.html main-oct.epub \
+ebook-convert ./.tmp1/main.html main.epub \
 	      --title="Cálculo Numérico - Um Livro Colaborativo - Versão com Octave" \
 	      --authors="Todos os Colaboradores"\
 	      --cover="./rosto/cover-scilab.png"\
