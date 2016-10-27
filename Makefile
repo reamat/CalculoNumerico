@@ -38,8 +38,8 @@ dvi: main.tex
 	rm -f main.knd
 
 html: main.tex
-	rm -f ./html/*
 	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabtrue \isoctavefalse" > main.knd
+	rm -f ./html/*
 	latex main 
 	bibtex main
 	latex main
