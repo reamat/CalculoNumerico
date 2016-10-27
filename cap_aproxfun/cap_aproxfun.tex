@@ -5,29 +5,60 @@
 
 \chapter{Aproximação de funções}\index{aproximação!de funções}
 
-O problema geral de interpolação pode ser definido como:
+Neste capítulo, discutimos sobre problemas de \emph{interpolação}\index{interpolação} e de \emph{ajuste de curvas}\index{ajuste de curvas} pelo \emph{método dos mínimos quadrados}\index{método dos mínimos quadrados}. Mais precisamente, seja dado um conjunto de $n$ pontos $\left\{(x_i, y_i)\in \mathbb{R}^2\right\}_{i=1}^n$ e uma família de funções $\mathcal{F} = \{f:\mathbb{R}\to\mathbb{R}; y = f(x)\}$. No problema de interpolação, queremos encontrar uma função $f\in\mathbb{F}$ tal que:
+\begin{equation*}
+  f(x_i) = y_i,\quad i=1, 2, \dotsc, n.
+\end{equation*}
+Chamamos uma tal $f(x)$ de \emph{função interpoladora} dos pontos dados. Ou ainda, dizemos que $f(x)$ interpola os pontos dados.
 
-%Sejam    $\mathcal{F}$ uma família de funções $f:D\to E$ e $\left\{(x_i,y_i)\right\}_{i=1}^N$ um conjunto de pares ordenados tais que $x_i\in D$ e $y_i\in E$, encontrar uma função $f$ da família dada tal que $f(x_i)=y_i$ para cada $1\leq i \leq N$.
-
-Seja $\left\{(x_i,y_i)\right\}_{i=1}^n$ um conjunto de pares ordenados tais que $x_i \ne x_j$ se $i\ne j$, encontrar  uma função $f \in \mathcal{F}$ (uma dada família de funções) tal que
-$$f(x_i)=y_i, \;\;\; i=1,...,n$$
-
-\begin{ex} Encontrar a função $f(x)$ da forma $f(x)=a e^{bx}$ onde $a$ e $b$ são constantes tal que $f(1)=1$ e $f(2)=5$. Este problema equivale a resolver o seguinte sistema de equações:
-\begin{eqnarray*}
-ae^b&=&1\\
-ae^{2b}&=&5
-\end{eqnarray*}
-Dividindo a segunda equação pela primeira, temos $e^b=5$, logo, $b=\ln(5)$. Substituindo este valor em qualquer das equações, temos $a=\frac{1}{5}$. Assim $$f(x)=\frac{1}{5}e^{\ln(5) x}=\frac{1}{5}5^x=5^{x-1}.$$
+\begin{ex}
+  Sejam dados o conjunto de pontos $\{(1, 1), (2, 2)\}$ e a família de funções $\mathcal{F} = \{f(x) = a + bx; a,b\in\mathbb{R}\}$. Para que uma $f(x)$ na família seja a função interpoladora do conjunto de pontos dados, precisamos que
+  \begin{equation*}
+    \begin{array}{l}
+      a + bx_1 = y_1\\
+      a + bx_2 = y_2
+    \end{array}\quad\text{i.e.}\quad
+    \begin{array}{l}
+      a + b = 1\\
+      a + 2b = 2
+    \end{array}
+  \end{equation*}
+o que nos fornece $a = 1$ e $b = 1$. Então, a função interpoladora é $f(x) = x$.
 \end{ex}
 
-\begin{ex} Encontrar a função polinomial do tipo $f(x)=a+bx+cx^2$ que passe pelos pontos $(-1,2)$, $(0,1)$, $(1,6)$. Observamos que podemos encontrar os coeficientes $a$, $b$ e $c$ através do seguinte sistema linear:
-\begin{eqnarray*}
-a-b+c&=&2\\
-a&=&1\\
-a+b+c&=&6
-\end{eqnarray*}
-cuja solução é dada por $a=1$, $b=2$ e $c=3$. Portanto $$f(x)=1+2x+3x^2.$$
+No problema de ajuste de curvas, queremos encontrar uma função da família de funções dada que melhor se ajusta aos pontos dados, não necessariamente os interpola. Para tanto, precisamos definir o que entendemos por ``melhor se ajusta''. Na Seção~\ref{sec:ajuste_de_curvas}, discutimos ajuste de curvas no sentido de mínimos quadrados, no qual buscamos encontrar uma função $f\in\mathcal{F}$ tal que $f(x)$ resolve o seguinte problema de minimização
+\begin{equation*}
+  \min_{f\in\mathcal{F}} \sum_{i=1}^n |y_i - f(x_i)|^2,
+\end{equation*}
+ou seja, $f(x)$ é a função da família $\mathcal{F}$ cujo erro quadrático entre $y_i$ e $f(x_i)$, $i = 1, 2, \dotsc, n$, é mínimo.
+
+\begin{ex}
+  Dados o conjunto de os pontos $\{(1, 1,2), (1,5, 1,3), (2, 2,3)\}$ e a família de retas $f(x) = a + bx$, podemos mostrar que $f(x) = -0,05 + 1,1x$ é a reta que melhor aproxima os pontos dados no sentido de mínimos quadrados. Veja a Seção~\ref{sec:ajuste_de_curvas} para maiores detalhes.
 \end{ex}
+
+% O problema geral de interpolação pode ser definido como:
+
+% %Sejam    $\mathcal{F}$ uma família de funções $f:D\to E$ e $\left\{(x_i,y_i)\right\}_{i=1}^N$ um conjunto de pares ordenados tais que $x_i\in D$ e $y_i\in E$, encontrar uma função $f$ da família dada tal que $f(x_i)=y_i$ para cada $1\leq i \leq N$.
+
+% Seja  um conjunto de pares ordenados tais que $x_i \ne x_j$ se $i\ne j$, encontrar  uma função $f \in \mathcal{F}$ (uma dada família de funções) tal que
+% $$f(x_i)=y_i, \;\;\; i=1,...,n$$
+
+% \begin{ex} Encontrar a função $f(x)$ da forma $f(x)=a e^{bx}$ onde $a$ e $b$ são constantes tal que $f(1)=1$ e $f(2)=5$. Este problema equivale a resolver o seguinte sistema de equações:
+% \begin{eqnarray*}
+% ae^b&=&1\\
+% ae^{2b}&=&5
+% \end{eqnarray*}
+% Dividindo a segunda equação pela primeira, temos $e^b=5$, logo, $b=\ln(5)$. Substituindo este valor em qualquer das equações, temos $a=\frac{1}{5}$. Assim $$f(x)=\frac{1}{5}e^{\ln(5) x}=\frac{1}{5}5^x=5^{x-1}.$$
+% \end{ex}
+
+% \begin{ex} Encontrar a função polinomial do tipo $f(x)=a+bx+cx^2$ que passe pelos pontos $(-1,2)$, $(0,1)$, $(1,6)$. Observamos que podemos encontrar os coeficientes $a$, $b$ e $c$ através do seguinte sistema linear:
+% \begin{eqnarray*}
+% a-b+c&=&2\\
+% a&=&1\\
+% a+b+c&=&6
+% \end{eqnarray*}
+% cuja solução é dada por $a=1$, $b=2$ e $c=3$. Portanto $$f(x)=1+2x+3x^2.$$
+% \end{ex}
 
 \section{Interpolação polinomial}\index{interpolação!polinomial}
 
@@ -361,7 +392,7 @@ através do polinômio interpolador que coincide com $f(x)$ nos pontos $x=0$ e $
 
 
 
-\section{Ajuste de curvas}\index{método!dos mínimos quadrados}\index{ajuste de curvas}
+\section{Ajuste de curvas}\label{sec:ajuste_de_curvas}\index{método!dos mínimos quadrados}\index{ajuste de curvas}
 
 % No problema de interpolação, desejamos encontrar uma função $f(x)$ tal que
 % $$f(x_j)=y_j$$
@@ -525,7 +556,7 @@ $$M^T=(V^TV)^T=(V)^T(V^T)^T=V^TV=M$$
 
 \begin{ex} Encontre a função do tipo $f(x)=ax$ que melhor se aproxima dos seguintes pontos:
   \begin{equation*}
-    (0,-0,1), (1,~2), (2,~3,7) ~ \hbox{e} ~(3,~7).  
+    (0, -0,1), (1, 2), (2, 3,7) ~ \hbox{e} ~(3, 7).  
   \end{equation*}
 \end{ex}
 \begin{sol}
