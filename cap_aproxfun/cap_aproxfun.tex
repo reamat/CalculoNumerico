@@ -11,7 +11,16 @@ Neste capítulo, discutimos sobre problemas de \emph{interpolação}\index{inter
 \end{equation*}
 Chamamos uma tal $f(x)$ de \emph{função interpoladora} dos pontos dados. Ou ainda, dizemos que $f(x)$ interpola os pontos dados.
 
-\begin{ex}
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.9]{./cap_aproxfun/pics/ex_intro_interpolacao/ex_intro_interpolacao}
+~
+  \includegraphics[scale=0.9]{./cap_aproxfun/pics/ex_intro_ajuste/ex_intro_ajuste}
+  \caption{Exemplo de problemas de interpolação e ajuste. Esquerda: problema de interpolação, veja o Exemplo~\ref{ex:intro_interpolacao}. Direita: problema de ajuste, veja o Exemplo~\ref{ex:intro_ajuste}.}
+  \label{fig:ex_intro}
+\end{figure}
+
+\begin{ex}\label{ex:intro_interpolacao}
   Sejam dados o conjunto de pontos $\{(1, 1), (2, 2)\}$ e a família de funções $\mathcal{F} = \{f(x) = a + bx; a,b\in\mathbb{R}\}$. Para que uma $f(x)$ na família seja a função interpoladora do conjunto de pontos dados, precisamos que
   \begin{equation*}
     \begin{array}{l}
@@ -23,7 +32,7 @@ Chamamos uma tal $f(x)$ de \emph{função interpoladora} dos pontos dados. Ou ai
       a + 2b = 2
     \end{array}
   \end{equation*}
-o que nos fornece $a = 0$ e $b = 1$. Então, a função interpoladora é $f(x) = x$.
+o que nos fornece $a = 0$ e $b = 1$. Então, a função interpoladora é $f(x) = x$. Veja o gráfico à direita na Figura~\ref{fig:ex_intro}.
 \end{ex}
 
 No problema de ajuste de curvas, queremos encontrar uma função da família de funções dada que melhor se ajusta aos pontos dados, não necessariamente os interpola. Para tanto, precisamos definir o que entendemos por ``melhor se ajusta''. Na Seção~\ref{sec:ajuste_de_curvas}, discutimos ajuste de curvas no sentido de mínimos quadrados, no qual buscamos encontrar uma função $f\in\mathcal{F}$ tal que $f(x)$ resolve o seguinte problema de minimização
@@ -32,8 +41,8 @@ No problema de ajuste de curvas, queremos encontrar uma função da família de 
 \end{equation*}
 ou seja, $f(x)$ é a função da família $\mathcal{F}$ cujo erro quadrático entre $y_i$ e $f(x_i)$, $i = 1, 2, \dotsc, n$, é mínimo.
 
-\begin{ex}
-  Dados o conjunto de os pontos $\{(1, 1,2), (1,5, 1,3), (2, 2,3)\}$ e a família de retas $f(x) = a + bx$, podemos mostrar que $f(x) = -0,05 + 1,1x$ é a reta que melhor aproxima os pontos dados no sentido de mínimos quadrados. Veja a Seção~\ref{sec:ajuste_de_curvas} para maiores detalhes.
+\begin{ex}\label{ex:intro_ajuste}
+  Dados o conjunto de os pontos $\{(1, 1,2), (1,5, 1,3), (2, 2,3)\}$ e a família de retas $f(x) = a + bx$, podemos mostrar que $f(x) = -0,05 + 1,1x$ é a reta que melhor aproxima os pontos dados no sentido de mínimos quadrados.  Veja o gráfico à direita na Figura~\ref{fig:ex_intro}. Para mais detalhes em como obter a função $f(x)$, veja a Seção~\ref{sec:ajuste_de_curvas} para maiores detalhes. 
 \end{ex}
 
 % O problema geral de interpolação pode ser definido como:
@@ -59,6 +68,8 @@ ou seja, $f(x)$ é a função da família $\mathcal{F}$ cujo erro quadrático en
 % \end{eqnarray*}
 % cuja solução é dada por $a=1$, $b=2$ e $c=3$. Portanto $$f(x)=1+2x+3x^2.$$
 % \end{ex}
+
+Um problema de interpolação cuja a família de funções constitui-se de polinômios é chamado de problema de interpolação polinomial.
 
 \section{Interpolação polinomial}\index{interpolação!polinomial}
 
@@ -92,7 +103,7 @@ y_1\\y_2\\y_3\\ \vdots \\y_n
 $$
 A matriz envolvida é uma matriz de Vandermonde de ordem $n$ cujo determinante é dado por
 $$\prod_{1\leq i<j\leq n}\left(x_j-x_i\right)$$
-É fácil ver que se as abscissas são diferentes dois a dois, então o determinante é não-nulo. Disto decorre que a matriz envolvida é inversível e,portanto, o sistema possui uma solução e esta solução é única.
+É fácil ver que se as abscissas são diferentes dois a dois, então o determinante é não nulo. Disto decorre que a matriz envolvida é inversível e,portanto, o sistema possui uma solução e esta solução é única.
 \end{proof}
 
 \begin{ex} Encontre o polinômio da forma $p(x)=a_1+a_2x+a_3x^2+a_4x^3$ que passa pelos pontos
@@ -122,9 +133,9 @@ $$p(x)=1+\frac{5}{6}x+\frac{1}{6}x^3$$
 % $$P(x)=x^2$$
 % \end{ex}
 
-Esta abordagem direta que fizemos ao calcular os coeficientes do polinômio na base canônica se mostra ineficiente quando o número de pontos é grande e quando existe grande discrepância nas abscissas. Neste caso a matriz de Vandermonde é mal-condicionada (ver \cite{Gautschi}), acarretando um aumento dos erros de arredondamento na solução do sistema.
+Esta abordagem direta que fizemos ao calcular os coeficientes do polinômio na base canônica se mostra ineficiente quando o número de pontos é grande e quando existe grande discrepância nas abscissas. Neste caso a matriz de Vandermonde é mal condicionada (ver \cite{Gautschi}), acarretando um aumento dos erros de arredondamento na solução do sistema.
 
-Uma maneira de resolver este problema é escrever o polinômio em uma base que produza um sistema bem-condicionado.
+Uma maneira de resolver este problema é escrever o polinômio em uma base que produza um sistema bem condicionado.
 
 \section{Diferenças divididas de Newton}\index{diferenças divididas de Newton}
 O método das diferenças divididas de Newton consiste em construir o polinômio interpolador da forma
@@ -544,7 +555,7 @@ $$0=\left<V^TVv,v\right>=\left<Vv,Vv\right>=\|Vv\|^2$$
 Então se $Mv=0$, $Vv=0$, como o posto de $V$ é igual ao número de colunas, $v=0$.
 \end{proof}
 \begin{lem}
- A matrix $M=V^TV$ é simétrica.
+ A matriz $M=V^TV$ é simétrica.
 \end{lem}
 \begin{proof}
 Isso é facilmente provado pelo seguinte argumento:
