@@ -17,7 +17,7 @@ rm -f main.knd
 ebook-convert ./.tmp1/main.html main-oct.epub \
 	      --title="Cálculo Numérico - Um Livro Colaborativo - Versão com Octave" \
 	      --authors="Todos os Colaboradores"\
-	      --cover="./rosto/cover-oct.png"\
+	      --cover="./rosto/cover-scilab.png"\
 	      --comments="Para mais informações sobre este livro visite  http://www.ufrgs.br/numerico"
 
 
