@@ -5,7 +5,7 @@
 
 \chapter{Solução de sistemas lineares}\index{sistema linear}
 
-Muitos problemas da engenharia, física e matemática estão associados à solução de sistemas de equações lineares. Nesse capítulo, tratamos de técnicas numéricas empregadas para obter a solução desses sistemas. Iniciamos por uma rápida revisão do Método de Eliminação Gaussiana do ponto de vista computacional. No contexto de análise da propagação dos erros de arredondamento, introduzimos o Método de Eliminação Gaussiana com Pivotamento Parcial, bem como, apresentamos o conceito de condicionamento de um sistema linear. Então, passamos a discutir sobre técnicas iterativos, mais especificamente, sobre os Métodos de Jacobi e Gauss-Seidel.
+Muitos problemas da engenharia, física e matemática estão associados à solução de sistemas de equações lineares. Nesse capítulo, tratamos de técnicas numéricas empregadas para obter a solução desses sistemas. Iniciamos por uma rápida revisão do Método de eliminação gaussiana do ponto de vista computacional. No contexto de análise da propagação dos erros de arredondamento, introduzimos o método de eliminação gaussiana com pivotamento parcial, bem como, apresentamos o conceito de condicionamento de um sistema linear. Então, passamos a discutir sobre técnicas iterativos, mais especificamente, sobre os métodos de Jacobi e Gauss-Seidel.
 
 
 Considere o sistema de equações lineares:
@@ -50,13 +50,13 @@ Salvo especificado ao contrário, assumiremos ao longo deste capítulo que a mat
 \section{Eliminação gaussiana}\index{eliminação gaussiana}
 Lembramos que algumas operações feitas nas linhas de um sistema não alteram a solução:
 \begin{enumerate}
-\item Multiplicação de um linha por um número
+\item Multiplicação de um linha por um número.
 \item Troca de uma linha por ela mesma somada a um múltiplo de outra.
 \item Troca de duas linhas.
 \end{enumerate}
 
-O processo que transforma um sistema em outro com mesma solução, mas que apresenta uma forma triangular é chamado eliminação Gaussiana. A solução do sistema pode ser obtida fazendo substituição regressiva.
-\begin{ex}[Eliminação Gaussiana sem pivotamento] Resolva o sistema
+O processo que transforma um sistema em outro com mesma solução, mas que apresenta uma forma triangular é chamado eliminação gaussiana. A solução do sistema pode ser obtida fazendo substituição regressiva.
+\begin{ex}[Eliminação gaussiana sem pivotamento] Resolva o sistema
   \begin{eqnarray*}
     x+y+z  &=& 1\\
     2x+y-z &=& 0\\
@@ -80,10 +80,10 @@ A matriz completa do sistema é escrita como
 Encontramos $-z=-1$, ou seja, $z=1$. Substituindo na segunda equação, temos $-y-3z=-2$, ou seja, $y=-1$ e finalmente $x+y+z=1$, resultando em $x=1$.
 \end{sol}
 
-\subsection{Eliminação Gaussiana com pivotamento parcial}
-A Eliminação Gaussiana com \emph{pivotamento parcial} consiste em fazer uma permutação de linhas de forma a escolher o maior pivô (em módulo) a cada passo.
+\subsection{Eliminação gaussiana com pivotamento parcial}
+A eliminação gaussiana com \emph{pivotamento parcial} consiste em fazer uma permutação de linhas de forma a escolher o maior pivô (em módulo) a cada passo.
 
-\begin{ex}[Eliminação Gaussiana com pivotamento parcial] Resolva o sistema
+\begin{ex}[Eliminação gaussiana com pivotamento parcial] Resolva o sistema
 \begin{eqnarray*}
   x+y+z  &=& 1\\
   2x+y-z &=& 0\\
@@ -249,7 +249,7 @@ $$x=\frac{4-2y}{\varepsilon}=\frac{2}{\varepsilon} (2-y)$$
 
 Assim, quando $\varepsilon$ é pequeno, a primeira expressão, implementado em um sistema de ponto flutuante de acurácia finita, produz $y= 2$ e, consequentemente, a expressão para $x$ produz $x=0$. Isto é, estamos diante um problema de cancelamento catastrófico.
 
-Agora, quando usamos a Eliminação Gaussiana com pivotamento parcial, fazemos uma permutação de linhas de forma a escolher o maior pivô a cada passo:
+Agora, quando usamos a eliminação gaussiana com pivotamento parcial, fazemos uma permutação de linhas de forma a escolher o maior pivô a cada passo:
 
 $$\left[\begin{array}{cc|c}
 \varepsilon & 2 & 4\\
@@ -358,7 +358,7 @@ A=\left[\begin{array}{ccc}
 \end{array}
 \right]
 $$
-usando eliminação Gaussiana com pivotamento parcial.
+usando eliminação gaussiana com pivotamento parcial.
 \end{Exercise}
 
 \begin{Exercise} \label{inv22} Demonstre que se $ad\neq bc$, então a matriz $A$ dada por:
@@ -453,7 +453,7 @@ $$\left[
 1&1&4
 \end{array}\right]$$
 \begin{itemize}
-\item[a)] Usando Eliminação Gaussiana com pivotamento parcial à mão.
+\item[a)] Usando eliminação gaussiana com pivotamento parcial à mão.
 \item[b)] Usando a rotina 'gausspp()'.
 \item[c)] Usando a rotina 'inv()' do \verb+Scilab+.
 \end{itemize}
@@ -1636,7 +1636,7 @@ x_1-x_2&=&1\\
 x_{4}-x_{5}&=&1
 \end{eqnarray*}
 \begin{itemize}
-\item[a)]  Escreva na forma $Ax=b$ e resolva usando Eliminação Gaussiana para $\varepsilon=10^{-3}$ no \verb+Scilab+.
+\item[a)]  Escreva na forma $Ax=b$ e resolva usando eliminação gaussiana para $\varepsilon=10^{-3}$ no \verb+Scilab+.
 \item[b)]  Obtenha o vetor incógnita $x$ com $\varepsilon=10^{-3}$ usando o comando $A\backslash b$.
 \item[c)]  Obtenha o vetor incógnita $x$ com $\varepsilon=10^{-3}$ usando Jacobi com tolerância $10^{-2}$. Compare o resultado com o resultado obtido no item d.
 \item[d)]  Obtenha o vetor incógnita $x$ com $\varepsilon=10^{-3}$ usando Gauss-Seidel com tolerância $10^{-2}$. Compare o resultado com o resultado obtido no item d.
