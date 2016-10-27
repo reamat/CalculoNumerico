@@ -6,11 +6,20 @@ Este documento contém informações sobre os padrões de estilo de escrita e or
 
 O livro está escrito em língua portuguesa, seguindo os costumes linguísticos brasileiros. Dá-se prioridade à ortografia prevista no Acordo Ortográfico de 1990.
 
+## Capitalização de nomes de métodos
+Deve-se usar maiúscula apenas em nomes próprios, ex: método de Newton, métodos dos mínimos quadrados. 
+
+
 ## Equações e símbolos matemáticos
 
 As equações e símbolos matemáticos estão escritos usando a coleção de pacotes [AMS-LaTeX](http://www.ams.org/publications/authors/tex/amslatex). Para mais informações, recomendamos a leitura do seguinte documento:
 
 ftp://ftp.ams.org/pub/tex/doc/amsmath/short-math-guide.pdf
+
+### Estruturas preferenciais e interditadas
+
+Para fins de uso do pacoto tex4ht, deve-se:
+*Não usar o comando align
 
 ## Organização do código fonte
 
