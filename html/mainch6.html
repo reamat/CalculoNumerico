@@ -1,41 +1,33 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
   "http://www.w3.org/TR/html4/loose.dtd">  
 <html xml:lang="pt" > 
-<head><title>6 Interpolaçao e ajuste de curvas</title> 
+<head><title>6 Interpolaçao</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
 <meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html,3,notoc*,info --> 
 <meta name="src" content="main.tex"> 
-<meta name="date" content="2016-10-27 13:17:00"> 
+<meta name="date" content="2016-10-27 14:58:00"> 
 <link rel="stylesheet" type="text/css" href="main.css"> 
 </head><body 
 >
    <!--l. 6--><div class="crosslinks"><p class="noindent"><a 
 href="main.html#mainse38.html" >Voltar</a></p></div>
    <h2 class="chapterHead"><span class="titlemark">Capítulo&#x00A0;6</span><br /><a 
- id="x61-950006"></a>Interpolação e ajuste de curvas</h2>
+ id="x61-950006"></a>Interpolação</h2>
 <a 
  id="dx61-95001"></a>
 <!--l. 8--><p class="noindent" >Neste capítulo, discutimos sobre problemas de <span 
 class="ec-lmbx-12">interpola</span><span 
 class="ec-lmbx-12">ç</span><span 
 class="ec-lmbx-12">ão</span><a 
- id="dx61-95002"></a> e de <span 
-class="ec-lmbx-12">ajuste de</span>
-<span 
-class="ec-lmbx-12">curvas</span><a 
- id="dx61-95003"></a> pelo <span 
-class="ec-lmbx-12">m</span><span 
-class="ec-lmbx-12">étodo dos m</span><span 
-class="ec-lmbx-12">ínimos quadrados</span><a 
- id="dx61-95004"></a>. Mais precisamente, seja dado
-um conjunto de <img 
+ id="dx61-95002"></a>. Mais precisamente,
+dado um conjunto com <img 
 src="main2783x.png" alt="n  "  class="math" > pontos <img 
-src="main2784x.png" alt="            2 n
-{(xi,yi) &isin; &#x211D; } i=1   "  class="math" > e uma família de funções
+src="main2784x.png" alt="{(x,y ) &isin; &#x211D;2}n
+   i  i       i=1   "  class="math" > e uma família de funções
 <img 
-src="main2785x.png" alt="F  = {f : &#x211D; &rarr;  &#x211D;;y =  f(x)} "  class="math" >. No problema de interpolação, queremos encontrar
+src="main2785x.png" alt="F  = {f : &#x211D; &rarr;  &#x211D;;y =  f(x)} "  class="math" >, o problema de interpolação consiste em encontrar
 uma função <img 
 src="main2786x.png" alt="f &isin; F  "  class="math" > tal que:
    <table 
@@ -58,104 +50,51 @@ src="main2789x.png" alt="f(x)  "  class="math" > interpola os pontos dados.
 
                                                                           
 <a 
- id="x61-950051"></a>
+ id="x61-950031"></a>
                                                                           
 
                                                                           
 <!--l. 16--><p class="noindent" ><img 
 src="main2790x.png" alt="PIC" class="graphics" width="163.50975pt" height="168.92998pt" ><!--tex4ht:graphics  
-name="main2790x.png" src="./cap_aproxfun/pics/ex_intro_interpolacao/ex_intro_interpolacao.eps"  
---> &#x00A0;
-<img 
-src="main2791x.png" alt="PIC" class="graphics" width="163.50975pt" height="168.92998pt" ><!--tex4ht:graphics  
-name="main2791x.png" src="./cap_aproxfun/pics/ex_intro_ajuste/ex_intro_ajuste.eps"  
+name="main2790x.png" src="./cap_interp/pics/ex_intro_interpolacao/ex_intro_interpolacao.eps"  
 -->
 <br /> <div class="caption" 
-><span class="id">Figura&#x00A0;6.1:  </span><span  
-class="content">Exemplo  de  problemas  de  interpolação  e  ajuste.  Esquerda:
-problema de interpolação, veja o Exemplo&#x00A0;<a 
-href="#x61-95006r2">6.0.2<!--tex4ht:ref: ex:intro_interpolacao --></a>. Direita: problema de ajuste,
-veja o Exemplo&#x00A0;<a 
-href="#x61-95007r3">6.0.3<!--tex4ht:ref: ex:intro_ajuste --></a>.</span></div><!--tex4ht:label?: x61-950051 -->
+><span class="id">Figura&#x00A0;6.1: </span><span  
+class="content">Exemplo de interpolação de dois pontos por uma reta, veja o
+Exemplo&#x00A0;<a 
+href="#x61-95004r2">6.0.2<!--tex4ht:ref: ex:intro_interpolacao --></a>.</span></div><!--tex4ht:label?: x61-950031 -->
                                                                           
 
                                                                           
-<!--l. 21--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 19--><p class="indent" >   </div><hr class="endfigure">
    <div class="newtheorem">
-<!--l. 23--><p class="noindent" ><span class="head">
+<!--l. 21--><p class="noindent" ><span class="head">
 <a 
- id="x61-95006r2"></a>
+ id="x61-95004r2"></a>
 <span 
 class="ec-lmbx-12">Exemplo 6.0.2.</span>  </span> Sejam dados o conjunto de pontos <img 
-src="main2792x.png" alt="{(1,1),(2,2)} "  class="math" > e a família
+src="main2791x.png" alt="{(1,1),(2,2)} "  class="math" > e a família
 de funções <img 
-src="main2793x.png" alt="F  = {f (x) = a + bx;a,b &isin; &#x211D; } "  class="math" >. Para que uma <img 
-src="main2794x.png" alt="f(x)  "  class="math" > na família
+src="main2792x.png" alt="F  = {f (x) = a + bx;a,b &isin; &#x211D; } "  class="math" >. Para que uma <img 
+src="main2793x.png" alt="f(x)  "  class="math" > na família
 seja a função interpoladora do conjunto de pontos dados, precisamos
 que
    <table 
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main2795x.png" alt="a + bx1 = y1          a + b = 1
-                i.e.
+src="main2794x.png" alt="a + bx1 = y1    i.e.   a + b = 1
 a + bx2 = y2          a + 2b = 2
 " class="math-display" ></center></td></tr></table>
-<!--l. 34--><p class="nopar" >
+<!--l. 32--><p class="nopar" >
 o que nos fornece <img 
-src="main2796x.png" alt="a = 0  "  class="math" > e <img 
-src="main2797x.png" alt="b = 1  "  class="math" >. Então, a função interpoladora é <img 
-src="main2798x.png" alt="f(x ) = x  "  class="math" >.
-Veja o gráfico à direita na Figura&#x00A0;<a 
-href="#x61-950051">6.1<!--tex4ht:ref: fig:ex_intro --></a>.
+src="main2795x.png" alt="a = 0  "  class="math" > e <img 
+src="main2796x.png" alt="b = 1  "  class="math" >. Então, a função interpoladora é <img 
+src="main2797x.png" alt="f(x ) = x  "  class="math" >.
+Os pontos e a reta interpolação estão esboçados na Figura&#x00A0;<a 
+href="#x68-1070041">7.1<!--tex4ht:ref: fig:ex_intro --></a>.
    </div>
-<!--l. 38--><p class="indent" >   No problema de ajuste de curvas, queremos encontrar uma função da família
-de funções dada que melhor se ajusta aos pontos dados, não necessariamente os
-interpola. Para tanto, precisamos definir o que entendemos por &#8220;melhor se ajusta&#8221;.
-Na Seção&#x00A0;<a 
-href="mainse29.html#x66-1020006.5">6.5<!--tex4ht:ref: sec:ajuste_de_curvas --></a>, discutimos ajuste de curvas no sentido de mínimos quadrados, no
-qual buscamos encontrar uma função <img 
-src="main2799x.png" alt="f &isin; F "  class="math" > tal que <img 
-src="main2800x.png" alt="f (x )  "  class="math" > resolve o seguinte
-problema de minimização
-   <table 
-class="equation-star"><tr><td>
-                                                                          
-
-                                                                          
-   <center class="math-display" >
-<img 
-src="main2801x.png" alt="    &sum;n
-min    |yi &minus; f (xi)|2,
-f&isin;F i=1
-" class="math-display" ></center></td></tr></table>
-<!--l. 41--><p class="nopar" >
-ou seja, <img 
-src="main2802x.png" alt="f (x)  "  class="math" > é a função da família <img 
-src="main2803x.png" alt="F "  class="math" > cujo erro quadrático entre <img 
-src="main2804x.png" alt="yi  "  class="math" > e <img 
-src="main2805x.png" alt="f(xi)  "  class="math" >,
-<img 
-src="main2806x.png" alt="i = 1,2,...,n  "  class="math" >, é mínimo.
-   <div class="newtheorem">
-<!--l. 44--><p class="noindent" ><span class="head">
-<a 
- id="x61-95007r3"></a>
-<span 
-class="ec-lmbx-12">Exemplo 6.0.3.</span>  </span>           Dados             o             conjunto             de
-os pontos <img 
-src="main2807x.png" alt="{(1,1,2),(1,5,1,3),(2, 2,3)} "  class="math" > e a família de retas <img 
-src="main2808x.png" alt="f(x) = a + bx  "  class="math" >,
-podemos mostrar que <img 
-src="main2809x.png" alt="f (x) = &minus; 0,05 + 1,1x  "  class="math" > é a reta que melhor aproxima
-os pontos dados no sentido de mínimos quadrados. Veja o gráfico à direita
-na Figura&#x00A0;<a 
-href="#x61-950051">6.1<!--tex4ht:ref: fig:ex_intro --></a>. Para mais detalhes em como obter a função <img 
-src="main2810x.png" alt="f(x )  "  class="math" >, veja a
-Seção&#x00A0;<a 
-href="mainse29.html#x66-1020006.5">6.5<!--tex4ht:ref: sec:ajuste_de_curvas --></a> para maiores detalhes.
-   </div>
-<!--l. 72--><p class="indent" >   Um problema de interpolação cuja a família de funções constitui-se de
+<!--l. 36--><p class="indent" >   Um problema de interpolação cuja a família de funções constitui-se de
 polinômios é chamado de problema de interpolação polinomial.
    <div class="sectionTOCS">
    &#x00A0;<span class="sectionToc" >6.1 <a 
@@ -167,31 +106,19 @@ href="mainse27.html#x64-990006.3">Polinômios de Lagrange</a></span>
 <br />   &#x00A0;<span class="sectionToc" >6.4 <a 
 href="mainse28.html#x65-1000006.4">Aproximação de funções reais por polinômios interpoladores</a></span>
 <br />   &#x00A0;<span class="sectionToc" >6.5 <a 
-href="mainse29.html#x66-1020006.5">Ajuste de curvas</a></span>
-<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >6.5.1 <a 
-href="mainse29.html#x66-1030006.5.1">O problema linear</a></span>
-<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >6.5.2 <a 
-href="mainse29.html#x66-1040006.5.2">Ajuste polinomial</a></span>
-<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >6.5.3 <a 
-href="mainse29.html#x66-1050006.5.3">Ajuste linear de curvas</a></span>
+href="mainse29.html#x66-1020006.5">Interpolação linear segmentada</a></span>
                                                                           
 
                                                                           
 <br />   &#x00A0;<span class="sectionToc" >6.6 <a 
-href="mainse30.html#x67-1070006.6">Aproximando problemas não lineares por problemas lineares</a></span>
-<br />   &#x00A0;<span class="sectionToc" >6.7 <a 
-href="mainse31.html#x69-1080006.7">Interpolação linear segmentada</a></span>
-<br />   &#x00A0;<span class="sectionToc" >6.8 <a 
-href="mainse32.html#x70-1090006.8">Interpolação cúbica segmentada - spline</a></span>
-<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >6.8.1 <a 
-href="mainse32.html#x70-1100006.8.1">Spline natural</a></span>
-<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >6.8.2 <a 
-href="mainse32.html#x70-1110006.8.2">Spline fixado</a></span>
-<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >6.8.3 <a 
-href="mainse32.html#x70-1120006.8.3">Resumo sobre Splines</a></span>
+href="mainse30.html#x67-1030006.6">Interpolação cúbica segmentada - spline</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >6.6.1 <a 
+href="mainse30.html#x67-1040006.6.1">Spline natural</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >6.6.2 <a 
+href="mainse30.html#x67-1050006.6.2">Spline fixado</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >6.6.3 <a 
+href="mainse30.html#x67-1060006.6.3">Resumo sobre Splines</a></span>
    </div>
-
-
 
 
 

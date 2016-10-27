@@ -1,109 +1,51 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
   "http://www.w3.org/TR/html4/loose.dtd">  
 <html xml:lang="pt" > 
-<head><title>8 Problemas de valor inicial</title> 
+<head><title>8 Derivaçao e integraçao numerica</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
 <meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html,3,notoc*,info --> 
 <meta name="src" content="main.tex"> 
-<meta name="date" content="2016-10-27 13:17:00"> 
+<meta name="date" content="2016-10-27 14:58:00"> 
 <link rel="stylesheet" type="text/css" href="main.css"> 
 </head><body 
 >
    <!--l. 6--><div class="crosslinks"><p class="noindent"><a 
-href="main.html#mainli18.html" >Voltar</a></p></div>
+href="main.html#mainap1.html" >Voltar</a></p></div>
    <h2 class="chapterHead"><span class="titlemark">Capítulo&#x00A0;8</span><br /><a 
- id="x79-1390008"></a>Problemas de valor inicial</h2>
-<a 
- id="dx79-139001"></a>
-<!--l. 7--><p class="noindent" >Neste capítulo, desenvolveremos técnicas numérica para aproximar a solução de
-problemas de valor inical da forma <div class="subequations"><a 
- id="x79-1390020"></a> <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main4067x.png" alt=" y&prime;(t)  =   f(y(t),t)                            (8.1a)
-
-y (t0)  =   y0 (condição inicial).               (8.1b)
-" class="math-display" ><a 
- id="x79-139003r8.1a"></a><a 
- id="x79-139003r8.1b"></a></center>
-</div>
-</div>
-<!--l. 15--><p class="indent" >   A ingógnita de um problema de valor inicial é uma função que satisfaz a
-equação diferencial (<a 
-href="#x79-139003r8.1a">8.1a<!--tex4ht:ref: PVI_EDO --></a>) e a condição inicial (<a 
-href="#x79-139003r8.1b">8.1b<!--tex4ht:ref: PVI_CI --></a>).
-   <div class="newtheorem">
-<!--l. 16--><p class="noindent" ><span class="head">
-<a 
- id="x79-139004r1"></a>
-<span 
-class="ec-lmbx-12">Exemplo 8.0.1.</span>  </span>Considere o seguinte problema de valor inicial <div class="subequations"><a 
- id="x79-1390050"></a> <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main4068x.png" alt="  &prime;
- y(t)  =  2y (t),                       (8.2a)
-y(t0)  =  1.                           (8.2b)
-" class="math-display" ></center>
-</div>
-</div>
-<!--l. 23--><p class="indent" >   A solução desta equação é dada pela função <img 
-src="main4069x.png" alt="y(t) = e2t  "  class="math" > pois <img 
-src="main4070x.png" alt="y&prime;(t) = 2e2t = 2y(t)  "  class="math" >
-e <img 
-src="main4071x.png" alt="y(0) = e0 = 1  "  class="math" >.
-   </div>
-<!--l. 27--><p class="indent" >   Muitos problemas de valor inicial da forma (<a 
-href="#x79-1390020">8.1<!--tex4ht:ref: PVI --></a>) não podem ser resolvidos
-exatamente, ou seja, sabe-se que a solução existe e é única, porém não podemos
-expressá-la em termos de funções elementares. Por isso é necessário calcular
-aproximações numéricas. Diversos métodos completamente diferentes estão
-disponíveis para aproximar uma função real.
-<!--l. 29--><p class="indent" >   Aqui nos limitaremos a estudar métodos que se fundamentam em tentar
-calcular <img 
-src="main4072x.png" alt="y(t)  "  class="math" > em um conjunto finito de valores de <img 
-src="main4073x.png" alt="t  "  class="math" >. Esse conjunto de valores
-para <img 
-src="main4074x.png" alt="t  "  class="math" > será denotado por <img 
-src="main4075x.png" alt="{ti}Ni=1   "  class="math" >, isto é <img 
-src="main4076x.png" alt="{t1,t2,t3,...,tN } "  class="math" > e calculamos o valor
-aproximado da função solução <img 
-src="main4077x.png" alt="y(ti)  "  class="math" > em cada ponto da malha usando esquemas
-numéricos.
+ id="x73-1180008"></a>Derivação e integração numérica</h2>
    <div class="sectionTOCS">
    &#x00A0;<span class="sectionToc" >8.1 <a 
-href="mainse37.html#x80-1400008.1">Método de Euler</a></span>
+href="mainse34.html#x74-1190008.1">Derivação Numérica</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >8.1.1 <a 
+href="mainse34.html#x74-1200008.1.1">Aproximação da derivada por diferenças finitas</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >8.1.2 <a 
+href="mainse34.html#x74-1210008.1.2">Erros de truncamento</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >8.1.3 <a 
+href="mainse34.html#x74-1220008.1.3">Erros de arredondamento</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >8.1.4 <a 
+href="mainse34.html#x74-1230008.1.4">Aproximações de alta ordem</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >8.1.5 <a 
+href="mainse34.html#x74-1240008.1.5">Aproximação para a segunda derivada</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >8.1.6 <a 
+href="mainse34.html#x74-1250008.1.6">Derivada via ajuste ou interpolação</a></span>
 <br />   &#x00A0;<span class="sectionToc" >8.2 <a 
-href="mainse38.html#x82-1420008.2">Método de Euler melhorado</a></span>
+href="mainse35.html#x76-1270008.2">Problemas de valor contorno</a></span>
 <br />   &#x00A0;<span class="sectionToc" >8.3 <a 
-href="mainse39.html#x84-1440008.3">Ordem de precisão</a></span>
+href="mainse36.html#x78-1290008.3">Integração numérica</a></span>
 <br />   &#x00A0;&#x00A0;<span class="subsectionToc" >8.3.1 <a 
-href="mainse39.html#x84-1450008.3.1">Ordem de precisão do Método de Euler</a></span>
+href="mainse36.html#x78-1300008.3.1">Regras de Newton-Cotes</a></span>
 <br />   &#x00A0;&#x00A0;<span class="subsectionToc" >8.3.2 <a 
-href="mainse39.html#x84-1460008.3.2">Ordem de precisão do Método de Euler Melhorado</a></span>
+href="mainse36.html#x78-1340008.3.2">Regras compostas</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >8.3.3 <a 
+href="mainse36.html#x78-1390008.3.3">O método de Romberg</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >8.3.4 <a 
+href="mainse36.html#x78-1400008.3.4">Ordem de precisão</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >8.3.5 <a 
+href="mainse36.html#x78-1410008.3.5">Quadratura de Gauss-Legendre</a></span>
 <br />   &#x00A0;<span class="sectionToc" >8.4 <a 
-href="mainse40.html#x85-1470008.4">Convergência</a></span>
-<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >8.4.1 <a 
-href="mainse40.html#x85-1480008.4.1">Convergência do método de Euler</a></span>
-<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >8.4.2 <a 
-href="mainse40.html#x85-1490008.4.2">Convergência do método de Euler Melhorado</a></span>
-<br />   &#x00A0;<span class="sectionToc" >8.5 <a 
-href="mainse41.html#x86-1500008.5">Métodos de Runge-Kutta</a></span>
-<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >8.5.1 <a 
-href="mainse41.html#x86-1510008.5.1">Métodos de Runge-Kutta - Quarta ordem</a></span>
-<br />   &#x00A0;<span class="sectionToc" >8.6 <a 
-href="mainse42.html#x87-1520008.6">Métodos de passo múltiplo - Adams-Bashforth</a></span>
-<br />   &#x00A0;<span class="sectionToc" >8.7 <a 
-href="mainse43.html#x88-1530008.7">Métodos de passo múltiplo - Adams-Moulton</a></span>
-<br />   &#x00A0;<span class="sectionToc" >8.8 <a 
-href="mainse44.html#x89-1540008.8">Estabilidade</a></span>
-                                                                          
-
-                                                                          
-<br />   &#x00A0;<span class="sectionToc" >8.9 <a 
-href="mainse45.html#x91-1560008.9">Exercícios finais</a></span>
+href="mainse37.html#x80-1430008.4">Exercícios finais</a></span>
    </div>
 
 
@@ -111,16 +53,11 @@ href="mainse45.html#x91-1560008.9">Exercícios finais</a></span>
 
 
 
-
-
-
-
-
                                                                           
 
                                                                           
-   <!--l. 59--><div class="crosslinks"><p class="noindent"><a 
-href="main.html#mainli18.html" >Voltar</a></p></div>
-<!--l. 59--><p class="indent" >   <a 
+   <!--l. 6--><div class="crosslinks"><p class="noindent"><a 
+href="main.html#mainap1.html" >Voltar</a></p></div>
+<!--l. 6--><p class="indent" >   <a 
  id="tailmainch8.html"></a>  
 </body></html> 
