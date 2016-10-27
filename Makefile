@@ -123,7 +123,9 @@ all-oct: main.tex
 clean:
 	rm -f *.aux *.log *.out *.toc *.bbl \
 		*.idx *.ilg *.ind *.blg *.backup \
-		*.4tc *.lg *.tmp *.xref *.png *.html
+		*.4tc *.lg *.tmp *.xref *.png *.html \
+		*.4ct *.css *.idv *.maf *.mtc *.mtc0 \
+		*.xml
 	rm -f ${CAP1}/*.aux ${CAP1}/*.log ${CAP1}/*.backup
 	rm -f ${CAP2}/*.aux ${CAP2}/*.log ${CAP2}/*.backup
 	rm -f ${CAP3}/*.aux ${CAP3}/*.log ${CAP3}/*.backup
