@@ -3,31 +3,73 @@
 %\documentclass[main.tex]{subfiles}
 %\begin{document}
 
-\chapter{Aproximação de funções}\index{aproximação!de funções}
+\chapter{Interpolação e ajuste de curvas}\index{aproximação!de funções}
 
-O problema geral de interpolação pode ser definido como:
+Neste capítulo, discutimos sobre problemas de \emph{interpolação}\index{interpolação} e de \emph{ajuste de curvas}\index{ajuste de curvas} pelo \emph{método dos mínimos quadrados}\index{método dos mínimos quadrados}. Mais precisamente, seja dado um conjunto de $n$ pontos $\left\{(x_i, y_i)\in \mathbb{R}^2\right\}_{i=1}^n$ e uma família de funções $\mathcal{F} = \{f:\mathbb{R}\to\mathbb{R}; y = f(x)\}$. No problema de interpolação, queremos encontrar uma função $f\in\mathbb{F}$ tal que:
+\begin{equation*}
+  f(x_i) = y_i,\quad i=1, 2, \dotsc, n.
+\end{equation*}
+Chamamos uma tal $f(x)$ de \emph{função interpoladora} dos pontos dados. Ou ainda, dizemos que $f(x)$ interpola os pontos dados.
 
-%Sejam    $\mathcal{F}$ uma família de funções $f:D\to E$ e $\left\{(x_i,y_i)\right\}_{i=1}^N$ um conjunto de pares ordenados tais que $x_i\in D$ e $y_i\in E$, encontrar uma função $f$ da família dada tal que $f(x_i)=y_i$ para cada $1\leq i \leq N$.
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.9]{./cap_aproxfun/pics/ex_intro_interpolacao/ex_intro_interpolacao}
+~
+  \includegraphics[scale=0.9]{./cap_aproxfun/pics/ex_intro_ajuste/ex_intro_ajuste}
+  \caption{Exemplo de problemas de interpolação e ajuste. Esquerda: problema de interpolação, veja o Exemplo~\ref{ex:intro_interpolacao}. Direita: problema de ajuste, veja o Exemplo~\ref{ex:intro_ajuste}.}
+  \label{fig:ex_intro}
+\end{figure}
 
-Seja $\left\{(x_i,y_i)\right\}_{i=1}^n$ um conjunto de pares ordenados tais que $x_i \ne x_j$ se $i\ne j$, encontrar  uma função $f \in \mathcal{F}$ (uma dada família de funções) tal que
-$$f(x_i)=y_i, \;\;\; i=1,...,n$$
-
-\begin{ex} Encontrar a função $f(x)$ da forma $f(x)=a e^{bx}$ onde $a$ e $b$ são constantes tal que $f(1)=1$ e $f(2)=5$. Este problema equivale a resolver o seguinte sistema de equações:
-\begin{eqnarray*}
-ae^b&=&1\\
-ae^{2b}&=&5
-\end{eqnarray*}
-Dividindo a segunda equação pela primeira, temos $e^b=5$, logo, $b=\ln(5)$. Substituindo este valor em qualquer das equações, temos $a=\frac{1}{5}$. Assim $$f(x)=\frac{1}{5}e^{\ln(5) x}=\frac{1}{5}5^x=5^{x-1}.$$
+\begin{ex}\label{ex:intro_interpolacao}
+  Sejam dados o conjunto de pontos $\{(1, 1), (2, 2)\}$ e a família de funções $\mathcal{F} = \{f(x) = a + bx; a,b\in\mathbb{R}\}$. Para que uma $f(x)$ na família seja a função interpoladora do conjunto de pontos dados, precisamos que
+  \begin{equation*}
+    \begin{array}{l}
+      a + bx_1 = y_1\\
+      a + bx_2 = y_2
+    \end{array}\quad\text{i.e.}\quad
+    \begin{array}{l}
+      a + b = 1\\
+      a + 2b = 2
+    \end{array}
+  \end{equation*}
+o que nos fornece $a = 0$ e $b = 1$. Então, a função interpoladora é $f(x) = x$. Veja o gráfico à direita na Figura~\ref{fig:ex_intro}.
 \end{ex}
 
-\begin{ex} Encontrar a função polinomial do tipo $f(x)=a+bx+cx^2$ que passe pelos pontos $(-1,2)$, $(0,1)$, $(1,6)$. Observamos que podemos encontrar os coeficientes $a$, $b$ e $c$ através do seguinte sistema linear:
-\begin{eqnarray*}
-a-b+c&=&2\\
-a&=&1\\
-a+b+c&=&6
-\end{eqnarray*}
-cuja solução é dada por $a=1$, $b=2$ e $c=3$. Portanto $$f(x)=1+2x+3x^2.$$
+No problema de ajuste de curvas, queremos encontrar uma função da família de funções dada que melhor se ajusta aos pontos dados, não necessariamente os interpola. Para tanto, precisamos definir o que entendemos por ``melhor se ajusta''. Na Seção~\ref{sec:ajuste_de_curvas}, discutimos ajuste de curvas no sentido de mínimos quadrados, no qual buscamos encontrar uma função $f\in\mathcal{F}$ tal que $f(x)$ resolve o seguinte problema de minimização
+\begin{equation*}
+  \min_{f\in\mathcal{F}} \sum_{i=1}^n |y_i - f(x_i)|^2,
+\end{equation*}
+ou seja, $f(x)$ é a função da família $\mathcal{F}$ cujo erro quadrático entre $y_i$ e $f(x_i)$, $i = 1, 2, \dotsc, n$, é mínimo.
+
+\begin{ex}\label{ex:intro_ajuste}
+  Dados o conjunto de os pontos $\{(1, 1,2), (1,5, 1,3), (2, 2,3)\}$ e a família de retas $f(x) = a + bx$, podemos mostrar que $f(x) = -0,05 + 1,1x$ é a reta que melhor aproxima os pontos dados no sentido de mínimos quadrados.  Veja o gráfico à direita na Figura~\ref{fig:ex_intro}. Para mais detalhes em como obter a função $f(x)$, veja a Seção~\ref{sec:ajuste_de_curvas} para maiores detalhes. 
 \end{ex}
+
+% O problema geral de interpolação pode ser definido como:
+
+% %Sejam    $\mathcal{F}$ uma família de funções $f:D\to E$ e $\left\{(x_i,y_i)\right\}_{i=1}^N$ um conjunto de pares ordenados tais que $x_i\in D$ e $y_i\in E$, encontrar uma função $f$ da família dada tal que $f(x_i)=y_i$ para cada $1\leq i \leq N$.
+
+% Seja  um conjunto de pares ordenados tais que $x_i \ne x_j$ se $i\ne j$, encontrar  uma função $f \in \mathcal{F}$ (uma dada família de funções) tal que
+% $$f(x_i)=y_i, \;\;\; i=1,...,n$$
+
+% \begin{ex} Encontrar a função $f(x)$ da forma $f(x)=a e^{bx}$ onde $a$ e $b$ são constantes tal que $f(1)=1$ e $f(2)=5$. Este problema equivale a resolver o seguinte sistema de equações:
+% \begin{eqnarray*}
+% ae^b&=&1\\
+% ae^{2b}&=&5
+% \end{eqnarray*}
+% Dividindo a segunda equação pela primeira, temos $e^b=5$, logo, $b=\ln(5)$. Substituindo este valor em qualquer das equações, temos $a=\frac{1}{5}$. Assim $$f(x)=\frac{1}{5}e^{\ln(5) x}=\frac{1}{5}5^x=5^{x-1}.$$
+% \end{ex}
+
+% \begin{ex} Encontrar a função polinomial do tipo $f(x)=a+bx+cx^2$ que passe pelos pontos $(-1,2)$, $(0,1)$, $(1,6)$. Observamos que podemos encontrar os coeficientes $a$, $b$ e $c$ através do seguinte sistema linear:
+% \begin{eqnarray*}
+% a-b+c&=&2\\
+% a&=&1\\
+% a+b+c&=&6
+% \end{eqnarray*}
+% cuja solução é dada por $a=1$, $b=2$ e $c=3$. Portanto $$f(x)=1+2x+3x^2.$$
+% \end{ex}
+
+Um problema de interpolação cuja a família de funções constitui-se de polinômios é chamado de problema de interpolação polinomial.
 
 \section{Interpolação polinomial}\index{interpolação!polinomial}
 
@@ -61,7 +103,7 @@ y_1\\y_2\\y_3\\ \vdots \\y_n
 $$
 A matriz envolvida é uma matriz de Vandermonde de ordem $n$ cujo determinante é dado por
 $$\prod_{1\leq i<j\leq n}\left(x_j-x_i\right)$$
-É fácil ver que se as abscissas são diferentes dois a dois, então o determinante é não-nulo. Disto decorre que a matriz envolvida é inversível e,portanto, o sistema possui uma solução e esta solução é única.
+É fácil ver que se as abscissas são diferentes dois a dois, então o determinante é não nulo. Disto decorre que a matriz envolvida é inversível e,portanto, o sistema possui uma solução e esta solução é única.
 \end{proof}
 
 \begin{ex} Encontre o polinômio da forma $p(x)=a_1+a_2x+a_3x^2+a_4x^3$ que passa pelos pontos
@@ -91,98 +133,95 @@ $$p(x)=1+\frac{5}{6}x+\frac{1}{6}x^3$$
 % $$P(x)=x^2$$
 % \end{ex}
 
-Esta abordagem direta que fizemos ao calcular os coeficientes do polinômio na base canônica se mostra ineficiente quando o número de pontos é grande e quando existe grande discrepância nas abscissas. Neste caso a matriz de Vandermonde é mal-condicionada (ver \cite{Gautschi}), acarretando um aumento dos erros de arredondamento na solução do sistema.
+Esta abordagem direta que fizemos ao calcular os coeficientes do polinômio na base canônica se mostra ineficiente quando o número de pontos é grande e quando existe grande discrepância nas abscissas. Neste caso a matriz de Vandermonde é mal condicionada (ver \cite{Gautschi}), acarretando um aumento dos erros de arredondamento na solução do sistema.
 
-Uma maneira de resolver este problema é escrever o polinômio em uma base que produza um sistema bem-condicionado.
+Uma maneira de resolver este problema é escrever o polinômio em uma base que produza um sistema bem condicionado.
 
 \section{Diferenças divididas de Newton}\index{diferenças divididas de Newton}
-O método das diferenças divididas de Newton consiste em construir o polinômio interpolador da forma
+Dado um conjunto com $n$ pontos $\{(x_i, y_i)\}_{i=1}^n$, o \emph{método das diferenças divididas de Newton} consiste em construir o polinômio interpolador da forma
 \begin{eqnarray*}
 p(x) &=& a_1 + a_2 (x-x_1) + a_3 (x-x_1)(x-x_2) + \cdots \\
      &+& a_n (x-x_1)(x-x_2)\cdots (x-x_{n-1}).
 \end{eqnarray*}
-Podemos encontrar os coeficientes $a_i$ resolvendo o sistema linear
-\begin{small}
-\begin{eqnarray*}
-&a_1               &= y_1\\
-&a_1+a_2(x_2-x_1)  &= y_2\\
-&a_1+a_2(x_3-x_1)+a_3(x_3-x_1)(x_3-x_2) &= y_3\\
-&\vdots&\\
-&a_1+a_2(x_n-x_1)+\cdots + a_n(x_n-x_1)\cdots (x_n-x_{n-1}) &= y_n
-\end{eqnarray*}
-\end{small}
-que pode ser escrito na forma matricial como
+Como $p(x_i) = y_i$, $i=1, 2, \dotsc, n$, os coeficientes $a_i$ satisfazem o seguinte sistema triangular inferior:
 \begin{small}
   \begin{equation*}
-    \begin{bmatrix}
-      1& 0        & 0   & \!\cdots\!&0\\
-      1&(x_2-x_1) & 0 &\!\cdots\!&0\\
-      1&(x_3-x_1) &(x_3-x_1)(x_3-x_2) &\!\cdots\!&0\\
-      \vdots&\vdots&\vdots&\!\ddots\!&\vdots\\
-      1&(x_n-x_1) &(x_n-x_1)(x_n-x_2) &\!\cdots\!& (x_n-x_1)\cdots(x_n-x_{n-1})\\
-    \end{bmatrix}\begin{bmatrix}
-      a_1\\a_2\\a_3\\ \vdots \\a_n
-    \end{bmatrix} = 
-    \begin{bmatrix}
-      y_1\\y_2\\y_3\\ \vdots \\y_n
-    \end{bmatrix}
+    \begin{array}{ll}
+a_1               &= y_1\\
+a_1+a_2(x_2-x_1)  &= y_2\\
+a_1+a_2(x_3-x_1)+a_3(x_3-x_1)(x_3-x_2) &= y_3\\
+&\vdots\\
+a_1+a_2(x_n-x_1)+\cdots + a_n(x_n-x_1)\cdots (x_n-x_{n-1}) &= y_n
+    \end{array}
   \end{equation*}
 \end{small}
+Resolvendo de cima para baixo, obtemos
+\begin{equation*}\label{eq:coef_dif_div}
+  \begin{split}
+a_1&=y_1\\
+a_2&=\frac{y_2-a_1}{x_2-x_1}=\frac{y_2-y_1}{x_2-x_1}\\
+a_3&=\frac{y_3-a_2(x_3-x_1)-a_1}{(x_3-x_1)(x_3-x_2)}=\frac{\frac{y_3-y_2}{(x_3-x_2)}-\frac{y_2-y_1}{(x_2-x_1)}}{(x_3-x_1)}\\
+&\ldots    
+  \end{split}
+\end{equation*}
 
-Este é um sistema triangular inferior que pode ser facilmente resolvido conforme:
+Note que os coeficientes são obtidos por diferenças das ordenadas divididas por diferenças das abscissas dos pontos dados. Para vermos isso mais claramente, introduzimos a seguinte notação:
 \begin{eqnarray*}
-a_1&=&y_1\\
-a_2&=&\frac{y_2-a_1}{x_2-x_1}=\frac{y_2-y_1}{x_2-x_1}\\
-a_3&=&\frac{y_3-a_2(x_3-x_1)-a_1}{(x_3-x_1)(x_3-x_2)}=\frac{\frac{y_3-y_2}{(x_3-x_2)}-\frac{y_2-y_1}{(x_2-x_1)}}{(x_3-x_1)}\\
-&\ldots&
+f[x_j]&:=&y_j\\
+f[x_j, x_{j+1}]&:=&\frac{f[x_{j+1}]-f[x_j]}{x_{j+1}-x_j}\\
+f[x_j, x_{j+1}, x_{j+2}]&:=&\frac{f[x_{j+1}, x_{j+2}]-f[x_j, x_{j+1}]}{x_{j+2}-x_j}\\
+&\vdots&\\
+f[x_j, x_{j+1}, \dotsc, x_{j+k}] &:=& \frac{f[x_{j+1}, x_{j+2}, \dotsc, x_{j+k}]-f[x_j, x_{j+1}, \dotsc, x_{j+k-1}]}{x_{j+k}-x_j}
 \end{eqnarray*}
-A solução deste sistema pode ser escrita em termos das Diferenças Divididas de Newton, definidas recursivamente conforme:
-\begin{eqnarray*}
-f[x_j]&=&y_j\\
-f[x_j,x_{j+1}]&=&\frac{f[x_{j+1}]-f[x_j]}{x_{j+1}-x_j}\\
-f[x_j,x_{j+1},x_{j+2}]&=&\frac{f[x_{j+1},x_{j+2}]-f[x_j,x_{j+1}]}{x_{j+2}-x_j}\\
-&\vdots&
-\end{eqnarray*}
-Nesta notação, temos
-$a_k=f[x_1,x_2,\ldots,x_k]$
+Chamamos $f[x_j]$ de diferença dividida de ordem zero (ou primeira diferença dividida), $f[x_i,x_j+1]$ de diferença dividida de ordem 1 (ou segunda diferença dividida) e assim por diante.
 
-Podemos esquematizar o método na seguinte tabela:
+Uma inspeção cuidadosa dos coeficientes obtidos em \eqref{eq:coef_dif_div} nos mostra que
+\begin{equation*}
+ a_k=f[x_1,x_2,\ldots,x_k] 
+\end{equation*}
+Isto nos permite esquematizar o método conforme apresentado na Tabela~\ref{tab:esquema_difdiv}. 
+
+\begin{table}
+  \centering
 $$
-\begin{array}{|c|c|c|c|c|}\hline
+\begin{array}{c||c|ccc}\hline
 j &x_j&f[x_j]&f[x_{j-1},x_j]&f[x_{j-2},x_{j-1},x_j]\\\hline
-1 & x_1 & f[x_1]&&\\
-&&&f[x_1,x_2]=\frac{f[x_2]-f[x_1]}{x_2-x_1}&\\
-2 & x_2&f[x_2]&&f[x_1,x_2,x_3]=\frac{f[x_2,x_3]-f[x_1,x_2]}{x_3-x_1}\\
+1 & x_1 & \pmb{f[x_1]}&&\\
+&&&\pmb{f[x_1,x_2]}=\frac{f[x_2]-f[x_1]}{x_2-x_1}&\\
+2 & x_2&f[x_2]&&\pmb{f[x_1,x_2,x_3]}=\frac{f[x_2,x_3]-f[x_1,x_2]}{x_3-x_1}\\
 &&&f[x_2,x_3]=\frac{f[x_3]-f[x_2]}{x_3-x_2}&\\
 3 & x_2&f[x_2]&&\\\hline
+\multicolumn{5}{c}{}
 \end{array}
 $$
+  \caption{Esquema de diferenças divididas para um conjunto com três pontos $\{(x_i, y_i)\}_{i=1}^3$.}
+  \label{tab:esquema_difdiv}
+\end{table}
 
 \begin{ex}
-Encontrar o polinômio que passe pelos seguintes pontos
-$$(-1,3),(0,1),(1,3),(3,43)$$
-
+Use o método de diferenças divididas para encontrar o polinômio que passe pelos pontos $(-1,3),(0,1),(1,3),(3,43)$.
+\end{ex}
+\begin{sol}
+Usando o esquema apresentado na Tabela~\ref{tab:esquema_difdiv}, obtemos
 \begin{equation*}
-\begin{array}{|c||c|c|c|c|c|}\hline
+\begin{array}{c||c|cccc}\hline
  j&x_j&f[x_j]&f[x_{j-1},x_j]&f[x_{j-2},x_{j-1},x_j]&f[x_{j-3},x_{j-2},x_{j-1},x_j]\\\hline
-1& -1 & 3&&&\\
-&&&\frac{1-3}{0-(-1)}=-2&&\\
-2&0&1&&\frac{2-(-2)}{1-(-1)}=2&\\
-&&&\frac{3-1}{1-0}=2&&\frac{6-2}{3-(-1)}=1\\
+1& -1 & \pmb{3}&&&\\
+&&&\frac{1-3}{0-(-1)}=\pmb{-2}&&\\
+2&0&1&&\frac{2-(-2)}{1-(-1)}=\pmb{2}&\\
+&&&\frac{3-1}{1-0}=2&&\frac{6-2}{3-(-1)}=\pmb{1}\\
 3&1&3&&\frac{20-2}{3-0}=6&\\
 &&&\frac{43-3}{3-1}=20&&\\
 4&3&43&&&\\\hline
+\multicolumn{5}{c}{}
 \end{array}  
 \end{equation*}
-
-
-
-Portanto
+Portanto, o polinômio interpolador do conjunto de pontos dados é
 \begin{eqnarray*}
-P(x)&=&3-2(x+1)+2(x+1)x+(x+1)x(x-1)\\
-&=&x^3+2x^2-x+1
+p(x)&=&3-2(x+1)+2(x+1)x+(x+1)x(x-1)
 \end{eqnarray*}
-\end{ex}
+ou, equivalentemente, $p(x) = x^3+2x^2-x+1$.
+\end{sol}
 
 \subsection*{Exercícios}
 
@@ -361,7 +400,7 @@ através do polinômio interpolador que coincide com $f(x)$ nos pontos $x=0$ e $
 
 
 
-\section{Ajuste de curvas}\index{método!dos mínimos quadrados}\index{ajuste de curvas}
+\section{Ajuste de curvas}\label{sec:ajuste_de_curvas}\index{método!dos mínimos quadrados}\index{ajuste de curvas}
 
 % No problema de interpolação, desejamos encontrar uma função $f(x)$ tal que
 % $$f(x_j)=y_j$$
@@ -513,7 +552,7 @@ $$0=\left<V^TVv,v\right>=\left<Vv,Vv\right>=\|Vv\|^2$$
 Então se $Mv=0$, $Vv=0$, como o posto de $V$ é igual ao número de colunas, $v=0$.
 \end{proof}
 \begin{lem}
- A matrix $M=V^TV$ é simétrica.
+ A matriz $M=V^TV$ é simétrica.
 \end{lem}
 \begin{proof}
 Isso é facilmente provado pelo seguinte argumento:
@@ -525,7 +564,7 @@ $$M^T=(V^TV)^T=(V)^T(V^T)^T=V^TV=M$$
 
 \begin{ex} Encontre a função do tipo $f(x)=ax$ que melhor se aproxima dos seguintes pontos:
   \begin{equation*}
-    (0,-0,1), (1,~2), (2,~3,7) ~ \hbox{e} ~(3,~7).  
+    (0, -0,1), (1, 2), (2, 3,7) ~ \hbox{e} ~(3, 7).  
   \end{equation*}
 \end{ex}
 \begin{sol}

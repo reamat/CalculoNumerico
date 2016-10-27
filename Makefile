@@ -8,7 +8,8 @@ CAP5=cap_linsis
 CAP6=cap_nlinsis
 CAP7=cap_pvi
 CAP8=cap_scilab
-CAP9=cap_aproxfun
+CAP9=cap_interp
+CAP10=cap_ajuste
 
 pdf: main.tex
 	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabtrue \isoctavefalse" > main.knd
@@ -126,7 +127,9 @@ all-oct: main.tex
 clean:
 	rm -f *.aux *.log *.out *.toc *.bbl \
 		*.idx *.ilg *.ind *.blg *.backup \
-		*.4tc *.lg *.tmp *.xref *.png *.html
+		*.4tc *.lg *.tmp *.xref *.png *.html \
+		*.4ct *.css *.idv *.maf *.mtc *.mtc0 \
+		*.xml
 	rm -f ${CAP1}/*.aux ${CAP1}/*.log ${CAP1}/*.backup
 	rm -f ${CAP2}/*.aux ${CAP2}/*.log ${CAP2}/*.backup
 	rm -f ${CAP3}/*.aux ${CAP3}/*.log ${CAP3}/*.backup
@@ -136,3 +139,4 @@ clean:
 	rm -f ${CAP7}/*.aux ${CAP7}/*.log ${CAP7}/*.backup
 	rm -f ${CAP8}/*.aux ${CAP8}/*.log ${CAP8}/*.backup
 	rm -f ${CAP9}/*.aux ${CAP9}/*.log ${CAP9}/*.backup
+	rm -f ${CAP10}/*.aux ${CAP10}/*.log ${CAP10}/*.backup
