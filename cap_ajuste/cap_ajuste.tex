@@ -7,7 +7,7 @@
 
 Neste capítulo, discutimos sobre problemas de \emph{ajuste de curvas}\index{ajuste de curvas} pelo \emph{método dos mínimos quadrados}\index{método dos mínimos quadrados}. Mais precisamente, dado um conjunto de $n$ pontos $\left\{(x_i, y_i)\in \mathbb{R}^2\right\}_{i=1}^n$ e uma família de funções $\mathcal{F} = \{f:\mathbb{R}\to\mathbb{R}; y = f(x)\}$, o problema de ajuste de curvas consiste em encontrar uma função da família de funções dada que melhor se ajusta aos pontos dados, não necessariamente que os interpola. 
 
-Aquil, o termo ``melhor se ajusta'' é entendido no sentido de mínimos quadrados, i.e. buscamos encontrar uma função $f\in\mathcal{F}$ tal que $f(x)$ resolve o seguinte problema de minimização
+Aqui, o termo ``melhor se ajusta'' é entendido no sentido de mínimos quadrados, i.e. buscamos encontrar uma função $f\in\mathcal{F}$ tal que $f(x)$ resolve o seguinte problema de minimização
 \begin{equation*}
   \min_{f\in\mathcal{F}} \sum_{i=1}^n |y_i - f(x_i)|^2,
 \end{equation*}
@@ -22,38 +22,40 @@ ou seja, $f(x)$ é a função da família $\mathcal{F}$ cujo erro quadrático en
 
 
 \begin{ex}\label{ex:intro_ajuste}
-  Dados o conjunto de os pontos $\{(1, 1,2), (1,5, 1,3), (2, 2,3)\}$ e a família de retas $f(x) = a + bx$, podemos mostrar que $f(x) = -0,05 + 1,1x$ é a reta que melhor aproxima os pontos dados no sentido de mínimos quadrados.  Os pontos e a reta ajustada esão esboçados na Figura~\ref{fig:ex_intro}.
+  Dado o conjunto de pontos $\{(1, 1,2), (1,5, 1,3), (2, 2,3)\}$ e a família de retas $f(x) = a + bx$, podemos mostrar que $f(x) = -0,05 + 1,1x$ é a reta que melhor aproxima os pontos dados no sentido de mínimos quadrados.  Os pontos e a reta ajustada e são esboçados na Figura~\ref{fig:ex_intro}.
 \end{ex}
 
-O ajuste no sentido de mínimos quadrados em minimizar a soma do quadrado das diferenças entre a ordenadas $y_j$ e o valor da função desejada $f(x_j)$. Ou seja, encontrar a  função $f(x)$ tal que 
+O ajuste no sentido de mínimos quadrados consiste em minimizar a soma dos quadrados das diferenças entre a ordenadas $y_j$ e o valor da função desejada $f(x_j)$. Ou seja, encontrar a  função $f(x)$ tal que o resíduo $R$ dado pela expressão
 \begin{eqnarray*}
   R &=&(f(x_1)-y_1)^2+(f(x_2)-y_2)^2+\cdots +(f(x_N)-y_N)^2\\
     &=&\sum_{j=1}^N (f(x_j)-y_j)^2
 \end{eqnarray*}
-seja o menor possível, que fornece o nome do método como \emph{método dos mínimos quadrados}.  Note que o \emph{resíduo} em $x_j$ é definido como $r_j=|f(x_j)-y_j|$. 
+seja o menor possível.  Note que o \emph{resíduo} é dado pela soma dos erros absolutos ao quadrado, pois $|f(x_j)-y_j|^2=(f(x_j)-y_j)^2 $. 
 
 
-\section{O problema linear}
-
-Dado um conjunto de $N$ pontos, desejamos encontrar a \textit{reta} que melhor se ajusta a esses pontos de tal forma a minimizar o resíduo.
-
-Ou seja, encontre a curva $f(x)=a_1+a_2 x$ tal que 
+\section{Ajuste de uma reta}\index{ajuste!de uma reta}
+Discutiremos agora como o problema de realizar encontrar a \emph{função do primeiro grau} que melhor se aproxima de um dado conjunto de pontos pelo método dos mínimos quadrados. Para tal, considere $(x_1,y_1), (x_2,y_2),\ldots, (x_N,y_N)$ um conjunto de $N$ pontos e desejamos encontrar a função $f(x)=a_1+a_2 x$ tal que o resíduo
 \begin{eqnarray*}
-  R(a_1,a_2) &=\sum_{j=1}^N (f(x_j)-y_j)^2 = \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2
+  R &=&\sum_{j=1}^N (f(x_j)-y_j)^2 
 \end{eqnarray*}
-seja o menor possível.
+seja mínimo.
 
-O objetivo é encontrar $a_1, a_2$ e geralmente temos muito mais equações do que incógnitas, i.e.,
+Para tal, primeiro observamos que $f(x_j)=a_1+a_2 x_j$ e, portanto, o resíduo pode ser escrito explicitamente como uma função de $a_1$ e $a_2$ conforme a seguinte expressão:
 \begin{eqnarray*}
- a_1+a_2 x_1 &=&y_1 \\
- a_1+a_2 x_2 &=&y_2 \\
- a_1+a_2 x_3 &=&y_3 \\
-  \vdots     &=& \vdots \\
- a_N+a_2 x_N &=&y_N   
+  R(a_1,a_2) &=& \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2
 \end{eqnarray*}
-ou simplesmente $V\vec a= \vec y$.
 
-O mínimo de $R$ ocorre quando quando a derivada primeira é igual a zero:
+%O objetivo é encontrar $a_1, a_2$ e geralmente temos muito mais equações do que incógnitas, i.e.,
+%\begin{eqnarray*}
+% a_1+a_2 x_1 &=&y_1 \\
+% a_1+a_2 x_2 &=&y_2 \\
+% a_1+a_2 x_3 &=&y_3 \\
+%  \vdots     &=& \vdots \\
+% a_N+a_2 x_N &=&y_N   
+%\end{eqnarray*}
+%ou simplesmente $V\vec a= \vec y$.
+
+O mínimo de $R(a_1,a_2)$ ocorre quando quando as derivadas parciais primeiras são iguais a zero, isto é:
 \begin{eqnarray*}
   \frac{\partial R}{\partial a_1} &=& \frac{\partial }{\partial a_1} \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2 =0 \\
   \frac{\partial R}{\partial a_2} &=& \frac{\partial }{\partial a_2} \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2 =0 
@@ -66,13 +68,12 @@ ou seja,
 e isolando as incógnitas temos
 \begin{eqnarray*}
    a_1\sum_{j=1}^N 1 + a_2 \sum_{j=1}^Nx_j &=&\sum_{j=1}^N y_j\\
-   a_1\sum_{j=1}^N x_j + a_2 \sum_{j=1}^Nx_j^2 &=&\sum_{j=1}^N y_jx_j
+   a_1\sum_{j=1}^N x_j + a_2 \sum_{j=1}^Nx_j^2 &=&\sum_{j=1}^N y_jx_j.
 \end{eqnarray*}
-
-Na forma matricial obtemos
+Observando que $\sum_{j=1}^N 1=N$, colocamos na forma matricial dada por:
 \begin{equation}
   \begin{bmatrix}
-     \sum_{j=1}^N 1 &  \sum_{j=1}^N x_j \\
+     N &  \sum_{j=1}^N x_j \\
      \sum_{j=1}^N x_j &  \sum_{j=1}^N x_j^2 
   \end{bmatrix}
   \begin{bmatrix}
@@ -82,216 +83,127 @@ Na forma matricial obtemos
   \begin{bmatrix}
      \sum_{j=1}^N y_j \\
      \sum_{j=1}^N x_j y_j 
-  \end{bmatrix}
+  \end{bmatrix}.
 \end{equation}
+Este sistema de duas equações e duas incógnitas admite uma única solução quando o determinante associado for não nulo, isto é  
+\begin{eqnarray*}
+N \sum_{j=1}^N x_j^2 - \left(\sum_{j=1}^N x_j\right)^2 \neq 0 
+\end{eqnarray*}
+Pode-se mostrar usando a \emph{desigualdade de Cauchy–Schwarz} que isto acontece quando existem pelo menos duas abscissas diferentes envolvidas no ajuste.  Usando a fórmula da inversa de uma matriz dois-por-dois, chegamos às seguites fórmulas para os coeficientes $a_1$ e $a_2$:
+\begin{subequations}\label{formula_final_ajuste_reta}
+\begin{eqnarray}
+ a_1&=&\frac{\sum_{j=1}^N x_j^2  \cdot \sum_{j=1}^N y_j - \sum_{j=1}^N x_j \cdot \sum_{j=1}^N x_jy_j}{N \sum_{j=1}^N x_j^2 - \left(\sum_{j=1}^N x_j\right)^2}\\
+ a_2&=&\frac{N \sum_{j=1}^N x_jy_j - \sum_{j=1}^N x_j  \cdot \sum_{j=1}^N y_j }{N \sum_{j=1}^N x_j^2 - \left(\sum_{j=1}^N x_j\right)^2}
+\end{eqnarray}
+\end{subequations}
 
-Observe que é equivalente ao problema matricial
-\begin{equation}
-   Ma := V^TV a = V^Ty
-\end{equation}
+
+\begin{ex}\label{ex:calculo_intro_ajuste}
+  Retornemos ao exemplo \ref{ex:intro_ajuste}. Isto é, dado o conjunto de pontos $\{(1, 1,2), sum((1,5, 1,3), (2, 2,3)\}$, encontrar a função do tipo $f(x) = a + bx$ que melhor aproxima os pontos dados no sentido de mínimos quadrados.  
+  Usamos as fórmulas em (\ref{formula_final_ajuste_reta}):
+\begin{eqnarray}
+ a_1&=&\frac{7,25 \cdot 4,8 - 4,5 \cdot 7,75  }{3\cdot 7,25 - 20,25 } = -0,05 \\
+ a_2&=&\frac{3\cdot 7,75 - 4,5\cdot 4,8}{3\cdot 7,25 - 20,25}=1,1
+\end{eqnarray}
+   Os pontos e a reta ajustada e são esboçados na Figura~\ref{fig:ex_intro}.
+\end{ex}
 
 
-% Considere o sistema linear dado por
-% $Ax=b$
-% onde $A$ é uma matriz $n\times m$ e $b$ é um vetor de $n$ linhas. Assumimos as seguintes hipóteses:
-% \begin{itemize}
-% \item $n\geq m$. O número de linhas é igual ou superior ao número de colunas. (Mais equações que incógnitas)
-% \item O posto de $A$ é $m$, i.e., existem $m$ linhas L.I. Isso implica que $Av=0$ apenas quando $v=0$
-% \end{itemize}
+\section{Ajuste linear geral}\index{ajuste!linear}
+O problem geral de ajuste linear consiste em dada uma família $f_1(x), f_2(x),\ldots, f_m(x)$  de $m$ funções e $(x_1,y_1),(x_2,y_2),\ldots (x_n,y_n)$ um conjunto de $n$ pontos,  calcular coeficientes $a_1,a_2,\ldots, a_m$ tais que a função dada por
+$$f(x)=\sum_{j=1}^m a_jf_j(x)=a_1f_1(x)+a_2f_2(x)+\ldots+a_mf_m(x)$$
+minimiza o resíduo dado por
+$$R= \sum_{i=1}^n \left[f(x_i)-y_i\right]^2.$$
+Aqui a minimização é feita por todas as possíveis escolhas dos coeficientes $a_1,a_2,\ldots, a_m$.
 
-% Neste caso, não seremos necessariamente capazes de encontrar um vetor $x$ que satisfaça exatamente a equação $Ax=b$, pelo que estamos interessamos no problema de encontrar o vetor $x$ (ordem m) que minimiza o erro quadrático dado por:
-% \begin{equation}\label{defEm}
-% E:=\sum_{j=1}^N \left[z_i- b_i\right]^2
-% \end{equation}
-% onde $z=Ax$ e $z_i$ é linha $i$ do vetor $z$, dado por:
-% \begin{equation}\label{Axi}
-% z_j=(Ax)_j=\sum_{j=1}^m a_{ij} x_j,\quad j=1,\cdots,n
-% \end{equation}
-% onde $a_{ij}$ é o elemento de $A$ na linha $i$ e coluna $j$.
-% Substituindo (\ref{Axi}) em (\ref{defEm})
-% \begin{equation}\label{erro}
-% E:=\sum_{j=1}^N \left[\sum_{j=1}^m a_{ij} x_j- b_i\right]^2
-% \end{equation}
-% Esta é uma função diferenciável nos coeficientes $x_j$ e portanto todo ponto de mínimo acontece quando $\nabla E=0$, ou seja, quando $$\frac{\partial}{\partial x_l}E=0,\forall 1\leq l \leq m $$
+Com o objetivo de tornar a desenvolvimento mais claro, vamos escrever $R$ como a soma dos resíduos individuais:
+$$R= \sum_{i=1}^n R_i,\qquad \text{onde} \qquad R_i\left[f(x_i)-y_i\right]^2.$$
 
-% O que implica a seguinte condição
-% \begin{eqnarray*}
-% 0=\frac{\partial}{\partial x_l}E=\sum_{j=1}^N 2\left[\sum_{j=1}^m a_{ij} x_j- b_i\right] a_{il}, ~~~l=1,\cdots, m
-% \end{eqnarray*}
-% Equivalente a
-% \begin{eqnarray*}
-% \sum_{j=1}^N\sum_{j=1}^m  a_{il}x_j a_{ij}=\sum_{j=1}^Na_{il}b_i,~~~l=1,\cdots, m
-% \end{eqnarray*}
-% que pode ser reescrito na forma vetorial como:
-% \begin{eqnarray}\label{cond_vet}
-% \left[
-% \begin{array}{c}
-% \sum_{j=1}^N\sum_{j=1}^m   a_{i1}x_ja_{ij}\\
-% \sum_{j=1}^N\sum_{j=1}^m   a_{i2}x_ja_{ij}\\
-% \vdots\\
-% \sum_{j=1}^N\sum_{j=1}^m   a_{im}x_ja_{ij}\\
-% \end{array}
-% \right]
-% =
-% \left[
-% \begin{array}{c}
-% \sum_{j=1}^Na_{i1}b_i\\
-% \sum_{j=1}^Na_{i2}b_i\\
-% \vdots\\
-% \sum_{j=1}^Na_{im}b_i
-% \end{array}
-% \right]
-% \end{eqnarray}
-% Observamos agora que a expressão (\ref{cond_vet}) é equivalente ao seguinte problema matricial:
-% 
-% \begin{equation}\framebox[100 pt][c]{$A^TA x = A^Tb$}\end{equation}
+Do fato que $f(x_i)=\sum_{j=1}^m a_jf_j(x_i)$, temos que cada resíduo pode ser escrito como
+$$R_i=  \left[\sum_{j=1}^m a_jf_j(x_i)-y_i\right]^2.$$
+
+A fim de encontrar o ponto de mínimo, resolvemos o sistema oriundo de igualar a zero cada uma das derivadas parciais de $R$ em relação aos m coeficientes $a_j$ e aplicamos a regra da cadeia
+
+\begin{eqnarray*}
+\frac{\partial R}{\partial a_1} &=& 2 \sum_{i=1}^n \frac{\partial R_i}{\partial a_1} = 2\sum_{i=1}^n \left[\sum_{j=1}^m a_jf_j(x_i)-y_i\right] f_1(x_i)=0,\\
+\frac{\partial R}{\partial a_2} &=& 2 \sum_{i=1}^n \frac{\partial R_i}{\partial a_2}=2\sum_{i=1}^n \left[\sum_{j=1}^m a_jf_j(x_i)-y_i\right] f_2(x_i)=0,\\
+&\vdots&\\
+\frac{\partial R}{\partial a_m} &=& 2 \sum_{i=1}^n \frac{\partial R_i}{\partial a_m}= 2\sum_{i=1}^n \left[\sum_{j=1}^m a_jf_j(x_i)-y_i\right] f_m(x_i)=0.
+\end{eqnarray*}
+Dividindo cada equação por 2 e escrevendo na forma matricial, obtemos $Ma=w$, onde a matriz $M$ é dada por:
+\begin{eqnarray*}
+M=\left[
+\begin{array}{cccc}
+\sum\limits_{i=1}^n f_1(x_i)^2 & \sum\limits_{i=1}^n f_2(x_i) f_1(x_i) & \!\cdots\! & \sum\limits_{i=1}^n f_m(x_i) f_1(x_i)\\
+\sum\limits_{i=1}^n f_1(x_i) f_2(x_i)&\sum\limits_{i=1}^n f_2(x_i)^2 & \!\cdots\! & \sum\limits_{i=1}^n f_m(x_i)  f_2(x_i)\\
+\sum\limits_{i=1}^n f_1(x_i) f_3(x_i)&\sum\limits_{i=1}^n f_2(x_i)f_3(x_i) & \!\cdots\! & \sum\limits_{i=1}^n f_m(x_i)  f_3(x_i)\\
+\vdots & \vdots & \ddots & \vdots\\
+\sum\limits_{i=1}^n f_1(x_i) f_m(x_i)&\sum\limits_{i=1}^n f_2(x_i)f_m(x_i) & \!\cdots\! & \sum\limits_{i=1}^n f_m(x_i)  ^2
+\end{array}
+\right].
+\end{eqnarray*}
+E os vetores $a$ e $w$, por:
+\begin{eqnarray*}
+a=\left[
+\begin{array}{c}
+a_1\\
+a_2\\
+\vdots\\
+a_m
+\end{array}
+\right]\qquad\text{e}\qquad w=\left[\begin{array}{c}
+\sum\limits_{i=1}^n f_1(x_i) y_i\\
+\sum\limits_{i=1}^n f_2(x_i) y_i\\
+\sum\limits_{i=1}^n f_3(x_i) y_i\\
+\vdots\\
+\sum\limits_{i=1}^n f_m(x_i) y_i
+\end{array}
+\right]
+\end{eqnarray*}
+Observamos agora que $M=V^TV$ e $w=V^T y$, onde a matriz $V$ é dada por:
+$$
+V=\left[
+\begin{array}{cccc}
+f_1(x_1)&f_2(x_1) & \cdots & f_m(x_1)\\
+f_1(x_2)&f_2(x_2) & \cdots & f_m(x_2)\\
+f_1(x_3)&f_2(x_3) & \cdots & f_m(x_3)\\
+\vdots & \vdots & \ddots & \vdots\\
+f_1(x_n)&f_2(x_n) & \cdots & f_m(x_n)
+\end{array}
+\right]$$
+e o vetor  $y$, por:
+$$
+y=\left[\begin{array}{c}
+y_1\\
+y_2\\
+y_3\\
+\vdots\\
+y_n
+\end{array}
+\right]
+$$
+
+O problema de ajuste, agora, se reduz a resolver o sistema linear $Ma=w$, ou $V^TVa = V^T y$. Este sistema linear tem solução única se a matriz $M$ for inversível. O teorema a seguir mostra que isto acontece sempre a matriz $V$ possui posto $m$, ou seja, o número de linhas linearmente independentes for igual ao número de colunas.\footnote{Nota-se que o posto não pode ultrapassar o número de colunas.}
+
 
 \begin{teo}
-A matriz $M=V^TV$ é quadrada de ordem $2$ e é inversível sempre que o posto da matriz $V$ é igual a número de colunas $m$.
+A matriz $M=V^TV$ é quadrada de ordem $m$ e é inversível sempre que o posto da matriz $V$ é igual a número de colunas $m$.
 \end{teo}
 \begin{proof}
-Para provar que $M$ é invertível precisamos mostrar que $Mv=0$ implica $v=0$:
-$$Mv=0\Longrightarrow V^TVv=0$$
-tomando o produto interno da expressão $0=V^TVv$ com $v$, temos:
+Para provar que $M$ é inversível, precisamos mostrar que se $v$ é um vetor de ordem $m$ e $Mv=0$, então $v=0$. Suponha, então, que $Mv=0$, isto é, 
+$V^TVv=0$. Tomando o produto interno da expressão $V^TVv=0$ com $v$, temos:
 $$0=\left<V^TVv,v\right>=\left<Vv,Vv\right>=\|Vv\|^2$$
-Então se $Mv=0$, $Vv=0$, como o posto de $V$ é igual ao número de colunas, $v=0$.
+Portato $Mv=0$ implica obrigatoriamente $Vv=0$. Como o posto de $V$ é igual ao número de colunas, $v$ precisar ser o vetor nulo.
 \end{proof}
-\begin{lem}
- A matriz $M=V^TV$ é simétrica.
-\end{lem}
-\begin{proof}
-Isso é facilmente provado pelo seguinte argumento:
-$$M^T=(V^TV)^T=(V)^T(V^T)^T=V^TV=M$$
-\end{proof}
+%\begin{lem}
+% A matriz $M=V^TV$ é simétrica.
+%\end{lem}
+%\begin{proof}
+%Isso é facilmente provado pelo seguinte argumento:
+%$$M^T=(V^TV)^T=(V)^T(V^T)^T=V^TV=M$$
+%\end{proof}
 
-
-
-
-\begin{ex} Encontre a função do tipo $f(x)=ax$ que melhor se aproxima dos seguintes pontos:
-  \begin{equation*}
-    (0, -0,1), (1, 2), (2, 3,7) ~ \hbox{e} ~(3, 7).  
-  \end{equation*}
-\end{ex}
-\begin{sol}
-Defina $$E_q=[f(x_1)-y_1]^2+[f(x_2)-y_2]^2+[f(x_3)-y_3]^2+[f(x_4)-y_4]^2$$
-temos que
-\begin{eqnarray*}
-E_q&=&[f(0)+0,1]^2+[f(1)-2]^2+[f(2)-3,7]^2+[f(3)-7]^2\\
-&=&[0,1]^2+[a-2]^2+[2a-3,7]^2+[3a-7]^2
-\end{eqnarray*}
-
-Devemos encontrar o parâmetro $a$ que minimiza o erro, portanto, calculamos:
-\begin{eqnarray*}
-\frac{\partial E_q}{\partial a}&=&2[a-2]+4[2a-3,7]+6[3a-7]=28a-60,8
-\end{eqnarray*}
-Portanto o valor de $a$ que minimiza o erro é $a=\frac{60,8}{28}$.
-\ifisscilab
-\begin{verbatim}
-x=[0 1 2 3]'
-y=[-.1 2 3.7 7]'
-plot2d(x,y,style=-4)
-\end{verbatim}
-\fi
-\end{sol}
-
-\begin{ex}Encontre a função do tipo $f(x)=bx+a$ que melhor aproxima os pontos:
-  \begin{equation*}
-    (0,-0,1), (1,~2), (2,~3,7) ~ \hbox{e} ~(3,~7).  
-  \end{equation*}
-\end{ex}
-\begin{sol}
-\begin{eqnarray*}
-E_q&=&[f(0)+0,1]^2+[f(1)-2]^2+[f(2)-3,7]^2+[f(3)-7]^2\\
-&=&[a+0,1]^2+[a+b-2]^2+[a+2b-3,7]^2+[a+3b-7]^2
-\end{eqnarray*}
-
-Devemos encontrar os parâmetros $a$ $b$ que minimizam o erro, por isso, calculamos as derivadas parciais:
-\begin{eqnarray*}
-\frac{\partial E_q}{\partial a}&=&2[a+0,1]+2[a+b-2]+2[a+2b-3,7]+2[a+3b-7]\\
-\frac{\partial E_q}{\partial b}&=&2[a+b-2]+4[a+2b-3,7]+6[a+3b-7]
-\end{eqnarray*}
-
-
-
-O erro mínimo acontece quando as derivadas são nulas, ou seja:
-\begin{eqnarray*}
-8a+12b&=&25,2\\
-12a+28b&=&60,8
-\end{eqnarray*}
-Cuja solução é dada por $a=-0,3$ e $b=2,3$.
-Portanto a função que procuramos é $f(x)=-0,3 +2,3x$.  
-\end{sol}
-
-
-\section{Ajuste polinomial}
-
-Dado um conjunto de $n$ pontos, desejamos encontrar o \textit{polinômio} de grau $p$ que melhor se ajusta a esses pontos de tal forma a minimizar o resíduo, ou seja, encontrar a curva $f(x)=a_1+a_2 x+...+a_{p+1}x^{p}$ tal que 
-\begin{eqnarray*}
-  R(a_1,...,a_{p+1}) &=&\sum_{j=1}^N (f(x_j)-y_j)^2 \\
-                 &=&\sum_{j=1}^N (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2
-\end{eqnarray*}
-seja o menor possível.
-
-O objetivo é encontrar as incógnitas $a_i$ que minimizam a soma do quadrado do resíduo.
-
-O mínimo de $R$ encontra-se quando a derivada primeira é igual a zero:
-\begin{eqnarray*}
-  \frac{\partial R}{\partial a_1}     &=& \frac{\partial }{\partial a_1}     \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2 =0 \\
-  \vdots &=& \vdots \\
-  \frac{\partial R}{\partial a_{p+1}} &=& \frac{\partial }{\partial a_{p+1}} \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2 =0 
-\end{eqnarray*}
-ou seja,
-\begin{eqnarray*}
-   2 \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)\cdot 1    &=&0 \\
-  \vdots &=& \vdots \\
-   2 \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)\cdot x_j^p&=&0 
-\end{eqnarray*}
-e isolando as incógnitas temos
-\begin{eqnarray*}
-   a_1\sum_{j=1}^n 1     + a_2 \sum_{j=1}^Nx_j      +...+a_{p+1} \sum_{j=1}^Nx_j^{p} &=\sum_{j=1}^N y_j\\
-  \vdots &= \vdots \\
-   a_1\sum_{j=1}^n x_j^p + a_2 \sum_{j=1}^Nx_j^{p+1}+...+a_{p+1} \sum_{j=1}^Nx_j^{2p} &=\sum_{j=1}^N y_jx_j^{p}
-\end{eqnarray*}
-
-Na forma matricial obtemos
-\begin{equation}
-  \begin{bmatrix}
-     \sum 1     &  \sum  x_j   & \cdots & \sum x_j^p\\
-     \sum x_j   &  \sum  x_j^2 &        & \sum x_j^{p+1}\\
-     \vdots     &              & \ddots & \vdots    \\
-     \sum x_j^p &  \sum  x_j^{p+1} & \cdots & \sum x_j^{2p}
-  \end{bmatrix}
-  \begin{bmatrix}
-     a_1 \\
-     a_2 \\
-     \vdots \\
-     a_{p+1}
-  \end{bmatrix}=
-  \begin{bmatrix}
-     \sum y_j \\
-     \sum x_j y_j \\
-     \vdots \\
-     \sum x_j^p y_j 
-  \end{bmatrix}
-\end{equation}
-
-Na forma matricial temos 
-\begin{equation}
-   Ma := V^TV a = V^Ty
-\end{equation}
-
-
-
-
-\section{Ajuste linear de curvas}
-Seja $f_1(x), f_2(x),\ldots, f_m(x)$ um conjunto de $m$ funções e $(x_i,y_i)$ um conjunto de $n$ pontos. Procuram-se os coeficientes $a_1,a_2,\ldots, a_m$ tais que a função dada por
-$$f(x)=a_1f_1(x)+a_2f_2(x)+\ldots+a_mf_m(x)$$
-minimiza o resíduo dado por
-$$R= \sum_{j=1}^n \left[f(x_i)-y_i\right]^2$$
-como $f(x)=\sum_{j=1}^m a_jf_j(x)$, temos
-$$R= \sum_{j=1}^n \left[\sum_{j=1}^m a_jf_j(x_i)-y_i\right]^2$$
-
-Este problema é equivalente a resolver pelo métodos dos mínimos quadrados o seguinte sistema linear:
+\begin{obs} Este problema é equivalente a resolver pelo métodos dos mínimos quadrados o seguinte sistema linear:
 $$
 \left[
 \begin{array}{cccc}
@@ -318,10 +230,9 @@ y_n
 \end{array}
 \right]
 $$
+\end{obs}
 
-
-
-\begin{ex} Encontre a reta que melhor aproxima o seguinte conjunto de dados:
+\begin{ex} Usando esta técnica geral, encontre a reta que melhor aproxima o seguinte conjunto de dados:
   \begin{center}
     \begin{tabular}{|c|c|}
       \hline
@@ -390,8 +301,8 @@ o que fornece:
       b
     \end{array}
   \right]
-  &=&\\
-  &\left[\begin{array}{ccccc}
+  =\\
+  \left[\begin{array}{ccccc}
       0,01 &1,02 &2,04 &2,95 &3,55\\
       1 &1 &1 &1 &1
     \end{array}
@@ -405,6 +316,7 @@ o que fornece:
     \end{array}
   \right]  
 \end{eqnarray*}
+Equivalente a
 $$\left[
   \begin{array}{cc}
     26,5071  & 9,57 \\
@@ -422,10 +334,10 @@ $$\left[
     85,8144  \\
     34,07
   \end{array}
-\right]
+\right].
 $$
 
-A solução desse sistema é $a=2,5157653$ e $b=1,9988251$
+A solução desse sistema é $a=2,5157653$ e $b=1,9988251$.
 
 A tabela abaixo mostra os valores dados e os valores ajustados:
 \begin{center}
@@ -442,6 +354,256 @@ $3,55$ & $10,82$ & $10,929792$ & $0,1097919$ \\
 \end{tabular}  
 \end{center}
 \end{sol}
+
+
+
+\begin{ex} Encontre a função $f(x)=a_1\sen(\pi x) + a_2\cos(\pi x)$ que melhor se ajusta pelo critérios dos mínimos quadrados aos seguintes pontos dados:
+  \begin{center}
+    \begin{tabular}{|c|c|}
+      \hline
+      $x_i$ & $y_i$\\
+      \hline
+      $0$ & $-153$\\
+      $0,25$ & $64$\\
+      $0,5$ & $242$\\
+      $0,75$ & $284$\\
+      $1,0$ & $175$\\
+      \hline
+    \end{tabular}
+  \end{center}
+ 
+\end{ex}
+\begin{sol}
+ Começamos definindo a matriz $V$ e o vetor $y$:
+ $$V=\left[
+ \begin{array}{cc}
+ \sin(0) & \cos(0)  \\
+ \sin(0,25\pi) & \cos(0,25\pi)  \\
+ \sin(0,5\pi) & \cos(0,5\pi)  \\
+ \sin(0,75\pi) & \cos(0,75\pi)  \\
+ \sin(\pi) & \cos(\pi)  \\
+ \end{array}
+ \right]\approx \left[
+ \begin{array}{cc}
+    0          &  1 \\        
+    0,7071068 &   0,7071068  \\
+    1         &   0  \\
+    0,7071068&   -0,7071068  \\
+    0       &   -1.                
+ \end{array}\right]
+$$
+
+ $$y=\left[
+ \begin{array}{c}
+  -153\\  
+    64\\   
+    242\\  
+    284\\  
+    175
+  \end{array}\right]
+$$
+Assim podemos calcular $V^TV$ e $V^Ty$:
+$$V^TT=\left[
+ \begin{array}{cc}
+  2 & 0\\
+  0 & 3
+   \end{array}\right]\qquad\text{e}\qquad V^Ty=
+   \left[
+ \begin{array}{c}
+    488,07316  \\
+   -483,56349
+  \end{array}\right].
+  $$
+
+Finalmente o vetor de coeficientes, $a$, é dado pela solução do sistema $V^TV a = V^T y$:
+ $$a=\left[
+ \begin{array}{c}
+  244,03658 \\ 
+  -161,18783    
+  \end{array}\right]
+$$
+E a função $f(x)$ procurada é dado por: 
+$$f(x)= 244,03658\sen(\pi x) - 161,18783\cos(\pi x).$$
+A tabela abaixo mostra os valores dados e os valores ajustados:
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+$x_i$ & $y_i$& $f(x_i)$& $f(x_i)-y_i$\\
+\hline
+0  &   -153&  - 161,18783&  -8,1878306 \\ 
+0,25&    64 &    58,582912&  -5,4170876 \\ 
+0,5 &    242&    244,03658&   2,0365799 \\ 
+0,75&    284&    286,53693&   2,5369286 \\ 
+1   &    175&    161,18783&  -13,812169 \\
+\hline
+\end{tabular}  
+\end{center}
+\end{sol}
+
+
+
+%Observe que é equivalente ao problema matricial
+%\begin{equation}
+%   Ma := V^TV a = V^Ty
+%\end{equation}
+
+
+% Considere o sistema linear dado por
+% $Ax=b$
+% onde $A$ é uma matriz $n\times m$ e $b$ é um vetor de $n$ linhas. Assumimos as seguintes hipóteses:
+% \begin{itemize}
+% \item $n\geq m$. O número de linhas é igual ou superior ao número de colunas. (Mais equações que incógnitas)
+% \item O posto de $A$ é $m$, i.e., existem $m$ linhas L.I. Isso implica que $Av=0$ apenas quando $v=0$
+% \end{itemize}
+
+% Neste caso, não seremos necessariamente capazes de encontrar um vetor $x$ que satisfaça exatamente a equação $Ax=b$, pelo que estamos interessamos no problema de encontrar o vetor $x$ (ordem m) que minimiza o erro quadrático dado por:
+% \begin{equation}\label{defEm}
+% E:=\sum_{j=1}^N \left[z_i- b_i\right]^2
+% \end{equation}
+% onde $z=Ax$ e $z_i$ é linha $i$ do vetor $z$, dado por:
+% \begin{equation}\label{Axi}
+% z_j=(Ax)_j=\sum_{j=1}^m a_{ij} x_j,\quad j=1,\cdots,n
+% \end{equation}
+% onde $a_{ij}$ é o elemento de $A$ na linha $i$ e coluna $j$.
+% Substituindo (\ref{Axi}) em (\ref{defEm})
+% \begin{equation}\label{erro}
+% E:=\sum_{j=1}^N \left[\sum_{j=1}^m a_{ij} x_j- b_i\right]^2
+% \end{equation}
+% Esta é uma função diferenciável nos coeficientes $x_j$ e portanto todo ponto de mínimo acontece quando $\nabla E=0$, ou seja, quando $$\frac{\partial}{\partial x_l}E=0,\forall 1\leq l \leq m $$
+
+% O que implica a seguinte condição
+% \begin{eqnarray*}
+% 0=\frac{\partial}{\partial x_l}E=\sum_{j=1}^N 2\left[\sum_{j=1}^m a_{ij} x_j- b_i\right] a_{il}, ~~~l=1,\cdots, m
+% \end{eqnarray*}
+% Equivalente a
+% \begin{eqnarray*}
+% \sum_{j=1}^N\sum_{j=1}^m  a_{il}x_j a_{ij}=\sum_{j=1}^Na_{il}b_i,~~~l=1,\cdots, m
+% \end{eqnarray*}
+% que pode ser reescrito na forma vetorial como:
+% \begin{eqnarray}\label{cond_vet}
+% \left[
+% \begin{array}{c}
+% \sum_{j=1}^N\sum_{j=1}^m   a_{i1}x_ja_{ij}\\
+% \sum_{j=1}^N\sum_{j=1}^m   a_{i2}x_ja_{ij}\\
+% \vdots\\
+% \sum_{j=1}^N\sum_{j=1}^m   a_{im}x_ja_{ij}\\
+% \end{array}
+% \right]
+% =
+% \left[
+% \begin{array}{c}
+% \sum_{j=1}^Na_{i1}b_i\\
+% \sum_{j=1}^Na_{i2}b_i\\
+% \vdots\\
+% \sum_{j=1}^Na_{im}b_i
+% \end{array}
+% \right]
+% \end{eqnarray}
+% Observamos agora que a expressão (\ref{cond_vet}) é equivalente ao seguinte problema matricial:
+% 
+% \begin{equation}\framebox[100 pt][c]{$A^TA x = A^Tb$}\end{equation}
+
+
+
+
+\section{Ajuste polinomial}\index{ajuste!polimomial}
+O \emph{ajuste polinomial} é o caso particular do ajuste linear para \emph{funções polinomiais}, isto é, funções do tipo $$f(x)=a_1+a_2 x+...+a_{p+1}x^{p}.$$ 
+Neste caso, matriz $V$ associada ao ajuste dos pontos $(x_1,y_1), (x_2,y_2), (x_3,y_3),\ldots (x_n,y_n)$ é dada por:
+
+$$V=
+\begin{bmatrix}
+     1     &    x_1   &   x_1^2& \cdots & x_1^p\\
+     1     &    x_2   &   x_2^2& \cdots & x_2^p\\
+     1     &    x_3   &   x_3^2& \cdots & x_3^p\\
+     \vdots&    \vdots&  & \ddots & \vdots    \\
+     1     &    x_n   &   x_n^2& \cdots & x_n^p
+     \end{bmatrix}
+$$
+
+O problema $V^TV a = v^Ty$ é dado, portanto por:
+\begin{equation}
+  \begin{bmatrix}
+     n     &  \sum\limits_{j=1}^n  x_j   & \cdots & \sum\limits_{j=1}^n x_j^p\\
+     \sum\limits_{j=1}^n x_j   &  \sum\limits_{j=1}^n  x_j^2 &        & \sum\limits_{j=1}^n x_j^{p+1}\\
+     \vdots     &              & \ddots & \vdots    \\
+     \sum\limits_{j=1}^n x_j^p &  \sum\limits_{j=1}^n  x_j^{p+1} & \cdots & \sum\limits_{j=1}^n x_j^{2p}
+  \end{bmatrix}
+  \begin{bmatrix}
+     a_1 \\
+     a_2 \\
+     \vdots \\
+     a_{p+1}
+  \end{bmatrix}=
+  \begin{bmatrix}
+     \sum\limits_{j=1}^n y_j \\
+     \sum\limits_{j=1}^n x_j y_j \\
+     \vdots \\
+     \sum\limits_{j=1}^n x_j^p y_j 
+  \end{bmatrix}
+\end{equation}
+
+
+
+
+% 
+% Dado um conjunto de $n$ pontos, desejamos encontrar o \textit{polinômio} de grau $p$ que melhor se ajusta a esses pontos de tal forma a minimizar o resíduo, ou seja, encontrar a curva $f(x)=a_1+a_2 x+...+a_{p+1}x^{p}$ tal que 
+% \begin{eqnarray*}
+%   R(a_1,...,a_{p+1}) &=&\sum_{j=1}^N (f(x_j)-y_j)^2 \\
+%                  &=&\sum_{j=1}^N (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2
+% \end{eqnarray*}
+% seja o menor possível.
+% 
+% O objetivo é encontrar as incógnitas $a_i$ que minimizam a soma do quadrado do resíduo.
+% 
+% O mínimo de $R$ encontra-se quando a derivada primeira é igual a zero:
+% \begin{eqnarray*}
+%   \frac{\partial R}{\partial a_1}     &=& \frac{\partial }{\partial a_1}     \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2 =0 \\
+%   \vdots &=& \vdots \\
+%   \frac{\partial R}{\partial a_{p+1}} &=& \frac{\partial }{\partial a_{p+1}} \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2 =0 
+% \end{eqnarray*}
+% ou seja,
+% \begin{eqnarray*}
+%    2 \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)\cdot 1    &=&0 \\
+%   \vdots &=& \vdots \\
+%    2 \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)\cdot x_j^p&=&0 
+% \end{eqnarray*}
+% e isolando as incógnitas temos
+% \begin{eqnarray*}
+%    a_1\sum_{j=1}^n 1     + a_2 \sum_{j=1}^Nx_j      +...+a_{p+1} \sum_{j=1}^Nx_j^{p} &=\sum_{j=1}^N y_j\\
+%   \vdots &= \vdots \\
+%    a_1\sum_{j=1}^n x_j^p + a_2 \sum_{j=1}^Nx_j^{p+1}+...+a_{p+1} \sum_{j=1}^Nx_j^{2p} &=\sum_{j=1}^N y_jx_j^{p}
+% \end{eqnarray*}
+% 
+% Na forma matricial obtemos
+% \begin{equation}
+%   \begin{bmatrix}
+%      \sum 1     &  \sum  x_j   & \cdots & \sum x_j^p\\
+%      \sum x_j   &  \sum  x_j^2 &        & \sum x_j^{p+1}\\
+%      \vdots     &              & \ddots & \vdots    \\
+%      \sum x_j^p &  \sum  x_j^{p+1} & \cdots & \sum x_j^{2p}
+%   \end{bmatrix}
+%   \begin{bmatrix}
+%      a_1 \\
+%      a_2 \\
+%      \vdots \\
+%      a_{p+1}
+%   \end{bmatrix}=
+%   \begin{bmatrix}
+%      \sum y_j \\
+%      \sum x_j y_j \\
+%      \vdots \\
+%      \sum x_j^p y_j 
+%   \end{bmatrix}
+% \end{equation}
+% 
+% Na forma matricial temos 
+% \begin{equation}
+%    Ma := V^TV a = V^Ty
+% \end{equation}
+% 
+
+
+
 
 \subsection*{Exercícios}
 
@@ -493,7 +655,6 @@ $x_i$ & $y_i$& $ax_i^2+bx_i+c$& $ax_i^2+bx_i+c-y_i$\\
   \end{tiny}
 \end{Answer}
 
-
 \begin{Exercise} Dado o seguinte conjunto de dados
   \begin{equation*}
     \begin{tabular}{|c|c|}
@@ -524,6 +685,65 @@ $x_i$ & $y_i$& $ax_i^2+bx_i+c$& $ax_i^2+bx_i+c-y_i$\\
       $a=25,638625$, $b=9,8591874$, $c=4,9751219$ e   $a=31,475524$, $b=65,691531$, $c=-272,84382$, $d=208,23621$.
   \end{tiny}
 \end{Answer}
+
+
+\begin{Exercise}Encontre a partir de primeiros princípios a função do tipo $f(x)=bx+a$ que melhor aproxima os pontos:
+  \begin{equation*}
+    (0,-0,1), (1,~2), (2,~3,7) ~ \hbox{e} ~(3,~7).  
+  \end{equation*}
+\end{Exercise}
+\begin{Answer}\begin{tiny}
+\begin{eqnarray*}
+E_q&=&[f(0)+0,1]^2+[f(1)-2]^2+[f(2)-3,7]^2+[f(3)-7]^2\\
+&=&[a+0,1]^2+[a+b-2]^2+[a+2b-3,7]^2+[a+3b-7]^2
+\end{eqnarray*}
+
+Devemos encontrar os parâmetros $a$ $b$ que minimizam o erro, por isso, calculamos as derivadas parciais:
+\begin{eqnarray*}
+\frac{\partial E_q}{\partial a}&=&2[a+0,1]+2[a+b-2]+2[a+2b-3,7]+2[a+3b-7]\\
+\frac{\partial E_q}{\partial b}&=&2[a+b-2]+4[a+2b-3,7]+6[a+3b-7]
+\end{eqnarray*}
+
+
+
+O erro mínimo acontece quando as derivadas são nulas, ou seja:
+\begin{eqnarray*}
+8a+12b&=&25,2\\
+12a+28b&=&60,8
+\end{eqnarray*}
+Cuja solução é dada por $a=-0,3$ e $b=2,3$.
+Portanto a função que procuramos é $f(x)=-0,3 +2,3x$.  \end{tiny}
+\end{Answer}
+
+
+
+\begin{Exercise} Encontre a função do tipo $f(x)=ax$ que melhor se aproxima dos seguintes pontos:
+  \begin{equation*}
+    (0, -0,1), (1, 2), (2, 3,7) ~ \hbox{e} ~(3, 7).  
+  \end{equation*}
+\end{Exercise}
+\begin{Answer}
+Defina $$E_q=[f(x_1)-y_1]^2+[f(x_2)-y_2]^2+[f(x_3)-y_3]^2+[f(x_4)-y_4]^2$$
+temos que
+\begin{eqnarray*}
+E_q&=&[f(0)+0,1]^2+[f(1)-2]^2+[f(2)-3,7]^2+[f(3)-7]^2\\
+&=&[0,1]^2+[a-2]^2+[2a-3,7]^2+[3a-7]^2
+\end{eqnarray*}
+
+Devemos encontrar o parâmetro $a$ que minimiza o erro, portanto, calculamos:
+\begin{eqnarray*}
+\frac{\partial E_q}{\partial a}&=&2[a-2]+4[2a-3,7]+6[3a-7]=28a-60,8
+\end{eqnarray*}
+Portanto o valor de $a$ que minimiza o erro é $a=\frac{60,8}{28}$.
+\ifisscilab
+\begin{verbatim}
+x=[0 1 2 3]'
+y=[-.1 2 3.7 7]'
+plot2d(x,y,style=-4)
+\end{verbatim}
+\fi
+\end{Answer}
+
 
 \section{Aproximando problemas não lineares por problemas lineares}
 
