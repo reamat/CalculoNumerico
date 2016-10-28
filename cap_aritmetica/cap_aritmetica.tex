@@ -292,14 +292,12 @@ Tipicamente um número inteiro é armazenado num computador como uma sequência 
 
 \subsubsection{Representação sem sinal}\index{representação de números!inteiros!sem sinal}
 Um registro com $n$ bits da forma
-\begin{tabular}{|c|c|c|c|c|}\hline
-    $d_{n-1}$ & $d_{n-2}$ & $\cdots$ & $d_1$ & $d_0$\\\hline
-\end{tabular}
-% \begin{equation*}
-%   \begin{array}{|c|c|c|c|c|}\hline
-%     d_{n-1} & d_{n-2} & \cdots & d_1 &d_0\\\hline
-%   \end{array}  
-% \end{equation*}
+ \begin{equation*}
+   \begin{array}{|c|c|c|c|c|}\hline
+     d_{n-1} & d_{n-2} & \cdots & d_1 &d_0\\\hline
+     \multicolumn{5}{c}{}
+   \end{array}  
+ \end{equation*}
 representa o número $(d_{n-1}d_{n-2}...d_1d_0)_2$. 
 
 Assim é possível representar números inteiros entre
@@ -328,9 +326,12 @@ Assim é possível representar números inteiros entre
 
 \subsubsection{Representação com bit de sinal}\index{representação de números!inteiros!bit de sinal}
 O bit mais significativo (o primeiro à esquerda) representa o sinal: por convenção, $0$ significa positivo e $1$ significa negativo. Um registro com $n$ bits da forma
-\begin{tabular}{|c|c|c|c|c|} \hline
-    $s$ & $d_{n-2}$ & $\cdots$ & $d_1$ & $d_0$ \\\hline
-\end{tabular}
+\begin{equation*}
+  \begin{array}{|c|c|c|c|c|} \hline
+    s & d_{n-2} & \cdots & d_1 & d_0 \\\hline
+    \multicolumn{5}{c}{}
+  \end{array}  
+\end{equation*}
 representa o número $(-1)^s(d_{n-2}...d_1d_0)_2$. Assim é possível representar números inteiros entre $-2^{n-1}$ e $2^{n-1}$, com duas representações para o zero: $(1000...000)_2$ e $(00000...000)_2$.
 
 \begin{ex}
@@ -353,9 +354,12 @@ Em um registro com $8$ bits, teremos os números
 
 \subsubsection{Representação complemento de dois}\index{representação de números!inteiros!complemento de dois}
 O bit mais significativo (o primeiro à esquerda) representa o coeficiente de $-2^{n-1}$.  Um registro com $n$ bits da forma:
-\begin{tabular}{|c|c|c|c|c|} \hline
-  $d_{n-1}$ & $d_{n-2}$ & $\cdots$ & $d_1$ & $d_0$\\\hline
-\end{tabular}  
+\begin{equation*}
+  \begin{array}{|c|c|c|c|c|} \hline
+    d_{n-1} & d_{n-2} & \cdots & d_1 & d_0\\\hline
+    \multicolumn{5}{c}{}
+  \end{array}    
+\end{equation*}
 representa o número $-d_{n-1}2^{n-1}+(d_{n-2}...d_1d_0)_2$. 
 
 Note que todo registro começando com $1$ será um número negativo.
@@ -410,9 +414,12 @@ O sistema de ponto fixo representa as partes inteira e fracionária do número c
 
 \begin{ex}
 Em um computador de 32 bits que usa o sistema de ponto fixo, o registro
-\begin{tabular}{|c|c|c|c|c|c|} \hline
-  $d_{31}$ & $d_{30}$ & $d_{29}$ & $\cdots$ & $d_1$ & $d_0$\\\hline
-\end{tabular}
+\begin{equation*}
+  \begin{array}{|c|c|c|c|c|c|} \hline
+    d_{31} & d_{30} & d_{29} & \cdots & d_1 & d_0\\\hline
+    \multicolumn{5}{c}{}
+  \end{array}  
+\end{equation*}
 pode representar o número
 \begin{itemize}
 \item $(-1)^{d_{31}}(d_{30}d_{29}\cdots d_{17}d_{16}, d_{15}d_{14}\cdots d_1d_0)_2$
@@ -508,10 +515,12 @@ onde
 
 
 Considere uma máquina com um registro de $64$ bits e base $\beta=2$. Pelo padrão IEEE754, $1$ bit é usado para o sinal, $11$ bits para o expoente e $52$ bits são usados para o significando tal que 
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
-\hline
-$s$ & $c_{10}$ & $c_{9}$ & $\cdots$ & $c_{0}$ & $m_1$ & $m_2$ & $\cdots$ & $m_{51}$ & $m_{52}$\\\hline
-\end{tabular}
+\begin{equation*}
+  \begin{array}{|c|c|c|c|c|c|c|c|c|c|}\hline
+    s & c_{10} & c_{9} & \cdots & c_{0} & m_1 & m_2 & \cdots & m_{51} & m_{52}\\\hline
+    \multicolumn{5}{c}{}
+  \end{array}  
+\end{equation*}
 represente o número (o $BIAS=1023$ por definição)
 $$ x=(-1)^{s}M \times 2^{c-BIAS},$$
 onde a \emph{característica} é representada por
@@ -899,15 +908,15 @@ Verifique quantos são os dígitos significativos corretos em cada aproximação
 \fi
 
 \section{Erros nas operações elementares}
-O erro presente relativo nas operações elementares de adição, subtração, multiplicação e divisão é da ordem do epsilon de máquina. Se estivermos usando uma máquina com 64 bits, temos que $\epsilon = 2^{-52} \approx 2,22E16$. 
+O erro relativo presente nas operações elementares de adição, subtração, multiplicação e divisão é da ordem do epsilon de máquina. Se estivermos usando uma máquina com 64 bits, temos que $\epsilon = 2^{-52} \approx 2,22E16$. 
 
-Este erro é bem pequeno! Assumindo que $x$ e $y$ são representados com todos dígitos corretos, temos aproximadamente 15 dígitos significativos corretos quando fizemos uma das operações $x+y$, $x-y$, $x\times y$ ou $x/y$. 
+Este erro é bem pequeno! Assumindo que $x$ e $y$ são representados com todos dígitos corretos, temos aproximadamente 15 dígitos significativos corretos quando fazemos uma das operações $x+y$, $x-y$, $x\times y$ ou $x/y$. 
 
 %%
 %% fornecer exemplo para +,-,*,/
 %%
 
-Mesmo que fizéssemos, por exemplo, $1000$ operações elementares em ponto flutuante sucessivas, teríamos no pior dos casos acumulado todos esses erros e perdido $3$ casas decimais ($1000\times 10^{-15} \approx 10^{-12})$.
+Mesmo que fizéssemos, por exemplo, $1000$ operações elementares em ponto flutuante sucessivas, teríamos, no pior dos casos, acumulado todos esses erros e perdido $3$ casas decimais ($1000\times 10^{-15} \approx 10^{-12})$.
 
 Entretanto, quando subtraímos números muito próximos, os problemas aumentam.
 

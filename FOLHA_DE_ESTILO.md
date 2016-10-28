@@ -1,47 +1,58 @@
 #Folha de Estilo
 
-Este documento contém informações sobre os padrões de estilo de escrita e organização do livro colaborativo.
+Este documento contém informações sobre os padrões de estilo de escrita e organização do livro colaborativo. Antes de submeter uma colaboração, verifique que seu trabalho está de acordo com todos os pontos observados nesta folha de estilo.
 
-## Regionalização
+Estamos muito mais interessados em melhor o conteúdo do livro (tando em qualidade como em quantidade) e menos interessados em melhorar a sua estética. Portanto, busque manter o código LaTeX o mais simples possível buscando potencializar a colaboração de outras pessoas e de forma a se obter um resultado que permita uma leitura objetiva e agradável do livro.
+
+Qualquer dúvida, escreva em nossa lista de discussão:
+
+<livro_colaborativo@googlegroups.com>
+
+## Regionalização e Estilo de Escrita
 
 O livro está escrito em língua portuguesa, seguindo os costumes linguísticos brasileiros. Dá-se prioridade à ortografia prevista no Acordo Ortográfico de 1990.
 
-## Capitalização de nomes de métodos
+### Capitalização de nomes de métodos
+
 Deve-se usar maiúscula apenas em nomes próprios, ex: método de Newton, métodos dos mínimos quadrados. 
 
 
-## Equações e símbolos matemáticos
+## Código fonte LaTeX
 
-As equações e símbolos matemáticos estão escritos usando a coleção de pacotes [AMS-LaTeX](http://www.ams.org/publications/authors/tex/amslatex). Para mais informações, recomendamos a leitura do seguinte documento:
-
-ftp://ftp.ams.org/pub/tex/doc/amsmath/short-math-guide.pdf
-
-### Estruturas preferenciais e interditadas
-
-Para fins de uso do pacoto tex4ht, deve-se:
-*Não usar o comando align
-
-## Organização do código fonte
-
-O livro está escrito em [LaTex](https://latex-project.org/). O arquivo principal (`main.pdf`) escontra-se no diretório principal (`CalculoNumerico`). O código LaTeX de cada capítulo encontra-se em um subdiretório específico com nome `cap_abrev`, onde `abrev` é uma abreviação que lembre o conteúdo do capítulo. Por exemplo, o código do capítulo sobre técnicas numéricas para sistemas lineares está no subdiretório `cap_linsis`.
+O livro está escrito em [LaTex](https://latex-project.org/). O arquivo principal `main.tex` escontra-se no diretório principal `CalculoNumerico`. O código LaTeX de cada capítulo encontra-se em um subdiretório específico com nome `cap_abrev`, onde `abrev` é uma abreviação que lembre o conteúdo do capítulo. Por exemplo, o código do capítulo sobre técnicas numéricas para sistemas lineares está no subdiretório `cap_linsis`.
 
 ### Compatibilidade
 
-O código fonte do livro deve perimitir sua compilação tanto com `latex` como com `pdflatex`. Ao adicionar suas colaborações, certifique-se que elas são compatíveis testando a compilação definida no `Makefile`. Para testar a compilação, use:
+O código LaTeX do livro deve permitir sua compilação tanto com `latex` como com `pdflatex`, além de permitir a compilação nos formatos HTML e EPUB. Ao adicionar suas colaborações, certifique-se que elas são compatíveis testando a compilação definida no `Makefile`. Para testar a compilação, use:
 
-    $ make
+    $ make all
 
-e
+#### Instruções LaTeX não compatíveis
 
-    $ make dvi
+Fazemos a conversão do livro de código LaTeX para HTML usando o pacote [TeX4ht](https://www.tug.org/tex4ht/). Para que a conversão funcione de forma correta deve-se observar as seguintes questões:
+
+* Não usar o ambiente `align`: no lugar use o ambiente `eqnarray` ou o `split` dentro de um ambiente `equation`.
+
+* `array` com linha `hline` na última linha deve conter uma linha com o comando `\multicolumn{ncols}{c}{}`, onde `ncols` é o número de colunas do `array`.
+
+* Não coloque `label` dentre de colchetes.
 
 ### Capítulos
 
-Dentro de cada subdiretório de um capítulo, por exemplo, `cap_foo` devem estar presentes todos os arquivos referentes ao texto deste. As imagens devem ser colocadas em no subdiretório `cap_foo/pics` e os códigos computacionais em `cap_foo/codes`. De preferência, deve-se criar um subdiretório para cada figura e código computacional. Quando possível, as figuras devem ser acompanhadas de seu código fonte.
+Dentro de cada subdiretório de um capítulo, por exemplo  `cap_foo`, devem estar presentes todos os arquivos referentes ao texto deste. As imagens devem ser colocadas no subdiretório `cap_foo/pics` e os códigos computacionais em `cap_foo/codes`. De preferência, deve-se criar um subdiretório para cada figura e código computacional. Quando possível, as figuras devem ser acompanhadas de seu código fonte.
 
 ### Figuras
 
-Os arquivos das figuras devem ser fornecidos em formato `EPS` e armazenados no subdiretório `cap_foo/pics`, onde `cap_foo` é o diretório do capítulo que a figura pertence. As figuras devem ser fornecidas no tamanho desejado para o livro, i.e. evite definir o tamanho da figura no código LaTeX.
+Os arquivos das figuras devem ser fornecidos em formato `EPS` e `PNG` sendo armazenados no subdiretório `cap_foo/pics`, onde `cap_foo` é o diretório do capítulo que a figura pertence. As figuras devem ser fornecidas no tamanho desejado para o livro, i.e. evite definir o tamanho da figura no código LaTeX.
+
+A inclusão de uma figura no código LaTex deve ser feita da seguinte forma:
+
+    \begin{figure}
+        \centering
+	    \includegraphics{cap_foo/pics/picfoo}
+		\caption{Descrição da figura picfoo.}
+		\label{pic:picfoo}
+    \end{figure}
 
 
 ### Códigos computacionais
@@ -56,7 +67,13 @@ deve ser inserido no livro como:
       No Scilab, \verb+%eps+ fornece o $\epsilon$ de máquina.
     \fi
 
-A declaração `isscilab` deve ser declarada como `True` ou `False` no preâmbulo (`preambulo.tex`) do arquivo LaTeX principal `main.tex`. Por exemplo, para declará-la `True` temos:
+Em breve iremos disponibilizar mais informações sobre como gerar uma versão do livro com outras linguagens computacionais.
 
-    \newif\ifisscilab
-    \isscilabtrue
+### Equações e símbolos matemáticos
+
+As equações e símbolos matemáticos estão escritos usando a coleção de pacotes [AMS-LaTeX](http://www.ams.org/publications/authors/tex/amslatex).
+
+#### Uso da vírgula
+
+O livro usa o pacote LaTeX [`icomma`](https://www.ctan.org/pkg/icomma). Desta forma, para que um espaço apareça após uma vírgula é necessário por o espaço no código LaTeX. Por exemplo, o código LaTeX `$1,24$` produz o número 1,24, enquanto o código `$1, 24$` porduz os números 1 e 24 separados por uma vírgula e um espaço.
+
