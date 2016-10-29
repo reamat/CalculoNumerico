@@ -1,24 +1,29 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
   "http://www.w3.org/TR/html4/loose.dtd">  
 <html xml:lang="pt" > 
-<head><title>Metodo de Euler</title> 
+<head><title>Metodo de Euler melhorado</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
 <meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
 <meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
 <!-- html,3,notoc*,info --> 
 <meta name="src" content="main.tex"> 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <meta name="date" content="2016-10-28 13:40:00"> 
 >>>>>>> 62bea6a0d0a1d3eca740d93a452697554da972de
+=======
+<meta name="date" content="2016-10-29 18:03:00"> 
+>>>>>>> 8ffe51d4bbc8f1e500cc9c435f05cb1c6f0ffef3
 <link rel="stylesheet" type="text/css" href="main.css"> 
 </head><body 
 >
-   <!--l. 32--><div class="crosslinks"><p class="noindent"><a 
-href="# "  >Voltar</a></p></div>
-   <h3 class="sectionHead"><span class="titlemark">9.1   </span> <a 
- id="x84-1400009.1"></a>Método de Euler</h3>
+   <!--l. 257--><div class="crosslinks"><p class="noindent"><a 
+href="# "  >Índice</a></p></div>
+   <h3 class="sectionHead"><span class="titlemark">9.2   </span> <a 
+ id="x85-1430009.2"></a>Método de Euler melhorado</h3>
 <a 
+<<<<<<< HEAD
  id="dx84-140001"></a>
 <!--l. 33--><p class="noindent" >Retornemos ao problema de valor inicial (<a 
 href="mainch9.html#x83-1390020">9.1<!--tex4ht:ref: PVI --></a>) dado por: <div class="subequations"><a 
@@ -181,23 +186,48 @@ pois
 src="main4158x.png" alt="             t
  lim  (1 + 2h )h = e2t.
 h&#x2192;0+
+=======
+ id="dx85-143001"></a>
+<!--l. 258--><p class="noindent" >O método de Euler foi o primeiro método que estudamos e sua principal virtude é
+a simplicidade. Outros métodos, no entanto, podem apresentar resultados
+superiores. Vamos apresentar agora uma pequena modificação ao Método de
+Euler, dando origem a um novo método chamado de Método de Euler Modificado
+ou Método de Euler Melhorado.
+<!--l. 260--><p class="indent" >   No método de Euler, usamos a seguinte iteração: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main4313x.png" alt="  (k+1)       (k)       (k) (k)
+y       =  y   +  hf(y  ,t  )
+   y(1)  =  y0  (condição inicial)
 " class="math-display" ></center>
-<!--l. 74--><p class="indent" >   Vamos agora, analisar o desempenho do Método de Euler usando um exemplo
-mais complicado, porém ainda simples suficiente para que possamos obter a
-solução exata:
-   <div class="newtheorem">
-<!--l. 75--><p class="noindent" ><span class="head">
-<a 
- id="x84-140009r2"></a>
-<span 
-class="ec-lmbx-12">Exemplo 9.1.2.</span>  </span> Considere o problema de valor inicial relacionado à equação
-logística<a 
- id="dx84-140010"></a>: <div class="eqnarray">
+</div>
+<!--l. 266--><p class="indent" >   A ideia do método de Euler Melhorado é substituir a declividade <img 
+src="main4314x.png" alt="   (k) (k)
+f(y   ,t  )  "  class="math" >
+pela média aritmética entre <img 
+src="main4315x.png" alt="f (y (k),t(k))  "  class="math" > e <img 
+src="main4316x.png" alt="f (y (k+1),t(k+1))  "  class="math" >, isto é, as declividades
+avaliadas no início e no fim do intervalo <img 
+src="main4317x.png" alt="[t(k),t(k+1)]  "  class="math" >.
+<!--l. 268--><p class="indent" >   No entanto, não dispomos do valor de <img 
+src="main4318x.png" alt=" (k+1)
+y   "  class="math" > antes de executar o passo.
+Assim aproximamos esta grandeza pelo valor produzido pelo Método de Euler
+original:
                                                                           
 
                                                                           
    <center class="math-display" >
 <img 
+src="main4319x.png" alt="&#x02DC;y(k+1) = y(k) + hf (y(k),t(k)).
+>>>>>>> 8ffe51d4bbc8f1e500cc9c435f05cb1c6f0ffef3
+" class="math-display" ></center>
+<!--l. 271--><p class="indent" >   De posse desta aproximação, calculamos a média aritmética e, finalmente,
+com esta média, realizamos o passo do Método de Euler Melhorado. O processo
+iterativo de Euler Melhorado é, portanto, dado por: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+<<<<<<< HEAD
 <<<<<<< HEAD
 src="main4101x.png" alt=" &#x2032;
 =======
@@ -646,11 +676,43 @@ w (k+1)  =   w(k) - hw (k) - hy (k) + hcos(t(k)),
   w     =   0.
 " class="math-display" ></center>
 </div>
+=======
+src="main4320x.png" alt="&#x02DC;y(k+1)  =   y(k) + hf(y (k),t(k))
+                 h [                           ]
+y(k+1)  =   y(k) + -- f(y(k),t(k)) + f(&#x02DC;y(k+1),t(k+1 ))
+                 2
+  y(1)  =   y0 (condição inicial)
+" class="math-display" ></center>
+</div>
+<!--l. 278--><p class="indent" >   Podemos reescrever este mesmo processo iterativo da seguinte forma:
+<div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main4321x.png" alt="                (k) (k)
+   k1  =   hf (y  ,t  ),
+   k2  =   hf (y(k) + k1,t(k+1)),
+                 k1 + k2
+y(k+1) =   y(k) +------- ,
+   (1)              2
+  y    =   y0  (condi ção inicial).
+" class="math-display" ></center>
+</div>Aqui <img 
+src="main4322x.png" alt="k
+ 1   "  class="math" > e <img 
+src="main4323x.png" alt="k
+ 2   "  class="math" > são variáveis auxiliares que representam as inclinações e devem
+ser calculadas a cada passo. Esta notação é compatível com a notação usada nos
+métodos de Runge-Kutta, uma família de esquemas iterativos para aproximar
+problemas de valor inicial, da qual o Método de Euler e o Método de Euler
+Melhorado são casos particulares. Veremos os métodos de Runge-Kutta na seção
+<a 
+href="mainse42.html#x89-1510009.5">9.5<!--tex4ht:ref: sec_RK --></a>.
+>>>>>>> 8ffe51d4bbc8f1e500cc9c435f05cb1c6f0ffef3
                                                                           
 
                                                                           
-   <!--l. 205--><div class="crosslinks"><p class="noindent"><a 
-href="# "  >Voltar</a></p></div>
-<!--l. 205--><p class="indent" >   <a 
+   <!--l. 288--><div class="crosslinks"><p class="noindent"><a 
+href="# "  >Índice</a></p></div>
+<!--l. 288--><p class="indent" >   <a 
  id="tailmainse39.html"></a>  
 </body></html> 
