@@ -25,7 +25,17 @@ O livro está escrito em [LaTex](https://latex-project.org/). O arquivo principa
 
 O código LaTeX do livro deve permitir sua compilação tanto com `latex` como com `pdflatex`, além de permitir a compilação nos formatos HTML e EPUB. Ao adicionar suas colaborações, certifique-se que elas são compatíveis testando a compilação definida no `Makefile`. Para testar a compilação, use:
 
+    $ make
+
+e
+
+    $ make dvi
+
+Para testar a compilação de todos os formatos disponíveis, digite:
+
     $ make all
+
+ATENÇÃO: a compilação de todos os formatos pode levar vários minutos!
 
 #### Instruções LaTeX não compatíveis
 
