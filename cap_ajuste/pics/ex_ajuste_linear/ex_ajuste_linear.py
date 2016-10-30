@@ -1,0 +1,60 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+'''
+Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+
+Author: Pedro H A Konzen - 10/2016
+
+Descrição:
+Função $f(x)=a_1\sen(\pi x) + a_2\cos(\pi x)$ que melhor se ajusta pelo critérios dos mínimos quadrados aos seguintes pontos dados
+\begin{equation*}
+\begin{array}{l|ccccc}
+i & 1   & 2  & 3 & 4 &  5\\\hline
+x_i&0,00&0,25&0,50&0,75&1,00\\
+y_i&-153&64&242&284&175
+\end{array}
+\end{equation*}
+
+Solução: $f(x) = 244,03658\sen(\pi x) - 161,18783\cos(\pi x)$
+'''
+
+import numpy as np
+import scipy as sci
+from scipy import optimize
+import matplotlib.pyplot as plt
+
+#font letter
+plt.rc('text', usetex=True)
+plt.rc('font', family='serif', size=12)
+
+#canvas
+fig = plt.figure(figsize=(3,3), dpi=300, linewidth=0.0, facecolor="white")
+
+#axes definitions
+ax = plt.subplot(1,1,1)
+
+ax.grid()
+
+
+#pontos
+xi = [0,0.25,0.5,0.75,1]
+yi = [-153,64,242,284,175]
+ax.plot(xi, yi, 'ro', markersize=3, markeredgecolor="red")
+
+ax.set_xticks(xi)
+ax.set_yticks(yi)
+
+#reta
+def f(x):
+    return 244.03658*np.sin(np.pi*x) - 161.18783*np.cos(np.pi*x)
+
+xx = np.linspace (-0.25, 1.25)
+ax.plot(xx, f(xx), 'b-')
+
+fig_file =  "ex_ajuste_linear"
+fig.savefig(fig_file+".eps", bbox_inches='tight')
+fig.savefig(fig_file+".svg", bbox_inches='tight')
+fig.savefig(fig_file+".png", bbox_inches='tight')
+
+
