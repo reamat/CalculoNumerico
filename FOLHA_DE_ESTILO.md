@@ -53,7 +53,7 @@ Dentro de cada subdiretório de um capítulo, por exemplo  `cap_foo`, devem esta
 
 ### Figuras
 
-Os arquivos das figuras devem ser fornecidos em formato `EPS` e `PNG` sendo armazenados no subdiretório `cap_foo/pics`, onde `cap_foo` é o diretório do capítulo que a figura pertence. As figuras devem ser fornecidas no tamanho desejado para o livro, i.e. evite definir o tamanho da figura no código LaTeX.
+Os arquivos das figuras devem ser fornecidos em formato `EPS` e `PNG` sendo armazenados no subdiretório `cap_foo/pics`, onde `cap_foo` é o diretório do capítulo que a figura pertence. As figuras devem ser fornecidas no tamanho desejado para o livro, i.e. evite definir o tamanho da figura no código LaTeX. Para uma vizualização conformável em celulares, recomendamos que a figura tenha largura inferior a 320px.
 
 A inclusão de uma figura no código LaTex deve ser feita da seguinte forma:
 
@@ -64,6 +64,9 @@ A inclusão de uma figura no código LaTex deve ser feita da seguinte forma:
 		\label{pic:picfoo}
     \end{figure}
 
+Sempre que possível, forneça o código fonte da figura armazenando-o na pasta `cap_foo/pics/picfoo`. Nesta mesma pasta, crie um arquivo README.md com uma descrição da figura e a linceça da mesma, a qual deve ser compatível com a CC-BY-SA 3.0.
+
+Veja, por exemplo, `.cap_equacao1d/pics/ex_metodo_da_bissecao`.
 
 ### Códigos computacionais
 
