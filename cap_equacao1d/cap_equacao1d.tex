@@ -44,6 +44,7 @@ Em outras palavras, se $f(x)$ é uma função contínua em um dado intervalo no 
 
 \begin{ex}\label{ex:teorema_de_Bolzano}
 Mostre que existe pelo menos uma solução da equação $e^x=x+2$ no intervalo $(-2,0)$.
+\end{ex}
 \begin{sol}
 Primeiramente, observamos que resolver a equação $e^x = x+2$ é equivalente a resolver $f(x) = 0$ com $f(x)=e^x-x-2$. Agora, como $f(-2)=e^{-2}>0$ e $f(0)=-2<0$, temos do teorema de Bolzano que existe pelo menos um zero de $f(x)$ no intervalo $(-2, 0)$. E, portanto, existe pelo menos uma solução da equação dada no intervalo $(-2, 0)$.
 
@@ -67,7 +68,7 @@ Alternativamente (e com maior precisão), podemos verificar diretamente o sinal 
 \end{verbatim}
 \fi
 \end{sol}
-\end{ex}
+
 
 Quando procuramos aproximações para zeros de funções, é aconselhável isolar cada raiz em um intervalo. Desta forma, gostaríamos de poder garantir a existência e a unicidade da raiz dentro de um dado intervalo. A seguinte proposição nos fornece condições suficientes para tanto.
 
@@ -185,26 +186,27 @@ então $x^{(n)}$ é a aproximação desejada. Caso contrário, preparamos a pró
 Voltamos a verificar o critério de parada acima e, caso não satisfeito, iteramos novamente. Iteramos até obtermos a aproximação desejada ou o número máximo de iterações ter sido atingido.
 
 \begin{ex}\label{ex:metodo_da_bissecao}Use o método da bisseção para calcular uma solução de $e^x = x + 2$ no intervalo $[-2, 0]$ com precisão $TOL = 10^{-1}$.
-  \begin{sol}
-    Primeiramente, observamos que resolver a equação dada é equivalente a calcular o zero de $f(x) = e^x - x - 2$. Além disso, temos $f(-2)\cdot f(0) < 0$. Desta forma, podemos iniciar o método da bisseção tomando o intervalo inicial $[a^{(0)}, b^{(0)}] = [-2, 0]$ e:
-    \begin{equation*}
-      x^{(0)} = \frac{a^{(0)} + b^{(0)}}{2} = -1.
-    \end{equation*}
-Apresentamos as iterações na Tabela~\ref{tab:metodo_da_bissecao}. Observamos que a precisão $TOL = 10^{-1}$ foi obtida na quarta iteração com o zero de $f(x)$ sendo aproximado por $x^{(4)} = 1,8125$.
-    \begin{table}
-      \centering
-      \caption{Iteração do método da bisseção para o Exemplo~\ref{ex:metodo_da_bissecao}.}
-      \label{tab:metodo_da_bissecao}
-      \begin{tabular}{l|ccc|c|c}\hline
-        $n$ & $a^{(n)}$ & $b^{(n)}$ & $x^{(n)}$ & $f(a^{(n)})f(x^{(n)})$ & $\displaystyle \frac{|b^{(n)}-a^{(n)}|}{2}$\\\hline
-        $0$ & $-2$ & $0$ & $-1$ & $< 0$ & $1$\\
-        $1$ & $-2$ & $-1$ & $-1,5$ & $<0$ & $0,5$\\
-        $2$ & $-2$ & $-1,5$ & $-1,75$ & $<0$ & $0,25$\\
-        $3$ & $-2$ & $-1,75$ & $-1,875$ & $>0$ & $0,125$\\
-        $4$ & $-1,875$ & $-1,75$ & $-1,8125$ & $<0$ & $0,0625$\\\hline
-      \end{tabular}
-    \end{table}
-
+\end{ex}
+\begin{sol}
+  Primeiramente, observamos que resolver a equação dada é equivalente a calcular o zero de $f(x) = e^x - x - 2$. Além disso, temos $f(-2)\cdot f(0) < 0$. Desta forma, podemos iniciar o método da bisseção tomando o intervalo inicial $[a^{(0)}, b^{(0)}] = [-2, 0]$ e:
+  \begin{equation*}
+    x^{(0)} = \frac{a^{(0)} + b^{(0)}}{2} = -1.
+  \end{equation*}
+  Apresentamos as iterações na Tabela~\ref{tab:metodo_da_bissecao}. Observamos que a precisão $TOL = 10^{-1}$ foi obtida na quarta iteração com o zero de $f(x)$ sendo aproximado por $x^{(4)} = 1,8125$.
+  \begin{table}
+    \centering
+    \caption{Iteração do método da bisseção para o Exemplo~\ref{ex:metodo_da_bissecao}.}
+    \label{tab:metodo_da_bissecao}
+    \begin{tabular}{l|ccc|c|c}\hline
+      $n$ & $a^{(n)}$ & $b^{(n)}$ & $x^{(n)}$ & $f(a^{(n)})f(x^{(n)})$ & $\displaystyle \frac{|b^{(n)}-a^{(n)}|}{2}$\\\hline
+      $0$ & $-2$ & $0$ & $-1$ & $< 0$ & $1$\\
+      $1$ & $-2$ & $-1$ & $-1,5$ & $<0$ & $0,5$\\
+      $2$ & $-2$ & $-1,5$ & $-1,75$ & $<0$ & $0,25$\\
+      $3$ & $-2$ & $-1,75$ & $-1,875$ & $>0$ & $0,125$\\
+      $4$ & $-1,875$ & $-1,75$ & $-1,8125$ & $<0$ & $0,0625$\\\hline
+    \end{tabular}
+  \end{table}
+  
 \ifisscilab
 Usando o \verb+Scilab+ neste exemplos, temos:
 \begin{verbatim}
@@ -212,10 +214,9 @@ Usando o \verb+Scilab+ neste exemplos, temos:
 -->a=-2, b=0, x=(a+b)/2, TOL = (b-a)/2, sign(f(a)*f(x))
 -->b=x, x=(a+b)/2, TOL = (b-a)/2, sign(f(a)*f(x))
 \end{verbatim}
-e, assim, sucessivamente.
+  e, assim, sucessivamente.
 \fi    
-  \end{sol}
-\end{ex}
+\end{sol}
 
 Vamos, agora, discutir sobre a \emph{convergência} do método da bisseção. O próximo Teorema~\ref{teo:convergencia_bissecao} nos garante a convergência do método da bisseção.
 
@@ -1310,7 +1311,8 @@ Isto nos motiva a introduzir a \emph{iteração do método das secantes} dada po
 \end{equation*}
 Observe que para inicializarmos a iteração acima precisamos de duas aproximações iniciais, a saber, $x^{(1)}$ e $x^{(2)}$. Maneiras apropriadas de escolher estas aproximações podem ser inferidas da interpretação geométrica do método.
 
-\begin{ex} Encontre as raízes de $f(x)=\cos(x)-x$.\end{ex}
+\begin{ex} Encontre as raízes de $f(x)=\cos(x)-x$.
+\end{ex}
 \begin{sol}
 Da inspeção do gráfico das funções $y=\cos(x)$ e $y=x$, sabemos que esta equação possui uma raiz em torno de $x=0,8$. Iniciamos o método com $x_0=0,7$ e $x_1=0,8$.
 \begin{center}
