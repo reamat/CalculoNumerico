@@ -1,4 +1,4 @@
-#Subdiretório: cap_derint/codes/simp_comp
+#Subdiretório: cap_integracao/codes/simp_comp
 
 Este subdiretório contém os códigos computacionais do método composto de Simpson.
 

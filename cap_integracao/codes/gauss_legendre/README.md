@@ -1,4 +1,4 @@
-#Subdiretório: cap_derint/codes/gauss_legendre
+#Subdiretório: cap_integracao/codes/gauss_legendre
 
 Este subdiretório contém os códigos computacionais de quadraturas de Gauss-Legendre.
 

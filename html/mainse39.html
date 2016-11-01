@@ -1,0 +1,333 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html xml:lang="pt" > 
+<head><title>Regras compostas</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,3,notoc*,info --> 
+<meta name="src" content="main.tex"> 
+<meta name="date" content="2016-11-01 14:37:00"> 
+<link rel="stylesheet" type="text/css" href="main.css"> 
+</head><body 
+>
+   <!--l. 515--><div class="crosslinks"><p class="noindent"><a 
+href="mainli14.html#mainse54.html" >Índice</a></p></div>
+   <h3 class="sectionHead"><span class="titlemark">9.3   </span> <a 
+ id="x81-1340009.3"></a>Regras compostas</h3>
+<a 
+ id="dx81-134001"></a>
+<!--l. 517--><p class="noindent" >Vimos que em todas as estimativas de erro que derivamos, o erro depende do
+tamanho do intervalo de integração. Uma estratégia para reduzir o erro
+consiste em particionar o intervalo de integração em diversos subintervalos
+menores:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main3820x.png" alt="&int; b          &sum;n &int; xi+1
+   f(x)dx =          f (x)dx
+ a           i=1  xi
+" class="math-display" ></center></td></tr></table>
+<!--l. 520--><p class="nopar" >
+onde <img 
+src="main3821x.png" alt="xi = a + (i &minus; 1)h  "  class="math" >, <img 
+src="main3822x.png" alt="h = (b &minus; a)&#x2215;n  "  class="math" > e <img 
+src="main3823x.png" alt="i = 1,2,...,n + 1  "  class="math" >, sendo <img 
+src="main3824x.png" alt="n  "  class="math" > o número
+de subintervalos da partição do intervalo de integração. Depois, aplica-se um
+método simples de integração em cada subintervalo.
+<!--l. 523--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">9.3.1   </span> <a 
+ id="x81-1350009.3.1"></a>Método composto dos trapézios</h4>
+<a 
+ id="dx81-135001"></a>
+<!--l. 524--><p class="noindent" >A <span 
+class="ec-lmbx-12">regra composta dos trap</span><span 
+class="ec-lmbx-12">ézios </span>assume a seguinte forma: <div class="eqnarray">
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main3825x.png" alt="&int; b            &sum;n &int; xi+1
+   f(x)dx   =           f(x)dx
+ a             i=1 xi
+               &sum;n  xi+1 &minus; xi
+           &asymp;       ---------[f (xi) + f (xi+1)]
+               i=1    2
+" class="math-display" ></center>
+</div>Como <img 
+src="main3826x.png" alt="h = xi+1 &minus; xi  "  class="math" >, temos: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main3827x.png" alt="&int; b             h N&sum;i
+   f (x)dx  &asymp;   --   [f(xk) + f(xk+1)]
+ a              2 k=1
+                h-
+            =   2 [f (x1) + 2f (x2) + 2f(x3) + &sdot;&sdot;&sdot; + 2f (xNi) + f (xNi+1)]
+                                        N&sum;i
+            =   h-[f (x1) + f (xN +1)] + h  f(xi)
+                2              i        i=2
+" class="math-display" ></center>
+</div>
+<!--l. 537--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">9.3.2   </span> <a 
+ id="x81-1360009.3.2"></a>Código Scilab: Trapézio Composto</h4>
+<!--l. 538--><p class="noindent" >O código Scilab abaixo é uma implementação do método do trapézio composto
+para calcular:
+   <table 
+class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main3828x.png" alt="&int; b                                  n
+   f (x )dx = h-[f(x1) + f(xn+1)] + h&sum;  f (xi) + O (h3),
+ a           2                      i=2
+" class="math-display" ></center></td></tr></table>
+<!--l. 541--><p class="nopar" >
+onde <img 
+src="main3829x.png" alt="h = (b &minus; a )&#x2215;n  "  class="math" > e <img 
+src="main3830x.png" alt="xi = a + (i &minus; 1)h  "  class="math" >, <img 
+src="main3831x.png" alt="i = 1,2,...,n + 1  "  class="math" >. Os parâmetros de
+entrada são: <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">f</span></span></span> o integrando definido como uma função no Scilab, <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">a</span></span></span> o limite
+inferior de integração, <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">b</span></span></span> o limite superior de integração, <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">n</span></span></span> o número de
+subintervalos desejado. A variável de saída é <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">y</span></span></span> e corresponde a aproximação
+calculada de <img 
+src="main3832x.png" alt="&int; bf(x)dx
+ a  "  class="math" >.
+   <div class="verbatiminput">
+<span 
+class="ec-lmtt-12">function</span><span 
+class="ec-lmtt-12">&#x00A0;[y]</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;trap_comp(f,a,b,n)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;h</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;(b-a)/n</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;x</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;linspace(a,b,n+1)</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;y</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;h*(f(x(1))</span><span 
+class="ec-lmtt-12">&#x00A0;+</span><span 
+class="ec-lmtt-12">&#x00A0;f(x(n+1)))/2</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;for</span><span 
+class="ec-lmtt-12">&#x00A0;i</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;2:n</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;y</span><span 
+class="ec-lmtt-12">&#x00A0;=</span><span 
+class="ec-lmtt-12">&#x00A0;y</span><span 
+class="ec-lmtt-12">&#x00A0;+</span><span 
+class="ec-lmtt-12">&#x00A0;h*f(x(i))</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">&#x00A0;</span><span 
+class="ec-lmtt-12">&#x00A0;end</span>
+<span 
+class="ec-lmtt-12">&#x00A0;</span><br /><span 
+class="ec-lmtt-12">endfunction</span>
+   </div>
+<!--l. 547--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">9.3.3   </span> <a 
+ id="x81-1370009.3.3"></a>Método composto de Simpson</h4>
+<a 
+ id="dx81-137001"></a>
+<!--l. 548--><p class="noindent" >Já a regra composta de Simpson assume a seguinte forma: <div class="eqnarray">
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main3833x.png" alt="&int; b             &sum;n &int; xk+1
+    f(x)dx  =            f (x )dx
+  a             k=1 xk
+                &sum;n xx+1 &minus;  xk[           ( xk+1 + xk )          ]
+            &asymp;      ---------- f (xk) + 4f  ----------  + f(xk+1)
+                k=1     6                      2
+" class="math-display" ></center>
+</div>onde, como anteriormente, <img 
+src="main3834x.png" alt="xk = a + (k &minus; 1)h  "  class="math" >, <img 
+src="main3835x.png" alt="h = (b &minus; a)&#x2215;n  "  class="math" > e <img 
+src="main3836x.png" alt="i = 1,2,...,n + 1  "  class="math" >,
+sendo <img 
+src="main3837x.png" alt="n  "  class="math" > o número de subintervalos da partição do intervalo de integração.
+Podemos simplificar o somatório acima, escrevendo:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main3838x.png" alt="&int;              [         n&minus; 1             n                  ]
+ b f(x)dx &asymp;  h- f(x ) + 2&sum;   f(x    ) + 4 &sum; f(x  ) + f(x    ) +  O (h5 )
+ a           3     1     i=1    2i+1     i=1    2i       2n+1
+" class="math-display" ></center></td></tr></table>
+<!--l. 556--><p class="nopar" >
+onde, agora, <img 
+src="main3839x.png" alt="h = (b &minus; a)&#x2215;(2n)  "  class="math" >, <img 
+src="main3840x.png" alt="xi = a + (i &minus; 1)h  "  class="math" >, <img 
+src="main3841x.png" alt="i = 1,2,...,2n + 1  "  class="math" >.
+<!--l. 560--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">9.3.4   </span> <a 
+ id="x81-1380009.3.4"></a>Código Scilab: Simpson Composto</h4>
+<!--l. 561--><p class="noindent" >O código Scilab abaixo é uma implementação do método de Simpson composto
+para calcular:
+   <table 
+class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main3842x.png" alt="&int; b            [          n&sum;&minus;1            &sum;n                  ]
+   f (x )dx = h- f (x1 ) + 2   f (x2i+1) + 4   f (x2i) + f(x2n+1)  + O (h3),
+ a           3            i=1            i=1
+" class="math-display" ></center></td></tr></table>
+<!--l. 564--><p class="nopar" >
+onde <img 
+src="main3843x.png" alt="h = (b &minus; a )&#x2215;(2n)  "  class="math" > e <img 
+src="main3844x.png" alt="xi = a + (i &minus; 1)h  "  class="math" >, <img 
+src="main3845x.png" alt="i = 1,2,...,2n +  1  "  class="math" >. Os parâmetros
+de entrada são: <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">f</span></span></span> o integrando definido como uma função no Scilab, <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">a</span></span></span> o limite
+inferior de integração, <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">b</span></span></span> o limite superior de integração, <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">n</span></span></span> o número de
+subintervalos desejado. A variável de saída é <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">y</span></span></span> e corresponde a aproximação
+calculada de <img 
+src="main3846x.png" alt="&int; b
+ a f(x)dx  "  class="math" >. <div class="verbatiminput"></div>
+   <div class="newtheorem">
+<!--l. 569--><p class="noindent" ><span class="head">
+<a 
+ id="x81-138001r1"></a>
+<span 
+class="ec-lmbx-12">Exemplo 9.3.1.</span>  </span>Calcule numericamente a integral
+   <center class="math-display" >
+<img 
+src="main3847x.png" alt="&int; 2
+   x2ex2dx
+ 0
+" class="math-display" ></center> pelas regras compostas do ponto médio, trapézio e Simpson variando o
+número de intervalos <br 
+class="newline" /><img 
+src="main3848x.png" alt="Ni =  1, 2, 3, 6, 12, 24, 48, 96  "  class="math" >.
+   </div>
+<!--l. 575--><p class="indent" >
+                                                                          
+
+                                                                          
+   <div class="proof">
+<!--l. 575--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-17" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-17-1g"><col 
+id="TBL-17-1"></colgroup><colgroup id="TBL-17-2g"><col 
+id="TBL-17-2"><col 
+id="TBL-17-3"><col 
+id="TBL-17-4"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-17-1-1"  
+class="td11"><img 
+src="main3849x.png" alt="n  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-1-2"  
+class="td11">Ponto Médio</td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-1-3"  
+class="td11">Trapézios</td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-1-4"  
+class="td11"> Simpson </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-17-2-1"  
+class="td11"> 1  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-2-2"  
+class="td11"> 5,4365637  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-2-3"  
+class="td11"> 218,3926 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-2-4"  
+class="td11">76,421909</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-17-3-1"  
+class="td11"> 2  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-3-2"  
+class="td11"> 21,668412  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-3-3"  
+class="td11">111,91458</td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-3-4"  
+class="td11">51,750469</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-17-4-1"  
+class="td11"> 3  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-4-2"  
+class="td11"> 31,678746  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-4-3"  
+class="td11">80,272022</td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-4-4"  
+class="td11">47,876505</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-17-5-1"  
+class="td11"> 6  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-5-2"  
+class="td11"> 41,755985  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-5-3"  
+class="td11">55,975384</td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-5-4"  
+class="td11">46,495785</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-17-6-1"  
+class="td11"> 12 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-6-2"  
+class="td11"> 45,137529  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-6-3"  
+class="td11">48,865685</td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-6-4"  
+class="td11">46,380248</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-17-7-1"  
+class="td11"> 24 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-7-2"  
+class="td11"> 46,057757  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-7-3"  
+class="td11">47,001607</td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-7-4"  
+class="td11">46,372373</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-8-"><td  style="white-space:nowrap; text-align:center;" id="TBL-17-8-1"  
+class="td11"> 48 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-8-2"  
+class="td11"> 46,292964  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-8-3"  
+class="td11">46,529682</td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-8-4"  
+class="td11"> 46,37187 </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-9-"><td  style="white-space:nowrap; text-align:center;" id="TBL-17-9-1"  
+class="td11"> 96 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-9-2"  
+class="td11"> 46,352096  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-9-3"  
+class="td11">46,411323</td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-9-4"  
+class="td11">46,371838</td> </tr></table>
+</div>                                                                       <img 
+src="main3850x.png" alt="&#x2662; "  class="math" >
+   </div>
+<!--l. 589--><p class="noindent" >
+   <h4 class="likesubsectionHead"><a 
+ id="x81-1390009.3.4"></a>Exercícios</h4>
+<!--l. 591--><p class="noindent" >Em construção ... Gostaria de colaborar na escrita deste livro? Veja como
+em:
+<div class="center" 
+>
+<!--l. 591--><p class="noindent" >
+<!--l. 591--><p class="noindent" ><a 
+href="http://www.ufrgs.br/numerico" class="url" ><span 
+class="ec-lmtt-12">http://www.ufrgs.br/numerico</span></a></div>
+   <!--l. 593--><div class="crosslinks"><p class="noindent"><a 
+href="mainli14.html#mainse54.html" >Índice</a></p></div>
+<!--l. 593--><p class="indent" >   <a 
+ id="tailmainse39.html"></a>   
+</body></html> 

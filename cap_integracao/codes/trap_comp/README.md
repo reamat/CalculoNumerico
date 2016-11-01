@@ -1,4 +1,4 @@
-#Subdiretório: cap_derint/codes/trap_comp
+#Subdiretório: cap_integracao/codes/trap_comp
 
 Este subdiretório contém os códigos computacionais do método composto do trapézio.
 
