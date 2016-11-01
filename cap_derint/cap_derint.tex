@@ -5,7 +5,7 @@
 
 \chapter{Derivação e integração numérica}\index{derivação}\index{integração}
 
-Neste capítulo, discutimos sobre técnicas numéricas para aproximar \emph{derivadas}\index{derivada} e integrais\emph{integral} de funções reais. As técnicas que abordaremos permitem o cálculo de derivadas e/ou integrais a partir de pontos discretos, i.e., sem a necessidade de uma lei de correspondência $y = f(x)$ contínua.
+Neste capítulo, discutiremos técnicas numéricas para aproximar \emph{derivadas}\index{derivada} e \emph{integrais}\index{integral} de funções reais. As técnicas que abordaremos permitem a aproximação das derivadas e integrais a partir de um conjunto finito de pontos discretos.
 
 \section{Derivação Numérica}\index{derivação numérica}
 
@@ -754,15 +754,67 @@ u(1)=1.900362, u(2.5)=1.943681, u(4)=1.456517
 
 \section{Integração numérica}\index{integração numérica}
 
-Considere o problema de calcular a área entre uma função positiva, o eixo $x$ e as retas $x=a$ e $x=b$. O valor exato dessa área é calculada fazendo uma aproximação por retângulos com bases iguais e depois tomando o limite quando o número de retângulos tende ao infinito:
+Considere o problema de calcular (ou estimar) a integral de $f(x)$ no intervalo $[a,b]$, ou seja,
 $$
-A=\lim_{n\to\infty}\sum_{i=1}^nf(x_i)h_n,
+ I = \int_a^b f(x) \;dx.
 $$
-onde $h_n=\frac{b-a}{n}$ é o tamanho da base dos retângulo e $f(x_i)$, $1\leq i\leq n$, $a+(i-1)h\leq x_i\leq a+ih$, é a altura dos retângulos. Essa definição é generalizada para cálculo de integrais num intervalo $[a,b]$:
+
+Uma maneira de estimar esta integral numericamente consiste em subdividir o intervalo $[a,b]$ em $n-1$ intervalos a partir de um conjunto ordenado de pontos $a=x_1<x_2<...<x_n=b$. 
+Em cada intervalo $i$, a integral será aproximada por $\Delta S_i$ e a integral será aproximada por 
 $$
-\int_a^bf(x)dx=\lim_{n\to\infty}\sum_{i=1}^nf(x_i)h_n.
+ I \approx S = \sum_{i=1}^{n-1} \Delta S_i
 $$
-A Figura~\ref{fig:int_101} mostra um exemplo quando $f(x)=x^2+1$, $0\leq x\leq 2$. Temos a aproximação por um retângulo com base $h_1=2$, depois com dois retângulos de base $h_2=1$ e, finalmente com quatro retângulo de bases $h_3=0,5$.
+O tamanho de cada intervalo é dado por $h_i=x_{i+1}-x_i$. No caso uniforme, todos os intervalos possuem o mesmo tamanho $h=h_i=\frac{b-a}{n}$.
+
+Nas próximas seções apresentaremos formas diferentes de aproximar $\Delta S_i$ iniciando com o caso mais simples que é um retângulo. Cada uma das regras obtidas também é chamada de quadratura.
+
+
+\subsection{Somas de Riemann}
+O método mais simples de aproximar 
+$$
+ I = \int_a^b f(x) \;dx.
+$$
+com apenas um intervalo, é aproximar $f(x)$ por um polinômio constante no intervalo $[a,b]$, ou seja, $f(x)=c$. Se aproximarmos $f(x)$ pelo ponto a esquerda do intervalo temos que $f(x)\approx f(a)$ e
+\begin{eqnarray}
+ I &= \int_a^b f(x) \;dx 
+   &\approx \int_a^b f(a) \;dx \\
+   &= f(a) \int_a^b dx 
+   &= f(a) (b-a)
+\end{eqnarray}
+Esta é a regra de quadratura local para $1$ intervalo.
+
+Quando subdividimos $[a,b]$ em $n$ intervalos com tamanho $h=(b-a)/n$ nos pontos $x_i=a+(i-1)h$ , em cada intervalo $i$ aproximamos a área por
+$$
+  \Delta S_i \approx f(x_i)h 
+$$
+tal que a área total será aproximada pelas \emph{somas de Riemann à esquerda}
+$$
+S =\sum_{i=1}^{n-1} \Delta S_i = \sum_{i=1}^{n-1} f(x_i) h
+$$
+
+Podemos obter uma fórmula similar se usarmos os pontos a direita do intervalo, ou seja, as \emph{somas de Riemann à direita} 
+$$
+S = \sum_{i=1}^{n-1} f(x_{i+1}) h
+$$
+
+Uma terceira opção é utilizar o ponto médio do intervalo $[x_i,x_{i+1}]$ o qual fornece a \emph{regra do ponto médio}
+\begin{equation}
+\label{ponto_medio_1}
+S = \sum_{i=1}^{n-1} f(\xi_i ) h, \;\;\;\; \xi_i=\frac{x_i+x_{i+1}}{2}.
+\end{equation}
+
+
+% Considere o problema de calcular a área entre uma função positiva, o eixo $x$ e as retas $x=a$ e $x=b$. O valor exato dessa área é calculada fazendo uma aproximação por retângulos com bases iguais e depois tomando o limite quando o número de retângulos tende ao infinito:
+% $$
+% A=\lim_{n\to\infty}\sum_{i=1}^nf(x_i)h_n,
+% $$
+% onde $h_n=\frac{b-a}{n}$ é o tamanho da base dos retângulo e $f(x_i)$, $1\leq i\leq n$, $a+(i-1)h\leq x_i\leq a+ih$, é a altura dos retângulos. Essa definição é generalizada para cálculo de integrais num intervalo $[a,b]$:
+% $$
+% \int_a^bf(x)dx=\lim_{n\to\infty}\sum_{i=1}^nf(x_i)h_n.
+% $$
+
+\begin{ex}
+A figura~\ref{fig:int_101} mostra um exemplo quando $f(x)=x^2+1$, $0\leq x\leq 2$. Temos a aproximação por um retângulo com base $h_1=2$, depois com dois retângulos de base $h_2=1$ e, finalmente com quatro retângulo de bases $h_3=0,5$.
 \begin{figure}
   \centering
   \includegraphics[scale=0.7]{./cap_derint/pics/int_1.eps}
@@ -771,27 +823,36 @@ A Figura~\ref{fig:int_101} mostra um exemplo quando $f(x)=x^2+1$, $0\leq x\leq 2
 \end{figure}
 
 Os valores aproximados para a integral são dados na seguinte tabela:
-\begin{tabular}{|c|c|c|c|c|}\hline
-  & $h_1=2$ & $h_2=1$ & $h_3=0,5$ & $h_4=0,25$ \\ \hline
-  $\displaystyle \int_0^2(x^2+1)dx$ & $h_1f(1)=4$ & $h_2f(0,5)+h_2f(1,5)=4,5$ & $4,625$ & $4,65625$\\\hline  
+
+\begin{tabular}{|c|c|}\hline
+  & $\displaystyle \int_0^2(x^2+1)dx$ \\ \hline
+  $h_1=2$ & $h_1f(1)=4$ \\
+  $h_2=1$ & $h_2f(0,5)+h_2f(1,5)=4,5$ \\
+  $h_3=0,5$ & $4,625$ \\
+  $h_4=0,25$ & $4,65625$ \\\hline
 \end{tabular}
+
 Observe que:
 \begin{equation*}
   \int_0^2(x^2+1)\,dx = \left[\frac{x^3}{3}+x\right]_0^2 = \frac{8}{3}+2=4,6666667
 \end{equation*}
 
-\subsection{Regras de Newton-Cotes}\index{integração numérica!regras de Newton-Cotes}
+\end{ex}
 
-A integral de uma função num intervalo $[a, b]$, também chamada de quadratura numérica, é aproximada pela soma:
-\begin{equation*}
-  \int_a^b f(x)\,dx \approx \sum_{i=1}^n a_if(x_i),
-\end{equation*}
-onde $x_i$, $1\leq i\leq n$, são pontos distintos do intervalo $[a,b]$. Nesta definição, a integral $\int_0^2(x^2+1)dx$ usando uma aproximação por retângulo usa apenas um ponto, o ponto médio do intervalo ($x_1=1$), e a soma se reduz a uma parcela ($(2-0)f(1)$). A fórmula geral para essa caso, chamado de regra do ponto médio é:
-\begin{equation}\label{ponto_medio_1}
-\int_a^bf(x)dx\approx (b-a)f\left(\frac{a+b}{2}\right):=hf(x_1).
-\end{equation}
 
-\subsubsection{Regra do ponto médio}\index{integração numérica!regra do ponto médio}
+
+% \subsection{Regras de Newton-Cotes}\index{integração numérica!regras de Newton-Cotes}
+% 
+% A integral de uma função num intervalo $[a, b]$, também chamada de quadratura numérica, é aproximada pela soma:
+% \begin{equation*}
+%   \int_a^b f(x)\,dx \approx \sum_{i=1}^n a_if(x_i),
+% \end{equation*}
+% onde $x_i$, $1\leq i\leq n$, são pontos distintos do intervalo $[a,b]$. Nesta definição, a integral $\int_0^2(x^2+1)dx$ usando uma aproximação por retângulo usa apenas um ponto, o ponto médio do intervalo ($x_1=1$), e a soma se reduz a uma parcela ($(2-0)f(1)$). A fórmula geral para essa caso, chamado de regra do ponto médio é:
+% \begin{equation}\label{ponto_medio_1}
+% \int_a^bf(x)dx\approx (b-a)f\left(\frac{a+b}{2}\right):=hf(x_1).
+% \end{equation}
+
+\subsubsection{Erro na regra do ponto médio}\index{integração numérica!regra do ponto médio}
 A regra do ponto médio \eqref{ponto_medio_1} pode ser deduzida mais formalmente usando a expansão de Taylor
 $$
 f(x)=f(x_1)+f'(x_1)(x-x_1)+\frac{f''(\xi(x))}{2}(x-x_1)^2
@@ -803,12 +864,13 @@ $$
 Usando o teorema do valor médio para integrais e que $h=b-a$ e $x_1=(a+b)/2$, temos:
 \begin{eqnarray*}
 \int_a^b f(x)dx &=& h f(x_1) + f'(x_1)\int_a^b(x-x_1)dx+f''(\eta)\int_a^b\frac{1}{2}(x-x_1)^2dx\\
-&=& h f(x_1) +f'(x_1)\left[\frac{(x-x_1)^2}{2}\right]_a^b+f''(\eta)\left[\frac{1}{6}(x-x_1)^3\right]_a^b\\
-&=& h f(x_1) +f'(x_1)\left[\frac{(b-x_1)^2}{2}-\frac{(a-x_1)^2}{2}\right]\\
-&+& f''(\eta)\left[\frac{1}{6}(b-x_1)^3-\frac{1}{6}(a-x_1)^3\right]\\
-&=& h f(x_1) +\frac{h^3f''(\eta)}{3}.
+ &=& h f(x_1) +f'(x_1)\left[\frac{(x-x_1)^2}{2}\right]_a^b+f''(\eta)\left[\frac{1}{6}(x-x_1)^3\right]_a^b\\
+ &=& h f(x_1) +f'(x_1)\left[\frac{(b-x_1)^2}{2}-\frac{(a-x_1)^2}{2}\right]\\
+ &+& f''(\eta)\left[\frac{1}{6}(b-x_1)^3-\frac{1}{6}(a-x_1)^3\right]\\
+ &=& h f(x_1) +\frac{h^3f''(\eta)}{3}.
 \end{eqnarray*}
-para $a\leq \eta\leq b$.
+para $a\leq \eta\leq b$, onde o erro local é $\mathcal{O}(h^3)$.
+
 
 \begin{ex}
 Use a regra do ponto médio para aproximar a integral
@@ -839,8 +901,9 @@ $$
 $$
 \end{ex}
 
+\subsection{Regras de Newton-Cotes}\index{integração numérica!regras de Newton-Cotes}
 
-A forma natural de obter as regras de integração é usar o polinômio de Lagrange que passa pelo pontos $\{(x_i,f(x_i))\}_{i=1}^n$
+A forma geral de obter regras de integração melhores é usar polinômios com graus maiores. Utilizando polinômios de Lagrange passando por $\{(x_i,f(x_i))\}_{i=1}^n$ obtemos
 $$
 f(x)=P_n(x)+\text{termo de erro}=\sum_{i=1}^nf(x_i)L_i(x) +\prod_{i=1}^n(x-x_i)\frac{f^{(n+1)}(\xi(x))}{(n+1)!}.
 $$
@@ -854,40 +917,46 @@ $$
 $$
 onde
 $$
-a_i=\int_a^bL_i(x)dx
+a_i=\int_a^b L_i(x)dx
 $$
 
-\subsubsection{Regra do Trapézio}\index{integração numérica!regra do trapézio}
+\subsection{Regra do Trapézio}\index{integração numérica!regra do trapézio}
 
-A regra do trapézio consiste em aproximar a integral por um trapézio em vez de um retângulo, como fizemos. Para isso, o polinômio de Lagrange deve ser uma reta, como mostra a figura.
+A regra do trapézio consiste em aproximar a integral por um trapézio em vez de um retângulo, como fizemos. Para isso, aproximamos $f(x)$ por um polinômio de grau 1, ou seja, uma reta que pode ser obtida através de interpolação de Lagrange como mostra a figura.
+
 \begin{center}
 \includegraphics[scale=0.7]{./cap_derint/pics/int_2.eps}
 \end{center}
 
-O polinômio de Lagrange de primeira ordem que passa por $(x_0,f(x_0)):=(a,f(a))$ e $(x_1,f(x_1)):=(b,f(b))$ é dado por
-$$
-P_1(x)=f(x_0)\frac{(x-x_0)}{(x_1-x_0)}+f(x_1)\frac{(x-x_1)}{(x_0-x_1)}=f(x_0)\frac{(x-x_0)}{h}-f(x_1)\frac{(x-x_1)}{h},
-$$
+O polinômio de Lagrange que passa por $(x_0,f(x_0)):=(a,f(a))$ e $(x_1,f(x_1)):=(b,f(b))$ é dado por
+\begin{eqnarray} 
+p_1(x) &=\displaystyle f(x_0)\frac{(x-x_0)}{(x_1-x_0)}+f(x_1)\frac{(x-x_1)}{(x_0-x_1)} \\
+       &=\displaystyle f(x_0)\frac{(x-x_0)}{h}-f(x_1)\frac{(x-x_1)}{h}, 
+\end{eqnarray}
 onde $h=x_1-x_0$. Podemos integrar a função $f(x)$ aproximando-a por esse polinômio:
 \begin{equation*}
   \begin{split}
-    \int_a^bf(x)dx &= f(x_0)\int_a^b\frac{(x-x_0)}{h}dx-f(x_1)\int_a^b\frac{(x-x_1)}{h}dx\\
+    \int_a^bf(x)dx &\approx f(x_0)\int_a^b\frac{(x-x_0)}{h}dx-f(x_1)\int_a^b\frac{(x-x_1)}{h}dx\\
     &+\frac{1}{2!}\int_a^b(x-x_0)(x-x_1)f''(\xi(x))dx.   
   \end{split}
 \end{equation*}
 Pelo teorema do valor médio, existe $a\leq \eta\leq b$ tal que $\int_a^bf(\xi(x))g(x)dx=f(\eta)\int_a^bg(x)dx$ e, portanto,
 \begin{equation*}
   \begin{split}
-    \int_a^bf(x)dx&= f(x_0)\left[\frac{(x-x_0)^2}{2h}\right]_{x_0}^{x_1}-f(x_1)\left[\frac{(x-x_1)^2}{2h}\right]_{x_0}^{x_1}\\
+    \int_a^bf(x)dx&\approx f(x_0)\left[\frac{(x-x_0)^2}{2h}\right]_{x_0}^{x_1}-f(x_1)\left[\frac{(x-x_1)^2}{2h}\right]_{x_0}^{x_1}\\
     &+ \frac{f''(\eta)}{2}\left[\frac{x^3}{3}-\frac{x^2}{2}(x_1+x_0)+x_0x_1x\right]_{x_0}^{x_1}\\
 &= f(x_0)\frac{(x_1-x_0)^2}{2h}+f(x_1)\frac{(x_0-x_1)^2}{2h}\\
 &+ \frac{f''(\eta)}{2}\left(\frac{x_1^3}{3}-\frac{x_1^2}{2}(x_1+x_0)+x_0x_1x_1-\frac{x_0^3}{3}+\frac{x_0^2}{2}(x_1+x_0)-x_0x_1x_0\right)\\
 &= f(x_0)\frac{h^2}{2h}+f(x_1)\frac{h^2}{2h}\\
 &+ \frac{f''(\eta)}{2}\frac{2x_1^3-3x_1^2(x_1+x_0)+6x_1^2x_0-2x_0^3+3x_0^2(x_1+x_0)-6x_1x_0^2}{6}\\
-&= \frac{h}{2}(f(x_0)+f(x_1))+\frac{f''(\eta)}{12}\left(x_0^3-3x_0^2x_1+3x_1^2x_0-x_1^3\right)\\
-&= \frac{h}{2}(f(x_0)+f(x_1))-\frac{h^3f''(\eta)}{12}    
+&= \frac{h}{2}(f(x_0)+f(x_1))+\frac{f''(\eta)}{12}\left(x_0^3-3x_0^2x_1+3x_1^2x_0-x_1^3\right)
   \end{split}
 \end{equation*}
+tal que a \emph{regra do trapézio} local é dada por
+\begin{equation}
+  \left[\frac{1}{2}f(x_0)+\frac{1}{2}f(x_1)\right]h-\frac{h^3f''(\eta)}{12}    
+\end{equation}
+onde o erro local é $\mathcal{O}(h^3)$.
 
 \begin{ex}
 Use a regra do trapézio para aproximar a integral
@@ -916,21 +985,52 @@ Agora, usando quatro intervalos, temos
 &=& 0,7429841
 \end{eqnarray*}
 
-\subsubsection{Regra de Simpson}\index{integração numérica!regra de Simpson}
-A regra de Simpson consiste em aproximar a integral usando três pontos do intervalo:
+\subsection{Regra de Simpson}\index{integração numérica!regra de Simpson}
+Para aproximarmos $f(x)$ por um polinômio de grau $2$ precisamos três pontos do intervalo $[a,b]$. Utilizando 
+$$
+x_0=a,\qquad x_1:=\frac{a+b}{2}\qquad \text{e}\qquad x_2:=b=x_0+h.
+$$
+com $h =b-a$, podemos construir uma parábola através do polinômio de Lagrange 
+\begin{equation*}
+    p_2(x) = f(x_0)L_0(x) + f(x_1)L_1(x)  + f(x_2)L_2(x)
+\end{equation*}
+\begin{equation*}
+  \begin{split}
+    p_2(x) &= f(x_0)\frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)} + f(x_1)\frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)}\\
+           &+ f(x_2)\frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}.
+  \end{split}
+\end{equation*}
+e integrando $p_2$ temos
+\begin{eqnarray}
+\int_a^bf(x)dx &=\int_a^b p_2(x) \;dx \\ 
+               &=\int_a^b f(x_0)L_0(x) + f(x_1)L_1(x)  + f(x_2)L_2(x) \;dx \\  
+               &=f(x_0) a_0 + f(x_1)a_1  + f(x_2)a_2  
+\end{eqnarray}
+onde
+\begin{eqnarray}
+  a_i = \int_a^b L_i(x) \;dx  
+\end{eqnarray}
+Calculando essas integrais obtemos \emph{a regra de Simpson}
+$$
+\int_a^bf(x)dx=\frac{h}{6}\left(f(x_0)+4f(x_1)+f(x_2)\right).
+$$
+
+
+\subsection{Erro na regra de Simpson}\index{integração numérica!regra de Simpson}
+Para aproximarmos $f(x)$ por um polinômio de grau $2$ precisamos três pontos do intervalo, como por exemplo,
 $$
 x_0=a,\qquad x_1:=\frac{a+b}{2}=x_0+h \qquad \text{e}\qquad x_2:=b=x_1+h.
 $$
 com $h = (b-a)/2$. Para isso, o polinômio de Lagrange deve ser uma parábola:
 \begin{equation*}
   \begin{split}
-    P_2(x) &= f(x_0)\frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)} + f(x_1)\frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)}\\
+    p_2(x) &= f(x_0)\frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)} + f(x_1)\frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)}\\
     &+ f(x_2)\frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}.
   \end{split}
 \end{equation*}
-Se usarmos o mesma metodologia da regra dos trapézios, calcularemos
+Se usarmos o mesma metodologia da regra dos trapézios, teremos
 $$
-\int_a^bf(x)dx=\int_a^bP_2(x)dx+\int_a^b\frac{(x-x_0)(x-x_1)(x-x_2)}{6}f'''(\xi(x))dx
+\int_a^bf(x)dx=\int_a^bp_2(x)dx+\int_a^b\frac{(x-x_0)(x-x_1)(x-x_2)}{6}f'''(\xi(x))dx
 $$
 e obteremos o fórmula de Simpson com um erro de quarta ordem. O fato é que a regra de Simpson tem ordem cinco e, para isso, usaremos uma abordagem alternativa. Considere o polinômio de Taylor
 $$
@@ -968,7 +1068,7 @@ $$
 $$
 temos
 $$
-\int_a^bf(x)dx=2hf(x_1)+\frac{h^3}{3}f''(x_1)+\frac{h^5f^{(4)}(\eta)}{60}.
+\int_a^bf(x)dx=hf(x_1)+\frac{h^3}{3}f''(x_1)+\frac{h^5f^{(4)}(\eta)}{60}.
 $$
 Usando a diferenças finitas centrais para a derivada segunda:
 $$

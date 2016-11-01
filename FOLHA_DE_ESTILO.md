@@ -43,7 +43,18 @@ Fazemos a conversão do livro de código LaTeX para HTML usando o pacote [TeX4ht
 
 * Não usar o ambiente `align`: no lugar use o ambiente `eqnarray` ou o `split` dentro de um ambiente `equation`.
 
-* `array` com linha `hline` na última linha deve conter uma linha com o comando `\multicolumn{ncols}{c}{}`, onde `ncols` é o número de colunas do `array`.
+* `array` com linha `hline` na última linha deve conter uma linha com o comando `\multicolumn{ncols}{c}{}`, onde `ncols` é o número de colunas do `array`. Por exemplo:
+
+        \begin{equation*}
+	      \begin{array}{r|c|c}
+             h & Df(1) & |f'(1) - D_{+,h}F(1)| \\ \hline
+             10^{-1} & -8,67062(-01) & 2,55909(-02)\\
+             10^{-2} & -8,44158(-01) & 2,68746(-03)\\
+             10^{-14} & -8,43769(-01) & 2,29851(-03) \\\hline
+             \multicolumn{3}{c}{}
+		   \end{array}
+	    \end{equation*}
+
 
 * Não coloque `label` dentre de colchetes.
 
