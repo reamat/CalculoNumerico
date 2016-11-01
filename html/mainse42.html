@@ -1,413 +1,607 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
   "http://www.w3.org/TR/html4/loose.dtd">  
 <html xml:lang="pt" > 
-<head><title>Quadratura de Gauss-Legendre</title> 
+<head><title>O metodo de Romberg</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
 <meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html,3,notoc*,info --> 
 <meta name="src" content="main.tex"> 
-<meta name="date" content="2016-11-01 14:37:00"> 
+<meta name="date" content="2016-11-01 19:26:00"> 
 <link rel="stylesheet" type="text/css" href="main.css"> 
 </head><body 
 >
-   <!--l. 950--><div class="crosslinks"><p class="noindent"><a 
-href="mainli14.html#mainse57.html" >Índice</a></p></div>
-   <h3 class="sectionHead"><span class="titlemark">9.6   </span> <a 
- id="x84-1440009.6"></a>Quadratura de Gauss-Legendre</h3>
+   <!--l. 593--><div class="crosslinks"><p class="noindent"><a 
+href="mainse58.html#mainli16.html" >Índice</a></p></div>
+   <h3 class="sectionHead"><span class="titlemark">9.4   </span> <a 
+ id="x89-1420009.4"></a>O método de Romberg</h3>
 <a 
- id="dx84-144001"></a>
-<!--l. 952--><p class="noindent" >A quadratura de Gauss-Legendre de <img 
-src="main3975x.png" alt="n  "  class="math" > pontos é o esquema numérico
-   <center class="math-display" >
-<img 
-src="main3976x.png" alt="&int; 1          &sum;n
- &minus;1 f(x)dx =    wjf (xj)
-             j=1  " class="math-display" ></center>
-cuja ordem de exatidão é <img 
-src="main3977x.png" alt="2n &minus; 1  "  class="math" >.
-      <ul class="itemize1">
-      <li class="itemize">O problema de encontrar os <img 
-src="main3978x.png" alt="n  "  class="math" > pesos e <img 
-src="main3979x.png" alt="n  "  class="math" > abscissas é equivalente a
-      um sistema não linear com <img 
-src="main3980x.png" alt="2n  "  class="math" > equações e <img 
-src="main3981x.png" alt="2n  "  class="math" > incógnitas.
-      </li>
-      <li class="itemize">Pode-se mostrar que este problema sempre tem solução e que a solução
-      é única se <img 
-src="main3982x.png" alt="x1 &#x003C; x2 &#x003C;  ...&#x003C; xn  "  class="math" >
-      </li>
-      <li class="itemize">As abscissas são das pelos zeros do enésimo polinômio de Legendre,
-      <img 
-src="main3983x.png" alt="Pn(x )  "  class="math" >.
-      </li>
-      <li class="itemize">Os pesos são dados por
+ id="dx89-142001"></a>
+<!--l. 594--><p class="noindent" >O método de Romberg é um método simplificado para construir quadraturas de
+alta ordem.
+<!--l. 596--><p class="indent" >   Considere o método de trapézios composto aplicado à integral
                                                                           
 
                                                                           
-      <center class="math-display" >
-      <img 
-src="main3984x.png" alt="wj = (-------2)---------.
-       1 &minus; x2j [Pn&prime;(xj)]2
-      " class="math-display" ></center>
-      </li>
-      <li class="itemize">Estes dados são tabelados e facilmente encontrados.</li></ul>
-   <div class="tabular"> <table id="TBL-22" class="tabular" 
-cellspacing="0" cellpadding="0" rules="groups" 
-><colgroup id="TBL-22-1g"><col 
-id="TBL-22-1"></colgroup><colgroup id="TBL-22-2g"><col 
-id="TBL-22-2"></colgroup><colgroup id="TBL-22-3g"><col 
-id="TBL-22-3"></colgroup><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-22-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-22-1-1"  
-class="td11">n</td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-1-2"  
-class="td11">       <img 
-src="main3985x.png" alt="xj  "  class="math" >             </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-1-3"  
-class="td11">  <img 
-src="main3986x.png" alt="wj  "  class="math" >   </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-22-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-22-2-1"  
-class="td11"> 1 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-2-2"  
-class="td11">        0             </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-2-3"  
-class="td11">   2    </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-22-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-22-3-1"  
-class="td11"> 2 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-3-2"  
-class="td11">     <img 
-src="main3987x.png" alt="   &radic; --
-   --3-
-±   3  "  class="math" >         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-3-3"  
-class="td11">   1    </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-22-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-22-4-1"  
-class="td11"><div class="multirow"><!-- rows=2 -->
-3</div> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-4-2"  
-class="td11">        0             </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-4-3"  
-class="td11">  <img 
-src="main3988x.png" alt="8-
-9  "  class="math" >   </td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-22-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-22-5-1"  
-class="td11">  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-5-2"  
-class="td11">     <img 
-src="main3989x.png" alt="  &#x2218; --
-     3
-±    --
-     5  "  class="math" >         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-5-3"  
-class="td11">  <img 
-src="main3990x.png" alt="5
---
-9  "  class="math" >   </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-22-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-22-6-1"  
-class="td11"><div class="multirow"><!-- rows=2 -->
-4</div> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-6-2"  
-class="td11"><img 
-src="main3991x.png" alt="  &#x2218; ------&#x2218;--------
-±   (3 &minus; 2  6&#x2215;5)&#x2215;7  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-6-3"  
-class="td11"><img 
-src="main3992x.png" alt="   &radic; --
-18+--30
-  36   "  class="math" ></td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-22-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-22-7-1"  
-class="td11">  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-7-2"  
-class="td11"><img 
-src="main3993x.png" alt="  &#x2218; ------&#x2218;--------
-±   (3 + 2  6&#x2215;5)&#x2215;7  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-7-3"  
-class="td11"><img 
-src="main3994x.png" alt="   &radic; --
-18&minus;--30
-  36   "  class="math" ></td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-22-8-"><td  style="white-space:nowrap; text-align:center;" id="TBL-22-8-1"  
-class="td11">  </td> </tr></table></div>
+   <center class="math-display" >
+<img 
+src="main3857x.png" alt="&int; b
+   f (x )dx
+ a  " class="math-display" ></center>
+Defina <img 
+src="main3858x.png" alt="I(h )  "  class="math" > a aproximação desta integral pelo método dos trapézios composto
+com malha de largura constante igual a h. Aqui <img 
+src="main3859x.png" alt="     b&minus;a
+h =  Ni   "  class="math" > para algum <img 
+src="main3860x.png" alt="Ni  "  class="math" > inteiro,
+i.e.:
+   <center class="math-display" >
+<img 
+src="main3861x.png" alt="          &lfloor;                        &rfloor;
+        h          &sum;Ni                       b &minus; a
+I(h ) = --&lceil;f(a) + 2    f(xj) + f (b)&rceil;, Ni =  -----
+        2          j=2                         h
+" class="math-display" ></center>
    <div class="newtheorem">
-<!--l. 975--><p class="noindent" ><span class="head">
+<!--l. 601--><p class="noindent" ><span class="head">
 <a 
- id="x84-144002r1"></a>
+ id="x89-142002r1"></a>
 <span 
-class="ec-lmbx-12">Exemplo 9.6.1.</span>  </span>Aproximar
-   <table 
-class="equation-star"><tr><td>
+class="ec-lmbx-12">Teorema 9.4.1.</span>  </span><span 
+class="ec-lmri-12">Se</span> <img 
+src="main3862x.png" alt="f(x)  "  class="math" > <span 
+class="ec-lmri-12">é uma fun</span><span 
+class="ec-lmri-12">ç</span><span 
+class="ec-lmri-12">ão anal</span><span 
+class="ec-lmri-12">ítica no intervalo</span> <img 
+src="main3863x.png" alt="(a,b)  "  class="math" ><span 
+class="ec-lmri-12">, ent</span><span 
+class="ec-lmri-12">ão</span>
+<span 
+class="ec-lmri-12">a fun</span><span 
+class="ec-lmri-12">ç</span><span 
+class="ec-lmri-12">ão</span> <img 
+src="main3864x.png" alt="I (h )  "  class="math" > <span 
+class="ec-lmri-12">admite uma representa</span><span 
+class="ec-lmri-12">ç</span><span 
+class="ec-lmri-12">ão na forma</span>
    <center class="math-display" >
 <img 
-src="main3995x.png" alt="&int; 1 &radic; -----2-
- &minus;1   1 + x dx
-" class="math-display" ></center></td></tr></table>
-<!--l. 978--><p class="nopar" >
-pelo método de Gauss-Legendre com 3 pontos.
-   </div>
-<!--l. 981--><p class="indent" >
-   <div class="proof">
-<!--l. 981--><p class="indent" >   <span class="head">
-<span 
-class="ec-lmbx-12">Solu</span><span 
-class="ec-lmbx-12">ç</span><span 
-class="ec-lmbx-12">ão.</span> </span>
-   <table 
-class="equation-star"><tr><td>
-   <center class="math-display" >
-<img 
-src="main3996x.png" alt="        (  &#x2218; --)               ( &#x2218; -)
-     5- (    3-)   8-       5- (   3)
-I3 = 9f  &minus;   5   + 9 f(0) + 9f     5  &asymp;  2,2943456
-" class="math-display" ></center></td></tr></table>
-<!--l. 984--><p class="nopar" >
-No Scilab: <div class="verbatiminput"></div>                                                                                 <img 
-src="main3997x.png" alt="&#x2662; "  class="math" >
-   </div>
-   <div class="newtheorem">
-<!--l. 992--><p class="noindent" ><span class="head">
-<a 
- id="x84-144003r2"></a>
-<span 
-class="ec-lmbx-12">Exemplo 9.6.2.</span>  </span>Aproximar
-                                                                          
-
-                                                                          
-   <center class="math-display" >
-<img 
-src="main3998x.png" alt="&int; 1 &radic; -------
-      1 + x2dx
- &minus;1
-" class="math-display" ></center> pelo método de Gauss-Legendre com 4 pontos.
-   </div>
-<!--l. 996--><p class="indent" >
-   <div class="proof">
-<!--l. 996--><p class="indent" >   <span class="head">
-<span 
-class="ec-lmbx-12">Solu</span><span 
-class="ec-lmbx-12">ç</span><span 
-class="ec-lmbx-12">ão.</span> </span>
-                                                                          
-
-                                                                          
-   <div class="verbatim" id="verbatim-54">
-I4=f(x4(1))*w4(1)+f(-x4(1))*w4(1)+f(x4(2))*w4(2)+f(-x4(2))*w4(2)
-</div>
-<!--l. 999--><p class="nopar" >                                                                       <img 
-src="main3999x.png" alt="&#x2662; "  class="math" >
-   </div>
-   <div class="newtheorem">
-<!--l. 1004--><p class="noindent" ><span class="head">
-<a 
- id="x84-144004r3"></a>
-<span 
-class="ec-lmbx-12">Exemplo 9.6.3.</span>  </span>Aproximar
-   <center class="math-display" >
-<img 
-src="main4000x.png" alt="&int;
-  1&radic; -----2-
- 0   1 + x dx
-" class="math-display" ></center> pelo método de Gauss-Legendre com <img 
-src="main4001x.png" alt="3, 4  "  class="math" > e <img 
-src="main4002x.png" alt="5  "  class="math" > pontos.
-   </div>
-<!--l. 1008--><p class="indent" >
-   <div class="proof">
-<!--l. 1008--><p class="indent" >   <span class="head">
-<span 
-class="ec-lmbx-12">Solu</span><span 
-class="ec-lmbx-12">ç</span><span 
-class="ec-lmbx-12">ão.</span> </span> Para tanto, fazemos a mudança de variáveis <img 
-src="main4003x.png" alt="u = 2x &minus; 1  "  class="math" >:
-   <table 
-class="equation-star"><tr><td>
-                                                                          
-
-                                                                          
-   <center class="math-display" >
-<img 
-src="main4004x.png" alt="&int; 1&radic; -------       &int; 1&#x2218; ----(------)2-
-     1 + x2dx =  1-     1 +   u-+-1- du
- 0               2  &minus;1          2
-" class="math-display" ></center></td></tr></table>
-<!--l. 1012--><p class="nopar" >
-E, então aplicamos a quadratura gaussiana nesta última integral.
-                                                                          
-
-                                                                          
-   <div class="verbatim" id="verbatim-55">
-deff(&#8217;y=f(u)&#8217;,&#8217;y=sqrt(1+(u+1)^2/4)/2&#8217;)
-&#x00A0;<br />I3=f(0)*w3(1)+f(x3(2))*w3(2)+f(-x3(2))*w3(2)
-&#x00A0;<br />I4=f(x4(1))*w4(1)+f(-x4(1))*w4(1)+f(x4(2))*w4(2)+f(-x4(2))*w4(2)
-&#x00A0;<br />I5=f(0)*w5(1)+f(x5(2))*w5(2)+f(-x5(2))*w5(2)+f(x5(3))*w5(3)&#x00A0;...
-&#x00A0;<br />&#x00A0;&#x00A0;+f(-x5(3))*w5(3)
-</div>
-<!--l. 1021--><p class="nopar" >                                                                       <img 
-src="main4005x.png" alt="&#x2662; "  class="math" >
-   </div>
-<!--l. 1025--><p class="noindent" >
-   <h4 class="likesubsectionHead"><a 
- id="x84-1450009.6"></a>Exercícios</h4>
-   <div class="newtheorem">
-<!--l. 1027--><p class="noindent" ><span class="head">
-<a 
- id="x84-145001r1"></a>
-<span 
-class="ec-lmbx-12">E 9.6.1.</span>  </span>Encontre aproximações para a seguinte integral via Gauss-Legendre
-com <img 
-src="main4006x.png" alt="2, 3, 4, 5, 6  "  class="math" > e <img 
-src="main4007x.png" alt="7  "  class="math" > pontos e compare com o valor exato
-   <center class="math-display" >
-<img 
-src="main4008x.png" alt="&int; 1     5
-    x4ex dx.
- &minus;1
+src="main3865x.png" alt="               2     4      6
+I(h) = I0 + I2h + I4h  + I6h  + ...
 " class="math-display" ></center>
    </div>
+<!--l. 604--><p class="indent" >   Para um demonstração, veja [4]. Em especial observamos que
+   <center class="math-display" >
+<img 
+src="main3866x.png" alt="&int; b
+   f (x )dx = lim  I(h) = I0
+ a           h&rarr;0   " class="math-display" ></center> Ou
+seja, o valor exato da integral procurada é dado pelo coeficiente <img 
+src="main3867x.png" alt="I0   "  class="math" >.
+<!--l. 608--><p class="indent" >   A ideia central do método de Romberg, agora, consiste em usar a extrapolação
+de Richardson para construir métodos de maior ordem a partir do métodos dos
+trapézios para o intervalo <img 
+src="main3868x.png" alt="(a,b)  "  class="math" >
    <div class="newtheorem">
-<!--l. 1031--><p class="noindent" ><span class="head">
+<!--l. 609--><p class="noindent" ><span class="head">
 <a 
- id="x84-145002r2"></a>
+ id="x89-142003r1"></a>
+<span 
+class="ec-lmbx-12">Exemplo 9.4.1.</span>  </span>Construção do método de quarta ordem. <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main3869x.png" alt="                    2      4      6
+  I (h ) =   I0 + I2h +  I4h + I6h  + ...
+  (  )
+    h              h2     h4      h6
+I   --  =   I0 + I2---+ I4---+ I6 ---+ ...
+    2              4      16      64
+" class="math-display" ></center>
+</div>Usamos agora uma eliminação gaussiana para obter o termo <img 
+src="main3870x.png" alt="I0   "  class="math" >: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main3871x.png" alt="4I (h&#x2215;2) &minus; I(h)        1        5
+--------------- = I0 &minus; --I4h4 &minus;  --I6h6 + ...
+       3               4        16
+" class="math-display" ></center>
+</div>Vamos agora aplicar a fórmula para <img 
+src="main3872x.png" alt="h = b &minus; a  "  class="math" >, <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main3873x.png" alt="            h-
+  I(h)  =   2 [f (a) + f(b)]
+            h                            a + b
+I(h&#x2215;2)  =   --[f (a) + 2f (c) + f(b)], c =-----
+            4                              2
+" class="math-display" ></center>
+</div>
+<!--l. 624--><p class="indent" >   <div class="eqnarray">
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main3874x.png" alt="4I(h&#x2215;2) &minus; I(h)      h                         h
+------3-------- =   3-[f(a) + 2f (c) + f (b)] &minus; 6-[f (a) + f (b)]
+
+                =   h-[f(a) + 4f (c) + f (b)]
+                    6
+" class="math-display" ></center>
+</div>Observe que esquema coincide com o método de Simpson.
+   </div>
+<!--l. 631--><p class="indent" >   A partir de agora, usaremos a seguinte notação <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main3875x.png" alt=" R1,1 =   I(h)
+ R2,1 =   I(h&#x2215;2 )
+ R    =   I(h&#x2215;4 )
+  3,1
+       ...
+                n&minus;1
+Rn,1  =   I(h&#x2215;2    )
+" class="math-display" ></center>
+</div>
+<!--l. 640--><p class="indent" >   Observamos que os pontos envolvidos na quadratura <img 
+src="main3876x.png" alt="Rk,1   "  class="math" > são os mesmos
+pontos envolvidos na quadratura <img 
+src="main3877x.png" alt="R (k &minus; 1,1 )  "  class="math" > acrescidos dos pontos centrais,
+assim, temos a seguinte fórmula de recorrência:
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main3878x.png" alt="                      2k&minus; 2 (                 )
+R   =  1R      + -h---&sum;   f  a + (2i &minus; 1 )-h--
+ k,1   2  k&minus;1,1   2k&minus;1 i=1                2k&minus;1
+" class="math-display" ></center>
+<!--l. 643--><p class="indent" >   Definimos <img 
+src="main3879x.png" alt="Rk,2   "  class="math" > para <img 
+src="main3880x.png" alt="k &ge;  2  "  class="math" > como o esquema de ordem quatro obtido da
+fórmula do exemplo <a 
+href="#x89-142003r1">9.4.1<!--tex4ht:ref: exemplo_romberg_1 --></a>:
+   <center class="math-display" >
+<img 
+src="main3881x.png" alt="        4R   &minus; R
+Rk,2 =  --k,1----k&minus;1,1
+              3  " class="math-display" ></center> Os
+valores <img 
+src="main3882x.png" alt="Rk,2   "  class="math" > representam então os valores obtidos pelo método de Simpson
+composto aplicado a uma malha composta de <img 
+src="main3883x.png" alt="2k&minus;1 + 1  "  class="math" > pontos.
+<!--l. 647--><p class="indent" >   Similarmente os valores de <img 
+src="main3884x.png" alt="R
+  k,j  "  class="math" > são os valores obtidos pela quadratura
+de ordem <img 
+src="main3885x.png" alt="2j  "  class="math" > obtida via extrapolação de Richardson. Pode-se mostrar
+que
+   <center class="math-display" >
+<img 
+src="main3886x.png" alt="R    = R      + Rk,j&minus;1-&minus;-Rk&minus;-1,j&minus;1.
+  k,j     k,j&minus;1        4j&minus; 1 &minus; 1
+" class="math-display" ></center>
+   <div class="newtheorem">
+                                                                          
+
+                                                                          
+<!--l. 650--><p class="noindent" ><span class="head">
+<a 
+ id="x89-142009r2"></a>
+<span 
+class="ec-lmbx-12">Exemplo 9.4.2.</span>  </span>Construa o esquema de Romberg para aproximar o valor
+de <img 
+src="main3887x.png" alt="&int;
+ 20 e&minus;x2dx  "  class="math" > com erro de ordem 8.
+<!--l. 653--><p class="indent" >   O que nos fornece os seguintes resultados:
+<!--tex4ht:inline--><div class="tabular"> <table id="TBL-17" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-17-1g"><col 
+id="TBL-17-1"></colgroup><colgroup id="TBL-17-2g"><col 
+id="TBL-17-2"></colgroup><colgroup id="TBL-17-3g"><col 
+id="TBL-17-3"></colgroup><colgroup id="TBL-17-4g"><col 
+id="TBL-17-4"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-17-1-1"  
+class="td11">55,59815</td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-1-2"  
+class="td11"> 0,000000 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-1-3"  
+class="td11"> 0,000000 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-1-4"  
+class="td11"> 0,000000 </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-17-2-1"  
+class="td11">30,517357</td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-2-2"  
+class="td11">22,157092</td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-2-3"  
+class="td11"> 0,000000 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-2-4"  
+class="td11"> 0,000000 </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-17-3-1"  
+class="td11">20,644559</td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-3-2"  
+class="td11">17,353626</td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-3-3"  
+class="td11">17,033395</td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-3-4"  
+class="td11"> 0,000000 </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-17-4-1"  
+class="td11">17,565086</td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-4-2"  
+class="td11">16,538595</td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-4-3"  
+class="td11">16,484259</td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-4-4"  
+class="td11">16,475543</td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-17-5-1"  
+class="td11">        </td></tr></table></div>
+<!--l. 661--><p class="indent" >   Ou seja, temos:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main3888x.png" alt="&int; 2
+    ex2dx &asymp; 16,475543
+  0
+" class="math-display" ></center></td></tr></table>
+<!--l. 664--><p class="nopar" >
+usando uma aproximação de ordem 8.
+   </div>
+   <div class="newtheorem">
+<!--l. 669--><p class="noindent" ><span class="head">
+<a 
+ id="x89-142010r3"></a>
+<span 
+class="ec-lmbx-12">Exemplo 9.4.3.</span>  </span>Construa o esquema de Romberg para aproximar o valor
+de <img 
+src="main3889x.png" alt="&int;     2
+ 20 x2ex dx  "  class="math" > com erro de ordem 12.
+<!--l. 671--><p class="indent" >   O que nos fornece: <!--tex4ht:inline--><div class="tabular"> <table id="TBL-18" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-18-1g"><col 
+id="TBL-18-1"></colgroup><colgroup id="TBL-18-2g"><col 
+id="TBL-18-2"></colgroup><colgroup id="TBL-18-3g"><col 
+id="TBL-18-3"></colgroup><colgroup id="TBL-18-4g"><col 
+id="TBL-18-4"></colgroup><colgroup id="TBL-18-5g"><col 
+id="TBL-18-5"></colgroup><colgroup id="TBL-18-6g"><col 
+id="TBL-18-6"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-18-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-18-1-1"  
+class="td11">218,3926</td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-1-2"  
+class="td11">        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-1-3"  
+class="td11">        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-1-4"  
+class="td11">        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-1-5"  
+class="td11">        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-1-6"  
+class="td11">        </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-18-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-18-2-1"  
+class="td11">111,91458</td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-2-2"  
+class="td11">76,421909</td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-2-3"  
+class="td11">        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-2-4"  
+class="td11">        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-2-5"  
+class="td11">        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-2-6"  
+class="td11">        </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-18-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-18-3-1"  
+class="td11">66,791497</td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-3-2"  
+class="td11">51,750469</td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-3-3"  
+class="td11">50,105706</td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-3-4"  
+class="td11">        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-3-5"  
+class="td11">        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-3-6"  
+class="td11">        </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-18-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-18-4-1"  
+class="td11">51,892538</td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-4-2"  
+class="td11">46,926218</td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-4-3"  
+class="td11">46,604601</td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-4-4"  
+class="td11">46,549028</td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-4-5"  
+class="td11">        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-4-6"  
+class="td11">        </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-18-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-18-5-1"  
+class="td11">47,782846</td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-5-2"  
+class="td11">46,412949</td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-5-3"  
+class="td11">46,378731</td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-5-4"  
+class="td11">46,375146</td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-5-5"  
+class="td11">46,374464</td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-5-6"  
+class="td11">        </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-18-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-18-6-1"  
+class="td11"> 46,72661 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-6-2"  
+class="td11">46,374531</td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-6-3"  
+class="td11"> 46,37197 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-6-4"  
+class="td11">46,371863</td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-6-5"  
+class="td11"> 46,37185 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-6-6"  
+class="td11">46,371847</td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-18-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-18-7-1"  
+class="td11">        </td> </tr></table></div>
+                                                                          
+
+                                                                          
+<!--l. 681--><p class="indent" >   Ou seja, temos:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main3890x.png" alt="&int; 2
+    x2ex2dx &asymp; 46,371847
+ 0
+" class="math-display" ></center></td></tr></table>
+<!--l. 684--><p class="nopar" >
+com uma aproximação de ordem 12.
+   </div>
+<!--l. 688--><p class="noindent" >
+   <h4 class="likesubsectionHead"><a 
+ id="x89-1430009.4"></a>Exercícios</h4>
+<!--l. 690--><p class="noindent" >Para cada integrando encontre o função <img 
+src="main3891x.png" alt="I(h) = a0 + a1h + a2h2 + a3h3 + a4h4   "  class="math" >
+que melhor se ajusta aos dados, onde <img 
+src="main3892x.png" alt="h =  -1--
+     n&minus;1   "  class="math" >. Discuta os resultados com base
+no teorema envolvido na construção do método de Romberg.
+   </div>
+<!--l. 692--><p class="indent" >
+   <div class="proof">
+<!--l. 692--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Resposta.</span> </span>
+   <center class="math-display" >
+<img 
+src="main3893x.png" alt="a)I(h)= 4.41041&sdot;10&minus;1&minus; 8.49372 &sdot;10&minus;12h&minus; 1.22104&sdot;10&minus;2h2&minus; 1.22376&sdot;10&minus;7h3+8.14294&sdot;10&minus;3h4
+" class="math-display" ></center>
+   <center class="math-display" >
+<img 
+src="main3894x.png" alt="             &minus;1         &minus;11          &minus;22         &minus;7 3        &minus;6 4
+b)I(h)= 7.85398&sdot;10  &minus; 1.46294&sdot;10 h&minus; 4.16667&sdot;10 h &minus; 2.16110&sdot;10  h +4.65117&sdot;10  h
+" class="math-display" ></center>
+   <center class="math-display" >
+<img 
+src="main3895x.png" alt="c)I(h)= 1.58730&sdot;10&minus;3&minus; 9.68958&sdot;10&minus;10h+ 2.03315&sdot;10&minus;7h2&minus; 1.38695&sdot;10&minus;5h3+2.97262&sdot;10&minus;4h4
+" class="math-display" ></center>
+   <center class="math-display" >
+<img 
+src="main3896x.png" alt="d)I(h)= 4.61917&sdot;10&minus;1+ 3.83229 &sdot;10&minus;12h+ 2.52721&sdot;10&minus;2h2+ 5.48935&sdot;10&minus;8h3+5.25326&sdot;10&minus;4h4
+" class="math-display" ></center>
+                                                                       <img 
+src="main3897x.png" alt="&#x2662; "  class="math" >
+   </div>
+   <div class="newtheorem">
+<!--l. 702--><p class="noindent" ><span class="head">
+<a 
+ id="x89-143001r1"></a>
                                                                           
 
                                                                           
 <span 
-class="ec-lmbx-12">E 9.6.2.</span>  </span>Encontre aproximações para as seguintes integrais via Gauss-Legendre
-com 4 e 5 pontos:
-      <ul class="itemize1">
-      <li class="itemize"><img 
-src="main4009x.png" alt="&int;     4
- 10 e&minus;x dx  "  class="math" >
-      </li>
-      <li class="itemize"><img 
-src="main4010x.png" alt="&int;41 log (x + ex)dx  "  class="math" >
-      </li>
-      <li class="itemize"><img 
-src="main4011x.png" alt="&int;1 e&minus;x2dx
- 0  "  class="math" ></li></ul>
-   </div>
-   <div class="newtheorem">
-<!--l. 1039--><p class="noindent" ><span class="head">
-<a 
- id="x84-145003r3"></a>
-<span 
-class="ec-lmbx-12">E 9.6.3.</span>  </span>Calcule numericamente o valor das seguintes integrais usando a
-quadratura de Gauss-Legendre para os seguintes valores de <img 
-src="main4012x.png" alt="n  "  class="math" >:
+class="ec-lmbx-12">E 9.4.1.</span>  </span>Calcule os valores da quadratura de Romberg de <img 
+src="main3898x.png" alt="R1,1   "  class="math" > até <img 
+src="main3899x.png" alt="R4,4   "  class="math" > para
+<img 
+src="main3900x.png" alt="&int;&pi;
+ 0 sin(x)dx  "  class="math" >. Não use rotinas prontas neste problema.
 <div class="center" 
 >
-<!--l. 1040--><p class="noindent" >
-<div class="tabular"> <table id="TBL-23" class="tabular" 
+<!--l. 704--><p class="noindent" >
+<div class="tabular"> <table id="TBL-19" class="tabular" 
 cellspacing="0" cellpadding="0" rules="groups" 
-><colgroup id="TBL-23-1g"><col 
-id="TBL-23-1"></colgroup><colgroup id="TBL-23-2g"><col 
-id="TBL-23-2"></colgroup><colgroup id="TBL-23-3g"><col 
-id="TBL-23-3"></colgroup><colgroup id="TBL-23-4g"><col 
-id="TBL-23-4"></colgroup><colgroup id="TBL-23-5g"><col 
-id="TBL-23-5"></colgroup><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-23-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-23-1-1"  
-class="td11"> n </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-1-2"  
-class="td11"> <img 
-src="main4013x.png" alt="&int;1  &minus;4x2
- 0 e   dx  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-1-3"  
-class="td11"><img 
-src="main4014x.png" alt="&int;1 -1--
- 0 1+x2dx  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-1-4"  
-class="td11"><img 
-src="main4015x.png" alt="&int; 1 4       4
- 0 x (1 &minus; x) dx  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-1-5"  
-class="td11"><img 
-src="main4016x.png" alt="&int;1 &minus; x12+1
- 0 e     dx  "  class="math" ></td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-23-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-23-2-1"  
-class="td11"><img 
-src="main4017x.png" alt="2  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-2-2"  
-class="td11">&#x00A0;&#x00A0;&#x00A0;&#x00A0;          &#x00A0;</td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-2-3"  
-class="td11">         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-2-4"  
-class="td11"> &#x00A0;&#x00A0;&#x00A0;&#x00A0;          &#x00A0;  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-2-5"  
+><colgroup id="TBL-19-1g"><col 
+id="TBL-19-1"></colgroup><colgroup id="TBL-19-2g"><col 
+id="TBL-19-2"></colgroup><colgroup id="TBL-19-3g"><col 
+id="TBL-19-3"></colgroup><colgroup id="TBL-19-4g"><col 
+id="TBL-19-4"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-19-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-19-1-1"  
+class="td11">&#x00A0;&#x00A0;&#x00A0;&#x00A0;          &#x00A0;</td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-1-2"  
+class="td11">&#x00A0;&#x00A0;&#x00A0;&#x00A0;          &#x00A0;</td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-1-3"  
+class="td11">&#x00A0;&#x00A0;&#x00A0;&#x00A0;          &#x00A0;</td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-1-4"  
 class="td11">&#x00A0;&#x00A0;&#x00A0;&#x00A0;          &#x00A0;</td></tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-23-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-23-3-1"  
-class="td11"> <img 
-src="main4018x.png" alt="3 "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-3-2"  
-class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-3-3"  
-class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-3-4"  
-class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-3-5"  
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-19-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-19-2-1"  
+class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-2-2"  
+class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-2-3"  
+class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-2-4"  
 class="td11"></td>
 </tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-23-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-23-4-1"  
-class="td11"><img 
-src="main4019x.png" alt="4  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-4-2"  
-class="td11">           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-4-3"  
-class="td11">         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-4-4"  
-class="td11">              </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-4-5"  
-class="td11">           </td></tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-23-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-23-5-1"  
-class="td11"> <img 
-src="main4020x.png" alt="5 "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-5-2"  
-class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-5-3"  
-class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-5-4"  
-class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-5-5"  
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-19-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-19-3-1"  
+class="td11">            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-3-2"  
+class="td11">           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-3-3"  
+class="td11">           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-3-4"  
+class="td11">           </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-19-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-19-4-1"  
+class="td11">            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-4-2"  
+class="td11">           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-4-3"  
+class="td11">           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-4-4"  
+class="td11">           </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-19-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-19-5-1"  
+class="td11">            </td></tr></table></div></div>
+   </div>
+<!--l. 719--><p class="indent" >
+   <div class="proof">
+<!--l. 719--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Resposta.</span> </span>
+<div class="center" 
+>
+<!--l. 721--><p class="noindent" >
+<div class="tabular"> <table id="TBL-20" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-20-1g"><col 
+id="TBL-20-1"></colgroup><colgroup id="TBL-20-2g"><col 
+id="TBL-20-2"></colgroup><colgroup id="TBL-20-3g"><col 
+id="TBL-20-3"></colgroup><colgroup id="TBL-20-4g"><col 
+id="TBL-20-4"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-20-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-20-1-1"  
+class="td11"><span 
+class="ec-lmr-6">&#x00A0;</span><span 
+class="ec-lmr-6">&#x00A0;</span><span 
+class="ec-lmr-6">&#x00A0;</span><span 
+class="ec-lmr-6">&#x00A0;</span><span 
+class="ec-lmr-6">&#x00A0;</span><span 
+class="ec-lmr-6">&#x00A0;                </span><span 
+class="ec-lmr-6">&#x00A0;</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-20-1-2"  
+class="td11"><span 
+class="ec-lmr-6">&#x00A0;</span><span 
+class="ec-lmr-6">&#x00A0;</span><span 
+class="ec-lmr-6">&#x00A0;</span><span 
+class="ec-lmr-6">&#x00A0;</span><span 
+class="ec-lmr-6">&#x00A0;</span><span 
+class="ec-lmr-6">&#x00A0;                </span><span 
+class="ec-lmr-6">&#x00A0;</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-20-1-3"  
+class="td11"><span 
+class="ec-lmr-6">&#x00A0;</span><span 
+class="ec-lmr-6">&#x00A0;</span><span 
+class="ec-lmr-6">&#x00A0;</span><span 
+class="ec-lmr-6">&#x00A0;</span><span 
+class="ec-lmr-6">&#x00A0;</span><span 
+class="ec-lmr-6">&#x00A0;                </span><span 
+class="ec-lmr-6">&#x00A0;</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-20-1-4"  
+class="td11">          </td></tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-20-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-20-2-1"  
+class="td11"> <span 
+class="ec-lmr-6">1.5707963 </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-20-2-2"  
+class="td11"> <span 
+class="ec-lmr-6">2.0943951 </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-20-2-3"  
+class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-20-2-4"  
 class="td11"></td>
 </tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-23-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-23-6-1"  
-class="td11"><img 
-src="main4021x.png" alt="8  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-6-2"  
-class="td11">           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-6-3"  
-class="td11">         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-6-4"  
-class="td11">              </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-6-5"  
-class="td11">           </td>
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-20-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-20-3-1"  
+class="td11">      <span 
+class="ec-lmr-6">1.8961189        </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-20-3-2"  
+class="td11">      <span 
+class="ec-lmr-6">2.0045598       </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-20-3-3"  
+class="td11">      <span 
+class="ec-lmr-6">1.9985707       </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-20-3-4"  
+class="td11">          </td>
 </tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-23-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-23-7-1"  
-class="td11"><img 
-src="main4022x.png" alt="10  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-7-2"  
-class="td11">           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-7-3"  
-class="td11">         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-7-4"  
-class="td11">              </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-7-5"  
-class="td11">           </td>
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-20-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-20-4-1"  
+class="td11">      <span 
+class="ec-lmr-6">1.9742316        </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-20-4-2"  
+class="td11">      <span 
+class="ec-lmr-6">2.0002692       </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-20-4-3"  
+class="td11">      <span 
+class="ec-lmr-6">1.9999831       </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-20-4-4"  
+class="td11"><span 
+class="ec-lmr-6">2.0000055</span></td>
 </tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-23-8-"><td  style="white-space:nowrap; text-align:center;" id="TBL-23-8-1"  
-class="td11"><img 
-src="main4023x.png" alt="12  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-8-2"  
-class="td11">           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-8-3"  
-class="td11">         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-8-4"  
-class="td11">              </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-8-5"  
-class="td11">           </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-23-9-"><td  style="white-space:nowrap; text-align:center;" id="TBL-23-9-1"  
-class="td11"><img 
-src="main4024x.png" alt="14  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-9-2"  
-class="td11">           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-9-3"  
-class="td11">         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-9-4"  
-class="td11">              </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-9-5"  
-class="td11">           </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-23-10-"><td  style="white-space:nowrap; text-align:center;" id="TBL-23-10-1"  
-class="td11"><img 
-src="main4025x.png" alt="16  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-10-2"  
-class="td11">  0.4410407   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-10-3"  
-class="td11"> 0.7853982 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-10-4"  
-class="td11">   0.0015873     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-23-10-5"  
-class="td11">  0.4619172   </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-23-11-"><td  style="white-space:nowrap; text-align:center;" id="TBL-23-11-1"  
-class="td11">   </td></tr></table></div></div>
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-20-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-20-5-1"  
+class="td11">                      </td></tr></table></div></div>
+                                                                       <img 
+src="main3901x.png" alt="&#x2662; "  class="math" >
+   </div>
+   <div class="newtheorem">
+<!--l. 738--><p class="noindent" ><span class="head">
+<a 
+ id="x89-143002r2"></a>
+<span 
+class="ec-lmbx-12">E 9.4.2.</span>  </span>Sem usar rotinas prontas, use o método de integração de Romberg para
+obter a aproximação <img 
+src="main3902x.png" alt="R3,3   "  class="math" > das seguintes integrais:
+      <ul class="itemize1">
+      <li class="itemize"><img 
+src="main3903x.png" alt="&int;1 e&minus;x2dx
+ 0  "  class="math" >
+      </li>
+      <li class="itemize"><img 
+src="main3904x.png" alt="   &#x2218; ----------
+&int;2   2 &minus; cos(x )dx
+ 0  "  class="math" >
+      </li>
+      <li class="itemize"><img 
+src="main3905x.png" alt="&int;2 ----1----
+ 0 &radic;2-&minus;cos(x)dx  "  class="math" ></li></ul>
+                                                                          
+
+                                                                          
+   </div>
+<!--l. 745--><p class="indent" >
+   <div class="proof">
+<!--l. 745--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Resposta.</span> </span> <span 
+class="ec-lmr-6">0.7468337,2.4606311, 1.6595275.</span>
+                                                                       <img 
+src="main3906x.png" alt="&#x2662; "  class="math" >
+   </div>
+   <div class="newtheorem">
+<!--l. 750--><p class="noindent" ><span class="head">
+<a 
+ id="x89-143003r3"></a>
+<span 
+class="ec-lmbx-12">E 9.4.3.</span>  </span>Encontre uma expressão para <img 
+src="main3907x.png" alt="R2,2   "  class="math" > em termos de <img 
+src="main3908x.png" alt="f (x )  "  class="math" > e verifique
+o método de Romberg <img 
+src="main3909x.png" alt="R
+  2,2   "  class="math" > é equivalente ao método de Simpson.
+   </div>
+   <div class="newtheorem">
+<!--l. 753--><p class="noindent" ><span class="head">
+<a 
+ id="x89-143004r4"></a>
+<span 
+class="ec-lmbx-12">E 9.4.4.</span>  </span>Considere o problema de aproximar numericamente o valor de
+   <center class="math-display" >
+<img 
+src="main3910x.png" alt="&int; 100(  1cos(x)   )
+      e2     &minus; 1  dx
+ 0  " class="math-display" ></center>
+pelo método de Romberg. Usando rotinas prontas, faça o que se pede.
+      <ul class="itemize1">
+      <li class="itemize">Calcule <img 
+src="main3911x.png" alt="R (6,k), k =  1,...,6  "  class="math" > e observe os valores obtidos.
+                                                                          
+
+                                                                          
+      </li>
+      <li class="itemize">Calcule <img 
+src="main3912x.png" alt="R (7,k), k =  1,...,6  "  class="math" > e observe os valores obtidos.
+      </li>
+      <li class="itemize">Calcule <img 
+src="main3913x.png" alt="R (8,k), k =  1,...,6  "  class="math" > e observe os valores obtidos.
+      </li>
+      <li class="itemize">Discuta  os  resultados  anteriores  e  proponha  uma  estratégia  mais
+      eficiente para calcular o valor da integral.</li></ul>
+   </div>
+<!--l. 763--><p class="indent" >
+   <div class="proof">
+<!--l. 763--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Resposta.</span> </span>  <img 
+src="main3914x.png" alt="R(6,6)=&minus; 10.772065  "  class="math" ><span 
+class="ec-lmr-6">,</span> <img 
+src="main3915x.png" alt="R(7,7)=5.2677002  "  class="math" ><span 
+class="ec-lmr-6">,</span> <img 
+src="main3916x.png" alt="R(8,8)=6.1884951  "  class="math" ><span 
+class="ec-lmr-6">,</span> <img 
+src="main3917x.png" alt="R(9,9)= 6.0554327  "  class="math" ><span 
+class="ec-lmr-6">,</span>
+<img 
+src="main3918x.png" alt="R(10,10)= 6.0574643  "  class="math" ><span 
+class="ec-lmr-6">. O valor desta integral com oito d</span><span 
+class="ec-lmr-6">ígitos corretos </span><span 
+class="ec-lmr-6">é aproximado por</span> <img 
+src="main3919x.png" alt="6.0574613  "  class="math" ><span 
+class="ec-lmr-6">.</span>
+                                                                       <img 
+src="main3920x.png" alt="&#x2662; "  class="math" >
    </div>
                                                                           
 
                                                                           
-   <!--l. 1067--><div class="crosslinks"><p class="noindent"><a 
-href="mainli14.html#mainse57.html" >Índice</a></p></div>
-<!--l. 1067--><p class="indent" >   <a 
+   <!--l. 769--><div class="crosslinks"><p class="noindent"><a 
+href="mainse58.html#mainli16.html" >Índice</a></p></div>
+<!--l. 769--><p class="indent" >   <a 
  id="tailmainse42.html"></a>   
 </body></html> 
