@@ -23,22 +23,22 @@ Seja dada uma função diferenciável $y = f(x)$. A derivada $f'(x_0)$ da funç�
 \end{equation*}
 Deste limite, tomando $h\neq 0$ pequeno (não muito pequeno para evitar o cancelamento catastrófico), é esperado que possamos obter uma aproximação razoável para $f'(x_0)$ calculando:
 \begin{equation}\label{eq:dp}
-  Df(x_0) := \frac{f(x_0+h)-f(x_0)}{h} \approx f'(x_0).
+  D_{+,h}f(x_0) := \frac{f(x_0+h)-f(x_0)}{h} \approx f'(x_0).
 \end{equation}
-Aqui, $Df(x_0)$ é a chamada fórmula de diferenças progressiva de ordem 1 (ou de primeira ordem).
+Aqui, $D_{+,h}f(x_0)$ é a chamada fórmula de diferenças progressiva de ordem 1 (ou de primeira ordem).
 
 \begin{ex}\label{ex:dp}
-Calcule a derivada numérica da função $f(x)=\cos(x)$ no ponto $x=1$ usando $h=10^{-1}$, $10^{-2}$, $10^{-3}$, $10^{-4}$, $10^{-12}$ e $10^{-14}$.
+Use a fórmula de diferenças finitas progressiva de ordem 1, calcule aproximações da derivada de $f(x)=\cos(x)$ no ponto $x=1$ usando $h=10^{-1}$, $10^{-2}$, $10^{-3}$, $10^{-4}$, $10^{-12}$ e $10^{-14}$. Então, compute o erro $|D_{+,h}f(1)-f'(1)|$ obtido com cada valor de $h$.
 \end{ex}
 \begin{sol}
 Usando a fórmula de diferenças dada na equação~\eqref{eq:dp}, devemos calcular:
 \begin{equation*}
-  Df(1) = \frac{\cos(1 + h) - \cos(1)}{h}
+  D_{+,h}f(1) = \frac{\cos(1 + h) - \cos(1)}{h}
 \end{equation*}
 para cada valor de $h$ solicitado. Fazendo isso, obtemos:
 \begin{equation*}
   \begin{array}{r|c|c}
-    h & Df(1) & |f'(1) - DF(1)| \\ \hline
+    h & Df(1) & |f'(1) - D_{+,h}F(1)| \\ \hline
     10^{-1} & -8,67062(-01) & 2,55909(-02)\\
     10^{-2} & -8,44158(-01) & 2,68746(-03)\\
     10^{-3} & -8,41741(-01) & 2,70011(-04)\\
@@ -61,17 +61,74 @@ E, similarmente, para outros valores de $x_0$ e $h$.
 \fi
 \end{sol}
 
-Observe que, no exemplo anterior, quanto menor $h$, melhor é a aproximação, visto que o valor exato para a derivada é $f'(1)=-\sin(1)=-0,8414710$. Porém, quando $h=10^{-13}$, a derivada numérica é $-0,8404388$ (usando aritmética \verb+double+), resultado pior que aquele para $h=0,0001$. Além disso, na mesma aritmética, quando $h=10^{-16}$ a derivada numérica calculada é zero (cancelamento catastrófico). Isso nos motiva a pensar qual é o melhor $h$.  
+\begin{figure}
+  \centering
+  \includegraphics{./cap_derint/pics/ex_derivacao/ex_derivacao}
+  \caption{Erro da aproximação da derivada numérica no Exemplo~\ref{ex:dp}.}
+  \label{fig:ex_derivacao}
+\end{figure}
 
-Essa aproximação para a derivada é denominada diferenças progressivas. A derivada numérica também pode ser aproximada usando definições equivalentes:
-$$
-f'(x_0)\approx \frac{f(x_0)-f(x_0-h)}{h}=\frac{y_i-y_{i-1}}{h}
-$$
-que é denominada diferenças regressivas ou
-$$
-f'(x_0)\approx \frac{f(x_0+h)-f(x_0-h)}{2h}=\frac{y_{i+1}-y_{i-1}}{2h}
-$$
-que é denominada diferenças centrais.
+Exploremos o Exemplo~\ref{ex:dp} um pouco mais. Observamos que, para valores moderados de $h$, o erro $|f'(1)-D_{+,h}f(1)|$ diminui linearmente com $h$ (veja Figura~\ref{fig:ex_derivacao}). Isto é consequência da ordem de truncamento da fórmula de diferenças finitas aplicada (que é de ordem 1). Porém, para valores muito pequenos de $h < 10^{-8}$, o erro passa a aumentar quando diminuímos $h$. Isto é devido ao efeito de cancelamento catastrófico.
+
+\subsection{Obtenção de fórmulas de diferenças via série de Taylor}
+
+Podemos construir fórmulas de diferenças finitas para uma função $f(x)$ (suave) no ponto $x = x_0$ a partir de sua expansão em série de Taylor. Em alguns casos, este procedimento acaba por nos fornecer, também, a ordem de truncamento da fórmula.
+
+\subsubsection{Fórmula de diferenças finitas progressiva de ordem 1}\index{diferenças finitas!progressiva}
+
+A fórmula de diferenças finitas progressiva pode ser obtida fazendo a seguinte expansão em série de Taylor:
+\begin{equation*}
+  f(x_0+h) = f(x_0) + hf'(x_0) + h^2\frac{f''(\xi)}{2},\quad h>0, \xi\in(x_0,x_0+h).
+\end{equation*}
+Então, isolando $f'(x_0)$, obtemos:
+\begin{equation*}
+  f'(x_0) = \underbrace{\frac{f(x_0+h) - f(x_0)}{h}}_{D_{+,h}} - \underbrace{h\frac{f''(\xi)}{2}}_{\text{truncamento}},
+\end{equation*}
+o que corrobora que o erro de truncamento da fórmula de diferença finitas progressiva:
+\begin{equation*}
+  D_{+,h}f(x_0) := \frac{f(x_0+h)-f(x_0)}{h}  
+\end{equation*}
+é de ordem $h$
+
+\subsubsection{Fórmula de diferenças finitas regressiva de ordem 1}\index{diferenças finitas!regressiva}
+
+A fórmula de diferenças finitas regressiva também pode ser obtida fazendo, agora, a seguinte expansão em série de Taylor:
+\begin{equation*}
+  f(x_0-h) = f(x_0) - hf'(x_0) + h^2\frac{f''(\xi)}{2},\quad h>0, \xi\in(x_0, x_0+h).
+\end{equation*}
+Então, isolando $f'(x_0)$, obtemos:
+\begin{equation*}
+  f'(x_0) = \underbrace{\frac{f(x_0) - f(x_0-h)}{h}}_{D_{-,h}} + h\frac{f''(\xi)}{2}.
+\end{equation*}
+Desta equação, temos que a fórmula:
+\begin{equation*}
+  D_{-,h}f(x_0) := \frac{f(x_0)-f(x_0-h)}{h},
+\end{equation*}
+a qual é chamada de fórmula de diferenças finitas regressiva tem erro de truncamento da ordem $h$.
+
+\subsubsection{Fórmula de diferenças finitas central de ordem 2}\index{diferenças finitas!central}
+
+A fórmula de diferenças finitas central pode-se obter de duas expansões em série de Taylor: uma progressiva e outra regressiva. Seguem as expansões:
+\begin{equation*}
+  \begin{split}
+    f(x_0+h) &= f(x_0) + hf'(x_0) + h^2f''(x_0) + h^3\frac{f'''(\xi_{+})}{3!},\\
+    f(x_0-h) &= f(x_0) - hf'(x_0) + h^2f''(x_0) + h^3\frac{f'''(\xi_{-})}{3!}
+  \end{split}
+\end{equation*}
+Fazendo a primeira equação menos a segunda, obtemos:
+\begin{equation*}
+  f(x_0+h)-f(x_0-h) = 2hf'(x_0) + h^{3}\left(\frac{f'''(\xi_{+}) - f'''(\xi_{-})}{3!}\right).
+\end{equation*}
+Então, isolando $f'(x_0)$ obtemos:
+\begin{equation*}
+  f'(x_0) = \underbrace{\frac{f(x_0+h) - f(x_0-h)}{2h}}_{D_{0,h}} - h^2\left(\frac{f'''(\xi_+) - f'''(\xi_-)}{3!}\right).
+\end{equation*}
+Desta equação, temos que a fórmula:
+\begin{equation*}
+  D_{0,h}f(x_0) := \frac{f(x_0+h)-f(x_0-h)}{2h},
+\end{equation*}
+a qual é chamada de \emph{fórmula de diferenças finitas central}\index{diferenças finitas!central} e tem erro de truncamento da ordem $2$.
+
 \begin{ex}
 Calcule a derivada numérica da função $f(x)=\cos(x)$ no ponto $x=1$ usando diferenças progressivas, diferenças regressivas e diferenças centrais com $h=0,1$, $h=0,01$ e $h=0,001$.
 \end{ex}
@@ -95,26 +152,26 @@ A tabela abaixo mostra a derivada numérica para cada valor de $h$.
 \end{center}  
 \end{sol}
 
-\subsection{Erros de truncamento}\index{erros!truncamento}
-Seja $D_{+,h}f(x_0)$ a aproximação da derivada de $f$ em $x_0$ por diferenças progressivas, $D_{-,h}f(x_0)$ a aproximação por diferenças regressivas e $D_{0,h}f(x_0)$ a aproximação por diferenças centrais, então
-\begin{eqnarray*}
-D_{+,h}f(x_0)-f'(x_0)&=&\frac{f(x_0+h)-f(x_0)}{h}-f'(x_0)\\
-&=&\frac{f(x_0)+hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)-f(x_0)}{h}-f'(x_0)\\
-&=&\frac{h}{2}f''(x_0)+O(h^2)=O(h).\\
-\end{eqnarray*}
-Analogamente:
-\begin{eqnarray*}
-D_{-,h}f(x_0)-f'(x_0)&=&\frac{f(x_0)-f(x_0-h)}{h}-f'(x_0)\\
-&=&\frac{f(x_0)-\left(f(x_0)-hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)\right)}{h}-f'(x_0)\\
-&=&-\frac{h}{2}f''(x_0)+O(h^2)=O(h).\\
-\end{eqnarray*}
-Também:
-\begin{eqnarray*}
-D_{0,h}f(x_0)-f'(x_0)&=& \frac{f(x_0+h)-f(x_0-h)}{2h}-f'(x_0)\\
-&=& \frac{f(x_0)+hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)}{2h} \\
-&-& \frac{f(x_0)-hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)}{2h}-f'(x_0)\\
-&=& O(h^2).
-\end{eqnarray*}
+% \subsection{Erros de truncamento}\index{erros!truncamento}
+% Seja $D_{+,h}f(x_0)$ a aproximação da derivada de $f$ em $x_0$ por diferenças progressivas, $D_{-,h}f(x_0)$ a aproximação por diferenças regressivas e $D_{0,h}f(x_0)$ a aproximação por diferenças centrais, então
+% \begin{eqnarray*}
+% D_{+,h}f(x_0)-f'(x_0)&=&\frac{f(x_0+h)-f(x_0)}{h}-f'(x_0)\\
+% &=&\frac{f(x_0)+hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)-f(x_0)}{h}-f'(x_0)\\
+% &=&\frac{h}{2}f''(x_0)+O(h^2)=O(h).\\
+% \end{eqnarray*}
+% Analogamente:
+% \begin{eqnarray*}
+% D_{-,h}f(x_0)-f'(x_0)&=&\frac{f(x_0)-f(x_0-h)}{h}-f'(x_0)\\
+% &=&\frac{f(x_0)-\left(f(x_0)-hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)\right)}{h}-f'(x_0)\\
+% &=&-\frac{h}{2}f''(x_0)+O(h^2)=O(h).\\
+% \end{eqnarray*}
+% Também:
+% \begin{eqnarray*}
+% D_{0,h}f(x_0)-f'(x_0)&=& \frac{f(x_0+h)-f(x_0-h)}{2h}-f'(x_0)\\
+% &=& \frac{f(x_0)+hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)}{2h} \\
+% &-& \frac{f(x_0)-hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)}{2h}-f'(x_0)\\
+% &=& O(h^2).
+% \end{eqnarray*}
 
 \begin{ex}
 Calcule a derivada numérica e o erro de truncamento de $f(x)=e^{-x}$ em $x=1,5$ pela fórmula de diferença progressiva para $h=0,1$, $h=0,01$ e $h=0,001$.
@@ -122,16 +179,12 @@ Calcule a derivada numérica e o erro de truncamento de $f(x)=e^{-x}$ em $x=1,5$
 \begin{sol}
 Como $|f''(x)|=|e^{-x}|<1$, então $|f'_+(x_0)-f'(x_0)|<\frac{h}{2}$.
 $$
-\begin{array}{|c|c|c|}
-\hline
- h&\hbox{diferenças progressivas} & \hbox{erro}=\frac{h}{2}\\
-\hline
-0,1&- 0,2123364 & 0,05\\
-\hline
-0,01 &- 0,2220182 & 0,005\\
-\hline
-0,001 &- 0,2230186 & 0,0005\\
-\hline
+\begin{array}{|c|c|c|}\hline
+ h&\hbox{diferenças progressivas} & \hbox{erro}=\frac{h}{2}\\\hline
+0,1&- 0,2123364 & 0,05\\\hline
+0,01 &- 0,2220182 & 0,005\\\hline
+0,001 &- 0,2230186 & 0,0005\\\hline
+\multicolumn{3}{c}{}
 \end{array}
 $$
 O valor exato da derivada é $f'(1,5)=-0,2231302$.

@@ -30,9 +30,11 @@ ax = plt.subplot(1,1,1)
 
 ax.grid()
 
+ax.set_xlim(1e-1,1e-10)
+
 
 #pontos
-hh = [1e-1, 1e-2, 1e-3, 1e-4, 1e-12, 1e-14]
+hh = [1e-1, 1e-2, 1e-3, 1e-4, 1e-5, 1e-6, 1e-7, 1e-8, 1e-9, 1e-10]
 
 def erro(h):
     Df = (np.cos(1+h)-np.cos(1))/h
@@ -42,13 +44,16 @@ ee = []
 for i,h in enumerate(hh):
     ee.append(erro(h))
     
-ax.plot(hh, ee, 'ko-', markersize=3, markeredgecolor="red")
+ax.plot(hh, ee, 'bo-', markersize=3, markeredgecolor="red")
 
 ax.set_xscale('log',basex=10)
 ax.set_yscale('log',basex=10)
 
-ax.set_xticks([1e-1,1e-2,1e-6,1e-10,1e-14], )
-ax.set_yticks([])
+ax.set_xticks([1e-1,1e-3,1e-5,1e-7,1e-9])
+ax.set_yticks([1e-1,1e-3,1e-5,1e-7,1e-9])
+
+ax.set_xlabel(r"$h$")
+ax.set_ylabel(r"$|f'(1)-Df(1)|$")
 
 fig_file =  "ex_derivacao"
 fig.savefig(fig_file+".eps", bbox_inches='tight')
