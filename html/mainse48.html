@@ -1,163 +1,113 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
   "http://www.w3.org/TR/html4/loose.dtd">  
 <html xml:lang="pt" > 
-<head><title>Elementos da linguagem</title> 
+<head><title>Metodos de Runge-Kutta</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
 <meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html,3,notoc*,info --> 
 <meta name="src" content="main.tex"> 
-<meta name="date" content="2016-10-30 17:05:00"> 
+<meta name="date" content="2016-11-01 14:37:00"> 
 <link rel="stylesheet" type="text/css" href="main.css"> 
 </head><body 
 >
-   <!--l. 77--><div class="crosslinks"><p class="noindent"><a 
-href="# "  >Índice</a></p></div>
-   <h3 class="sectionHead"><span class="titlemark">A.2   </span> <a 
- id="x97-162000A.2"></a>Elementos da linguagem</h3>
+   <!--l. 437--><div class="crosslinks"><p class="noindent"><a 
+href="mainli15.html# " >Índice</a></p></div>
+   <h3 class="sectionHead"><span class="titlemark">10.5   </span> <a 
+ id="x93-15800010.5"></a>Métodos de Runge-Kutta</h3>
 <a 
- id="dx97-162001"></a>
-<!--l. 79--><p class="noindent" >Scilab é uma linguagem interpretada em que todas as variáveis são matrizes. Uma
-variável é criada quando um valor é atribuído a ela. Por exemplo:
+ id="dx93-158001"></a>
+<!--l. 439--><p class="noindent" >Os métodos de Runge-Kutta consistem em iterações do tipo:
+   <center class="math-display" >
+<img 
+src="main4376x.png" alt="y(k+1) = y (k) + w k + ...+ w  k
+                1 1          n n  " class="math-display" ></center>
+onde <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main4377x.png" alt="k1  =  hf (y(k),t(k))
+            (k)         (k)
+k2  =  hf (y   + &alpha;2,1k1,t   + &beta;2h )
+k3  =  hf (y(k) + &alpha;3,1k1 + &alpha;3,2k2,t(k) + &beta;3h)
+    .
+    ..
+k   =  hf (y(k) + &alpha;  k +  &alpha;  k  + ...&alpha;     k    ,t(k) + &beta; h )
+ n                n,1 1    n,2  2       n,n&minus;1 n&minus; 1       n
+" class="math-display" ></center>
                                                                           
 
                                                                           
-   <div class="verbatim" id="verbatim-64">
---&#x003E;x=1
-&#x00A0;<br />&#x00A0;x&#x00A0;&#x00A0;=
-&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;1.
-&#x00A0;<br />--&#x003E;y&#x00A0;=&#x00A0;x&#x00A0;*&#x00A0;2
-&#x00A0;<br />&#x00A0;y&#x00A0;&#x00A0;=
-&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;2.
 </div>
-<!--l. 87--><p class="nopar" >a variável <span class="obeylines-h"><span class="verb"><span 
-class="ec-lmtt-12">x</span></span></span> recebe o valor <span class="obeylines-h"><span class="verb"><span 
-class="ec-lmtt-12">double</span></span></span> <img 
-src="main4550x.png" alt="1  "  class="math" > e, logo após, na segunda linha de comando,
-a variável <span class="obeylines-h"><span class="verb"><span 
-class="ec-lmtt-12">y</span></span></span> recebe o valor <span class="obeylines-h"><span class="verb"><span 
-class="ec-lmtt-12">double</span></span></span> <img 
-src="main4551x.png" alt="2  "  class="math" >. Observamos que o símbolo <span class="obeylines-h"><span class="verb"><span 
-class="ec-lmtt-12">=</span></span></span> significa o
-operador de atribuição não o de igualdade. O operador lógico de igualdade no
-Scilab é <span class="obeylines-h"><span class="verb"><span 
-class="ec-lmtt-12">==</span></span></span>.
-<!--l. 90--><p class="indent" >   Comentários e continuação de linha de comando são usados como no seguinte
-exemplo:
-                                                                          
-
-                                                                          
-   <div class="verbatim" id="verbatim-65">
---&#x003E;//Isto&#x00A0;é&#x00A0;um&#x00A0;comentário
-&#x00A0;<br />--&#x003E;x&#x00A0;=&#x00A0;1&#x00A0;..
-&#x00A0;<br />--&#x003E;+&#x00A0;2
-&#x00A0;<br />&#x00A0;x&#x00A0;&#x00A0;=
-&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;3.
-</div>
-<!--l. 97--><p class="nopar" >
-<!--l. 99--><p class="noindent" >
-   <h4 class="subsectionHead"><span class="titlemark">A.2.1   </span> <a 
- id="x97-163000A.2.1"></a>Operações matemáticas elementares</h4>
-<a 
- id="dx97-163001"></a>
-<!--l. 101--><p class="noindent" >No Scilab, os operadores matemáticos elementares são os seguintes:
-                                                                          
-
-                                                                          
-   <div class="verbatim" id="verbatim-66">
-&#x00A0;&#x00A0;+&#x00A0;adição
-&#x00A0;<br />&#x00A0;&#x00A0;-&#x00A0;subtração
-&#x00A0;<br />&#x00A0;&#x00A0;*&#x00A0;multiplicação
-&#x00A0;<br />&#x00A0;&#x00A0;/&#x00A0;divisão
-&#x00A0;<br />&#x00A0;&#x00A0;^&#x00A0;potenciação&#x00A0;(igual&#x00A0;a&#x00A0;**)
-&#x00A0;<br />&#x00A0;&#x00A0;&#8217;&#x00A0;transposto&#x00A0;conjugado
-</div>
-<!--l. 109--><p class="nopar" >
-<!--l. 111--><p class="noindent" >
-   <h4 class="subsectionHead"><span class="titlemark">A.2.2   </span> <a 
- id="x97-164000A.2.2"></a>Funções e constantes elementares</h4>
-<a 
- id="dx97-164001"></a>
-<!--l. 113--><p class="noindent" >Várias funções e constantes elementares já estão pré-definidas no Scilab. Por
-exemplo:
-                                                                          
-
-                                                                          
-   <div class="verbatim" id="verbatim-67">
---&#x003E;cos(%pi)&#x00A0;//cosseno&#x00A0;de&#x00A0;pi
-&#x00A0;<br />&#x00A0;ans&#x00A0;&#x00A0;=
-&#x00A0;<br />&#x00A0;&#x00A0;-&#x00A0;1.
-&#x00A0;<br />
-&#x00A0;<br />--&#x003E;exp(1)&#x00A0;==&#x00A0;%e&#x00A0;//número&#x00A0;de&#x00A0;Euler
-&#x00A0;<br />&#x00A0;ans&#x00A0;&#x00A0;=
-&#x00A0;<br />&#x00A0;&#x00A0;T
-&#x00A0;<br />
-&#x00A0;<br />--&#x003E;log(1)&#x00A0;//logarítmo&#x00A0;natual&#x00A0;de&#x00A0;1
-&#x00A0;<br />&#x00A0;ans&#x00A0;&#x00A0;=
-&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;0.
-</div>
-<!--l. 126--><p class="nopar" >Para mais informações sobre quais as funções e constantes pré-definidas no
-Scilab, consulte o manual, seções &#8220;Funções elementares&#8221; e o carácter especial
-&#8220;%".
-<!--l. 129--><p class="noindent" >
-   <h4 class="subsectionHead"><span class="titlemark">A.2.3   </span> <a 
- id="x97-165000A.2.3"></a>Operadores lógicos</h4>
-<a 
- id="dx97-165001"></a>
-<!--l. 131--><p class="noindent" >No Scilab, o valor lógico verdadeiro é escrito como <span class="obeylines-h"><span class="verb"><span 
-class="ec-lmtt-12">%T</span></span></span> e o valor lógico falso como
-<span class="obeylines-h"><span class="verb"><span 
-class="ec-lmtt-12">%F</span></span></span>. Temos os seguintes operadores lógicos disponíveis:
-                                                                          
-
-                                                                          
-   <div class="verbatim" id="verbatim-68">
-&amp;&#x00A0;&#x00A0;e&#x00A0;lógico
-&#x00A0;<br />|&#x00A0;&#x00A0;ou&#x00A0;lógico
-&#x00A0;<br />~&#x00A0;&#x00A0;negação
-&#x00A0;<br />==&#x00A0;igualdade
-&#x00A0;<br />~=&#x00A0;diferente
-&#x00A0;<br />&#x003C;&#x00A0;&#x00A0;menor&#x00A0;que
-&#x00A0;<br />&#x003E;&#x00A0;&#x00A0;maior&#x00A0;que
-&#x00A0;<br />&#x003C;=&#x00A0;menor&#x00A0;ou&#x00A0;igual&#x00A0;que
-&#x00A0;<br />&#x003E;=&#x00A0;maior&#x00A0;ou&#x00A0;igual&#x00A0;que
-</div>
-<!--l. 142--><p class="nopar" >
+<!--l. 450--><p class="indent" >   Os coeficientes são escolhidos de forma que a expansão em Taylor de <img 
+src="main4378x.png" alt="  (k+1)
+y   "  class="math" > e
+<img 
+src="main4379x.png" alt=" (k)
+y   + w1k1 +  ...+ wnkn  "  class="math" > coincidam até ordem <img 
+src="main4380x.png" alt="n + 1  "  class="math" >.
    <div class="newtheorem">
-<!--l. 144--><p class="noindent" ><span class="head">
+<!--l. 452--><p class="noindent" ><span class="head">
 <a 
- id="x97-165002r1"></a>
+ id="x93-158003r1"></a>
 <span 
-class="ec-lmbx-12">Exemplo A.2.1.</span>  </span>Se <img 
-src="main4552x.png" alt="x =  2  "  class="math" >, então <img 
-src="main4553x.png" alt="x  "  class="math" > é maior ou igual a 1 e menor que 3?
+class="ec-lmbx-12">Exemplo 10.5.1.</span>  </span>O  método  de  Euler  melhorado  é  um  exemplo  de
+Runge-Kutta de segunda ordem
+   <center class="math-display" >
+<img 
+src="main4381x.png" alt="y(n+1) = y(n) + k1-+-k2
+                  2
+" class="math-display" ></center> onde <img 
+src="main4382x.png" alt="          (n) (n)
+k1 = hf (y  ,t  )  "  class="math" > e <img 
+src="main4383x.png" alt="          (n)      (n)
+k2 = hf (y   + k1,t  + h )  "  class="math" >
    </div>
-<!--l. 147--><p class="indent" >
-   <div class="proof">
-<!--l. 147--><p class="indent" >   <span class="head">
-<span 
-class="ec-lmbx-12">Solu</span><span 
-class="ec-lmbx-12">ç</span><span 
-class="ec-lmbx-12">ão.</span> </span> No Scilab, temos:
+<!--l. 457--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">10.5.1   </span> <a 
+ id="x93-15900010.5.1"></a>Métodos de Runge-Kutta - Quarta ordem</h4>
+<a 
+ id="dx93-159001"></a>
+<!--l. 459--><p class="noindent" >
+   <center class="math-display" >
+<img 
+src="main4384x.png" alt=" (n+1)    (n)   k1 + 2k2 + 2k3 + k4
+y     =  y   + ---------6---------  " class="math-display" ></center>
+onde <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main4385x.png" alt="            (n) (n)
+k1  =  hf (y  ,t  )
+k2  =  hf (y(n) + k1&#x2215;2,t(n) + h&#x2215;2)
+            (n)        (n)
+k3  =  hf (y   + k2&#x2215;2,t   + h&#x2215;2)
+k4  =  hf (y(n) + k3,t(n) + h)
+" class="math-display" ></center>
+</div>Este método tem ordem de precisão 4. Uma discussão heurística usando
+método de Simpson pode ajudar a compreender os estranhos coeficientes:
+<div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main4386x.png" alt="                      &int; t(n+1)
+y(t(n+1)) &minus; y(t(n))  =    (n)  f (y (s),s)ds
+                       t [ (          )      (                      )
+                   &asymp;   h-f  y(t(n)),t(n)  + 4f  y(t(n) + h&#x2215;2),t(n) + h&#x2215;2
+                       6(                  ) ]
+                   +   f  y(t(n) + h ),t(n) + h
+
+                       k1 + 4 (k2+k23) + k4
+                   &asymp;   --------6---------
+" class="math-display" ></center>
+</div>onde <img 
+src="main4387x.png" alt="k1   "  class="math" > e <img 
+src="main4388x.png" alt="k4   "  class="math" > representam as inclinações nos extremos e <img 
+src="main4389x.png" alt="k2   "  class="math" > e <img 
+src="main4390x.png" alt="k3   "  class="math" > são duas
+aproximações diferentes para a inclinação no meio do intervalo.
                                                                           
 
                                                                           
-   <div class="verbatim" id="verbatim-69">
---&#x003E;x=2;
-&#x00A0;<br />
-&#x00A0;<br />--&#x003E;(x&#x00A0;&#x003E;=&#x00A0;1)&#x00A0;&amp;&#x00A0;(x&#x00A0;&#x003C;&#x00A0;3)
-&#x00A0;<br />&#x00A0;ans&#x00A0;&#x00A0;=
-&#x00A0;<br />
-&#x00A0;<br />&#x00A0;&#x00A0;T
-</div>
-<!--l. 156--><p class="nopar" >                                                                       <img 
-src="main4554x.png" alt="&#x2662; "  class="math" >
-   </div>
-                                                                          
-
-                                                                          
-   <!--l. 159--><div class="crosslinks"><p class="noindent"><a 
-href="# "  >Índice</a></p></div>
-<!--l. 159--><p class="indent" >   <a 
+   <!--l. 477--><div class="crosslinks"><p class="noindent"><a 
+href="mainli15.html# " >Índice</a></p></div>
+<!--l. 477--><p class="indent" >   <a 
  id="tailmainse48.html"></a>   
 </body></html> 

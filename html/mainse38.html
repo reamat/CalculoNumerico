@@ -1,514 +1,1250 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
   "http://www.w3.org/TR/html4/loose.dtd">  
 <html xml:lang="pt" > 
-<head><title>Metodo de Euler</title> 
+<head><title>Regras de Newton-Cotes</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
 <meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html,3,notoc*,info --> 
 <meta name="src" content="main.tex"> 
-<meta name="date" content="2016-10-30 17:05:00"> 
+<meta name="date" content="2016-11-01 14:37:00"> 
 <link rel="stylesheet" type="text/css" href="main.css"> 
 </head><body 
 >
-   <!--l. 32--><div class="crosslinks"><p class="noindent"><a 
-href="# "  >Índice</a></p></div>
-   <h3 class="sectionHead"><span class="titlemark">9.1   </span> <a 
- id="x83-1410009.1"></a>Método de Euler</h3>
+   <!--l. 157--><div class="crosslinks"><p class="noindent"><a 
+href="mainli14.html#mainse53.html" >Índice</a></p></div>
+   <h3 class="sectionHead"><span class="titlemark">9.2   </span> <a 
+ id="x80-1290009.2"></a>Regras de Newton-Cotes</h3>
 <a 
- id="dx83-141001"></a>
-<!--l. 33--><p class="noindent" >Retornemos ao problema de valor inicial (<a 
-href="mainch9.html#x82-1400020">9.1<!--tex4ht:ref: PVI --></a>) dado por: <div class="subequations"><a 
- id="x83-1410020"></a> <div class="eqnarray">
+ id="dx80-129001"></a>
+<!--l. 159--><p class="noindent" >A forma geral de obter regras de integração melhores é usar polinômios com graus
+maiores. Utilizando polinômios de Lagrange passando por <img 
+src="main3694x.png" alt="{(x ,f (x ))}n
+   i    i  i=1   "  class="math" >
+obtemos
    <center class="math-display" >
 <img 
-src="main4184x.png" alt="y&prime;(t)  =   f(y(t),t)                            (9.3a)
-y(0)  =   y  (condição inicial)                (9.3b)
-           0
-" class="math-display" ></center>
-</div>
-</div>
-<!--l. 40--><p class="indent" >   O Método de Euler aplicado à solução desse problema consiste em aproximar
-a derivada <img 
-src="main4185x.png" alt=" &prime;
-y (t)  "  class="math" > por um esquema de primeira ordem do tipo
+src="main3695x.png" alt="                                 n               n          (n+1)
+                                &sum;                &prod;         f-----(&xi;(x))
+f (x) = Pn(x ) + termo de erro =  i=1 f(xi)Li(x) + i=1(x &minus; xi)  (n + 1)!  .  " class="math-display" ></center> e
+integramos
    <center class="math-display" >
 <img 
-src="main4186x.png" alt=" &prime;      y(t + h ) &minus; y(t)
-y (t) = ---------------+ O (h), h &#x003E; 0.
-              h  " class="math-display" ></center>
-Aqui <img 
-src="main4187x.png" alt="h  "  class="math" > é o passo do método, que consideraremos uma constante. Assim temos
-(<a 
-href="#x83-1410020">9.3<!--tex4ht:ref: PVI_2 --></a>) se transforma em: <div class="eqnarray">
+src="main3696x.png" alt="&int; b          &sum;n [      &int; b       ]            &int; b&prod;n
+   f (x)dx =     f (xi)    Li(x)dx  +  ---1----     (x &minus; xi)f(n+1)(&xi;(x))dx.
+ a           i=1        a             (n + 1 )!  a i=1 " class="math-display" ></center> A
+fórmula de quadratura então é
                                                                           
 
                                                                           
    <center class="math-display" >
 <img 
-src="main4188x.png" alt="y(t +-h)-&minus;-y(t)
-      h         =   f(y(t),t) + O(h )
-      y(t + h)  =   y(t) + hf (y(t),t) + O (h2).         (9.4)
-" class="math-display" ><a 
- id="x83-141004r9.4"></a></center>
-</div>
-<!--l. 48--><p class="indent" >   Definimos, então, <img 
-src="main4189x.png" alt="t(k) = (k &minus; 1)h  "  class="math" > e <img 
-src="main4190x.png" alt="y (k)   "  class="math" > como a aproximação para <img 
-src="main4191x.png" alt="  (   )
-y  t(k) "  class="math" >
-produzida pelo Método de Euler. Assim, obtemos <div class="eqnarray">
+src="main3697x.png" alt="&int; b          &sum;n
+   f (x)dx &asymp;    aif(xi),
+ a           i=1  " class="math-display" ></center>
+onde
    <center class="math-display" >
 <img 
-src="main4192x.png" alt=" (k+1)       (k)       (k) (k)
-y      =   y   + hf(y   ,t  ) (aproxima ção da EDO  ),      (9.5)
-  y(1)  =   y0 (condição inicial).                           (9.6)
-" class="math-display" ><a 
- id="x83-141005r9.5"></a></center>
-</div>O problema (<a 
-href="#x83-141005r9.5">9.5<!--tex4ht:ref: PVI_EULER --></a>) consiste em um esquema iterativo, isto é, <img 
-src="main4193x.png" alt=" (1)
-y   "  class="math" > é a condição
-inicial; <img 
-src="main4194x.png" alt="  (2)
-y   "  class="math" > pode ser obtido de <img 
-src="main4195x.png" alt=" (1)
-y   "  class="math" >; <img 
-src="main4196x.png" alt="  (3)
-y   "  class="math" >, de <img 
-src="main4197x.png" alt=" (2)
-y   "  class="math" > e assim por diante,
-calculamos o termo <img 
-src="main4198x.png" alt="y(n)   "  class="math" > apartir do anterior <img 
-src="main4199x.png" alt="y(n&minus; 1)   "  class="math" >.
-   <div class="newtheorem">
-<!--l. 56--><p class="noindent" ><span class="head">
+src="main3698x.png" alt="     &int; b
+ai =    Li(x)dx
+      a
+" class="math-display" ></center>
+<!--l. 176--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">9.2.1   </span> <a 
+ id="x80-1300009.2.1"></a>Regra do Trapézio</h4>
 <a 
- id="x83-141006r1"></a>
-<span 
-class="ec-lmbx-12">Exemplo 9.1.1.</span>  </span>Retornemos ao o problema de valor inicial do exemplo (<a 
-href="mainch9.html#x82-1400050">9.2<!--tex4ht:ref: exemplo_y_2y --></a>):
-<div class="eqnarray">
+ id="dx80-130001"></a>
+<!--l. 178--><p class="noindent" >A regra do trapézio consiste em aproximar a integral por um trapézio em vez de
+um retângulo, como fizemos. Para isso, aproximamos <img 
+src="main3699x.png" alt="f(x)  "  class="math" > por um polinômio de
+grau 1, ou seja, uma reta que pode ser obtida através de interpolação de Lagrange
+como mostra a figura.
+<div class="center" 
+>
+<!--l. 180--><p class="noindent" >
                                                                           
 
                                                                           
+<!--l. 181--><p class="noindent" ><img 
+src="main3700x.png" alt="PIC" class="graphics" width="428.59937pt" height="323.20607pt" ><!--tex4ht:graphics  
+name="main3700x.png" src="./cap_integracao/pics/int_2/int_2.eps"  
+--></div>
+<!--l. 184--><p class="indent" >   O polinômio de Lagrange que passa por <img 
+src="main3701x.png" alt="(x0,f(x0)) := (a,f(a))  "  class="math" > e
+<img 
+src="main3702x.png" alt="(x1,f(x1)) :=  (b,f(b))  "  class="math" > é dado por <div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main4200x.png" alt=" &prime;
-y(t)  =  2y (t)
-y(0)  =  1
+src="main3703x.png" alt="                (x &minus; x0)         (x &minus; x1)
+p1(x ) =  f(x0)--------- + f(x1) ---------             (9.4)
+               (x1 &minus; x0)         (x0 &minus; x1 )
+                (x-&minus;--x0)        (x-&minus;-x1)
+        = f(x0 )   h    &minus;  f(x1)   h    ,              (9.5)
 " class="math-display" ></center>
-</div>
-   </div>
-<!--l. 62--><p class="indent" >   Cuja solução é <img 
-src="main4201x.png" alt="y(t) = e2t  "  class="math" >. O método de Euler aplicado a este problema
-produz o seguinte esquema: <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main4202x.png" alt=" (k+1)      (k)      (k)            (k)
-y       =  y   + 2hy    = (1 + 2h)y
-  y (1)  =  1,
-" class="math-display" ></center>
-</div>cuja solução é dada por
-   <center class="math-display" >
-<img 
-src="main4203x.png" alt=" (k)          k&minus; 1
-y   = (1 + 2h )  .  " class="math-display" ></center>
-                                                                          
-
-                                                                          
-Como <img 
-src="main4204x.png" alt="t = (k &minus; 1 )h  "  class="math" >, a solução aproximada pelo Método de Euler é
-   <center class="math-display" >
-<img 
-src="main4205x.png" alt="                      t
-y(t) &asymp; &#x02DC;y(t) = (1 + 2h )h.  " class="math-display" ></center>
-Observe que <img 
-src="main4206x.png" alt="&#x02DC;y(t) &frasl;= y(t)  "  class="math" >, mas se <img 
-src="main4207x.png" alt="h  "  class="math" > é pequeno, a aproximação é boa,
-pois
-   <center class="math-display" >
-<img 
-src="main4208x.png" alt="             t
- lim  (1 + 2h )h = e2t.
-h&rarr;0+
-" class="math-display" ></center>
-<!--l. 74--><p class="indent" >   Vamos agora, analisar o desempenho do Método de Euler usando um exemplo
-mais complicado, porém ainda simples suficiente para que possamos obter a
-solução exata:
-   <div class="newtheorem">
-<!--l. 75--><p class="noindent" ><span class="head">
-<a 
- id="x83-141009r2"></a>
-<span 
-class="ec-lmbx-12">Exemplo 9.1.2.</span>  </span> Considere o problema de valor inicial relacionado à equação
-logística<a 
- id="dx83-141010"></a>: <div class="eqnarray">
-                                                                          
-
-                                                                          
-   <center class="math-display" >
-<img 
-src="main4209x.png" alt=" &prime;
-y(t)  =  y (t)(1 &minus; y(t))
-y(0)  =  1&#x2215;2
-" class="math-display" ></center>
-</div>
-   </div>
-<!--l. 81--><p class="indent" >   Podemos obter a solução exata desta equação usando o método de separação
-de variáveis<a 
- id="dx83-141012"></a> e o método das frações parciais<a 
- id="dx83-141013"></a>. Para tal escrevemos:
+</div>onde <img 
+src="main3704x.png" alt="h = x1 &minus; x0   "  class="math" >. Podemos integrar a função <img 
+src="main3705x.png" alt="f(x)  "  class="math" > aproximando-a por esse
+polinômio:
    <table 
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main4210x.png" alt="    dy(t)
---------------= dt
-y(t)(1 &minus; y (t))
+src="main3706x.png" alt="&int; b               &int; b                    &int; b
+   f(x)dx &asymp; f (x0)   (x-&minus;-x0-)dx &minus; f(x1)    (x &minus;-x1)dx
+ a                 a     h                a    h
+            -1 &int; b                 &prime;&prime;
+          + 2!  a (x &minus; x0 )(x &minus; x1 )f (&xi;(x))dx.
 " class="math-display" ></center></td></tr></table>
-<!--l. 84--><p class="nopar" >
-O termo <img 
-src="main4211x.png" alt="   1
-y(1&minus;y)   "  class="math" > pode ser decomposto em frações parciais como <img 
-src="main4212x.png" alt="1    1
-y &minus; 1&minus;y  "  class="math" > e
-chegamos na seguinte equação diferencial:
+<!--l. 195--><p class="nopar" >
+Pelo teorema do valor médio, existe <img 
+src="main3707x.png" alt="a &le; &eta; &le; b  "  class="math" > tal que <img 
+src="main3708x.png" alt="&int;                       &int;
+ ba f (&xi; (x ))g (x )dx = f(&eta;) ba g(x)dx  "  class="math" >
+e, portanto,
    <table 
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main4213x.png" alt="(           )
-  1     1
-  --+  ------ dy = dt.
-  y    1 &minus; y
+src="main3709x.png" alt="                  [          ]          [          ]
+&int; b                 (x &minus; x0)2 x1          (x &minus;  x1)2 x1
+   f(x)dx &asymp;  f(x0)  ---------   &minus;  f(x1)  ---------
+ a                 [   2h     x0             2]h     x0
+             f&prime;&prime;(&eta;)  x3   x2                   x1
+          +  ------ ---&minus; ---(x1 + x0) + x0x1x
+               2    3     2                   x0
+                  (x1 &minus; x0)2         (x0 &minus; x1 )2
+          =  f(x0)---------- + f(x1) ----------
+              &prime;&prime;   (  23h   2            2h         3    2                  )
+          +  f-(&eta;)- x-1&minus;  x1(x  + x ) + x x x  &minus; x-0+  x0(x  + x ) &minus; x x x
+               2     3    2   1    0     0 1 1    3    2   1    0     0 1 0
+                    2          2
+          =  f(x0)h--+  f(x1)h--
+                  2h         2h
+             f&prime;&prime;(&eta;)2x31 &minus;-3x21(x1 +-x0) +-6x21x0 &minus;-2x30 +-3x20(x1-+-x0) &minus;-6x1x20
+          +    2                              6
+             h                   f&prime;&prime;(&eta;)(                        )
+          =  -(f (x0) + f (x1)) +------ x30 &minus; 3x20x1 + 3x21x0 &minus; x31
+             2                    12
 " class="math-display" ></center></td></tr></table>
-<!--l. 88--><p class="nopar" >
-Integrando termo-a-termo, temos a seguinte equação algébrica relacionando <img 
-src="main4214x.png" alt="y(t)  "  class="math" >
-e <img 
-src="main4215x.png" alt="t  "  class="math" >:
-   <table 
-class="equation-star"><tr><td>
-   <center class="math-display" >
-<img 
-src="main4216x.png" alt="ln (y ) &minus; ln(1 &minus; y) = t + C
-" class="math-display" ></center></td></tr></table>
-<!--l. 92--><p class="nopar" >
-Onde <img 
-src="main4217x.png" alt="C  "  class="math" > é a constante de integração, que é definida pela condição inicial,
-isto é, <img 
-src="main4218x.png" alt="y = 1&#x2215;2  "  class="math" > em <img 
-src="main4219x.png" alt="t = 0  "  class="math" >. Substituindo, temos <img 
-src="main4220x.png" alt="C =  0  "  class="math" >. O que resulta
-em:
-   <table 
-class="equation-star"><tr><td>
-   <center class="math-display" >
-<img 
-src="main4221x.png" alt="  (      )
-    --y---
-ln   1 &minus; y  =  t
-" class="math-display" ></center></td></tr></table>
-<!--l. 96--><p class="nopar" >
-Equivalente a
-   <table 
-class="equation-star"><tr><td>
-                                                                          
-
-                                                                          
-   <center class="math-display" >
-<img 
-src="main4222x.png" alt="  y      t
-------= e
-1 &minus; y
-" class="math-display" ></center></td></tr></table>
-<!--l. 100--><p class="nopar" >
-e
-   <table 
-class="equation-star"><tr><td>
-   <center class="math-display" >
-<img 
-src="main4223x.png" alt="            t
-y = (1 &minus; y)e
-" class="math-display" ></center></td></tr></table>
-<!--l. 104--><p class="nopar" >
-Colocando o termo <img 
-src="main4224x.png" alt="y  "  class="math" > em evidência, encontramos:
+<!--l. 207--><p class="nopar" >
+tal que a <span 
+class="ec-lmbx-12">regra do trap</span><span 
+class="ec-lmbx-12">ézio </span>local é dada por
    <table 
 class="equation"><tr><td><a 
- id="x83-141014r7"></a>
+ id="x80-130003r6"></a>
    <center class="math-display" >
 <img 
-src="main4225x.png" alt="      t      t
-(1 + e )y = e
-" class="math-display" ></center></td><td class="equation-label">(9.7)</td></tr></table>
-<!--l. 108--><p class="nopar" >
-E, finalmente, encontramos a solução exata dada por <img 
-src="main4226x.png" alt="         t
-y(t) = 1e+et   "  class="math" >.
-                                                                          
-
-                                                                          
-<!--l. 111--><p class="indent" >   Vejamos, agora, o esquema iterativo produzido pelo método de Euler:
-<div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main4227x.png" alt=" (k+1)      (k)     (k)      (k)
-y      =   y   + hy   (1 &minus; y  ),
-  y(1) =   1&#x2215;2.
-" class="math-display" ></center>
-</div>
-<!--l. 118--><p class="indent" >   Para fins de comparação, calculamos a solução de <a 
-href="#x83-141009r2">9.1.2<!--tex4ht:ref: ex_euler_1 --></a> e de (<span 
-class="ec-lmbx-12">??</span>) para alguns
-valores de <img 
-src="main4228x.png" alt="t  "  class="math" > e de passo <img 
-src="main4229x.png" alt="h  "  class="math" > e resumimos na Tabela&#x00A0;<a 
-href="#x83-1410161">9.1<!--tex4ht:ref: tab:log --></a>.
-   <div class="table">
-                                                                          
-
-                                                                          
-<!--l. 122--><p class="indent" >   <a 
- id="x83-1410161"></a><hr class="float"><div class="float" 
->
-                                                                          
-
-                                                                          
- <div class="caption" 
-><span class="id">Tabela&#x00A0;9.1: </span><span  
-class="content">Tabela comparativa enter Método de Euler e solução exata para
-problema <a 
-href="#x83-141009r2">9.1.2<!--tex4ht:ref: ex_euler_1 --></a>.</span></div><!--tex4ht:label?: x83-1410161 -->
-<div class="tabular"> <table id="TBL-26" class="tabular" 
-cellspacing="0" cellpadding="0" rules="groups" 
-><colgroup id="TBL-26-1g"><col 
-id="TBL-26-1"></colgroup><colgroup id="TBL-26-2g"><col 
-id="TBL-26-2"></colgroup><colgroup id="TBL-26-3g"><col 
-id="TBL-26-3"></colgroup><colgroup id="TBL-26-4g"><col 
-id="TBL-26-4"></colgroup><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-26-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-26-1-1"  
-class="td11"> <img 
-src="main4230x.png" alt="t  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-1-2"  
-class="td11">     <img 
-src="main4231x.png" alt="Exato  "  class="math" >        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-1-3"  
-class="td11"><img 
-src="main4232x.png" alt="Euler  h = 0,1  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-1-4"  
-class="td11"><img 
-src="main4233x.png" alt="Euler h =  0,01  "  class="math" ></td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-26-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-26-2-1"  
-class="td11"> <img 
-src="main4234x.png" alt="0  "  class="math" >  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-2-2"  
-class="td11">      <img 
-src="main4235x.png" alt="1&#x2215;2  "  class="math" >          </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-2-3"  
-class="td11">     <img 
-src="main4236x.png" alt="0,5  "  class="math" >       </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-2-4"  
-class="td11">     <img 
-src="main4237x.png" alt="0,5  "  class="math" >        </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-26-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-26-3-1"  
-class="td11"><img 
-src="main4238x.png" alt="1&#x2215;2  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-3-2"  
-class="td11"><img 
-src="main4239x.png" alt="-e1&#x2215;2--
-1+e1&#x2215;2 &asymp; 0,6224593  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-3-3"  
-class="td11">  <img 
-src="main4240x.png" alt="0,6231476  "  class="math" >   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-3-4"  
-class="td11">  <img 
-src="main4241x.png" alt="0,6225316  "  class="math" >    </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-26-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-26-4-1"  
-class="td11"> <img 
-src="main4242x.png" alt="1  "  class="math" >  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-4-2"  
-class="td11"> <img 
-src="main4243x.png" alt=" e
-1+e &asymp; 0,7310586  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-4-3"  
-class="td11">  <img 
-src="main4244x.png" alt="0,7334030  "  class="math" >   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-4-4"  
-class="td11">  <img 
-src="main4245x.png" alt="0,7312946  "  class="math" >    </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-26-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-26-5-1"  
-class="td11"> <img 
-src="main4246x.png" alt="2  "  class="math" >  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-5-2"  
-class="td11"> <img 
-src="main4247x.png" alt="-e22 &asymp; 0,8807971
-1+e  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-5-3"  
-class="td11">  <img 
-src="main4248x.png" alt="0,8854273  "  class="math" >   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-5-4"  
-class="td11">  <img 
-src="main4249x.png" alt="0,8812533  "  class="math" >    </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-26-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-26-6-1"  
-class="td11"> <img 
-src="main4250x.png" alt="3  "  class="math" >  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-6-2"  
-class="td11"> <img 
-src="main4251x.png" alt="-e3-
-1+e3 &asymp; 0,9525741  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-6-3"  
-class="td11">  <img 
-src="main4252x.png" alt="0,9564754  "  class="math" >   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-26-6-4"  
-class="td11">  <img 
-src="main4253x.png" alt="0,9529609  "  class="math" >    </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-26-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-26-7-1"  
-class="td11">    </td></tr></table></div>
-                                                                          
-
-                                                                          
-   </div><hr class="endfloat" />
-   </div>
-<!--l. 135--><p class="indent" >   No exemplo a seguir, apresentamos um problema envolvendo uma equação
-não-autônoma<a 
- id="dx83-141017"></a>, isto é, quando a função <img 
-src="main4254x.png" alt="f(y,t)  "  class="math" > depende explicitamente do
-tempo.
+src="main3710x.png" alt="[1        1      ]     h3f&prime;&prime;(&eta;)
+ -f (x0 ) +--f(x1) h &minus;  --------
+ 2        2              12
+" class="math-display" ></center></td><td class="equation-label">(9.6)</td></tr></table>
+<!--l. 211--><p class="nopar" >
+onde o erro local é <img 
+src="main3711x.png" alt="    3
+O (h )  "  class="math" >.
    <div class="newtheorem">
-<!--l. 137--><p class="noindent" ><span class="head">
+<!--l. 214--><p class="noindent" ><span class="head">
 <a 
- id="x83-141018r3"></a>
-<span 
-class="ec-lmbx-12">Exemplo 9.1.3.</span>  </span>Resolva o problema de valor inicial <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main4255x.png" alt="  y&prime;  =   &minus; y + t
-y(0)  =   1,
-" class="math-display" ></center>
-</div>cuja solução exata é <img 
-src="main4256x.png" alt="y(t) = 2e&minus;t + t &minus; 1  "  class="math" >.
-   </div>
-<!--l. 144--><p class="indent" >   O esquema recursivo de Euler fica: <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main4257x.png" alt=" (k+1 )                      (k)
-y      =   y(k) &minus; hy(k) + ht
- y(0)  =   1
+ id="x80-130004r1"></a>
                                                                           
 
                                                                           
+<span 
+class="ec-lmbx-12">Exemplo 9.2.1.</span>  </span>Use a regra do trapézio para aproximar a integral
+   <center class="math-display" >
+<img 
+src="main3712x.png" alt="&int;
+  1 &minus;x2
+ 0 e   dx.
+" class="math-display" ></center> Depois divida a integral em duas
+   <center class="math-display" >
+<img 
+src="main3713x.png" alt="&int;              &int;
+  1&#x2215;2 &minus; x2       1   &minus;x2
+ 0   e   dx +   1&#x2215;2e    dx.
+" class="math-display" ></center> e aplica a regra do trapézio em cada uma delas. Finalmente, repita o processo
+dividindo em quatro integrais.
+   </div>
+<!--l. 225--><p class="indent" >   Usando o intervalo <img 
+src="main3714x.png" alt="[0,1]  "  class="math" >, temos <img 
+src="main3715x.png" alt="h = 1  "  class="math" >, <img 
+src="main3716x.png" alt="x  =  0
+  0  "  class="math" > e <img 
+src="main3717x.png" alt="x  = 1
+ 1  "  class="math" >. A regra do
+trapézio resulta em
+   <center class="math-display" >
+<img 
+src="main3718x.png" alt="&int; 1 &minus;x2      1- 0    &minus;1
+ 0 e   dx &asymp;  2(e +  e  ) = 0,6839397  " class="math-display" ></center>
+Usando dois intervalos, <img 
+src="main3719x.png" alt="[0,1&#x2215;2]  "  class="math" > e <img 
+src="main3720x.png" alt="[1 &#x2215;2,1 ]  "  class="math" > e usando a regra do trapézio em cada
+um dos intervalos, temos: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main3721x.png" alt="&int; 1   2        0,5 (         )   0,5 (           )
+   e&minus;x dx  &asymp;   ---  e0 + e&minus;1&#x2215;4  + ---  e&minus;1&#x2215;4 + e&minus;1
+ 0              2                 2
+           =   0,4447002 + 0,2866701  = 0,7313703.
+" class="math-display" ></center>
+</div>Agora, usando quatro intervalos, temos <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main3722x.png" alt="&int; 1                 (           )        (             )
+   e &minus;x2dx  &asymp;   0,25  e0 + e&minus; 1&#x2215;16 + 0,25  e&minus;1&#x2215;16 + e&minus;1&#x2215;4
+ 0               2                   2
+                0,25(  &minus;1&#x2215;4    &minus;9&#x2215;16)   0,25(  &minus;9&#x2215;16    &minus;1)
+            +    2    e    + e      +   2    e     + e
+            =   0,7429841
 " class="math-display" ></center>
 </div>
-<!--l. 150--><p class="indent" >   Comparação
+                                                                          
+
+                                                                          
+<!--l. 241--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">9.2.2   </span> <a 
+ id="x80-1310009.2.2"></a>Regra de Simpson</h4>
+<a 
+ id="dx80-131001"></a>
+<!--l. 242--><p class="noindent" >Para aproximarmos <img 
+src="main3723x.png" alt="f(x )  "  class="math" > por um polinômio de grau <img 
+src="main3724x.png" alt="2  "  class="math" > precisamos três pontos
+do intervalo <img 
+src="main3725x.png" alt="[a,b]  "  class="math" >. Utilizando
+   <center class="math-display" >
+<img 
+src="main3726x.png" alt="                  a + b
+x0 =  a,    x1 :=  -----     e    x2 :=  b = x0 + h.
+                    2  " class="math-display" ></center>
+com <img 
+src="main3727x.png" alt="h = b &minus; a  "  class="math" >, podemos construir uma parábola através do polinômio de
+Lagrange
    <table 
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main4258x.png" alt="|--|---------------------|---------------|----------------|
-|t |       Exato         |Euler  h =  0,1 |Euler  h = 0,01 |
-|--|---------------------|---------------|----------------|
-|0 |          1          |       1       |       1        |
-|--|----&minus;1---------------|---------------|----------------|
-|1-|--2e---&asymp;-0,7357589---|---0,6973569----|---0,7320647----|
-|  |  &minus;2                 |               |                |
-|2-|2e---+-1-&asymp;-1,2706706-|---1,2431533----|---1,2679593----|
-|  |  &minus;3                 |               |                |
-|3-|2e---+-2-&asymp;-2,0995741-----2,0847823--------2,0980818-----
-|  |
+src="main3728x.png" alt="p2(x) = f (x0 )L0 (x) + f(x1)L1(x ) + f(x2 )L2 (x)
 " class="math-display" ></center></td></tr></table>
-<!--l. 159--><p class="nopar" >
-<!--l. 161--><p class="indent" >   No exemplo <a 
-href="#x83-141022r4">9.1.4<!--tex4ht:ref: sys_edo --></a>, mostramos como o Método de Euler pode ser facilmente
-estendido para problemas envolvendo sistemas de equações diferenciais.<a 
- id="dx83-141021"></a>.
-   <div class="newtheorem">
-<!--l. 162--><p class="noindent" ><span class="head">
+<!--l. 249--><p class="nopar" >
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main3729x.png" alt="               (x &minus; x  )(x &minus; x  )          (x &minus; x )(x &minus; x )
+p2(x) = f (x0 )-------1-------2--+ f (x1)-------0-------2--
+              (x0 &minus; x1 )(x0 &minus; x2 )       (x1 &minus; x0)(x1 &minus; x2)
+             -(x-&minus;-x0)(x-&minus;-x1)-
+      + f(x2)(x  &minus; x )(x  &minus; x ).
+                2    0  2    1
+" class="math-display" ></center></td></tr></table>
+<!--l. 255--><p class="nopar" >
+e integrando <img 
+src="main3730x.png" alt="p2   "  class="math" > temos <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main3731x.png" alt="&int;
+  b                           &int;b
+ a f(x)dx                   =  a p2(x)dx                      (9.7)
+              &int;b
+            =  a f (x0)L0(x) + f(x1)L1(x ) + f (x2 )L2(x)dx    (9.8)
+                   = f (x0)a0 + f (x1)a1 + f(x2)a2            (9.9)
+" class="math-display" ></center>
+</div>onde <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main3732x.png" alt="     &int; b
+ai =    Li(x )dx                          (9.10)
+      a
+" class="math-display" ></center>
+</div>Calculando essas integrais obtemos <span 
+class="ec-lmbx-12">a regra de Simpson</span>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main3733x.png" alt="&int; b
+   f(x)dx =  h-(f(x ) + 4f(x ) + f(x )).
+ a           6     0        1       2
+" class="math-display" ></center>
+<!--l. 272--><p class="noindent" >
+   <h5 class="subsubsectionHead"><a 
+ id="x80-1320009.2.2"></a>Erro na regra de Simpson</h5>
 <a 
- id="x83-141022r4"></a>
-<span 
-class="ec-lmbx-12">Exemplo 9.1.4.</span>  </span> Escreva o processo iterativo de Euler para resolver
-numericamente o seguinte sistema de equações diferenciais <div class="eqnarray">
+ id="dx80-132001"></a>
+<!--l. 273--><p class="noindent" >Para aproximarmos <img 
+src="main3734x.png" alt="f(x )  "  class="math" > por um polinômio de grau <img 
+src="main3735x.png" alt="2  "  class="math" > precisamos três pontos
+do intervalo, como por exemplo,
+   <center class="math-display" >
+<img 
+src="main3736x.png" alt="                 a + b
+x0 = a,    x1 := ----- = x0 + h     e     x2 := b = x1 + h.
+                   2  " class="math-display" ></center>
+com <img 
+src="main3737x.png" alt="h = (b &minus; a)&#x2215;2  "  class="math" >. Para isso, o polinômio de Lagrange deve ser uma
+parábola:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main3738x.png" alt="               (x &minus; x1 )(x &minus; x2 )          (x &minus; x0)(x &minus; x2)
+p2(x) = f (x0 )------------------+ f (x1)------------------
+              (x0 &minus; x1 )(x0 &minus; x2 )       (x1 &minus; x0)(x1 &minus; x2)
+             -(x-&minus;-x0)(x-&minus;-x1)-
+      + f(x2)(x2 &minus; x0)(x2 &minus; x1).
+" class="math-display" ></center></td></tr></table>
+<!--l. 283--><p class="nopar" >
+Se usarmos o mesma metodologia da regra dos trapézios, teremos
+   <center class="math-display" >
+<img 
+src="main3739x.png" alt="&int; b          &int; b          &int; b(x &minus; x )(x &minus; x )(x &minus; x )
+   f(x)dx =     p2(x)dx +    ------0-------1-------2-f &prime;&prime;&prime;(&xi;(x))dx
+ a            a            a             6  " class="math-display" ></center> e
+obteremos o fórmula de Simpson com um erro de quarta ordem. O fato é que a
+regra de Simpson tem ordem cinco e, para isso, usaremos uma abordagem
+alternativa. Considere o polinômio de Taylor
+   <center class="math-display" >
+<img 
+src="main3740x.png" alt="                              &prime;&prime;               &prime;&prime;&prime;              (4)
+f(x) = f (x1 )+f &prime;(x1)(x&minus; x1)+ f-(x1)(x &minus; x1 )2+ f-(x1)(x&minus; x1)3+ f---(&xi;-(x-))(x &minus; x1)4,
+                                2               6                 24" class="math-display" ></center>
+onde <img 
+src="main3741x.png" alt="x0 &le; &xi;(x) &le; x2   "  class="math" > e integre no intervalo <img 
+src="main3742x.png" alt="[a,b] = [x0,x2]  "  class="math" >:
+   <table 
+class="equation-star"><tr><td>
                                                                           
 
                                                                           
    <center class="math-display" >
 <img 
-src="main4259x.png" alt="   &prime;
-  x   =  &minus; y
-  y&prime;  =  x
+src="main3743x.png" alt="&int; b          [                              2     &prime;&prime;
+   f (x )dx =  f(x1 )(x &minus; x1 ) + f &prime;(x1)(x-&minus;-x1) + f--(x1-)(x &minus; x1)3
+ a                                      2          6
+             f&prime;&prime;&prime;(x )         ]x2
+           + -----1-(x &minus; x1 )4
+               24             x0
+              1 &int; x2 (4)             4
+           + ---    f  (&xi;(x ))(x &minus; x1) dx,
+             24  x0
+" class="math-display" ></center></td></tr></table>
+<!--l. 299--><p class="nopar" >
+Pelo teorema do valor médio, existe <img 
+src="main3744x.png" alt="x0 &le; &eta; &le;  x2   "  class="math" > tal que
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main3745x.png" alt="             [
+&int; b                             &prime;   (x &minus; x1)2   f &prime;&prime;(x1 )        3
+   f (x )dx =  f(x1 )(x &minus; x1 ) + f (x1)-------- + -------(x &minus; x1)
+ a                           ]          2          6
+             f-&prime;&prime;&prime;(x1)        4 x2
+           +   24   (x &minus; x1)
+                              x0
+             f(4)(&eta; )&int; x2        4
+           + --24--- x  (x &minus; x1) dx
+             [        0                     2     &prime;&prime;
+           =  f(x  )(x &minus; x  ) + f &prime;(x )(x-&minus;-x1) + f--(x1-)(x &minus; x )3
+                  1       1       1     2          6         1
+               &prime;&prime;&prime;             ]x2
+           + f--(x1)(x &minus; x1)4
+               24             x0
+              (4)   [         ]
+           + f---(&eta;-) (x &minus; x1)5 x2
+               120             x0
+" class="math-display" ></center></td></tr></table>
+<!--l. 310--><p class="nopar" >
+Usando o fato que
+   <center class="math-display" >
+<img 
+src="main3746x.png" alt="         3            3     3
+(x2 &minus; x1)  &minus; (x0 &minus; x1) =  2h ,
+" class="math-display" ></center>
+   <center class="math-display" >
+<img 
+src="main3747x.png" alt="         4           4
+(x2 &minus; x1) &minus; (x0 &minus; x1)  = 0  " class="math-display" ></center>
+                                                                          
 
-x(0)  =  1
-y(0)  =  0,
-" class="math-display" ></center>
-</div>cuja solução exata é <img 
-src="main4260x.png" alt="x(t) = cos(t)  "  class="math" > e <img 
-src="main4261x.png" alt="y (t) = sin(t)  "  class="math" >.
-   </div>
-<!--l. 171--><p class="indent" >   Para aplicar o Método de Euler a um sistema, devemos encarar as diversas
-incógnitas do sistema como formando um vetor, neste caso, escrevemos:
+                                                                          
+e
    <center class="math-display" >
 <img 
-src="main4262x.png" alt="       &lfloor;      &rfloor;
+src="main3748x.png" alt="(x2 &minus; x1)5 &minus; (x0 &minus; x1)5 = 2h5,  " class="math-display" ></center>
+temos
+   <center class="math-display" >
+<img 
+src="main3749x.png" alt="&int; b                    h3 &prime;&prime;      h5f (4)(&eta;)
+   f (x)dx = hf (x1) + --f (x1) + ---------.
+ a                     3              60  " class="math-display" ></center>
+Usando a diferenças finitas centrais para a derivada segunda:
+   <center class="math-display" >
+<img 
+src="main3750x.png" alt="          f(x ) &minus; 2f(x ) + f(x )   h2
+f &prime;&prime;(x1 ) = ---0-------21-------2--+ ---f(4)(&eta;1),
+                    h              12  " class="math-display" ></center>
+<img 
+src="main3751x.png" alt="x0 &le; &eta;1 &le;  x2   "  class="math" >, temos <div class="eqnarray">
+                                                                          
 
-z(t) = |&lceil; x(t) |&rceil;.
-         y(t)  " class="math-display" ></center> O
-sistema é igualmente escrito na forma vetorial: <div class="eqnarray">
+                                                                          
    <center class="math-display" >
 <img 
-src="main4263x.png" alt="&lfloor;   (k+1) &rfloor;   &lfloor;   (k) &rfloor;    &lfloor;     (k) &rfloor;
-| x      | = | x    | + h|  &minus; y   | .
-&lceil; y (k+1) &rceil;   &lceil; y (k) &rceil;    &lceil;   x(k)  &rceil;
+src="main3752x.png" alt="                             (                                     )
+&int; b                        h3- f(x0-) &minus;-2f-(x1) +-f-(x2) h2- (4)
+  a f(x)dx  =   2hf (x1) + 3             h2           +  12f   (&eta;1)
+
+                h5f-(4)(&eta;)
+            +      60
+                h                            h5 ( 1          1       )
+            =   --(f(x0) + 4f(x1) + f(x2)) &minus; ---  -f(4)(&eta;1) &minus; --f(4)(&eta;)  .
+                3                            12   3          5
 " class="math-display" ></center>
-</div>Observe que este processo iterativo é equivalente a: <div class="eqnarray">
+</div>Pode-se mostrar que é possível escolher <img 
+src="main3753x.png" alt="&eta;2   "  class="math" > que substitua <img 
+src="main3754x.png" alt="&eta;  "  class="math" > e <img 
+src="main3755x.png" alt="&eta;1   "  class="math" > com a
+seguinte estimativa
    <center class="math-display" >
 <img 
-src="main4264x.png" alt="x(k+1 ) =   x(k) &minus; hy (k)
- (k+1 )      (k)      (k)
-y      =   y   + hx   .
+src="main3756x.png" alt="&int; b          h                            h5  (4)
+   f(x)dx =  --(f(x0) + 4f(x1) + f(x2)) &minus; --f   (&eta;2).
+ a           3                            90
 " class="math-display" ></center>
-</div>
    <div class="newtheorem">
-<!--l. 183--><p class="noindent" ><span class="head">
+<!--l. 341--><p class="noindent" ><span class="head">
 <a 
- id="x83-141026r5"></a>
+ id="x80-132003r2"></a>
 <span 
-class="ec-lmbx-12">Exemplo 9.1.5.</span>  </span>Escreva o problema de valor inicial de segunda ordem dado por
-<div class="eqnarray">
+class="ec-lmbx-12">Exemplo 9.2.2.</span>  </span>Use a regra de Simpson para aproximar a integral
+                                                                          
+
+                                                                          
    <center class="math-display" >
 <img 
-src="main4265x.png" alt=" &prime;&prime;    &prime;
-y  + y + y  =   cos(t),
-      y (0 ) =   1,
-      y&prime;(0 ) =   0,
-" class="math-display" ></center>
-</div>como um problema envolvendo um sistema de primeira ordem.
+src="main3757x.png" alt="&int; 1
+   e&minus;x2dx.
+ 0
+" class="math-display" ></center> Depois divida a integral em duas
+   <center class="math-display" >
+<img 
+src="main3758x.png" alt="&int;              &int;
+  1&#x2215;2 &minus; x2       1   &minus;x2
+ 0   e   dx +   1&#x2215;2e    dx.
+" class="math-display" ></center> e aplica a regra de Simpson em cada uma delas.
    </div>
-<!--l. 191--><p class="indent" >   A fim de transformar a equação diferencial dada em um sistema de equações
-de primeira ordem, introduzimos a substituição <img 
-src="main4266x.png" alt="w  = y&prime;  "  class="math" >, de forma que obteremos
-o sistema: <div class="eqnarray">
+<!--l. 352--><p class="indent" >   Usando o intervalo <img 
+src="main3759x.png" alt="[0,1]  "  class="math" >, temos <img 
+src="main3760x.png" alt="h = 1&#x2215;2  "  class="math" >, <img 
+src="main3761x.png" alt="x0 =  0  "  class="math" >, <img 
+src="main3762x.png" alt="x1 = 1&#x2215;2  "  class="math" > e <img 
+src="main3763x.png" alt="x2 = 1  "  class="math" >. A
+regra de Simpson resulta em
    <center class="math-display" >
 <img 
-src="main4267x.png" alt="    &prime;
-   y   =  w
-  w &prime;  =  &minus; w &minus; y + cos(t)
-
- y(0)  =  1
-w (0)  =  0
-" class="math-display" ></center>
-</div>Portanto, o Método de Euler produz o seguinte processo iterativo: <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main4268x.png" alt="  (k+1)       (k)      (k)
- y      =   y   + hw   ,
-w (k+1)  =   w(k) &minus; hw (k) &minus; hy (k) + hcos(t(k)),
-   y(1)  =   1,
-    (1)
-  w     =   0.
-" class="math-display" ></center>
-</div>
+src="main3764x.png" alt="&int; 1 &minus;x2      0,5-  0    &minus; 1&#x2215;4    &minus;1
+ 0 e   dx &asymp;  3  (e  + 4e     + e  ) = 0,7471804  " class="math-display" ></center>
+Usando dois intervalos, <img 
+src="main3765x.png" alt="[0,1&#x2215;2]  "  class="math" > e <img 
+src="main3766x.png" alt="[1 &#x2215;2,1 ]  "  class="math" > e usando a regra do trapézio em cada
+um dos intervalos, temos:
                                                                           
 
                                                                           
-   <!--l. 205--><div class="crosslinks"><p class="noindent"><a 
-href="# "  >Índice</a></p></div>
-<!--l. 205--><p class="indent" >   <a 
- id="tailmainse38.html"></a>  
+   <center class="math-display" >
+<img 
+src="main3767x.png" alt="&int; 1   2      0,25                     0,25
+   e&minus;x dx &asymp;  ----(e0+4e &minus;1&#x2215;16+e &minus;1&#x2215;4)+ ----(e&minus;1&#x2215;4+4e &minus;9&#x2215;16+e &minus;1) = 0,7468554
+ 0            3                        3
+" class="math-display" ></center>
+<!--l. 361--><p class="noindent" >
+   <h4 class="likesubsectionHead"><a 
+ id="x80-1330009.2.2"></a>Exercícios</h4>
+   <div class="newtheorem">
+<!--l. 363--><p class="noindent" ><span class="head">
+<a 
+ id="x80-133001r1"></a>
+<span 
+class="ec-lmbx-12">E 9.2.1.</span>  </span>Calcule numericamente as seguintes integrais usando os métodos simples
+do Ponto médio, Trapézio e Simpson. Calcule também o valor exato usando
+seus conhecimentos de Cálculo I. Complete a tabela abaixo conforme
+modelo:
+<div class="center" 
+>
+<!--l. 364--><p class="noindent" >
+                                                                          
+
+                                                                          
+<div class="tabular"> <table id="TBL-13" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-13-1g"><col 
+id="TBL-13-1"></colgroup><colgroup id="TBL-13-2g"><col 
+id="TBL-13-2"></colgroup><colgroup id="TBL-13-3g"><col 
+id="TBL-13-3"></colgroup><colgroup id="TBL-13-4g"><col 
+id="TBL-13-4"></colgroup><colgroup id="TBL-13-5g"><col 
+id="TBL-13-5"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-13-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-13-1-1"  
+class="td11">                                                               </td><td  style="white-space:nowrap; text-align:center;" id="TBL-13-1-2"  
+class="td11">       exato           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-13-1-3"  
+class="td11">   Ponto médio    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-13-1-4"  
+class="td11">     Trapézio       </td><td  style="white-space:nowrap; text-align:center;" id="TBL-13-1-5"  
+class="td11">       Simpson            </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-13-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-13-2-1"  
+class="td11">                                                               </td><td  style="white-space:nowrap; text-align:center;" id="TBL-13-2-2"  
+class="td11">                  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-13-2-3"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-13-2-4"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-13-2-5"  
+class="td11">                      </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-13-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-13-3-1"  
+class="td11"></td></tr><tr><td colspan="5"></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-013-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-013-3-1"  
+class="td11"> </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-013-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-013-4-1"  
+class="td11">                                                               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-013-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-013-5-1"  
+class="td11">                           <img 
+src="main3768x.png" alt="&int;
+ 10 e&minus;xdx  "  class="math" >                                    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-013-5-2"  
+class="td11"><img 
+src="main3769x.png" alt="1 &minus; e&minus;1 &asymp; 0.6321206  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-013-5-3"  
+class="td11"><img 
+src="main3770x.png" alt="   e&minus;1&#x2215;2 &asymp; 0.6065307  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-013-5-4"  
+class="td11"><img 
+src="main3771x.png" alt="                           &minus;1
+                        1+e2-- &asymp; 0.6839397  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-013-5-5"  
+class="td11"><img 
+src="main3772x.png" alt="                                                  &minus;1&#x2215;2  &minus;1
+                                              1+4e-6-+e-- &asymp; 0.6323337  "  class="math" ></td></tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:5.69046pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-013-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-013-6-1"  
+class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-013-6-2"  
+class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-013-6-3"  
+class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-013-6-4"  
+class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-013-6-5"  
+class="td11"></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-013-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-013-7-1"  
+class="td11"></td></tr><tr><td colspan="5"></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-0013-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-0013-7-1"  
+class="td11">                                                             </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-0013-8-"><td  style="white-space:nowrap; text-align:center;" id="TBL-0013-8-1"  
+class="td11"></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-0013-9-"><td  style="white-space:nowrap; text-align:center;" id="TBL-0013-9-1"  
+class="td11">                            <img 
+src="main3773x.png" alt="&int;
+ 10 x2dx  "  class="math" >                                     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0013-9-2"  
+class="td11">                  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0013-9-3"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0013-9-4"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0013-9-5"  
+class="td11">                      </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:5.69046pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-0013-10-"><td  style="white-space:nowrap; text-align:center;" id="TBL-0013-10-1"  
+class="td11">                                                               </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0013-10-2"  
+class="td11">                  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0013-10-3"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0013-10-4"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0013-10-5"  
+class="td11">                      </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-0013-11-"><td  style="white-space:nowrap; text-align:center;" id="TBL-0013-11-1"  
+class="td11"></td></tr><tr><td colspan="5"></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-00013-11-"><td  style="white-space:nowrap; text-align:center;" id="TBL-00013-11-1"  
+class="td11"> </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-00013-12-"><td  style="white-space:nowrap; text-align:center;" id="TBL-00013-12-1"  
+class="td11">                                                               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-00013-13-"><td  style="white-space:nowrap; text-align:center;" id="TBL-00013-13-1"  
+class="td11">                            <img 
+src="main3774x.png" alt="&int;
+ 10 x3dx  "  class="math" >                                     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00013-13-2"  
+class="td11">                  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00013-13-3"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00013-13-4"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00013-13-5"  
+class="td11">                      </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:5.69046pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-00013-14-"><td  style="white-space:nowrap; text-align:center;" id="TBL-00013-14-1"  
+class="td11">                                                               </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00013-14-2"  
+class="td11">                  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00013-14-3"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00013-14-4"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00013-14-5"  
+class="td11">                      </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-00013-15-"><td  style="white-space:nowrap; text-align:center;" id="TBL-00013-15-1"  
+class="td11"></td></tr><tr><td colspan="5"></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-000013-15-"><td  style="white-space:nowrap; text-align:center;" id="TBL-000013-15-1"  
+class="td11"> </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-000013-16-"><td  style="white-space:nowrap; text-align:center;" id="TBL-000013-16-1"  
+class="td11">                                                               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-000013-17-"><td  style="white-space:nowrap; text-align:center;" id="TBL-000013-17-1"  
+class="td11">                          <img 
+src="main3775x.png" alt="&int;
+ 10 xe&minus;x2dx  "  class="math" >                                   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-000013-17-2"  
+class="td11">                  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-000013-17-3"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-000013-17-4"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-000013-17-5"  
+class="td11">                      </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:5.69046pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-000013-18-"><td  style="white-space:nowrap; text-align:center;" id="TBL-000013-18-1"  
+class="td11">                                                               </td><td  style="white-space:nowrap; text-align:center;" id="TBL-000013-18-2"  
+class="td11">                  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-000013-18-3"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-000013-18-4"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-000013-18-5"  
+class="td11">                      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-000013-19-"><td  style="white-space:nowrap; text-align:center;" id="TBL-000013-19-1"  
+class="td11"></td></tr><tr><td colspan="5"></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-0000013-19-"><td  style="white-space:nowrap; text-align:center;" id="TBL-0000013-19-1"  
+class="td11">                                                             </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-0000013-20-"><td  style="white-space:nowrap; text-align:center;" id="TBL-0000013-20-1"  
+class="td11">                                                               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-0000013-21-"><td  style="white-space:nowrap; text-align:center;" id="TBL-0000013-21-1"  
+class="td11">                           <img 
+src="main3776x.png" alt="&int;
+01x21+1dx  "  class="math" >                                    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0000013-21-2"  
+class="td11">                  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0000013-21-3"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0000013-21-4"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0000013-21-5"  
+class="td11">                      </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:5.69046pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-0000013-22-"><td  style="white-space:nowrap; text-align:center;" id="TBL-0000013-22-1"  
+class="td11">                                                               </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0000013-22-2"  
+class="td11">                  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0000013-22-3"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0000013-22-4"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0000013-22-5"  
+class="td11">                      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-0000013-23-"><td  style="white-space:nowrap; text-align:center;" id="TBL-0000013-23-1"  
+class="td11"></td></tr><tr><td colspan="5"></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-00000013-23-"><td  style="white-space:nowrap; text-align:center;" id="TBL-00000013-23-1"  
+class="td11">                                                             </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-00000013-24-"><td  style="white-space:nowrap; text-align:center;" id="TBL-00000013-24-1"  
+class="td11">                                                               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-00000013-25-"><td  style="white-space:nowrap; text-align:center;" id="TBL-00000013-25-1"  
+class="td11">                           <img 
+src="main3777x.png" alt="&int;1-2x-dx
+0 x +1  "  class="math" >                                    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00000013-25-2"  
+class="td11">                  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00000013-25-3"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00000013-25-4"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00000013-25-5"  
+class="td11">                      </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:5.69046pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-00000013-26-"><td  style="white-space:nowrap; text-align:center;" id="TBL-00000013-26-1"  
+class="td11">                                                               </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00000013-26-2"  
+class="td11">                  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00000013-26-3"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00000013-26-4"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00000013-26-5"  
+class="td11">                      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-00000013-27-"><td  style="white-space:nowrap; text-align:center;" id="TBL-00000013-27-1"  
+class="td11"></td></tr><tr><td colspan="5"></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-000000013-27-"><td  style="white-space:nowrap; text-align:center;" id="TBL-000000013-27-1"  
+class="td11">                                                             </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-000000013-28-"><td  style="white-space:nowrap; text-align:center;" id="TBL-000000013-28-1"  
+class="td11">                                                               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-000000013-29-"><td  style="white-space:nowrap; text-align:center;" id="TBL-000000013-29-1"  
+class="td11">                           <img 
+src="main3778x.png" alt="&int;1 -1-dx
+ 0 x+1  "  class="math" >                                    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-000000013-29-2"  
+class="td11">                  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-000000013-29-3"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-000000013-29-4"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-000000013-29-5"  
+class="td11">                      </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:5.69046pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-000000013-30-"><td  style="white-space:nowrap; text-align:center;" id="TBL-000000013-30-1"  
+class="td11">                                                               </td></tr></table>
+</div></div>
+   </div>
+<!--l. 394--><p class="noindent" >
+   <div class="proof">
+<!--l. 394--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Resposta.</span> </span>
+<div class="center" 
+>
+<!--l. 396--><p class="noindent" >
+                                                                          
+
+                                                                          
+<div class="tabular"> <table id="TBL-14" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-14-1g"><col 
+id="TBL-14-1"></colgroup><colgroup id="TBL-14-2g"><col 
+id="TBL-14-2"></colgroup><colgroup id="TBL-14-3g"><col 
+id="TBL-14-3"></colgroup><colgroup id="TBL-14-4g"><col 
+id="TBL-14-4"></colgroup><colgroup id="TBL-14-5g"><col 
+id="TBL-14-5"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-14-1-1"  
+class="td11">                                                                                                                          </td><td  style="white-space:nowrap; text-align:center;" id="TBL-14-1-2"  
+class="td11">           <span 
+class="ec-lmr-6">exato              </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-14-1-3"  
+class="td11">    <span 
+class="ec-lmr-6">Ponto m</span><span 
+class="ec-lmr-6">édio     </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-14-1-4"  
+class="td11">       <span 
+class="ec-lmr-6">Trap</span><span 
+class="ec-lmr-6">ézio        </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-14-1-5"  
+class="td11">           <span 
+class="ec-lmr-6">Simpson              </span></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-14-2-1"  
+class="td11">                                                                                                                          </td><td  style="white-space:nowrap; text-align:center;" id="TBL-14-2-2"  
+class="td11">                            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-14-2-3"  
+class="td11">                     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-14-2-4"  
+class="td11">                      </td><td  style="white-space:nowrap; text-align:center;" id="TBL-14-2-5"  
+class="td11">                               </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-14-3-1"  
+class="td11"></td></tr><tr><td colspan="5"></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-014-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-014-3-1"  
+class="td11"> </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-014-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-014-4-1"  
+class="td11">                                                                                                                          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-014-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-014-5-1"  
+class="td11">                                                       <img 
+src="main3779x.png" alt="&int;1e&minus;xdx
+ 0  "  class="math" >                                                         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-014-5-2"  
+class="td11">   <img 
+src="main3780x.png" alt="1&minus; e&minus;1 &asymp;0.6321206  "  class="math" >   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-014-5-3"  
+class="td11"><img 
+src="main3781x.png" alt="e&minus;1&#x2215;2 &asymp; 0.6065307  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-014-5-4"  
+class="td11"><img 
+src="main3782x.png" alt="         1+e&minus;1-&asymp;0.6839397
+           2  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-014-5-5"  
+class="td11"><img 
+src="main3783x.png" alt="                        1+4e&minus;1&#x2215;2+e&minus;1-&asymp;0.6323337
+                            6  "  class="math" ></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:5.69046pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-014-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-014-6-1"  
+class="td11">                                                                                                                          </td><td  style="white-space:nowrap; text-align:center;" id="TBL-014-6-2"  
+class="td11">                            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-014-6-3"  
+class="td11">                     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-014-6-4"  
+class="td11">                      </td><td  style="white-space:nowrap; text-align:center;" id="TBL-014-6-5"  
+class="td11">                               </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-014-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-014-7-1"  
+class="td11"></td></tr><tr><td colspan="5"></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-0014-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-0014-7-1"  
+class="td11"> </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-0014-8-"><td  style="white-space:nowrap; text-align:center;" id="TBL-0014-8-1"  
+class="td11">                                                                                                                          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-0014-9-"><td  style="white-space:nowrap; text-align:center;" id="TBL-0014-9-1"  
+class="td11">                                                        <img 
+src="main3784x.png" alt="&int;1x2dx
+0  "  class="math" >                                                          </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0014-9-2"  
+class="td11">     <img 
+src="main3785x.png" alt="1&#x2215;3&asymp; 0.3333333  "  class="math" >      </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0014-9-3"  
+class="td11">        <span 
+class="ec-lmr-6">0.25           </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-0014-9-4"  
+class="td11">          <span 
+class="ec-lmr-6">0.5            </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-0014-9-5"  
+class="td11">           <span 
+class="ec-lmr-6">0.3333333             </span></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:5.69046pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-0014-10-"><td  style="white-space:nowrap; text-align:center;" id="TBL-0014-10-1"  
+class="td11">                                                                                                                          </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0014-10-2"  
+class="td11">                            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0014-10-3"  
+class="td11">                     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0014-10-4"  
+class="td11">                      </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0014-10-5"  
+class="td11">                               </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-0014-11-"><td  style="white-space:nowrap; text-align:center;" id="TBL-0014-11-1"  
+class="td11"></td></tr><tr><td colspan="5"></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-00014-11-"><td  style="white-space:nowrap; text-align:center;" id="TBL-00014-11-1"  
+class="td11"> </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-00014-12-"><td  style="white-space:nowrap; text-align:center;" id="TBL-00014-12-1"  
+class="td11">                                                                                                                          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-00014-13-"><td  style="white-space:nowrap; text-align:center;" id="TBL-00014-13-1"  
+class="td11">                                                        <img 
+src="main3786x.png" alt="&int;1x3dx
+0  "  class="math" >                                                          </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00014-13-2"  
+class="td11">        <img 
+src="main3787x.png" alt="1&#x2215;4= 0.25  "  class="math" >          </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00014-13-3"  
+class="td11">        <span 
+class="ec-lmr-6">0.125          </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-00014-13-4"  
+class="td11">          <span 
+class="ec-lmr-6">0.5            </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-00014-13-5"  
+class="td11">             <span 
+class="ec-lmr-6">0.25                 </span></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:5.69046pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-00014-14-"><td  style="white-space:nowrap; text-align:center;" id="TBL-00014-14-1"  
+class="td11">                                                                                                                          </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00014-14-2"  
+class="td11">                            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00014-14-3"  
+class="td11">                     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00014-14-4"  
+class="td11">                      </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00014-14-5"  
+class="td11">                               </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-00014-15-"><td  style="white-space:nowrap; text-align:center;" id="TBL-00014-15-1"  
+class="td11"></td></tr><tr><td colspan="5"></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-000014-15-"><td  style="white-space:nowrap; text-align:center;" id="TBL-000014-15-1"  
+class="td11"> </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-000014-16-"><td  style="white-space:nowrap; text-align:center;" id="TBL-000014-16-1"  
+class="td11">                                                                                                                          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-000014-17-"><td  style="white-space:nowrap; text-align:center;" id="TBL-000014-17-1"  
+class="td11">                                                      <img 
+src="main3788x.png" alt="&int; 1xe&minus;x2dx
+ 0  "  class="math" >                                                        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-000014-17-2"  
+class="td11"><img 
+src="main3789x.png" alt="12(1&minus; e&minus;1)&asymp; 0.3160603  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-000014-17-3"  
+class="td11">      <span 
+class="ec-lmr-6">0.3894004       </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-000014-17-4"  
+class="td11">      <span 
+class="ec-lmr-6">0.1839397        </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-000014-17-5"  
+class="td11">           <span 
+class="ec-lmr-6">0.3209135             </span></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:5.69046pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-000014-18-"><td  style="white-space:nowrap; text-align:center;" id="TBL-000014-18-1"  
+class="td11">                                                                                                                          </td><td  style="white-space:nowrap; text-align:center;" id="TBL-000014-18-2"  
+class="td11">                            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-000014-18-3"  
+class="td11">                     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-000014-18-4"  
+class="td11">                      </td><td  style="white-space:nowrap; text-align:center;" id="TBL-000014-18-5"  
+class="td11">                               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-000014-19-"><td  style="white-space:nowrap; text-align:center;" id="TBL-000014-19-1"  
+class="td11"></td></tr><tr><td colspan="5"></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-0000014-19-"><td  style="white-space:nowrap; text-align:center;" id="TBL-0000014-19-1"  
+class="td11">                                                                                                                        </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-0000014-20-"><td  style="white-space:nowrap; text-align:center;" id="TBL-0000014-20-1"  
+class="td11">                                                                                                                          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-0000014-21-"><td  style="white-space:nowrap; text-align:center;" id="TBL-0000014-21-1"  
+class="td11">                                                      <img 
+src="main3790x.png" alt="&int;01x12+1dx  "  class="math" >                                                        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0000014-21-2"  
+class="td11">  <img 
+src="main3791x.png" alt="tan&minus;1(1)&asymp; 0.7853982  "  class="math" >  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0000014-21-3"  
+class="td11">         <span 
+class="ec-lmr-6">0.8           </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-0000014-21-4"  
+class="td11">         <span 
+class="ec-lmr-6">0.75           </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-0000014-21-5"  
+class="td11">           <span 
+class="ec-lmr-6">0.7833333             </span></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:5.69046pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-0000014-22-"><td  style="white-space:nowrap; text-align:center;" id="TBL-0000014-22-1"  
+class="td11">                                                                                                                          </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0000014-22-2"  
+class="td11">                            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0000014-22-3"  
+class="td11">                     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0000014-22-4"  
+class="td11">                      </td><td  style="white-space:nowrap; text-align:center;" id="TBL-0000014-22-5"  
+class="td11">                               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-0000014-23-"><td  style="white-space:nowrap; text-align:center;" id="TBL-0000014-23-1"  
+class="td11"></td></tr><tr><td colspan="5"></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-00000014-23-"><td  style="white-space:nowrap; text-align:center;" id="TBL-00000014-23-1"  
+class="td11">                                                                                                                        </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-00000014-24-"><td  style="white-space:nowrap; text-align:center;" id="TBL-00000014-24-1"  
+class="td11">                                                                                                                          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-00000014-25-"><td  style="white-space:nowrap; text-align:center;" id="TBL-00000014-25-1"  
+class="td11">                                                      <img 
+src="main3792x.png" alt="&int;
+01xx2+1dx  "  class="math" >                                                        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00000014-25-2"  
+class="td11">   <img 
+src="main3793x.png" alt="12ln(2)&asymp;0.3465736  "  class="math" >    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00000014-25-3"  
+class="td11">         <span 
+class="ec-lmr-6">0.4           </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-00000014-25-4"  
+class="td11">         <span 
+class="ec-lmr-6">0.25           </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-00000014-25-5"  
+class="td11">             <span 
+class="ec-lmr-6">0.35                 </span></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:5.69046pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-00000014-26-"><td  style="white-space:nowrap; text-align:center;" id="TBL-00000014-26-1"  
+class="td11">                                                                                                                          </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00000014-26-2"  
+class="td11">                            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00000014-26-3"  
+class="td11">                     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00000014-26-4"  
+class="td11">                      </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00000014-26-5"  
+class="td11">                               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-00000014-27-"><td  style="white-space:nowrap; text-align:center;" id="TBL-00000014-27-1"  
+class="td11"></td></tr><tr><td colspan="5"></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-000000014-27-"><td  style="white-space:nowrap; text-align:center;" id="TBL-000000014-27-1"  
+class="td11">                                                                                                                        </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-000000014-28-"><td  style="white-space:nowrap; text-align:center;" id="TBL-000000014-28-1"  
+class="td11">                                                                                                                          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-000000014-29-"><td  style="white-space:nowrap; text-align:center;" id="TBL-000000014-29-1"  
+class="td11">                                                       <img 
+src="main3794x.png" alt="&int;
+ 10x1+1dx  "  class="math" >                                                         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-000000014-29-2"  
+class="td11">    <img 
+src="main3795x.png" alt="ln(2)&asymp;0.6931472  "  class="math" >     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-000000014-29-3"  
+class="td11">      <span 
+class="ec-lmr-6">0.6666667       </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-000000014-29-4"  
+class="td11">         <span 
+class="ec-lmr-6">0.75           </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-000000014-29-5"  
+class="td11">           <span 
+class="ec-lmr-6">0.6944444             </span></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr 
+class="vspace" style="font-size:5.69046pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-000000014-30-"><td  style="white-space:nowrap; text-align:center;" id="TBL-000000014-30-1"  
+class="td11">                                                                                                                          </td></tr></table>
+</div></div>
+                                                                       <img 
+src="main3796x.png" alt="&#x2662; "  class="math" >
+   </div>
+   <div class="newtheorem">
+<!--l. 429--><p class="noindent" ><span class="head">
+<a 
+ id="x80-133002r2"></a>
+<span 
+class="ec-lmbx-12">E 9.2.2.</span>  </span>Dados  os  valores  da  função  <img 
+src="main3797x.png" alt="f(x)  "  class="math" >,  <img 
+src="main3798x.png" alt="f(2) = 2  "  class="math" >,  <img 
+src="main3799x.png" alt="f(3) = 4  "  class="math" >  e
+<img 
+src="main3800x.png" alt="f (4 ) = 8  "  class="math" >, calcule o valor aproximado de
+   <center class="math-display" >
+<img 
+src="main3801x.png" alt="&int; 4
+   f (x )dx
+ 2
+" class="math-display" ></center> pelos métodos simples de ponto médio, trapézio e Simpson.
+   </div>
+<!--l. 434--><p class="noindent" >
+   <div class="proof">
+<!--l. 434--><p class="indent" >   <span class="head">
+                                                                          
+
+                                                                          
+<span 
+class="ec-lmbx-12">Resposta.</span> </span> <span 
+class="ec-lmr-6">Resp:</span> <img 
+src="main3802x.png" alt="8  "  class="math" ><span 
+class="ec-lmr-6">,</span> <img 
+src="main3803x.png" alt="10  "  class="math" > <span 
+class="ec-lmr-6">e</span> <img 
+src="main3804x.png" alt="8.666667  "  class="math" ><span 
+class="ec-lmr-6">.</span>
+                                                                       <img 
+src="main3805x.png" alt="&#x2662; "  class="math" >
+   </div>
+   <div class="newtheorem">
+<!--l. 440--><p class="noindent" ><span class="head">
+<a 
+ id="x80-133003r3"></a>
+<span 
+class="ec-lmbx-12">E 9.2.3.</span>  </span>Dê  a  interpretação  geométrica  dos  métodos  do  ponto  médio,
+trapézio  e  Simpson.  A  partir  desta  construção  geométrica,  deduza  as
+fórmulas para aproximar
+   <center class="math-display" >
+<img 
+src="main3806x.png" alt="&int;
+  b
+ a f(x)dx.
+" class="math-display" ></center> Verifique o método de Simpson pode ser entendido como uma média aritmética
+ponderada entre os métodos de trapézio e ponto médio. Encontre os pesos
+envolvidos. Explique o que são os métodos compostos.
+   </div>
+<!--l. 445--><p class="noindent" >
+   <div class="proof">
+<!--l. 445--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Resposta.</span> </span>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main3807x.png" alt="ISimpson = 1ITrap+ 2IPM
+         3     3
+" class="math-display" ></center>
+                                                                       <img 
+src="main3808x.png" alt="&#x2662; "  class="math" >
+   </div>
+   <div class="newtheorem">
+<!--l. 452--><p class="noindent" ><span class="head">
+<a 
+ id="x80-133004r4"></a>
+<span 
+class="ec-lmbx-12">E 9.2.4.</span>  </span>Calcule numericamente o valor de <img 
+src="main3809x.png" alt="&int;5 e4&minus; x2dx
+ 2  "  class="math" > usando os métodos
+compostos do ponto médio, trapézio e Simpson. Obtenha os resultados utilizando,
+em cada quadratura, o número de pontos indicado.
+<div class="center" 
+>
+<!--l. 453--><p class="noindent" >
+<div class="tabular"> <table id="TBL-15" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-15-1g"><col 
+id="TBL-15-1"></colgroup><colgroup id="TBL-15-2g"><col 
+id="TBL-15-2"></colgroup><colgroup id="TBL-15-3g"><col 
+id="TBL-15-3"></colgroup><colgroup id="TBL-15-4g"><col 
+id="TBL-15-4"></colgroup><colgroup id="TBL-15-5g"><col 
+id="TBL-15-5"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-15-1-1"  
+class="td11">n</td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-1-2"  
+class="td11"> Ponto médio </td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-1-3"  
+class="td11">  Trapézios   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-1-4"  
+class="td11">Simpson</td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-15-2-1"  
+class="td11"><img 
+src="main3810x.png" alt="3  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-2-2"  
+class="td11">&#x00A0;&#x00A0;&#x00A0;&#x00A0;          &#x00A0;</td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-2-3"  
+class="td11">&#x00A0;&#x00A0;&#x00A0;&#x00A0;          &#x00A0;</td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-2-4"  
+class="td11"> &#x00A0;&#x00A0;&#x00A0;&#x00A0;  </td></tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-15-3-1"  
+class="td11"><img 
+src="main3811x.png" alt="5 "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-3-2"  
+class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-3-3"  
+class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-3-4"  
+class="td11"></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-15-4-1"  
+class="td11"><img 
+src="main3812x.png" alt="7  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-4-2"  
+class="td11">           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-4-3"  
+class="td11">           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-4-4"  
+class="td11">       </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-15-5-1"  
+class="td11"><img 
+src="main3813x.png" alt="9  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-5-2"  
+class="td11">           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-5-3"  
+class="td11">           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-15-5-4"  
+class="td11">       </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-15-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-15-6-1"  
+class="td11">  </td></tr></table></div></div>
+   </div>
+<!--l. 469--><p class="noindent" >
+   <div class="proof">
+<!--l. 469--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Resposta.</span> </span>
+<div class="center" 
+>
+<!--l. 471--><p class="noindent" >
+<div class="tabular"> <table id="TBL-16" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-16-1g"><col 
+id="TBL-16-1"></colgroup><colgroup id="TBL-16-2g"><col 
+id="TBL-16-2"></colgroup><colgroup id="TBL-16-3g"><col 
+id="TBL-16-3"></colgroup><colgroup id="TBL-16-4g"><col 
+id="TBL-16-4"></colgroup><colgroup id="TBL-16-5g"><col 
+id="TBL-16-5"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-16-1-1"  
+class="td11"><span 
+class="ec-lmr-6">n</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-1-2"  
+class="td11"><span 
+class="ec-lmr-6">Ponto m</span><span 
+class="ec-lmr-6">édio</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-1-3"  
+class="td11"><span 
+class="ec-lmr-6">Trap</span><span 
+class="ec-lmr-6">ézios</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-1-4"  
+class="td11"> <span 
+class="ec-lmr-6">Simpson </span></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-16-2-1"  
+class="td11"><img 
+src="main3814x.png" alt="3  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-2-2"  
+class="td11"> <span 
+class="ec-lmr-6">0.1056606  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-2-3"  
+class="td11"><span 
+class="ec-lmr-6">0.7503919</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-2-4"  
+class="td11"><span 
+class="ec-lmr-6">0.5005225</span></td></tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-16-3-1"  
+class="td11"><img 
+src="main3815x.png" alt="5 "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-3-2"  
+class="td11"> <span 
+class="ec-lmr-6">0.1726140 </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-3-3"  
+class="td11"><span 
+class="ec-lmr-6">0.3964724</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-3-4"  
+class="td11"><span 
+class="ec-lmr-6">0.2784992</span></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-16-4-1"  
+class="td11"><img 
+src="main3816x.png" alt="7  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-4-2"  
+class="td11"> <span 
+class="ec-lmr-6">0.1973663  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-4-3"  
+class="td11"><span 
+class="ec-lmr-6">0.3062023</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-4-4"  
+class="td11"><span 
+class="ec-lmr-6">0.2393551</span></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-16-5-1"  
+class="td11"><img 
+src="main3817x.png" alt="9  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-5-2"  
+class="td11"> <span 
+class="ec-lmr-6">0.2084204  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-5-3"  
+class="td11"><span 
+class="ec-lmr-6">0.2721145</span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-5-4"  
+class="td11"><span 
+class="ec-lmr-6">0.2306618</span></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-16-6-1"  
+class="td11">   </td></tr></table></div></div>
+                                                                       <img 
+src="main3818x.png" alt="&#x2662; "  class="math" >
+                                                                          
+
+                                                                          
+   </div>
+   <div class="newtheorem">
+<!--l. 490--><p class="noindent" ><span class="head">
+<a 
+ id="x80-133005r5"></a>
+<span 
+class="ec-lmbx-12">E 9.2.5.</span>  </span>Use as rotinas construídas em aula e calcule numericamente o valor
+das seguintes integrais usando o método composto dos trapézios para os
+seguintes números de pontos:
+   <center class="math-display" >
+<img 
+src="main3819x.png" alt="|-----|--|&int;------2---|&int;----------|---&int;-------------------|-----&int;---&minus;--1----------|
+| n   |h | 01e&minus;4x dx | 011+1x2dx  |    01x4(1 &minus; x)4dx     |      01e  x2+1dx       |
+|-----|--|-----------|-----------|-----------------------|-----------------------|
+|-17--|--|-0.4409931--|-----------|-----------------------|-----------------------|
+|     |  |           |           |                       |                       |
+|-33--|--|-0.4410288--|-----------|-----------------------|-----------------------|
+|     |  |           |           |                       |                       |
+|-65--|--|-0.4410377--|-----------|-----------------------|-----------------------|
+|129  |  | 0.4410400  |           |                       |                       |
+|-----|--|-----------|-----------|-----------------------|-----------------------|
+|257  |  | 0.4410405  |           |                       |                       |
+|-----|--|-----------|-----------|-----------------------|-----------------------|
+|513  |  | 0.4410406  |           |                       |                       |
+|-----|--|-----------|-----------|-----------------------|-----------------------|
+|1025-|----0.4410407---0.7853981---1.5873015873016--&sdot;-10&minus;3--4.6191723776309--&sdot; 10&minus;1-
+|     |
+" class="math-display" ></center>
+   <!--l. 515--><div class="crosslinks"><p class="noindent"><a 
+href="mainli14.html#mainse53.html" >Índice</a></p></div>
+<!--l. 515--><p class="indent" >   <a 
+ id="tailmainse38.html"></a>   
 </body></html> 
