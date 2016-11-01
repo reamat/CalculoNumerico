@@ -101,3 +101,9 @@ As equações e símbolos matemáticos estão escritos usando a coleção de pac
 
 O livro usa o pacote LaTeX [`icomma`](https://www.ctan.org/pkg/icomma). Desta forma, para que um espaço apareça após uma vírgula é necessário por o espaço no código LaTeX. Por exemplo, o código LaTeX `$1,24$` produz o número 1,24, enquanto o código `$1, 24$` porduz os números 1 e 24 separados por uma vírgula e um espaço.
 
+#### Números em notação científica
+
+Números em notação científica podem ser representados, tando usando `$\times 10^$` como usando o macro `\E`, por exemplo:
+
+    1,25673\times 10^{-13} = 1,25673\E-13.
+
