@@ -1,82 +1,413 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
   "http://www.w3.org/TR/html4/loose.dtd">  
 <html xml:lang="pt" > 
-<head><title>Metodos de passo multiplo - Adams-Bashforth</title> 
+<head><title>Quadratura de Gauss-Legendre</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
 <meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html,3,notoc*,info --> 
 <meta name="src" content="main.tex"> 
-<meta name="date" content="2016-10-27 18:33:00"> 
+<meta name="date" content="2016-11-01 19:26:00"> 
 <link rel="stylesheet" type="text/css" href="main.css"> 
 </head><body 
 >
-   <!--l. 471--><div class="crosslinks"><p class="noindent"><a 
-href="mainli18.html# " >Voltar</a></p></div>
+   <!--l. 950--><div class="crosslinks"><p class="noindent"><a 
+href="mainse58.html# " >Índice</a></p></div>
    <h3 class="sectionHead"><span class="titlemark">9.6   </span> <a 
- id="x90-1520009.6"></a>Métodos de passo múltiplo - Adams-Bashforth</h3>
+ id="x91-1460009.6"></a>Quadratura de Gauss-Legendre</h3>
 <a 
- id="dx90-152001"></a>
-<!--l. 473--><p class="noindent" >O método de Adams-Bashforth consiste de um esquema recursivo do
-tipo:
+ id="dx91-146001"></a>
+<!--l. 952--><p class="noindent" >A quadratura de Gauss-Legendre de <img 
+src="main3981x.png" alt="n  "  class="math" > pontos é o esquema numérico
    <center class="math-display" >
 <img 
-src="main4316x.png" alt=" (n+1)    (n)  &sum;k       (n&minus;j) (n&minus;j)
-y     = y   +     wjf(y     ,t     )
-              j=0
-" class="math-display" ></center>
-   <div class="newtheorem">
-<!--l. 476--><p class="noindent" ><span class="head">
-<a 
- id="x90-152002r1"></a>
-<span 
-class="ec-lmbx-12">Exemplo 9.6.1.</span>  </span>Adams-Bashforth de segunda ordem
-   <center class="math-display" >
-<img 
-src="main4317x.png" alt=" (n+1)    (n)  h-[   ( (n) (n))     ( (n&minus;1) (n&minus;1))]
-y      = y   + 2  3f  y   ,t    &minus; f  y     ,t
-" class="math-display" ></center>
+src="main3982x.png" alt="&int; 1          &sum;n
+ &minus;1 f(x)dx =    wjf (xj)
+             j=1  " class="math-display" ></center>
+cuja ordem de exatidão é <img 
+src="main3983x.png" alt="2n &minus; 1  "  class="math" >.
+      <ul class="itemize1">
+      <li class="itemize">O problema de encontrar os <img 
+src="main3984x.png" alt="n  "  class="math" > pesos e <img 
+src="main3985x.png" alt="n  "  class="math" > abscissas é equivalente a
+      um sistema não linear com <img 
+src="main3986x.png" alt="2n  "  class="math" > equações e <img 
+src="main3987x.png" alt="2n  "  class="math" > incógnitas.
+      </li>
+      <li class="itemize">Pode-se mostrar que este problema sempre tem solução e que a solução
+      é única se <img 
+src="main3988x.png" alt="x1 &#x003C; x2 &#x003C;  ...&#x003C; xn  "  class="math" >
+      </li>
+      <li class="itemize">As abscissas são das pelos zeros do enésimo polinômio de Legendre,
+      <img 
+src="main3989x.png" alt="Pn(x )  "  class="math" >.
+      </li>
+      <li class="itemize">Os pesos são dados por
                                                                           
 
                                                                           
-   </div>
+      <center class="math-display" >
+      <img 
+src="main3990x.png" alt="wj = (-------2)---------.
+       1 &minus; x2j [Pn&prime;(xj)]2
+      " class="math-display" ></center>
+      </li>
+      <li class="itemize">Estes dados são tabelados e facilmente encontrados.</li></ul>
+   <div class="tabular"> <table id="TBL-21" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-21-1g"><col 
+id="TBL-21-1"></colgroup><colgroup id="TBL-21-2g"><col 
+id="TBL-21-2"></colgroup><colgroup id="TBL-21-3g"><col 
+id="TBL-21-3"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-21-1-1"  
+class="td11">n</td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-1-2"  
+class="td11">       <img 
+src="main3991x.png" alt="xj  "  class="math" >             </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-1-3"  
+class="td11">  <img 
+src="main3992x.png" alt="wj  "  class="math" >   </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-21-2-1"  
+class="td11"> 1 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-2-2"  
+class="td11">        0             </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-2-3"  
+class="td11">   2    </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-21-3-1"  
+class="td11"> 2 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-3-2"  
+class="td11">     <img 
+src="main3993x.png" alt="   &radic; --
+   --3-
+±   3  "  class="math" >         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-3-3"  
+class="td11">   1    </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-21-4-1"  
+class="td11"><div class="multirow"><!-- rows=2 -->
+3</div> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-4-2"  
+class="td11">        0             </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-4-3"  
+class="td11">  <img 
+src="main3994x.png" alt="8-
+9  "  class="math" >   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-21-5-1"  
+class="td11">  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-5-2"  
+class="td11">     <img 
+src="main3995x.png" alt="  &#x2218; --
+     3
+±    --
+     5  "  class="math" >         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-5-3"  
+class="td11">  <img 
+src="main3996x.png" alt="5
+--
+9  "  class="math" >   </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-21-6-1"  
+class="td11"><div class="multirow"><!-- rows=2 -->
+4</div> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-6-2"  
+class="td11"><img 
+src="main3997x.png" alt="  &#x2218; ------&#x2218;--------
+±   (3 &minus; 2  6&#x2215;5)&#x2215;7  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-6-3"  
+class="td11"><img 
+src="main3998x.png" alt="   &radic; --
+18+--30
+  36   "  class="math" ></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-21-7-1"  
+class="td11">  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-7-2"  
+class="td11"><img 
+src="main3999x.png" alt="  &#x2218; ------&#x2218;--------
+±   (3 + 2  6&#x2215;5)&#x2215;7  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-21-7-3"  
+class="td11"><img 
+src="main4000x.png" alt="   &radic; --
+18&minus;--30
+  36   "  class="math" ></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-8-"><td  style="white-space:nowrap; text-align:center;" id="TBL-21-8-1"  
+class="td11">  </td> </tr></table></div>
    <div class="newtheorem">
-<!--l. 479--><p class="noindent" ><span class="head">
+<!--l. 975--><p class="noindent" ><span class="head">
 <a 
- id="x90-152003r2"></a>
+ id="x91-146002r1"></a>
 <span 
-class="ec-lmbx-12">Exemplo 9.6.2.</span>  </span>Adams-Bashforth de terceira ordem
-   <center class="math-display" >
-<img 
-src="main4318x.png" alt=" (n+1)    (n)   h [    (  (n) (n))       ( (n&minus;1) (n&minus; 1))      ( (n&minus;2) (n&minus;2)) ]
-y     = y   +  ---23f  y   ,t   &minus;  16f  y    ,t      + 5f  y     ,t
-               12
-" class="math-display" ></center>
-   </div>
-   <div class="newtheorem">
-<!--l. 482--><p class="noindent" ><span class="head">
-<a 
- id="x90-152004r3"></a>
-<span 
-class="ec-lmbx-12">Exemplo 9.6.3.</span>  </span>Adams-Bashforth de quarta ordem
+class="ec-lmbx-12">Exemplo 9.6.1.</span>  </span>Aproximar
    <table 
 class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main4319x.png" alt=" (n+1)    (n)   h [    (  (n) (n))       ( (n&minus;1) (n&minus; 1))
-y     = y   +  24-55f  y   ,t   &minus;  59f  y    ,t
-            ( (n&minus;2) (n&minus;2))     (  (n&minus; 3)  (n&minus;3))]
-      + 37f  y     ,t      &minus;  9f y     ,t
+src="main4001x.png" alt="&int; 1 &radic; -----2-
+ &minus;1   1 + x dx
 " class="math-display" ></center></td></tr></table>
-<!--l. 488--><p class="nopar" >
+<!--l. 978--><p class="nopar" >
+pelo método de Gauss-Legendre com 3 pontos.
    </div>
-<!--l. 490--><p class="indent" >   Os métodos de passo múltiplo evitam os múltiplos estágios do métodos de
-Runge-Kutta, mas exigem ser "iniciados"com suas condições iniciais.
+<!--l. 981--><p class="indent" >
+   <div class="proof">
+<!--l. 981--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span>
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main4002x.png" alt="        (  &#x2218; --)               ( &#x2218; -)
+     5- (    3-)   8-       5- (   3)
+I3 = 9f  &minus;   5   + 9 f(0) + 9f     5  &asymp;  2,2943456
+" class="math-display" ></center></td></tr></table>
+<!--l. 984--><p class="nopar" >
+No Scilab: <div class="verbatiminput"></div>                                                                                 <img 
+src="main4003x.png" alt="&#x2662; "  class="math" >
+   </div>
+   <div class="newtheorem">
+<!--l. 992--><p class="noindent" ><span class="head">
+<a 
+ id="x91-146003r2"></a>
+<span 
+class="ec-lmbx-12">Exemplo 9.6.2.</span>  </span>Aproximar
                                                                           
 
                                                                           
-   <!--l. 492--><div class="crosslinks"><p class="noindent"><a 
-href="mainli18.html# " >Voltar</a></p></div>
-<!--l. 492--><p class="indent" >   <a 
- id="tailmainse44.html"></a>  
+   <center class="math-display" >
+<img 
+src="main4004x.png" alt="&int; 1 &radic; -------
+      1 + x2dx
+ &minus;1
+" class="math-display" ></center> pelo método de Gauss-Legendre com 4 pontos.
+   </div>
+<!--l. 996--><p class="indent" >
+   <div class="proof">
+<!--l. 996--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span>
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-54">
+I4=f(x4(1))*w4(1)+f(-x4(1))*w4(1)+f(x4(2))*w4(2)+f(-x4(2))*w4(2)
+</div>
+<!--l. 999--><p class="nopar" >                                                                       <img 
+src="main4005x.png" alt="&#x2662; "  class="math" >
+   </div>
+   <div class="newtheorem">
+<!--l. 1004--><p class="noindent" ><span class="head">
+<a 
+ id="x91-146004r3"></a>
+<span 
+class="ec-lmbx-12">Exemplo 9.6.3.</span>  </span>Aproximar
+   <center class="math-display" >
+<img 
+src="main4006x.png" alt="&int;
+  1&radic; -----2-
+ 0   1 + x dx
+" class="math-display" ></center> pelo método de Gauss-Legendre com <img 
+src="main4007x.png" alt="3, 4  "  class="math" > e <img 
+src="main4008x.png" alt="5  "  class="math" > pontos.
+   </div>
+<!--l. 1008--><p class="indent" >
+   <div class="proof">
+<!--l. 1008--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Para tanto, fazemos a mudança de variáveis <img 
+src="main4009x.png" alt="u = 2x &minus; 1  "  class="math" >:
+   <table 
+class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main4010x.png" alt="&int; 1&radic; -------       &int; 1&#x2218; ----(------)2-
+     1 + x2dx =  1-     1 +   u-+-1- du
+ 0               2  &minus;1          2
+" class="math-display" ></center></td></tr></table>
+<!--l. 1012--><p class="nopar" >
+E, então aplicamos a quadratura gaussiana nesta última integral.
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-55">
+deff(&#8217;y=f(u)&#8217;,&#8217;y=sqrt(1+(u+1)^2/4)/2&#8217;)
+&#x00A0;<br />I3=f(0)*w3(1)+f(x3(2))*w3(2)+f(-x3(2))*w3(2)
+&#x00A0;<br />I4=f(x4(1))*w4(1)+f(-x4(1))*w4(1)+f(x4(2))*w4(2)+f(-x4(2))*w4(2)
+&#x00A0;<br />I5=f(0)*w5(1)+f(x5(2))*w5(2)+f(-x5(2))*w5(2)+f(x5(3))*w5(3)&#x00A0;...
+&#x00A0;<br />&#x00A0;&#x00A0;+f(-x5(3))*w5(3)
+</div>
+<!--l. 1021--><p class="nopar" >                                                                       <img 
+src="main4011x.png" alt="&#x2662; "  class="math" >
+   </div>
+<!--l. 1025--><p class="noindent" >
+   <h4 class="likesubsectionHead"><a 
+ id="x91-1470009.6"></a>Exercícios</h4>
+   <div class="newtheorem">
+<!--l. 1027--><p class="noindent" ><span class="head">
+<a 
+ id="x91-147001r1"></a>
+<span 
+class="ec-lmbx-12">E 9.6.1.</span>  </span>Encontre aproximações para a seguinte integral via Gauss-Legendre
+com <img 
+src="main4012x.png" alt="2, 3, 4, 5, 6  "  class="math" > e <img 
+src="main4013x.png" alt="7  "  class="math" > pontos e compare com o valor exato
+   <center class="math-display" >
+<img 
+src="main4014x.png" alt="&int; 1     5
+    x4ex dx.
+ &minus;1
+" class="math-display" ></center>
+   </div>
+   <div class="newtheorem">
+<!--l. 1031--><p class="noindent" ><span class="head">
+<a 
+ id="x91-147002r2"></a>
+                                                                          
+
+                                                                          
+<span 
+class="ec-lmbx-12">E 9.6.2.</span>  </span>Encontre aproximações para as seguintes integrais via Gauss-Legendre
+com 4 e 5 pontos:
+      <ul class="itemize1">
+      <li class="itemize"><img 
+src="main4015x.png" alt="&int;     4
+ 10 e&minus;x dx  "  class="math" >
+      </li>
+      <li class="itemize"><img 
+src="main4016x.png" alt="&int;41 log (x + ex)dx  "  class="math" >
+      </li>
+      <li class="itemize"><img 
+src="main4017x.png" alt="&int;1 e&minus;x2dx
+ 0  "  class="math" ></li></ul>
+   </div>
+   <div class="newtheorem">
+<!--l. 1039--><p class="noindent" ><span class="head">
+<a 
+ id="x91-147003r3"></a>
+<span 
+class="ec-lmbx-12">E 9.6.3.</span>  </span>Calcule numericamente o valor das seguintes integrais usando a
+quadratura de Gauss-Legendre para os seguintes valores de <img 
+src="main4018x.png" alt="n  "  class="math" >:
+<div class="center" 
+>
+<!--l. 1040--><p class="noindent" >
+<div class="tabular"> <table id="TBL-22" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-22-1g"><col 
+id="TBL-22-1"></colgroup><colgroup id="TBL-22-2g"><col 
+id="TBL-22-2"></colgroup><colgroup id="TBL-22-3g"><col 
+id="TBL-22-3"></colgroup><colgroup id="TBL-22-4g"><col 
+id="TBL-22-4"></colgroup><colgroup id="TBL-22-5g"><col 
+id="TBL-22-5"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-22-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-22-1-1"  
+class="td11"> n </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-1-2"  
+class="td11"> <img 
+src="main4019x.png" alt="&int;1  &minus;4x2
+ 0 e   dx  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-1-3"  
+class="td11"><img 
+src="main4020x.png" alt="&int;1 -1--
+ 0 1+x2dx  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-1-4"  
+class="td11"><img 
+src="main4021x.png" alt="&int; 1 4       4
+ 0 x (1 &minus; x) dx  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-1-5"  
+class="td11"><img 
+src="main4022x.png" alt="&int;1 &minus; x12+1
+ 0 e     dx  "  class="math" ></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-22-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-22-2-1"  
+class="td11"><img 
+src="main4023x.png" alt="2  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-2-2"  
+class="td11">&#x00A0;&#x00A0;&#x00A0;&#x00A0;          &#x00A0;</td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-2-3"  
+class="td11">         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-2-4"  
+class="td11"> &#x00A0;&#x00A0;&#x00A0;&#x00A0;          &#x00A0;  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-2-5"  
+class="td11">&#x00A0;&#x00A0;&#x00A0;&#x00A0;          &#x00A0;</td></tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-22-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-22-3-1"  
+class="td11"> <img 
+src="main4024x.png" alt="3 "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-3-2"  
+class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-3-3"  
+class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-3-4"  
+class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-3-5"  
+class="td11"></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-22-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-22-4-1"  
+class="td11"><img 
+src="main4025x.png" alt="4  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-4-2"  
+class="td11">           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-4-3"  
+class="td11">         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-4-4"  
+class="td11">              </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-4-5"  
+class="td11">           </td></tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-22-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-22-5-1"  
+class="td11"> <img 
+src="main4026x.png" alt="5 "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-5-2"  
+class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-5-3"  
+class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-5-4"  
+class="td11"> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-5-5"  
+class="td11"></td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-22-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-22-6-1"  
+class="td11"><img 
+src="main4027x.png" alt="8  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-6-2"  
+class="td11">           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-6-3"  
+class="td11">         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-6-4"  
+class="td11">              </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-6-5"  
+class="td11">           </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-22-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-22-7-1"  
+class="td11"><img 
+src="main4028x.png" alt="10  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-7-2"  
+class="td11">           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-7-3"  
+class="td11">         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-7-4"  
+class="td11">              </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-7-5"  
+class="td11">           </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-22-8-"><td  style="white-space:nowrap; text-align:center;" id="TBL-22-8-1"  
+class="td11"><img 
+src="main4029x.png" alt="12  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-8-2"  
+class="td11">           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-8-3"  
+class="td11">         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-8-4"  
+class="td11">              </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-8-5"  
+class="td11">           </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-22-9-"><td  style="white-space:nowrap; text-align:center;" id="TBL-22-9-1"  
+class="td11"><img 
+src="main4030x.png" alt="14  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-9-2"  
+class="td11">           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-9-3"  
+class="td11">         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-9-4"  
+class="td11">              </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-9-5"  
+class="td11">           </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-22-10-"><td  style="white-space:nowrap; text-align:center;" id="TBL-22-10-1"  
+class="td11"><img 
+src="main4031x.png" alt="16  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-10-2"  
+class="td11">  0.4410407   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-10-3"  
+class="td11"> 0.7853982 </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-10-4"  
+class="td11">   0.0015873     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-22-10-5"  
+class="td11">  0.4619172   </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-22-11-"><td  style="white-space:nowrap; text-align:center;" id="TBL-22-11-1"  
+class="td11">   </td></tr></table></div></div>
+   </div>
+                                                                          
+
+                                                                          
+   <!--l. 1067--><div class="crosslinks"><p class="noindent"><a 
+href="mainse58.html# " >Índice</a></p></div>
+<!--l. 1067--><p class="indent" >   <a 
+ id="tailmainse44.html"></a>   
 </body></html> 

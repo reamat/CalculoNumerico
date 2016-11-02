@@ -1,509 +1,377 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
   "http://www.w3.org/TR/html4/loose.dtd">  
 <html xml:lang="pt" > 
-<head><title>Ajuste linear de curvas</title> 
+<head><title>Aproximando problemas nao lineares por problemas lineares</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
 <meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html,3,notoc*,info --> 
 <meta name="src" content="main.tex"> 
-<meta name="date" content="2016-10-27 18:33:00"> 
+<meta name="date" content="2016-11-01 19:26:00"> 
 <link rel="stylesheet" type="text/css" href="main.css"> 
 </head><body 
 >
-   <!--l. 286--><div class="crosslinks"><p class="noindent"><a 
-href="mainse43.html#mainse46.html" >Voltar</a></p></div>
+   <!--l. 863--><div class="crosslinks"><p class="noindent"><a 
+href="mainli11.html#mainse49.html" >Índice</a></p></div>
    <h3 class="sectionHead"><span class="titlemark">7.3   </span> <a 
- id="x71-1100007.3"></a>Ajuste linear de curvas</h3>
-<!--l. 287--><p class="noindent" >Seja <img 
-src="main3166x.png" alt="f1(x),f2(x),...,fm (x)  "  class="math" > um conjunto de <img 
-src="main3167x.png" alt="m  "  class="math" > funções e <img 
-src="main3168x.png" alt="(xi,yi)  "  class="math" > um conjunto
-de <img 
-src="main3169x.png" alt="n  "  class="math" > pontos. Procuram-se os coeficientes <img 
-src="main3170x.png" alt="a1,a2,...,am  "  class="math" > tais que a função dada
-por
+ id="x72-1130007.3"></a>Aproximando problemas não lineares por problemas lineares</h3>
+<!--l. 865--><p class="noindent" >Eventualmente, problemas de ajuste de curvas podem recair num
+sistema não linear. Por exemplo, para ajustar função <img 
+src="main3371x.png" alt="y = Aebx  "  class="math" > ao
+conjunto de pontos <img 
+src="main3372x.png" alt="(x1,y1)  "  class="math" >, <img 
+src="main3373x.png" alt="(x2,y2)  "  class="math" > e <img 
+src="main3374x.png" alt="(x3,y3)  "  class="math" >, temos que minimizar o
+resíduo<span class="footnote-mark"><a 
+href="main73.html#fn2x10"><sup class="textsuperscript">2</sup></a></span><a 
+ id="x72-113001f2"></a> 
    <center class="math-display" >
 <img 
-src="main3171x.png" alt="f(x) = a1f1(x) + a2f2(x) + ...+ amfm (x )  " class="math-display" ></center>
-minimiza o resíduo dado por
+src="main3375x.png" alt="R =  (Aex1b &minus; y1)2 + (Aex2b &minus; y2)2 + (Aex3b &minus; y3)2   " class="math-display" ></center> ou
+seja, resolver o sistema <div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main3172x.png" alt="      n
-R  = &sum;  [f(x ) &minus; y]2
-     j=1    i     i   " class="math-display" ></center>
-como <img 
-src="main3173x.png" alt="       &sum;
-f(x ) =  mj=1 ajfj(x)  "  class="math" >, temos
-                                                                          
-
-                                                                          
-   <center class="math-display" >
-<img 
-src="main3174x.png" alt="     n  &lfloor; m             &rfloor;2
-R = &sum;   &lceil;&sum;  a f (x ) &minus; y &rceil;
-    j=1  j=1 j j  i     i
+src="main3376x.png" alt="&part;R            x1b      x1b       x2b      x2b       x3b      x3b
+&part;A-- =   2(Ae    &minus; y1)e   + 2(Ae    &minus; y2)e   + 2 (Ae    &minus; y3)e   =  0
+&part;R
+---- =   2Ax1 (Aex1b &minus; y1)ex1b + 2Ax2 (Aex2b &minus; y2)ex2b
+ &part;b
+     +   2Ax3 (Aex3b &minus; y3)ex3b = 0
 " class="math-display" ></center>
-<!--l. 294--><p class="indent" >   Este problema é equivalente a resolver pelo métodos dos mínimos quadrados o
-seguinte sistema linear:
+</div>que é não linear em <img 
+src="main3377x.png" alt="A  "  class="math" > e <img 
+src="main3378x.png" alt="b  "  class="math" >. Esse sistema pode ser resolvido pelo método
+de Newton-Raphson, o que pode se tornar custoso, ou mesmo inviável
+quando não dispomos de uma boa aproximação da solução para inicializar o
+método.
+<!--l. 877--><p class="indent" >   Felizmente, algumas famílias de curvas admitem uma transformação que nos
+leva a um problema linear. No caso da curva <img 
+src="main3379x.png" alt="       bx
+y = Ae  "  class="math" >, observe que
+<img 
+src="main3380x.png" alt="ln y = lnA  + bx  "  class="math" >. Assim, em vez de ajustar a curva original <img 
+src="main3381x.png" alt="y = Aebx  "  class="math" > a tabela
+de pontos, ajustamos a curva submetida a transformação logarítmica
    <center class="math-display" >
 <img 
-src="main3175x.png" alt="&lfloor;                              &rfloor;           &lfloor;    &rfloor;
-|  f1(x1)  f2(x1)  &sdot;&sdot;&sdot;  fm(x1) | &lfloor;     &rfloor;   | y1 |
-||                              || | a1  |   ||    ||
-||  f1(x2)  f2(x2)  &sdot;&sdot;&sdot;  fm(x2) || ||     ||   || y2 ||
-||                              || || a2  || = ||    ||
-||  f1(x3)  f2(x3)  &sdot;&sdot;&sdot;  fm(x3) || ||  ...  ||   || y3 ||
-||    ...       ...     ...     ...   || |&lceil;     |&rceil;   ||  ... ||
-|&lceil;                              |&rceil;   am      |&lceil;    |&rceil;
-   f1(xn )  f2(xn )  &sdot;&sdot;&sdot;  fm(xn)               yn
+src="main3382x.png" alt="&#x02DC;y := a  + a &#x02DC;x = ln A + bx.
+      1    2  " class="math-display" ></center>
+Usamos os pontos <img 
+src="main3383x.png" alt="(x&#x02DC;j,&#x02DC;yj) :=  (xj, ln yj)  "  class="math" >, <img 
+src="main3384x.png" alt="j =  1,2,3  "  class="math" > e resolvemos o sistema
+linear
+   <center class="math-display" >
+<img 
+src="main3385x.png" alt="                  &lfloor;     &rfloor;
+     &lfloor;     &rfloor;
+                  ||  &#x02DC;y1 ||
+V TV |&lceil;  a1 |&rceil; = V T||     ||,
+        a         |&lceil;  &#x02DC;y2 |&rceil;
+         2           &#x02DC;y3  " class="math-display" ></center>
+onde
+   <center class="math-display" >
+<img 
+src="main3386x.png" alt="     &lfloor;       &rfloor;
+     | 1  x1 |
+     ||       ||
+A =  || 1  x2 ||
+     &lceil;       &rceil;
+       1  x3
 " class="math-display" ></center>
    <div class="newtheorem">
-<!--l. 324--><p class="noindent" ><span class="head">
+<!--l. 889--><p class="noindent" ><span class="head">
 <a 
- id="x71-110001r1"></a>
+ id="x72-113003r1"></a>
 <span 
-class="ec-lmbx-12">Exemplo 7.3.1.</span>  </span>Encontre a reta que melhor aproxima o seguinte conjunto de
-dados:
-<div class="center" 
->
-<!--l. 325--><p class="noindent" >
+class="ec-lmbx-12">Exemplo 7.3.1.</span>  </span>Encontre uma curva da forma <img 
+src="main3387x.png" alt="y = Aex  "  class="math" > que melhor ajusta
+os pontos <img 
+src="main3388x.png" alt="(1,2)  "  class="math" >, <img 
+src="main3389x.png" alt="(2,3)  "  class="math" > e <img 
+src="main3390x.png" alt="(3,5)  "  class="math" >.
+   </div>
+<!--l. 891--><p class="indent" >   Temos
+   <center class="math-display" >
+<img 
+src="main3391x.png" alt="     &lfloor;      &rfloor;
+
+     || 1  1 ||
+A  = ||      ||
+     |&lceil; 1  2 |&rceil;
+       1  3 " class="math-display" ></center> e a
+solução do sistema leva em <img 
+src="main3392x.png" alt="B =  0,217442  "  class="math" > e <img 
+src="main3393x.png" alt="b = 0,458145  "  class="math" >. Portanto,
+<img 
+src="main3394x.png" alt="A  = e0,217442 = 1,24289  "  class="math" >.
+   <div class="newtheorem">
+<!--l. 897--><p class="noindent" ><span class="head">
+<a 
+ id="x72-113004r1"></a>
+<span 
+class="ec-lmbx-12">Observa</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão 7.3.1.</span>  </span>Os coeficientes obtidos a partir dessa linearização são
+aproximados,  ou  seja,  são  diferentes  daqueles  obtidos  quando  aplicamos
+mínimos   quadrados   não   linear.   Observe   que   estamos   minimizando
+<img 
+src="main3395x.png" alt="&sum; [lny  &minus; ln (f(x ))]2
+ i    i         i   "  class="math" > em vez de <img 
+src="main3396x.png" alt="&sum;  [y  &minus; f(x )]2
+ i  i      i   "  class="math" >. No exemplo resolvido, a
+solução do sistema não linear original seria <img 
+src="main3397x.png" alt="A  = 1,19789  "  class="math" > e <img 
+src="main3398x.png" alt="B  = 0,474348  "  class="math" >
+   </div>
+   <div class="newtheorem">
+<!--l. 901--><p class="noindent" ><span class="head">
+<a 
+ id="x72-113005r2"></a>
+<span 
+class="ec-lmbx-12">Observa</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão 7.3.2.</span>  </span>Mesmo quando se deseja resolver o sistema não linear,
+a solução do problema linearizado pode ser usada para construir condições
+iniciais.
+   </div>
+<!--l. 906--><p class="indent" >   A próxima tabela apresenta algumas curvas e transformações que linearizam o
+problema de ajuste.
+   <center class="math-display" >
                                                                           
 
                                                                           
-<div class="tabular"> <table id="TBL-16" class="tabular" 
-cellspacing="0" cellpadding="0" rules="groups" 
-><colgroup id="TBL-16-1g"><col 
-id="TBL-16-1"></colgroup><colgroup id="TBL-16-2g"><col 
-id="TBL-16-2"></colgroup><tr 
-class="hline"><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-16-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-16-1-1"  
-class="td11"> <img 
-src="main3176x.png" alt="xi  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-1-2"  
-class="td11"> <img 
-src="main3177x.png" alt="yi  "  class="math" >   </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-16-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-16-2-1"  
-class="td11"><img 
-src="main3178x.png" alt="0,01  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-2-2"  
-class="td11"><img 
-src="main3179x.png" alt="1,99  "  class="math" > </td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-16-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-16-3-1"  
-class="td11"><img 
-src="main3180x.png" alt="1,02  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-3-2"  
-class="td11"><img 
-src="main3181x.png" alt="4,55  "  class="math" > </td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-16-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-16-4-1"  
-class="td11"><img 
-src="main3182x.png" alt="2,04  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-4-2"  
-class="td11"><img 
-src="main3183x.png" alt="7,20  "  class="math" > </td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-16-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-16-5-1"  
-class="td11"><img 
-src="main3184x.png" alt="2,95  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-5-2"  
-class="td11"><img 
-src="main3185x.png" alt="9,51  "  class="math" > </td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-16-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-16-6-1"  
-class="td11"><img 
-src="main3186x.png" alt="3,55  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-16-6-2"  
-class="td11"><img 
-src="main3187x.png" alt="10,82  "  class="math" ></td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-16-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-16-7-1"  
-class="td11">     </td></tr></table></div></div>
+<img 
+src="main3399x.png" alt="|------------------|---------------|--------------------------|
+|------curva-------|transforma-ção-|---problema-linearizado----|
+|           bx      |               |                          |
+|----y-=--ae-------|---y&#x02DC;=--ln-y----|------y&#x02DC;=--ln-a-+-bx-------|
+|           b      |               |                          |
+|-----y-=-ax-------|---y&#x02DC;=--ln-y----|-----&#x02DC;y-=-ln-a +-bln-x------|
+|   y =  axbecx     |   y&#x02DC;=  ln y    |   &#x02DC;y = ln a + bln x + cx   |
+|------------------|---------------|--------------------------|
+|  y =  ae(b+cx)2   |   y&#x02DC;=  ln y    |&#x02DC;y = ln a + b2 + bcx + c2x2|
+|------------------|---------------|--------------------------|
+|     y = ba+x      |    y&#x02DC;=  1y     |       &#x02DC;y =  ba + 1ax        |
+|------------------|---------------|--------------------------|
+|y = A cos(&omega;x + &#x03D5;) |      &minus;        |y =  acos(&omega;x ) &minus; b sin (&omega;x )|
+|                  |               |                          |
+|---&omega;-conhecido----|----------------a-=-A-cos(&#x03D5;),-b =-A-sin(&#x03D5;-)-
+|                  |
+" class="math-display" ></center>
+   <div class="newtheorem">
+<!--l. 920--><p class="noindent" ><span class="head">
+<a 
+ id="x72-113006r2"></a>
+<span 
+class="ec-lmbx-12">Exemplo 7.3.2.</span>  </span>Encontre        a        função        <img 
+src="main3400x.png" alt="f  "  class="math" >       da        forma
+<img 
+src="main3401x.png" alt="y = f (x) = A cos(2&pi;x + &#x03D5; )  "  class="math" > que ajusta a tabela de pontos
+   <center class="math-display" >
+<img 
+src="main3402x.png" alt="|----|--------|
+|    |        |
+|-xi-|---yi---|
+|    |        |
+|0,0 |  9,12   |
+|0,1 |  1,42   |
+|    |        |
+|0,2 | -7,76  |
+|    |        |
+|0,3 |- 11,13 |
+|    |        |
+|0,4 | -11,6  |
+|    |        |
+|0,5 | -6,44  |
+|0,6 |  1,41   |
+|    |        |
+|0,7 | 11,01  |
+|    |        |
+|0,8 | 14,73  |
+|    |        |
+|0,9 | 13,22  |
+|    |        |
+|1,0-|--9,93----
+|    |
+" class="math-display" ></center>
    </div>
-<!--l. 339--><p class="indent" >
+<!--l. 942--><p class="indent" >
    <div class="proof">
-<!--l. 339--><p class="indent" >   <span class="head">
+<!--l. 942--><p class="indent" >   <span class="head">
 <span 
 class="ec-lmbx-12">Solu</span><span 
 class="ec-lmbx-12">ç</span><span 
-class="ec-lmbx-12">ão.</span> </span> Desejamos encontrar os valores de <img 
-src="main3188x.png" alt="a  "  class="math" > e <img 
-src="main3189x.png" alt="b  "  class="math" > tais que a função
-<img 
-src="main3190x.png" alt="f (x ) = ax + b  "  class="math" > melhor se ajusta aos pontos da tabela. Afim de usar o critério
-dos mínimos quadrados, escrevemos o problema na forma matricial dada
-por:
+class="ec-lmbx-12">ão.</span> </span>                                Usando                                     o
+fato que <img 
+src="main3403x.png" alt="y = A cos(2&pi;x + &#x03D5; ) = a cos(2&pi;x ) &minus; b sin(2&pi;x )  "  class="math" >, onde <img 
+src="main3404x.png" alt="a = A cos(&#x03D5;)  "  class="math" >
+e <img 
+src="main3405x.png" alt="b = A sin(&#x03D5;)  "  class="math" >, <img 
+src="main3406x.png" alt="z = [ a  b ]T  "  class="math" > é solução do problema
    <center class="math-display" >
 <img 
-src="main3191x.png" alt="&lfloor;         &rfloor;         &lfloor;        &rfloor;
-| 0,01  1 |         |  1,99  |
-||         ||         ||        ||
-|| 1,02  1 || &lfloor;   &rfloor;   ||  4,55  ||
-||         || | a |   ||        ||
-|| 2,04  1 || &lceil;   &rceil; = ||   7,2  ||
-|| 2,95  1 ||   b     ||  9,51  ||
-|&lceil;         |&rceil;         |&lceil;        |&rceil;
-  3,55  1              10,82
-" class="math-display" ></center>
-<!--l. 366--><p class="indent" >   Multiplicamos agora ambos os lados pela transposta:
-   <table 
-class="equation-star"><tr><td>
+src="main3407x.png" alt="  T        T
+B  Bz  = B  y,
+" class="math-display" ></center> onde
+   <center class="math-display" >
+<img 
+src="main3408x.png" alt="                                      &lfloor;                           &rfloor;
+
+                                      ||      1.           0.      ||
+                                      ||  0,8090170   &minus; 0,5877853  ||
+                                      ||                           ||
+                                      ||  0,3090170   &minus; 0,9510565  ||
+                                      ||                           ||
+     &lfloor;                           &rfloor;    || &minus; 0,3090170  &minus; 0,9510565  ||
+     |  cos(2&pi;x0 )  &minus; sin(2&pi;x0 ) |    ||                           ||
+     ||                           ||    || &minus; 0,8090170  &minus; 0,5877853  ||
+     ||  cos(2&pi;x1 )  &minus; sin(2&pi;x1 ) ||    ||                           ||
+B  = ||      ..                    || =  || &minus; 1,0000000   0,0000000   ||.
+     |&lceil;      .                    |&rceil;    || &minus; 0,8090170   0,5877853   ||
+        cos(2 &pi;x  )  &minus; sin (2 &pi;x  )      ||                           ||
+               10            10       || &minus; 0,3090170   0,9510565   ||
+                                      ||                           ||
+                                      ||  0,3090170    0,9510565   ||
+                                      ||                           ||
+                                      ||  0,8090170    0,5877853   ||
+                                      &lceil;                           &rceil;
+                                         1,0000000    0,0000000
+" class="math-display" ></center> Assim, <img 
+src="main3409x.png" alt="a = 7,9614704  "  class="math" > e <img 
+src="main3410x.png" alt="b = 11,405721  "  class="math" > e obtemos o seguinte sistema:
+   <center class="math-display" >
+<img 
+src="main3411x.png" alt="(
+|{
+   A cos(&#x03D5;) = 7,9614704  .
+|(  A sin(&#x03D5;) = 11,405721
+" class="math-display" ></center> Observe que
+   <center class="math-display" >
+<img 
+src="main3412x.png" alt="  2             2            2
+A   = 7,9614704  + 11,405721
+" class="math-display" ></center> e, escolhendo <img 
+src="main3413x.png" alt="A &#x003E; 0  "  class="math" >, <img 
+src="main3414x.png" alt="A  = 13,909546  "  class="math" > e
+   <center class="math-display" >
+<img 
+src="main3415x.png" alt="         11,405721
+sin(&#x03D5;) = ---------- = 0,8199923
+         13,909546
+" class="math-display" ></center> Assim,  como  <img 
+src="main3416x.png" alt="cos&#x03D5;  "  class="math" > também  é  positivo,  <img 
+src="main3417x.png" alt="&#x03D5;  "  class="math" > é  um  ângulo  do  primeiro
+quadrante:
+   <center class="math-display" >
+<img 
+src="main3418x.png" alt="&#x03D5; = 0,9613976
                                                                           
 
                                                                           
-   <center class="math-display" >
-<img 
-src="main3192x.png" alt="&lfloor;                            &rfloor;
-|0,01  1,02  2,04  2,95  3,55|
-&lceil;                            &rceil;
-   1     1    1     1     1
-" class="math-display" ></center></td></tr></table>
-<!--l. 372--><p class="nopar" >
-o que fornece: <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main3193x.png" alt="                                &lfloor;         &rfloor;
-
-                                || 0,01  1 ||
-&lfloor;                              &rfloor;|| 1,02  1 || &lfloor;   &rfloor;
-  0,01  1,02  2,04  2,95   3,55   ||         ||   a
-|&lceil;                              |&rceil;|| 2,04  1 || |&lceil;   |&rceil;                       =
-    1    1     1     1     1    ||         ||   b
-                                || 2,95  1 ||
-                                &lceil;         &rceil;
-                                  3,55  1
-                                                                                    &lfloor;       &rfloor;
-                                                                                    |  1,99  |
-                                                    &lfloor;                             &rfloor; ||       ||
-                                                                                    ||  4,55  ||
-                                                    |&lceil; 0,01  1,02   2,04  2,95  3,55 |&rceil; ||       ||
-                                                       1     1     1     1     1    ||  7,2  ||
-                                                                                    ||  9,51  ||
-                                                                                    |&lceil;       |&rceil;
-                                                                                      10,82
-" class="math-display" ></center>
-</div>
-                                                                          
-
-                                                                          
-   <center class="math-display" >
-<img 
-src="main3194x.png" alt="&lfloor;               &rfloor; &lfloor;   &rfloor;   &lfloor;          &rfloor;
-| 26,5071  9,57 | | a |   |  85,8144 |
-&lceil;               &rceil; &lceil;   &rceil; = &lceil;          &rceil;
-    9,57      5      b         34,07
-" class="math-display" ></center>
-<!--l. 428--><p class="indent" >   A solução desse sistema é <img 
-src="main3195x.png" alt="a = 2,5157653  "  class="math" > e <img 
-src="main3196x.png" alt="b = 1,9988251  "  class="math" >
-<!--l. 430--><p class="indent" >   A tabela abaixo mostra os valores dados e os valores ajustados:
-<div class="center" 
->
-<!--l. 431--><p class="noindent" >
-<div class="tabular"> <table id="TBL-17" class="tabular" 
-cellspacing="0" cellpadding="0" rules="groups" 
-><colgroup id="TBL-17-1g"><col 
-id="TBL-17-1"></colgroup><colgroup id="TBL-17-2g"><col 
-id="TBL-17-2"></colgroup><colgroup id="TBL-17-3g"><col 
-id="TBL-17-3"></colgroup><colgroup id="TBL-17-4g"><col 
-id="TBL-17-4"></colgroup><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-17-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-17-1-1"  
-class="td11"> <img 
-src="main3197x.png" alt="xi  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-1-2"  
-class="td11"> <img 
-src="main3198x.png" alt="yi  "  class="math" >   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-1-3"  
-class="td11"> <img 
-src="main3199x.png" alt="axi + b  "  class="math" >  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-1-4"  
-class="td11"><img 
-src="main3200x.png" alt="axi + b &minus; yi  "  class="math" > </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-17-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-17-2-1"  
-class="td11"><img 
-src="main3201x.png" alt="0,01  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-2-2"  
-class="td11"><img 
-src="main3202x.png" alt="1,99  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-2-3"  
-class="td11"><img 
-src="main3203x.png" alt="2,0239828  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-2-4"  
-class="td11"> <img 
-src="main3204x.png" alt="0,0339828  "  class="math" >  </td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-17-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-17-3-1"  
-class="td11"><img 
-src="main3205x.png" alt="1,02  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-3-2"  
-class="td11"><img 
-src="main3206x.png" alt="4,55  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-3-3"  
-class="td11"><img 
-src="main3207x.png" alt="4,5649057  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-3-4"  
-class="td11"> <img 
-src="main3208x.png" alt="0,0149057  "  class="math" >  </td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-17-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-17-4-1"  
-class="td11"><img 
-src="main3209x.png" alt="2,04  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-4-2"  
-class="td11"> <img 
-src="main3210x.png" alt="7,2  "  class="math" >  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-4-3"  
-class="td11"><img 
-src="main3211x.png" alt="7,1309863  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-4-4"  
-class="td11"><img 
-src="main3212x.png" alt="&minus;  0,0690137  "  class="math" ></td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-17-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-17-5-1"  
-class="td11"><img 
-src="main3213x.png" alt="2,95  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-5-2"  
-class="td11"><img 
-src="main3214x.png" alt="9,51  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-5-3"  
-class="td11"><img 
-src="main3215x.png" alt="9,4203327  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-5-4"  
-class="td11"><img 
-src="main3216x.png" alt="&minus;  0,0896673  "  class="math" ></td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-17-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-17-6-1"  
-class="td11"><img 
-src="main3217x.png" alt="3,55  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-6-2"  
-class="td11"><img 
-src="main3218x.png" alt="10,82  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-6-3"  
-class="td11"><img 
-src="main3219x.png" alt="10,929792  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-17-6-4"  
-class="td11"> <img 
-src="main3220x.png" alt="0,1097919  "  class="math" >  </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-17-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-17-7-1"  
-class="td11">     </td></tr></table></div></div>
-                                                                       <img 
-src="main3221x.png" alt="&#x2662; "  class="math" >
-   </div>
-<!--l. 446--><p class="noindent" >
-   <h4 class="likesubsectionHead"><a 
- id="x71-1110007.3"></a>Exercícios</h4>
-   <div class="newtheorem">
-<!--l. 448--><p class="noindent" ><span class="head">
-<a 
- id="x71-111001r1"></a>
-<span 
-class="ec-lmbx-12">E 7.3.1.</span>  </span>Encontrar a parábola <img 
-src="main3222x.png" alt="y =  ax2 + bx + c  "  class="math" > que melhor aproxima o seguinte
-conjunto de dados:
-<div class="center" 
->
-<!--l. 449--><p class="noindent" >
-                                                                          
-
-                                                                          
-<div class="tabular"> <table id="TBL-18" class="tabular" 
-cellspacing="0" cellpadding="0" rules="groups" 
-><colgroup id="TBL-18-1g"><col 
-id="TBL-18-1"></colgroup><colgroup id="TBL-18-2g"><col 
-id="TBL-18-2"></colgroup><tr 
-class="hline"><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-18-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-18-1-1"  
-class="td11"> <img 
-src="main3223x.png" alt="xi  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-1-2"  
-class="td11"> <img 
-src="main3224x.png" alt="yi  "  class="math" >   </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-18-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-18-2-1"  
-class="td11"><img 
-src="main3225x.png" alt="0,01  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-2-2"  
-class="td11"><img 
-src="main3226x.png" alt="1,99  "  class="math" > </td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-18-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-18-3-1"  
-class="td11"><img 
-src="main3227x.png" alt="1,02  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-3-2"  
-class="td11"><img 
-src="main3228x.png" alt="4,55  "  class="math" > </td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-18-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-18-4-1"  
-class="td11"><img 
-src="main3229x.png" alt="2,04  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-4-2"  
-class="td11"> <img 
-src="main3230x.png" alt="7,2  "  class="math" >  </td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-18-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-18-5-1"  
-class="td11"><img 
-src="main3231x.png" alt="2,95  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-5-2"  
-class="td11"><img 
-src="main3232x.png" alt="9,51  "  class="math" > </td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-18-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-18-6-1"  
-class="td11"><img 
-src="main3233x.png" alt="3,55  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-18-6-2"  
-class="td11"><img 
-src="main3234x.png" alt="10,82  "  class="math" ></td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-18-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-18-7-1"  
-class="td11">     </td></tr></table></div></div>
-<!--l. 462--><p class="noindent" >e complete a tabela:
-<div class="center" 
->
-<!--l. 463--><p class="noindent" >
-<div class="tabular"> <table id="TBL-19" class="tabular" 
-cellspacing="0" cellpadding="0" rules="groups" 
-><colgroup id="TBL-19-1g"><col 
-id="TBL-19-1"></colgroup><colgroup id="TBL-19-2g"><col 
-id="TBL-19-2"></colgroup><colgroup id="TBL-19-3g"><col 
-id="TBL-19-3"></colgroup><colgroup id="TBL-19-4g"><col 
-id="TBL-19-4"></colgroup><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-19-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-19-1-1"  
-class="td11"> <img 
-src="main3235x.png" alt="xi  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-1-2"  
-class="td11"> <img 
-src="main3236x.png" alt="yi  "  class="math" >   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-1-3"  
-class="td11"><img 
-src="main3237x.png" alt="ax2i + bxi + c  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-1-4"  
-class="td11"><img 
-src="main3238x.png" alt="ax2i + bxi + c &minus; yi  "  class="math" ></td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-19-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-19-2-1"  
-class="td11"><img 
-src="main3239x.png" alt="0,01  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-2-2"  
-class="td11"><img 
-src="main3240x.png" alt="1,99  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-2-3"  
-class="td11">            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-2-4"  
-class="td11">                </td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-19-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-19-3-1"  
-class="td11"><img 
-src="main3241x.png" alt="1,02  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-3-2"  
-class="td11"><img 
-src="main3242x.png" alt="4,55  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-3-3"  
-class="td11">            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-3-4"  
-class="td11">                </td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-19-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-19-4-1"  
-class="td11"><img 
-src="main3243x.png" alt="2,04  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-4-2"  
-class="td11"><img 
-src="main3244x.png" alt="7,20  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-4-3"  
-class="td11">            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-4-4"  
-class="td11">                </td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-19-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-19-5-1"  
-class="td11"><img 
-src="main3245x.png" alt="2,95  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-5-2"  
-class="td11"><img 
-src="main3246x.png" alt="9,51  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-5-3"  
-class="td11">            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-5-4"  
-class="td11">                </td>
-</tr><tr  
- style="vertical-align:baseline;" id="TBL-19-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-19-6-1"  
-class="td11"><img 
-src="main3247x.png" alt="3,55  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-6-2"  
-class="td11"><img 
-src="main3248x.png" alt="10,82  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-6-3"  
-class="td11">            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-6-4"  
-class="td11">                </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-19-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-19-7-1"  
-class="td11">     </td></tr></table></div></div>
-   </div>
-<!--l. 477--><p class="noindent" >
-   <div class="proof">
-<!--l. 477--><p class="indent" >   <span class="head">
-<span 
-class="ec-lmbx-12">Resposta.</span> </span> <img 
-src="main3249x.png" alt="           2
-y =&minus;0,0407898x +2,6613293x+1,9364598  "  class="math" >
-   <table 
-class="equation-star"><tr><td>
-   <center class="math-display" >
-<img 
-src="main3250x.png" alt="|-xi-|-yi--|ax2i +-bxi+-c-ax2i +-bxi+c&minus;-yi|
-| 0,01 | 1,99  | 1,963069  |   -0,0269310   |
-| 1,02 | 4,55  | 4,6085779  |   0,0585779   |
-| 2,04 | 7,2  | 7,1958206  |   -0,0041794   |
-| 2,95 | 9,51  | 9,4324077  |   -0,0775923   |
-|-3,55-|10,82---10,870125------0,0501249---
-" class="math-display" ></center></td></tr></table>
-<!--l. 492--><p class="nopar" >
-                                                                       <img 
-src="main3251x.png" alt="&#x2662; "  class="math" >
-                                                                          
-
-                                                                          
+" class="math-display" ></center> Portanto <img 
+src="main3419x.png" alt="f(x) = 13,909546 cos(2&pi;x +  0,9613976 )  "  class="math" >. Observe que nesse exemplo
+a solução do problema linear é a mesma do problema não linear.          <img 
+src="main3420x.png" alt="&#x2662; "  class="math" >
    </div>
    <div class="newtheorem">
-<!--l. 497--><p class="noindent" ><span class="head">
+<!--l. 982--><p class="noindent" ><span class="head">
 <a 
- id="x71-111002r2"></a>
+ id="x72-113007r3"></a>
 <span 
-class="ec-lmbx-12">E 7.3.2.</span>  </span>Dado o seguinte conjunto de dados
-   <table 
-class="equation-star"><tr><td>
+class="ec-lmbx-12">Exemplo 7.3.3.</span>  </span>Encontre  a  função  <img 
+src="main3421x.png" alt="f  "  class="math" >  da  forma  <img 
+src="main3422x.png" alt="y =  f(x) = -a-
+            b+x  "  class="math" >  que
+ajusta a tabela de pontos
    <center class="math-display" >
 <img 
-src="main3252x.png" alt="|----|----|
+src="main3423x.png" alt="|----|----|
+|x   | y  |
+|--i-|--i-|
+|0,0 |101 |
 |    |    |
-|-xi-|-yi-|
-|0,0 |31  |
+|0,2 |85  |
 |    |    |
-|0,1 |35  |
+|0,4 |75  |
 |    |    |
-|0,2 |37  |
+|0,6 |66  |
 |    |    |
-|0,3 |33  |
-|    |    |
-|0,4 |28  |
-|    |    |
-|0,5 |20  |
-|0,6 |16  |
-|    |    |
-|0,7 |15  |
-|    |    |
-|0,8 |18  |
-|    |    |
-|0,9 |23  |
-|    |    |
-|1,0-|31--
+|0,8 |60  |
+|1,0 |55  |
+|----|-----
 |    |
-" class="math-display" ></center></td></tr></table>
-<!--l. 516--><p class="nopar" >
-                                                                          
-
-                                                                          
-      <ul class="itemize1">
-      <li class="itemize">Encontre  a  função  do  tipo  <img 
-src="main3253x.png" alt="f(x) = a + b sin(2&pi;x ) + ccos(2&pi;x )  "  class="math" >  que
-      melhor aproxima os valores dados.
-      </li>
-      <li class="itemize">Encontre  a  função  do  tipo  <img 
-src="main3254x.png" alt="f(x) = a + bx + cx2 + dx3   "  class="math" >  que  melhor
-      aproxima os valores dados.</li></ul>
+" class="math-display" ></center> usando uma das transformações tabeladas.
    </div>
-<!--l. 522--><p class="noindent" >
+<!--l. 1000--><p class="indent" >
    <div class="proof">
-<!--l. 522--><p class="indent" >   <span class="head">
+<!--l. 1000--><p class="indent" >   <span class="head">
+                                                                          
+
+                                                                          
 <span 
-class="ec-lmbx-12">Resposta.</span> </span> <img 
-src="main3255x.png" alt="a =25,638625  "  class="math" ><span 
-class="ec-lmr-6">,</span> <img 
-src="main3256x.png" alt="b=9,8591874  "  class="math" ><span 
-class="ec-lmr-6">,</span> <img 
-src="main3257x.png" alt="c= 4,9751219  "  class="math" > <span 
-class="ec-lmr-6">e</span> <img 
-src="main3258x.png" alt="a= 31,475524  "  class="math" ><span 
-class="ec-lmr-6">,</span> <img 
-src="main3259x.png" alt="b=65,691531  "  class="math" ><span 
-class="ec-lmr-6">,</span> <img 
-src="main3260x.png" alt="c= &minus;272,84382  "  class="math" ><span 
-class="ec-lmr-6">,</span>
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão.</span> </span> Usando o fato que <img 
+src="main3424x.png" alt="     1   b   1
+Y =  y = a + ax  "  class="math" >, <img 
+src="main3425x.png" alt="      b  1  T
+z = [ a  a ]  "  class="math" > é solução
+do problema
+   <center class="math-display" >
 <img 
-src="main3261x.png" alt="d= 208,23621  "  class="math" ><span 
-class="ec-lmr-6">.</span>
-                                                                       <img 
-src="main3262x.png" alt="&#x2662; "  class="math" >
+src="main3426x.png" alt="AT Az  = AT Y,
+" class="math-display" ></center> onde
+   <center class="math-display" >
+<img 
+src="main3427x.png" alt="     &lfloor;       &rfloor;    &lfloor;        &rfloor;
+     | 1  x1 |    | 1  0,0 |
+     ||       ||    ||        ||
+     || 1  x2 ||    || 1  0,2 ||
+     || 1  x  ||    || 1  0,4 ||
+A =  ||     3 || =  ||        ||
+     || 1  x4 ||    || 1  0,6 ||
+     ||       ||    ||        ||
+     || 1  x5 ||    || 1  0,8 ||
+     &lceil;       &rceil;    &lceil;        &rceil;
+       1  x6        1  1,0
+" class="math-display" ></center> e
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main3428x.png" alt="     &lfloor;      &rfloor;   &lfloor;            &rfloor;
+     | 1&#x2215;y1 |   | 0,0099010  |
+     ||      ||   ||            ||
+     || 1&#x2215;y2 ||   || 0,0117647  ||
+     ||      ||   ||            ||
+Y =  || 1&#x2215;y3 || = || 0,0133333  ||
+     || 1&#x2215;y4 ||   || 0,0151515  ||
+     ||      ||   ||            ||
+     || 1&#x2215;y5 ||   || 0,0166667  ||
+     &lceil;      &rceil;   &lceil;            &rceil;
+       1&#x2215;y6       0,0181818
+" class="math-display" ></center> Assim, <img 
+src="main3429x.png" alt="1a = 0,0082755  "  class="math" > e <img 
+src="main3430x.png" alt="ba =  0,0100288  "  class="math" > e, então, <img 
+src="main3431x.png" alt="a = 120,83924  "  class="math" > e <img 
+src="main3432x.png" alt="b = 1,2118696  "  class="math" >,
+ou seja, <img 
+src="main3433x.png" alt="f (x) = -120,83924--
+        1,2118696+x  "  class="math" >.                                                           <img 
+src="main3434x.png" alt="&#x2662; "  class="math" >
    </div>
                                                                           
 
                                                                           
-   <!--l. 528--><div class="crosslinks"><p class="noindent"><a 
-href="mainse43.html#mainse46.html" >Voltar</a></p></div>
-<!--l. 528--><p class="indent" >   <a 
- id="tailmainse33.html"></a>   
+                                                                          
+
+                                                                          
+                                                                          
+
+                                                                          
+   <!--l. 6--><div class="crosslinks"><p class="noindent"><a 
+href="mainli11.html#mainse49.html" >Índice</a></p></div>
+<!--l. 6--><p class="indent" >   <a 
+ id="tailmainse33.html"></a>  
 </body></html> 
