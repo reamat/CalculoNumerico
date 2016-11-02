@@ -1832,52 +1832,54 @@ Permute as linhas 1 e 2.
 
 
 \section{Método da potência para cálculo de autovalores}\index{autovalores}\index{método da potência}
-Consideremos uma matriz $A\in \mathbb{R}^{n,n}$ diagonalizável, isto é, existe um conjunto $\{{v}_{j}\}_{j=1}^n$ de autovetores de $A$ tais que qualquer elemento $x\in\mathbb{R}^n$ pode ser escrito como uma combinação linear dos ${v}_{j}$. Sejam $\{\lambda_j\}_{j=1}^n$ o conjunto de autovalores associados aos autovetores tal que um deles seja dominante, ou seja,
+Consideremos uma matriz $A\in \mathbb{R}^{n,n}$ diagonalizável, isto é, existe um conjunto $\{v_{j}\}_{j=1}^n$ de autovetores de $A$ tais que qualquer elemento $x\in\mathbb{R}^n$ pode ser escrito como uma combinação linear dos $v_{j}$. Sejam $\{\lambda_j\}_{j=1}^n$ o conjunto de autovalores associados aos autovetores tal que um deles seja dominante, ou seja,
 $$
 |\lambda_1|>|\lambda_2|\geq |\lambda_3|\geq\cdots |\lambda_n|>0
 $$
-Como os autovetores são LI, todo vetor ${x}\in\mathbb{R}^n$, ${x}=(x_1,x_2,...,x_n)$, pode ser escrito com combinação linear dos autovetores da seguinte forma:
+Como os autovetores são l.i., todo vetor $x\in\mathbb{R}^n$, $x=(x_1,x_2,...,x_n)$, pode ser escrito com combinação linear dos autovetores da seguinte forma:
 \begin{equation}\label{met_pot_forma}
-{x}=\sum_{j=1}^n\beta_j{v}_{j}.
+x=\sum_{j=1}^n\beta_jv_{j}.
 \end{equation}
 
 O método da potência permite o cálculo do autovetor dominante com base no comportamento assintótico (i.e. "no infinito") da sequência
-$${x}, A{x}, A^2{x}, A^3{x}, \ldots$$.
+$$x, Ax, A^2x, A^3x, \ldots$$.
 
 Por questões de convergência, consideramos a seguinte sequência semelhante à anterior, porém normalizada:
-$$\frac{{x}}{\|{x}\|}, \frac{A{x}}{\|A{x}\|}, \frac{A^2{x}}{\|A^2{x}\|}, \frac{A^3{x}}{\|A^3{x}\|}, \ldots,$$
+$$\frac{x}{\|x\|}, \frac{Ax}{\|Ax\|}, \frac{A^2x}{\|A^2x\|}, \frac{A^3x}{\|A^3x\|}, \ldots,$$
 que pode ser obtida pelo seguinte processo iterativo:
-$${x}^{(k+1)}=\frac{A^{k}{x}}{\|A^{k}{x}\|}$$
-Observamos que se ${x}$ está na forma (\ref{met_pot_forma}), então $A^k {x}$ pode ser escrito como
-$$A^{k}{x} = \sum_{j=1}^n\beta_j A^k {v}_{j}=\sum_{j=1}^n\beta_j \lambda_j^k {v}_{j}= \beta_1\lambda_1^k\left({v}_1+\sum_{j=2}^n\frac{\beta_j}{\beta_1} \left(\frac{\lambda_j}{\lambda_1}\right)^k {v}_{j}\right)$$
+$$x^{(k+1)}=\frac{A^{k}x}{\|A^{k}x\|}$$
+Observamos que se $x$ está na forma \eqref{met_pot_forma}, então $A^k x$ pode ser escrito como
+$$A^{k} x = \sum_{j=1}^n\beta_j A^k v_{j}=\sum_{j=1}^n\beta_j \lambda_j^k v_{j}= \beta_1\lambda_1^k\left(v_1+\sum_{j=2}^n\frac{\beta_j}{\beta_1} \left(\frac{\lambda_j}{\lambda_1}\right)^k v_{j}\right)$$
 Como $\left|\frac{\lambda_j}{\lambda_1}\right|<1$ para todo $j\geq 2$, temos
-$$\sum_{j=2}^n\frac{\beta_j}{\beta_1} \left(\frac{\lambda_j}{\lambda_1}\right)^k {v}_{j} \to 0.$$
+$$\sum_{j=2}^n\frac{\beta_j}{\beta_1} \left(\frac{\lambda_j}{\lambda_1}\right)^k v_{j} \to 0.$$
 Assim
-\begin{equation}\label{met_pot_assim}\frac{A^k {x}}{\|A^k {x}\|} = \frac{\beta_1\lambda_1^k}{\|A^k {x}\|}\left( {v}_1 + O\left(\left|\frac{\lambda_2}{\lambda_1}\right|^k\right))\right) \end{equation}
-Como a norma de $\frac{A^k {x}}{\|A^k {x}\|}$ é igual a um, temos
-$$\left\|\frac{\beta_1\lambda_1^k}{\|A^k x\|}{v}_1\right\| \to 1$$
+\begin{equation}\label{met_pot_assim}
+  \frac{A^k x}{\|A^k x\|} = \frac{\beta_1\lambda_1^k}{\|A^k x\|}\left( v_1 + O\left(\left|\frac{\lambda_2}{\lambda_1}\right|^k\right))\right) 
+\end{equation}
+Como a norma de $\frac{A^k x}{\|A^k x\|}$ é igual a um, temos
+$$\left\|\frac{\beta_1\lambda_1^k}{\|A^k x\|}v_1\right\| \to 1$$
 e, portanto,
-$$\left|\frac{\beta_1\lambda_1^k}{\|A^k {x}\|}\right| \to \frac{1}{\|{v}_1\|}$$
-Ou seja, se definimos $\alpha^{(k)}=\frac{\beta_1\lambda_1^k}{\|A^k {x}\|}$, então
+$$\left|\frac{\beta_1\lambda_1^k}{\|A^k x\|}\right| \to \frac{1}{\|v_1\|}$$
+Ou seja, se definimos $\alpha^{(k)}=\frac{\beta_1\lambda_1^k}{\|A^k x\|}$, então
 $$
 |\alpha^{(k)}|\to 1
 $$
 Retornando a (\ref{met_pot_assim}), temos:
 
-$$\frac{A^k {x}}{\|A^k {x}\|}-\alpha^{(k)}{v}_1 \to 0$$
+$$\frac{A^k x}{\|A^k x\|}-\alpha^{(k)} v_1 \to 0$$
 
 Observe que um múltiplo de autovetor  também é um autovetor e, portanto, 
 $$
-\frac{A^k {x}}{\|A^k {x}\|}
+\frac{A^k x}{\|A^k x\|}
 $$
-é um esquema que oscila entre os autovetores ou converge para o autovetor ${v}_1$.
+é um esquema que oscila entre os autovetores ou converge para o autovetor $v_1$.
 
 
-Uma vez que temos o autovetor ${v}_1$ de $A$, podemos calcular $\lambda_1$ da seguinte forma:
-$$
-A{v}_1=\lambda_1 {v}_1 ~\Longrightarrow~ {v}_1^TA{v}_1={v}_1^T\lambda_1 {v}_1 ~ \Longrightarrow~ \lambda_1=\frac{{v}_1^TA{v}_1}{{v}_1^T{v}_1}
-$$
-Observe que a última identidade é válida, pois $\|{v}_1\|=1$ por construção.
+Uma vez que temos o autovetor $v_1$ de $A$, podemos calcular $\lambda_1$ da seguinte forma:
+\begin{equation*}
+A v_1=\lambda_1 v_1 ~\Longrightarrow~ v_1^TA v_1= v_1^T\lambda_1 v_1 ~ \Longrightarrow~ \lambda_1=\frac{v_1^TA v_1}{ v_1^Tv_1}  
+\end{equation*}
+Observe que a última identidade é válida, pois $\|v_1\|=1$ por construção.
 
 \section*{Exercícios}
 
