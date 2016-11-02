@@ -73,7 +73,9 @@ A inclusão de uma figura no código LaTex deve ser feita da seguinte forma:
 	    \includegraphics{cap_foo/pics/picfoo}
 		\caption{Descrição da figura picfoo.}
 		\label{pic:picfoo}
-    \end{figure}
+	\end{figure}
+
+Não insira figuras dentro de outro ambientes como, por exemplo, `ex`, `teo`, `sol` e outros. 
 
 Sempre que possível, forneça o código fonte da figura armazenando-o na pasta `cap_foo/pics/picfoo`. Nesta mesma pasta, crie um arquivo README.md com uma descrição da figura e a linceça da mesma, a qual deve ser compatível com a CC-BY-SA 3.0.
 
