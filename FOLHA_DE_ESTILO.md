@@ -109,3 +109,13 @@ Números em notação científica podem ser representados, tando usando `$\times
 
     1,25673\times 10^{-13} = 1,25673\E-13.
 
+### Exercícios
+
+Os exercícios devem ser colocados como subseção daquela que se refere usando:
+
+    \subsection*{Exercícios}
+
+A exceção é a lista de exercícios finais de um capítulo. Esta deve ser adicionada como uma seção numerada:
+
+    \section{Exercícios Finais}
+
