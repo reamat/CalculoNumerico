@@ -1,185 +1,421 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
   "http://www.w3.org/TR/html4/loose.dtd">  
 <html xml:lang="pt" > 
-<head><title>Sobre o Scilab</title> 
+<head><title>Metodo de Diferenças Finitas</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
 <meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html,3,notoc*,info --> 
 <meta name="src" content="main.tex"> 
-<meta name="date" content="2016-11-02 17:38:00"> 
+<meta name="date" content="2016-11-03 16:25:00"> 
 <link rel="stylesheet" type="text/css" href="main.css"> 
 </head><body 
 >
    <!--l. 8--><div class="crosslinks"><p class="noindent">[<a 
-href="mainse36.html#tailmainse55.html">tail</a>] [<a 
+href="#tailmainse55.html">tail</a>] [<a 
 href="# "  >up</a>] </p></div>
-   <h3 class="sectionHead"><span class="titlemark">A.1   </span> <a 
- id="x109-170000A.1"></a>Sobre o Scilab</h3>
-<a 
- id="dx109-170001"></a>
-<!--l. 10--><p class="noindent" >Scilab é uma linguagem de programação associada com uma rica coleção de
-algoritmos numéricos que cobrem muitos aspectos de problemas de computação
-científica. Do ponto de vista de <span 
-class="ec-lmri-12">software</span>, Scilab é uma linguagem interpretada. A
-linguagem Scilab permite a compilação dinâmica e lincagem com outras
-linguagens como Fortran e C. Do ponto de vista de licença, Scilab é um software
-gratuito no sentido que o usuário não paga por ele. Além disso, Scilab é um
-software de código aberto disponível sobre a licença Cecill [1]. Scilab esta
-                                                                          
-
-                                                                          
-disponível para Linux, Mac Os e Windows. Ajuda <span 
-class="ec-lmri-12">online </span>esta disponível em
-português e muitas outras línguas. Do ponto de vista científico, Scilab começou
-focado em soluções computacionais para problemas de álgebra linear, mas,
-rapidamente, o número de aplicações se estendeu para muitas áreas da
-computação científica.
-<!--l. 12--><p class="indent" >   As informações deste apêndice foram adaptadas do tutorial &#8220;Introduction to
-Scilab&#8221; [2], veja-o para maiores informações. Além disso, recomendamos visitar o
-sítio oficial do Scilab:
-<div class="center" 
->
-<!--l. 13--><p class="noindent" >
-<!--l. 14--><p class="noindent" ><a 
-href="http://www.scilab.org/" class="url" ><span 
-class="ec-lmtt-12">http://www.scilab.org/</span></a></div>
-<!--l. 17--><p class="indent" >   O manual oficial do Scilab em português pode ser obtido em:
-<div class="center" 
->
-<!--l. 18--><p class="noindent" >
-<!--l. 19--><p class="noindent" ><a 
-href="http://help.scilab.org/docs/5.5.2/pt_BR/index.html" class="url" ><span 
-class="ec-lmtt-12">http://help.scilab.org/docs/5.5.2/pt_BR/index.html</span></a></div>
-<!--l. 22--><p class="noindent" >
-   <h4 class="subsectionHead"><span class="titlemark">A.1.1   </span> <a 
- id="x109-171000A.1.1"></a>Instalação e Execução</h4>
-<a 
- id="dx109-171001"></a>
-<!--l. 24--><p class="noindent" >O Scilab pode ser executado normalmente nos sistemas operacionais Linux, Mac
-Os e Windows. Muitas distribuições de Linux (Linux Mint, Ubuntu, etc.) têm o
-Scilab no seu sistema de pacotes (incluindo binário e documentação em várias
-línguas). Alternativamente, no <a 
-href="www.scilab.org" >sítio de internet oficial do Scilab</a> pode-se obter
-mais versões de binários e documentação para instalação em sistemas Linux. Para
-a instalação em sistemas Mac Os e Windows, visite <a 
-href="www.scilab.org" >sítio de internet oficial do
-Scilab</a>.
-<!--l. 26--><p class="noindent" >
-   <h4 class="subsectionHead"><span class="titlemark">A.1.2   </span> <a 
- id="x109-172000A.1.2"></a>Usando o Scilab</h4>
-<a 
- id="dx109-172001"></a>
-<!--l. 28--><p class="noindent" >O uso do Scilab pode ser feito de três formas básicas:
-                                                                          
-
-                                                                          
-      <ul class="itemize1">
-      <li class="itemize">usando o <span 
-class="ec-lmbx-12">console </span>de modo iterativo;
-      </li>
-      <li class="itemize">usando a função <span class="obeylines-h"><span class="verb"><span 
-class="ec-lmtt-12">exec</span></span></span> para executar um código Scilab digitado em um
-      arquivo externo;
-      </li>
-      <li class="itemize">usando processamento <span 
-class="ec-lmri-12">bash</span>.</li></ul>
+   <h3 class="sectionHead"><span class="titlemark">11.1   </span> <a 
+ id="x98-16700011.1"></a>Método de Diferenças Finitas</h3>
+<!--l. 10--><p class="noindent" >Neste capítulo, usaremos a aproximação numérica da derivada para resolver
+problemas de valor de contorno da forma
+   <center class="math-display" >
+<img 
+src="main4536x.png" alt="(|
+||||  &minus; uxx = f(x,u), a &#x003C; x &#x003C; b.
+{
+||  u(a) = ua
+|||(
+   u(b) = ub  " class="math-display" ></center>
+Resolver numericamente o problema acima exige uma discretização do domínio
+<img 
+src="main4537x.png" alt="[a,b]  "  class="math" >, ou seja, dividir o domínio em <img 
+src="main4538x.png" alt="N  "  class="math" > partes iguais, definindo
+   <center class="math-display" >
+<img 
+src="main4539x.png" alt="     b &minus; a
+h =  -N---  " class="math-display" ></center> O
+conjunto de abcissas <img 
+src="main4540x.png" alt="xi  "  class="math" >, <img 
+src="main4541x.png" alt="i = 1,...,N + 1  "  class="math" > formam uma malha para o problema
+discreto. Nosso objetivo é encontrar as ordenadas <img 
+src="main4542x.png" alt="ui = u (xi)  "  class="math" > que satisfazem a
+versão discreta:
+   <center class="math-display" >
+<img 
+src="main4543x.png" alt="(|   ui+1&minus;2ui+ui&minus;1
+|||| &minus; -----h2----- = f(xi,ui), 2 &le; i &le; N.
+{
+|| u1 = ua
+|||( u     = u
+    N+1    b  " class="math-display" ></center> O
+vetor solução <img 
+src="main4544x.png" alt="    N+1
+(ui)i=1   "  class="math" > do problema é solução do sistema acima, que é linear se
+<img 
+src="main4545x.png" alt="f  "  class="math" > for linear em <img 
+src="main4546x.png" alt="u  "  class="math" > e não linear caso contrário.
    <div class="newtheorem">
-<!--l. 35--><p class="noindent" ><span class="head">
+<!--l. 28--><p class="noindent" ><span class="head">
 <a 
- id="x109-172002r1"></a>
+ id="x98-167001r1"></a>
 <span 
-class="ec-lmbx-12">Exemplo A.1.1.</span>  </span>Considere o seguinte pseudocódigo:
-                                                                          
+class="ec-lmbx-12">Exemplo 11.1.1.</span>  </span>Encontre  uma  solução  numérica  para  o  problema  de
+contorno:
+   <center class="math-display" >
+<img 
+src="main4547x.png" alt="(
+||               &minus;x
+|||{  &minus; uxx + u = e  , 0 &#x003C;  x &#x003C; 1.
 
-                                                                          
-   <div class="verbatim" id="verbatim-57">
-s&#x00A0;=&#x00A0;"Olá&#x00A0;Mundo!".&#x00A0;(Sem&#x00A0;imprimir&#x00A0;na&#x00A0;tela&#x00A0;o&#x00A0;resultado.)
-&#x00A0;<br />saída(s).&#x00A0;(Imprime&#x00A0;na&#x00A0;tela.)
-</div>
-<!--l. 40--><p class="nopar" >Implemente este pseudocódigo no Scilab: a) usando somente o console do Scilab;
-b) usando o editor do Scilab e executando o código com a função <span class="obeylines-h"><span class="verb"><span 
-class="ec-lmtt-12">exec</span></span></span>; c) usando
-processamento <span 
-class="ec-lmri-12">bash</span>.
+|||  u(0) = 1
+||(  u(1) = 2
+" class="math-display" ></center>
    </div>
-<!--l. 43--><p class="indent" >
+<!--l. 35--><p class="indent" >
    <div class="proof">
-<!--l. 43--><p class="indent" >   <span class="head">
+<!--l. 35--><p class="indent" >   <span class="head">
 <span 
 class="ec-lmbx-12">Solu</span><span 
 class="ec-lmbx-12">ç</span><span 
-class="ec-lmbx-12">ão.</span> </span> Seguem as soluções de cada item:
-      <ul class="itemize1">
-      <li class="itemize">No console temos:
+class="ec-lmbx-12">ão.</span> </span> Observe que
+   <center class="math-display" >
+<img 
+src="main4548x.png" alt="    -1-
+h = N
+" class="math-display" ></center> e a versão discreta da equação é
+   <center class="math-display" >
+<img 
+src="main4549x.png" alt="(
+||    ui+1&minus;2ui+ui&minus;1         &minus; x
+|||{  &minus; -----h2-----+ ui = e  i, 2 &le; i &le; N.
+
+|||  u1 = 1
+||(  u    =  2
+    N+1
                                                                           
 
                                                                           
-      <div class="verbatim" id="verbatim-58">
-      --&#x003E;s&#x00A0;=&#x00A0;"Olá&#x00A0;Mundo!";
-      &#x00A0;<br />--&#x003E;disp(s)
-</div>
-      <!--l. 49--><p class="nopar" >
-      </li>
-      <li class="itemize">Para abrir o editor do Scilab pode-se digitar no <span class="obeylines-h"><span class="verb"><span 
-class="ec-lmtt-12">prompt</span></span></span>:
+" class="math-display" ></center> ou seja,
+   <center class="math-display" >
+<img 
+src="main4550x.png" alt="(|
+|||| u1 =  1
+{                2              2 &minus;xi
+|| &minus; ui+1 + (2 + h )ui &minus; ui&minus;1 = h e   , 2 &le; i &le; N.
+|||( u     = 2
+    N+1
+" class="math-display" ></center> que é um sistema linear. A sua forma matricial é:
+   <center class="math-display" >
+<img 
+src="main4551x.png" alt="&lfloor;                                            &rfloor;
+|  1      0       0    &sdot;&sdot;&sdot;   0     0      0  |&lfloor;       &rfloor;    &lfloor;         &rfloor;
+||           2                                |||   u1  |    |    1    |
+|| &minus; 1  2 + h     &minus; 1   &sdot;&sdot;&sdot;   0     0      0  ||||       ||    ||  2 &minus; x2 ||
+||  0     &minus; 1   2 + h2  &sdot;&sdot;&sdot;   0     0      0  ||||   u2  ||    || h e     ||
+||                                            ||||   u   ||    || h2e&minus; x3 ||
+||  ...                        ...              ||||    3  || =  ||         ||
+||                                            ||||    ...  ||    ||    ...    ||
+||  0      0       0    &sdot;&sdot;&sdot;  &minus; 1  2 + h2  &minus; 1 ||||       ||    ||         ||
+||                                            ||||   uN  ||    || h2e&minus;xN  ||
+||  0      0       0    &sdot;&sdot;&sdot;   0     0      1  ||&lceil;       &rceil;    &lceil;         &rceil;
+&lceil;                                            &rceil;   uN+1           2
+" class="math-display" ></center> Para <img 
+src="main4552x.png" alt="N  = 10  "  class="math" >, temos a seguinte solução:
                                                                           
 
                                                                           
-      <div class="verbatim" id="verbatim-59">
-      --&#x003E;editor()
-</div>
-      <!--l. 53--><p class="nopar" >ou, alternativamente:
+   <center class="math-display" >
+<img 
+src="main4553x.png" alt="&lfloor;            &rfloor;
+   1,000000
+||            ||
+|| 1,0735083  ||
+||            ||
+|| 1,1487032  ||
+||            ||
+|| 1,2271979  ||
+||            ||
+|| 1,3105564  ||
+|| 1,4003172  ||
+||            ||
+|| 1,4980159  ||
+||            ||
+|| 1,6052067  ||
+||            ||
+|| 1,7234836  ||
+||            ||
+|| 1,8545022  ||
+&lceil;  2,000000  &rceil;
+" class="math-display" ></center>                                                                       <img 
+src="main4554x.png" alt="&#x2662; "  class="math" >
+   </div>
+<!--l. 70--><p class="noindent" >
+   <h4 class="likesubsectionHead"><a 
+ id="x98-16800011.1"></a>Exercícios</h4>
+   <div class="newtheorem">
+<!--l. 72--><p class="noindent" ><span class="head">
+<a 
+ id="x98-168001r1"></a>
+<span 
+class="ec-lmbx-12">E 11.1.1.</span>  </span>Considere  o  seguinte  problema  de  valor  de  contorno  para  a
+equação de calor no estado estacionário:
                                                                           
 
                                                                           
-      <div class="verbatim" id="verbatim-60">
-      --&#x003E;scinotes
-</div>
-      <!--l. 57--><p class="nopar" >Então, digita-se no editor o código:
+   <center class="math-display" >
+<img 
+src="main4555x.png" alt="(
+|||  &minus; u  = 32,  0 &#x003C; x &#x003C; 1.
+||{     xx
+   u(0) = 5
+||||
+|(  u(1) = 10
+" class="math-display" ></center>
+<!--l. 80--><p class="indent" >   Defina  <img 
+src="main4556x.png" alt="uj = u (xj )  "  class="math" >  onde  <img 
+src="main4557x.png" alt="xj = (j &minus; 1)h  "  class="math" > e  <img 
+src="main4558x.png" alt="j = 1,...,5  "  class="math" >.  Aproxime  a
+derivada segunda por um esquema de segunda ordem e transforme a equação
+diferencial em um sistema de equações lineares. Escreva este sistema linear
+na forma matricial e resolva-o. Faça o mesmo com o dobro de subintervalos,
+isto é, com malha de 9 pontos.
+   </div>
+<!--l. 82--><p class="noindent" >
+   <div class="proof">
+<!--l. 82--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Resposta.</span> </span>
+   <center class="math-display" >
+<img 
+src="main4559x.png" alt="&lfloor;  1   0  0   0   0 &rfloor;
+| &minus; 1  2  &minus;1  0   0 | &lfloor; u1&rfloor;  &lfloor;  5 &rfloor;
+||  0  &minus;1  2   &minus;1  0 || || u2||  ||  2 ||
+|  0   0  &minus;1  2  &minus;1 | &lceil; u3&rceil; =&lceil;  2 &rceil;
+&lceil;  0   0  0   0   1 &rceil;   uu4      210
+                         5
+" class="math-display" ></center>
+<!--l. 107--><p class="indent" >   <span 
+class="ec-lmr-6">Solu</span><span 
+class="ec-lmr-6">ç</span><span 
+class="ec-lmr-6">ão: [5, 9.25, 11.5, 11.75, 10]</span>
+<!--l. 109--><p class="indent" >
                                                                           
 
                                                                           
-      <div class="verbatim" id="verbatim-61">
-      s&#x00A0;=&#x00A0;"Olá&#x00A0;Mundo!"
-      &#x00A0;<br />disp(s)
-</div>
-      <!--l. 62--><p class="nopar" >salva-se em um arquivo de sua preferência (por exemplo, <span class="obeylines-h"><span class="verb"><span 
-class="ec-lmtt-12">~/foo.sce</span></span></span>) e
-      executa-se o código clicando no botão &#8220;<span 
-class="ec-lmri-12">play</span>&#8221; disponível na barra de botões
-      do Scinotes.
-      </li>
-      <li class="itemize">Para executar o código em processamento <span 
-class="ec-lmri-12">bash</span>, digita-se em um editor o
-      código:
+   <center class="math-display" >
+<img 
+src="main4560x.png" alt="&lfloor; 1   0   0   0  0   0   0  0   0 &rfloor; &lfloor;    &rfloor;  &lfloor;    &rfloor;
+| &minus;1  2  &minus;1   0  0   0   0  0   0 |   u1      5
+|| 0   &minus;1  2  &minus;1  0   0   0  0   0 || || u2 ||  || 0.5 ||
+|| 0   0  &minus;1   2  &minus;1  0   0  0   0 || || uu3 ||  || 00.5.5 ||
+|| 0   0   0  &minus;1  2  &minus;1   0  0   0 || || u45 ||= || 0.5 ||
+|| 0   0   0   0  &minus;1  2  &minus;1  0   0 || || u6 ||  || 0.5 ||
+|| 00   00   00   00  00  &minus;10  &minus;21  &minus;21 &minus;01|| |&lceil; u7 |&rceil;  |&lceil; 0.5 |&rceil;
+&lceil; 0   0   0   0  0   0   0  0   1 &rceil;   u8      0.5
+                                      u9      10
+" class="math-display" ></center>
+<!--l. 135--><p class="indent" >   <span 
+class="ec-lmr-6">Solu</span><span 
+class="ec-lmr-6">ç</span><span 
+class="ec-lmr-6">ão:</span> <img 
+src="main4561x.png" alt="[5,7.375,9.25,10.625,11.5,11.875,11.75,1.125,10]  "  class="math" >
+                                                                       <img 
+src="main4562x.png" alt="&#x2662; "  class="math" >
+   </div>
+   <div class="newtheorem">
+<!--l. 140--><p class="noindent" ><span class="head">
+<a 
+ id="x98-168002r2"></a>
+<span 
+class="ec-lmbx-12">E 11.1.2.</span>  </span>Considere  o  seguinte  problema  de  valor  de  contorno  para  a
+equação de calor no estado estacionário:
+   <center class="math-display" >
+<img 
+src="main4563x.png" alt="(
+|||| &minus; uxx = 200e &minus;(x&minus; 1)2, 0 &#x003C; x &#x003C;  2.
+|{
+| u (0) = 120
+||||
+( u (2) = 100
+" class="math-display" ></center> Defina <img 
+src="main4564x.png" alt="uj = u(xj)  "  class="math" > onde <img 
+src="main4565x.png" alt="xj = (j &minus; 1)h  "  class="math" > e <img 
+src="main4566x.png" alt="j =  1,...,21  "  class="math" >. Aproxime a derivada
+segunda por um esquema de segunda ordem e transforme a equação diferencial
                                                                           
 
                                                                           
-      <div class="verbatim" id="verbatim-62">
-      s&#x00A0;=&#x00A0;"Olá&#x00A0;Mundo!"
-      &#x00A0;<br />disp(s)
-</div>
-      <!--l. 68--><p class="nopar" >salva-se em um arquivo de sua preferência (por exemplo, <span class="obeylines-h"><span class="verb"><span 
-class="ec-lmtt-12">~/foo.sce</span></span></span>) e
-      executa-se em um console do sistema usando a linha de comando:
+em um sistema de equações lineares. Resolva o sistema linear obtido.
+   </div>
+<!--l. 150--><p class="noindent" >
+   <div class="proof">
+<!--l. 150--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Resposta.</span> </span> <span 
+class="ec-lmr-6">120. 133.56 146.22 157.83 168.22 177.21 184.65 190.38 194.28 196.26 196.26 194.26 190.28 184.38 176.65</span>
+<span 
+class="ec-lmr-6">167.21 156.22 143.83 130.22 115.56 100.</span>
+                                                                       <img 
+src="main4567x.png" alt="&#x2662; "  class="math" >
+   </div>
+   <div class="newtheorem">
+<!--l. 158--><p class="noindent" ><span class="head">
+<a 
+ id="x98-168003r3"></a>
+<span 
+class="ec-lmbx-12">E 11.1.3.</span>  </span>Considere  o  seguinte  problema  de  valor  de  contorno  para  a
+equação de calor no estado estacionário:
+   <center class="math-display" >
+<img 
+src="main4568x.png" alt="(|              &minus;(x&minus; 1)2
+|||| &minus; uxx = 200e       , 0 &#x003C; x &#x003C;  2.
+{   &prime;
+|| u (0) = 0
+|||( u (2) = 100
+" class="math-display" ></center> Defina <img 
+src="main4569x.png" alt="u =  u(x )
+ j      j  "  class="math" > onde <img 
+src="main4570x.png" alt="x  = (j &minus; 1)h
+ j  "  class="math" > e <img 
+src="main4571x.png" alt="j =  1,...,21  "  class="math" >. Aproxime a derivada
+segunda por um esquema de segunda ordem, a derivada primeira na fronteira
+por um esquema de primeira ordem e transforme a equação diferencial em
+um sistema de equações lineares. Resolva o sistema linear obtido.
                                                                           
 
                                                                           
-      <div class="verbatim" id="verbatim-63">
-      $&#x00A0;scilab&#x00A0;-nw&#x00A0;-f&#x00A0;~/foo.sce
-</div>
-      <!--l. 72--><p class="nopar" >Digite, então, <span class="obeylines-h"><span class="verb"><span 
-class="ec-lmtt-12">quit</span></span></span> para voltar ao prompt do sistema.</li></ul>
+   </div>
+<!--l. 167--><p class="noindent" >
+   <div class="proof">
+<!--l. 167--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Resposta.</span> </span> <span 
+class="ec-lmr-6">391.13 391.13 390.24 388.29 385.12 380.56 374.44 366.61 356.95 345.38 331.82 316.27 298.73 279.27 257.99</span>
+<span 
+class="ec-lmr-6">234.99 210.45 184.5 157.34 129.11 100.</span>
+                                                                       <img 
+src="main4572x.png" alt="&#x2662; "  class="math" >
+   </div>
+   <div class="newtheorem">
+<!--l. 174--><p class="noindent" ><span class="head">
+<a 
+ id="x98-168004r4"></a>
+<span 
+class="ec-lmbx-12">E 11.1.4.</span>  </span>Considere  o  seguinte  problema  de  valor  de  contorno  para  a
+equação  de  calor  no  estado  estacionário  com  um  termo  não  linear  de
+radiação:
+   <center class="math-display" >
+<img 
+src="main4573x.png" alt="(
+||                -u4--
+|||{ &minus; uxx = 100 &minus;  10000, 0 &#x003C; x &#x003C; 2.
+  u (0 ) = 0
+|||
+||( u (2 ) = 10
+" class="math-display" ></center> Defina <img 
+src="main4574x.png" alt="uj = u(xj)  "  class="math" > onde <img 
+src="main4575x.png" alt="xj = (j &minus; 1)h  "  class="math" > e <img 
+src="main4576x.png" alt="j =  1,...,21  "  class="math" >. Aproxime a derivada
+segunda por um esquema de segunda ordem e transforme a equação diferencial
+em um sistema de equações não lineares. Resolva o sistema obtido. Expresse a
+solução com dois algarismos depois do separador decimal. Dica: Veja problema
+38 da lista 2, seção de sistemas não lineares.
+                                                                          
+
+                                                                          
+   </div>
+<!--l. 183--><p class="noindent" >
+   <div class="proof">
+<!--l. 183--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Resposta.</span> </span> <span 
+class="ec-lmr-6">0., 6.57, 12.14, 16.73, 20.4, 23.24, 25.38, 26.93 , 28, 28.7, 29.06, 29.15, 28.95, 28.46, 27.62 , 26.36, 24.59, 22.18,</span>
+<span 
+class="ec-lmr-6">19.02, 14.98, 10.</span>
                                                                        <img 
 src="main4577x.png" alt="&#x2662; "  class="math" >
+   </div>
+   <div class="newtheorem">
+<!--l. 190--><p class="noindent" ><span class="head">
+<a 
+ id="x98-168005r5"></a>
+<span 
+class="ec-lmbx-12">E 11.1.5.</span>  </span>Considere  o  seguinte  problema  de  valor  de  contorno  para  a
+equação de calor no estado estacionário com um termo não linear de radiação
+e um termo de convecção:
+   <center class="math-display" >
+<img 
+src="main4578x.png" alt="(
+||                      -u4--
+|||{ &minus; uxx + 3ux = 100 &minus;  10000, 0 &#x003C; x &#x003C;  2.
+  u&prime;(0) = 0
+|||
+||( u(2) = 10
+" class="math-display" ></center> Defina <img 
+src="main4579x.png" alt="uj = u(xj)  "  class="math" > onde <img 
+src="main4580x.png" alt="xj = (j &minus; 1)h  "  class="math" > e <img 
+src="main4581x.png" alt="j =  1,...,21  "  class="math" >. Aproxime a derivada
+segunda por um esquema de segunda ordem, a derivada primeira na fronteira
+por um esquema de primeira ordem, a derivada primeira no interior por um
+esquema de segunda ordem e transforme a equação diferencial em um sistema
+de equações não lineares. Resolva o sistema obtido.
+                                                                          
+
+                                                                          
+   </div>
+<!--l. 198--><p class="noindent" >
+   <div class="proof">
+<!--l. 198--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Resposta.</span> </span> <span 
+class="ec-lmr-6">u(0)=31.62, u(1)=31.50, u(1.9)=18.17</span>
+                                                                       <img 
+src="main4582x.png" alt="&#x2662; "  class="math" >
+   </div>
+   <div class="newtheorem">
+<!--l. 204--><p class="noindent" ><span class="head">
+<a 
+ id="x98-168006r6"></a>
+<span 
+class="ec-lmbx-12">E 11.1.6.</span>  </span>Considere o seguinte problema de valor de contorno:
+   <center class="math-display" >
+<img 
+src="main4583x.png" alt="(                      2
+||||  &minus; u&prime;&prime; + 2u&prime; = e &minus;x &minus; u100, 1 &#x003C; x &#x003C; 4.
+|{
+|  u&prime;(1 ) + u(1) = 2
+||||   &prime;
+(  u (4 ) = &minus; 1
+" class="math-display" ></center> Defina <img 
+src="main4584x.png" alt="uj = u (xj)  "  class="math" > onde <img 
+src="main4585x.png" alt="xj = 1 + (j &minus; 1)h  "  class="math" > e <img 
+src="main4586x.png" alt="j = 1,...,101  "  class="math" >. Aproxime a
+derivada segunda por um esquema de segunda ordem, a derivada primeira na
+fronteira por um esquema de primeira ordem, a derivada primeira no interior
+por um esquema de segunda ordem e transforme a equação diferencial em
+um sistema de equações não lineares. Resolva o sistema obtido.
+   </div>
+<!--l. 212--><p class="noindent" >
+   <div class="proof">
+                                                                          
+
+                                                                          
+<!--l. 212--><p class="indent" >   <span class="head">
+<span 
+class="ec-lmbx-12">Resposta.</span> </span> <span 
+class="ec-lmr-6">u(1)=1.900362, u(2.5)=1.943681, u(4)=1.456517</span>
+                                                                       <img 
+src="main4587x.png" alt="&#x2662; "  class="math" >
    </div>
                                                                           
 
                                                                           
-   <!--l. 77--><div class="crosslinks"><p class="noindent">[<a 
+                                                                          
+
+                                                                          
+   <!--l. 79--><div class="crosslinks"><p class="noindent">[<a 
 href="mainse55.html" >front</a>] [<a 
 href="# "  >up</a>] </p></div>
-<!--l. 77--><p class="indent" >   <a 
+<!--l. 79--><p class="indent" >   <a 
  id="tailmainse55.html"></a>   
 </body></html> 
