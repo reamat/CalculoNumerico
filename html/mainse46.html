@@ -3,6 +3,7 @@
 <html xml:lang="pt" > 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 <head><title>Exerc<img 
 src="ec-lmr12-19.png" alt="i" class="12x-x-19" />cios finais</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
@@ -987,667 +988,200 @@ href="# "  >Índice</a></p></div>
 =======
 <head><title>Metodo de Euler</title> 
 >>>>>>> c2790254e7e5196a945409616a59006dc5a6f1d1
+=======
+<head><title>Metodo de Euler melhorado</title> 
+>>>>>>> d1181fb9e1ff5791eedd2c46e734ef7807d4b9ee
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
 <meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html,3,notoc*,info --> 
 <meta name="src" content="main.tex"> 
-<meta name="date" content="2016-11-03 16:25:00"> 
+<meta name="date" content="2016-11-04 12:46:00"> 
 <link rel="stylesheet" type="text/css" href="main.css"> 
 </head><body 
 >
-   <!--l. 32--><div class="crosslinks"><p class="noindent">[<a 
+   <!--l. 257--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse45.html" >prev</a>] [<a 
+href="mainse45.html#tailmainse45.html" >prev-tail</a>] [<a 
 href="mainse30.html#tailmainse46.html">tail</a>] [<a 
 href="# "  >up</a>] </p></div>
-   <h3 class="sectionHead"><span class="titlemark">10.1   </span> <a 
- id="x88-14900010.1"></a>Método de Euler</h3>
+   <h3 class="sectionHead"><span class="titlemark">10.2   </span> <a 
+ id="x89-15300010.2"></a>Método de Euler melhorado</h3>
 <a 
- id="dx88-149001"></a>
-<!--l. 33--><p class="noindent" >Retornemos ao problema de valor inicial (<a 
-href="mainch10.html#x87-1480020">10.1<!--tex4ht:ref: PVI --></a>) dado por: <div class="subequations"><a 
- id="x88-1490020"></a> <div class="eqnarray">
+ id="dx89-153001"></a>
+<!--l. 258--><p class="noindent" >O método de Euler foi o primeiro método que estudamos e sua principal virtude é
+a simplicidade. Outros métodos, no entanto, podem apresentar resultados
+superiores. Vamos apresentar agora uma pequena modificação ao Método de
+Euler, dando origem a um novo método chamado de Método de Euler Modificado
+ou Método de Euler Melhorado.
+<!--l. 260--><p class="indent" >   No método de Euler, usamos a seguinte iteração: <div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main4171x.png" alt="y&prime;(t)  =   f(y(t),t)                           (10.3a)
-y(0)  =   y  (condição inicial)               (10.3b)
-           0
+src="main4219x.png" alt="  (k+1)       (k)       (k) (k)
+y       =  y   +  hf(y  ,t  )
+   y(1)  =  y0  (condição inicial)
 " class="math-display" ></center>
 </div>
-</div>
-<!--l. 40--><p class="indent" >   O Método de Euler aplicado à solução desse problema consiste em aproximar
-a derivada <img 
-src="main4172x.png" alt=" &prime;
-y (t)  "  class="math" > por um esquema de primeira ordem do tipo
-   <center class="math-display" >
-<img 
-src="main4173x.png" alt=" &prime;      y(t + h ) &minus; y(t)
-y (t) = ---------------+ O (h), h &#x003E; 0.
-              h  " class="math-display" ></center>
-Aqui <img 
-src="main4174x.png" alt="h  "  class="math" > é o passo do método, que consideraremos uma constante. Assim temos
-(<a 
-href="#x88-1490020">10.3<!--tex4ht:ref: PVI_2 --></a>) se transforma em: <div class="eqnarray">
+<!--l. 266--><p class="indent" >   A ideia do método de Euler Melhorado é substituir a declividade <img 
+src="main4220x.png" alt="   (k) (k)
+f(y   ,t  )  "  class="math" >
+pela média aritmética entre <img 
+src="main4221x.png" alt="f (y (k),t(k))  "  class="math" > e <img 
+src="main4222x.png" alt="f (y (k+1),t(k+1))  "  class="math" >, isto é, as declividades
+avaliadas no início e no fim do intervalo <img 
+src="main4223x.png" alt="[t(k),t(k+1)]  "  class="math" >.
+<!--l. 268--><p class="indent" >   No entanto, não dispomos do valor de <img 
+src="main4224x.png" alt=" (k+1)
+y   "  class="math" > antes de executar o passo.
+Assim aproximamos esta grandeza pelo valor produzido pelo Método de Euler
+original:
                                                                           
 
                                                                           
    <center class="math-display" >
 <img 
-src="main4175x.png" alt="y(t +-h)-&minus;-y(t)
-      h         =   f(y(t),t) + O(h )
-      y(t + h)  =   y(t) + hf (y(t),t) + O (h2).       (10.4)
-" class="math-display" ><a 
- id="x88-149004r10.4"></a></center>
-</div>
-<!--l. 48--><p class="indent" >   Definimos, então, <img 
-src="main4176x.png" alt="t(k) = (k &minus; 1)h  "  class="math" > e <img 
-src="main4177x.png" alt="y (k)   "  class="math" > como a aproximação para <img 
-src="main4178x.png" alt="  (   )
-y  t(k) "  class="math" >
-produzida pelo Método de Euler. Assim, obtemos <div class="eqnarray">
+src="main4225x.png" alt="&#x02DC;y(k+1) = y(k) + hf (y(k),t(k)).
+" class="math-display" ></center>
+<!--l. 271--><p class="indent" >   De posse desta aproximação, calculamos a média aritmética e, finalmente,
+com esta média, realizamos o passo do Método de Euler Melhorado. O processo
+iterativo de Euler Melhorado é, portanto, dado por: <div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main4179x.png" alt=" (k+1)       (k)       (k) (k)
-y      =   y   + hf(y   ,t  ) (aproxima ção da EDO  ),    (10.5)
-  y(1)  =   y0 (condição inicial).                         (10.6)
-" class="math-display" ><a 
- id="x88-149005r10.5"></a></center>
-</div>O problema (<a 
-href="#x88-149005r10.5">10.5<!--tex4ht:ref: PVI_EULER --></a>) consiste em um esquema iterativo, isto é, <img 
-src="main4180x.png" alt=" (1)
-y   "  class="math" > é a condição
-inicial; <img 
-src="main4181x.png" alt="  (2)
-y   "  class="math" > pode ser obtido de <img 
-src="main4182x.png" alt=" (1)
-y   "  class="math" >; <img 
-src="main4183x.png" alt="  (3)
-y   "  class="math" >, de <img 
-src="main4184x.png" alt=" (2)
-y   "  class="math" > e assim por diante,
-calculamos o termo <img 
-src="main4185x.png" alt="y(n)   "  class="math" > apartir do anterior <img 
-src="main4186x.png" alt="y(n&minus; 1)   "  class="math" >.
-   <div class="newtheorem">
-<!--l. 56--><p class="noindent" ><span class="head">
-<a 
- id="x88-149006r1"></a>
-<span 
-class="ec-lmbx-12">Exemplo 10.1.1.</span>  </span>Retornemos ao o problema de valor inicial do exemplo (<a 
-href="mainch10.html#x87-1480050">10.2<!--tex4ht:ref: exemplo_y_2y --></a>):
-<div class="eqnarray">
-                                                                          
-
-                                                                          
-   <center class="math-display" >
-<img 
-src="main4187x.png" alt=" &prime;
-y(t)  =  2y (t)
-y(0)  =  1
+src="main4226x.png" alt="&#x02DC;y(k+1)  =   y(k) + hf(y (k),t(k))
+                 h [                           ]
+y(k+1)  =   y(k) + -- f(y(k),t(k)) + f(&#x02DC;y(k+1),t(k+1 ))
+                 2
+  y(1)  =   y0 (condição inicial)
 " class="math-display" ></center>
 </div>
-   </div>
-<!--l. 62--><p class="indent" >   Cuja solução é <img 
-src="main4188x.png" alt="y(t) = e2t  "  class="math" >. O método de Euler aplicado a este problema
-produz o seguinte esquema: <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main4189x.png" alt=" (k+1)      (k)      (k)            (k)
-y       =  y   + 2hy    = (1 + 2h)y
-  y (1)  =  1,
-" class="math-display" ></center>
-</div>cuja solução é dada por
-   <center class="math-display" >
-<img 
-src="main4190x.png" alt=" (k)          k&minus; 1
-y   = (1 + 2h )  .  " class="math-display" ></center>
-                                                                          
-
-                                                                          
-Como <img 
-src="main4191x.png" alt="t = (k &minus; 1 )h  "  class="math" >, a solução aproximada pelo Método de Euler é
-   <center class="math-display" >
-<img 
-src="main4192x.png" alt="                      t
-y(t) &asymp; &#x02DC;y(t) = (1 + 2h )h.  " class="math-display" ></center>
-Observe que <img 
-src="main4193x.png" alt="&#x02DC;y(t) &frasl;= y(t)  "  class="math" >, mas se <img 
-src="main4194x.png" alt="h  "  class="math" > é pequeno, a aproximação é boa,
-pois
-   <center class="math-display" >
-<img 
-src="main4195x.png" alt="             t
- lim  (1 + 2h )h = e2t.
-h&rarr;0+
-" class="math-display" ></center>
-<!--l. 74--><p class="indent" >   Vamos agora, analisar o desempenho do Método de Euler usando um exemplo
-mais complicado, porém ainda simples suficiente para que possamos obter a
-solução exata:
-   <div class="newtheorem">
-<!--l. 75--><p class="noindent" ><span class="head">
-<a 
- id="x88-149009r2"></a>
-<span 
-class="ec-lmbx-12">Exemplo 10.1.2.</span>  </span> Considere o problema de valor inicial relacionado à equação
-logística<a 
- id="dx88-149010"></a>: <div class="eqnarray">
-                                                                          
-
-                                                                          
-   <center class="math-display" >
-<img 
-src="main4196x.png" alt=" &prime;
-y(t)  =  y (t)(1 &minus; y(t))
-y(0)  =  1&#x2215;2
-" class="math-display" ></center>
-</div>
-   </div>
-<!--l. 81--><p class="indent" >   Podemos obter a solução exata desta equação usando o método de separação
-de variáveis<a 
- id="dx88-149012"></a> e o método das frações parciais<a 
- id="dx88-149013"></a>. Para tal escrevemos:
-   <table 
-class="equation-star"><tr><td>
-   <center class="math-display" >
-<img 
-src="main4197x.png" alt="    dy(t)
---------------= dt
-y(t)(1 &minus; y (t))
-" class="math-display" ></center></td></tr></table>
-<!--l. 84--><p class="nopar" >
-O termo <img 
-src="main4198x.png" alt="   1
-y(1&minus;y)   "  class="math" > pode ser decomposto em frações parciais como <img 
-src="main4199x.png" alt="1    1
-y &minus; 1&minus;y  "  class="math" > e
-chegamos na seguinte equação diferencial:
-   <table 
-class="equation-star"><tr><td>
-   <center class="math-display" >
-<img 
-src="main4200x.png" alt="(           )
-  1     1
-  --+  ------ dy = dt.
-  y    1 &minus; y
-" class="math-display" ></center></td></tr></table>
-<!--l. 88--><p class="nopar" >
-Integrando termo-a-termo, temos a seguinte equação algébrica relacionando <img 
-src="main4201x.png" alt="y(t)  "  class="math" >
-e <img 
-src="main4202x.png" alt="t  "  class="math" >:
-   <table 
-class="equation-star"><tr><td>
-   <center class="math-display" >
-<img 
-src="main4203x.png" alt="ln (y ) &minus; ln(1 &minus; y) = t + C
-" class="math-display" ></center></td></tr></table>
-<!--l. 92--><p class="nopar" >
-Onde <img 
-src="main4204x.png" alt="C  "  class="math" > é a constante de integração, que é definida pela condição inicial,
-isto é, <img 
-src="main4205x.png" alt="y = 1&#x2215;2  "  class="math" > em <img 
-src="main4206x.png" alt="t = 0  "  class="math" >. Substituindo, temos <img 
-src="main4207x.png" alt="C =  0  "  class="math" >. O que resulta
-em:
-   <table 
-class="equation-star"><tr><td>
-   <center class="math-display" >
-<img 
-src="main4208x.png" alt="  (      )
-    --y---
-ln   1 &minus; y  =  t
-" class="math-display" ></center></td></tr></table>
-<!--l. 96--><p class="nopar" >
-Equivalente a
-   <table 
-class="equation-star"><tr><td>
-                                                                          
-
-                                                                          
-   <center class="math-display" >
-<img 
-src="main4209x.png" alt="  y      t
-------= e
-1 &minus; y
-" class="math-display" ></center></td></tr></table>
-<!--l. 100--><p class="nopar" >
-e
-   <table 
-class="equation-star"><tr><td>
-   <center class="math-display" >
-<img 
-src="main4210x.png" alt="            t
-y = (1 &minus; y)e
-" class="math-display" ></center></td></tr></table>
-<!--l. 104--><p class="nopar" >
-Colocando o termo <img 
-src="main4211x.png" alt="y  "  class="math" > em evidência, encontramos:
-   <table 
-class="equation"><tr><td><a 
- id="x88-149014r7"></a>
-   <center class="math-display" >
-<img 
-src="main4212x.png" alt="      t      t
-(1 + e )y = e
-" class="math-display" ></center></td><td class="equation-label">(10.7)</td></tr></table>
-<!--l. 108--><p class="nopar" >
-E, finalmente, encontramos a solução exata dada por <img 
-src="main4213x.png" alt="         t
-y(t) = 1e+et   "  class="math" >.
-                                                                          
-
-                                                                          
-<!--l. 111--><p class="indent" >   Vejamos, agora, o esquema iterativo produzido pelo método de Euler:
+<!--l. 278--><p class="indent" >   Podemos reescrever este mesmo processo iterativo da seguinte forma:
 <div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main4214x.png" alt=" (k+1)      (k)     (k)      (k)
-y      =   y   + hy   (1 &minus; y  ),
-  y(1) =   1&#x2215;2.
+src="main4227x.png" alt="                (k) (k)
+   k1  =   hf (y  ,t  ),
+   k2  =   hf (y(k) + k1,t(k+1)),
+                 k1 + k2
+y(k+1) =   y(k) +------- ,
+   (1)              2
+  y    =   y0  (condi ção inicial).
 " class="math-display" ></center>
-</div>
-<!--l. 118--><p class="indent" >   Para fins de comparação, calculamos a solução de <a 
-href="#x88-149009r2">10.1.2<!--tex4ht:ref: ex_euler_1 --></a> e de (<span 
-class="ec-lmbx-12">??</span>) para alguns
-valores de <img 
-src="main4215x.png" alt="t  "  class="math" > e de passo <img 
-src="main4216x.png" alt="h  "  class="math" > e resumimos na Tabela&#x00A0;<a 
-href="#x88-1490161">10.1<!--tex4ht:ref: tab:log --></a>.
-   <div class="table">
-                                                                          
-
-                                                                          
-<!--l. 122--><p class="indent" >   <a 
- id="x88-1490161"></a><hr class="float"><div class="float" 
->
-                                                                          
-
-                                                                          
- <div class="caption" 
-><span class="id">Tabela&#x00A0;10.1: </span><span  
-class="content">Tabela comparativa enter Método de Euler e solução exata
-para problema <a 
-href="#x88-149009r2">10.1.2<!--tex4ht:ref: ex_euler_1 --></a>.</span></div><!--tex4ht:label?: x88-1490161 -->
-<div class="tabular"> <table id="TBL-24" class="tabular" 
-cellspacing="0" cellpadding="0" rules="groups" 
-><colgroup id="TBL-24-1g"><col 
-id="TBL-24-1"></colgroup><colgroup id="TBL-24-2g"><col 
-id="TBL-24-2"></colgroup><colgroup id="TBL-24-3g"><col 
-id="TBL-24-3"></colgroup><colgroup id="TBL-24-4g"><col 
-id="TBL-24-4"></colgroup><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-24-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-24-1-1"  
-class="td11"> <img 
-src="main4217x.png" alt="t  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-24-1-2"  
-class="td11">     <img 
-src="main4218x.png" alt="Exato  "  class="math" >        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-24-1-3"  
-class="td11"><img 
-src="main4219x.png" alt="Euler  h = 0,1  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-24-1-4"  
-class="td11"><img 
-src="main4220x.png" alt="Euler h =  0,01  "  class="math" ></td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-24-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-24-2-1"  
-class="td11"> <img 
-src="main4221x.png" alt="0  "  class="math" >  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-24-2-2"  
-class="td11">      <img 
-src="main4222x.png" alt="1&#x2215;2  "  class="math" >          </td><td  style="white-space:nowrap; text-align:center;" id="TBL-24-2-3"  
-class="td11">     <img 
-src="main4223x.png" alt="0,5  "  class="math" >       </td><td  style="white-space:nowrap; text-align:center;" id="TBL-24-2-4"  
-class="td11">     <img 
-src="main4224x.png" alt="0,5  "  class="math" >        </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-24-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-24-3-1"  
-class="td11"><img 
-src="main4225x.png" alt="1&#x2215;2  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-24-3-2"  
-class="td11"><img 
-src="main4226x.png" alt="-e1&#x2215;2--
-1+e1&#x2215;2 &asymp; 0,6224593  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-24-3-3"  
-class="td11">  <img 
-src="main4227x.png" alt="0,6231476  "  class="math" >   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-24-3-4"  
-class="td11">  <img 
-src="main4228x.png" alt="0,6225316  "  class="math" >    </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-24-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-24-4-1"  
-class="td11"> <img 
-src="main4229x.png" alt="1  "  class="math" >  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-24-4-2"  
-class="td11"> <img 
-src="main4230x.png" alt=" e
-1+e &asymp; 0,7310586  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-24-4-3"  
-class="td11">  <img 
-src="main4231x.png" alt="0,7334030  "  class="math" >   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-24-4-4"  
-class="td11">  <img 
-src="main4232x.png" alt="0,7312946  "  class="math" >    </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-24-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-24-5-1"  
-class="td11"> <img 
-src="main4233x.png" alt="2  "  class="math" >  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-24-5-2"  
-class="td11"> <img 
-src="main4234x.png" alt="-e22 &asymp; 0,8807971
-1+e  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-24-5-3"  
-class="td11">  <img 
-src="main4235x.png" alt="0,8854273  "  class="math" >   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-24-5-4"  
-class="td11">  <img 
-src="main4236x.png" alt="0,8812533  "  class="math" >    </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-24-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-24-6-1"  
-class="td11"> <img 
-src="main4237x.png" alt="3  "  class="math" >  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-24-6-2"  
-class="td11"> <img 
-src="main4238x.png" alt="-e3-
-1+e3 &asymp; 0,9525741  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-24-6-3"  
-class="td11">  <img 
-src="main4239x.png" alt="0,9564754  "  class="math" >   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-24-6-4"  
-class="td11">  <img 
-src="main4240x.png" alt="0,9529609  "  class="math" >    </td>
-</tr><tr 
-class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
- style="vertical-align:baseline;" id="TBL-24-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-24-7-1"  
-class="td11">    </td></tr></table></div>
-                                                                          
-
-                                                                          
-   </div><hr class="endfloat" />
-   </div>
-<!--l. 135--><p class="indent" >   No exemplo a seguir, apresentamos um problema envolvendo uma equação
-não-autônoma<a 
- id="dx88-149017"></a>, isto é, quando a função <img 
-src="main4241x.png" alt="f(y,t)  "  class="math" > depende explicitamente do
-tempo.
-   <div class="newtheorem">
-<!--l. 137--><p class="noindent" ><span class="head">
+</div>Aqui <img 
+src="main4228x.png" alt="k
+ 1   "  class="math" > e <img 
+src="main4229x.png" alt="k
+ 2   "  class="math" > são variáveis auxiliares que representam as inclinações e devem
+ser calculadas a cada passo. Esta notação é compatível com a notação usada nos
+métodos de Runge-Kutta, uma família de esquemas iterativos para aproximar
+problemas de valor inicial, da qual o Método de Euler e o Método de Euler
+Melhorado são casos particulares. Veremos os métodos de Runge-Kutta na seção
 <a 
- id="x88-149018r3"></a>
-<span 
-class="ec-lmbx-12">Exemplo 10.1.3.</span>  </span>Resolva o problema de valor inicial <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main4242x.png" alt="  y&prime;  =   &minus; y + t
-y(0)  =   1,
-" class="math-display" ></center>
-</div>cuja solução exata é <img 
-src="main4243x.png" alt="y(t) = 2e&minus;t + t &minus; 1  "  class="math" >.
-   </div>
-<!--l. 144--><p class="indent" >   O esquema recursivo de Euler fica: <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main4244x.png" alt=" (k+1 )                      (k)
-y      =   y(k) &minus; hy(k) + ht
- y(0)  =   1
-                                                                          
-
-                                                                          
-" class="math-display" ></center>
-</div>
-<!--l. 150--><p class="indent" >   Comparação
-   <table 
-class="equation-star"><tr><td>
-   <center class="math-display" >
-<img 
-src="main4245x.png" alt="|--|---------------------|---------------|----------------|
-|t |       Exato         |Euler  h =  0,1 |Euler  h = 0,01 |
-|--|---------------------|---------------|----------------|
-|0 |          1          |       1       |       1        |
-|--|---------------------|---------------|----------------|
-|1 |  2e&minus;1 &asymp; 0,7357589   |   0,6973569    |   0,7320647    |
-|--|---------------------|---------------|----------------|
-|2-|2e&minus;2-+-1-&asymp;-1,2706706-|---1,2431533----|---1,2679593----|
-|  |  &minus;3                 |               |                |
-|3-|2e---+-2-&asymp;-2,0995741-----2,0847823--------2,0980818-----
-|  |
-" class="math-display" ></center></td></tr></table>
-<!--l. 159--><p class="nopar" >
-<!--l. 161--><p class="indent" >   No exemplo <a 
-href="#x88-149022r4">10.1.4<!--tex4ht:ref: sys_edo --></a>, mostramos como o Método de Euler pode ser
-facilmente estendido para problemas envolvendo sistemas de equações
-diferenciais.<a 
- id="dx88-149021"></a>.
-   <div class="newtheorem">
-<!--l. 162--><p class="noindent" ><span class="head">
-<a 
- id="x88-149022r4"></a>
-<span 
-class="ec-lmbx-12">Exemplo 10.1.4.</span>  </span> Escreva o processo iterativo de Euler para resolver
-numericamente o seguinte sistema de equações diferenciais <div class="eqnarray">
-                                                                          
-
-                                                                          
-   <center class="math-display" >
-<img 
-src="main4246x.png" alt="   &prime;
-  x   =  &minus; y
-  y&prime;  =  x
-
-x(0)  =  1
-y(0)  =  0,
-" class="math-display" ></center>
-</div>cuja solução exata é <img 
-src="main4247x.png" alt="x(t) = cos(t)  "  class="math" > e <img 
-src="main4248x.png" alt="y (t) = sin(t)  "  class="math" >.
-   </div>
-<!--l. 171--><p class="indent" >   Para aplicar o Método de Euler a um sistema, devemos encarar as diversas
-incógnitas do sistema como formando um vetor, neste caso, escrevemos:
-   <center class="math-display" >
-<img 
-src="main4249x.png" alt="       &lfloor;      &rfloor;
-
-z(t) = |&lceil; x(t) |&rceil;.
-         y(t)  " class="math-display" ></center> O
-sistema é igualmente escrito na forma vetorial: <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main4250x.png" alt="&lfloor;   (k+1) &rfloor;   &lfloor;   (k) &rfloor;    &lfloor;     (k) &rfloor;
-| x      | = | x    | + h|  &minus; y   | .
-&lceil; y (k+1) &rceil;   &lceil; y (k) &rceil;    &lceil;   x(k)  &rceil;
-" class="math-display" ></center>
-</div>Observe que este processo iterativo é equivalente a: <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main4251x.png" alt="x(k+1 ) =   x(k) &minus; hy (k)
- (k+1 )      (k)      (k)
-y      =   y   + hx   .
-" class="math-display" ></center>
-</div>
-   <div class="newtheorem">
-<!--l. 183--><p class="noindent" ><span class="head">
-<a 
- id="x88-149026r5"></a>
-<span 
-class="ec-lmbx-12">Exemplo 10.1.5.</span>  </span>Escreva o problema de valor inicial de segunda ordem dado por
-<div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main4252x.png" alt=" &prime;&prime;    &prime;
-y  + y + y  =   cos(t),
-      y (0 ) =   1,
-      y&prime;(0 ) =   0,
-" class="math-display" ></center>
-</div>como um problema envolvendo um sistema de primeira ordem.
-   </div>
-<!--l. 191--><p class="indent" >   A fim de transformar a equação diferencial dada em um sistema de equações
-de primeira ordem, introduzimos a substituição <img 
-src="main4253x.png" alt="w  = y&prime;  "  class="math" >, de forma que obteremos
-o sistema: <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main4254x.png" alt="    &prime;
-   y   =  w
-  w &prime;  =  &minus; w &minus; y + cos(t)
-
- y(0)  =  1
-w (0)  =  0
-" class="math-display" ></center>
-</div>Portanto, o Método de Euler produz o seguinte processo iterativo: <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main4255x.png" alt="  (k+1)       (k)      (k)
- y      =   y   + hw   ,
-w (k+1)  =   w(k) &minus; hw (k) &minus; hy (k) + hcos(t(k)),
-   y(1)  =   1,
-    (1)
-  w     =   0.
-" class="math-display" ></center>
-</div>
+href="mainse49.html#x92-16100010.5">10.5<!--tex4ht:ref: sec_RK --></a>.
+<!--l. 288--><p class="noindent" >
    <h4 class="likesubsectionHead"><a 
- id="x88-15000010.1"></a>Exercícios</h4>
+ id="x89-15400010.2"></a>Exercícios</h4>
    <div class="newtheorem">
-<!--l. 207--><p class="noindent" ><span class="head">
+<!--l. 290--><p class="noindent" ><span class="head">
 <a 
- id="x88-150001r1"></a>
+ id="x89-154001r1"></a>
 <span 
-class="ec-lmbx-12">E 10.1.1.</span>  </span>Resolva o problema de valor inicial dado por <div class="eqnarray">
+class="ec-lmbx-12">E 10.2.1.</span>  </span>Use o Método de Euler melhorado para obter uma aproximação
+numérica do valor de <img 
+src="main4230x.png" alt="y(1)  "  class="math" > quando <img 
+src="main4231x.png" alt="y(t)  "  class="math" > satisfaz o seguinte problema de valor
+inicial <div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main4256x.png" alt="    &prime;            &radic; --
-   y  =   &minus; 2y +   y
-y(0)  =   1
+src="main4232x.png" alt=" &prime;                 y(t)
+y(t)  =   &minus; y (t) + e  ,
+y(0)  =   0,
 " class="math-display" ></center>
-</div>com passo <img 
-src="main4257x.png" alt="h = 0,1  "  class="math" > e <img 
-src="main4258x.png" alt="h = 0,01  "  class="math" > para obter aproximações para <img 
-src="main4259x.png" alt="y(1)  "  class="math" >. Compare
-com a solução exata dada por <img 
-src="main4260x.png" alt="y (t) = (1 + 2e&minus;t + e&minus;2t)&#x2215;4  "  class="math" >
+</div>usando passos <img 
+src="main4233x.png" alt="h = 0,1  "  class="math" > e <img 
+src="main4234x.png" alt="h = 0,01  "  class="math" >.
    </div>
-<!--l. 214--><p class="noindent" >
-   <div class="proof">
-<!--l. 214--><p class="indent" >   <span class="head">
-                                                                          
-
-                                                                          
-<span 
-class="ec-lmbx-12">Resposta.</span> </span> <img 
-src="main4261x.png" alt="0,4496  "  class="math" > <span 
-class="ec-lmr-6">com</span> <img 
-src="main4262x.png" alt="h=0,1  "  class="math" > <span 
+<!--l. 297--><p class="noindent" ><div class="container-fluid"><span 
+class="ec-lmbx-6">Resposta.</span>  <img 
+src="main4235x.png" alt="y(1)&asymp; 1,317078  "  class="math" > <span 
+class="ec-lmr-6">quando</span> <img 
+src="main4236x.png" alt="h =0,1  "  class="math" > <span 
 class="ec-lmr-6">e</span> <img 
-src="main4263x.png" alt="0,4660  "  class="math" > <span 
-class="ec-lmr-6">com</span> <img 
-src="main4264x.png" alt="h=0,01  "  class="math" ><span 
-class="ec-lmr-6">. A solu</span><span 
-class="ec-lmr-6">ç</span><span 
-class="ec-lmr-6">ão exata vale</span> <img 
-src="main4265x.png" alt="    1+2e&minus;1+e&minus;2  (1+e&minus;1)2
-y(1)=    4    =    2    &asymp;0,4678  "  class="math" >
-                                                                       <img 
-src="main4266x.png" alt="&#x2662; "  class="math" >
-   </div>
-   <div class="newtheorem">
-<!--l. 221--><p class="noindent" ><span class="head">
-<a 
- id="x88-150003r2"></a>
-<span 
-class="ec-lmbx-12">E 10.1.2.</span>  </span>Resolva o problema de valor inicial dado por <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main4267x.png" alt="   y&prime; =   &minus; 2y + &radic;z--
-
-   z&prime; =   &minus; z + y
-y(0)  =   0
-
-z(0)  =   2
-" class="math-display" ></center>
-</div>com passo <img 
-src="main4268x.png" alt="h = 0,2  "  class="math" >, <img 
-src="main4269x.png" alt="h = 0,02  "  class="math" >, <img 
-src="main4270x.png" alt="h =  0,002  "  class="math" > e <img 
-src="main4271x.png" alt="h = 0,0002  "  class="math" > para obter
-aproximações para <img 
-src="main4272x.png" alt="y (2 )  "  class="math" > e <img 
-src="main4273x.png" alt="z (2 )  "  class="math" >.
-   </div>
-<!--l. 230--><p class="noindent" >
-   <div class="proof">
-<!--l. 230--><p class="indent" >   <span class="head">
-<span 
-class="ec-lmbx-12">Resposta.</span> </span> <img 
-src="main4274x.png" alt="y(2)&asymp; 0,430202  "  class="math" > <span 
-class="ec-lmr-6">e</span> <img 
-src="main4275x.png" alt="z(2)=0,617294  "  class="math" > <span 
-class="ec-lmr-6">com</span> <img 
-src="main4276x.png" alt="h= 0,2  "  class="math" ><span 
-class="ec-lmr-6">,</span> <img 
-src="main4277x.png" alt="y(2)&asymp; 0,435506  "  class="math" > <span 
-class="ec-lmr-6">e</span> <img 
-src="main4278x.png" alt="z(2)=0,645776  "  class="math" > <span 
-class="ec-lmr-6">com</span>
-<img 
-src="main4279x.png" alt="h= 0,02  "  class="math" ><span 
-class="ec-lmr-6">,</span> <img 
-src="main4280x.png" alt="y(2)&asymp; 0,435805  "  class="math" > <span 
-class="ec-lmr-6">e</span> <img 
-src="main4281x.png" alt="z(2)=0,648638  "  class="math" > <span 
-class="ec-lmr-6">com</span> <img 
-src="main4282x.png" alt="h= 0,002  "  class="math" > <span 
-class="ec-lmr-6">e</span> <img 
-src="main4283x.png" alt="y(2)&asymp; 0,435832  "  class="math" > <span 
-class="ec-lmr-6">e</span> <img 
-src="main4284x.png" alt="z(2)=0,648925  "  class="math" > <span 
-class="ec-lmr-6">com</span>
-                                                                          
-
-                                                                          
-<img 
-src="main4285x.png" alt="h= 0,0002  "  class="math" ><span 
+src="main4237x.png" alt="y(1)&asymp; 1,317045  "  class="math" ><span 
 class="ec-lmr-6">.</span>
-                                                                       <img 
-src="main4286x.png" alt="&#x2662; "  class="math" >
-   </div>
+</div>
    <div class="newtheorem">
-<!--l. 239--><p class="noindent" ><span class="head">
+<!--l. 304--><p class="noindent" ><span class="head">
 <a 
- id="x88-150005r3"></a>
+ id="x89-154003r2"></a>
 <span 
-class="ec-lmbx-12">E 10.1.3.</span>  </span>Resolva o problema de valor inicial dado por <div class="eqnarray">
+class="ec-lmbx-12">E 10.2.2.</span>  </span>Use o Método de Euler e o Método de Euler melhorado para obter
+aproximações numéricas para a solução do seguinte problema de valor inicial para
+<img 
+src="main4238x.png" alt="t &isin; [0,1]  "  class="math" >: <div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main4287x.png" alt="   &prime;
-  y   =  cos(ty(t))
-y(0)  =  1
+src="main4239x.png" alt="  &prime;                   2
+y (t)  =  &minus; y(t) &minus; y (t) ,
+ y(0)  =  1,
 " class="math-display" ></center>
-</div>com passo <img 
-src="main4288x.png" alt="h = 0,1  "  class="math" >, <img 
-src="main4289x.png" alt="h = 0.01  "  class="math" >, <img 
-src="main4290x.png" alt="h = 0,001  "  class="math" >, <img 
-src="main4291x.png" alt="h =  0,0001  "  class="math" > e <img 
-src="main4292x.png" alt="0,00001  "  class="math" > para obter
-aproximações para <img 
-src="main4293x.png" alt="y (2 )  "  class="math" >.
-   </div>
-<!--l. 246--><p class="noindent" >
-   <div class="proof">
-<!--l. 246--><p class="indent" >   <span class="head">
-<span 
-class="ec-lmbx-12">Resposta.</span> </span> <img 
-src="main4294x.png" alt="y(2)&asymp; 1,161793  "  class="math" > <span 
-class="ec-lmr-6">com</span> <img 
-src="main4295x.png" alt="h=0,1  "  class="math" ><span 
-class="ec-lmr-6">,</span> <img 
-src="main4296x.png" alt="y(2)&asymp;1,139573  "  class="math" > <span 
-class="ec-lmr-6">com</span> <img 
-src="main4297x.png" alt="h= 0,01  "  class="math" ><span 
-class="ec-lmr-6">,</span> <img 
-src="main4298x.png" alt="y(2)&asymp; 1,137448  "  class="math" > <span 
-class="ec-lmr-6">com</span> <img 
-src="main4299x.png" alt="h =0,001  "  class="math" ><span 
-class="ec-lmr-6">,</span>
+</div>usando passo <img 
+src="main4240x.png" alt="h = 0,1  "  class="math" >. Compare os valores da solução exata dada por
 <img 
-src="main4300x.png" alt="y(2)&asymp; 1,137237  "  class="math" > <span 
-class="ec-lmr-6">com</span> <img 
-src="main4301x.png" alt="h =0,0001  "  class="math" ><span 
-class="ec-lmr-6">,</span> <img 
-src="main4302x.png" alt="y(2)&asymp;1,137216  "  class="math" > <span 
-class="ec-lmr-6">com</span> <img 
-src="main4303x.png" alt="h= 0,00001  "  class="math" >
-                                                                       <img 
-src="main4304x.png" alt="&#x2662; "  class="math" >
+src="main4241x.png" alt="y(t) = 2e1t&minus;-1   "  class="math" > com os numéricos nos pontos <img 
+src="main4242x.png" alt="t = 0  "  class="math" >, <img 
+src="main4243x.png" alt="t = 0.1  "  class="math" >, <img 
+src="main4244x.png" alt="t = 0.2  "  class="math" >, <img 
+src="main4245x.png" alt="t = 0.3  "  class="math" >,
+<img 
+src="main4246x.png" alt="t = 0.4  "  class="math" >, <img 
+src="main4247x.png" alt="t = 0.5  "  class="math" >, <img 
+src="main4248x.png" alt="t = 0.6  "  class="math" >, <img 
+src="main4249x.png" alt="t = 0.7  "  class="math" >, <img 
+src="main4250x.png" alt="t = 0.8  "  class="math" >, <img 
+src="main4251x.png" alt="t = 0.9  "  class="math" >, <img 
+src="main4252x.png" alt="t = 1.0  "  class="math" >.
    </div>
+<!--l. 311--><p class="noindent" ><div class="container-fluid"><span 
+class="ec-lmbx-6">Resposta.</span>
                                                                           
 
                                                                           
+   <center class="math-display" >
+<img 
+src="main4253x.png" alt="|t-|-Exato--|-Euler--|EulerMelhorado-|ErroEuler|Erro-EulerMelhorado-|
+|0.0|---1.---|--1.---|----1.-----|---0.---|-------0.-------|
+|0.1|0.826213 | 0.8  |   0.828    | 0.026213 |    0.001787     |
+|0.2|0.693094 | 0.656  |  0.695597   | 0.037094 |    0.002502     |
+|0.3|0.588333 |0.547366 |  0.591057   | 0.040967 |    0.002724     |
+|0.4|0.504121 |0.462669 |  0.506835   | 0.041453 |    0.002714     |
+|0.0.56|00..433758261871 |0.0.339439989694 |  00.4.33870866019   | 0.0.040308227187 |    00..000022594248     |
+|0.7|0.330305 |0.294352 |  0.332551   | 0.035953 |    0.002246     |
+|0.8|0.289764 |0.256252 |  0.291828   | 0.033512 |    0.002064     |
+|0.9|0.255154 |0.224061 |  0.257043   | 0.031093 |    0.001889     |
+|1.0|0.225400--0.196634----0.227126-----0.028766------0.001726------
+" class="math-display" ></center>
+<!--l. 334--><p class="indent" >   <span 
+class="ec-lmr-6">No Scilab, esta tabela pode ser produzida com o c</span><span 
+class="ec-lmr-6">ódigo:</span>
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-56">
+&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;deff(&#8217;dy=f(y,t)&#8217;,&#8217;dy=-y-y^2&#8217;)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;sol_Euler=Euler(f,0,1,10,1)&#8217;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;sol_Euler_mod=Euler_mod(f,0,1,10,1)&#8217;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;deff(&#8217;y=y_exata(t)&#8217;,&#8217;y=1/(2*exp(t)-1)&#8217;)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;t=[0:.1:1]&#8217;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;sol_exata=feval(t,y_exata)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;tabela=[t&#x00A0;sol_exata&#x00A0;sol_Euler&#x00A0;sol_Euler_mod&#x00A0;abs(sol_exata-sol_Euler)&#x00A0;abs(sol_exata-sol_Euler_mod)]
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;
+</div>
+<!--l. 343--><p class="nopar" >
+<!--l. 347--><p class="noindent" ></div>
+                                                                          
+
+                                                                          
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1669,9 +1203,14 @@ href="# "  >up</a>] </p></div>
 >>>>>>> c2790254e7e5196a945409616a59006dc5a6f1d1
 =======
    <!--l. 257--><div class="crosslinks"><p class="noindent">[<a 
+=======
+   <!--l. 350--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse45.html" >prev</a>] [<a 
+href="mainse45.html#tailmainse45.html" >prev-tail</a>] [<a 
+>>>>>>> d1181fb9e1ff5791eedd2c46e734ef7807d4b9ee
 href="mainse46.html" >front</a>] [<a 
 href="# "  >up</a>] </p></div>
-<!--l. 257--><p class="indent" >   <a 
+<!--l. 350--><p class="indent" >   <a 
  id="tailmainse46.html"></a>   
 >>>>>>> 40376933b526cbe480643de4137719793488d124
 </body></html> 
