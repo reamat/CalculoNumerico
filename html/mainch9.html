@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html xml:lang="pt" > 
+<head><title>9 Integraçao Numerica</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,3,notoc*,info --> 
+<meta name="src" content="main.tex"> 
+<meta name="date" content="2016-11-04 12:46:00"> 
+<link rel="stylesheet" type="text/css" href="main.css"> 
+</head><body 
+>
+   <!--l. 6--><div class="crosslinks"><p class="noindent">[<a 
+href="mainch8.html" >prev</a>] [<a 
+href="mainch8.html#tailmainch8.html" >prev-tail</a>] [<a 
+href="mainch5.html#tailmainch9.html">tail</a>] [<a 
+href="main.html#mainli6.html" >up</a>] </p></div>
+   <h2 class="chapterHead"><span class="titlemark">Capítulo&#x00A0;9</span><br /><a 
+ id="x79-1280009"></a>Integração Numérica</h2>
+<a 
+ id="dx79-128001"></a>
+<!--l. 8--><p class="noindent" >Neste capítulo discutiremos técnicas numéricas para aproximar <span 
+class="ec-lmbx-12">integrais</span><a 
+ id="dx79-128002"></a>
+definidas de funções reais.
+<!--l. 10--><p class="indent" >   Considere o problema de calcular (ou estimar) a integral de <img 
+src="main3586x.png" alt="f (x)  "  class="math" > no intervalo
+<img 
+src="main3587x.png" alt="[a,b]  "  class="math" >, ou seja,
+   <center class="math-display" >
+<img 
+src="main3588x.png" alt="    &int; b
+I =    f(x)dx.
+     a
+" class="math-display" ></center>
+<!--l. 15--><p class="indent" >   Uma maneira de estimar esta integral numericamente consiste em subdividir o
+intervalo <img 
+src="main3589x.png" alt="[a,b]  "  class="math" > em <img 
+src="main3590x.png" alt="n &minus; 1  "  class="math" > intervalos a partir de um conjunto ordenado de pontos
+<img 
+src="main3591x.png" alt="a = x1 &#x003C;  x2 &#x003C; ...&#x003C;  xn = b  "  class="math" >. Em cada intervalo <img 
+src="main3592x.png" alt="i  "  class="math" >, a integral será aproximada por
+<img 
+src="main3593x.png" alt="&Delta;Si  "  class="math" > e a integral será aproximada por
+   <center class="math-display" >
+<img 
+src="main3594x.png" alt="         n&sum;&minus;1
+I &asymp; S =     &Delta;Si
+         i=1  " class="math-display" ></center> O
+tamanho de cada intervalo é dado por <img 
+src="main3595x.png" alt="hi = xi+1 &minus; xi  "  class="math" >. No caso uniforme, todos os
+intervalos possuem o mesmo tamanho <img 
+src="main3596x.png" alt="h = h  =  b&minus;a-
+      i   n  "  class="math" >.
+<!--l. 22--><p class="indent" >   Nas próximas seções apresentaremos formas diferentes de aproximar <img 
+src="main3597x.png" alt="&Delta;Si  "  class="math" >
+iniciando com o caso mais simples que é um retângulo. Cada uma das regras
+obtidas também é chamada de quadratura.
+                                                                          
+
+                                                                          
+   <div class="newtheorem">
+<!--l. 24--><p class="noindent" ><span class="head">
+<a 
+ id="x79-128003r1"></a>
+<span 
+class="ec-lmbx-12">Exemplo 9.0.1.</span>  </span>A figura&#x00A0;<a 
+href="#x79-1280041">9.1<!--tex4ht:ref: fig:int_101 --></a> mostra um exemplo quando <img 
+src="main3598x.png" alt="f(x) = x2 + 1  "  class="math" >,
+<img 
+src="main3599x.png" alt="0 &le; x &le;  2  "  class="math" >. Temos a aproximação por um retângulo com base <img 
+src="main3600x.png" alt="h =  2
+ 1  "  class="math" >,
+depois com dois retângulos de base <img 
+src="main3601x.png" alt="h2 =  1  "  class="math" > e, finalmente com quatro
+retângulo de bases <img 
+src="main3602x.png" alt="h3 = 0,5  "  class="math" >.
+<hr class="figure"><div class="figure" 
+><a 
+ id="x79-1280041"></a><img 
+src="main3603x.png" alt="PIC" class="graphics" width="428.59937pt" height="323.20607pt" ><!--tex4ht:graphics  
+name="main3603x.png" src="./cap_integracao/pics/int_1/int_1.eps"  
+-->
+<br /> <div class="caption" 
+><span class="id">Figura&#x00A0;9.1: </span><span  
+class="content">Aproximação por retângulos.</span></div><!--tex4ht:label?: x79-1280041 -->
+<!--l. 31--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 33--><p class="indent" >   Os valores aproximados para a integral são dados na seguinte tabela:
+                                                                          
+
+                                                                          
+   <div class="tabular"> <table id="TBL-11" class="tabular" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-11-1g"><col 
+id="TBL-11-1"></colgroup><colgroup id="TBL-11-2g"><col 
+id="TBL-11-2"></colgroup><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-11-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-11-1-1"  
+class="td11">        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-11-1-2"  
+class="td11">     <img 
+src="main3604x.png" alt="&int;
+  2  2
+ 0 (x +  1)dx  "  class="math" >       </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-11-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-11-2-1"  
+class="td11"> <img 
+src="main3605x.png" alt="h1 =  2  "  class="math" >  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-11-2-2"  
+class="td11">      <img 
+src="main3606x.png" alt="h1f (1) = 4  "  class="math" >          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-11-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-11-3-1"  
+class="td11"> <img 
+src="main3607x.png" alt="h2 =  1  "  class="math" >  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-11-3-2"  
+class="td11"><img 
+src="main3608x.png" alt="h2f (0,5) + h2f(1,5) = 4,5  "  class="math" ></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-11-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-11-4-1"  
+class="td11"><img 
+src="main3609x.png" alt="h3 = 0,5  "  class="math" > </td><td  style="white-space:nowrap; text-align:center;" id="TBL-11-4-2"  
+class="td11">        <img 
+src="main3610x.png" alt="4,625  "  class="math" >             </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-11-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-11-5-1"  
+class="td11"><img 
+src="main3611x.png" alt="h4 = 0,25  "  class="math" ></td><td  style="white-space:nowrap; text-align:center;" id="TBL-11-5-2"  
+class="td11">       <img 
+src="main3612x.png" alt="4,65625  "  class="math" >            </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-11-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-11-6-1"  
+class="td11">         </td> </tr></table></div>
+<!--l. 43--><p class="indent" >   Observe que:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main3613x.png" alt="                [      ]
+&int; 2  2           x3      2   8
+  (x  + 1)dx =   ---+ x   =  --+ 2 = 4,6666667
+ 0               3       0   3
+" class="math-display" ></center></td></tr></table>
+<!--l. 46--><p class="nopar" >
+   </div>
+   <div class="sectionTOCS">
+   &#x00A0;<span class="sectionToc" >9.1 <a 
+href="mainse39.html#x80-1290009.1">Regras de Newton-Cotes</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >9.1.1 <a 
+href="mainse39.html#x80-1300009.1.1" id="QQ2-80-157">Somas de Riemann</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >9.1.2 <a 
+href="mainse39.html#x80-1310009.1.2" id="QQ2-80-158">Regra do Trapézio</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >9.1.3 <a 
+href="mainse39.html#x80-1330009.1.3" id="QQ2-80-160">Regra de Simpson</a></span>
+<br />   &#x00A0;<span class="sectionToc" >9.2 <a 
+href="mainse40.html#x82-1360009.2">Regras compostas</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >9.2.1 <a 
+href="mainse40.html#x82-1370009.2.1" id="QQ2-82-164">Código Scilab: Regras compostas em geral</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >9.2.2 <a 
+href="mainse40.html#x82-1380009.2.2" id="QQ2-82-165">Método composto dos trapézios</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >9.2.3 <a 
+href="mainse40.html#x82-1390009.2.3" id="QQ2-82-166">Código Scilab: Trapézio Composto</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >9.2.4 <a 
+href="mainse40.html#x82-1400009.2.4" id="QQ2-82-167">Método composto de Simpson</a></span>
+<br />   &#x00A0;&#x00A0;<span class="subsectionToc" >9.2.5 <a 
+href="mainse40.html#x82-1410009.2.5" id="QQ2-82-168">Código Scilab: Simpson Composto</a></span>
+<br />   &#x00A0;<span class="sectionToc" >9.3 <a 
+href="mainse41.html#x83-1430009.3">O método de Romberg</a></span>
+<br />   &#x00A0;<span class="sectionToc" >9.4 <a 
+href="mainse42.html#x84-1450009.4">Ordem de precisão</a></span>
+                                                                          
+
+                                                                          
+<br />   &#x00A0;<span class="sectionToc" >9.5 <a 
+href="mainse43.html#x85-1470009.5">Quadratura de Gauss-Legendre</a></span>
+<br />   &#x00A0;<span class="sectionToc" >9.6 <a 
+href="mainse44.html#x86-1490009.6">Exercícios finais</a></span>
+   </div>
+
+
+
+
+
+                                                                          
+
+                                                                          
+   <!--l. 6--><div class="crosslinks"><p class="noindent">[<a 
+href="mainch8.html" >prev</a>] [<a 
+href="mainch8.html#tailmainch8.html" >prev-tail</a>] [<a 
+href="mainch9.html" >front</a>] [<a 
+href="main.html#mainli6.html" >up</a>] </p></div>
+<!--l. 6--><p class="indent" >   <a 
+ id="tailmainch9.html"></a>  
+</body></html> 

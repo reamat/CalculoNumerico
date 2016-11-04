@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html xml:lang="pt" > 
+<head><title>Metodo de Euler melhorado</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,3,notoc*,info --> 
+<meta name="src" content="main.tex"> 
+<meta name="date" content="2016-11-04 12:46:00"> 
+<link rel="stylesheet" type="text/css" href="main.css"> 
+</head><body 
+>
+   <!--l. 257--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse45.html" >prev</a>] [<a 
+href="mainse45.html#tailmainse45.html" >prev-tail</a>] [<a 
+href="mainse30.html#tailmainse46.html">tail</a>] [<a 
+href="# "  >up</a>] </p></div>
+   <h3 class="sectionHead"><span class="titlemark">10.2   </span> <a 
+ id="x89-15300010.2"></a>Método de Euler melhorado</h3>
+<a 
+ id="dx89-153001"></a>
+<!--l. 258--><p class="noindent" >O método de Euler foi o primeiro método que estudamos e sua principal virtude é
+a simplicidade. Outros métodos, no entanto, podem apresentar resultados
+superiores. Vamos apresentar agora uma pequena modificação ao Método de
+Euler, dando origem a um novo método chamado de Método de Euler Modificado
+ou Método de Euler Melhorado.
+<!--l. 260--><p class="indent" >   No método de Euler, usamos a seguinte iteração: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main4219x.png" alt="  (k+1)       (k)       (k) (k)
+y       =  y   +  hf(y  ,t  )
+   y(1)  =  y0  (condição inicial)
+" class="math-display" ></center>
+</div>
+<!--l. 266--><p class="indent" >   A ideia do método de Euler Melhorado é substituir a declividade <img 
+src="main4220x.png" alt="   (k) (k)
+f(y   ,t  )  "  class="math" >
+pela média aritmética entre <img 
+src="main4221x.png" alt="f (y (k),t(k))  "  class="math" > e <img 
+src="main4222x.png" alt="f (y (k+1),t(k+1))  "  class="math" >, isto é, as declividades
+avaliadas no início e no fim do intervalo <img 
+src="main4223x.png" alt="[t(k),t(k+1)]  "  class="math" >.
+<!--l. 268--><p class="indent" >   No entanto, não dispomos do valor de <img 
+src="main4224x.png" alt=" (k+1)
+y   "  class="math" > antes de executar o passo.
+Assim aproximamos esta grandeza pelo valor produzido pelo Método de Euler
+original:
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main4225x.png" alt="&#x02DC;y(k+1) = y(k) + hf (y(k),t(k)).
+" class="math-display" ></center>
+<!--l. 271--><p class="indent" >   De posse desta aproximação, calculamos a média aritmética e, finalmente,
+com esta média, realizamos o passo do Método de Euler Melhorado. O processo
+iterativo de Euler Melhorado é, portanto, dado por: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main4226x.png" alt="&#x02DC;y(k+1)  =   y(k) + hf(y (k),t(k))
+                 h [                           ]
+y(k+1)  =   y(k) + -- f(y(k),t(k)) + f(&#x02DC;y(k+1),t(k+1 ))
+                 2
+  y(1)  =   y0 (condição inicial)
+" class="math-display" ></center>
+</div>
+<!--l. 278--><p class="indent" >   Podemos reescrever este mesmo processo iterativo da seguinte forma:
+<div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main4227x.png" alt="                (k) (k)
+   k1  =   hf (y  ,t  ),
+   k2  =   hf (y(k) + k1,t(k+1)),
+                 k1 + k2
+y(k+1) =   y(k) +------- ,
+   (1)              2
+  y    =   y0  (condi ção inicial).
+" class="math-display" ></center>
+</div>Aqui <img 
+src="main4228x.png" alt="k
+ 1   "  class="math" > e <img 
+src="main4229x.png" alt="k
+ 2   "  class="math" > são variáveis auxiliares que representam as inclinações e devem
+ser calculadas a cada passo. Esta notação é compatível com a notação usada nos
+métodos de Runge-Kutta, uma família de esquemas iterativos para aproximar
+problemas de valor inicial, da qual o Método de Euler e o Método de Euler
+Melhorado são casos particulares. Veremos os métodos de Runge-Kutta na seção
+<a 
+href="mainse49.html#x92-16100010.5">10.5<!--tex4ht:ref: sec_RK --></a>.
+<!--l. 288--><p class="noindent" >
+   <h4 class="likesubsectionHead"><a 
+ id="x89-15400010.2"></a>Exercícios</h4>
+   <div class="newtheorem">
+<!--l. 290--><p class="noindent" ><span class="head">
+<a 
+ id="x89-154001r1"></a>
+<span 
+class="ec-lmbx-12">E 10.2.1.</span>  </span>Use o Método de Euler melhorado para obter uma aproximação
+numérica do valor de <img 
+src="main4230x.png" alt="y(1)  "  class="math" > quando <img 
+src="main4231x.png" alt="y(t)  "  class="math" > satisfaz o seguinte problema de valor
+inicial <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main4232x.png" alt=" &prime;                 y(t)
+y(t)  =   &minus; y (t) + e  ,
+y(0)  =   0,
+" class="math-display" ></center>
+</div>usando passos <img 
+src="main4233x.png" alt="h = 0,1  "  class="math" > e <img 
+src="main4234x.png" alt="h = 0,01  "  class="math" >.
+   </div>
+<!--l. 297--><p class="noindent" ><div class="container-fluid"><span 
+class="ec-lmbx-6">Resposta.</span>  <img 
+src="main4235x.png" alt="y(1)&asymp; 1,317078  "  class="math" > <span 
+class="ec-lmr-6">quando</span> <img 
+src="main4236x.png" alt="h =0,1  "  class="math" > <span 
+class="ec-lmr-6">e</span> <img 
+src="main4237x.png" alt="y(1)&asymp; 1,317045  "  class="math" ><span 
+class="ec-lmr-6">.</span>
+</div>
+   <div class="newtheorem">
+<!--l. 304--><p class="noindent" ><span class="head">
+<a 
+ id="x89-154003r2"></a>
+<span 
+class="ec-lmbx-12">E 10.2.2.</span>  </span>Use o Método de Euler e o Método de Euler melhorado para obter
+aproximações numéricas para a solução do seguinte problema de valor inicial para
+<img 
+src="main4238x.png" alt="t &isin; [0,1]  "  class="math" >: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main4239x.png" alt="  &prime;                   2
+y (t)  =  &minus; y(t) &minus; y (t) ,
+ y(0)  =  1,
+" class="math-display" ></center>
+</div>usando passo <img 
+src="main4240x.png" alt="h = 0,1  "  class="math" >. Compare os valores da solução exata dada por
+<img 
+src="main4241x.png" alt="y(t) = 2e1t&minus;-1   "  class="math" > com os numéricos nos pontos <img 
+src="main4242x.png" alt="t = 0  "  class="math" >, <img 
+src="main4243x.png" alt="t = 0.1  "  class="math" >, <img 
+src="main4244x.png" alt="t = 0.2  "  class="math" >, <img 
+src="main4245x.png" alt="t = 0.3  "  class="math" >,
+<img 
+src="main4246x.png" alt="t = 0.4  "  class="math" >, <img 
+src="main4247x.png" alt="t = 0.5  "  class="math" >, <img 
+src="main4248x.png" alt="t = 0.6  "  class="math" >, <img 
+src="main4249x.png" alt="t = 0.7  "  class="math" >, <img 
+src="main4250x.png" alt="t = 0.8  "  class="math" >, <img 
+src="main4251x.png" alt="t = 0.9  "  class="math" >, <img 
+src="main4252x.png" alt="t = 1.0  "  class="math" >.
+   </div>
+<!--l. 311--><p class="noindent" ><div class="container-fluid"><span 
+class="ec-lmbx-6">Resposta.</span>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main4253x.png" alt="|t-|-Exato--|-Euler--|EulerMelhorado-|ErroEuler|Erro-EulerMelhorado-|
+|0.0|---1.---|--1.---|----1.-----|---0.---|-------0.-------|
+|0.1|0.826213 | 0.8  |   0.828    | 0.026213 |    0.001787     |
+|0.2|0.693094 | 0.656  |  0.695597   | 0.037094 |    0.002502     |
+|0.3|0.588333 |0.547366 |  0.591057   | 0.040967 |    0.002724     |
+|0.4|0.504121 |0.462669 |  0.506835   | 0.041453 |    0.002714     |
+|0.0.56|00..433758261871 |0.0.339439989694 |  00.4.33870866019   | 0.0.040308227187 |    00..000022594248     |
+|0.7|0.330305 |0.294352 |  0.332551   | 0.035953 |    0.002246     |
+|0.8|0.289764 |0.256252 |  0.291828   | 0.033512 |    0.002064     |
+|0.9|0.255154 |0.224061 |  0.257043   | 0.031093 |    0.001889     |
+|1.0|0.225400--0.196634----0.227126-----0.028766------0.001726------
+" class="math-display" ></center>
+<!--l. 334--><p class="indent" >   <span 
+class="ec-lmr-6">No Scilab, esta tabela pode ser produzida com o c</span><span 
+class="ec-lmr-6">ódigo:</span>
+                                                                          
+
+                                                                          
+   <div class="verbatim" id="verbatim-56">
+&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;deff(&#8217;dy=f(y,t)&#8217;,&#8217;dy=-y-y^2&#8217;)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;sol_Euler=Euler(f,0,1,10,1)&#8217;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;sol_Euler_mod=Euler_mod(f,0,1,10,1)&#8217;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;deff(&#8217;y=y_exata(t)&#8217;,&#8217;y=1/(2*exp(t)-1)&#8217;)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;t=[0:.1:1]&#8217;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;sol_exata=feval(t,y_exata)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;tabela=[t&#x00A0;sol_exata&#x00A0;sol_Euler&#x00A0;sol_Euler_mod&#x00A0;abs(sol_exata-sol_Euler)&#x00A0;abs(sol_exata-sol_Euler_mod)]
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;
+</div>
+<!--l. 343--><p class="nopar" >
+<!--l. 347--><p class="noindent" ></div>
+                                                                          
+
+                                                                          
+   <!--l. 350--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse45.html" >prev</a>] [<a 
+href="mainse45.html#tailmainse45.html" >prev-tail</a>] [<a 
+href="mainse46.html" >front</a>] [<a 
+href="# "  >up</a>] </p></div>
+<!--l. 350--><p class="indent" >   <a 
+ id="tailmainse46.html"></a>   
+</body></html> 
