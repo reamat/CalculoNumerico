@@ -1,7 +1,15 @@
 #Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
+########################################
+#
+# ATENÇÃO
+#
+# POR SEGURANÇA, NÃO EDITE ESTE ARQUIVO.
+#
+########################################
+
 CAP1=cap_aritmetica
-CAP2=cap_derint
+#CAP2=cap_derint
 CAP3=cap_equacao1d
 CAP4=cap_intro
 CAP5=cap_linsis
@@ -10,6 +18,9 @@ CAP7=cap_pvi
 CAP8=cap_scilab
 CAP9=cap_interp
 CAP10=cap_ajuste
+CAP11=cap_derivacao
+CAP12=cap_integracao
+CAP13=cap_pvc
 
 pdf: main.tex
 	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabtrue \isoctavefalse" > main.knd
@@ -28,7 +39,7 @@ slide: main.tex
 	makeindex slide
 	pdflatex slide
 	pdflatex slide
-	rm -f main.knd
+#	rm -f main.knd
 
 dvi: main.tex
 	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabtrue \isoctavefalse" > main.knd
@@ -140,3 +151,6 @@ clean:
 	rm -f ${CAP8}/*.aux ${CAP8}/*.log ${CAP8}/*.backup
 	rm -f ${CAP9}/*.aux ${CAP9}/*.log ${CAP9}/*.backup
 	rm -f ${CAP10}/*.aux ${CAP10}/*.log ${CAP10}/*.backup
+	rm -f ${CAP11}/*.aux ${CAP11}/*.log ${CAP11}/*.backup
+	rm -f ${CAP12}/*.aux ${CAP12}/*.log ${CAP12}/*.backup
+	rm -f ${CAP13}/*.aux ${CAP13}/*.log ${CAP13}/*.backup
