@@ -36,7 +36,7 @@ slide: main.tex
 	makeindex slide
 	pdflatex slide
 	pdflatex slide
-	rm -f main.knd
+#	rm -f main.knd
 
 dvi: main.tex
 	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabtrue \isoctavefalse" > main.knd

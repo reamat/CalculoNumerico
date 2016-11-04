@@ -5,7 +5,7 @@
 
 \chapter{Integração Numérica}\index{integração}
 
-Neste capítulo, discutiremos técnicas numéricas para aproximar \emph{integrais}\index{integral} de funções reais.
+Neste capítulo discutiremos técnicas numéricas para aproximar \emph{integrais}\index{integral} definidas de funções reais.
 
 Considere o problema de calcular (ou estimar) a integral de $f(x)$ no intervalo $[a,b]$, ou seja,
 $$
@@ -21,8 +21,72 @@ O tamanho de cada intervalo é dado por $h_i=x_{i+1}-x_i$. No caso uniforme, tod
 
 Nas próximas seções apresentaremos formas diferentes de aproximar $\Delta S_i$ iniciando com o caso mais simples que é um retângulo. Cada uma das regras obtidas também é chamada de quadratura.
 
+\begin{ex}
+A figura~\ref{fig:int_101} mostra um exemplo quando $f(x)=x^2+1$, $0\leq x\leq 2$. Temos a aproximação por um retângulo com base $h_1=2$, depois com dois retângulos de base $h_2=1$ e, finalmente com quatro retângulo de bases $h_3=0,5$.
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.7]{./cap_integracao/pics/int_1/int_1.eps}
+  \caption{Aproximação por retângulos.}
+  \label{fig:int_101}
+\end{figure}
 
-\section{Somas de Riemann}
+Os valores aproximados para a integral são dados na seguinte tabela:
+
+\begin{tabular}{|c|c|}\hline
+  & $\displaystyle \int_0^2(x^2+1)dx$ \\ \hline
+  $h_1=2$ & $h_1f(1)=4$ \\
+  $h_2=1$ & $h_2f(0,5)+h_2f(1,5)=4,5$ \\
+  $h_3=0,5$ & $4,625$ \\
+  $h_4=0,25$ & $4,65625$ \\\hline
+\end{tabular}
+
+Observe que:
+\begin{equation*}
+  \int_0^2(x^2+1)\,dx = \left[\frac{x^3}{3}+x\right]_0^2 = \frac{8}{3}+2=4,6666667
+\end{equation*}
+
+\end{ex}
+
+
+
+
+\section{Regras de Newton-Cotes}\index{integração numérica!regras de Newton-Cotes}
+
+O método básico para encontrar as regras de integração consiste em aproximar a integral de $f$ por uma combinação linear de $n$ valores\footnote{Utilizaremos neste capítulo a notação $f_i$ para indicar $f(x_i)$.} de $f_i := f(x_i)$, ou seja,
+$$
+ I = \int_a^b f(x) \;dx \approx \sum_{i=1}^nA_if_i.
+$$
+
+% Quanto maior o número de pontos $n$, melhor será a regra de quadratura.
+
+Podemos obter os coeficientes $A_i$ aproximando a função $f$ pelo polinômio de Lagrange $p_n$ que interpola $\{(x_i,f_i)\}_{i=1}^n$, tal que, 
+\begin{eqnarray}
+  f(x) &=& p_n(x)+E^n_{LAG}(x) \\
+       &=& \sum_{i=1}^n f_iL_i(x)+E^n_{LAG}(x) 
+\end{eqnarray}
+onde o erro na interpolação de Lagrange é
+\begin{equation}
+   E^n_{LAG}(x)=\frac{f^{(n)}(\xi(x))}{n!}\prod_{i=1}^n(x-x_i).
+\end{equation}
+
+Substituindo na integral obtemos
+\begin{eqnarray}
+  \int_a^bf(x)dx &=& \sum_{i=1}^n\left[f_i\int_a^bL_i(x)dx\right] +  \int_a^b E^n_{LAG}(x) \;dx.
+%   \int_a^bf(x)dx &=& \sum_{i=1}^n\left[f(x_i)\int_a^bL_i(x)dx\right] +  \frac{1}{(n+1)!}\int_a^b\prod_{i=1}^n(x-x_i)f^{(n+1)}(\xi)dx.
+\end{eqnarray}
+
+
+A fórmula de quadratura é então 
+\begin{equation}
+\int_a^bf(x)dx\approx\sum_{i=1}^nA_if_i,
+\end{equation}
+onde
+\begin{equation}
+A_i=\int_a^b L_i(x)dx.
+\end{equation}
+
+
+\subsection{Somas de Riemann}
 O método mais simples de aproximar 
 $$
  I = \int_a^b f(x) \;dx.
@@ -65,32 +129,6 @@ S = \sum_{i=1}^{n-1} f(\xi_i ) h, \;\;\;\; \xi_i=\frac{x_i+x_{i+1}}{2}.
 % $$
 % \int_a^bf(x)dx=\lim_{n\to\infty}\sum_{i=1}^nf(x_i)h_n.
 % $$
-
-\begin{ex}
-A figura~\ref{fig:int_101} mostra um exemplo quando $f(x)=x^2+1$, $0\leq x\leq 2$. Temos a aproximação por um retângulo com base $h_1=2$, depois com dois retângulos de base $h_2=1$ e, finalmente com quatro retângulo de bases $h_3=0,5$.
-\begin{figure}
-  \centering
-  \includegraphics[scale=0.7]{./cap_integracao/pics/int_1/int_1.eps}
-  \caption{Aproximação por retângulos.}
-  \label{fig:int_101}
-\end{figure}
-
-Os valores aproximados para a integral são dados na seguinte tabela:
-
-\begin{tabular}{|c|c|}\hline
-  & $\displaystyle \int_0^2(x^2+1)dx$ \\ \hline
-  $h_1=2$ & $h_1f(1)=4$ \\
-  $h_2=1$ & $h_2f(0,5)+h_2f(1,5)=4,5$ \\
-  $h_3=0,5$ & $4,625$ \\
-  $h_4=0,25$ & $4,65625$ \\\hline
-\end{tabular}
-
-Observe que:
-\begin{equation*}
-  \int_0^2(x^2+1)\,dx = \left[\frac{x^3}{3}+x\right]_0^2 = \frac{8}{3}+2=4,6666667
-\end{equation*}
-
-\end{ex}
 
 
 
@@ -154,62 +192,69 @@ Observe que:
 % $$
 % \end{ex}
 
-\section{Regras de Newton-Cotes}\index{integração numérica!regras de Newton-Cotes}
-
-A forma geral de obter regras de integração melhores é usar polinômios com graus maiores. Utilizando polinômios de Lagrange passando por $\{(x_i,f(x_i))\}_{i=1}^n$ obtemos
-$$
-f(x)=P_n(x)+\text{termo de erro}=\sum_{i=1}^nf(x_i)L_i(x) +\prod_{i=1}^n(x-x_i)\frac{f^{(n+1)}(\xi(x))}{(n+1)!}.
-$$
-e integramos
-$$
-\int_a^bf(x)dx=\sum_{i=1}^n\left[f(x_i)\int_a^bL_i(x)dx\right] +\frac{1}{(n+1)!}\int_a^b\prod_{i=1}^n(x-x_i)f^{(n+1)}(\xi(x))dx.
-$$
-A fórmula de quadratura então é
-$$
-\int_a^bf(x)dx\approx\sum_{i=1}^na_if(x_i),
-$$
-onde
-$$
-a_i=\int_a^b L_i(x)dx
-$$
 
 \subsection{Regra do Trapézio}\index{integração numérica!regra do trapézio}
 
-A regra do trapézio consiste em aproximar a integral por um trapézio em vez de um retângulo, como fizemos. Para isso, aproximamos $f(x)$ por um polinômio de grau 1, ou seja, uma reta que pode ser obtida através de interpolação de Lagrange como mostra a figura.
+A regra do trapézio consiste em aproximar a função $f$ por um polinômio de grau 1. Se utilizarmos uma reta ligando os extremos do intervalo obtemos um trapézio que fornece o nome da regra. 
 
-\begin{center}
-\includegraphics[scale=0.7]{./cap_integracao/pics/int_2/int_2}
-\end{center}
+% \begin{center}
+% \includegraphics[scale=0.7]{./cap_integracao/pics/int_2/int_2}
+% \end{center}
 
-O polinômio de Lagrange que passa por $(x_0,f(x_0)):=(a,f(a))$ e $(x_1,f(x_1)):=(b,f(b))$ é dado por
+Desta forma, utilizando $x_1:=a$,  $x_2:=b$, $h=x_2-x_1$ e a notação $f_i=f(x_i)$ obtemos através da interpolação de Lagrange o polinômio
 \begin{eqnarray} 
-p_1(x) &=\displaystyle f(x_0)\frac{(x-x_0)}{(x_1-x_0)}+f(x_1)\frac{(x-x_1)}{(x_0-x_1)} \\
-       &=\displaystyle f(x_0)\frac{(x-x_0)}{h}-f(x_1)\frac{(x-x_1)}{h}, 
+p_1(x) &=& f_1 L_1(x)+ f_2 L_2(x) %\\ 
+%       &=&f_1\frac{(x-x_1)}{(x_2-x_1)}+f_2\frac{(x-x_2)}{(x_1-x_2)} \\
+%       &=& f_1\frac{(x-x_1)}{h}-f_2\frac{(x-x_2)}{h}
 \end{eqnarray}
-onde $h=x_1-x_0$. Podemos integrar a função $f(x)$ aproximando-a por esse polinômio:
-\begin{equation*}
-  \begin{split}
-    \int_a^bf(x)dx &\approx f(x_0)\int_a^b\frac{(x-x_0)}{h}dx-f(x_1)\int_a^b\frac{(x-x_1)}{h}dx\\
-    &+\frac{1}{2!}\int_a^b(x-x_0)(x-x_1)f''(\xi(x))dx.   
-  \end{split}
-\end{equation*}
-Pelo teorema do valor médio, existe $a\leq \eta\leq b$ tal que $\int_a^bf(\xi(x))g(x)dx=f(\eta)\int_a^bg(x)dx$ e, portanto,
-\begin{equation*}
-  \begin{split}
-    \int_a^bf(x)dx&\approx f(x_0)\left[\frac{(x-x_0)^2}{2h}\right]_{x_0}^{x_1}-f(x_1)\left[\frac{(x-x_1)^2}{2h}\right]_{x_0}^{x_1}\\
-    &+ \frac{f''(\eta)}{2}\left[\frac{x^3}{3}-\frac{x^2}{2}(x_1+x_0)+x_0x_1x\right]_{x_0}^{x_1}\\
-&= f(x_0)\frac{(x_1-x_0)^2}{2h}+f(x_1)\frac{(x_0-x_1)^2}{2h}\\
-&+ \frac{f''(\eta)}{2}\left(\frac{x_1^3}{3}-\frac{x_1^2}{2}(x_1+x_0)+x_0x_1x_1-\frac{x_0^3}{3}+\frac{x_0^2}{2}(x_1+x_0)-x_0x_1x_0\right)\\
-&= f(x_0)\frac{h^2}{2h}+f(x_1)\frac{h^2}{2h}\\
-&+ \frac{f''(\eta)}{2}\frac{2x_1^3-3x_1^2(x_1+x_0)+6x_1^2x_0-2x_0^3+3x_0^2(x_1+x_0)-6x_1x_0^2}{6}\\
-&= \frac{h}{2}(f(x_0)+f(x_1))+\frac{f''(\eta)}{12}\left(x_0^3-3x_0^2x_1+3x_1^2x_0-x_1^3\right)
-  \end{split}
-\end{equation*}
-tal que a \emph{regra do trapézio} local é dada por
+Aproximando $f(x)$ por $p_1(x)$ e integrando obtemos
+\begin{eqnarray*}
+  \int_a^bf(x)\;dx &\approx& \int_a^bp_1(x)\;dx \\
+    &=& \int_a^b f_1L_1(x) + f_2L_2(x)\;dx \\
+    &=& f_1 \int_a^b L_1(x)\;dx + f_2 \int_a^b L_2(x)\;dx \\
+    &=& A_1 f_1 + A_2 f_2 
+\end{eqnarray*}
+onde
+\begin{eqnarray*}
+  A_1 &=& \int_a^b\frac{x-x_1}{x_2-x_1}dx =  \left[\frac{(x-x_1)^2}{2h}\right]_{x_1}^{x_2}\\
+      &=& \frac{(x_2-x_1)^2}{2h} = \frac{h^2}{2h} = \frac{1}{2}h
+\end{eqnarray*}
+Da mesma forma,
+\begin{eqnarray*}
+  A_2 &=& \int_a^b\frac{(x-x_2)}{(x_1-x_2)}dx = \frac{1}{2}h
+\end{eqnarray*}
+
+
+de onde obtemos a \emph{regra do trapézio} dada por
 \begin{equation}
-  \left[\frac{1}{2}f(x_0)+\frac{1}{2}f(x_1)\right]h-\frac{h^3f''(\eta)}{12}    
+  \int_a^b f(x)\;dx \approx \left(\frac{1}{2}f_1 + \frac{1}{2}f_2\right)h 
 \end{equation}
-onde o erro local é $\mathcal{O}(h^3)$.
+
+
+\subsubsection{Erro na regra do trapézio}
+O \textit{erro na regra do trapézio} pode ser obtida integrando o erro da interpolação de Lagrange,
+\begin{eqnarray*}
+   E_{TRAP} = \int_a^b E^2_{LAG}(x) \;dx= \int_a^b \frac{f''(\xi(x))}{2!}(x-x_1)(x-x_2) \;dx
+\end{eqnarray*}
+Pelo teorema do valor médio, existe $a\leq \eta\leq b$ tal que
+\begin{eqnarray*}
+    E_{TRAP} = \frac{f''(\eta)}{2!}\int_a^b (x-x_1)(x-x_2) \;dx,
+\end{eqnarray*}
+portanto
+\begin{eqnarray*}
+     E_{TRAP}
+  &=& \frac{f''(\eta)}{2}\left[\frac{x^3}{3}-\frac{x^2}{2}(x_2+x_1)+x_1x_2x\right]_{x_1}^{x_2}\\
+  &=& \frac{f''(\eta)}{2}\left(\frac{x_2^3}{3}-\frac{x_2^2}{2}(x_2+x_1)+x_1x_2x_2-\frac{x_1^3}{3}+\frac{x_1^2}{2}(x_2+x_1)-x_1x_2x_1\right)\\
+  &=& \frac{f''(\eta)}{2}\frac{2x_2^3-3x_2^2(x_2+x_1)+6x_2^2x_1-2x_1^3+3x_1^2(x_2+x_1)-6x_2x_1^2}{6}\\
+  &=& \frac{f''(\eta)}{12}\left(x_1^3-3x_1^2x_2+3x_2^2x_1-x_2^3\right) 
+   =  \frac{f''(\eta)}{12}(x_1-x_2)^3\\
+  &=& -\frac{f''(\eta)}{12}h^3.
+\end{eqnarray*}
+
+Assim o erro na regra do trapézio é 
+$$
+E_{TRAP}  = -\frac{f''(\eta)}{12}h^3 = \mathcal{O}(h^3).
+$$
 
 \begin{ex}
 Use a regra do trapézio para aproximar a integral
@@ -220,7 +265,7 @@ Depois divida a integral em duas
 $$
 \int_0^{1/2}e^{-x^2}dx+\int_{1/2}^{1}e^{-x^2}dx.
 $$
-e aplica a regra do trapézio em cada uma delas. Finalmente, repita o processo dividindo em quatro integrais.
+e aplique a regra do trapézio em cada uma delas. Finalmente, repita o processo dividindo em quatro integrais.
 \end{ex}
 Usando o intervalo $[0,1]$, temos $h=1$, $x_0=0$ e $x_1=1$. A regra do trapézio resulta em
 $$
@@ -238,104 +283,113 @@ Agora, usando quatro intervalos, temos
 &=& 0,7429841
 \end{eqnarray*}
 
+
+
 \subsection{Regra de Simpson}\index{integração numérica!regra de Simpson}
-Para aproximarmos $f(x)$ por um polinômio de grau $2$ precisamos três pontos do intervalo $[a,b]$. Utilizando 
+Na regra de Simpson aproximamos $f$ por um polinômio de grau $2$, portanto precisamos três pontos do intervalo $[a,b]$. Utilizando, por definição,
 $$
-x_0=a,\qquad x_1:=\frac{a+b}{2}\qquad \text{e}\qquad x_2:=b=x_0+h.
+x_1:=a,\qquad x_2:=\frac{a+b}{2}\qquad \text{e}\qquad x_3:=b
 $$
-com $h =b-a$, podemos construir uma parábola através do polinômio de Lagrange 
+com $h=x_3-x_1$, podemos obter o polinômio de Lagrange 
 \begin{equation*}
-    p_2(x) = f(x_0)L_0(x) + f(x_1)L_1(x)  + f(x_2)L_2(x)
+    p_2(x) = f_1L_1(x) + f_2L_2(x)  + f_3L_3(x)
 \end{equation*}
-\begin{equation*}
-  \begin{split}
-    p_2(x) &= f(x_0)\frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)} + f(x_1)\frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)}\\
-           &+ f(x_2)\frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}.
-  \end{split}
-\end{equation*}
-e integrando $p_2$ temos
+
+Aproximando $f$ por $p_2$ e integrando temos
 \begin{eqnarray}
-\int_a^bf(x)dx &=\int_a^b p_2(x) \;dx \\ 
-               &=\int_a^b f(x_0)L_0(x) + f(x_1)L_1(x)  + f(x_2)L_2(x) \;dx \\  
-               &=f(x_0) a_0 + f(x_1)a_1  + f(x_2)a_2  
+\int_a^bf(x)dx &\approx&\int_a^b p_2(x) \;dx \\ 
+               &=&\int_a^b f_1L_1(x) + f_2L_2(x)  + f_3L_3(x) \;dx \\  
+               &=&f_1 A_1 + f_2A_2  + f_3A_3  
 \end{eqnarray}
 onde
 \begin{eqnarray}
-  a_i = \int_a^b L_i(x) \;dx  
+  A_i = \int_a^b L_i(x) \;dx  
 \end{eqnarray}
 Calculando essas integrais obtemos \emph{a regra de Simpson}
 $$
-\int_a^bf(x)dx=\frac{h}{6}\left(f(x_0)+4f(x_1)+f(x_2)\right).
+\int_a^bf(x)dx=\left(\frac{1}{6}f(x_1)+\frac{4}{6}f(x_2)+\frac{1}{6}f(x_3)\right)h.
 $$
+
+\begin{ex}
+Obtenha os coeficientes $A_i$ do método de Simpson  integrando os polinômios de Lagrange $L_i(x)$.
+
+Fazendo uma translação para a origem (subtraindo $x_1$ de $x_2$ e $x_3$)
+\begin{eqnarray*}
+   A_1 &=& \int_{x_1}^{x_3} \frac{(x-x_2)(x-x_3)}{(x_1-x_2)(x_1-x_3)}\;dx \\
+       &=& \int_0^h \frac{(x-h/2)(x-h)}{(0-h/2)(0-h)}\;dx 
+        =  \frac{2}{h^2} \int_0^h (x-h/2)(x-h)\;dx \\
+       &=& \frac{2}{h^2} \int_0^h x^2 -\frac{3}{2}hx+\frac{h^2}{2}\;dx 
+        =  \frac{2}{h^2} (x^3/3 -\frac{3}{4}hx^2+\frac{h^2x}{2})_0^h \\  
+       &=& \frac{2}{h^2} (h^3/3 -\frac{3}{4}h^3+\frac{h^3}{2})   
+        =  (\frac{2}{3}-\frac{3}{2}+1)h\\
+       &=& \frac{1}{6}h
+\end{eqnarray*}
+Apesar de longa, é apenas a integral de um polinômio de grau 2. De forma semelhante podemos obter
+$$
+A_2 = \frac{4}{6}h, \;\;\; A_3 = \frac{1}{6}h
+$$
+\end{ex}
+
 
 
 \subsubsection{Erro na regra de Simpson}\index{integração numérica!regra de Simpson}
-Para aproximarmos $f(x)$ por um polinômio de grau $2$ precisamos três pontos do intervalo, como por exemplo,
+Se usarmos a mesma metodologia da regra dos trapézios, teremos
 $$
-x_0=a,\qquad x_1:=\frac{a+b}{2}=x_0+h \qquad \text{e}\qquad x_2:=b=x_1+h.
+\int_a^bf(x)dx=\int_a^bp_2(x)dx+\int_a^b\frac{(x-x_1)(x-x_2)(x-x_3)}{6}f'''(\xi(x))dx
 $$
-com $h = (b-a)/2$. Para isso, o polinômio de Lagrange deve ser uma parábola:
+e obteremos o fórmula de Simpson com um erro de quarta ordem. O fato é que a regra de Simpson tem ordem cinco e, para isso, usaremos uma abordagem alternativa.
+
+Considere o polinômio de Taylor em $x_2$,
+$$
+f(x)=f(x_2)+f'(x_2)(x-x_2)+\frac{f''(x_2)}{2}(x-x_2)^2+\frac{f'''(x_2)}{6}(x-x_2)^3+\frac{f^{(4)}(\xi(x))}{24}(x-x_2)^4,
+$$
+onde $x_1\leq\xi(x)\leq x_3$ e integre no intervalo $[a,b]=[x_1,x_3]$:
 \begin{equation*}
   \begin{split}
-    p_2(x) &= f(x_0)\frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)} + f(x_1)\frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)}\\
-    &+ f(x_2)\frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)}.
+    \int_a^bf(x)dx&= \left[f(x_2)(x-x_2)+f'(x_2)\frac{(x-x_2)^2}{2} + \frac{f''(x_2)}{6}(x-x_2)^3\right. \\
+      &\left. + \frac{f'''(x_2)}{24}(x-x_2)^4\right]_{x_1}^{x_3}\\
+      &+ \frac{1}{24}\int_{x_1}^{x_3}f^{(4)}(\xi(x))(x-x_2)^4dx,    
   \end{split}
 \end{equation*}
-Se usarmos o mesma metodologia da regra dos trapézios, teremos
-$$
-\int_a^bf(x)dx=\int_a^bp_2(x)dx+\int_a^b\frac{(x-x_0)(x-x_1)(x-x_2)}{6}f'''(\xi(x))dx
-$$
-e obteremos o fórmula de Simpson com um erro de quarta ordem. O fato é que a regra de Simpson tem ordem cinco e, para isso, usaremos uma abordagem alternativa. Considere o polinômio de Taylor
-$$
-f(x)=f(x_1)+f'(x_1)(x-x_1)+\frac{f''(x_1)}{2}(x-x_1)^2+\frac{f'''(x_1)}{6}(x-x_1)^3+\frac{f^{(4)}(\xi(x))}{24}(x-x_1)^4,
-$$
-onde $x_0\leq\xi(x)\leq x_2$ e integre no intervalo $[a,b]=[x_0,x_2]$:
+Pelo teorema do valor médio, existe $x_1\leq\eta\leq x_3$ tal que
 \begin{equation*}
   \begin{split}
-    \int_a^bf(x)dx&= \left[f(x_1)(x-x_1)+f'(x_1)\frac{(x-x_1)^2}{2} + \frac{f''(x_1)}{6}(x-x_1)^3\right. \\
-      &\left. + \frac{f'''(x_1)}{24}(x-x_1)^4\right]_{x_0}^{x_2}\\
-      &+ \frac{1}{24}\int_{x_0}^{x_2}f^{(4)}(\xi(x))(x-x_1)^4dx,    
-  \end{split}
-\end{equation*}
-Pelo teorema do valor médio, existe $x_0\leq\eta\leq x_2$ tal que
-\begin{equation*}
-  \begin{split}
-    \int_a^bf(x)dx&= \left[f(x_1)(x-x_1)+f'(x_1)\frac{(x-x_1)^2}{2}+\frac{f''(x_1)}{6}(x-x_1)^3\right.\\
-    &+\left.\frac{f'''(x_1)}{24}(x-x_1)^4\right]_{x_0}^{x_2}\\
-    &+ \frac{f^{(4)}(\eta)}{24}\int_{x_0}^{x_2}(x-x_1)^4dx\\
-    &= \left[f(x_1)(x-x_1)+f'(x_1)\frac{(x-x_1)^2}{2}+\frac{f''(x_1)}{6}(x-x_1)^3\right.\\
-    &+\left.\frac{f'''(x_1)}{24}(x-x_1)^4\right]_{x_0}^{x_2}\\
-    &+ \frac{f^{(4)}(\eta)}{120}\left[(x-x_1)^5\right]_{x_0}^{x_2}    
+    \int_a^bf(x)dx&= \left[f(x_2)(x-x_2)+f'(x_2)\frac{(x-x_2)^2}{2}+\frac{f''(x_2)}{6}(x-x_2)^3\right.\\
+    &+\left.\frac{f'''(x_2)}{24}(x-x_2)^4\right]_{x_1}^{x_3}\\
+    &+ \frac{f^{(4)}(\eta)}{24}\int_{x_1}^{x_3}(x-x_2)^4dx\\
+    &= \left[f(x_2)(x-x_2)+f'(x_2)\frac{(x-x_2)^2}{2}+\frac{f''(x_2)}{6}(x-x_2)^3\right.\\
+    &+\left.\frac{f'''(x_2)}{24}(x-x_2)^4\right]_{x_1}^{x_3}\\
+    &+ \frac{f^{(4)}(\eta)}{120}\left[(x-x_2)^5\right]_{x_1}^{x_3}    
   \end{split}
 \end{equation*}
 Usando o fato que
 $$
-(x_2-x_1)^3-(x_0-x_1)^3=2h^3,
+(x_3-x_2)^3-(x_1-x_2)^3=2h^3,
 $$
 $$
-(x_2-x_1)^4-(x_0-x_1)^4=0
+(x_3-x_2)^4-(x_1-x_2)^4=0
 $$
 e
 $$
-(x_2-x_1)^5-(x_0-x_1)^5=2h^5,
+(x_3-x_2)^5-(x_1-x_2)^5=2h^5,
 $$
 temos
 $$
-\int_a^bf(x)dx=hf(x_1)+\frac{h^3}{3}f''(x_1)+\frac{h^5f^{(4)}(\eta)}{60}.
+\int_a^bf(x)dx=hf(x_2)+\frac{h^3}{3}f''(x_2)+\frac{h^5f^{(4)}(\eta)}{60}.
 $$
-Usando a diferenças finitas centrais para a derivada segunda:
+Usando a fórmula de diferenças finitas centrais para a derivada segunda:
 $$
-f''(x_1)=\frac{f(x_0)-2f(x_1)+f(x_2)}{h^2}+\frac{h^2}{12}f^{(4)}(\eta_1),
+f''(x_2)=\frac{f(x_1)-2f(x_2)+f(x_3)}{h^2}+\frac{h^2}{12}f^{(4)}(\eta_2),
 $$
-$x_0\leq \eta_1\leq x_2$, temos
+$x_1\leq \eta_2\leq x_3$, temos
 \begin{eqnarray*}
-\int_a^bf(x)dx&=&2hf(x_1)+\frac{h^3}{3}\left(\frac{f(x_0)-2f(x_1)+f(x_2)}{h^2}+\frac{h^2}{12}f^{(4)}(\eta_1)\right)\\
+\int_a^bf(x)dx&=&2hf(x_2)+\frac{h^3}{3}\left(\frac{f(x_1)-2f(x_2)+f(x_3)}{h^2}+\frac{h^2}{12}f^{(4)}(\eta_2)\right)\\
 &+&\frac{h^5f^{(4)}(\eta)}{60}\\
-&=&\frac{h}{3}\left(f(x_0)+4f(x_1)+f(x_2)\right)-\frac{h^5}{12}\left(\frac{1}{3}f^{(4)}(\eta_1)-\frac{1}{5}f^{(4)}(\eta)\right).
+&=&\frac{h}{3}\left(f(x_1)+4f(x_2)+f(x_3)\right)-\frac{h^5}{12}\left(\frac{1}{3}f^{(4)}(\eta_2)-\frac{1}{5}f^{(4)}(\eta)\right).
 \end{eqnarray*}
-Pode-se mostrar que é possível escolher $\eta_2$ que substitua $\eta$ e $\eta_1$ com a seguinte estimativa
+Pode-se mostrar que é possível escolher $\eta_3$ que substitua $\eta$ e $\eta_2$ com a seguinte estimativa
 $$
-\int_a^bf(x)dx=\frac{h}{3}\left(f(x_0)+4f(x_1)+f(x_2)\right)-\frac{h^5}{90}f^{(4)}(\eta_2).
+\int_a^bf(x)dx=\frac{h}{3}\left(f(x_1)+4f(x_2)+f(x_3)\right)-\frac{h^5}{90}f^{(4)}(\eta_3).
 $$
 
 \begin{ex}
@@ -514,11 +568,35 @@ $$
 
 \section{Regras compostas}\index{integração numérica!regras compostas}
 
-Vimos que em todas as estimativas de erro que derivamos, o erro depende do tamanho do intervalo de integração. Uma estratégia para reduzir o erro consiste em particionar o intervalo de integração em diversos subintervalos menores:
+Vimos que em todas as estimativas de erro que derivamos, o erro depende do tamanho do intervalo de integração. Uma estratégia para reduzir o erro consiste em particionar o intervalo de integração em diversos subintervalos menores tal que
 \begin{equation*}
-\int_{a}^b f(x)dx=\sum_{i=1}^{n} \int_{x_i}^{x_{i+1}} f(x)dx  
+\int_{a}^b f(x)dx=\sum_{i=1}^{n} \int_{x_i}^{x_{i+1}} f(x)\;dx 
 \end{equation*}
-onde $x_i = a + (i-1)h$, $h = (b-a)/n$ e $i = 1,2,\dotsc,n+1$, sendo $n$ o número de subintervalos da partição do intervalo de integração. Depois, aplica-se um método simples de integração em cada subintervalo.
+onde $a=x_1<...<x_{n+1}=b$, sendo $n$ o número de subintervalos da partição do intervalo de integração. No caso uniforme $x_i = a + (i-1)h$, $h = (b-a)/n$.
+
+Depois, aplica-se um método simples de integração em cada subintervalo,
+$$
+\int_{x_i}^{x_{i+1}} f(x)\;dx \approx \Delta S_i
+$$
+e a integral será aproximada por
+$$
+\int_a^b f(x)\;dx \approx S= \sum_{i=1}^{n} \Delta S_i
+$$
+
+\ifisscilab
+\subsection{Código Scilab: Regras compostas em geral}
+Devemos fazer um loop sobre todos os intervalos e para cada intervalo aplicamos uma regra de quadratura. 
+
+\verbatiminput{./cap_integracao/codes/simpson.sci}
+
+Acumulamos o valor da integral em \verb+S+. No código abaixo temos o método de Simpson, mas basta trocarmos a fórmula para termos outras quadraturas.
+
+Note que esta não é a implementação mais eficiente, pois reutiliza os termos no contorno dos intervalos. Nas próximas seções veremos regras compostas específicas para alguns métodos.
+\fi
+
+
+
+
 
 \subsection{Método composto dos trapézios}\index{integração numérica!método composto!dos trapézios}
 A \emph{regra composta dos trapézios} assume a seguinte forma:
