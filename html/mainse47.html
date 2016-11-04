@@ -1,212 +1,261 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
   "http://www.w3.org/TR/html4/loose.dtd">  
 <html xml:lang="pt" > 
-<head><title>Metodo de Euler melhorado</title> 
+<head><title>Ordem de precisao</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
 <meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html,3,notoc*,info --> 
 <meta name="src" content="main.tex"> 
-<meta name="date" content="2016-11-03 16:25:00"> 
+<meta name="date" content="2016-11-04 12:46:00"> 
 <link rel="stylesheet" type="text/css" href="main.css"> 
 </head><body 
 >
-   <!--l. 257--><div class="crosslinks"><p class="noindent">[<a 
+   <!--l. 350--><div class="crosslinks"><p class="noindent">[<a 
 href="mainse46.html" >prev</a>] [<a 
 href="mainse46.html#tailmainse46.html" >prev-tail</a>] [<a 
 href="mainch7.html#tailmainse47.html">tail</a>] [<a 
 href="# "  >up</a>] </p></div>
-   <h3 class="sectionHead"><span class="titlemark">10.2   </span> <a 
- id="x89-15100010.2"></a>Método de Euler melhorado</h3>
+   <h3 class="sectionHead"><span class="titlemark">10.3   </span> <a 
+ id="x90-15500010.3"></a>Ordem de precisão</h3>
 <a 
- id="dx89-151001"></a>
-<!--l. 258--><p class="noindent" >O método de Euler foi o primeiro método que estudamos e sua principal virtude é
-a simplicidade. Outros métodos, no entanto, podem apresentar resultados
-superiores. Vamos apresentar agora uma pequena modificação ao Método de
-Euler, dando origem a um novo método chamado de Método de Euler Modificado
-ou Método de Euler Melhorado.
-<!--l. 260--><p class="indent" >   No método de Euler, usamos a seguinte iteração: <div class="eqnarray">
+ id="dx90-155001"></a>
+<!--l. 351--><p class="noindent" >Considere o problema de valor inicial dado por <div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main4305x.png" alt="  (k+1)       (k)       (k) (k)
-y       =  y   +  hf(y  ,t  )
-   y(1)  =  y0  (condição inicial)
+src="main4254x.png" alt="y&prime;(t)  =  f (y(t),t),
+
+y(0)  =  y0.
 " class="math-display" ></center>
-</div>
-<!--l. 266--><p class="indent" >   A ideia do método de Euler Melhorado é substituir a declividade <img 
-src="main4306x.png" alt="   (k) (k)
-f(y   ,t  )  "  class="math" >
-pela média aritmética entre <img 
-src="main4307x.png" alt="f (y (k),t(k))  "  class="math" > e <img 
-src="main4308x.png" alt="f (y (k+1),t(k+1))  "  class="math" >, isto é, as declividades
-avaliadas no início e no fim do intervalo <img 
-src="main4309x.png" alt="[t(k),t(k+1)]  "  class="math" >.
-<!--l. 268--><p class="indent" >   No entanto, não dispomos do valor de <img 
-src="main4310x.png" alt=" (k+1)
-y   "  class="math" > antes de executar o passo.
-Assim aproximamos esta grandeza pelo valor produzido pelo Método de Euler
-original:
+</div>Nessa seção vamos definir a precisão de um método numérico pela ordem do erro
+acumulado ao calcular o valor da função em um ponto <img 
+src="main4255x.png" alt="tN  "  class="math" > em função do
+espaçamento da malha <img 
+src="main4256x.png" alt="h  "  class="math" >. Se <img 
+src="main4257x.png" alt="y(tn)  "  class="math" > pode ser aproximado por uma expressão que
+depende de <img 
+src="main4258x.png" alt="f  "  class="math" >, <img 
+src="main4259x.png" alt="h  "  class="math" >, <img 
+src="main4260x.png" alt="y(t0)  "  class="math" >, <img 
+src="main4261x.png" alt="y(t1)  "  class="math" >, <img 
+src="main4262x.png" alt="&sdot;&sdot;&sdot; "  class="math" >, <img 
+src="main4263x.png" alt="y(tn)  "  class="math" >, com erro da ordem de <img 
+src="main4264x.png" alt="    p+1
+O (h   )  "  class="math" >,
+ou seja,
+   <table 
+class="equation"><tr><td><a 
+ id="x90-155003r8"></a>
+   <center class="math-display" >
+<img 
+src="main4265x.png" alt="y(tn+1) = F (f,h,y(tn),y(tn&minus;1),&sdot;&sdot;&sdot;,y0) + O (hp+1)
+                                                                          
+
+                                                                          
+" class="math-display" ></center></td><td class="equation-label">(10.8)</td></tr></table>
+<!--l. 359--><p class="nopar" >
+para cada função analítica <img 
+src="main4266x.png" alt="f  "  class="math" >, dizemos que o método tem erro de truncamento
+da ordem de <img 
+src="main4267x.png" alt="O (hp)  "  class="math" > ou <span 
+class="ec-lmbx-12">ordem de precis</span><span 
+class="ec-lmbx-12">ão</span> <img 
+src="main4268x.png" alt="p  "  class="math" ><a 
+ id="dx90-155004"></a>. Essa afirmação faz sentido
+quando fazemos a seguinte análise informal: para aproximar <img 
+src="main4269x.png" alt="y1   "  class="math" >, acumulamos
+erros da ordem <img 
+src="main4270x.png" alt="    p+1
+O(h    )  "  class="math" >, para calcular <img 
+src="main4271x.png" alt="y2   "  class="math" > acumulamos os erros de <img 
+src="main4272x.png" alt="y1   "  class="math" > e novos
+erros <img 
+src="main4273x.png" alt="    p+1
+O(h    )  "  class="math" >. Para calcular <img 
+src="main4274x.png" alt="yN  "  class="math" >, acumulamos todos os erros até <img 
+src="main4275x.png" alt="tN  "  class="math" >, ou seja,
+<img 
+src="main4276x.png" alt="N  "  class="math" > vezes <img 
+src="main4277x.png" alt="O (hp+1)  "  class="math" >. Como <img 
+src="main4278x.png" alt="N  = O (1&#x2215;h)  "  class="math" >, temos que os erros ao calcular <img 
+src="main4279x.png" alt="yN  "  class="math" > são
+da ordem <img 
+src="main4280x.png" alt="O (hp)  "  class="math" >. É verdade que essa análise só vale quando impomos
+condições de suavidade para <img 
+src="main4281x.png" alt="f  "  class="math" > e condições adequada para a expressão
+<img 
+src="main4282x.png" alt="F (f,h, y(tn),y(tn&minus;1),&sdot;&sdot;&sdot;,y0)  "  class="math" >. Para explicar melhor esse pequeno texto,
+fazemos em detalhes essa operação para o método de Euler na seção
+<a 
+href="#x90-15600010.3.1">10.3.1<!--tex4ht:ref: sec_pre_euler --></a>.
+<!--l. 362--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">10.3.1   </span> <a 
+ id="x90-15600010.3.1"></a>Ordem de precisão do Método de Euler</h4>
+<!--l. 363--><p class="noindent" >Primeiro lembramos da expressão (<a 
+href="mainse45.html#x88-151004r10.4">10.4<!--tex4ht:ref: erro_local --></a>) que origina a seguinte relação de
+recorrência: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main4283x.png" alt="y(tn+1 ) =   y(tn) + hf(y(tn),tn) + O (h2).          (10.9)
+" class="math-display" ><a 
+ id="x90-156001r10.9"></a></center>
+</div>Para entender melhor o motivo de na expressão (<a 
+href="#x90-156001r10.9">10.9<!--tex4ht:ref: es_Euler --></a>) aparecer <img 
+src="main4284x.png" alt="    2
+O (h )  "  class="math" > e o
+método ser de precisão 1, vamos a seguinte análise informal: observemos que
+<div class="eqnarray">
                                                                           
 
                                                                           
    <center class="math-display" >
 <img 
-src="main4311x.png" alt="&#x02DC;y(k+1) = y(k) + hf (y(k),t(k)).
+src="main4285x.png" alt="                                    2
+y(t1)  =  y (t0) + hf(y(t0),t0) + O (h )
+       =  y  + hf (y ,t ) + O(h2) = y  + O (h2)
+           0        0 0             1
 " class="math-display" ></center>
-<!--l. 271--><p class="indent" >   De posse desta aproximação, calculamos a média aritmética e, finalmente,
-com esta média, realizamos o passo do Método de Euler Melhorado. O processo
-iterativo de Euler Melhorado é, portanto, dado por: <div class="eqnarray">
+</div>onde <img 
+src="main4286x.png" alt="yi  "  class="math" > é a aproximação pelo método de Euler para o valor exato <img 
+src="main4287x.png" alt="y(ti)  "  class="math" >.
+Subsequentemente, temos <div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main4312x.png" alt="&#x02DC;y(k+1)  =   y(k) + hf(y (k),t(k))
-                 h [                           ]
-y(k+1)  =   y(k) + -- f(y(k),t(k)) + f(&#x02DC;y(k+1),t(k+1 ))
-                 2
-  y(1)  =   y0 (condição inicial)
+src="main4288x.png" alt="                                    2
+y (t2)  =   y(t1) + hf (y(t1),t1) + O (h )
+       =   y(t1) + hf (y1 + O (h2),t1) + O (h2)
+                                 2
+       =   y(t1) + hf (y1,t1) + O (h )
+       =   y1 + O (h2) + hf(y1,t1) + O (h2) = y2 + O (h2 ) + O (h2).
 " class="math-display" ></center>
-</div>
-<!--l. 278--><p class="indent" >   Podemos reescrever este mesmo processo iterativo da seguinte forma:
+</div>onde usamos o primeiro termo da série de Taylor <img 
+src="main4289x.png" alt="             2                      3
+hf (y1 + O(h ),t1) = hf(y1,t1) + O (h )  "  class="math" >
+na passagem da segunda para terceira linha. Repetindo sucessivamente o passo
+anterior, obtemos uma expressão geral para o valor exato <img 
+src="main4290x.png" alt="y(tN)  "  class="math" > em termos do
+valor aproximado <img 
+src="main4291x.png" alt="yN  "  class="math" >: <div class="eqnarray">
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main4292x.png" alt="                    2
+y(tN) = yN  + N O (h  ).
+" class="math-display" ></center>
+</div>Como <img 
+src="main4293x.png" alt="N =  (tf &minus; t0)&#x2215;h  "  class="math" >, temos <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main4294x.png" alt="                   t &minus; t0
+y(tN)  =   = yN +  -----O (h2) = yN + O (h),        (10.10)
+                     h
+" class="math-display" ><a 
+ id="x90-156005r10.10"></a></center>
+</div>ou seja, o erro entre o valor exato e o aproximado é de ordem <img 
+src="main4295x.png" alt="h  "  class="math" >. Uma
+demonstração mais formal que garante que o erro é limitado por uma expressão
+que é proporcional a <img 
+src="main4296x.png" alt="h  "  class="math" > está discutido na seção <a 
+href="mainse48.html#x91-15900010.4.1">10.4.1<!--tex4ht:ref: sec_conv_Euler --></a>.
+<!--l. 389--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">10.3.2   </span> <a 
+ id="x90-15700010.3.2"></a>Ordem de precisão do Método de Euler Melhorado</h4>
+<!--l. 390--><p class="noindent" >Para obter o erro de precisão do método de Euler Melhorado vamos calcular o
+erro de truncamento do método, ou seja, precisamos demonstrar que:
+   <table 
+class="equation"><tr><td><a 
+ id="x90-157001r11"></a>
+   <center class="math-display" >
+<img 
+src="main4297x.png" alt="                  h           h                                 3
+y(t + h) = y(t) + 2f (y (t),t) +-2f(y(t) + hf(t,y(t))),t + h ) + O (h )
+" class="math-display" ></center></td><td class="equation-label">(10.11)</td></tr></table>
+<!--l. 393--><p class="nopar" >
+De fato, tomando a diferença do termo da esquerda o os termos da direita, temos:
 <div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main4313x.png" alt="                (k) (k)
-   k1  =   hf (y  ,t  ),
-   k2  =   hf (y(k) + k1,t(k+1)),
-                 k1 + k2
-y(k+1) =   y(k) +------- ,
-   (1)              2
-  y    =   y0  (condi ção inicial).
+src="main4298x.png" alt="          (                                               )
+                   h           h
+y(t + h ) &minus; y(t) + 2f(y(t),t) + 2-f(y(t) + hf (t,y (t))),t + h)
+
+           &prime;     h2- &prime;&prime;         3
+= y(t) + hy (t) +  2 y (t) + O (h )
+  (       h        h                          )
+&minus;  y (t) + --y&prime;(t) + -f (y(t) + hf (t,y(t))),t + h)  ,
+          2        2
 " class="math-display" ></center>
-</div>Aqui <img 
-src="main4314x.png" alt="k
- 1   "  class="math" > e <img 
-src="main4315x.png" alt="k
- 2   "  class="math" > são variáveis auxiliares que representam as inclinações e devem
-ser calculadas a cada passo. Esta notação é compatível com a notação usada nos
-métodos de Runge-Kutta, uma família de esquemas iterativos para aproximar
-problemas de valor inicial, da qual o Método de Euler e o Método de Euler
-Melhorado são casos particulares. Veremos os métodos de Runge-Kutta na seção
-<a 
-href="mainse50.html#x92-15900010.5">10.5<!--tex4ht:ref: sec_RK --></a>.
-<!--l. 288--><p class="noindent" >
-   <h4 class="likesubsectionHead"><a 
- id="x89-15200010.2"></a>Exercícios</h4>
-   <div class="newtheorem">
-<!--l. 290--><p class="noindent" ><span class="head">
-<a 
- id="x89-152001r1"></a>
-<span 
-class="ec-lmbx-12">E 10.2.1.</span>  </span>Use o Método de Euler melhorado para obter uma aproximação
-numérica do valor de <img 
-src="main4316x.png" alt="y(1)  "  class="math" > quando <img 
-src="main4317x.png" alt="y(t)  "  class="math" > satisfaz o seguinte problema de valor
-inicial <div class="eqnarray">
+</div>onde usamos uma expansão em série de Taylor para <img 
+src="main4299x.png" alt="y(t + h)  "  class="math" > e a equação
+diferencial <img 
+src="main4300x.png" alt=" &prime;
+y (t) = f (y (t),t)  "  class="math" >. Portanto, <div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main4318x.png" alt=" &prime;                 y(t)
-y(t)  =   &minus; y (t) + e  ,
-y(0)  =   0,
+src="main4301x.png" alt="          (                                               )
+                   h           h
+y(t + h ) &minus; y(t) + -f(y(t),t) + --f(y(t) + hf (t,y (t))),t + h)
+                   2           2
+  h- &prime;     h2- &prime;&prime;     h-                                3
+= 2 y (t) +  2 y (t) &minus; 2 f(y(t) + hf (t,y (t))),t + h) + O (h ).
 " class="math-display" ></center>
-</div>usando passos <img 
-src="main4319x.png" alt="h = 0,1  "  class="math" > e <img 
-src="main4320x.png" alt="h = 0,01  "  class="math" >.
-   </div>
-<!--l. 297--><p class="noindent" >
-   <div class="proof">
-<!--l. 297--><p class="indent" >   <span class="head">
-<span 
-class="ec-lmbx-12">Resposta.</span> </span> <img 
-src="main4321x.png" alt="y(1)&asymp; 1,317078  "  class="math" > <span 
-class="ec-lmr-6">quando</span> <img 
-src="main4322x.png" alt="h=0,1  "  class="math" > <span 
-class="ec-lmr-6">e</span> <img 
-src="main4323x.png" alt="y(1)&asymp;1,317045  "  class="math" ><span 
-class="ec-lmr-6">.</span>
-                                                                       <img 
-src="main4324x.png" alt="&#x2662; "  class="math" >
-   </div>
-   <div class="newtheorem">
-<!--l. 304--><p class="noindent" ><span class="head">
-<a 
- id="x89-152003r2"></a>
-<span 
-class="ec-lmbx-12">E 10.2.2.</span>  </span>Use o Método de Euler e o Método de Euler melhorado para obter
-aproximações numéricas para a solução do seguinte problema de valor inicial para
-<img 
-src="main4325x.png" alt="t &isin; [0,1]  "  class="math" >: <div class="eqnarray">
+</div>Agora, usamos a série de Taylor de <img 
+src="main4302x.png" alt="f (y(t) + hf (y (t),t),t + h)  "  class="math" > e, torno de <img 
+src="main4303x.png" alt="(y,t)  "  class="math" >:
+<div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main4326x.png" alt="y &prime;(t)  =  &minus; y(t) &minus; y (t)2,
- y(0)  =  1,
+src="main4304x.png" alt="           (                                               )
+                   h-           h-
+y (t + h) &minus;   y(t) + 2 f(y(t),t) + 2f (y(t) + hf (t,y(t))),t + h)
+             2
+=  h-y&prime;(t) + h-y&prime;&prime;(t) + O(h3 )
+   2(       2                                              )
+  h              &part;f (y(t),t)    &part;f (t,y(t))                2
+&minus; --  f(y(t),t) + ----------h + ----------hf (t,y(t)) + O (h ) .
+   2                 &part;t            &part;y
 " class="math-display" ></center>
-</div>usando passo <img 
-src="main4327x.png" alt="h = 0,1  "  class="math" >. Compare os valores da solução exata dada por
+</div>Usando a equação diferencial <img 
+src="main4305x.png" alt="y&prime;(t) = f(y(t),t)  "  class="math" > obtemos
+   <center class="math-display" >
+<img 
+src="main4306x.png" alt=" &prime;&prime;     f(y(t),t)-  f-(y(t),t) &prime;     f-(y(t),t)   f(y(t),t)-
+y (t) =    &part;t    +    &part;y    y (t) =    &part;t    +     &part;y   f (y (t),t).  " class="math-display" ></center>
                                                                           
 
                                                                           
-<img 
-src="main4328x.png" alt="y(t) = --1t--
-       2e&minus; 1   "  class="math" > com os numéricos nos pontos <img 
-src="main4329x.png" alt="t = 0  "  class="math" >, <img 
-src="main4330x.png" alt="t = 0.1  "  class="math" >, <img 
-src="main4331x.png" alt="t = 0.2  "  class="math" >, <img 
-src="main4332x.png" alt="t = 0.3  "  class="math" >,
-<img 
-src="main4333x.png" alt="t = 0.4  "  class="math" >, <img 
-src="main4334x.png" alt="t = 0.5  "  class="math" >, <img 
-src="main4335x.png" alt="t = 0.6  "  class="math" >, <img 
-src="main4336x.png" alt="t = 0.7  "  class="math" >, <img 
-src="main4337x.png" alt="t = 0.8  "  class="math" >, <img 
-src="main4338x.png" alt="t = 0.9  "  class="math" >, <img 
-src="main4339x.png" alt="t = 1.0  "  class="math" >.
-   </div>
-<!--l. 311--><p class="noindent" >
-   <div class="proof">
-<!--l. 311--><p class="indent" >   <span class="head">
-<span 
-class="ec-lmbx-12">Resposta.</span> </span>
+Logo, <div class="eqnarray">
    <center class="math-display" >
 <img 
-src="main4340x.png" alt="|t-|-Exato--|-Euler--|EulerMelhorado-|ErroEuler|Erro-EulerMelhorado-|
-|0.0|---1.---|--1.---|----1.-----|---0.---|-------0.-------|
-|0.1|0.826213 | 0.8  |   0.828    | 0.026213 |    0.001787     |
-|0.2|0.693094 | 0.656  |  0.695597   | 0.037094 |    0.002502     |
-|0.3|0.588333 |0.547366 |  0.591057   | 0.040967 |    0.002724     |
-|0.4|0.504121 |0.462669 |  0.506835   | 0.041453 |    0.002714     |
-|0.0.56|00..433758261871 |0.0.339439989694 |  00.4.33870866019   | 0.0.040308227187 |    00..000022594248     |
-|0.7|0.330305 |0.294352 |  0.332551   | 0.035953 |    0.002246     |
-|0.8|0.289764 |0.256252 |  0.291828   | 0.033512 |    0.002064     |
-|0.9|0.255154 |0.224061 |  0.257043   | 0.031093 |    0.001889     |
-|1.0|0.225400--0.196634----0.227126-----0.028766------0.001726------
+src="main4307x.png" alt="          (                                               )
+                   h-          h-
+y(t + h ) &minus; y(t) + 2f(y(t),t) + 2 f(y(t) + hf (t,y (t))),t + h)
+
+  h- &prime;     h2- &prime;&prime;         3
+= 2 y (t) +  2 y (t) + O (h )
+  h (                         )
+&minus; -- f(y(t),t) + hy&prime;&prime;(t) + O(h2)
+  2         2
+= h-y&prime;(t) + h--y&prime;&prime;(t)
+  2         2
+  h   &prime;       &prime;&prime;          3        3
+&minus; 2-(y(t) + hy (t)) + O (h ) = O (h )
 " class="math-display" ></center>
-<!--l. 334--><p class="indent" >   <span 
-class="ec-lmr-6">No Scilab, esta tabela pode ser produzida com o c</span><span 
-class="ec-lmr-6">ódigo:</span>
+</div>Portanto, a expressão (<a 
+href="#x90-157001r11">10.11<!--tex4ht:ref: es_Euler_melhorado --></a>) é válida. Logo, usando uma discussão análoga
+aquela feita na seção <a 
+href="#x90-15600010.3.1">10.3.1<!--tex4ht:ref: sec_pre_euler --></a> para o método de Euler, concluímos que o método de
+Euler Melhorado possui ordem de precisão 2.
                                                                           
 
                                                                           
-   <div class="verbatim" id="verbatim-56">
-&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;deff(&#8217;dy=f(y,t)&#8217;,&#8217;dy=-y-y^2&#8217;)
-&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;sol_Euler=Euler(f,0,1,10,1)&#8217;
-&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;sol_Euler_mod=Euler_mod(f,0,1,10,1)&#8217;
-&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;deff(&#8217;y=y_exata(t)&#8217;,&#8217;y=1/(2*exp(t)-1)&#8217;)
-&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;t=[0:.1:1]&#8217;
-&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;sol_exata=feval(t,y_exata)
-&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;tabela=[t&#x00A0;sol_exata&#x00A0;sol_Euler&#x00A0;sol_Euler_mod&#x00A0;abs(sol_exata-sol_Euler)&#x00A0;abs(sol_exata-sol_Euler_mod)]
-&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;
-</div>
-<!--l. 343--><p class="nopar" >
-                                                                       <img 
-src="main4341x.png" alt="&#x2662; "  class="math" >
-   </div>
-                                                                          
-
-                                                                          
-   <!--l. 350--><div class="crosslinks"><p class="noindent">[<a 
+   <!--l. 425--><div class="crosslinks"><p class="noindent">[<a 
 href="mainse46.html" >prev</a>] [<a 
 href="mainse46.html#tailmainse46.html" >prev-tail</a>] [<a 
 href="mainse47.html" >front</a>] [<a 
 href="# "  >up</a>] </p></div>
-<!--l. 350--><p class="indent" >   <a 
+<!--l. 425--><p class="indent" >   <a 
  id="tailmainse47.html"></a>   
 </body></html> 

@@ -1,64 +1,89 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
   "http://www.w3.org/TR/html4/loose.dtd">  
 <html xml:lang="pt" > 
-<head><title>Metodos de passo multiplo - Adams-Moulton</title> 
+<head><title>Estabilidade</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
 <meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html,3,notoc*,info --> 
 <meta name="src" content="main.tex"> 
-<meta name="date" content="2016-11-03 16:25:00"> 
+<meta name="date" content="2016-11-04 12:46:00"> 
 <link rel="stylesheet" type="text/css" href="main.css"> 
 </head><body 
 >
-   <!--l. 498--><div class="crosslinks"><p class="noindent">[<a 
+   <!--l. 514--><div class="crosslinks"><p class="noindent">[<a 
 href="mainse51.html" >prev</a>] [<a 
 href="mainse51.html#tailmainse51.html" >prev-tail</a>] [<a 
 href="#tailmainse52.html">tail</a>] [<a 
 href="# "  >up</a>] </p></div>
-   <h3 class="sectionHead"><span class="titlemark">10.7   </span> <a 
- id="x94-16200010.7"></a>Métodos de passo múltiplo - Adams-Moulton</h3>
+   <h3 class="sectionHead"><span class="titlemark">10.8   </span> <a 
+ id="x95-16500010.8"></a>Estabilidade</h3>
 <a 
- id="dx94-162001"></a>
-<!--l. 500--><p class="noindent" >O método de Adams-Moulton consiste de um esquema recursivo do tipo:
+ id="dx95-165001"></a>
+<!--l. 516--><p class="noindent" >Consideremos o seguinte problema de teste:
    <center class="math-display" >
 <img 
-src="main4415x.png" alt="               &sum;k
-y(n+1) = y(n) +     wjf (y(n&minus;j),t(n&minus; j))
-               j=&minus;1
-" class="math-display" ></center>
-   <div class="newtheorem">
-<!--l. 503--><p class="noindent" ><span class="head">
-<a 
- id="x94-162002r1"></a>
-<span 
-class="ec-lmbx-12">Exemplo 10.7.1.</span>  </span>Adams-Moulton de quarta ordem
-   <table 
-class="equation-star"><tr><td>
+src="main4331x.png" alt="(
+|{    y&prime;  =  &minus; &alpha;y
+
+|(  y(0)  =  1  " class="math-display" ></center>
+cuja solução exata é dada por <img 
+src="main4332x.png" alt="y(t) = e&minus; &alpha;t  "  class="math" >.
+<!--l. 520--><p class="indent" >   Considere agora o método de Euler aplicado a este problema com passa
+<img 
+src="main4333x.png" alt="h  "  class="math" >:
    <center class="math-display" >
 <img 
-src="main4416x.png" alt=" (n+1)    (n)    h [   ( (n+1) (n+1))       ( (n) (n))
-y     =  y   + 24- 9f  y    ,t      + 19f  y   ,t
-            ( (n&minus; 1) (n&minus; 1))     ( (n&minus;2) (n&minus; 2))]
-      &minus;  5f  y    ,t      + f  y    ,t
-" class="math-display" ></center></td></tr></table>
-<!--l. 509--><p class="nopar" >
-   <center class="math-display" >
-<img 
-src="main4417x.png" alt="
-" class="math-display" ></center>
-   </div>
-<!--l. 512--><p class="indent" >   O método de Adams-Moulton é implícito, ou seja, exige que a cada passo,
-uma equação em <img 
-src="main4418x.png" alt="y(n+1)   "  class="math" > seja resolvida.
+src="main4334x.png" alt="(
+|{  y(k+1) =   y(k) &minus; &alpha;hy (k)
+
+|(    y(1) =   1  " class="math-display" ></center> A
+solução exata do esquema de Euler é dada por
                                                                           
 
                                                                           
-   <!--l. 514--><div class="crosslinks"><p class="noindent">[<a 
+   <center class="math-display" >
+<img 
+src="main4335x.png" alt=" (k+1)           k
+y     =  (1 &minus; &alpha;h )  " class="math-display" ></center> e,
+portanto,
+   <center class="math-display" >
+<img 
+src="main4336x.png" alt="&#x02DC;y(t) = y(k+1) = (1 &minus; &alpha;h )t&#x2215;h
+" class="math-display" ></center>
+<!--l. 527--><p class="indent" >   Fixamos um <img 
+src="main4337x.png" alt="&alpha; &#x003E; 0  "  class="math" >, de forma que <img 
+src="main4338x.png" alt="y(t) &rarr; 0  "  class="math" >. Mas observamos que
+<img 
+src="main4339x.png" alt="&#x02DC;y(t) &rarr;  0  "  class="math" > somente quando <img 
+src="main4340x.png" alt="|1 &minus; &alpha;h | &#x003C; 1  "  class="math" > e solução positivas somente quando
+<img 
+src="main4341x.png" alt="&alpha;h  &#x003C; 1  "  class="math" >.
+<!--l. 529--><p class="indent" >   <span 
+class="ec-lmbx-12">Conclus</span><span 
+class="ec-lmbx-12">ão: </span>Se o passo <img 
+src="main4342x.png" alt="h  "  class="math" > for muito grande, o método pode se tornar
+instável, produzindo solução espúrias.
+<!--l. 531--><p class="noindent" >
+   <h4 class="likesubsectionHead"><a 
+ id="x95-16600010.8"></a>Exercícios</h4>
+   <div class="newtheorem">
+<!--l. 533--><p class="noindent" ><span class="head">
+<a 
+ id="x95-166001r1"></a>
+<span 
+class="ec-lmbx-12">E 10.8.1.</span>  </span>Resolva  o  problema  1  pelos  diversos  métodos  e  verifique
+heuristicamente a estabilidade para diversos valores de <img 
+src="main4343x.png" alt="h  "  class="math" >.
+   </div>
+                                                                          
+
+                                                                          
+   <!--l. 536--><div class="crosslinks"><p class="noindent">[<a 
 href="mainse51.html" >prev</a>] [<a 
 href="mainse51.html#tailmainse51.html" >prev-tail</a>] [<a 
 href="mainse52.html" >front</a>] [<a 
 href="# "  >up</a>] </p></div>
-<!--l. 514--><p class="indent" >   <a 
- id="tailmainse52.html"></a>  
+<!--l. 536--><p class="indent" >   <a 
+ id="tailmainse52.html"></a>   
 </body></html> 

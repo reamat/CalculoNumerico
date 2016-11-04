@@ -1,119 +1,88 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
   "http://www.w3.org/TR/html4/loose.dtd">  
 <html xml:lang="pt" > 
-<head><title>Metodos de Runge-Kutta</title> 
+<head><title>Metodos de passo multiplo - Adams-Bashforth</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
 <meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html,3,notoc*,info --> 
 <meta name="src" content="main.tex"> 
-<meta name="date" content="2016-11-03 16:25:00"> 
+<meta name="date" content="2016-11-04 12:46:00"> 
 <link rel="stylesheet" type="text/css" href="main.css"> 
 </head><body 
 >
-   <!--l. 437--><div class="crosslinks"><p class="noindent">[<a 
+   <!--l. 477--><div class="crosslinks"><p class="noindent">[<a 
 href="mainse49.html" >prev</a>] [<a 
 href="mainse49.html#tailmainse49.html" >prev-tail</a>] [<a 
 href="#tailmainse50.html">tail</a>] [<a 
 href="# "  >up</a>] </p></div>
-   <h3 class="sectionHead"><span class="titlemark">10.5   </span> <a 
- id="x92-15900010.5"></a>Métodos de Runge-Kutta</h3>
+   <h3 class="sectionHead"><span class="titlemark">10.6   </span> <a 
+ id="x93-16300010.6"></a>Métodos de passo múltiplo - Adams-Bashforth</h3>
 <a 
- id="dx92-159001"></a>
-<!--l. 439--><p class="noindent" >Os métodos de Runge-Kutta consistem em iterações do tipo:
+ id="dx93-163001"></a>
+<!--l. 479--><p class="noindent" >O método de Adams-Bashforth consiste de um esquema recursivo do
+tipo:
    <center class="math-display" >
 <img 
-src="main4396x.png" alt="y(k+1) = y (k) + w k + ...+ w  k
-                1 1          n n  " class="math-display" ></center>
-onde <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main4397x.png" alt="k1  =  hf (y(k),t(k))
-            (k)         (k)
-k2  =  hf (y   + &alpha;2,1k1,t   + &beta;2h )
-k3  =  hf (y(k) + &alpha;3,1k1 + &alpha;3,2k2,t(k) + &beta;3h)
-    .
-    ..
-k   =  hf (y(k) + &alpha;  k +  &alpha;  k  + ...&alpha;     k    ,t(k) + &beta; h )
- n                n,1 1    n,2  2       n,n&minus;1 n&minus; 1       n
+src="main4323x.png" alt=" (n+1)    (n)  &sum;k       (n&minus;j) (n&minus;j)
+y     = y   +     wjf(y     ,t     )
+              j=0
 " class="math-display" ></center>
-                                                                          
-
-                                                                          
-</div>
-<!--l. 450--><p class="indent" >   Os coeficientes são escolhidos de forma que a expansão em Taylor de <img 
-src="main4398x.png" alt="  (k+1)
-y   "  class="math" > e
-<img 
-src="main4399x.png" alt=" (k)
-y   + w1k1 +  ...+ wnkn  "  class="math" > coincidam até ordem <img 
-src="main4400x.png" alt="n + 1  "  class="math" >.
    <div class="newtheorem">
-<!--l. 452--><p class="noindent" ><span class="head">
+<!--l. 482--><p class="noindent" ><span class="head">
 <a 
- id="x92-159003r1"></a>
+ id="x93-163002r1"></a>
 <span 
-class="ec-lmbx-12">Exemplo 10.5.1.</span>  </span>O  método  de  Euler  melhorado  é  um  exemplo  de
-Runge-Kutta de segunda ordem
+class="ec-lmbx-12">Exemplo 10.6.1.</span>  </span>Adams-Bashforth de segunda ordem
    <center class="math-display" >
 <img 
-src="main4401x.png" alt="y(n+1) = y(n) + k1-+-k2
-                  2
-" class="math-display" ></center> onde <img 
-src="main4402x.png" alt="          (n) (n)
-k1 = hf (y  ,t  )  "  class="math" > e <img 
-src="main4403x.png" alt="          (n)      (n)
-k2 = hf (y   + k1,t  + h )  "  class="math" >
+src="main4324x.png" alt=" (n+1)    (n)  h-[   ( (n) (n))     ( (n&minus;1) (n&minus;1))]
+y      = y   + 2  3f  y   ,t    &minus; f  y     ,t
+" class="math-display" ></center>
+                                                                          
+
+                                                                          
    </div>
-<!--l. 457--><p class="noindent" >
-   <h4 class="subsectionHead"><span class="titlemark">10.5.1   </span> <a 
- id="x92-16000010.5.1"></a>Métodos de Runge-Kutta - Quarta ordem</h4>
+   <div class="newtheorem">
+<!--l. 485--><p class="noindent" ><span class="head">
 <a 
- id="dx92-160001"></a>
-<!--l. 459--><p class="noindent" >
+ id="x93-163003r2"></a>
+<span 
+class="ec-lmbx-12">Exemplo 10.6.2.</span>  </span>Adams-Bashforth de terceira ordem
    <center class="math-display" >
 <img 
-src="main4404x.png" alt=" (n+1)    (n)   k1 + 2k2 + 2k3 + k4
-y     =  y   + ---------6---------  " class="math-display" ></center>
-onde <div class="eqnarray">
-   <center class="math-display" >
-<img 
-src="main4405x.png" alt="            (n) (n)
-k1  =  hf (y  ,t  )
-k2  =  hf (y(n) + k1&#x2215;2,t(n) + h&#x2215;2)
-            (n)        (n)
-k3  =  hf (y   + k2&#x2215;2,t   + h&#x2215;2)
-k4  =  hf (y(n) + k3,t(n) + h)
+src="main4325x.png" alt=" (n+1)    (n)   h [    (  (n) (n))       ( (n&minus;1) (n&minus; 1))      ( (n&minus;2) (n&minus;2)) ]
+y     = y   +  ---23f  y   ,t   &minus;  16f  y    ,t      + 5f  y     ,t
+               12
 " class="math-display" ></center>
-</div>Este método tem ordem de precisão 4. Uma discussão heurística usando
-método de Simpson pode ajudar a compreender os estranhos coeficientes:
-<div class="eqnarray">
+   </div>
+   <div class="newtheorem">
+<!--l. 488--><p class="noindent" ><span class="head">
+<a 
+ id="x93-163004r3"></a>
+<span 
+class="ec-lmbx-12">Exemplo 10.6.3.</span>  </span>Adams-Bashforth de quarta ordem
+   <table 
+class="equation-star"><tr><td>
    <center class="math-display" >
 <img 
-src="main4406x.png" alt="                      &int; t(n+1)
-y(t(n+1)) &minus; y(t(n))  =    (n)  f (y (s),s)ds
-                       t [ (          )      (                      )
-                   &asymp;   h-f  y(t(n)),t(n)  + 4f  y(t(n) + h&#x2215;2),t(n) + h&#x2215;2
-                       6(                  ) ]
-                   +   f  y(t(n) + h ),t(n) + h
-
-                       k1 + 4 (k2+k23) + k4
-                   &asymp;   --------6---------
-" class="math-display" ></center>
-</div>onde <img 
-src="main4407x.png" alt="k1   "  class="math" > e <img 
-src="main4408x.png" alt="k4   "  class="math" > representam as inclinações nos extremos e <img 
-src="main4409x.png" alt="k2   "  class="math" > e <img 
-src="main4410x.png" alt="k3   "  class="math" > são duas
-aproximações diferentes para a inclinação no meio do intervalo.
+src="main4326x.png" alt=" (n+1)    (n)   h [    (  (n) (n))       ( (n&minus;1) (n&minus; 1))
+y     = y   +  24-55f  y   ,t   &minus;  59f  y    ,t
+            ( (n&minus;2) (n&minus;2))     (  (n&minus; 3)  (n&minus;3))]
+      + 37f  y     ,t      &minus;  9f y     ,t
+" class="math-display" ></center></td></tr></table>
+<!--l. 494--><p class="nopar" >
+   </div>
+<!--l. 496--><p class="indent" >   Os métodos de passo múltiplo evitam os múltiplos estágios do métodos de
+Runge-Kutta, mas exigem ser "iniciados"com suas condições iniciais.
                                                                           
 
                                                                           
-   <!--l. 477--><div class="crosslinks"><p class="noindent">[<a 
+   <!--l. 498--><div class="crosslinks"><p class="noindent">[<a 
 href="mainse49.html" >prev</a>] [<a 
 href="mainse49.html#tailmainse49.html" >prev-tail</a>] [<a 
 href="mainse50.html" >front</a>] [<a 
 href="# "  >up</a>] </p></div>
-<!--l. 477--><p class="indent" >   <a 
- id="tailmainse50.html"></a>   
+<!--l. 498--><p class="indent" >   <a 
+ id="tailmainse50.html"></a>  
 </body></html> 
