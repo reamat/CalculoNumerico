@@ -1,56 +1,1042 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
   "http://www.w3.org/TR/html4/loose.dtd">  
 <html xml:lang="pt" > 
-<head><title>Erros nas operaçoes elementares</title> 
+<head><title>Metodo de Newton-Raphson</title> 
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
 <meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html,3,notoc*,info --> 
 <meta name="src" content="main.tex"> 
-<meta name="date" content="2016-11-03 19:03:00"> 
+<meta name="date" content="2016-11-03 20:21:00"> 
 <link rel="stylesheet" type="text/css" href="main.css"> 
 </head><body 
 >
-   <!--l. 911--><div class="crosslinks"><p class="noindent">[<a 
-href="mainse9.html" >next</a>] [<a 
+   <!--l. 997--><div class="crosslinks"><p class="noindent">[<a 
 href="mainse3.html" >prev</a>] [<a 
 href="mainse3.html#tailmainse3.html" >prev-tail</a>] [<a 
-href="#tailmainse4.html">tail</a>] [<a 
-href="mainch2.html#mainse8.html" >up</a>] </p></div>
-   <h3 class="sectionHead"><span class="titlemark">2.4   </span> <a 
- id="x16-250002.4"></a>Erros nas operações elementares</h3>
-<!--l. 912--><p class="noindent" >O erro relativo presente nas operações elementares de adição, subtração,
-multiplicação e divisão é da ordem do epsilon de máquina. Se estivermos usando
-uma máquina com 64 bits, temos que <img 
-src="main404x.png" alt="&#x03F5; = 2&minus;52 &asymp; 2,22E16  "  class="math" >.
-<!--l. 914--><p class="indent" >   Este erro é bem pequeno! Assumindo que <img 
-src="main405x.png" alt="x  "  class="math" > e <img 
-src="main406x.png" alt="y  "  class="math" > são representados com
-todos dígitos corretos, temos aproximadamente 15 dígitos significativos
-corretos quando fazemos uma das operações <img 
-src="main407x.png" alt="x + y  "  class="math" >, <img 
-src="main408x.png" alt="x &minus; y  "  class="math" >, <img 
-src="main409x.png" alt="x &#x00D7; y  "  class="math" > ou
+href="mainse2.html#tailmainse4.html">tail</a>] [<a 
+href="mainch1.html#mainse7.html" >up</a>] </p></div>
+   <h3 class="sectionHead"><span class="titlemark">1.4   </span> <a 
+ id="x9-130001.4"></a>Método de Newton-Raphson</h3>
+<a 
+ id="dx9-13001"></a>
+<!--l. 999--><p class="noindent" >Nesta seção, apresentamos o <span 
+class="ec-lmbx-12">m</span><span 
+class="ec-lmbx-12">étodo de</span>
+<span 
+class="ec-lmbx-12">Newton-Raphson</span><span class="footnote-mark"><a 
+href="main10.html#fn4x2"><sup class="textsuperscript">4</sup></a></span><a 
+ id="x9-13002f4"></a> <span class="footnote-mark"><a 
+href="main11.html#fn5x2"><sup class="textsuperscript">5</sup></a></span><a 
+ id="x9-13003f5"></a> <a 
+ id="dx9-13004"></a><a 
+ id="dx9-13005"></a>
+para calcular o zero de funções reais de uma variável real.
+<!--l. 1001--><p class="indent" >   Assumimos que <img 
+src="main633x.png" alt=" &lowast;
+x  "  class="math" > é um zero de uma dada função <img 
+src="main634x.png" alt="f (x )  "  class="math" > continuamente
+diferenciável, i.e. <img 
+src="main635x.png" alt="f (x&lowast;) = 0  "  class="math" >. Afim de usar a iteração do ponto fixo, observamos
+que, equivalentemente, <img 
+src="main636x.png" alt="x&lowast;  "  class="math" > é um ponto fixo da função:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
 <img 
-src="main410x.png" alt="x &#x2215;y  "  class="math" >.
-<!--l. 920--><p class="indent" >   Mesmo que fizéssemos, por exemplo, <img 
-src="main411x.png" alt="1000  "  class="math" > operações elementares em ponto
-flutuante sucessivas, teríamos, no pior dos casos, acumulado todos esses erros e
-perdido <img 
-src="main412x.png" alt="3  "  class="math" > casas decimais (<img 
-src="main413x.png" alt="          &minus;15     &minus;12
-1000 &#x00D7;  10    &asymp; 10   )  "  class="math" >.
-<!--l. 922--><p class="indent" >   Entretanto, quando subtraímos números muito próximos, os problemas
-aumentam.
+src="main637x.png" alt="g(x) = x + &alpha;(x )f (x),  &alpha;(x) &frasl;= 0,
+" class="math-display" ></center></td></tr></table>
+<!--l. 1004--><p class="nopar" >
+onde <img 
+src="main638x.png" alt="&alpha;(x)  "  class="math" > é uma função arbitrária que queremos escolher de forma que a
+iteração do ponto fixo tenha ótima taxa de convergência.
+<!--l. 1007--><p class="indent" >   Do <span 
+class="ec-lmbx-12">Teorema do ponto fixo</span><a 
+ id="dx9-13006"></a> temos que a taxa de convergência é dada em
+função do valor absoluto da derivada de <img 
+src="main639x.png" alt="g(x)  "  class="math" >. Calculando a derivada
+temos:
+   <table 
+class="equation-star"><tr><td>
                                                                           
 
                                                                           
-   <!--l. 924--><div class="crosslinks"><p class="noindent">[<a 
-href="mainse9.html" >next</a>] [<a 
+   <center class="math-display" >
+<img 
+src="main640x.png" alt=" &prime;                &prime;      &prime;
+g (x) = 1 + &alpha;(x)f (x) + &alpha; (x)f(x).
+" class="math-display" ></center></td></tr></table>
+<!--l. 1010--><p class="nopar" >
+No ponto <img 
+src="main641x.png" alt="x = x &lowast;  "  class="math" >, temos:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main642x.png" alt=" &prime;  &lowast;           &lowast;  &prime;  &lowast;     &prime; &lowast;     &lowast;
+g (x  ) = 1 + &alpha; (x )f (x ) + &alpha; (x )f (x ).
+" class="math-display" ></center></td></tr></table>
+<!--l. 1014--><p class="nopar" >
+Como <img 
+src="main643x.png" alt="   &lowast;
+f(x ) = 0  "  class="math" >, temos:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main644x.png" alt="g&prime;(x &lowast;) = 1 + &alpha; (x&lowast;)f&prime;(x &lowast;).
+" class="math-display" ></center></td></tr></table>
+<!--l. 1018--><p class="nopar" >
+<!--l. 1020--><p class="indent" >   Sabemos que o processo iterativo converge tão mais rápido quanto menor for
+<img 
+src="main645x.png" alt="|g&prime;(x )| "  class="math" > nas vizinhanças de <img 
+src="main646x.png" alt="x&lowast;  "  class="math" >. Isto nos leva a escolher:
+                                                                          
+
+                                                                          
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main647x.png" alt=" &prime; &lowast;
+g(x ) = 0,
+" class="math-display" ></center></td></tr></table>
+<!--l. 1023--><p class="nopar" >
+e, então, temos:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main648x.png" alt="&alpha; (x&lowast;) = &minus; --1---,
+           f&prime;(x &lowast;)
+" class="math-display" ></center></td></tr></table>
+<!--l. 1027--><p class="nopar" >
+se <img 
+src="main649x.png" alt="f&prime;(x&lowast;) &frasl;= 0  "  class="math" >.
+<!--l. 1030--><p class="indent" >   A discussão acima nos motiva a introduzir o método de Newton, cujas
+iterações são dada por:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main650x.png" alt="                 (   )
+               f  x(n)
+x(n+1 ) = x (n) &minus;--------,  n &ge; 1,
+                f&prime;(xn)
+" class="math-display" ></center></td></tr></table>
+<!--l. 1033--><p class="nopar" >
+sendo <img 
+src="main651x.png" alt="x (1)   "  class="math" > uma aproximação inicial dada.
+   <h4 class="subsectionHead"><span class="titlemark">1.4.1   </span> <a 
+ id="x9-140001.4.1"></a>Interpretação geométrica</h4>
+<!--l. 1038--><p class="noindent" >Seja dada uma função <img 
+src="main652x.png" alt="f(x)  "  class="math" > conforme na Figura&#x00A0;<a 
+href="#x9-140015">1.5<!--tex4ht:ref: fig:metodo_de_Newton --></a>. Para tanto, escolhemos
+uma aproximação inicial <img 
+src="main653x.png" alt=" (1)
+x   "  class="math" > e computamos:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main654x.png" alt="                (1)
+x(2) = x(1) &minus; f(x--)-.
+             f&prime;(x (1))
+" class="math-display" ></center></td></tr></table>
+<!--l. 1041--><p class="nopar" >
+Geometricamente, o ponto <img 
+src="main655x.png" alt="x(2)   "  class="math" > é a interseção da reta tangente ao gráfico da
+função <img 
+src="main656x.png" alt="f(x)  "  class="math" > no ponto <img 
+src="main657x.png" alt="     (1)
+x = x   "  class="math" > com o eixo das abscissas. Com efeito, a equação
+desta reta é:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main658x.png" alt="y = f&prime;(x(1))(x &minus; x(1)) + f(x (1)).
+" class="math-display" ></center></td></tr></table>
+                                                                          
+
+                                                                          
+<!--l. 1045--><p class="nopar" >
+Assim, a interseção desta reta com o eixo das abscissas ocorre quando
+(<img 
+src="main659x.png" alt="y = 0  "  class="math" >):
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main660x.png" alt="                                                (1)
+f&prime;(x(1))(x &minus; x(1)) + f(x (1)) = 0 &rArr; x =  x(1) &minus; f-(x--).
+                                            f&prime;(x(1))
+" class="math-display" ></center></td></tr></table>
+<!--l. 1049--><p class="nopar" >
+<!--l. 1051--><p class="indent" >   <hr class="figure"><div class="figure" 
+>
+                                                                          
+
+                                                                          
+<a 
+ id="x9-140015"></a>
+                                                                          
+
+                                                                          
+<!--l. 1053--><p class="noindent" ><img 
+src="main661x.png" alt="PIC" class="graphics" width="181.67874pt" height="187.70125pt" ><!--tex4ht:graphics  
+name="main661x.png" src="./cap_equacao1d/pics/metodo_de_Newton/metodo_de_Newton.eps"  
+-->
+<br /> <div class="caption" 
+><span class="id">Figura&#x00A0;1.5: </span><span  
+class="content">Interpretação do método de Newton.</span></div><!--tex4ht:label?: x9-140015 -->
+                                                                          
+
+                                                                          
+<!--l. 1056--><p class="indent" >   </div><hr class="endfigure">
+<!--l. 1058--><p class="indent" >   Ou seja, dado <img 
+src="main662x.png" alt=" (n)
+x   "  class="math" > a próxima aproximação <img 
+src="main663x.png" alt=" (n+1)
+x   "  class="math" > é o ponto de interseção
+entre o eixo das abscissas e a reta tangente ao gráfico da função no ponto
+<img 
+src="main664x.png" alt="x =  x(n)   "  class="math" >. Observe a Figura&#x00A0;<a 
+href="#x9-140015">1.5<!--tex4ht:ref: fig:metodo_de_Newton --></a>.
+   <h4 class="subsectionHead"><span class="titlemark">1.4.2   </span> <a 
+ id="x9-150001.4.2"></a>Análise de convergência</h4>
+<a 
+ id="dx9-15001"></a>
+<!--l. 1062--><p class="noindent" >Seja <img 
+src="main665x.png" alt="f(x )  "  class="math" > um função com derivadas primeira e segunda contínuas tal que
+<img 
+src="main666x.png" alt="f (x &lowast;) = 0  "  class="math" > e <img 
+src="main667x.png" alt="f&prime;(x &lowast;) &frasl;= 0  "  class="math" >. Seja também a função <img 
+src="main668x.png" alt="g(x )  "  class="math" > definida como:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main669x.png" alt="            f(x )
+g (x ) = x &minus; -&prime;---.
+            f (x)
+" class="math-display" ></center></td></tr></table>
+<!--l. 1065--><p class="nopar" >
+Expandimos em série de Taylor em torno de <img 
+src="main670x.png" alt="x = x&lowast;  "  class="math" >, obtemos:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main671x.png" alt="                                 &prime;&prime;  &lowast;               (         )
+g(x) = g(x &lowast;) + g&prime;(x&lowast;)(x &minus; x&lowast;) + g-(x-)(x &minus; x&lowast;)2 + O  (x &minus; x&lowast;)3 .
+                                  2
+" class="math-display" ></center></td></tr></table>
+                                                                          
+
+                                                                          
+<!--l. 1069--><p class="nopar" >
+Observamos que: <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main672x.png" alt="    &lowast;        &lowast;
+ g(x )  =  x
+ &prime;  &lowast;           f&prime;(x-&lowast;)f-&prime;(x&lowast;)-&minus;-f(x&lowast;)f-&prime;&prime;(x-&lowast;)
+g (x )  =  1 &minus;          (f&prime;(x&lowast;))2         =  0
+" class="math-display" ></center>
+</div>Portanto:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main673x.png" alt="              &prime;&prime;  &lowast;              (         )
+g(x) = x&lowast; + g--(x--)(x &minus; x&lowast;)2 + O  (x &minus;  x&lowast;)3
+               2
+" class="math-display" ></center></td></tr></table>
+<!--l. 1078--><p class="nopar" >
+Com isso, temos:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main674x.png" alt=" (n+1)      (n)     &lowast;   g&prime;&prime;(x&lowast;)   (n)    &lowast; 2     (      &lowast; 3)
+x     =  g(x  ) = x  + ------(x   &minus;  x ) + O   (x &minus; x )  ,
+                          2
+" class="math-display" ></center></td></tr></table>
+<!--l. 1082--><p class="nopar" >
+ou seja:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main675x.png" alt="|           |     |        |2
+||x(n+1) &minus; x &lowast;|| &le; C ||x(n) &minus; x&lowast;|| ,
+" class="math-display" ></center></td></tr></table>
+<!--l. 1086--><p class="nopar" >
+com constante <img 
+src="main676x.png" alt="       &prime;&prime;  &lowast;
+C =  |g (x  )&#x2215;2 | "  class="math" >. Isto mostra que o método de Newton tem <span 
+class="ec-lmbx-12">taxa</span>
+<span 
+class="ec-lmbx-12">de converg</span><span 
+class="ec-lmbx-12">ência quadr</span><span 
+class="ec-lmbx-12">ática</span>. Mais precisamente, temos o seguinte
+teorema.
+   <div class="newtheorem">
+<!--l. 1089--><p class="noindent" ><span class="head">
+<a 
+ id="x9-15003r1"></a>
+<span 
+class="ec-lmbx-12">Teorema 1.4.1 </span>(Método de Newton)<span 
+class="ec-lmbx-12">.</span>  </span><span 
+class="ec-lmri-12">Sejam</span> <img 
+src="main677x.png" alt="      2
+f &isin; C  ([a,b])  "  class="math" > <span 
+class="ec-lmri-12">com</span> <img 
+src="main678x.png" alt=" &lowast;
+x  &isin; (a,b)  "  class="math" > <span 
+class="ec-lmri-12">tal</span>
+<span 
+class="ec-lmri-12">que</span> <img 
+src="main679x.png" alt="f (x&lowast;) = 0  "  class="math" > <span 
+class="ec-lmri-12">e:</span>
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main680x.png" alt="             &prime;                          &prime;&prime;
+m  := xm&isin;i[an,b]|f (x)| &#x003E; 0  e  M  := xm&isin;a[xa,b]|f (x )|.
+" class="math-display" ></center></td></tr></table>
+<!--l. 1093--><p class="nopar" >
+<span 
+class="ec-lmri-12">Escolhendo</span> <img 
+src="main681x.png" alt="&rho; &#x003E; 0  "  class="math" > <span 
+class="ec-lmri-12">tal que:</span>
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main682x.png" alt="     M
+q :=  ---&rho; &#x003C; 1,
+     2m
+" class="math-display" ></center></td></tr></table>
+<!--l. 1097--><p class="nopar" >
+<span 
+class="ec-lmri-12">definimos a </span><span 
+class="ec-lmbxi-10x-x-120">bacia de atra</span><span 
+class="ec-lmbxi-10x-x-120">ç</span><span 
+class="ec-lmbxi-10x-x-120">ão </span><span 
+class="ec-lmri-12">do m</span><span 
+class="ec-lmri-12">étodo de Newton pelo conjunto:</span>
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main683x.png" alt="K &rho;(x&lowast;) := {x &isin; &#x211D;; |x &minus; x&lowast;| &le; &rho;} &sub; [a,b].
+" class="math-display" ></center></td></tr></table>
+<!--l. 1101--><p class="nopar" >
+<span 
+class="ec-lmri-12">Ent</span><span 
+class="ec-lmri-12">ão, para qualquer</span> <img 
+src="main684x.png" alt="  (1)        &lowast;
+x   &isin;  K&rho;(x )  "  class="math" > <span 
+class="ec-lmri-12">a itera</span><span 
+class="ec-lmri-12">ç</span><span 
+class="ec-lmri-12">ão do m</span><span 
+class="ec-lmri-12">étodo de Newton:</span>
+   <table 
+class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main685x.png" alt="                   (n)
+x(n+1) = x(n) &minus; f(x---),
+                f&prime;(x (n))
+" class="math-display" ></center></td></tr></table>
+<!--l. 1105--><p class="nopar" >
+<span 
+class="ec-lmri-12">fornece uma sequ</span><span 
+class="ec-lmri-12">ência</span> <img 
+src="main686x.png" alt="x(n)   "  class="math" > <span 
+class="ec-lmri-12">que converge para</span> <img 
+src="main687x.png" alt="x&lowast;  "  class="math" ><span 
+class="ec-lmri-12">, i.e.</span> <img 
+src="main688x.png" alt="x(n) &rarr; x &lowast;  "  class="math" > <span 
+class="ec-lmri-12">quando</span>
+<img 
+src="main689x.png" alt="n &rarr;  &infin; "  class="math" ><span 
+class="ec-lmri-12">. Al</span><span 
+class="ec-lmri-12">ém disso, temos a seguinte estimativa de erro </span><span 
+class="ec-lmbxi-10x-x-120">a priori</span><span 
+class="ec-lmri-12">:</span>
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main690x.png" alt="  (n)   &lowast;    2m   (2n&minus;1)
+|x   &minus; x | &le; -M--q     ,  n &ge; 2,
+" class="math-display" ></center></td></tr></table>
+<!--l. 1109--><p class="nopar" >
+<span 
+class="ec-lmri-12">e a seguinte estimativa de erro </span><span 
+class="ec-lmbxi-10x-x-120">a posteriori</span><span 
+class="ec-lmri-12">:</span>
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main691x.png" alt="  (n)    &lowast;   -M--  (n)    (n&minus;1)2
+|x   &minus; x | &le; 2m  |x   &minus;  x    | ,  n &ge; 2.
+" class="math-display" ></center></td></tr></table>
+                                                                          
+
+                                                                          
+<!--l. 1113--><p class="nopar" >
+   </div>
+<!--l. 1115--><p class="indent" >   <div class="container-fluid"><span 
+class="ec-lmbx-12">Demonstra</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão. </span>Para <img 
+src="main692x.png" alt="n &isin; &#x2115;  "  class="math" >, <img 
+src="main693x.png" alt="n &ge;  2  "  class="math" >, temos:
+   <table 
+class="equation"><tr><td><a 
+ id="x9-15004r2"></a>
+   <center class="math-display" >
+<img 
+src="main694x.png" alt=" n+1    &lowast;    (n)   f(x(n))-   &lowast;     ---1---[    (n)      &lowast;    (n) &prime;  (n)]
+x    &minus; x  = x   &minus;  f&prime;(x (n)) &minus; x  = &minus; f(x (n)) f (x  ) + (x &minus;  x  )f (x    .
+" class="math-display" ></center></td><td class="equation-label">(1.2)</td></tr></table>
+<!--l. 1119--><p class="nopar" >
+Agora, para estimar o lado direito desta equação, usamos o polinômio de Taylor
+de grau <img 
+src="main695x.png" alt="1  "  class="math" > da função <img 
+src="main696x.png" alt="f (x )  "  class="math" > em torno de <img 
+src="main697x.png" alt="x =  x(n)   "  class="math" >, i.e.:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main698x.png" alt="    &lowast;       (n)     &lowast;    (n)  &prime; (n)   &int; x&lowast;  &prime;&prime;    &lowast;
+f (x  ) = f(x  ) + (x  &minus; x  )f (x   ) + x(n) f (t)(x &minus; t)dt.
+" class="math-display" ></center></td></tr></table>
+<!--l. 1123--><p class="nopar" >
+Pela mudança de variável <img 
+src="main699x.png" alt="     (n)     (n)    &lowast;
+t = x   + s(x   &minus;  x )  "  class="math" >, observamos que o resto deste
+polinômio de Taylor na forma integral é igual a:
+   <table 
+class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main700x.png" alt="                         &int; 1   (                 )
+R(x&lowast;,x(n)) := (x&lowast; &minus; x(n))2   f&prime;&prime; x(n) + s(x&lowast; &minus; x(n)) (1 &minus; s)ds.
+                          0
+" class="math-display" ></center></td></tr></table>
+<!--l. 1127--><p class="nopar" >
+Assim, da cota da segunda derivada de <img 
+src="main701x.png" alt="f (x )  "  class="math" >, temos:
+   <table 
+class="equation"><tr><td><a 
+ id="x9-15005r3"></a>
+   <center class="math-display" >
+<img 
+src="main702x.png" alt="    &lowast;  (n)        &lowast;    (n)2&int; 1            M    &lowast;    (n) 2
+|R (x ,x  )| &le; M |x  &minus; x  |    (1 &minus; s)ds = ---|x &minus;  x  | .
+                            0              2
+" class="math-display" ></center></td><td class="equation-label">(1.3)</td></tr></table>
+<!--l. 1131--><p class="nopar" >
+ Se <img 
+src="main703x.png" alt="x(n) &isin; K &rho;(x&lowast;)  "  class="math" >, então de (<a 
+href="#x9-15004r2">1.2<!--tex4ht:ref: eq:forma --></a>) e (<a 
+href="#x9-15005r3">1.3<!--tex4ht:ref: eq:est-resto --></a>) temos:
+   <table 
+class="equation"><tr><td><a 
+ id="x9-15006r4"></a>
+   <center class="math-display" >
+<img 
+src="main704x.png" alt="               M                 M
+|x (n+1) &minus; x&lowast;| &le; ---|x(n) &minus; x&lowast;|2 &le;----&rho;2 &#x003C; &rho;.
+               2m               2m
+" class="math-display" ></center></td><td class="equation-label">(1.4)</td></tr></table>
+                                                                          
+
+                                                                          
+<!--l. 1135--><p class="nopar" >
+Isto mostra que se <img 
+src="main705x.png" alt=" (n)       &lowast;
+x   &isin; K &rho;(x )  "  class="math" >, então <img 
+src="main706x.png" alt=" (n+1)       &lowast;
+x     &isin; K &rho;(x )  "  class="math" >, i.e. <img 
+src="main707x.png" alt=" (n)        &lowast;
+x   &isin; K &rho;(x )  "  class="math" >
+para todo <img 
+src="main708x.png" alt="n &isin; &#x211D;  "  class="math" >.
+<!--l. 1138--><p class="indent" >   Agora, obtemos a estimativa <span 
+class="ec-lmbx-12">a priori </span>de (<a 
+href="#x9-150001.4.2">1.4.2<!--tex4ht:ref: eq:quadratica --></a>), pois:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main709x.png" alt="                 (                )2             (              )2n&minus;1
+|x(n) &minus; x &lowast;| &le; 2m  M--|x(n&minus;1) &minus; x&lowast;|  &le; &sdot;&sdot;&sdot; &le; 2m--  M--|x(1) &minus; x&lowast;|     .
+              M    2m                         M    2m
+" class="math-display" ></center></td></tr></table>
+<!--l. 1141--><p class="nopar" >
+Logo:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main710x.png" alt="|x(n) &minus; x&lowast;| &le; 2m-q2n&minus;1,
+             M
+" class="math-display" ></center></td></tr></table>
+<!--l. 1145--><p class="nopar" >
+donde também vemos que <img 
+src="main711x.png" alt="x(n) &rarr;  x&lowast;  "  class="math" > quando <img 
+src="main712x.png" alt="n &rarr;  &infin; "  class="math" >, pois <img 
+src="main713x.png" alt="q &#x003C; 1  "  class="math" >.
+<!--l. 1148--><p class="indent" >   Por fim, para provarmos a estimativa <span 
+class="ec-lmbx-12">a posteriori </span>tomamos a seguinte
+expansão em polinômio de Taylor:
+   <table 
+class="equation-star"><tr><td>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main714x.png" alt="    (n)       (n&minus; 1)      (n)    (n&minus;1)  &prime;  (n&minus;1)       (n)  (n&minus; 1)
+f (x  ) = f (x     ) + (x   &minus; x     )f(x     ) + R(x   ,x     ).
+" class="math-display" ></center></td></tr></table>
+<!--l. 1151--><p class="nopar" >
+Aqui, temos:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main715x.png" alt="f(x(n&minus;1)) + (x(n) &minus; x (n&minus; 1))f&prime;(x(n&minus;1)) = 0
+" class="math-display" ></center></td></tr></table>
+<!--l. 1155--><p class="nopar" >
+e, então, conforme acima:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main716x.png" alt="|f (x(n))| = |R (x(n)),x(n&minus;1)| &le; M-|x(n) &minus; x (n&minus; 1)|2.
+                             2
+" class="math-display" ></center></td></tr></table>
+<!--l. 1159--><p class="nopar" >
+Com isso e do Teorema do valor médio, concluímos:
+                                                                          
+
+                                                                          
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main717x.png" alt="  (n)    &lowast;    1-    (n)       &lowast;    -M-- (n)    (n&minus; 1)2
+|x   &minus;  x | &le; m |f(x  ) &minus; f(x )| &le; 2m  |x   &minus;  x    | .
+" class="math-display" ></center></td></tr></table>
+<!--l. 1163--><p class="nopar" >
+                                                                          <div class="flushright" 
+>
+<!--l. 1164--><p class="noindent" >
+ <img 
+src="main718x.png" alt="&#x25A0; "  class="math" ></div>
+</div>
+<!--l. 1164--><p class="indent" >   </div>
+   <div class="newtheorem">
+<!--l. 1166--><p class="noindent" ><span class="head">
+<a 
+ id="x9-15007r1"></a>
+<span 
+class="ec-lmbx-12">Exemplo 1.4.1.</span>  </span>Estime  o  raio  <img 
+src="main719x.png" alt="&rho;  "  class="math" > da  bacia  de  atração  <img 
+src="main720x.png" alt="    &lowast;
+K&rho;(x )  "  class="math" >  para  a
+função <img 
+src="main721x.png" alt="f(x) = cos(x) &minus; x  "  class="math" > restrita ao intervalo <img 
+src="main722x.png" alt="[0,&pi;&#x2215;2 ]  "  class="math" >.
+   </div>
+<!--l. 1169--><p class="indent" >   <div class="container-fluid"><span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão. </span>O raio da bacia de atração é tal que:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main723x.png" alt="     2m--
+&rho; &#x003C;  M
+" class="math-display" ></center></td></tr></table>
+<!--l. 1173--><p class="nopar" >
+onde <img 
+src="main724x.png" alt="m := min |f&prime;(x)| "  class="math" > e <img 
+src="main725x.png" alt="M  := max  |f&prime;&prime;(x)| "  class="math" > com o mínimo e o máximo tomados
+em um intervalo <img 
+src="main726x.png" alt="[a, b]  "  class="math" > que contenha o zero da função <img 
+src="main727x.png" alt="f(x)  "  class="math" >. Aqui, por exemplo,
+podemos tomar <img 
+src="main728x.png" alt="[a,b] = [0,&pi; &#x2215;2]  "  class="math" >. Como, neste caso, <img 
+src="main729x.png" alt="  &prime;
+f (x ) = &minus; sin(x) &minus; 1  "  class="math" >, temos
+que <img 
+src="main730x.png" alt="m  = 1  "  class="math" >. Também, como <img 
+src="main731x.png" alt="f &prime;&prime;(x) = &minus; cosx  "  class="math" >, temos <img 
+src="main732x.png" alt="M  = 1  "  class="math" >. Assim,
+concluímos que <img 
+src="main733x.png" alt="&rho; &#x003C;  2  "  class="math" > (lembrando que <img 
+src="main734x.png" alt="K &rho;(x&lowast;) &sub; [0,&pi; &#x2215;2]  "  class="math" >). Ou seja, neste caso
+as iterações de Newton convergem para o zero de <img 
+src="main735x.png" alt="f(x )  "  class="math" > para qualquer escolha da
+aproximação inicial <img 
+src="main736x.png" alt=" (1)
+x   &isin; [0,&pi;&#x2215;2 ]  "  class="math" >.
+                                                                          <div class="flushright" 
+>
+<!--l. 1175--><p class="noindent" >
+ <img 
+src="main737x.png" alt="&#x2662; "  class="math" ></div>
+<!--l. 1175--><p class="noindent" ></div>
+<!--l. 1177--><p class="noindent" >
+   <h4 class="likesubsectionHead"><a 
+ id="x9-160001.4.2"></a>Exercícios</h4>
+   <div class="newtheorem">
+<!--l. 1179--><p class="noindent" ><span class="head">
+<a 
+ id="x9-16001r1"></a>
+<span 
+class="ec-lmbx-12">E 1.4.1.</span>  </span>Considere o problema de calcular as soluções positivas da equação:
+   <table 
+class="equation-star"><tr><td>
+   <center class="math-display" >
+<img 
+src="main738x.png" alt="tg(x) = 2x2.
+" class="math-display" ></center></td></tr></table>
+                                                                          
+
+                                                                          
+<!--l. 1182--><p class="nopar" >
+      <ul class="itemize1">
+      <li class="itemize">Use o método gráfico para isolar as duas primeiras raízes positivas em
+      pequenos intervalos. Use a teoria estudada em aula para argumentar
+      quanto à existência e unicidade das raízes dentro intervalos escolhidos.
+      </li>
+      <li class="itemize">Calcule  o  número  de  iterações  necessárias  para  que  o  método  da
+      bisseção aproxime cada uma das raízes com erro absoluto inferior a
+      <img 
+src="main739x.png" alt="10&minus;8   "  class="math" >. Calcule as raízes por este método usando este número de passos.
+      </li>
+      <li class="itemize">Calcule cada uma das raízes pelo método de Newton com oito dígitos
+      significativos e discuta a convergência comparando com o item b).</li></ul>
+<!--l. 1188--><p class="noindent" ><span 
+class="ec-lmbx-12">Obs: </span>Alguns alunos encontraram como solução <img 
+src="main740x.png" alt="x  &asymp; 1,5707963
+ 1  "  class="math" > e <img 
+src="main741x.png" alt="x &asymp;  4,7123890
+ 2  "  class="math" >.
+O que eles fizeram de errado?
+   </div>
+<!--l. 1191--><p class="noindent" ><div class="container-fluid"><span 
+class="ec-lmbx-6">Resposta.</span>
+      <ul class="itemize1">
+      <li class="itemize"><span 
+class="ec-lmr-6">Primeiramente, deve-se observar que a fun</span><span 
+class="ec-lmr-6">ç</span><span 
+class="ec-lmr-6">ão</span> <img 
+src="main742x.png" alt="tg(x)  "  class="math" > <span 
+class="ec-lmr-6">n</span><span 
+class="ec-lmr-6">ão est</span><span 
+class="ec-lmr-6">á definida quando</span> <img 
+src="main743x.png" alt="x  "  class="math" > <span 
+class="ec-lmr-6">é um m</span><span 
+class="ec-lmr-6">últiplo </span><span 
+class="ec-lmr-6">ímpar de</span> <img 
+src="main744x.png" alt="&pi;2  "  class="math" ><span 
+class="ec-lmr-6">, pelo</span>
+      <span 
+class="ec-lmr-6">que devemos cuidado nas singularidades. Tra</span><span 
+class="ec-lmr-6">çamos o gr</span><span 
+class="ec-lmr-6">áfico da fun</span><span 
+class="ec-lmr-6">ç</span><span 
+class="ec-lmr-6">ão</span> <img 
+src="main745x.png" alt="f(x)= tg(x)&minus; 2x2  "  class="math" > <span 
+class="ec-lmr-6">no </span><span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-8x-x-75">Scilab</span></span></span> <span 
+class="ec-lmr-6">usando os</span>
+      <span 
+class="ec-lmr-6">seguintes comandos:</span>
+                                                                          
+
+                                                                          
+      <div class="verbatim" id="verbatim-5">
+      --&#x003E;deff(&#8217;y=f(x)&#8217;,&#8217;y=tan(x)-2*x^2&#8217;)
+      &#x00A0;<br />--&#x003E;plot([0:.01:1.3],f)
+</div>
+      <!--l. 1198--><p class="nopar" ><span 
+class="ec-lmr-6">Observamos facilmente uma raiz no intervalo</span> <img 
+src="main746x.png" alt="(0,5,0,6)  "  class="math" > <span 
+class="ec-lmr-6">e outra no intervalo</span> <img 
+src="main747x.png" alt="(1,2,1,3)  "  class="math" ><span 
+class="ec-lmr-6">. Como a fun</span><span 
+class="ec-lmr-6">ç</span><span 
+class="ec-lmr-6">ão</span> <img 
+src="main748x.png" alt="f(x)  "  class="math" > <span 
+class="ec-lmr-6">é</span>
+      <span 
+class="ec-lmr-6">cont</span><span 
+class="ec-lmr-6">ínua fora dos pontos de singularidade da tangente, </span><span 
+class="ec-lmr-6">é f</span><span 
+class="ec-lmr-6">ácil verificar que existe pelo menos uma solu</span><span 
+class="ec-lmr-6">ç</span><span 
+class="ec-lmr-6">ão nos intervalos</span>
+      <span 
+class="ec-lmr-6">dados pelo teorema de Bolzano</span><span 
+class="ec-lmr-6">&#x00A0;</span><a 
+href="mainse1.html#x4-2006r1"><span 
+class="ec-lmr-6">1.1.1</span><!--tex4ht:ref: teo:teorema_de_Bolzano --></a><span 
+class="ec-lmr-6">: </span><div class="eqnarray">
+      <center class="math-display" >
+      <img 
+src="main749x.png" alt="f(0,5) &asymp;  0,046302&#x003E;0
+ff((0,1,62)) &asymp;&asymp;  &minus;&minus;00,0,3305878643e&#x003C;&minus;0 1&#x003C; 0
+f(1,3) &asymp;  0,22210e&minus; 1&#x003E; 0
+      " class="math-display" ></center>
+      </div><span 
+class="ec-lmr-6">Para provar a unicidade da solu</span><span 
+class="ec-lmr-6">ç</span><span 
+class="ec-lmr-6">ão em cada intervalo, precisamos mostra que a fun</span><span 
+class="ec-lmr-6">ç</span><span 
+class="ec-lmr-6">ão </span><span 
+class="ec-lmr-6">é mon</span><span 
+class="ec-lmr-6">ótona, ou seja, a derivada</span>
+      <span 
+class="ec-lmr-6">n</span><span 
+class="ec-lmr-6">ão muda de sinal em cada intervalo: </span><div class="eqnarray">
+      <center class="math-display" >
+      <img 
+src="main750x.png" alt=" &prime;     2         1          1
+f (x)=sec(x)&minus; 4x= cos2(x) &minus; 4x &le;cos2(0,6) &minus; 4&lowast;0,5&#x003C; 0, x&isin; [0,5,0,6]
+f&prime;(x)=sec2(x)&minus; 4x= --1--&minus; 4x &ge;---1--&minus; 4&lowast;1,3&#x003E; 0, x&isin; [1,2,1,3]
+               cos2(x)     cos2(1,2)
+      " class="math-display" ></center>
+      </div>
+      </li>
+      <li class="itemize"><span 
+class="ec-lmr-6">J</span><span 
+class="ec-lmr-6">á isolamos as ra</span><span 
+class="ec-lmr-6">ízes em intervalos de comprimento</span> <img 
+src="main751x.png" alt="10&minus;1  "  class="math" > <span 
+class="ec-lmr-6">e a precis</span><span 
+class="ec-lmr-6">ão requerida exige que as isolemos em intervalos de</span>
+      <span 
+class="ec-lmr-6">comprimento</span> <img 
+src="main752x.png" alt="2&#x00D7; 10&minus;8  "  class="math" ><span 
+class="ec-lmr-6">. Como cada passo da bisse</span><span 
+class="ec-lmr-6">ç</span><span 
+class="ec-lmr-6">ão, confina a raiz em um intervalo com comprimento</span>
+      <span 
+class="ec-lmr-6">igual </span><span 
+class="ec-lmr-6">à metade do comprimento do intervalo anterior, temos a seguinte condi</span><span 
+class="ec-lmr-6">ç</span><span 
+class="ec-lmr-6">ão para o n</span><span 
+class="ec-lmr-6">úmero de passos</span>
+      <img 
+src="main753x.png" alt="Np  "  class="math" ><span 
+class="ec-lmr-6">:</span>
+                                                                          
+
+                                                                          
+      <center class="math-display" >
+      <img 
+src="main754x.png" alt="10&minus;1-&le;2&#x00D7; 10&minus;8
+ 2Np
+      " class="math-display" ></center> <span 
+class="ec-lmr-6">isso </span><span 
+class="ec-lmr-6">é equivalente a</span>
+      <center class="math-display" >
+      <img 
+src="main755x.png" alt="      --10&minus;1-     107           --7--
+Np &ge;log22&#x00D7; 10&minus;8 =log2 2 =7log210&minus; 1= log102 &minus; 1&asymp; 22.22
+      " class="math-display" ></center> <span 
+class="ec-lmr-6">Como</span> <img 
+src="main756x.png" alt="Np  "  class="math" > <span 
+class="ec-lmr-6">é inteiro, o menor</span> <img 
+src="main757x.png" alt="Np  "  class="math" > <span 
+class="ec-lmr-6">que satisfaz a condi</span><span 
+class="ec-lmr-6">ç</span><span 
+class="ec-lmr-6">ão </span><span 
+class="ec-lmr-6">é</span> <img 
+src="main758x.png" alt="23  "  class="math" ><span 
+class="ec-lmr-6">.</span>
+      <!--l. 1219--><p class="noindent" ><span 
+class="ec-lmr-6">As ra</span><span 
+class="ec-lmr-6">ízes obtidas s</span><span 
+class="ec-lmr-6">ão</span> <img 
+src="main759x.png" alt="0.55970415  "  class="math" > <span 
+class="ec-lmr-6">e</span> <img 
+src="main760x.png" alt="1.2703426  "  class="math" ><span 
+class="ec-lmr-6">.</span>
+      </li>
+      <li class="itemize"><span 
+class="ec-lmr-6">Para recalcular as ra</span><span 
+class="ec-lmr-6">ízes pelo m</span><span 
+class="ec-lmr-6">étodo de Newton, basta executar a intera</span><span 
+class="ec-lmr-6">ç</span><span 
+class="ec-lmr-6">ão</span>
+      <center class="math-display" >
+      <img 
+src="main761x.png" alt="              (n)
+x(n+1) = x(n)&minus; f(&prime;x(n))
+           f (x
+      " class="math-display" ></center></li></ul>
+<!--l. 1224--><p class="noindent" ><span 
+class="ec-lmr-6">Em rela</span><span 
+class="ec-lmr-6">ç</span><span 
+class="ec-lmr-6">ão </span><span 
+class="ec-lmr-6">à observa</span><span 
+class="ec-lmr-6">ç</span><span 
+class="ec-lmr-6">ão, o erro se deveu </span><span 
+class="ec-lmr-6">à falta de cuidado em compreender o problema antes de tentar resolv</span><span 
+class="ec-lmr-6">ê-lo, em especial, </span><span 
+class="ec-lmr-6">à falta</span>
+<span 
+class="ec-lmr-6">de observar que a fun</span><span 
+class="ec-lmr-6">ç</span><span 
+class="ec-lmr-6">ão </span><span 
+class="ec-lmr-6">é descont</span><span 
+class="ec-lmr-6">ínua em m</span><span 
+class="ec-lmr-6">últiplos </span><span 
+class="ec-lmr-6">ímpares de</span> <img 
+src="main762x.png" alt="&pi;
+2  "  class="math" ><span 
+class="ec-lmr-6">. Nestes pontos, a fun</span><span 
+class="ec-lmr-6">ç</span><span 
+class="ec-lmr-6">ão</span> <img 
+src="main763x.png" alt="f(x)  "  class="math" > <span 
+class="ec-lmr-6">troca de sinal, mas n</span><span 
+class="ec-lmr-6">ão</span>
+<span 
+class="ec-lmr-6">passa por zero.</span>
+</div>
+   <div class="newtheorem">
+<!--l. 1230--><p class="noindent" ><span class="head">
+<a 
+ id="x9-16004r2"></a>
+                                                                          
+
+                                                                          
+<span 
+class="ec-lmbx-12">E 1.4.2.</span>  </span> Considere a equação
+   <center class="math-display" >
+<img 
+src="main764x.png" alt=" &minus;x2
+e    = x
+" class="math-display" ></center> trace o gráfico com auxílio do <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">Scilab</span></span></span> e verifique que ela possui uma raiz
+positiva. Encontre uma aproximação para esta razão pelo gráfico e use este
+valor para inicializar o método de Newton e obtenha uma aproximação para
+a raiz com 8 dígitos significativos. (Use o comando <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">format(</span><span 
+class="ts1-lmtt12-">&#8217;</span><span 
+class="ec-lmtt-12">v</span><span 
+class="ts1-lmtt12-">&#8217;</span><span 
+class="ec-lmtt-12">,16)</span></span></span> para
+alterar a visualização no <span class="obeylines-h"><span class="verb"><span 
+class="ec-lmtt-12">Scilab</span></span></span>.)
+   </div>
+<!--l. 1234--><p class="noindent" ><div class="container-fluid"><span 
+class="ec-lmbx-6">Resposta.  </span><span 
+class="ec-lmr-6">0,65291864</span>
+</div>
+   <div class="newtheorem">
+<!--l. 1241--><p class="noindent" ><span class="head">
+<a 
+ id="x9-16005r3"></a>
+<span 
+class="ec-lmbx-12">E 1.4.3.</span>  </span> Isole e encontre as cinco primeiras raízes positivas da equação com
+6 dígitos corretos através de traçado de gráfico e do método de Newton.
+   <center class="math-display" >
+<img 
+src="main765x.png" alt="cos(10x ) = e&minus;x.
+" class="math-display" ></center> Dica: a primeira raiz positiva está no intervalo <img 
+src="main766x.png" alt="(0,0.02)  "  class="math" >. Fique atento.
+                                                                          
+
+                                                                          
+   </div>
+<!--l. 1244--><p class="noindent" ><div class="container-fluid"><span 
+class="ec-lmbx-6">Resposta.</span>  <img 
+src="main767x.png" alt="0.0198679  "  class="math" ><span 
+class="ec-lmr-6">;</span> <img 
+src="main768x.png" alt="0.533890  "  class="math" ><span 
+class="ec-lmr-6">;</span> <img 
+src="main769x.png" alt="0.735412  "  class="math" ><span 
+class="ec-lmr-6">;</span> <img 
+src="main770x.png" alt="1.13237  "  class="math" ><span 
+class="ec-lmr-6">;</span> <img 
+src="main771x.png" alt="1.38851  "  class="math" ><span 
+class="ec-lmr-6">.</span>
+</div>
+   <div class="newtheorem">
+<!--l. 1251--><p class="noindent" ><span class="head">
+<a 
+ id="x9-16006r4"></a>
+<span 
+class="ec-lmbx-12">E 1.4.4.</span>  </span> Encontre as raízes do polinômio <img 
+src="main772x.png" alt="f(x) = x4 &minus; 4x2 + 4  "  class="math" > através do
+método de Newton. O que você observa em relação ao erro obtido? Compare
+com a situação do problema <a 
+href="mainse2.html#x6-6007r6">1.2.6<!--tex4ht:ref: prob_raiz_dupla --></a>.
+   </div>
+   <div class="newtheorem">
+<!--l. 1254--><p class="noindent" ><span class="head">
+<a 
+ id="x9-16007r5"></a>
+<span 
+class="ec-lmbx-12">E 1.4.5.</span>  </span> Encontre as raízes reais do polinômio <img 
+src="main773x.png" alt="f(x) = -x5 + x4 + 3x + 1
+       100  "  class="math" >
+isolando-as pelo método do gráfico e depois usando o método de Newton.
+Expresse a solução com 7 dígitos significativos.
+   </div>
+<!--l. 1256--><p class="noindent" ><div class="container-fluid"><span 
+class="ec-lmbx-6">Resposta.</span>  <img 
+src="main774x.png" alt="&minus; 99.99970  "  class="math" ><span 
+class="ec-lmr-6">,</span> <img 
+src="main775x.png" alt="&minus; 0.3376513  "  class="math" ><span 
+class="ec-lmr-6">;</span> <img 
+src="main776x.png" alt="&minus; 1.314006  "  class="math" ><span 
+class="ec-lmr-6">.</span>
+</div>
+   <div class="newtheorem">
+<!--l. 1262--><p class="noindent" ><span class="head">
+<a 
+ id="x9-16008r6"></a>
+<span 
+class="ec-lmbx-12">E 1.4.6.</span>  </span>Considere o método de Newton aplicado para encontrar a raiz de
+<img 
+src="main777x.png" alt="f (x ) = x3 &minus; 2x + 2  "  class="math" >. O que acontece quando <img 
+src="main778x.png" alt="x(0) = 0  "  class="math" >? Escolha um valor
+adequado para inicializar o método e obter a única raiz real desta equação.
+   </div>
+   <div class="newtheorem">
+<!--l. 1265--><p class="noindent" ><span class="head">
+<a 
+ id="x9-16009r7"></a>
+                                                                          
+
+                                                                          
+<span 
+class="ec-lmbx-12">E 1.4.7.</span>  </span>Justifique a construção do processo iterativo do método de Newton
+através do conceito de estabilidade de ponto fixo e convergência do método
+da iteração. Dica: Considere os problemas <a 
+href="mainse3.html#x7-12024r19">1.3.19<!--tex4ht:ref: int_new1 --></a> e <a 
+href="mainse3.html#x7-12025r20">1.3.20<!--tex4ht:ref: int_new2 --></a>.
+   </div>
+   <div class="newtheorem">
+<!--l. 1268--><p class="noindent" ><span class="head">
+<a 
+ id="x9-16010r8"></a>
+<span 
+class="ec-lmbx-12">E 1.4.8.</span>  </span>Entenda  a  interpretação  geométrica  ao  método  de  Newton.
+Encontre uma valor para iniciar o método de Newton aplicado ao problema
+<img 
+src="main779x.png" alt="f (x ) = xe&minus;x = 0  "  class="math" > tal que o esquema iterativo divirja.
+   </div>
+<!--l. 1270--><p class="noindent" ><div class="container-fluid"><span 
+class="ec-lmbx-6">Resposta.</span>  <img 
+src="main780x.png" alt="x0 &#x003E; 1  "  class="math" ><span 
+class="ec-lmr-6">.</span>
+</div>
+   <div class="newtheorem">
+<!--l. 1276--><p class="noindent" ><span class="head">
+<a 
+ id="x9-16011r9"></a>
+<span 
+class="ec-lmbx-12">E 1.4.9 </span>(title= Computação)<span 
+class="ec-lmbx-12">.</span>  </span>Aplique  o  método  de  Newton  à  função
+<img 
+src="main781x.png" alt="f (x ) = 1&minus;  u
+        x  "  class="math" > e construa um esquema computacional para calcular a inversa
+de <img 
+src="main782x.png" alt="u  "  class="math" > com base em operações de multiplicação e soma/subtração.
+   </div>
+   <div class="newtheorem">
+<!--l. 1279--><p class="noindent" ><span class="head">
+<a 
+ id="x9-16012r10"></a>
+<span 
+class="ec-lmbx-12">E 1.4.10 </span>(title=Computação)<span 
+class="ec-lmbx-12">.</span>  </span>Aplique  o  método  de  Newton  à  função
+<img 
+src="main783x.png" alt="         n
+f (x ) = x &minus;  A  "  class="math" > e construa um esquema computacional para calcular <img 
+src="main784x.png" alt="&radic;n--
+  A  "  class="math" >
+para <img 
+src="main785x.png" alt="A  &#x003E; 0  "  class="math" > com base em operações de multiplicação e soma/subtração.
+                                                                          
+
+                                                                          
+   </div>
+   <div class="newtheorem">
+<!--l. 1282--><p class="noindent" ><span class="head">
+<a 
+ id="x9-16013r11"></a>
+<span 
+class="ec-lmbx-12">E 1.4.11.</span>  </span>Considere a função dada por <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main786x.png" alt="&psi;(x)  =   ln(15 &minus; ln(x))
+" class="math-display" ></center>
+</div>definida para <img 
+src="main787x.png" alt="x &#x003E; 0  "  class="math" >
+      <ul class="itemize1">
+      <li class="itemize">(1.5) Use o teorema do ponto fixo para provar que se <img 
+src="main788x.png" alt="x0   "  class="math" > pertence ao
+      intervalo <img 
+src="main789x.png" alt="[1,3 ]  "  class="math" >, então a sequência dada iterativamente por
+      <center class="math-display" >
+      <img 
+src="main790x.png" alt="x(n+1) = &psi; (x(n)),n &ge; 0
+      " class="math-display" ></center> converge para o único ponto fixo, <img 
+src="main791x.png" alt="  &lowast;
+x  "  class="math" >, de <img 
+src="main792x.png" alt="&psi;  "  class="math" >. Construa a iteração
+      <img 
+src="main793x.png" alt=" (n+1)      (n)
+x     =  &psi;(x   )  "  class="math" > e obtenha numericamente o valor do ponto fixo <img 
+src="main794x.png" alt="  &lowast;
+x  "  class="math" >.
+      Expresse a resposta com 5 algarismos significativos corretos.
+                                                                          
+
+                                                                          
+      </li>
+      <li class="itemize">(1.0) Construa a iteração do método de Newton para encontrar <img 
+src="main795x.png" alt="  &lowast;
+x  "  class="math" >,
+      explicitando a relação de recorrência e iniciando com <img 
+src="main796x.png" alt="x0 =  2  "  class="math" >. Use
+      o  Scilab  para  obter  a  raiz  e  expresse  a  resposta  com  oito  dígitos
+      significativos corretos.</li></ul>
+   </div>
+                                                                          
+
+                                                                          
+   <!--l. 1293--><div class="crosslinks"><p class="noindent">[<a 
 href="mainse3.html" >prev</a>] [<a 
 href="mainse3.html#tailmainse3.html" >prev-tail</a>] [<a 
 href="mainse4.html" >front</a>] [<a 
-href="mainch2.html#mainse8.html" >up</a>] </p></div>
-<!--l. 924--><p class="indent" >   <a 
- id="tailmainse4.html"></a>  
+href="mainch1.html#mainse7.html" >up</a>] </p></div>
+<!--l. 1293--><p class="indent" >   <a 
+ id="tailmainse4.html"></a>   
 </body></html> 
