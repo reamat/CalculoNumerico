@@ -55,6 +55,19 @@ a_{m1} & a_{m2} & \cdots & a_{mn}&b_m
 
 Salvo especificado ao contrário, assumiremos ao longo deste capítulo que a matriz dos coeficientes $A$ é uma matriz real não-singular.
 
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Ao longo do capítulo, apresentamos algumas computações com \verb+Python+. Nestas, estaremos assumindo que a biblioteca \href{http://www.numpy.org/}{numpy} e seu módulo \href{https://docs.scipy.org/doc/numpy/reference/routines.linalg.html}{numpy.linalg} estão carregados:
+\begin{verbatim}
+>>> from __future__ import division
+>>> import numpy as np
+>>> from numpy import linalg
+\end{verbatim}
+\fi
+
+
 
 %Vários fatores podem ser analisados nas técnicas utilizadas: método direto ou iterativo, tempo de execução, estabilidade. Qual técnica é a melhor? na próxima seção trataremos do custo computacional que ajudará a responder essa pergunta considerando a eficiência.
 
@@ -373,14 +386,13 @@ x+10z&=&-48\\
 \end{Exercise}
 
 \begin{Exercise}Calcule a inversa da matriz
-$$
-A=\left[\begin{array}{ccc}
-1&2&-1\\
--1&2&0\\
-2&1&-1
-\end{array}
-\right]
-$$
+  \begin{equation*}
+    A = \begin{bmatrix}
+      1&2&-1\\
+      -1&2&0\\
+      2&1&-1      
+    \end{bmatrix}
+  \end{equation*}
 usando eliminação gaussiana com pivotamento parcial.
 \end{Exercise}
 
@@ -392,29 +404,32 @@ $$A^{-1}= \frac{1}{ad-bc} \left[\begin{array}{cc}d&-b\\-c&a\end{array}\right].$$
 
 \ifisscilab
 \begin{Exercise} Considere as matrizes
-$$A=
-\left[
-\begin{array}{ccc}
-0&0&1\\
-0&1&0\\
-1&0&0
-\end{array}\right]$$
+  \begin{equation*}
+    A=
+    \begin{bmatrix}
+      0&0&1\\
+      0&1&0\\
+      1&0&0      
+    \end{bmatrix}
+  \end{equation*}
 e
-$$E=
-\left[
-\begin{array}{ccc}
-1&1&1\\
-1&1&1\\
-1&1&1
-\end{array}\right]$$
+\begin{equation*}
+  E=
+  \begin{bmatrix}
+    1&1&1\\
+    1&1&1\\
+    1&1&1    
+  \end{bmatrix}
+\end{equation*}
 e o vetor
-$$v=
-\left[
-\begin{array}{c}
-2\\
-3\\
-4
-\end{array}\right]$$
+\begin{equation*}
+  v=
+  \begin{bmatrix}
+    2\\
+    3\\
+    4    
+  \end{bmatrix}
+\end{equation*}
 \begin{itemize}
 \item[a)] Resolva o sistema $Ax=v$ sem usar o computador.
 \item[b)] Sem usar o computador e através da técnica algébrica de sua preferência, resolva o sistema $(A+\varepsilon E)x_\varepsilon=v$ considerando $|\varepsilon|<<1$ e obtenha a solução exata em função do parâmetro $\varepsilon$.
@@ -984,6 +999,10 @@ Calcule as normas $1$, $2$ e $\infty$ da seguinte matriz:
     \|A\|_\infty &=& \max\{15, 7, 16\}=16\\
     \|A\|_2 &=& \sqrt{\max\{0,5865124, 21,789128, 195,62436\}}= 13,98657
   \end{eqnarray*}
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 No \verb+Scilab+ podemos computar normas $L^p$'s de matrizes usando o comando \verb+norm+. Neste exemplo, temos:
 \begin{verbatim}
@@ -997,6 +1016,25 @@ No \verb+Scilab+ podemos computar normas $L^p$'s de matrizes usando o comando \v
     13.986578
 \end{verbatim}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+ podemos computar normas $L^p$'s de matrizes usando a função \href{https://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.norm.html#numpy.linalg.norm}{numpy.linalg.norm}. Neste exemplo, temos:
+\begin{verbatim}
+>>> A = np.array([[3,-5,7],
+...               [1,-2,4],
+...               [-8,1,-7]])
+>>> np.linalg.norm(A,1)
+18
+>>> np.linalg.norm(A,np.inf)
+16
+>>> np.linalg.norm(A,2)
+13.986577820518308
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
 \subsection{Número de condicionamento}\index{número de condicionamento}
@@ -1209,12 +1247,27 @@ y^{(3)}&=&\frac{26-x^{(2)}}{8}=2,9625
 \end{eqnarray*}
 \end{ex}
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \subsubsection{Código Scilab: Jacobi}
 
-\verbatiminput{./cap_linsis/codes/metodo_de_jacobi/jacobi.sci}
+\verbatiminput{./cap_linsis/codes/scilab/metodo_de_jacobi/jacobi.sci}
 \fi
+%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\subsubsection{Código Python: Jacobi}
+
+\verbatiminput{./cap_linsis/codes/python/metodo_de_jacobi/jacobi.py}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+
+%phkonzen
 \subsection{Método de Gauss-Seidel}\index{método de!Gauss-Seidel}
 
 Assim como no método de Jacobi, no método de Gauss-Seidel também isolamos o elemento $x_i$ da equação $i$. Porém perceba que a equação para $x_2^{(k+1)}$ depende de $x_1^{(k)}$ na iteração $k$. Intuitivamente podemos pensar em usar $x_1^{(k+1)}$ que acabou de ser calculado e temos
@@ -1810,9 +1863,9 @@ function x=gs()
     end
 endfunction
 \end{verbatim}    
+\fi
   \end{tiny}
 \end{Answer}
-\fi
 
 \begin{Exercise} Resolva o problema \ref{circuito1} pelos métodos de Jacobi e Gauss-Seidel.
 \end{Exercise}
@@ -1826,7 +1879,7 @@ x_1+10x_2+3x_3=27\\
 \end{Exercise}
 \begin{Answer}
   \begin{tiny}
-Permute as linhas 1 e 2.    
+    Permute as linhas 1 e 2.    
   \end{tiny}
 \end{Answer}
 

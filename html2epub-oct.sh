@@ -5,12 +5,14 @@ make clean
 mkdir -p ./.tmp1
 rm -rf ./.tmp1/*
 
-echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavetrue" > main.knd
+
+#echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavetrue" > main.knd
+cat main-oct.knd > main.knd
 latex main 
 bibtex main
 latex main
 latex main
-htlatex main "ebook_config,html,3,notoc*,info" "" "-d./.tmp1/"
+htlatex main "ebook_config,html,2,notoc*,info" "" "-d./.tmp1/"
 rm -f main.knd
 
 
