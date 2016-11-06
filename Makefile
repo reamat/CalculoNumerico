@@ -21,18 +21,82 @@ CAP10=cap_ajuste
 CAP11=cap_derivacao
 CAP12=cap_integracao
 CAP13=cap_pvc
+CAP14=cap_python
+
+########################################
+# FORMATO LIVRO PDF
+########################################
 
 pdf: main.tex
-	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabtrue \isoctavefalse" > main.knd
+	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabtrue \isoctavefalse \ispythonfalse" > main.knd
 	pdflatex main
 	bibtex main
 	makeindex main
 	pdflatex main
 	pdflatex main
+#	rm -f main.knd
+
+pdf-py: main.tex
+	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
+	cp main.tex main-py.tex
+	pdflatex main-py
+	bibtex main-py
+	makeindex main-py
+	pdflatex main-py
+	pdflatex main-py
 	rm -f main.knd
 
+pdf-oct: main.tex
+	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavetrue \ispythonfalse" > main.knd
+	cp main.tex main-oct.tex
+	pdflatex main-oct
+	bibtex main-oct
+	makeindex main-oct
+	pdflatex main-oct
+	pdflatex main-oct
+#	rm -f main.knd
+
+########################################
+# FORMATO LIVRO DVI
+########################################
+
+dvi: main.tex
+	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabtrue \isoctavefalse \ispythonfalse" > main.knd
+	latex main
+	bibtex main
+	makeindex main
+	latex main
+	latex main
+	rm -f main.knd
+
+dvi-oct: main.tex
+	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavetrue \ispythonfalse" > main.knd
+	cp main.tex main-oct.tex
+	latex main-oct
+	bibtex main-oct
+	makeindex main-oct
+	latex main-oct
+	latex main-oct
+	rm -f main.knd
+
+dvi-py: main.tex
+	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
+	cp main.tex main-oct.tex
+	latex main-oct
+	bibtex main-oct
+	makeindex main-oct
+	latex main-oct
+	latex main-oct
+	rm -f main.knd
+
+
+
+########################################
+# FORMADO SLIDES PDF
+########################################
+
 slide: main.tex
-	echo "\isbookfalse \isslidetrue \ishtmlfalse \isscilabtrue \isoctavefalse" > main.knd
+	echo "\isbookfalse \isslidetrue \ishtmlfalse \isscilabtrue \isoctavefalse \ispythonfalse" > main.knd
 	cp main.tex slide.tex
 	pdflatex slide
 	bibtex slide
@@ -41,73 +105,89 @@ slide: main.tex
 	pdflatex slide
 #	rm -f main.knd
 
-dvi: main.tex
-	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabtrue \isoctavefalse" > main.knd
-	latex main
-	bibtex main
-	makeindex main
-	latex main
-	latex main
-	rm -f main.knd
-
-html: main.html
-
-main.html: main.tex
-	rm -f ./html/*
-	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabtrue \isoctavefalse" > main.knd
-	latex main
-	bibtex main
-	latex main
-	latex main
-	mk4ht htlatex main "myconfig,html,3,notoc*,info" "" "-d./html/"
-	rm -f main.knd
-
-epub: ./html/main.html
-	./html2epub.sh
-
-pdf-oct: main.tex
-	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavetrue" > main.knd
-	cp main.tex main-oct.tex
-	pdflatex main-oct
-	bibtex main-oct
-	makeindex main-oct
-	pdflatex main-oct
-	pdflatex main-oct
-	rm -f main.knd
-
 slide-oct: main.tex
-	echo "\isbookfalse \isslidetrue \ishtmlfalse \isscilabfalse \isoctavetrue" > main.knd
+	echo "\isbookfalse \isslidetrue \ishtmlfalse \isscilabfalse \isoctavetrue \ispythonfalse" > main.knd
 	cp main.tex slide-oct.tex
 	pdflatex slide-oct
 	bibtex slide-oct
 	makeindex slide-oct
 	pdflatex slide-oct
 	pdflatex slide-oct
-	rm -f main.knd
+#	rm -f main.knd
 
-dvi-oct: main.tex
-	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavetrue" > main.knd
-	cp main.tex main-oct.tex
-	latex main-oct
-	bibtex main-oct
-	makeindex main-oct
-	latex main-oct
-	latex main-oct
-	rm -f main.knd
+slide-py: main.tex
+	echo "\isbookfalse \isslidetrue \ishtmlfalse \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
+	cp main.tex slide-oct.tex
+	pdflatex slide-oct
+	bibtex slide-oct
+	makeindex slide-oct
+	pdflatex slide-oct
+	pdflatex slide-oct
+#	rm -f main.knd
 
-html-oct: main.tex
+
+########################################
+# FORMATO HTML
+########################################
+
+html: main-sci.html
+
+html-oct: main-oct.html
+
+html-py: main-py.html
+
+main-sci.html: main.tex
+	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabtrue \isoctavefalse \ispythonfalse" > main.knd
+	mkdir -p ./html
+	rm -f ./html/*
+	latex main
+	bibtex main
+	latex main
+	latex main
+	mk4ht htlatex main "myconfig,html,3,notoc*,info" "" "-d./html/"
+#	rm -f main.knd
+
+main-oct.html: main.tex
+	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavetrue \ispythonfalse" > main.knd
 	mkdir -p ./html-oct
 	rm -f ./html-oct/*
-	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavetrue" > main.knd
 	latex main
 	bibtex main
 	latex main
 	latex main
 	mk4ht htlatex main "myconfig,html,3,notoc*,info" "" "-d./html-oct/"
-	rm -f main.knd
+#	rm -f main.knd
 
-epub-oct: ./html/main.html
-	./html2epub-oct.sh
+main-py.html: main.tex
+	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
+	mkdir -p ./html-py
+	rm -f ./html-py/*
+	latex main
+	bibtex main
+	latex main
+	latex main
+	mk4ht htlatex main "myconfig,html,3,notoc*,info" "" "-d./html-py/"
+#	rm -f main.knd
+
+########################################
+# FORMATO EPUB
+########################################
+
+epub: ./html/main.html
+	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabtrue \isoctavefalse \ispythonfalse" > main.knd
+	./html2epub.sh main.epub
+
+epub-oct: ./html-oct/main.html
+	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavetrue \ispythonfalse" > main.knd
+	./html2epub.sh main-oct.epub
+
+epub-py: ./html-py/main.html
+	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
+	./html2epub.sh main-py.epub
+
+########################################
+# TODOS OS FORMATOS
+########################################
 
 all: main.tex
 	make clean
@@ -133,6 +213,18 @@ all-oct: main.tex
 	make clean
 	make epub-oct
 
+all-py: main.tex
+	make clean
+	make pdf-py
+	make clean
+	make slide-py
+	make clean
+	make dvi-py
+	make clean
+	make html-py
+	make clean
+	make epub-py
+
 .PHONY: clean
 
 clean:
@@ -154,3 +246,4 @@ clean:
 	rm -f ${CAP11}/*.aux ${CAP11}/*.log ${CAP11}/*.backup
 	rm -f ${CAP12}/*.aux ${CAP12}/*.log ${CAP12}/*.backup
 	rm -f ${CAP13}/*.aux ${CAP13}/*.log ${CAP13}/*.backup
+	rm -f ${CAP14}/*.aux ${CAP14}/*.log ${CAP14}/*.backup
