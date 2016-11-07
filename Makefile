@@ -117,12 +117,12 @@ slide-oct: main.tex
 
 slide-py: main.tex
 	echo "\isbookfalse \isslidetrue \ishtmlfalse \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
-	cp main.tex slide-oct.tex
-	pdflatex slide-oct
-	bibtex slide-oct
-	makeindex slide-oct
-	pdflatex slide-oct
-	pdflatex slide-oct
+	cp main.tex slide-py.tex
+	pdflatex slide-py
+	bibtex slide-py
+	makeindex slide-py
+	pdflatex slide-py
+	pdflatex slide-py
 #	rm -f main.knd
 
 
