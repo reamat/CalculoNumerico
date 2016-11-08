@@ -4,12 +4,16 @@ from numpy import linalg
 
 def jacobi(A,b,x0,tol,N):
     #preliminares
+    A = A.astype('double')
+    b = b.astype('double')
+    x0 = x0.astype('double')
+    
     n=np.shape(A)[0]
     x = np.zeros(n)
-    i = 0
+    it = 0
     #iteracoes
-    while (i < N):
-        i = i+1
+    while (it < N):
+        it = it+1
         #iteracao de Jacobi
         for i in np.arange(n):
             x[i] = b[i]

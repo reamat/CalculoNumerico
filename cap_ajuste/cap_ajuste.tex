@@ -33,6 +33,20 @@ ou seja, $f(x)$ é a função da família $\mathcal{F}$ cujo erro quadrático en
 
 Na sequência, discutimos o procedimento de ajuste de uma reta, então, mostramos a generalização da técnica para problemas lineares de ajuste e, por fim, discutimos alguns problemas de ajuste não lineares.
 
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+  Ao longo deste capítulo, estaremos assumindo que as seguintes bibliotecas e módulos \verb+Python+ estão carregadas:
+\begin{verbatim}
+>>> from __future__ import division
+>>> import numpy as np
+>>> from numpy import linalg
+>>> import matplotlib.pyplot as plt
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+
 
 \section{Ajuste de uma reta}\index{ajuste!de uma reta}
 
@@ -131,6 +145,9 @@ Ou seja, verificamos que, de fato, a função $f(x) = -0,05 + 1,1x$ corresponde 
 
 Deixamos ao leitor a verificação de que os coeficientes $a_1$ e $a_2$ também podem ser obtidos pela expressão~\eqref{eq:sol_smq_reta}.
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 Os coeficientes $a_1$ e $a_2$ podem ser rapidamente calculados no \verb+Scilab+ usando a expressão~\eqref{eq:sol_smq_reta}. Para tando, digitamos:
 \begin{verbatim}
@@ -149,6 +166,31 @@ Então, o gráfico da função ajustada e dos pontos pode ser obtido com os coma
 -->plot(xj,yj,'ro',xx,f(xx),'b-')
 \end{verbatim}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos computar os coeficientes $a_1$ e $a_2$ da seguinte forma:
+\begin{verbatim}
+>>> xi = np.array([1, 1.5, 2])
+>>> yi = np.array([1.2,1.3,2.3])
+>>> V = np.array([xi**1,xi**0]).transpose();V
+array([[ 1. ,  1. ],
+       [ 1.5,  1. ],
+       [ 2. ,  1. ]])
+>>> a = ((np.linalg.inv((V.transpose()).dot(V))).dot(V.transpose())).dot(yi);a
+array([ 1.1 , -0.05])
+\end{verbatim}
+Então, o gráfico da função ajustada e dos pontos pode ser obtido com os comandos:
+\begin{verbatim}
+>>> xx = np.linspace(0.5,2.5)
+>>> plt.plot(xi,yi,'ro',xx,np.polyval(a,xx),'b-')
+>>> plt.grid();plt.show()
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+
 \end{sol}
 
 O procedimento apresentado de ajuste de uma reta por mínimos quadrados pode ser generalizado para qualquer família de funções que seja um espaço vetorial de dimensão finita. Problemas de ajuste com tais famílias de funções é o que chamamos de problemas de ajuste linear, os quais exploramos em detalhe na próxima seção.
@@ -475,6 +517,9 @@ Então, a solução por mínimos quadrados é
 \end{equation*}
 Ou seja, $f(x) = 244,03658\sen(\pi x) - 161,18783\cos(\pi x)$ é a função ajustada ao conjunto de pontos dados. A Figura~\ref{fig:ex_ajuste_linear} apresenta o gráfica de $f(x)$ e dos pontos dados.
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 No \verb+Scilab+, podemos computar os coeficientes da função $f(x)$ da seguinte forma:
 \begin{verbatim}
@@ -487,6 +532,20 @@ No \verb+Scilab+, podemos computar os coeficientes da função $f(x)$ da seguint
   - 161.18783  
 \end{verbatim}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos computar os coeficientes da função $f(x)$ da seguinte forma:
+\begin{verbatim}
+>>> xi = np.array([0,0.25,0.5,0.75,1])
+>>> yi = np.array([-153,64,242,284,175])
+>>> V = np.array([np.sin(np.pi*xi),np.cos(np.pi*xi)]).transpose()
+>>> a = ((np.linalg.inv((V.transpose()).dot(V))).dot(V.transpose())).dot(yi)
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
 % A tabela abaixo mostra os valores dados e os valores ajustados:
 % \begin{center}
@@ -504,6 +563,9 @@ No \verb+Scilab+, podemos computar os coeficientes da função $f(x)$ da seguint
 % \end{center}
 \end{sol}
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \begin{obs}
   No \verb+Scilab+, quando resolvemos um sistema $Ax = b$ usando
@@ -517,6 +579,27 @@ estamos computando a inversa da matriz $A$ e multiplicando por $b$. Podemos evit
 Quando o sistema $A$ não é uma matriz quadrada, \verb+A/b+ retorna a solução por mínimos quadrados do sistema $Ax = b$, enquanto \verb+inv(A)*b+ retorna um erro, pois $A$ não é uma matriz quadrada e, portanto, não é invertível.
 \end{obs}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+\begin{obs}
+  Em \verb+Python+, quando resolvemos um sistema $Ax = b$ usando
+\begin{verbatim}
+>>> x = np.linalg.inv(A).dot(b)
+\end{verbatim}
+estamos computando a inversa da matriz $A$ e multiplicando por $b$. Dde forma mais eficiente, podemos usar a função \href{https://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.solve.html}{numpy.linalg.solve}, digitando:
+\begin{verbatim}
+>>> x = np.linalg.solve(A,b)
+\end{verbatim}
+Isto requer que a matriz $A$ seja quadrada e de posto completo. Alternativamente, para obtermos a solução por mínimos quadrados, podemos usar a função \href{https://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.lstsq.html}{numpy.linalg.lstsq}. Neste caso, digitamos:
+\begin{verbatim}
+>>> np.linalg.lstsq(A,b)
+\end{verbatim}
+\end{obs}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
 %Observe que é equivalente ao problema matricial
 %\begin{equation}
@@ -674,6 +757,9 @@ A solução por mínimos quadrados é, então:
 \end{equation*}
 Ou seja, o polinômio de grau 2 que melhor ajusta os pontos dados no sentido de mínimos quadrados é $p(x) = -165,37143 + 1250,9714x -900,57143x^2$. A Figura~\ref{fig:ex_ajuste_polinomial} mostra o gráfico do polinômio ajustado e os pontos dados.
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 No \verb+Scilab+, podemos computar o polinômio $p(x)$ da seguinte forma:
 \begin{verbatim}
@@ -692,6 +778,26 @@ Para fazermos o gráfico do polinômio e dos pontos, digitamos:
 -->plot(xi,yi,'ro',xx,horner(p,xx),'b-');xgrid
 \end{verbatim}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos computar os coeficientes do polinômio $p(x)$ da seguinte forma:
+\begin{verbatim}
+>>> xi = np.array([0,0.25,0.5,0.75,1])
+>>> yi = np.array([-153,64,242,284,175])
+>>> V = np.array([xi**2,xi**1,xi**0]).transpose()
+>>> a = ((np.linalg.inv((V.transpose()).dot(V))).dot(V.transpose())).dot(yi)
+\end{verbatim}
+Para fazermos o gráfico do polinômio e dos pontos, digitamos:
+\begin{verbatim}
+>>> xx = np.linspace(-0.25,1.25)
+>>> plt.plot(xi,yi,'ro',xx,np.polyval(a,xx),'b-')
+>>> plt.grid();plt.show()
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
 % 
