@@ -188,6 +188,7 @@ epub: main.tex
 
 	ebook-convert ./.tmp1/main.html main.epub \
 	      --authors="Todos os Colaboradores"\
+              --cover=./rosto/cover-scilab-epub.png\
 	      --comments="Para mais informações sobre este livro visite  http://www.ufrgs.br/numerico"
 
 epub-oct: main.tex
@@ -203,7 +204,7 @@ epub-oct: main.tex
 	#rm -f main.knd
 
 
-	ebook-convert ./.tmp1/main.html main.epub \
+	ebook-convert ./.tmp1/main.html main-oct.epub \
 	      --authors="Todos os Colaboradores"\
 	      --comments="Para mais informações sobre este livro visite  http://www.ufrgs.br/numerico"
 
@@ -220,8 +221,9 @@ epub-py: main.tex
 	#rm -f main.knd
 
 
-	ebook-convert ./.tmp1/main.html main.epub \
+	ebook-convert ./.tmp1/main.html main-py.epub \
 	      --authors="Todos os Colaboradores"\
+              --cover=./rosto/cover-python-epub.png\
 	      --comments="Para mais informações sobre este livro visite  http://www.ufrgs.br/numerico"
 
 ########################################
