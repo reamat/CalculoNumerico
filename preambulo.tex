@@ -15,8 +15,9 @@
 \newif\ifishtml        % O layout será html?
 \newif\ifisslide       % O layout será slide?
 
-\newif\ifisscilab      % As notas incluirão Scilab? 
+\newif\ifisscilab      % As notas incluirão scilab? 
 \newif\ifisoctave      % As notas incluirão octave?
+\newif\ifispython      % As notas incluirão python?
 
 \def\tfn{main.knd}     % Arquivo que guarda as definições do tipo de saída
 \def \tdata{}          % Definições do tipo de saída: book, slide ou html.
@@ -63,7 +64,7 @@
 %\usepackage{caption}
 
 %%%% links %%%%
-\usepackage[hidelinks]{hyperref}
+\usepackage[pdfborder={0 0 0 [0 0]},colorlinks=true,linkcolor=blue,citecolor=blue,filecolor=blue,urlcolor=blue]{hyperref}
 
 %%%% copy and paste from PDF (correctly) %%%%
 \usepackage{upquote}
@@ -108,14 +109,6 @@
 \newcommand{\Dom}{\operatorname{Dom}\,}
 \newcommand{\diag}{\operatorname{diag}\,}
 
-\newenvironment{sol}
-{\let\oldqedsymbol=\qedsymbol
-  \renewcommand{\qedsymbol}{$\Diamond$}
-  \begin{proof}[\bfseries\upshape Solução]}
-  {\end{proof}
-  \renewcommand{\qedsymbol}{\oldqedsymbol}}
-
-
 %%%% indexing %%%%
 \usepackage{makeidx}
 \makeindex
@@ -125,6 +118,16 @@
 \newcommand{\matddd}[9]{\begin{bmatrix} #1&#2&#3 \\ #4&#5&#6 \\ #7&#8&#9 \end{bmatrix}}
 \newcommand{\vetdd}[2]{\begin{bmatrix} #1 \\#2 \end{bmatrix}}
 \newcommand{\vetddd}[3]{\begin{bmatrix} #1 \\ #2\\ #3 \end{bmatrix}}
+
+\newcommand{\emconstrucao}{
+Em construção ... Gostaria de colaborar na escrita deste livro? 
+Veja como em:
+\begin{center}
+\url{http://www.ufrgs.br/numerico}  
+\end{center}}
+
+%E = 10^
+\def\E#1{\mathrm{E}\!#1\!}
 
 \ifisslide
 \input preambulo_slide.tex

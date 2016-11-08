@@ -1,0 +1,518 @@
+%Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+
+\chapter{Rápida Introdução à Python}\label{cap:python}\index{Python}
+
+Neste apêndice, discutiremos os principais aspectos da linguagem computacional \verb+Python+ que são excenciais para uma boa leitura desta versão do livro. O material aqui apresetado, é uma adaptação livre do Apêndice A de \cite{CALSCI}.
+
+\section{Sobre a linguagem Python}\index{Python!sobre}
+
+\href{https://www.python.org/}{Python} é uma linguagem de programação de alto nível, interpretada e multi-paradigma. Lançada por \href{https://gvanrossum.github.io//}{Guido van Rossum}\footnote{Guido van Rossum, nascido em 1956, programador de computadores dos Países Baixos.} em 1991 é, atualmente, mantida de forma colaborativa e aberta.
+
+Para mais informações, consulte:
+\begin{itemize}
+\item Página oficial da linguagem Python: \url{https://www.python.org/}
+\item Comunidade Python Brasil: \url{http://wiki.python.org.br/}
+\end{itemize}
+
+Para iniciantes, recomendamos o curso EAD gratuíto no site \href{https://www.codecademy.com/}{Codecademy}:
+\begin{center}
+  \url{https://www.codecademy.com/learn/python}
+\end{center}
+
+\subsection{Instalação e Execução}\index{Python!instalação e execução}
+
+Para executar um código \verb+Python+ é necessário ter instalado um interpretador para a linguagem. No \href{https://www.python.org/}{site oficial do Python} estão disponíveis para {\it download} os interpretadores \verb+Python 2.7+ e \verb+Python 3+ para vários sistemas operacionais, como \verb+Linux+, \verb+Mac OS+ e \verb+Windows+. Muitas distribuições de \verb+Linux+ (\verb+Linux Mint+, \verb+Ubuntu+, etc.) têm o \verb+Python+ no seu sistema de pacotes (incluindo documentação em várias línguas).
+
+Ao longo do texto, assumiremos que o leitor estaja usando um computar rodando \verb+Linux+. Para outros sistemas, pode ser necessário fazer algumas adaptações.
+
+\subsection{Usando Python}\index{Python!usando}
+
+O uso do Python pode ser feito de três formas básicas:
+\begin{itemize}
+\item usando um {\bf console Python} de modo iterativo;
+\item executando um código \verb+codigo.py+ no console \verb+Python+;
+\item executando um código \verb+Python+ \verb+codigo.py+ diretamente em terminal;
+\end{itemize}
+
+\begin{ex}
+  Considere o seguinte pseudocódigo:
+\begin{verbatim}
+s = "Olá Mundo!". (Sem imprimir na tela o resultado.)
+saída(s). (Imprime na tela.)
+\end{verbatim}
+Implemente este pseudocódigo em \verb+Python+: a) usando diretamente um console; b) digitando seu código em um arquivo separado e executando-o no console Python com a função \verb+execfile+.b) digitando seu código em um arquivo separado e executando-o em terminal com o comando \verb+python+.
+\end{ex}
+\begin{sol} Seguem as soluções de cada item:
+  \begin{itemize}
+  \item[a)]  No console temos:
+\begin{verbatim}
+>>> s = "Olá, Mundo!"
+>>> print(s)
+Olá, Mundo!
+\end{verbatim}
+Para sair do console, digite:
+\begin{verbatim}
+>>> quit()
+\end{verbatim}
+  \item[b)] Abra o editor de texto de sua preferência e digite o código:
+\begin{verbatim}
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+s = 'Olá'
+print(s)
+\end{verbatim}
+Salve o arquivo como, por exemplo, \verb+ola.py+. No console \verb+Python+, digite:
+\begin{verbatim}
+>>> execfile("ola.py")
+\end{verbatim}
+  \item[c)] Abra o editor de texto de sua preferência e digite o código:
+\begin{verbatim}
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+s = 'Olá'
+print(s)
+\end{verbatim}
+Salve o arquivo como, por exemplo, \verb+ola.py+. Em um terminal, digite:
+\begin{verbatim}
+$ python ola.py
+\end{verbatim}
+\end{itemize}
+\end{sol}
+
+\section{Elementos da linguagem}\index{Python!elementos da linguagem}
+
+\verb+Python+ é uma linguagem de alto nível, interpretada e dinâmica. Uma variável é criada quando um valor é atribuído a ela. Por exemplo:
+\begin{verbatim}
+>>> x=1
+>>> y = x * 2.0
+\end{verbatim}
+a variável \verb+x+ recebe o valor \verb+int+ $1$ e, logo após, na segunda linha de comando, a variável \verb+y+ recebe o valor \verb+double+ $2$. Observamos que o símbolo \verb+=+ significa o operador de atribuição não o de igualdade. O operador lógico de igualdade no \verb+Python+ é \verb+==+. Veja os seguintes comandos:
+\begin{verbatim}
+>>> print(x,y)
+(1, 2.0)
+>>> type(x), type(y)
+(<type 'int'>, <type 'float'>)
+\end{verbatim}
+
+Comentários e continuação de linha de comando são usados como no seguinte exemplo:
+\begin{verbatim}
+>>> #isto é um comentário
+... 
+>>> x = 1 \
+... + 2
+>>> print(x)
+3
+\end{verbatim}
+
+\subsection{Operações matemáticas elementares}\index{Python!operações matemáticas}
+
+Em \verb+Python+, os operadores matemáticos elementares são os seguintes:
+\begin{verbatim}
+  + adição
+  - subtração
+  * multiplicação
+  / divisão
+  ** potenciação
+\end{verbatim}
+
+Atenção, a operação de divisão se comporta diferente nas versões \verb+Python 2.7+ e \verb+Python 3+. Em \verb+Python 3+, temos:
+\begin{verbatim}
+>>> 1/2
+0.5
+\end{verbatim}
+Já, em \verb+Python 2.7+:
+\begin{verbatim}
+>>> 1/2
+0
+>>> from __future__ import division
+>>> 1/2
+0.5
+\end{verbatim}
+
+\subsection{Funções e constantes elementares}\index{Python!funções e constantes (math)}
+
+Várias funções e constantes elementares estão disponíveis no pacote módulo Python \href{https://docs.python.org/3/library/math.html?highlight=math#module-math}{math}. Por exemplo:
+\begin{verbatim}
+>>> import math as math
+>>> math.cos(pi)
+-1.0
+>>> math.exp(1)
+2.718281828459045
+>>> math.log(math.exp(1))
+1.0
+\end{verbatim}
+
+Observamos que \verb+math.log+ é a função logarítmo natural, i.e. $f(x) = \ln(x)$, enquanto que a implementação Python de $f(x) = \log(x)$ é:
+\begin{verbatim}
+>>> math.log10(10)
+1.0
+\end{verbatim}
+Veja mais na documentação do \href{https://docs.python.org/3/library/math.html?highlight=math#module-math}{módulo math}:
+\begin{verbatim}
+>>> help(math)
+\end{verbatim}
+
+\subsection{Operadores lógicos}\index{Python!operadores lógicos}
+
+Em \verb+Python+, o valor lógico verdadeiro é escrito como \verb+True+ e o valor lógico falso como \verb+False+. Temos os seguintes operadores lógicos disponíveis:
+\begin{verbatim}
+and  e lógico
+or  ou lógico
+not  negação
+== igualdade
+!= diferente
+<  menor que
+>  maior que
+<= menor ou igual que
+>= maior ou igual que
+\end{verbatim}
+
+\begin{ex}
+  Se $x=2$, então $x$ é maior ou igual a 1 e menor que 3? 
+\end{ex}
+\begin{sol}
+  Em \verb+Python+, temos:
+\begin{verbatim}
+>>> x=2
+>>> (x >= 1) and (x < 3)
+True
+\end{verbatim}
+\end{sol}
+
+\section{Matrizes}\index{Python!matrizes (numpy)}
+
+Em \verb+Python+, temos um ótimo suporte para computação científica com o pacote \href{http://www.numpy.org/}{numpy}. Uma matriz $A = [a_{i,j}]_{i,j=1}^{m,n}$ em Python é definida usando-se a seguinte sintaxe:
+\begin{verbatim}
+>>> import numpy as np
+>>> A = np.array([[ a11 , a12 , ... , a1n], [...]. [am1 , am2 , ... , amn]])
+\end{verbatim}
+
+\begin{ex}
+  Defina a matriz:
+  \begin{equation*}
+    A = \left[
+      \begin{array}{ccc}
+        1 & 2 & 3\\
+        4 & 5 & 6
+      \end{array}
+\right]
+  \end{equation*}
+\end{ex}
+\begin{sol}
+  Em \verb+Python+, digitamos:
+\begin{verbatim}
+>>> import numpy as np
+>>> A = np.array([[1,2,3],
+...               [4,5,6]])
+>>> print(A)
+[[1 2 3]
+ [4 5 6]]
+\end{verbatim}
+\end{sol}
+
+A seguinte lista contém uma série de funções que geram matrizes particulares:
+\begin{verbatim}
+numpy.eye      matrix identidade
+numpy.linspace vetor de elementos linearmente espaçados
+numpy.ones     matriz cheia de uns
+numpy.zeros    matriz nula
+\end{verbatim}
+
+\subsection{Obtendo dados de uma matriz}
+
+A função \verb+numpy.shape+ retorna o tamanho de uma matriz, por exemplo:
+\begin{verbatim}
+>>> A = np.ones((3,2))
+>>> print(A)
+[[ 1.  1.]
+ [ 1.  1.]
+ [ 1.  1.]]
+>>> nl, nc = np.shape(A)
+>>> print(nl,nc)
+(3, 2)
+\end{verbatim}
+informando que a matriz \verb+A+ tem três linhas e duas colunas.
+
+Existem vários métodos para se acessar os elementos de uma matriz dada \verb+A+:
+\begin{itemize}
+\item a matriz inteira acessa-se com a sintaxe:
+\begin{verbatim}
+A
+\end{verbatim}
+\item o elemento da $i$-ésima linha e $j$-ésima coluna acessa-se usando a sintaxe:
+\begin{verbatim}
+A[i,j]
+\end{verbatim}
+\item o bloco formado pelas linhas $i_1$, $i_2$ e pelas colunas $j_1$, $j_2$ obtém-se usando a sintaxe:
+\begin{verbatim}
+A[i1:i2, j1:j2]
+\end{verbatim}
+\end{itemize}
+
+\begin{ex}
+  Veja as seguintes linhas de comando:
+\begin{verbatim}
+>>> from numpy import random
+>>> A = np.random.random((3,4))
+>>> A
+array([[ 0.39235668,  0.30287204,  0.24379253,  0.98866709],
+       [ 0.72049734,  0.99300252,  0.14232844,  0.25604346],
+       [ 0.61553036,  0.80615392,  0.22418474,  0.13685148]])
+>>> A[2,3]
+0.13685147547025989
+>>> A[1:3,1:4]
+array([[ 0.99300252,  0.14232844,  0.25604346],
+       [ 0.80615392,  0.22418474,  0.13685148]])
+\end{verbatim}
+\end{ex}
+
+Definida uma matriz $A$ em Python, as seguintes sintaxes são bastante úteis:
+\begin{verbatim}
+A[:,:]   toda a matriz
+A[i:j,k] os elementos das linhas i até j (exclusive) da k-ésima coluna
+A[i,j:k] os elementos da i-ésina linha das colunas j até k (exclusive)
+A[i,:]   a i-ésima linha da matriz
+A[:,j]   a j-ésima coluna da matriz
+\end{verbatim}
+
+Atenção, os índices em \verb+Python+ iniciam-se em $0$. Assim, o comando \verb+A[1:3,1:4]+ retorna o bloco da matriz $A$ compreendido da segunda à terceira linha e da segunda a quarta coluna desta matriz. 
+
+\begin{ex}
+Veja as seguintes linhas de comando:
+\begin{verbatim}
+>>> B = np.random.random((4,4))
+>>> B
+array([[ 0.94313432,  0.72650883,  0.55487089,  0.18753526],
+       [ 0.02094937,  0.45726099,  0.51925464,  0.8535878 ],
+       [ 0.75948469,  0.95362926,  0.77942318,  0.06464183],
+       [ 0.91243198,  0.22775889,  0.04061536,  0.14908227]])
+>>> aux = np.copy(B[:,2])
+>>> B[:,2] = np.copy(B[:,3])
+>>> B[:,3] = np.copy(aux)
+>>> B
+array([[ 0.94313432,  0.72650883,  0.18753526,  0.55487089],
+       [ 0.02094937,  0.45726099,  0.8535878 ,  0.51925464],
+       [ 0.75948469,  0.95362926,  0.06464183,  0.77942318],
+       [ 0.91243198,  0.22775889,  0.14908227,  0.04061536]])
+\end{verbatim}
+\end{ex}
+
+\subsection{Operações matriciais e elemento-a-elemento}
+
+Em \verb+Python+ com \verb+numpy+, o operador \verb+*+ opera elemento a elemento. Por exemplo:
+\begin{verbatim}
+>>> A = np.array([[1,2],[2,1]]); print(A)
+[[1 2]
+ [2 1]]
+>>> B = np.array([[2,1],[2,1]]); print(B)
+[[2 1]
+ [2 1]]
+>>> print(A*B)
+[[2 2]
+ [4 1]]
+\end{verbatim}
+A multiplicação matricial obtemos com:
+\begin{verbatim}
+>>> C = A.dot(B)
+>>> print(C)
+[[6 3]
+ [6 3]]
+\end{verbatim}
+
+Aqui, temos as sintaxes análogas entre operações elemento-a-elemento:
+\begin{verbatim}
++ adição       
+- subtração    
+* multiplicação 
+/ divisão
+** potenciação
+\end{verbatim}
+
+\begin{ex}
+  Veja as seguintes linhas de comando:
+\begin{verbatim}
+>>> A = np.ones((2,2))
+>>> A
+array([[ 1.,  1.],
+       [ 1.,  1.]])
+>>> B = 2 * np.ones((2,2))
+>>> B
+array([[ 2.,  2.],
+       [ 2.,  2.]])
+>>> A*B
+array([[ 2.,  2.],
+       [ 2.,  2.]])
+>>> A.dot(B)
+array([[ 4.,  4.],
+       [ 4.,  4.]])
+>>> A/B
+array([[ 0.5,  0.5],
+       [ 0.5,  0.5]])
+\end{verbatim}
+\end{ex}
+
+\section{Estruturas de ramificação e repetição}\index{Python!ramificação e repetição}
+
+A linguagem \verb+Python+ contém estruturas de repetição e ramificação padrões de linguagens estruturadas.
+
+\subsection{A instrução de ramificação ``if''}\index{Python!if}
+
+A instrução ``if'' permite executar um pedaço do código somente se uma dada condição for satisfeita.
+
+\begin{ex}
+  Veja o seguinte código Scilab:
+\begin{verbatim}
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+i = 2
+if (i == 1):
+    print("Olá!")
+elif (i == 2):
+    print("Hallo!")
+elif (i == 3):
+    print("Hello!")
+else:
+    print("Ça Va!")
+\end{verbatim}
+Qual é a saída apresentada pelo código? Porquê?
+\end{ex}
+
+Observamos que, em \verb+Python+, a identação é obrigatória, pois é ela que defini o escopo da instrução.
+
+\subsection{A instrução de repetição ``for''}\index{Python!for}
+
+A instrução \verb+for+ permite que um pedaço de código seja executado repetidamente.
+
+\begin{ex}
+  Veja o seguinte código:
+\begin{verbatim}
+for i in range(6):
+    print(i)
+\end{verbatim}
+Qual é a saída deste código? Porquê?
+\end{ex}
+
+\begin{ex}
+  Veja o seguinte código:
+\begin{verbatim}
+import numpy as np
+for i in np.arange(1,8,2):
+    print(i)
+\end{verbatim}
+Qual é a saída deste código? Porquê?
+\end{ex}
+
+\begin{ex}
+  Veja o seguinte código:
+\begin{verbatim}
+for k = 10:-3:1
+    disp(k)
+end
+\end{verbatim}
+O que é mostrado no console do Scilab?
+\end{ex}
+
+\begin{ex}
+  Veja o seguinte código:
+\begin{verbatim}
+import numpy as np
+for i in np.arange(10,1,-3):
+    print(i)
+\end{verbatim}
+O que é mostrado no console do Scilab?
+\end{ex}
+
+\subsection{A instrução de repetição ``while''}\index{Python!while}
+
+A instrução \verb+while+ permite que um pedaço de código seja executado repetidamente até que uma dada condição seja satisfeita.
+
+\begin{ex}
+Veja o seguinte código Scilab:
+\begin{verbatim}
+s = 0
+i = 1
+while (i <= 10):
+    s = s + i
+    i = i + 1
+\end{verbatim}
+Qual é o valor de \verb+s+ ao final da execução? Porquê?
+\end{ex}
+
+\section{Funções}\index{Python!funções}
+
+Além das muitas funções disponíveis em \verb+Python+ (e os tantos muitos pacotes livers disponíveis), podemos definir nossas próprias funções. Para tanto, existe a instrução \verb+def+. Veja os seguintes exemplos:
+
+\begin{ex}
+  O seguinte código:
+\begin{verbatim}
+def f(x): 
+    return x + np.sin(x)
+\end{verbatim}
+define a função $f(x) = x + \sen x$.
+
+Observe que $f(\pi) = \pi$. Confirme isso computando:
+\begin{verbatim}
+>>> f(np.pi)
+\end{verbatim}
+\end{ex}
+
+\begin{ex}
+  O seguinte código em \verb+Python+:
+\begin{verbatim}
+def h(x,y):
+    if (x < y):
+        return y - x
+    else:
+        return x - y
+\end{verbatim}
+define a função:
+\begin{equation*}
+  h(x,y) = \left\{
+    \begin{array}{ll}
+      y - x &, x < y\\
+      x - y &, x \geq y
+    \end{array}
+\right.
+\end{equation*}
+\end{ex}
+
+\begin{ex}
+  O seguinte código:
+\begin{verbatim}
+def J(x):
+    y = np.zeros((2,2))
+    y[0,0] = 2*x[0]
+    y[0,1] = 2*x[1]
+
+    y[1,0] = -x[1]*np.sin(x[0]*x[1])
+    y[1,1] = -x[0]*np.sin(x[0]*x[1])
+
+    return y
+\end{verbatim}
+define a matriz jacobiana $J(x_1,x_2) := \frac{\p(f_1,f_2)}{\p(x_1,x_2)}$ da função:
+\begin{equation*}
+  \pmb{f}(x_1,x_2) = (x_1^2 + x_2^2,~\cos(x_1x_2)).
+\end{equation*}
+\end{ex}
+
+\section{Gráficos}\index{Python!gráficos}
+
+Para criar um esboço do gráfico de uma função de uma variável real $y = f(x)$, podemos usar a biblioteca \verb+Python+ \href{http://matplotlib.org/}{mathplotlib}.A função \verb+matplotlib.pyplot.plot+ faz uma representação gráfica de um conjunto de pontos $\{(x_i, y_i)\}$ fornecidos. Existe uma série de opções para esta função de forma que o usuário pode ajustar várias questões de visualização. Veja a \href{http://matplotlib.org/api/pyplot_api.html?highlight=pyplot.plot#matplotlib.pyplot.plot}{documentação}.
+
+\begin{ex}
+  Veja as seguintes linhas de código:
+\begin{verbatim}
+>>> import numpy as np
+>>> import matplotlib.pyplot as plt
+>>> def f(x): return x**3 + 1
+... 
+>>> x = np.linspace(-2,2)
+>>> plt.plot(x, f(x))
+[<matplotlib.lines.Line2D object at 0x7f4f6d153510>]
+>>> plt.grid()
+>>> plt.show()
+\end{verbatim}
+\end{ex}

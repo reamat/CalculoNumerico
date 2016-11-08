@@ -5,6 +5,22 @@
 
 \chapter{Aritmética de máquina}\index{aritmética!de máquina}
 
+Neste capítulo, discutiremos sobre formas de represenção de números em computadores. Iniciamos discutindo sobre representação posicional e mudança de base. Então, discutimos sobre representação com número de dígitos finitos e, mais especificamente, as representações de números inteiros, ponto fixo e ponto flutuante em computadores.
+
+A representação de números e a aritmética em computadores levam aos chamados erros de arredondamento e de truncamento. Ao final deste capítulo, discutiremos sobre os efeitos do erro de arredondamento na computação científica.
+
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Ao longo do capítulo, faremos alguns comentários usando códigos em \verb+Python 2.7+. Nestes, estaremos assumindo que os seguintes módulos estão carregados:
+\begin{verbatim}
+>>> from __future__ import division
+>>> import numpy as np
+\end{verbatim}
+A primeira instrução garante que divisões de números inteiros sejam computadas em ponto flutuante (\verb+double+) e a segunda carrega a biblioteca de computação científica \href{http://www.numpy.org/}{numpy}.
+\fi
+
 \section{Sistema de numeração e mudança de base}\index{mudança de base}\index{sistema de numeração}
 Usualmente, utilizamos o sistema de numeração decimal para representar números. Esse é um sistema de numeração posicional onde a posição do dígito indica a potência de $10$ que o dígito está representando.
 
@@ -135,6 +151,9 @@ Observe que $d_0$ é o resto da divisão de $X^{\mbox{i}}$ por $b$, pois $d_1+d_
   \end{equation*}
 logo $125 = (325)_6$.
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 Estes cálculos podem ser feitos no \verb+Scilab+ com o auxílio das funções \verb'modulo' e \verb'int'. A primeira calcula o resto da divisão entre dois números, enquanto que a segunda retorna a parte inteira de um número dado. No nosso exemplo, temos:
 \begin{verbatim}
@@ -144,6 +163,20 @@ Estes cálculos podem ser feitos no \verb+Scilab+ com o auxílio das funções \
 \end{verbatim}
 Verifique!
 \fi
+
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Estes cálculos podem ser feitos em \verb+Python+ com o auxílio do comando \verb+%+ e da função \verb'int'. Com o primeiro calculamos o resto da divisão entre dois números, enquanto que a segunda retorna a parte inteira de um número dado. No nosso exemplo, temos:
+\begin{verbatim}
+>>> q = 125; d0 = (q % 6); print(q,d0)
+>>> q = int(q/6); d1 = (q % 6); print(q,d1)
+>>> q = int(q/6); d2 = (q % 6); print(q,d2)
+\end{verbatim}
+Verifique!
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{ex}
 
 \ifisscilab
@@ -183,13 +216,16 @@ Observe que a parte inteira desse produto é $d_{-1}$ e $\frac{d_{-2}}{b}+\frac{
   \end{equation*}
 logo $0,58\overline{3} = (0,33)_6$.
 \ifisscilab
-As contas feitas aqui, também podem ser feitas no \verb+Scilab+. Você sabe como?
+As contas feitas aqui, também podem ser computadas no \verb+Scilab+. Você sabe como?
+\fi
+\ifispython
+As contas feitas aqui, também podem ser computadas em \verb+Python+. Você sabe como?
 \fi
 \end{ex}
 
 Uma maneira de converter um número dado numa base $b_1$ para uma base $b_2$ é fazer em duas partes: primeiro converter o número dado na base $b_2$ para base decimal e depois converter para a base $b_1$.
 
-\subsection{Exercícios}
+\subsection*{Exercícios}
 
 \indent 
 \begin{Exercise} Converta para base decimal cada um dos seguintes números:
@@ -283,6 +319,15 @@ Veja isso no \verb+Scilab+:
 -->sqrt(3)^2 == 3
  ans  =
   F  
+\end{verbatim}
+\fi
+\ifispython
+Veja isso em \verb+Python+:
+\begin{verbatim}
+>>> 2**2 == 4
+True
+>>> np.sqrt(3)**2 == 3
+False
 \end{verbatim}
 \fi
 
@@ -623,6 +668,9 @@ $$ x=(-1)^{s}(\RED{0}.m_{1}m_{2}\cdots m_{51}m_{52})_2 \times 2^{1-BIAS}.$$
 Outras informações sobre a representação em ponto flutuante podem ser obtidas com \verb+help number_properties+.
 \end{obs}
 \fi
+\ifispython
+Para mais informações sobre aritmética de ponto flutuante em \verb+Python+, veja a \href{https://docs.python.org/3/tutorial/floatingpoint.html?highlight=double}{documentação}.
+\fi
 
 \subsection{A precisão e o epsilon de máquina}
 
@@ -663,7 +711,7 @@ Por simplicidade, a partir daqui nós adotaremos $b=10$.
 \end{obs}
 \fi
 
-\subsection{Exercícios}
+\subsection*{Exercícios}
 
 \begin{Exercise} Explique a diferença entre o sistema de ponto fixo e ponto flutuante.
 \end{Exercise}
@@ -823,6 +871,9 @@ $$
     \begin{equation*}
       x_1=0,56,\quad x_2=0,23,\quad x_3=-0,67\quad\mbox{e}\quad x_4 = 3,1.
     \end{equation*}
+%%%%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 No \verb+Scilab+, podemos obter a representação de $x_3 = -0,675$ fazendo (verifique):
 \begin{verbatim}
@@ -830,17 +881,42 @@ No \verb+Scilab+, podemos obter a representação de $x_3 = -0,675$ fazendo (ver
 -->int(-0.675*1e2)/1e2
 \end{verbatim}
 \fi
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos obter a representação de $x_3 = -0,675$ fazendo (verifique):
+\begin{verbatim}
+-->int(-0.675*1e2)/1e2
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%
   \item Por arredondamento:
     \begin{equation*}
       x_1=0,57;\quad x_2=0,23;\quad x_3=-0,68\quad\mbox{e}\quad x_4 = 3,1.  
     \end{equation*}
+%%%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
-No \verb+Scilab+, a representação de números por arredondamento é o padrão. Assim, para obtermos a representação desejada de $x_3 = 0,675$ fazemos: podemos obter a representação de $x_3 = -0,675$ fazemos (verifique):
+No \verb+Scilab+, a representação de números por arredondamento é o padrão. Assim, para obtermos a representação desejada de $x_3 = 0,675$ fazemos:
 \begin{verbatim}
 -->format('e',8)
 -->-0.675
 \end{verbatim}
 \fi
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, a representação de números por arredondamento é o padrão. Assim, para obtermos a representação desejada de $x_3 = 0,675$ fazemos:
+\begin{verbatim}
+>>> print("%1.1e" % (-0.675))
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%
   \end{itemize}
 \end{sol}
 
@@ -850,7 +926,7 @@ No \verb+Scilab+, a representação de números por arredondamento é o padrão.
 \end{ex}
 
 
-\subsection{Exercícios}
+\subsection*{Exercícios}
 
 \begin{Exercise} Calcule os erros absoluto e relativo das aproximações $\bar{x}$ para $x$.
   \begin{itemize}
@@ -1207,7 +1283,7 @@ $$
 $$
 \end{sol}
 
-\subsection{Exercícios}
+\subsection*{Exercícios}
 
 \begin{Exercise}Considere que a variável $x\approx 2$ é conhecida com um erro relativo de $1\%$ e a variável $y\approx 10$ com um erro relativo de $10\%$. Calcule o erro relativo associado a $z$ quando:
   \begin{equation*}
@@ -1241,7 +1317,7 @@ Calcule a corrente e o erro relativo associado quando a tensão vale $220\pm 1\%
 \emph{Dica:} lembre que $x^\alpha=e^{\alpha \ln(x)}$
 \end{Exercise}
 
-\section{Mais exemplos}
+\section{Mais exemplos de Cancelamento Catastrófico}
 
 \begin{ex} Considere o seguinte processo iterativo:
 $$
@@ -1251,6 +1327,9 @@ x_{n+1}=4x_n-1,\qquad n\in\mathbb{N}
 \end{array}\right..
 $$
 Observe que $x_0=\frac{1}{3}$, $x_1=4\cdot \frac{1}{3}-1=\frac{1}{3}$, $x_2=\frac{1}{3}$, ou seja, temos uma sequência constante igual a $\frac{1}{3}$. No entanto, ao calcularmos no computador, usando o sistema de numeração 'double', a sequencia obtida não é constante e, de fato, diverge.
+%%%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 Faça o teste no \verb+Scilab+, colocando:
 \begin{verbatim}
@@ -1261,6 +1340,20 @@ e itere algumas vezes a linha de comando:
 -->x = 4*x-1
 \end{verbatim}
 \fi
+%%%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Faça o teste em \verb+Python+, colocando:
+\begin{verbatim}
+>>> x = 1/3; x
+\end{verbatim}
+e itere algumas vezes a linha de comando:
+\begin{verbatim}
+>>> x = 4*x-1; x
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%
 
 Para compreender o que acontece, devemos levar em consideração que o número $\frac{1}{3}=0,\overline{3}$ possui um representação infinita tanto na base decimal quanto na base binária. Logo, sua representação de máquina incliu um erro de arredondamento. Seja $\epsilon$ a diferença entre o valor exato de $\frac{1}{3}$ e sua representação de máquina, isto é, $\tilde{x}_0=\frac{1}{3}+\epsilon$. A sequência efetivamente calculada no computador é:
 \begin{eqnarray*}
@@ -1278,36 +1371,44 @@ Qual o número de condicionamento desse problema?
 \end{ex}
 
 
-\begin{ex}Observe a seguinte identidade
+\begin{ex}\label{ex:cancelamento_0}Observe a seguinte identidade
 $$
 f(x)=\frac{(1+x)-1}{x}=1
 $$
 Calcule o valor da expressão à esquerda para $x=10^{-12}$, $x=10^{-13}$, $x=10^{-14}$, $x=10^{-15}$, $x=10^{-16}$ e $x=10^{-17}$. Observe que quando $x$ se aproxima do $\epsilon$ de máquina a expressão perde o significado. Veja a Figura~\ref{fig:cancelamento_0} com o gráfico de $f(x)$ em escala logarítmica.
+\end{ex}
 
 \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{./cap_aritmetica/pics/cancelamento_0}  
-  \caption{Oi. Eu estou aqui!}
+  \caption{Gráfico na função do Exemplo~\ref{ex:cancelamento_0}.}
   \label{fig:cancelamento_0}
 \end{figure}
 
-\end{ex}
 
-\begin{ex} Neste exemplo, estamos interessados em compreender mais detalhadamente o comportamento da expressão
-\begin{equation}\label{def_lim}\left(1+\frac{1}{n}\right)^n\end{equation}
+\begin{figure}
+  \includegraphics[width=0.8\textwidth]{./cap_aritmetica/pics/cancelamento_euler}
+  \caption{Gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$ em escala linear-logarítmica variando de $10^0$ até $10^{18}$. Veja o Exemplo~\ref{ex:cancelamento_euler}.}
+  \label{fig:cancelamento_euler}
+\end{figure}
+
+\begin{ex}\label{ex:cancelamento_euler} Neste exemplo, estamos interessados em compreender mais detalhadamente o comportamento da expressão
+\begin{equation*}
+  \label{def_lim}\left(1+\frac{1}{n}\right)^n
+\end{equation*}
 quando $n$ é um número grande ao computá-la em sistemas de numeral de ponto flutuante com acurácia finita.
 Um resultado bem conhecido do cálculo nos diz que o limite de (\ref{def_lim}) quando $n$ tende a infinito é o número de Euler:
-\begin{equation}\label{lim}\lim_{n\to \infty}\left(1+\frac{1}{n}\right)^n=e= 2,718281828459...\end{equation}
+\begin{equation*}\label{lim}
+  \lim_{n\to \infty}\left(1+\frac{1}{n}\right)^n=e= 2,718281828459...
+\end{equation*}
 
-Sabemos também que a sequência produzida por (\ref{def_lim}) é crescente, isto é:
+Sabemos também que a sequência produzida por \eqref{def_lim} é crescente, isto é:
 $$\left(1+\frac{1}{1}\right)^1< \left(1+\frac{1}{2}\right)^2< \left(1+\frac{1}{3}\right)^3 < \cdots $$
 
 No entanto, quando calculamos essa expressão no \verb+Scilab+, nos defrontamos com o seguinte resultado:
-$$\begin{array}{|c|c|c|c|c|}
-\hline &&&&\\[-0.3cm]
-n & \left(1+\frac{1}{n}\right)^n&~~~~&n & \left(1+\frac{1}{n}\right)^n\\
- &&&&\\[-0.3cm]
-\hline\\[-0.3cm]
+\begin{equation*}
+\begin{array}{|c|c|c|c|c|}\hline &&&&\\[-0.3cm]
+n & \left(1+\frac{1}{n}\right)^n&~~~~&n & \left(1+\frac{1}{n}\right)^n\\ &&&&\\[-0.3cm]\hline\\[-0.3cm]
 1 & 2,0000000000000 && 10^{2} & 2,7048138294215 \\
 2 & 2,2500000000000 && 10^{4} & 2,7181459268249 \\
 3 & 2,3703703703704 && 10^{6} & 2,7182804690957 \\
@@ -1317,85 +1418,120 @@ n & \left(1+\frac{1}{n}\right)^n&~~~~&n & \left(1+\frac{1}{n}\right)^n\\
 7 & 2,5464996970407 && 10^{14} & 2,7161100340870 \\
 8 & 2,5657845139503 && 10^{16} & 1,0000000000000 \\
 9 & 2,5811747917132 && 10^{18} & 1,0000000000000 \\
-10 & 2,5937424601000 && 10^{20} & 1,0000000000000 \\
-\hline
-\end{array}
-$$
-Podemos resumir esses dados no seguinte gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$:
+10 & 2,5937424601000 && 10^{20} & 1,0000000000000 \\\hline
+\multicolumn{5}{c}{}
+\end{array}  
+\end{equation*}
 
-%\begin{figure}[htp]
-\includegraphics[width=0.8\textwidth]{./cap_aritmetica/pics/cancelamento_euler.eps}
-%\caption{Gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$ em escala linear-logarítmica variando de $10^0$ até $10^{18}$ gerado no Scilab 5.4.1.}
-%\end{figure}
+Podemos resumir esses dados no gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$, veja a Figura~\ref{fig:cancelamento_euler}.
 
-Observe que quando $x$ se torna grande, da ordem de $10^{15}$, o gráfico da função deixa de se crescente e apresenta oscilações.  Observe também que a expressão se torna identicamente igual a $1$ depois de um certo limiar. Tais fenômenos não são intrínsecos da função $f(x)=(1+1/x)^x$, mas \emph{\uline{oriundas de erros de arredondamento}}, isto é, são resultados numéricos espúrios. A fim de pôr o comportamento numérico de tal expressão, apresentamos abaixo o gráfico da mesma função, porém restrito à região entre $10^{14}$ e $10^{16}$.
-
-%\begin{figure}
-\includegraphics[width=0.9\textwidth]{./cap_aritmetica/pics/cancelamento_euler2.eps}
-%\caption{Gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$ em escala linear-logarítmica variando de $10^{14}$ até $10^{16}$ gerado no Scilab 5.4.1.}
-¨%\end{figure}
-\end{ex}
+Observe que quando $n$ se torna grande, da ordem de $10^{15}$, o gráfico da função deixa de se crescente e apresenta oscilações.  Observe também que a expressão se torna identicamente igual a $1$ depois de um certo limiar. Tais fenômenos não são intrínsecos da função $f(n)=(1+1/n)^n$, mas \emph{\uline{oriundas de erros de arredondamento}}, isto é, são resultados numéricos espúrios. A fim de pôr o comportamento numérico de tal expressão, apresentamos abaixo o gráfico da mesma função, porém restrito à região entre $10^{14}$ e $10^{16}$.
 
 Para compreendermos melhor por que existe um limiar $N$ que, quando atingido torna a expressão do exemplo acima identicamente igual a $1$, observamos a sequência de operações realizadas pelo computador:
 \begin{equation}\label{seq_oper}
-x~\to ~1/x ~\to ~1+1/x ~\to ~(1+1/x)^x
+n~\to ~1/n ~\to ~1+1/n ~\to ~(1+1/n)^n
 \end{equation}
 Devido ao limite de precisão da representação de números em ponto flutuante, existe um menor número representável que é maior do que 1. Este número é $1 + $\verb+eps+, onde \verb+eps+ é chamado de \emph{épsilon de máquina} e é o menor número que somado a 1 produz um resultado superior a 1 no sistema de numeração usado. O épsilon de máquina no sistema de numeração \emph{double} vale aproximadamente $2,22\times 10^{-16}$.
+%%%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
-No \verb+Scilab+, o epsilon de máquina é a constante \verb+eps+. Observe que:
+Em \verb+Python+, o epsilon de máquina é a constante \verb+eps+. Observe que:
 \begin{verbatim}
 -->1+%eps
  ans  =
     1.0000000000000002220446 
 \end{verbatim}
 \fi
-Quando somamos a $1$ um número positivo inferior ao épsilon de máquina, obtemos o número 1. Dessa forma, o resultado obtido pela operação de ponto flutuante $1+x$ para $0<x<2,22 \times 10^{-16}$ é 1. 
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+ podemos obter o epsilon de máquina com o seguinte comando \verb+numpy+:
+\begin{verbatim}
+>>> eps = np.finfo(float).eps
+>>> print(eps)
+2.22044604925e-16
+>>> 1+eps == 1
+False
+>>> 1+eps
+1.0000000000000002
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%
+Quando somamos a $1$ um número positivo inferior ao épsilon de máquina, obtemos o número 1. Dessa forma, o resultado obtido pela operação de ponto flutuante $1+n$ para $0<n<2,22 \times 10^{-16}$ é 1. 
 
-Portanto, quando realizamos a sequência de operações dada em (\ref{seq_oper}), toda informação contida no número $x$ é perdida na soma com $1$ quando $1/x$ é menor que o épsilon de máquina, o que ocorre quando $x>5\times 10^{15}$. Assim $(1+1/x)$ é aproximado para $1$ e a última operação se resume a $1^x$, o que é igual a $1$ mesmo quando $x$ é grande.
+Portanto, quando realizamos a sequência de operações dada em \eqref{seq_oper}, toda informação contida no número $n$ é perdida na soma com $1$ quando $1/n$ é menor que o épsilon de máquina, o que ocorre quando $n>5\times 10^{15}$. Assim $(1+1/n)$ é aproximado para $1$ e a última operação se resume a $1^n$, o que é igual a $1$ mesmo quando $n$ é grande.
 
-Um erro comum é acreditar que o perda de significância se deve ao fato de $1/x$ ser muito pequeno para ser representado e é aproximando para $0$. Isto é falso, o sistema de ponto de flutuante permite representar números de magnitude muito inferior ao épsilon de máquina. O problema surge da limitação no tamanho da mantissa. Observe como a seguinte sequência de operações não perde significância para números positivos x muito menores que o épsilon de máquina:
+Um erro comum é acreditar que o perda de significância se deve ao fato de $1/n$ ser muito pequeno para ser representado e é aproximando para $0$. Isto é falso, o sistema de ponto de flutuante permite representar números de magnitude muito inferior ao épsilon de máquina. O problema surge da limitação no tamanho da mantissa. Observe como a seguinte sequência de operações não perde significância para números positivos x muito menores que o épsilon de máquina:
 \begin{equation}\label{seq_oper2}
-x ~\to ~1/x ~\to ~1/(1/x) 
+n ~\to ~1/n ~\to ~1/(1/n) 
 \end{equation}
- compare o desempenho numérico desta sequência de operações para valores pequenos de $x$ com o da seguinte sequência:
+compare o desempenho numérico desta sequência de operações para valores pequenos de $n$ com o da seguinte sequência:
 \begin{equation}\label{seq_oper3}
-x ~\to ~1+x ~\to ~(1+x)-1.
+n ~\to ~1+n ~\to ~(1+n)-1.
 \end{equation}
 Finalmente, notamos que quando tentamos calcular $\left(1+\frac{1}{n}\right)^n$ para $n$ grande, existe perda de significância no cálculo de $1+1/n$. 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 Para entendermos isso melhor, vejamos o que acontece no \verb+Scilab+ quando $n=7\times 10^{13}$:
 \begin{verbatim}
 -->n=7e13
  n  =
      7.000000000000000000D+13  
- 
 -->1/n
  ans  =
-     1.428571428571428435D-14  
- 
+     1.428571428571428435D-14   
 -->y=1+1/n
  y  =
- 
     1.000000000000014211D+00  
 \end{verbatim}
 Observe a perda de informação ao deslocar a mantissa de $1/n$. Para evidenciar o fenômenos, observamos o que acontece quando tentamos recalcular $n$ subtraindo $1$ de $1+1/n$ e invertendo o resultado:
 \begin{verbatim}
 -->y-1
  ans  =
-     1.421085471520200372D-14  
- 
+     1.421085471520200372D-14   
 -->1/(y-1)
  ans  =
      7.036874417766400000D+13  
 \end{verbatim}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+Para entendermos isso melhor, vejamos o que acontece no \verb+Scilab+ quando $n=7\times 10^{13}$:
+\begin{verbatim}
+>>> n=7e13; print("%1.15e" % n)
+7.000000000000000e+13
+>>> n=7e13; print("%1.20e" % n)
+7.00000000000000000000e+13
+>>> print("%1.20e" % (1/n))
+1.42857142857142843451e-14
+>>> y=1+1/n; print("%1.20e" % y)
+1.00000000000001421085e+00
+\end{verbatim}
+Observe a perda de informação ao deslocar a mantissa de $1/n$. Para evidenciar o fenômenos, observamos o que acontece quando tentamos recalcular $n$ subtraindo $1$ de $1+1/n$ e invertendo o resultado:
+\begin{verbatim}
+>>> print("%1.20e" % (y-1))
+1.42108547152020037174e-14
+>>> print("%1.20e" % (1/(y-1)))
+7.03687441776640000000e+13
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+\end{ex}
 
 \begin{ex}[Analogia da balança] Observe a seguinte comparação interessante que pode ser feita para ilustrar os sistemas de numeração com ponto fixo e flutuante: o sistema de ponto fixo é como uma balança cujas marcas estão igualmente espaçadas; o sistema de ponto flutuante é como uma balança cuja distância entre as marcas é proporcional à massa medida. Assim, podemos ter uma balança de ponto fixo cujas marcas estão sempre distanciadas de $100$g ($100$g, $200$g, $300$g, ..., $1$Kg, $1,1$Kg,...) e outra balança de ponto flutuante cujas marcas estão distanciadas sempre de aproximadamente um décimo do valor lido ($100$g, $110$g, $121$g, $133$g, ..., $1$Kg, $1,1$Kg, $1,21$Kg, ...) A balança de ponto fixo apresenta uma resolução baixa para pequenas medidas, porém uma resolução alta para grandes medidas. A balança de ponto flutuante distribui a resolução de forma proporcional ao longo da escala.    
 
 Seguindo nesta analogia, o fenômeno de perda de significância pode ser interpretado como a seguir: imagine que você deseje obter o peso de um gato (aproximadamente $4$Kg). Dois processos estão disponíveis: colocar o gato diretamente na balança ou medir seu peso com o gato e, depois, sem o gato. Na balança de ponto flutuante, a incerteza associada na medida do peso do gato (sozinho) é aproximadamente $10\%$ de $4$Kg, isto é, $400$g. Já a incerteza associada à medida da uma pessoa (aproximadamente $70$Kg) com o gato é de $10\%$ do peso total, isto é, aproximadamente $7$Kg. Esta incerteza é da mesma ordem de grandeza da medida a ser realizada, tornado o processo impossível de ser realizado, já que teríamos uma incerteza da ordem de $14$Kg (devido à dupla medição) sobre uma grandeza de $4$Kg.    
 \end{ex}
 
-\subsection{Exercícios}
+\subsection*{Exercícios}
 
 \begin{Exercise} Considere as expressões:
   \begin{equation*}

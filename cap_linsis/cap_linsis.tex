@@ -55,6 +55,19 @@ a_{m1} & a_{m2} & \cdots & a_{mn}&b_m
 
 Salvo especificado ao contrário, assumiremos ao longo deste capítulo que a matriz dos coeficientes $A$ é uma matriz real não-singular.
 
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Ao longo do capítulo, apresentamos algumas computações com \verb+Python+. Nestas, estaremos assumindo que a biblioteca \href{http://www.numpy.org/}{numpy} e seu módulo \href{https://docs.scipy.org/doc/numpy/reference/routines.linalg.html}{numpy.linalg} estão carregados:
+\begin{verbatim}
+>>> from __future__ import division
+>>> import numpy as np
+>>> from numpy import linalg
+\end{verbatim}
+\fi
+
+
 
 %Vários fatores podem ser analisados nas técnicas utilizadas: método direto ou iterativo, tempo de execução, estabilidade. Qual técnica é a melhor? na próxima seção trataremos do custo computacional que ajudará a responder essa pergunta considerando a eficiência.
 
@@ -298,7 +311,7 @@ $$x=3-\varepsilon y$$
 
 Observe que tais expressões são analiticamente idênticas às anteriores, no entanto, são mais estáveis numericamente. Quando $\varepsilon$ converge a zero, $y$ converge a $2$, como no caso anterior. No entanto, mesmo que $y=2$, a segunda expressão produz $x=3-\varepsilon y$, isto é, a aproximação $x\approx 3$ não depende mais de obter $2-y$ com precisão.
 
-\section*{Exercícios}
+\subsection*{Exercícios}
 
 \begin{Exercise}\label{prob_gausspp} Resolva o seguinte sistema de equações lineares
 \begin{eqnarray*}
@@ -373,14 +386,13 @@ x+10z&=&-48\\
 \end{Exercise}
 
 \begin{Exercise}Calcule a inversa da matriz
-$$
-A=\left[\begin{array}{ccc}
-1&2&-1\\
--1&2&0\\
-2&1&-1
-\end{array}
-\right]
-$$
+  \begin{equation*}
+    A = \begin{bmatrix}
+      1&2&-1\\
+      -1&2&0\\
+      2&1&-1      
+    \end{bmatrix}
+  \end{equation*}
 usando eliminação gaussiana com pivotamento parcial.
 \end{Exercise}
 
@@ -392,29 +404,32 @@ $$A^{-1}= \frac{1}{ad-bc} \left[\begin{array}{cc}d&-b\\-c&a\end{array}\right].$$
 
 \ifisscilab
 \begin{Exercise} Considere as matrizes
-$$A=
-\left[
-\begin{array}{ccc}
-0&0&1\\
-0&1&0\\
-1&0&0
-\end{array}\right]$$
+  \begin{equation*}
+    A=
+    \begin{bmatrix}
+      0&0&1\\
+      0&1&0\\
+      1&0&0      
+    \end{bmatrix}
+  \end{equation*}
 e
-$$E=
-\left[
-\begin{array}{ccc}
-1&1&1\\
-1&1&1\\
-1&1&1
-\end{array}\right]$$
+\begin{equation*}
+  E=
+  \begin{bmatrix}
+    1&1&1\\
+    1&1&1\\
+    1&1&1    
+  \end{bmatrix}
+\end{equation*}
 e o vetor
-$$v=
-\left[
-\begin{array}{c}
-2\\
-3\\
-4
-\end{array}\right]$$
+\begin{equation*}
+  v=
+  \begin{bmatrix}
+    2\\
+    3\\
+    4    
+  \end{bmatrix}
+\end{equation*}
 \begin{itemize}
 \item[a)] Resolva o sistema $Ax=v$ sem usar o computador.
 \item[b)] Sem usar o computador e através da técnica algébrica de sua preferência, resolva o sistema $(A+\varepsilon E)x_\varepsilon=v$ considerando $|\varepsilon|<<1$ e obtenha a solução exata em função do parâmetro $\varepsilon$.
@@ -984,6 +999,10 @@ Calcule as normas $1$, $2$ e $\infty$ da seguinte matriz:
     \|A\|_\infty &=& \max\{15, 7, 16\}=16\\
     \|A\|_2 &=& \sqrt{\max\{0,5865124, 21,789128, 195,62436\}}= 13,98657
   \end{eqnarray*}
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 No \verb+Scilab+ podemos computar normas $L^p$'s de matrizes usando o comando \verb+norm+. Neste exemplo, temos:
 \begin{verbatim}
@@ -997,6 +1016,25 @@ No \verb+Scilab+ podemos computar normas $L^p$'s de matrizes usando o comando \v
     13.986578
 \end{verbatim}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+ podemos computar normas $L^p$'s de matrizes usando a função \href{https://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.norm.html#numpy.linalg.norm}{numpy.linalg.norm}. Neste exemplo, temos:
+\begin{verbatim}
+>>> A = np.array([[3,-5,7],
+...               [1,-2,4],
+...               [-8,1,-7]])
+>>> np.linalg.norm(A,1)
+18
+>>> np.linalg.norm(A,np.inf)
+16
+>>> np.linalg.norm(A,2)
+13.986577820518308
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
 \subsection{Número de condicionamento}\index{número de condicionamento}
@@ -1027,7 +1065,7 @@ O número de condicionamento, então, mede o quão instável é resolver o probl
 
 {\bf Obs:} O número de condicionamento de qualquer matriz inversível é igual ou maior que $1$.
 
-\section*{Exercícios}
+\subsection*{Exercícios}
 
 \begin{Exercise} Calcule o valor de $\lambda$ para o qual o problema
 $$\left\{ \begin{array}{l}71x+41y=10\\
@@ -1209,12 +1247,27 @@ y^{(3)}&=&\frac{26-x^{(2)}}{8}=2,9625
 \end{eqnarray*}
 \end{ex}
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \subsubsection{Código Scilab: Jacobi}
 
-\verbatiminput{./cap_linsis/codes/metodo_de_jacobi/jacobi.sci}
+\verbatiminput{./cap_linsis/codes/scilab/metodo_de_jacobi/jacobi.sci}
 \fi
+%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\subsubsection{Código Python: Jacobi}
+
+\verbatiminput{./cap_linsis/codes/python/metodo_de_jacobi/jacobi.py}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+
+%phkonzen
 \subsection{Método de Gauss-Seidel}\index{método de!Gauss-Seidel}
 
 Assim como no método de Jacobi, no método de Gauss-Seidel também isolamos o elemento $x_i$ da equação $i$. Porém perceba que a equação para $x_2^{(k+1)}$ depende de $x_1^{(k)}$ na iteração $k$. Intuitivamente podemos pensar em usar $x_1^{(k+1)}$ que acabou de ser calculado e temos
@@ -1647,7 +1700,7 @@ onde $k(A)$ é o número de condicionamento.
   Ambos os métodos de Jacobi e Gauss-Seidel são convergentes para o sistema dado no Exemplo~\ref{ex:sislin}, pois a matriz dos coeficientes deste é uma matriz estritamente diagonal dominante.
 \end{ex}
 
-\section*{Exercícios}
+\subsection*{Exercícios}
 
 \begin{Exercise} Considere o problema de 5 incógnitas e cinco equações dado por
 
@@ -1810,9 +1863,9 @@ function x=gs()
     end
 endfunction
 \end{verbatim}    
+\fi
   \end{tiny}
 \end{Answer}
-\fi
 
 \begin{Exercise} Resolva o problema \ref{circuito1} pelos métodos de Jacobi e Gauss-Seidel.
 \end{Exercise}
@@ -1826,60 +1879,62 @@ x_1+10x_2+3x_3=27\\
 \end{Exercise}
 \begin{Answer}
   \begin{tiny}
-Permute as linhas 1 e 2.    
+    Permute as linhas 1 e 2.    
   \end{tiny}
 \end{Answer}
 
 
 \section{Método da potência para cálculo de autovalores}\index{autovalores}\index{método da potência}
-Consideremos uma matriz $A\in \mathbb{R}^{n,n}$ diagonalizável, isto é, existe um conjunto $\{{v}_{j}\}_{j=1}^n$ de autovetores de $A$ tais que qualquer elemento $x\in\mathbb{R}^n$ pode ser escrito como uma combinação linear dos ${v}_{j}$. Sejam $\{\lambda_j\}_{j=1}^n$ o conjunto de autovalores associados aos autovetores tal que um deles seja dominante, ou seja,
+Consideremos uma matriz $A\in \mathbb{R}^{n,n}$ diagonalizável, isto é, existe um conjunto $\{v_{j}\}_{j=1}^n$ de autovetores de $A$ tais que qualquer elemento $x\in\mathbb{R}^n$ pode ser escrito como uma combinação linear dos $v_{j}$. Sejam $\{\lambda_j\}_{j=1}^n$ o conjunto de autovalores associados aos autovetores tal que um deles seja dominante, ou seja,
 $$
 |\lambda_1|>|\lambda_2|\geq |\lambda_3|\geq\cdots |\lambda_n|>0
 $$
-Como os autovetores são LI, todo vetor ${x}\in\mathbb{R}^n$, ${x}=(x_1,x_2,...,x_n)$, pode ser escrito com combinação linear dos autovetores da seguinte forma:
+Como os autovetores são l.i., todo vetor $x\in\mathbb{R}^n$, $x=(x_1,x_2,...,x_n)$, pode ser escrito com combinação linear dos autovetores da seguinte forma:
 \begin{equation}\label{met_pot_forma}
-{x}=\sum_{j=1}^n\beta_j{v}_{j}.
+x=\sum_{j=1}^n\beta_jv_{j}.
 \end{equation}
 
 O método da potência permite o cálculo do autovetor dominante com base no comportamento assintótico (i.e. "no infinito") da sequência
-$${x}, A{x}, A^2{x}, A^3{x}, \ldots$$.
+$$x, Ax, A^2x, A^3x, \ldots$$.
 
 Por questões de convergência, consideramos a seguinte sequência semelhante à anterior, porém normalizada:
-$$\frac{{x}}{\|{x}\|}, \frac{A{x}}{\|A{x}\|}, \frac{A^2{x}}{\|A^2{x}\|}, \frac{A^3{x}}{\|A^3{x}\|}, \ldots,$$
+$$\frac{x}{\|x\|}, \frac{Ax}{\|Ax\|}, \frac{A^2x}{\|A^2x\|}, \frac{A^3x}{\|A^3x\|}, \ldots,$$
 que pode ser obtida pelo seguinte processo iterativo:
-$${x}^{(k+1)}=\frac{A^{k}{x}}{\|A^{k}{x}\|}$$
-Observamos que se ${x}$ está na forma (\ref{met_pot_forma}), então $A^k {x}$ pode ser escrito como
-$$A^{k}{x} = \sum_{j=1}^n\beta_j A^k {v}_{j}=\sum_{j=1}^n\beta_j \lambda_j^k {v}_{j}= \beta_1\lambda_1^k\left({v}_1+\sum_{j=2}^n\frac{\beta_j}{\beta_1} \left(\frac{\lambda_j}{\lambda_1}\right)^k {v}_{j}\right)$$
+$$x^{(k+1)}=\frac{A^{k}x}{\|A^{k}x\|}$$
+Observamos que se $x$ está na forma \eqref{met_pot_forma}, então $A^k x$ pode ser escrito como
+$$A^{k} x = \sum_{j=1}^n\beta_j A^k v_{j}=\sum_{j=1}^n\beta_j \lambda_j^k v_{j}= \beta_1\lambda_1^k\left(v_1+\sum_{j=2}^n\frac{\beta_j}{\beta_1} \left(\frac{\lambda_j}{\lambda_1}\right)^k v_{j}\right)$$
 Como $\left|\frac{\lambda_j}{\lambda_1}\right|<1$ para todo $j\geq 2$, temos
-$$\sum_{j=2}^n\frac{\beta_j}{\beta_1} \left(\frac{\lambda_j}{\lambda_1}\right)^k {v}_{j} \to 0.$$
+$$\sum_{j=2}^n\frac{\beta_j}{\beta_1} \left(\frac{\lambda_j}{\lambda_1}\right)^k v_{j} \to 0.$$
 Assim
-\begin{equation}\label{met_pot_assim}\frac{A^k {x}}{\|A^k {x}\|} = \frac{\beta_1\lambda_1^k}{\|A^k {x}\|}\left( {v}_1 + O\left(\left|\frac{\lambda_2}{\lambda_1}\right|^k\right))\right) \end{equation}
-Como a norma de $\frac{A^k {x}}{\|A^k {x}\|}$ é igual a um, temos
-$$\left\|\frac{\beta_1\lambda_1^k}{\|A^k x\|}{v}_1\right\| \to 1$$
+\begin{equation}\label{met_pot_assim}
+  \frac{A^k x}{\|A^k x\|} = \frac{\beta_1\lambda_1^k}{\|A^k x\|}\left( v_1 + O\left(\left|\frac{\lambda_2}{\lambda_1}\right|^k\right))\right) 
+\end{equation}
+Como a norma de $\frac{A^k x}{\|A^k x\|}$ é igual a um, temos
+$$\left\|\frac{\beta_1\lambda_1^k}{\|A^k x\|}v_1\right\| \to 1$$
 e, portanto,
-$$\left|\frac{\beta_1\lambda_1^k}{\|A^k {x}\|}\right| \to \frac{1}{\|{v}_1\|}$$
-Ou seja, se definimos $\alpha^{(k)}=\frac{\beta_1\lambda_1^k}{\|A^k {x}\|}$, então
+$$\left|\frac{\beta_1\lambda_1^k}{\|A^k x\|}\right| \to \frac{1}{\|v_1\|}$$
+Ou seja, se definimos $\alpha^{(k)}=\frac{\beta_1\lambda_1^k}{\|A^k x\|}$, então
 $$
 |\alpha^{(k)}|\to 1
 $$
 Retornando a (\ref{met_pot_assim}), temos:
 
-$$\frac{A^k {x}}{\|A^k {x}\|}-\alpha^{(k)}{v}_1 \to 0$$
+$$\frac{A^k x}{\|A^k x\|}-\alpha^{(k)} v_1 \to 0$$
 
 Observe que um múltiplo de autovetor  também é um autovetor e, portanto, 
 $$
-\frac{A^k {x}}{\|A^k {x}\|}
+\frac{A^k x}{\|A^k x\|}
 $$
-é um esquema que oscila entre os autovetores ou converge para o autovetor ${v}_1$.
+é um esquema que oscila entre os autovetores ou converge para o autovetor $v_1$.
 
 
-Uma vez que temos o autovetor ${v}_1$ de $A$, podemos calcular $\lambda_1$ da seguinte forma:
-$$
-A{v}_1=\lambda_1 {v}_1 ~\Longrightarrow~ {v}_1^TA{v}_1={v}_1^T\lambda_1 {v}_1 ~ \Longrightarrow~ \lambda_1=\frac{{v}_1^TA{v}_1}{{v}_1^T{v}_1}
-$$
-Observe que a última identidade é válida, pois $\|{v}_1\|=1$ por construção.
+Uma vez que temos o autovetor $v_1$ de $A$, podemos calcular $\lambda_1$ da seguinte forma:
+\begin{equation*}
+A v_1=\lambda_1 v_1 ~\Longrightarrow~ v_1^TA v_1= v_1^T\lambda_1 v_1 ~ \Longrightarrow~ \lambda_1=\frac{v_1^TA v_1}{ v_1^Tv_1}  
+\end{equation*}
+Observe que a última identidade é válida, pois $\|v_1\|=1$ por construção.
 
-\section*{Exercícios}
+\subsection*{Exercícios}
 
 \begin{Exercise} Calcule o autovalor dominante e o autovetor associado da matriz
 $$\left[\begin{array}{ccc}

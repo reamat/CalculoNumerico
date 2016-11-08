@@ -9,6 +9,19 @@ Neste capítulo, buscaremos aproximações numéricas para a solução de \emph{
 
 Em seguida, exploramos uma outra abordagem via \emph{iteração do ponto fixo}\index{iteração do ponto fixo}. Desta, obtemos o \emph{método de Newton}\footnote{Sir Isaac Newton, 1642 - 1727, matemático e físico inglês.}\index{método de Newton}, para o qual discutimos sua aplicação e convergência. Por fim, apresentamos o \emph{método das secantes}\index{método das secantes} como uma das possíveis variações do método de Newton.
 
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Ao longo do capítulo, apresentamos algumas computações com \verb+Python+. Nestas, estaremos assumindo o que os seguintes módulos estão carregados:
+\begin{verbatim}
+>>> from __future__ import division
+>>> import numpy as np
+>>> import matplotlib.pyplot as plt
+\end{verbatim}
+A segunda instrução carrega a biblioteca de computação científica \href{http://www.numpy.org/}{numpy} e a terceira carrega a biblioteca gráfica \href{http://matplotlib.org/}{matplotlib}.
+\fi
+
 \section{Existência e unicidade}\index{função!}\index{função!zero}
 
 O \emph{teorema de Bolzano}\footnote{Bernhard Placidus Johann Gonzal Nepomuk Bolzano, 1781 - 1848, matemático do Reino da Boêmia.}\index{teorema de!Bolzano} nos fornece condições suficientes para a existência do zero de uma função. Este é uma aplicação direta do \emph{teorema do valor intermediário}\index{teorema do valor intermediário}.
@@ -48,6 +61,9 @@ Mostre que existe pelo menos uma solução da equação $e^x=x+2$ no intervalo $
 \begin{sol}
 Primeiramente, observamos que resolver a equação $e^x = x+2$ é equivalente a resolver $f(x) = 0$ com $f(x)=e^x-x-2$. Agora, como $f(-2)=e^{-2}>0$ e $f(0)=-2<0$, temos do teorema de Bolzano que existe pelo menos um zero de $f(x)$ no intervalo $(-2, 0)$. E, portanto, existe pelo menos uma solução da equação dada no intervalo $(-2, 0)$.
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 Podemos usar o \verb+Scilab+ para estudarmos esta função. Por exemplo, podemos definir a função $f(x)$ e computá-la nos extremos do intervalo dado com os seguintes comandos:
 \begin{verbatim}
@@ -67,6 +83,25 @@ Alternativamente (e com maior precisão), podemos verificar diretamente o sinal 
   - 1.  
 \end{verbatim}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Podemos usar \verb+Python+ para estudarmos esta função. Por exemplo, podemos definir a função $f(x)$ e computá-la nos extremos do intervalo dado com os seguintes comandos:
+\begin{verbatim}
+>>> def f(x): return np.exp(x)-x-2
+... 
+>>> f(-2),f(0)
+(0.13533528323661281, -1.0)
+\end{verbatim}
+Alternativamente (e com maior precisão), podemos verificar diretamente o sinal da função nos pontos desejados com a função \href{https://docs.scipy.org/doc/numpy/reference/generated/numpy.sign.html?highlight=numpy.sign#numpy.sign}{numpy.sign}:
+\begin{verbatim}
+>>> np.sign(f(-2)*f(0))
+-1.0
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
 
@@ -81,6 +116,9 @@ Em outras palavras, para garantirmos que exista um único zero de uma dada funç
 \begin{ex}
 No Exemplo~\ref{ex:teorema_de_Bolzano}, mostramos que existe pelo menos um zero de $f(x) = e^{x}-x-2$ no intervalo $(-2,0)$, pois $f(x)$ é contínua e $f(-2)\cdot f(0) < 0$. Agora, observamos que, além disso, $f'(x)=e^x-1$ e, portanto, $f'(x)<0$ para todo $x\in(-2,0)$. Logo, da Proposição~\ref{prop:existencia_e_unicidade}, temos garantida a existência de um único zero no intervalo dado.
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 Podemos inspecionar o comportamento da função $f(x)= e^x - x - 2$ e de sua derivada fazendo seus gráficos no Scilab. Para tanto, podemos fazer o seguinte teste:
 \begin{verbatim}
@@ -91,11 +129,31 @@ Podemos inspecionar o comportamento da função $f(x)= e^x - x - 2$ e de sua der
 -->plot(x,fl(x));xgrid              // grafico de f'
 \end{verbatim}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Podemos inspecionar o comportamento da função $f(x)= e^x - x - 2$ e de sua derivada fazendo seus gráficos no Scilab. Para tanto, podemos usar o seguinte código \verb+Python+:
+\begin{verbatim}
+>>> def f(x): return np.exp(x)-x-2
+... 
+>>> xx = np.linspace(-2,0)
+>>> plt.plot(xx,f(xx))
+>>> plt.grid(); plt.show()
+
+>>> def fl(x): return np.exp(x)-1
+... 
+>>> plt.plot(xx,fl(xx))
+>>> plt.grid(); plt.show()
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{ex}
 
 A discussão feita nesta seção, especialmente o teorema de Bolzano, nos fornece os fundamentos para o método da bisseção, o qual discutimos na próxima seção.
 
-\subsection{Exercícios}
+\subsection*{Exercícios}
 
 \begin{Exercise}\label{exer:existencia_sol1}
   Mostre que $\cos x = x$ tem solução no intervalo $[0, \pi/2]$.
@@ -171,7 +229,7 @@ Pode ocorrer de $f(x^{(0)}) = 0$ e, neste caso, o zero de $f(x)$ é $x^* = x^{(0
   \label{fig:metodo_da_bissecao}
 \end{figure}
 
-De forma mais precisa, suponha que queiramos calcular uma aproximação com uma certa precisão $TOL$ para um zero $x^*$ de uma dada função contínua $f:[a, b]\to\mathbb{R}$ tal que $f(a)\cdot f(b) < 0$. Iniciamos, setamos $n=0$ e:
+De forma mais precisa, suponha que queiramos calcular uma aproximação com uma certa precisão $TOL$ para um zero $x^*$ de uma dada função contínua $f:[a, b]\to\mathbb{R}$ tal que $f(a)\cdot f(b) < 0$. Iniciamos, tomando $n=0$ e:
 \begin{equation*}
   a^{(n)} = a,\quad b^{(n)} = b\quad\text{e}\quad x^{(n)} = \frac{a^{(n)} + b^{(n)}}{2}.
 \end{equation*}
@@ -207,6 +265,9 @@ Voltamos a verificar o critério de parada acima e, caso não satisfeito, iteram
     \end{tabular}
   \end{table}
   
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 Usando o \verb+Scilab+ neste exemplos, temos:
 \begin{verbatim}
@@ -214,8 +275,28 @@ Usando o \verb+Scilab+ neste exemplos, temos:
 -->a=-2, b=0, x=(a+b)/2, TOL = (b-a)/2, sign(f(a)*f(x))
 -->b=x, x=(a+b)/2, TOL = (b-a)/2, sign(f(a)*f(x))
 \end{verbatim}
-  e, assim, sucessivamente.
+  e, assim, sucessivamente. Veja o código completo na Seção~\ref{subsec:codigo_bissecao}.
 \fi    
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Usando \verb+Python+ neste exemplos, temos:
+\begin{verbatim}
+>>> def f(x): return np.exp(x) - x - 2
+... 
+>>> a=-2; b=0; x = (a+b)/2; [a,b,x]
+[-2, 0, -1.0]
+>>> [(b-a)/2, np.sign(f(a)*f(x))]
+[1.0, -1.0]
+>>> b=x; x=(a+b)/2; [a,b,x]
+[-2, -1.0, -1.5]
+>>> [(b-a)/2, np.sign(f(a)*f(x))]
+\end{verbatim}
+e, assim, sucessivamente. Veja o código completo na Seção~\ref{subsec:codigo_bissecao}.
+\fi    
+%%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
 Vamos, agora, discutir sobre a \emph{convergência} do método da bisseção. O próximo Teorema~\ref{teo:convergencia_bissecao} nos garante a convergência do método da bisseção.
@@ -269,8 +350,11 @@ O que está de acordo com o experimento numérico realizado naquele exemplo.
 
 O método da bisseção tem a boa propriedade de garantia de convergência, bem como de fornecer uma simples estimativa da precisão da aproximação calculada. Entretanto, a taxa de convergência linear é superada por outros métodos. A construção de tais métodos está, normalmente, associada a iteração do ponto fixo, a qual exploramos na próxima seção.
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
-\subsection{Código Scilab: método da bisseção}
+\subsection{Código Scilab: método da bisseção}\label{subsec:codigo_bissecao}
 
 O seguinte código é uma implementação no \verb+Scilab+ do algoritmo da bisseção. As variáveis de entrada são:
 \begin{itemize}
@@ -285,10 +369,32 @@ A variável de saída é:
 \item \verb+p+ - aproximação da raiz de \verb+f+, i.e. $f(p) \approx 0$.
 \end{itemize}
 
-\verbatiminput{./cap_equacao1d/codes/metodo_da_bissecao/bissecao.sci}
+\verbatiminput{./cap_equacao1d/codes/scilab/metodo_da_bissecao/bissecao.sci}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\subsection{Código Python: método da bisseção}\label{subsec:codigo_bissecao}
 
-\subsection{Exercícios}
+O seguinte código é uma implementação em \verb+Python+ do algoritmo da bisseção. As variáveis de entrada são:
+\begin{itemize}
+\item \verb+f+ - função objetivo
+\item \verb+a+ - extremo esquerdo do intervalo de inspeção $[a, b]$
+\item \verb+b+ - extremo direito do intervalo de inspeção $[a, b]$
+\item \verb+TOL+ - tolerância (critério de parada)
+\item \verb+N+ - número máximo de iterações
+\end{itemize}
+A variável de saída é:
+\begin{itemize}
+\item \verb+p+ - aproximação da raiz de \verb+f+, i.e. $f(p) \approx 0$.
+\end{itemize}
+
+\verbatiminput{./cap_equacao1d/codes/python/metodo_da_bissecao/bissecao.py}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+\subsection*{Exercícios}
 
 \begin{Exercise}Considere a equação $\sqrt{x}=\cos(x)$. Use o método da bisseção com intervalo inicial $[a, b] = [0, 1]$ e $x^{(1)} = (a+b)/2$ para calcular a aproximação $x^{(4)}$ da solução desta equação.
 \end{Exercise}
@@ -760,7 +866,7 @@ $$\epsilon_N \approx \frac{\Delta_N}{1-\frac{\Delta_n}{\Delta_{n-1}}}.$$
 \end{itemize}  
 \end{obs}
 
-\subsection{Exercícios}
+\subsection*{Exercícios}
 
 \begin{Exercise}
   Resolver a equação $e^x = x + 2$ é equivalente a calcular os pontos fixos da função $g(x) = e^x + 2$ (veja o Exemplo~\ref{ex:ponto_fixo_1}). Use a iteração do ponto fixo $x^{(n+1)} = g(x^{n})$ com $x^{(1)} = -1,8$ para obter uma aproximação de uma das soluções da equação dada com $8$ dígitos significativos.
@@ -904,9 +1010,9 @@ Dica: Verifique que $\cos([0.5,1])\subseteq [0.5,1]$ e depois a mesma identidade
 \end{Exercise}
 
 \begin{Exercise}[title=Fluidos] Na hidráulica, o fator de atrito de Darcy é dado pela implicitamente pela equação de Colebrook-White:
-$$\frac{1}{\sqrt{f}}= -2 \log_{10} \left( \frac{\varepsilon}{14.8 R_h} + \frac{2.51}{{Re}\sqrt{f}} \right)$$
+$$\frac{1}{\sqrt{f}}= -2 \log_{10} \left( \frac{\varepsilon}{14.8 R_h} + \frac{2.51}{\mathrm{Re}\sqrt{f}} \right)$$
 onde $f$ é o fator de atrito, $\varepsilon$ é a rugosidade do tubo em metros, $R_{h}$ é o raio hidráulico em metros e ${Re}$ é o número de Reynolds. Considere $\varepsilon=2mm$, $R_{h}=5cm$ e ${Re}=10000$ e obtenha o valor de $f$ pela iteração:
-$$x^{(n+1)}=-2 \log_{10} \left( \frac{\varepsilon}{14.8 R_{h}} + \frac{2.51x^{(n)}}{{Re}} \right)$$
+$$x^{(n+1)}=-2 \log_{10} \left( \frac{\varepsilon}{14.8 R_{h}} + \frac{2.51x^{(n)}}{\mathrm{Re}} \right)$$
 \end{Exercise}
 \begin{Answer}
   \begin{tiny}
@@ -1174,7 +1280,7 @@ Com isso e do Teorema do valor médio, concluímos:
 onde $m := \min |f'(x)|$ e $M := \max |f''(x)|$ com o mínimo e o máximo tomados em um intervalo $[a, b]$ que contenha o zero da função $f(x)$. Aqui, por exemplo, podemos tomar $[a, b] = [0, \pi/2]$. Como, neste caso, $f'(x) = -\sin(x) - 1$, temos que $m = 1$. Também, como $f''(x) = -\cos x$, temos $M = 1$. Assim, concluímos que $\rho < 2$ (lembrando que $K_\rho(x^*)\subset [0, \pi/2]$). Ou seja, neste caso as iterações de Newton convergem para o zero de $f(x)$ para qualquer escolha da aproximação inicial $x^{(1)}\in [0, \pi/2]$.
 \end{sol}
 
-\subsection{Exercícios}
+\subsection*{Exercícios}
 
 \begin{Exercise} Considere o problema de calcular as soluções positivas da equação:
   \begin{equation*}
@@ -1543,7 +1649,7 @@ Quando usamos métodos iterativos precisamos determinar um critério de parada. 
 O erro na tabela sempre se refere ao erro absoluto esperado. Nos três últimos métodos, é comum que se exija como critério de parada que a condição seja satisfeita por alguns poucos passos consecutivos. Outros critérios podem ser usados. No métodos das secantes, deve-se ter o cuidado de evitar divisões por zero quando $x_{n+1}-x_n$ muito pequeno em relação à resolução do sistema de numeração.  
 \end{obs}
 
-\subsection{Exercícios}
+\subsection*{Exercícios}
 
 \begin{Exercise} Refaça as questões \ref{new1}, \ref{new2}, \ref{new3}  e \ref{new4}, usando o método das secantes.
 \end{Exercise}
@@ -1599,10 +1705,9 @@ f(x^*+\epsilon)&\approx& \epsilon f'(x^*) + \epsilon^2 \frac{f''(x^*)}{2}
 \end{eqnarray*}
 
 \begin{eqnarray*}
-\epsilon_{n+1}
- &\approx&\frac{\epsilon_n \left[\epsilon_{n-1} f'(x^*) + \epsilon_{n-1}^2 \frac{f''(x^*)}{2}\right]-\epsilon_{n-1}\left[\epsilon_{n} f'(x^*) + \epsilon_{n}^2 \frac{f''(x^*)}{2}\right]}{f(x^*+\epsilon_n)-f(x^*+\epsilon_{n-1})}\\
-~\\ &=&\frac{\frac{f''(x^*)}{2}\left(\epsilon_{n}\epsilon_{n-1}^2-\epsilon_{n-1}\epsilon_{n}^2\right)}{f(x^*+\epsilon_n)-f(x^*+\epsilon_{n-1})}\\
-~\\ &=&\frac{1}{2}\frac{{f''(x^*)}\epsilon_{n}\epsilon_{n-1}\left(\epsilon_{n-1}-\epsilon_{n}\right)}{f(x^*+\epsilon_n)-f(x^*+\epsilon_{n-1})}
+\epsilon_{n+1} &\approx&\frac{\epsilon_n \left[\epsilon_{n-1} f'(x^*) + \epsilon_{n-1}^2 \frac{f''(x^*)}{2}\right]-\epsilon_{n-1}\left[\epsilon_{n} f'(x^*) + \epsilon_{n}^2 \frac{f''(x^*)}{2}\right]}{f(x^*+\epsilon_n)-f(x^*+\epsilon_{n-1})}\\
+&=&\frac{\frac{f''(x^*)}{2}\left(\epsilon_{n}\epsilon_{n-1}^2-\epsilon_{n-1}\epsilon_{n}^2\right)}{f(x^*+\epsilon_n)-f(x^*+\epsilon_{n-1})}\\
+&=&\frac{1}{2}f''(x^*)\frac{\epsilon_{n}\epsilon_{n-1}\left(\epsilon_{n-1}-\epsilon_{n}\right)}{f(x^*+\epsilon_n)-f(x^*+\epsilon_{n-1})}
 \end{eqnarray*}
 
 Observamos, agora, que

@@ -43,7 +43,18 @@ Fazemos a conversão do livro de código LaTeX para HTML usando o pacote [TeX4ht
 
 * Não usar o ambiente `align`: no lugar use o ambiente `eqnarray` ou o `split` dentro de um ambiente `equation`.
 
-* `array` com linha `hline` na última linha deve conter uma linha com o comando `\multicolumn{ncols}{c}{}`, onde `ncols` é o número de colunas do `array`.
+* `array` com linha `hline` na última linha deve conter uma linha com o comando `\multicolumn{ncols}{c}{}`, onde `ncols` é o número de colunas do `array`. Por exemplo:
+
+        \begin{equation*}
+	      \begin{array}{r|c|c}
+             h & Df(1) & |f'(1) - D_{+,h}F(1)| \\ \hline
+             10^{-1} & -8,67062(-01) & 2,55909(-02)\\
+             10^{-2} & -8,44158(-01) & 2,68746(-03)\\
+             10^{-14} & -8,43769(-01) & 2,29851(-03) \\\hline
+             \multicolumn{3}{c}{}
+		   \end{array}
+	    \end{equation*}
+
 
 * Não coloque `label` dentre de colchetes.
 
@@ -62,7 +73,9 @@ A inclusão de uma figura no código LaTex deve ser feita da seguinte forma:
 	    \includegraphics{cap_foo/pics/picfoo}
 		\caption{Descrição da figura picfoo.}
 		\label{pic:picfoo}
-    \end{figure}
+	\end{figure}
+
+Não insira figuras dentro de outro ambientes como, por exemplo, `ex`, `teo`, `sol` e outros. 
 
 Sempre que possível, forneça o código fonte da figura armazenando-o na pasta `cap_foo/pics/picfoo`. Nesta mesma pasta, crie um arquivo README.md com uma descrição da figura e a linceça da mesma, a qual deve ser compatível com a CC-BY-SA 3.0.
 
@@ -89,4 +102,20 @@ As equações e símbolos matemáticos estão escritos usando a coleção de pac
 #### Uso da vírgula
 
 O livro usa o pacote LaTeX [`icomma`](https://www.ctan.org/pkg/icomma). Desta forma, para que um espaço apareça após uma vírgula é necessário por o espaço no código LaTeX. Por exemplo, o código LaTeX `$1,24$` produz o número 1,24, enquanto o código `$1, 24$` porduz os números 1 e 24 separados por uma vírgula e um espaço.
+
+#### Números em notação científica
+
+Números em notação científica podem ser representados, tando usando `$\times 10^$` como usando o macro `\E`, por exemplo:
+
+    1,25673\times 10^{-13} = 1,25673\E-13.
+
+### Exercícios
+
+Os exercícios devem ser colocados como subseção daquela que se refere usando:
+
+    \subsection*{Exercícios}
+
+A exceção é a lista de exercícios finais de um capítulo. Esta deve ser adicionada como uma seção numerada:
+
+    \section{Exercícios Finais}
 
