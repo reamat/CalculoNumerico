@@ -44,9 +44,19 @@ Observe que:
 \begin{equation*}
   \int_0^2(x^2+1)\,dx = \left[\frac{x^3}{3}+x\right]_0^2 = \frac{8}{3}+2=4,6666667
 \end{equation*}
-
 \end{ex}
 
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Nos códigos \verb+Python+ apresentados ao longo deste capítulo, estaremos assumindo:
+\begin{verbatim}
+>>> from __future__ import division
+>>> import numpy as np
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
 
 
@@ -195,7 +205,7 @@ S = \sum_{i=1}^{n-1} f(\xi_i ) h, \;\;\;\; \xi_i=\frac{x_i+x_{i+1}}{2}.
 
 \subsection{Regra do Trapézio}\index{integração numérica!regra do trapézio}
 
-A regra do trapézio consiste em aproximar a função $f$ por um polinômio de grau 1. Se utilizarmos uma reta ligando os extremos do intervalo obtemos um trapézio que fornece o nome da regra. 
+A regra do trapézio consiste em aproximar a função $f(x)$ por um polinômio de grau 1. Se utilizarmos uma reta ligando extremos do intervalo obtemos um trapézio que fornece o nome da regra. 
 
 % \begin{center}
 % \includegraphics[scale=0.7]{./cap_integracao/pics/int_2/int_2}
@@ -414,71 +424,48 @@ $$
 
 \subsection*{Exercícios}
 
-\begin{Exercise}Calcule numericamente as seguintes integrais usando os métodos simples do Ponto médio, Trapézio e Simpson. Calcule também o valor exato usando seus conhecimentos de Cálculo I. Complete a tabela abaixo conforme modelo:
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-  & exato & Ponto médio & Trapézio & Simpson \\
-\hline
- & & & &\\[-.3cm]
-$\int_0^1e^{-x}dx$ &$1-e^{-1}\approx 0.6321206$& $ e^{-1/2}\approx 0.6065307$&$\frac{1+e^{-1}}{2}\approx 0.6839397$ &$\frac{1+4e^{-1/2}+e^{-1}}{6}\approx 0.6323337$\\[.2cm]
-\hline
- & & & &\\[-.3cm]
-$\int_0^1x^2dx $ & & & &\\[.2cm]
-
-\hline
- & & & &\\[-.3cm]
-$\int_0^1x^3dx $ & & & &\\[.2cm]
-\hline
- & & & &\\[-.3cm]
-$\int_0^1xe^{-x^2}dx$  & & & &\\[.2cm]
-\hline
- & & & &\\[-.3cm]
-$\int_0^1\frac{1}{x^2+1}dx$  & & & &\\[.2cm]
-\hline
- & & & &\\[-.3cm]
-$\int_0^1\frac{x}{x^2+1}dx$  & & & &\\[.2cm]
-\hline
- & & & &\\[-.3cm]
-$\int_0^1\frac{1}{x+1}dx$  & & & &\\[.2cm]
-\hline
-\end{tabular}
-\end{center}
+\begin{Exercise}Calcule numericamente as seguintes integrais:
+  \begin{eqnarray*}
+    \text{a)}~\int_0^1e^{-x}\,dx & \text{b)}~\int_0^1x^2\,dx\\
+    \text{c)}~\int_0^1x^3\,dx & \text{d)}~\int_0^1xe^{-x^2}\,dx\\
+    \text{e)}~\int_0^1\frac{1}{x^2+1}\,dx &\text{e)}~\int_0^1\frac{x}{x^2+1}dx 
+  \end{eqnarray*}
+usando os métodos simples do Ponto médio, Trapézio e Simpson. Calcule, também, o valor analítico destas integrais e o erro nas aproximações dadas pelas quadraturas numérica.
 \end{Exercise}
-\begin{Answer}
-  \begin{tiny}
- \begin{center}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-  & exato & Ponto médio & Trapézio & Simpson \\
-\hline
- & & & &\\[-.3cm]
-$\int_0^1e^{-x}dx$ &$1-e^{-1}\approx 0.6321206$& $ e^{-1/2}\approx 0.6065307$&$\frac{1+e^{-1}}{2}\approx 0.6839397$ &$\frac{1+4e^{-1/2}+e^{-1}}{6}\approx 0.6323337$\\[.2cm]
-\hline
- & & & &\\[-.3cm]
-$\int_0^1x^2dx $ & $1/3\approx 0.3333333$& 0.25 & 0.5 & 0.3333333\\[.2cm]
+% \begin{Answer}
+%   \begin{tiny}
+%  \begin{center}
+% \begin{tabular}{|c|c|c|c|c|}
+% \hline
+%   & exato & Ponto médio & Trapézio & Simpson \\
+% \hline
+%  & & & &\\[-.3cm]
+% $\int_0^1e^{-x}dx$ &$1-e^{-1}\approx 0.6321206$& $ e^{-1/2}\approx 0.6065307$&$\frac{1+e^{-1}}{2}\approx 0.6839397$ &$\frac{1+4e^{-1/2}+e^{-1}}{6}\approx 0.6323337$\\[.2cm]
+% \hline
+%  & & & &\\[-.3cm]
+% $\int_0^1x^2dx $ & $1/3\approx 0.3333333$& 0.25 & 0.5 & 0.3333333\\[.2cm]
 
-\hline
- & & & &\\[-.3cm]
-$\int_0^1x^3dx $ & $1/4=0.25$ & 0.125 & 0.5 & 0.25\\[.2cm]
-\hline
- & & & &\\[-.3cm]
-$\int_0^1xe^{-x^2}dx$  &$\frac{1}{2}\left(1-e^{-1}\right)\approx 0.3160603$ & 0.3894004  &  0.1839397 &   0.3209135  \\[.2cm]
-\hline
- & & & &\\[-.3cm]
-$\int_0^1\frac{1}{x^2+1}dx$  & $\tan^{-1}(1)\approx 0.7853982$ &  0.8  &  0.75 &   0.7833333  
- \\[.2cm]
-\hline
- & & & &\\[-.3cm]
-$\int_0^1\frac{x}{x^2+1}dx$  &$\frac{1}{2}\ln(2)\approx  0.3465736  $ & 0.4 & 0.25 & 0.35\\[.2cm]
-\hline
- & & & &\\[-.3cm]
-$\int_0^1\frac{1}{x+1}dx$  & $\ln(2) \approx 0.6931472$ & 0.6666667  &  0.75 &   0.6944444  \\[.2cm]
-\hline
-\end{tabular}
-\end{center}    
-  \end{tiny}
-\end{Answer}
+% \hline
+%  & & & &\\[-.3cm]
+% $\int_0^1x^3dx $ & $1/4=0.25$ & 0.125 & 0.5 & 0.25\\[.2cm]
+% \hline
+%  & & & &\\[-.3cm]
+% $\int_0^1xe^{-x^2}dx$  &$\frac{1}{2}\left(1-e^{-1}\right)\approx 0.3160603$ & 0.3894004  &  0.1839397 &   0.3209135  \\[.2cm]
+% \hline
+%  & & & &\\[-.3cm]
+% $\int_0^1\frac{1}{x^2+1}dx$  & $\tan^{-1}(1)\approx 0.7853982$ &  0.8  &  0.75 &   0.7833333  
+%  \\[.2cm]
+% \hline
+%  & & & &\\[-.3cm]
+% $\int_0^1\frac{x}{x^2+1}dx$  &$\frac{1}{2}\ln(2)\approx  0.3465736  $ & 0.4 & 0.25 & 0.35\\[.2cm]
+% \hline
+%  & & & &\\[-.3cm]
+% $\int_0^1\frac{1}{x+1}dx$  & $\ln(2) \approx 0.6931472$ & 0.6666667  &  0.75 &   0.6944444  \\[.2cm]
+% \hline
+% \end{tabular}
+% \end{center}    
+%   \end{tiny}
+% \end{Answer}
 
 \begin{Exercise}
  Dados os valores da função $f(x)$, $f(2)=2$, $f(3)=4$ e $f(4)=8$, calcule o valor aproximado de
@@ -583,21 +570,20 @@ $$
 \int_a^b f(x)\;dx \approx S= \sum_{i=1}^{n} \Delta S_i
 $$
 
-%phkonzen
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \subsection{Código Scilab: Regras compostas em geral}
 Devemos fazer um loop sobre todos os intervalos e para cada intervalo aplicamos uma regra de quadratura. 
 
 \verbatiminput{./cap_integracao/codes/simpson.sci}
 
-Acumulamos o valor da integral em \verb+S+. No código abaixo temos o método de Simpson, mas basta trocarmos a fórmula para termos outras quadraturas.
+Acumulamos o valor da integral em \verb+S+. No código acima temos o método de Simpson, mas basta trocarmos a fórmula para termos outras quadraturas.
 
 Note que esta não é a implementação mais eficiente, pois reutiliza os termos no contorno dos intervalos. Nas próximas seções veremos regras compostas específicas para alguns métodos.
 \fi
-
-
-
-
+%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Método composto dos trapézios}\index{integração numérica!método composto!dos trapézios}
 A \emph{regra composta dos trapézios} assume a seguinte forma:
@@ -613,7 +599,7 @@ Como $h = x_{i+1} - x_i$, temos:
 \end{eqnarray*}
 
 \ifisscilab
-\subsection{Código Scilab: Trapézio Composto}
+\subsubsection{Código Scilab: Trapézio Composto}
 O código Scilab abaixo é uma implementação do método do trapézio composto para calcular:
 \begin{equation*}
   \int_a^b f(x)\,dx = \frac{h}{2}\left[f(x_1) + f(x_{n+1})\right] + h\sum_{i=2}^n f(x_i) + O(h^3),
@@ -636,7 +622,7 @@ onde, como anteriormente, $x_k = a + (k-1)h$, $h = (b-a)/n$ e $i = 1,2,\dotsc,n+
 onde, agora, $h = (b-a)/(2n)$, $x_i = a + (i-1)h$, $i=1,2,\dotsc,2n+1$.
 
 \ifisscilab
-\subsection{Código Scilab: Simpson Composto}
+\subsubsection{Código Scilab: Simpson Composto}
 O código Scilab abaixo é uma implementação do método de Simpson composto para calcular:
 \begin{equation*}
   \int_a^b f(x)\,dx = \frac{h}{3}\left[f(x_1) + 2\sum_{i=1}^{n-1} f(x_{2i+1}) + 4\sum_{i=1}^{n} f(x_{2i}) + f(x_{2n+1})\right] + O(h^3),
@@ -652,17 +638,20 @@ $$
 pelas regras compostas do ponto médio, trapézio e Simpson variando o número de intervalos \\$N_i=1,\ 2,\ 3,\ 6,\ 12,\ 24,\ 48,\ 96$.
 \end{ex}
 \begin{sol}
-  \begin{tabular}{c|ccc}\hline
-    $n$ &  Ponto Médio &  Trapézios & Simpson\\ \hline
+  \begin{equation*}
+  \begin{array}{c|ccc}\hline
+    n &  \text{Ponto Médio} &  \text{Trapézios} & \text{Simpson}\\ \hline
     1 & 5,4365637&218,3926&76,421909\\
-2&21,668412&111,91458&51,750469\\
-3&31,678746&80,272022&47,876505\\
-6&41,755985&55,975384&46,495785\\
-12&45,137529&48,865685&46,380248\\
-24&46,057757&47,001607&46,372373\\
-48&46,292964&46,529682&46,37187\\
-96&46,352096&46,411323&46,371838
-  \end{tabular}
+    2&21,668412&111,91458&51,750469\\
+    3&31,678746&80,272022&47,876505\\
+    6&41,755985&55,975384&46,495785\\
+    12&45,137529&48,865685&46,380248\\
+    24&46,057757&47,001607&46,372373\\
+    48&46,292964&46,529682&46,37187\\
+    96&46,352096&46,411323&46,371838\\\hline
+    \multicolumn{4}{c}{}
+  \end{array}    
+  \end{equation*}
 \end{sol}
 
 \subsection*{Exercícios}
@@ -1153,7 +1142,7 @@ Aproxime o valor desta integral usando a regra  de Simpson para $n=3$, $n=5$ e $
 
 \begin{Answer}
   \begin{tiny}
--0.2310491, -0.2452073, - 0.2478649.    
+    $-0.2310491$, $-0.2452073$, $-0.2478649$.    
   \end{tiny}
 \end{Answer}
 

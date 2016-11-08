@@ -173,17 +173,56 @@ main-py.html: main.tex
 # FORMATO EPUB
 ########################################
 
-epub: ./html/main.html
+epub: main.tex
+	mkdir -p ./.tmp1
+	rm -rf ./.tmp1/*
 	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabtrue \isoctavefalse \ispythonfalse" > main.knd
-	./html2epub.sh main.epub
 
-epub-oct: ./html-oct/main.html
+	latex main 
+	bibtex main
+	latex main
+	latex main
+	htlatex main "ebook_config,html,2,notoc*" "" "-d./.tmp1/"
+	#rm -f main.knd
+
+
+	ebook-convert ./.tmp1/main.html main.epub \
+	      --authors="Todos os Colaboradores"\
+	      --comments="Para mais informações sobre este livro visite  http://www.ufrgs.br/numerico"
+
+epub-oct: main.tex
+	mkdir -p ./.tmp1
+	rm -rf ./.tmp1/*
 	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavetrue \ispythonfalse" > main.knd
-	./html2epub.sh main-oct.epub
 
-epub-py: ./html-py/main.html
+	latex main 
+	bibtex main
+	latex main
+	latex main
+	htlatex main "ebook_config,html,2,notoc*" "" "-d./.tmp1/"
+	#rm -f main.knd
+
+
+	ebook-convert ./.tmp1/main.html main.epub \
+	      --authors="Todos os Colaboradores"\
+	      --comments="Para mais informações sobre este livro visite  http://www.ufrgs.br/numerico"
+
+epub-py: main.tex
+	mkdir -p ./.tmp1
+	rm -rf ./.tmp1/*
 	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
-	./html2epub.sh main-py.epub
+
+	latex main 
+	bibtex main
+	latex main
+	latex main
+	htlatex main "ebook_config,html,2,notoc*" "" "-d./.tmp1/"
+	#rm -f main.knd
+
+
+	ebook-convert ./.tmp1/main.html main.epub \
+	      --authors="Todos os Colaboradores"\
+	      --comments="Para mais informações sobre este livro visite  http://www.ufrgs.br/numerico"
 
 ########################################
 # TODOS OS FORMATOS
