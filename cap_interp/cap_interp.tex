@@ -73,6 +73,9 @@ As condições de interpolação são $p(x_i) = y_i$, $i = 1, 2, 3, 4$, o que no
 \end{equation*}
 cuja solução é $a_1=1$, $a_2=\frac{5}{6}$, $a_3=0$ e $a_4=\frac{1}{6}$. Portanto, o polinômio interpolador é $p(x)=1+\frac{5}{6}x+\frac{1}{6}x^3$. Veja Figura~\ref{fig:ex_interpolacao_polinomial}.
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 No \verb+Scilab+, podemos encontrar o polinômio interpolador e esboçar seu gráfico com os seguintes comandos:
 \begin{verbatim}
@@ -88,6 +91,24 @@ No \verb+Scilab+, podemos encontrar o polinômio interpolador e esboçar seu gr�
 -->plot(xi,yi,'ro',xx,horner(p,xx),'b-');xgrid
 \end{verbatim}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos encontrar o polinômio interpolador e esboçar seu gráfico com os seguintes comandos:
+\begin{verbatim}
+>>> xi = np.array([0,1,2,3], dtype='double')
+>>> yi = np.array([1,2,4,8], dtype='double')
+>>> A = np.array([xi**3,xi**2,xi**1,xi**0]).transpose()
+>>> a = np.linalg.inv(A).dot(yi);a
+array([ 0.16666667,  0.        ,  0.83333333,  1.        ])
+>>> xx = np.linspace(-0.5,3.25); 
+>>> plt.plot(xi,yi,'ro',xx,np.polyval(a,xx),'b-')
+>>> plt.grid();plt.show()
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
 
@@ -308,8 +329,7 @@ $$L_k(x)=\prod_{\substack{j=1\\j\ne i}}^{n} \frac{(x-x_j)}{(x_k-x_j)}$$
 \begin{obs} O problema de interpolação quando escrito usando como base os polinômios de Lagrange produz um sistema linear diagonal.
 \end{obs}
 
-\begin{ex}Encontre o polinômio da forma $p(x)=a_1+a_2x+a_3x^2+a_4x^3$ que passa pelos pontos
-$$(0,0),(1,1),(2,4),(3,9)$$
+\begin{ex}Encontre o polinômio da forma $p(x)=a_1+a_2x+a_3x^2+a_4x^3$ que passa pelos pontos $(0, 0)$, $(1, 1)$, $(2, 4)$, $(3, 9)$.
 Escrevemos:
 \begin{eqnarray*}
 L_1(x)&=& \frac{(x-1)(x-2)(x-3)}{(0-1)(0-2)(0-3)}=-\frac{1}{6}x^3+x^2-\frac{11}{6}x+1\\
@@ -318,14 +338,47 @@ L_3(x)&=& \frac{x(x-1)(x-3)}{2(2-1)(2-3)}=-\frac{1}{2}x^3+2x^2-\frac{3}{2}x\\
 L_4(x)&=& \frac{x(x-1)(x-2)}{3(3-1)(3-2)}=\frac{1}{6}x^3-\frac{1}{2}x^2+\frac{1}{3}x
 \end{eqnarray*}
 Assim temos:
-$$P(x)=0\cdot L_1(x)+1\cdot L_2(x)+4\cdot L_3(x)+9\cdot L_4(x)=x^2$$
+\begin{equation*}
+  P(x)=0\cdot L_1(x)+1\cdot L_2(x)+4\cdot L_3(x)+9\cdot L_4(x)=x^2
+\end{equation*}
+
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos usar a função \href{https://docs.scipy.org/doc/numpy/reference/generated/numpy.poly.html}{numpy.poly}, por exemplo:
+\begin{verbatim}
+>>> xi = np.array([0,1,2,3], dtype='double')
+>>> yi = np.array([0,1,4,9], dtype='double')
+>>> L1 = np.poly([xi[1],xi[2],xi[3]]);L1=L1/np.polyval(L1,xi[0]);L1
+array([-0.16666667,  1.        , -1.83333333,  1.        ])
+>>> L2 = np.poly([xi[0],xi[2],xi[3]]);L2=L2/np.polyval(L2,xi[1]);L2
+array([ 0.5, -2.5,  3. ,  0. ])
+>>> L3 = np.poly([xi[0],xi[1],xi[3]]);L3=L3/np.polyval(L3,xi[2]);L3
+array([-0.5,  2. , -1.5, -0. ])
+>>> L4 = np.poly([xi[0],xi[1],xi[2]]);L4=L4/np.polyval(L4,xi[3]);L4
+array([ 0.16666667, -0.5       ,  0.33333333,  0.        ])
+>>> a = yi[0]*L1 + yi[1]*L2 + yi[2]*L3 + yi[3]*L4;a
+array([ 0.,  1.,  0.,  0.])
+\end{verbatim}
+Para plotar os pontos e o polinômio interpolador, podemos usar:
+\begin{verbatim}
+>>> xx = np.linspace(-0.25,3.25)
+>>> plt.plot(xi,yi,'ro',xx,np.polyval(a,xx),'b-')
+>>> plt.grid();plt.show()
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{ex}
 
-\begin{ex}Encontre o polinômio da forma $p(x)=a_1+a_2x+a_3x^2+a_4x^3$ que passa pelos pontos
-$$(0,0),(1,1),(2,0),(3,1)$$
-Como as abscissas são as mesmas do exemplo anterior, podemos utilizar os mesmos polinômios de Lagrange, assim temos:
-$$p(x)=0\cdot L_1(x)+1\cdot L_2(x)+0\cdot L_3(x)+1\cdot L_4(x)=\frac{2}{3}x^3-3x^2+\frac{10}{3}x$$
+\begin{ex}Encontre o polinômio da forma $p(x)=a_1+a_2x+a_3x^2+a_4x^3$ que passa pelos pontos $(0, 0)$, $(1, 1)$, $(2, 0)$, $(3, 1)$.
 \end{ex}
+\begin{sol}
+Como as abscissas são as mesmas do exemplo anterior, podemos utilizar os mesmos polinômios de Lagrange, assim temos:
+\begin{equation*}
+  p(x)=0\cdot L_1(x)+1\cdot L_2(x)+0\cdot L_3(x)+1\cdot L_4(x)=\frac{2}{3}x^3-3x^2+\frac{10}{3}x.
+\end{equation*}
+\end{sol}
 
 \section{Aproximação de funções reais por polinômios interpoladores}\index{aproximação!de funções!por polinômios}
 
@@ -353,6 +406,9 @@ P(x)&=&1\frac{(x-\frac{1}{2})(x-1)}{(0-\frac{1}{2})(0-1)}+\cos\left(\frac{1}{2}\
 &\approx&   1 - 0,0299720583066x - 0,4297256358252x^2
 \end{eqnarray*}
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \begin{verbatim}
 L1=poly([.5 1],'x');L1=L1/horner(L1,0)
@@ -365,6 +421,7 @@ plot(x,horner(P,x),'red')
 plot(x,horner(P,x)-cos(x))
 \end{verbatim}
 \fi
+%%%%%%%%%%%%%%%%%%%%
 
 Para encontrar o erro máximo, precisamos estimar $|f'''(x)|=|\sin(x)|\leq \sin(1)<0,85$ e
 $$
