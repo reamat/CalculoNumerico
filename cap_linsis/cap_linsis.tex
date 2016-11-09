@@ -1027,7 +1027,7 @@ Em \verb+Python+ podemos computar normas $L^p$'s de matrizes usando a função \
 \begin{verbatim}
 >>> A = np.array([[3,-5,7],
 ...               [1,-2,4],
-...               [-8,1,-7]])
+...               [-8,1,-7]], dtype='double')
 >>> np.linalg.norm(A,1)
 18
 >>> np.linalg.norm(A,np.inf)
@@ -1269,7 +1269,6 @@ y^{(3)}&=&\frac{26-x^{(2)}}{8}=2,9625
 \fi
 %%%%%%%%%%%%%%%%%%%%
 
-%phkonzen
 \subsection{Método de Gauss-Seidel}\index{método de!Gauss-Seidel}
 
 Assim como no método de Jacobi, no método de Gauss-Seidel também isolamos o elemento $x_i$ da equação $i$. Porém perceba que a equação para $x_2^{(k+1)}$ depende de $x_1^{(k)}$ na iteração $k$. Intuitivamente podemos pensar em usar $x_1^{(k+1)}$ que acabou de ser calculado e temos
@@ -1309,12 +1308,24 @@ y^{(3)}&=&\frac{26-x^{(3)}}{8}=2,9995312
 \end{eqnarray*}
 \end{ex}
 
-
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \subsubsection{Código Scilab: Gauss-Seidel}
 
-\verbatiminput{./cap_linsis/codes/metodo_de_gauss-seidel/gauss_seidel.sci}
+\verbatiminput{./cap_linsis/codes/scilab/metodo_de_gauss-seidel/gauss_seidel.sci}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\subsubsection{Código Python: Gauss-Seidel}
+
+\verbatiminput{./cap_linsis/codes/python/metodo_de_gauss-seidel/gauss_seidel.py}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Análise de convergência}\index{métodos iterativos!sistemas lineares!convergência}
 
@@ -1416,6 +1427,9 @@ A decomposição da matriz $A$ nas matrizes $L$ triangular inferior, $D$ diagona
     0 & 0 & 0
   \end{bmatrix}}_{U}.
 \end{equation*}
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 No \verb+Scilab+, podemos construir as matrizes $L$, $D$ e $U$, da seguinte forma:
 \begin{verbatim}
@@ -1425,6 +1439,23 @@ No \verb+Scilab+, podemos construir as matrizes $L$, $D$ e $U$, da seguinte form
 -->U=triu(A)-D;
 \end{verbatim}
 \fi  
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos construir as matrizes $L$, $D$ e $U$, da seguinte forma:
+\begin{verbatim}
+>>> A = np.array([[3,1,-1],
+...               [-1,-4,1],
+...               [1,-2,5]],
+...               dtype='double')
+>>> D = np.diag(np.diag(A))
+>>> L = np.tril(A)-D
+>>> U=np.triu(A)-D
+\end{verbatim}
+\fi  
+%%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
 \subsubsection{Iteração de Jacobi}
@@ -1483,6 +1514,9 @@ O vetor da iteração de Jacobi é:
       -2
     \end{bmatrix}.
 \end{equation*}
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 No \verb+Scilab+, podemos computar $T_J$ e $c_J$ da seguinte forma:
 \begin{verbatim}
@@ -1490,6 +1524,18 @@ No \verb+Scilab+, podemos computar $T_J$ e $c_J$ da seguinte forma:
 -->cJ = inv(D)*b;
 \end{verbatim}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+python+, podemos computar $T_J$ e $c_J$ da seguinte forma:
+\begin{verbatim}
+>>> TJ = -np.linalg.inv(D).dot(L+U);
+>>> cJ = np.linalg.inv(D).dot(b);
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
 \subsubsection{Iteração de Gauss-Seidel}
@@ -1548,6 +1594,9 @@ O vetor da iteração de Gauss-Seidel é:
       -\frac{28}{10}
     \end{bmatrix}.
 \end{equation*}
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 No \verb+Scilab+, podemos computar $T_G$ e $c_G$ da seguinte forma:
 \begin{verbatim}
@@ -1555,6 +1604,18 @@ No \verb+Scilab+, podemos computar $T_G$ e $c_G$ da seguinte forma:
 -->cG = inv(L+D)*b;
 \end{verbatim}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos computar $T_G$ e $c_G$ da seguinte forma:
+\begin{verbatim}
+-->TG = -np.linalg.inv(L+D).dot(U);
+-->cG = np.linalg.inv(L+D).dot(b);
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
 \subsubsection{Condições de convergência}
@@ -1725,6 +1786,7 @@ x_{4}-x_{5}&=&1
 
 \begin{Answer}
   \begin{tiny}
+\ifisscilab
 \begin{verbatim}
 epsilon=1e-3;
 
@@ -1785,6 +1847,7 @@ function x=q_Gauss_Seidel()
 
 endfunction
 \end{verbatim}    
+\fi
   \end{tiny}
 \end{Answer}
 

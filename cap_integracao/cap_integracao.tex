@@ -44,9 +44,19 @@ Observe que:
 \begin{equation*}
   \int_0^2(x^2+1)\,dx = \left[\frac{x^3}{3}+x\right]_0^2 = \frac{8}{3}+2=4,6666667
 \end{equation*}
-
 \end{ex}
 
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Nos códigos \verb+Python+ apresentados ao longo deste capítulo, estaremos assumindo:
+\begin{verbatim}
+>>> from __future__ import division
+>>> import numpy as np
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
 
 
@@ -195,7 +205,7 @@ S = \sum_{i=1}^{n-1} f(\xi_i ) h, \;\;\;\; \xi_i=\frac{x_i+x_{i+1}}{2}.
 
 \subsection{Regra do trapézio}\index{integração numérica!regra do trapézio}
 
-A regra do trapézio consiste em aproximar a função $f$ por um polinômio de grau 1. Se utilizarmos uma reta ligando os extremos do intervalo obtemos um trapézio que fornece o nome da regra. 
+A regra do trapézio consiste em aproximar a função $f(x)$ por um polinômio de grau 1. Se utilizarmos uma reta ligando extremos do intervalo obtemos um trapézio que fornece o nome da regra. 
 
 % \begin{center}
 % \includegraphics[scale=0.7]{./cap_integracao/pics/int_2/int_2}
@@ -410,10 +420,101 @@ $$
 \int_0^1e^{-x^2}dx\approx \frac{0,25}{3}(e^{0}+4e^{-1/16}+e^{-1/4})+\frac{0,25}{3}(e^{-1/4}+4e^{-9/16}+e^{-1})=0,7468554
 $$
 
-\section{Obtenção das regras de quadratura}
-Vimos nas seções anteriores que podemos encontrar os coeficientes $A_i$ de uma regra de quadratura integrando os polinômios de Lagrange.
+\subsection*{Exercícios}
 
-Nesta seção veremos um outro método para obter os coeficientes, que torna-se bastante útil para quando temos muitos pontos ou quando o intervalo entre os pontos não é uniforme.
+\begin{Exercise}Calcule numericamente as seguintes integrais:
+  \begin{eqnarray*}
+    \text{a)}~\int_0^1e^{-x}\,dx & \text{b)}~\int_0^1x^2\,dx\\
+    \text{c)}~\int_0^1x^3\,dx & \text{d)}~\int_0^1xe^{-x^2}\,dx\\
+    \text{e)}~\int_0^1\frac{1}{x^2+1}\,dx &\text{e)}~\int_0^1\frac{x}{x^2+1}dx 
+  \end{eqnarray*}
+usando os métodos simples do Ponto médio, Trapézio e Simpson. Calcule, também, o valor analítico destas integrais e o erro nas aproximações dadas pelas quadraturas numérica.
+\end{Exercise}
+% \begin{Answer}
+%   \begin{tiny}
+%  \begin{center}
+% \begin{tabular}{|c|c|c|c|c|}
+% \hline
+%   & exato & Ponto médio & Trapézio & Simpson \\
+% \hline
+%  & & & &\\[-.3cm]
+% $\int_0^1e^{-x}dx$ &$1-e^{-1}\approx 0.6321206$& $ e^{-1/2}\approx 0.6065307$&$\frac{1+e^{-1}}{2}\approx 0.6839397$ &$\frac{1+4e^{-1/2}+e^{-1}}{6}\approx 0.6323337$\\[.2cm]
+% \hline
+%  & & & &\\[-.3cm]
+% $\int_0^1x^2dx $ & $1/3\approx 0.3333333$& 0.25 & 0.5 & 0.3333333\\[.2cm]
+
+% \hline
+%  & & & &\\[-.3cm]
+% $\int_0^1x^3dx $ & $1/4=0.25$ & 0.125 & 0.5 & 0.25\\[.2cm]
+% \hline
+%  & & & &\\[-.3cm]
+% $\int_0^1xe^{-x^2}dx$  &$\frac{1}{2}\left(1-e^{-1}\right)\approx 0.3160603$ & 0.3894004  &  0.1839397 &   0.3209135  \\[.2cm]
+% \hline
+%  & & & &\\[-.3cm]
+% $\int_0^1\frac{1}{x^2+1}dx$  & $\tan^{-1}(1)\approx 0.7853982$ &  0.8  &  0.75 &   0.7833333  
+%  \\[.2cm]
+% \hline
+%  & & & &\\[-.3cm]
+% $\int_0^1\frac{x}{x^2+1}dx$  &$\frac{1}{2}\ln(2)\approx  0.3465736  $ & 0.4 & 0.25 & 0.35\\[.2cm]
+% \hline
+%  & & & &\\[-.3cm]
+% $\int_0^1\frac{1}{x+1}dx$  & $\ln(2) \approx 0.6931472$ & 0.6666667  &  0.75 &   0.6944444  \\[.2cm]
+% \hline
+% \end{tabular}
+% \end{center}    
+%   \end{tiny}
+% \end{Answer}
+
+\begin{Exercise}
+ Dê a interpretação geométrica dos métodos do ponto médio, trapézio e Simpson. A partir desta construção geométrica, deduza as fórmulas para aproximar 
+ $$\int_a^bf(x)dx.$$
+ Verifique o método de Simpson pode ser entendido como uma média aritmética ponderada entre os métodos de trapézio e ponto médio. Encontre os pesos envolvidos. Explique o que são os métodos compostos.
+ \end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+$$ I_{Simpson}= \frac{1}{3} I_{Trap}+ \frac{2}{3}I_{PM}$$    
+  \end{tiny}
+\end{Answer}
+
+
+\begin{Exercise}
+Calcule numericamente o valor de $\int_2^5e^{4-x^2}dx$ usando os métodos compostos do ponto médio, trapézio e Simpson. Obtenha os resultados utilizando, em cada quadratura, o número de pontos indicado.
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+n   & Ponto médio & Trapézios & Simpson \\
+\hline
+$3$ &~\hspace{40pt}~& ~\hspace{40pt}~& ~\hspace{40pt}\\
+\hline
+$5 $ & & & \\
+\hline
+$7 $ & & &\\
+\hline
+$9$  & & &\\
+\hline
+\end{tabular}
+\end{center}
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+    \begin{equation*}
+    \begin{array}{c|cccc}
+        n   & \text{Ponto médio} & \text{Trapézios} & \text{Simpson} \\  \hline
+        3 & 0.1056606  &  0.7503919  &  0.5005225  \\  \hline
+        5 & 0.1726140 &   0.3964724  &  0.2784992   \\\hline
+        7 & 0.1973663 &   0.3062023  &  0.2393551  \\ \hline
+        9  &  0.2084204 &   0.2721145  &  0.2306618  \\ \hline
+        \multicolumn{5}{c}{}      
+    \end{array}      
+    \end{equation*}
+  \end{tiny}
+\end{Answer}
+
+
+
+\section{Obtenção das regras de quadratura}
+
+Na seção anterior, obtivemos as regras de quadraturas pela aproximação do integrando por polinômios interpoladores de Lagrange. Aqui, veremos um outro método para obter regras de quadratura, que torna-se bastante útil para quando temos muitos pontos ou quando o intervalo entre os pontos não é uniforme.
 
 Dados $n$ pontos $[t_1,t_2,\ldots ,t_n]$, queremos obter uma aproximação para
 \begin{align}\label{regraint}
@@ -448,9 +549,6 @@ que pode ser escrito na forma matricial
 \begin{bmatrix}  b-a  \\ \frac{b^2-a^2}{2} \\ \frac{b^3-a^3}{3} \\ \vdots  \\ \frac{b^{n}-a^{n}}{n}  \end{bmatrix}
 \end{equation}
 Resolvendo o sistema obtemos os coeficientes $w_k$ para a regra de integração.
-
-
-
 
 \begin{ex}
 Seja $n=3$, $[a,b]=[0,h]$, onde $[t_1,t_2,t_3]=[0,h/2,h]$. Obtenha uma regra de integração para aproximar $\int _a^b f(t)\;dt$.
@@ -505,6 +603,7 @@ Resolvendo o sistema obtemos $\displaystyle [w_1,w_2,w_3]=h[\frac{1}{6},\frac{4}
 \end{equation}
 \end{sol}
 
+>>>>>>> 070aee735edae39b9603913dda7d0ba033e9e218
 
 
 
@@ -530,20 +629,20 @@ $$
 \int_a^b f(x)\;dx \approx S= \sum_{i=1}^{n} \Delta S_i
 $$
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \subsection{Código Scilab: Regras compostas em geral}
 Devemos fazer um loop sobre todos os intervalos e para cada intervalo aplicamos uma regra de quadratura. 
 
 \verbatiminput{./cap_integracao/codes/simpson.sci}
 
-Acumulamos o valor da integral em \verb+S+. No código abaixo temos o método de Simpson, mas basta trocarmos a fórmula para termos outras quadraturas.
+Acumulamos o valor da integral em \verb+S+. No código acima temos o método de Simpson, mas basta trocarmos a fórmula para termos outras quadraturas.
 
 Note que esta não é a implementação mais eficiente, pois reutiliza os termos no contorno dos intervalos. Nas próximas seções veremos regras compostas específicas para alguns métodos.
 \fi
-
-
-
-
+%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Método composto dos trapézios}\index{integração numérica!método composto!dos trapézios}
 A \emph{regra composta dos trapézios} assume a seguinte forma:
@@ -559,6 +658,7 @@ Como $h = x_{i+1} - x_i$, temos:
 \end{eqnarray*}
 
 \ifisscilab
+
 \subsection{Código Scilab: trapézio composto}
 O código Scilab abaixo é uma implementação do método do trapézio composto para calcular:
 \begin{equation*}
@@ -598,22 +698,90 @@ $$
 pelas regras compostas do ponto médio, trapézio e Simpson variando o número de intervalos \\$N_i=1,\ 2,\ 3,\ 6,\ 12,\ 24,\ 48,\ 96$.
 \end{ex}
 \begin{sol}
-  \begin{tabular}{c|ccc}\hline
-    $n$ &  Ponto Médio &  Trapézios & Simpson\\ \hline
-    1 &  5,4365637& 218,3926  &76,421909\\
-    2 & 21,668412 & 111,91458 &51,750469\\
-    3 & 31,678746 & 80,272022 &47,876505\\
-    6 & 41,755985 & 55,975384 &46,495785\\
-    12& 45,137529 & 48,865685 &46,380248\\
-    24& 46,057757 & 47,001607 &46,372373\\
-    48& 46,292964 & 46,529682 &46,37187\\
-    96& 46,352096 & 46,411323 &46,371838
-  \end{tabular}
+  \begin{equation*}
+  \begin{array}{c|ccc}\hline
+    n &  \text{Ponto Médio} &  \text{Trapézios} & \text{Simpson}\\ \hline
+    1 & 5,4365637&218,3926&76,421909\\
+    2&21,668412&111,91458&51,750469\\
+    3&31,678746&80,272022&47,876505\\
+    6&41,755985&55,975384&46,495785\\
+    12&45,137529&48,865685&46,380248\\
+    24&46,057757&47,001607&46,372373\\
+    48&46,292964&46,529682&46,37187\\
+    96&46,352096&46,411323&46,371838\\\hline
+    \multicolumn{4}{c}{}
+  \end{array}    
+  \end{equation*}
 \end{sol}
 
 \subsection*{Exercícios}
 
-\emconstrucao
+\begin{Exercise}
+Use as rotinas construídas em aula e calcule numericamente o valor das seguintes integrais usando o método composto dos trapézios para os seguintes números de pontos:
+$$
+\begin{array}{|c|c|c|c|c|c|}
+\hline
+n   &h& \int_{0}^1e^{-4x^2}dx & \int_{0}^1\frac{1}{1+x^2}dx & \int_{0}^1x^4(1-x)^4dx & \int_{0}^1e^{-\frac{1}{x^2+1}}dx  \\
+\hline
+$17$ && 0.4409931& & ~\hspace{40pt}~& ~\hspace{40pt}~\\
+\hline
+$33 $ &&0.4410288    &      & & \\
+\hline
+$65 $  &&0.4410377  &   & &\\
+\hline
+$129$   &&0.4410400 &  & &\\
+\hline
+$257$   &&0.4410405 &  & &\\
+\hline
+$513$   &&0.4410406 & & &\\
+\hline
+$1025$   &&0.4410407&0.7853981 &1.5873015873016\cdot 10^{-3} &4.6191723776309\cdot 10^{-1} \\
+\hline
+\end{array}
+$$
+\end{Exercise}
+
+
+\begin{Exercise}
+O valor exato da integral imprópria $\int_0^1x\ln(x)dx$ é dado por
+$$\int_0^1x\ln(x)dx=\left.\left(\frac{x^2}{2}\ln x-\frac{x^2}{4}\right)\right|_0^1=-1/4$$
+Aproxime o valor desta integral usando a regra  de Simpson para $n=3$, $n=5$ e $n=7$. Como você avalia a qualidade do resultado obtido? Por que isso acontece.
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+-0.2310491, -0.2452073, - 0.2478649.    
+  \end{tiny}
+\end{Answer}
+
+\begin{Exercise}
+O valor exato da integral imprópria $\int_0^\infty e^{-x^2}dx$ é dado por $\frac{\sqrt{\pi}}{2}$.
+Escreva esta integral como
+$$I=\int_0^1 e^{-x^2}dx+\int_0^1 u^{-2} e^{-1/u^2}du=\int_0^1 \left(e^{-x^2}+x^{-2}e^{-1/x^2}\right)dx$$
+e aproxime seu valor usando o esquema de trapézios e Simpson para $n=5$, $n=7$ e $n=9$.
+\end{Exercise}
+
+\begin{Exercise}
+Estamos interessados em avaliar numericamente a seguinte integral:
+$$\int_0^1 \ln(x)\sin(x)dx$$
+cujo valor com 10 casas decimais corretas é $-.2398117420$.
+\begin{itemize}
+\item[a)] Aproxime esta integral via Gauss-Legendre com $n=2$,$n=3$, $n=4$, $n=5$, $n=6$ e $n=7$.
+\item[b)] Use a identidade
+\begin{eqnarray*}
+\int_0^1 \ln(x)\sin(x)dx&=&\int_0^1 \ln(x)xdx+\int_0^1 \ln(x)\left[\sin(x)-x\right]dx\\
+&=&\left.\left(\frac{x^2}{2}\ln x-\frac{x^2}{4}\right)\right|_0^1+\int_0^1 \ln(x)\left[\sin(x)-x\right]dx\\
+&=&-\frac{1}{4}+\int_0^1 \ln(x)\left[\sin(x)-x\right]dx
+\end{eqnarray*}
+e aproxime a integral $\int_0^1 \ln(x)\left[\sin(x)-x\right]dx$ numericamente via Gauss-Legendre com $n=2$, $n=3$, $n=4$, $n=5$, $n=6$ e $n=7$.
+\item[c)] Compare os resultados e discuta levando em consideração as respostas às seguintes perguntas: 1)Qual função é mais bem-comportada na origem? 2)Na segunda formulação, qual porção da solução foi obtida analiticamente e, portanto, sem erro de truncamento?
+\end{itemize}
+\end{Exercise}
+\begin{Answer}
+  \begin{tiny}
+    a)-0.2472261,  -0.2416451,  -0.2404596,  -0.2400968,  -0.2399563,  -0.2398928.
+    b)-0.2393727,  -0.2397994,  -0.2398104,  -0.2398115,  -0.2398117,  -0.2398117.  
+  \end{tiny}
+\end{Answer}
 
 \section{O método de Romberg}\index{integração numérica!método de Romberg}
 O método de Romberg é um método simplificado para construir quadraturas de alta ordem.
@@ -1023,11 +1191,6 @@ $$
  \int_{x_i}^{x_{i+1}} f(x) \; dx \approx \sum_{i=1}^n w_i f( \bar{x}_i ) (x_{i+1}-x_i)/2
 $$
 
-
-
-
-
-
 \begin{ex} Aproximar
   \begin{equation*}
     \int_{-1}^1\sqrt{1+x^2}dx  
@@ -1136,201 +1299,16 @@ $16$   &0.4410407  &0.7853982 &0.0015873 & 0.4619172 \\
 
 \section{Exercícios finais}
 
-\begin{Exercise}
-Calcule numericamente as seguintes integrais usando os métodos simples do Ponto médio, Trapézio e Simpson. Calcule também o valor exato usando seus conhecimentos de Cálculo I. Complete a tabela abaixo conforme modelo:
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-  & exato & Ponto médio & Trapézio & Simpson \\
-\hline
- & & & &\\[-.3cm]
-$\int_0^1e^{-x}dx$ &$1-e^{-1}\approx 0.6321206$& $ e^{-1/2}\approx 0.6065307$&$\frac{1+e^{-1}}{2}\approx 0.6839397$ &$\frac{1+4e^{-1/2}+e^{-1}}{6}\approx 0.6323337$\\[.2cm]
-\hline
- & & & &\\[-.3cm]
-$\int_0^1x^2dx $ & & & &\\[.2cm]
-
-\hline
- & & & &\\[-.3cm]
-$\int_0^1x^3dx $ & & & &\\[.2cm]
-\hline
- & & & &\\[-.3cm]
-$\int_0^1xe^{-x^2}dx$  & & & &\\[.2cm]
-\hline
- & & & &\\[-.3cm]
-$\int_0^1\frac{1}{x^2+1}dx$  & & & &\\[.2cm]
-\hline
- & & & &\\[-.3cm]
-$\int_0^1\frac{x}{x^2+1}dx$  & & & &\\[.2cm]
-\hline
- & & & &\\[-.3cm]
-$\int_0^1\frac{1}{x+1}dx$  & & & &\\[.2cm]
-\hline
-\end{tabular}
-\end{center}
-\end{Exercise}
-\begin{Answer}
-  \begin{tiny}
- \begin{center}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-  & exato & Ponto médio & Trapézio & Simpson \\
-\hline
- & & & &\\[-.3cm]
-$\int_0^1e^{-x}dx$ &$1-e^{-1}\approx 0.6321206$& $ e^{-1/2}\approx 0.6065307$&$\frac{1+e^{-1}}{2}\approx 0.6839397$ &$\frac{1+4e^{-1/2}+e^{-1}}{6}\approx 0.6323337$\\[.2cm]
-\hline
- & & & &\\[-.3cm]
-$\int_0^1x^2dx $ & $1/3\approx 0.3333333$& 0.25 & 0.5 & 0.3333333\\[.2cm]
-
-\hline
- & & & &\\[-.3cm]
-$\int_0^1x^3dx $ & $1/4=0.25$ & 0.125 & 0.5 & 0.25\\[.2cm]
-\hline
- & & & &\\[-.3cm]
-$\int_0^1xe^{-x^2}dx$  &$\frac{1}{2}\left(1-e^{-1}\right)\approx 0.3160603$ & 0.3894004  &  0.1839397 &   0.3209135  \\[.2cm]
-\hline
- & & & &\\[-.3cm]
-$\int_0^1\frac{1}{x^2+1}dx$  & $\tan^{-1}(1)\approx 0.7853982$ &  0.8  &  0.75 &   0.7833333  
- \\[.2cm]
-\hline
- & & & &\\[-.3cm]
-$\int_0^1\frac{x}{x^2+1}dx$  &$\frac{1}{2}\ln(2)\approx  0.3465736  $ & 0.4 & 0.25 & 0.35\\[.2cm]
-\hline
- & & & &\\[-.3cm]
-$\int_0^1\frac{1}{x+1}dx$  & $\ln(2) \approx 0.6931472$ & 0.6666667  &  0.75 &   0.6944444  \\[.2cm]
-\hline
-\end{tabular}
-\end{center}    
-  \end{tiny}
-\end{Answer}
-
-\begin{Exercise}
- Dados os valores da função $f(x)$, $f(2)=2$, $f(3)=4$ e $f(4)=8$, calcule o valor aproximado de
- $$\int_2^4f(x)dx$$
- pelos métodos simples de ponto médio, trapézio e Simpson.
-\end{Exercise}
-\begin{Answer}
-  \begin{tiny}
- Resp: $8$, $10$ e $8.666667$.    
-  \end{tiny}
-\end{Answer}
-
-\begin{Exercise}
- Dê a interpretação geométrica dos métodos do ponto médio, trapézio e Simpson. A partir desta construção geométrica, deduza as fórmulas para aproximar 
- $$\int_a^bf(x)dx.$$
- Verifique o método de Simpson pode ser entendido como uma média aritmética ponderada entre os métodos de trapézio e ponto médio. Encontre os pesos envolvidos. Explique o que são os métodos compostos.
- \end{Exercise}
-\begin{Answer}
-  \begin{tiny}
-$$ I_{Simpson}= \frac{1}{3} I_{Trap}+ \frac{2}{3}I_{PM}$$    
-  \end{tiny}
-\end{Answer}
-
-
-\begin{Exercise}
-Calcule numericamente o valor de $\int_2^5e^{4-x^2}dx$ usando os métodos compostos do ponto médio, trapézio e Simpson. Obtenha os resultados utilizando, em cada quadratura, o número de pontos indicado.
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-n   & Ponto médio & Trapézios & Simpson \\
-\hline
-$3$ &~\hspace{40pt}~& ~\hspace{40pt}~& ~\hspace{40pt}\\
-\hline
-$5 $ & & & \\
-\hline
-$7 $ & & &\\
-\hline
-$9$  & & &\\
-\hline
-\end{tabular}
-\end{center}
-\end{Exercise}
-\begin{Answer}
-  \begin{tiny}
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-n   & Ponto médio & Trapézios & Simpson \\
-\hline
-$3$ & 0.1056606  &  0.7503919  &  0.5005225  \\
-\hline
-$5 $ & 0.1726140 &   0.3964724  &  0.2784992   \\
-\hline
-$7 $ & 0.1973663 &   0.3062023  &  0.2393551  \\
-\hline
-$9$  &  0.2084204 &   0.2721145  &  0.2306618  \\
-\hline
-\end{tabular}
-\end{center}    
-  \end{tiny}
-\end{Answer}
-
-
-\begin{Exercise}
-Use as rotinas construídas em aula e calcule numericamente o valor das seguintes integrais usando o método composto dos trapézios para os seguintes números de pontos:
-$$
-\begin{array}{|c|c|c|c|c|c|}
-\hline
-n   &h& \int_{0}^1e^{-4x^2}dx & \int_{0}^1\frac{1}{1+x^2}dx & \int_{0}^1x^4(1-x)^4dx & \int_{0}^1e^{-\frac{1}{x^2+1}}dx  \\
-\hline
-$17$ && 0.4409931& & ~\hspace{40pt}~& ~\hspace{40pt}~\\
-\hline
-$33 $ &&0.4410288    &      & & \\
-\hline
-$65 $  &&0.4410377  &   & &\\
-\hline
-$129$   &&0.4410400 &  & &\\
-\hline
-$257$   &&0.4410405 &  & &\\
-\hline
-$513$   &&0.4410406 & & &\\
-\hline
-$1025$   &&0.4410407&0.7853981 &1.5873015873016\cdot 10^{-3} &4.6191723776309\cdot 10^{-1} \\
-\hline
-\end{array}
-$$
-\end{Exercise}
-
-
-\begin{Exercise}
-O valor exato da integral imprópria $\int_0^1x\ln(x)dx$ é dado por
-$$\int_0^1x\ln(x)dx=\left.\left(\frac{x^2}{2}\ln x-\frac{x^2}{4}\right)\right|_0^1=-1/4$$
-Aproxime o valor desta integral usando a regra  de Simpson para $n=3$, $n=5$ e $n=7$. Como você avalia a qualidade do resultado obtido? Por que isso acontece.
-\end{Exercise}
-\begin{Answer}
-  \begin{tiny}
--0.2310491, -0.2452073, - 0.2478649.    
-  \end{tiny}
-\end{Answer}
-
-\begin{Exercise}
-O valor exato da integral imprópria $\int_0^\infty e^{-x^2}dx$ é dado por $\frac{\sqrt{\pi}}{2}$.
-Escreva esta integral como
-$$I=\int_0^1 e^{-x^2}dx+\int_0^1 u^{-2} e^{-1/u^2}du=\int_0^1 \left(e^{-x^2}+x^{-2}e^{-1/x^2}\right)dx$$
-e aproxime seu valor usando o esquema de trapézios e Simpson para $n=5$, $n=7$ e $n=9$.
-\end{Exercise}
-
-\begin{Exercise}
-Estamos interessados em avaliar numericamente a seguinte integral:
-$$\int_0^1 \ln(x)\sin(x)dx$$
-cujo valor com 10 casas decimais corretas é $-.2398117420$.
-\begin{itemize}
-\item[a)] Aproxime esta integral via Gauss-Legendre com $n=2$,$n=3$, $n=4$, $n=5$, $n=6$ e $n=7$.
-\item[b)] Use a identidade
-\begin{eqnarray*}
-\int_0^1 \ln(x)\sin(x)dx&=&\int_0^1 \ln(x)xdx+\int_0^1 \ln(x)\left[\sin(x)-x\right]dx\\
-&=&\left.\left(\frac{x^2}{2}\ln x-\frac{x^2}{4}\right)\right|_0^1+\int_0^1 \ln(x)\left[\sin(x)-x\right]dx\\
-&=&-\frac{1}{4}+\int_0^1 \ln(x)\left[\sin(x)-x\right]dx
-\end{eqnarray*}
-e aproxime a integral $\int_0^1 \ln(x)\left[\sin(x)-x\right]dx$ numericamente via Gauss-Legendre com $n=2$, $n=3$, $n=4$, $n=5$, $n=6$ e $n=7$.
-\item[c)] Compare os resultados e discuta levando em consideração as respostas às seguintes perguntas: 1)Qual função é mais bem-comportada na origem? 2)Na segunda formulação, qual porção da solução foi obtida analiticamente e, portanto, sem erro de truncamento?
-\end{itemize}
-\end{Exercise}
-\begin{Answer}
-  \begin{tiny}
- a)-0.2472261,  -0.2416451,  -0.2404596,  -0.2400968,  -0.2399563,  -0.2398928.
- b)-0.2393727,  -0.2397994,  -0.2398104,  -0.2398115,  -0.2398117,  -0.2398117.  
-  \end{tiny}
-\end{Answer}
+% \begin{Exercise}
+%  Dados os valores da função $f(x)$, $f(2)=2$, $f(3)=4$ e $f(4)=8$, calcule o valor aproximado de
+%  $$\int_2^4f(x)dx$$
+%  pelos métodos simples de ponto médio, trapézio e Simpson.
+% \end{Exercise}
+% \begin{Answer}
+%   \begin{tiny}
+%     $-0.2310491$, $-0.2452073$, $-0.2478649$.    
+%   \end{tiny}
+% \end{Answer}
 
 
 \begin{Exercise} Considere o problema de calcular numericamente a integral $I=\int_{-1}^1f(x)dx$ quando $f(x)=\frac{\cos(x)}{\sqrt{|x|}}$.
@@ -1356,7 +1334,6 @@ e escrevendo
 \end{eqnarray*}
 \end{itemize}
 \end{Exercise}
-
 \begin{Answer}
   \begin{tiny}
 \begin{center}
@@ -1413,7 +1390,6 @@ Aplique as técnicas estudadas para aproximar o valor de I e explique por que a 
 \begin{Exercise} Resolva a  equação
 $$x+\int_0^x e^{-y^2}dy=5$$
 com 5 dígitos significativos.
-
 \end{Exercise}
 \begin{Answer}
   \begin{tiny}

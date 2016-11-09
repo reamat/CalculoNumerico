@@ -164,6 +164,9 @@ cuja jacobiana é:
     \end{array}\right]
 \end{equation*}
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 Faremos a implementação numérica no \verb+Scilab+. Para tal definimos as funções que implementarão $F(x)$ e a $J_F(x)$
 \begin{verbatim}
@@ -199,6 +202,39 @@ Ou simplesmente
 x=x-JF(x)\F(x)
 \end{verbatim}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Faremos a implementação numérica em \verb+Python+. Para tal definimos as funções que implementarão $F(x)$ e a $J_F(x)$
+\begin{verbatim}
+>>> def F(x):
+...     y = np.zeros(2)
+...     y[0] = x[0]**2/3 + x[1]**2 - 1
+...     y[1] = x[0]**2 + x[1]**2/4 - 1
+...     return y
+... 
+>>> def JF(x):
+...     y = np.zeros((2,2))
+...     y[0,0] = 2*x[0]/3
+...     y[0,1] = 2*x[1]
+...     y[1,0] = 2*x[0]
+...     y[1,1] = x[1]/2
+...     return y
+... 
+\end{verbatim}
+Desta forma, se $x$ é uma aproximação para a raiz, pode-se calcular a próxima aproximação através dos comandos:
+\begin{verbatim}
+>>> delta = -np.linalg.inv(JF(x)).dot(F(x))
+>>> x = x + delta
+\end{verbatim}
+Ou simplesmente
+\begin{verbatim}
+>>> x = x - np.linalg.inv(JF(x)).dot(F(x))
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 Observe que as soluções exatas desse sistema são $\left(\pm \sqrt{\frac{9}{11}},\pm \sqrt{\frac{8}{11}}\right)$.
 \end{ex}
 
@@ -208,23 +244,32 @@ Observe que as soluções exatas desse sistema são $\left(\pm \sqrt{\frac{9}{11
 x_1^2=\cos(x_1x_2)+1\\
 \sin(x_2)=2\cos(x_1)
 \end{eqnarray*}
-que fica próxima ao ponto $x_1=1.5$ e $x_2=.5$.\\
-{\bf Resp:} $(1,3468109,~0,4603195)$.
+que fica próxima ao ponto $x_1=1,5$ e $x_2=0,5$.
 \end{ex}
-\begin{sol} Vamos, aqui, dar as principais ideias para se obter a solução. Começamos definindo a função $F(x)$ por:
+\begin{sol} Vamos, aqui, dar as principais ideias para se obter a solução usando o método de Newton. 
+Começamos definindo nossa aproximação inicial por $x^{(1)} = (1,5, 0,5)$. Então iteramos:
+\begin{equation*}
+  x^{(n+1)} = x^{(n)} - J_F^{-1}(x)F(x), \quad n\geq 1.
+\end{equation*}
+onde
   \begin{equation*}
     F(x)=\left[\begin{array}{c}
         \displaystyle x_1^2-\cos(x_1x_2)-1\\
         \displaystyle \sin(x_2)-2\cos(x_1)
       \end{array}\right]  
   \end{equation*}
-cuja jacobiana é:
+e sua jacobiana é 
 \begin{equation*}
   J_F(x) = \left[\begin{array}{cc}
     \displaystyle 2x_1 +x_2\sin(x_1x_2) & x_1\sin(x_1x_2)\\
     \displaystyle 2\sin(x_1) & \cos(x_2)
   \end{array}\right]
 \end{equation*}
+As iterações convergem para $x = (1,3468109,~0,4603195)$.
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 No \verb+Scilab+, podemos implementá-las com o seguinte código:
 \begin{verbatim}
@@ -245,16 +290,63 @@ endfunction
 E agora, basta iterar:
 \begin{verbatim}
 x=[1.5; .5]
-x=x-JF(x)\F(x) (5 vezes)
+x=x-JF(x)\F(x) //(5 vezes)
 \end{verbatim}  
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos implementá-las com o seguinte código:
+\begin{verbatim}
+def F(x):
+    y = np.zeros(2)
+    
+    y[0] = x[0]**2 - np.cos(x[0]*x[1]) - 1
+    y[1] = np.sin(x[1]) - 2*np.cos(x[0])
+    
+    return y
+
+def JF(x):
+    y = np.zeros((2,2))
+    
+    y[0,0] = 2*x[0] + x[1]*np.sin(x[0]*x[1])
+    y[0,1] = x[0]*np.sin(x[0]*x[1])
+
+    y[1,0] =  2*np.sin(x[0])
+    y[1,1] = np.cos(x[1])
+
+    return y
+\end{verbatim}
+
+E agora, basta iterar:
+\begin{verbatim}
+>>> x = np.array([1.5,0.5])
+>>> x=x-np.linalg.inv(JF(x)).dot(F(x))
+\end{verbatim}  
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \subsection{Código Scilab: Newton para sistemas}
 
-\verbatiminput{./cap_nlinsis/codes/metodo_de_newton/newton.sci}
+\verbatiminput{./cap_nlinsis/codes/scilab/metodo_de_newton/newton.sci}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\subsection{Código Python: Newton para Sistemas}
+
+\verbatiminput{./cap_nlinsis/codes/python/metodo_de_newton/newton.py}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
 \subsection*{Exercícios}
 

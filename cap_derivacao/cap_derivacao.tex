@@ -43,6 +43,9 @@ para cada valor de $h$ solicitado. Fazendo isso, obtemos:
   \end{array}
 \end{equation*}
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 No \verb+Scilab+, podemos calcular a aproximação da derivada $f'(1)$ com $h=0,1$ usando as seguintes linhas de código:
 \begin{verbatim}
@@ -53,6 +56,23 @@ No \verb+Scilab+, podemos calcular a aproximação da derivada $f'(1)$ com $h=0,
 \end{verbatim}
 E, similarmente, para outros valores de $x_0$ e $h$.
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos calcular a aproximação da derivada $f'(1)$ com $h=0,1$ usando as seguintes linhas de código:
+\begin{verbatim}
+>>> def f(x):
+...    return np.cos(x)
+...
+>>> x0=1
+>>> h=0.1
+>>> df = (f(x0+h)-f(x0))/h
+\end{verbatim}
+E, similarmente, para outros valores de $x_0$ e $h$.
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
 \begin{figure}
@@ -446,31 +466,77 @@ Analogamente, para construir as fórmulas de cinco pontos tomamos o polinômio d
 {\label{cinco_pontos}}f'(x_0)=\frac{1}{12h}\left[f(x_0-2h)-8f(x_0-h)+8f(x_0+h)-f(x_0+2h)\right]+\frac{h^4}{30}f^{(5)}(\xi(x_0))
 \end{equation}
 
-\begin{ex}
-Calcule a derivada numérica de $f(x)=e^{-x^2}$ em $x=1,5$ pela fórmula de três e cinco pontos para $h=0,1$, $h=0,01$ e $h=0,001$.
+\begin{ex}\label{ex:varias_formulas}
+Calcule a derivada numérica de $f(x)=e^{-x^2}$ em $x=1,5$ pelas fórmulas de três e cinco pontos para $h=0,1$, $h=0,01$ e $h=0,001$.
 \end{ex}
 \begin{sol}
-A tabela mostra os resultados:
-$$
-\begin{array}{|c|c|c|c|}
-\hline
- h & h=0,1 & h=0,01 & h=0,001\\
-\hline
-\hbox{diferenças progressivas} &-0,2809448 &-0,3125246 &- 0,3158289\\
-\hline
-\hbox{diferenças regressivas} &- 0,3545920 &- 0,3199024 &- 0,3165667\\
-\hline
-\hbox{três pontos usando (\ref{tres_pontos_frente})} &-0,3127746 &- 0,3161657 &-0,3161974\\
-\hline
-\hbox{três pontos usando (\ref{tres_pontos_central})} &- 0,3177684 &- 0,3162135 &-0,3161978\\
-\hline
-\hbox{três pontos usando (\ref{tres_pontos_traz})} &-0,3135824 &- 0,3161665 &-0,3161974\\
-\hline
-\hbox{cinco pontos usando (\ref{cinco_pontos})} &-0,3162384&-0,316197677 &-0,3161976736860\\
-\hline
-\end{array}
-$$
-O valor exato da derivada é $f'(1,5) = -0,3161976736856$.  
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+No \verb+Scilab+, podemos computar estas derivadas numéricas com $h=0.1$ da seguinte forma:
+\begin{verbatim}
+--> deff('y=f(x)','y=exp(-x^2)')
+--> x=1.5
+--> h=0.1
+--> //progressiva de ordem 1
+--> dp1 = (f(x+h)-f(x))/h
+--> //regressiva de ordem 1
+--> dr1 = (f(x)-f(x-h))/h
+--> //central de ordem 2
+--> dc2 = (f(x+h)-f(x-h))/(2*h)
+--> //progressiva de ordem 2
+--> dp2 = (-3*f(x)+4*f(x+h)-f(x+2*h))/(2*h)
+--> //regressiva de ordem 2
+--> dr2 = (f(x-2*h)-4*f(x-h)+3*f(x))/(2*h)
+--> //central de ordem 4
+--> dc4 = (f(x-2*h)-8*f(x-h)+8*f(x+h)-f(x+2*h))/(12*h)
+\end{verbatim}
+e, análogo, para $h=0.01$ e $h=0.001$.
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos computar estas derivadas numéricas com $h=0.1$ da seguinte forma:
+\begin{verbatim}
+>>> def f(x):
+>>> ...     return np.exp(-x**2)
+>>> x=1.5
+>>> h=0.1
+>>> #progressiva de ordem 1
+>>> dp1 = (f(x+h)-f(x))/h
+>>> #regressiva de ordem 1
+>>> dr1 = (f(x)-f(x-h))/h
+>>> #central de ordem 2
+>>> dc2 = (f(x+h)-f(x-h))/(2*h)
+>>> #progressiva de ordem 2
+>>> dp2 = (-3*f(x)+4*f(x+h)-f(x+2*h))/(2*h)
+>>> #regressiva de ordem 2
+>>> dr2 = (f(x-2*h)-4*f(x-h)+3*f(x))/(2*h)
+>>> #central de ordem 4
+>>> dc4 = (f(x-2*h)-8*f(x-h)+8*f(x+h)-f(x+2*h))/(12*h)
+\end{verbatim}
+e, análogo, para $h=0.01$ e $h=0.001$.
+\fi
+%%%%%%%%%%%%%%%%%%%%
+O valor analítico da derivada é $f'(1,5) \approx -0,3161976736856$. A Tabela~\ref{tab:ex_varias_formulas} mostra os resultados computados com as derivadas numéricas.
+
+\begin{table}
+  \centering
+  \begin{tabular}{l|ccc}
+    Diferenças Finitas & $h=0,1$ & $0,01$ & $0,001$\\\hline
+    Progressiva $O(h)$ & $-0,2809448$ & $-0,3125246$ & $-0,3158289$\\
+    Regressiva $O(h)$ & $-0,3545920$ & $-0,3199024$ & $-0,3165667$\\
+    Progressiva $O(h^2)$ & $-0,3127746$ & $-0,3161657$ & $-0,3161974$\\
+    Central $O(h^2)$ & $-0,3177684$ & $-0,3162135$ & $-0,3161978$ \\
+    Regressiva $O(h^2)$ & $-0,3135824$ & $-0,3161665$ & $-0,3161974$\\
+    Central $O(h^4)$ & $-0,3162384$ & $-0,3161977$ & $-0,31619767$ \\\hline
+  \end{tabular}
+  \caption{Derivadas numéricas de $f(x) = e^{-x^ 2}$ em $x=1,5$. Veja o Exemplo~\ref{ex:varias_formulas}.}
+  \label{tab:ex_varias_formulas}
+\end{table}
 \end{sol}
 
 \subsection*{Exercícios}
