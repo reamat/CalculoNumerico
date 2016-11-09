@@ -111,11 +111,41 @@ Números em notação científica podem ser representados, tando usando `$\times
 
 ### Exercícios
 
-Os exercícios devem ser colocados como subseção daquela que se refere usando:
+O livro conta com três tipos de exercícios, os chamados: Exercícios Resolvidos, Exercícios e Exercícios Finais.
+
+#### Exercícios Resolvidos
+
+Esercícios Resolvidos são exercícios com resolução completa. Eles devem ser colocados em subseção da seção que se referem. A subseção deve ser não numerada e intitulada "Exercícios Resolvidos" , i.e.:
+
+    \subsection*{Exercícios Resolvidos}
+
+O enunciado de um exercício resolvido  deve ser colocado dentro de um ambiente `exeresol` como, por exemplo:
+
+    \begin{exeresol}
+	    Escreva aqui o enunciado do exercício resolvido.
+    \end{exersol}
+
+A resolução do exercício deve ser colocada dentro de um ambiente `resol`, colocado logo abaixo do `\end{exeresol}`, por exemplo:
+
+    \begin{resol}
+	    Escreva aqui a resolução completa (detalhada) do exercício.
+	\end{resol}
+
+#### Exercícios
+
+Exercícios com resposta ou sem devem ser colocados em subseção da seção que se referem. A subseção deve ser não numerada e intitulada "Exercícios", i.e.:
 
     \subsection*{Exercícios}
 
-A exceção é a lista de exercícios finais de um capítulo. Esta deve ser adicionada como uma seção numerada:
+O enunciado de um exercício com resposta ou sem deve ser colocado dentro de um ambiente `exer` como, por exemplo:
 
-    \section{Exercícios Finais}
+    \begin{exer}
+	   Excreva aqui o enunciado do exercício com resposta ou sem.
+	\end{exer}
+
+Caso o exercício tenha resposta (final, para resolução completa, veja a subsecção Exercícios Resolvidos) ela deve ser colocado em um ambiente `resp` logo abaixo do ambiente que o exercício se refere como, por exemplo:
+
+    \begin{resp}
+	   Excreva aqui a resposta do exercício.
+	\end{resp}
 

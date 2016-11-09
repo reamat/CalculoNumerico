@@ -226,6 +226,22 @@ epub-py: main.tex
               --cover=./rosto/cover-python-epub.png\
 	      --comments="Para mais informações sobre este livro visite  http://www.ufrgs.br/numerico"
 
+
+########################################
+# TODOS OS FORMATOS PDF
+########################################
+
+all-pdf: main.tex
+	make clean
+	make pdf
+	make clean
+	make slide
+	make clean
+	make pdf-py
+	make clean
+	make slide-py
+
+
 ########################################
 # TODOS OS FORMATOS
 ########################################
