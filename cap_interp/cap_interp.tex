@@ -5,7 +5,7 @@
 
 \chapter{Interpolação}\index{aproximação!de funções}
 
-Neste capítulo, discutimos sobre problemas de \emph{interpolação}\index{interpolação}. Mais precisamente, dada uma sequência de $n$ reais $x_1<x_2<\ldots<x_n$, um conjunto de pontos $\left\{(x_i, y_i)\in I\times\mathbb{R}\right\}_{i=1}^n$, onde $I=\left[x_1,x_n\right]$ e uma família de funções $\mathcal{F}_I = \{\varphi:I\rightarrow\mathbb{R}\}$, o problema de interpolação consiste em encontrar alguma função $f\in\mathcal{F}_I$ tal que:
+Neste capítulo, discutimos sobre problemas de \emph{interpolação}\index{interpolação}. Mais precisamente, dada uma sequência de $n$ reais $x_1<x_2<\ldots<x_n$, um conjunto de pontos $\left\{(x_i, y_i)\in I\times\mathbb{R}\right\}_{i=1}^n$, onde $I=\left[x_1,x_n\right]$ e uma família de funções $\mathcal{F}_I = \{\varphi:I\rightarrow\mathbb{R}\}$, o problema de interpolação consiste em encontrar alguma função $f\in\mathcal{F}_I$ tal que
 \begin{equation*}
   f(x_i) = y_i,\quad i=1, 2, \dotsc, n.
 \end{equation*}
@@ -18,7 +18,7 @@ Chamamos uma tal $f$ de \emph{função interpoladora} dos pontos dados. Ou ainda
 \end{figure}
 
 \begin{ex}\label{ex:intro_interpolacao}
-  Um dos problemas de interpolação mais simples é o de entrar a equação da reta que passa por dois pontos dados. Por exemplo, sejam dados o conjunto de pontos $\{(1, 1), (2, 2)\}$ e a família de funções $\mathcal{F}_{[1,2]}$
+  Um dos problemas de interpolação mais simples é o de entrar a equação da reta que passa por dois pontos dados. Por exemplo, sejam dados o conjunto de pontos $\{(1, 1), (2, 2)\}$ e a família de funções $\mathcal{F}_{[1,2]}$:
   \begin{equation*}
    \mathcal{F}_{[1,2]} = \left\{f:[1,2]\rightarrow \mathbb{R}\quad|\quad[1,2]\ni x\mapsto f(x) = a + bx;\,a,b\in\mathbb{R}\right\}.
   \end{equation*}
@@ -44,22 +44,22 @@ Interpolação polinomial é um caso particular do problema geral de interpolaç
 
 Observe que para o problema ser bem determinado, é necessário restringirmos o grau dos polinômios. Dado um conjunto de $n$ pontos a serem interpolados $\{(x_i,y_i)\}_{i=1}^{n}$, $x_i\neq x_j$ para $i\neq j$, a família de polinômios $\mathcal{F} = \mathbb{P}_{n-1}$ deve ser escolhida, onde:
 \begin{equation*}
-  \mathbb{P}_{n-1} := \{p(x) = a_1 + a_2x + \cdots + a_nx^{n-1}; a_i\in\mathbb{R}, i=1,2,\dotsc, n\},
+  \mathbb{P}_{n-1} := \left\{p : x\mapsto p(x) = \sum_{i=0}^{n-1}a_ix^i ;\, \{a_0,a_1,\ldots,a_{n-1}\}\in\mathbb{R}\right\},
 \end{equation*}
 i.e., a família dos polinômios reais de grau menor ou igual a $n-1$.
 
 O Exemplo~\ref{ex:intro_interpolacao} discute um dos casos mais simples de interpolação polinomial, o qual consiste em interpolar uma reta por dois pontos. Neste caso, a família de funções consiste de polinômios de grau 1. Se buscarmos interpolar uma parábola pelos dois pontos dados, o problema fica subdeterminado, pois existem infinitas parábolas que passam por dois pontos dados. Além disso, se buscarmos interpolar uma reta por três pontos dados, o problema estaria sobredeterminado e poderia não ter solução se os pontos não fossem colineares. Veja o Exercício~\ref{exer:problemas_mal_determinados}.
 
-Assim, dado um conjunto com $n$ pontos $\{(x_i,y_i)\}_{i=1}^{n}$, chamamos de \emph{polinômio interpolador}\index{polinômio interpolador} o polinômio de grau menor ou igual a $n-1$ que interpola os pontos dados.
+Assim, dado um conjunto com $n$ pontos $\{(x_i,y_i)\}_{i=1}^{n}$, chamamos de \emph{polinômio interpolador}\index{polinômio interpolador} o polinômio de grau menor ou igual a $n-1$ que os interpola.
 
 
 \begin{figure}
   \centering
   \includegraphics{./cap_interp/pics/ex_interpolacao_polinomial/ex_interpolacao_polinomial}
-  \caption{Polinômio interpolador do conjunto de pontos $\{(0, 1)$, $(1, 2)$, $(2, 4)$, $(3, 8)\}$. Veja o Exemplo~\ref{ex:interpolacao_polinomial}.}\label{fig:ex_interpolacao_polinomial}
+  \caption{Polinômio interpolador do conjunto de pontos $\{(0, 1)$, $(1, 2)$, $(2, -3)$, $(3, -20)\}$. Veja o Exemplo~\ref{ex:interpolacao_polinomial}.}\label{fig:ex_interpolacao_polinomial}
 \end{figure}
 
-\begin{ex}\label{ex:interpolacao_polinomial} Encontre o polinômio interpolador do conjunto de pontos $\{(0, 1)$, $(1, 2)$, $(2, 4)$, $(3, 8)\}$.
+\begin{ex}\label{ex:interpolacao_polinomial} Encontre o polinômio interpolador do conjunto de pontos $\{(0, 1)$, $(1, 2)$, $(2, -3)$, $(3, -20)\}$.
 \end{ex}
 \begin{sol}
 Como o conjunto consiste de 4 pontos, o polinômio interpolador deve ser da forma:
@@ -71,11 +71,11 @@ As condições de interpolação são $p(x_i) = y_i$, $i = 1, 2, 3, 4$, o que no
   \begin{array}{lclclclcl}
     a_1& & & & & & &=&1\\
     a_1&+& a_2&+& a_3&+&  a_4&=&2\\
-    a_1&+&2a_2&+&4a_3&+& 8a_4&=&4\\
-    a_1&+&3a_2&+&9a_3&+&27a_4&=&8
+    a_1&+&2a_2&+&4a_3&+& 8a_4&=&-3\\
+    a_1&+&3a_2&+&9a_3&+&27a_4&=&-20
   \end{array}
 \end{equation*}
-cuja solução é $a_1=1$, $a_2=\frac{5}{6}$, $a_3=0$ e $a_4=\frac{1}{6}$. Portanto, o polinômio interpolador é $p(x)=1+\frac{5}{6}x+\frac{1}{6}x^3$. Veja Figura~\ref{fig:ex_interpolacao_polinomial}.
+cuja solução é $a_0=1$, $a_1=2$, $a_2=0$ e $a_3=-1$. Portanto, o polinômio interpolador é $p(x)=1+2x-x^3$. Veja Figura~\ref{fig:ex_interpolacao_polinomial}.
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
@@ -84,13 +84,13 @@ cuja solução é $a_1=1$, $a_2=\frac{5}{6}$, $a_3=0$ e $a_4=\frac{1}{6}$. Porta
 No \verb+Scilab+, podemos encontrar o polinômio interpolador e esboçar seu gráfico com os seguintes comandos:
 \begin{verbatim}
 -->xi = [0 1 2 3]';
--->yi = [1 2 4 8]'; 
--->A = [xi.^0 xi.^1 xi.^2 xi.^3]; 
--->a = inv(A)*yi; 
+-->yi = [1 2 -3 -20]'; 
+-->A = [xi.^0 xi.^1 xi.^2 xi.^3];
+-->a = A\yi; 
 -->p = poly(a,'x','c') 
  p  =
-                               3  
-    1 + 0.8333333x + 0.1666667x   
+                   3
+     1 + 2x - x   
 -->xx = linspace(-0.5,3.25); 
 -->plot(xi,yi,'ro',xx,horner(p,xx),'b-');xgrid
 \end{verbatim}
@@ -103,10 +103,10 @@ No \verb+Scilab+, podemos encontrar o polinômio interpolador e esboçar seu gr�
 Em \verb+Python+, podemos encontrar o polinômio interpolador e esboçar seu gráfico com os seguintes comandos:
 \begin{verbatim}
 >>> xi = np.array([0,1,2,3], dtype='double')
->>> yi = np.array([1,2,4,8], dtype='double')
+>>> yi = np.array([1,2,-3,-20], dtype='double')
 >>> A = np.array([xi**3,xi**2,xi**1,xi**0]).transpose()
 >>> a = np.linalg.inv(A).dot(yi);a
-array([ 0.16666667,  0.        ,  0.83333333,  1.        ])
+array([ -1,  0.,  2,  1. ])
 >>> xx = np.linspace(-0.5,3.25); 
 >>> plt.plot(xi,yi,'ro',xx,np.polyval(a,xx),'b-')
 >>> plt.grid();plt.show()
