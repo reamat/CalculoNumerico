@@ -56,26 +56,26 @@ Assim, dado um conjunto com $n$ pontos $\{(x_i,y_i)\}_{i=1}^{n}$, chamamos de \e
 \begin{figure}
   \centering
   \includegraphics{./cap_interp/pics/ex_interpolacao_polinomial/ex_interpolacao_polinomial}
-  \caption{Polinômio interpolador do conjunto de pontos $\{(0, 1)$, $(1, 2)$, $(2, -3)$, $(3, -20)\}$. Veja o Exemplo~\ref{ex:interpolacao_polinomial}.}\label{fig:ex_interpolacao_polinomial}
+  \caption{Polinômio interpolador do conjunto de pontos $\{(0, 1)$, $(1, 6)$, $(2, 5)$, $(3, -8)\}$. Veja o Exemplo~\ref{ex:interpolacao_polinomial}.}\label{fig:ex_interpolacao_polinomial}
 \end{figure}
 
-\begin{ex}\label{ex:interpolacao_polinomial} Encontre o polinômio interpolador do conjunto de pontos $\{(0, 1)$, $(1, 2)$, $(2, -3)$, $(3, -20)\}$.
+\begin{ex}\label{ex:interpolacao_polinomial} Encontre o polinômio interpolador do conjunto de pontos $\{(0, 1)$, $(1, 6)$, $(2, 5)$, $(3, -8)\}$.
 \end{ex}
 \begin{sol}
 Como o conjunto consiste de 4 pontos, o polinômio interpolador deve ser da forma:
 \begin{equation*}
-  p(x) = a_1 + a_2x + a_3x^2 + a_4x^3.
+  p(x) = a_0 + a_1x + a_2x^2 + a_3x^3.
 \end{equation*}
-As condições de interpolação são $p(x_i) = y_i$, $i = 1, 2, 3, 4$, o que nos leva ao sistema linear:
+As condições de interpolação são $p(x_i) = y_i$, $i = 0, 1, 2, 3$, o que nos leva ao sistema linear:
 \begin{equation*}
   \begin{array}{lclclclcl}
-    a_1& & & & & & &=&1\\
-    a_1&+& a_2&+& a_3&+&  a_4&=&2\\
-    a_1&+&2a_2&+&4a_3&+& 8a_4&=&-3\\
-    a_1&+&3a_2&+&9a_3&+&27a_4&=&-20
+    a_0& & & & & & &=&1\\
+    a_0&+& a_1&+& a_2&+&  a_3&=&6\\
+    a_0&+&2a_1&+&4a_2&+& 8a_3&=&5\\
+    a_0&+&3a_1&+&9a_2&+&27a_3&=&-8
   \end{array}
 \end{equation*}
-cuja solução é $a_0=1$, $a_1=2$, $a_2=0$ e $a_3=-1$. Portanto, o polinômio interpolador é $p(x)=1+2x-x^3$. Veja Figura~\ref{fig:ex_interpolacao_polinomial}.
+cuja solução é $a_0=1$, $a_1=6$, $a_2=0$ e $a_3=-1$. Portanto, o polinômio interpolador é $p(x)=1+6x-x^3$. Veja Figura~\ref{fig:ex_interpolacao_polinomial}.
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
@@ -84,13 +84,13 @@ cuja solução é $a_0=1$, $a_1=2$, $a_2=0$ e $a_3=-1$. Portanto, o polinômio i
 No \verb+Scilab+, podemos encontrar o polinômio interpolador e esboçar seu gráfico com os seguintes comandos:
 \begin{verbatim}
 -->xi = [0 1 2 3]';
--->yi = [1 2 -3 -20]'; 
+-->yi = [1 6 5 -8]'; 
 -->A = [xi.^0 xi.^1 xi.^2 xi.^3];
 -->a = A\yi; 
 -->p = poly(a,'x','c') 
  p  =
                    3
-     1 + 2x - x   
+     1 + 6x - x   
 -->xx = linspace(-0.5,3.25); 
 -->plot(xi,yi,'ro',xx,horner(p,xx),'b-');xgrid
 \end{verbatim}
@@ -103,10 +103,10 @@ No \verb+Scilab+, podemos encontrar o polinômio interpolador e esboçar seu gr�
 Em \verb+Python+, podemos encontrar o polinômio interpolador e esboçar seu gráfico com os seguintes comandos:
 \begin{verbatim}
 >>> xi = np.array([0,1,2,3], dtype='double')
->>> yi = np.array([1,2,-3,-20], dtype='double')
+>>> yi = np.array([1,6,5,-8], dtype='double')
 >>> A = np.array([xi**3,xi**2,xi**1,xi**0]).transpose()
 >>> a = np.linalg.inv(A).dot(yi);a
-array([ -1,  0.,  2,  1. ])
+array([ -1,  0.,  6,  1. ])
 >>> xx = np.linspace(-0.5,3.25); 
 >>> plt.plot(xi,yi,'ro',xx,np.polyval(a,xx),'b-')
 >>> plt.grid();plt.show()
