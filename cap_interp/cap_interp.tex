@@ -40,7 +40,15 @@ Um problema de interpolação cuja a família de funções constitui-se de polin
 
 \section{Interpolação polinomial}\index{interpolação!polinomial}
 
-Interpolação polinomial é um caso particular do problema geral de interpolação, no qual a família de funções é constituída de polinômios. Para o problema ser bem determinado é necessário restringirmos o grau dos polinômios. 
+Interpolação polinomial é um caso particular do problema geral de interpolação, no qual a família de funções é constituída de polinômios. A escolha de polinômios como funções interpolantes é natural por diversos  motivos: se $p$ é um polinômio de grau $n$, o valor $p(x)$ para um $x$ real é calculado através de $n+1$ operações de multiplicação e $n+1$ operações de soma\footnote{Essa forma de calcular o valor de $p(x)$ é denominada algoritmo de Horner. Dado um polinômio $p$ de grau $n$ da forma \begin{equation*}p(x)=\sum_{i=0}^{n}a_i x^i,\end{equation*} é possível reescrevê-lo como a sequência de operações dada por \begin{equation*}a_0 + x\left(a_1 + x\left(a_2 + x\left(\ldots + x\left(a_{n-1} + x a_n\right)\ldots\right)\right)\right).\end{equation*} O que requer $n+1$ operações de multiplicação e $n+1$ operações de soma.}; derivadas e primitivas de polinômios são também polinômios cuja relação algébrica com o original é simples; e finalmente o Teorema da Aproximação de Weierstrass, segundo o qual, qualquer função contínua definida em um intervalo fechado pode ser aproximada uniformemente por um polinômio tão bem quanto se queira.  
+
+\begin{teo}[Weierstrass]Seja $f$ uma função contínua definida no intervalo fechado $[a,b]$ e seja $\delta$ um número positivo. Então existe um polinômio $p$, tal que para todo $x\in[a,b]$,
+	\begin{equation*}
+	|f(x)-p(x)|<\delta.
+	\end{equation*}
+\end{teo}
+
+Para o problema ser bem determinado é necessário restringirmos o grau dos polinômios. 
 
 Observe que para o problema ser bem determinado, é necessário restringirmos o grau dos polinômios. Dado um conjunto de $n$ pontos a serem interpolados $\{(x_i,y_i)\}_{i=1}^{n}$, $x_i\neq x_j$ para $i\neq j$, a família de polinômios $\mathcal{F} = \mathbb{P}_{n-1}$ deve ser escolhida, onde:
 \begin{equation*}
@@ -53,7 +61,7 @@ O Exemplo~\ref{ex:intro_interpolacao} discute um dos casos mais simples de inter
 Assim, dado um conjunto com $n$ pontos $\{(x_i,y_i)\}_{i=1}^{n}$, chamamos de \emph{polinômio interpolador}\index{polinômio interpolador} o polinômio de grau menor ou igual a $n-1$ que os interpola.
 
 
-\begin{figure}
+\begin{figure}[ht]
   \centering
   \includegraphics{./cap_interp/pics/ex_interpolacao_polinomial/ex_interpolacao_polinomial}
   \caption{Polinômio interpolador do conjunto de pontos $\{(0, 1)$, $(1, 6)$, $(2, 5)$, $(3, -8)\}$. Veja o Exemplo~\ref{ex:interpolacao_polinomial}.}\label{fig:ex_interpolacao_polinomial}
@@ -88,8 +96,8 @@ No \verb+Scilab+, podemos encontrar o polinômio interpolador e esboçar seu gr�
 -->A = [xi.^0 xi.^1 xi.^2 xi.^3];
 -->a = A\yi; 
 -->p = poly(a,'x','c') 
- p  =
-                   3
+  p  =
+               3
      1 + 6x - x   
 -->xx = linspace(-0.5,3.25); 
 -->plot(xi,yi,'ro',xx,horner(p,xx),'b-');xgrid
