@@ -529,12 +529,12 @@ O método babilônico\footnote{Heron de Alexandria, 10 d.C. - 70 d.C., matemáti
 
 Seja $r>0$ uma aproximação para $\sqrt{A}$. Temos três possibilidades:
 \begin{itemize}
-\item $r>\sqrt{A} \Longrightarrow \frac{A}{r}<\sqrt{A} \Longrightarrow \sqrt{A}\in \left(\frac{A}{r}, r\right)$
-\item $r=\sqrt{A} \Longrightarrow \frac{A}{r}=\sqrt{A}$
-\item $r<\sqrt{A} \Longrightarrow \frac{A}{r}>\sqrt{A} \Longrightarrow \sqrt{A}\in \left(r, \frac{A}{r}\right)$
+\item $r>\sqrt{A} \Longrightarrow \frac{A}{r}<\sqrt{A} \Longrightarrow \sqrt{A}\in \left(\frac{A}{r}, r\right);$
+\item $r=\sqrt{A} \Longrightarrow \frac{A}{r}=\sqrt{A};$
+\item $r<\sqrt{A} \Longrightarrow \frac{A}{r}>\sqrt{A} \Longrightarrow \sqrt{A}\in \left(r, \frac{A}{r}\right).$
 \end{itemize}
-Ou seja, uma aproximação melhor para $\sqrt{A}$ está no intervalo entre $r$ e $\frac{A}{r}$ que pode ser aproximada como:
-$$x=\frac{r+\frac{A}{r}}{2}$$
+Ou seja, $\sqrt{A}$ sempre está no intervalo entre $r$ e $\frac{A}{r}$, no qual podemos buscar uma nova aproximação como, por exemplo, pelo ponto médio:
+$$x=\frac{r+\frac{A}{r}}{2}.$$
 
 Aplicando esse método repetidas vezes, podemos construir a iteração (de ponto fixo):
 \begin{eqnarray*}
@@ -598,10 +598,10 @@ A segunda pergunta é a mais fácil de ser respondida. No caso de $g(x)$ ser con
 
 % De fato, podemos provar que o método é convergente para qualquer valor inicial positivo $x$. E, ainda, que a convergência é rápida (ainda precisamos definir isso).
 
-Antes de respondermos as perguntas acima, vejamos mais um exemplo.
+Antes de respondermos as outras perguntas acima, vejamos mais um exemplo.
 
 \begin{ex}\label{ex:ponto_fixo_2}
-  Considere o problema de encontrar o zero da função $f(x) = x\exp(x) - 10$. Uma maneira geral de construir um problema de ponto fixo equivalente é o seguinte:
+  Considere o problema de encontrar o zero da função $f(x) = xe^x - 10$. Uma maneira geral de construir um problema de ponto fixo equivalente é o seguinte:
   \begin{equation*}
     f(x) = 0 \Rightarrow \alpha f(x) = 0 \Rightarrow x - \alpha f(x) = x,
   \end{equation*}
@@ -647,7 +647,7 @@ Afim de estudarmos a convergência da iteração do ponto fixo, apresentamos o T
 
 \subsection{Teorema do ponto fixo}\index{Teorema do!ponto fixo}
 
-O Teorema do ponto fixo nos fornece condições suficientes para a existência e unicidade do ponto fixo, bem como para a convergência das iterações do método.
+O teorema do ponto fixo nos fornece condições suficientes para a existência e unicidade do ponto fixo, bem como para a convergência das iterações do método.
 
 \begin{defn}
  Uma \emph{contração}\index{contração} é uma função real $g:[a, b]\to [a, b]$ tal que:
@@ -664,7 +664,7 @@ O Teorema do ponto fixo nos fornece condições suficientes para a existência e
 \end{obs}
 
 \begin{teo}[Teorema do ponto fixo]
- Se $g:[a,b]\to [a,b]$ é uma contração, então existe um único ponto $x^*\in [a, b]$ tal que $g(x^*)= x^*$, i.e. $x^*$ é ponto fixo de $g(x)$. Além disso, a sequência $\{x^{(n)}\}_{n\in\mathbb{N}}$ dada por:
+ Se $g:[a,b]\to [a,b]$ é uma contração, então existe um único ponto $x^*\in [a, b]$ tal que $g(x^*)= x^*$, isto é, $x^*$ é ponto fixo de $g(x)$. Além disso, a sequência $\{x^{(n)}\}_{n\in\mathbb{N}}$ dada por:
  \begin{equation*}
    x^{(n+1)}=g(x^{(n)})
  \end{equation*}
@@ -808,7 +808,7 @@ onde $\epsilon_n=\left|x^{(n)}-x^*\right|$.
 \begin{itemize}
 \item Se $|g'(x^*)|<1$, então, a distância de $x^{(n)}$ até o ponto fixo $x^*$ está diminuindo a cada passo.
 \item Se $|g'(x^*)|>1$, então, a distância de $x^{(n)}$ até o ponto fixo $x^*$ está aumentando a cada passo.
-\item Se $|g'(x^*)|=1$, então, nossa aproximação de primeiro ordem não é suficiente para compreender o comportamento da sequência.
+\item Se $|g'(x^*)|=1$, então, nossa aproximação de primeira ordem não é suficiente para compreender o comportamento da sequência.
 \end{itemize}
 \end{obs}
 
@@ -970,19 +970,6 @@ Implemente o processo iterativo $x^{(n+1)}=g(x^{(n)})$ para $n\geq 0$ e compare 
 com erro absoluto inferior a $10^{-6}$.
 \end{exer}
 
-\begin{exer} Calcule uma equação da reta tangente a curva $y=e^{-(x-1)^2}$ que passa pelo ponto $(3, 1/2)$.
-\end{exer}
-
-\begin{exer} Resolva numericamente a inequação:
-  \begin{equation*}
-    e^{-x^2}<2x  
-  \end{equation*}
-\end{exer}
-\begin{resp}
-  
-    $x>a$ com $a\approx 0,4193648$.    
-  
-\end{resp}
 
 \begin{exer} Considere os seguintes processos iterativos:
 \begin{equation}
@@ -1002,7 +989,7 @@ x^{(1)}&=&.5
 
 Use o teorema do ponto fixo para verificar que cada um desses processos converge para a solução da equação $x^*$ de $\cos(x)=x$. Observe o comportamento numérico dessas sequências. Qual estabiliza mais rápido com cinco casas decimais? Discuta.
 
-Dica: Verifique que $\cos([0.5,1])\subseteq [0.5,1]$ e depois a mesma identidade para a função $f(x)=.4x+.6\cos(x)$.
+Dica: Verifique que $\cos([0.5,1])\subseteq [0.5,1]$ e depois a mesma identidade para a função $f(x)=0,4x+0,6\cos(x)$.
 \end{exer}
 
 
@@ -1048,22 +1035,22 @@ onde $q=1-10^{-6}$.
 \end{itemize}
 \end{exer}
 
-\begin{exer}[title=Convergência sublinear] Considere o seguinte esquema iterativo:
+\begin{exer}(Convergência sublinear) Considere o seguinte esquema iterativo:
 $$x^{(n+1)}=x^{(n)}-[x^{(n)}]^3,\ x^{(n)}\geq 0$$
 com $x^{(0)}= 10^{-2}$.
 Prove que $\{x^{(n)}\}$ é sequência de número reais positivos convergindo para zero. Verifique que são necessários mais de mil passos para que $x^{(n)}$ se torne menor que $0.9 x^{(0)}$.
 \end{exer}
 
 
-\begin{exer}[title=Taxa de convergência]
+\begin{exer}(Taxa de convergência)
 \begin{itemize}
-\item[a)] Use o teorema do ponto fixo para mostrar que a função $g(x)=1-\sin(x)$ possui um único ponto fixo estável o intervalo $[\frac{1}{10},1]$. Construa um método iterativo $x^{(n+1)}=g(x^{(n)})$ para encontrar esse ponto fixo. Use o Scilab para encontrar o valor numérico do ponto fixo.
-\item[b)] Verifique que função $\psi(x)=\frac{1}{2}\left[x+1-\sin(x)\right]$ possui um ponto fixo $x^*$ que também é o ponto fixo da função $g$ do item a. Use o Scilab para encontrar o valor numérico do ponto fixo através da iteração $x^{(n+1)}=\psi(x^{(n)})$. Qual método é mais rápido?
+\item[a)] Use o teorema do ponto fixo para mostrar que a função $g(x)=1-\sin(x)$ possui um único ponto fixo estável o intervalo $[\frac{1}{10},1]$. Construa um método iterativo $x^{(n+1)}=g(x^{(n)})$ para encontrar esse ponto fixo. Use o computador para encontrar o valor numérico do ponto fixo.
+\item[b)] Verifique que função $\psi(x)=\frac{1}{2}\left[x+1-\sin(x)\right]$ possui um ponto fixo $x^*$ que também é o ponto fixo da função $g$ do item a. Use o computador para encontrar o valor numérico do ponto fixo através da iteração $x^{(n+1)}=\psi(x^{(n)})$. Qual método é mais rápido?
 \end{itemize}
 \end{exer}
 
 
-\begin{exer}[title=Esquemas oscilantes](\textit{Esquemas oscilantes})
+\begin{exer}(Esquemas oscilantes)(\textit{Esquemas oscilantes})
 \begin{itemize}
 \item[a)] Considere a função $g(x)$ e função composta $\psi(x)=g\circ g=g\left(g(x)\right)$. Verifique todo ponto fixo de $g$ também é ponto fixo de $\psi$.
 
@@ -1073,10 +1060,10 @@ Prove que $\{x^{(n)}\}$ é sequência de número reais positivos convergindo par
 \end{itemize}
 \end{exer}
 
-\begin{exer}[title= Aceleração de convergência - introdução ao método de Newton]\label{int_new1} Mostre que se $f(x)$ possui uma raiz $x^*$ então a $x^*$ é um ponto fixo de $\phi(x)=x+\gamma(x) f(x)$. Encontre uma condição em $\gamma(x)$ para que o ponto fixo $x^*$ de $\phi$ seja estável. Encontre uma condição em $\gamma(x)$ para que $\phi'(x^*)=0$.
+\begin{exer}(Aceleração de convergência - introdução ao método de Newton)\label{int_new1} Mostre que se $f(x)$ possui uma raiz $x^*$ então a $x^*$ é um ponto fixo de $\phi(x)=x+\gamma(x) f(x)$. Encontre uma condição em $\gamma(x)$ para que o ponto fixo $x^*$ de $\phi$ seja estável. Encontre uma condição em $\gamma(x)$ para que $\phi'(x^*)=0$.
 \end{exer}
 
-\begin{exer}[title=Aceleração de convergência - introdução ao método de Newton]\label{int_new2} Considere que $x^{(n)}$ satisfaz a seguinte relação de recorrência:
+\begin{exer}(Aceleração de convergência - introdução ao método de Newton)\label{int_new2} Considere que $x^{(n)}$ satisfaz a seguinte relação de recorrência:
 $$x^{(n+1)}=x^{(n)} - \gamma f(x^{(n)})$$
 onde $\gamma$ é uma constante. Suponha que $f(x)$ possui um zero em $x^*$. Aproxime a função $f(x)$ em torno de $x^*$ por
 $$f(x)=f(x^*)+f'(x^*)(x-x^*)+O\left((x-x^*)^2\right).$$
@@ -1392,7 +1379,7 @@ $x_0>1$.
 definida para $x>0$
 \begin{itemize}
 \item [a)] (1.5) Use o teorema do ponto fixo para provar que se $x_0$ pertence ao intervalo $[1,3]$, então a sequência dada iterativamente por $$x^{(n+1)}=\psi(x^{(n)}),n\geq 0$$ converge para o único ponto fixo, $x^*$, de $\psi$. Construa a iteração $x^{(n+1)}=\psi(x^{(n)})$ e obtenha numericamente o valor do ponto fixo $x^*$. Expresse a resposta com 5 algarismos significativos corretos.
-\item [b)] (1.0) Construa a iteração do método de Newton para encontrar $x^*$, explicitando a relação de recorrência e iniciando com $x_0=2$. Use o Scilab para obter a raiz e expresse a resposta com oito dígitos significativos corretos.
+\item [b)] (1.0) Construa a iteração do método de Newton para encontrar $x^*$, explicitando a relação de recorrência e iniciando com $x_0=2$. Use o computador para obter a raiz e expresse a resposta com oito dígitos significativos corretos.
 \end{itemize}
 \end{exer}
 
@@ -1507,7 +1494,7 @@ Agora, iremos estimar este último termo a direita. Para tanto, começamos obser
   \frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} &= -\int_0^1 \frac{d}{dr}f(x^{(n)} + r(x^{(n-1)} - x^{(n)}))\frac{dr}{x^{(n)} - x^{(n-1)}}\\
   &= \int_0^1 f'(x^{(n)} + r(x^{(n-1)} - x^{(n)}))\,dr
 \end{eqnarray*}
-De forma análogo, temos:
+De forma análoga, temos:
 \begin{equation*}
   \frac{f(x^{(n)}) - f(x^*)}{x^{(n)} - x^*} = \int_0^1 f'(x^{(n)} + r(x^* - x^{(n)}))\,dr
 \end{equation*}
@@ -1667,7 +1654,7 @@ O erro na tabela sempre se refere ao erro absoluto esperado. Nos três últimos 
 \end{exer}
 
 \begin{exer}
-  Seja dada uma função $f(x)$ duas vezes continuamente diferenciável. Faça uma análise assintótica para mostrar que as iterações do método das secantes satisfazem:
+  Seja uma função $f(x)$ dada duas vezes continuamente diferenciável. Faça uma análise assintótica para mostrar que as iterações do método das secantes satisfazem:
   \begin{equation*}
     |x^{(n+1)} - x^*| \approx C |x^{(n)} - x^*||x^{(n-1)} - x^*|,    
   \end{equation*}
@@ -1730,6 +1717,21 @@ ou, equivalentemente:
 \end{resp}
 
 \section{Exercícios finais}
+
+\begin{exer} Calcule uma equação da reta tangente a curva $y=e^{-(x-1)^2}$ que passa pelo ponto $(3, 1/2)$.
+\end{exer}
+
+\begin{exer} Resolva numericamente a inequação:
+  \begin{equation*}
+    e^{-x^2}<2x  
+  \end{equation*}
+\end{exer}
+\begin{resp}
+  
+    $x>a$ com $a\approx 0,4193648$.    
+  
+\end{resp}
+
 
 \begin{exer} A equação $$\cos(\pi x)=e^{-2x}$$ tem infinitas raízes.
 Usando  métodos numéricos encontre as primeiras raízes dessa equação. Verifique a j-ésima raiz ($z_j$) pode ser aproximada por $j-1/2$ para $j$ grande. Use o método de Newton para encontrar uma aproximação melhor para $z_j$.
@@ -1796,7 +1798,7 @@ Ano & população\\
 \hline	
 \end{tabular}
 
-Use esses parâmetros para calcular a população em 1980 e compare com o valor do censo.
+Use esses parâmetros para calcular a população em 1980 e compare com o valor do censo. Dica considere $\frac{P(31)-P(0)}{P(10)-P(0)}$ e reduza o sistema a uma equação apenas na variável $\lambda$.
 \end{exer}
 \begin{resp}
   
