@@ -564,12 +564,38 @@ A ideia empregada na interpolação linear segmentada pode ser estendida atravé
 
 \begin{defn}[spline de ordem $m$]Dado um conjunto de $n$ pontos $\mathcal{I}=\left\{\left(x_j,y_j\right)\right\}_{j=1}^n$ tais que $x_{j+1}>x_j$, ou seja, as abscissas são distintas e estão em ordem crescente; um spline de ordem $m$ que interpola estes pontos é uma função $s$ com as seguintes propriedades:
 \begin{itemize}
-\item[i] Em cada intervalo $\left[x_j,x_{j+1}\right)$, $j=1,2,\ldots n-2$ e no segmento $\left[x_{n-1},x_n\right]$ $s$ é um polinômio de grau menor ou igual a  $m$.
-\item[ii] Em algum dos intervalos $s$ é um polinômio de grau $m$.
-\item[iii] Em cada $x_j\in \mathcal{I}$, $s(x_j)=y_j$, i.e., o spline interpola os pontos dados.
-\item[iv] $s$ é uma função de classe $\mathcal{C}^{m-1}$, i.e., é função $m-1$ vezes continuamente diferenciável.
+\item[i)] Em cada intervalo $\left[x_j,x_{j+1}\right)$, $j=1,2,\ldots n-2$ e no segmento $\left[x_{n-1},x_n\right]$ $s$ é um polinômio de grau menor ou igual a  $m$;
+\item[ii)] Em algum dos intervalos $s$ é um polinômio de grau $m$;
+\item[iii)] Em cada $x_j\in \mathcal{I}$, $s(x_j)=y_j$, i.e., o spline interpola os pontos dados;
+\item[iv)] $s$ é uma função de classe $\mathcal{C}^{m-1}$, i.e., é função $m-1$ vezes continuamente diferenciável.
 \end{itemize}
 \end{defn}
+
+São $n-1$ intervalos e em cada um deles há $m+1$ coeficientes a se determinar. As condições \textit{iii} e \textit{iv} impostas pela definição correspondem respectivamente a $n$ e $m(n-2)$ equações. Estas últimas, se devem à exigência de continuidade nos pontos internos, ou seja, os pontos de $\mathcal{I}$ com índices $j=2,3,\ldots,n-1$. Portanto, há $m-1$ coeficientes a mais do que o número de equações e, à exceção do caso $m=1$ (interpolação linear segmentada), o problema é subdeterminado. Ou seja, uma vez fixada a ordem $m>1$, existem infinitos splines de ordem $m$ que interpolam os pontos do conjunto $\mathcal{I}$.
+
+O caso $m=3$, denominado spline cúbico, é de grande interesse pois reproduz o comportamento físico de réguas delgadas com estrutura elástica homogênea e perfil uniforme sujeitas aos vínculos representados pelos pontos  do conjunto $\mathcal{I}$. A equação diferencial que rege o comportmento do perfil dessas réguas é um caso particular do equação da viga de Euler-Bernoulli. Neste caso, a equação tem a forma 
+\begin{equation}\label{eq:ed-splin3}
+\dfrac{d^4y}{dx^4}=0,
+\end{equation}
+cuja solução geral é um polinômio de grau 3. 
+
+Vamos supor que um spline cúbico que interpola o conjunto de pontos $\mathcal{I}$ é conhecido. Como esse spline é uma função de classe $\mathcal{C}^2$, as suas derivadas nos pontos do conjunto $\mathcal{I}$  são conhecidas também. Seja $y'_j$, o valor dessa derivada em $x=x_j$. Agora, vamos considerar dois pares de pontos sucessivos de $\mathcal{I}$,  $\left(x_j,y_j\right)$ e $\left(x_{j+1},y_{j+1}\right)$. A forma do spline cúbico no intervalo $\left[x_j,x_{j+1}\right)$ pode ser identificada com a solução da equação diferencial \eqref{eq:ed-splin3} no intervalo $\left(x_j,x_{j+1}\right)$ sujeita às condições de contorno 
+\begin{equation*}
+y\left(x_j\right)=y_j,\quad y'\left(x_j\right)=y'_j,\quad y\left(x_{j+1}\right)=y_{j+1}\quad\text{e}\quad y'\left(x_{j+1}\right)=y'_{j+1}.
+\end{equation*}
+A solução desse problema de contorno é escrita de modo conveniente como
+\begin{equation*}
+s_j(x)=a_j+b_j(x-x_j)+c_j(x-x_j)^2+d_j(x-x_j)^3,
+\end{equation*} 
+onde as constantes $a_j$, $b_j$, $c_j$ e $d_j$ se relacionam às do problema de contorno.  As duas primeiras seguem imediatamente das condições decontorno em $x_j$:
+\begin{equation*}
+a_j=y_j\quad\text{e}\quad b_j=y'_j.
+\end{equation*}
+As duas últimas são obtidas pela solução do sistema de equações formado pelas condições de contorno em $x_{j+1}$:
+\begin{equation*}
+c_j=3\frac{y_{j+1}-y_j}{\left(x_{j+1}-x_j\right)^2}-\frac{y'_{j+1}+2y'_j}{x_{j+1}-x_j} \quad\text{e}\quad d_j=-2\frac{y_{j+1}-y_j}{\left(x_{j+1}-x_j\right)^3}+\frac{y'_{j+1}+y'_j}{\left(x_{j+1}-x_j\right)^2}
+\end{equation*}
+
 
 Da primeira hipótese, escrevemos
 $$s(x)=s_j(x),x \in [x_j,x_{j+1}],~~ j=1,\ldots, n-1$$
