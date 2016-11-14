@@ -40,9 +40,6 @@ ax.arrow(0, -0.5, 0, 4, length_includes_head=True,
          facecolor='black', head_length=0.1, head_width=0.1)
 ax.text(-0.25, 3.25, r"$y$")
 
-#pontos
-ax.plot([1, 2], [1, 2], 'ro', markersize=4)
-
 #(x1, y1)
 ax.text(0.65,1.2,r"$(1,1)$", fontsize=10)
 ax.plot([1, 1], [0, 1], color='gray', ls="dashed")
@@ -68,10 +65,13 @@ x = np.linspace (-0.25, 3)
 ax.plot(x, a + b*x, 'b-')
 ax.text(2.75,2.5,r"$y=x$")
 
+#pontos
+ax.plot([1, 2], [1, 2], 'ro', markersize=4)
 
 fig_file =  "ex_intro_interpolacao"
 fig.savefig(fig_file+".eps", bbox_inches='tight')
-fig.savefig(fig_file+".svg", bbox_inches='tight')
+fig.savefig(fig_file+".pdf", bbox_inches='tight')
 fig.savefig(fig_file+".png", bbox_inches='tight')
+fig.savefig(fig_file+".svg", bbox_inches='tight')
 
 
