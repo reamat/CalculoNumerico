@@ -28,7 +28,8 @@ CAP14=cap_python
 ########################################
 
 pdf: main.tex
-	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabtrue \isoctavefalse \ispythonfalse" > main.knd
+#	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabtrue \isoctavefalse \ispythonfalse" > main.knd
+	cp main-pdf-sci.knd main.knd
 	pdflatex main
 	bibtex main
 	makeindex main
@@ -37,7 +38,8 @@ pdf: main.tex
 #	rm -f main.knd
 
 pdf-py: main.tex
-	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
+#	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
+	cp main-pdf-py.knd main.knd
 	cp main.tex main-py.tex
 	pdflatex main-py
 	bibtex main-py
@@ -47,7 +49,8 @@ pdf-py: main.tex
 	rm -f main.knd
 
 pdf-oct: main.tex
-	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavetrue \ispythonfalse" > main.knd
+#	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavetrue \ispythonfalse" > main.knd
+	cp main-pdf-oct.knd main.knd
 	cp main.tex main-oct.tex
 	pdflatex main-oct
 	bibtex main-oct
@@ -61,34 +64,36 @@ pdf-oct: main.tex
 ########################################
 
 dvi: main.tex
-	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabtrue \isoctavefalse \ispythonfalse" > main.knd
+#	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabtrue \isoctavefalse \ispythonfalse" > main.knd
+	cp main-pdf-sci.knd main.knd
 	latex main
 	bibtex main
 	makeindex main
 	latex main
 	latex main
-	rm -f main.knd
-
-dvi-oct: main.tex
-	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavetrue \ispythonfalse" > main.knd
-	cp main.tex main-oct.tex
-	latex main-oct
-	bibtex main-oct
-	makeindex main-oct
-	latex main-oct
-	latex main-oct
-	rm -f main.knd
+#	rm -f main.knd
 
 dvi-py: main.tex
-	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
+#	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
+	cp main-pdf-py.knd main.knd
+	cp main.tex main-py.tex
+	latex main-py
+	bibtex main-py
+	makeindex main-py
+	latex main-py
+	latex main-py
+#	rm -f main.knd
+
+dvi-oct: main.tex
+#	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavetrue \ispythonfalse" > main.knd
+	cp main-pdf-oct.knd main.knd
 	cp main.tex main-oct.tex
 	latex main-oct
 	bibtex main-oct
 	makeindex main-oct
 	latex main-oct
 	latex main-oct
-	rm -f main.knd
-
+#	rm -f main.knd
 
 
 ########################################
@@ -96,7 +101,8 @@ dvi-py: main.tex
 ########################################
 
 slide: main.tex
-	echo "\isbookfalse \isslidetrue \ishtmlfalse \isscilabtrue \isoctavefalse \ispythonfalse" > main.knd
+#	echo "\isbookfalse \isslidetrue \ishtmlfalse \isscilabtrue \isoctavefalse \ispythonfalse" > main.knd
+	cp main-slide-sci.knd main.knd
 	cp main.tex slide.tex
 	pdflatex slide
 	bibtex slide
@@ -106,7 +112,8 @@ slide: main.tex
 #	rm -f main.knd
 
 slide-oct: main.tex
-	echo "\isbookfalse \isslidetrue \ishtmlfalse \isscilabfalse \isoctavetrue \ispythonfalse" > main.knd
+#	echo "\isbookfalse \isslidetrue \ishtmlfalse \isscilabfalse \isoctavetrue \ispythonfalse" > main.knd
+	cp main-slide-oct.knd main.knd
 	cp main.tex slide-oct.tex
 	pdflatex slide-oct
 	bibtex slide-oct
@@ -116,7 +123,8 @@ slide-oct: main.tex
 #	rm -f main.knd
 
 slide-py: main.tex
-	echo "\isbookfalse \isslidetrue \ishtmlfalse \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
+#	echo "\isbookfalse \isslidetrue \ishtmlfalse \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
+	cp main-slide-py.knd main.knd
 	cp main.tex slide-py.tex
 	pdflatex slide-py
 	bibtex slide-py
@@ -137,36 +145,39 @@ html-oct: main-oct.html
 html-py: main-py.html
 
 main-sci.html: main.tex
-	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabtrue \isoctavefalse \ispythonfalse" > main.knd
+#	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabtrue \isoctavefalse \ispythonfalse" > main.knd
+	cp main-html-sci.knd main.knd
 	mkdir -p ./html
 	rm -f ./html/*
 	latex main
 	bibtex main
 	latex main
 	latex main
-	mk4ht htlatex main "myconfig,html,3,notoc*,info" "" "-d./html/"
+	mk4ht htlatex main "myconfig,3,notoc*" "" "-d./html/"
 #	rm -f main.knd
 
 main-oct.html: main.tex
-	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavetrue \ispythonfalse" > main.knd
+#	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavetrue \ispythonfalse" > main.knd
+	cp main-html-oct.knd main.knd
 	mkdir -p ./html-oct
 	rm -f ./html-oct/*
 	latex main
 	bibtex main
 	latex main
 	latex main
-	mk4ht htlatex main "myconfig,html,3,notoc*,info" "" "-d./html-oct/"
+	mk4ht htlatex main "myconfig,3,notoc*" "" "-d./html-oct/"
 #	rm -f main.knd
 
 main-py.html: main.tex
-	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
+#	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
+	cp main-html-py.knd main.knd
 	mkdir -p ./html-py
 	rm -f ./html-py/*
 	latex main
 	bibtex main
 	latex main
 	latex main
-	mk4ht htlatex main "myconfig,html,3,notoc*,info" "" "-d./html-py/"
+	mk4ht htlatex main "myconfig,3,notoc*" "" "-d./html-py/"
 #	rm -f main.knd
 
 ########################################
@@ -176,8 +187,8 @@ main-py.html: main.tex
 epub: main.tex
 	mkdir -p ./.tmp1
 	rm -rf ./.tmp1/*
-	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabtrue \isoctavefalse \ispythonfalse" > main.knd
-
+#	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabtrue \isoctavefalse \ispythonfalse" > main.knd
+	cp main-html-sci.knd main.knd
 	latex main 
 	bibtex main
 	latex main
@@ -194,8 +205,8 @@ epub: main.tex
 epub-oct: main.tex
 	mkdir -p ./.tmp1
 	rm -rf ./.tmp1/*
-	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavetrue \ispythonfalse" > main.knd
-
+#	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavetrue \ispythonfalse" > main.knd
+	cp main-html-oct.knd main.knd
 	latex main 
 	bibtex main
 	latex main
@@ -211,8 +222,8 @@ epub-oct: main.tex
 epub-py: main.tex
 	mkdir -p ./.tmp1
 	rm -rf ./.tmp1/*
-	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
-
+#	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
+	cp main-html-py.knd main.knd
 	latex main 
 	bibtex main
 	latex main
@@ -228,7 +239,7 @@ epub-py: main.tex
 
 
 ########################################
-# TODOS OS FORMATOS PDF
+# TODOS AS VERSÕES EM FORMATO PDF E SLIDE
 ########################################
 
 all-pdf: main.tex
