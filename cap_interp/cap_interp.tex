@@ -698,7 +698,7 @@ A = \begin{bmatrix}
   4&14&3&0\\
   0&3&14&4\\
   0&0&1&2
-\end{bmatrix}  
+\end{bmatrix}  ,
 \end{equation*}
 \begin{equation*}
 y = \begin{bmatrix}
@@ -729,7 +729,7 @@ a_3&=&y_3=0,5&\qquad&b_3&=&y'_3=0,4\bar{6}\\
 c_1&=&0&\qquad&d_1&=&0,0\bar{7}\\
 c_2&=&0,7&\qquad&d_2&=&-0,091\bar{6}\\
 c_3&=&-0,4&\qquad&d_3&=&0,0\bar{4}
-\end{array}
+\end{array}.
 \end{equation*}
 Portanto:
 \begin{small}
@@ -738,7 +738,7 @@ S(x)=\left\{\begin{array}{ll}
 4,5-2,8\bar{3}(x-2)+0,0\bar{7}(x-2)^3 &\!, 2\leq x<5\\
 -1,9-0,7\bar{3}(x-5)+0,7(x-5)^2-0,091\bar{6}(x-5)^3 &\!, 5\leq x<9\\
 0,5+0,4\bar{6}(x-9)-0,4(x-9)^2+0,0\bar{4}(x-9)^3 &\!, 9\leq x\leq 12
-\end{array}\right.
+\end{array}\right. .
 \end{equation*}  
 \end{small}
 
@@ -793,7 +793,7 @@ h_3&2(h_2+h_3)&h_2&0&\cdots&0&0\\
 \vdots&\vdots&\vdots&\vdots&\ddots&\vdots&\vdots\\
 0&0&0&\cdots&h_{n-2} & 2(h_{n-3}+h_{n-2})&h_{n-3}\\
 0&0&0&\cdots &0&h_{n-1}&2(h_{n-2}+h_{n-1})
-\end{array}\right] 
+\end{array}\right],
 \end{scriptsize} 
 \end{equation*}
 \begin{equation*}
@@ -810,7 +810,7 @@ z = 3\left[\begin{array}{c}
 	\vdots\\
 	h_{n-2}\frac{y_{n-2}-y_{n-3}}{h_{n-3}}+h_{n-3}\frac{y_{n-1}-y_{n-2}}{h_{n-2}}\\
 	h_{n-1}\frac{y_{n-1}-y_{n-2}}{h_{n-2}}+h_{n-2}\frac{y_n-y_{n-1}}{h_{n-1}}-h_{n-2}y'_n
-\end{array}\right]
+\end{array}\right].
 \end{small}
 \end{equation*}
 Observe que a matriz $A$ é diagonal dominante estrita e portanto o sistema $Ay' = z$ possui solução única.
@@ -955,56 +955,11 @@ O termo \textit{not-a-knot} (não nó) relaciona-se à nomenclatura dos splines.
 \subsection{Spline periódico}\index{spline!periodico}
 Se o conjunto de $n$ pontos da interpolação $\mathcal{I}$ for tal que $y_1=y_n$, então é possível construir o spline periódico, definido com um spline cúbico que satisfaz as seguintes condições de periodicidade
 \begin{equation*}
-	s'_1(x_1)=s'_{n-1}(x_n)\quad\text{e}\quad	s''_1(x_1)=s''_{n-1}(x_n)
+	s'_1(x_1)=s'_{n-1}(x_n)\quad\text{e}\quad	s''_1(x_1)=s''_{n-1}(x_n),
 \end{equation*}
-<<<<<<< HEAD
 Em termos dos coeficientes \eqref{eq:spline3}
 \begin{equation*}
-	b_1=b_{n-1}\quad\text{e}\quad 2c_1=2c_{n-1}+6d_{n-1}h_{n-1}	
-=======
-\end{small}
-
-Definindo-se $h_j = x_{j+1} - x_j$, os coeficientes $c_j$, $j=1,2,\dotsc,n$, são solução do sistema linear $Ac = z$, onde:
-\begin{small}
-  \begin{equation*}
-  \begin{array}{|l|l|}\hline
-    \text{Spline Natural} & \text{Spline Fixado}\\
-    s_1''(x_1) = 0 \text{ e } s_{n-1}''(x_n) = 0 & s_1'(x_1) = f'(x_1) \text{ e } s_{n-1}'(x_n) = f'(x_n)\\ \hline
-    a_{i,j} = \left\{
-      \begin{array}{ll}
-        1 &, j=i=1\\
-        h_{i-1} &, j = i-1, i<n\\
-        2(h_i + h_{i-1}) &, j=i, 1<i<n\\
-        h_i &, j=i+1, i>1\\
-        1 &, j=i=n\\
-        0 &, \text{caso contrário.}
-      \end{array}
-\right. &  a_{i,j} = \left\{
-      \begin{array}{ll}
-        2h_1 &, j=i=1\\
-        h_{i-1} &, j = i-1\\
-        2(h_i + h_{i-1}) &, j=i, 1<i<n\\
-        h_i &, j=i+1\\
-        2h_{n-1} &, j=i=n\\
-        0 &, \text{caso contrário.}
-      \end{array}
-\right.\\
-&\\
-z_i = \left\{
-  \begin{array}{ll}
-    0 &, i=1\\
-    3\frac{y_{i+1}-y_i}{h_i} - 3\frac{y_i-y_{i-1}}{h_{i-1}} &, 1<i<n\\
-    0 &, i=n
-  \end{array}
-\right. & z_i = \left\{
-  \begin{array}{ll}
-    3\frac{y_2-y_1}{h_1} - 3f'(x_1) &, i=1\\
-    3\frac{y_{i+1}-y_i}{h_i} - 3\frac{y_i-y_{i-1}}{h_{i-1}} &, 1<i<n\\
-    3f'(x_n) - 3\frac{y_n - y_{n-1}}{h_{n-1}} &, i=n
-  \end{array}
-\right. \\ \hline
-  \end{array}
->>>>>>> 1e0826482cf31cf8b83490e0ccecf3dda8e131d1
+	b_1=b_{n-1}\quad\text{e}\quad 2c_1=2c_{n-1}+6d_{n-1}h_{n-1},
 \end{equation*}
 ou seja,
 \begin{equation}
@@ -1013,7 +968,7 @@ ou seja,
 			\\
 			2h_{n-1}y'_1+h_{n-1}y'_2+h_1y'_{n-1}+2h_1y'_n=3\left(h_{n-1}\dfrac{y_2-y_1}{h_1}+h_1\dfrac{y_n-y_{n-1}}{h_{n-1}}\right)
 		\end{array}
-	\right.
+	\right. .
 \end{equation}
 Essas duas equações agregadas às equações \eqref{eq:spline3-der} formam um sistema de $n$ equações $Ay' = z$, onde
 \begin{equation*}
@@ -1042,7 +997,7 @@ Essas duas equações agregadas às equações \eqref{eq:spline3-der} formam um 
 				\vdots\\
 				h_{n-1}\frac{y_{n-1}-y_{n-2}}{h_{n-2}}+h_{n-2}\frac{y_n-y_{n-1}}{h_{n-1}}\\
 				h_{n-1}\frac{y_2-y_1}{h_1}+h_1\frac{y_n-y_{n-1}}{h_{n-1}}\\
-			\end{array}\right]
+			\end{array}\right].
 	\end{small}
 \end{equation*}
 Neste caso também, se reduzirmos esse sistema pela eliminação das incógnitas $y'_1$ e $y'_n$, o sistema resultante possui uma matriz de coeficientes diagonal dominante estrita, portanto a solução é única.
