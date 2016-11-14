@@ -4,8 +4,9 @@
 %\begin{document}
 
 \chapter{Solução de sistemas de equações não lineares}\index{sistema de equações!não lineares}
+Neste capítulo, estudaremo o método de Newton aplicado à resolução de um sistema não-linear de equações.
 
-O método de Newton aplicado a encontrar a raiz $x^*$ da função $y=f(x)$ estudado na primeira área de nossa disciplina consiste em um processo iterativo. Em cada passo deste processo, dispomos de uma aproximação $x^{(k)}$ para $x^*$ e construímos uma aproximação $x^{(k+1)}$.  Cada passo do método de Newton envolve os seguintes procedimentos:
+O método de Newton aplicado a encontrar a raiz $x^*$ da função $y=f(x)$ estudado na seção \ref{metodo_newton_1d} consiste em um processo iterativo. Em cada passo deste processo, dispomos de uma aproximação $x^{(k)}$ para $x^*$ e construímos uma aproximação $x^{(k+1)}$.  Cada passo do método de Newton envolve os seguintes procedimentos:
 \begin{itemize}
 \item Linearização da função $f(x)$ no ponto $x^{(k)}$: 
   \begin{equation*}
@@ -50,7 +51,7 @@ x_1^2+\frac{x_2^2}{4}-1
 \end{array}
 \right]$$
 \end{ex}
-Neste momento, dispomos de um problema na forma $F(x)=0$ e precisamos desenvolver uma técnica para linearizar a função $F(x)$. Para tal, precisamos de alguns conceitos do Cálculo II.
+Neste momento, dispomos de um problema na forma $F(x)=0$ e precisamos desenvolver uma técnica para linearizar a função $F(x)$. Para tal, precisamos de alguns conceitos do cálculo de várias variáveis.
 
 Observe que $F(x)-F(x^{(0)})$ pode ser escrito como
 
@@ -82,10 +83,10 @@ x_2-x_2^{(0)}\\~~\\
 \vdots\\~~\\
 x_n-x_n^{(0)}
 \end{array}
-\right]
+\right],
 \end{equation}
 
-Definimos então a matriz jacobiana por
+Definimos, então, a matriz jacobiana por\index{matrix!jacobiana}
 $$J_F= \frac{\partial(f_1,f_2,\ldots,f_n)}{\partial(x_1,x_2,\ldots,x_n)}=\left[
 \begin{array}{ccccc}
 \frac{\partial f_1}{\partial x_1}&\frac{\partial f_1}{\partial x_2}&\cdots&\frac{\partial f_1}{\partial x_n}\\~\\
@@ -93,19 +94,19 @@ $$J_F= \frac{\partial(f_1,f_2,\ldots,f_n)}{\partial(x_1,x_2,\ldots,x_n)}=\left[
 \vdots&\vdots&\ddots&\vdots\\~\\
 \frac{\partial f_n}{\partial x_1}&\frac{\partial f_n}{\partial x_2}&\cdots&\frac{\partial f_n}{\partial x_n}\\~\\
 \end{array}
-\right]
+\right].
 $$
-A matriz jacobiana de uma função ou simplesmente, o Jacobiano de uma função $F(x)$ é a matriz formada pelas suas derivadas parciais:
-$$\left(J_F\right)_{ij}=\frac{\partial f_i}{\partial x_j}$$
+Isto é, a matriz jacobiana de uma função ou simplesmente, o jacobiano de uma função $F(x)$ é a matriz formada pelas suas derivadas parciais:
+$$\left(J_F\right)_{ij}=\frac{\partial f_i}{\partial x_j}.$$
 
-Nestes termos podemos reescrever (\ref{eq_approx_newton}) como
+Nestes termos, podemos reescrever (\ref{eq_approx_newton}) como
 $$F(x)\approx F(x^{(0)}) + J_F(x^{(0)}) (x-x^{(0)})$$
-Esta expressão é chama de linearização de $F(x)$ no ponto $x^{(0)}$ e generaliza a linearização em uma dimensão dada por $f(x)\approx f(x^{(0)})+f'(x^{(0)}) (x-x^{(0)})$
+Esta expressão é chamada de linearização de $F(x)$ no ponto $x^{(0)}$ e generaliza a linearização em uma dimensão dada por $f(x)\approx f(x^{(0)})+f'(x^{(0)}) (x-x^{(0)})$
 
 
 
 \section{Método de  Newton para sistemas}\index{método de Newton!para sistemas}
-Vamos agora construir o método de Newton-Raphson, ou seja, o método de Newton generalizado para sistemas. Assumimos, portanto, que a função $F(x)$ é diferenciável e que existe um ponto $x^*$ tal que $F(x^*)=0$. Seja $x^{(k)}$ uma aproximação para $x^*$, queremos construir uma nova aproximação $x^{(k+1)}$ através da linearização de $F(x)$ no ponto $x^{(k)}$.
+Nesta seção, construiremos o método de Newton ou Newton-Raphson generalizado para sistemas. Assumimos, portanto, que a função $F(x)$ é diferenciável e que existe um ponto $x^*$ tal que $F(x^*)=0$. Seja $x^{(k)}$ uma aproximação para $x^*$, queremos construir uma nova aproximação $x^{(k+1)}$ através da linearização de $F(x)$ no ponto $x^{(k)}$.
 
 \begin{itemize}
 \item Linearização da função $F(x)$ no ponto $x^{(k)}$: 
@@ -131,7 +132,7 @@ x^{(0)}&=&\hbox{dado inicial}
 \end{array}\right.  
 \end{equation*}
 
-\begin{obs} Usamos subíndices para indicar o elemento de um vetor e super-índices para indicar o passo da iteração. Assim $x^{(k)}$ se refere à iteração $k$ e $x_i^{(k)}$ se refere à componente $i$ no vetor $x^{(k)}$.
+\begin{obs} Usamos subíndices para indicar o elemento de um vetor e superíndices para indicar o passo da iteração. Assim $x^{(k)}$ se refere à iteração $k$ e $x_i^{(k)}$ se refere à componente $i$ no vetor $x^{(k)}$.
 \end{obs}
 \begin{obs} A notação $J_F^{-1}\left(x^{(k)}\right)$ enfatiza que a jacobiana deve ser calculada a cada passo.
 \end{obs}
@@ -367,7 +368,7 @@ Partindo das seguintes aproximações iniciais:
 
 
 \section{Linearização de uma função de várias variáveis}
-
+Nesta seção, discutimos de forma distinta e mais rigorosa os conceitos de matriz jacobiana e linearização de uma função de várias variáveis.\index{matriz!jacobiana}
 \subsection{Gradiente}
 
 Considere primeiramente uma função $f:\mathbb{R}^n\to \mathbb{R}$, ou seja, uma função que mapeia n variáveis reais em um único real, por exemplo:
