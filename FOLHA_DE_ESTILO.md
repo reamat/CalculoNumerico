@@ -21,6 +21,8 @@ Deve-se usar maiúscula apenas em nomes próprios, ex: método de Newton, métod
 
 O livro está escrito em [LaTex](https://latex-project.org/). O arquivo principal `main.tex` escontra-se no diretório principal `CalculoNumerico`. O código LaTeX de cada capítulo encontra-se em um subdiretório específico com nome `cap_abrev`, onde `abrev` é uma abreviação que lembre o conteúdo do capítulo. Por exemplo, o código do capítulo sobre técnicas numéricas para sistemas lineares está no subdiretório `cap_linsis`.
 
+Para informações sobre como compilar o código fonte, leia o arquivo `README.md`.
+
 ### Compatibilidade
 
 O código LaTeX do livro deve permitir sua compilação tanto com `latex` como com `pdflatex`, além de permitir a compilação nos formatos HTML e EPUB. Ao adicionar suas colaborações, certifique-se que elas são compatíveis testando a compilação definida no `Makefile`. Para testar a compilação, use:
