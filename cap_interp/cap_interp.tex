@@ -279,19 +279,16 @@ Isto nos permite esquematizar o método conforme apresentado na Tabela~\ref{tab:
 
 \begin{table}
   \centering
-$$
-\begin{array}{c||c|ccc}\hline
-j &x_j&f[x_j]&f[x_{j-1},x_j]&f[x_{j-2},x_{j-1},x_j]\\\hline
-1 & x_1 & \pmb{f[x_1]}&&\\
-&&&\pmb{f[x_1,x_2]}=\frac{f[x_2]-f[x_1]}{x_2-x_1}&\\
-2 & x_2&f[x_2]&&\pmb{f[x_1,x_2,x_3]}=\frac{f[x_2,x_3]-f[x_1,x_2]}{x_3-x_1}\\
-&&&f[x_2,x_3]=\frac{f[x_3]-f[x_2]}{x_3-x_2}&\\
-3 & x_2&f[x_2]&&\\\hline
-\multicolumn{5}{c}{}
-\end{array}
-$$
   \caption{Esquema de diferenças divididas para um conjunto com três pontos $\{(x_i, y_i)\}_{i=1}^3$.}
   \label{tab:esquema_difdiv}
+\begin{tabular}{c||c|ccc}\hline
+$j$ & $x_j$ & $f[x_j]$ & $f[x_{j-1},x_j]$ & $f[x_{j-2},x_{j-1},x_j]$ \\\hline
+$1$ & $x_1$ & $\pmb{f[x_1]}=y_1$ & &\\
+&&&$\displaystyle \pmb{f[x_1,x_2]}=\frac{f[x_2]-f[x_1]}{x_2-x_1}$&\\
+$2$ & $x_2$ & $f[x_2] = y_2$ && $\displaystyle \pmb{f[x_1,x_2,x_3]}=\frac{f[x_2,x_3]-f[x_1,x_2]}{x_3-x_1}$\\
+&&&$\displaystyle f[x_2,x_3]=\frac{f[x_3]-f[x_2]}{x_3-x_2}$ &\\
+$3$ & $x_2$ & $f[x_2]=y_2$ &&\\\hline
+\end{tabular}
 \end{table}
 
 \begin{ex}
@@ -299,19 +296,18 @@ Use o método de diferenças divididas para encontrar o polinômio que passe pel
 \end{ex}
 \begin{sol}
 Usando o esquema apresentado na Tabela~\ref{tab:esquema_difdiv}, obtemos
-\begin{equation*}
-\begin{array}{c||c|cccc}\hline
- j&x_j&f[x_j]&f[x_{j-1},x_j]&f[x_{j-2},x_{j-1},x_j]&f[x_{j-3},x_{j-2},x_{j-1},x_j]\\\hline
-1& -1 & \pmb{3}&&&\\
-&&&\frac{1-3}{0-(-1)}=\pmb{-2}&&\\
-2&0&1&&\frac{2-(-2)}{1-(-1)}=\pmb{2}&\\
-&&&\frac{3-1}{1-0}=2&&\frac{6-2}{3-(-1)}=\pmb{1}\\
-3&1&3&&\frac{20-2}{3-0}=6&\\
-&&&\frac{43-3}{3-1}=20&&\\
-4&3&43&&&\\\hline
-\multicolumn{5}{c}{}
-\end{array}  
-\end{equation*}
+\begin{center}
+\begin{tabular}{c||c|cccc}\hline
+ $j$ & $x_j$ & $f[x_j]$ & $f[x_{j-1},x_j]$ & $f[x_{j-2},x_{j-1},x_j]$ & $f[x_{j-3},x_{j-2},x_{j-1},x_j]$\\\hline
+$1$ & $-1$ & $\pmb{3}$&&&\\
+&&&$\displaystyle \frac{1-3}{0-(-1)}=\pmb{-2}$&&\\
+$2$&$0$&$1$&&$\displaystyle \frac{2-(-2)}{1-(-1)}=\pmb{2}$&\\
+&&&$\displaystyle \frac{3-1}{1-0}=2$&&$\displaystyle\frac{6-2}{3-(-1)}=\pmb{1}$\\
+$3$&$1$&$3$&&$\displaystyle \frac{20-2}{3-0}=6$&\\
+&&&$\displaystyle \frac{43-3}{3-1}=20$&&\\
+$4$&$3$&$43$&&&\\\hline
+\end{tabular}  
+\end{center}
 Portanto, o polinômio interpolador do conjunto de pontos dados é
 \begin{eqnarray*}
 p(x)&=&3-2(x+1)+2(x+1)x+(x+1)x(x-1)
@@ -961,9 +957,54 @@ Se o conjunto de $n$ pontos da interpolação $\mathcal{I}$ for tal que $y_1=y_n
 \begin{equation*}
 	s'_1(x_1)=s'_{n-1}(x_n)\quad\text{e}\quad	s''_1(x_1)=s''_{n-1}(x_n)
 \end{equation*}
+<<<<<<< HEAD
 Em termos dos coeficientes \eqref{eq:spline3}
 \begin{equation*}
 	b_1=b_{n-1}\quad\text{e}\quad 2c_1=2c_{n-1}+6d_{n-1}h_{n-1}	
+=======
+\end{small}
+
+Definindo-se $h_j = x_{j+1} - x_j$, os coeficientes $c_j$, $j=1,2,\dotsc,n$, são solução do sistema linear $Ac = z$, onde:
+\begin{small}
+  \begin{equation*}
+  \begin{array}{|l|l|}\hline
+    \text{Spline Natural} & \text{Spline Fixado}\\
+    s_1''(x_1) = 0 \text{ e } s_{n-1}''(x_n) = 0 & s_1'(x_1) = f'(x_1) \text{ e } s_{n-1}'(x_n) = f'(x_n)\\ \hline
+    a_{i,j} = \left\{
+      \begin{array}{ll}
+        1 &, j=i=1\\
+        h_{i-1} &, j = i-1, i<n\\
+        2(h_i + h_{i-1}) &, j=i, 1<i<n\\
+        h_i &, j=i+1, i>1\\
+        1 &, j=i=n\\
+        0 &, \text{caso contrário.}
+      \end{array}
+\right. &  a_{i,j} = \left\{
+      \begin{array}{ll}
+        2h_1 &, j=i=1\\
+        h_{i-1} &, j = i-1\\
+        2(h_i + h_{i-1}) &, j=i, 1<i<n\\
+        h_i &, j=i+1\\
+        2h_{n-1} &, j=i=n\\
+        0 &, \text{caso contrário.}
+      \end{array}
+\right.\\
+&\\
+z_i = \left\{
+  \begin{array}{ll}
+    0 &, i=1\\
+    3\frac{y_{i+1}-y_i}{h_i} - 3\frac{y_i-y_{i-1}}{h_{i-1}} &, 1<i<n\\
+    0 &, i=n
+  \end{array}
+\right. & z_i = \left\{
+  \begin{array}{ll}
+    3\frac{y_2-y_1}{h_1} - 3f'(x_1) &, i=1\\
+    3\frac{y_{i+1}-y_i}{h_i} - 3\frac{y_i-y_{i-1}}{h_{i-1}} &, 1<i<n\\
+    3f'(x_n) - 3\frac{y_n - y_{n-1}}{h_{n-1}} &, i=n
+  \end{array}
+\right. \\ \hline
+  \end{array}
+>>>>>>> 1e0826482cf31cf8b83490e0ccecf3dda8e131d1
 \end{equation*}
 ou seja,
 \begin{equation}
