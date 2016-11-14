@@ -1,0 +1,655 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html xml:lang="pt" > 
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<head><title>Metodos de Runge-Kutta</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,3,notoc*,info --> 
+<meta name="src" content="main.tex"> 
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+<meta name="date" content="2016-10-28 13:40:00"> 
+>>>>>>> 62bea6a0d0a1d3eca740d93a452697554da972de
+=======
+<meta name="date" content="2016-10-29 18:03:00"> 
+>>>>>>> 8ffe51d4bbc8f1e500cc9c435f05cb1c6f0ffef3
+=======
+<meta name="date" content="2016-10-30 00:01:00"> 
+>>>>>>> 2f43bff4df7198ad5fd8ebe602c2f00c0d1ecf01
+=======
+<meta name="date" content="2016-10-30 17:05:00"> 
+>>>>>>> a89bb6fd5bd3faff679a502c98ff65257591aa83
+<link rel="stylesheet" type="text/css" href="main.css"> 
+</head><body 
+>
+   <!--l. 431--><div class="crosslinks"><p class="noindent"><a 
+href="# "  >Índice</a></p></div>
+   <h3 class="sectionHead"><span class="titlemark">9.5   </span> <a 
+ id="x89-1510009.5"></a>Métodos de Runge-Kutta</h3>
+<a 
+ id="dx89-151001"></a>
+<!--l. 433--><p class="noindent" >Os métodos de Runge-Kutta consistem em iterações do tipo:
+   <center class="math-display" >
+<img 
+src="main4409x.png" alt="y(k+1) = y (k) + w k + ...+ w  k
+                1 1          n n  " class="math-display" ></center>
+onde <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main4410x.png" alt="k1  =  hf (y(k),t(k))
+            (k)         (k)
+k2  =  hf (y   + &alpha;2,1k1,t   + &beta;2h )
+k3  =  hf (y(k) + &alpha;3,1k1 + &alpha;3,2k2,t(k) + &beta;3h)
+    .
+    ..
+k   =  hf (y(k) + &alpha;  k +  &alpha;  k  + ...&alpha;     k    ,t(k) + &beta; h )
+ n                n,1 1    n,2  2       n,n&minus;1 n&minus; 1       n
+" class="math-display" ></center>
+                                                                          
+
+                                                                          
+</div>
+<!--l. 444--><p class="indent" >   Os coeficientes são escolhidos de forma que a expansão em Taylor de <img 
+src="main4411x.png" alt="  (k+1)
+y   "  class="math" > e
+<img 
+src="main4412x.png" alt=" (k)
+y   + w1k1 +  ...+ wnkn  "  class="math" > coincidam até ordem <img 
+src="main4413x.png" alt="n + 1  "  class="math" >.
+   <div class="newtheorem">
+<!--l. 446--><p class="noindent" ><span class="head">
+<a 
+ id="x89-151003r1"></a>
+<span 
+class="ec-lmbx-12">Exemplo 9.5.1.</span>  </span>O   método   de   Euler   melhorado   é   um   exemplo   de
+Runge-Kutta de segunda ordem
+   <center class="math-display" >
+<img 
+src="main4414x.png" alt="y(n+1) = y(n) + k1-+-k2
+                  2
+" class="math-display" ></center> onde <img 
+src="main4415x.png" alt="          (n) (n)
+k1 = hf (y  ,t  )  "  class="math" > e <img 
+src="main4416x.png" alt="          (n)      (n)
+k2 = hf (y   + k1,t  + h )  "  class="math" >
+   </div>
+<!--l. 451--><p class="noindent" >
+   <h4 class="subsectionHead"><span class="titlemark">9.5.1   </span> <a 
+ id="x89-1520009.5.1"></a>Métodos de Runge-Kutta - Quarta ordem</h4>
+<a 
+ id="dx89-152001"></a>
+<!--l. 453--><p class="noindent" >
+   <center class="math-display" >
+<img 
+src="main4417x.png" alt=" (n+1)    (n)   k1 + 2k2 + 2k3 + k4
+y     =  y   + ---------6---------  " class="math-display" ></center>
+onde <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main4418x.png" alt="            (n) (n)
+k1  =  hf (y  ,t  )
+k2  =  hf (y(n) + k1&#x2215;2,t(n) + h&#x2215;2)
+            (n)        (n)
+k3  =  hf (y   + k2&#x2215;2,t   + h&#x2215;2)
+k4  =  hf (y(n) + k3,t(n) + h)
+" class="math-display" ></center>
+</div>Este método tem ordem de precisão 4. Uma discussão heurística usando
+método de Simpson pode ajudar a compreender os estranhos coeficientes:
+<div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main4419x.png" alt="                      &int; t(n+1)
+y(t(n+1)) &minus; y(t(n))  =    (n)  f (y (s),s)ds
+                       t [ (          )      (                      )
+                   &asymp;   h-f  y(t(n)),t(n)  + 4f  y(t(n) + h&#x2215;2),t(n) + h&#x2215;2
+                       6(                  ) ]
+                   +   f  y(t(n) + h ),t(n) + h
+
+                       k1 + 4 (k2+k23) + k4
+                   &asymp;   --------6---------
+" class="math-display" ></center>
+</div>onde <img 
+src="main4420x.png" alt="k1   "  class="math" > e <img 
+src="main4421x.png" alt="k4   "  class="math" > representam as inclinações nos extremos e <img 
+src="main4422x.png" alt="k2   "  class="math" > e <img 
+src="main4423x.png" alt="k3   "  class="math" > são duas
+aproximações diferentes para a inclinação no meio do intervalo.
+                                                                          
+
+                                                                          
+   <!--l. 471--><div class="crosslinks"><p class="noindent"><a 
+href="# "  >Índice</a></p></div>
+<!--l. 471--><p class="indent" >   <a 
+=======
+<head><title>Quadratura de Gauss-Legendre</title> 
+=======
+<head><title>O metodo de Romberg</title> 
+>>>>>>> c2790254e7e5196a945409616a59006dc5a6f1d1
+=======
+<head><title>Ordem de precisao</title> 
+>>>>>>> d1181fb9e1ff5791eedd2c46e734ef7807d4b9ee
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
+<!-- html,3,notoc*,info --> 
+<meta name="src" content="main.tex"> 
+<meta name="date" content="2016-11-04 12:46:00"> 
+<link rel="stylesheet" type="text/css" href="main.css"> 
+</head><body 
+>
+   <!--l. 847--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse41.html" >prev</a>] [<a 
+href="mainse41.html#tailmainse41.html" >prev-tail</a>] [<a 
+href="mainse25.html#tailmainse42.html">tail</a>] [<a 
+href="mainli6.html# " >up</a>] </p></div>
+   <h3 class="sectionHead"><span class="titlemark">9.4   </span> <a 
+ id="x84-1450009.4"></a>Ordem de precisão</h3>
+<a 
+ id="dx84-145001"></a>
+<!--l. 849--><p class="noindent" >Todos os métodos de quadratura que vimos até o momento são da forma
+   <center class="math-display" >
+<img 
+src="main3864x.png" alt="&int; b          &sum;N
+   f (x )dx &asymp;    wjf (xj)
+ a           j=1
+" class="math-display" ></center>
+   <div class="newtheorem">
+<!--l. 851--><p class="noindent" ><span class="head">
+<a 
+ id="x84-145002r1"></a>
+<span 
+class="ec-lmbx-12">Exemplo 9.4.1.</span>  </span>
+      <ul class="itemize1">
+      <li class="itemize">Método do trapézio <div class="eqnarray">
+      <center class="math-display" >
+      <img 
+src="main3865x.png" alt="&int; b                         b &minus; a
+ a f(x)dx   &asymp;   [f (a ) + f (b)]-2--
+
+            =   b &minus;-af(a) + b-&minus;-af (b)
+                  2           2
+                                     &sum;2
+           :=   w1f(x1) + w2f (x2) =    wjf (xj)
+                                     j=1
+      " class="math-display" ></center>
+      </div>
+      </li>
+      <li class="itemize">Método do trapézio com dois intervalos <div class="eqnarray">
+      <center class="math-display" >
+      <img 
+src="main3866x.png" alt="                [          (      )       ]
+&int; b                          a-+-b          b-&minus;-a
+ a f (x)dx  &asymp;    f (a) + 2f    2    + f (b)   4
+                                    (      )
+                 b &minus;-a       b &minus;-a    a +-b    b-&minus;-a
+            =     4   f(a) +   2  f    2     +   4  f (b)
+                                                 3
+            :=  w  f(x ) + w f (x ) + w f(x ) = &sum;  w  f(x )
+                  1   1     2    2     3   3    j=1  j   j
+      " class="math-display" ></center>
+      </div>
+      </li>
+      <li class="itemize">Método de Simpson <div class="eqnarray">
+                                                                          
+
+                                                                          
+      <center class="math-display" >
+      <img 
+src="main3867x.png" alt="                [          (      )       ]
+&int; b                          a + b          b &minus; a
+   f (x )dx  &asymp;    f (a) + 4f  -----  + f (b)  -----
+ a                             2       (     )6
+                b-&minus;-a        2(b &minus;-a)   a-+-b     b &minus;-a
+            =     6   f(a) +    3    f    2    +    6  f(b)
+
+                &sum;3
+            :=     wjf (xj)
+                j=1
+      " class="math-display" ></center>
+      </div>
+      </li>
+      <li class="itemize">Método de Simpson com dois intervalos <div class="eqnarray">
+      <center class="math-display" >
+      <img 
+src="main3868x.png" alt="                [          (       )      (      )
+&int; b                          3a + b         a + b
+   f(x)dx   &asymp;    f(a) + 4f   ------- + 2f   -----
+ a                 (       )   4   ]          2
+                     a +-3b-         b &minus;-a
+            +   4f     4     + f(b)   12
+                                   (       )           (      )
+                b-&minus;-a       b-&minus;-a    3a-+-b-    b &minus;-a   a-+-b
+            =    12  f (a ) +  3   f     4    +    6  f    2
+                       (       )
+            +   b-&minus;-af   a +-3b- + b-&minus;-a f(b)
+                  3        4         12
+                 5
+            :=   &sum;  wjf (xj)
+                j=1
+      " class="math-display" ></center>
+      </div>
+      </li></ul>
+   </div>
+<!--l. 886--><p class="indent" >   A principal técnica que temos usado para desenvolver os métodos numéricos é
+o <span 
+class="ec-lmbx-12">polin</span><span 
+class="ec-lmbx-12">ômio de Taylor</span>:
+   <center class="math-display" >
+<img 
+src="main3869x.png" alt="                      2           n
+f(x ) = a0 + a1x + a2x + ...+  anx  + Rn (x)
+" class="math-display" ></center>
+<!--l. 889--><p class="indent" >   Integrando termo a termo, temos: <div class="eqnarray">
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main3870x.png" alt="&int; b            &int; b        &int; b        &int; b
+   f(x)dx   =     a0dx +     a1xdx +    a2x2dx +  ...+
+ a             &int;a          a&int;         a
+                 ba  xndx +   bR  (x)dx
+                a   n        a   n
+                             b2 &minus; a2     b3 &minus; a3
+            =  a0(b &minus; a) + a1------- + a2------- + ...+
+                   n+1    n+1   2&int;           3
+               a  b---&minus;--a----+   bR  (x)dx
+                n    n + 1       a   n
+" class="math-display" ></center>
+</div>
+<!--l. 897--><p class="indent" >   Neste momento, é natural investigar o desempenho de um esquema numérico
+aplicado a funções do tipo <img 
+src="main3871x.png" alt="f(x) = xn  "  class="math" >.
+   <div class="newtheorem">
+<!--l. 899--><p class="noindent" ><span class="head">
+<a 
+ id="x84-145008r1"></a>
+<span 
+class="ec-lmbx-12">Defini</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão 9.4.1.</span>  </span><span 
+class="ec-lmri-12">A </span><span 
+class="ec-lmbx-12">ordem de precis</span><span 
+class="ec-lmbx-12">ão </span><span 
+class="ec-lmri-12">ou </span><span 
+class="ec-lmbx-12">ordem de exatid</span><span 
+class="ec-lmbx-12">ão </span><span 
+class="ec-lmri-12">de um</span>
+<span 
+class="ec-lmri-12">esquema de quadratura num</span><span 
+class="ec-lmri-12">érica como o maior inteiro positivo </span><span 
+class="ec-lmbx-12">n </span><span 
+class="ec-lmri-12">para o qual</span>
+<span 
+class="ec-lmri-12">o esquema </span><span 
+class="ec-lmri-12">é exato para todas as fun</span><span 
+class="ec-lmri-12">ç</span><span 
+class="ec-lmri-12">ões do tipo</span> <img 
+src="main3872x.png" alt="  k
+x   "  class="math" >  <span 
+class="ec-lmri-12">com</span> <img 
+src="main3873x.png" alt="0 &le; k &le;  n  "  class="math" ><span 
+class="ec-lmri-12">, ou</span>
+<span 
+class="ec-lmri-12">seja, Um esquema </span><span 
+class="ec-lmri-12">é dito de ordem</span> <img 
+src="main3874x.png" alt="n  "  class="math" > <span 
+class="ec-lmri-12">se</span>
+   <center class="math-display" >
+<img 
+src="main3875x.png" alt=" n            &int;
+&sum;               b                  k
+   wjf (xj) =  a f(x)dx,   f(x) = x , k = 0,1,...n
+j=1
+" class="math-display" ></center> <span 
+class="ec-lmri-12">ou, equivalentemente:</span>
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main3876x.png" alt="           &int;
+&sum;n     k     b k      bk+1-&minus;-ak+1--
+   wjx j =  a x dx =     k + 1   ,  k = 0,1,...n
+j=1
+" class="math-display" ></center>
+   </div>
+   <div class="newtheorem">
+<!--l. 906--><p class="noindent" ><span class="head">
+<a 
+ id="x84-145009r1"></a>
+<span 
+class="ec-lmbx-12">Observa</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão 9.4.1.</span>  </span>Se o método tem ordem <img 
+src="main3877x.png" alt="0  "  class="math" > ou mais, então
+   <center class="math-display" >
+<img 
+src="main3878x.png" alt="&sum;n
+   wj =  b &minus; a
+j=1
+" class="math-display" ></center>
+   </div>
+   <div class="newtheorem">
+<!--l. 910--><p class="noindent" ><span class="head">
+<a 
+ id="x84-145010r2"></a>
+<span 
+class="ec-lmbx-12">Exemplo 9.4.2.</span>  </span>A ordem de precisão do esquema de trapézios é 1:
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main3879x.png" alt="&int; b                      b &minus; a    &sum;2
+   f(x)dx &asymp;  [f(a ) + f (b)]---- =     wjf (xj )
+ a                         2      j=1  " class="math-display" ></center>
+onde <img 
+src="main3880x.png" alt="     b&minus;a
+wj = -2-   "  class="math" >, <img 
+src="main3881x.png" alt="x1 = a  "  class="math" > e <img 
+src="main3882x.png" alt="x2 = b  "  class="math" >. <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main3883x.png" alt="                    &sum;n
+         (k =  0) :    j=1wj =  b &minus; a
+            &sum;n                  b&minus;a   b2&minus;a2
+ (k = 1) :    j=1 wjxj = (a + b) 2  =   2
+(k = 2) :  &sum;nj=1 wjx2j = (a2 + b2)b&minus;a &frasl;= b3&minus;a3
+                                  2      3
+" class="math-display" ></center>
+</div>
+   </div>
+   <div class="newtheorem">
+<!--l. 920--><p class="noindent" ><span class="head">
+<a 
+ id="x84-145012r3"></a>
+<span 
+class="ec-lmbx-12">Exemplo 9.4.3.</span>  </span>A ordem de precisão do esquema de Simpson é 3:
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main3884x.png" alt="&int; b          [          (      )       ]         &sum;3
+   f (x )dx &asymp;  f (a ) + 4f  a +-b  + f(b)  b &minus;-a =    wjf (xj)
+ a                          2              6     j=1  " class="math-display" ></center>
+onde <img 
+src="main3885x.png" alt="w  = w  =  b&minus;a
+ 1     3    6   "  class="math" >,<img 
+src="main3886x.png" alt="w  =  4b&minus;a
+  2     6   "  class="math" >, <img 
+src="main3887x.png" alt="x  = a
+ 1  "  class="math" >, <img 
+src="main3888x.png" alt="x  = a+b
+ 2    2   "  class="math" > e <img 
+src="main3889x.png" alt="x  =  b
+  3  "  class="math" > <div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main3890x.png" alt="                    &sum;
+         (k = 0) :    nj=1 wj = (1 + 4 + 1)b&minus;6a = b &minus; a
+           &sum;n                 a+b     b&minus;a          b&minus;a   b2&minus;a2
+(k = 1) :    j=1 wjxj = (a + 4-2- + b)-6- = (a + b)-2- = --2--
+               &sum;n       2     2    ( a+b-)2   2 b&minus;a    b3&minus;a3-
+    (k = 2) :    j=1wjx j = (a +  4   2   + b ) 6  =   3
+               &sum;n       3     3    ( a+b-)3   3 b&minus;a    b4&minus;a4-
+    (k = 3) :    j=1wjx j = (a +  4   2   + b ) 6  =   4
+               &sum;n       4     4    ( a+b-)4   4 b&minus;a    b5&minus;a5-
+    (k = 4) :    j=1wjx j = (a +  4   2   + b ) 6  &frasl;=   4
+" class="math-display" ></center>
+</div>
+   </div>
+   <div class="newtheorem">
+<!--l. 932--><p class="noindent" ><span class="head">
+<a 
+ id="x84-145014r4"></a>
+<span 
+class="ec-lmbx-12">Exemplo 9.4.4.</span>  </span>Encontre  os  pesos  <img 
+src="main3891x.png" alt="wj  "  class="math" >  e  as  abscissas  <img 
+src="main3892x.png" alt="xj  "  class="math" >  tais  que  o
+esquema de dois pontos
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main3893x.png" alt="&int; 1
+    f(x)dx =  w1f(x1) + w2f (x2)
+ &minus;1
+" class="math-display" ></center> é de ordem 3.
+   </div>
+<!--l. 937--><p class="indent" >   <div class="container-fluid"><span 
+class="ec-lmbx-12">Solu</span><span 
+class="ec-lmbx-12">ç</span><span 
+class="ec-lmbx-12">ão. </span>Temos um sistema de quatro equações e quatro incógnitas dado por:
+<div class="eqnarray">
+   <center class="math-display" >
+<img 
+src="main3894x.png" alt="     w1 + w2  =   2
+
+x1w1  + x2w2  =   0
+x2 w  + x2w   =   2-
+  1 1    2  2     3
+x3 w1 + x3w2  =   0
+  1      2
+" class="math-display" ></center>
+</div>
+<!--l. 946--><p class="indent" >   Da segunda e quarta equação, temos:
+   <center class="math-display" >
+                                                                          
+
+                                                                          
+<img 
+src="main3895x.png" alt="w       x       x3
+--1 = &minus; -2-=  &minus; -23-
+w2      x1      x1   " class="math-display" ></center>
+Como <img 
+src="main3896x.png" alt="x1 &frasl;= x2   "  class="math" >, temos <img 
+src="main3897x.png" alt="x1 =  &minus; x2   "  class="math" > e <img 
+src="main3898x.png" alt="w1 = w2   "  class="math" >. Da primeira equação, temos
+<img 
+src="main3899x.png" alt="w1 =  w2 = 1  "  class="math" >. Da terceira equação, temos <img 
+src="main3900x.png" alt="             &radic;3-
+&minus;  x1 = x2 =  3   "  class="math" >.
+<!--l. 950--><p class="indent" >   Esse esquema de ordem de precisão três e dois pontos chama-se quadratura de
+Gauss-Legendre com dois pontos:
+   <center class="math-display" >
+<img 
+src="main3901x.png" alt="&int;              ( &radic; -)     (  &radic; --)
+  1              --3-        --3-
+ &minus;1f (x)dx = f    3   + f  &minus;  3
+" class="math-display" ></center>
+                                                                          <div class="flushright" 
+>
+<!--l. 952--><p class="noindent" >
+ <img 
+src="main3902x.png" alt="&#x2662; "  class="math" ></div>
+<!--l. 952--><p class="noindent" ></div>
+   <div class="newtheorem">
+<!--l. 954--><p class="noindent" ><span class="head">
+<a 
+ id="x84-145016r5"></a>
+<span 
+class="ec-lmbx-12">Exemplo 9.4.5.</span>  </span>Comparação
+   <center class="math-display" >
+<img 
+src="main3903x.png" alt="|----------|----------------|-------------|----------------|-------------------|
+|          |                |             |                |                   |
+|---f(x)---|-----Exato------|--Trapézio---|---Simpson------|Gauss-Legendre-(2)-|
+|          |                |             |                |                   |
+|          |                |             |  &minus;1    0    1  |      &radic; -   &radic; -    |
+|          |   e&minus; e&minus; 1      | e&minus;1 + e     | e--+-4e--+-e-- |   e&minus; &minus;-33+ e-33   |
+|    ex    |                |             |       3        |                   |
+|          |    &asymp; 2,35040    |  &asymp; 3,08616   | &asymp; 2,36205      |    &asymp; 2,34270       |
+|          |                |             |                |                   |
+|----------|----------------|-------------|----------------|-------------------|
+|          |                |             |                |                   |
+|          |         &radic; --   |             |                |                   |
+|  &#x2218; ------|   16&minus;  4  2    |             |                |                   |
+|x2  3+ x3 |    9   9       |  3,41421    |    1,13807      |     1,15411       |
+|          |    &asymp; 1,14924    |             |                |                   |
+|          |                |             |                |                   |
+|----------|----------------|-------------|----------------|-------------------|
+|          |                |             |                |                   |
+|      3   |   &minus;1           |             |                |                   |
+|  x2ex    | e&minus;-e3--&asymp; 0,78347 |  3,08616    |    1,02872      |     0,67905       |
+|          |                |             |                |                   |
+|----------|-------------------------------------------------------------------|
+|          |  " class="math-display" ></center>
+   </div>
+<!--l. 978--><p class="noindent" >
+   <h4 class="likesubsectionHead"><a 
+ id="x84-1460009.4"></a>Exercícios</h4>
+   <div class="newtheorem">
+<!--l. 980--><p class="noindent" ><span class="head">
+<a 
+ id="x84-146001r1"></a>
+<span 
+class="ec-lmbx-12">E 9.4.1.</span>  </span>Encontre  os  pesos  <img 
+src="main3904x.png" alt="w1   "  class="math" >,  <img 
+src="main3905x.png" alt="w2   "  class="math" >   e  <img 
+src="main3906x.png" alt="w3   "  class="math" >   tais  que  o  esquema  de
+quadratura dado por
+                                                                          
+
+                                                                          
+   <center class="math-display" >
+<img 
+src="main3907x.png" alt="&int; 1
+   f(x)dx &asymp;  w1f(0) + w2f (1&#x2215;2) + w3f (1 )
+ 0
+" class="math-display" ></center> apresente máxima ordem de exatidão. Qual a ordem obtida?
+   </div>
+<!--l. 984--><p class="noindent" ><div class="container-fluid"><span 
+class="ec-lmbx-6">Resposta.</span>  <img 
+src="main3908x.png" alt="w1 = 1&#x2215;6  "  class="math" ><span 
+class="ec-lmr-6">,</span> <img 
+src="main3909x.png" alt="w2 =2&#x2215;3  "  class="math" ><span 
+class="ec-lmr-6">,</span> <img 
+src="main3910x.png" alt="w3 =1&#x2215;6  "  class="math" ><span 
+class="ec-lmr-6">. O esquema constru</span><span 
+class="ec-lmr-6">ído </span><span 
+class="ec-lmr-6">é o de Simpson e a ordem de exatid</span><span 
+class="ec-lmr-6">ão </span><span 
+class="ec-lmr-6">é 3.</span>
+</div>
+   <div class="newtheorem">
+<!--l. 990--><p class="noindent" ><span class="head">
+<a 
+ id="x84-146002r2"></a>
+<span 
+class="ec-lmbx-12">E 9.4.2.</span>  </span>Encontre a ordem de exatidão do seguinte método de integração:
+   <center class="math-display" >
+<img 
+src="main3911x.png" alt="&int; 1             [ (   &radic; -)            ( &radic; -) ]
+    f(x)dx &asymp;  2- f  &minus;---2  +  f(0) + f  --2-
+ &minus; 1          3       2                  2
+" class="math-display" ></center>
+   </div>
+<!--l. 993--><p class="noindent" ><div class="container-fluid"><span 
+class="ec-lmbx-6">Resposta.  </span><span 
+class="ec-lmr-6">3</span>
+</div>
+   <div class="newtheorem">
+<!--l. 1000--><p class="noindent" ><span class="head">
+                                                                          
+
+                                                                          
+<a 
+ id="x84-146003r3"></a>
+<span 
+class="ec-lmbx-12">E 9.4.3.</span>  </span>Encontre a ordem de exatidão do seguinte método de integração:
+   <center class="math-display" >
+<img 
+src="main3912x.png" alt="&int;
+  1            -1-- &prime;       136-           62--      136-         -1-- &prime;
+ &minus;1f (x)dx = &minus; 210 f (&minus; 1 )+ 105 f(&minus; 1&#x2215;2)&minus; 105f (0 )+ 105 f(1&#x2215;2)+  210f (1)
+" class="math-display" ></center>
+   </div>
+<!--l. 1003--><p class="noindent" ><div class="container-fluid"><span 
+class="ec-lmbx-6">Resposta.  </span><span 
+class="ec-lmr-6">5</span>
+</div>
+   <div class="newtheorem">
+<!--l. 1008--><p class="noindent" ><span class="head">
+<a 
+ id="x84-146004r4"></a>
+<span 
+class="ec-lmbx-12">E 9.4.4.</span>  </span>Encontre os pesos <img 
+src="main3913x.png" alt="w1   "  class="math" >, <img 
+src="main3914x.png" alt="w2   "  class="math" > e <img 
+src="main3915x.png" alt="w3   "  class="math" > tal que o método de integração
+   <center class="math-display" >
+<img 
+src="main3916x.png" alt="&int; 1
+    f(x)dx &asymp; w1f (1&#x2215;3) + w2f (1&#x2215;2) + w3f (2 &#x2215;3)
+ 0
+" class="math-display" ></center> tenha ordem de exatidão máxima. Qual é ordem obtida?
+                                                                          
+
+                                                                          
+   </div>
+<!--l. 1013--><p class="noindent" ><div class="container-fluid"><span 
+class="ec-lmbx-6">Resposta.</span>  <img 
+src="main3917x.png" alt="&int; 1      3            3
+ 0 f(x)dx&asymp; 2f(1&#x2215;3)&minus; 2f(1&#x2215;2)+2f(2&#x2215;3)  "  class="math" > <span 
+class="ec-lmr-6">com ordem 3.</span>
+</div>
+   <div class="newtheorem">
+<!--l. 1019--><p class="noindent" ><span class="head">
+<a 
+ id="x84-146005r5"></a>
+<span 
+class="ec-lmbx-12">E 9.4.5.</span>  </span>Quantos pontos são envolvidos no esquema de quadratura <img 
+src="main3918x.png" alt="R3,2   "  class="math" >?
+Qual  a  ordem  do  erro  deste  esquema  de  quadratura?  Qual  a  ordem  de
+exatidão desta quadradura?
+   </div>
+<!--l. 1021--><p class="noindent" ><div class="container-fluid"><span 
+class="ec-lmbx-6">Resposta.  </span><span 
+class="ec-lmr-6">5, 4, 3</span>
+</div>
+                                                                          
+
+                                                                          
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+   <!--l. 1067--><div class="crosslinks"><p class="noindent"><a 
+href="mainli14.html#mainse57.html" >Índice</a></p></div>
+<!--l. 1067--><p class="indent" >   <a 
+>>>>>>> 2ce5bba22e77a9b0d17e57fb0d2efc8029204145
+=======
+   <!--l. 769--><div class="crosslinks"><p class="noindent"><a 
+href="mainse58.html#mainli16.html" >Índice</a></p></div>
+=======
+   <!--l. 769--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse41.html" >prev</a>] [<a 
+href="mainse41.html#tailmainse41.html" >prev-tail</a>] [<a 
+href="mainse42.html" >front</a>] [<a 
+<<<<<<< HEAD
+href="mainse58.html#mainli16.html" >up</a>] </p></div>
+>>>>>>> 4e9787bf4bba34ce830980dc83a8fe1bee8ad2ee
+=======
+href="mainli5.html# " >up</a>] </p></div>
+>>>>>>> 40376933b526cbe480643de4137719793488d124
+<!--l. 769--><p class="indent" >   <a 
+>>>>>>> c2790254e7e5196a945409616a59006dc5a6f1d1
+=======
+   <!--l. 1028--><div class="crosslinks"><p class="noindent">[<a 
+href="mainse41.html" >prev</a>] [<a 
+href="mainse41.html#tailmainse41.html" >prev-tail</a>] [<a 
+href="mainse42.html" >front</a>] [<a 
+href="mainli6.html# " >up</a>] </p></div>
+<!--l. 1028--><p class="indent" >   <a 
+>>>>>>> d1181fb9e1ff5791eedd2c46e734ef7807d4b9ee
+ id="tailmainse42.html"></a>   
+</body></html> 
