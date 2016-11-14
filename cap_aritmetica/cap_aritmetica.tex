@@ -337,12 +337,11 @@ Tipicamente um número inteiro é armazenado num computador como uma sequência 
 
 \subsubsection{Representação sem sinal}\index{representação de números!inteiros!sem sinal}
 Um registro com $n$ bits da forma
- \begin{equation*}
-   \begin{array}{|c|c|c|c|c|}\hline
-     d_{n-1} & d_{n-2} & \cdots & d_1 &d_0\\\hline
-     \multicolumn{5}{c}{}
-   \end{array}  
- \end{equation*}
+ \begin{center}
+   \begin{tabular}{|c|c|c|c|c|}\hline
+     $d_{n-1}$ & $d_{n-2}$ & $\cdots$ & $d_1$ & $d_0$\\\hline
+   \end{tabular}  
+ \end{center}
 representa o número $(d_{n-1}d_{n-2}...d_1d_0)_2$. 
 
 Assim é possível representar números inteiros entre
@@ -371,12 +370,11 @@ Assim é possível representar números inteiros entre
 
 \subsubsection{Representação com bit de sinal}\index{representação de números!inteiros!bit de sinal}
 O bit mais significativo (o primeiro à esquerda) representa o sinal: por convenção, $0$ significa positivo e $1$ significa negativo. Um registro com $n$ bits da forma
-\begin{equation*}
-  \begin{array}{|c|c|c|c|c|} \hline
-    s & d_{n-2} & \cdots & d_1 & d_0 \\\hline
-    \multicolumn{5}{c}{}
-  \end{array}  
-\end{equation*}
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|} \hline
+    $s$ & $d_{n-2}$ & $\cdots$ & $d_1$ & $d_0$ \\\hline
+  \end{tabular}  
+\end{center}
 representa o número $(-1)^s(d_{n-2}...d_1d_0)_2$. Assim é possível representar números inteiros entre $-2^{n-1}$ e $2^{n-1}$, com duas representações para o zero: $(1000...000)_2$ e $(00000...000)_2$.
 
 \begin{ex}
@@ -399,12 +397,11 @@ Em um registro com $8$ bits, teremos os números
 
 \subsubsection{Representação complemento de dois}\index{representação de números!inteiros!complemento de dois}
 O bit mais significativo (o primeiro à esquerda) representa o coeficiente de $-2^{n-1}$.  Um registro com $n$ bits da forma:
-\begin{equation*}
-  \begin{array}{|c|c|c|c|c|} \hline
-    d_{n-1} & d_{n-2} & \cdots & d_1 & d_0\\\hline
-    \multicolumn{5}{c}{}
-  \end{array}    
-\end{equation*}
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|} \hline
+    $d_{n-1}$ & $d_{n-2}$ & $\cdots$ & $d_1$ & $d_0$\\\hline
+  \end{tabular}    
+\end{center}
 representa o número $-d_{n-1}2^{n-1}+(d_{n-2}...d_1d_0)_2$. 
 
 Note que todo registro começando com $1$ será um número negativo.
@@ -459,12 +456,11 @@ O sistema de ponto fixo representa as partes inteira e fracionária do número c
 
 \begin{ex}
 Em um computador de 32 bits que usa o sistema de ponto fixo, o registro
-\begin{equation*}
-  \begin{array}{|c|c|c|c|c|c|} \hline
-    d_{31} & d_{30} & d_{29} & \cdots & d_1 & d_0\\\hline
-    \multicolumn{5}{c}{}
-  \end{array}  
-\end{equation*}
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|c|} \hline
+    $d_{31}$ & $d_{30}$ & $d_{29}$ & $\cdots$ & $d_1$ & $d_0$\\\hline
+  \end{tabular}  
+\end{center}
 pode representar o número
 \begin{itemize}
 \item $(-1)^{d_{31}}(d_{30}d_{29}\cdots d_{17}d_{16}, d_{15}d_{14}\cdots d_1d_0)_2$
@@ -560,12 +556,11 @@ onde
 
 
 Considere uma máquina com um registro de $64$ bits e base $\beta=2$. Pelo padrão IEEE754, $1$ bit é usado para o sinal, $11$ bits para o expoente e $52$ bits são usados para o significando tal que 
-\begin{equation*}
-  \begin{array}{|c|c|c|c|c|c|c|c|c|c|}\hline
-    s & c_{10} & c_{9} & \cdots & c_{0} & m_1 & m_2 & \cdots & m_{51} & m_{52}\\\hline
-    \multicolumn{5}{c}{}
-  \end{array}  
-\end{equation*}
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\hline
+    $s$ & $c_{10}$ & $c_{9}$ & $\cdots$ & $c_{0}$ & $m_1$ & $m_2$ & $\cdots$ & $m_{51}$ & $m_{52}$\\\hline
+  \end{tabular}  
+\end{center}
 represente o número (o $BIAS=1023$ por definição)
 $$ x=(-1)^{s}M \times 2^{c-BIAS},$$
 onde a \emph{característica} é representada por
@@ -784,15 +779,14 @@ Note que o erro relativo leva em consideração a escala do problema.
 
 \begin{ex}
 Observe os erros absolutos e relativos em cada caso
-\begin{equation*}
-  \begin{array}{c|c|c|c} \hline
-    x & \bar{x} &\hbox{Erro absoluto}&\hbox{Erro relativo}\\\hline
-    0,\overline{3}\cdot 10^{-2} & 0,3\cdot 10^{-2}&0,\overline{3}\cdot 10^{-3}&\frac{0,\overline{3}\cdot 10^{-3}}{0,\overline{3}\cdot 10^{-2}}=10^{-1}=10\%\\ 
-    0,\overline{3}              & 0,3&0,\overline{3}\cdot 10^{-1}&\frac{0,\overline{3}\cdot 10^{-1}}{0,\overline{3}}=10^{-1}=10\%\\ 
-    0,\overline{3}\cdot 10^{2}\ & 0,3\cdot 10^{2}&0,\overline{3}\cdot 10^{1}&\frac{0,\overline{3}\cdot 10^{1}}{0,\overline{3}\cdot 10^{2}}=10^{-1}=10\%\\\hline
-    \multicolumn{4}{c}{}
-\end{array}  
-\end{equation*}
+\begin{center}
+  \begin{tabular}{ll|rr} \hline
+    $x$ & $\bar{x}$ &\ Erro absoluto & Erro relativo\\\hline
+    $0,\overline{3}\times 10^{-2}$ & $0,3\times 10^{-2}$ & $0,\overline{3}\times 10^{-3}$ & $10\%$\\ 
+    $0,\overline{3}$              & $0,3$ & $0,\overline{3}\times 10^{-2}$ & $10\%$\\ 
+    $0,\overline{3}\times 10^{2}$ & $0,3\times 10^{2}$ & $0,\overline{3}\times 10^{1}$ & $10\%$\\\hline
+\end{tabular}  
+\end{center}
 \end{ex}
 
 Outra forma de medir a exatidão de uma aproximação numérica é contar o \emph{número de dígitos significativos corretos} em relação ao valor exato.
@@ -1325,12 +1319,10 @@ Calcule a corrente e o erro relativo associado quando a tensão vale $220\pm 1\%
 \section{Mais exemplos de cancelamento catastrófico}
 
 \begin{ex} Considere o seguinte processo iterativo:
-$$
-\left\{\begin{array}{l}
-x_0=\frac{1}{3}\\
-x_{n+1}=4x_n-1,\qquad n\in\mathbb{N}
-\end{array}\right..
-$$
+  \begin{eqnarray*}
+    x_0 &=& \frac{1}{3}\\
+    x_{n+1} &=& 4x_n-1,\qquad n\in\mathbb{N}.
+  \end{eqnarray*}
 Observe que $x_0=\frac{1}{3}$, $x_1=4\cdot \frac{1}{3}-1=\frac{1}{3}$, $x_2=\frac{1}{3}$, ou seja, temos uma sequência constante igual a $\frac{1}{3}$. No entanto, ao calcularmos no computador, usando o sistema de numeração 'double', a sequencia obtida não é constante e, de fato, diverge.
 %%%%%%%%%%%%%%%%%%%%%%
 % scilab
@@ -1411,22 +1403,21 @@ Sabemos também que a sequência produzida por \eqref{def_lim} é crescente, ist
 $$\left(1+\frac{1}{1}\right)^1< \left(1+\frac{1}{2}\right)^2< \left(1+\frac{1}{3}\right)^3 < \cdots $$
 
 No entanto, quando calculamos essa expressão no \verb+Scilab+, nos defrontamos com o seguinte resultado:
-\begin{equation*}
-\begin{array}{|c|c|c|c|c|}\hline &&&&\\[-0.3cm]
-n & \left(1+\frac{1}{n}\right)^n&~~~~&n & \left(1+\frac{1}{n}\right)^n\\ &&&&\\[-0.3cm]\hline\\[-0.3cm]
-1 & 2,0000000000000 && 10^{2} & 2,7048138294215 \\
-2 & 2,2500000000000 && 10^{4} & 2,7181459268249 \\
-3 & 2,3703703703704 && 10^{6} & 2,7182804690957 \\
-4 & 2,4414062500000 && 10^{8} & 2,7182817983391 \\
-5 & 2,4883200000000 && 10^{10} & 2,7182820532348 \\
-6 & 2,5216263717421 && 10^{12} & 2,7185234960372 \\
-7 & 2,5464996970407 && 10^{14} & 2,7161100340870 \\
-8 & 2,5657845139503 && 10^{16} & 1,0000000000000 \\
-9 & 2,5811747917132 && 10^{18} & 1,0000000000000 \\
-10 & 2,5937424601000 && 10^{20} & 1,0000000000000 \\\hline
-\multicolumn{5}{c}{}
-\end{array}  
-\end{equation*}
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}\hline &&&&\\[-0.3cm]
+$n$ & $\left(1+\frac{1}{n}\right)^n$&$~~~~$&$n$ & $\left(1+\frac{1}{n}\right)^n$\\ &&&&\\[-0.3cm]\hline\\[-0.3cm]
+$1$ & $2,0000000000000$ && $10^{2}$ & $2,7048138294215$ \\
+$2$ & $2,2500000000000$ && $10^{4}$ & $2,7181459268249$ \\
+$3$ & $2,3703703703704$ && $10^{6}$ & $2,7182804690957$ \\
+$4$ & $2,4414062500000$ && $10^{8}$ & $2,7182817983391$ \\
+$5$ & $2,4883200000000$ && $10^{10}$ & $2,7182820532348$ \\
+$6$ & $2,5216263717421$ && $10^{12}$ & $2,7185234960372$ \\
+$7$ & $2,5464996970407$ && $10^{14}$ & $2,7161100340870$ \\
+$8$ & $2,5657845139503$ && $10^{16}$ & $1,0000000000000$ \\
+$9$ & $2,5811747917132$ && $10^{18}$ & $1,0000000000000$ \\
+$10$ & $2,5937424601000$ && $10^{20}$ & $1,0000000000000$ \\\hline
+\end{tabular}  
+\end{center}
 
 Podemos resumir esses dados no gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$, veja a Figura~\ref{fig:cancelamento_euler}.
 
@@ -1612,7 +1603,7 @@ as tensões $v_1$, $v_2$ e $v_3$ são dadas em $mV$ e as concentrações em $mil
 \begin{itemize}
 \item [a)] Encontre uma expressão para os valores de $[A]$ e $[B]$ em termos de $v_1$ e $v_2$ e, depois, em termos de $v_1$ e $v_3$. Dica:
 Se $ad\neq bc$, então a matriz $A$ dada por
-$$A=\left[\begin{array}{cc}a&b\\c&d\end{array}\right]$$
+$$A=\begin{bmatrix}a&b\\c&d\end{bmatrix}$$
 é inversível e sua inversa é dada por
 $$A^{-1}= \frac{1}{ad-bc} \left[\begin{array}{cc}d&-b\\-c&a\end{array}\right].$$
 
@@ -1622,42 +1613,41 @@ $$A^{-1}= \frac{1}{ad-bc} \left[\begin{array}{cc}d&-b\\-c&a\end{array}\right].$$
 \begin{resp}
   
 Em ambos casos, temos a seguinte estrutura:
-$$\left[\begin{array}{cc}
+$$\begin{bmatrix}
 S_{11}& S_{12}\\
 S_{21}& S_{22}
-\end{array}
-\right] \left[\begin{array}{c}
+\end{bmatrix} 
+\begin{bmatrix}
 \left[ A\right]\\
 \left[ B\right]
-\end{array}
-\right]= \left[\begin{array}{c}
+\end{bmatrix} 
+= 
+\begin{bmatrix}
 v_1\\
 v_2
-\end{array}
-\right]$$
+\end{bmatrix}$$
 De forma que
-$$ \left[\begin{array}{c}
+$$\begin{bmatrix}
 \left[ A\right]\\
 \left[ B\right]
-\end{array}\right]
-=\left[\begin{array}{cc}
+\end{bmatrix}
+=\begin{bmatrix}
 S_{11}& S_{12}\\
 S_{21}& S_{22}
-\end{array}
-\right]^{-1}
-\left[\begin{array}{c}
+\end{bmatrix}^{-1}
+\begin{bmatrix}
 v_1\\
 v_2
-\end{array}
-\right]=\frac{1}{S_{11}S_{22}-S_{12}S_{21}}\left[\begin{array}{cc}
+\end{bmatrix}
+= \frac{1}{S_{11}S_{22}-S_{12}S_{21}}
+\begin{bmatrix}
 S_{22}& -S_{12}\\
 -S_{21}& S_{11}
-\end{array}
-\right]\left[\begin{array}{c}
+\end{bmatrix}
+\begin{bmatrix}
 v_1\\
 v_2
-\end{array}
-\right]
+\end{bmatrix}
 $$
 Portanto
 \begin{eqnarray*}
@@ -1698,7 +1688,7 @@ onde não se indicou $|S_{ij}|$ nem $|[.]|$ pois são todos positivos.
 Fazemos agora a aplicação numérica:
 
 {\bf Caso do par 1-2:}
-$$\det{S}=\left|\begin{array}{cc}270&30\\140&20\end{array}\right|=1200$$
+$$\det{S}=\left|\begin{matrix}270&30\\140&20\end{matrix}\right|=1200$$
 \begin{eqnarray*}
 \frac{1}{[A]}\delta_{[A]}
 &=&\frac{1}{1200}\left[20\times 270\times 2\%+20\times 30\times 2\%+30\times 140\times 2\%+30\times 20\times 2\%\right]\\&=&\frac{216}{1200}=0.18=18\%\\
