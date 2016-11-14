@@ -5,7 +5,7 @@
 
 \chapter{Aritmética de máquina}\index{aritmética!de máquina}
 
-Neste capítulo, discutiremos sobre formas de represenção de números em computadores. Iniciamos discutindo sobre representação posicional e mudança de base. Então, discutimos sobre representação com número de dígitos finitos e, mais especificamente, as representações de números inteiros, ponto fixo e ponto flutuante em computadores.
+Neste capítulo, discutiremos sobre formas de represenção de números em computadores. Iniciamos com uma discussão sobre representação posicional e mudança de base. Então, discutimos sobre representação com número de dígitos finitos e, mais especificamente, as representações de números inteiros, ponto fixo e ponto flutuante em computadores.
 
 A representação de números e a aritmética em computadores levam aos chamados erros de arredondamento e de truncamento. Ao final deste capítulo, discutiremos sobre os efeitos do erro de arredondamento na computação científica.
 
@@ -118,7 +118,7 @@ No sistema octal a base é $b=8$ e utilizamos os símbolos em $\{0, 1, 2, 3, 4, 
 \end{ex}
 \fi
 
-A partir da Definição \ref{def:sistema_de_numeracao} acabamos de mostrar vários exemplos de conversão de números de uma sistema de numeração de base $b$ para o sistema decimal. Agora, vamos estudar como fazer o processo inverso. Isto é, dado um número decimal $(X)_{10}$ queremos escrevê-lo em uma outra base $b$, i.e., queremos obter a seguinte representação:
+A partir da definição \ref{def:sistema_de_numeracao}, acabamos de mostrar vários exemplos de conversão de números de uma sistema de numeração de base $b$ para o sistema decimal. Agora, vamos estudar como fazer o processo inverso. Isto é, dado um número decimal $(X)_{10}$ queremos escrevê-lo em uma outra base $b$, isto é, queremos obter a seguinte representação:
 \begin{equation*}
   \begin{split}
     (X)_{10} &= (d_nd_{n-1}\cdots d_0,d_{-1}\cdots)_{b} \\
@@ -308,7 +308,7 @@ Uma maneira de converter um número dado numa base $b_1$ para uma base $b_2$ é 
 
 \section{Representação de números}\index{representação!de números}
 
-Os computadores, em geral, usam a base binária para representar os números, onde as posições, chamadas de bits, assume as condições ``verdadeiro'' ou ``falso'', ou seja, $0$ ou $1$. Cada computador tem um número de bits fixo e, portanto, representa uma quantidade finita de números. Os demais números são tomados por proximidade àqueles conhecidos, gerando erros de arredondamento. Por exemplo, em aritmética de computador, o número $2$ tem representação exata, logo $2^2=4$, mas $\sqrt{3}$ não tem representação finita, logo $(\sqrt{3})^2\neq 3$. 
+Os computadores, em geral, usam a base binária para representar os números, onde as posições, chamadas de bits, assume as condições ``verdadeiro'' ou ``falso'', ou seja, $0$ ou $1$. Os computadores representam os números com uma quantidade fixa de bits, o que se traduz em um conjunto finito de números representáveis. Os demais números são tomados por proximidade àqueles conhecidos, gerando erros de arredondamento.\index{erros!de arredondamento} Por exemplo, em aritmética de computador, o número $2$ tem representação exata, logo $2^2=4$, mas $\sqrt{3}$ não tem representação finita, logo $(\sqrt{3})^2\neq 3$. 
 
 \ifisscilab
 Veja isso no \verb+Scilab+:
@@ -667,11 +667,11 @@ Outras informações sobre a representação em ponto flutuante podem ser obtida
 Para mais informações sobre aritmética de ponto flutuante em \verb+Python+, veja a \href{https://docs.python.org/3/tutorial/floatingpoint.html?highlight=double}{documentação}.
 \fi
 
-\subsection{A precisão e o epsilon de máquina}
+\subsection{A precisão e o épsilon de máquina}
 
 A \emph{precisão} $p$ de uma máquina é o número de dígitos significativos usado para representar um número. Note que $p=|M|+1$ em binário e $p=|M|$ para outras bases.
 
-O \emph{epsilon de máquina}, $\epsilon_{mach}=\epsilon$, é definido de forma que $1+\epsilon$ seja o menor número representável maior que $1$, isto é, $1+\epsilon$ é representável, mas não existem números representáveis em $(1, 1+\epsilon)$.
+O \emph{épsilon de máquina}, $\epsilon_{mach}=\epsilon$, é definido de forma que $1+\epsilon$ seja o menor número representável maior que $1$, isto é, $1+\epsilon$ é representável, mas não existem números representáveis em $(1, 1+\epsilon)$.
 
 \begin{ex}
   Com $64$ bits, temos que o epsilon será dado por
@@ -688,14 +688,14 @@ Assim $\epsilon = 2^{-52}$.
 
 
 \subsection{A distribuição dos números}
-Utilizando uma máquina em ponto flutuante temos um número finito de números que podemos representar.
+Utilizando uma máquina em ponto flutuante, temos um número finito de números que podemos representar.
 
 Um número muito pequeno geralmente é aproximado por zero (underflow) e um número muito grande (overflow) geralmente faz o cálculo parar.
 Além disso, os números não estão uniformemente espaçados no eixo real. Números pequenos estão bem próximos enquanto que números com expoentes grandes estão bem distantes.
 
 Se tentarmos armazenar um número que não é representável, devemos utilizar o número mais próximo, gerando os erros de arredondamento.
 
-Por simplicidade, a partir daqui nós adotaremos $b=10$.
+Por simplicidade, a partir daqui, nós adotaremos $b=10$.
 
 \ifisscilab
 \begin{obs}
@@ -924,7 +924,7 @@ Em \verb+Python+, a representação de números por arredondamento é o padrão.
 
 \begin{exer} Calcule os erros absoluto e relativo das aproximações $\bar{x}$ para $x$.
   \begin{itemize}
-  \item[a)] $x=\pi=3,14159265358979\cdots$ e $\bar{x}=3,141$
+  \item[a)] $x=\pi=3,14159265358979\ldots$ e $\bar{x}=3,141$
   \item[b)] $x=1,00001$ e $\bar{x}=1$
   \item[c)] $x=100001$ e $\bar{x}=100000$
   \end{itemize}
@@ -1040,7 +1040,7 @@ x_1,x_2 &=& \frac{-0,300000\times 10^3\pm \sqrt{\Delta}}{0,200000\times 10^1} \\
 &=& \frac{-0,300000\times 10^3\pm \sqrt{0,900001\times 10^5}}{0,200000\times 10^1} \\
 &=& \frac{-0,300000\times 10^3\pm 0,300000\times 10^3}{0,200000\times 10^1}\\
 \end{eqnarray*}
-Então, as duas raízes são:
+Então, as duas raízes obtidas com erros de arredondamento, são:
 \begin{equation*}
   \begin{split}
   \tilde{x}_1 &= \frac{-0,300000\times 10^3- 0,300000\times 10^3}{0,200000\times 10^1}\\
@@ -1051,7 +1051,7 @@ e
 \begin{equation*}
 \tilde{x}_2=\frac{-0,300000\times 10^3+ 0,300000\times 10^3}{0,200000\times 10^1}=0,000000\times 10^{0} 
 \end{equation*}
-No entanto, os valores das raízes com seis dígitos significativos deveriam ser
+No entanto, os valores das raízes com seis dígitos significativos livres de erros de arredondamento, são:
 \begin{equation*}
   x_1=-0,300000\times 10^{3}\quad\hbox{e}\quad x_2=0,466667\times 10^{-4}.  
 \end{equation*}
