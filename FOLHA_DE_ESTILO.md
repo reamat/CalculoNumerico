@@ -21,6 +21,8 @@ Deve-se usar maiúscula apenas em nomes próprios, ex: método de Newton, métod
 
 O livro está escrito em [LaTex](https://latex-project.org/). O arquivo principal `main.tex` escontra-se no diretório principal `CalculoNumerico`. O código LaTeX de cada capítulo encontra-se em um subdiretório específico com nome `cap_abrev`, onde `abrev` é uma abreviação que lembre o conteúdo do capítulo. Por exemplo, o código do capítulo sobre técnicas numéricas para sistemas lineares está no subdiretório `cap_linsis`.
 
+Para informações sobre como compilar o código fonte, leia o arquivo `README.md`.
+
 ### Compatibilidade
 
 O código LaTeX do livro deve permitir sua compilação tanto com `latex` como com `pdflatex`, além de permitir a compilação nos formatos HTML e EPUB. Ao adicionar suas colaborações, certifique-se que elas são compatíveis testando a compilação definida no `Makefile`. Para testar a compilação, use:
@@ -39,24 +41,22 @@ ATENÇÃO: a compilação de todos os formatos pode levar vários minutos!
 
 #### Instruções LaTeX não compatíveis
 
-Fazemos a conversão do livro de código LaTeX para HTML usando o pacote [TeX4ht](https://www.tug.org/tex4ht/). Para que a conversão funcione de forma correta deve-se observar as seguintes questões:
+Fazemos a conversão do livro de código LaTeX para HTML usando o pacote [TeX4ht](https://www.tug.org/tex4ht/). Os ambientes matemáticos são convertidos para [MathMl](https://www.w3.org/Math/) e então renderizados usando [MathJax](https://www.mathjax.org/). Para que a conversão funcione de forma apropriada deve-se observar as seguintes questões:
 
 * Não usar o ambiente `align`: no lugar use o ambiente `eqnarray` ou o `split` dentro de um ambiente `equation`.
 
-* `array` com linha `hline` na última linha deve conter uma linha com o comando `\multicolumn{ncols}{c}{}`, onde `ncols` é o número de colunas do `array`. Por exemplo:
+* Não usar `array` para composição de tabelas. A alternativa é usar o ambiente `tabular`, por exemplo:
 
-        \begin{equation*}
-	      \begin{array}{r|c|c}
-             h & Df(1) & |f'(1) - D_{+,h}F(1)| \\ \hline
-             10^{-1} & -8,67062(-01) & 2,55909(-02)\\
-             10^{-2} & -8,44158(-01) & 2,68746(-03)\\
-             10^{-14} & -8,43769(-01) & 2,29851(-03) \\\hline
-             \multicolumn{3}{c}{}
-		   \end{array}
-	    \end{equation*}
+        \begin{center}
+	      \begin{tabular}{r|c|c}
+             $h$ & $Df(1)$ & $|f'(1) - D_{+,h}F(1)|$ \\ \hline
+             $10^{-1}$ & $-8,67062\E-01$ & $2,55909\E-02$\\
+             $10^{-2}$ & $-8,44158\E-01$ & $2,68746\E-03$\\
+             $10^{-14}$ & $-8,43769\E-01$ & $2,29851\E-03$ \\\hline
+		   \end{tabular}
+	    \end{center}
 
-
-* Não coloque `label` dentre de colchetes.
+* Não colocar `label` dentre de colchetes.
 
 ### Capítulos
 

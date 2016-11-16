@@ -114,7 +114,7 @@ Se $f:[a, b]\to\mathbb{R}$ é um função diferenciável, $f(a)\cdot f(b)<0$ e $
 Em outras palavras, para garantirmos que exista um único zero de uma dada função diferenciável num intervalo, é suficiente que ela troque de sinal e seja monótona neste intervalo.
 
 \begin{ex}
-No Exemplo~\ref{ex:teorema_de_Bolzano}, mostramos que existe pelo menos um zero de $f(x) = e^{x}-x-2$ no intervalo $(-2,0)$, pois $f(x)$ é contínua e $f(-2)\cdot f(0) < 0$. Agora, observamos que, além disso, $f'(x)=e^x-1$ e, portanto, $f'(x)<0$ para todo $x\in(-2,0)$. Logo, da Proposição~\ref{prop:existencia_e_unicidade}, temos garantida a existência de um único zero no intervalo dado.
+No Exemplo~\ref{ex:teorema_de_Bolzano}, mostramos que existe pelo menos um zero de $f(x) = e^{x}-x-2$ no intervalo $(-2,0)$, pois $f(x)$ é contínua e $f(-2)\cdot f(0) < 0$. Agora, observamos que, além disso, $f'(x)=e^x-1$ e, portanto, $f'(x)<0$ para todo $x\in(-2,0)$. Logo, da proposição~\ref{prop:existencia_e_unicidade}, temos garantida a existência de um único zero no intervalo dado.
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
@@ -134,7 +134,7 @@ Podemos inspecionar o comportamento da função $f(x)= e^x - x - 2$ e de sua der
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-Podemos inspecionar o comportamento da função $f(x)= e^x - x - 2$ e de sua derivada fazendo seus gráficos no Scilab. Para tanto, podemos usar o seguinte código \verb+Python+:
+Podemos inspecionar o comportamento da função $f(x)= e^x - x - 2$ e de sua derivada fazendo seus gráficos no Python. Para tanto, podemos usar o seguinte código \verb+Python+:
 \begin{verbatim}
 >>> def f(x): return np.exp(x)-x-2
 ... 
@@ -154,7 +154,6 @@ Podemos inspecionar o comportamento da função $f(x)= e^x - x - 2$ e de sua der
 A discussão feita nesta seção, especialmente o teorema de Bolzano, nos fornece os fundamentos para o método da bisseção, o qual discutimos na próxima seção.
 
 \subsection*{Exercícios}
-
 \begin{exer}\label{exer:existencia_sol1}
   Mostre que $\cos x = x$ tem solução no intervalo $[0, \pi/2]$.
 \end{exer}
@@ -169,7 +168,7 @@ A discussão feita nesta seção, especialmente o teorema de Bolzano, nos fornec
 \end{exer}
 \begin{resp}
   
-    No Exercício~\ref{exer:existencia_sol1}, mostramos que a função $f(x) = \cos(x) - x$ tem um zero no intervalo $[0, \pi/2]$. Agora, observamos que $f'(x) = -\sen(x) - 1$. Como $0 < \sen x < 1$ para todo $x\in (0, \pi/2)$, temos que $f'(x) < 0$ em $(0, \pi/2)$, i.e. $f(x)$ é monotonicamente decrescente neste intervalo. Logo, da Proposição~\ref{prop:existencia_e_unicidade}, temos que existe um único zero da função neste intervalo.
+    No Exercício~\ref{exer:existencia_sol1}, mostramos que a função $f(x) = \cos(x) - x$ tem um zero no intervalo $[0, \pi/2]$. Agora, observamos que $f'(x) = -\sen(x) - 1$. Como $0 < \sen x < 1$ para todo $x\in (0, \pi/2)$, temos que $f'(x) < 0$ em $(0, \pi/2)$, i.e. $f(x)$ é monotonicamente decrescente neste intervalo. Logo, da proposição~\ref{prop:existencia_e_unicidade}, temos que existe um único zero da função neste intervalo.
   
 \end{resp}
 
@@ -250,7 +249,7 @@ Voltamos a verificar o critério de parada acima e, caso não satisfeito, iteram
   \begin{equation*}
     x^{(0)} = \frac{a^{(0)} + b^{(0)}}{2} = -1.
   \end{equation*}
-  Apresentamos as iterações na Tabela~\ref{tab:metodo_da_bissecao}. Observamos que a precisão $TOL = 10^{-1}$ foi obtida na quarta iteração com o zero de $f(x)$ sendo aproximado por $x^{(4)} = 1,8125$.
+  Apresentamos as iterações na tabela~\ref{tab:metodo_da_bissecao}. Observamos que a precisão $TOL = 10^{-1}$ foi obtida na quarta iteração com o zero de $f(x)$ sendo aproximado por $x^{(4)} = 1,8125$.
   \begin{table}
     \centering
     \caption{Iteração do método da bisseção para o Exemplo~\ref{ex:metodo_da_bissecao}.}
@@ -299,7 +298,7 @@ e, assim, sucessivamente. Veja o código completo na Seção~\ref{subsec:codigo_
 %%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
-Vamos, agora, discutir sobre a \emph{convergência} do método da bisseção. O próximo Teorema~\ref{teo:convergencia_bissecao} nos garante a convergência do método da bisseção.
+Vamos, agora, discutir sobre a \emph{convergência} do método da bisseção. O próximo teorema~\ref{teo:convergencia_bissecao} nos garante a convergência do método da bisseção.
 
 \begin{teo}[Convergência do método da bisseção]\label{teo:convergencia_bissecao} Sejam $f:[a, b]\to \mathbb{R}$ uma função contínua tal que $f(a)\cdot f(b) < 0$ e $x^*$ o único zero de $f(x)$ no intervalo $(a, b)$. Então, a sequência $\{x^{(n)}\}_{n>=0}$ do método da bisseção satisfaz:
   \begin{equation*}
@@ -329,7 +328,7 @@ Logo, vemos que:
 Observamos que a hipótese de que $f(x)$ tenha um único zero no intervalo não é necessária. Se a função tiver mais de um zero no intervalo inicial, as iterações irão convergir para um dos zeros. Veja o Exercício~\ref{exer:raizes_multiplas}.
 
 \begin{obs}
-  O Teorema~\ref{teo:convergencia_bissecao} nos fornece uma estimativa para a convergência do método da bisseção. Aproximadamente, temos:
+  O teorema~\ref{teo:convergencia_bissecao} nos fornece uma estimativa para a convergência do método da bisseção. Aproximadamente, temos:
   \begin{equation*}
     |x^{(n+1)} - x^*| \lesssim \frac{1}{2}|x^{(n+1)} - x^*|.
   \end{equation*}
@@ -431,7 +430,7 @@ Use esta estimativa para iniciar o método de bisseção e obtenha o valor da ra
   
 \end{resp}
 
-\begin{exer}[title=Estática] Considere o seguinte problema físico: uma plataforma está fixa a uma parede através de uma dobradiça cujo momento é dado por:
+\begin{exer}(Estática) Considere o seguinte problema físico: uma plataforma está fixa a uma parede através de uma dobradiça cujo momento é dado por:
   \begin{equation*}
     \tau=k\theta,
   \end{equation*}
@@ -459,7 +458,7 @@ onde $t$ é um número real positivo. Mostre que esta equação possui uma únic
 \begin{exer}\label{prob_raiz_dupla} O polinômio $f(x)=x^4-4x^2+4$ possui raízes duplas em $\sqrt{2}$ e $-\sqrt{2}$. O método da bisseção pode ser aplicados a $f$? Explique.
 \end{exer}
 
-\begin{exer}[title=Eletrônica]\label{prob_diodo} O desenho abaixo mostra um circuito não linear envolvendo uma fonte de tensão constante, um diodo retificador e um resistor. Sabendo que a relação entre a corrente ($I_d)$ e a tensão ($v_d$) no diodo é dada pela seguinte expressão:
+\begin{exer}(Eletrônica)\label{prob_diodo} O desenho abaixo mostra um circuito não linear envolvendo uma fonte de tensão constante, um diodo retificador e um resistor. Sabendo que a relação entre a corrente ($I_d)$ e a tensão ($v_d$) no diodo é dada pela seguinte expressão:
   \begin{equation*}
     I_d=I_R\left(\exp\left(\frac{v_d}{v_t}\right)-1\right),
   \end{equation*}
@@ -484,7 +483,7 @@ Dica: $V=RI_d+v_d$.
   
 \end{resp}
 
-\begin{exer}[title= Propagação de erros] Obtenha os valores de $I_d$ no problema \ref{prob_diodo}. Lembre que existem duas expressões disponíveis:
+\begin{exer}(Propagação de erros) Obtenha os valores de $I_d$ no problema \ref{prob_diodo}. Lembre que existem duas expressões disponíveis:
   \begin{equation*}
     I_d=I_R\left(\exp\left(\frac{v_d}{v_t}\right)-1\right)  
   \end{equation*}
@@ -529,12 +528,12 @@ O método babilônico\footnote{Heron de Alexandria, 10 d.C. - 70 d.C., matemáti
 
 Seja $r>0$ uma aproximação para $\sqrt{A}$. Temos três possibilidades:
 \begin{itemize}
-\item $r>\sqrt{A} \Longrightarrow \frac{A}{r}<\sqrt{A} \Longrightarrow \sqrt{A}\in \left(\frac{A}{r}, r\right)$
-\item $r=\sqrt{A} \Longrightarrow \frac{A}{r}=\sqrt{A}$
-\item $r<\sqrt{A} \Longrightarrow \frac{A}{r}>\sqrt{A} \Longrightarrow \sqrt{A}\in \left(r, \frac{A}{r}\right)$
+\item $r>\sqrt{A} \Longrightarrow \frac{A}{r}<\sqrt{A} \Longrightarrow \sqrt{A}\in \left(\frac{A}{r}, r\right);$
+\item $r=\sqrt{A} \Longrightarrow \frac{A}{r}=\sqrt{A};$
+\item $r<\sqrt{A} \Longrightarrow \frac{A}{r}>\sqrt{A} \Longrightarrow \sqrt{A}\in \left(r, \frac{A}{r}\right).$
 \end{itemize}
-Ou seja, uma aproximação melhor para $\sqrt{A}$ está no intervalo entre $r$ e $\frac{A}{r}$ que pode ser aproximada como:
-$$x=\frac{r+\frac{A}{r}}{2}$$
+Ou seja, $\sqrt{A}$ sempre está no intervalo entre $r$ e $\frac{A}{r}$, no qual podemos buscar uma nova aproximação como, por exemplo, pelo ponto médio:
+$$x=\frac{r+\frac{A}{r}}{2}.$$
 
 Aplicando esse método repetidas vezes, podemos construir a iteração (de ponto fixo):
 \begin{eqnarray*}
@@ -598,10 +597,10 @@ A segunda pergunta é a mais fácil de ser respondida. No caso de $g(x)$ ser con
 
 % De fato, podemos provar que o método é convergente para qualquer valor inicial positivo $x$. E, ainda, que a convergência é rápida (ainda precisamos definir isso).
 
-Antes de respondermos as perguntas acima, vejamos mais um exemplo.
+Antes de respondermos as outras perguntas acima, vejamos mais um exemplo.
 
 \begin{ex}\label{ex:ponto_fixo_2}
-  Considere o problema de encontrar o zero da função $f(x) = x\exp(x) - 10$. Uma maneira geral de construir um problema de ponto fixo equivalente é o seguinte:
+  Considere o problema de encontrar o zero da função $f(x) = xe^x - 10$. Uma maneira geral de construir um problema de ponto fixo equivalente é o seguinte:
   \begin{equation*}
     f(x) = 0 \Rightarrow \alpha f(x) = 0 \Rightarrow x - \alpha f(x) = x,
   \end{equation*}
@@ -613,7 +612,7 @@ Notamos que o ponto fixo destas duas funções coincide com o zero de $f(x)$. Co
 \begin{equation*}
   x_1^{(n+1)} = g_1(x_1^{(n)})\quad\text{e}\quad x_2^{(n+1)} = g_2(x_2^{(n)}),
 \end{equation*}
-tomando $x_1^{(1)} = x_2^{(1)} = 1,7$, obtemos os resultados apresentados na Tabela~\ref{tab:ponto_fixo_2}. Observamos que, enquanto, a iteração do ponto fixo com a função $g_1(x)$ ($\alpha = 0,5$) parece divergir, a iteração com a função $g_2(x)$ ($\alpha = 0,05$) parece convergir.
+tomando $x_1^{(1)} = x_2^{(1)} = 1,7$, obtemos os resultados apresentados na tabela~\ref{tab:ponto_fixo_2}. Observamos que, enquanto, a iteração do ponto fixo com a função $g_1(x)$ ($\alpha = 0,5$) parece divergir, a iteração com a função $g_2(x)$ ($\alpha = 0,05$) parece convergir.
 \begin{table}
   \centering
   \caption{Iterações do ponto fixo para o Exemplo~\ref{ex:ponto_fixo_2}.}\label{tab:ponto_fixo_2}
@@ -643,11 +642,11 @@ tomando $x_1^{(1)} = x_2^{(1)} = 1,7$, obtemos os resultados apresentados na Tab
 %   Dizemos que  $p$ é um \emph{ponto fixo} de uma função $g$ se $g(p)=p$.
 % \end{defn}
 
-Afim de estudarmos a convergência da iteração do ponto fixo, apresentamos o Teorema do ponto fixo.
+Afim de estudarmos a convergência da iteração do ponto fixo, apresentamos o teorema do ponto fixo.
 
 \subsection{Teorema do ponto fixo}\index{Teorema do!ponto fixo}
 
-O Teorema do ponto fixo nos fornece condições suficientes para a existência e unicidade do ponto fixo, bem como para a convergência das iterações do método.
+O teorema do ponto fixo nos fornece condições suficientes para a existência e unicidade do ponto fixo, bem como para a convergência das iterações do método.
 
 \begin{defn}
  Uma \emph{contração}\index{contração} é uma função real $g:[a, b]\to [a, b]$ tal que:
@@ -664,7 +663,7 @@ O Teorema do ponto fixo nos fornece condições suficientes para a existência e
 \end{obs}
 
 \begin{teo}[Teorema do ponto fixo]
- Se $g:[a,b]\to [a,b]$ é uma contração, então existe um único ponto $x^*\in [a, b]$ tal que $g(x^*)= x^*$, i.e. $x^*$ é ponto fixo de $g(x)$. Além disso, a sequência $\{x^{(n)}\}_{n\in\mathbb{N}}$ dada por:
+ Se $g:[a,b]\to [a,b]$ é uma contração, então existe um único ponto $x^*\in [a, b]$ tal que $g(x^*)= x^*$, isto é, $x^*$ é ponto fixo de $g(x)$. Além disso, a sequência $\{x^{(n)}\}_{n\in\mathbb{N}}$ dada por:
  \begin{equation*}
    x^{(n+1)}=g(x^{(n)})
  \end{equation*}
@@ -703,7 +702,7 @@ ou seja, $x^{(n)}\to x^*$ quando $n\to\infty$.
 \end{proof}
 
 \begin{ex}\label{ex:ponto_fixo_3}
-Mostre que o Teorema do ponto fixo se aplica a função $g(x) = \cos(x)$ no intervalo $[1/2, 1]$, i.e. que a iteração do ponto fixo converge para a solução da equação $\cos x = x$.
+Mostre que o teorema do ponto fixo se aplica a função $g(x) = \cos(x)$ no intervalo $[1/2, 1]$, i.e. que a iteração do ponto fixo converge para a solução da equação $\cos x = x$.
 \end{ex}
 \begin{sol}
   Basta mostrarmos que:
@@ -728,7 +727,7 @@ Da mesma forma, temos a estimativa:
 \end{equation*}
 Assim, $|g'(x)|<0,85$ temos a desigualdade com $\beta=0,85<1$.
 
-A Tabela~\ref{tab:ponto_fixo_3} apresenta o comportamento numérico da iteração do ponto fixo:
+A tabela~\ref{tab:ponto_fixo_3} apresenta o comportamento numérico da iteração do ponto fixo:
 \begin{eqnarray*}
 x^{(1)} &=& 0,7\\
 x^{(n+1)} &=& \cos(x^{(n)}),\quad n\geq 1.
@@ -766,7 +765,7 @@ Seja $g :[a,b]$ uma função $C^0[a,b]$ e $x^*\in(a,b)$ um ponto fixo de $g$. En
 \end{figure}
 
 \begin{ex}\label{ex:ponto_fixo_4}
-  No Exemplo~\ref{ex:ponto_fixo_2} observamos que a função $g_1(x)$ nos forneceu uma iteração divergente, enquanto que a função $g_2(x)$ forneceu uma iteração convergente (veja a Figura~\ref{fig:teste_de_convergencia}. A razão destes comportamentos é explicada pelo teste da convergência. Com efeito, sabemos que o ponto fixo destas funções está no intervalo $[1,6, 1,8]$ e temos:
+  No Exemplo~\ref{ex:ponto_fixo_2}, observamos que a função $g_1(x)$ nos forneceu uma iteração divergente, enquanto que a função $g_2(x)$ forneceu uma iteração convergente (veja a Figura~\ref{fig:teste_de_convergencia}. A razão destes comportamentos é explicada pelo teste da convergência. Com efeito, sabemos que o ponto fixo destas funções está no intervalo $[1,6, 1,8]$ e temos:
   \begin{equation*}
     |g_1'(x)| = |1 - 0,5(x+1)e^x| > 4,8,\quad\forall x\in [1,6, 1,8],
   \end{equation*}
@@ -808,7 +807,7 @@ onde $\epsilon_n=\left|x^{(n)}-x^*\right|$.
 \begin{itemize}
 \item Se $|g'(x^*)|<1$, então, a distância de $x^{(n)}$ até o ponto fixo $x^*$ está diminuindo a cada passo.
 \item Se $|g'(x^*)|>1$, então, a distância de $x^{(n)}$ até o ponto fixo $x^*$ está aumentando a cada passo.
-\item Se $|g'(x^*)|=1$, então, nossa aproximação de primeiro ordem não é suficiente para compreender o comportamento da sequência.
+\item Se $|g'(x^*)|=1$, então, nossa aproximação de primeira ordem não é suficiente para compreender o comportamento da sequência.
 \end{itemize}
 \end{obs}
 
@@ -970,22 +969,9 @@ Implemente o processo iterativo $x^{(n+1)}=g(x^{(n)})$ para $n\geq 0$ e compare 
 com erro absoluto inferior a $10^{-6}$.
 \end{exer}
 
-\begin{exer} Calcule uma equação da reta tangente a curva $y=e^{-(x-1)^2}$ que passa pelo ponto $(3, 1/2)$.
-\end{exer}
-
-\begin{exer} Resolva numericamente a inequação:
-  \begin{equation*}
-    e^{-x^2}<2x  
-  \end{equation*}
-\end{exer}
-\begin{resp}
-  
-    $x>a$ com $a\approx 0,4193648$.    
-  
-\end{resp}
 
 \begin{exer} Considere os seguintes processos iterativos:
-\begin{equation}
+\begin{equation*}
 \begin{array}{l}
 a\left\{\begin{array}{rcl}
 x^{(n+1)}&=&\cos(x^{(n)})\\
@@ -998,18 +984,18 @@ x^{(1)}&=&.5
 \end{array}
 \right.
 \end{array}
-\end{equation}
+\end{equation*}
 
 Use o teorema do ponto fixo para verificar que cada um desses processos converge para a solução da equação $x^*$ de $\cos(x)=x$. Observe o comportamento numérico dessas sequências. Qual estabiliza mais rápido com cinco casas decimais? Discuta.
 
-Dica: Verifique que $\cos([0.5,1])\subseteq [0.5,1]$ e depois a mesma identidade para a função $f(x)=.4x+.6\cos(x)$.
+Dica: Verifique que $\cos([0.5,1])\subseteq [0.5,1]$ e depois a mesma identidade para a função $f(x)=0,4x+0,6\cos(x)$.
 \end{exer}
 
 
 \begin{exer}  Use o teorema do ponto fixo aplicado a um intervalo adequado para mostrar que a função $g(x)=\ln (100-x)$ possui um ponto fixo estável.
 \end{exer}
 
-\begin{exer}[title=Fluidos] Na hidráulica, o fator de atrito de Darcy é dado pela implicitamente pela equação de Colebrook-White:
+\begin{exer}(Fluidos) Na hidráulica, o fator de atrito de Darcy é dado pela implicitamente pela equação de Colebrook-White:
 $$\frac{1}{\sqrt{f}}= -2 \log_{10} \left( \frac{\varepsilon}{14.8 R_h} + \frac{2.51}{\mathrm{Re}\sqrt{f}} \right)$$
 onde $f$ é o fator de atrito, $\varepsilon$ é a rugosidade do tubo em metros, $R_{h}$ é o raio hidráulico em metros e ${Re}$ é o número de Reynolds. Considere $\varepsilon=2mm$, $R_{h}=5cm$ e ${Re}=10000$ e obtenha o valor de $f$ pela iteração:
 $$x^{(n+1)}=-2 \log_{10} \left( \frac{\varepsilon}{14.8 R_{h}} + \frac{2.51x^{(n)}}{\mathrm{Re}} \right)$$
@@ -1033,13 +1019,11 @@ Prove que $$x_n-x^*=(1-\beta)^{n-1}(x_1-x^*).$$
 Conclua que $x_n\to x^*$ quando $|1-\beta|<1$.
 \end{exer}
 
-\begin{exer}[title=Convergência lenta] Considere o seguinte esquema iterativo:
-$$
-\left\{\begin{array}{l}
-x^{(n+1)}=x_n+q^n\\
-x^{(0)}=0
-\end{array}
-\right.$$
+\begin{exer}(Convergência lenta) Considere o seguinte esquema iterativo:
+  \begin{eqnarray*}
+    x^{(n+1)} &=& x_n+q^n,\\
+    x^{(0)} &=& 0,   
+  \end{eqnarray*}
 onde $q=1-10^{-6}$.
 \begin{itemize}
 \item[a)] Calcule o limite $$x_\infty=\lim_{n\to\infty}x^{(n)}$$ analiticamente.
@@ -1048,22 +1032,22 @@ onde $q=1-10^{-6}$.
 \end{itemize}
 \end{exer}
 
-\begin{exer}[title=Convergência sublinear] Considere o seguinte esquema iterativo:
+\begin{exer}(Convergência sublinear) Considere o seguinte esquema iterativo:
 $$x^{(n+1)}=x^{(n)}-[x^{(n)}]^3,\ x^{(n)}\geq 0$$
 com $x^{(0)}= 10^{-2}$.
 Prove que $\{x^{(n)}\}$ é sequência de número reais positivos convergindo para zero. Verifique que são necessários mais de mil passos para que $x^{(n)}$ se torne menor que $0.9 x^{(0)}$.
 \end{exer}
 
 
-\begin{exer}[title=Taxa de convergência]
+\begin{exer}(Taxa de convergência)
 \begin{itemize}
-\item[a)] Use o teorema do ponto fixo para mostrar que a função $g(x)=1-\sin(x)$ possui um único ponto fixo estável o intervalo $[\frac{1}{10},1]$. Construa um método iterativo $x^{(n+1)}=g(x^{(n)})$ para encontrar esse ponto fixo. Use o Scilab para encontrar o valor numérico do ponto fixo.
-\item[b)] Verifique que função $\psi(x)=\frac{1}{2}\left[x+1-\sin(x)\right]$ possui um ponto fixo $x^*$ que também é o ponto fixo da função $g$ do item a. Use o Scilab para encontrar o valor numérico do ponto fixo através da iteração $x^{(n+1)}=\psi(x^{(n)})$. Qual método é mais rápido?
+\item[a)] Use o teorema do ponto fixo para mostrar que a função $g(x)=1-\sin(x)$ possui um único ponto fixo estável o intervalo $[\frac{1}{10},1]$. Construa um método iterativo $x^{(n+1)}=g(x^{(n)})$ para encontrar esse ponto fixo. Use o computador para encontrar o valor numérico do ponto fixo.
+\item[b)] Verifique que função $\psi(x)=\frac{1}{2}\left[x+1-\sin(x)\right]$ possui um ponto fixo $x^*$ que também é o ponto fixo da função $g$ do item a. Use o computador para encontrar o valor numérico do ponto fixo através da iteração $x^{(n+1)}=\psi(x^{(n)})$. Qual método é mais rápido?
 \end{itemize}
 \end{exer}
 
 
-\begin{exer}[title=Esquemas oscilantes](\textit{Esquemas oscilantes})
+\begin{exer}(Esquemas oscilantes)(\textit{Esquemas oscilantes})
 \begin{itemize}
 \item[a)] Considere a função $g(x)$ e função composta $\psi(x)=g\circ g=g\left(g(x)\right)$. Verifique todo ponto fixo de $g$ também é ponto fixo de $\psi$.
 
@@ -1073,10 +1057,10 @@ Prove que $\{x^{(n)}\}$ é sequência de número reais positivos convergindo par
 \end{itemize}
 \end{exer}
 
-\begin{exer}[title= Aceleração de convergência - introdução ao método de Newton]\label{int_new1} Mostre que se $f(x)$ possui uma raiz $x^*$ então a $x^*$ é um ponto fixo de $\phi(x)=x+\gamma(x) f(x)$. Encontre uma condição em $\gamma(x)$ para que o ponto fixo $x^*$ de $\phi$ seja estável. Encontre uma condição em $\gamma(x)$ para que $\phi'(x^*)=0$.
+\begin{exer}(Aceleração de convergência - introdução ao método de Newton)\label{int_new1} Mostre que se $f(x)$ possui uma raiz $x^*$ então a $x^*$ é um ponto fixo de $\phi(x)=x+\gamma(x) f(x)$. Encontre uma condição em $\gamma(x)$ para que o ponto fixo $x^*$ de $\phi$ seja estável. Encontre uma condição em $\gamma(x)$ para que $\phi'(x^*)=0$.
 \end{exer}
 
-\begin{exer}[title=Aceleração de convergência - introdução ao método de Newton]\label{int_new2} Considere que $x^{(n)}$ satisfaz a seguinte relação de recorrência:
+\begin{exer}(Aceleração de convergência - introdução ao método de Newton)\label{int_new2} Considere que $x^{(n)}$ satisfaz a seguinte relação de recorrência:
 $$x^{(n+1)}=x^{(n)} - \gamma f(x^{(n)})$$
 onde $\gamma$ é uma constante. Suponha que $f(x)$ possui um zero em $x^*$. Aproxime a função $f(x)$ em torno de $x^*$ por
 $$f(x)=f(x^*)+f'(x^*)(x-x^*)+O\left((x-x^*)^2\right).$$
@@ -1100,7 +1084,7 @@ $$
 Verifique numericamente que apenas o processo A é convergente para a, b e c; enquanto apenas o processo B é convergente para os outros itens.
 \end{exer}
 
-\section{Método de Newton-Raphson}\index{método de Newton-Raphson}
+\section{Método de Newton-Raphson}\index{método de Newton-Raphson}\label{metodo_newton_1d}
 
 Nesta seção, apresentamos o \emph{método de Newton-Raphson}\footnote{Joseph Raphson, 1648 - 1715, matemático inglês.}\footnote{Também chamado apenas de método de Newton.}\index{método de!Newton-Raphson}\index{método de!Newton} para calcular o zero de funções reais de uma variável real. 
 
@@ -1163,7 +1147,7 @@ Assim, a interseção desta reta com o eixo das abscissas ocorre quando ($y=0$):
 
 Ou seja, dado $x^{(n)}$ a próxima aproximação $x^{(n+1)}$ é o ponto de interseção entre o eixo das abscissas e a reta tangente ao gráfico da função no ponto $x = x^{(n)}$. Observe a Figura~\ref{fig:metodo_de_Newton}.
 
-\subsection{Análise de convergência}\index{método de Newton-Raphson!convergência}
+\subsection{Análise de convergência}\index{método de Newton-Raphson!convergência}\label{Analise_conv_Newton}
 
 Seja $f(x)$ um função com derivadas primeira e segunda contínuas tal que $f(x^*)=0$ e $f'(x^*)\neq 0$. Seja também a função $g(x)$ definida como:
 \begin{equation*}
@@ -1263,7 +1247,7 @@ e, então, conforme acima:
 \begin{equation*}
   |f(x^{(n)})| = |R(x^{(n)}),x^{(n-1)}| \leq \frac{M}{2}|x^{(n)} - x^{(n-1)}|^2.
 \end{equation*}
-Com isso e do Teorema do valor médio, concluímos:
+Com isso e do teorema do valor médio, concluímos:
 \begin{equation*}
   |x^{(n)} - x^*| \leq \frac{1}{m}|f(x^{(n)}) - f(x^*)| \leq \frac{M}{2m}|x^{(n)} - x^{(n-1)}|^2.
 \end{equation*}
@@ -1281,6 +1265,22 @@ onde $m := \min |f'(x)|$ e $M := \max |f''(x)|$ com o mínimo e o máximo tomado
 \end{sol}
 
 \subsection*{Exercícios}
+\begin{exer}\label{1d:cosx2}
+Encontre a raiz positiva da função $f(x)=\cos(x)-x^2$ pelo método de Newton inicializando-o com $x^{(0)}=1$. Realize a iteração até obter estabilidade no $quinto$ dígito siginificativo.
+\end{exer}
+\begin{resp}
+ raiz:0,82413, processo iterativo: $x^{(n+1)}= x^{(n)}+ \frac{\cos(x)-x^2}{\sin(x)+2x}$
+ \ifisscilab
+\begin{verbatim}
+-->x=1
+-->x=x+(cos(x)-x^2)/(sin(x)+2*x)
+-->x=x+(cos(x)-x^2)/(sin(x)+2*x)
+-->x=x+(cos(x)-x^2)/(sin(x)+2*x)
+-->x=x+(cos(x)-x^2)/(sin(x)+2*x)
+\end{verbatim}
+\fi
+\end{resp}
+
 
 \begin{exer} Considere o problema de calcular as soluções positivas da equação:
   \begin{equation*}
@@ -1379,10 +1379,10 @@ $x_0>1$.
   
 \end{resp}
 
-\begin{exer}[title= Computação]Aplique o método de Newton à função $f(x)=\frac{1}{x}-u$ e construa um esquema computacional para calcular a inversa de $u$ com base em operações de multiplicação e soma/subtração.
+\begin{exer}(Computação) Aplique o método de Newton à função $f(x)=\frac{1}{x}-u$ e construa um esquema computacional para calcular a inversa de $u$ com base em operações de multiplicação e soma/subtração.
  \end{exer}
 
-\begin{exer}[title=Computação]Aplique o método de Newton à função $f(x)=x^n-A$ e construa um esquema computacional para calcular  $\sqrt[n]{A}$ para $A>0$ com base em operações de multiplicação e soma/subtração.
+\begin{exer}(Computação) Aplique o método de Newton à função $f(x)=x^n-A$ e construa um esquema computacional para calcular  $\sqrt[n]{A}$ para $A>0$ com base em operações de multiplicação e soma/subtração.
 \end{exer}
 
 \begin{exer} Considere a função dada por
@@ -1391,8 +1391,8 @@ $x_0>1$.
 \end{eqnarray*}
 definida para $x>0$
 \begin{itemize}
-\item [a)] (1.5) Use o teorema do ponto fixo para provar que se $x_0$ pertence ao intervalo $[1,3]$, então a sequência dada iterativamente por $$x^{(n+1)}=\psi(x^{(n)}),n\geq 0$$ converge para o único ponto fixo, $x^*$, de $\psi$. Construa a iteração $x^{(n+1)}=\psi(x^{(n)})$ e obtenha numericamente o valor do ponto fixo $x^*$. Expresse a resposta com 5 algarismos significativos corretos.
-\item [b)] (1.0) Construa a iteração do método de Newton para encontrar $x^*$, explicitando a relação de recorrência e iniciando com $x_0=2$. Use o Scilab para obter a raiz e expresse a resposta com oito dígitos significativos corretos.
+\item [a)] (1.5) Use o teorema do ponto fixo para provar que se $x^{(0)}$ pertence ao intervalo $[1,3]$, então a sequência dada iterativamente por $$x^{(n+1)}=\psi(x^{(n)}),n\geq 0$$ converge para o único ponto fixo, $x^*$, de $\psi$. Construa a iteração $x^{(n+1)}=\psi(x^{(n)})$ e obtenha numericamente o valor do ponto fixo $x^*$. Expresse a resposta com 5 algarismos significativos corretos.
+\item [b)] (1.0) Construa a iteração do método de Newton para encontrar $x^*$, explicitando a relação de recorrência e iniciando com $x_0=2$. Use o computador para obter a raiz e expresse a resposta com oito dígitos significativos corretos.
 \end{itemize}
 \end{exer}
 
@@ -1460,13 +1460,13 @@ Esta reta intercepta o eixo das abscissas no ponto $x$ tal que $y=0$, i.e.:
 
 \subsection{Análise de convergência}\index{método das secantes!convergência}
 
-Uma análise assintótica semelhante aquela feita para o método de Newton nos indica que, para uma função $f(x)$ duas vezes diferenciável, as iterações do método da secante satisfazem:
+Uma análise assintótica semelhante àquela feita para o método de Newton na subseção \ref{Analise_conv_Newton} nos indica que, para uma função $f(x)$ duas vezes diferenciável, as iterações do método da secante satisfazem:
 \begin{equation*}
   |x^{(n+1)} - x^*| \approx C |x^{(n)} - x^*||x^{(n-1)} - x^*|,
 \end{equation*}
 para aproximações iniciais suficientemente próximas de $x^*$, onde $f(x^*) = 0$. Além disso, veremos que:
 \begin{equation*}
-  |x^{(n+1)} - x^*| \leq C |x^{(n)} - x^*|^{1,6}
+  |x^{(n+1)} - x^*| \leq C |x^{(n)} - x^*|^{p},~~ p=\frac{\sqrt{5}+1}{2}\approx 1,618
 \end{equation*}
 sob certas condições. Ou seja, o método das secantes tem \emph{taxa de convergência superlinear}.
 
@@ -1498,7 +1498,7 @@ Com isso, temos:
     &&g(x^{(n)},x^{(n-1)}) - x^* = x^{(n)} - f(x^{(n)})\frac{x^{(n)} - x^{(n-1)}}{f(x^{(n)}) - f(x^{(n-1)})} - x^*\\
     &=& \frac{x^{(n)} - x^{(n-1)}}{f(x^{(n)}) - f(x^{(n-1)})}\left\{(x^{(n)} - x^*)\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} - f(x^{(n)}) + f(x^*)\right\}.\\
   \end{eqnarray*}
-Então, da cota assumida para primeira derivada de $f(x)$ e do Teorema do valor médio, temos: 
+Então, da cota assumida para primeira derivada de $f(x)$ e do teorema do valor médio, temos: 
 \begin{equation}\label{eq:secantes-est0}
   |g(x^{(n)},x^{(n-1)}) - x^*| \leq \frac{|x^{(n)} - x^*|}{m}\left|\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} - \frac{f(x^{(n)}) - f(x^*)}{x^{(n)} - x^*}\right|.
 \end{equation}
@@ -1507,7 +1507,7 @@ Agora, iremos estimar este último termo a direita. Para tanto, começamos obser
   \frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} &= -\int_0^1 \frac{d}{dr}f(x^{(n)} + r(x^{(n-1)} - x^{(n)}))\frac{dr}{x^{(n)} - x^{(n-1)}}\\
   &= \int_0^1 f'(x^{(n)} + r(x^{(n-1)} - x^{(n)}))\,dr
 \end{eqnarray*}
-De forma análogo, temos:
+De forma análoga, temos:
 \begin{equation*}
   \frac{f(x^{(n)}) - f(x^*)}{x^{(n)} - x^*} = \int_0^1 f'(x^{(n)} + r(x^* - x^{(n)}))\,dr
 \end{equation*}
@@ -1526,11 +1526,11 @@ Agora, novamente temos:
   &= \int_0^r f''(x^{(n)} + r(x^{(n-1)} - x^{(n)}) + s(x^* - x^{(n-1)}))\,ds(x^* - x^{(n-1)}).
   \end{split}
 \end{equation*}
-Então, retornando à Equação~\eqref{eq:secantes-0} e usando a assumida cota para a segunda derivada, obtemos:
+Retornando à equação~\eqref{eq:secantes-0} e usando a cota para a segunda derivada, obtemos:
 \begin{equation*}
   \left|\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} - \frac{f(x^{(n)}) - f(x^*)}{x^{(n)} - x^*} \right| \leq \frac{M}{2}|x^{(n-1)} - x^*|.
 \end{equation*}
-Agora, retornando à Equação~\eqref{eq:secantes-est0}, obtemos:
+Utilizando a equação~\eqref{eq:secantes-est0}, obtemos:
 \begin{equation*}
   |g(x^{(n)},x^{(n-1)})-x^*| \leq \frac{M}{2m}|x^{(n)}-x^*||x^{(n-1)}-x^*| \leq \frac{M}{2m}\rho^2 < \rho.
 \end{equation*}
@@ -1548,23 +1548,23 @@ Como $\rho_1 \leq q$ e $\rho_2 \leq q$, temos $\rho_n \leq q^{\gamma_{n-1}}$, $n
 \end{equation*}
 Além disso, como $\gamma_{n}\to \infty$ quando $n\to\infty$ e $q < 1$, temos que as iterações do método das secantes $x^{(n)}\to x^*$ quando $n\to \infty$.
 
-Por fim, mostramos a estimativa de convergência \emph{a posteriori}. Para tanto, da cota assumida para a primeira derivada e do Teorema do valor médio, temos, para $n\geq 3$:
+Por fim, mostramos a estimativa de convergência \emph{a posteriori}. Para tanto, da cota assumida para a primeira derivada e do teorema do valor médio, temos, para $n\geq 3$:
 \begin{eqnarray*}
   |x^{(n)} - x^*| &\leq& \frac{1}{m}|f(x^{(n)} - f(x^*)|\\
   &=& \frac{1}{m}\left|f(x^{(n-1)}) + (x^{(n)} - x^{(n-1)})\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}}\right|\\
   &=& \frac{1}{m}\left|x^{(n)} - x^{(n-1)}\right|\left|\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} + \frac{f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}}\right|.
 \end{eqnarray*}
-Agora, da iteração do método das secantes:
+Agora, a iteração do método das secantes fornece:
 \begin{equation*}
-  x^{(n)} = x^{(n-1)} - f(x^{(n-1)})\frac{x^{(n-1)} - x^{(n-2)}}{f(x^{(n-1)}) - f(x^{(n-2)})}, 
+  x^{(n)} = x^{(n-1)} - f(x^{(n-1)})\frac{x^{(n-1)} - x^{(n-2)}}{f(x^{(n-1)}) - f(x^{(n-2)})} 
 \end{equation*}
-temos:
+e temos:
 \begin{equation*}
   \frac{f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} = -\frac{f(x^{(n-1)}) - f(x^{(n-2)})}{x^{(n-1)} - x^{(n-2)}}.
 \end{equation*}
-Logo:
+Portanto:
 \begin{equation*}
-  |x^{(n)} - x^*| \leq \frac{1}{m}|x^{(n)} - x^{(n-1)}|\left|\frac{f(x^{(n-1)}) - f(x^{(n)})}{x^{(n-1)} - x^{(n)}} - \frac{f(x^{(n-1)}) - f(x^{(n-2)})}{x^{(n-1)} - x^{(n-2)}}\right|
+  |x^{(n)} - x^*| \leq \frac{1}{m}|x^{(n)} - x^{(n-1)}|\left|\frac{f(x^{(n-1)}) - f(x^{(n)})}{x^{(n-1)} - x^{(n)}} - \frac{f(x^{(n-1)}) - f(x^{(n-2)})}{x^{(n-1)} - x^{(n-2)}}\right|.
 \end{equation*}
 Observamos que o último termo pode ser estimado como feito acima para o termo análogo na Inequação~\eqref{eq:secantes-est0}. Com isso, obtemos a estimativa desejada:
 \begin{equation*}
@@ -1605,7 +1605,7 @@ Daí, segue imediatamente o enunciado.
 \end{proof}
 
 \begin{obs}
-  Sob as hipóteses do Teorema~\ref{teo:metodo_das_secantes} e da Proposição~\ref{prop:sequencia_de_Fibonacci}, temos:
+  Sob as hipóteses do teorema~\ref{teo:metodo_das_secantes} e da proposição~\ref{prop:sequencia_de_Fibonacci}, temos:
   \begin{eqnarray*}
     \lim_{n\to\infty} \frac{|x^{(n+1)}-x^*|}{|x^{(n)} - x^*|^{\lambda_1}} &\leq& \lim_{n\to\infty} \frac{M}{2m}|x^{(n)}-x^*|^{1-\lambda_1}|x^{(n-1)}-x^*| \\
     &\leq& \lim_{n\to\infty} \left(\frac{2m}{M}\right)^{1-\lambda_1}q^{(2-\lambda_1)\lambda_1^{n}/\sqrt{5}} = 0.
@@ -1616,7 +1616,7 @@ Isto mostra que o método das secantes (nestas hipóteses) tem taxa de convergê
 
 \section{Critérios de parada}
 
-Quando usamos métodos iterativos precisamos determinar um critério de parada. A Tabela~\ref{tab:quadro_comparativo} indica critérios de parada usuais para os métodos que estudamos neste capítulo.
+Quando usamos métodos iterativos precisamos determinar um critério de parada. A tabela~\ref{tab:quadro_comparativo} indica critérios de parada usuais para os métodos que estudamos neste capítulo.
 
 \begin{table}[h!]
   \centering
@@ -1667,7 +1667,7 @@ O erro na tabela sempre se refere ao erro absoluto esperado. Nos três últimos 
 \end{exer}
 
 \begin{exer}
-  Seja dada uma função $f(x)$ duas vezes continuamente diferenciável. Faça uma análise assintótica para mostrar que as iterações do método das secantes satisfazem:
+  Seja uma função $f(x)$ dada duas vezes continuamente diferenciável. Faça uma análise assintótica para mostrar que as iterações do método das secantes satisfazem:
   \begin{equation*}
     |x^{(n+1)} - x^*| \approx C |x^{(n)} - x^*||x^{(n-1)} - x^*|,    
   \end{equation*}
@@ -1731,6 +1731,21 @@ ou, equivalentemente:
 
 \section{Exercícios finais}
 
+\begin{exer} Calcule uma equação da reta tangente a curva $y=e^{-(x-1)^2}$ que passa pelo ponto $(3, 1/2)$.
+\end{exer}
+
+\begin{exer} Resolva numericamente a inequação:
+  \begin{equation*}
+    e^{-x^2}<2x  
+  \end{equation*}
+\end{exer}
+\begin{resp}
+  
+    $x>a$ com $a\approx 0,4193648$.    
+  
+\end{resp}
+
+
 \begin{exer} A equação $$\cos(\pi x)=e^{-2x}$$ tem infinitas raízes.
 Usando  métodos numéricos encontre as primeiras raízes dessa equação. Verifique a j-ésima raiz ($z_j$) pode ser aproximada por $j-1/2$ para $j$ grande. Use o método de Newton para encontrar uma aproximação melhor para $z_j$.
 \end{exer}
@@ -1741,7 +1756,7 @@ Usando  métodos numéricos encontre as primeiras raízes dessa equação. Verif
 \end{resp}
 
 
-\begin{exer}[title=Eletricidade]A corrente elétrica, $I$, em Ampères em uma lâmpada em função da tensão elétrica, $V$, é dada por
+\begin{exer}(Eletricidade) A corrente elétrica, $I$, em Ampères em uma lâmpada em função da tensão elétrica, $V$, é dada por
 $$I=\left(\frac{V}{150}\right)^{0.8}$$
 Qual a potência da lâmpada quando ligada em série com uma resistência de valor R a uma fonte de 150V quando. (procure erro inferior a 1\%)
 \begin{itemize}
@@ -1796,7 +1811,7 @@ Ano & população\\
 \hline	
 \end{tabular}
 
-Use esses parâmetros para calcular a população em 1980 e compare com o valor do censo.
+Use esses parâmetros para calcular a população em 1980 e compare com o valor do censo. Dica: considere $\frac{P(31)-P(0)}{P(10)-P(0)}$ e reduza o sistema a uma equação apenas na variável $\lambda$.
 \end{exer}
 \begin{resp}
   
@@ -1804,7 +1819,7 @@ $118940992$
   
 \end{resp}
 
-\begin{exer}[title=Fluidos]\label{boiaesf} Uma boia esférica flutua na água. Sabendo que a boia tem $10\ell$ de volume e 2Kg de massa. Calcule a altura da porção molhada da boia.
+\begin{exer}(Fluidos) \label{boiaesf} Uma boia esférica flutua na água. Sabendo que a boia tem $10\ell$ de volume e 2Kg de massa. Calcule a altura da porção molhada da boia.
 \end{exer}
 \begin{resp}
   
@@ -1812,7 +1827,7 @@ $7,7$~cm
   
 \end{resp}
 
-\begin{exer}[title= Fluidos]\label{boiacil} Uma boia cilíndrica tem secção transversal circular de raio 10cm e comprimento 2m e pesa 10Kg. Sabendo que a boia flutua sobre água com o eixo do cilindro na posição horizontal, calcule a altura da parte molhada da boia.
+\begin{exer}(Fluidos) \label{boiacil} Uma boia cilíndrica tem secção transversal circular de raio 10cm e comprimento 2m e pesa 10Kg. Sabendo que a boia flutua sobre água com o eixo do cilindro na posição horizontal, calcule a altura da parte molhada da boia.
 \end{exer}
 \begin{resp}
   
@@ -1829,7 +1844,7 @@ $(0,652919, 0,426303)$
 \end{resp}
 
 
-\begin{exer}[title= Matemática financeira] Um computador é vendido pelo valor a vista de R\$2.000,00 ou em 1+15 prestações de R\$200,00. Calcule a taxa de juros associada à venda a prazo.
+\begin{exer}(Matemática financeira) Um computador é vendido pelo valor a vista de R\$2.000,00 ou em 1+15 prestações de R\$200,00. Calcule a taxa de juros associada à venda a prazo.
 \end{exer}
 
 \begin{resp}
@@ -1838,7 +1853,7 @@ $7,19$\% ao mês
   
 \end{resp}
 
-\begin{exer}[title= Matemática financeira] O valor de R\$110.000,00 é financiado conforme a seguinte programa de pagamentos:
+\begin{exer}(Matemática financeira) O valor de R\$110.000,00 é financiado conforme a seguinte programa de pagamentos:
 
 \begin{tabular}{|c|c|}
 \hline
@@ -1864,7 +1879,7 @@ $4,54$\% ao mês.
 \end{resp}
 
 
-\begin{exer}[title=Controle de sistemas]  Depois de acionado um sistema de aquecedores, a temperatura em um forno  evolui conforme a seguinte equação
+\begin{exer}(Controle de sistemas) Depois de acionado um sistema de aquecedores, a temperatura em um forno  evolui conforme a seguinte equação
 $$T(t)=500-800e^{-t}+600e^ {-t/3}.$$
 onde $T$ é a temperatura em Kelvin e $t$ é tempo em horas.
 \begin{itemize}
@@ -1889,7 +1904,7 @@ $\left(\pm 1,1101388, -0,7675919\right)$, $\left(\pm 1,5602111, 0,342585\right)$
   
 \end{resp}
 
-\begin{exer}[title= Otimização] Encontre a área do maior retângulo que é possível inscrever entre a curva $e^{-x^2}\left(1+\cos(x)\right)$ e o eixo $y=0$.
+\begin{exer}(Otimização) Encontre a área do maior retângulo que é possível inscrever entre a curva $e^{-x^2}\left(1+\cos(x)\right)$ e o eixo $y=0$.
 \end{exer}
 \begin{resp}
   
@@ -1898,13 +1913,12 @@ $1,5318075$
 \end{resp}
 
 
-\begin{exer}[title=Otimização] \label{usinas} Uma indústria consome energia elétrica de duas usinas fornecedoras. O custo de fornecimento em reais por hora como função da potência consumida em $kW$ é dada pelas seguintes funções
+\begin{exer}(Otimização)\label{1d:usinas}Uma indústria consome energia elétrica de duas usinas fornecedoras. O custo de fornecimento em reais por hora como função da potência consumida em $kW$ é dada pelas seguintes funções
 \begin{eqnarray*}
 C_1(x)&=& 500+.27 x + 4.1\cdot 10^{-5}x^2 +2.1\cdot 10^{-7}x^3+4.2\cdot 10^{-10}x^4 \\
 C_2(x)&=& 1000+.22 x + 6.3\cdot 10^{-5}x^2 +8.5\cdot 10^{-7}x^3
 \end{eqnarray*}
-Onde $C_1(x)$ e $C_2(x)$ são os custos de fornecimento das usinas 1 e 2, respectivamente. Calcule o custo mínimo da energia elétrica quando a potência total consumida é  $1500kW$.
-
+Onde $C_1(x)$ e $C_2(x)$ são os custos de fornecimento das usinas 1 e 2, respectivamente. Calcule o custo mínimo da energia elétrica quando a potência total consumida é  $1500kW$. Obs: Para um problema envolvendo mais de duas usinas, veja \ref{nlinsis:usinas}.
 \end{exer}
 \begin{resp}
   
@@ -1912,7 +1926,7 @@ Onde $C_1(x)$ e $C_2(x)$ são os custos de fornecimento das usinas 1 e 2, respec
   
 \end{resp}
 
-\begin{exer}[title= Termodinâmica] A pressão de saturação (em bar) de um dado hidrocarboneto pelo ser modelada pela equação de Antoine:
+\begin{exer}(Termodinâmica) A pressão de saturação (em bar) de um dado hidrocarboneto pode ser modelada pela equação de Antoine:
 $$\ln\left(P^{sat}\right)=A-\frac{B}{T+C}$$
 onde $T$ é a temperatura e $A$, $B$ e $C$ são constantes dadas conforme a seguir:
 
