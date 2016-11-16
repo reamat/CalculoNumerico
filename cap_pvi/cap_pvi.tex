@@ -23,53 +23,59 @@ y(0)&=&1.
 tem solução dada pela função $y(t)=e^{2t}$ pois $y'(t)=2e^{2t}=2y(t)$ e $y(0)=e^0=1$.
 \end{ex}
 
-Naturalmente, estaremos interessados nos problemas de valor inicial \ref{PVI} que possuem uma única solução. Uma condição suficiente é que a função $f(y,t)$ satisfaça a condição de Lipschitz, isto é, 
+Naturalmente, estaremos interessados nos problemas de valor inicial \eqref{PVI} que possuem uma única solução. Uma condição suficiente é que a função $f(y,t)$ satisfaça a condição de Lipschitz, isto é, 
 \begin{equation}{\label{Lipschitz}}
 |f(t,x)-f(t,y)|\leq \lambda |x-y|,
 \end{equation}
-para todo $x,y\in\mathbb{R}$, $t\geq t_0$ e alguma constante $\lambda$. No entanto, não basta o problema ter uma única solução para garantir que podemos expressá-la em termos de funções elementares. De fato, muitos problemas de interesse satisfazem a condição \eqref{Lipschitz} mas sua solução não pode ser escrita como somas e produtos finitos das funções elementares conhecidas. Por isso o cálculo de aproximações numéricas é indispensável. 
+para todo $x,y\in\mathbb{R}$, $t\geq t_0$ e alguma constante $\lambda$. É importante observar que não basta o problema ter uma única solução para garantir que podemos expressá-la em termos de funções elementares. De fato, muitos problemas de interesse satisfazem a condição \eqref{Lipschitz} mas sua solução não pode ser escrita como somas e produtos finitos das funções elementares conhecidas. Por isso o cálculo de aproximações numéricas é indispensável neste contexto. 
 
-Nosso objetivo é o estudo de algoritmos que aproximam o valor da função $y(t)$ em um conjunto finito de valores de $t$. Esse conjunto de valores para $t$ será denotado por  $\{t_i\}_{i=1}^N$, isto é $\{t_1, t_2, t_3,\ldots, t_N\}$ e chamado de malha. Nesse contexto, estudaremos os métodos que discretizam o problema de valor inicial \ref{PVI} destacando sua qualidades e deficiências nos quesitos de convergência, precisão e custo computacional.
+Nosso objetivo é o estudo de algoritmos que aproximam o valor da função $y(t)$ em um conjunto finito de valores de $t$. Esse conjunto de valores para $t$ será denotado por  $\{t^{(i)}\}_{i=1}^N$, isto é $\{t^{(1)}, t^{(2)}, t^{(3)},\ldots, t^{(N)}\}$ e chamado de malha. Nesse contexto, estudaremos os métodos que discretizam o problema de valor inicial \ref{PVI} destacando sua qualidades e deficiências nos quesitos de convergência, precisão e custo computacional.
 
 
 \section{Método de Euler}\index{método!de Euler}
-Retornemos ao problema de valor inicial (\ref{PVI}) dado por:
-\begin{subequations}\label{PVI_2}
-\begin{eqnarray}
-y'(t)&=&f(y(t),t)\\
-y(0)&=&y_0 ~~ \hbox{(condição inicial)}
-\end{eqnarray}
-\end{subequations}
-O Método de Euler aplicado à solução desse problema consiste em aproximar a derivada $y'(t)$ por um esquema de primeira ordem do tipo
+O Método de Euler consiste em aproximar a derivada $y'(t)$ por um esquema de primeira ordem do tipo
 $$y'(t)=\frac{y(t+h)-y(t)}{h}+O(h),~~ h>0.$$
-Aqui $h$ é o passo do método, que consideraremos uma constante. Assim temos (\ref{PVI_2}) se transforma em:
+Aqui $h$ é o passo do método, que consideraremos uma constante. Assim temos (\ref{PVI}) se transforma em:
 \begin{eqnarray}
 \nonumber \frac{y(t+h)-y(t)}{h}&=&f(y(t),t)+O(h)\\
 {\label{erro_local}}y(t+h)&=&y(t)+hf(y(t),t)+O(h^2).
 \end{eqnarray}
 
 Definimos, então, $t^{(k)}=(k-1)h$ e $y^{(k)}$ como a aproximação para $y\left(t^{(k)}\right)$ produzida pelo Método de Euler. Assim, obtemos
+\begin{subequations}
 \begin{eqnarray}\label{PVI_EULER}
-y^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)}) ~\hbox{(aproximação da EDO)},\\
-y^{(1)}&=&y_0~~ \hbox{(condição inicial)}.
+y^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)}) ~\hbox{(aproximação da EDO)},   \label{PVI_EULER_eq}\\
+y^{(1)}&=&y_0~~ \hbox{(condição inicial)} \label{PVI_EULER_CI}.
 \end{eqnarray}
+\end{subequations}
 O problema (\ref{PVI_EULER}) consiste em um esquema iterativo, isto é, $y^{(1)}$ é a condição inicial; $y^{(2)}$ pode ser obtido de $y^{(1)}$; $y^{(3)}$, de $y^{(2)}$ e assim por diante, calculamos o termo $y^{(n)}$ apartir do anterior $y^{(n-1)}$. 
 
 
-\begin{ex} Retornemos ao o problema de valor inicial do exemplo (\ref{exemplo_y_2y}):
+\begin{ex} Retornemos ao o problema de valor inicial do exemplo (\ref{exemplo_y_2y}) 
 \begin{eqnarray*}
 y'(t)&=&2y(t)\\
-y(0)&=&1
+y(0)&=&1,
 \end{eqnarray*}
 \end{ex}
-Cuja solução é $y(t)=e^{2t}$. O método de Euler aplicado a este problema produz o seguinte esquema:
-\begin{eqnarray*}
+cuja solução é $y(t)=e^{2t}$. O método de Euler aplicado a este problema produz o seguinte esquema:
+\begin{subequations}{\label{exemplo_y_2y_euler}}
+\begin{eqnarray}
 y^{(k+1)}&=&y^{(k)}+2hy^{(k)}=(1+2h)y^{(k)}\\
-y^{(1)}&=&1,
+y^{(1)}&=&1.
+\end{eqnarray}
+\end{subequations}
+Suponha que queremos calcular o valor aproximado de $y(1)$ com $h=0.2$. Então os pontos $t^{(1)}=0$, $t^{(2)}=0,2$, $t^{(3)}=0,4$, $t^{(4)}=0,6$ $t^{(5)}=0,8$ e $t^{(6)}=1,0$ formam os seis pontos da malha. As aproximações para a solução nos pontos da malha usando o método de Euler são:
+\begin{eqnarray*}
+ y(0)&\approx &y^{(1)}=1\\
+ y(0,2)&\approx &y^{(2)}=(1+2h) y^{(1)}=1,4 y^{(1)}=1,4\\
+y(0,4)&\approx &y^{(3)}=1,4 y^{(2)}=1,96\\
+y(0,6)&\approx &y^{(4)}=1,4 y^{(3)}=2,744\\
+y(0,8)&\approx &y^{(5)}=1,4 y^{(4)}=3,8416\\
+y(1,0)&\approx &y^{(6)}=1,4 y^{(5)}=5,37824
 \end{eqnarray*}
-cuja solução é dada por
+Essa aproximação é bem grosseira quando comparamos com a solução do problema em $t=1$: $y(1)=e^{2}\approx 7,38906$. Observe que a solução da relação de recorrência \eqref{exemplo_y_2y_euler} é dada por
 $$y^{(k)}=(1+2h)^{k-1}.$$
-Como $t=(k-1)h$, a solução aproximada pelo Método de Euler é
+Em um ponto genérico da malha $t\approx t^{(k)}=(k-1)h$ a solução aproximada pelo Método de Euler é
 $$y(t)\approx \tilde{y}(t)= (1+2h)^{\frac{t}{h}}.$$
 Observe que $\tilde{y}(t) \neq y(t)$, mas se $h$ é pequeno, a aproximação é boa, pois
 $$\lim_{h\to 0+} (1+2h)^{\frac{t}{h}}= e^{2t}.$$
@@ -123,7 +129,7 @@ Para fins de comparação, calculamos a solução de \ref{ex_euler_1} e de \eqre
 %não há \eqref{ite_logistica} para referenciar
 
 \begin{table}
-  \caption{Tabela comparativa enter Método de Euler e solução exata para problema \ref{ex_euler_1}.}
+  \caption{Tabela comparativa entre Método de Euler e solução exata para problema \ref{ex_euler_1}.}
   \label{tab:log}
   \begin{tabular}{|c|c|c|c|}\hline
     $t$ & $\hbox{Exato}$ & $\hbox{Euler}~~ h=0,1$ & $\hbox{Euler}~~ h=0,01$\\\hline
@@ -162,6 +168,91 @@ t &  \hbox{Exato} & \hbox{Euler}~~ h=0,1 & \hbox{Euler}~~ h=0,01\\\hline
 \end{array}  
 \end{equation*}
 
+\subsection{Ordem de precisão}\label{sec_ordem_prec_euler}\index{ordem de precisão}
+A precisão de um método numérico que aproxima a solução do problema \eqref{PVI} é dada pela ordem do erro acumulado ao calcular a aproximação em um ponto $t^{(k+1)}$ em função do espaçamento da malha $h$. Se $y(t^{(k+1)})$ pode ser aproximado por uma expressão que depende de $f$, $h$, $y(t^{(1)})$, $y(t^{(2)})$, $\cdots$, $y(t^{(k)})$, com erro da ordem de $O(h^{p+1})$, ou seja,
+\begin{equation}{\label{erro_local_1}}
+y(t^{(k+1)})=\mathcal{F}(f, h, y(t^{(k)}), y(t^{(k-1)}), \cdots, y^{(1)}) + O(h^{p+1})
+\end{equation}
+para cada função analítica $f$, dizemos que o método tem erro de truncamento da ordem de $O(h^{p})$ ou {\bf ordem de precisão $p$}\index{método!de Euler!ordem de precisão}. Essa afirmação faz sentido quando fazemos a seguinte análise informal: para aproximar $y^{(2)}$, acumulamos erros da ordem $O(h^{p+1})$, para calcular $y^{(3)}$ acumulamos os erros de $y^{(2)}$ e novos erros $O(h^{p+1})$. Para calcular $y^{(N+1)}$, acumulamos todos os erros até $t^{(N+1)}$, ou seja, $N$ vezes $O(h^{p+1})$. Como $N=O(1/h)$, temos que os erros ao calcular $y^{(N+1)}$ são da ordem $O(h^p)$. É verdade que essa análise só vale quando impomos condições de suavidade para $f$ e condições adequada para a expressão $\mathcal{F}(f, h, y(t^{(k)}), y(t^{(k-1)}), \cdots, y(t^{(1)})$. Para explicar melhor esse pequeno texto, fazemos em detalhes essa operação para o método de Euler. Primeiro lembramos da expressão (\ref{erro_local}) que origina a seguinte relação de recorrência é
+\begin{eqnarray}{\label{es_Euler}}
+y(t^{(k+1)})&=&y(t^{(k)})+hf(y(t^{(k)}),t^{(k)})+O(h^2).
+\end{eqnarray}
+Assim,
+\begin{eqnarray*}
+ y(t^{(2)})&=&y(t^{(1)})+hf(y(t^{(1)}),t^{(1)})+O(h^2)\\
+ &=&y^{(1)}+hf(y^{(1)},t^{(1)})+O(h^2)=y^{(2)}+O(h^2)
+\end{eqnarray*}
+onde $y^{(i)}$ é a aproximação pelo método de Euler para o valor exato $y(t^{(i)})$. Subsequentemente, temos
+\begin{eqnarray*}
+ y(t^{(3)})&=&y(t^{(2)})+hf(y(t^{(2)}),t^{(2)})+O(h^2)\\
+ &=&y(t^{(2)})+hf(y^{(2)}+O(h^2),t^{(2)})+O(h^2)\\
+ &=&y(t^{(2)})+hf(y^{(2)},t^{(2)}) +O(h^2)\\
+ &=&y^{(2)}+O(h^2)+hf(y^{(2)},t^{(2)}) +O(h^2)= y^{(3)}+O(h^2)+O(h^2).
+\end{eqnarray*}
+onde usamos o primeiro termo da série de Taylor $hf(y^{(2)}+O(h^2),t^{(2)})=hf(y^{(2)},t^{(2)})+O(h^3)$ na passagem da segunda para terceira linha. Repetindo sucessivamente o passo anterior, obtemos uma expressão geral para o valor exato $y(t^{(N+1)})$ em termos do valor aproximado $y^{(N+1)}$:
+\begin{eqnarray*}
+ y(t^{(N+1)})=y^{(N+1)}+N O(h^2) .
+\end{eqnarray*}
+Como $N=(t-t_0)/h=(t^{(N+1)}-t^{(1)})/h$, temos
+\begin{eqnarray}{\label{euler_precisao}}
+ y(t^{(N+1)})&=&y^{(N+1)}+\frac{t-t_0}{h}O(h^2)=y^{(N+1)}+O(h),
+\end{eqnarray}
+ou seja, o erro entre o valor exato e o aproximado é de ordem $h$. Uma demonstração mais formal que garante que o erro é limitado por uma expressão que é proporcional a $h$ está discutido na subseção \ref{sec_conv_Euler}.
+
+\subsection{Convergência}\label{sec_conv_Euler}
+
+A precisão de um método numérico não garante sua convergência, isto é, primeiro temos que desenvolver um método convergente para estudar sua precisão. Neste contexto, convergente significa que a solução numérica se aproxima da solução do problema conforme $h$ tende a zero. O teorema \ref{teo_conv_euler} estabelece a convergência do método de Euler.
+\begin{teo}\label{teo_conv_euler} A aproximação pelo método de Euler \eqref{PVI_EULER} para o problema de valor inicial \eqref{PVI} sujeito à condição \eqref{Lipschitz} é convergente.
+\end{teo}
+\begin{proof}
+ O erro de truncamento do método de Euler é dada pela expressão \eqref{es_Euler}:
+ \begin{eqnarray*}
+y(t^{(k+1)})&=&y(t^{(k)})+hf(y(t^{(k)}),t^{(k)})+O(h^2).
+\end{eqnarray*}
+Isto significa que existe uma constante $c$ tal que
+\begin{eqnarray}\label{euler_trunc}
+y(t^{(k+1)})&=&y(t^{(k)})+hf(y(t^{(k)}),t^{(k)})+ch^2.
+\end{eqnarray}
+Também, a iteração de Euler é dado pela expressão \eqref{PVI_EULER_eq}
+\begin{eqnarray}\label{euler_itera}
+y^{(k+1)}&=&y^{(k)}+hf(y^{(k)},t^{(k)}).
+\end{eqnarray}
+Aqui $y(t^{(k+1)})$ é a solução do PVI no ponto $t^{(k+1)}$ e $y^{(k+1)}$ o valor aproximado pelo método de Euler. Tomando a diferença entre \eqref{euler_itera} e \eqref{euler_trunc}, temos
+\begin{eqnarray}
+e^{(k+1)}&=&e^{(k)}+h\left(f(y(t^{(k)}),t^{(k)})-f(y^{(k)},t^{(k)})\right)+ch^2,
+\end{eqnarray}
+onde $e^{(k+1)}=y(t^{(k)})-y^{(k)}$ é o erro entre os valores da solução e da aproximação. Usamos a condição \eqref{Lipschitz} da função $f$ e temos:
+\begin{eqnarray*}
+|e^{(k+1)}|&\leq &|e^{(k)}|+h\left|f(y(t^{(k)}),t^{(k)})-f(y^{(k)},t^{(k)})\right|+|c|h^2\\
+&\leq &|e^{(k)}|+h\lambda \left|y(t^{(k)})-y^{(k)}\right|+|c|h^2,\\
+&\leq &|e^{(k)}|\left(1+h\lambda\right)+|c|h^2.
+\end{eqnarray*}
+Usamos o fato que $|e^{(1)}|=|y(t^{(1)})-y^{(1)}|=|y(t_0)-y(t_0)|=0$ e aplicamos a última desigualdade para $k=1,\ 2,\ 3,\ cdots $ para obter: 
+\begin{eqnarray*}
+|e^{(2)}|&\leq &|e^{(1)}|\left(1+h\lambda\right)+|c|h^2=|c|h^2\\
+|e^{(3)}|&\leq &|e^{(2)}|\left(1+h\lambda\right)+|c|h^2=|c|h^2\left[\left(1+h\lambda\right)+1\right]\\
+|e^{(4)}|&\leq &|e^{(3)}|\left(1+h\lambda\right)+|c|h^2=|c|h^2\left[\left(1+h\lambda\right)^2+\left(1+h\lambda\right)+1\right]\\
+&\vdots &
+\end{eqnarray*}
+Podemos mostrar por indução que, em um ponto $t^{N+1}$ da malha
+\begin{eqnarray*}
+|e^{(N+1)}|&\leq&|c|h^2\left[\left(1+h\lambda\right)^{N-1}+\cdots+\left(1+h\lambda\right)+1\right]\\
+&\leq&|c|h^2\frac{1-\left(1+h\lambda\right)^{N}}{1-\left(1+h\lambda\right)}\\
+&\leq&\frac{|c|h}{\lambda}\left(\left(1+h\lambda\right)^{N}-1\right).
+\end{eqnarray*}
+Também, $1+h\lambda$ são os dois primeiros termos da série de Taylor da exponencial $e^{h\lambda}$, logo $1+h\lambda<e^{h\lambda}$. Assim,
+\begin{eqnarray*}
+|e^{(N+1)}|&\leq&\frac{|c|h}{\lambda}\left(e^{h\lambda N}-1\right)\\
+&\leq&\frac{|c|h}{\lambda}\left(e^{\lambda (t^{(N)}-t_0) }-1\right).
+\end{eqnarray*}
+Portanto, 
+\begin{equation}\label{est_conv_euler}
+\lim_{h\to 0} |e^{(N+1)}| \leq \lim_{h\to 0}\frac{|c|h}{\lambda}\left(e^{\lambda (t^{(N)}-t_0) }-1\right)=0.
+\end{equation}
+Observe que a estimativa \eqref{est_conv_euler} é proporcional a $h$, resultado consiste com a ordem de precisão do método de Euler definida na subseção \ref{sec_ordem_prec_euler}.
+
+
+\end{proof}
 
 
 \subsection*{Exercícios}
@@ -178,8 +269,6 @@ com passo $h=0,1$ e $h=0,01$ para obter aproximações para $y(1)$. Compare com 
  $0,4496$ com $h=0,1$ e $0,4660$ com $h=0,01$. A solução exata vale $y(1)=\frac{1+2e^{-1}+e^{-2}}{4}= \left(\frac{1+e^{-1}}{2}\right)^2\approx 0,4678$    
   
 \end{resp}
-
-
 
 
 \begin{exer}Resolva o problema de valor inicial dado por
@@ -230,6 +319,46 @@ y^{(1)}&=&y_0~~ \hbox{(condição inicial)}.
 \end{eqnarray*}
 Aqui $k_1$ e $k_2$ são variáveis auxiliares que representam as inclinações e devem ser calculadas a cada passo. Esta notação é compatível com a notação usada nos métodos de Runge-Kutta, uma família de esquemas iterativos para aproximar problemas de valor inicial, da qual o Método de Euler e o Método de Euler Melhorado são casos particulares. Veremos os métodos de Runge-Kutta na seção \ref{sec_RK}.
 
+
+
+
+
+
+\subsection{Ordem de precisão}
+Para obter o erro de precisão do método de Euler Melhorado vamos calcular o erro de truncamento do método, ou seja, precisamos demonstrar que:
+\begin{equation}\label{es_Euler_melhorado}
+y(t+h)=y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)+O(h^3)
+\end{equation}
+De fato, tomando a diferença do termo da esquerda o os termos da direita, temos:
+\begin{eqnarray*}
+&&y(t+h)-\left(y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)\right)\\
+&&=y(t)+hy'(t)+\frac{h^2}{2}y''(t)+O(h^3)\\
+&&-\left(y(t)+\frac{h}{2} y'(t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)\right),
+\end{eqnarray*}
+onde usamos uma expansão em série de Taylor para $y(t+h)$ e a equação diferencial $y'(t)=f(y(t),t)$. Portanto,
+\begin{eqnarray*}
+&&y(t+h)-\left(y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)\right)\\
+&&=\frac{h}{2}y'(t)+\frac{h^2}{2}y''(t)-\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)+O(h^3).
+\end{eqnarray*}
+Agora, usamos a série de Taylor de $f(y(t)+hf(y(t),t),t+h)$ e, torno de $(y,t)$:
+\begin{eqnarray*}
+&&y(t+h)-\left(y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)\right)\\
+&&=\frac{h}{2}y'(t)+\frac{h^2}{2}y''(t)+O(h^3)\\
+&&-\frac{h}{2}\left(f(y(t),t)+\frac{\partial f(y(t),t) }{\partial t}h +\frac{\partial f(t,y(t))}{\partial y} hf(t,y(t))+O(h^2)\right).
+\end{eqnarray*}
+Usando a equação diferencial $y'(t)=f(y(t),t)$ obtemos 
+$$
+y''(t)=\frac{f(y(t),t)}{\partial t}+\frac{f(y(t),t)}{\partial y}y'(t)=\frac{f(y(t),t)}{\partial t}+\frac{f(y(t),t)}{\partial y}f(y(t),t).
+$$
+Logo,
+\begin{eqnarray*}
+&&y(t+h)-\left(y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)\right)\\
+&&=\frac{h}{2}y'(t)+\frac{h^2}{2}y''(t)+O(h^3)\\
+&&-\frac{h}{2}\left(f(y(t),t)+hy''(t)+O(h^2)\right)\\
+&&=\frac{h}{2}y'(t)+\frac{h^2}{2}y''(t)\\
+&&-\frac{h}{2}\left(y'(t)+hy''(t)\right)+O(h^3)=O(h^3)
+\end{eqnarray*}
+Portanto, a expressão (\ref{es_Euler_melhorado}) é válida. Logo, usando uma discussão análoga aquela feita na subseção \ref{sec_ordem_prec_euler} para o método de Euler, concluímos que o método de Euler Melhorado possui ordem de precisão 2.
 
 \subsection*{Exercícios}
 
@@ -292,93 +421,6 @@ $$
  
 \end{resp}
 
-
-\section{Ordem de precisão}\index{ordem de precisão}
-Considere o problema de valor inicial dado por
-\begin{eqnarray*}
-y'(t)&=&f(y(t),t),\\
-y(0)&=&y_0.
-\end{eqnarray*}
-Nessa seção vamos definir a precisão de um método numérico pela ordem do erro acumulado ao calcular o valor da função em um ponto $t_N$ em função do espaçamento da malha $h$. Se $y(t_n)$ pode ser aproximado por uma expressão que depende de $f$, $h$, $y(t_0)$, $y(t_1)$, $\cdots$, $y(t_n)$, com erro da ordem de $O(h^{p+1})$, ou seja,
-\begin{equation}{\label{erro_local_1}}
-y(t_{n+1})=\mathcal{F}(f, h, y(t_n), y(t_{n-1}), \cdots, y_0) + O(h^{p+1})
-\end{equation}
-para cada função analítica $f$, dizemos que o método tem erro de truncamento da ordem de $O(h^{p})$ ou {\bf ordem de precisão $p$}\index{método!de Euler!ordem de precisão}. Essa afirmação faz sentido quando fazemos a seguinte análise informal: para aproximar $y_1$, acumulamos erros da ordem $O(h^{p+1})$, para calcular $y_2$ acumulamos os erros de $y_1$ e novos erros $O(h^{p+1})$. Para calcular $y_N$, acumulamos todos os erros até $t_N$, ou seja, $N$ vezes $O(h^{p+1})$. Como $N=O(1/h)$, temos que os erros ao calcular $y_N$ são da ordem $O(h^p)$. É verdade que essa análise só vale quando impomos condições de suavidade para $f$ e condições adequada para a expressão $\mathcal{F}(f, h, y(t_n), y(t_{n-1}), \cdots, y_0)$. Para explicar melhor esse pequeno texto, fazemos em detalhes essa operação para o método de Euler na seção \ref{sec_pre_euler}.
-
-\subsection{Ordem de precisão do Método de Euler}{\label{sec_pre_euler}}
-Primeiro lembramos da expressão (\ref{erro_local}) que origina a seguinte relação de recorrência:
-\begin{eqnarray}{\label{es_Euler}}
-y(t_{n+1})&=&y(t_n)+hf(y(t_n),t_n)+O(h^2).
-\end{eqnarray}
-Para entender melhor o motivo de na expressão (\ref{es_Euler}) aparecer $O(h^2)$ e o método ser de precisão 1, vamos a seguinte análise informal: observemos que
-\begin{eqnarray*}
- y(t_1)&=&y(t_0)+hf(y(t_0),t_0)+O(h^2)\\
- &=&y_0+hf(y_0,t_0)+O(h^2)=y_1+O(h^2)
-\end{eqnarray*}
-onde $y_i$ é a aproximação pelo método de Euler para o valor exato $y(t_i)$. Subsequentemente, temos
-\begin{eqnarray*}
- y(t_2)&=&y(t_1)+hf(y(t_1),t_1)+O(h^2)\\
- &=&y(t_1)+hf(y_1+O(h^2),t_1)+O(h^2)\\
- &=&y(t_1)+hf(y_1,t_1) +O(h^2)\\
- &=&y_1+O(h^2)+hf(y_1,t_1) +O(h^2)= y_2+O(h^2)+O(h^2).
-\end{eqnarray*}
-onde usamos o primeiro termo da série de Taylor $hf(y_1+O(h^2),t_1)=hf(y_1,t_1)+O(h^3)$ na passagem da segunda para terceira linha. Repetindo sucessivamente o passo anterior, obtemos uma expressão geral para o valor exato $y(t_N)$ em termos do valor aproximado $y_N$:
-\begin{eqnarray*}
- y(t_N)=y_N+N O(h^2) .
-\end{eqnarray*}
-Como $N=(t_f-t_0)/h$, temos
-\begin{eqnarray}{\label{euler_precisao}}
- y(t_N)&=&=y_{N}+\frac{t-t_0}{h}O(h^2)=y_{N}+O(h),
-\end{eqnarray}
-ou seja, o erro entre o valor exato e o aproximado é de ordem $h$. Uma demonstração mais formal que garante que o erro é limitado por uma expressão que é proporcional a $h$ está discutido na seção \ref{sec_conv_Euler}.
-
-\subsection{Ordem de precisão do Método de Euler Melhorado}
-Para obter o erro de precisão do método de Euler Melhorado vamos calcular o erro de truncamento do método, ou seja, precisamos demonstrar que:
-\begin{equation}\label{es_Euler_melhorado}
-y(t+h)=y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)+O(h^3)
-\end{equation}
-De fato, tomando a diferença do termo da esquerda o os termos da direita, temos:
-\begin{eqnarray*}
-&&y(t+h)-\left(y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)\right)\\
-&&=y(t)+hy'(t)+\frac{h^2}{2}y''(t)+O(h^3)\\
-&&-\left(y(t)+\frac{h}{2} y'(t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)\right),
-\end{eqnarray*}
-onde usamos uma expansão em série de Taylor para $y(t+h)$ e a equação diferencial $y'(t)=f(y(t),t)$. Portanto,
-\begin{eqnarray*}
-&&y(t+h)-\left(y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)\right)\\
-&&=\frac{h}{2}y'(t)+\frac{h^2}{2}y''(t)-\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)+O(h^3).
-\end{eqnarray*}
-Agora, usamos a série de Taylor de $f(y(t)+hf(y(t),t),t+h)$ e, torno de $(y,t)$:
-\begin{eqnarray*}
-&&y(t+h)-\left(y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)\right)\\
-&&=\frac{h}{2}y'(t)+\frac{h^2}{2}y''(t)+O(h^3)\\
-&&-\frac{h}{2}\left(f(y(t),t)+\frac{\partial f(y(t),t) }{\partial t}h +\frac{\partial f(t,y(t))}{\partial y} hf(t,y(t))+O(h^2)\right).
-\end{eqnarray*}
-Usando a equação diferencial $y'(t)=f(y(t),t)$ obtemos 
-$$
-y''(t)=\frac{f(y(t),t)}{\partial t}+\frac{f(y(t),t)}{\partial y}y'(t)=\frac{f(y(t),t)}{\partial t}+\frac{f(y(t),t)}{\partial y}f(y(t),t).
-$$
-Logo,
-\begin{eqnarray*}
-&&y(t+h)-\left(y(t)+\frac{h}{2} f(y(t),t)+\frac{h}{2} f(y(t)+hf(t,y(t))),t+h)\right)\\
-&&=\frac{h}{2}y'(t)+\frac{h^2}{2}y''(t)+O(h^3)\\
-&&-\frac{h}{2}\left(f(y(t),t)+hy''(t)+O(h^2)\right)\\
-&&=\frac{h}{2}y'(t)+\frac{h^2}{2}y''(t)\\
-&&-\frac{h}{2}\left(y'(t)+hy''(t)\right)+O(h^3)=O(h^3)
-\end{eqnarray*}
-Portanto, a expressão (\ref{es_Euler_melhorado}) é válida. Logo, usando uma discussão análoga aquela feita na seção \ref{sec_pre_euler} para o método de Euler, concluímos que o método de Euler Melhorado possui ordem de precisão 2.
-
-\section{Convergência}
-
-\emconstrucao
-
-\subsection{Convergência do método de Euler}\label{sec_conv_Euler}
-
-\emconstrucao
-
-\subsection{Convergência do método de Euler Melhorado}
-
-\emconstrucao
 
 \section{Métodos de Runge-Kutta}\label{sec_RK}\index{método!de Runge-Kutta}
 
@@ -496,7 +538,6 @@ v(0)&=&0.
 \end{subequations}
 pode ser escrito na forma \eqref{PVI} com $y(t)$
 \end{ex}
-
 
 No exemplo \ref{sys_edo}, mostramos como o Método de Euler pode ser facilmente estendido para problemas envolvendo sistemas de equações diferenciais.\index{sistemas!de equações diferenciais}.
 \begin{ex}\label{sys_edo} Escreva o processo iterativo de Euler para resolver numericamente o seguinte sistema de equações diferenciais
