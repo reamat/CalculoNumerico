@@ -1265,7 +1265,7 @@ onde $m := \min |f'(x)|$ e $M := \max |f''(x)|$ com o mínimo e o máximo tomado
 \end{sol}
 
 \subsection*{Exercícios}
-\begin{exer}
+\begin{exer}\label{1d:cosx2}
 Encontre a raiz positiva da função $f(x)=\cos(x)-x^2$ pelo método de Newton inicializando-o com $x^{(0)}=1$. Realize a iteração até obter estabilidade no $quinto$ dígito siginificativo.
 \end{exer}
 \begin{resp}
@@ -1332,26 +1332,22 @@ Em relação à observação, o erro se deveu à falta de cuidado em compreender
 \end{resp}
 \fi
 
-\ifisscilab
+
 \begin{exer}\label{new1} Considere a equação
   $$e^{-x^2}=x$$
-trace o gráfico com auxílio do \verb+Scilab+ e verifique que ela possui uma raiz positiva. Encontre uma aproximação para esta razão pelo gráfico e use este valor para inicializar o método de Newton e obtenha uma aproximação para a raiz com 8 dígitos significativos. (Use o comando \verb+format('v',16)+ para alterar a visualização no \verb+Scilab+.)
+trace o gráfico com auxílio do computador e verifique que ela possui uma raiz positiva. Encontre uma aproximação para esta razão pelo gráfico e use este valor para inicializar o método de Newton e obtenha uma aproximação para a raiz com 8 dígitos significativos. \ifisscilab (Use o comando \verb+format('v',16)+ para alterar a visualização no \verb+Scilab+.)\fi
 \end{exer}
 \begin{resp}
-  
-0,65291864    
-  
-\end{resp}
-\fi
+  0,65291864    
+  \end{resp}
+
 
 \begin{exer}\label{new2} Isole e encontre as cinco primeiras raízes positivas da equação com 6 dígitos corretos através de traçado de gráfico e do método de Newton.
-$$\cos(10x)=e^{-x}.$$ Dica: a primeira raiz positiva está no intervalo $(0,0.02)$. Fique atento.
+$$\cos(10x)=e^{-x}.$$ Dica: a primeira raiz positiva está no intervalo $(0, 0,02)$. Fique atento.
 \end{exer}
 \begin{resp}
-  
- $0.0198679$; $0.533890$; $0.735412$; $1.13237$; $1.38851$.
-  
-\end{resp}
+   $0,0198679$; $0,533890$; $0,735412$; $1,13237$ e $1,38851$.
+  \end{resp}
 
 
 \begin{exer}\label{new3} Encontre as raízes do polinômio $f(x)=x^4-4x^2+4$ através do método de Newton. O que você observa em relação ao erro obtido? Compare com a situação do problema \ref{prob_raiz_dupla}.
@@ -1360,10 +1356,8 @@ $$\cos(10x)=e^{-x}.$$ Dica: a primeira raiz positiva está no intervalo $(0,0.02
 \begin{exer}\label{new4} Encontre as raízes reais do polinômio $f(x)=\frac{x^5}{100}+x^4+3x+1$ isolando-as pelo método do gráfico e depois usando o método de Newton. Expresse a solução com 7 dígitos significativos.
 \end{exer}
 \begin{resp}
-  
-$-99.99970$, $-0.3376513$; $-1.314006$.
-  
-\end{resp}
+ $-99.99970$, $-0.3376513$; $-1.314006$.
+ \end{resp}
 
 \begin{exer}Considere o método de Newton aplicado para encontrar a raiz de $f(x)=x^3-2x+2$. O que acontece quando $x^{(0)}=0$? Escolha um valor adequado para inicializar o método e obter a única raiz real desta equação.
 \end{exer}
@@ -1379,11 +1373,39 @@ $x_0>1$.
   
 \end{resp}
 
-\begin{exer}(Computação) Aplique o método de Newton à função $f(x)=\frac{1}{x}-u$ e construa um esquema computacional para calcular a inversa de $u$ com base em operações de multiplicação e soma/subtração.
+\begin{exer}(Computação) Aplique o método de Newton à função $f(x)=\frac{1}{x}-A$ e construa um esquema computacional para calcular a inversa de $A$ com base em operações de multiplicação e soma/subtração.
  \end{exer}
+\begin{resp}
+  \begin{eqnarray*}
+ x^{(0)} &=& \text{C.I.}\\
+ x^{(n+1)}&=&x^{(n)}\left(2-Ax^{(n)}\right) \\ 
+ \end{eqnarray*}
+\end{resp}
+
 
 \begin{exer}(Computação) Aplique o método de Newton à função $f(x)=x^n-A$ e construa um esquema computacional para calcular  $\sqrt[n]{A}$ para $A>0$ com base em operações de multiplicação e soma/subtração.
 \end{exer}
+\begin{resp}
+ \begin{eqnarray*}
+ x_{0} &=& \text{C.I.}\\
+ x^{(n+1)}&=&x^{(n)}\left(1-\frac{1}{n}\right) + \frac{A}{n x^{(n)}}
+ \end{eqnarray*}
+
+\end{resp}
+
+
+\begin{exer}(Computação) Aplique o método de Newton à função $f(x)=\frac{1}{x^2}-A$ e construa um esquema computacional para calcular  $\frac{1}{\sqrt{A}}$ para $A>0$ com base em operações de multiplicação e soma/subtração.
+\end{exer}
+\begin{resp}
+ \begin{eqnarray*}
+ x_{0} &=& \text{C.I.}\\
+ x^{(n+1)}&=&x^{(n)} + \frac{x^{(n)}-Ax^{(n)}}{2}=\frac{(3-A)x^{(n)}}{2}\\ 
+ \end{eqnarray*}
+
+\end{resp}
+
+
+
 
 \begin{exer} Considere a função dada por
 \begin{eqnarray*}
