@@ -118,21 +118,15 @@ Ao invés de solucionar o problema para qualquer $t>t_1$, (encontrar $u(t)$), ir
 Integrando \eqref{EDO1} de $t_1$ até $t_2$,
 \begin{eqnarray}
   \int_{t_1}^{t_2} u'(t) \;dt &=& \int_{t_1}^{t_2} f(t,u(t)) \; dt\\
-  u(t_2)-u(t_1)               &=& \int_{t_1}^{t_2} f(t,u(t)) \; dt
+  u(t_2)-u(t_1)               &=& \int_{t_1}^{t_2} f(t,u(t)) \; dt\\
+  u(t_2)                      &=& u(t_1) +  \int _{t_1}^{t_2} f(t,u(t)) \; dt
 \end{eqnarray}
 
-
-Para simplificar a notação, denote $u_n := u(t_n)$ como a solução aproximada em $t_n$ e temos
+Seja $u_n$ a aproximação de $u(t_n)$. Para obter o método numérico mais simples aproximamos $f$ em $[t1,t2]$ pela função constante $f(t,u(t)) \approx  f(t_1,u_1)$,
 \begin{eqnarray}
-  u_2-u_1       &=& \int _{t_1}^{t_2} f(t,u(t)) \; dt  \\
-  u_2           &=& u_1 +  \int _{t_1}^{t_2} f(t,u(t)) \; dt
-\end{eqnarray}
-
-Aproximando $f$ por uma função constante $f(t,u(t)) \approx  f(t_1,u_1) \equiv  f_1$  em $(t_1,t_2)$,
-\begin{eqnarray}
-  u_2 &\approx&  u_1 +   f(t_1,u_1) \int _{t_1}^{t_2}  \; dt \\
-  u_2 &\approx&  u_1 +   f(t_1,u_1) (t_2-t_1) \\
-  u_2 &\approx&  u_1 + h f(t_1,u_1)
+  u_2 &=&  u_1 +   f(t_1,u_1) \int _{t_1}^{t_2}  \; dt \\
+  u_2 &=&  u_1 +   f(t_1,u_1) (t_2-t_1) \\
+  u_2 &=&  u_1 + h f(t_1,u_1)
 \end{eqnarray}
 
 Este procedimento pode ser estendido para $t_3,t_4,\ldots $, onde
@@ -146,14 +140,14 @@ u_{n+1}=u_n + h\;f(t_n,u_n).
 
 
 Podemos também  obter o método de Euler a partir da aproximação de $u'(t)$ por um esquema de primeira ordem do tipo
-$$u'(t)=\frac{u(t+h)-u(t)}{h}+O(h),~~ h>0.$$
+$$u'(t)=\frac{u(t+h)-u(t)}{h}+\mathcal{O}(h),~~ h>0.$$
 Substituindo na EDO temos
 \begin{eqnarray}
-\frac{u(t+h)-u(t)}{h}&=&f(t,u(t))+O(h)\\
+\frac{u(t+h)-u(t)}{h}&=&f(t,u(t))+\mathcal{O}(h)\\
 u(t+h)&=&u(t)+hf(t,u(t))+O(h^2).{\label{erro_local}}
 \end{eqnarray}
 
-Sendo $u_n:=u(t_n)$ a aproximação de $u$ em $t_n$ produzida pelo método de Euler, obtemos
+Sendo $u_n$ a aproximação de $u$ em $t_n$ produzida pelo método de Euler, obtemos
 \begin{eqnarray}\label{PVI_EULER}
 u_{n+1}&=&u_n+hf(t_n,u_n),\\
 u_1    &=&a.
@@ -165,10 +159,41 @@ u_1    &=&a.
 
 
 \begin{ex}
+Considere o problema de valor inicial
+\begin{eqnarray*}
+u'(t)&=&2u(t)\\
+u(0)&=&1
+\end{eqnarray*}
+
+cuja solução é $u(t)=e^{2t}$. O método de Euler aplicado a este problema produz o  esquema:
+\begin{eqnarray*}
+u_{k+1}&=&u_k+2hu_k=(1+2h)u_k\\
+u_1&=&1,
+\end{eqnarray*}
+Suponha que queremos calcular o valor aproximado de $u(1)$ com $h=0,2$. Então os pontos $t^{(1)}=0$, $t^{(2)}=0,2$, $t^{(3)}=0,4$, $t^{(4)}=0,6$, $t^{(5)}=0,8$ e $t^{(6)}=1,0$ formam os seis pontos da malha. As aproximações para a solução nos pontos da malha usando o método de Euler são:
+\begin{eqnarray*}
+  u(0)  &\approx &u^{(1)}=1\\
+  u(0,2)&\approx &u^{(2)}=(1+2h) u^{(1)}=1,4 u^{(1)}=1,4\\
+  u(0,4)&\approx &u^{(3)}=1,4 u^{(2)}=1,96\\
+  u(0,6)&\approx &u^{(4)}=1,4 u^{(3)}=2,744\\
+  u(0,8)&\approx &u^{(5)}=1,4 u^{(4)}=3,8416\\
+  u(1,0)&\approx &u^{(6)}=1,4 u^{(5)}=5,37824
+\end{eqnarray*}
+Essa aproximação é bem grosseira quando comparamos com a solução do problema em $t=1$: $u(1)=e^{2}\approx 7,38906$.
+% Observe que a solução da relação de recorrência \eqref{exemplo_y_2y_euler} é dada por
+% $$u^{(k)}=(1+2h)^{k-1}.$$
+% Em um ponto genérico da malha $t\approx t^{(k)}=(k-1)h$ a solução aproximada pelo Método de Euler é
+% $$u(t)\approx \tilde{u}(t)= (1+2h)^{\frac{t}{h}}.$$
+% Observe que $\tilde{u}(t) \neq u(t)$, mas se $h$ é pequeno, a aproximação é boa, pois
+% $$\lim_{h\to 0+} (1+2h)^{\frac{t}{h}}= e^{2t}.$$
+\end{ex}
+
+
+\begin{ex}
 Aproxime a solução do PVI
 \begin{eqnarray}
-   \frac{du}{dt} &=-0.5u+2+t\\
-            u(0) &= 8
+   \frac{du}{dt} &=& -0.5u+2+t\\
+            u(0) &=&  8
 \end{eqnarray}
 Teste para $h=1.6, 0.8, 0.4, 0.2, 0.1$.
 
@@ -205,32 +230,9 @@ function [u,t]=euler(h,Tmax)
 \end{ex}
 
 
-
-
-
-
-
-\begin{ex}
-Considere o problema de valor inicial
-\begin{eqnarray*}
-u'(t)&=&2u(t)\\
-u(0)&=&1
-\end{eqnarray*}
-\end{ex}
-cuja solução é $u(t)=e^{2t}$. O método de Euler aplicado a este problema produz o seguinte esquema:
-\begin{eqnarray*}
-u_{k+1}&=&u_k+2hu_k=(1+2h)u_k\\
-u_1&=&1,
-\end{eqnarray*}
-cuja solução é dada por
-$$u_k=(1+2h)^{k-1}.$$
-Como $t=(k-1)h$, a solução aproximada pelo método de Euler é
-$$u(t)\approx \tilde{u}(t)= (1+2h)^{\frac{t}{h}}.$$
-Observe que $\tilde{u}(t) \neq u(t)$, mas se $h$ é pequeno, a aproximação é boa, pois
-$$\lim_{h\to 0+} (1+2h)^{\frac{t}{h}}= e^{2t}.$$
-
 Vamos agora, analisar o desempenho do método de Euler usando um exemplo mais complicado, porém ainda simples suficiente para que possamos obter a solução exata:  
-\begin{ex}\label{ex_euler_1} Considere o problema de valor inicial relacionado à equação logística\index{equação!logística}:
+\begin{ex}\label{ex_euler_1}
+Considere o problema de valor inicial relacionado à equação logística\index{equação!logística}:
 \begin{eqnarray*}
 u'(t)&=&u(t)(1-u(t))\\
 u(0)&=&1/2
@@ -290,16 +292,17 @@ Para fins de comparação, calculamos a solução exata e aproximada para alguns
 
 No exemplo a seguir, apresentamos um problema envolvendo uma equação não-autônoma\index{equação diferencial!não autônoma}, isto é, quando a função $f(u)$ depende explicitamente do tempo.
 
-\begin{ex} Resolva o problema de valor inicial
+\begin{ex}
+Resolva o problema de valor inicial
   \begin{eqnarray*}
-    u'&=&-u+t\\
+    u'(t)&=&-u(t)+t\\
     u(0)&=&1,
   \end{eqnarray*}
 cuja solução exata é $u(t)=2e^{-t}+t-1$.
 \end{ex}
 O esquema recursivo de Euler fica:
 \begin{eqnarray*}
-  u_{k+1}&=&u_k- hu_k+ht_k\\
+  u_{k+1}&=&u_k+h(-u_k+t_k)\\
   u_1&=&1
 \end{eqnarray*}
 
@@ -314,50 +317,7 @@ $3$ &   $2e^{-3}+2\approx 2,0995741$  & $ 2,0847823$ & $2,0980818$   \\\hline
 \end{tabular}    
 \end{center}
 
-No exemplo \ref{sys_edo}, mostramos como o m de Euler pode ser facilmente estendido para problemas envolvendo sistemas de equações diferenciais.\index{sistemas!de equações diferenciais}.
-\begin{ex}\label{sys_edo} Escreva o processo iterativo de Euler para resolver numericamente o seguinte sistema de equações diferenciais
-\begin{eqnarray*}
-x'&=&-y\\
-y'&=&x\\
-x(0)&=&1\\
-y(0)&=&0,\\
-\end{eqnarray*}
-cuja solução exata é $x(t)=\cos(t)$ e $y(t)=\sin(t)$.
-\end{ex}
-Para aplicar o método de Euler a um sistema, devemos encarar as diversas incógnitas do sistema como formando um vetor, neste caso, escrevemos: 
- $$z(t)=\left[\begin{array}{c}x(t)\\y(t)\end{array}\right].$$
- O sistema é igualmente escrito na forma vetorial:
-\begin{eqnarray*}
-\left[\begin{array}{c}x_{k+1}\\y_{k+1}\end{array}\right]=\left[\begin{array}{c}x_k\\y_k\end{array}\right]+h\left[\begin{array}{c}-y_k\\x_k\end{array}\right].
-\end{eqnarray*}
-Observe que este processo iterativo é equivalente a:
-\begin{eqnarray*}
-x_{k+1}&=&x_k-hy_k\\
-y_{k+1}&=&y_k+hx_k.
-\end{eqnarray*}
 
-\begin{ex} Escreva o problema de valor inicial de segunda ordem dado por
-\begin{eqnarray*}
-u''+u'+u&=&\cos(t),\\
-u(0)&=&1,\\
-u'(0)&=&0,
-\end{eqnarray*}
-como um problema envolvendo um sistema de primeira ordem.
-\end{ex}
-A fim de transformar a equação diferencial dada em um sistema de equações de primeira ordem, introduzimos a substituição $w=u'$, de forma que obteremos o sistema:
-\begin{eqnarray*}
-u'&=&w\\
-w'&=&-w-u+\cos(t)\\
-u(0)&=&1\\
-w(0)&=&0
-\end{eqnarray*}
-Portanto, o método de Euler produz o seguinte processo iterativo:
-\begin{eqnarray*}
-u_{k+1}&=&u_k+hw_k,\\
-w_{k+1}&=&w_k-hw_k-hu_k+h\cos(t_k),\\
-u_1&=&1,\\
-w_1&=&0.
-\end{eqnarray*}
 
 \subsection*{Exercícios}
 \begin{exer}Resolva o problema de valor inicial dado por
@@ -422,13 +382,18 @@ $u(2)\approx 1,137216$ com $h=0,00001$
 
 
 
-\subsection{Erro de truncamento}
+\subsection{Ordem de precisão}
 
-Substituindo a equação diferencial $u'=f(t,u)$ na expansão em série de Taylor
+A \emph{precisão} de um método numérico que aproxima a solução de um PVI é dada pela ordem do erro acumulado ao calcular a aproximação em um ponto $t_{n+1}$ em função do espaçamento da malha $h$. 
+
+Se $u(t_{n+1})$ for aproximado por $u_{n+1}$ com erro da ordem $O(h^{p+1})$ dizemos que o método tem \textbf{ordem de precisão $p$}\index{método!de Euler!ordem de precisão}.
+
+
+Queremos obter a ordem de precisão do método de Euler. Para isso, substituímos a EDO $u'=f(t,u)$ na expansão em série de Taylor
 \begin{eqnarray}\label{taylor}
    u(t_{n+1})=u(t_n)+hu'(t_n)+h^2u''(t_n)/2+ \mathcal O(h^3)
 \end{eqnarray}
-obtemos
+e obtemos
 \begin{eqnarray}\label{tayloreuler}
  u(t_{n+1})=u(t_n)+hf(t_n,u(t_n))+h^2u''(t_n)/2+ \mathcal O(h^3)
 \end{eqnarray}
@@ -438,8 +403,9 @@ Subtraindo \eqref{tayloreuler} do método de Euler
 \end{eqnarray}
 obtemos
 \begin{eqnarray}
-   u_{n+1}-u(t_{n+1}) =&u_n - u(t_n)  +\\
-                       &+ h(f(t_n,u(t_n)+e_n)- f(t_n,u(t_n)))  +\frac{h^2}{2}u''_n+\mathcal O(h^3)
+   e_{n+1}   &=& u_{n+1}-u(t_{n+1}) \\
+             &=&u_n - u(t_n)  +h(f(t_n,u(t_n)+e_n)- f(t_n,u(t_n))) +\\
+             &+&\frac{h^2}{2}u''_n+\mathcal O(h^3)
 \end{eqnarray}
 Defina o \emph{erro numérico} como $e_n=u_n-u(t_n)$ onde $u(t_n)$ é a solução exata e $u_n$ é a solução aproximada. Assim
 \begin{eqnarray}
@@ -447,10 +413,10 @@ Defina o \emph{erro numérico} como $e_n=u_n-u(t_n)$ onde $u(t_n)$ é a soluçã
 \end{eqnarray}
 Usando a condição de Lipschitz em $f$  temos
 \begin{eqnarray}
-   |e_{n+1}|      &\leq  |e_n| + h|f(t_n,u(t_n)+e_n)- f(t_n,u(t_n))|+\frac{h^2}{2}|u''_n|+\mathcal O(h^3)\\
-                  &\leq  |e_n| + hL |u(t_n)+e_n- u(t_n)|+\frac{h^2}{2}|u''_n|+\mathcal O(h^3)\\
-                  &\leq  |e_n| + hL |e_n|+\frac{h^2}{2}|u''_n|+\mathcal O(h^3)\\
-                  &\leq  (1+ hL) |e_n|+\frac{h^2}{2}|u''_n|+\mathcal O(h^3)
+   |e_{n+1}|      &\le &  |e_n| + h|f(t_n,u(t_n)+e_n)- f(t_n,u(t_n))|+\frac{h^2}{2}|u''_n|+\mathcal O(h^3)\\
+                  &\le &  |e_n| + hL |u(t_n)+e_n- u(t_n)|+\frac{h^2}{2}|u''_n|+\mathcal O(h^3)\\
+                  &\le &  |e_n| + hL |e_n|+\frac{h^2}{2}|u''_n|+\mathcal O(h^3)\\
+                  &\le &  (1+ hL) |e_n|+\frac{h^2}{2}|u''_n|+\mathcal O(h^3)
 \end{eqnarray}
 
 \subsection{Erro de truncamento Local}
@@ -473,7 +439,7 @@ Supondo que a solução exata é conhecida em $t_1$ ($\|e_1\|=0$), então realiz
        &=& Th/2|u''|+ \mathcal O(h^2)
 \end{eqnarray}
 ou seja
-$$ETG_{Euler}^{n+1} = \mathcal O(h)$$
+$$ETG_{Euler}^{n+1} = \mathcal \mathcal{O}(h)$$
 
 
 
@@ -492,7 +458,7 @@ O método de Euler é convergente.
 
 De fato, se $f$ Lipschitz e $|e_0|=0$, temos que
 \begin{eqnarray}
- \lim_{h\rightarrow 0} |e_{n+1}|  &= \lim_{h\rightarrow 0} \mathcal O(h) = 0
+ \lim_{h\rightarrow 0} |e_{n+1}|  &= \lim_{h\rightarrow 0} \mathcal \mathcal{O}(h) = 0
 \end{eqnarray}
 
 
@@ -625,6 +591,76 @@ Se um método numérico é \emph{consistente} e \emph{estável} em $[a,b]$ entã
 
 
 
+\section{O método de Euler implícito}
+Integrando o PVI
+\begin{eqnarray}
+  u'(t)  &=& f(t,u(t)) \\
+  u(t_1) &=& a
+\end{eqnarray}
+de $t_1$ até $t_2$ obtemos (como feito anteriormente)
+\begin{eqnarray}
+  u(t_2)      &=& u(t_1) +  \int_{t_1}^{t_2} f(t,u(t)) \; dt
+\end{eqnarray}
+
+Entretanto se aproximarmos a função $f$ por uma função constante $f(t,u(t)) \approx  f(t_2,u_2)$, obteremos um novo método
+\begin{eqnarray}
+  u_2 &=&  u_1 + f(t_2,u_2) \int _{t_1}^{t_2}  \; dt \\
+  u_2 &=&  u_1 + h f(t_2,u_2)
+\end{eqnarray}
+
+
+Generalizando este procedimento para $t_n$ obtemos o \emph{método de Euler implícito}
+\begin{eqnarray}
+u_{n+1}=u_n + h\;f(t_{n+1},u_{n+1}).
+\end{eqnarray}
+
+Note que este método é \emph{implícito} (a equação é implícita) pois depende de $u_{n+1}$ dos dois lados da equação. Se a função $f$ for simples o suficiente, podemos resolver a equação isolando o termo $u_{n+1}$. Se isso não for possível, devemos usar um dos métodos vistos anteriormente para calcular as raízes da equação (por exemplo, método da bissecção e método de Newton).
+
+
+
+Pode ser mostrado que o erro de truncamento local é
+$$ETL_{EulImp}^{n+1}= \mathcal{O}(h^2).$$
+portanto o método é de ordem $1$. E o erro de truncamento global é
+$$ETG_{EulImp}^{n+1}= \mathcal{O}(h).$$
+
+
+
+\begin{ex}
+Utilizando o \textbf{método de Euler implícito} para solucionar \eqref{EDO4.7} obtemos
+\begin{eqnarray}
+ u_{n+1}      &=& u_n+h\lambda u_{n+1}, \\
+ (1-h\lambda )u_{n+1} & =& u_n, \\
+       u_{n+1} & =& \left(\frac{1}{1- h\lambda }\right)u_n, \\
+       u_{n+1} & =& \left(\frac{1}{1- h\lambda }\right)^2u_{n-1}, \\
+       u_{n+1} & =& \left(\frac{1}{1- h\lambda }\right)^{n+1}, \quad  n=0,1,\ldots 
+\end{eqnarray}
+onde $u_1=1$.
+Concluímos então que
+\begin{eqnarray}
+ \mathcal D_{EulImp} = \{z \in  \field{C}:  \left|\frac{1}{1- z}\right|<1\}
+\end{eqnarray}
+ou ainda,
+\begin{eqnarray}
+ \mathcal D_{EulImp} = \{z \in  \field{C}:  |1- z|>1\}
+\end{eqnarray}
+
+Para que o método de Euler implícito seja estável, é necessário que $h$ seja escolhido tal que $\left|\frac{1}{1- h\lambda }\right|<1$, ou ainda, $|1-h\lambda |>1$. Ou seja, $h\lambda $ deve estar em $\mathcal D_{EulImp}$ onde
+\begin{eqnarray}
+ \mathcal D_{EulImp} = \{z \in  \field{C}: |1-z|>1\}
+\end{eqnarray}
+é o exterior de um disco no plano complexo de raio $1$ e centro em $z=1$.
+
+Note que $\mathcal D_{EulImp}$ inclui todo o semiplano negativo. Portanto o método de Euler implícito imita a estabilidade assintótica da EDO linear sem restrição no passo $h$.
+
+\end{ex}
+
+\begin{defn}
+Um método numérico é chamado \emph{A-estável} ou \emph{incondicionalmente estável} se incluir todo o semiplano complexo com parte real negativa,
+$$    \{z \in \field{C}: \Re{z}<0\} \subseteq \mathcal D$$
+\end{defn}
+
+
+Portanto o método de Euler implícito é $A$-estável (incondicionalmente estável).
 
 
 
@@ -641,35 +677,72 @@ Se um método numérico é \emph{consistente} e \emph{estável} em $[a,b]$ entã
 
 
 
-\section{Método de Euler melhorado}\index{método!de Euler melhorado}
-O método de Euler foi o primeiro método que estudamos e sua principal virtude é a simplicidade. Outros métodos, no entanto, podem apresentar resultados superiores. Vamos apresentar agora uma pequena modificação ao método de Euler, dando origem a um novo método chamado de método de Euler modificado ou método de Euler melhorado.
 
-No método de Euler, usamos a seguinte iteração:
-\begin{eqnarray*}
-u_{k+1}&=&u_k+hf(u_k,t_k)\\
-u_1&=&u_0~~ \hbox{(condição inicial)}
-\end{eqnarray*}
 
-A ideia do método de Euler melhorado é substituir a declividade  $f(u_k,t_k)$ pela média aritmética entre $f(u_k,t_k)$ e $f(u_{k+1},t_{k+1})$, isto é, as declividades avaliadas no início e no fim do intervalo $[t_k,t_{k+1}]$.
 
-No entanto, não dispomos do valor de $u_{k+1}$ antes de executar o passo. Assim aproximamos esta grandeza pelo valor produzido pelo método de Euler original:
-$$\tilde{u}_{k+1}=u_k+hf(u_k,t_k).$$
 
-De posse desta aproximação, calculamos a média aritmética e, finalmente, com esta média, realizamos o passo do método de Euler melhorado. O processo iterativo de Euler melhorado é, portanto, dado por:
-\begin{eqnarray*}
-\tilde{u}_{k+1}&=&u_k+hf(u_k,t_k)\\
-u_{k+1}&=&u_k+\frac{h}{2}\left[f(u_k,t_k)+f(\tilde{u}_{k+1},t_{k+1})\right]\\
-u_1&=&u_0~~ \hbox{(condição inicial)}
-\end{eqnarray*}
 
-Podemos reescrever este mesmo processo iterativo da seguinte forma:
-\begin{eqnarray*}
-k_1&=&hf(u_k,t_k),\\
-k_2&=&hf(u_k+k_1,t_{k+1}),\\
-u_{k+1}&=&u_k+\frac{k_1+k_2}{2},\\
-u_1&=&u_0~~ \hbox{(condição inicial)}.
-\end{eqnarray*}
-Aqui $k_1$ e $k_2$ são variáveis auxiliares que representam as inclinações e devem ser calculadas a cada passo. Esta notação é compatível com a notação usada nos métodos de Runge-Kutta, uma família de esquemas iterativos para aproximar problemas de valor inicial, da qual o método de Euler e o método de Euler melhorado são casos particulares. Veremos os métodos de Runge-Kutta na seção \ref{sec_RK}.
+
+\section{Método Trapezoidal}\index{método!trapezoidal}
+O método de Euler aproxima $f$ como uma constante no intervalo $[t_1,t_2]$. Podemos melhorar isso usando a regra do trapézio,
+
+\begin{eqnarray}
+  u(t_2) &=& u(t_1) +  \int _{t_1}^{t_2}  f(t,u(t)) \; dt \\
+  u_2    &=&   u_1  +  (t_2-t_1)\left(\frac{1}{2}f(t_1,u_1)+\frac{1}{2}f(t_2,u_2)\right)
+\end{eqnarray}
+motivando o \emph{método trapezoidal}
+\begin{eqnarray}
+  u_{n+1} &=& u_n +  \frac{h}{2} \left(f(t_n,u_n)+f(t_{n+1},u_{n+1})\right)
+\end{eqnarray}
+O método trapezoidal é dito \textbf{implícito}, pois para obter $u_{n+1}$ é necessário calcular $f(t_{n+1},u_{n+1})$.
+
+Entretanto, pode ser mostrado que o erro de truncamento local é
+$$ETL_{Trap}^{n+1}= O(h^3)$$
+portanto o método é de ordem $2$. E o erro de truncamento global é
+$$ETG_{Trap}^{n+1}= O(h^2)$$
+
+
+\begin{ex}
+Utilizando o \textbf{método trapezoidal} para solucionar \eqref{EDO4.7} obtemos
+\begin{eqnarray}
+ u_{n+1} = \left(\frac{1+ h\lambda /2}{1- h\lambda /2}\right)^{n+1}, \quad  n=0,1,\ldots 
+\end{eqnarray}
+Concluímos então que
+\begin{eqnarray}
+ \mathcal D_{Tr} = \{z \in  \field{C}:  \left|\frac{1+ z/2}{1- z/2}\right|<1\}
+\end{eqnarray}
+Note que $\mathcal D_{Tr}=\field{C}^-$, o semiplano negativo. Portanto o método do trapézio imita a estabilidade assintótica da EDO linear sem restrição no passo $h$.
+\end{ex}
+
+
+
+
+\section{O método de Heun}
+Também chamado de método de \emph{Euler Modificado}. A ideia é calcular primeiramente um valor intermediário $\tilde{u}$ usando o método de Euler expl\'icito e usar esse valor na equação para o método do Trapézio. Ou seja, o \emph{método de Heun} é
+\begin{eqnarray}
+  \tilde{u} &=& u_n +   h f(t_n,u_n) \\
+  u_{n+1}   &=& u_n +  \frac{h}{2} \left(f(t_n,u_n)+f(t_{n+1},\tilde{u})\right)
+\end{eqnarray}
+
+Este é um exemplo de um método preditor-corretor.
+
+Felizmente o erro de truncamento local continua sendo
+$$ETL_{Heun}^{n+1}= O(h^3)$$
+e o erro de truncamento global é
+$$ETG_{Heun}^{n+1}= O(h^2)$$
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \subsection*{Exercícios}
@@ -688,7 +761,8 @@ usando passos $h=0,1$ e $h=0,01$.
 \end{resp}
 
 
-\begin{exer}Use o método de Euler e o método de Euler melhorado para obter aproximações numéricas para a solução do seguinte problema de valor inicial para $t\in[0,1]$:
+\begin{exer}
+Use o método de Euler e o método de Euler melhorado para obter aproximações numéricas para a solução do seguinte problema de valor inicial para $t\in[0,1]$:
 \begin{eqnarray*}
  u'(t)&=&-u(t)- u(t)^2,\\
  u(0)&=&1,
@@ -737,97 +811,179 @@ $$
 
 
 
-
-
-
-
-
-\section{Ordem de precisão}\index{ordem de precisão}
-Considere o problema de valor inicial dado por
-\begin{eqnarray*}
-u'(t)&=&f(t,u(t)),\\
-u(0)&=&u_0.
-\end{eqnarray*}
-Nessa seção vamos definir a precisão de um método numérico pela ordem do erro acumulado ao calcular o valor da função em um ponto $t_N$ em função do espaçamento da malha $h$. Se $u(t_n)$ pode ser aproximado por uma expressão que depende de $f$, $h$, $u(t_0)$, $u(t_1)$, $\cdots$, $u(t_n)$, com erro da ordem de $O(h^{p+1})$, ou seja,
-\begin{equation}{\label{erro_local_1}}
-u(t_{n+1})=\mathcal{F}(f, h, u(t_n), u(t_{n-1}), \cdots, u_0) + O(h^{p+1})
-\end{equation}
-para cada função analítica $f$, dizemos que o método tem erro de truncamento da ordem de $O(h^{p})$ ou {\bf ordem de precisão $p$}\index{método!de Euler!ordem de precisão}. Essa afirmação faz sentido quando fazemos a seguinte análise informal: para aproximar $u_1$, acumulamos erros da ordem $O(h^{p+1})$, para calcular $u_2$ acumulamos os erros de $u_1$ e novos erros $O(h^{p+1})$. Para calcular $u_N$, acumulamos todos os erros até $t_N$, ou seja, $N$ vezes $O(h^{p+1})$. Como $N=O(1/h)$, temos que os erros ao calcular $u_N$ são da ordem $O(h^p)$. É verdade que essa análise só vale quando impomos condições de suavidade para $f$ e condições adequada para a expressão $\mathcal{F}(f, h, u(t_n), u(t_{n-1}), \cdots, u_0)$. Para explicar melhor esse pequeno texto, fazemos em detalhes essa operação para o método de Euler na seção \ref{sec_pre_euler}.
-
-\subsection{Ordem de precisão do método de Euler}{\label{sec_pre_euler}}
-Primeiro lembramos da expressão (\ref{erro_local}) que origina a seguinte relação de recorrência:
-\begin{eqnarray}{\label{es_Euler}}
-u(t_{n+1})&=&u(t_n)+hf(t,u(t_n),t_n)+O(h^2).
+\section{O método theta}
+Tanto o método de Euler quanto o método trapezoidal se encaixam no método
+\begin{eqnarray}
+  u_{n+1} &= u_n +  h (\theta f(t_n,u_n)+(1-\theta )f(t_{n+1},u_{n+1}))
 \end{eqnarray}
-Para entender melhor o motivo de na expressão (\ref{es_Euler}) aparecer $O(h^2)$ e o método ser de precisão 1, vamos a seguinte análise informal: observemos que
-\begin{eqnarray*}
- u(t_1)&=&u(t_0)+hf(t,u(t_0),t_0)+O(h^2)\\
- &=&u_0+hf(u_0,t_0)+O(h^2)=u_1+O(h^2)
-\end{eqnarray*}
-onde $u_i$ é a aproximação pelo método de Euler para o valor exato $u(t_i)$. Subsequentemente, temos
-\begin{eqnarray*}
- u(t_2)&=&u(t_1)+hf(t,u(t_1),t_1)+O(h^2)\\
- &=&u(t_1)+hf(u_1+O(h^2),t_1)+O(h^2)\\
- &=&u(t_1)+hf(u_1,t_1) +O(h^2)\\
- &=&u_1+O(h^2)+hf(u_1,t_1) +O(h^2)= u_2+O(h^2)+O(h^2).
-\end{eqnarray*}
-onde usamos o primeiro termo da série de Taulor $hf(u_1+O(h^2),t_1)=hf(u_1,t_1)+O(h^3)$ na passagem da segunda para terceira linha. Repetindo sucessivamente o passo anterior, obtemos uma expressão geral para o valor exato $u(t_N)$ em termos do valor aproximado $u_N$:
-\begin{eqnarray*}
- u(t_N)=u_N+N O(h^2) .
-\end{eqnarray*}
-Como $N=(t_f-t_0)/h$, temos
-\begin{eqnarray}{\label{euler_precisao}}
- u(t_N)&=&=u_{N}+\frac{t-t_0}{h}O(h^2)=u_{N}+O(h),
+com $\theta =1$ e $\theta =\frac{1}{2}$ respectivamente. O método é expl\'icito somente para $\theta =1$. Para $\theta =0$, obtemos o método impl\'icito de Euler.
+
+
+
+
+
+
+
+
+\section{O método de Taylor}
+Uma maneira simples de aumentar a ordem do método é utilizar diretamente a série de Taylor.
+Considere a expansão
+\begin{eqnarray}
+ u(t+h)=u(t) +h u'(t)+ \frac{h^2}{2!}u''(t)+\frac{h^3}{3!}u'''(t)+\ldots 
 \end{eqnarray}
-ou seja, o erro entre o valor exato e o aproximado é de ordem $h$. Uma demonstração mais formal que garante que o erro é limitado por uma expressão que é proporcional a $h$ está discutido na seção \ref{sec_conv_Euler}.
 
-\subsection{Ordem de precisão do método de Euler melhorado}
-Para obter o erro de precisão do método de Euler melhorado vamos calcular o erro de truncamento do método, ou seja, precisamos demonstrar que:
-\begin{equation}\label{es_Euler_melhorado}
-u(t+h)=u(t)+\frac{h}{2} f(t,u(t))+\frac{h}{2} f(t,u(t)+hf(t,u(t))),t+h)+O(h^3)
-\end{equation}
-De fato, tomando a diferença do termo da esquerda o os termos da direita, temos:
+Utilizando dois termos temos o método de Euler. Utilizando os três primeiros termos da série e substituindo $u'(t)=f(t,x)$ e $u''(t)=\frac{\partial f}{\partial t}(t,x)$ temos o \emph{método de Taylor de ordem $2$}
+\begin{eqnarray}
+   u_{n+1}=u_n +h f(t_n,u_n)+ \frac{h^2}{2!} \frac{\partial f}{\partial t}(t_n,u_n)
+\end{eqnarray}
+
+
+O método de Taylor de ordem $3$ é
 \begin{eqnarray*}
-&&u(t+h)-\left(u(t)+\frac{h}{2} f(t,u(t))+\frac{h}{2} f(t,u(t)+hf(t,u(t))),t+h)\right)\\
-&&=u(t)+hu'(t)+\frac{h^2}{2}u''(t)+O(h^3)\\
-&&-\left(u(t)+\frac{h}{2} u'(t)+\frac{h}{2} f(t,u(t)+hf(t,u(t))),t+h)\right),
+   u_{n+1}=u_n +h f(t_n,u_n)+ \frac{h^2}{2!}\frac{\partial f}{\partial t}(t_n,u_n)+\frac{h^3}{3!}\frac{\partial^2 f}{\partial t^2}(t_n,u_n)
 \end{eqnarray*}
-onde usamos uma expansão em série de Taulor para $u(t+h)$ e a equação diferencial $u'(t)=f(t,u(t))$. Portanto,
-\begin{eqnarray*}
-&&u(t+h)-\left(u(t)+\frac{h}{2} f(t,u(t))+\frac{h}{2} f(t,u(t)+hf(t,u(t))),t+h)\right)\\
-&&=\frac{h}{2}u'(t)+\frac{h^2}{2}u''(t)-\frac{h}{2} f(t,u(t)+hf(t,u(t))),t+h)+O(h^3).
-\end{eqnarray*}
-Agora, usamos a série de Taulor de $f(t,u(t)+hf(t,u(t)),t+h)$ e, torno de $(t,u)$:
-\begin{eqnarray*}
-&&u(t+h)-\left(u(t)+\frac{h}{2} f(t,u(t))+\frac{h}{2} f(t,u(t)+hf(t,u(t))),t+h)\right)\\
-&&=\frac{h}{2}u'(t)+\frac{h^2}{2}u''(t)+O(h^3)\\
-&&-\frac{h}{2}\left(f(t,u(t))+\frac{\partial f(t,u(t)) }{\partial t}h +\frac{\partial f(t,u(t))}{\partial u} hf(t,u(t))+O(h^2)\right).
-\end{eqnarray*}
-Usando a equação diferencial $u'(t)=f(t,u(t))$ obtemos 
-$$
-u''(t)=\frac{f(t,u(t))}{\partial t}+\frac{f(t,u(t))}{\partial u}u'(t)=\frac{f(t,u(t))}{\partial t}+\frac{f(t,u(t))}{\partial u}f(t,u(t)).
-$$
-Logo,
-\begin{eqnarray*}
-&&u(t+h)-\left(u(t)+\frac{h}{2} f(t,u(t))+\frac{h}{2} f(t,u(t)+hf(t,u(t))),t+h)\right)\\
-&&=\frac{h}{2}u'(t)+\frac{h^2}{2}u''(t)+O(h^3)\\
-&&-\frac{h}{2}\left(f(t,u(t))+hu''(t)+O(h^2)\right)\\
-&&=\frac{h}{2}u'(t)+\frac{h^2}{2}u''(t)\\
-&&-\frac{h}{2}\left(u'(t)+hu''(t)\right)+O(h^3)=O(h^3)
-\end{eqnarray*}
-Portanto, a expressão (\ref{es_Euler_melhorado}) é válida. Logo, usando uma discussão análoga aquela feita na seção \ref{sec_pre_euler} para o método de Euler, concluímos que o método de Euler melhorado possui ordem de precisão 2.
 
-\section{Convergência}
 
-\emconstrucao
 
-\subsection{Convergência do método de Euler}\label{sec_conv_Euler}
 
-\emconstrucao
+\section{Estabilidade dos métodos de Taylor}
+\begin{ex}
+Prove que para um método de Taylor de ordem $p$ para a EDO \eqref{EDO4.7} temos
+\begin{eqnarray}
+  p(z)= 1 + z+ \frac{z^2}{2!} +\frac{z^3}{3!}+\ldots +\frac{z^p}{p!}
+\end{eqnarray}
+onde  $u_n = (p(z))^nu_0$ e a região de estabilidade é dada por
+\begin{eqnarray}
+ \mathcal D_{T} = \{z \in  \field{C}:  \left|p(z)\right|<1\}
+\end{eqnarray}
 
-\subsection{Convergência do método de Euler melhorado}
+Plote as regiões de estabilidade para o método de Taylor para $p=1,\ldots ,6$ no mesmo gráfico.
+\end{ex}
 
-\emconstrucao
+% \begin{figure}
+% \begin{center}
+%   \includegraphics[width=8cm]{RegiaoTaylor.eps}\\
+%   \caption{Região de estabilidade paras os métodos de Taylor de ordem $1,\ldots ,4$ (interior as curvas). A curva mais interna é para $p=1$}\label{RegiaoTaylor}
+% \end{center}
+% \end{figure}
+
+
+\begin{ex}
+Aproxime a solução do PVI
+\begin{eqnarray}
+   \frac{du}{dt} &=\sin{t}\\
+            u(0) &= 1
+\end{eqnarray}
+para  $t\in [0,10]$.
+
+\begin{enumerate}
+\item [a.] Plote a solução para $h=0.16,0.08, 0.04, 0.02, 0.01$ para o método de Taylor de ordem $1$, $2$ e $3$. (Plote todos de ordem $1$ no mesmo gráfico, ordem $2$ em outro gráfico e ordem $3$ outro gráfico separado.)
+
+\item [b.] Utilizando a solução exata, plote um gráfico do erro em escala logar\'itmica.
+Comente os resultados (novamente, em cada gráfico separado para cada método repita os valores acima)
+
+\item [c.] Fixe agora o valor $h=0.02$ e plote no mesmo gráfico uma curva para cada método.
+
+\item [d.] Plote em um gráfico o erro em $t=10$ para cada um dos métodos (uma curva para cada ordem) a medida que $h$ diminui. (Use escala \verb#loglog#)
+\end{enumerate}
+\end{ex}
+
+
+
+
+
+
+
+
+
+
+
+% \section{Ordem de precisão}\index{ordem de precisão}
+% Considere o problema de valor inicial dado por
+% \begin{eqnarray*}
+% u'(t)&=&f(t,u(t)),\\
+% u(0)&=&u_0.
+% \end{eqnarray*}
+% Nessa seção vamos definir a precisão de um método numérico pela ordem do erro acumulado ao calcular o valor da função em um ponto $t_N$ em função do espaçamento da malha $h$. Se $u(t_n)$ pode ser aproximado por uma expressão que depende de $f$, $h$, $u(t_0)$, $u(t_1)$, $\cdots$, $u(t_n)$, com erro da ordem de $O(h^{p+1})$, ou seja,
+% \begin{equation}{\label{erro_local_1}}
+% u(t_{n+1})=\mathcal{F}(f, h, u(t_n), u(t_{n-1}), \cdots, u_0) + O(h^{p+1})
+% \end{equation}
+% para cada função analítica $f$, dizemos que o método tem erro de truncamento da ordem de $O(h^{p})$ ou {\bf ordem de precisão $p$}\index{método!de Euler!ordem de precisão}. Essa afirmação faz sentido quando fazemos a seguinte análise informal: para aproximar $u_1$, acumulamos erros da ordem $O(h^{p+1})$, para calcular $u_2$ acumulamos os erros de $u_1$ e novos erros $O(h^{p+1})$. Para calcular $u_N$, acumulamos todos os erros até $t_N$, ou seja, $N$ vezes $O(h^{p+1})$. Como $N=O(1/h)$, temos que os erros ao calcular $u_N$ são da ordem $O(h^p)$. É verdade que essa análise só vale quando impomos condições de suavidade para $f$ e condições adequada para a expressão $\mathcal{F}(f, h, u(t_n), u(t_{n-1}), \cdots, u_0)$. Para explicar melhor esse pequeno texto, fazemos em detalhes essa operação para o método de Euler na seção \ref{sec_pre_euler}.
+% 
+% \subsection{Ordem de precisão do método de Euler}{\label{sec_pre_euler}}
+% Primeiro lembramos da expressão (\ref{erro_local}) que origina a seguinte relação de recorrência:
+% \begin{eqnarray}{\label{es_Euler}}
+% u(t_{n+1})&=&u(t_n)+hf(t,u(t_n),t_n)+O(h^2).
+% \end{eqnarray}
+% Para entender melhor o motivo de na expressão (\ref{es_Euler}) aparecer $O(h^2)$ e o método ser de precisão 1, vamos a seguinte análise informal: observemos que
+% \begin{eqnarray*}
+%  u(t_1)&=&u(t_0)+hf(t,u(t_0),t_0)+O(h^2)\\
+%  &=&u_0+hf(u_0,t_0)+O(h^2)=u_1+O(h^2)
+% \end{eqnarray*}
+% onde $u_i$ é a aproximação pelo método de Euler para o valor exato $u(t_i)$. Subsequentemente, temos
+% \begin{eqnarray*}
+%  u(t_2)&=&u(t_1)+hf(t,u(t_1),t_1)+O(h^2)\\
+%  &=&u(t_1)+hf(u_1+O(h^2),t_1)+O(h^2)\\
+%  &=&u(t_1)+hf(u_1,t_1) +O(h^2)\\
+%  &=&u_1+O(h^2)+hf(u_1,t_1) +O(h^2)= u_2+O(h^2)+O(h^2).
+% \end{eqnarray*}
+% onde usamos o primeiro termo da série de Taulor $hf(u_1+O(h^2),t_1)=hf(u_1,t_1)+O(h^3)$ na passagem da segunda para terceira linha. Repetindo sucessivamente o passo anterior, obtemos uma expressão geral para o valor exato $u(t_N)$ em termos do valor aproximado $u_N$:
+% \begin{eqnarray*}
+%  u(t_N)=u_N+N O(h^2) .
+% \end{eqnarray*}
+% Como $N=(t_f-t_0)/h$, temos
+% \begin{eqnarray}{\label{euler_precisao}}
+%  u(t_N)&=&=u_{N}+\frac{t-t_0}{h}O(h^2)=u_{N}+\mathcal{O}(h),
+% \end{eqnarray}
+% ou seja, o erro entre o valor exato e o aproximado é de ordem $h$. Uma demonstração mais formal que garante que o erro é limitado por uma expressão que é proporcional a $h$ está discutido na seção \ref{sec_conv_Euler}.
+% 
+% \subsection{Ordem de precisão do método de Euler melhorado}
+% Para obter o erro de precisão do método de Euler melhorado vamos calcular o erro de truncamento do método, ou seja, precisamos demonstrar que:
+% \begin{equation}\label{es_Euler_melhorado}
+% u(t+h)=u(t)+\frac{h}{2} f(t,u(t))+\frac{h}{2} f(t,u(t)+hf(t,u(t))),t+h)+O(h^3)
+% \end{equation}
+% De fato, tomando a diferença do termo da esquerda o os termos da direita, temos:
+% \begin{eqnarray*}
+% &&u(t+h)-\left(u(t)+\frac{h}{2} f(t,u(t))+\frac{h}{2} f(t,u(t)+hf(t,u(t))),t+h)\right)\\
+% &&=u(t)+hu'(t)+\frac{h^2}{2}u''(t)+O(h^3)\\
+% &&-\left(u(t)+\frac{h}{2} u'(t)+\frac{h}{2} f(t,u(t)+hf(t,u(t))),t+h)\right),
+% \end{eqnarray*}
+% onde usamos uma expansão em série de Taulor para $u(t+h)$ e a equação diferencial $u'(t)=f(t,u(t))$. Portanto,
+% \begin{eqnarray*}
+% &&u(t+h)-\left(u(t)+\frac{h}{2} f(t,u(t))+\frac{h}{2} f(t,u(t)+hf(t,u(t))),t+h)\right)\\
+% &&=\frac{h}{2}u'(t)+\frac{h^2}{2}u''(t)-\frac{h}{2} f(t,u(t)+hf(t,u(t))),t+h)+O(h^3).
+% \end{eqnarray*}
+% Agora, usamos a série de Taulor de $f(t,u(t)+hf(t,u(t)),t+h)$ e, torno de $(t,u)$:
+% \begin{eqnarray*}
+% &&u(t+h)-\left(u(t)+\frac{h}{2} f(t,u(t))+\frac{h}{2} f(t,u(t)+hf(t,u(t))),t+h)\right)\\
+% &&=\frac{h}{2}u'(t)+\frac{h^2}{2}u''(t)+O(h^3)\\
+% &&-\frac{h}{2}\left(f(t,u(t))+\frac{\partial f(t,u(t)) }{\partial t}h +\frac{\partial f(t,u(t))}{\partial u} hf(t,u(t))+O(h^2)\right).
+% \end{eqnarray*}
+% Usando a equação diferencial $u'(t)=f(t,u(t))$ obtemos 
+% $$
+% u''(t)=\frac{f(t,u(t))}{\partial t}+\frac{f(t,u(t))}{\partial u}u'(t)=\frac{f(t,u(t))}{\partial t}+\frac{f(t,u(t))}{\partial u}f(t,u(t)).
+% $$
+% Logo,
+% \begin{eqnarray*}
+% &&u(t+h)-\left(u(t)+\frac{h}{2} f(t,u(t))+\frac{h}{2} f(t,u(t)+hf(t,u(t))),t+h)\right)\\
+% &&=\frac{h}{2}u'(t)+\frac{h^2}{2}u''(t)+O(h^3)\\
+% &&-\frac{h}{2}\left(f(t,u(t))+hu''(t)+O(h^2)\right)\\
+% &&=\frac{h}{2}u'(t)+\frac{h^2}{2}u''(t)\\
+% &&-\frac{h}{2}\left(u'(t)+hu''(t)\right)+O(h^3)=O(h^3)
+% \end{eqnarray*}
+% Portanto, a expressão (\ref{es_Euler_melhorado}) é válida. Logo, usando uma discussão análoga aquela feita na seção \ref{sec_pre_euler} para o método de Euler, concluímos que o método de Euler melhorado possui ordem de precisão 2.
+
+% \section{Convergência}
+% 
+% \emconstrucao
+% 
+% \subsection{Convergência do método de Euler}\label{sec_conv_Euler}
+% 
+% \emconstrucao
+% 
+% \subsection{Convergência do método de Euler melhorado}
+% 
+% \emconstrucao
 
 
 
@@ -929,10 +1085,101 @@ Fixamos um $\alpha>0$, de forma que $u(t)\to 0$. Mas observamos que $\tilde{u}(t
 
 {\bf Conclusão:} Se o passo $h$ for muito grande, o método pode se tornar instável, produzindo solução espúrias.
 
+
+
+
+
+
+
 \subsection*{Exercícios}
 
 \begin{exer} Resolva o problema 1 pelos diversos métodos e verifique heuristicamente a estabilidade para diversos valores de $h$.
 \end{exer}
+
+
+
+
+
+
+
+
+
+
+
+\section{Sistemas de equações diferenciais e equações de ordem superior}
+O problema \eqref{PVI} pode ser um sistema de equações de primeira ordem, isto é, a incógnita $y(t)$ pode ser um vetor de funções, como mostra o exemplo~\ref{eq_exemplo_sistema}
+\begin{ex}\label{exemplo_sistema_PVI}O problema de valor inicial
+\begin{subequations}\label{eq_exemplo_sistema}
+\begin{eqnarray}
+u'(t)&=&v(t),\\
+v'(t)&=&u(t),\\
+u(0)&=&1.\\
+v(0)&=&0.
+\end{eqnarray}
+\end{subequations}
+pode ser escrito na forma \eqref{PVI} com $y(t)$
+\end{ex}
+
+No exemplo \ref{sys_edo}, mostramos como o Método de Euler pode ser facilmente estendido para problemas envolvendo sistemas de equações diferenciais.\index{sistemas!de equações diferenciais}.
+\begin{ex}\label{sys_edo} Escreva o processo iterativo de Euler para resolver numericamente o seguinte sistema de equações diferenciais
+\begin{eqnarray*}
+x'&=&-y\\
+y'&=&x\\
+x(0)&=&1\\
+y(0)&=&0,\\
+\end{eqnarray*}
+cuja solução exata é $x(t)=\cos(t)$ e $y(t)=\sin(t)$.
+\end{ex}
+Para aplicar o Método de Euler a um sistema, devemos encarar as diversas incógnitas do sistema como formando um vetor, neste caso, escrevemos: 
+ $$z(t)=\left[\begin{array}{c}x(t)\\y(t)\end{array}\right].$$
+ O sistema é igualmente escrito na forma vetorial:
+\begin{eqnarray*}
+\left[\begin{array}{c}x^{(k+1)}\\y^{(k+1)}\end{array}\right]=\left[\begin{array}{c}x^{(k)}\\y^{(k)}\end{array}\right]+h\left[\begin{array}{c}-y^{(k)}\\x^{(k)}\end{array}\right].
+\end{eqnarray*}
+Observe que este processo iterativo é equivalente a:
+\begin{eqnarray*}
+x^{(k+1)}&=&x^{(k)}-hy^{(k)}\\
+y^{(k+1)}&=&y^{(k)}+hx^{(k)}.
+\end{eqnarray*}
+
+
+\begin{ex} Escreva o problema de valor inicial de segunda ordem dado por
+\begin{eqnarray*}
+y''+y'+y&=&\cos(t),\\
+y(0)&=&1,\\
+y'(0)&=&0,
+\end{eqnarray*}
+como um problema envolvendo um sistema de primeira ordem.
+\end{ex}
+A fim de transformar a equação diferencial dada em um sistema de equações de primeira ordem, introduzimos a substituição $w=y'$, de forma que obteremos o sistema:
+\begin{eqnarray*}
+y'&=&w\\
+w'&=&-w-y+\cos(t)\\
+y(0)&=&1\\
+w(0)&=&0
+\end{eqnarray*}
+Portanto, o Método de Euler produz o seguinte processo iterativo:
+\begin{eqnarray*}
+y^{(k+1)}&=&y^{(k)}+hw^{(k)},\\
+w^{(k+1)}&=&w^{(k)}-hw^{(k)}-hy^{(k)}+h\cos(t^{(k)}),\\
+y^{(1)}&=&1,\\
+w^{(1)}&=&0.
+\end{eqnarray*}
+
+
+\subsection*{Exercícios}
+
+\begin{exer}Resolva o problema de valor inicial dado por
+\begin{eqnarray*}
+y'&=& -2y + \sqrt{z}\\
+z'&=& -z + y\\
+y(0)&=&0\\
+z(0)&=&2\\
+\end{eqnarray*}
+com passo $h=0,2$, $h=0,02$, $h=0,002$ e $h=0,0002$ para obter aproximações para $y(2)$ e $z(2)$.
+\end{exer}
+
+
 
 \section{Exercícios finais}
 
