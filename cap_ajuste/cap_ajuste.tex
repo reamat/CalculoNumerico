@@ -168,6 +168,31 @@ Então, o gráfico da função ajustada e dos pontos pode ser obtido com os coma
 \fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+Os coeficientes $a_1$ e $a_2$ podem ser rapidamente calculados no \verb+GNU Octave+ usando a expressão~\eqref{eq:sol_smq_reta}. Para tando, digitamos:
+\begin{verbatim}
+xj = [1, 1.5, 2]';
+yj = [1.2, 1.3, 2.3]';
+V = [ones(3,1) xj];
+a = inv(V'*V)*V'*yj
+\end{verbatim}
+o que nos fornece no {\it prompt}:
+\begin{verbatim}
+ a  =
+  - 0.05  
+    1.1     
+\end{verbatim}
+Então, o gráfico da função ajustada e dos pontos pode ser obtido com os comandos:
+\begin{verbatim}
+f = inline("a(1) + a(2)*x")
+xx = linspace(0.5,2.5); 
+plot(xj,yj,'ro',xx,f(xx),'b-');grid on
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
@@ -201,18 +226,14 @@ O procedimento apresentado de ajuste de uma reta por mínimos quadrados pode ser
   Sejam dados o conjunto de pontos $\{(0,23, -0,54)$, $(-0,30, -0,54)$, $(0,04, -0,57)\}$. Encontre a função $f(x) = a_1 + a_2x$ que melhor se ajusta no sentido de mínimos quadrados aos pontos dados. Faça, então, um gráfico com os pontos e o esboço da função ajustada.
 \end{exer}
 \begin{resp}
-  
     $f(x) = -0,55 -0,01x$.
-  
 \end{resp}
 
 \begin{exer}
   Seja dado o conjunto de pontos $\{(-0,35, 0,2)$, $(0,15, -0,5)$, $(0,23, 0,54)$, $(0,35, 0,7)\}$. Encontre a função $f(x) = a_1 + a_2x$ que melhor se ajusta no sentido de mínimos quadrados aos pontos dados. Faça, então, um gráfico com os pontos e o esboço da função ajustada.
 \end{exer}
 \begin{resp}
-  
     $f(x) = 0,19 - 0,47x$.
-  
 \end{resp}
 
 \begin{exer}
@@ -534,6 +555,25 @@ No \verb+Scilab+, podemos computar os coeficientes da função $f(x)$ da seguint
 \fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos computar os coeficientes da função $f(x)$ da seguinte forma:
+\begin{verbatim}
+xi = [0 0.25 0.5 0.75 1]';
+yi = [-153 64 242 284 175]';
+V = [sin(pi*xi) cos(pi*xi)];
+a = inv(V'*V)*V'*yi
+\end{verbatim}
+o que nos fornece no {\it prompt}:
+\begin{verbatim}
+a =
+   244.04
+  -161.19
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
@@ -581,9 +621,26 @@ Quando o sistema $A$ não é uma matriz quadrada, \verb+A/b+ retorna a solução
 \fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\begin{obs}
+  No \verb+GNU octave+, quando resolvemos um sistema $Ax = b$ usando
+\begin{verbatim}
+>> x = inv(A)*b
+\end{verbatim}
+estamos computando a inversa da matriz $A$ e multiplicando por $b$. Podemos evitar a computação da inversa de $A$ usando o operador contra-barra ($/$). Neste caso, escrevemos
+\begin{verbatim}
+>> x = A/b
+\end{verbatim}
+Quando o sistema $A$ não é uma matriz quadrada, \verb+A/b+ retorna a solução por mínimos quadrados do sistema $Ax = b$, enquanto \verb+inv(A)*b+ retorna um erro, pois $A$ não é uma matriz quadrada e, portanto, não é invertível.
+\end{obs}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%
-\ifisscilab
+\ifispython
 \begin{obs}
   Em \verb+Python+, quando resolvemos um sistema $Ax = b$ usando
 \begin{verbatim}
@@ -776,6 +833,29 @@ Para fazermos o gráfico do polinômio e dos pontos, digitamos:
 \begin{verbatim}
 -->xx = linspace(-0.25,1.25); 
 -->plot(xi,yi,'ro',xx,horner(p,xx),'b-');xgrid
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos computar o polinômio $p(x)$ da seguinte forma:
+\begin{verbatim}
+>> xi = [0 0.25 0.5 0.75 1]';
+>> yi = [-153 64 242 284 175]';
+>> V = [xi.^2 xi xi.^0];
+>> a = V\yi
+a =
+
+   -900.57
+   1250.97
+   -165.37
+\end{verbatim}
+Para fazermos o gráfico do polinômio e dos pontos, digitamos:
+\begin{verbatim}
+>> xx = linspace(-0.25,1.25);
+>> plot(xi,yi,'ro',xx,polyval(a,xx),'b-');grid on
 \end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%
