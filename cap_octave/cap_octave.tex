@@ -44,7 +44,7 @@ Implemente este pseudocódigo no GNU Octave: a) usando somente o console do \ver
   \item[a)]  No console temos:
 \begin{verbatim}
 >> x = "Olá Mundo\n";
->> printf("%s", x)
+>> disp(x)
 \end{verbatim}
   \item[b)] O GUI do \verb+GNU Octave+ disponibiliza um editor para {\it scripts} que ser acessado digitando-se no \verb+prompt+:
 \begin{verbatim}
@@ -53,13 +53,13 @@ Implemente este pseudocódigo no GNU Octave: a) usando somente o console do \ver
 Então, digita-se no editor o código:
 \begin{verbatim}
 x = "Olá Mundo!\n"
-printf("%s", x)
+disp(x)
 \end{verbatim}
 salva-se em um arquivo de sua preferência com extensão \verb+.m+ (por exemplo, \verb+~/ola.m+) e executa-se o código clicando no botão ``{\it play}'' disponível na barra de botões do editor.
 \item[c)] Para executar o código em processamento {\it bash}, digita-se em um editor o código:
 \begin{verbatim}
 x = "Olá Mundo!\n"
-printf("%s", x)
+disp(x)
 \end{verbatim}
 salva-se em um arquivo de sua preferência com extensão \verb+.m+ (por exemplo, \verb+~/ola.m+) e executa-se em um console do sistema usando a linha de comando:
 \begin{verbatim}
@@ -113,16 +113,15 @@ ans =  1
 ans =  1
 \end{verbatim}
 
-%phkonzen
 \subsection{Operadores lógicos}\index{Scilab!operadores lógicos}
 
 No \verb+GNU Octave+, o valor lógico verdadeiro é escrito como \verb+%T+ e o valor lógico falso como \verb+%F+. Temos os seguintes operadores lógicos disponíveis:
 \begin{verbatim}
 &  e lógico
 |  ou lógico
-~  negação
+!  negação
 == igualdade
-~= diferente
+!= diferente
 <  menor que
 >  maior que
 <= menor ou igual que
@@ -135,12 +134,9 @@ No \verb+GNU Octave+, o valor lógico verdadeiro é escrito como \verb+%T+ e o v
 \begin{sol}
   No \verb+GNU Octave+, temos:
 \begin{verbatim}
--->x=2;
- 
--->(x >= 1) & (x < 3)
- ans  =
- 
-  T  
+>> x=2;
+>> (x >= 1) & (x < 3)
+ans =  1
 \end{verbatim}
 \end{sol}
 
@@ -165,11 +161,10 @@ A = [ a11 , a12 , ... , a1n ; ...; am1 , am2 , ... , amn ]
 \begin{sol}
   No \verb+GNU Octave+, digitamos:
 \begin{verbatim}
--->A = [1 , 2 , 3 ; 4 , 5 , 6]
- A  =
- 
-    1.    2.    3.  
-    4.    5.    6.  
+>> A = [1 , 2 , 3 ; 4 , 5 , 6]
+A =
+   1   2   3
+   4   5   6
 \end{verbatim}
 \end{sol}
 
@@ -191,40 +186,32 @@ cria um vetor linha:
 \begin{equation*}
   v = [i,~i+s,~i+2s,\dotsc, i+ns]
 \end{equation*}
-onde $n$ é o maior inteiro tal que $i + ns < j$.
+onde $n$ é o maior inteiro tal que $i + ns \leq j$.
 
 \begin{ex}
 Veja as seguintes linhas de comando:
 \begin{verbatim}
--->v = 10:-2:3
- v  =
- 
-    10.    8.    6.    4.  
- 
--->u = 2:6
- u  =
-    2.    3.    4.    5.    6.
+>> u = 2:6
+u =
+   2   3   4   5   6
+>> v = 10:-2:3
+v =
+   10    8    6    4
 \end{verbatim}
 \end{ex}
 
 \subsection{Obtendo dados de uma matriz}
 
-A função \verb+size+ retorna o tamanho de uma matriz, por exemplo:
+A função \verb+size+ retorna as dimensões de uma matriz, por exemplo:
 \begin{verbatim}
--->A = ones(3,2)
- A  =
- 
-    1.    1.  
-    1.    1.  
-    1.    1.  
- 
--->[nl, nc] = size(A)
- nc  =
- 
-    2.  
- nl  =
- 
-    3.  
+>> A = ones(3,2)
+A =
+   1   1
+   1   1
+   1   1 
+>> [nl, nc] = size(A)
+nl =  3
+nc =  2
 \end{verbatim}
 informando que a matriz \verb+A+ tem três linhas e duas colunas.
 
@@ -247,30 +234,22 @@ A(i1:i2, j1:j2)
 \begin{ex}
   Veja as seguintes linhas de comando:
 \begin{verbatim}
--->A = rand(3,4) //gera uma matriz randômica
- A  =
- 
-    0.2113249    0.3303271    0.8497452    0.0683740  
-    0.7560439    0.6653811    0.6857310    0.5608486  
-    0.0002211    0.6283918    0.8782165    0.6623569  
- 
--->A //mostra toda a matriz A
- ans  =
- 
-    0.2113249    0.3303271    0.8497452    0.0683740  
-    0.7560439    0.6653811    0.6857310    0.5608486  
-    0.0002211    0.6283918    0.8782165    0.6623569  
- 
--->A(2,3) //acessa o elemento a23
- ans  =
- 
-    0.6857310  
- 
--->A(2:3,2:4) //acessa um bloco de A
- ans  =
- 
-    0.6653811    0.6857310    0.5608486  
-    0.6283918    0.8782165    0.6623569  
+>> A = rand(3,4)
+A =
+   0.356041   0.896038   0.761722   0.447774
+   0.453682   0.071638   0.029215   0.500115
+   0.885188   0.387276   0.566189   0.683588
+>> A
+A =
+   0.356041   0.896038   0.761722   0.447774
+   0.453682   0.071638   0.029215   0.500115
+   0.885188   0.387276   0.566189   0.683588
+>> A(2,3)
+ans =  0.029215
+>> A(2:3,2:4)
+ans =
+   0.071638   0.029215   0.500115
+   0.387276   0.566189   0.683588
 \end{verbatim}
 \end{ex}
 
@@ -281,28 +260,28 @@ A(i:j,k) os elementos das linhas i até j (inclusive) da k-ésima coluna
 A(i,j:k) os elementos da i-ésina linha das colunas j até k (inclusive)
 A(i,:)   a i-ésima linha da matriz
 A(:,j)   a j-ésima coluna da matriz
-A(i,$)   o elemento da i-ésima linha e da última coluna
-A($,j)   o elemento da última linha e da j-ésima coluna
+A(i,end) o elemento da i-ésima linha e da última coluna
+A(end,j) o elemento da última linha e da j-ésima coluna
 \end{verbatim}
 
 \begin{ex}
 Veja as seguintes linhas de comando:
 \begin{verbatim}
--->B = rand(4,4)
- B  =
- 
-    0.2113249    0.6653811    0.8782165    0.7263507  
-    0.7560439    0.6283918    0.0683740    0.1985144  
-    0.0002211    0.8497452    0.5608486    0.5442573  
-    0.3303271    0.6857310    0.6623569    0.2320748  
- 
--->aux = B(:,2); B(:,2) = B(:,3); B(:,3) = aux
- B  =
- 
-    0.2113249    0.8782165    0.6653811    0.7263507  
-    0.7560439    0.0683740    0.6283918    0.1985144  
-    0.0002211    0.5608486    0.8497452    0.5442573  
-    0.3303271    0.6623569    0.6857310    0.2320748  
+>> B = rand(4,4)
+B =
+
+   0.246251   0.931915   0.094609   0.519181
+   0.926740   0.898039   0.377078   0.260630
+   0.133661   0.652755   0.670097   0.390773
+   0.379430   0.314611   0.829729   0.484622
+
+>> aux=B(:,2); B(:,2)=B(:,3); B(:,3)=aux
+B =
+
+   0.246251   0.094609   0.931915   0.519181
+   0.926740   0.377078   0.898039   0.260630
+   0.133661   0.670097   0.652755   0.390773
+   0.379430   0.829729   0.314611   0.484622
 \end{verbatim}
 \end{ex}
 
@@ -323,29 +302,25 @@ Aqui, temos as sintaxes análogas entre operações matriciais e operações ele
 \begin{ex}
   Veja as seguintes linhas de comando:
 \begin{verbatim}
--->A = ones (2 ,2)
- A  =
- 
-    1.    1.  
-    1.    1.  
- 
--->B = 2 * ones (2 ,2)
- B  =
- 
-    2.    2.  
-    2.    2.  
- 
--->A * B
- ans  =
- 
-    4.    4.  
-    4.    4.  
- 
--->A .* B
- ans  =
- 
-    2.    2.  
-    2.    2.  
+>> A = ones (2,2)
+A =
+   1   1
+   1   1
+
+>> B = 2 * ones(2, 2)
+B =
+   2   2
+   2   2
+
+>> A * B
+ans =
+   4   4
+   4   4
+
+>> A .* B
+ans =
+   2   2
+   2   2
 \end{verbatim}
 \end{ex}
 
@@ -361,15 +336,15 @@ A instrução ``if'' permite executar um pedaço do código somente se uma dada 
   Veja o seguinte código \verb+GNU Octave+:
 \begin{verbatim}
 i = 2
-if ( i == 1 ) then
+if ( i == 1 )
     disp ( " Hello ! " )
-elseif ( i == 2 ) then
+elseif ( i == 2 )
     disp ( " Goodbye ! " )
-elseif ( i == 3 ) then
+elseif ( i == 3 )
     disp ( " Tchau ! " )
 else
     disp ( " Au Revoir ! " )
-end
+endif
 \end{verbatim}
 Qual é a saída apresentada no console do \verb+GNU Octave+? Porquê?
 \end{ex}
@@ -383,7 +358,7 @@ A instrução \verb+for+ permite que um pedaço de código seja executado repeti
 \begin{verbatim}
 for i = 1:5
     disp(i)
-end
+endfor
 \end{verbatim}
 O que é mostrado no console do \verb+GNU Octave+?
 \end{ex}
@@ -393,7 +368,7 @@ O que é mostrado no console do \verb+GNU Octave+?
 \begin{verbatim}
 for j = 1:2:8
     disp(j)
-end
+endfor
 \end{verbatim}
 O que é mostrado no console do \verb+GNU Octave+?
 \end{ex}
@@ -403,7 +378,7 @@ O que é mostrado no console do \verb+GNU Octave+?
 \begin{verbatim}
 for k = 10:-3:1
     disp(k)
-end
+endfor
 \end{verbatim}
 O que é mostrado no console do \verb+GNU Octave+?
 \end{ex}
@@ -414,8 +389,8 @@ O que é mostrado no console do \verb+GNU Octave+?
 for i = 1:3
     for j = 1:3
         disp([i,j])
-    end
-end
+    endfor
+endfor
 \end{verbatim}
 O que é mostrado no console do \verb+GNU Octave+?
 \end{ex}
@@ -432,7 +407,7 @@ i = 1
 while ( i <= 10 )
    s = s + i
    i = i + 1
-end
+endwhile
 \end{verbatim}
 Qual é o valor de \verb+s+ ao final da execução? Porquê?
 \end{ex}
@@ -441,22 +416,24 @@ Qual é o valor de \verb+s+ ao final da execução? Porquê?
 
 Além das muitas funções já pré-definidas no \verb+GNU Octave+, podemos definir nossas próprias funções. Para tanto, existem duas instruções no \verb+GNU Octave+:
 \begin{itemize}
-\item \verb+deff+
+\item \verb+inline+
 \item \verb+function+
 \end{itemize}
 
-A instrução \verb+deff+ é apropriada para definirmos funções com poucas computações. Quando a função exige um grande quantidade de código para ser definida, a melhor opção é usar a instrução \verb+function+. Veja os seguintes exemplos:
+A instrução \verb+inline+ é apropriada para definirmos funções com poucas computações. Quando a função exige um grande quantidade de código para ser definida, a melhor opção é usar a instrução \verb+function+. Veja os seguintes exemplos:
 
 \begin{ex}
   O seguinte código:
 \begin{verbatim}
--->deff('y = f(x)', 'y = x + sin(x)')
+>> f = inline("x + sin(x)")
+f = f(x) = x + sin(x)
 \end{verbatim}
 define, no \verb+GNU Octave+, a função $f(x) = x + \sen x$.
 
 Observe que $f(\pi) = \pi$. Confirme isso computando:
 \begin{verbatim}
--->f(%pi)
+>> f(pi)
+ans =  3.1416
 \end{verbatim}
 no \verb+GNU Octave+.
 
@@ -469,15 +446,22 @@ endfunction
 Verifique!
 \end{ex}
 
+\begin{obs}
+  Um {\it script} (por exemplo, \verb+CAMINHO/foo.m+) contendo apenas a declaração de uma função pode ser usado no prompt via o comando \verb+run+:
+\begin{verbatim}
+>> run "CAMINHO/foo.m"
+\end{verbatim}
+\end{obs}
+
 \begin{ex}
   O seguinte código \verb+GNU Octave+:
 \begin{verbatim}
 function [z] = h(x,y)
-   if (x < y) then
+   if (x < y)
       z = y - x
    else
       z = x - y
-   end
+   endif
 endfunction
 \end{verbatim}
 define a função:
@@ -504,21 +488,23 @@ endfunction
 \end{verbatim}
 define a matriz jacobiana $J(x_1,x_2) := \frac{\p(f_1,f_2)}{\p(x_1,x_2)}$ da função:
 \begin{equation*}
-  \pmb{f}(x_1,x_2) = (x_1^2 + x_2^2,~\cos(x_1x_2)).
+  f(x_1,x_2) = (x_1^2 + x_2^2,~\cos(x_1x_2)).
 \end{equation*}
 \end{ex}
 
 \section{Gráficos}\index{GNU Octave!gráficos}
 
-Para criar um esboço do gráfico de uma função de uma variável real $y = f(x)$, podemos usar a função \verb+plot+. Esta função faz uma representação gráfica de pontos $(x_i, y_i)$ fornecidos. O \verb+GNU Octave+ oferece uma série de opções para esta função de forma que o usuário pode ajustar várias questões de visualização. Consulte sobre a função \verb+plot+ no \href{http://help.scilab.org/docs/5.5.2/pt_BR/index.html}{manual do GNU}.
+Para criar um esboço do gráfico de uma função de uma variável real $y = f(x)$, podemos usar a função \verb+plot+. Esta função faz uma representação gráfica de pontos $(x_i, y_i)$ fornecidos. O \verb+GNU Octave+ oferece uma série de opções para esta função de forma que o usuário pode ajustar várias questões de visualização. Consulte sobre a função \verb+plot+ usando a ferramenta de ajuda do \verb+GNU Octave+:
+\begin{verbatim}
+>> help plot
+\end{verbatim}
 
 \begin{ex}
   Veja as seguintes linhas de código:
 \begin{verbatim}
--->deff('y = f(x)','y = x .^ 3 + 1')
--->x = linspace(-2, 2, 100);
--->plot(x, f(x)); xgrid
+>> f = inline("x .^3 + 1")
+f = f(x) = x .^3 + 1
+>> xx = linspace(-2, 2);
+-->plot(xx, f(xx)); grid on
 \end{verbatim}
 \end{ex}
-
-%\end{document}
