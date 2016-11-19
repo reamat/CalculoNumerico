@@ -9,7 +9,6 @@
 ########################################
 
 CAP1=cap_aritmetica
-#CAP2=cap_derint
 CAP3=cap_equacao1d
 CAP4=cap_intro
 CAP5=cap_linsis
@@ -22,6 +21,7 @@ CAP11=cap_derivacao
 CAP12=cap_integracao
 CAP13=cap_pvc
 CAP14=cap_python
+CAP15=cap_octave
 
 ########################################
 # FORMATO LIVRO PDF
@@ -315,3 +315,4 @@ clean:
 	rm -f ${CAP12}/*.aux ${CAP12}/*.log ${CAP12}/*.backup
 	rm -f ${CAP13}/*.aux ${CAP13}/*.log ${CAP13}/*.backup
 	rm -f ${CAP14}/*.aux ${CAP14}/*.log ${CAP14}/*.backup
+	rm -f ${CAP15}/*.aux ${CAP15}/*.log ${CAP15}/*.backup
