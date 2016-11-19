@@ -18,6 +18,8 @@ Ao longo do capítulo, apresentamos algumas computações com \verb+Python+. Nes
 >>> from __future__ import division
 >>> import numpy as np
 >>> import matplotlib.pyplot as plt
+>>> import scipy as sci
+>>> from scipy import optimize
 \end{verbatim}
 A segunda instrução carrega a biblioteca de computação científica \href{http://www.numpy.org/}{numpy} e a terceira carrega a biblioteca gráfica \href{http://matplotlib.org/}{matplotlib}.
 \fi
@@ -692,6 +694,7 @@ Notamos que o ponto fixo destas duas funções coincide com o zero de $f(x)$. Co
   x_1^{(n+1)} = g_1(x_1^{(n)})\quad\text{e}\quad x_2^{(n+1)} = g_2(x_2^{(n)}),
 \end{equation*}
 tomando $x_1^{(1)} = x_2^{(1)} = 1,7$, obtemos os resultados apresentados na tabela~\ref{tab:ponto_fixo_2}. Observamos que, enquanto, a iteração do ponto fixo com a função $g_1(x)$ ($\alpha = 0,5$) parece divergir, a iteração com a função $g_2(x)$ ($\alpha = 0,05$) parece convergir.
+
 \begin{table}
   \centering
   \caption{Iterações do ponto fixo para o Exemplo~\ref{ex:ponto_fixo_2}.}\label{tab:ponto_fixo_2}
@@ -704,6 +707,64 @@ tomando $x_1^{(1)} = x_2^{(1)} = 1,7$, obtemos os resultados apresentados na tab
     $5$ & $-149,4$ & $1,746$\\\hline
   \end{tabular}
 \end{table}
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+No \verb+Scilab+, podemos computar as iterações do ponto fixo $x^{(n+1)} = g_1(x^{(n)})$ com o seguinte código:
+\begin{verbatim}
+--> deff('y = f(x)', 'y = x*exp(x)-10')
+--> deff('y = g1(x)', 'y = x - 0.5*f(x)')
+--> x = 1.7;
+--> x = g1(x)
+x =  
+    2.0471
+--> x = g1(x)
+x = 
+   -0.88119
+\end{verbatim}
+e, assim, sucessivamente. Itere com a função $g_2(x)$ e verifique a convergência!
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos computar as iterações do ponto fixo $x^{(n+1)} = g_1(x^{(n)})$ com o seguinte código:
+\begin{verbatim}
+>> f = inline("x*exp(x)-10")
+f = f(x) = x*exp(x)-10
+>> g1 = inline("x - 0.5*f(x)")
+g1 = f(x) = x - 0.5*f(x)
+>> x = 1.7;
+>> x = g1(x)
+x =  2.0471
+>> x = g1(x)
+x = -0.88119
+\end{verbatim}
+e, assim, sucessivamente. Itere com a função $g_2(x)$ e verifique a convergência!
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos computar as iterações do ponto fixo $x^{(n+1)} = g_1(x^{(n)})$ com o seguinte código:
+\begin{verbatim}
+>>> def f(x): return x*np.exp(x)-10
+... 
+>>> def g1(x): return x-0.5*f(x)
+... 
+>>> x=1.7
+>>> x=g1(x);x
+2.0471447170318804
+>>> x=g1(x);x
+-0.88119413893725618
+\end{verbatim}
+e, assim, sucessivamente. Itere com a função $g_2(x)$ e verifique a convergência!
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{ex}
 % Para responder essas perguntas, devemos formalizar o conceito de ponto fixo. Antes disso, analisemos mais um exemplo:
 
@@ -781,7 +842,7 @@ ou seja, $x^{(n)}\to x^*$ quando $n\to\infty$.
 \end{proof}
 
 \begin{ex}\label{ex:ponto_fixo_3}
-Mostre que o teorema do ponto fixo se aplica a função $g(x) = \cos(x)$ no intervalo $[1/2, 1]$, i.e. que a iteração do ponto fixo converge para a solução da equação $\cos x = x$.
+Mostre que o teorema do ponto fixo se aplica a função $g(x) = \cos(x)$ no intervalo $[1/2, 1]$, i.e. que a iteração do ponto fixo converge para a solução da equação $\cos x = x$. Então, calcule as iterações do ponto fixo com aproximação inicial $x^{(1)} = 0,7$ e estime o erro absoluto da aproximação e sua variação a cada iteração.
 \end{ex}
 \begin{sol}
   Basta mostrarmos que:
@@ -806,26 +867,112 @@ Da mesma forma, temos a estimativa:
 \end{equation*}
 Assim, $|g'(x)|<0,85$ temos a desigualdade com $\beta=0,85<1$.
 
-A tabela~\ref{tab:ponto_fixo_3} apresenta o comportamento numérico da iteração do ponto fixo:
+A Tabela~\ref{tab:ponto_fixo_3} apresenta o comportamento numérico da iteração do ponto fixo:
 \begin{eqnarray*}
 x^{(1)} &=& 0,7\\
 x^{(n+1)} &=& \cos(x^{(n)}),\quad n\geq 1.
 \end{eqnarray*}
+Para estimar o erro, consideramos $x^* = 0,7390851605$.
+
 \begin{table}
   \centering
-  \begin{tabular}{cc}\hline
-   $n$ & $x^{(n)}$ \\\hline
-   $1$ & $0,700$ \\
-   $2$ & $0,765$ \\
-   $3$ & $0,721$ \\
-   $4$ & $0,751$ \\
-   $5$ & $0,731$ \\
-   $6$ & $0,744$ \\
-   $7$ & $0,735$ \\\hline
+  \begin{tabular}{l|ccc}\hline
+   $n$ & $x^{(n)}$ & $\epsilon_n := |x^* - x^{(n)}|$ & $|\epsilon_n-\epsilon_{n-1}|$\\\hline
+   $1$ & $0,70000$ & $8,7\E-01$ & -- \\
+   $2$ & $0,76484$ & $2,6\E-02$ & $1,3\E-02$\\
+   $3$ & $0,72149$ & $1,8\E-02$ & $8,2\E-03$ \\
+   $4$ & $0,75082$ & $1,2\E-02$ & $5,9\E-03$ \\
+   $5$ & $0,73113$ & $8,0\E-03$ & $3,8\E-03$ \\
+   $6$ & $0,74442$ & $5,3\E-03$ & $2,6\E-03$ \\
+   $7$ & $0,73548$ & $3,6\E-03$ & $1,7\E-03$ \\\hline
   \end{tabular}
   \caption{Iteração do ponto fixo para o Exemplo~\ref{ex:ponto_fixo_3}.}
   \label{tab:ponto_fixo_3}
 \end{table}
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+No \verb+Scilab+, podemos computar estas iterações, o erro absoluto e sua variação com o seguinte código:
+\begin{verbatim}
+//est. da solucao
+deff('y = f(x)', 'y = cos(x)-x')
+xe = fsolve(0.7, f)
+
+#funcao do pto. fixo
+deff('y = g(x)', 'y = cos(x)')
+
+#aprox. inicial
+x0 = 0.7
+eps0 = abs(x0-xe)
+disp([x0, eps0])
+
+for i=2:7
+  x = g(x0)
+  eps = abs(x-xe)
+  disp([x, eps])
+  x0 = x
+  eps0 = eps
+end
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos computar estas iterações, o erro absoluto e sua variação com o seguinte código:
+\begin{verbatim}
+#est. da solucao
+f = inline("cos(x)-x");
+xe = fsolve(f, 0.7);
+
+#funcao do pto. fixo
+g = inline("cos(x)");
+
+#aprox. inicial
+x0 = 0.7;
+eps0 = abs(x0-xe);
+printf("%1.5f %1.1e\n", x0, eps0);
+
+for i=2:7
+  x = g(x0);
+  eps = abs(x-xe);
+  printf("%1.5f %1.1e %1.1e\n", x, eps, abs(eps-eps0))
+  x0 = x;
+  eps0 = eps;
+endfor
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos computar estas iterações, o erro absoluto e sua variação com o seguinte código:
+\begin{verbatim}
+#funcao do pto. fixo
+def g(x):
+    return np.cos(x)
+
+#est. da solucao
+xe = sci.optimize.fixed_point(g, 0.7)
+
+#aprox. inicial
+x0 = 0.7
+eps0 = np.fabs(x0-xe)
+print("%1.5f %1.1e\n" % (x0, eps0))
+
+for i in np.arange(2,8):
+  x = g(x0);
+  eps = np.fabs(x-xe);
+  print("%1.5f %1.1e %1.1e\n" % (x, eps, np.fabs(eps-eps0)))
+  x0 = x
+  eps0 = eps
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
 \subsection{Teste de convergência}
