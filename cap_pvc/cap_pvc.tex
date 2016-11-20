@@ -41,7 +41,7 @@ A resolução de um tal problema pelo método de elementos finitos consiste em q
   \label{fig:malha_uniforme}
 \end{figure}
 
-{\bf 1. Construção da malha.} A malha consiste em uma representação discreta do domínio $[a, b]$. Como veremos, sua construção tem impacto direto nas próximas etapas do método. Aqui, vamos construir a malha mais simples possível, aquela que consiste de $N$ pontos igualmente espaçados, i.e. a chamada \emph{malha uniforme}\index{malha uniforme}.
+{\bf 1. Construção da malha.} A malha consiste em uma representação discreta do domínio $[a, b]$. Como veremos, sua construção tem impacto direto nas próximas etapas do método. Aqui, vamos construir a malha mais simples possível, aquela que consiste de $N$ pontos igualmente espaçados, isto é, a chamada \emph{malha uniforme}\index{malha uniforme}.
 
 Para tanto, seja $N\in\mathbb{N}$ dado e, então, tomamos o seguinte conjunto discreto $\mathcal{P}_N = \{x_1, x_2, \dotsc, x_N\}$ (a malha), onde
 \begin{equation*}
@@ -95,7 +95,7 @@ Este é um sistema de equações de $N$ incógnitas e $N$ equações.
 
 Para o PVC \eqref{eq:pvc1-eq}-\eqref{eq:pvc1-bc2}, construímos o problema discreto \eqref{eq:pvc1-disc-eq1}-\eqref{eq:pvc1-disc-eqN}. Este é um problema de $N$ equações e $N$ incógnitas. Observamos que se $f(x, u)$ é uma função linear, o sistema será linear e podemos resolver o sistema usando de técnicas numéricas para sistema lineares. Agora, se $f(x, u)$ é uma função não linear, podemos usar, por exemplo, do método de Newton para sistemas.
 
-{\bf 4. Visualização e interpretação dos resultados.} A solução do problema discreto consiste dos valores $u_i$, i.e. de aproximações dos valores de $u$ nos pontos da malha. Para visualizarmos a solução podemos, por exemplo, construir o gráfico do conjunto de pontos $\{(x_i, u_i)\}$. Ainda, para obtermos aproximações da solução em outros pontos que não fazem parte da malha, podemos usar de técnicas de interpolação e/ou ajuste.
+{\bf 4. Visualização e interpretação dos resultados.} A solução do problema discreto consiste dos valores $u_i$, isto é, de aproximações dos valores de $u$ nos pontos da malha. Para visualizarmos a solução podemos, por exemplo, construir o gráfico do conjunto de pontos $\{(x_i, u_i)\}$. Ainda, para obtermos aproximações da solução em outros pontos que não fazem parte da malha, podemos usar de técnicas de interpolação e/ou ajuste.
 
 \begin{ex}\label{ex:pvc2}
   Use o método de diferenças finitas para resolver o seguinte problema de valor de contorno com condições de Dirichlet homogêneas:
@@ -104,11 +104,11 @@ Para o PVC \eqref{eq:pvc1-eq}-\eqref{eq:pvc1-bc2}, construímos o problema discr
     u(0) &=& 0,\label{eq:pvc2-bc1}\\
     u(1) &=& 0.\label{eq:pvc2-bc2}
   \end{eqnarray}
-Use a fórmula de diferenças finitas central de ordem 2 para discretizar a derivada em uma malha uniforme de 11 pontos. Calcule, também, a solução analítica deste problema, faça um esboço das soluções numérica e analítica, e compute o erro absoluto médio definido por
+Use a fórmula de diferenças finitas central de ordem 2 para discretizar a derivada em uma malha uniforme de 11 pontos. Calcule, também, a solução analítica deste problema, faça um esboço das soluções numérica e analítica e compute o erro absoluto médio definido por
 \begin{equation*}
   E := \frac{1}{N}\sum_{i=1}^N |u(x_i) - u_i|,
 \end{equation*}
-onde $x_i$ é o $i$-ésimo ponto da malha, $i=1, 2, \dotsc, N$, e $N$ é o número de pontos na mesma. Por fim, repita seus cálculos para uma malha com $101$ pontos. O que ocorre com o erro absoluto médio?
+onde $x_i$ é o $i$-ésimo ponto da malha, $i=1, 2, \dotsc, N$ e $N$ é o número de pontos na mesma. Por fim, repita seus cálculos para uma malha com $101$ pontos. O que ocorre com o erro absoluto médio?
 \end{ex}
 \begin{sol} Vamos seguir as etapas conforme acima.
 
@@ -269,7 +269,7 @@ u = np.linalg.solve(A,b)
   \label{fig:ex_pvc2}
 \end{figure}
 
-{\bf 4. Visualização e interpretação dos resultados.} Tendo resolvido o problema discreto $A\underline{u} = b$, obtemos os valores da solução numérico de $u$ nos pontos da malha, i.e. obtivemos o conjunto de pontos $\{(x_i, u_i)\}_{i=1}^N$. Neste exemplo, queremos comparar a solução numérica com a solução analítica.
+{\bf 4. Visualização e interpretação dos resultados.} Tendo resolvido o problema discreto $A\underline{u} = b$, obtemos os valores da solução numérico de $u$ nos pontos da malha, isto é, obtivemos o conjunto de pontos $\{(x_i, u_i)\}_{i=1}^N$. Neste exemplo, queremos comparar a solução numérica com a solução analítica.
 
 A solução analítica pode ser obtida por integração. Temos:
 \begin{equation*}
@@ -278,7 +278,7 @@ A solução analítica pode ser obtida por integração. Temos:
     \Rightarrow -u + c_2x + c_1 = 100\frac{(x-1)^4}{12},
   \end{split}
 \end{equation*}
-ou seja, $\displaystyle u(x) = - \frac{(x-1)^4}{12} + c_2x + c_1$. As constantes são determinadas pelas condições de contorno dadas pelas equações~\eqref{eq:pvc2-bc1} e \eqref{eq:pvc2-bc2}, i.e.:
+ou seja, $\displaystyle u(x) = - \frac{(x-1)^4}{12} + c_2x + c_1$. As constantes são determinadas pelas condições de contorno dadas pelas equações~\eqref{eq:pvc2-bc1} e \eqref{eq:pvc2-bc2}, isto é:
 \begin{equation*}
   \begin{split}
     u(0) = 0 &\Rightarrow c_1 = \frac{100}{12},\\

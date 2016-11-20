@@ -401,7 +401,7 @@ Partindo das seguintes aproximações iniciais:
 \item[a)] Faça um esboço das duas curvas e entenda o problema. Verifique que existem dois pontos de intersecção, um no primeiro quadrante e outro no segundo quadrante do plano $xy$.
 \item[b)] A partir de seu esboço, encontre aproximações para $x$ e $y$ em cada ponto.
 \item[c)] Escreva o problema na forma $F\left(\left[\begin{array}{c}x\\y\end{array}\right]\right)=\left[\begin{array}{c}0\\0\end{array}\right]$
-\item[d)] Encontre a Jacobiana $J_F$.
+\item[d)] Encontre a jacobiana $J_F$.
 \item[e)] Construa a iteração do Método de Newton.
 \item[f)] Implemente no computador.
 \item[g)] Resolva o sistema analiticamente e compare as respostas.
@@ -416,11 +416,11 @@ As curvas possuem dois pontos de intersecção. A posição exata destes pontos 
 \item[a]) Faça um esboço das duas curvas, entenda o problema. Verifique que existem dois pontos de intersecção, um no primeiro quadrante e outro no segundo quadrando do plano $xy$.
 \item[b]) A partir de seu esboço, encontre aproximações para $x$ e $y$ em cada ponto.
 \item[c]) Escreva o problema na forma $F\left(\left[\begin{array}{c}x\\y\end{array}\right]\right)=\left[\begin{array}{c}0\\0\end{array}\right]$
-\item[d]) Encontre a Jacobiana $J_F$.
+\item[d]) Encontre a jacobiana $J_F$.
 \item[e]) Construa a iteração do Método de Newton.
 \item[f]) Implemente no Scilab.
-\item[g]) Transforme o sistema em um problema de uma única variável, e compare com a resposta do problema \ref{1d:cosx2}.
-%\item[h]) Refaça o item e, usando a função {\it derivative()} para aproximar a matriz Jacobiana.
+\item[g]) Transforme o sistema em um problema de uma única variável e compare com a resposta do problema \ref{1d:cosx2}.
+%\item[h]) Refaça o item e, usando a função {\it derivative()} para aproximar a matriz jacobiana.
 \end{itemize}
 \end{exer}
 
@@ -818,14 +818,12 @@ Nesta seção, discutimos de forma distinta e mais rigorosa os conceitos de matr
 Considere primeiramente uma função $f:\mathbb{R}^n\to \mathbb{R}$, ou seja, uma função que mapeia n variáveis reais em um único real, por exemplo:
 $$f(x)=x_1^2+x_2^2/4$$
 
-Para construirmos a linearização, fixemos uma direção no espaço $\mathbb{R}^n$, ou seja um vetor $v$:
+Para construirmos a linearização, fixemos uma direção no espaço $\mathbb{R}^n$, ou seja, um vetor $v$:
 $$v=[v_1,  v_2,  \cdots,  v_n]^T$$
 
 Queremos estudar como a função $f(x)$ varia quando ``andamos'' na direção $v$ a partir do ponto $x^{(0)}$. Para tal, inserimos um parâmetro  real pequeno $h$, dizemos que $$x=x^{(0)}+hv$$ e definimos a função auxiliar
 $$g(h)=f(x^{0}+hv).$$
 Observamos que a função $g(h)$ é uma função de $\mathbb{R}$ em $\mathbb{R}$.
-
-
 
 A linearização de $g(h)$ em torno de $h=0$ é dada por
 
@@ -833,18 +831,18 @@ $$g(h)=g(0) + hg'(0) +O(h^2)$$
 Observamos que $g(h)=f(x^{(0)}+hv)$ e $g(0)=f(x^{(0)})$. Precisamos calcular $g'(0)$:
 
 \begin{eqnarray*}
-g'(h)=\frac{d}{dh}g(h)=\frac{d}{dh}f(x^{(0)}+hv)
+g'(h)=\frac{d}{dh}g(h)=\frac{d}{dh}f(x^{(0)}+hv).
 \end{eqnarray*}
 Pela regra da cadeia temos:
 \begin{eqnarray*}
-\frac{d}{dh}f(x^{(0)}+hv)= \sum_{j=1}^n \frac{\partial f}{\partial x_j}\frac{d x_j}{d h}
+\frac{d}{dh}f(x^{(0)}+hv)= \sum_{j=1}^n \frac{\partial f}{\partial x_j}\frac{d x_j}{d h}.
 \end{eqnarray*}
 
 Observamos que $x_j=x^{(0)}_j+hv_j$, portanto
 $$\frac{d x_j}{d h}=v_j$$
 Assim:
 \begin{eqnarray*}
-\frac{d}{dh}f(x^{(0)}+hv)= \sum_{j=1}^n \frac{\partial f}{\partial x_j}v_j
+\frac{d}{dh}f(x^{(0)}+hv)= \sum_{j=1}^n \frac{\partial f}{\partial x_j}v_j.
 \end{eqnarray*}
 Observamos que esta expressão pode ser vista como o produto interno entre o gradiente de $f$ e o vetor $v$:
 \begin{eqnarray*}
@@ -932,7 +930,7 @@ $$J_F= \frac{\partial(f_1,f_2,\ldots,f_n)}{\partial(x_1,x_2,\ldots,x_n)}=\left[
 \end{array}
 \right]
 $$
-A matriz jacobiana de uma função ou simplesmente, o Jacobiano de uma função $F(x)$ é a matriz formada pelas suas derivadas parciais:
+A matriz jacobiana de uma função ou simplesmente, o jacobiano de uma função $F(x)$ é a matriz formada pelas suas derivadas parciais:
 $$\left(J_F\right)_{ij}=\frac{\partial f_i}{\partial x_j}$$
 
 

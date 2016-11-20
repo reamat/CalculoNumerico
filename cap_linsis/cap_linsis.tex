@@ -725,20 +725,20 @@ e utilizando que a soma dos $k$ inteiros é uma progressão aritmética\footnote
 
 
 \section{Fatoração LU}
-Considere um sistema linear onde a matriz $A$ é densa\footnote{Diferentemente de uma matriz esparsa, uma matriz densa possui a maioria dos elementos diferentes de zero.}. Para resolver o sistema, podemos transformar a matriz $A$ nas matrizes $L$, triangular inferior, e $U$, triangular superior de tal forma que $A=LU$.
+Considere um sistema linear onde a matriz $A$ é densa\footnote{Diferentemente de uma matriz esparsa, uma matriz densa possui a maioria dos elementos diferentes de zero.}. A fim de resolver o sistema, podemos fatorar a matriz $A$ como o produto da matriz $L$, triangular inferior e da matriz $U$, triangular superior, ou seja, $A=LU$.
 
-Sendo assim o sistema pode ser reescrito tal que
+Sendo assim, o sistema pode ser reescrito tal que
 \begin{eqnarray*}
   Ax &=&b \\
   (LU)x &=&b \\
   L(Ux) &=&b \\
   L y = b \quad & \text{ e }& \quad Ux=y
 \end{eqnarray*}
-Assim ao invés de resolvermos o sistema original, devemos resolver um sistema triangular inferior e um sistema triangular superior.
+Isto significa que, ao invés de resolvermos o sistema original, podemos resolver um sistema triangular inferior e um sistema triangular superior.
 
 A matriz $U$ da fatoração\footnote{Não vamos usar pivotamento nesse primeiro exemplo.} $LU$ é a matriz obtida ao final do escalonamento da matriz $A$.
 
-A matriz $L$ inicia igual a identidade $I$. Os elementos da matriz $L$ são os múltiplos do primeiro elemento da linha de $A$ \underline{a ser zerado} dividido pelo pivô acima na mesma coluna.
+A matriz $L$ é contruída  a partir da matriz identidade $I$, ao longo do escalomento de A. Os elementos da matriz $L$ são os múltiplos do primeiro elemento da linha de $A$ \underline{a ser zerado} dividido pelo pivô acima na mesma coluna.
 
 Por exemplo, para zerar o primeiro elemento da segunda linha de $A$, calculamos
 $$L_{21}=A_{21}/A_{11}$$
@@ -1331,7 +1331,7 @@ y^{(3)}&=&\frac{26-x^{(3)}}{8}=2,9995312
 
 Nesta seção, discutimos sobre a análise de convergência de métodos iterativos para solução de sistema lineares. Para tanto, consideramos um sistema linear $Ax = b$, onde $A = [a_{i,j}]_{i,j=1}^{n,n}$ é a matriz (real) dos coeficientes, $b = (a_j)_{j=1}^n$ é um vetor dos termos constantes e $x = (x_j)_{j=1}^n$ é o vetor incógnita. No decorrer, assumimos que $A$ é uma matriz não-singular.
 
-Geralmente, métodos iterativos são construídos como uma iteração de ponto fixo. No caso de um sistema linear, reescreve-se a equação matricial em um problema de ponto fixo equivalente, i.e.:
+Geralmente, métodos iterativos são construídos como uma iteração de ponto fixo. No caso de um sistema linear, reescreve-se a equação matricial em um problema de ponto fixo equivalente, isto é:
 \begin{equation*}
   Ax = b \Leftrightarrow x = Tx + c,
 \end{equation*}
@@ -1345,7 +1345,7 @@ Afim de construirmos as matrizes e os vetores de iteração do método de Jacobi
 \begin{equation*}
   A = L + D + U,
 \end{equation*}
-onde $D$ é a matriz diagonal $D = \diag(a_{11}, a_{22}, \ldots, a_{nn})$, i.e.:
+onde $D$ é a matriz diagonal $D = \diag(a_{11}, a_{22}, \ldots, a_{nn})$, isto é:
 \begin{equation*}
   D := \begin{bmatrix}
     a_{11} & 0 & 0 & \cdots & 0\\
@@ -1624,7 +1624,7 @@ Aqui, vamos discutir condições necessárias e suficientes para a convergência
 \begin{equation*}
   x^{(k+1)} = Tx^{(k)} + c,\quad k\geq 1,
 \end{equation*}
-$x^{(1)}$ dado, estabelecemos condições nas quais $x^{(k)}\to x^{*}$, onde $x^*$ é a solução do sistema dado, i.e. $x^* = Tx^* + c$ ou, equivalentemente, $Ax^* = b$.
+$x^{(1)}$ dado, estabelecemos condições nas quais $x^{(k)}\to x^{*}$, onde $x^*$ é a solução do sistema dado, isto é, $x^* = Tx^* + c$ ou, equivalentemente, $Ax^* = b$.
 
 \begin{lem}\label{lema:matriz_convergente}
   Seja $T$ uma matriz real $n\times n$. O limite $\displaystyle\lim_{k\to\infty} \|T^k\|_p = 0$, $1\leq p \leq \infty$, se, e somente se, $\rho(T) < 1$. 
@@ -1663,8 +1663,8 @@ Da equivalência entre as normas segue a recíproca.
   \end{equation*}
 \end{lem}
 \begin{proof}
-  Primeiramente, provamos a existência de $(I - T)^{-1}$. Seja $\lambda$ um autovalor de $T$ e $x$ um autovetor associado, i.e. $Tx = \lambda x$. Então, $(I-T)x = (1-\lambda)x$. Além disso, temos $|\lambda| < \rho(T) < 1$, logo $(1 - \lambda) \neq 0$, o que garante que $(I - T)$ é não singular.
-  Agora, mostramos que $(I - T)^{-1}$ admite a expansão acima. Do Lema~\ref{lema:matriz_convergente} e da Observação~\ref{obs:matriz_convergente} temos:
+  Primeiramente, provamos a existência de $(I - T)^{-1}$. Seja $\lambda$ um autovalor de $T$ e $x$ um autovetor associado, isto é, $Tx = \lambda x$. Então, $(I-T)x = (1-\lambda)x$. Além disso, temos $|\lambda| < \rho(T) < 1$, logo $(1 - \lambda) \neq 0$, o que garante que $(I - T)$ é não singular.
+  Agora, mostramos que $(I - T)^{-1}$ admite a expansão acima. Do Lema~\ref{lema:matriz_convergente} e da observação~\ref{obs:matriz_convergente} temos:
   \begin{equation*}
    (I - T)\sum_{k=0}^\infty T^k =  \lim_{m\to\infty} (I - T)\sum_{k=0}^m T^k = \lim_{m\to\infty} (I - T^{m+1}) = I,
   \end{equation*}
@@ -1690,7 +1690,7 @@ Daí, do Lema~\ref{lema:matriz_convergente} e do Lema~\ref{lema:inversa} temos:
 \begin{equation*}
   \lim_{k\to\infty} x^{(k)} = (I - T)^{(-1)}c.
 \end{equation*}
-Ora, se $x^*$ é a solução de $x = Tx + c$, então $(I - T)x^* = c$, i.e. $x^* = (I - T)^{-1}c$. Logo, temos demonstrado que $x^{(k)}$ converge para a solução de  $x = Tx + c$, para qualquer escolha de $x^{(1)}$.
+Ora, se $x^*$ é a solução de $x = Tx + c$, então $(I - T)x^* = c$, isto é, $x^* = (I - T)^{-1}c$. Logo, temos demonstrado que $x^{(k)}$ converge para a solução de  $x = Tx + c$, para qualquer escolha de $x^{(1)}$.
 
 Agora, suponhamos que $x^{(k)}$ converge para $x^*$ solução de $x = Tx + c$, para qualquer escolha de $x^{(1)}$. Seja, então, $y$ um vetor arbitrário e $x^{(1)} = x^* - y$. Observamos que:
 \begin{eqnarray*}
@@ -1703,7 +1703,7 @@ Logo, para qualquer $1 \leq p \leq\infty$, temos, :
 \begin{equation*}
   0 = \lim_{k\to\infty} x^* - x^{(k+1)} = \lim_{k\to\infty} T^{(k)}y.
 \end{equation*}
-Como $y$ é arbitrário, da Observação~\ref{obs:matriz_convergente} temos $\displaystyle\lim_{k\to\infty} \|T^{(k)}\|_p = 0$, $1 \leq p \leq \infty$. Então, o Lema~\ref{lema:matriz_convergente} garante que $\rho(T) < 1$.
+Como $y$ é arbitrário, da observação~\ref{obs:matriz_convergente} temos $\displaystyle\lim_{k\to\infty} \|T^{(k)}\|_p = 0$, $1 \leq p \leq \infty$. Então, o Lema~\ref{lema:matriz_convergente} garante que $\rho(T) < 1$.
 \end{proof}
 
 \begin{obs}
@@ -1718,7 +1718,7 @@ Para mais detalhes, veja \cite{Isaacson1994a}, pág. 61-64.
   Mostre que, para qualquer escolha da aproximação inicial, ambos os métodos de Jacobi e Gauss-Seidel são convergentes quando aplicados ao sistema linear dado no exemplo~\ref{ex:sislin}.
 \end{ex}
 \begin{sol}
-  Do Teorema~\ref{teo:convergencia}, vemos que é necessário e suficiente que $\rho(T_J) < 1$ e $\rho(T_G) < 1$. Computando estes raios espectrais, obtemos $\rho(T_J) \approx 0,32$ e $\rho(T_G) \approx 0,13$. Isto mostra que ambos os métodos serão convergentes. 
+  Do teorema~\ref{teo:convergencia}, vemos que é necessário e suficiente que $\rho(T_J) < 1$ e $\rho(T_G) < 1$. Computando estes raios espectrais, obtemos $\rho(T_J) \approx 0,32$ e $\rho(T_G) \approx 0,13$. Isto mostra que ambos os métodos serão convergentes. 
 \end{sol}
 
 \subsubsection{Condição suficiente}
@@ -1956,7 +1956,7 @@ Como os autovetores são l.i., todo vetor $x\in\mathbb{R}^n$, $x=(x_1,x_2,...,x_
 x=\sum_{j=1}^n\beta_jv_{j}.
 \end{equation}
 
-O método da potência permite o cálculo do autovetor dominante com base no comportamento assintótico (i.e. "no infinito") da sequência
+O método da potência permite o cálculo do autovetor dominante com base no comportamento assintótico (isto é, "{\it no infinito}") da sequência
 $$x, Ax, A^2x, A^3x, \ldots$$.
 
 Por questões de convergência, consideramos a seguinte sequência semelhante à anterior, porém normalizada:
