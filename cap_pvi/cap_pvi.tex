@@ -7,12 +7,12 @@
 Neste capítulo, vamos desenvolver técnicas numéricas para aproximar a solução do problema de valor inicial (PVI) dado pela equação diferencial ordinária (EDO) de primeira ordem
 \begin{subequations}\label{PVI}
 \begin{eqnarray}
-u'(t)&=&f(t,u(t))\label{PVI_EDO}\\
-u(t_1)&=&a ~~ \text{(condição inicial)}.\label{PVI_CI}
+  u'(t) &=& f(t, u(t))\label{PVI_EDO}\\
+  u(t_1) &=& a ~~ \text{(condição inicial)}.\label{PVI_CI}
 \end{eqnarray}
 \end{subequations}
 
-A incógnita de um problema de valor inicial é uma função que satisfaz a equação diferencial (\ref{PVI_EDO})  e a condição inicial (\ref{PVI_CI}).
+A incógnita de um problema de valor inicial é uma função que satisfaz a equação diferencial \eqref{PVI_EDO}  e a condição inicial \eqref{PVI_CI}.
 
 Considere os próximos três exemplos:
 \begin{ex}
@@ -54,10 +54,23 @@ A solução do segundo exemplo é fácil de ser obtida: $u(t)=ae^t$. Porém como
 % \end{ex}
 
 
-Muitos problemas de valor inicial da forma (\ref{PVI}) não podem ser resolvidos exatamente, ou seja, sabe-se que a solução existe e é única, porém não podemos expressá-la em termos de funções elementares. Por isso é necessário calcular aproximações numéricas. Diversos métodos completamente diferentes estão disponíveis para aproximar uma função real. 
+Muitos problemas de valor inicial da forma \eqref{PVI} não podem ser resolvidos exatamente, ou seja, sabe-se que a solução existe e é única, porém não podemos expressá-la em termos de funções elementares. Por isso é necessário calcular aproximações numéricas. Diversos métodos completamente diferentes estão disponíveis para aproximar uma função real. 
 
 Existem várias maneiras de obter aproximações para a solução deste problema. Nos limitaremos a estudar métodos que aproximam $u(t)$ em um conjunto finito de valores de $t$ chamado \emph{malha} que será denotado por  $\{t_i\}_{i=1}^N=\{t_1, t_2, t_3,\ldots, t_N\}$. Desta forma, aproximamos a solução $u(t_i)$ por $u_i$ em cada ponto da malha usando diferentes esquemas numéricos.
 
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Nos códgos em \verb+Python+ apresentados neste capítulo, estaremos assumindo que as seguintes bibliotecas e módulos estão importados:
+\begin{verbatim}
+from __future__ import division
+import numpy as np
+from numpy import linalg
+import matplotlib.pyplot as plt
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
 \section{Teoria de equações diferenciais}
 Uma questão fundamental é analisar se um dado PVI é um problema \emph{bem posto}. Ou seja,
@@ -69,15 +82,15 @@ Uma questão fundamental é analisar se um dado PVI é um problema \emph{bem pos
 
 
 \begin{defn}
-A função $f(t,u)$ é Lipschitz em $u$ se existe uma constante $L$, tal que $\forall t \in [a,b]$ e $u,v \in \mathbb R$,
-$$ |f(t,u)-f(t,v)| \leq L|u(t)-v(t)|. $$
+A função $f(t, u)$ é Lipschitz em $u$ se existe uma constante $L$, tal que $\forall t \in [a, b]$ e $u,v \in \mathbb R$,
+$$ |f(t, u)-f(t, v)| \leq L|u(t)-v(t)|. $$
 \end{defn}
 
 
 \begin{teo}
-Seja $f(t,u)$ contínua em $t$ e Lipschitz em $u$. Então existe uma única solução para o PVI
+Seja $f(t, u)$ contínua em $t$ e Lipschitz em $u$. Então existe uma única solução para o PVI
 \begin{eqnarray}
-  u'(t)  &=& f(t,u(t)) \\
+  u'(t)  &=& f(t, u(t)) \\
   u(t_1) &=& a.
 \end{eqnarray}
 \end{teo}
@@ -90,22 +103,6 @@ Seja $f(t,u)$ contínua em $t$ e Lipschitz em $u$. Então existe uma única solu
 Se $u(t)$ e $v(t)$ são soluções do PVI com $f$ Lipschitz com $u(t_1)=u_1$, $v(t_1)=v_1$, então
 $$ |u(t)-v(t)| \leq  e^{L(t-t_1)}|u_1-v_1| . $$
 \end{teo}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 \section{Método de Euler}\index{método!de Euler}
 Considere o PVI dado por
@@ -161,14 +158,13 @@ u_1    &=&a.
 \begin{ex}
 Considere o problema de valor inicial
 \begin{eqnarray*}
-u'(t)&=&2u(t)\\
-u(0)&=&1
+  u'(t)&=&2u(t)\\
+  u(0)&=&1
 \end{eqnarray*}
-
 cuja solução é $u(t)=e^{2t}$. O método de Euler aplicado a este problema produz o  esquema:
 \begin{eqnarray*}
-u_{k+1}&=&u_k+2hu_k=(1+2h)u_k\\
-u_1&=&1,
+  u_{k+1}&=&u_k+2hu_k=(1+2h)u_k\\
+  u_1&=&1,
 \end{eqnarray*}
 Suponha que queremos calcular o valor aproximado de $u(1)$ com $h=0,2$. Então os pontos $t^{(1)}=0$, $t^{(2)}=0,2$, $t^{(3)}=0,4$, $t^{(4)}=0,6$, $t^{(5)}=0,8$ e $t^{(6)}=1,0$ formam os seis pontos da malha. As aproximações para a solução nos pontos da malha usando o método de Euler são:
 \begin{eqnarray*}
@@ -186,6 +182,40 @@ Essa aproximação é bem grosseira quando comparamos com a solução do problem
 % $$u(t)\approx \tilde{u}(t)= (1+2h)^{\frac{t}{h}}.$$
 % Observe que $\tilde{u}(t) \neq u(t)$, mas se $h$ é pequeno, a aproximação é boa, pois
 % $$\lim_{h\to 0+} (1+2h)^{\frac{t}{h}}= e^{2t}.$$
+
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos computar a solução numérica deste PVI via o método de Euler com o seguite código:
+\begin{verbatim}
+#define f(t,u)
+def f(t,u):
+    return 2*u
+
+#tamanho e num. de passos
+h = 0.2
+N = 6
+
+#cria vetor t e u
+t = np.empty(N)
+u = np.copy(t)
+
+#C.I.
+t[0] = 0
+u[0] = 1
+
+#iteracoes
+for i in np.arange(N-1):
+    t[i+1] = t[i] + h
+    u[i+1] = u[i] + h*f(t[i],u[i])
+
+#imprime
+for i,tt in enumerate(t):
+    print("%1.1f %1.4f" % (t[i],u[i]))
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{ex}
 
 

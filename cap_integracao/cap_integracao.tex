@@ -635,7 +635,7 @@ $$
 \subsection{Código Scilab: Regras compostas em geral}
 Devemos fazer um loop sobre todos os intervalos e para cada intervalo aplicamos uma regra de quadratura. 
 
-\verbatiminput{./cap_integracao/codes/simpson.sci}
+\verbatiminput{./cap_integracao/codes/scilab/simpson.sci}
 
 Acumulamos o valor da integral em \verb+S+. No código acima temos o método de Simpson, mas basta trocarmos a fórmula para termos outras quadraturas.
 
@@ -656,8 +656,10 @@ Como $h = x_{i+1} - x_i$, temos:
 &=& \frac{h}{2}\left[f(x_1) + f(x_{N_i+1})\right] + h\sum_{i=2}^{N_i} f(x_i)
 \end{eqnarray*}
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
-
 \subsection{Código Scilab: trapézio composto}
 O código Scilab abaixo é uma implementação do método do trapézio composto para calcular:
 \begin{equation*}
@@ -665,8 +667,23 @@ O código Scilab abaixo é uma implementação do método do trapézio composto 
 \end{equation*}
 onde $h = (b-a)/n$ e $x_i = a + (i-1)h$, $i=1,2,\dotsc,n+1$. Os parâmetros de entrada são: \verb+f+ o integrando definido como uma função no Scilab, \verb+a+ o limite inferior de integração, \verb+b+ o limite superior de integração, \verb+n+ o número de subintervalos desejado. A variável de saída é \verb+y+ e corresponde a aproximação calculada de $\int_a^b f(x)\, dx$.
 
-\verbatiminput{./cap_integracao/codes/trap_comp/trap_comp.sci}
+\verbatiminput{./cap_integracao/codes/scilab/trap_comp.sci}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\subsection{Código GNU Octave: trapézio composto}
+O código \verb+GNU Octave+ abaixo é uma implementação do método do trapézio composto para calcular:
+\begin{equation*}
+  \int_a^b f(x)\,dx = \frac{h}{2}\left[f(x_1) + f(x_{n+1})\right] + h\sum_{i=2}^n f(x_i) + O(h^3),
+\end{equation*}
+onde $h = (b-a)/n$ e $x_i = a + (i-1)h$, $i=1,2,\dotsc,n+1$. Os parâmetros de entrada são: \verb+f+ o integrando definido como uma função, \verb+a+ o limite inferior de integração, \verb+b+ o limite superior de integração, \verb+n+ o número de subintervalos desejado. A variável de saída é \verb+y+ e corresponde a aproximação calculada de $\int_a^b f(x)\, dx$.
+
+\verbatiminput{./cap_integracao/codes/octave/trap_comp.m}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Método composto de Simpson}\index{integração numérica!método composto!de Simpson}
 Já a regra composta de Simpson assume a seguinte forma:
@@ -680,6 +697,9 @@ onde, como anteriormente, $x_k = a + (k-1)h$, $h = (b-a)/n$ e $i = 1,2,\dotsc,n+
 \end{equation*}
 onde, agora, $h = (b-a)/(2n)$, $x_i = a + (i-1)h$, $i=1,2,\dotsc,2n+1$.
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \subsection{Código Scilab: Simpson composto}
 O código Scilab abaixo é uma implementação do método de Simpson composto para calcular:
@@ -687,16 +707,30 @@ O código Scilab abaixo é uma implementação do método de Simpson composto pa
   \int_a^b f(x)\,dx = \frac{h}{3}\left[f(x_1) + 2\sum_{i=1}^{n-1} f(x_{2i+1}) + 4\sum_{i=1}^{n} f(x_{2i}) + f(x_{2n+1})\right] + O(h^3),
 \end{equation*}
 onde $h = (b-a)/(2n)$ e $x_i = a + (i-1)h$, $i=1,2,\dotsc,2n+1$. Os parâmetros de entrada são: \verb+f+ o integrando definido como uma função no Scilab, \verb+a+ o limite inferior de integração, \verb+b+ o limite superior de integração, \verb+n+ o número de subintervalos desejado. A variável de saída é \verb+y+ e corresponde a aproximação calculada de $\int_a^b f(x)\, dx$.
-\verbatiminput{./rotinas/Derivacao_e_integracao/simp_comp.sci}
+\verbatiminput{./cap_integracao/codes/scilab/simp_comp.sci}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\subsection{Código em GNU Octave: Simpson composto}
+O código em \verb+GNU Octave+ abaixo é uma implementação do método de Simpson composto para calcular:
+\begin{equation*}
+  \int_a^b f(x)\,dx = \frac{h}{3}\left[f(x_1) + 2\sum_{i=1}^{n-1} f(x_{2i+1}) + 4\sum_{i=1}^{n} f(x_{2i}) + f(x_{2n+1})\right] + O(h^3),
+\end{equation*}
+onde $h = (b-a)/(2n)$ e $x_i = a + (i-1)h$, $i=1,2,\dotsc,2n+1$. Os parâmetros de entrada são: \verb+f+ o integrando definido como uma função, \verb+a+ o limite inferior de integração, \verb+b+ o limite superior de integração, \verb+n+ o número de subintervalos desejado. A variável de saída é \verb+y+ e corresponde a aproximação calculada de $\int_a^b f(x)\, dx$.
+\verbatiminput{./cap_integracao/codes/octave/simp_comp.m}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
 \begin{ex}Calcule numericamente a integral
 $$
 \int_0^2 x^2 e^{x^2}dx
 $$
-pelas regras compostas do ponto médio, trapézio e Simpson variando o número de intervalos \\$N_i=1,\ 2,\ 3,\ 6,\ 12,\ 24,\ 48,\ 96$.
+pelas regras compostas do ponto médio, trapézio e Simpson variando o número de intervalos $n=1$, $2$, $3$, $6$, $12$, $24$, $48$ e $96$.
 \end{ex}
 \begin{sol}
+  As aproximações calculadas são apresentadas na seguinte tabela:
   \begin{center}
   \begin{tabular}{c|ccc}\hline
     n &  \text{Ponto Médio} &  \text{Trapézios} & \text{Simpson}\\ \hline
@@ -1160,17 +1194,162 @@ cuja ordem de exatidão é $2n-1$.
 $$w_j = \frac{2}{\left( 1-t_j^2 \right) [P'_n(t_j)]^2}.$$
 \end{itemize}
 
-A tabela abaixo lista os nós e os pesos da quadratura de Gauss-Legendre para $n=1,\ldots,4$.
+A Tabela~\ref{tab:gauss-legendre} lista os nós e os pesos da quadratura de Gauss-Legendre para $n=1$, $2$, $3$, $4$ e $5$.
 
-\begin{tabular}{|c|c|c|}\hline
-$n$&$t_j$&$w_j$\\\hline
-1  & 0 & 2\\\hline
-2  & $\displaystyle \pm \frac{\sqrt{3}}{3}$ & 1\\\hline
-\multirow{2}{*}{3} &0& $\displaystyle \frac{8}{9}$\\
-& $\displaystyle \pm \sqrt{\frac{3}{5}}$ & $\displaystyle \frac{5}{9}$ \\\hline
-\multirow{2}{*}{4} & $\displaystyle \pm\sqrt{\Big( 3 - 2\sqrt{6/5} \Big)/7}$ & $\displaystyle \tfrac{18+\sqrt{30}}{36}$\\
-& $\displaystyle \pm\sqrt{\Big( 3 + 2\sqrt{6/5} \Big)/7}$ & $\displaystyle \tfrac{18-\sqrt{30}}{36}$\\\hline
+\renewcommand{\arraystretch}{2.25}
+\begin{table}
+  \centering
+  \caption{Nodos e pesos para quadratura de Gauss-Legendre.}
+  \begin{tabular}{c|cc}
+    $n$ & $t_j$ & $w_j$\\[2pt]\hline
+    1  & 0 & 2 \\ \hline
+    2  & $\displaystyle \pm \frac{\sqrt{3}}{3}$ & 1 \\ \hline
+    \multirow{2}{*}{3} &0& $\displaystyle \frac{8}{9}$ \\
+        & $\displaystyle \pm \sqrt{\frac{3}{5}}$ & $\displaystyle \frac{5}{9}$ \\\hline
+    \multirow{2}{*}{4} & $\displaystyle \pm\sqrt{\Big( 3 - 2\sqrt{6/5} \Big)/7}$ & $\displaystyle \tfrac{18+\sqrt{30}}{36}$\\
+        & $\displaystyle \pm\sqrt{\Big( 3 + 2\sqrt{6/5} \Big)/7}$ & $\displaystyle \tfrac{18-\sqrt{30}}{36}$\\\hline
+    \multirow{3}{*}{5} & $0$ & $\displaystyle \frac{128}{225}$\\
+                       & $\displaystyle \pm\frac{1}{3}\sqrt{5-2\sqrt{\frac{10}{7}}}$ & $\displaystyle \frac{322+13\sqrt{70}}{900}$\\[10pt]
+                       & $\displaystyle \pm\frac{1}{3}\sqrt{5+2\sqrt{\frac{10}{7}}}$ & $\displaystyle \frac{322-13\sqrt{70}}{900}$\\[10pt]\hline
 \end{tabular}
+  \label{tab:gauss-legendre}
+\end{table}
+\renewcommand{\arraystretch}{1.25}
+
+\begin{ex} Aproxime
+  \begin{equation*}
+    I = \int_{-1}^1\sqrt{1+x^2}dx  
+  \end{equation*}
+pelo metodo de Gauss-Legendre com 2, 3, 4 e 5 pontos.
+\end{ex}
+\begin{sol}
+  A aproximação desta integral usando o metodo de Gauss-Legendre consiste em computar
+  \begin{equation*}
+    I = \int_{-1}^1 f(x)\,dx \approx \sum_{i=1}^n w_if(t_i),
+  \end{equation*}
+onde $f(x) = sqrt{1 + x^2}$, $w_i$ é o $i$-ésimo peso, $t_i$ é o $i$-ésimo nodo, $i=1, \dotsc, n$, e $n$ é o número de nodos (ou pesos) da quadratura. Usando os nodos e pesos dados na Tabela~\ref{tab:gauss-legendre}, obtemos os seguintes resultados:
+\begin{center}
+  \begin{tabular}{l|c}
+    $n$ & $I$ \\\hline
+    2 & 2,3094011\\
+    3 & 2,2943456\\
+    4 & 2,2957234\\
+    5 & 2,2955705\\\hline
+  \end{tabular}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+No \verb+Scilab+, temos:
+\begin{verbatim}
+deff('y=f(x)','y=sqrt(1 + x^2)')
+
+//G-L n=2
+x2 = sqrt(3)/3
+w2 = 1
+I2 = w2(1)*f(x2(1)) + w2(1)*f(-x2(1))
+disp(I2)
+
+//G-L n=3
+x3 = [0 -sqrt(3/5) sqrt(3/5)]
+w3 = [8/9 5/9 5/9]
+I3 = w3(1)*f(x3(1)) + w3(2)*f(x3(2)) + w3(2)*f(-x3(2))
+disp(I3)
+
+//G-L n=4
+x4 = [sqrt((3-2*sqrt(6/5))/7) sqrt((3+2*sqrt(6/5))/7)]
+w4 = [(18+sqrt(30))/36 (18-sqrt(30))/36]
+I4 = w4(1)*f(x4(1)) + w4(1)*f(-x4(1)) ...
+   + w4(2)*f(x4(2)) + w4(2)*f(-x4(2))
+disp(I4)
+
+//G-L n=5
+x5 = [0 1/3*sqrt(5-2*sqrt(10/7)) 1/3*sqrt(5+2*sqrt(10/7))]
+w5 = [128/225 (322+13*sqrt(70))/900 (322-13*sqrt(70))/900]
+I5 = w5(1)*f(x5(1)) + w5(2)*f(x5(2)) + w5(2)*f(-x5(2)) ...
+     + w5(3)*f(x5(3)) + w5(3)*f(-x5(3))
+disp(I5)
+\end{verbatim}
+\fi 
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, temos:
+\begin{verbatim}
+f = inline("sqrt(1 + x^2)")
+
+#G-L n=2
+x2 = sqrt(3)/3;
+w2 = 1;
+I2 = w2(1)*f(x2(1)) + w2(1)*f(-x2(1));
+printf("%1.7f\n", I2)
+
+#G-L n=3
+x3 = [0 -sqrt(3/5) sqrt(3/5)];
+w3 = [8/9 5/9 5/9];
+I3 = w3(1)*f(x3(1)) + w3(2)*f(x3(2)) + w3(2)*f(-x3(2));
+printf("%1.7f\n", I3)
+
+
+#G-L n=4
+x4 = [sqrt((3-2*sqrt(6/5))/7) sqrt((3+2*sqrt(6/5))/7)];
+w4 = [(18+sqrt(30))/36 (18-sqrt(30))/36];
+I4 = w4(1)*f(x4(1)) + w4(1)*f(-x4(1)) ...
+   + w4(2)*f(x4(2)) + w4(2)*f(-x4(2));
+printf("%1.7f\n", I4)
+
+#G-L n=5
+x5 = [0 1/3*sqrt(5-2*sqrt(10/7)) 1/3*sqrt(5+2*sqrt(10/7))];
+w5 = [128/225 (322+13*sqrt(70))/900 (322-13*sqrt(70))/900];
+I5 = w5(1)*f(x5(1)) + w5(2)*f(x5(2)) + w5(2)*f(-x5(2)) ...
+     + w5(3)*f(x5(3)) + w5(3)*f(-x5(3));
+printf("%1.7f\n", I5)
+\end{verbatim}
+\fi 
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, temos:
+\begin{verbatim}
+def f(x):
+    return np.sqrt(1+x^2)
+
+#G-L n=2
+x2 = sqrt(3)/3
+w2 = 1
+I2 = w2[1]*f(x2[1]) + w2[1]*f(-x2[1])
+print("%1.7f\n" % I2)
+
+#G-L n=3
+x3 = [0 -sqrt(3/5) sqrt(3/5)]
+w3 = [8/9 5/9 5/9]
+I3 = w3[1]*f(x3[1]) + w3[2]*f(x3[2]) + w3[2]*f(-x3[2]);
+print("%1.7f\n" % I3)
+
+
+#G-L n=4
+x4 = [sqrt((3-2*sqrt(6/5))/7) sqrt((3+2*sqrt(6/5))/7)]
+w4 = [(18+sqrt(30))/36 (18-sqrt(30))/36]
+I4 = w4(1)*f(x4(1)) + w4(1)*f(-x4(1)) ...
+   + w4(2)*f(x4(2)) + w4(2)*f(-x4(2))
+print("%1.7f\n" % I4)
+
+#G-L n=5
+x5 = [0 1/3*sqrt(5-2*sqrt(10/7)) 1/3*sqrt(5+2*sqrt(10/7))]
+w5 = [128/225 (322+13*sqrt(70))/900 (322-13*sqrt(70))/900]
+I5 = w5(1)*f(x5(1)) + w5(2)*f(x5(2)) + w5(2)*f(-x5(2)) ...
+     + w5(3)*f(x5(3)) + w5(3)*f(-x5(3))
+print("%1.7f\n" % I5)
+\end{verbatim}
+\fi 
+%%%%%%%%%%%%%%%%%%%%
+\end{sol}
 
 \subsubsection{Mudança de intervalo}
 Os coeficientes da quadratura de Gauss-Legendre forma obtidos no intervalo $[-1,1]$. Para aproximar a integral de $f(x)$ no intervalo $[a,b]$ devemos fazer a mudança de variável
@@ -1190,33 +1369,70 @@ $$
 $$
 
 \begin{ex} Aproximar
-  \begin{equation*}
-    \int_{-1}^1\sqrt{1+x^2}dx  
-  \end{equation*}
+$$I = \int_{0}^1\sqrt{1+x^2}dx$$
 pelo método de Gauss-Legendre com 3 pontos.
 \end{ex}
 \begin{sol}
- \begin{equation*}
-  I_3=\frac{5}{9}f\left(-\sqrt{\frac{3}{5}}\right)+\frac{8}{9}f(0)+\frac{5}{9}f\left(\sqrt{\frac{3}{5}}\right) \approx 2,2943456
+Para tanto, fazemos a mudança de variáveis $u=2x-1$:
+\begin{equation*}
+  \begin{split}
+    I &= \int_{0}^1\sqrt{1+x^2}dx\\
+    &= \frac{1}{2}\int_{-1}^1\sqrt{1+\left(\frac{u+1}{2}\right)^2}du.
+  \end{split}
 \end{equation*}
+E, então aplicamos a quadratura gaussiana nesta última integral, o que nos fornece $I \approx 1,1478011$.
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
-No Scilab:
-\verbatiminput{./cap_integracao/codes/gauss_legendre/ex1_gauss_legendre.sce}
-\fi 
-\end{sol}
-
-\ifisscilab
-\begin{ex} Aproximar
-$$\int_{-1}^1\sqrt{1+x^2}dx$$
-pelo método de Gauss-Legendre com 4 pontos.
-\end{ex}
-\begin{sol}
+No \verb+Scilab+, podemos computar estas aproximações com o seguinte código:
 \begin{verbatim}
-I4=f(x4(1))*w4(1)+f(-x4(1))*w4(1)+f(x4(2))*w4(2)+f(-x4(2))*w4(2)
-\end{verbatim}  
-\end{sol}
-\fi
+deff('y = f(u)', 'y = sqrt(1+(u+1)^2/4)/2')
 
+x3 = [0 -sqrt(3/5) sqrt(3/5)]
+w3 = [8/9 5/9 5/9]
+I3 = f(x3(1))*w3(1) + f(x3(2))*w3(2) + f(-x3(2))*w3(2)
+disp(I3)
+\end{verbatim}
+\fi  
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos computar estas aproximações com o seguinte código:
+\begin{verbatim}
+f = inline("sqrt(1+(u+1)^2/4)/2")
+
+x3 = [0 -sqrt(3/5) sqrt(3/5)];
+w3 = [8/9 5/9 5/9];
+I3 = f(x3(1))*w3(1) + f(x3(2))*w3(2) + f(-x3(2))*w3(2)
+printf("%1.7f\n", I3)
+\end{verbatim}
+\fi  
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+No \verb+GNU Octave+, podemos computar estas aproximações com o seguinte código:
+\begin{verbatim}
+def f(u):
+    return sqrt(1+(u+1)^2/4)/2
+
+x3 = [0 -sqrt(3/5) sqrt(3/5)]
+w3 = [8/9 5/9 5/9]
+I3 = f(x3(1))*w3(1) + f(x3(2))*w3(2) + f(-x3(2))*w3(2)
+print("%1.7f\n" % I3)
+\end{verbatim}
+\fi  
+%%%%%%%%%%%%%%%%%%%%
+\end{sol}
+
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \subsection{Código Scilab: Quadratura Gaussiana com $N$ intervalos}
 \begin{ex}
@@ -1225,39 +1441,27 @@ Aproxime a integral de $\sin(x)$ em $[0,1]$ utilizando $5$ intervalos iguais e e
 
 O código Scilab abaixo é uma implementação da quadratura Gaussiana com subdivisão de intervalos. Devemos definir a função $f(x)=\sin(x)$ e chamar a função \verb#gaussiana(0,1,5)#.
 
-\verbatiminput{./cap_integracao/codes/gauss_legendre/gaussiana3.sci}
+\verbatiminput{./cap_integracao/codes/scilab/gaussiana3.sci}
 \fi
-
-
-
-
-
-\begin{ex} Aproximar
-$$\int_{0}^1\sqrt{1+x^2}dx$$
-pelo método de Gauss-Legendre com $3,\ 4$ e $5$ pontos.
-\end{ex}
-\begin{sol}
-Para tanto, fazemos a mudança de variáveis $u=2x-1$:
-\begin{equation*}
-  \int_{0}^1\sqrt{1+x^2}dx=\frac{1}{2}\int_{-1}^1\sqrt{1+\left(\frac{u+1}{2}\right)^2}du
-\end{equation*}
-E, então aplicamos a quadratura gaussiana nesta última integral.
-\ifisscilab
-\begin{verbatim}
-deff('y=f(u)','y=sqrt(1+(u+1)^2/4)/2')
-I3=f(0)*w3(1)+f(x3(2))*w3(2)+f(-x3(2))*w3(2)
-I4=f(x4(1))*w4(1)+f(-x4(1))*w4(1)+f(x4(2))*w4(2)+f(-x4(2))*w4(2)
-I5=f(0)*w5(1)+f(x5(2))*w5(2)+f(-x5(2))*w5(2)+f(x5(3))*w5(3) ...
-  +f(-x5(3))*w5(3)
-\end{verbatim}
-\fi  
-\end{sol}
+%%%%%%%%%%%%%%%%%%%%
 
 \subsection*{Exercícios}
 
-\begin{exer}Encontre aproximações para a seguinte integral via Gauss-Legendre com $2,\ 3,\ 4,\ 5,\ 6$ e $7$ pontos e compare com o valor exato
-$$\int_{-1}^1 x^4e^{x^5}dx.$$
+\begin{exer}Encontre aproximações para a integral 
+$$\int_{-1}^1 x^4e^{x^5}dx$$
+usando a quadratura de Gauss-Legendre com 2, 3, 4 e 5 pontos. Então, compare com oseu valor exato.
 \end{exer}
+\begin{resp}
+  \begin{center}
+    \begin{tabular}{l|ccc}
+      n& G-L& Exato& Erro Absoluto\\hline
+      2& 0,2227 & \multirow{4}{*}{0,4701} & $2,47\E-01$\\
+      3& 0,4157 & & $5,44\E-02$\\
+      4& 0,4437 & & $2,64\E-02$\\
+      5& 0,4616 & & $8,47\E-03$
+    \end{tabular}
+  \end{center}
+\end{resp}
 
 \begin{exer} Encontre aproximações para as seguintes integrais via Gauss-Legendre com 4 e 5 pontos:
 \begin{itemize}
@@ -1267,33 +1471,33 @@ $$\int_{-1}^1 x^4e^{x^5}dx.$$
 \end{itemize}
 \end{exer}
 
-\begin{exer}Calcule numericamente o valor das seguintes integrais usando a quadratura de Gauss-Legendre para os seguintes valores de $n$:
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-n   & $\int_{0}^1e^{-4x^2}dx$ & $\int_{0}^1\frac{1}{1+x^2}dx$ & $\int_{0}^1x^4(1-x)^4dx$ & $\int_{0}^1e^{-\frac{1}{x^2+1}}dx$  \\
-\hline
-$2$ & ~\hspace{40pt}~& & ~\hspace{40pt}~& ~\hspace{40pt}~\\
-\hline
-$3$ && && \\
-\hline
-$4 $  & &      & & \\
-\hline
-$5 $  & &      & & \\
-\hline
-$8 $  & &   & &\\
-\hline
-$10$   & &  & &\\
-\hline
-$12$   & &  & &\\
-\hline
-$14$   & & & &\\
-\hline
-$16$   &0.4410407  &0.7853982 &0.0015873 & 0.4619172 \\
-\hline
-\end{tabular}
-\end{center}
-\end{exer}
+% \begin{exer}Calcule numericamente o valor das seguintes integrais usando a quadratura de Gauss-Legendre para os seguintes valores de $n$:
+% \begin{center}
+% \begin{tabular}{|c|c|c|c|c|}
+% \hline
+% n   & $\int_{0}^1e^{-4x^2}dx$ & $\int_{0}^1\frac{1}{1+x^2}dx$ & $\int_{0}^1x^4(1-x)^4dx$ & $\int_{0}^1e^{-\frac{1}{x^2+1}}dx$  \\
+% \hline
+% $2$ & ~\hspace{40pt}~& & ~\hspace{40pt}~& ~\hspace{40pt}~\\
+% \hline
+% $3$ && && \\
+% \hline
+% $4 $  & &      & & \\
+% \hline
+% $5 $  & &      & & \\
+% \hline
+% $8 $  & &   & &\\
+% \hline
+% $10$   & &  & &\\
+% \hline
+% $12$   & &  & &\\
+% \hline
+% $14$   & & & &\\
+% \hline
+% $16$   &0.4410407  &0.7853982 &0.0015873 & 0.4619172 \\
+% \hline
+% \end{tabular}
+% \end{center}
+% \end{exer}
 
 \section{Exercícios finais}
 

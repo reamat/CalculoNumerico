@@ -85,6 +85,26 @@ Alternativamente (e com maior precisão), podemos verificar diretamente o sinal 
 \fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+Podemos usar o \verb+GNU Octave+ para estudarmos esta função. Por exemplo, podemos definir a função $f(x)$ e computá-la nos extremos do intervalo dado com os seguintes comandos:
+\begin{verbatim}
+>> f = inline("exp(x)-x-2")
+f = f(x) = exp(x)-x-2
+>> f(-2),f(0)
+ans =  0.13534
+ans = -1
+\end{verbatim}
+Alternativamente (e com maior precisão), podemos verificar diretamente o sinal da função nos pontos desejados com comando \verb+sign+:
+\begin{verbatim}
+>> sign(f(-2)),sign(f(0))
+ans =  1
+ans = -1
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
@@ -127,6 +147,20 @@ Podemos inspecionar o comportamento da função $f(x)= e^x - x - 2$ e de sua der
 -->plot(x,f(x));xgrid               // grafico de f
 -->deff('y = fl(x)','y=exp(x)-1')   // a derivada
 -->plot(x,fl(x));xgrid              // grafico de f'
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+Podemos inspecionar o comportamento da função $f(x)= e^x - x - 2$ e de sua derivada fazendo seus gráficos no \verb+GNU Octave+. Para tanto, podemos fazer o seguinte teste:
+\begin{verbatim}
+>> xx = linspace(-2,0,50);
+>> f = inline("exp(x)-x-2")  #define f
+f = f(x) = exp(x)-x-2
+>> plot(xx,f(xx))grid on;hold on #grafico de f
+>> plot(xx,fl(xx)) #grafico de f'
 \end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%
@@ -268,13 +302,36 @@ Voltamos a verificar o critério de parada acima e, caso não satisfeito, iteram
 % scilab
 %%%%%%%%%%%%%%%%%%%%
 \ifisscilab
-Usando o \verb+Scilab+ neste exemplos, temos:
+Usando o \verb+Scilab+ neste exemplo, temos:
 \begin{verbatim}
 -->deff('y = f(x)','y = exp(x) - x - 2')
 -->a=-2, b=0, x=(a+b)/2, TOL = (b-a)/2, sign(f(a)*f(x))
 -->b=x, x=(a+b)/2, TOL = (b-a)/2, sign(f(a)*f(x))
 \end{verbatim}
   e, assim, sucessivamente. Veja o código completo na Seção~\ref{subsec:codigo_bissecao}.
+\fi    
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+Usando o \verb+GNU Octave+ neste exemplo, temos:
+\begin{verbatim}
+>> f = inline("exp(x) - x - 2")
+f = f(x) = exp(x) - x - 2
+>> a=-2, b=0, x=(a+b)/2, TOL = (b-a)/2, sign(f(a)*f(x))
+a = -2
+b = 0
+x = -1
+TOL =  1
+ans = -1
+>> b=x, x=(a+b)/2, TOL = (b-a)/2, sign(f(a)*f(x))
+b = -1
+x = -1.5000
+TOL =  0.50000
+ans = -1
+\end{verbatim}
+e, assim, sucessivamente. Veja o código completo na Seção~\ref{subsec:codigo_bissecao}.
 \fi    
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
@@ -369,6 +426,28 @@ A variável de saída é:
 \end{itemize}
 
 \verbatiminput{./cap_equacao1d/codes/scilab/metodo_da_bissecao/bissecao.sci}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\subsection{Código GNU Octave: método da bisseção}\label{subsec:codigo_bissecao}
+
+O seguinte código é uma implementação no \verb+GNU Octave+ do algoritmo da bisseção. As variáveis de entrada são:
+\begin{itemize}
+\item \verb+f+ - função objetivo
+\item \verb+a+ - extremo esquerdo do intervalo de inspeção $[a, b]$
+\item \verb+b+ - extremo direito do intervalo de inspeção $[a, b]$
+\item \verb+TOL+ - tolerância (critério de parada)
+\item \verb+N+ - número máximo de iterações
+\end{itemize}
+A variável de saída é:
+\begin{itemize}
+\item \verb+p+ - aproximação da raiz de \verb+f+, i.e. $f(p) \approx 0$.
+\end{itemize}
+
+\verbatiminput{./cap_equacao1d/codes/octave/metodo_da_bissecao/bissecao.m}
 \fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
@@ -1265,12 +1344,17 @@ onde $m := \min |f'(x)|$ e $M := \max |f''(x)|$ com o mínimo e o máximo tomado
 \end{sol}
 
 \subsection*{Exercícios}
+
 \begin{exer}\label{1d:cosx2}
 Encontre a raiz positiva da função $f(x)=\cos(x)-x^2$ pelo método de Newton inicializando-o com $x^{(0)}=1$. Realize a iteração até obter estabilidade no $quinto$ dígito siginificativo.
 \end{exer}
 \begin{resp}
- raiz:0,82413, processo iterativo: $x^{(n+1)}= x^{(n)}+ \frac{\cos(x)-x^2}{\sin(x)+2x}$
- \ifisscilab
+  raiz:0,82413, processo iterativo: $x^{(n+1)}= x^{(n)}+ \frac{\cos(x)-x^2}{\sin(x)+2x}$
+  
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%
+\ifisscilab
 \begin{verbatim}
 -->x=1
 -->x=x+(cos(x)-x^2)/(sin(x)+2*x)
@@ -1279,24 +1363,39 @@ Encontre a raiz positiva da função $f(x)=\cos(x)-x^2$ pelo método de Newton i
 -->x=x+(cos(x)-x^2)/(sin(x)+2*x)
 \end{verbatim}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\begin{verbatim}
+>> x=1
+>> x=x+(cos(x)-x^2)/(sin(x)+2*x)
+>> x=x+(cos(x)-x^2)/(sin(x)+2*x)
+>> x=x+(cos(x)-x^2)/(sin(x)+2*x)
+>> x=x+(cos(x)-x^2)/(sin(x)+2*x)
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{resp}
-
 
 \begin{exer} Considere o problema de calcular as soluções positivas da equação:
   \begin{equation*}
     \tg(x)=2x^2.    
   \end{equation*}
 \begin{itemize}
-\item[a)] Use o método gráfico para isolar as duas primeiras raízes positivas em pequenos intervalos. Use a teoria estudada em aula para argumentar quanto à existência e unicidade das raízes dentro intervalos escolhidos.
-\item[b)] Calcule o número de iterações necessárias para que o método da bisseção aproxime cada uma das raízes com erro absoluto inferior a $10^{-8}$. Calcule as raízes por este método usando este número de passos.
-\item[c)]  Calcule cada uma das raízes pelo método de Newton com oito dígitos significativos e discuta a convergência comparando com o item b).
+\item[a)] Use o método gráfico para isolar as duas primeiras raízes positivas em pequenos intervalos. Use a teoria para argumentar quanto à existência e unicidade das raízes dentro intervalos escolhidos.
+% \item[b)] Calcule o número de iterações necessárias para que o método da bisseção aproxime cada uma das raízes com erro absoluto inferior a $10^{-8}$. Calcule as raízes por este método usando este número de passos.
+\item[b)]  Calcule cada uma das raízes pelo método de Newton com oito dígitos significativos e discuta a convergência comparando com o item b).
 \end{itemize}
-{\bf Obs:} Alguns alunos encontraram como solução $x_1\approx 1,5707963$ e $x_2 \approx 4,7123890$. O que eles fizeram de errado?
+%{\bf Obs:} Alguns alunos encontraram como solução $x_1\approx 1,5707963$ e $x_2 \approx 4,7123890$. O que eles fizeram de errado?
 \end{exer}
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \begin{resp}
-  
-    \begin{itemize}
+  \begin{itemize}
 \item[a)]Primeiramente, deve-se observar que a função $\tg(x)$ não está definida quando $x$ é um múltiplo ímpar de $\frac{\pi}{2}$, pelo que devemos cuidado nas singularidades. Traçamos o gráfico da função $f(x)=\tg(x)-2x^2$ no \verb+Scilab+ usando os seguintes comandos:
 \begin{verbatim}
 -->deff('y=f(x)','y=tan(x)-2*x^2')
@@ -1315,22 +1414,22 @@ f'(x)=\sec^2(x)-4x=\frac{1}{\cos^2(x)}-4x\leq \frac{1}{\cos^2(0,6)}-4*0,5<0, ~~x
 f'(x)=\sec^2(x)-4x=\frac{1}{\cos^2(x)}-4x\geq \frac{1}{\cos^2(1,2)}-4*1,3>0, ~~x\in[ 1,2, 1,3]\\
 \end{eqnarray*} 
 
-\item[b)] 
-Já isolamos as raízes em intervalos de comprimento $10^{-1}$ e a precisão requerida exige que as isolemos em intervalos de comprimento $2\times 10^{-8}$. Como cada passo da bisseção, confina a raiz em um intervalo com comprimento igual à metade do comprimento do intervalo anterior, temos a seguinte condição para o número de passos $N_p$:
-$$\frac{10^{-1}}{2^N_p}\leq 2\times 10^{-8}$$
-isso é equivalente a
-$$N_p\geq \log_2 \frac{10^{-1}}{2\times 10^{-8}}=\log_2 \frac{10^{7}}{2}=7\log_2 10 -1=\frac{7}{\log_10 2}-1\approx 22.22$$
-Como $N_p$ é inteiro, o menor $N_p$ que satisfaz a condição é $23$.
+% \item[b)] 
+% Já isolamos as raízes em intervalos de comprimento $10^{-1}$ e a precisão requerida exige que as isolemos em intervalos de comprimento $2\times 10^{-8}$. Como cada passo da bisseção, confina a raiz em um intervalo com comprimento igual à metade do comprimento do intervalo anterior, temos a seguinte condição para o número de passos $N_p$:
+% $$\frac{10^{-1}}{2^N_p}\leq 2\times 10^{-8}$$
+% isso é equivalente a
+% $$N_p\geq \log_2 \frac{10^{-1}}{2\times 10^{-8}}=\log_2 \frac{10^{7}}{2}=7\log_2 10 -1=\frac{7}{\log_10 2}-1\approx 22.22$$
+% Como $N_p$ é inteiro, o menor $N_p$ que satisfaz a condição é $23$.
 
-As raízes obtidas são $0.55970415$ e $1.2703426$. 
+% As raízes obtidas são $0.55970415$ e $1.2703426$. 
 
-\item[c)] Para recalcular as raízes pelo método de Newton, basta executar a interação
+\item[b)] Para recalcular as raízes pelo método de Newton, basta executar a interação
 $$x^{(n+1)}=x^{(n)}-\frac{f(x^{(n)})}{f'(x^{(n)}}$$    
 \end{itemize}
 Em relação à observação, o erro se deveu à falta de cuidado em compreender o problema antes de tentar resolvê-lo, em especial, à falta de observar que a função é descontínua em  múltiplos ímpares de $\frac{\pi}{2}$. Nestes pontos, a função $f(x)$ troca de sinal, mas não passa por zero.    
-  
 \end{resp}
 \fi
+%%%%%%%%%%%%%%%%%%%%
 
 
 \begin{exer}\label{new1} Considere a equação
@@ -1338,9 +1437,9 @@ Em relação à observação, o erro se deveu à falta de cuidado em compreender
 trace o gráfico com auxílio do computador e verifique que ela possui uma raiz positiva. Encontre uma aproximação para esta razão pelo gráfico e use este valor para inicializar o método de Newton e obtenha uma aproximação para a raiz com 8 dígitos significativos. \ifisscilab (Use o comando \verb+format('v',16)+ para alterar a visualização no \verb+Scilab+.)\fi
 \end{exer}
 \begin{resp}
-  0,65291864    
-  \end{resp}
-
+0,65291864    
+\end{resp}
+\fi
 
 \begin{exer}\label{new2} Isole e encontre as cinco primeiras raízes positivas da equação com 6 dígitos corretos através de traçado de gráfico e do método de Newton.
 $$\cos(10x)=e^{-x}.$$ Dica: a primeira raiz positiva está no intervalo $(0, 0,02)$. Fique atento.
