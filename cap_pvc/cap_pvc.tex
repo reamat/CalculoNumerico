@@ -41,7 +41,7 @@ A resolução de um tal problema pelo método de elementos finitos consiste em q
   \label{fig:malha_uniforme}
 \end{figure}
 
-{\bf 1. Construção da malha.} A malha consiste em uma representação discreta do domínio $[a, b]$. Como veremos, sua construção tem impacto direto nas próximas etapas do método. Aqui, vamos construir a malha mais simples possível, aquela que consiste de $N$ pontos igualmente espaçados, i.e. a chamada \emph{malha uniforme}\index{malha uniforme}.
+{\bf 1. Construção da malha.} A malha consiste em uma representação discreta do domínio $[a, b]$. Como veremos, sua construção tem impacto direto nas próximas etapas do método. Aqui, vamos construir a malha mais simples possível, aquela que consiste de $N$ pontos igualmente espaçados, isto é, a chamada \emph{malha uniforme}\index{malha uniforme}.
 
 Para tanto, seja $N\in\mathbb{N}$ dado e, então, tomamos o seguinte conjunto discreto $\mathcal{P}_N = \{x_1, x_2, \dotsc, x_N\}$ (a malha), onde
 \begin{equation*}
@@ -51,7 +51,7 @@ com
 \begin{equation*}
   h:=\frac{b-a}{N-1},
 \end{equation*}
-o qual é chamado de \emph{tamanho (ou passo) da malha}\index{tamanho da malha}\index{passo da malha} (veja a Figura~\ref{fig:malha_uniforme}).
+o qual é chamado de \emph{tamanho (ou passo) da malha}\index{tamanho da malha}\index{passo da malha} (veja a figura~\ref{fig:malha_uniforme}).
 
 {\bf 2. Construção do problema discreto.}\index{problema discreto} A segunda etapa consiste na discretização das equações, no nosso caso, das equações \eqref{eq:pvc1-eq}-\eqref{eq:pvc1-bc2}. 
 
@@ -91,11 +91,11 @@ Por fim, as equações \eqref{eq:pvc1-disc-bc2}, \eqref{eq:pvc1-disc-eq} e \eqre
 \end{eqnarray}
 Este é um sistema de equações de $N$ incógnitas e $N$ equações.
 
-{\bf 3. Resolução do sistema discreto.} Esta etapa consiste em se resolver o sistema discreto construído na etapa anterior. 
+{\bf 3. Resolução do sistema discreto.} Esta etapa consiste em resolver o sistema discreto construído na etapa anterior. 
 
 Para o PVC \eqref{eq:pvc1-eq}-\eqref{eq:pvc1-bc2}, construímos o problema discreto \eqref{eq:pvc1-disc-eq1}-\eqref{eq:pvc1-disc-eqN}. Este é um problema de $N$ equações e $N$ incógnitas. Observamos que se $f(x, u)$ é uma função linear, o sistema será linear e podemos resolver o sistema usando de técnicas numéricas para sistema lineares. Agora, se $f(x, u)$ é uma função não linear, podemos usar, por exemplo, do método de Newton para sistemas.
 
-{\bf 4. Visualização e interpretação dos resultados.} A solução do problema discreto consiste dos valores $u_i$, i.e. de aproximações dos valores de $u$ nos pontos da malha. Para visualizarmos a solução podemos, por exemplo, construir o gráfico do conjunto de pontos $\{(x_i, u_i)\}$. Ainda, para obtermos aproximações da solução em outros pontos que não fazem parte da malha, podemos usar de técnicas de interpolação e/ou ajuste.
+{\bf 4. Visualização e interpretação dos resultados.} A solução do problema discreto consiste dos valores $u_i$, isto é, de aproximações dos valores de $u$ nos pontos da malha. Para visualizarmos a solução podemos, por exemplo, construir o gráfico do conjunto de pontos $\{(x_i, u_i)\}$. Ainda, para obtermos aproximações da solução em outros pontos que não fazem parte da malha, podemos usar de técnicas de interpolação e/ou ajuste.
 
 \begin{ex}\label{ex:pvc2}
   Use o método de diferenças finitas para resolver o seguinte problema de valor de contorno com condições de Dirichlet homogêneas:
@@ -104,11 +104,11 @@ Para o PVC \eqref{eq:pvc1-eq}-\eqref{eq:pvc1-bc2}, construímos o problema discr
     u(0) &=& 0,\label{eq:pvc2-bc1}\\
     u(1) &=& 0.\label{eq:pvc2-bc2}
   \end{eqnarray}
-Use a fórmula de diferenças finitas central de ordem 2 para discretizar a derivada em uma malha uniforme de 11 pontos. Calcule, também, a solução analítica deste problema, faça um esboço das soluções numérica e analítica, e compute o erro absoluto médio definido por
+Use a fórmula de diferenças finitas central de ordem 2 para discretizar a derivada em uma malha uniforme de 11 pontos. Calcule, também, a solução analítica deste problema, faça um esboço das soluções numérica e analítica e compute o erro absoluto médio definido por
 \begin{equation*}
   E := \frac{1}{N}\sum_{i=1}^N |u(x_i) - u_i|,
 \end{equation*}
-onde $x_i$ é o $i$-ésimo ponto da malha, $i=1, 2, \dotsc, N$, e $N$ é o número de pontos na mesma. Por fim, repita seus cálculos para uma malha com $101$ pontos. O que ocorre com o erro absoluto médio?
+onde $x_i$ é o $i$-ésimo ponto da malha, $i=1, 2, \dotsc, N$ e $N$ é o número de pontos na mesma. Por fim, repita seus cálculos para uma malha com $101$ pontos. O que ocorre com o erro absoluto médio?
 \end{ex}
 \begin{sol} Vamos seguir as etapas conforme acima.
 
@@ -265,11 +265,11 @@ u = np.linalg.solve(A,b)
 \begin{figure}
   \centering
   \includegraphics{./cap_pvc/pics/ex_pvc2/ex_pvc2}
-  \caption{Esboço dos gráficos das soluções analítica (linha) e numérica (pontos) do PVC dado no Exemplo~\ref{ex:pvc2}.}
+  \caption{Esboço dos gráficos das soluções analítica (linha) e numérica (pontos) do PVC dado no exemplo~\ref{ex:pvc2}.}
   \label{fig:ex_pvc2}
 \end{figure}
 
-{\bf 4. Visualização e interpretação dos resultados.} Tendo resolvido o problema discreto $A\underline{u} = b$, obtemos os valores da solução numérico de $u$ nos pontos da malha, i.e. obtivemos o conjunto de pontos $\{(x_i, u_i)\}_{i=1}^N$. Neste exemplo, queremos comparar a solução numérica com a solução analítica.
+{\bf 4. Visualização e interpretação dos resultados.} Tendo resolvido o problema discreto $A\underline{u} = b$, obtemos os valores da solução numérico de $u$ nos pontos da malha, isto é, obtivemos o conjunto de pontos $\{(x_i, u_i)\}_{i=1}^N$. Neste exemplo, queremos comparar a solução numérica com a solução analítica.
 
 A solução analítica pode ser obtida por integração. Temos:
 \begin{equation*}
@@ -278,7 +278,7 @@ A solução analítica pode ser obtida por integração. Temos:
     \Rightarrow -u + c_2x + c_1 = 100\frac{(x-1)^4}{12},
   \end{split}
 \end{equation*}
-ou seja, $\displaystyle u(x) = - \frac{(x-1)^4}{12} + c_2x + c_1$. As constantes são determinadas pelas condições de contorno dadas pelas equações~\eqref{eq:pvc2-bc1} e \eqref{eq:pvc2-bc2}, i.e.:
+ou seja, $\displaystyle u(x) = - \frac{(x-1)^4}{12} + c_2x + c_1$. As constantes são determinadas pelas condições de contorno dadas pelas equações~\eqref{eq:pvc2-bc1} e \eqref{eq:pvc2-bc2}, isto é:
 \begin{equation*}
   \begin{split}
     u(0) = 0 &\Rightarrow c_1 = \frac{100}{12},\\
@@ -290,7 +290,7 @@ Portanto, a solução analítica é:
   u(x) = -100\frac{(x-1)^4}{12} - 100\frac{x}{12} + \frac{100}{12}
 \end{equation}
 
-A Figura~\ref{fig:ex_pvc2} mostra o esboço dos gráficos das soluções analítica \eqref{eq:pvc2_analitica} e a da solução numérica \eqref{eq:pvc2_numerica}.
+A figura~\ref{fig:ex_pvc2} mostra o esboço dos gráficos das soluções analítica \eqref{eq:pvc2_analitica} e a da solução numérica \eqref{eq:pvc2_numerica}.
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
@@ -333,7 +333,7 @@ plt.show()
 
 \begin{table}
   \centering
-  \caption{Erro absoluto médio das soluções numéricas com $N=11$ e $N=101$ do PVC dado no Exemplo~\ref{ex:pvc2}.}
+  \caption{Erro absoluto médio das soluções numéricas com $N=11$ e $N=101$ do PVC dado no exemplo~\ref{ex:pvc2}.}
   \begin{tabular}{ll|c}
     $N$ & $h$ & $E$\\\hline
     11 & 0,1 & $1,3\times 10^{-2}$\\
@@ -342,7 +342,7 @@ plt.show()
   \label{tab:pvc2_erro}
 \end{table}
 
-Por fim, computamos o erro absoluto médio das soluções numéricas com $N=11$ e $N=101$. A Tabela~\ref{tab:pvc2_erro} mostra os resultados obtidos. Observamos, que ao diminuirmos $10$ vezes o tamanho da malha $h$, o erro absoluto médio diminui aproximadamente $100$ vezes. Este resultado é esperado, pois o problema discreto \eqref{eq:pvc2_disc_bc1}-\eqref{eq:pvc2_disc_bc2} aproxima o problema contínuo \eqref{eq:pvc2-eq}-\eqref{eq:pvc2-bc2} com erro de truncamento de ordem $h^2$. Verifique!
+Por fim, computamos o erro absoluto médio das soluções numéricas com $N=11$ e $N=101$. A tabela~\ref{tab:pvc2_erro} mostra os resultados obtidos. Observamos, que ao diminuirmos $10$ vezes o tamanho da malha $h$, o erro absoluto médio diminui aproximadamente $100$ vezes. Este resultado é esperado, pois o problema discreto \eqref{eq:pvc2_disc_bc1}-\eqref{eq:pvc2_disc_bc2} aproxima o problema contínuo \eqref{eq:pvc2-eq}-\eqref{eq:pvc2-bc2} com erro de truncamento de ordem $h^2$. Verifique!
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
@@ -425,7 +425,7 @@ para $i= 2, 3, \dotsc, N-1$. Rearranjando os termos e aplicando as condições d
   \label{fig:exeresol_pvc_linear}
 \end{figure}
 
-O problema discreto obtido é um sistema linear $N\times N$. Resolvendo este sistema, obtemos a solução discreta apresentada na Tabela~\ref{tab:exeresol_pvc_linear}. A Figura~\ref{fig:exeresol_pvc_linear} mostra um esboço do gráfico da solução computada.
+O problema discreto obtido é um sistema linear $N\times N$. Resolvendo este sistema, obtemos a solução discreta apresentada na tabela~\ref{tab:exeresol_pvc_linear}. A figura~\ref{fig:exeresol_pvc_linear} mostra um esboço do gráfico da solução computada.
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
