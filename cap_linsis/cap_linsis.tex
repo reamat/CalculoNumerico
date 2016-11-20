@@ -279,7 +279,7 @@ e
 $$x=\frac{4-2y}{\varepsilon}$$ %3-2\varepsilon+{\frac {3}{2}}{\varepsilon}^{2}-{\varepsilon}^{3}+{\frac {3}{4}}{\varepsilon}^{4}+O(\varepsilon^5)$$
 
 Observe que a expressão obtida para  $y$ se aproximada de $2$ quando $\varepsilon$ é pequeno:
-$$y=\frac{3-4/\varepsilon}{\varepsilon-2/\varepsilon}=\frac{3\varepsilon-4}{\varepsilon^2-2} \longrightarrow \frac{-4}{-2}=2, ~~\hbox{quando}~\varepsilon \to 0.$$
+$$y=\frac{3-4/\varepsilon}{\varepsilon-2/\varepsilon}=\frac{3\varepsilon-4}{\varepsilon^2-2} \longrightarrow \frac{-4}{-2}=2, ~~\text{quando}~\varepsilon \to 0.$$
 Já expressão obtida para $x$ depende justamente da diferença $2-y$:
 $$x=\frac{4-2y}{\varepsilon}=\frac{2}{\varepsilon} (2-y)$$
 
@@ -454,12 +454,12 @@ Somando as três equações temos
 $$(1+3\varepsilon)(x_1+x_2+x_3)=9\Longrightarrow x_1+x_2+x_3=\frac{9}{1+3\varepsilon}$$
 Subtraímos $\varepsilon(x_1+x_2+x_3)$ da cada equação do sistema original e temos:
 $$\begin{array}{l}
-x_3=2-\frac{9\varepsilon}{1+3\varepsilon}\\[.4cm]
-x_2=3-\frac{9\varepsilon}{1+3\varepsilon}\\[.4cm]
+x_3=2-\frac{9\varepsilon}{1+3\varepsilon}\\
+x_2=3-\frac{9\varepsilon}{1+3\varepsilon}\\
 x_1=4-\frac{9\varepsilon}{1+3\varepsilon}
 \end{array}
 $$
-Assim temos:
+Assim, temos:
 $$x_{\varepsilon}=\left[4 ~~3 ~~2\right]^T-\frac{9\varepsilon}{1+3\varepsilon}\left[1 ~~1 ~~1\right]^T$$
 \end{itemize}
       
@@ -725,20 +725,20 @@ e utilizando que a soma dos $k$ inteiros é uma progressão aritmética\footnote
 
 
 \section{Fatoração LU}
-Considere um sistema linear onde a matriz $A$ é densa\footnote{Diferentemente de uma matriz esparsa, uma matriz densa possui a maioria dos elementos diferentes de zero.}. Para resolver o sistema, podemos transformar a matriz $A$ nas matrizes $L$, triangular inferior, e $U$, triangular superior de tal forma que $A=LU$.
+Considere um sistema linear onde a matriz $A$ é densa\footnote{Diferentemente de uma matriz esparsa, uma matriz densa possui a maioria dos elementos diferentes de zero.}. A fim de resolver o sistema, podemos fatorar a matriz $A$ como o produto da matriz $L$, triangular inferior e da matriz $U$, triangular superior, ou seja, $A=LU$.
 
-Sendo assim o sistema pode ser reescrito tal que
+Sendo assim, o sistema pode ser reescrito tal que
 \begin{eqnarray*}
   Ax &=&b \\
   (LU)x &=&b \\
   L(Ux) &=&b \\
   L y = b \quad & \text{ e }& \quad Ux=y
 \end{eqnarray*}
-Assim ao invés de resolvermos o sistema original, devemos resolver um sistema triangular inferior e um sistema triangular superior.
+Isto significa que, ao invés de resolvermos o sistema original, podemos resolver um sistema triangular inferior e um sistema triangular superior.
 
 A matriz $U$ da fatoração\footnote{Não vamos usar pivotamento nesse primeiro exemplo.} $LU$ é a matriz obtida ao final do escalonamento da matriz $A$.
 
-A matriz $L$ inicia igual a identidade $I$. Os elementos da matriz $L$ são os múltiplos do primeiro elemento da linha de $A$ \underline{a ser zerado} dividido pelo pivô acima na mesma coluna.
+A matriz $L$ é contruída  a partir da matriz identidade $I$, ao longo do escalomento de A. Os elementos da matriz $L$ são os múltiplos do primeiro elemento da linha de $A$ \underline{a ser zerado} dividido pelo pivô acima na mesma coluna.
 
 Por exemplo, para zerar o primeiro elemento da segunda linha de $A$, calculamos
 $$L_{21}=A_{21}/A_{11}$$
@@ -899,31 +899,31 @@ Precisamos uma maneira de medir essas variações. Como os dados de entrada e os
 
 Definimos a \emph{norma $L^p$}\index{norma!$L^p$}, $1 \leq p \leq \infty$, de um vetor em $v = (v_1, v_2, \ldots, v_n)\in \mathbb{R}^n$ por:
 \begin{equation*}
-  \|v\|_p := \left(\sum_{i=1}^n |v_i|^p\right)^{1/p} = \left(|v_1|^p+|v_2|^p+ \cdots + |v_n|^p\right)^{1/p},\quad 1\leq p < \infty.
+  \left\|v\right\|_p := \left(\sum_{i=1}^n \left |v_i\right |^p\right)^{1/p} = \left(\left |v_1\right |^p+\left |v_2\right |^p+ \cdots +\left |v_n\right |^p\right)^{1/p},\quad 1\leq p < \infty.
 \end{equation*}
 Para $p=\infty$, definimos a norma $L^{\infty}$\index{norma!$L^\infty$} (\emph{norma do máximo}) por:
 \begin{equation*}
-  \|v\|_\infty = \max_{1\leq j\leq n} \{|v_j|\}.
+  \left\|v\right\|_\infty = \max_{1\leq j\leq n} \{\left |v_j\right |\}.
 \end{equation*}
 
 \begin{prop}[Propriedades de normas]
   Sejam dados $\alpha\in\mathbb{R}$ um escalar e os vetores $u,v\in\mathbb{R}^n$. Então, para cada $1\leq p \leq \infty$, valem as seguintes propriedades:
   \begin{itemize}
-  \item[a)] $\|u\|_p = 0 \Leftrightarrow u = 0$.
-  \item[b)] $\|\alpha u\|_p = |\alpha|\|u\|_p$.
-  \item[c)] $\|u + v\|_p \leq \|u\|_p + \|v\|_p$ (\emph{desigualdade triangular}).
-  \item[d)] $\|u\|_p\to\|u\|_\infty$ quando $p\to\infty$.
+  \item[a)] $\left\|u\right\|_p = 0 \Leftrightarrow u = 0$.
+  \item[b)] $\left\|\alpha u\right\|_p = |\alpha|\left\|u\right\|_p$.
+  \item[c)] $\left\|u + v\right\|_p \leq \left\|u\right\|_p + \left\|v\right\|_p$ (\emph{desigualdade triangular}).
+  \item[d)] $\left\|u\right\|_p\to\left\|u\right\|_\infty$ quando $p\to\infty$.
   \end{itemize}
 \end{prop}
 \begin{proof} Demonstramos cada item em separado.
   \begin{itemize}
-  \item[a)] Se $u = 0$, então segue imediatamente da definição da norma $L^p$, $1\leq p \leq \infty$, que $\|u\|_p = 0$. Reciprocamente, se  $\|u\|_\infty = 0$, então, para cada $i=1, 2, \ldots, n$, temos:
+  \item[a)] Se $u = 0$, então segue imediatamente da definição da norma $L^p$, $1\leq p \leq \infty$, que $\left\|u\right\|_p = 0$. Reciprocamente, se  $\left\|u\right\|_\infty = 0$, então, para cada $i=1, 2, \ldots, n$, temos:
     \begin{equation*}
-      |u_i| \leq \max_{1\leq j \leq n}\{|u_j|\} = \|u\|_{\infty} = 0\Rightarrow u_i = 0.
+      \left|u_i\right| \leq \max_{1\leq j \leq n}\{|u_j|\} = \left\|u\right\|_{\infty} = 0\Rightarrow u_i = 0.
     \end{equation*}
-Isto é, $u = 0$. Agora, se $\|u\|_p = 0$, $1\leq p < \infty$, então:
+Isto é, $u = 0$. Agora, se $\left\|u\right\|_p = 0$, $1\leq p < \infty$, então:
 \begin{equation*}
-  0 = \|u\|_p^p := \sum_{i=1}^n |u_i|^p \leq n\|u\|_\infty \Rightarrow  \|u\|_\infty = 0.
+  0 = \left\|u\right\|_p^p := \sum_{i=1}^n \left|u_i\right|^p \leq n\left\|u\right\|_\infty \Rightarrow  \left\|u\right\|_\infty = 0.
 \end{equation*}
 Logo, pelo resultado para a norma do máximo, concluímos que $u=0$.
 \item[b)] Segue imediatamente da definição da norma $L^p$, $1\leq p \leq \infty$. 
@@ -937,9 +937,9 @@ Logo, pelo resultado para a norma do máximo, concluímos que $u=0$.
 \end{ex}
 \begin{sol}
   \begin{eqnarray*}
-    \|v\|_1 &=& 1+2+3+0=6\\
-    \|v\|_2 &=& \sqrt{1+2^2+3^2+0^2}=\sqrt{14}\\
-    \|v\|_\infty &=& \max\{1,2,3,0\}=3
+    \left\|v\right\|_1 &=& 1+2+3+0=6\\
+    \left\|v\right\|_2 &=& \sqrt{1+2^2+3^2+0^2}=\sqrt{14}\\
+    \left\|v\right\|_\infty &=& \max\{1,2,3,0\}=3
   \end{eqnarray*}
 \ifisscilab
 No \verb+Scilab+ podemos computar normas $L^p$'s de vetores usando o comando \verb+norm+. Neste exemplo, temos:
@@ -960,26 +960,26 @@ No \verb+Scilab+ podemos computar normas $L^p$'s de vetores usando o comando \ve
 
 Definimos a norma induzida $L^p$ de uma matriz $A = [a_{i,j}]_{i,j=1}^{n,n}$ da seguinte forma:
 \begin{equation*}
-  \|A\|_p = \sup_{\|v\|_p=1} \|Av\|_p,
+  \left\|A\right\|_p = \sup_{\left\|v\right\|_p=1} \|Av\|_p,
 \end{equation*}
 ou seja, a norma $p$ de uma matriz é o máximo valor assumido pela norma de $Av$ entre todos os vetores de norma unitária.
 
 Temos as seguintes propriedades, se $A$ e $B$ são matrizes, $I$ é a matriz identidade, $v$ é um vetor e $\lambda$ é um real (ou complexo):
 \begin{eqnarray*}
-\|A\|_p&=&0 \Longleftrightarrow A=0\\
-\|\lambda A\|_p&=&|\lambda| \|A\|_p\\
-\|A+B\|_p &\leq & \|A\|_p + \|B\|_p~~~~ (\hbox{desigualdade do triângulo})\\
-\|Av\|_p &\leq& \|A\|_p\|v\|_p\\
-\|AB\|_p &\leq& \|A\|_p\|B\|_p\\
+\left\|A\right\|_p&=&0 \Longleftrightarrow A=0\\
+\|\lambda A\|_p&=&|\lambda| \left\|A\right\|_p\\
+\|A+B\|_p &\leq & \left\|A\right\|_p + \|B\|_p~~~~ (\text{desigualdade do triângulo})\\
+\|Av\|_p &\leq& \left\|A\right\|_p\left\|v\right\|_p\\
+\|AB\|_p &\leq& \left\|A\right\|_p\|B\|_p\\
 \|I\|_p&=&1\\
-1&=&\|I\|_p=\|AA^{-1}\|_p\leq \|A\|_p\|A^{-1}\|_p~~~~ \hbox{(se A é inversível)}
+1&=&\|I\|_p=\|AA^{-1}\|_p\leq \left\|A\right\|_p\|A^{-1}\|_p~~~~ \text{(se A é inversível)}
 \end{eqnarray*}
 
 Casos especiais:
 \begin{eqnarray*}
-\|A\|_1&=& \max_{j=1}^n\sum_{i=1}^n |A_{ij}|\\
-\|A\|_2&=& \sqrt{\max\{|\lambda|: \lambda \in \sigma(AA^*)\}}\\
-\|A\|_\infty&=& \max_{i=1}^n\sum_{j=1}^n |A_{ij}|
+\left\|A\right\|_1&=& \max_{j=1}^n\sum_{i=1}^n \left|A_{ij}\right|\\
+\left\|A\right\|_2&=& \sqrt{\max\{|\lambda|: \lambda \in \sigma(AA^*)\}}\\
+\left\|A\right\|_\infty&=& \max_{i=1}^n\sum_{j=1}^n \left|A_{ij}\right|
 \end{eqnarray*}
 onde $\sigma(M)$ é o conjunto de autovalores da matriz $M$.
 
@@ -990,16 +990,16 @@ Calcule as normas $1$, $2$ e $\infty$ da seguinte matriz:
 \begin{array}{ccc}
 3 & -5 & 7\\
 1 & -2 & 4\\
--8 & 1 & -7\\
+-8 & 1 & -7
 \end{array}
 \right]
 \end{equation*}
 \end{ex}
 \begin{sol}
   \begin{eqnarray*}
-    \|A\|_1 &=& \max\{12, 8, 18\}=18\\
-    \|A\|_\infty &=& \max\{15, 7, 16\}=16\\
-    \|A\|_2 &=& \sqrt{\max\{0,5865124, 21,789128, 195,62436\}}= 13,98657
+    \left\|A\right\|_1 &=& \max\{12, 8, 18\}=18\\
+    \left\|A\right\|_\infty &=& \max\{15, 7, 16\}=16\\
+    \left\|A\right\|_2 &=& \sqrt{\max\{0,5865124, 21,789128, 195,62436\}}= 13,98657
   \end{eqnarray*}
 
 %%%%%%%%%%%%%%%%%%%%
@@ -1048,16 +1048,16 @@ Aqui $\delta_x$ representa a variação em $x$ e $\delta_y$ representa a respect
 $$Ax+A\delta_x=y+\delta_y$$ e, portanto,
 $$A\delta_x=\delta_y.$$
 
-Queremos avaliar a magnitude do erro relativo em y, representado por $\|\delta_y\|/\|y\|$ em função da magnitude do erro relativo $\|\delta_x\|/\|x\|$.
+Queremos avaliar a magnitude do erro relativo em y, representado por $\left\|\delta_y\right\|/\|y\|$ em função da magnitude do erro relativo $\left\|\delta_x\right\|/\left\|x\right\|$.
 \begin{eqnarray*}
-\frac{\|\delta_x\|/\|x\|}{\|\delta_y\|/\|y\|} &=& \frac{\|\delta_x\|}{\|x\|}\frac{\|y\|}{\|\delta_y\|}\\ 
-&=& \frac{\|A^{-1}\delta_y\|}{\|x\|}\frac{\|Ax\|}{\|\delta_y\|} \\
-&\leq& \frac{\|A^{-1}\|\|\delta_y\|}{\|x\|}\frac{\|A\|\|x\|}{\|\delta_y\|}\\
-&=& \|A\|\|A^{-1}\|  
+\frac{\left\|\delta_x\right\|/\left\|x\right\|}{\left\|\delta_y\right\|/\|y\|} &=& \frac{\left\|\delta_x\right\|}{\left\|x\right\|}\frac{\|y\|}{\left\|\delta_y\right\|}\\ 
+&=& \frac{\|A^{-1}\delta_y\|}{\left\|x\right\|}\frac{\|Ax\|}{\left\|\delta_y\right\|} \\
+&\leq& \frac{\|A^{-1}\|\left\|\delta_y\right\|}{\left\|x\right\|}\frac{\left\|A\right\|\left\|x\right\|}{\left\|\delta_y\right\|}\\
+&=& \left\|A\right\|\|A^{-1}\|  
 \end{eqnarray*}
 
 Assim, definimos o número de condicionamento de uma matriz inversível $A$ como
-$$k_p(A)=\|A\|_p \|A^{-1}\|_p$$
+$$k_p(A)=\left\|A\right\|_p \|A^{-1}\|_p$$
 
 O número de condicionamento, então, mede o quão instável é resolver o problema $Ax=y$ frente a erros no vetor de entrada $x$.
 
@@ -1088,7 +1088,7 @@ $$A=\left[
 \begin{array}{ccc}
 3 & -5 & 7\\
 1 & -2 & 4\\
--8 & 1 & -7\\
+-8 & 1 & -7
 \end{array}
 \right]$$
 nas normas $1$, $2$ e $\infty$.
@@ -1140,7 +1140,7 @@ $$
 \begin{array}{rclcl}
 100000 x  &-& 9999.99 y  &=&-10\\
 -9999.99 x &+&  1000.1 y &=&1
-\end{array}\right. ~~~~\hbox{e}~~~~
+\end{array}\right. ~~~~\text{e}~~~~
 \left\{
 \begin{array}{rclcl}
 100000 x  &-& 9999.99 y  &=&-9.999\\
@@ -1271,12 +1271,11 @@ y^{(3)}&=&\frac{26-x^{(2)}}{8}=2,9625
 
 \subsection{Método de Gauss-Seidel}\index{método de!Gauss-Seidel}
 
-Assim como no método de Jacobi, no método de Gauss-Seidel também isolamos o elemento $x_i$ da equação $i$. Porém perceba que a equação para $x_2^{(k+1)}$ depende de $x_1^{(k)}$ na iteração $k$. Intuitivamente podemos pensar em usar $x_1^{(k+1)}$ que acabou de ser calculado e temos
+Assim, como no método de Jacobi, no método de Gauss-Seidel também isolamos o elemento $x_i$ da equação $i$. Porém perceba que a equação para $x_2^{(k+1)}$ depende de $x_1^{(k)}$ na iteração $k$. Intuitivamente podemos pensar em usar $x_1^{(k+1)}$ que acabou de ser calculado e temos
 
 \begin{equation*}
 x_2^{(k+1)} =\frac{y_2 - \left(a_{21}x_1^{(k+1)}+a_{23}x_3^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}
 \end{equation*}
-
 Aplicando esse raciocínio podemos construir o método de Gauss-Seidel como
 \begin{eqnarray*}
 x_1^{(k+1)}&=&\frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}}\\
@@ -1284,7 +1283,6 @@ x_2^{(k+1)}&=&\frac{y_2 - \left(a_{21}x_1^{(k+1)}+a_{23}x_3^{(k)}+\cdots+a_{2n}x
 &\vdots&\\
 x_n^{(k+1)}&=&\frac{y_2 - \left(a_{n1}x_1^{(k+1)}+\cdots+a_{n(n-1)}x_{n-1}^{(k+1)}\right)}{a_{nn}}
 \end{eqnarray*}
-
 Em notação mais compacta, o método de Gauss-Seidel consiste na iteração:
 \begin{eqnarray*}
   x^{(1)} &=& \text{aproximação inicial}\\
@@ -1331,7 +1329,7 @@ y^{(3)}&=&\frac{26-x^{(3)}}{8}=2,9995312
 
 Nesta seção, discutimos sobre a análise de convergência de métodos iterativos para solução de sistema lineares. Para tanto, consideramos um sistema linear $Ax = b$, onde $A = [a_{i,j}]_{i,j=1}^{n,n}$ é a matriz (real) dos coeficientes, $b = (a_j)_{j=1}^n$ é um vetor dos termos constantes e $x = (x_j)_{j=1}^n$ é o vetor incógnita. No decorrer, assumimos que $A$ é uma matriz não-singular.
 
-Geralmente, métodos iterativos são construídos como uma iteração de ponto fixo. No caso de um sistema linear, reescreve-se a equação matricial em um problema de ponto fixo equivalente, i.e.:
+Geralmente, métodos iterativos são construídos como uma iteração de ponto fixo. No caso de um sistema linear, reescreve-se a equação matricial em um problema de ponto fixo equivalente, isto é:
 \begin{equation*}
   Ax = b \Leftrightarrow x = Tx + c,
 \end{equation*}
@@ -1345,7 +1343,7 @@ Afim de construirmos as matrizes e os vetores de iteração do método de Jacobi
 \begin{equation*}
   A = L + D + U,
 \end{equation*}
-onde $D$ é a matriz diagonal $D = \diag(a_{11}, a_{22}, \ldots, a_{nn})$, i.e.:
+onde $D$ é a matriz diagonal $D = \diag(a_{11}, a_{22}, \ldots, a_{nn})$, isto é:
 \begin{equation*}
   D := \begin{bmatrix}
     a_{11} & 0 & 0 & \cdots & 0\\
@@ -1473,7 +1471,7 @@ Ou seja, a iteração do método de Jacobi escrita na forma matricial é:
 com $x^{(1)}$ uma aproximação inicial dada, sendo $T_J := -D^{-1}(L+U)$ a matriz de iteração e $c_J = D^{-1}b$ o vetor da iteração.
 
 \begin{ex}
-  Construa a matriz de iteração $T_J$ e o vetor de iteração $c_J$ do método de Jacobi para o sistema dado no Exemplo~\ref{ex:sislin}. 
+  Construa a matriz de iteração $T_J$ e o vetor de iteração $c_J$ do método de Jacobi para o sistema dado no exemplo~\ref{ex:sislin}. 
 \end{ex}
 \begin{sol}
   A matriz de iteração é dada por:
@@ -1553,13 +1551,13 @@ Ou seja, a iteração do método de Gauss-Seidel escrita na forma matricial é:
 com $x^{(1)}$ uma aproximação inicial dada, sendo $T_G := -(L+D)^{-1}U$ a matriz de iteração e $c_J = (L+D)^{-1}b$ o vetor da iteração.
 
 \begin{ex}
-  Construa a matriz de iteração $T_G$ e o vetor de iteração $c_G$ do método de Gauss-Seidel para o sistema dado no Exemplo~\ref{ex:sislin}.
+  Construa a matriz de iteração $T_G$ e o vetor de iteração $c_G$ do método de Gauss-Seidel para o sistema dado no exemplo~\ref{ex:sislin}.
 \end{ex}
 \begin{sol}
   A matriz de iteração é dada por:
   \begin{equation*}
-    T_G := -(L+D)^{-1}U = -
-    -\underbrace{\begin{bmatrix}
+    T_G = -(L+D)^{-1}U = -
+     \underbrace{\begin{bmatrix}
       3 & 0 & 0\\
       -1 & -4 & 0\\
       1 & -2 & -5
@@ -1624,27 +1622,27 @@ Aqui, vamos discutir condições necessárias e suficientes para a convergência
 \begin{equation*}
   x^{(k+1)} = Tx^{(k)} + c,\quad k\geq 1,
 \end{equation*}
-$x^{(1)}$ dado, estabelecemos condições nas quais $x^{(k)}\to x^{*}$, onde $x^*$ é a solução do sistema dado, i.e. $x^* = Tx^* + c$ ou, equivalentemente, $Ax^* = b$.
+$x^{(1)}$ dado, estabelecemos condições nas quais $x^{(k)}\to x^{*}$, onde $x^*$ é a solução do sistema dado, isto é, $x^* = Tx^* + c$ ou, equivalentemente, $Ax^* = b$.
 
 \begin{lem}\label{lema:matriz_convergente}
-  Seja $T$ uma matriz real $n\times n$. O limite $\displaystyle\lim_{k\to\infty} \|T^k\|_p = 0$, $1\leq p \leq \infty$, se, e somente se, $\rho(T) < 1$. 
+  Seja $T$ uma matriz real $n\times n$. O limite $\displaystyle\lim_{k\to\infty} \left \|T^k\right \|_p = 0$, $1\leq p \leq \infty$, se, e somente se, $\rho(T) < 1$. 
 \end{lem}
 \begin{proof}
   Aqui, fazemos apenas um esboço da demonstração. Para mais detalhes, veja \cite{Isaacson1994a}, Teorema 4, pág. 14.
 
-  Primeiramente, suponhamos que $\|T\|_p < 1$, $1\leq p \leq \infty$. Como (veja \cite{Isaacson1994a}, Lema 2, pág. 12):
+  Primeiramente, suponhamos que $\left\|T\right\|_p < 1$, $1\leq p \leq \infty$. Como (veja \cite{Isaacson1994a}, Lema 2, pág. 12):
   \begin{equation*}
-    \rho(T) \leq \|T\|_p,
+    \rho(T) \leq \left\|T\right\|_p,
   \end{equation*}
 temos $\rho(T) < 1$, o que mostra a implicação.
 
   Agora, suponhamos que $\rho(T) < 1$ e seja $0 < \epsilon < 1 - \rho(T)$. Então, existe $1\leq p \leq \infty$ tal que (veja \cite{Isaacson1994a}, Teorema 3, página 12):
   \begin{equation*}
-    \|T\|_p \leq \rho(T) + \epsilon < 1.
+    \left\|T\right\|_p \leq \rho(T) + \epsilon < 1.
   \end{equation*}
 Assim, temos:
 \begin{equation*}
-  \lim_{k\to\infty} \|T^k\|_p \leq \lim_{k\to\infty} \|T\|_p^m = 0.
+  \lim_{k\to\infty} \|T^k\|_p \leq \lim_{k\to\infty} \left\|T\right\|_p^m = 0.
 \end{equation*}
 Da equivalência entre as normas segue a recíproca.
 \end{proof}
@@ -1663,8 +1661,8 @@ Da equivalência entre as normas segue a recíproca.
   \end{equation*}
 \end{lem}
 \begin{proof}
-  Primeiramente, provamos a existência de $(I - T)^{-1}$. Seja $\lambda$ um autovalor de $T$ e $x$ um autovetor associado, i.e. $Tx = \lambda x$. Então, $(I-T)x = (1-\lambda)x$. Além disso, temos $|\lambda| < \rho(T) < 1$, logo $(1 - \lambda) \neq 0$, o que garante que $(I - T)$ é não singular.
-  Agora, mostramos que $(I - T)^{-1}$ admite a expansão acima. Do Lema~\ref{lema:matriz_convergente} e da Observação~\ref{obs:matriz_convergente} temos:
+  Primeiramente, provamos a existência de $(I - T)^{-1}$. Seja $\lambda$ um autovalor de $T$ e $x$ um autovetor associado, isto é, $Tx = \lambda x$. Então, $(I-T)x = (1-\lambda)x$. Além disso, temos $|\lambda| < \rho(T) < 1$, logo $(1 - \lambda) \neq 0$, o que garante que $(I - T)$ é não singular.
+  Agora, mostramos que $(I - T)^{-1}$ admite a expansão acima. Do Lema~\ref{lema:matriz_convergente} e da observação~\ref{obs:matriz_convergente} temos:
   \begin{equation*}
    (I - T)\sum_{k=0}^\infty T^k =  \lim_{m\to\infty} (I - T)\sum_{k=0}^m T^k = \lim_{m\to\infty} (I - T^{m+1}) = I,
   \end{equation*}
@@ -1690,7 +1688,7 @@ Daí, do Lema~\ref{lema:matriz_convergente} e do Lema~\ref{lema:inversa} temos:
 \begin{equation*}
   \lim_{k\to\infty} x^{(k)} = (I - T)^{(-1)}c.
 \end{equation*}
-Ora, se $x^*$ é a solução de $x = Tx + c$, então $(I - T)x^* = c$, i.e. $x^* = (I - T)^{-1}c$. Logo, temos demonstrado que $x^{(k)}$ converge para a solução de  $x = Tx + c$, para qualquer escolha de $x^{(1)}$.
+Ora, se $x^*$ é a solução de $x = Tx + c$, então $(I - T)x^* = c$, isto é, $x^* = (I - T)^{-1}c$. Logo, temos demonstrado que $x^{(k)}$ converge para a solução de  $x = Tx + c$, para qualquer escolha de $x^{(1)}$.
 
 Agora, suponhamos que $x^{(k)}$ converge para $x^*$ solução de $x = Tx + c$, para qualquer escolha de $x^{(1)}$. Seja, então, $y$ um vetor arbitrário e $x^{(1)} = x^* - y$. Observamos que:
 \begin{eqnarray*}
@@ -1703,7 +1701,7 @@ Logo, para qualquer $1 \leq p \leq\infty$, temos, :
 \begin{equation*}
   0 = \lim_{k\to\infty} x^* - x^{(k+1)} = \lim_{k\to\infty} T^{(k)}y.
 \end{equation*}
-Como $y$ é arbitrário, da Observação~\ref{obs:matriz_convergente} temos $\displaystyle\lim_{k\to\infty} \|T^{(k)}\|_p = 0$, $1 \leq p \leq \infty$. Então, o Lema~\ref{lema:matriz_convergente} garante que $\rho(T) < 1$.
+Como $y$ é arbitrário, da observação~\ref{obs:matriz_convergente} temos $\displaystyle\lim_{k\to\infty} \|T^{(k)}\|_p = 0$, $1 \leq p \leq \infty$. Então, o Lema~\ref{lema:matriz_convergente} garante que $\rho(T) < 1$.
 \end{proof}
 
 \begin{obs}
@@ -1715,10 +1713,10 @@ Para mais detalhes, veja \cite{Isaacson1994a}, pág. 61-64.
 \end{obs}
 
 \begin{ex}
-  Mostre que, para qualquer escolha da aproximação inicial, ambos os métodos de Jacobi e Gauss-Seidel são convergentes quando aplicados ao sistema linear dado no Exemplo~\ref{ex:sislin}.
+  Mostre que, para qualquer escolha da aproximação inicial, ambos os métodos de Jacobi e Gauss-Seidel são convergentes quando aplicados ao sistema linear dado no exemplo~\ref{ex:sislin}.
 \end{ex}
 \begin{sol}
-  Do Teorema~\ref{teo:convergencia}, vemos que é necessário e suficiente que $\rho(T_J) < 1$ e $\rho(T_G) < 1$. Computando estes raios espectrais, obtemos $\rho(T_J) \approx 0,32$ e $\rho(T_G) \approx 0,13$. Isto mostra que ambos os métodos serão convergentes. 
+  Do teorema~\ref{teo:convergencia}, vemos que é necessário e suficiente que $\rho(T_J) < 1$ e $\rho(T_G) < 1$. Computando estes raios espectrais, obtemos $\rho(T_J) \approx 0,32$ e $\rho(T_G) \approx 0,13$. Isto mostra que ambos os métodos serão convergentes. 
 \end{sol}
 
 \subsubsection{Condição suficiente}
@@ -1728,14 +1726,14 @@ Uma condição suficiente porém não necessária para que os métodos de Gauss-
 \begin{defn}
  Uma matriz $A$ é \emph{estritamente diagonal dominante} quando:
 \begin{equation*}
-  |a_{ii}|> \sum_{\substack{j=1\\j\ne i}}^{n} |a_{ij}|, i=1,...,n
+  \left |a_{ii}\right |> \sum_{\substack{j=1\\j\ne i}}^{n} \left |a_{ij}\right |, i=1,...,n
 \end{equation*}
 \end{defn}
 
 \begin{defn}
  Uma matriz $A$ é \emph{diagonal dominante} quando
 \begin{equation*}
-  |a_{ii}| \geq \sum_{\substack{j=1\\j\ne i}}^{n} |a_{ij}|, i=1,...,n
+  \left |a_{ii}\right | \geq \sum_{\substack{j=1\\j\ne i}}^{n} \left |a_{ij}\right |, i=1,...,n
 \end{equation*}
 e para ao menos um $i$, $a_{ii}$ é estritamente maior que a soma dos elementos fora da diagonal.
 \end{defn}
@@ -1746,7 +1744,7 @@ e para ao menos um $i$, $a_{ii}$ é estritamente maior que a soma dos elementos 
 
 Se conhecermos a solução exata $x$ do problema, podemos calcular o erro relativo em cada iteração como:
 \begin{equation*}
-   \frac{ \|x-x^{(k)}\|}{\|x\|}.
+   \frac{ \|x-x^{(k)}\|}{\left\|x\right\|}.
 \end{equation*}
 
 Em geral não temos $x$, entretanto podemos estimar o vetor \emph{resíduo} $r^{(k)}=b-A\tilde{x^{(k)}}$. Note que quando o erro tende a zero, o resíduo também tende a zero. 
@@ -1754,13 +1752,13 @@ Em geral não temos $x$, entretanto podemos estimar o vetor \emph{resíduo} $r^{
 \begin{teo}
  O erro relativo e o resíduo estão relacionados como (veja \cite{Burden2013})
 \begin{equation*}
-  \frac{ \|x-x^{(k)}\|}{\|x\|} \leq  \kappa(A) \frac{\|r\|}{\|b\|}
+  \frac{ \|x-x^{(k)}\|}{\left\|x\right\|} \leq  \kappa(A) \frac{\|r\|}{\|b\|}
 \end{equation*}
 onde $k(A)$ é o número de condicionamento.
 \end{teo}
 
 \begin{ex}
-  Ambos os métodos de Jacobi e Gauss-Seidel são convergentes para o sistema dado no Exemplo~\ref{ex:sislin}, pois a matriz dos coeficientes deste é uma matriz estritamente diagonal dominante.
+  Ambos os métodos de Jacobi e Gauss-Seidel são convergentes para o sistema dado no exemplo~\ref{ex:sislin}, pois a matriz dos coeficientes deste é uma matriz estritamente diagonal dominante.
 \end{ex}
 
 \subsection*{Exercícios}
@@ -1956,11 +1954,11 @@ Como os autovetores são l.i., todo vetor $x\in\mathbb{R}^n$, $x=(x_1,x_2,...,x_
 x=\sum_{j=1}^n\beta_jv_{j}.
 \end{equation}
 
-O método da potência permite o cálculo do autovetor dominante com base no comportamento assintótico (i.e. "no infinito") da sequência
+O método da potência permite o cálculo do autovetor dominante com base no comportamento assintótico (isto é, "{\it no infinito}") da sequência
 $$x, Ax, A^2x, A^3x, \ldots$$.
 
 Por questões de convergência, consideramos a seguinte sequência semelhante à anterior, porém normalizada:
-$$\frac{x}{\|x\|}, \frac{Ax}{\|Ax\|}, \frac{A^2x}{\|A^2x\|}, \frac{A^3x}{\|A^3x\|}, \ldots,$$
+$$\frac{x}{\left\|x\right\|}, \frac{Ax}{\|Ax\|}, \frac{A^2x}{\|A^2x\|}, \frac{A^3x}{\|A^3x\|}, \ldots,$$
 que pode ser obtida pelo seguinte processo iterativo:
 $$x^{(k+1)}=\frac{A^{k}x}{\|A^{k}x\|}$$
 Observamos que se $x$ está na forma \eqref{met_pot_forma}, então $A^k x$ pode ser escrito como
@@ -1969,23 +1967,23 @@ Como $\left|\frac{\lambda_j}{\lambda_1}\right|<1$ para todo $j\geq 2$, temos
 $$\sum_{j=2}^n\frac{\beta_j}{\beta_1} \left(\frac{\lambda_j}{\lambda_1}\right)^k v_{j} \to 0.$$
 Assim
 \begin{equation}\label{met_pot_assim}
-  \frac{A^k x}{\|A^k x\|} = \frac{\beta_1\lambda_1^k}{\|A^k x\|}\left( v_1 + O\left(\left|\frac{\lambda_2}{\lambda_1}\right|^k\right))\right) 
+  \frac{A^k x}{\left\|A^k x\right\|} = \frac{\beta_1\lambda_1^k}{\left\|A^k x\right\|}\left( v_1 + O\left(\left|\frac{\lambda_2}{\lambda_1}\right|^k\right))\right) 
 \end{equation}
-Como a norma de $\frac{A^k x}{\|A^k x\|}$ é igual a um, temos
-$$\left\|\frac{\beta_1\lambda_1^k}{\|A^k x\|}v_1\right\| \to 1$$
+Como a norma de $\frac{A^k x}{\left\|A^k x\right\|}$ é igual a um, temos
+$$\left\|\frac{\beta_1\lambda_1^k}{\left\|A^k x\right\|}v_1\right\| \to 1$$
 e, portanto,
-$$\left|\frac{\beta_1\lambda_1^k}{\|A^k x\|}\right| \to \frac{1}{\|v_1\|}$$
-Ou seja, se definimos $\alpha^{(k)}=\frac{\beta_1\lambda_1^k}{\|A^k x\|}$, então
+$$\left|\frac{\beta_1\lambda_1^k}{\left\|A^k x\right\|}\right| \to \frac{1}{\left\|v_1\right\|}$$
+Ou seja, se definimos $\alpha^{(k)}=\frac{\beta_1\lambda_1^k}{\left\|A^k x\right\|}$, então
 $$
 |\alpha^{(k)}|\to 1
 $$
 Retornando a (\ref{met_pot_assim}), temos:
 
-$$\frac{A^k x}{\|A^k x\|}-\alpha^{(k)} v_1 \to 0$$
+$$\frac{A^k x}{\left\|A^k x\right\|}-\alpha^{(k)} v_1 \to 0$$
 
 Observe que um múltiplo de autovetor  também é um autovetor e, portanto, 
 $$
-\frac{A^k x}{\|A^k x\|}
+\frac{A^k x}{\left\|A^k x\right\|}
 $$
 é um esquema que oscila entre os autovetores ou converge para o autovetor $v_1$.
 
@@ -1994,7 +1992,7 @@ Uma vez que temos o autovetor $v_1$ de $A$, podemos calcular $\lambda_1$ da segu
 \begin{equation*}
 A v_1=\lambda_1 v_1 ~\Longrightarrow~ v_1^TA v_1= v_1^T\lambda_1 v_1 ~ \Longrightarrow~ \lambda_1=\frac{v_1^TA v_1}{ v_1^Tv_1}  
 \end{equation*}
-Observe que a última identidade é válida, pois $\|v_1\|=1$ por construção.
+Observe que a última identidade é válida, pois $\left\|v_1\right\|=1$ por construção.
 
 \subsection*{Exercícios}
 
@@ -2022,7 +2020,7 @@ $$
 usando o método da potência inciando com o vetor $x=[1~~  1]^T$
 \end{exer}
 
-\begin{exer} A norma $L_2$ de um matriz $A$  é dada pela raiz quadrada do autovalor dominante da matriz $A^*A$, isto é: $$\|A\|_2=\sqrt{\max\{|\lambda|: \lambda\in\sigma(A^*A)\}}:$$
+\begin{exer} A norma $L_2$ de um matriz $A$  é dada pela raiz quadrada do autovalor dominante da matriz $A^*A$, isto é: $$\left\|A\right\|_2=\sqrt{\max\{|\lambda|: \lambda\in\sigma(A^*A)\}}:$$
 Use o método da potência para obter a norma $L_2$ da seguinte matriz:
 $$A=\left[\begin{array}{ccc}
 
