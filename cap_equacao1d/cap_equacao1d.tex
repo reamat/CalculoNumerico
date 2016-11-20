@@ -18,6 +18,8 @@ Ao longo do capítulo, apresentamos algumas computações com \verb+Python+. Nes
 >>> from __future__ import division
 >>> import numpy as np
 >>> import matplotlib.pyplot as plt
+>>> import scipy as sci
+>>> from scipy import optimize
 \end{verbatim}
 A segunda instrução carrega a biblioteca de computação científica \href{http://www.numpy.org/}{numpy} e a terceira carrega a biblioteca gráfica \href{http://matplotlib.org/}{matplotlib}.
 \fi
@@ -387,9 +389,9 @@ Observamos que a hipótese de que $f(x)$ tenha um único zero no intervalo não 
 \begin{obs}
   O teorema~\ref{teo:convergencia_bissecao} nos fornece uma estimativa para a convergência do método da bisseção. Aproximadamente, temos:
   \begin{equation*}
-    |x^{(n+1)} - x^*| \lesssim \frac{1}{2}|x^{(n+1)} - x^*|.
+    |x^{(n+1)} - x^*| \lesssim \frac{1}{2}|x^{(n)} - x^*|.
   \end{equation*}
-Isto nos leva a concluir que o método da bisseção tem \emph{taxa de convergência} linear.
+Isto nos leva a concluir que o método da bisseção tem \emph{taxa de convergência}\index{Método da bisseção!taxa de convergência} linear.
 \end{obs}
 
 \begin{ex}No exemplo~\ref{ex:metodo_da_bissecao}, precisamos de $4$ iterações do método da bisseção para computar uma aproximação com precisão de $10^{-1}$ do zero de $f(x) = e^x - x - 2$ tomando como intervalo inicial $[a, b] = [-2, 0]$. Poderíamos ter estimado o número de iterações \emph{a priori}, pois, como vimos acima:
@@ -578,7 +580,7 @@ Faça o estudo da propagação do erro e decida qual a melhor expressão em cada
   
 \end{resp}
 
-\section{Iteração de Ponto Fixo}\index{iteração do!ponto fixo}
+\section{Iteração de Ponto Fixo}\index{iteração do ponto fixo}
 
 Nesta seção, discutimos a abordagem da \emph{iteração do ponto fixo} para a solução numérica de equações de uma variável real. Observamos que sempre podemos reescrever uma equação da forma $f(x) = 0$ (problema de encontrar os zeros de uma função) em uma equação equivalente na forma $g(x) = x$ (\emph{problema de ponto fixo}\index{problema de!ponto fixo}). Um ponto $x = x^*$ tal que $g(x^*) = x^*$ é chamado de \emph{ponto fixo}\index{ponto fixo} da função $g(x)$. Geometricamente, um ponto fixo de uma função é um ponto de interseção entre a reta $y = x$ com o gráfico da função (veja figura~\ref{fig:defn_ponto_fixo}).
 
@@ -692,6 +694,7 @@ Notamos que o ponto fixo destas duas funções coincide com o zero de $f(x)$. Co
   x_1^{(n+1)} = g_1(x_1^{(n)})\quad\text{e}\quad x_2^{(n+1)} = g_2(x_2^{(n)}),
 \end{equation*}
 tomando $x_1^{(1)} = x_2^{(1)} = 1,7$, obtemos os resultados apresentados na tabela~\ref{tab:ponto_fixo_2}. Observamos que, enquanto, a iteração do ponto fixo com a função $g_1(x)$ ($\alpha = 0,5$) parece divergir, a iteração com a função $g_2(x)$ ($\alpha = 0,05$) parece convergir.
+
 \begin{table}
   \centering
   \caption{Iterações do ponto fixo para o exemplo~\ref{ex:ponto_fixo_2}.}\label{tab:ponto_fixo_2}
@@ -704,6 +707,64 @@ tomando $x_1^{(1)} = x_2^{(1)} = 1,7$, obtemos os resultados apresentados na tab
     $5$ & $-149,4$ & $1,746$\\\hline
   \end{tabular}
 \end{table}
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+No \verb+Scilab+, podemos computar as iterações do ponto fixo $x^{(n+1)} = g_1(x^{(n)})$ com o seguinte código:
+\begin{verbatim}
+--> deff('y = f(x)', 'y = x*exp(x)-10')
+--> deff('y = g1(x)', 'y = x - 0.5*f(x)')
+--> x = 1.7;
+--> x = g1(x)
+x =  
+    2.0471
+--> x = g1(x)
+x = 
+   -0.88119
+\end{verbatim}
+e, assim, sucessivamente. Itere com a função $g_2(x)$ e verifique a convergência!
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos computar as iterações do ponto fixo $x^{(n+1)} = g_1(x^{(n)})$ com o seguinte código:
+\begin{verbatim}
+>> f = inline("x*exp(x)-10")
+f = f(x) = x*exp(x)-10
+>> g1 = inline("x - 0.5*f(x)")
+g1 = f(x) = x - 0.5*f(x)
+>> x = 1.7;
+>> x = g1(x)
+x =  2.0471
+>> x = g1(x)
+x = -0.88119
+\end{verbatim}
+e, assim, sucessivamente. Itere com a função $g_2(x)$ e verifique a convergência!
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos computar as iterações do ponto fixo $x^{(n+1)} = g_1(x^{(n)})$ com o seguinte código:
+\begin{verbatim}
+>>> def f(x): return x*np.exp(x)-10
+... 
+>>> def g1(x): return x-0.5*f(x)
+... 
+>>> x=1.7
+>>> x=g1(x);x
+2.0471447170318804
+>>> x=g1(x);x
+-0.88119413893725618
+\end{verbatim}
+e, assim, sucessivamente. Itere com a função $g_2(x)$ e verifique a convergência!
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{ex}
 % Para responder essas perguntas, devemos formalizar o conceito de ponto fixo. Antes disso, analisemos mais um exemplo:
 
@@ -780,8 +841,16 @@ Portanto, como $0\leq\beta<1$, temos:
 ou seja, $x^{(n)}\to x^*$ quando $n\to\infty$.
 \end{proof}
 
+\begin{obs}
+  Do teorema do ponto fixo, temos que se $g(x)$ é uma contração com constante $0\leq \beta < 1$, então:
+  \begin{equation*}
+    |x^{(n+1)}-x^*| \leq \beta |x^{(n)}-x^*|,\quad n\geq 1.
+  \end{equation*}
+Isto é, as iterações do ponto fixo têm taxa de convergência linear\index{iteração do ponto fixo!taxa de convergência}.
+\end{obs}
+
 \begin{ex}\label{ex:ponto_fixo_3}
-Mostre que o teorema do ponto fixo se aplica a função $g(x) = \cos(x)$ no intervalo $[1/2, 1]$, isto é, a iteração de ponto fixo converge para a solução da equação $\cos x = x$.
+Mostre que o teorema do ponto fixo se aplica a função $g(x) = \cos(x)$ no intervalo $[1/2, 1]$, isto é, a iteração de ponto fixo converge para a solução da equação $\cos x = x$. Então, calcule as iterações do ponto fixo com aproximação inicial $x^{(1)} = 0,7$, estime o erro absoluto da aproximação e verfique a taxa de convergência.
 \end{ex}
 \begin{sol}
   Basta mostrarmos que:
@@ -806,26 +875,118 @@ Da mesma forma, temos a estimativa:
 \end{equation*}
 Assim, $|g'(x)|<0,85$ temos a desigualdade com $\beta=0,85<1$.
 
-A tabela~\ref{tab:ponto_fixo_3} apresenta o comportamento numérico da iteração do ponto fixo:
-\begin{eqnarray*}
-x^{(1)} &=& 0,7\\
-x^{(n+1)} &=& \cos(x^{(n)}),\quad n\geq 1.
-\end{eqnarray*}
 \begin{table}
   \centering
-  \begin{tabular}{cc}\hline
-   $n$ & $x^{(n)}$ \\\hline
-   $1$ & $0,700$ \\
-   $2$ & $0,765$ \\
-   $3$ & $0,721$ \\
-   $4$ & $0,751$ \\
-   $5$ & $0,731$ \\
-   $6$ & $0,744$ \\
-   $7$ & $0,735$ \\\hline
+  \begin{tabular}{l|ccc}\hline
+   $n$ & $x^{(n)}$ & $\epsilon_n := |x^{(n)} - x^*|$ \\\hline
+   $1$ & $0,70000$ & $3,9\E-02$ \\
+   $2$ & $0,76484$ & $2,6\E-02$ \\
+   $3$ & $0,72149$ & $1,8\E-02$ \\
+   $4$ & $0,75082$ & $1,2\E-02$ \\
+   $5$ & $0,73113$ & $8,0\E-03$ \\
+   $6$ & $0,74442$ & $5,3\E-03$ \\
+   $7$ & $0,73548$ & $3,6\E-03$ \\\hline
   \end{tabular}
   \caption{Iteração do ponto fixo para o exemplo~\ref{ex:ponto_fixo_3}.}
   \label{tab:ponto_fixo_3}
 \end{table}
+
+
+A Tabela~\ref{tab:ponto_fixo_3} apresenta o comportamento numérico da iteração do ponto fixo:
+\begin{eqnarray*}
+x^{(1)} &=& 0,7\\
+x^{(n+1)} &=& \cos(x^{(n)}),\quad n\geq 1.
+\end{eqnarray*}
+Para estimar o erro, consideramos $x^* = 0,7390851605$. A Figura~\ref{fig:ex_ponto_fixo_3} mostrar o decaimento do erro $\epsilon_n = |x^{(n)} - x^*|$ comparado com a taxa de convergência linear com $\beta = 0,85$.
+
+\begin{figure}
+  \centering
+  \includegraphics{./cap_equacao1d/pics/ex_ponto_fixo_3/ex_ponto_fixo_3}
+  \caption{Decaimento do erro $\epsilon_n = |x^{(n)}-x^*|$ da iteração do ponto fixo estudada no Exemplo~\ref{ex:ponto_fixo_3}.}
+  \label{fig:ex_ponto_fixo_3}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+No \verb+Scilab+, podemos computar estas iterações e o erro absoluto com o seguinte código:
+\begin{verbatim}
+//est. da solucao
+deff('y = f(x)', 'y = cos(x)-x')
+xe = fsolve(0.7, f)
+
+#funcao do pto. fixo
+deff('y = g(x)', 'y = cos(x)')
+
+#aprox. inicial
+x0 = 0.7
+eps = abs(x0-xe)
+disp([x0, eps])
+
+for i=2:7
+  x = g(x0)
+  eps = abs(x-xe)
+  disp([x, eps])
+  x0 = x
+end
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos computar estas iterações, o erro absoluto e sua variação com o seguinte código:
+\begin{verbatim}
+#est. da solucao
+f = inline("cos(x)-x");
+xe = fsolve(f, 0.7);
+
+#funcao do pto. fixo
+g = inline("cos(x)");
+
+#aprox. inicial
+x0 = 0.7;
+eps = abs(x0-xe);
+printf("%1.5f %1.1e\n", x0, eps);
+
+for i=2:7
+  x = g(x0);
+  eps = abs(x-xe);
+  printf("%1.5f %1.1e\n", x, eps)
+  x0 = x;
+endfor
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos computar estas iterações, o erro absoluto e sua variação com o seguinte código:
+\begin{verbatim}
+#funcao do pto. fixo
+def g(x):
+    return np.cos(x)
+
+#est. da solucao
+xe = sci.optimize.fixed_point(g, 0.7)
+
+#aprox. inicial
+x0 = 0.7
+eps = np.fabs(x0-xe)
+print("%1.5f %1.1e\n" % (x0, eps))
+
+for i in np.arange(7):
+  x = g(x0);
+  eps = np.fabs(x-xe);
+  print("%1.5f %1.1e\n" % (x, eps))
+  x0 = x
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
 \subsection{Teste de convergência}
@@ -1346,7 +1507,7 @@ onde $m := \min |f'(x)|$ e $M := \max |f''(x)|$ com o mínimo e o máximo tomado
 \subsection*{Exercícios}
 
 \begin{exer}\label{1d:cosx2}
-Encontre a raiz positiva da função $f(x)=\cos(x)-x^2$ pelo método de Newton inicializando-o com $x^{(0)}=1$. Realize a iteração até obter estabilidade no $quinto$ dígito siginificativo.
+Encontre a raiz positiva da função $f(x)=\cos(x)-x^2$ pelo método de Newton inicializando-o com $x^{(0)}=1$. Realize a iteração até obter estabilidade no $quinto$ dígito significativo.
 \end{exer}
 \begin{resp}
   raiz:0,82413, processo iterativo: $x^{(n+1)}= x^{(n)}+ \frac{\cos(x)-x^2}{\sin(x)+2x}$
