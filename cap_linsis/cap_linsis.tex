@@ -6,7 +6,7 @@
 
 \chapter{Solução de sistemas lineares}\index{sistema linear}
 
-Muitos problemas da engenharia, física e matemática estão associados à solução de sistemas de equações lineares. Nesse capítulo, tratamos de técnicas numéricas empregadas para obter a solução desses sistemas. Iniciamos por uma rápida revisão do Método de eliminação gaussiana do ponto de vista computacional. No contexto de análise da propagação dos erros de arredondamento, introduzimos o método de eliminação gaussiana com pivotamento parcial, bem como, apresentamos o conceito de condicionamento de um sistema linear. Então, passamos a discutir sobre técnicas iterativos, mais especificamente, sobre os métodos de Jacobi e Gauss-Seidel.
+Muitos problemas da engenharia, física e matemática estão associados à solução de sistemas de equações lineares. Nesse capítulo, tratamos de técnicas numéricas empregadas para obter a solução desses sistemas. Iniciamos por uma rápida revisão do método de eliminação gaussiana do ponto de vista computacional. No contexto de análise da propagação dos erros de arredondamento, introduzimos o método de eliminação gaussiana com pivotamento parcial, bem como, apresentamos o conceito de condicionamento de um sistema linear. Então, passamos a discutir sobre técnicas iterativos, mais especificamente, sobre os métodos de Jacobi e Gauss-Seidel.
 
 
 Considere o sistema de equações lineares:
@@ -1630,7 +1630,7 @@ $x^{(1)}$ dado, estabelecemos condições nas quais $x^{(k)}\to x^{*}$, onde $x^
 \begin{proof}
   Aqui, fazemos apenas um esboço da demonstração. Para mais detalhes, veja \cite{Isaacson1994a}, Teorema 4, pág. 14.
 
-  Primeiramente, suponhamos que $\left\|T\right\|_p < 1$, $1\leq p \leq \infty$. Como (veja \cite{Isaacson1994a}, Lema 2, pág. 12):
+  Primeiramente, suponhamos que $\left\|T\right\|_p < 1$, $1\leq p \leq \infty$. Como (veja \cite{Isaacson1994a}, lema 2, pág. 12):
   \begin{equation*}
     \rho(T) \leq \left\|T\right\|_p,
   \end{equation*}
@@ -1662,7 +1662,7 @@ Da equivalência entre as normas segue a recíproca.
 \end{lem}
 \begin{proof}
   Primeiramente, provamos a existência de $(I - T)^{-1}$. Seja $\lambda$ um autovalor de $T$ e $x$ um autovetor associado, isto é, $Tx = \lambda x$. Então, $(I-T)x = (1-\lambda)x$. Além disso, temos $|\lambda| < \rho(T) < 1$, logo $(1 - \lambda) \neq 0$, o que garante que $(I - T)$ é não singular.
-  Agora, mostramos que $(I - T)^{-1}$ admite a expansão acima. Do Lema~\ref{lema:matriz_convergente} e da observação~\ref{obs:matriz_convergente} temos:
+  Agora, mostramos que $(I - T)^{-1}$ admite a expansão acima. Do lema~\ref{lema:matriz_convergente} e da observação~\ref{obs:matriz_convergente} temos:
   \begin{equation*}
    (I - T)\sum_{k=0}^\infty T^k =  \lim_{m\to\infty} (I - T)\sum_{k=0}^m T^k = \lim_{m\to\infty} (I - T^{m+1}) = I,
   \end{equation*}
@@ -1684,7 +1684,7 @@ converge para solução de $x = Tx + c$ para qualquer escolha de $x^{(1)}$ se, e
     &\vdots\\
     &= T^{(k)}x^{(1)} + \left(\sum_{k=0}^{k-1}T^k\right)c.
   \end{eqnarray*}
-Daí, do Lema~\ref{lema:matriz_convergente} e do Lema~\ref{lema:inversa} temos:
+Daí, do lema~\ref{lema:matriz_convergente} e do lema~\ref{lema:inversa} temos:
 \begin{equation*}
   \lim_{k\to\infty} x^{(k)} = (I - T)^{(-1)}c.
 \end{equation*}
@@ -1701,7 +1701,7 @@ Logo, para qualquer $1 \leq p \leq\infty$, temos, :
 \begin{equation*}
   0 = \lim_{k\to\infty} x^* - x^{(k+1)} = \lim_{k\to\infty} T^{(k)}y.
 \end{equation*}
-Como $y$ é arbitrário, da observação~\ref{obs:matriz_convergente} temos $\displaystyle\lim_{k\to\infty} \|T^{(k)}\|_p = 0$, $1 \leq p \leq \infty$. Então, o Lema~\ref{lema:matriz_convergente} garante que $\rho(T) < 1$.
+Como $y$ é arbitrário, da observação~\ref{obs:matriz_convergente} temos $\displaystyle\lim_{k\to\infty} \|T^{(k)}\|_p = 0$, $1 \leq p \leq \infty$. Então, o lema~\ref{lema:matriz_convergente} garante que $\rho(T) < 1$.
 \end{proof}
 
 \begin{obs}
@@ -1967,7 +1967,7 @@ Como $\left|\frac{\lambda_j}{\lambda_1}\right|<1$ para todo $j\geq 2$, temos
 $$\sum_{j=2}^n\frac{\beta_j}{\beta_1} \left(\frac{\lambda_j}{\lambda_1}\right)^k v_{j} \to 0.$$
 Assim
 \begin{equation}\label{met_pot_assim}
-  \frac{A^k x}{\left\|A^k x\right\|} = \frac{\beta_1\lambda_1^k}{\left\|A^k x\right\|}\left( v_1 + O\left(\left|\frac{\lambda_2}{\lambda_1}\right|^k\right))\right) 
+  \frac{A^k x}{\left\|A^k x\right\|} = \frac{\beta_1\lambda_1^k}{\left\|A^k x\right\|}\left( v_1 + O\left(\left|\frac{\lambda_2}{\lambda_1}\right|^k\right)\right) 
 \end{equation}
 Como a norma de $\frac{A^k x}{\left\|A^k x\right\|}$ é igual a um, temos
 $$\left\|\frac{\beta_1\lambda_1^k}{\left\|A^k x\right\|}v_1\right\| \to 1$$
