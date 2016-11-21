@@ -53,7 +53,7 @@ a_{m1} & a_{m2} & \cdots & a_{mn}&b_m
 \end{equation*}
 
 
-Salvo especificado ao contrário, assumiremos ao longo deste capítulo que a matriz dos coeficientes $A$ é uma matriz real não-singular.
+Salvo especificado ao contrário, assumiremos ao longo deste capítulo que a matriz dos coeficientes $A$ é uma matriz real não singular.
 
 %%%%%%%%%%%%%%%%%%%%
 % python
@@ -74,44 +74,45 @@ Ao longo do capítulo, apresentamos algumas computações com \verb+Python+. Nes
 
 
 \section{Eliminação gaussiana}\index{eliminação gaussiana}
-A \emph{eliminação gaussiana}, também conhecida como \emph{escalonamento}, é um método para resolver sistemas lineares. Este método consiste em manipular o sistema através de determinadas operações elementares, transformanda a matriz que representa o sistema em uma matriz triangular. Uma vez, triangularizado o sistema, a solução pode ser obtida via substituição regressiva. Naturalmente estas operações elementares devem preservar a solução do sistema e consistem em
+A \emph{eliminação gaussiana}, também conhecida como \emph{escalonamento}, é um método para resolver sistemas lineares. Este método consiste em manipular o sistema através de determinadas operações elementares, transformando a matriz estendida do sistema em uma matriz triangular. Uma vez, triangularizado o sistema, a solução pode ser obtida via substituição regressiva. Naturalmente estas operações elementares devem preservar a solução do sistema e consistem em:
 \begin{enumerate}
-\item Multiplicação de um linha por uma constante não nula.
-\item Substituição de uma linha por ela mesma somada a um múltiplo de outra linha.
-\item Permutação de duas linhas.
+\item multiplicação de um linha por uma constante não nula.
+\item substituição de uma linha por ela mesma somada a um múltiplo de outra linha.
+\item permutação de duas linhas.
 \end{enumerate}
 
-\begin{ex}[Eliminação gaussiana sem pivotamento] Resolva o sistema
+\begin{ex} Resolva o sistema
   \begin{eqnarray*}
     x+y+z  &=& 1\\
     2x+y-z &=& 0\\
     4x+4y+2z&=& 2
   \end{eqnarray*}
+pelo método de eliminação gaussiana.
 \end{ex}
 \begin{sol}
-A matriz completa do sistema é escrita como
+A matriz estendida do sistema é escrita como
 \begin{equation*}
-  \left[\begin{array}{ccc|c}
-      {1} &1& 1&1\\
+  \begin{bmatrix}
+      1 &1& 1&1\\
       4 & 4 &2&2\\
-      2 &1& -1&0
-    \end{array}\right] 
+      2 &1& -1&0    
+  \end{bmatrix}
 \end{equation*}
 No primeiro passo, subtraímos da segunda linha o quádruplo da primeira e subtraímos da terceira linha o dobro da primeira linha:
 \begin{equation*}
-  \left[\begin{array}{ccc|c}
-      {1} &1& 1&1\\
+  \begin{bmatrix}
+       1 &1& 1&1\\
        0 & 0 &-2&-2\\
-       0 &-1& -3&-1
-    \end{array}\right].
+       0 &-1& -3&-1    
+  \end{bmatrix}
 \end{equation*}
 No segundo passo, permutamos a segunda linha com a terceira:
 \begin{equation*}
-  \left[\begin{array}{ccc|c}
-      {1} &1& 1&1\\
+  \begin{bmatrix}
+       1 &1& 1&1\\
        0 &-1& -3&-1\\
-       0 & 0 &-2&-2
-       \end{array}\right].
+       0 & 0 &-2&-2    
+  \end{bmatrix}
 \end{equation*}
 Neste momento, a matriz já se encontra na forma triangular. Da terceira linha, encontramos $-2z=-21$, ou seja, $z=1$. Substituindo na segunda equação, temos $-y-3z=-2$, ou seja, $y=-1$ e finalmente, da primeira linha, $x+y+z=1$, resultando em $x=1$.
 \end{sol}
@@ -119,26 +120,26 @@ Neste momento, a matriz já se encontra na forma triangular. Da terceira linha, 
 \subsection{Eliminação gaussiana com pivotamento parcial}
 A eliminação gaussiana com \emph{pivotamento parcial} consiste em fazer uma permutação de linhas de forma a escolher o maior pivô (em módulo) a cada passo.
 
-\begin{ex}[Eliminação gaussiana com pivotamento parcial] Resolva o sistema
+\begin{ex} Resolva o sistema
 \begin{eqnarray*}
   x+y+z  &=& 1\\
   2x+y-z &=& 0\\
   2x+2z+z &=& 1
 \end{eqnarray*}
+por eliminação gaussiana com pivotamento parcial.
 \end{ex}
-
 \begin{sol}
-A matriz completa do sistema é
+A matriz estendida do sistema é
 \begin{equation*}
   \begin{split}
     \begin{bmatrix}
       1 &1&  1&1\\
-      \RED{2} &1& -1&0\\
+      \BLU{2} &1& -1&0\\
       2 & 2 &1&1
     \end{bmatrix}
     &\sim
     \begin{bmatrix}
-      2 &1& -1&0\\
+      \BLU{2} &1& -1&0\\
       1 &1&  1&1\\
       2 &2&  1&1
     \end{bmatrix}\\ 
@@ -162,100 +163,124 @@ A matriz completa do sistema é
     \end{bmatrix}    
   \end{split}
 \end{equation*}
-
 Encontramos $1/2z=1/2$, ou seja, $z=1$. Substituímos na segunda equação e temos $y+2z=1$, ou seja, $y=-1$ e, finalmente $2x+y-z=0$, resultando em $x=1$.
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+No \verb+Scilab+, podemos fazer estas computações da seguinte forma:
+\begin{verbatim}
+E = [1 1  1 1; 2 1 -1 0;2 2  1 1]
+disp(E)
+
+//L2 <-> L1
+aux = E(2,:)
+E(2,:) = E(1,:)
+E(1,:) = aux
+disp(E)
+
+//zera E(2:3,1)
+E(2:3,:) = E(2:3,:) - (E(2:3,1)/E(1,1))*E(1,:)
+disp(E)
+
+//zera E(3,2)
+E(3,:) = E(3,:) - (E(3,2)/E(2,2))*E(2,:)
+disp(E)
+
+//subs regressiva
+x = zeros(3,1)
+x(3) = E(3,4)/E(3,3)
+x(2) = (E(2,4) - E(2,3)*x(3))/E(2,2)
+x(1) = (E(1,4) - E(1,3)*x(3) - E(1,2)*x(2))/E(1,1)
+disp(x)
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos fazer estas computações da seguinte forma:
+\begin{verbatim}
+E = [1 1  1 1;
+     2 1 -1 0;
+     2 2  1 1]
+
+#L2 <-> L1
+aux = E(2,:);
+E(2,:) = E(1,:);
+E(1,:) = aux
+
+#zera E(2:3,1)
+E(2:3,:) = E(2:3,:) - (E(2:3,1)/E(1,1))*E(1,:)
+
+#zera E(3,2)
+E(3,:) = E(3,:) - (E(3,2)/E(2,2))*E(2,:)
+
+#subs regressiva
+x = zeros(3,1);
+x(3) = E(3,4)/E(3,3);
+x(2) = (E(2,4) - E(2,3)*x(3))/E(2,2);
+x(1) = (E(1,4) - E(1,3)*x(3) - E(1,2)*x(2))/E(1,1)
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos fazer estas computações da seguinte forma:
+\begin{verbatim}
+E = np.array([[1,1,1,1],
+              [2,1,-1,0],
+              [2,2,1,1]], dtype='double')
+print(E)
+
+#L2 <-> L1
+aux = np.copy(E[1,:])
+E[1,:] = np.copy(E[0,:])
+E[0,:] = np.copy(aux)
+print(E)
+
+#zera E[1:2,0]
+E[1,:] = E[1,:] - (E[1,0]/E[0,0])*E[0,:]
+E[2,:] = E[2,:] - (E[2,0]/E[0,0])*E[0,:]
+print(E)
+
+#zera E[2,1]
+E[2,:] = E[2,:] - (E[2,1]/E[1,1])*E[1,:]
+print(E)
+
+#sub. regressiva
+x = np.zeros(3)
+x[2] = E[2,3]/E[2,2];
+x[1] = (E[1,3] - E[1,2]*x[2])/E[1,1];
+x[0] = (E[0,3] - E[0,2]*x[2] - E[0,1]*x[1])/E[0,0]
+print(x)
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
-\begin{ex}
-Resolva o sistema por eliminação gaussiana com pivotamento parcial.
-\begin{equation*}
-\left[
-\begin{array}{ccc}
-0 &2& 2\\
-1 &2& 1\\
-1 & 1 &1
-\end{array}
-\right]
-\left[
-\begin{array}{c}
-x\\
-y\\
-z
-\end{array}
-\right]=
-\left[
-\begin{array}{c}
-8\\
-9\\
-6
-\end{array}
-\right]  
-\end{equation*}
+A técnica de eliminação gaussiana com pivotamento parcial ajuda a evitar a propagação dos erros de arredondamento. Vejamos o próximo exemplo.
+
+\begin{ex}[Problema com elementos com grande diferença de escala] Resolva o seguinte sistema usando eliminação gaussiana sem e com pivotamento parcial. Discuta, em cada caso, o resultado frente a aritmética de ponto flutuante quando $0<|\epsilon| \ll 1$.
+  \begin{equation*}
+    \begin{bmatrix}
+      \varepsilon & 2\\
+      1 & \varepsilon      
+    \end{bmatrix}
+    \begin{bmatrix}
+      x\\y
+    \end{bmatrix}
+    \begin{bmatrix}
+      4\\3
+    \end{bmatrix}
+  \end{equation*}
 \end{ex}
-
 \begin{sol}
-Construímos a matriz completa:
-\begin{eqnarray*}\left[
-\begin{array}{ccc|c}
-0 &2& 2&8\\
-1 &2& 1&9\\
-1 & 1 &1&6
-\end{array}
-\right] &\sim&
-\left[
-\begin{array}{ccc|c}
-1 &2& 1&9\\
-0 &2& 2&8\\
-1 & 1 &1&6
-\end{array}
-\right] \\ 
-&\sim&
-\left[
-\begin{array}{ccc|c}
-1 &2& 1&9\\
-0 &2& 2&8\\
-0 & -1 &0&-3
-\end{array}
-\right]\\
-&\sim&
-\left[
-\begin{array}{ccc|c}
-1 &2& 1&9\\
-0 &2& 2&8\\
-0 & 0 &1&1
-\end{array}
-\right]\\
-&\sim&
-\left[
-\begin{array}{ccc|c}
-1 &2& 0&8\\
-0 &2& 0&6\\
-0 & 0 &1&1
-\end{array}
-\right]\\
-&\sim&
-\left[
-\begin{array}{ccc|c}
-1 &0& 0&2\\
-0 &2& 0&6\\
-0 & 0 &1&1
-\end{array}
-\right]
-\end{eqnarray*}
-Portanto $x=2$, $y=3$ e $z=1$.
-\end{sol}
-
-\begin{ex}[Problema com elementos com grande diferença de escala]
-$$\left[\begin{array}{cc}
-\varepsilon & 2\\
-1 & \varepsilon
-\end{array}\right]
-\left[\begin{array}{c}x\\y
-\end{array}\right]=
-\left[\begin{array}{c}4\\3
-\end{array}\right]
-$$
-Executamos a eliminação gaussiana sem pivotamento parcial para $\varepsilon \neq 0$ e $|\varepsilon|<<1$:
+Vamos, primeiramente, executar a eliminação gaussiana sem pivotamento parcial para $\varepsilon \neq 0$ e $|\varepsilon|\ll 1$:
 $$\left[\begin{array}{cc|c}
 \varepsilon & 2 & 4\\
 1 & \varepsilon & 3
@@ -307,13 +332,94 @@ $$
 Continuando o procedimento, temos:
 $$y=\frac{4-4\varepsilon}{2-\varepsilon^2}$$ e
 $$x=3-\varepsilon y$$
-\end{ex}
 
 Observe que tais expressões são analiticamente idênticas às anteriores, no entanto, são mais estáveis numericamente. Quando $\varepsilon$ converge a zero, $y$ converge a $2$, como no caso anterior. No entanto, mesmo que $y=2$, a segunda expressão produz $x=3-\varepsilon y$, isto é, a aproximação $x\approx 3$ não depende mais de obter $2-y$ com precisão.
+\end{sol}
+
+\subsection*{Exercícios Resolvidos}
+
+\begin{exeresol}
+Resolva o sistema por eliminação gaussiana com pivotamento parcial.
+\begin{equation*}
+\left[
+\begin{array}{ccc}
+0 &2& 2\\
+1 &2& 1\\
+1 & 1 &1
+\end{array}
+\right]
+\left[
+\begin{array}{c}
+x\\
+y\\
+z
+\end{array}
+\right]=
+\left[
+\begin{array}{c}
+8\\
+9\\
+6
+\end{array}
+\right]  
+\end{equation*}
+\end{exeresol}
+\begin{resol}
+Construímos a matriz completa:
+\begin{eqnarray*}\left[
+\begin{array}{ccc|c}
+0 &2& 2&8\\
+1 &2& 1&9\\
+1 & 1 &1&6
+\end{array}
+\right] &\sim&
+\left[
+\begin{array}{ccc|c}
+1 &2& 1&9\\
+0 &2& 2&8\\
+1 & 1 &1&6
+\end{array}
+\right] \\ 
+&\sim&
+\left[
+\begin{array}{ccc|c}
+1 &2& 1&9\\
+0 &2& 2&8\\
+0 & -1 &0&-3
+\end{array}
+\right]\\
+&\sim&
+\left[
+\begin{array}{ccc|c}
+1 &2& 1&9\\
+0 &2& 2&8\\
+0 & 0 &1&1
+\end{array}
+\right]\\
+&\sim&
+\left[
+\begin{array}{ccc|c}
+1 &2& 0&8\\
+0 &2& 0&6\\
+0 & 0 &1&1
+\end{array}
+\right]\\
+&\sim&
+\left[
+\begin{array}{ccc|c}
+1 &0& 0&2\\
+0 &2& 0&6\\
+0 & 0 &1&1
+\end{array}
+\right]
+\end{eqnarray*}
+Portanto $x=2$, $y=3$ e $z=1$.
+\end{resol}
+
 
 \subsection*{Exercícios}
 
-\begin{exer}\label{prob_gausspp} Resolva o seguinte sistema de equações lineares
+\begin{exer} Resolva o seguinte sistema de equações lineares
 \begin{eqnarray*}
 x+y+z&=&0\\
 x+10z&=&-48\\
@@ -396,12 +502,24 @@ x+10z&=&-48\\
 usando eliminação gaussiana com pivotamento parcial.
 \end{exer}
 
-\begin{exer} \label{inv22} Demonstre que se $ad\neq bc$, então a matriz $A$ dada por:
-$$A=\left[\begin{array}{cc}a&b\\c&d\end{array}\right]$$
+\begin{exer} Demonstre que se $ad\neq bc$, então a matriz $A$ dada por:
+  \begin{equation*}
+    A = \begin{bmatrix}
+      a&b\\c&d
+    \end{bmatrix}
+  \end{equation*}
 é inversível e sua inversa é dada por:
-$$A^{-1}= \frac{1}{ad-bc} \left[\begin{array}{cc}d&-b\\-c&a\end{array}\right].$$
+\begin{equation*}
+  A^{-1}=\frac{1}{ad-bc}
+  \begin{bmatrix}
+    d&-b\\-c&a
+  \end{bmatrix}.
+\end{equation*}
 \end{exer}
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \begin{exer} Considere as matrizes
   \begin{equation*}
@@ -432,7 +550,7 @@ e o vetor
 \end{equation*}
 \begin{itemize}
 \item[a)] Resolva o sistema $Ax=v$ sem usar o computador.
-\item[b)] Sem usar o computador e através da técnica algébrica de sua preferência, resolva o sistema $(A+\varepsilon E)x_\varepsilon=v$ considerando $|\varepsilon|<<1$ e obtenha a solução exata em função do parâmetro $\varepsilon$.
+\item[b)] Sem usar o computador e através da técnica algébrica de sua preferência, resolva o sistema $(A+\varepsilon E)x_\varepsilon=v$ considerando $|\varepsilon|\ll 1$ e obtenha a solução exata em função do parâmetro $\varepsilon$.
 \item[c)] Usando a expressão analítica obtida acima, calcule o limite $\lim_{\varepsilon\to 0} x_\varepsilon $.
 \item[d)] Resolva o sistema $(A+\varepsilon E)x=v$ no \verb+Scilab+ usando pivotamento parcial e depois sem usar pivotamento parcial para valores muito pequenos de $\varepsilon$ como $10^{-10}, 10^{-15}, \ldots$. O que você observa?
 \end{itemize}
@@ -465,9 +583,13 @@ $$x_{\varepsilon}=\left[4 ~~3 ~~2\right]^T-\frac{9\varepsilon}{1+3\varepsilon}\l
       
 \end{resp}
 \fi
+%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
-\begin{exer}\label{trid} Resolva o seguinte sistema de $5$ equações lineares
+\begin{exer}\label{exer:trid} Resolva o seguinte sistema de $5$ equações lineares
 \begin{eqnarray*}
 x_1-x_2&=&0\\
 -x_{i-1}+2.5x_i-x_{i+1}&=&e^{-\frac{(i-3)^2}{20}},\qquad 2\leq i \leq 4\\
@@ -476,11 +598,10 @@ x_1-x_2&=&0\\
 representando-o como um problema do tipo $Ax=b$ no \verb+Scilab+ e usando o comando de contra-barra para resolvê-lo. Repita usando a rotina que implementa eliminação gaussiana.
 \end{exer}
 \begin{resp}
-  
  $x=[ 1.6890368  ~~  1.6890368  ~~  1.5823257  ~~  1.2667776   ~~ 0.6333888]^{T}$    
-  
 \end{resp}
 \fi
+%%%%%%%%%%%%%%%%%%%%
 
 \ifisscilab
 \begin{exer} Encontre a inversa da matriz
@@ -738,7 +859,7 @@ Isto significa que, ao invés de resolvermos o sistema original, podemos resolve
 
 A matriz $U$ da fatoração\footnote{Não vamos usar pivotamento nesse primeiro exemplo.} $LU$ é a matriz obtida ao final do escalonamento da matriz $A$.
 
-A matriz $L$ é contruída  a partir da matriz identidade $I$, ao longo do escalomento de A. Os elementos da matriz $L$ são os múltiplos do primeiro elemento da linha de $A$ \underline{a ser zerado} dividido pelo pivô acima na mesma coluna.
+A matriz $L$ é construída  a partir da matriz identidade $I$, ao longo do escalonamento de A. Os elementos da matriz $L$ são os múltiplos do primeiro elemento da linha de $A$ \underline{a ser zerado} dividido pelo pivô acima na mesma coluna.
 
 Por exemplo, para zerar o primeiro elemento da segunda linha de $A$, calculamos
 $$L_{21}=A_{21}/A_{11}$$
@@ -1170,9 +1291,11 @@ $$e_{j}=\frac{|x_j-y_j|}{|x_j|}~~~ f_j=\frac{|x_j-z_j|}{x_j}$$
 Calcule as normas $1$, $2$ e $\infty$ de $e$ e $f$
 \end{exer}
 \begin{resp}
-  
 $0,695$; $0,292$; $0,188$;  $0,0237$; $0,0123$; $0,00967$
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 Exemplo de implementação:
 \begin{verbatim}
@@ -1190,7 +1313,7 @@ norm(f,2)
 norm(f,'inf')
 \end{verbatim}
 \fi    
-  
+%%%%%%%%%%%%%%%%%%%%
 \end{resp}
 
 
@@ -1199,9 +1322,6 @@ norm(f,'inf')
 Na seção anterior tratamos de métodos diretos para a resolução de sistemas lineares. Em um \emph{método direto} (por exemplo, solução via fatoração LU) obtemos uma aproximação da solução depois de realizarmos um número finito de operações (só teremos a solução ao final do processo).
 
 Veremos nessa seção dois \emph{métodos iterativos} básicos para obter uma aproximação para a solução de um sistema linear. Geralmente em um método iterativo iniciamos com uma aproximação para a solução (que pode ser ruim) e vamos melhorando essa aproximação através de sucessivas iterações.
-
-
-
 
 \subsection{Método de Jacobi}\index{método de!Jacobi}
 O método de Jacobi pode ser obtido a partir do sistema linear
@@ -1253,17 +1373,25 @@ y^{(3)}&=&\frac{26-x^{(2)}}{8}=2,9625
 % scilab
 %%%%%%%%%%%%%%%%%%%%
 \ifisscilab
-\subsubsection{Código Scilab: Jacobi}
+\subsubsection{Código Scilab: Método de Jacobi}
 
 \verbatiminput{./cap_linsis/codes/scilab/metodo_de_jacobi/jacobi.sci}
 \fi
 %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\subsubsection{Código GNU Octave: Método de Jacobi}
 
+\verbatiminput{./cap_linsis/codes/octave/metodo_de_jacobi/jacobi.m}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-\subsubsection{Código Python: Jacobi}
+\subsubsection{Código Python: Método de Jacobi}
 
 \verbatiminput{./cap_linsis/codes/python/metodo_de_jacobi/jacobi.py}
 \fi
@@ -1310,16 +1438,25 @@ y^{(3)}&=&\frac{26-x^{(3)}}{8}=2,9995312
 % scilab
 %%%%%%%%%%%%%%%%%%%%
 \ifisscilab
-\subsubsection{Código Scilab: Gauss-Seidel}
+\subsubsection{Código Scilab: Método de Gauss-Seidel}
 
 \verbatiminput{./cap_linsis/codes/scilab/metodo_de_gauss-seidel/gauss_seidel.sci}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\subsubsection{Código GNU Octave: Método de Gauss-Seidel}
+
+\verbatiminput{./cap_linsis/codes/octave/metodo_de_gauss-seidel/gauss_seidel.m}
 \fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-\subsubsection{Código Python: Gauss-Seidel}
+\subsubsection{Código Python: Método de Gauss-Seidel}
 
 \verbatiminput{./cap_linsis/codes/python/metodo_de_gauss-seidel/gauss_seidel.py}
 \fi
@@ -1327,7 +1464,7 @@ y^{(3)}&=&\frac{26-x^{(3)}}{8}=2,9995312
 
 \subsection{Análise de convergência}\index{métodos iterativos!sistemas lineares!convergência}
 
-Nesta seção, discutimos sobre a análise de convergência de métodos iterativos para solução de sistema lineares. Para tanto, consideramos um sistema linear $Ax = b$, onde $A = [a_{i,j}]_{i,j=1}^{n,n}$ é a matriz (real) dos coeficientes, $b = (a_j)_{j=1}^n$ é um vetor dos termos constantes e $x = (x_j)_{j=1}^n$ é o vetor incógnita. No decorrer, assumimos que $A$ é uma matriz não-singular.
+Nesta seção, discutimos sobre a análise de convergência de métodos iterativos para solução de sistema lineares. Para tanto, consideramos um sistema linear $Ax = b$, onde $A = [a_{i,j}]_{i,j=1}^{n,n}$ é a matriz (real) dos coeficientes, $b = (a_j)_{j=1}^n$ é um vetor dos termos constantes e $x = (x_j)_{j=1}^n$ é o vetor incógnita. No decorrer, assumimos que $A$ é uma matriz não singular.
 
 Geralmente, métodos iterativos são construídos como uma iteração de ponto fixo. No caso de um sistema linear, reescreve-se a equação matricial em um problema de ponto fixo equivalente, isto é:
 \begin{equation*}
@@ -1859,7 +1996,7 @@ x_1+2x_2+10x_3&=-30
 Use como critério de paragem tolerância inferior a $10^{-3}$ e inicialize com $x^{0}=y^{0}=z^{0}=0$.  
 \end{exer}
 
-\begin{exer}Refaça a questão \ref{trid} construindo um algoritmo que implemente os métodos de Jacobi e Gauss-Seidel.
+\begin{exer}Refaça o Exercício~\ref{exer:trid} construindo um algoritmo que implemente os métodos de Jacobi e Gauss-Seidel.
 \end{exer}
 
 \begin{exer} Considere o seguinte sistema de equações lineares:
@@ -1950,7 +2087,7 @@ $$
 |\lambda_1|>|\lambda_2|\geq |\lambda_3|\geq\cdots |\lambda_n|>0
 $$
 Como os autovetores são l.i., todo vetor $x\in\mathbb{R}^n$, $x=(x_1,x_2,...,x_n)$, pode ser escrito com combinação linear dos autovetores da seguinte forma:
-\begin{equation}\label{met_pot_forma}
+\begin{equation}\label{eq:met_pot_forma}
 x=\sum_{j=1}^n\beta_jv_{j}.
 \end{equation}
 
@@ -1961,13 +2098,13 @@ Por questões de convergência, consideramos a seguinte sequência semelhante à
 $$\frac{x}{\left\|x\right\|}, \frac{Ax}{\|Ax\|}, \frac{A^2x}{\|A^2x\|}, \frac{A^3x}{\|A^3x\|}, \ldots,$$
 que pode ser obtida pelo seguinte processo iterativo:
 $$x^{(k+1)}=\frac{A^{k}x}{\|A^{k}x\|}$$
-Observamos que se $x$ está na forma \eqref{met_pot_forma}, então $A^k x$ pode ser escrito como
+Observamos que se $x$ está na forma \eqref{eq:met_pot_forma}, então $A^k x$ pode ser escrito como
 $$A^{k} x = \sum_{j=1}^n\beta_j A^k v_{j}=\sum_{j=1}^n\beta_j \lambda_j^k v_{j}= \beta_1\lambda_1^k\left(v_1+\sum_{j=2}^n\frac{\beta_j}{\beta_1} \left(\frac{\lambda_j}{\lambda_1}\right)^k v_{j}\right)$$
 Como $\left|\frac{\lambda_j}{\lambda_1}\right|<1$ para todo $j\geq 2$, temos
 $$\sum_{j=2}^n\frac{\beta_j}{\beta_1} \left(\frac{\lambda_j}{\lambda_1}\right)^k v_{j} \to 0.$$
 Assim
-\begin{equation}\label{met_pot_assim}
-  \frac{A^k x}{\left\|A^k x\right\|} = \frac{\beta_1\lambda_1^k}{\left\|A^k x\right\|}\left( v_1 + O\left(\left|\frac{\lambda_2}{\lambda_1}\right|^k\right)\right) 
+\begin{equation}\label{eq:met_pot_assim}
+  \frac{A^k x}{\left\|A^k x\right\|} = \frac{\beta_1\lambda_1^k}{\left\|A^k x\right\|}\left( v_1 + O\left(\left|\frac{\lambda_2}{\lambda_1}\right|^k\right))\right) 
 \end{equation}
 Como a norma de $\frac{A^k x}{\left\|A^k x\right\|}$ é igual a um, temos
 $$\left\|\frac{\beta_1\lambda_1^k}{\left\|A^k x\right\|}v_1\right\| \to 1$$
@@ -1977,7 +2114,7 @@ Ou seja, se definimos $\alpha^{(k)}=\frac{\beta_1\lambda_1^k}{\left\|A^k x\right
 $$
 |\alpha^{(k)}|\to 1
 $$
-Retornando a (\ref{met_pot_assim}), temos:
+Retornando a \eqref{eq:met_pot_assim}, temos:
 
 $$\frac{A^k x}{\left\|A^k x\right\|}-\alpha^{(k)} v_1 \to 0$$
 
