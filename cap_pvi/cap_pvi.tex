@@ -846,7 +846,7 @@ Tanto o método de Euler quanto o método trapezoidal se encaixam no método
 \begin{eqnarray}
   u_{n+1} &= u_n +  h (\theta f(t_n,u_n)+(1-\theta )f(t_{n+1},u_{n+1}))
 \end{eqnarray}
-com $\theta =1$ e $\theta =\frac{1}{2}$ respectivamente. O método é expl\'icito somente para $\theta =1$. Para $\theta =0$, obtemos o método impl\'icito de Euler.
+com $\theta =1$ e $\theta =\frac{1}{2}$ respectivamente. O método é explícito somente para $\theta =1$. Para $\theta =0$, obtemos o método implícito de Euler.
 
 
 
@@ -1020,100 +1020,801 @@ Comente os resultados (novamente, em cada gráfico separado para cada método re
 
 
 
-\section{Métodos de Runge-Kutta}\label{sec_RK}\index{método!de Runge-Kutta}
 
-Os métodos de Runge-Kutta consistem em iterações do tipo:
-$$u_{k+1}=u_k+w_1 k_1 + \ldots + w_n k_n$$
-onde
+
+\section{Métodos de Passo Múltiplo}
+Seja o PVI
+\begin{eqnarray}
+  u'(t) &= f(t,u(t)) \\
+  u(t_0) &= a
+\end{eqnarray}
+
+
+Integrando a EDO em $[t_{n+1},t_{n}]$ obtemos
+\begin{eqnarray}
+  u_{n+1}  &= u_n  + \int _{t_n}^{t_{n+1}} f(t,u(t)) \; dt
+\end{eqnarray}
+Denote por $f_n\equiv f(t_n,u_n)$. Um método de passo simples utiliza $f_{n+1}$ e $f_{n}$. Um método de passo múltiplo utiliza também $s$ valores anteriores já calculados como $f_{n-1},f_{n-2},\ldots ,f_{n-s}$, onde $s\geq 1$ inteiro.
+
+\begin{eqnarray}
+  u_{n+1}  &= u_{n}  + h[b_s f_{n+1}+b_{s-1}f_{n}+\ldots +b_1f_{n-s+2}+b_0f_{n-s+1}]
+%\\  u_{n+1}  &= u_{n}  + h \sum_{m=0}^s b_m f_{n-s+1+m}
+\end{eqnarray}
+
+Para conformidade com \cite{iserles1996fcn}, translade $s-1$ índices,
+\begin{eqnarray}
+  u_{n+s}  &= u_{n+s-1}  + h[b_s f_{n+s}+b_{s-1}f_{n+s-1}+\ldots +b_1f_{n+1}+b_0f_n] \label{multiad}
+\end{eqnarray}
+e teremos
+\begin{eqnarray}
+  u_{n+s}  &= u_{n+s-1}  + h \sum_{m=0}^s b_m f_{n+m}
+\end{eqnarray}
+
+De forma geral um \emph{método de passo múltiplo} será
+\begin{eqnarray}
+  \sum_{m=0}^s a_m u_{n+m}  &=  h \sum_{m=0}^s b_m f_{n+m}
+\end{eqnarray}
+
+
+\section{O método de Adams-Bashforth}
+Quando $a_s=1$, $a_{s-1}=-1$, $a_m=0$ para $m=s-2,\ldots ,0$, $b_s=0$ temos um método de Adams-Bashforth do tipo
+\begin{eqnarray}\label{AB}
+  u_{n+s}  &= u_{n+s-1}  + h \sum_{m=0}^{s-1} b_m f_{n+m}
+\end{eqnarray}
+Note que os métodos de Adams-Bashforth são \emph{explícitos} pois $b_s=0$.
+
+
+
+\begin{ex}
+Vamos obter o método de Adams-Bashforth para $s=4$ como
+\begin{eqnarray}
+  u_{n+4}  &= u_{n+3}  + \int _{t_{n+3}}^{t_{n+4}} f(t,u(t)) \; dt \\
+  u_{n+4}  &= u_{n+3}  + h \sum_{m=0}^{3} b_m f_{n+m} \\
+  u_{n+4}  &= u_{n+3}  + h [b_3f_{n+3} +b_2f_{n+2} +b_1f_{n+1} +b_0f_n]
+\end{eqnarray}
+Para isso devemos obter $[b_3,b_2,b_1,b_0]$ tal que o método seja exato para polinômios até ordem $3$. Podemos obter esses coeficientes de maneira análoga a obter os coeficientes de um método para integração.
+
+Supondo que os nós $t_k$ estejam igualmente espaçados, e para facilidade dos cálculos, como o intervalo de integração é $[t_{n+3},t_{n+4}]$, translade $t_{n+3}$ para a origem tal que $[t_n,t_{n+1},\ldots ,t_{n+4}]=[-3h,-2h,-h,0,h]$.
+
+Considere a base $[\phi _0(t),\ldots ,\phi _3(t)]=[1,t,t^2,t^3]$ e substitua $f(t)$ por $\phi _k(t)$ obtendo
 \begin{eqnarray*}
-k_1&=&hf(u_k,t_k)\\
-k_2&=&hf(u_k+\alpha_{2,1}k_1,t_k+\beta_{2}h)\\
-k_3&=&hf(u_k+\alpha_{3,1}k_1+\alpha_{3,2}k_2,t_k+\beta_{3}h)\\
-&\vdots&\\
-k_n&=&hf(u_k+\alpha_{n,1}k_1+\alpha_{n,2}k_2+\ldots \alpha_{n,n-1}k_{n-1},t_k+\beta_{n}h)\\
+  \int _0^{h} 1  \;dt = h             &= h( b_0(1)  +b_1(1)    + b_2(1)   + b_3(1)    )\\
+  \int _0^{h} t  \;dt = \frac{h^2}{2}  &= h( b_0(0)  +b_1(-h)   + b_2(-2h) + b_3(-3h)  )\\
+  \int _0^{h} t^2 \;dt = \frac{h^3}{3}  &= h( b_0(0)^2 +b_1(-h)^2  + b_2(-2h)^2+ b_3(-3h)^2 )\\
+  \int _0^{h} t^3 \;dt = \frac{h^4}{4} &= h( b_0(0)^3 +b_1(-h)^3  + b_2(-2h)^3+ b_3(-3h)^3 )
 \end{eqnarray*}
-
-Os coeficientes são escolhidos de forma que a expansão em Taulor de $u_{k+1}$ e $u_k+w_1 k_1 + \ldots + w_n k_n$ coincidam até ordem $n+1$.
-
-\begin{ex} O método de Euler melhorado é um exemplo de Runge-Kutta de segunda ordem
-$$u^{(n+1)}=u^{(n)}+\frac{k_1+k_2}{2}$$
-onde $k_1=hf(u^{(n)},t^{(n)})$ e $k_2=hf(u^{(n)}+k_1,t^{(n)}+h)$.
+que pode ser escrito na forma matricial
+\begin{eqnarray}
+\left(
+  \begin{array}{cccc}
+    1  &  1    & 1   & 1\\
+    0  &  -1   & -2  & -3\\
+    0  &  1    & 4   &  9\\
+    0  &  -1   & -8  & -27
+  \end{array}
+\right)
+\left(\begin{array}{c}  b_0 \\ b_1\\ b_2\\b_3   \end{array}\right)
+=
+\left(\begin{array}{c}  1  \\ 1/2 \\ 1/3 \\ 1/4  \end{array}\right)
+\end{eqnarray}
+Resolvendo o sistema obtemos
+$$[b_0,b_1,b_2,b_3]=[-\frac{9}{24},\frac{37}{24},-\frac{59}{24},\frac{55}{24}]$$
+fornecendo o \emph{método de Adams-Bashforth de $4$ estágios}
+\begin{eqnarray}\label{AB4}
+  u_{n+4}  &= u_{n+3}  + \frac{h}{24} [55 f_{n+3} -59f_{n+2} +37f_{n+1} -9f_n]
+\end{eqnarray}
 \end{ex}
 
-\subsection{Métodos de Runge-Kutta - quarta ordem}\index{método!de Runge-Kutta!de quarta ordem}
+\begin{exer}
+Mostre que o método de Adams-Bashforth para $s=2$ é dado por
+\begin{eqnarray}\label{AB2}
+  u_{n+2}  &= u_{n+1}  + \frac{h}{2} [3 f_{n+1} -f_{n}]
+\end{eqnarray}
+\end{exer}
 
-$$u^{(n+1)}=u^{(n)}+\frac{k_1+2k_2+2k_3+k_4}{6}$$
-onde
+\begin{exer}
+Mostre que o método de Adams-Bashforth para $s=3$ é dado por
+\begin{eqnarray}\label{AB3}
+  u_{n+3}  &= u_{n+2}  + \frac{h}{12} [23f_{n+2}-16 f_{n+1} +5f_{n}]
+\end{eqnarray}
+\end{exer}
+
+
+
+\section{O método de Adams-Moulton}
+Quando $a_s=1$, $a_{s-1}=-1$, $a_m=0$ para $m=s-2,\ldots ,0$, $b_s\neq 0$ temos um método de Adams-Moulton do tipo
+\begin{eqnarray}\label{AM}
+  u_{n+s}  &= u_{n+s-1}  + h \sum_{m=0}^{s} b_m f_{n+m}
+\end{eqnarray}
+Note que os métodos de Adams-Moulton são implícitos pois $b_s\neq 0$.
+
+
+
+\begin{ex}
+Vamos obter o método de Adams-Moulton para $s=3$ como
+\begin{eqnarray}\label{AM4}
+  u_{n+3}  &= u_{n+2}  + \int _{t_{n+3}}^{t_{n+4}} f(t,u(t)) \; dt \\
+  u_{n+3}  &= u_{n+2}  + h \sum_{m=0}^{3} b_m f_{n+m} \\
+  u_{n+3}  &= u_{n+2}  + h [b_3f_{n+3} +b_2f_{n+2} +b_1f_{n+1} +b_0f_n]
+\end{eqnarray}
+Para isso devemos obter $[b_3,b_2,b_1,b_0]$ tal que o método seja exato para polinômios até ordem $3$. Podemos obter esses coeficientes de maneira análoga a obter os coeficientes de um método para integração.
+
+Supondo que os nós $t_k$ estejam igualmente espaçados, e para facilidade dos cálculos, como o intervalo de integração é $[t_{n+2},t_{n+3}]$, translade $t_{n+2}$ para a origem tal que $[t_n,t_{n+1},\ldots ,t_{n+3}]=[-2h,-h,0,h]$.
+
+Considere a base $[\phi _0(t),\ldots ,\phi _3(t)]=[1,t,t^2,t^3]$ e substitua $f(t)$ por $\phi _k(t)$ obtendo
 \begin{eqnarray*}
-k_1&=&hf(u^{(n)},t^{(n)})\\
-k_2&=&hf(u^{(n)}+k_1/2,t^{(n)}+h/2)\\
-k_3&=&hf(u^{(n)}+k_2/2,t^{(n)}+h/2)\\
-k_4&=&hf(u^{(n)}+k_3,t^{(n)}+h)\\
+      \int _0^{h} 1  \;dt = h             &= h( b_0(1)  +b_1(1)   + b_2(1)   + b_3(1)    )\\
+      \int _0^{h} t  \;dt = \frac{h^2}{2}  &= h( b_0(h)  +b_1(0)   + b_2(-h) + b_3(-2h)  )\\
+      \int _0^{h} t^2 \;dt = \frac{h^3}{3}  &= h( b_0(h)^2 +b_1(0)^2  + b_2(-h)^2+ b_3(-2h)^2 )\\
+      \int _0^{h} t^3 \;dt = \frac{h^4}{4} &= h( b_0(h)^3 +b_1(0)^3  + b_2(-h)^3+ b_3(-2h)^3 )
 \end{eqnarray*}
-Este método tem ordem de precisão 4. Uma discussão heurística usando método de Simpson pode ajudar a compreender os estranhos coeficientes:
-\begin{eqnarray*}
-u({t^{(n+1)}})-u({t^{(n)}})&=&\int_{t^{(n)}}^{t^{(n+1)}}f(t,u(s),s)ds \\
-&\approx& \frac{h}{6}\left[ f\left(u(t^{(n)}),t^{(n)}\right)+4f\left(u(t^{(n)}+h/2),t^{(n)}+h/2\right)\right.\\
-&+&\left.f\left(u(t^{(n)}+h),t^{(n)}+h\right)\right]\\
-&\approx& \frac{k_1+4(\frac{k_2+k_3}{2})+k_4}{6}
-\end{eqnarray*}
-onde $k_1$ e $k_4$ representam as inclinações nos extremos e $k_2$ e $k_3$ são duas aproximações diferentes para a inclinação no meio do intervalo.
-
-
-\section{Métodos de passo múltiplo - Adams-Bashforth}\index{método!de passo múltiplo!Adams-Bashforth}
-
-O método de Adams-Bashforth consiste de um esquema recursivo do tipo:
-$$u^{(n+1)}=u^{(n)}+\sum_{j=0}^k w_jf(u^{(n-j)},t^{(n-j)})$$
-
-\begin{ex} Adams-Bashforth de segunda ordem
-$$u^{(n+1)}=u^{(n)}+\frac{h}{2}\left[3f\left(u^{(n)},t^{(n)}\right)-f\left(u^{(n-1)},t^{(n-1)}\right)\right]$$
+que pode ser escrito na forma matricial
+\begin{eqnarray}
+\left(
+  \begin{array}{cccc}
+    1  & 0 & 1    & 1   \\
+    1  & 0 & -1   & -2  \\
+    1  & 0 & 1    & 4   \\
+    1  & 0 & -1   & -8
+  \end{array}
+\right)
+\left(\begin{array}{c}  b_0 \\ b_1\\ b_2\\b_3   \end{array}\right)
+=
+\left(\begin{array}{c}  1  \\ 1/2 \\ 1/3 \\ 1/4  \end{array}\right)
+\end{eqnarray}
+Resolvendo o sistema obtemos
+$$[b_0,b_1,b_2,b_3]=[\frac{1}{24},-\frac{5}{24},\frac{19}{24},\frac{9}{24},]$$
+fornecendo a regra
+\begin{eqnarray}
+  u_{n+3}  &= u_{n+2}  + \frac{h}{24} [9 f_{n+3} +19f_{n+2} -5f_{n+1} +f_n]
+\end{eqnarray}
 \end{ex}
 
-\begin{ex} Adams-Bashforth de terceira ordem
-$$u^{(n+1)}=u^{(n)}+\frac{h}{12}\left[23f\left(u^{(n)},t^{(n)}\right)-16f\left(u^{(n-1)},t^{(n-1)}\right)+5f\left(u^{(n-2)},t^{(n-2)}\right)\right]$$
+\begin{exer}
+Encontre o método de Adams-Moulton para $s=2$.
+%\begin{eqnarray}\label{AM2}
+%  u_{n+2}  &= u_{n+1}  + \frac{h}{2} [3 f_{n+1} -f_{n}]
+%\end{eqnarray}
+\end{exer}
+
+\begin{exer}
+Encontre o método de Adams-Moulton para $s=3$.
+%\begin{eqnarray}
+%  u_{n+3}  &= u_{n+2}  + \frac{h}{12} [23f_{n+2}-16 f_{n+1} +5f_{n}]
+%\end{eqnarray}
+\end{exer}
+
+
+\section{Método BDF}
+Um método de ordem $s$ com $s$ estágios é chamado de \emph{método BDF-Backward Differentiation Formula} se $\sigma (w)=b_sw^s$, onde $b_s \in \mathbb{R}$, ou seja,
+\begin{eqnarray}\label{BDF}
+  a_s u_{n+s}+ ...+ a_1 u_{n+1} + a_0u_{n} &=  h b_sf_{n+s}
+\end{eqnarray}
+
+\begin{ex}
+Mostre que o método BDF com $s=3$ é
+\begin{eqnarray}
+  u_{n+3} -\frac{18}{11} u_{n+2}+\frac{9}{11}u_{n+1}-\frac{2}{11}u_n &= \frac{6}{11}h f_{n+3}
+\end{eqnarray}
 \end{ex}
 
-\begin{ex} Adams-Bashforth de quarta ordem
-  \begin{equation*}
-    \begin{split}
-      u^{(n+1)} &= u^{(n)} + \frac{h}{24}\left[55f\left(u^{(n)},t^{(n)}\right)-59f\left(u^{(n-1)},t^{(n-1)}\right)\right.\\
-        &+\left. 37f\left(u^{(n-2)},t^{(n-2)}\right)-9f\left(u^{(n-3)},t^{(n-3)}\right)\right]    
-    \end{split}
-  \end{equation*}
+
+
+\begin{exer}
+Mostre que o método BDF com $s=1$ é o método de Euler implícito.
+\end{exer}
+
+\begin{exer}
+Mostre que o método BDF com $s=2$ é
+\begin{eqnarray}
+  u_{n+2} -\frac{4}{3} u_{n+1} + \frac{1}{3}u_n &= \frac{2}{3}h f_{n+2}
+\end{eqnarray}
+\end{exer}
+
+
+\section{Ordem e convergência de métodos de passo múltiplo}
+Mais geralmente, um método de passo múltiplo será da forma
+\begin{eqnarray}\label{multistep}
+  a_s u_{n+s}+ ...+ a_1 u_{n+1} + a_0u_{n} &=  h [b_sf_{n+s} +... +b_1f_{n+1} +b_0f_n]
+\end{eqnarray}
+Por convenção normalizamos a equação acima tomando $a_s=1$. Quando $b_s=0$ temos um método explícito e quando $b_s \neq 0$ temos um método implícito.
+
+O método será de ordem $p$ se o $ETL=\mathcal O(h^{p+1})$.
+
+
+Dois polinômios são usados para estudar o método \eqref{multistep}:
+\begin{eqnarray}
+\rho (w)= a_s w^s + ...+a_1w+a_0, \quad \quad \sigma (w)=b_s w^s + ...+b_1w+b_0,
+\end{eqnarray}
+
+
+
+%\begin{teo}\label{teo:multiordem}
+%Um método de passo múltiplo é de ordem $p$ se e somente se
+%$$ \rho (w)=\sigma (\frac{dw}{dt}),  \quad  w=t^k, k=0,...,p-1 $$
+%\end{teo}
+%\begin{proof}
+%Para o método ser de ordem $p$ é necessário e suficiente que $\rho (w)=\sigma (\frac{dw}{dt})$ para todos os polinômios até ordem $p$, ou seja,
+%\begin{eqnarray} \label{condconv}
+%  a_s +...+a_1+a_0      &=0 \\
+%  sa_s+...+1a_1+0a_0    &=b_s +...+b_1+b_0         \\
+%  s^2a_s+...+1^2a_1+0^2a_0 &=2(s b_s+...+1 b_1+0 b_0) \\
+%  s^3a_s+...+1^3a_1+0^3a_0 &=3(s^2b_s+...+1^2b_1+0^2b_0) \\
+%         \vdots    &=&\vdots  \\
+%  s^ka_s+...+1^ka_1+0^ka_0 &=(k-1)(s^{k-1}b_s+...+1^{k-1}b_1+0b_0)
+%\end{eqnarray}
+%se e somente se o método é de ordem $p$.
+%\end{proof}
+%
+%
+%
+%
+%\begin{ex}
+%Mostre que o método de Adams-Bashforth para $s=2$ dado por
+%\begin{eqnarray}\label{AB2}
+%  u_{n+2}  &=&u_{n+1}  + \frac{h}{2} [3 f_{n+1} -f_{n}]
+%\end{eqnarray}
+%é de ordem $2$.
+%
+%Temos que $\rho (w)=w^2-w$ e $\sigma (w)=\frac{3}{2}w-\frac{1}{2}$.
+%
+%Assim para $\phi (t)=1,t,t^2$ obtemos
+%\begin{eqnarray} \label{condconv}
+%  \rho (1)-\sigma (0) = (1^2-1) -0 =0 \\
+%  \rho (t)-\sigma (1) = (t^2-t) -(\frac{3}{2}-\frac{1}{2} )=0 \\
+%  \rho (t^2)-\sigma (2t) = (t^4-t^2) -(\frac{3}{2}-\frac{1}{2} )=0 \\
+%  2 a_2+1 a_1      &=b_2+b_1+b_0         \\
+%  2^2a_2+1^2a_1      &=2(2 b_2+1 b_1+0 b_0) \\
+%  2^3a_2+1^3a_1+0a_0  &=3(2^2b_2+1^2b_1+0^2b_0)
+%\end{eqnarray}
+%
+%
+%
+%\begin{eqnarray} \label{condconv}
+%  a_2  +  a_1+a_0   &=0 \\
+%  2 a_2+1 a_1      &=b_2+b_1+b_0         \\
+%  2^2a_2+1^2a_1      &=2(2 b_2+1 b_1+0 b_0) \\
+%  2^3a_2+1^3a_1+0a_0  &=3(2^2b_2+1^2b_1+0^2b_0)
+%\end{eqnarray}
+%
+%
+%
+%
+%
+%
+%\end{ex}
+%
+%
+
+
+%
+%\subsection{Convergência de métodos de passo múltiplo}
+%O erro de truncamento local para qualquer $u(t)$ suave
+%\begin{eqnarray}
+%   ETL(u(t)) &=&a_s u(t+sh)+...+a_1u(t+h)+a_0u(t) -  h [b_s u'(t+sh)+...+b_1u'(t+h)+b_0u'(t)] \\
+%             &=&\mathcal O(h^{p+1})
+%\end{eqnarray}
+%se e somente se $ETL(q(t))=0$ $\forall q(t) \in \mathcal P^p$.
+%
+%Isto é equivalente a $ETL( \phi _k(t) )=0$ para a base polinomial $\phi _k(t)=t^k$, $k=0,\ldots ,p$.
+%
+%Para $\phi _0(t)=1$ obtemos
+%\begin{eqnarray}
+%   ETL(\phi _0) &=& a_s u(t+sh)+...+a_1u(t+h)+a_0u(t) -  h [b_s u'(t+sh)+...+b_1u'(t+h)+b_0u'(t)] \\
+%           &=& a_s +...+a_1+a_0-  h [b_s 0+...+b_10+b_00] \\
+%           &=& a_s +...+a_1+a_0 =0 \\
+%\end{eqnarray}
+%e para $\psi _1(t)=t$, obtemos
+%\begin{eqnarray}
+%   ETL(\phi _1) &=& a_s u(t+sh)+...+a_1u(t+h)+a_0u(t) -  h [b_s u'(t+sh)+...+b_1u'(t+h)+b_0u'(t)] \\
+%           &=& a_s sh+...+a_1h+a_00 -  h [b_s +...+b_1+b_0] =0
+%\end{eqnarray}
+%e para $\psi _k(t)=t^k$, obtemos
+%\begin{eqnarray}
+%   ETL(\phi _k) &=& a_s u(t+sh)+...+a_1u(t+h)+a_0u(t) -  h [b_s u'(t+sh)+...+b_1u'(t+h)+b_0u'(t)] \\
+%           &=& a_s (sh)^k+...+a_2(2h)^k+a_1(h)^k+a_00 -  h k[b_s (sh)^{k-1}+...+b_1h^{k-1}+b_00] =0
+%\end{eqnarray}
+%que é igual a zero para $k=1,\ldots ,p$ sob a condição \eqref{condconv}.
+%
+%
+
+\begin{ex}
+O método \eqref{AB3} de Adams-Bashforth para $s=3$ estágios é de ordem $3$ de convergência, ou seja, $ETL = \mathcal O(h^4)$. Ele é construído de tal maneira que seja exato para os polinômios $1,t,t^2,t^3$.
 \end{ex}
-Os métodos de passo múltiplo evitam os múltiplos estágios do métodos de Runge-Kutta, mas exigem ser "iniciados" com suas condições iniciais.
 
-\section{Métodos de passo múltiplo - Adams-Moulton}\index{método de passo múltiplo!Adams-Moulton}
 
-O método de Adams-Moulton consiste de um esquema recursivo do tipo:
-$$u^{(n+1)}=u^{(n)}+\sum_{j=-1}^k w_jf(u^{(n-j)},t^{(n-j)})$$
 
-\begin{ex} Adams-Moulton de quarta ordem
-  \begin{equation*}
-    \begin{split}
-      u^{(n+1)} &= u^{(n)} + \frac{h}{24}\left[9f\left(u^{(n+1)},t^{(n+1)}\right) + 19f\left(u^{(n)},t^{(n)}\right) \right.\\
-      &-\left. 5f\left(u^{(n-1)},t^{(n-1)}\right) + f\left(u^{(n-2)},t^{(n-2)}\right)\right]      
-    \end{split}
-  \end{equation*}
+
+\subsection{Consistência, Estabilidade e Convergência}
+\begin{teo}
+Um método de passo múltiplo é \emph{consistente} se $\rho (1)=0$ e $\rho '(1)=\sigma (1)$.
+\end{teo}
+
+
+\begin{teo}
+Um método de passo múltiplo é \emph{estável} se todas as raízes de  $\rho (z)$ estão em $|z|\leq 1$ e as raízes com $|z|=1$ são simples.
+\end{teo}
+
+
+\begin{teo}
+Se um método numérico é \emph{consistente} e \emph{estável} em $[a,b]$ então ele é \emph{convergente}.
+\end{teo}
+
+
+
+\begin{ex}
+Prove que o método de passo $3$
+\begin{eqnarray}\label{multis3}
+  u_{n+3} +\frac{27}{11}u_{n+2} -\frac{27}{11}u_{n+1} -u_{n}  =\\
+   =\frac{h}{11} [3 f_{n+3}+27f_{n+2}+27f_{n+1} +3f_{n}]
+\end{eqnarray}
+não é estável.
 \end{ex}
-O método de Adams-Moulton é implícito, ou seja, exige que a cada passo, uma equação em $u^{(n+1)}$ seja resolvida.
+\begin{sol}
+O polinômio
+\begin{eqnarray}
+   \rho (w) &=&w^3+\frac{27}{11}w^2 -\frac{27}{11}w -1 \\
+        &=&(w-1)\left(w+\frac{19+4\sqrt{15}}{11}\right)
+                \left(w+\frac{19-4\sqrt{15}}{11}\right)
+\end{eqnarray}
+falha na condição da raiz.
+\end{sol}
 
-\section{Estabilidade}\index{estabilidade}
 
-Consideremos o seguinte problema de teste:
-$$\left\{\begin{array}{rcl}u'&=&-\alpha u\\u(0)&=&1\end{array}\right.$$
-cuja solução exata é dada por $u(t)=e^{-\alpha t}$.
 
-Considere agora o método de Euler aplicado a este problema com passa $h$:
-$$\left\{\begin{array}{rcl}u_{k+1}&=&u_k-\alpha h u_k\\u_1&=&1\end{array}\right.$$
-A solução exata do esquema de Euler é dada por
-$$u_{k+1}=(1-\alpha h)^{k}$$
-e, portanto,
-$$\tilde{u}(t)=u_{k+1}=(1-\alpha h)^{t/h}$$
 
-Fixamos um $\alpha>0$, de forma que $u(t)\to 0$. Mas observamos que $\tilde{u}(t)\to 0$ somente quando $|1-\alpha h|<1$ e solução positivas somente quando $\alpha h<1$.
+\begin{exer}
+Prove que todos os métodos de Adams-Bashforth satisfazem a condição da raiz.
+%\begin{solution}
+%Para o método de Adams-Bashforth temos que $\rho (w)=w^{s-1}(w-1)$ satisfazendo a condição da raiz.
+%\end{solution}
+\end{exer}
 
-{\bf Conclusão:} Se o passo $h$ for muito grande, o método pode se tornar instável, produzindo solução espúrias.
+\begin{teo}
+O polinômio $\rho (w)$ em \eqref{BDF} satisfaz a condição da raiz e o método BDF é convergente se e somente se $1\leq s\leq 6$.
+\end{teo}
+
+\begin{exer}
+Mostre que os métodos BDF com $s=2$ e $s=3$ são convergentes.
+\end{exer}
+
+
+
+\subsection{As barreiras de Dahlquist}
+Um método de passo múltiplo possui $2s+1$ coeficientes $a_m$,$b_m$. Poderíamos definir tais coeficientes de tal forma a obter ordem máxima.
+
+Conclusão? Poderíamos obter métodos com $s$ estágios e ordem $2s$.
+
+Entretanto tal método (implícito de passo $s$ e ordem $2s$) não é convergente para $s\geq 3$ .
+
+É possível provar que a ordem máxima de convergência para um método de passo múltiplo $s$ é no máximo  $2\lfloor(s+2)/2\rfloor$ para métodos implícitos e $s$ para métodos explícitos. Esta é a \emph{primeira barreira de Dahlquist}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Estabilidade dos métodos de passo múltiplo}
+
+%Suponha que um método de passo múltiplo \eqref{multistep} seja aplicado a EDO linear \eqref{EDO4.7} obtendo
+%\begin{eqnarray}
+%  \sum_{m=0}^s a_m  u_{n+m}  &=& h  \sum_{m=0}^s b_m f_{n+m} \\
+%  \sum_{m=0}^s a_m  u_{n+m}  &=& h\lambda  \sum_{m=0}^s b_m u_{n+m}
+%\end{eqnarray}
+%que pode ser escrita como
+%\begin{eqnarray}
+%  \sum_{m=0}^s (a_m  - h\lambda  b_m) u_{n+m}&=0, \\
+%  \sum_{m=0}^s \alpha _m u_{n+m}&=0, \quad  n=0,1,\ldots 
+%\end{eqnarray}
+%Similarmente a equações diferenciais, a equação \`a diferenças possui solução como o polinômio característico
+%\begin{eqnarray}
+%  \eta (w) :=   \sum_{m=0}^s \alpha _m w^n.
+%\end{eqnarray}
+%Sejam $w_1,\ldots ,w_q$ as raízes de $\eta (w)$ com multiplicidade $k_1,\ldots ,k_q$, onde $\sum k_i=s$. A solução da equação a diferenças é
+%\begin{eqnarray}
+%  u_n = \sum_{i=1}^q (\sum_{j=0}^{k_i-1}c_{ij} n^j)w_i^n, \quad  n=0,1,\ldots 
+%\end{eqnarray}
+%onde as constantes $c_{ij}$ são unicamente determinadas pelos valores iniciais $u_0,\ldots ,u_{s-1}$.
+
+\begin{teo}
+O método BDF de 2 estágios é A-estável.
+\end{teo}
+
+\begin{teo}
+[A segunda barreira de Dahlquist] A ordem máxima de um método de passo múltiplo A-estável é dois.
+\end{teo}
+
+%%\begin{ex}
+%%O método BDF de 2 estágios
+%%\begin{eqnarray}
+%%  u_{n+2} - \frac{4}{3} u_{n+1} + \frac{1}{3} u_n = \frac{2}{3}h f_{n+2}
+%%\end{eqnarray}
+%%para o PVI $u'=\lambda u$, que possui polinômio característico
+%%\begin{eqnarray}
+%%  w^2 - \frac{4}{3} w + \frac{1}{3} = \frac{2}{3}h \lambda (w^2)
+%%\end{eqnarray}
+%%ou
+%%\begin{eqnarray}
+%%  \eta (w) := (1-z\frac{2}{3}) w^2 - \frac{4}{3} w + \frac{1}{3}.
+%%\end{eqnarray}
+%%
+%%O polinômio $\eta (w)$ possui duas raízes (encontradas com o Maple)
+%%\begin{eqnarray}
+%%  w_1 &=&\frac{-4+2(1+2z)^{1/2}}{-6+4z},\\
+%%  w_2 &=&\frac{-4-2(1+2z)^{1/2}}{-6+4z}
+%%\end{eqnarray}
+%%
+%%Para que o método seja estável, é necessário que $|w_1|<1$ e $|w_2|<1$.
+%%
+%%Tal condição é satisfeita para a região dentro da curva na figura \ref{RegiaoBDF}.
+%%
+%%\begin{figure}
+%%\begin{center}
+%%  \includegraphics[width=8cm]{RegiaoBDF.eps}\\
+%%  \caption{Região de estabilidade (exterior a curva) para o método BDF $s=2$ }\label{RegiaoBDF}
+%%\end{center}
+%%\end{figure}
+%%\end{ex}
+
+%\begin{ex}
+%Plote a região de estabilidade do método de BDF de ordem $2$ e $3$.
+%\end{ex}
+%
+%\begin{ex}
+%Plote a região de estabilidade do método de Adams-Bashforth de ordem $2$ e $3$.
+%\end{ex}
+%
+%\begin{ex}
+%Plote a região de estabilidade do método de Adams-Moulton de ordem $2$ e $3$.
+%\end{ex}
+%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+% 
+% 
+% \section{Métodos de passo múltiplo - Adams-Bashforth}\index{método!de passo múltiplo!Adams-Bashforth}
+% 
+% O método de Adams-Bashforth consiste de um esquema recursivo do tipo:
+% $$u^{(n+1)}=u^{(n)}+\sum_{j=0}^k w_jf(u^{(n-j)},t^{(n-j)})$$
+% 
+% \begin{ex} Adams-Bashforth de segunda ordem
+% $$u^{(n+1)}=u^{(n)}+\frac{h}{2}\left[3f\left(u^{(n)},t^{(n)}\right)-f\left(u^{(n-1)},t^{(n-1)}\right)\right]$$
+% \end{ex}
+% 
+% \begin{ex} Adams-Bashforth de terceira ordem
+% $$u^{(n+1)}=u^{(n)}+\frac{h}{12}\left[23f\left(u^{(n)},t^{(n)}\right)-16f\left(u^{(n-1)},t^{(n-1)}\right)+5f\left(u^{(n-2)},t^{(n-2)}\right)\right]$$
+% \end{ex}
+% 
+% \begin{ex} Adams-Bashforth de quarta ordem
+%   \begin{equation*}
+%     \begin{split}
+%       u^{(n+1)} &=&u^{(n)} + \frac{h}{24}\left[55f\left(u^{(n)},t^{(n)}\right)-59f\left(u^{(n-1)},t^{(n-1)}\right)\right.\\
+%         &+\left. 37f\left(u^{(n-2)},t^{(n-2)}\right)-9f\left(u^{(n-3)},t^{(n-3)}\right)\right]    
+%     \end{split}
+%   \end{equation*}
+% \end{ex}
+% Os métodos de passo múltiplo evitam os múltiplos estágios do métodos de Runge-Kutta, mas exigem ser "iniciados" com suas condições iniciais.
+% 
+% \section{Métodos de passo múltiplo - Adams-Moulton}\index{método de passo múltiplo!Adams-Moulton}
+% 
+% O método de Adams-Moulton consiste de um esquema recursivo do tipo:
+% $$u^{(n+1)}=u^{(n)}+\sum_{j=-1}^k w_jf(u^{(n-j)},t^{(n-j)})$$
+% 
+% \begin{ex} Adams-Moulton de quarta ordem
+%   \begin{equation*}
+%     \begin{split}
+%       u^{(n+1)} &=&u^{(n)} + \frac{h}{24}\left[9f\left(u^{(n+1)},t^{(n+1)}\right) + 19f\left(u^{(n)},t^{(n)}\right) \right.\\
+%       &-\left. 5f\left(u^{(n-1)},t^{(n-1)}\right) + f\left(u^{(n-2)},t^{(n-2)}\right)\right]      
+%     \end{split}
+%   \end{equation*}
+% \end{ex}
+% O método de Adams-Moulton é implícito, ou seja, exige que a cada passo, uma equação em $u^{(n+1)}$ seja resolvida.
+% 
+% \section{Estabilidade}\index{estabilidade}
+% 
+% Consideremos o seguinte problema de teste:
+% $$\left\{\begin{array}{rcl}u'&=&-\alpha u\\u(0)&=&1\end{array}\right.$$
+% cuja solução exata é dada por $u(t)=e^{-\alpha t}$.
+% 
+% Considere agora o método de Euler aplicado a este problema com passa $h$:
+% $$\left\{\begin{array}{rcl}u_{k+1}&=&u_k-\alpha h u_k\\u_1&=&1\end{array}\right.$$
+% A solução exata do esquema de Euler é dada por
+% $$u_{k+1}=(1-\alpha h)^{k}$$
+% e, portanto,
+% $$\tilde{u}(t)=u_{k+1}=(1-\alpha h)^{t/h}$$
+% 
+% Fixamos um $\alpha>0$, de forma que $u(t)\to 0$. Mas observamos que $\tilde{u}(t)\to 0$ somente quando $|1-\alpha h|<1$ e solução positivas somente quando $\alpha h<1$.
+% 
+% {\bf Conclusão:} Se o passo $h$ for muito grande, o método pode se tornar instável, produzindo solução espúrias.
+% 
+% 
+
+
+
+
+\section{Métodos de Runge-Kutta}
+\subsection{Método de Runge-Kutta Explícito}
+Seja a EDO
+\begin{eqnarray}
+  u'(t) &=&f(t,u(t)) \\
+  u(t_0) &=&a
+\end{eqnarray}
+
+Integrando a EDO em $[t_n,t_{n+1}]$ obtemos
+\begin{eqnarray}
+  u_{n+1}  &=&u_n  + \int _{t_n}^{t_{n+1}} f(t,u(t)) \; dt
+\end{eqnarray}
+Um método de passo simples utiliza $f_n$ e $f_{n+1}$. Queremos aumentar a ordem do método, porém utilizando somente valores de $f$ entre $[t_n,t_{n+1}]$.
+
+\begin{center}
+\begin{tabular}{ccccc}
+  $u_n$ &      &       &      & $u_{n+1}$ \\
+  $|$   &      &       &      &  $|$  \\ \hline
+%  $-+-$ & $--$ &  $--$ & $--$ & $-+-$ \\
+  $t_n$ &      &       &      & $t_{n+1}$ \\
+  $\tau _1$  & $\tau _2$ & $\cdots $ &      & $\tau _\nu $
+\end{tabular}
+\end{center}
+
+\begin{eqnarray}
+  u_{n+1}  &=&u_n  + \int _{t_n}^{t_{n+1}} f(t,u(t)) \; dt \\
+           &=&u_n  + h\int _0^1f(t_n+h\tau ,u(t_n+h\tau )) \; d\tau  \\
+           &=&u_n  + h\sum_{j=1}^\nu  b_jf(t_n+c_jh,u(t_n+c_jh))
+\end{eqnarray}
+
+
+Por exemplo, se $\nu =3$ estágios teremos $[\tau _0,\tau _1,\tau _2]=[t_n+c_0h,t_n+c_1h,t_n+c_2h]$, $U_j\equiv u(\tau _j)$ e $F_j\equiv f(\tau _j,U_j)$, $j=1,2,3$. Inicie com  $U_1=u_n$ ($c_1=0$) como a solução no passo anterior e aproxime $U_2,U_3$, com uma combinação linear dos valores de $F_j$ anteriores, ou seja,
+
+\begin{eqnarray}\label{RKa}
+  U_1 &=&u_n \\
+  U_2 &=&u_n  + h a_{21}F_1 \\
+  U_3 &=&u_n  + h a_{31}F_1 +h a_{32}F_2 \\ \label{RK}
+  u_{n+1}&=&u_n  + h [ b_1F_1+b_2F_2+b_3F_3]
+\end{eqnarray}
+ onde $A=(a_{ij})$ é a matriz de RK (triangular inferior com diagonal zero), $b_j$ são os pesos RK e $c_j$ são os nós RK.
+
+Os coeficientes podem ser resumidos em uma tabela na forma
+
+\begin{tabular}{c|c}
+  $c$ & $A$     \\  \hline
+      & $b^T$
+\end{tabular}
+$=$
+\begin{tabular}{c|ccc}
+  $c_1$  & $0$      & $0$      & $0$ \\
+  $c_2$  & $a_{21}$ & $0$      & $0$ \\ 
+  $c_3$ & $a_{31}$ & $a_{22}$ & $0$\\  \hline
+        & $b_1$     & $b_2$     & $b_3$ 
+\end{tabular}
+
+
+\subsection{Método de RK $\nu =2$}
+Assumindo suavidade suficiente em $f$, expanda em série de Taylor
+\begin{eqnarray}
+F_2 &=&f(t_n+c_2h,U_2)\\
+   &=&f(t_n+c_2h,u_n+ a_{21}h f_n)\\
+   &=&f_n +h[c_2 \frac{\partial f_n}{\partial t}+ a_{21} \frac{\partial f_n}{\partial u} f_n]+O(h^2)
+\end{eqnarray}
+fazendo com que \eqref{RK} se torne
+\begin{eqnarray}
+  u_{n+1}&=&u_n  + h [ b_1 F_1+b_2F_2] \\
+         &=&u_n  + h(b_1+b_2)f_n +h^2b_2[c_2 \frac{\partial f_n}{\partial t}+ a_{21} \frac{\partial f_n}{\partial u} f_n]+O(h^3) \label{3_6}
+\end{eqnarray}
+Usando a EDO e derivando-a obtemos
+\begin{eqnarray}
+  u_t    &=&f(t,u)\\
+  u_{tt} &=&f_t+f_uu_t = f_t+f_uf
+\end{eqnarray}
+e expandindo em série de Taylor a solução exata em $t_{n+1}$,
+\begin{eqnarray}
+  u(t_{n+1})&=&u_n  + hu_t +\frac{h^2}{2}u_{tt} + O(h^3)\\
+            &=&u_n  + hf_n +\frac{h^2}{2}[f_t+f_uf]+O(h^3)
+\end{eqnarray}
+e comparando com \eqref{3_6} obtemos as condições para ordem $p\geq 2$,
+\begin{eqnarray}
+  b_1+b_2=1, \quad b_2c_2 = \frac{1}{2} \quad a_{21}=c_2
+\end{eqnarray}
+
+O sistema possui mais de uma solução. Algumas escolhas comuns são
+
+\begin{tabular}{c|cc}
+  $0$ &     &   \\
+  $\frac{1}{2}$ & $\frac{1}{2}$ &   \\  \hline
+      & $0$ & $1$
+\end{tabular},
+\begin{tabular}{c|cc}
+  $0$ &   &   \\
+  $\frac{2}{3}$ & $\frac{2}{3}$ &   \\  \hline
+    & $\frac{1}{4}$ & $\frac{3}{4}$
+\end{tabular} e
+\begin{tabular}{c|cc}
+  $0$ &   &   \\
+  $1$ & $1$ &   \\  \hline
+      & $\frac{1}{2}$ &$\frac{1}{2}$
+\end{tabular}
+
+onde a última tabela fornece o método de Heun (ou Euler modificado):
+\begin{eqnarray}
+  U_1 &=&u_n \\
+  U_2 &=&u_n  + h F_1 \\
+  u_{n+1}&=&u_n  + h [ \frac{1}{2} F_1+\frac{1}{2}F_2]
+\end{eqnarray}
+Note que o método é de ordem $p=2$ pois os termos que sobraram são de $O(h^3)$.
+
+
+Seguindo um procedimento similar, podemos obter as condições para um método com $\nu =3$ e ordem $p=3$, que são
+\begin{eqnarray}
+  b_1+b_2+b_3=1,               & b_2c_2+b_3c_3 = \frac{1}{2} \\
+  b_2c_2^2+b_3c_3^2=\frac{1}{3}, & b_3a_{32}c_2=\frac{1}{6}
+\end{eqnarray}
+
+Alguns exemplos de métodos de RK de 3 estágios são o método clássico de Runge-Kutta
+
+\begin{tabular}{c|ccc}
+  $0$ &     &   & \\
+  $\frac{1}{2}$ & $\frac{1}{2}$ &   & \\
+  $1$ & $-1$ &$2$& \\  \hline
+      & $\frac{1}{6}$ &$\frac{4}{6}$& $\frac{1}{6}$
+\end{tabular}
+
+e o método de Nystrom
+
+\begin{tabular}{c|ccc}
+  $0$ &     &   & \\
+  $\frac{2}{3}$ & $\frac{2}{3}$ &   & \\
+  $\frac{2}{3}$ & $0$ &$\frac{2}{3}$& \\  \hline
+      & $\frac{2}{8}$ &$\frac{3}{8}$& $\frac{3}{8}$
+\end{tabular}
+
+
+Com paciência e a ajuda de um software algébrico (como Maple) é possível encontrar um método de quarta ordem e $\nu =4$ estágios como
+
+
+\begin{tabular}{c|cccc}
+  $0$ &     &   &   &    \\
+  $\frac{1}{2}$ & $\frac{1}{2}$ &   &   &    \\
+  $\frac{1}{2}$ & $0$ &$\frac{1}{2}$&   &    \\
+  $1$ & $0$ &$0$&$1$&    \\  \hline
+      & $\frac{1}{6}$ &$\frac{2}{6}$& $\frac{2}{6}$& $\frac{1}{6}$
+\end{tabular}
+
+
+
+\subsection{Método de Runge-Kutta implícito (IRK)}
+No conjunto de equações \eqref{RKa}-\eqref{RK}, $U_k$ depende em valores conhecidos $F_1,\ldots ,F_{k-1}$ tornando o método explícito.
+
+Entretanto se $U_k$ depender de $F_1,\ldots ,F_\nu $ temos um método implícito como
+\begin{eqnarray}\label{IRK}
+  U_j &=&u_n  + h \sum_{i=1}^\nu  a_{ji} F_i, \quad  j=1,\ldots ,\nu \\
+  u_{n+1}&=&u_n  + h \sum_{i=1}^{\nu } b_i F_i
+\end{eqnarray}
+onde $A=(a_{ij})$ é a matriz de RK. É necessário que
+\begin{eqnarray}
+ \sum_{i=1}^{\nu } a_{ji} = c_j, \quad \quad  j=1,\ldots ,\nu 
+\end{eqnarray}
+para que o método possua ordem $p\geq 1$.
+
+
+\begin{ex}
+Um método de Runge-Kutta Implícito (IRK) de dois estágios é dado por
+\begin{eqnarray}
+  U_1 &=&u_n  + h/4  [ f(t_n,U_1) - f(t_n+\frac{2}{3}h,U_2)]\\
+  U_2 &=&u_n  + h/12 [3f(t_n,U_1) +5f(t_n+\frac{2}{3}h,U_2)]\\
+  u_{n+1}&=&u_n  + h/4 [f(t_n,U_1) +3f(t_n+\frac{2}{3}h,U_2)]
+\end{eqnarray}
+que possui uma tabela como
+
+\begin{tabular}{c|cc}
+  $0$ & $\frac{1}{4}$ &$-\frac{1}{4}$  \\
+  $\frac{2}{3}$ & $\frac{1}{4}$ &$\frac{5}{12}$  \\  \hline
+      & $\frac{1}{4}$ &$\frac{3}{4}$
+\end{tabular}
+
+\end{ex}
+
+
+% \section{Métodos de Runge-Kutta}\label{sec_RK}\index{método!de Runge-Kutta}
+% 
+% Os métodos de Runge-Kutta consistem em iterações do tipo:
+% $$u_{k+1}=u_k+w_1 k_1 + \ldots + w_n k_n$$
+% onde
+% \begin{eqnarray*}
+% k_1&=&hf(u_k,t_k)\\
+% k_2&=&hf(u_k+\alpha_{2,1}k_1,t_k+\beta_{2}h)\\
+% k_3&=&hf(u_k+\alpha_{3,1}k_1+\alpha_{3,2}k_2,t_k+\beta_{3}h)\\
+% &\vdots&\\
+% k_n&=&hf(u_k+\alpha_{n,1}k_1+\alpha_{n,2}k_2+\ldots \alpha_{n,n-1}k_{n-1},t_k+\beta_{n}h)\\
+% \end{eqnarray*}
+% 
+% Os coeficientes são escolhidos de forma que a expansão em Taulor de $u_{k+1}$ e $u_k+w_1 k_1 + \ldots + w_n k_n$ coincidam até ordem $n+1$.
+% 
+% \begin{ex} O método de Euler melhorado é um exemplo de Runge-Kutta de segunda ordem
+% $$u^{(n+1)}=u^{(n)}+\frac{k_1+k_2}{2}$$
+% onde $k_1=hf(u^{(n)},t^{(n)})$ e $k_2=hf(u^{(n)}+k_1,t^{(n)}+h)$.
+% \end{ex}
+% 
+% \subsection{Métodos de Runge-Kutta - quarta ordem}\index{método!de Runge-Kutta!de quarta ordem}
+% 
+% $$u^{(n+1)}=u^{(n)}+\frac{k_1+2k_2+2k_3+k_4}{6}$$
+% onde
+% \begin{eqnarray*}
+% k_1&=&hf(u^{(n)},t^{(n)})\\
+% k_2&=&hf(u^{(n)}+k_1/2,t^{(n)}+h/2)\\
+% k_3&=&hf(u^{(n)}+k_2/2,t^{(n)}+h/2)\\
+% k_4&=&hf(u^{(n)}+k_3,t^{(n)}+h)\\
+% \end{eqnarray*}
+% Este método tem ordem de precisão 4. Uma discussão heurística usando método de Simpson pode ajudar a compreender os estranhos coeficientes:
+% \begin{eqnarray*}
+% u({t^{(n+1)}})-u({t^{(n)}})&=&\int_{t^{(n)}}^{t^{(n+1)}}f(t,u(s),s)ds \\
+% &\approx& \frac{h}{6}\left[ f\left(u(t^{(n)}),t^{(n)}\right)+4f\left(u(t^{(n)}+h/2),t^{(n)}+h/2\right)\right.\\
+% &+&\left.f\left(u(t^{(n)}+h),t^{(n)}+h\right)\right]\\
+% &\approx& \frac{k_1+4(\frac{k_2+k_3}{2})+k_4}{6}
+% \end{eqnarray*}
+% onde $k_1$ e $k_4$ representam as inclinações nos extremos e $k_2$ e $k_3$ são duas aproximações diferentes para a inclinação no meio do intervalo.
+
+
+
+
+
+\section{Estimativa da ordem de convergência}
+
+Raramente temos a solução exata $u(t)$ para calcular o erro obtido na solução numérica. Entretanto, se a solução é suave o suficiente e o espaçamento $h$ é pequeno suficientemente, podemos usar o seguinte procedimento para estimar a ordem do método (ou ainda, o erro na solução).
+
+Como visto nos exemplo numéricos anteriores, em gráficos na escala \verb#loglog#, se $h$ é grande não obtemos a ordem de convergência utilizada (por exemplo, encontramos que o método de Euler possui ordem $p\approx 0.7$ onde deveria ser $1$). A medida que $h$ decresce se aproximando de $0$, a ordem de convergência tende a se aproximar de $p\approx 1$. (Entretanto $h$ não pode ficar muito pequeno a ponto que as operações de ponto flutuante atrapalhem na convergência).
+
+Portanto existe uma faixa $h_{min} < h < h_{max}$ onde o método apresenta a ordem desejada. Essa região depende do método e do PVI estudado.
+
+Mas se estivermos nessa região podemos aproximar a ordem do método da seguinte forma: Considere a solução para um determinado $t=T^*$ fixo, $u(T^*)$. Considere também as aproximações das soluções obtidas com espaçamento $h$, denotada por $u^{h}$; a aproximação obtida com espaçamento dividido por $2$, $h/2$, denotada por $u^{h/2}$; a aproximação obtida com espaçamento $h/4$, denotada por $u^{h/4}$,$\ldots $ e assim por diante, todas calculadas em $t=T^*$.
+
+\subsection{Método 1}
+Podemos utilizar uma solução bem refinada, por exemplo, $u^{h/16}$ como sendo uma boa aproximação da solução exata e supormos que $u^*=u^{h/16}$. Desta forma podemos aproximar o erro por $e^{h}=\|u^{(h)}-u^*\|$ e a ordem do método é estimada como
+\begin{eqnarray}
+  p  & \approx  \frac{ \log(e^{h})-\log(e^{h/2})}{\log(h)-\log(h/2)} \\
+     & \approx  \frac{ \log \left(   \frac{e^{h}}{e^{h/2}} \right)  }{\log(h /(h/2))} \\
+     & \approx  \frac{ \log \left(   \frac{e^{h}}{e^{h/2}} \right)  }{\log(2)} \\
+     & \approx  \frac{ \log \left(   \frac{\|u^{h}-u^*\|}{\|u^{h/2}-u^*\|} \right)  }{\log(2)} \\
+\end{eqnarray}
+
+\subsection{Método 2}
+Segundo Ferziger/Peric/Roache, podemos também estimar $p$ diretamente de
+\begin{eqnarray}
+  p  & \approx  \frac{ \log \left(   \frac{\|u^{h/2}-u^{h}\|}{\|u^{h/4}-u^{h/2}\|} \right)  }{\log(2)} \\
+\end{eqnarray}
+
+
+
+
+%\chapter{Método de Colocação}
+%Páginas 42-47 de \cite{iserles1996fcn}. %Todo método de colocação é um método de RK, mas a recíproca não é verdadeira.
+
+
 
 
 
