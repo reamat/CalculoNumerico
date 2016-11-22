@@ -1,4 +1,4 @@
-%Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+ %Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
 %\documentclass[main.tex]{subfiles}
 %\begin{document}
@@ -81,11 +81,11 @@ A \emph{eliminação gaussiana}, também conhecida como \emph{escalonamento}, é
 \item permutação de duas linhas.
 \end{enumerate}
 
-\begin{ex} Resolva o sistema
+\begin{ex}\label{ex:elim_gaussiana} Resolva o sistema
   \begin{eqnarray*}
     x+y+z  &=& 1\\
-    2x+y-z &=& 0\\
-    4x+4y+2z&=& 2
+    4x+4y+2z&=& 2\\
+    2x+y-z &=& 0
   \end{eqnarray*}
 pelo método de eliminação gaussiana.
 \end{ex}
@@ -124,7 +124,7 @@ A eliminação gaussiana com \emph{pivotamento parcial} consiste em fazer uma pe
 \begin{eqnarray*}
   x+y+z  &=& 1\\
   2x+y-z &=& 0\\
-  2x+2z+z &=& 1
+  2x+2y+z &=& 1
 \end{eqnarray*}
 por eliminação gaussiana com pivotamento parcial.
 \end{ex}
@@ -771,35 +771,26 @@ De forma geral, temos que
  x_{i} = (b_{i}-a_{i,i+1}x_{i+1} \cdots -a_{i,n}x_n)/a_{i,i}, \quad i=2,\dots,n.
 \end{equation}
 
-
-
-\subsection{Algoritmo para resolução de um sistema triangular superior}
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+\subsection{Código Scilab: resolução de um sistema triangular superior}
 
 Para resolver um sistema triangular superior iniciamos da última linha em direção a primeira.
 
-\begin{verbatim}
-1.  function [x]=solveU(U,b)  // U:= matriz triangular superior
-2.      n=size(U,1)           // b:= vetor
-3.      x(n)=b(n)/U(n,n)
-4.      for i=n-1:-1:1
-5.          x(i)=(b(i)-U(i,i+1:n)*x(i+1:n)  )/U(i,i)
-6.      end
-7.  endfunction
+\lstinputlisting[language=Scilab,numbers=left]{./cap_linsis/codes/scilab/solveU.sci}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
-\end{verbatim}
-
-\subsection{Algoritmo para resolução de um sistema triangular inferior}
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+\subsection{Código Scilab: resolução de um sistema triangular inferior}
 Para resolver um sistema triangular inferior podemos fazer o processo inverso iniciando da primeira equação.
 
-\begin{verbatim}
-1. function [x]=solveL(L,b)   // L: matriz triangular inferior
-2.    n=size(L,1)             // b: vetor
-3.    x(1)=b(1)/L(1,1)
-4.    for i=2:n
-5.        x(i)=(b(i)-L(i,1:i-1)*x(1:i-1)  )/L(i,i)
-6.    end
-7.endfunction
-\end{verbatim}
+\lstinputlisting[language=Scilab,numbers=left]{./cap_linsis/codes/scilab/solveL.sci}
 
 
 \subsubsection{Custo computacional}
@@ -838,35 +829,32 @@ e utilizando que a soma dos $k$ inteiros é uma progressão aritmética\footnote
 \begin{equation}
   2 ( n(n+1)/2 ) -n=  n^2 \text{~flops}.
 \end{equation}
-
-
-
-
-
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
 
 \section{Fatoração LU}
-Considere um sistema linear onde a matriz $A$ é densa\footnote{Diferentemente de uma matriz esparsa, uma matriz densa possui a maioria dos elementos diferentes de zero.}. A fim de resolver o sistema, podemos fatorar a matriz $A$ como o produto da matriz $L$, triangular inferior e da matriz $U$, triangular superior, ou seja, $A=LU$.
+Considere um sistema linear $Ax = b$, onde a matriz $A$ é densa\footnote{Diferentemente de uma matriz esparsa, uma matriz densa possui a maioria dos elementos diferentes de zero.}. A fim de resolver o sistema, podemos fatorar a matriz $A$ como o produto de uma matriz $L$ triangular inferior e uma matriz $U$ triangular superior, ou seja, $A=LU$.
 
-Sendo assim, o sistema pode ser reescrito tal que
+Sendo assim, o sistema pode ser reescrito da seguinte forma:
 \begin{eqnarray*}
   Ax &=&b \\
   (LU)x &=&b \\
   L(Ux) &=&b \\
   L y = b \quad & \text{ e }& \quad Ux=y
 \end{eqnarray*}
-Isto significa que, ao invés de resolvermos o sistema original, podemos resolver um sistema triangular inferior e um sistema triangular superior.
+Isto significa que, ao invés de resolvermos o sistema original, podemos resolver o sistema triangular inferior $Ly=b$ e, então, o sistema triangular superior $Ux = y$, o qual nos fornece a solução de $Ax = b$.
 
 A matriz $U$ da fatoração\footnote{Não vamos usar pivotamento nesse primeiro exemplo.} $LU$ é a matriz obtida ao final do escalonamento da matriz $A$.
 
 A matriz $L$ é construída  a partir da matriz identidade $I$, ao longo do escalonamento de A. Os elementos da matriz $L$ são os múltiplos do primeiro elemento da linha de $A$ \underline{a ser zerado} dividido pelo pivô acima na mesma coluna.
 
 Por exemplo, para zerar o primeiro elemento da segunda linha de $A$, calculamos
-$$L_{21}=A_{21}/A_{11}$$
+$$L_{21} = A_{21}/A_{11}$$
 e fazemos 
 $$A_{2,:} \Leftarrow A_{2,:} - L_{21}A_{1,:}$$
 
-Note que usaremos $A_{i,:}$ para nos referenciarmos a linha $i$ de $A$. Da mesma forma, se necessário usaremos $A_{:,j}$ para nos referenciarmos a linha $j$ de $A$.
+Note que denotamos $A_{i,:}$ para nos referenciarmos a linha $i$ de $A$. Da mesma forma, se necessário usaremos $A_{:,j}$ para nos referenciarmos a linha $j$ de $A$.
 
 Para zerar o primeiro elemento da terceira linha de $A$, temos
 $$L_{31}=A_{31}/A_{11}$$
@@ -876,26 +864,112 @@ até chegarmos ao último elemento da primeira coluna de $A$.
 
 Repetimos o processo para as próximas colunas, escalonando a matriz $A$ e coletando os elementos $L_{ij}$ abaixo da diagonal\footnote{Perceba que a partir da segunda coluna para calcular $L_{ij}$ não usamos os elementos de $A$, mas os elementos da matriz $A$ em processo de escalonamento}.
 
+\begin{ex}
+  Use a fatoração LU para resolver o seguinte sistema linear:
+  \begin{equation*}
+    \begin{split}
+      x_1 + x_2 + x_3 &= -2\\
+      2x_1 + x_2 - x_3 &= 1\\
+      2x_1 -x_2 + x_3 &= 3
+    \end{split}
+  \end{equation*}
+\end{ex}
+\begin{sol}
+Começamos fatorando a matriz $A$ dos coeficientes deste sistema:
+\begin{eqnarray*}
+      A =
+    \begin{bmatrix}
+      1 & 1 & 1\\
+      2 & 1 & -1\\
+      2 & -1 & 1
+    \end{bmatrix}.
+    &=&     
+     \underbrace{\begin{bmatrix}
+      1 & 0 & 0\\
+      0 & 1 & 0\\
+      0 & 0 & 1
+    \end{bmatrix}}_{I_{3,3}}
+    \underbrace{\begin{bmatrix}
+      1 & 1 & 1\\
+      2 & 1 & -1\\
+      2 & -1 & 1
+    \end{bmatrix}}_{A}\\
+  &=& 
+    \begin{bmatrix}
+      1 & 0 & 0\\
+      2 & 1 & 0\\
+      2 & 0 & 1
+    \end{bmatrix}
+    \begin{bmatrix}
+      1 & 1 & 1\\
+      0 & -1 & -3\\
+      0 & -3 & -1
+    \end{bmatrix}\\
+  &=& 
+    \underbrace{\begin{bmatrix}
+      1 & 0 & 0\\
+      2 & 1 & 0\\
+      2 & 3 & 1
+    \end{bmatrix}}_{L}
+    \underbrace{\begin{bmatrix}
+      1 & 1 & 1\\
+      0 & -1 & -3\\
+      0 & 0 & 8
+    \end{bmatrix}}_{U}\\
+\end{eqnarray*}
 
+Completada a fatoração LU, resolvemos, primeiramente, o sistema $Ly = b$:
+\begin{equation*}
+  \begin{split}
+    y_1 &= -2\\
+    2y_1 + y_2 &= 1\\
+    2y_1 + 3y_2 + y_3 &= 3
+  \end{split}
+\end{equation*}
+o qual no fornece $y_1 = -2$, $y_2 = 5$ e $y_3 = -8$. Por fim, obtemos a solução resolvendo o sistema $Ux = y$:
+\begin{equation*}
+  \begin{split}
+  x_1 + x_2 + x_3 &= -2\\
+  -x_2 - 3x_3 &= 5\\
+  8x_3 &= -8    
+  \end{split}
+\end{equation*}
+o qual fornece $x_3 = -1$, $x_2 = -2$ e $x_1 = 1$.
+\end{sol}
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+\subsection{Código Scilab: Fatoração LU}
+No \verb+Scilab+, podemos implementar o algoritmo para fatoração $LU$ da seguinte forma:
+%\verbatiminput{./cap_linsis/codes/scilab/fatoraLU/fatoraLU.sci}
+\lstinputlisting[language=Scilab,numbers=left]{./cap_linsis/codes/scilab/fatoraLU/fatoraLU.sci}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\subsection{Código GNU Octave: Fatoração LU}
+No \verb+GNU Octave+, podemos implementar o algoritmo para fatoração $LU$ da seguinte forma:
+\verbatiminput{./cap_linsis/codes/octave/fatoraLU/fatoraLU.m}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\subsection{Código Python: Fatoração LU}
+Em \verb+Python+, podemos implementar o algoritmo para fatoração $LU$ da seguinte forma:
+\verbatiminput{./cap_linsis/codes/python/fatoraLU/fatoraLU.py}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
-
-\subsection{Algoritmo para fatoração LU}
-O algoritmo para fatoração $LU$ pode ser escrito como
-\begin{verbatim}
- 1. function [L,A]=fatoraLU(A)
- 2.     n=size(A,1)
- 3.     L=eye(n,n)
- 4.     for j=1:n-1
- 5.         for i=j+1:n
- 6.             L(i,j    )=A(i,j)/A(j,j)
- 7.             A(i,j+1:n)=A(i,j+1:n)-L(i,j)*A(j,j+1:n)
- 8.             A(i,j    )=0
- 9.         end
-10.     end
-11. endfunction
-\end{verbatim}
-
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
 \subsubsection{Custo computacional}
 Podemos analisar o custo computacional reduzindo o problema em problemas menores. % Vamos contar apenas o número de multiplicações e divisões.
 
@@ -938,9 +1012,32 @@ Somando todos esses custos, temos
 %  =&\mathcal{O}( (n-1)n(2n-1)/6 + n(n-1)/2) = \mathcal{O}(n^3/3 -n/3) \text{~flops}
 % \end{align*}
 %contando somente multiplicações e divisões.
-
-
-
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\begin{obs}
+  O custo computacional do algoritmo da fatoração LU é
+  \begin{equation*}
+    \frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6} \text{~flops}.  
+  \end{equation*}
+\end{obs}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% Python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\begin{obs}
+  O custo computacional do algoritmo da fatoração LU é
+  \begin{equation*}
+    \frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6} \text{~flops}.  
+  \end{equation*}
+\end{obs}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Custo computacional para resolver um sistema linear usando fatoração LU}
 Para calcularmos o custo computacional de um algoritmo completo, uma estratégia é separar o algoritmo em partes menores mais fáceis de calcular.
@@ -997,7 +1094,7 @@ Quando lidamos com matrizes no corpo do números reais (ou complexos), existem a
 
 Um caso típico de sistema mal-condicionado é aquele cujos coeficiente estão muito próximos ao de um problema singular. Considere o seguinte exemplo:
 
-\begin{ex} Observe que o sistema
+\begin{ex}\label{ex:sist-mal-cond} Observe que o sistema
 \begin{equation}
 \matdd{71}{41}{\lambda}{30}\vetdd{x}{y}=\vetdd{100}{70}
 \end{equation}
@@ -1141,6 +1238,21 @@ No \verb+Scilab+ podemos computar normas $L^p$'s de matrizes usando o comando \v
 \fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+ podemos computar normas $L^p$'s de matrizes usando o comando \verb+norm+. Neste exemplo, temos:
+\begin{verbatim}
+A = [3 -5 7;
+     1 -2 4;
+     -8 1 -7];
+norm(A,1)
+norm(A,'inf')
+norm(A,2)
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
@@ -1162,14 +1274,20 @@ Em \verb+Python+ podemos computar normas $L^p$'s de matrizes usando a função \
 
 \subsection{Número de condicionamento}\index{número de condicionamento}
 
-O condicionamento de um sistema linear é um conceito relacionado à forma como os erros se propagam dos dados de entrada para os dados de saída, ou seja, se o sistema $$Ax=y$$
-possui uma solução $x$ para o vetor $y$, quando varia a solução $x$ quando o dado de entrado $y$ varia. Consideramos, então, o problema
-$$A(x+\delta_x)=y+\delta_y$$
-Aqui $\delta_x$ representa a variação em $x$ e $\delta_y$ representa a respectiva variação em $y$. Temos:
-$$Ax+A\delta_x=y+\delta_y$$ e, portanto,
-$$A\delta_x=\delta_y.$$
+O condicionamento de um sistema linear é um conceito relacionado à forma como os erros se propagam dos dados de entrada para os dados de saída. No contexto de um sistema linear $Ax=y$, temos que a solução $x$ depende dos dados de entrada $y$. Consideremos, então, o problema
+\begin{equation*}
+  A(x+\delta_x)=y+\delta_y
+\end{equation*}
+Aqui, $\delta_x$ representa uma variação (erro) em $x$ e $\delta_y$ representa uma variação em $y$ (erro). Temos:
+\begin{equation*}
+  Ax+A\delta_x=y+\delta_y
+\end{equation*}
+e, portanto,
+\begin{equation*}
+  A\delta_x=\delta_y.
+\end{equation*}
 
-Queremos avaliar a magnitude do erro relativo em y, representado por $\left\|\delta_y\right\|/\|y\|$ em função da magnitude do erro relativo $\left\|\delta_x\right\|/\left\|x\right\|$.
+Queremos avaliar a razão entre o erro relativo em $x$ e o erro relativo em $y$, i.e.
 \begin{eqnarray*}
 \frac{\left\|\delta_x\right\|/\left\|x\right\|}{\left\|\delta_y\right\|/\|y\|} &=& \frac{\left\|\delta_x\right\|}{\left\|x\right\|}\frac{\|y\|}{\left\|\delta_y\right\|}\\ 
 &=& \frac{\|A^{-1}\delta_y\|}{\left\|x\right\|}\frac{\|Ax\|}{\left\|\delta_y\right\|} \\
@@ -1177,16 +1295,96 @@ Queremos avaliar a magnitude do erro relativo em y, representado por $\left\|\de
 &=& \left\|A\right\|\|A^{-1}\|  
 \end{eqnarray*}
 
-Assim, definimos o número de condicionamento de uma matriz inversível $A$ como
-$$k_p(A)=\left\|A\right\|_p \|A^{-1}\|_p$$
+\begin{defn}[Número de condicionamento] O número de condicionamento de uma matriz não-singular $A$ é
+  \begin{equation*}
+    k_p(A) := \left\|A\right\|_p \|A^{-1}\|_p  
+  \end{equation*}
+\end{defn}
 
-O número de condicionamento, então, mede o quão instável é resolver o problema $Ax=y$ frente a erros no vetor de entrada $x$.
+\begin{obs}
+  \begin{itemize}
+  \item O número de condicionamento depende da norma escolhida.
+  \item O número de condicionamento da matriz identidade é $1$.
+  \item O número de condicionamento de qualquer matriz inversível é maior ou igual a $1$.
+  \end{itemize}
+\end{obs}
 
-{\bf Obs:} O número de condicionamento depende da norma escolhida.
-
-{\bf Obs:} O número de condicionamento da matriz identidade é $1$.
-
-{\bf Obs:} O número de condicionamento de qualquer matriz inversível é igual ou maior que $1$.
+\begin{ex}
+  No Exemplo~\ref{ex:sist-mal-cond} estudamos a solução de sistemas lineares com as seguintes matrizes de coeficientes:
+  \begin{equation*}
+    A_1 =
+    \begin{bmatrix}
+      71 & 41\\
+      51 & 30
+    \end{bmatrix}\quad\text{e}\quad
+    A_2 =
+    \begin{bmatrix}
+      71 & 41\\
+      52 & 30
+    \end{bmatrix}.
+  \end{equation*}
+Calcule os números de condicionamento destes sistemas na norma $L^p$ para $p=1$, $2$ e $\infty$.
+\end{ex}
+\begin{sol}
+  Para a matriz $A_1$, temos:
+  \begin{equation*}
+    \begin{split}
+      k_1(A_1) &:= \|A_1\|\|A_1^{-1}\| \approx 350,36,\\
+      k_2(A_1) &:= \|A_2\|\|A_2^{-1}\| \approx 262,12,\\
+      k_\infty(A_1) &:= \|A_\infty\|\|A_\infty^{-1}\| \approx 350,36.\\
+    \end{split}
+  \end{equation*}
+  Para a matriz $A_2$, temos:
+  \begin{equation*}
+    \begin{split}
+      k_1(A_2) &:= \|A_1\|_1\|A_1^{-1}\|_1 \approx 6888,0,\\
+      k_2(A_2) &:= \|A_1\|_2\|A_1^{-1}\|_2 \approx 5163,0,\\
+      k_\infty(A_2) &:= \|A_1\|_\infty\|A_1^{-1}\|_\infty \approx 6888,0.\\
+    \end{split}
+  \end{equation*}
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+No \verb+Scilab+, podemos computar estes números de condicionamento para a matriz $A_1$ com o seguinte código:
+\begin{verbatim}
+A1 = [71 41;51 30];
+cond(A1,1)
+cond(A1,2)
+cond(A1,'inf')
+\end{verbatim}
+e, análogo para a matriz $A_2$.
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos computar estes números de condicionamento para a matriz $A_1$ com o seguinte código:
+\begin{verbatim}
+A1 = [71 41;51 30];
+cond(A1,1)
+cond(A1,2)
+cond(A1,'inf')
+\end{verbatim}
+e, análogo para a matriz $A_2$.
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos computar estes números de condicionamento para a matriz $A_1$ com o seguinte código:
+\begin{verbatim}
+A = np.array([[71,41],[51,30]],dtype='double')
+print(np.linalg.cond(A,p=1))
+print(np.linalg.cond(A,p=2))
+print(np.linalg.cond(A,p=np.inf))
+\end{verbatim}
+e, análogo para a matriz $A_2$.
+\fi
+%%%%%%%%%%%%%%%%%%%%
+\end{sol}
 
 \subsection*{Exercícios}
 
