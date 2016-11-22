@@ -152,7 +152,7 @@ y_1\\y_2\\y_3\\ \vdots \\y_n
 $$
 A matriz envolvida é uma \emph{matriz de Vandermonde}\index{matriz de Vandermonde} de ordem $n$ cujo determinante é dado pelo produtório duplo
 $$\prod_{1\leq i<j\leq n}\left(x_j-x_i\right)$$
-É fácil ver que se as abscissas são diferentes dois a dois, então o determinante é não nulo. Disto decorre que a matriz envolvida é inversível e portanto o sistema possui uma solução que é única.
+É fácil ver que se as abscissas são diferentes dois a dois, então o determinante é não nulo. Disto decorre que a matriz envolvida é inversível e, portanto, o sistema possui uma solução que é única.
 \end{proof}
 
 % \begin{ex} Encontre o polinômio da forma $P(x)=a_0+a_1x+a_2x^2+a_3x^3$ que passa pelos pontos
@@ -337,13 +337,14 @@ $$L_k(x)=\prod_{\substack{j=1\\j\ne i}}^{n} \frac{(x-x_j)}{(x_k-x_j)}$$
 \begin{obs} O problema de interpolação quando escrito usando como base os polinômios de Lagrange produz um sistema linear diagonal.
 \end{obs}
 
-\begin{ex}Encontre o polinômio da forma $p(x)=a_1+a_2x+a_3x^2+a_4x^3$ que passa pelos pontos $(0, 0)$, $(1, 1)$, $(2, 4)$, $(3, 9)$.
+\begin{ex}
+Encontre o polinômio da forma $p(x)=a_1+a_2x+a_3x^2+a_4x^3$ que passa pelos pontos $(0, 0)$, $(1, 1)$, $(2, 4)$, $(3, 9)$. 
 Escrevemos:
 \begin{eqnarray*}
-L_1(x)&=& \frac{(x-1)(x-2)(x-3)}{(0-1)(0-2)(0-3)}=-\frac{1}{6}x^3+x^2-\frac{11}{6}x+1\\
-L_2(x)&=& \frac{x(x-2)(x-3)}{1(1-2)(1-3)}=\frac{1}{2}x^3-\frac{5}{2}x^2+3x\\
-L_3(x)&=& \frac{x(x-1)(x-3)}{2(2-1)(2-3)}=-\frac{1}{2}x^3+2x^2-\frac{3}{2}x\\
-L_4(x)&=& \frac{x(x-1)(x-2)}{3(3-1)(3-2)}=\frac{1}{6}x^3-\frac{1}{2}x^2+\frac{1}{3}x
+	L_1(x)&=& \frac{(x-1)(x-2)(x-3)}{(0-1)(0-2)(0-3)}=-\frac{1}{6}x^3+x^2-\frac{11}{6}x+1\\
+	L_2(x)&=& \frac{x(x-2)(x-3)}{1(1-2)(1-3)}=\frac{1}{2}x^3-\frac{5}{2}x^2+3x\\
+	L_3(x)&=& \frac{x(x-1)(x-3)}{2(2-1)(2-3)}=-\frac{1}{2}x^3+2x^2-\frac{3}{2}x\\
+	L_4(x)&=& \frac{x(x-1)(x-2)}{3(3-1)(3-2)}=\frac{1}{6}x^3-\frac{1}{2}x^2+\frac{1}{3}x
 \end{eqnarray*}
 Assim, temos:
 \begin{equation*}
@@ -379,8 +380,7 @@ Para plotar os pontos e o polinômio interpolador, podemos usar:
 %%%%%%%%%%%%%%%%%%%%
 \end{ex}
 
-\begin{ex}
-Encontre o polinômio da forma $p(x)=a_1+a_2x+a_3x^2+a_4x^3$ que passa pelos pontos $(0, 0)$, $(1, 1)$, $(2, 0)$, $(3, 1)$.
+\begin{ex}Encontre o polinômio da forma $p(x)=a_1+a_2x+a_3x^2+a_4x^3$ que passa pelos pontos $(0, 0)$, $(1, 1)$, $(2, 0)$, $(3, 1)$.
 \end{ex}
 \begin{sol}
 Como as abscissas são as mesmas do exemplo anterior, podemos utilizar os mesmos polinômios de Lagrange, assim, temos:
@@ -641,38 +641,40 @@ c_1=0\quad\text{e}\quad 2c_{n-1}+6d_{n-1}h_{n-1}=0,
 \end{equation*}
 ou seja, 
 \begin{equation}
-\left\{\begin{array}{l}
-2y'_1+y'_2=3\dfrac{y_2-y_1}{h_1}\\
-\\
-y'_{n-1}+2y'_n=3\dfrac{y_n-y_{n-1}}{h_{n-1}}
-\end{array}\right.
+	\left\{\begin{array}{l}
+		2y'_1+y'_2=3\dfrac{y_2-y_1}{h_1}\\
+		\\
+		y'_{n-1}+2y'_n=3\dfrac{y_n-y_{n-1}}{h_{n-1}}
+	\end{array}\right.
 \end{equation}
-Essas duas equações em conjunto com as equações \eqref{eq:spline3-der} formam um sistema de $n$ equações $Ay'=z$, onde
+Essas duas equações em conjunto com as equações \eqref{eq:spline3-der} formam um sistema de $n$ equações algébricas lineares $Ay'=z$, onde
 \begin{equation}
-A=\left[\begin{array}{ccccccc}
-2 &1&0&0 &\cdots&0&0\\
-h_2&2(h_1+h_2)&h_1&0&\cdots&0&0\\
-0&h_3&2(h_2+h_3)&h_2&\cdots&0&0\\
-\vdots&\vdots&\vdots&\vdots&\ddots&\vdots&\vdots\\
-0&0&0&\cdots&h_{n-1} & 2(h_{n-1}+h_{n-2})&h_{n-2}\\
-0&0&0&\cdots &0&1&2
-\end{array}\right]  
+	\begin{scriptsize}
+		A=\left[\begin{array}{ccccccc}
+			2 &1&0&0 &\cdots&0&0\\
+			h_2&2(h_1+h_2)&h_1&0&\cdots&0&0\\
+			0&h_3&2(h_2+h_3)&h_2&\cdots&0&0\\
+			\vdots&\vdots&\vdots&\vdots&\ddots&\vdots&\vdots\\
+			0&0&0&\cdots&h_{n-1} & 2(h_{n-1}+h_{n-2})&h_{n-2}\\
+			0&0&0&\cdots &0&1&2
+		\end{array}\right]  
+	\end{scriptsize}
 \end{equation}
 \begin{equation}
-y' = \left[\begin{array}{c}
-y'_1\\
-y'_2\\
-\vdots\\
-y'_n
-\end{array}\right]\qquad \text{e}\qquad
-z = 3\left[\begin{array}{c}
-\frac{y_2-y_1}{h_1}\\
-h_2\frac{y_2-y_1}{h_1}+h_1\frac{y_3-y_2}{h_2}\\
-h_3\frac{y_3-y_2}{h_2}+h_2\frac{y_4-y_3}{h_3}\\
-\vdots\\
-h_{n-1}\frac{y_{n-1}-y_{n-2}}{h_{n-2}}+h_{n-2}\frac{y_n-y_{n-1}}{h_{n-1}}\\
-\frac{y_n-y_{n-1}}{h_{n-1}}
-\end{array}\right]
+	y' = \left[\begin{array}{c}
+		y'_1\\
+		y'_2\\
+		\vdots\\
+		y'_n
+	\end{array}\right]\qquad \text{e}\qquad
+	z = 3\left[\begin{array}{c}
+		\frac{y_2-y_1}{h_1}\\
+		h_2\frac{y_2-y_1}{h_1}+h_1\frac{y_3-y_2}{h_2}\\
+		h_3\frac{y_3-y_2}{h_2}+h_2\frac{y_4-y_3}{h_3}\\
+		\vdots\\
+		h_{n-1}\frac{y_{n-1}-y_{n-2}}{h_{n-2}}+h_{n-2}\frac{y_n-y_{n-1}}{h_{n-1}}\\
+		\frac{y_n-y_{n-1}}{h_{n-1}}
+	\end{array}\right]
 \end{equation}
 Observe que a matriz $A$ é diagonal dominante estrita e, portanto, o sistema $Ay'=z$ possui solução única. Calculado $y'$, os valores dos $a_j$, $b_j$, $c_j$ e $d_j$ são obtidos diretamente pelas expressões \eqref{eq:spline3-coef}.
 
@@ -681,66 +683,66 @@ Observe que a matriz $A$ é diagonal dominante estrita e, portanto, o sistema $A
 \begin{sol}
 O spline desejado é uma função definida por partes da forma:
 \begin{equation}
-s(x)=\left\{\begin{array}{ll}
-    a_1+b_1(x-2)+c_1(x-2)^2+d_1(x-2)^3 &, 2\leq x <5\\
-    a_2+b_2(x-5)+c_2(x-5)^2+d_2(x-5)^3 &, 5\leq x <9\\
-    a_3+b_3(x-9)+c_3(x-9)^2+d_3(x-9)^3 &, 9\leq x \leq 12
-\end{array}\right..  
+	s(x)=\left\{\begin{array}{ll}
+		a_1+b_1(x-2)+c_1(x-2)^2+d_1(x-2)^3 &, 2\leq x <5\\
+	    a_2+b_2(x-5)+c_2(x-5)^2+d_2(x-5)^3 &, 5\leq x <9\\
+	    a_3+b_3(x-9)+c_3(x-9)^2+d_3(x-9)^3 &, 9\leq x \leq 12
+	\end{array}\right..  
 \end{equation}
 As variáveis $y'_1$, $y'_2$, $y'_3$ e $y'_4$ resolvem o sistema $Ay' = z$, onde
 \begin{equation*}
-A = \begin{bmatrix}
-  2 &1&0&0 \\
-  4&2(4+3)&3&0\\
-  0&3&2(3+4)&4\\
-  0&0&1&2
-\end{bmatrix} = \begin{bmatrix}
-  2 &1&0&0 \\
-  4&14&3&0\\
-  0&3&14&4\\
-  0&0&1&2
-\end{bmatrix}  ,
+	A = \begin{bmatrix}
+		2 &1&0&0 \\
+		4&2(4+3)&3&0\\
+		0&3&2(3+4)&4\\
+		0&0&1&2
+	\end{bmatrix} = \begin{bmatrix}
+		2 &1&0&0 \\
+		4&14&3&0\\
+		0&3&14&4\\
+		0&0&1&2
+	\end{bmatrix}  ,
 \end{equation*}
 \begin{equation*}
-y = \begin{bmatrix}
-y'_1\\
-y'_2\\
-y'_3\\
-y'_4
-\end{bmatrix} \quad \text{e}\quad
-z = 3\begin{bmatrix}
-\frac{1}{3}(-1,9-4,5)\\
-\frac{4}{3}(-1,9-4,5)+\frac{3}{4}(0,5-(-1,9))\\
-\frac{3}{4}(0,5-(-1,9))+\frac{4}{3}(-0.5-(0,5))\\
-\frac{1}{3}(-0,5-(0.5))
-\end{bmatrix} = \begin{bmatrix}
--6,4\\
--20,2\\
-1,4\\
--1
-\end{bmatrix}  
+	y = \begin{bmatrix}
+		y'_1\\
+		y'_2\\
+		y'_3\\
+		y'_4
+	\end{bmatrix} \quad \text{e}\quad
+	z = 3\begin{bmatrix}
+		\frac{1}{3}(-1,9-4,5)\\
+		\frac{4}{3}(-1,9-4,5)+\frac{3}{4}(0,5-(-1,9))\\
+		\frac{3}{4}(0,5-(-1,9))+\frac{4}{3}(-0.5-(0,5))\\
+		\frac{1}{3}(-0,5-(0.5))
+	\end{bmatrix} = \begin{bmatrix}
+		-6,4\\
+		-20,2\\
+		1,4\\
+		-1
+	\end{bmatrix}  
 \end{equation*}
 A solução é  $y'_1=-2,8\bar{3}$, $y'_2=-0,7\bar{3}$, $y'_3=0,4\bar{6}$ e $y'_4=-0,7\bar{3}$. Calculamos os coeficientes usando as expressões \eqref{eq:spline3-coef}:
 \begin{equation*}
-\begin{array}{lclclcl}
-a_1&=&y_1=4,5&\qquad&b_1 &=&y'_1=-2,8\bar{3}\\
-a_2&=&y_2=-1,9&\qquad&b_2&=&y'_2=-0,7\bar{3}\\
-a_3&=&y_3=0,5&\qquad&b_3&=&y'_3=0,4\bar{6}\\
-&&&&&&\\
-c_1&=&0&\qquad&d_1&=&0,0\bar{7}\\
-c_2&=&0,7&\qquad&d_2&=&-0,091\bar{6}\\
-c_3&=&-0,4&\qquad&d_3&=&0,0\bar{4}
-\end{array}.
+	\begin{array}{lclclcl}
+		a_1&=&y_1=4,5&\qquad&b_1 &=&y'_1=-2,8\bar{3}\\
+		a_2&=&y_2=-1,9&\qquad&b_2&=&y'_2=-0,7\bar{3}\\
+		a_3&=&y_3=0,5&\qquad&b_3&=&y'_3=0,4\bar{6}\\
+		&&&&&&\\
+		c_1&=&0&\qquad&d_1&=&0,0\bar{7}\\
+		c_2&=&0,7&\qquad&d_2&=&-0,091\bar{6}\\
+		c_3&=&-0,4&\qquad&d_3&=&0,0\bar{4}
+	\end{array}.
 \end{equation*}
 Portanto:
 \begin{small}
-\begin{equation*}
-S(x)=\left\{\begin{array}{ll}
-4,5-2,8\bar{3}(x-2)+0,0\bar{7}(x-2)^3 &\!, 2\leq x<5\\
--1,9-0,7\bar{3}(x-5)+0,7(x-5)^2-0,091\bar{6}(x-5)^3 &\!, 5\leq x<9\\
-0,5+0,4\bar{6}(x-9)-0,4(x-9)^2+0,0\bar{4}(x-9)^3 &\!, 9\leq x\leq 12
-\end{array}\right. .
-\end{equation*}  
+	\begin{equation*}
+		S(x)=\left\{\begin{array}{ll}
+			4,5-2,8\bar{3}(x-2)+0,0\bar{7}(x-2)^3 &\!, 2\leq x<5\\
+			-1,9-0,7\bar{3}(x-5)+0,7(x-5)^2-0,091\bar{6}(x-5)^3 &\!, 5\leq x<9\\
+			0,5+0,4\bar{6}(x-9)-0,4(x-9)^2+0,0\bar{4}(x-9)^3 &\!, 9\leq x\leq 12
+		\end{array}\right. .
+	\end{equation*}  
 \end{small}
 
 \ifisscilab
@@ -787,34 +789,34 @@ O spline fixado $s$ é obtido pela escolha dos valores das derivadas nas extremi
 As equações \eqref{eq:spline3-der} formam um sistema de $n-2$ equações $Ay' = z$, onde
 \begin{equation*}
 	\begin{scriptsize}
-A=\left[\begin{array}{ccccccc}
-2(h_1+h_2)&h_1&0&0 &\cdots&0&0\\
-h_3&2(h_2+h_3)&h_2&0&\cdots&0&0\\
-0&h_4&2(h_3+h_4)&h_3&\cdots&0&0\\
-\vdots&\vdots&\vdots&\vdots&\ddots&\vdots&\vdots\\
-0&0&0&\cdots&h_{n-2} & 2(h_{n-3}+h_{n-2})&h_{n-3}\\
-0&0&0&\cdots &0&h_{n-1}&2(h_{n-2}+h_{n-1})
-\end{array}\right],
-\end{scriptsize} 
+		A=\left[\begin{array}{ccccccc}
+			2(h_1+h_2)&h_1&0&0 &\cdots&0&0\\
+			h_3&2(h_2+h_3)&h_2&0&\cdots&0&0\\
+			0&h_4&2(h_3+h_4)&h_3&\cdots&0&0\\
+			\vdots&\vdots&\vdots&\vdots&\ddots&\vdots&\vdots\\
+			0&0&0&\cdots&h_{n-2} & 2(h_{n-3}+h_{n-2})&h_{n-3}\\
+			0&0&0&\cdots &0&h_{n-1}&2(h_{n-2}+h_{n-1})
+		\end{array}\right],
+	\end{scriptsize} 
 \end{equation*}
 \begin{equation*}
 	\begin{small}
-y'= \left[\begin{array}{c}
-y'_2\\
-y'_3\\
-\vdots\\
-y'_{n-1}
-\end{array}\right]\qquad \text{e}\qquad
-z = 3\left[\begin{array}{c}
-	h_2\frac{y_2-y_1}{h_1}+h_1\frac{y_3-y_2}{h_2}-h_2y'_1\\
-	h_3\frac{y_3-y_2}{h_2}+h_2\frac{y_4-y_3}{h_3}\\
-	\vdots\\
-	h_{n-2}\frac{y_{n-2}-y_{n-3}}{h_{n-3}}+h_{n-3}\frac{y_{n-1}-y_{n-2}}{h_{n-2}}\\
-	h_{n-1}\frac{y_{n-1}-y_{n-2}}{h_{n-2}}+h_{n-2}\frac{y_n-y_{n-1}}{h_{n-1}}-h_{n-2}y'_n
-\end{array}\right].
-\end{small}
+		y'= \left[\begin{array}{c}
+			y'_2\\
+			y'_3\\
+			\vdots\\
+			y'_{n-1}
+		\end{array}\right]\qquad \text{e}\qquad
+		z = 3\left[\begin{array}{c}
+			h_2\frac{y_2-y_1}{h_1}+h_1\frac{y_3-y_2}{h_2}-h_2y'_1\\
+			h_3\frac{y_3-y_2}{h_2}+h_2\frac{y_4-y_3}{h_3}\\
+			\vdots\\
+			h_{n-2}\frac{y_{n-2}-y_{n-3}}{h_{n-3}}+h_{n-3}\frac{y_{n-1}-y_{n-2}}{h_{n-2}}\\
+			h_{n-1}\frac{y_{n-1}-y_{n-2}}{h_{n-2}}+h_{n-2}\frac{y_n-y_{n-1}}{h_{n-1}}-h_{n-2}y'_n
+		\end{array}\right].
+	\end{small}
 \end{equation*}
-Observe que a matriz $A$ é diagonal dominante estrita e portanto o sistema $Ay' = z$ possui solução única.
+Observe que a matriz $A$ é diagonal dominante estrita e, portanto, o sistema $Ay' = z$ possui solução única.
 
 %\begin{ex}Construa um spline cúbico com fronteira fixada que interpola a função $y=\sin (x)$ nos pontos $x=0$, $x=\frac{\pi}{2}$, $x=\pi$, $x=\frac{3\pi}{2}$ e $x=2\pi$.
 %\end{ex}
@@ -949,9 +951,9 @@ Essas duas equações agregadas às equações \eqref{eq:spline3-der} formam um 
 		\end{array}\right]
 	\end{small}
 \end{equation*}
-Se reduzirmos esse sistema pela eliminação das incógnitas $y'_1$ e $y'_n$, o sistema resultante possui uma matriz de coeficientes diagonal dominante estrita, portanto a solução é única.
+Se reduzirmos esse sistema pela eliminação das incógnitas $y'_1$ e $y'_n$, o sistema resultante possui uma matriz de coeficientes diagonal dominante estrita, portanto, a solução é única.
 
-O termo \textit{not-a-knot} (não nó) relaciona-se à nomenclatura dos splines. O termo \textit{nó} é utilizado para os pontos interpolados. Neles, a derivada terceira da função spline é descontínua, portanto quando impomos a continuidade dessa derivada em $x_2$ e $x_{n-1}$ é como se esses pontos deixassem de ser nós.
+O termo \textit{not-a-knot} (não nó) relaciona-se à nomenclatura dos splines. O termo \textit{nó} é utilizado para os pontos interpolados. Neles, a derivada terceira da função spline é descontínua, portanto, quando impomos a continuidade dessa derivada em $x_2$ e $x_{n-1}$ é como se esses pontos deixassem de ser nós.
 
 \subsection{Spline periódico}\index{spline!periodico}
 Se o conjunto de $n$ pontos da interpolação $\mathcal{I}$ for tal que $y_1=y_n$, então é possível construir o spline periódico, definido com um spline cúbico que satisfaz as seguintes condições de periodicidade
@@ -1001,7 +1003,7 @@ Essas duas equações agregadas às equações \eqref{eq:spline3-der} formam um 
 			\end{array}\right].
 	\end{small}
 \end{equation*}
-Neste caso também, se reduzirmos esse sistema pela eliminação das incógnitas $y'_1$ e $y'_n$, o sistema resultante possui uma matriz de coeficientes diagonal dominante estrita, portanto a solução é única.
+Neste caso também, se reduzirmos esse sistema pela eliminação das incógnitas $y'_1$ e $y'_n$, o sistema resultante possui uma matriz de coeficientes diagonal dominante estrita, portanto, a solução é única.
 
 %\subsection{Resumo sobre splines}
 
