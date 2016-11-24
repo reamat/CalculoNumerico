@@ -3,9 +3,9 @@
 %\documentclass[main.tex]{subfiles}
 %\begin{document}
 
-\chapter{Aritmética de máquina}\index{aritmética!de máquina}
+\chapter{Representação de números e aritmética de máquina}\index{representação de números}\index{aritmética!de máquina}
 
-Neste capítulo, discutiremos sobre formas de represenção de números em computadores. Iniciamos com uma discussão sobre representação posicional e mudança de base. Então, discutimos sobre representação com número de dígitos finitos e, mais especificamente, as representações de números inteiros, ponto fixo e ponto flutuante em computadores.
+Neste capítulo, discutiremos sobre formas de representação de números em computadores. Iniciamos com uma discussão sobre representação posicional e mudança de base. Então, discutimos sobre representação com número de dígitos finitos e, mais especificamente, as representações de números inteiros, ponto fixo e ponto flutuante em computadores.
 
 A representação de números e a aritmética em computadores levam aos chamados erros de arredondamento e de truncamento. Ao final deste capítulo, discutiremos sobre os efeitos do erro de arredondamento na computação científica.
 
@@ -28,7 +28,7 @@ Usualmente, utilizamos o sistema de numeração decimal para representar número
   O número $293$ é decomposto como
   \begin{equation*}
     \begin{split}
-      293 &= 2\ \hbox{centenas}+9\ \hbox{dezenas}+3\ \hbox{unidades}\\
+      293 &= 2\ \text{centenas}+9\ \text{dezenas}+3\ \text{unidades}\\
       &= 2\times 10^2+9\times 10^1+3\times 10^0.      
     \end{split}
   \end{equation*}
@@ -37,7 +37,7 @@ Usualmente, utilizamos o sistema de numeração decimal para representar número
 O sistema de numeração posicional também pode ser usado com outras bases. Vejamos a seguinte definição.
 
 \begin{defn}[Sistema de numeração de base $b$]\label{def:sistema_de_numeracao}
-Dado um número natural $b>1$ e o conjunto de símbolos $\{\pmb{,}, \pmb{-},  \pmb{0}, \pmb{1}, \pmb{2},\dotsc, \pmb{b-1}\}$\footnote{Para $b>10$, veja a Observação \ref{obs:sistema_de_numeracao}}, a sequência de símbolos
+Dado um número natural $b>1$ e o conjunto de símbolos $\{\pmb{,}, \pmb{-},  \pmb{0}, \pmb{1}, \pmb{2},\dotsc, \pmb{b-1}\}$\footnote{Para $b>10$, veja a observação \ref{obs:sistema_de_numeracao}}, a sequência de símbolos
 \begin{equation*}
   \left(d_nd_{n-1} \cdots d_1d_0,d_{-1}d_{-2} \cdots \right)_b  
 \end{equation*}
@@ -98,8 +98,11 @@ No sistema octal a base é $b=8$ e utilizamos os símbolos em $\{0, 1, 2, 3, 4, 
 \end{equation*}
 \end{ex}
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
-\begin{ex}[Scilab]
+\begin{obs}
   O \verb+Scilab+ oferece algumas funções para a conversão de números inteiros em dada base para a base decimal. Por exemplo, temos:
 \begin{verbatim}
 -->bin2dec('1001')
@@ -115,8 +118,45 @@ No sistema octal a base é $b=8$ e utilizamos os símbolos em $\{0, 1, 2, 3, 4, 
  ans  =
     48826.  
 \end{verbatim}
-\end{ex}
+\end{obs}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\begin{obs}
+  O \verb+GNU Octave+ oferece algumas funções para a conversão de números inteiros em dada base para a base decimal. Por exemplo, temos:
+\begin{verbatim}
+>> bin2dec('1001')
+ans =  9
+>> hex2dec('451')
+ans =  1105
+>> base2dec('157',8) #oct -> dec
+ans =  111
+>> base2dec('BEBA',16)
+ans =  48826
+\end{verbatim}
+\end{obs}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\begin{obs}
+  \verb+Python+ tem algumas sintaxes para representar números em algumas bases. Por exemplo, temos:
+\begin{verbatim}
+>>> print(0b1001) #bin -> dec
+9
+>>> print(0157) #oct -> dec
+111
+>>> print(0xbeba) #hex -> dec
+48826
+\end{verbatim}
+\end{obs}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
 A partir da definição \ref{def:sistema_de_numeracao}, acabamos de mostrar vários exemplos de conversão de números de uma sistema de numeração de base $b$ para o sistema decimal. Agora, vamos estudar como fazer o processo inverso. Isto é, dado um número decimal $(X)_{10}$ queremos escrevê-lo em uma outra base $b$, isto é, queremos obter a seguinte representação:
 \begin{equation*}
@@ -126,7 +166,7 @@ A partir da definição \ref{def:sistema_de_numeracao}, acabamos de mostrar vár
   \end{split}
 \end{equation*}
 
-Separando as partes inteira e fracionária de $X$, i.e. $X = X^{\mbox{i}} + X^{\mbox{f}}$, temos:
+Separando as partes inteira e fracionária de $X$, isto é, $X = X^{\mbox{i}} + X^{\mbox{f}}$, temos:
 \begin{equation*}
 X^{\mbox{i}} = d_n\cdot b^{n}+ \cdots+d_{n-1}b^{n-1} \cdot  +d_1\cdot b^1 +d_0\cdot b^0
 \end{equation*}
@@ -179,25 +219,60 @@ Verifique!
 %%%%%%%%%%%%%%%%%%%%
 \end{ex}
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
-\begin{ex}[Scilab]
-  O \verb+Scilab+ oferece algumas funções para a conversão de números inteiros em dada base para a base decimal. Assim, temos:
+\begin{obs}
+  O \verb+Scilab+ oferece algumas funções para a conversão de números inteiros em base decimal para uma dada base. Por exemplo, temos:
 \begin{verbatim}
--->bin2dec('1001')
+-->dec2base(9,2)
  ans  =
-    9.  
--->hex2dec('451')
+ 1001   
+-->dec2base(111,8)
  ans  =
-    1105.  
--->oct2dec('157')
+ 157   
+-->dec2base(48826,16)
  ans  =
-    111.
--->base2dec('BEBA',16)
- ans  =
-    48826.  
+ BEBA   
 \end{verbatim}
-\end{ex}
+\end{obs}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\begin{obs}
+  O \verb+GNU Octave+ oferece algumas funções para a conversão de números inteiros em base decimal para uma base dada. Por exemplo, temos:
+\begin{verbatim}
+>> dec2base(9,2)
+ans = 1001
+>> dec2base(111,8)
+ans = 157
+>> dec2base(48826,16)
+ans = BEBA
+\end{verbatim}
+\end{obs}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\begin{obs}
+  \verb+Python+ oferece algumas funções para a conversão de números inteiros em base decimal para uma base dada. Por exemplo, temos:
+\begin{verbatim}
+>>> print(bin(9))
+0b1001
+>>> print(oct(111))
+0157
+>>> print(hex(48826))
+0xbeba
+\end{verbatim}
+\end{obs}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
 Vamos converter a parte fracionária de um número decimal em uma dada base $b$. Usando a notação $X = X^{\mbox{i}} + X^{\mbox{f}}$ para as partes inteira e fracionária, respectivamente, temos:
 \begin{equation*}
@@ -223,7 +298,7 @@ As contas feitas aqui, também podem ser computadas em \verb+Python+. Você sabe
 \fi
 \end{ex}
 
-Uma maneira de converter um número dado numa base $b_1$ para uma base $b_2$ é fazer em duas partes: primeiro converter o número dado na base $b_2$ para base decimal e depois converter para a base $b_1$.
+Uma maneira de converter um número dado em uma base $b_1$ para uma base $b_2$ é fazer em duas partes: primeiro converter o número dado na base $b_2$ para base decimal e depois converter para a base $b_1$.
 
 \subsection*{Exercícios}
 
@@ -306,10 +381,209 @@ Uma maneira de converter um número dado numa base $b_1$ para uma base $b_2$ é 
   
 \end{resp}
 
-\section{Representação de números}\index{representação!de números}
+\section{Notação científica e notação normalizada}\index{sistema numérico!notação normalizada}
+
+Como vimos, no sistema posicional usual um número $x$ na base $b$ é representado por
+\begin{equation*}
+  x = \pm (d_{n}d_{n-1}\cdots d_{0},d_{-1}d_{-2}d_{-3}\cdots)_b,
+\end{equation*}
+onde $d_{n}\neq 0$ e $d_i\in\{0, 1, \dotsc, b-1\}$ é o dígito da $i$-ésima posição. Alternativamente, é costumeiro usarmos a chamada notação científica. Nesta, o número $x$ é representado como
+\begin{equation*}
+  x = \pm (M)_b\times b^E,
+\end{equation*}
+onde $(M)_b = (d_{m}d_{m-1}\cdots d_{0},d_{-1}d_{-2}d_{-3}\cdots)_b$ é chamada de mantissa e $e\in\mathbb{Z}$ é chamado de expoente de $x$.
+
+\begin{ex}
+  \begin{itemize}
+  \item[a)] O número $602,2141$ em notação científica pode ser escrito como
+    \begin{equation*}
+      602,2141\times 10^0 = 60,22141\times 10^{1} = 0,6022141\times 10^{3}.
+    \end{equation*}
+  \item[b)] O número $(1010,10)_2$ pode ser escrito em notação científica como $(10,1010)_2\times 2^2$.
+  \end{itemize}
+\end{ex}
+
+Observamos que um número pode ser representado de várias formas equivalentes em notação científica. Para termos uma representação única introduzimos o conceito de notação normalizada.
+
+\begin{defn}
+  Um número $x$ na base $b$ é dito estar representado em notação (científica) normalizada quando está escrito na forma
+  \begin{equation*}
+    x=(-1)^{s}(M)_b \times b^{E},
+  \end{equation*}
+onde $(M)_b = (d_1,d_{-1}d_{-2}d_{-3}\cdot)_b$, com $d_{1}\neq 0$\footnote{Em algumas referências é usado $M_b = (0,d_{-1}d_{-2}d_{-3}\cdot)_b$.}\footnote{No caso de $x=0$, $M_b = (0,00\cdots)_b$.}, $s$ é $0$ para positivo e $1$ para negativo, $E$ é o expoente.
+ \end{defn}
+
+\begin{ex}
+  \begin{itemize}
+  \item[a)] O número $602,2141$ em notação (científica) normalizada é representado por $6,022141\times 10^{2}$.
+  \item[b)] O número $(1010,10)_2$ escrito em notação normalizada é $(1,01010)_2\times 2^3$.
+  \end{itemize}
+\end{ex}
+
+\section{Representação decimal finita}
+
+Em computadores, é usual representarmos números usando uma quantidade de dígitos finita. A quantidade a ser usada normalmente depende da precisão com que as computações estão sendo feitas. Ocorre, que quando restringimos a representação a um número finito de dígitos, muitos números não podem ser representado de forma exata. Por exemplo, dízimas infinitas e números irracionais não são usualmente representados de forma exata em computadores. Esta questão nos leva aos conceitos de número de dígitos significativos e arredondamento.
+
+\begin{defn}[Número de dígitos significativos] Um número decimal $x = \pm d_1,d_{-1}\cdots d_{-i}d_{-i-1}\cdot d_{-i-n} d_{-i-n-1}\cdot \times 10^E$ é dito ter $n$ dígitos significativos quando $d_{j}=0$ para $j\geq -i$ e $j\leq-i-n-1$.  
+\end{defn}
+
+\begin{ex} O número $0,0602100\times 10^{-3}$ tem $4$ dígitos significativos.
+\end{ex}
+
+\subsection{Arredondamento de números}\index{arredondamento de números}
+
+Quando representamos um número $x$ com uma quantidade de dígitos menor que a de dígitos significativos acabamos com uma aproximação deste. Este procedimento é chamado arredondamento de um número. Mais precisamente, seja dado
+\begin{equation*}
+  x = \pm d_0,d_1d_2\ldots d_{k-1}d_kd_{k+1}\ldots d_n \times 10^e
+\end{equation*}
+em notação normalizada, i.e. $d_0\neq 0$. Podemos representar $x$ com $k$ dígitos fazendo:
+\begin{enumerate}
+\item \emph{Arredondamento por truncamento} (ou corte): aproximamos $x$ por
+$$
+  \bar{x} = \pm d_{0},d_{1}d_{2}\ldots d_{k}\times 10^e
+$$
+simplesmente descartando os dígitos $d_{j}$ com $j > k$.
+\item \emph{Arredondamento por proximidade}: se $d_{k+1}<5$ aproximamos $x$ por
+$$
+  \bar{x} = \pm d_0,d_1d_2\ldots d_{k}\times 10^{e}
+$$
+senão aproximamos $x$ por\footnote{Note que essas duas opções são equivalentes a somar $5$ no dígito a direita do corte e depois arredondar por corte, ou seja, arredondar por corte 
+$$ \pm(d_0,d_1d_2\ldots d_kd_{k+1}+ 5 \times10^{-(k+1)} )\times 10^{e} $$}
+$$
+ \bar{x} = \pm(d_0,d_1d_2\ldots d_{k} + 10^{-k}) \times 10^{e}
+$$
+\end{enumerate}
+
+\begin{ex} Represente os números $x_1 = 0,567$, $x_2 = 0,233$, $x_3 = -0,675$ e $x_4 = 0,314159265 \ldots \times 10^1$ com dois dígitos significativos por truncamento e arredondamento.
+\end{ex}
+\begin{sol} Vejamos cada caso:
+  \begin{itemize}
+  \item Por truncamento:
+    \begin{equation*}
+      x_1=0,56,\quad x_2=0,23,\quad x_3=-0,67\quad\mbox{e}\quad x_4 = 3,1.
+    \end{equation*}
+%%%%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+No \verb+Scilab+, podemos obter a representação de $x_3 = -0,675$ fazendo:
+\begin{verbatim}
+-->format('v',5)
+-->-int(0.675*1e2)/1e2
+ ans  =
+  - 0.67  
+\end{verbatim}
+e, em notação normalizada, temos:
+\begin{verbatim}
+-->format('e',8)
+-->-int(0.675*1e2)/1e2
+ ans  =
+  - 6.7D-01  
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos obter a representação de $x_3 = -0,675$ fazendo:
+\begin{verbatim}
+>> printf("%1.2f\n", ceil(-0.675*1e2)/1e2)
+-0.67
+\end{verbatim}
+e, em notação normalizada, temos:
+\begin{verbatim}
+>> printf("%1.1e\n", ceil(-0.675*1e2)/1e2)
+-6.7e-01
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos obter a representação de $x_3 = -0,675$ fazendo:
+\begin{verbatim}
+>>> int(-0.675*1e2)/1e2
+\end{verbatim}
+e, em notação normalizada, temos:
+\begin{verbatim}
+>>> print("%1.1e" % (int(-0.675*1e2)/1e2))
+-6.7e-01
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%
+\item Por arredondamento:
+\begin{equation*}
+   x_1=0,57;\quad x_2=0,23;\quad x_3=-0,68\quad\mbox{e}\quad x_4 = 3,1.  
+\end{equation*}
+%%%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+No \verb+Scilab+, a representação de números por arredondamento é o padrão. Assim, para obtermos a representação desejada de $x_3 = 0,675$ fazemos:
+\begin{verbatim}
+-->format('v',5)
+-->-0.675
+ ans  =
+  - 0.68  
+\end{verbatim}
+e, em notação normalizada, temos:
+\begin{verbatim}
+-->format('e',8)
+-->-0.675
+ ans  =
+  - 6.8D-01  
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+Em \verb+GNU Octave+, a representação de números por arredondamento é o padrão. Assim, para obtermos a representação desejada de $x_3 = 0,675$ fazemos:
+\begin{verbatim}
+>> printf("%1.2f\n", -0.675)
+-0.68
+\end{verbatim}
+e, em notação normalizada, temos:
+\begin{verbatim}
+>> printf("%1.1e\n", -0.675)
+-6.8e-01
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, a representação de números por arredondamento é o padrão. Assim, para obtermos a representação desejada de $x_3 = 0,675$ fazemos:
+\begin{verbatim}
+>>> print("%1.2f" % (-0.675))
+-0.68  
+\end{verbatim}
+e, em notação normalizada:
+\begin{verbatim}
+>>> print("%1.1e" % (-0.675))
+-6.8e-01  
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%
+  \end{itemize}
+\end{sol}
+
+\begin{obs}
+  Observe que o arredondamento pode mudar todos os dígitos e o expoente da representação em ponto flutuante de um número dado. Por exemplo, o arredondamento de $0,9999\times 10^{-1}$ com $3$ dígitos significativos é $0,1\times 10^{0}$.
+\end{obs}
+
+
+\section{Representação de números em máquina}\index{representação!de números em máquina}
 
 Os computadores, em geral, usam a base binária para representar os números, onde as posições, chamadas de bits, assume as condições ``verdadeiro'' ou ``falso'', ou seja, $0$ ou $1$. Os computadores representam os números com uma quantidade fixa de bits, o que se traduz em um conjunto finito de números representáveis. Os demais números são tomados por proximidade àqueles conhecidos, gerando erros de arredondamento.\index{erros!de arredondamento} Por exemplo, em aritmética de computador, o número $2$ tem representação exata, logo $2^2=4$, mas $\sqrt{3}$ não tem representação finita, logo $(\sqrt{3})^2\neq 3$. 
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 Veja isso no \verb+Scilab+:
 \begin{verbatim}
@@ -321,6 +595,23 @@ Veja isso no \verb+Scilab+:
   F  
 \end{verbatim}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+Veja isso no \verb+GNU Octave+:
+\begin{verbatim}
+>> 2^2 == 4
+ans =  1
+>> sqrt(3)^2 == 3
+ans = 0
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
 \ifispython
 Veja isso em \verb+Python+:
 \begin{verbatim}
@@ -330,10 +621,11 @@ True
 False
 \end{verbatim}
 \fi
+%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Números inteiros}\index{representação!números inteiros}
 
-Tipicamente um número inteiro é armazenado num computador como uma sequência de dígitos binários de comprimento fixo denominado \emph{registro}.
+Tipicamente, um número inteiro é armazenado em um computador como uma sequência de dígitos binários de comprimento fixo denominado \emph{registro}.
 
 \subsubsection{Representação sem sinal}\index{representação de números!inteiros!sem sinal}
 Um registro com $n$ bits da forma
@@ -344,7 +636,7 @@ Um registro com $n$ bits da forma
  \end{center}
 representa o número $(d_{n-1}d_{n-2}...d_1d_0)_2$. 
 
-Assim é possível representar números inteiros entre
+Assim, é possível representar números inteiros entre
 \begin{equation*}
 \begin{split}
   (111...111)_2 & = 2^{n-1}+2^{n-2}+\cdots+2^1+2^0=2^n-1.\\
@@ -356,6 +648,9 @@ Assim é possível representar números inteiros entre
 \end{split}
 \end{equation*}
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \begin{ex}
   No \verb+Scilab+,
@@ -367,6 +662,7 @@ Assim é possível representar números inteiros entre
 \end{verbatim}
 \end{ex}
 \fi
+%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{Representação com bit de sinal}\index{representação de números!inteiros!bit de sinal}
 O bit mais significativo (o primeiro à esquerda) representa o sinal: por convenção, $0$ significa positivo e $1$ significa negativo. Um registro com $n$ bits da forma
@@ -375,7 +671,7 @@ O bit mais significativo (o primeiro à esquerda) representa o sinal: por conven
     $s$ & $d_{n-2}$ & $\cdots$ & $d_1$ & $d_0$ \\\hline
   \end{tabular}  
 \end{center}
-representa o número $(-1)^s(d_{n-2}...d_1d_0)_2$. Assim é possível representar números inteiros entre $-2^{n-1}$ e $2^{n-1}$, com duas representações para o zero: $(1000...000)_2$ e $(00000...000)_2$.
+representa o número $(-1)^s(d_{n-2}...d_1d_0)_2$. Assim, é possível representar números inteiros entre $-2^{n-1}$ e $2^{n-1}$, com duas representações para o zero: $(1000...000)_2$ e $(00000...000)_2$.
 
 \begin{ex}
 Em um registro com $8$ bits, teremos os números
@@ -437,6 +733,7 @@ Em um registro com $8$ bits, teremos os números
 \end{equation*}
 \end{ex}
 
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \begin{ex}
   No \verb+Scilab+,
@@ -448,6 +745,7 @@ Em um registro com $8$ bits, teremos os números
 \end{verbatim}
 \end{ex}
 \fi
+%%%%%%%%%%%%%%%%%%%%
 
 
 \subsection{Sistema de ponto fixo}\index{sistema numérico!de ponto fixo}
@@ -490,53 +788,6 @@ se o sinal do número estiver representado por uma implementação em complement
 Observe que $16$ dígitos são usados para representar a parte fracionária, $15$ são para representar a parte inteira e um dígito, o $d_{31}$, está relacionado ao sinal do número.
 \end{ex}
 
-\subsection{Normalização}\index{sistema numérico!ponto fixo!normalização}
-Os números $h=6.626\times 10^{-34}$ e $N_A=6.0221\times 10^{23}$ não podem ser armazenados na máquina em ponto fixo do exemplo anterior.
-
-Entretanto, a constante
-\begin{equation*}
-  \begin{split}
-    h &=6626  \times 10^{-37} \\
-    h &=6.626  \times 10^{-34} \\
-    h &=0.6626 \times 10^{-33} \\
-    h &=0.006626\times 10^{-31}
-  \end{split}  
-\end{equation*}
-pode ser escrita de várias formas diferentes. Para termos uma \emph{representação única} definimos como notação normalizada a segunda opção ($1 \leq m <10$)
-que apresenta apenas um dígito  diferente de zero  a esquerda do ponto decimal ($m=6.626$).
-
-\begin{defn}
-Definimos que 
- $$ x=(-1)^{s}(M)_b \times b^{E}, $$
-está na \emph{notação normalizada}\footnote{Em algumas referências é usado $(0.1)_b\leq (M)_b <1$.} quando $1\leq (M)_{b}<b$, onde
-\begin{itemize}
- \item $s$ é o \emph{sinal} ($0$ para positivo e $1$ para negativo),
- \item $E$ é o \emph{expoente},
- \item $b$ é a base (por ex. $2$, $8$, $10$ ou $16$),
- \item $(M)_b$ é o significando. O \emph{significando} (também chamado de mantissa ou coeficiente) contém os dígitos significativos do número.
-\end{itemize}
- 
-\end{defn}
-
-
-\begin{ex}
-  Os números abaixo estão em notação normalizada:
-  $$x_1=(-1.011101)_2\times 2^{(100)_2}$$
-  $$x_2=(-2.325)_{10}\times  10^{1}$$
-\end{ex}
-
-\begin{ex}Represente os números $0,00\overline{51}$ e $1205,41\overline{54}$ em um sistema de ponto fixo de 4 dígitos para a parte inteira e 4 dígitos para a parte fracionária. Depois represente os mesmos números utilizando notação normalizada com 7 dígitos significativos.
-\end{ex}
-\begin{sol} As representações dos números $0,00\overline{51}$ e $1205,41\overline{54}$ no sistema de ponto fixo são $0,0051$ e $1205,4154$, respectivamente. Em notação normalizada, as representações são $5,151515\cdot 10^{-3}$ e $1,205415 \cdot 10^{3}$, respectivamente.
-\end{sol}
-\ifisscilab
-\begin{obs}
-  No \verb+Scilab+, a representação em ponto flutuante com $n$ dígitos é dada na forma $\pm d_1,d_2d_3\ldots d_n\times 10^{E}$. Consulte sobre o comando \verb'format'!
-\end{obs}
-\fi
-
-
-
 \subsection{Sistema de ponto flutuante}\index{sistema numérico!de ponto flutuante}
 
 O sistema de ponto flutuante não possui quantidade fixa de dígitos para as partes inteira e fracionária do número. 
@@ -552,7 +803,6 @@ onde
  \item $E_{MIN}$ é o menor expoente,
  \item $E_{MAX}$ é o maior expoente.
 \end{itemize}
-
 
 
 Considere uma máquina com um registro de $64$ bits e base $\beta=2$. Pelo padrão IEEE754, $1$ bit é usado para o sinal, $11$ bits para o expoente e $52$ bits são usados para o significando tal que 
@@ -587,7 +837,7 @@ Uma maneira de representar os expoentes inteiros é deslocar todos eles uma mesm
 Tendo $|E|$ dígitos para representar o expoente, geralmente o $BIAS$ é predefinido de tal forma a dividir a tabela ao meio de tal forma que o expoente \textit{um} seja representado pelo sequência $[100...000]$. 
 
 \begin{ex}
-Com $64$ bits, pelo padrão $IEEE754$, temos que $|E|:=11$. Assim $(100~0000~0000)_2=2^{10}=1024$. Como queremos que esta sequência represente o $1$, definimos $BIAS:=1023$, pois
+Com $64$ bits, pelo padrão $IEEE754$, temos que $|E|:=11$. Assim, $(100~0000~0000)_2=2^{10}=1024$. Como queremos que esta sequência represente o $1$, definimos $BIAS:=1023$, pois
 $$ 1024-BIAS=1.$$
 
 Com $32$ bits, temos $|E|:=8$ e $BIAS:=127$. E com $128$ bits, temos $|E|:=15$ e $BIAS:=16383$.
@@ -652,6 +902,9 @@ Os expoentes \emph{reservados} são usados para casos especiais:
 Os números subnormais\footnote{Note que poderíamos definir números um pouco menores que o $MINR$.} tem a forma
 $$ x=(-1)^{s}(\RED{0}.m_{1}m_{2}\cdots m_{51}m_{52})_2 \times 2^{1-BIAS}.$$
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \begin{obs}
   O menor número positivo, o maior número e o menor número subnormal representáveis  no \verb+Scilab+ são:
@@ -663,9 +916,14 @@ $$ x=(-1)^{s}(\RED{0}.m_{1}m_{2}\cdots m_{51}m_{52})_2 \times 2^{1-BIAS}.$$
 Outras informações sobre a representação em ponto flutuante podem ser obtidas com \verb+help number_properties+.
 \end{obs}
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
 \ifispython
 Para mais informações sobre aritmética de ponto flutuante em \verb+Python+, veja a \href{https://docs.python.org/3/tutorial/floatingpoint.html?highlight=double}{documentação}.
 \fi
+%%%%%%%%%%%%%%%%%%%%
 
 \subsection{A precisão e o épsilon de máquina}
 
@@ -682,7 +940,7 @@ O \emph{épsilon de máquina}, $\epsilon_{mach}=\epsilon$, é definido de forma 
          &      ~~~~~~~ (1.0000~0000....0001)_2\times 2^{0} \neq 1    
   \end{split}
 \end{equation*}
-Assim $\epsilon = 2^{-52}$.
+Assim, $\epsilon = 2^{-52}$.
 \end{ex}
 
 
@@ -697,6 +955,9 @@ Se tentarmos armazenar um número que não é representável, devemos utilizar o
 
 Por simplicidade, a partir daqui, nós adotaremos $b=10$.
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \begin{obs}
   O chamado modo de exceção de ponto flutuante é controlado pela função \verb+ieee+. O padrão do \verb+Scilab+ é \verb+ieee(0)+. Estude os seguintes resultados das seguintes operações usando os diferentes modos de exceção:
@@ -705,12 +966,16 @@ Por simplicidade, a partir daqui, nós adotaremos $b=10$.
 \end{verbatim}
 \end{obs}
 \fi
+%%%%%%%%%%%%%%%%%%%%
 
 \subsection*{Exercícios}
 
 \begin{exer} Explique a diferença entre o sistema de ponto fixo e ponto flutuante.
 \end{exer}
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \begin{exer}Considere a seguinte rotina escrita para ser usada no Scilab:
  \begin{verbatim}
@@ -721,7 +986,8 @@ Por simplicidade, a partir daqui, nós adotaremos $b=10$.
  \end{verbatim}
  Explique se esta rotina finaliza em tempo finito, em caso afirmativo calcule a ordem de grandeza do tempo de execução supondo que cada passo do laço demore $10^{-7}s$. Justifique sua reposta.
  \end{exer}
- 
+%%%%%%%%%%%%%%%%%%%%
+
 \section{Tipos de Erros}\index{erros}
 
 Em geral, os números não são representados de forma exata nos computadores. Isto nos leva ao chamado erro de arredondamento. Quando resolvemos problemas com técnicas numéricas estamos sujeitos a este e outros tipos de erros. Nesta seção, veremos quais são estes erros e como controlá-los, quando possível.
@@ -821,104 +1087,12 @@ $$
   \begin{equation*}
     \frac{|x-\overline{x}|}{|x|} = \frac{|10 - 9,999|}{10} \approx 0,0000999...< 5\times 10^{-4}.
   \end{equation*}
-\item[d)] Considere as aproximações $\overline{x}_1 = 1,49$ e $\overline{x}_2 = 1,5$ de $x = 1$. Da definição, temos que $1,49$ aproxima $1$ com um dígito significativo correto (verifique), equanto $1,5$ tem zero dígito significativo correto, pois:
+\item[d)] Considere as aproximações $\overline{x}_1 = 1,49$ e $\overline{x}_2 = 1,5$ de $x = 1$. Da definição, temos que $1,49$ aproxima $1$ com um dígito significativo correto (verifique), enquanto $1,5$ tem zero dígito significativo correto, pois:
   \begin{equation*}
     \frac{|1-1,5|}{|1|} = 5\times 10^{-1} < 5\times 10^{0}.
   \end{equation*}
 \end{itemize}
 \end{ex}
-
-\subsection{Erros de arredondamento}\index{erros!de arredondamento}
-Os erros de arredondamento são aqueles gerados quando aproximamos um número real por um número com representação finita.
-
-Existem várias formas de arredondar 
-\begin{equation*}
-  x = \pm d_0,d_1d_2\ldots d_{k-1}d_kd_{k+1}\ldots d_n \times 10^e
-\end{equation*}
-usando $k$ dígitos significativos. As duas principais são as seguintes:
-\begin{enumerate}
-\item \emph{Arredondamento por truncamento} (ou corte): aproximamos $x$ por
-$$
-  \bar{x} = \pm d_{0},d_{1}d_{2}\ldots d_{k}\times 10^e
-$$
-simplesmente descartando os dígitos $d_{j}$ com $j > k$.
-\item \emph{Arredondamento por proximidade}: se $d_{k+1}<5$ aproximamos $x$ por
-$$
-  \bar{x} = \pm d_0,d_1d_2\ldots d_{k}\times 10^{e}
-$$
-senão aproximamos $x$ por\footnote{Note que essas duas opções são equivalentes a somar $5$ no dígito a direita do corte e depois arredondar por corte, ou seja, arredondar por corte 
-$$ \pm(d_0,d_1d_2\ldots d_kd_{k+1}+ 5 \times10^{-(k+1)} )\times 10^{e} $$}
-$$
- \bar{x} = \pm(d_0,d_1d_2\ldots d_{k} + 10^{-k}) \times 10^{e}
-$$
-\end{enumerate}
-\begin{obs}
-  Observe que o arredondamento pode mudar todos os dígitos e o expoente da representação em ponto flutuante de um número dado.
-\end{obs}
-
-
-\begin{ex} Represente os números $x_1 = 0,567$, $x_2 = 0,233$, $x_3 = -0,675$ e $x_4 = 0,314159265 \ldots \times 10^1$ com dois dígitos significativos por truncamento e arredondamento.
-\end{ex}
-\begin{sol} Vejamos cada caso:
-  \begin{itemize}
-  \item Por truncamento:
-    \begin{equation*}
-      x_1=0,56,\quad x_2=0,23,\quad x_3=-0,67\quad\mbox{e}\quad x_4 = 3,1.
-    \end{equation*}
-%%%%%%%%%%%%%%%%%%%%%%%
-% scilab
-%%%%%%%%%%%%%%%%%%%%%%%
-\ifisscilab
-No \verb+Scilab+, podemos obter a representação de $x_3 = -0,675$ fazendo (verifique):
-\begin{verbatim}
--->format('e',8)
--->int(-0.675*1e2)/1e2
-\end{verbatim}
-\fi
-%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%
-% python
-%%%%%%%%%%%%%%%%%%%%%%%
-\ifispython
-Em \verb+Python+, podemos obter a representação de $x_3 = -0,675$ fazendo (verifique):
-\begin{verbatim}
--->int(-0.675*1e2)/1e2
-\end{verbatim}
-\fi
-%%%%%%%%%%%%%%%%%%%%%%
-  \item Por arredondamento:
-    \begin{equation*}
-      x_1=0,57;\quad x_2=0,23;\quad x_3=-0,68\quad\mbox{e}\quad x_4 = 3,1.  
-    \end{equation*}
-%%%%%%%%%%%%%%%%%%%%%%
-% scilab
-%%%%%%%%%%%%%%%%%%%%%%
-\ifisscilab
-No \verb+Scilab+, a representação de números por arredondamento é o padrão. Assim, para obtermos a representação desejada de $x_3 = 0,675$ fazemos:
-\begin{verbatim}
--->format('e',8)
--->-0.675
-\end{verbatim}
-\fi
-%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%
-% python
-%%%%%%%%%%%%%%%%%%%%%%
-\ifispython
-Em \verb+Python+, a representação de números por arredondamento é o padrão. Assim, para obtermos a representação desejada de $x_3 = 0,675$ fazemos:
-\begin{verbatim}
->>> print("%1.1e" % (-0.675))
-\end{verbatim}
-\fi
-%%%%%%%%%%%%%%%%%%%%%%
-  \end{itemize}
-\end{sol}
-
-
-\begin{ex}
-  O arredondamento de $0,9999\times 10^{-1}$ com $3$ dígitos significativos é $0,1\times 10^{0}$.
-\end{ex}
-
 
 \subsection*{Exercícios}
 
@@ -1053,7 +1227,7 @@ e
 \end{equation*}
 No entanto, os valores das raízes com seis dígitos significativos livres de erros de arredondamento, são:
 \begin{equation*}
-  x_1=-0,300000\times 10^{3}\quad\hbox{e}\quad x_2=0,466667\times 10^{-4}.  
+  x_1=-0,300000\times 10^{3}\quad\text{e}\quad x_2=0,466667\times 10^{-4}.  
 \end{equation*}
 Observe que a primeira raiz apresenta seis dígitos significativos corretos, mas a segunda não possui nenhum dígito significativo correto.
 
@@ -1100,7 +1274,7 @@ x_2&=& \frac{-b+ \sqrt{b^2-4ac} }{ 2a }=\frac{-b+ \sqrt{b^2-4ac} }{ 2a }\cdot \f
 \section{Condicionamento de um problema}
 Nesta seção, utilizaremos a seguinte descrição abstrata para o conceito de ``resolver um problema'': dado um conjunto de dados de entrada, encontrar os dados de saída. Se denotamos pela variável $x$ os dados de entrada e pela variável $y$ os dados de saída, resolver o problema significa encontrar $y$ dado $x$. Em termos matemáticos, a resolução de um problema é realizada pelo mapeamento $f:x \rightarrow y$, ou simplesmente $y = f(x)$.
 
-É certo que na maioria das aplicações, os dados de entrada do problema, isto é $x$, não é conhecido com total exatidão, devido a diversas fontes de erros como incertezas na coleta dos dados e erros de arredondamento. O conceito de condicionamento está relacionado com a forma como os erros nos dados de entrada influenciam os dados de saída.
+É certo que, na maioria das aplicações, os dados de entrada do problema --- isto é, $x$ --- não são conhecidos com total exatidão, devido a diversas fontes de erros, como incertezas na coleta dos dados e erros de arredondamento. O conceito de condicionamento está relacionado à forma como os erros nos dados de entrada influenciam os dados de saída.
 
 Para fins de análise, denotaremos por $x$, os dados de entrada com precisão absoluta e por $x^*$, os dados com erro. Definiremos também a solução $y^*$, do problema com dados de entrada $x^*$, ou seja, $y^* = f(x^*)$.
 
@@ -1206,10 +1380,10 @@ confirmando a estimativa de $19,99 \%$.
 
 
 \begin{ex}
-  Seja $f(x) = x\exp(x)$. Calcule o erro absoluto em se calcular $f(x)$ sabendo que $x = 2 \pm 0,05$.
+  Seja $f(x) = x\exp(x)$. Calcule o erro absoluto ao calcular $f(x)$ sabendo que $x = 2 \pm 0,05$.
 \end{ex}
 \begin{sol}
-  Temos que $x\approx 2$ com erro absoluto de $\delta_x = 0,05$. Neste caso, calculamos $\delta_f$, i.e. o erro absoluto em se calcular $f(x)$, por:
+  Temos que $x\approx 2$ com erro absoluto de $\delta_x = 0,05$. Neste caso, calculamos $\delta_f$, isto é, o erro absoluto ao calcular $f(x)$, por:
   \begin{equation*}
     \delta_f = |f'(x)|\delta_x.
   \end{equation*}
@@ -1218,7 +1392,7 @@ Como $f'(x) = (1 + x)e^{x}$, temos:
   \delta_f &=& |(1 + x)e^{x}|\cdot\delta_x\\
   &=& |3e^2|\cdot 0,05 = 1,1084.
 \end{eqnarray*}
-Portanto, o erro absoluto em se calcular $f(x)$ quando $x=2\pm 0,05$ é de $1,084$.
+Portanto, o erro absoluto ao calcular $f(x)$ quando $x=2\pm 0,05$ é de $1,084$.
 \end{sol}
 
 \begin{ex} Calcule o erro relativo ao medir $f(x,y)=\frac{x^2+1}{x^2}e^{2y}$ sabendo que $x\approx 3$ é conhecido com $10\%$ de erro e $y\approx 2$ é conhecido com $3\%$ de erro.
@@ -1292,7 +1466,7 @@ Suponha que você precise conhecer o valor de $z$ com um erro de $0,5\%$. Você 
 \end{exer}
 \begin{resp}
   
-    $2\%$  , deve-se melhorar a medida na variável $x$, pois, por mais que o erro relativo seja maior para esta variável, a propagação de erros atraves desta variáveis é muito menos importante do que para a outra variável.  
+    $2\%$  , deve-se melhorar a medida na variável $x$, pois, por mais que o erro relativo seja maior para esta variável, a propagação de erros através desta variáveis é muito menos importante do que para a outra variável.  
   
 \end{resp}
 
@@ -1338,6 +1512,21 @@ e itere algumas vezes a linha de comando:
 \end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+Faça o teste no \verb+GNU Octave+, colocando:
+\begin{verbatim}
+>> x = 1/3
+\end{verbatim}
+e itere algumas vezes a linha de comando:
+\begin{verbatim}
+>> x = 4*x-1
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%%%
 \ifispython
@@ -1372,20 +1561,20 @@ Qual o número de condicionamento desse problema?
 $$
 f(x)=\frac{(1+x)-1}{x}=1
 $$
-Calcule o valor da expressão à esquerda para $x=10^{-12}$, $x=10^{-13}$, $x=10^{-14}$, $x=10^{-15}$, $x=10^{-16}$ e $x=10^{-17}$. Observe que quando $x$ se aproxima do $\epsilon$ de máquina a expressão perde o significado. Veja a Figura~\ref{fig:cancelamento_0} com o gráfico de $f(x)$ em escala logarítmica.
+Calcule o valor da expressão à esquerda para $x=10^{-12}$, $x=10^{-13}$, $x=10^{-14}$, $x=10^{-15}$, $x=10^{-16}$ e $x=10^{-17}$. Observe que quando $x$ se aproxima do $\epsilon$ de máquina a expressão perde o significado. Veja a figura~\ref{fig:cancelamento_0} com o gráfico de $f(x)$ em escala logarítmica.
 \end{ex}
 
 \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{./cap_aritmetica/pics/cancelamento_0}  
-  \caption{Gráfico na função do Exemplo~\ref{ex:cancelamento_0}.}
+  \caption{Gráfico na função do exemplo~\ref{ex:cancelamento_0}.}
   \label{fig:cancelamento_0}
 \end{figure}
 
 
 \begin{figure}
   \includegraphics[width=0.8\textwidth]{./cap_aritmetica/pics/cancelamento_euler}
-  \caption{Gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$ em escala linear-logarítmica variando de $10^0$ até $10^{18}$. Veja o Exemplo~\ref{ex:cancelamento_euler}.}
+  \caption{Gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$ em escala linear-logarítmica variando de $10^0$ até $10^{18}$. Veja o exemplo~\ref{ex:cancelamento_euler}.}
   \label{fig:cancelamento_euler}
 \end{figure}
 
@@ -1419,7 +1608,7 @@ $10$ & $2,5937424601000$ && $10^{20}$ & $1,0000000000000$ \\\hline
 \end{tabular}  
 \end{center}
 
-Podemos resumir esses dados no gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$, veja a Figura~\ref{fig:cancelamento_euler}.
+Podemos resumir esses dados no gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$, veja a figura~\ref{fig:cancelamento_euler}.
 
 Observe que quando $n$ se torna grande, da ordem de $10^{15}$, o gráfico da função deixa de se crescente e apresenta oscilações.  Observe também que a expressão se torna identicamente igual a $1$ depois de um certo limiar. Tais fenômenos não são intrínsecos da função $f(n)=(1+1/n)^n$, mas \emph{\uline{oriundas de erros de arredondamento}}, isto é, são resultados numéricos espúrios. A fim de pôr o comportamento numérico de tal expressão, apresentamos abaixo o gráfico da mesma função, porém restrito à região entre $10^{14}$ e $10^{16}$.
 
@@ -1432,11 +1621,22 @@ Devido ao limite de precisão da representação de números em ponto flutuante,
 % scilab
 %%%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
-Em \verb+Python+, o epsilon de máquina é a constante \verb+eps+. Observe que:
+No \verb+Scilab+, o epsilon de máquina é a constante \verb+eps+. Observe que:
 \begin{verbatim}
 -->1+%eps
  ans  =
     1.0000000000000002220446 
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, o epsilon de máquina é a constante \verb+eps+. Observe que:
+\begin{verbatim}
+>> printf('%1.25f\n', 1+eps)
+1.0000000000000002220446049
 \end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%%%
@@ -1458,7 +1658,7 @@ False
 %%%%%%%%%%%%%%%%%%%%%%
 Quando somamos a $1$ um número positivo inferior ao épsilon de máquina, obtemos o número 1. Dessa forma, o resultado obtido pela operação de ponto flutuante $1+n$ para $0<n<2,22 \times 10^{-16}$ é 1. 
 
-Portanto, quando realizamos a sequência de operações dada em \eqref{seq_oper}, toda informação contida no número $n$ é perdida na soma com $1$ quando $1/n$ é menor que o épsilon de máquina, o que ocorre quando $n>5\times 10^{15}$. Assim $(1+1/n)$ é aproximado para $1$ e a última operação se resume a $1^n$, o que é igual a $1$ mesmo quando $n$ é grande.
+Portanto, quando realizamos a sequência de operações dada em \eqref{seq_oper}, toda informação contida no número $n$ é perdida na soma com $1$ quando $1/n$ é menor que o épsilon de máquina, o que ocorre quando $n>5\times 10^{15}$. Assim, $(1+1/n)$ é aproximado para $1$ e a última operação se resume a $1^n$, o que é igual a $1$ mesmo quando $n$ é grande.
 
 Um erro comum é acreditar que o perda de significância se deve ao fato de $1/n$ ser muito pequeno para ser representado e é aproximando para $0$. Isto é falso, o sistema de ponto de flutuante permite representar números de magnitude muito inferior ao épsilon de máquina. O problema surge da limitação no tamanho da mantissa. Observe como a seguinte sequência de operações não perde significância para números positivos x muito menores que o épsilon de máquina:
 \begin{equation}\label{seq_oper2}
@@ -1493,6 +1693,29 @@ Observe a perda de informação ao deslocar a mantissa de $1/n$. Para evidenciar
 -->1/(y-1)
  ans  =
      7.036874417766400000D+13  
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+Para entendermos isso melhor, vejamos o que acontece no \verb+GNU Octave+ quando $n=7\times 10^{13}$:
+\begin{verbatim}
+>> format('long')
+>> n=7e13
+n =  70000000000000
+>> 1/n
+ans =    1.42857142857143e-14
+>> y=1+1/n
+y =  1.00000000000001
+\end{verbatim}
+Observe a perda de informação ao deslocar a mantissa de $1/n$. Para evidenciar o fenômenos, observamos o que acontece quando tentamos recalcular $n$ subtraindo $1$ de $1+1/n$ e invertendo o resultado:
+\begin{verbatim}
+>> y-1
+ans =    1.42108547152020e-14
+>> 1/(y-1)
+ans =  70368744177664
 \end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%
@@ -1581,7 +1804,7 @@ Analise o desempenho destas duas expressões no computador quando $x$ vale $10^{
 
 
 \begin{exer} Reescreva as expressões:
-  $$\sqrt{e^{2x}+1}-e^x \qquad\hbox{e}\qquad \sqrt{e^{2x}+x^2}-e^x $$
+  $$\sqrt{e^{2x}+1}-e^x \qquad\text{e}\qquad \sqrt{e^{2x}+x^2}-e^x $$
   de modo que seja possível calcular seus valores para $x=100$ utilizando a aritmética de ponto flutuante ("Double") no computador.
 \end{exer}
 
@@ -1598,7 +1821,7 @@ onde $E$ é a energia cinética da partícula, $m$ é a massa de repouso, $v$ o 
 \end{resp}
 
 \begin{exer} Deseja-se medir a concentração de dois diferentes oxidantes no ar. Três sensores eletroquímicos estão disponíveis para a medida e apresentam a seguintes respostas:
-$$v_1= 270 [A] +  30 [B],~~~ v_2= 140 [A] +  20 [B] ~~ \hbox{e}~~ v_3= 15 [A] +  200 [B]$$
+$$v_1= 270 [A] +  30 [B],~~~ v_2= 140 [A] +  20 [B] ~~ \text{e}~~ v_3= 15 [A] +  200 [B]$$
 as tensões $v_1$, $v_2$ e $v_3$ são dadas em $mV$ e as concentrações em $milimol/l$.
 \begin{itemize}
 \item [a)] Encontre uma expressão para os valores de $[A]$ e $[B]$ em termos de $v_1$ e $v_2$ e, depois, em termos de $v_1$ e $v_3$. Dica:
