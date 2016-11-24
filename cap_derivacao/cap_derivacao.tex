@@ -7,6 +7,19 @@
 
 Nesta seção, discutiremos sobre estratégias numéricas de aproximação de derivadas de funções reais. Com as técnicas que abordaremos é possível o cálculo aproximado da derivada de uma função a partir de um conjunto de pontos discretos $\{x_i, y_i\}_{i=1}^n$. Começamos discutindo sobre as chamadas \emph{aproximações por diferenças finitas}\index{aproximações por diferenças finitas} e, então, discutimos sobre aproximações de derivadas via ajuste ou interpolação.
 
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Ao longo deste capítulo, estaremos assumindo que as seguintes bibliotecas e módulos \verb+Python+ estão importados:
+\begin{verbatim}
+from __future__ import division
+import numpy as np
+import matplotlib.pyplot as plt
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+
 \section{Diferenças finitas}\index{diferenças finitas}
 
 A técnica de \emph{diferenças finitas}\index{diferenças finitas} consiste em aproximar a derivada de uma função via fórmulas discretas que requerem apenas um conjunto finito de pares ordenados $\left\{\left(x_i, y_i=f(x_i)\right)\right\}_{i=1}^n$. As chamadas fórmulas de diferenças finitas podem ser obtidas de várias formas. Começamos discutindo a mais básica delas, a chamada fórmula de diferenças progressiva de ordem 1.
@@ -52,6 +65,20 @@ No \verb+Scilab+, podemos calcular a aproximação da derivada $f'(1)$ com $h=0,
 --> x0 = 1
 --> h = 0.1
 --> df = (f(x0+h) - f(x0))/h
+\end{verbatim}
+E, similarmente, para outros valores de $x_0$ e $h$.
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos calcular a aproximação da derivada $f'(1)$ com $h=0,1$ usando as seguintes linhas de código:
+\begin{verbatim}
+f = inline ("cos(x)");
+x0 = 1;
+h = 0.1;
+df = (f(x0+h) - f(x0))/h
 \end{verbatim}
 E, similarmente, para outros valores de $x_0$ e $h$.
 \fi
@@ -313,9 +340,6 @@ onde $f'(x) = 2\sen(2x) - 2x$ é a derivada analítica. Tomando $h=0,01$ temos:
 \ifispython
 Em \verb+Python+, podemos fazer os cálculos com o seguinte código:
 \begin{verbatim}
-from __future__ import division
-import numpy as np
-
 #funcao
 def f(x):
     return np.sin(2*x) - x**2
@@ -542,6 +566,31 @@ No \verb+Scilab+, podemos computar estas derivadas numéricas com $h=0.1$ da seg
 --> dr2 = (f(x-2*h)-4*f(x-h)+3*f(x))/(2*h)
 --> //central de ordem 4
 --> dc4 = (f(x-2*h)-8*f(x-h)+8*f(x+h)-f(x+2*h))/(12*h)
+\end{verbatim}
+e, análogo, para $h=0.01$ e $h=0.001$.
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos computar estas derivadas numéricas com $h=0.1$ da seguinte forma:
+\begin{verbatim}
+f = inline("exp(-x^2)");
+x=1.5;
+h=0.1;
+#progressiva de ordem 1
+dp1 = (f(x+h)-f(x))/h
+#regressiva de ordem 1
+dr1 = (f(x)-f(x-h))/h
+#central de ordem 2
+dc2 = (f(x+h)-f(x-h))/(2*h)
+#progressiva de ordem 2
+dp2 = (-3*f(x)+4*f(x+h)-f(x+2*h))/(2*h)
+#regressiva de ordem 2
+dr2 = (f(x-2*h)-4*f(x-h)+3*f(x))/(2*h)
+#central de ordem 4
+dc4 = (f(x-2*h)-8*f(x-h)+8*f(x+h)-f(x+2*h))/(12*h)
 \end{verbatim}
 e, análogo, para $h=0.01$ e $h=0.001$.
 \fi
