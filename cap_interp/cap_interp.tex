@@ -105,6 +105,21 @@ No \verb+Scilab+, podemos encontrar o polinômio interpolador e esboçar seu gr�
 \fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos encontrar o polinômio interpolador e esboçar seu gráfico com os seguintes comandos:
+\begin{verbatim}
+xi = [0 1 2 3]';
+yi = [1 6 5 -8]'; 
+A = [xi.^3 xi.^2 xi.^1 xi.^0];
+a = A\yi; 
+xx = linspace(-0.5,3.25); 
+plot(xi,yi,'ro',xx,polyval(a,xx),'b-');xgrid
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
@@ -351,39 +366,6 @@ Assim, temos:
   P(x)=0\cdot L_1(x)+1\cdot L_2(x)+4\cdot L_3(x)+9\cdot L_4(x)=x^2
 \end{equation*}
 
-%%%%%%%%%%%%%%%%%%%%
-% python
-%%%%%%%%%%%%%%%%%%%%
-\ifispython
-Em \verb+Python+, podemos usar a função \href{https://docs.scipy.org/doc/numpy/reference/generated/numpy.poly.html}{numpy.poly}, por exemplo:
-\begin{verbatim}
->>> xi = np.array([0,1,2,3], dtype='double')
->>> yi = np.array([0,1,4,9], dtype='double')
->>> L1 = np.poly([xi[1],xi[2],xi[3]]);L1=L1/np.polyval(L1,xi[0]);L1
-array([-0.16666667,  1.        , -1.83333333,  1.        ])
->>> L2 = np.poly([xi[0],xi[2],xi[3]]);L2=L2/np.polyval(L2,xi[1]);L2
-array([ 0.5, -2.5,  3. ,  0. ])
->>> L3 = np.poly([xi[0],xi[1],xi[3]]);L3=L3/np.polyval(L3,xi[2]);L3
-array([-0.5,  2. , -1.5, -0. ])
->>> L4 = np.poly([xi[0],xi[1],xi[2]]);L4=L4/np.polyval(L4,xi[3]);L4
-array([ 0.16666667, -0.5       ,  0.33333333,  0.        ])
->>> a = yi[0]*L1 + yi[1]*L2 + yi[2]*L3 + yi[3]*L4;a
-array([ 0.,  1.,  0.,  0.])
-\end{verbatim}
-Para plotar os pontos e o polinômio interpolador, podemos usar:
-\begin{verbatim}
->>> xx = np.linspace(-0.25,3.25)
->>> plt.plot(xi,yi,'ro',xx,np.polyval(a,xx),'b-')
->>> plt.grid();plt.show()
-\end{verbatim}
-\fi
-%%%%%%%%%%%%%%%%%%%%
-\end{ex}
-
-\begin{ex}Encontre o polinômio da forma $p(x)=a_1+a_2x+a_3x^2+a_4x^3$ que passa pelos pontos $(0, 0)$, $(1, 1)$, $(2, 0)$, $(3, 1)$.
-\end{ex}
-\begin{sol}
-Como as abscissas são as mesmas do exemplo anterior, podemos utilizar os mesmos polinômios de Lagrange, assim, temos:
 \begin{equation*}
   p(x)=0\cdot L_1(x)+1\cdot L_2(x)+0\cdot L_3(x)+1\cdot L_4(x)=\frac{2}{3}x^3-3x^2+\frac{10}{3}x.
 \end{equation*}
@@ -409,16 +391,20 @@ $$
 \begin{ex}
 Considere a função $f(x)=\cos(x)$ e o polinômio $P(x)$ de grau 2 tal que $P(0)=\cos(0)=1$, $P(\frac{1}{2})=\cos(\frac{1}{2})$ e $P(1)=\cos(1)$. Use a fórmula de Lagrange para encontrar $P(x)$. Encontre o erro máximo que se assume ao aproximar o valor de $\cos(x)$ pelo de $P(x)$ no intervalo $[0,1]$. Trace os gráficos de $f(x)$ e $P(x)$ no intervalo $[0,1]$ no mesmo plano cartesiano e, depois, trace o gráfico da diferença $\cos(x)-P(x)$. Encontre o erro efetivo máximo $|\cos(x)-P(x)|$.
 \end{ex}
-
-\begin{eqnarray*}
-P(x)&=&1\frac{(x-\frac{1}{2})(x-1)}{(0-\frac{1}{2})(0-1)}+\cos\left(\frac{1}{2}\right)\frac{(x-0)(x-1)}{(\frac{1}{2}-0)(\frac{1}{2}-1)}+\cos(1)\frac{(x-0)(x-\frac{1}{2})}{(1-0)(1-\frac{1}{2})}\\
-&\approx&   1 - 0,0299720583066x - 0,4297256358252x^2
+\begin{sol}
+  Usando polinômios de Lagrange, obtemos
+  \begin{eqnarray*}
+    P(x) &=& 1\frac{(x-\frac{1}{2})(x-1)}{(0-\frac{1}{2})(0-1)}\\
+    &+& \cos\left(\frac{1}{2}\right)\frac{(x-0)(x-1)}{(\frac{1}{2}-0)(\frac{1}{2}-1)}\\
+    &+& \cos(1)\frac{(x-0)(x-\frac{1}{2})}{(1-0)(1-\frac{1}{2})}\\
+    &\approx&   1 - 0,0299720583066x - 0,4297256358252x^2
 \end{eqnarray*}
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
-%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%  
 \ifisscilab
+No \verb+Scilab+, podemos computar o polinômio interpolador da seguinte forma:  
 \begin{verbatim}
 L1=poly([.5 1],'x');L1=L1/horner(L1,0)
 L2=poly([0 1],'x');L2=L2/horner(L2,0.5)
@@ -446,6 +432,8 @@ $$
 $$
 
 Para encontrar o erro efetivo máximo, basta encontrar o máximo de $|P(x)-\cos(x)|$. O mínimo (negativo) de $P(x)-\cos(x)$ acontece em $x_1=4,29\cdot 10^{-3}$ e o máximo (positivo) acontece em $x_2=3,29\cdot 10^{-3}$. Portanto, o erro máximo efetivo é $4,29\cdot 10^{-3}$.
+\end{sol}
+
 
 \begin{ex}\label{exemp_simpson}
 Considere o problema de aproximar o valor da integral $\int_0^1 f(x)dx$ pelo valor da integral do polinômio $P(x)$ que coincide com $f(x)$ nos pontos $x_0=0$, $x_1=\frac{1}{2}$ e $x_2=1$. Use a fórmula de Lagrange para encontrar $P(x)$. Obtenha o valor de $\int_0^1f(x)dx$ e encontre uma expressão para o erro de truncamento.
@@ -542,10 +530,15 @@ Simplificando, obtemos:
 \end{ex}
 
 A figura \ref{fig:linear_segmentada} é um esboço da função $f(x)$ obtida. 
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 Ela foi gerada no \verb+Scilab+ usando os comandos:
 \verbatiminput{./cap_interp/codes/interpolacao_linear_segmentada/ex_linear_segmentada.sce}
 \fi
+%%%%%%%%%%%%%%%%%%%%
 
 \begin{figure}[htp]
   \begin{center}
@@ -745,6 +738,9 @@ Portanto:
 	\end{equation*}  
 \end{small}
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 No \verb+Scilab+, podemos utilizar:
 \begin{verbatim}
@@ -780,6 +776,7 @@ z=linspace(xi(1),xi($))
 plot(z,interp(z,xi,yi,dyi))
 \end{verbatim}
 \fi
+%%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
 \subsection{Spline fixado}\index{spline!fixado}
