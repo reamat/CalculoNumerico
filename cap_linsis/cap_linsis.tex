@@ -1088,6 +1088,96 @@ $$\frac{8n^3}{3}-\frac{n^2}{2}-\frac{n}{6}.$$
 \end{ex}
 
 
+\section{Método da matriz tridiagonal}\index{método!da matrix tridiagonal}\index{algoritmo!de Thomas}\index{algoritmo!TDMA}
+O método da matriz tridiagonal ou algoritmo de Thomas\footnote{Llewellyn Hilleth Thomas (21 de outubro de 1903 – 20 de april de 1992) foi um matemático e físico britânico.} ou ainda TDMA (do inglês {\it tridiagonal matrix algorithm}) é o caso particular da eliminação gaussiana aplicada a matrizes tridiagonais.
+
+Uma matriz tridiagonal é uma matrix quadrada cujos únicos elementos não nulas estão na diagonal principal e nas diagonais imediatamente acima e abaixo da principal. Um sistema tridiagonal é um sistema de equações lineares cuja matriz associada é tridiagonal, conforme a seguir:
+\begin{eqnarray*}\label{linsis:EqTriDiag} \begin{bmatrix}
+   {b_1} & {c_1} & {   } & {   } & {   } \\
+   {a_2} & {b_2} & {c_2} & {   } & {   } \\
+   {   } & {a_3} & {b_3} & \ddots & {   } \\
+   {   } & {   } & \ddots & \ddots & {c_{n-1}}\\
+   {   } & {   } & {   } & {a_n} & {b_n}\\
+\end{bmatrix}
+\begin{bmatrix}
+   {x_1 }  \\
+   {x_2 }  \\
+   {x_3 }  \\
+   \vdots   \\
+   {x_n }  \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+   {d_1 }  \\
+   {d_2 }  \\
+   {d_3 }  \\
+   \vdots   \\
+   {d_n }  \\
+\end{bmatrix}
+.
+\end{eqnarray*}
+
+Observamos que não é necessário armazenar todos os $n^2$ elementos da matriz em memória, sendo suficiente armazenar os vetores $a_n$, $b_n$ e $c_n$. Por conveniência, a partir daqui, definiremos os elementos inexistentes na matriz $a_1$ e $c_n$ como zero:
+$$a_1=c_n=0.$$
+
+O algoritmo para a solução do sistema tridiagonal (\ref{linsis:EqTriDiag}) assume a seguinte forma:
+
+$$c'_i =
+\begin{cases}
+\begin{array}{lcl}
+  \cfrac{c_i}{b_i}                   , & i = 1 \\
+  \cfrac{c_i}{b_i - a_i c'_{i - 1}}  , & i = 2, 3, \dots, n-1 \\
+\end{array}
+\end{cases}
+$$
+e
+$$d'_i =
+\begin{cases}
+\begin{array}{lcl}
+  \cfrac{d_i}{b_i}                   , & i = 1 \\
+  \cfrac{d_i - a_i d'_{i - 1}}{b_i - a_i c'_{i - 1}}  , & i = 2, 3, \dots, n. \\
+\end{array}
+\end{cases}
+$$
+Finalmente a solução final é obtida por substituição reversa:
+\begin{eqnarray*}
+ x_n &=& d'_n\\
+x_i &=& d'_i - c'_i x_{i + 1}, \qquad   i = n - 1, n - 2, \ldots, 1.
+\end{eqnarray*}
+
+
+\begin{ex}
+ 
+ $$
+ \begin{bmatrix}
+   \BLU{ ~2~ }& \BLU{ ~1~ }& { ~0~ } & { ~0~ } & { ~0~ } \\
+   \BLU{ 1 }  & \BLU{ 2 }  & \BLU{ 1 } & { 0  } & { 0  } \\
+   { 0  } & \BLU{ 1 }  & \BLU{ 2 } & \BLU{ 1 } & { 0  } \\
+   { 0  } & { 0  } & \BLU{ 1 } & \BLU{ 2 } & \BLU{ 1 } \\
+   { 0  } & { 0  } & { 0  } & \BLU{ 1 } & \BLU{ 2 } \\
+\end{bmatrix}
+\begin{bmatrix}
+   {x_1 }  \\
+   {x_2 }  \\
+   {x_3 }  \\
+   {x_4 }  \\
+   {x_5 }  \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+   {d_1 }  \\
+   {d_2 }  \\
+   {d_3 }  \\
+   {d_4 }  \\
+   {d_5 }  \\
+\end{bmatrix}.$$
+
+ 
+\end{ex}
+
+
+
+
 \section{Condicionamento de sistemas lineares}\index{sistema linear!condicionamento}\index{matriz!condicionamento}
 
 Quando lidamos com matrizes no corpo do números reais (ou complexos), existem apenas duas alternativas: i) a matriz é inversível; ii) a matriz não é inversível e, neste caso, é chamada de matriz singular. Ao lidarmos em aritmética de precisão finita, encontramos uma situação mais sutil: alguns problema lineares são mais difíceis de serem resolvidos, pois os erros de arredondamento se propagam de forma mais significativa que em outros problemas. Neste caso falamos de problemas bem-condicionados e mal-condicionados. Intuitivamente falando, um problema bem-condicionado é um problema em que os erros de arredondamento se propagam de forma menos importante; enquanto problemas mal-condicionados são problemas em que os erros se propagam de forma mais relevante.
