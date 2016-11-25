@@ -1092,7 +1092,7 @@ $$\frac{8n^3}{3}-\frac{n^2}{2}-\frac{n}{6}.$$
 O método da matriz tridiagonal ou algoritmo de Thomas\footnote{Llewellyn Hilleth Thomas (21 de outubro de 1903 – 20 de april de 1992) foi um matemático e físico britânico.} ou ainda TDMA (do inglês {\it tridiagonal matrix algorithm}) é o caso particular da eliminação gaussiana aplicada a matrizes tridiagonais.
 
 Uma matriz tridiagonal é uma matrix quadrada cujos únicos elementos não nulas estão na diagonal principal e nas diagonais imediatamente acima e abaixo da principal. Um sistema tridiagonal é um sistema de equações lineares cuja matriz associada é tridiagonal, conforme a seguir:
-\begin{eqnarray*}\label{linsis:EqTriDiag} \begin{bmatrix}
+\begin{eqnarray}\label{linsis:EqTriDiag} \begin{bmatrix}
    {b_1} & {c_1} & {   } & {   } & {   } \\
    {a_2} & {b_2} & {c_2} & {   } & {   } \\
    {   } & {a_3} & {b_3} & \ddots & {   } \\
@@ -1115,66 +1115,193 @@ Uma matriz tridiagonal é uma matrix quadrada cujos únicos elementos não nulas
    {d_n }  \\
 \end{bmatrix}
 .
-\end{eqnarray*}
+\end{eqnarray}
 
 Observamos que não é necessário armazenar todos os $n^2$ elementos da matriz em memória, sendo suficiente armazenar os vetores $a_n$, $b_n$ e $c_n$. Por conveniência, a partir daqui, definiremos os elementos inexistentes na matriz $a_1$ e $c_n$ como zero:
 $$a_1=c_n=0.$$
 
-O algoritmo para a solução do sistema tridiagonal (\ref{linsis:EqTriDiag}) assume a seguinte forma:
-
-$$c'_i =
+O algoritmo para a solução do sistema tridiagonal (\ref{linsis:EqTriDiag}) pelo algoritmo de Thomas é dada pelas seguintes expressões:
+\begin{eqnarray}\label{linsis:TriDiag_1}
+ c'_i &=&
 \begin{cases}
 \begin{array}{lcl}
   \cfrac{c_i}{b_i}                   , & i = 1 \\
   \cfrac{c_i}{b_i - a_i c'_{i - 1}}  , & i = 2, 3, \dots, n-1 \\
 \end{array}
-\end{cases}
-$$
-e
-$$d'_i =
+\end{cases}\\
+\text{e}\nonumber\\
+d'_i &=&
 \begin{cases}
 \begin{array}{lcl}
   \cfrac{d_i}{b_i}                   , & i = 1 \\
   \cfrac{d_i - a_i d'_{i - 1}}{b_i - a_i c'_{i - 1}}  , & i = 2, 3, \dots, n. \\
 \end{array}
 \end{cases}
-$$
+\end{eqnarray}
 Finalmente a solução final é obtida por substituição reversa:
-\begin{eqnarray*}
- x_n &=& d'_n\\
-x_i &=& d'_i - c'_i x_{i + 1}, \qquad   i = n - 1, n - 2, \ldots, 1.
-\end{eqnarray*}
+\begin{eqnarray}\label{linsis:TriDiag_2}
+x_n &=& d'_n\\
+ x_i &=& d'_i - c'_i x_{i + 1}, \qquad   i = n - 1, n - 2, \ldots, 1.
+\end{eqnarray}
 
+\begin{teo} A aplicação da eliminação gaussiana sem pivotamento ao sistema (\ref{linsis:EqTriDiag}) produz o algoritmo dado em (\ref{linsis:TriDiag_1}) e (\ref{linis:TriDiag_2})
+\end{teo}
+\begin{proof}
+O primeiro passo consiste em dividir todos os elementos da primeira linha de (\ref{linsin:EqTriDiag}) por $b_1$:
 
-\begin{ex}
- 
- $$
- \begin{bmatrix}
-   \BLU{ ~2~ }& \BLU{ ~1~ }& { ~0~ } & { ~0~ } & { ~0~ } \\
-   \BLU{ 1 }  & \BLU{ 2 }  & \BLU{ 1 } & { 0  } & { 0  } \\
-   { 0  } & \BLU{ 1 }  & \BLU{ 2 } & \BLU{ 1 } & { 0  } \\
-   { 0  } & { 0  } & \BLU{ 1 } & \BLU{ 2 } & \BLU{ 1 } \\
-   { 0  } & { 0  } & { 0  } & \BLU{ 1 } & \BLU{ 2 } \\
+\begin{eqnarray*} \begin{bmatrix}
+   {1} & {c_1'} & {   } & {   } & {   } \\
+   {a_2} & {b_2} & {c_2} & {   } & {   } \\
+   {   } & {a_3} & {b_3} & \ddots & {   } \\
+   {   } & {   } & \ddots & \ddots & {c_{n-1}}\\
+   {   } & {   } & {   } & {a_n} & {b_n}\\
 \end{bmatrix}
 \begin{bmatrix}
    {x_1 }  \\
    {x_2 }  \\
    {x_3 }  \\
-   {x_4 }  \\
-   {x_5 }  \\
+   \vdots   \\
+   {x_n }  \\
 \end{bmatrix}
 =
 \begin{bmatrix}
-   {d_1 }  \\
+   {d_1' }  \\
    {d_2 }  \\
    {d_3 }  \\
-   {d_4 }  \\
-   {d_5 }  \\
-\end{bmatrix}.$$
+   \vdots   \\
+   {d_n }  \\
+\end{bmatrix},
+\end{eqnarray*}
+onde $c_1'=\frac{c_1}{b_1}$ e $d_1'=\frac{d_1}{b_1}.$
 
- 
-\end{ex}
+O segundo passo consiste em substituir a segunda linha por ela mesma substraída da linha 1 multiplicada por $a_2$ ($l_2\leftarrow l_2-a_2l_1$):
+\begin{eqnarray*} \begin{bmatrix}
+   {1} & {c_1'} & {   } & {   } & {   } \\
+   {0} & {b_2-a_2c_1'} & {c_2} & {   } & {   } \\
+   {   } & {a_3} & {b_3} & \ddots & {   } \\
+   {   } & {   } & \ddots & \ddots & {c_{n-1}}\\
+   {   } & {   } & {   } & {a_n} & {b_n}\\
+\end{bmatrix}
+\begin{bmatrix}
+   {x_1 }  \\
+   {x_2 }  \\
+   {x_3 }  \\
+   \vdots   \\
+   {x_n }  \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+   {d_1' }  \\
+   {d_2 -a_2d_1' }  \\
+   {d_3 }  \\
+   \vdots   \\
+   {d_n }  \\
+\end{bmatrix}.
+\end{eqnarray*}
+Em seguida, dividimos a segunda linha por $b_2-a_2c_1'$, a fim de normalizar a diagonal principal:
+\begin{eqnarray*} \begin{bmatrix}
+   {1} & {c_1'} & {   } & {   } & {   } \\
+   {0} & {1} & {c_2'} & {   } & {   } \\
+   {   } & {a_3} & {b_3} & \ddots & {   } \\
+   {   } & {   } & \ddots & \ddots & {c_{n-1}}\\
+   {   } & {   } & {   } & {a_n} & {b_n}\\
+\end{bmatrix}
+\begin{bmatrix}
+   {x_1 }  \\
+   {x_2 }  \\
+   {x_3 }  \\
+   \vdots   \\
+   {x_n }  \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+   {d_1' }  \\
+   {d_2' }  \\
+   {d_3 }  \\
+   \vdots   \\
+   {d_n }  \\
+\end{bmatrix}.
+\end{eqnarray*}
+onde $c_2'=\frac{c_2}{b_2-a_2c_1'}$ e $d_2'=\frac{d_2 -a_2d_1'}{b_2-a_2c_1'}$.
 
+O próximo passo consiste em substituir a terceira linha por ela mesma substraída da linha 2 multiplicada por $a_3$ ($l_3\leftarrow l_3-a_3l_2$):
+\begin{eqnarray*} \begin{bmatrix}
+   {1} & {c_1'} & {   } & {   } & {   } \\
+   {0} & {1} & {c_2'} & {   } & {   } \\
+   {   } & { 0 } & {b_3-a_3 c_2'} & \ddots & {   } \\
+   {   } & {   } & \ddots & \ddots & {c_{n-1}}\\
+   {   } & {   } & {   } & {a_n} & {b_n}\\
+\end{bmatrix}
+\begin{bmatrix}
+   {x_1 }  \\
+   {x_2 }  \\
+   {x_3 }  \\
+   \vdots   \\
+   {x_n }  \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+   {d_1' }  \\
+   {d_2' }  \\
+   {d_3 - a_3d_2'}  \\
+   \vdots   \\
+   {d_n }  \\
+\end{bmatrix}.
+\end{eqnarray*}
+A fim de normalizar o elemento da diagonal da terceira linha, dividimos toda a linha por $d_3 - a_3d_2'$:
+\begin{eqnarray*} \begin{bmatrix}
+   {1} & {c_1'} & {   } & {   } & {   } \\
+   {0} & {1} & {c_2'} & {   } & {   } \\
+   {   } & { 0 } & {1} & \ddots & {   } \\
+   {   } & {   } & \ddots & \ddots & {c_{n-1}}\\
+   {   } & {   } & {   } & {a_n} & {b_n}\\
+\end{bmatrix}
+\begin{bmatrix}
+   {x_1 }  \\
+   {x_2 }  \\
+   {x_3 }  \\
+   \vdots   \\
+   {x_n }  \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+   {d_1' }  \\
+   {d_2' }  \\
+   {d_3'}  \\
+   \vdots   \\
+   {d_n }  \\
+\end{bmatrix}.
+\end{eqnarray*}
+
+Este procedimento é realizado até que se atinja a última linha e temos o seguinte sistema:
+\begin{eqnarray*} \begin{bmatrix}
+   {1} & {c_1'} & {   } & {   } & {   } \\
+   {0} & {1} & {c_2'} & {   } & {   } \\
+   {   } & { 0 } & {1} & \ddots & {   } \\
+   {   } & {   } & \ddots & \ddots & {c_{n-1}'}\\
+   {   } & {   } & {   } & { 0 } & { 1 }\\
+\end{bmatrix}
+\begin{bmatrix}
+   {x_1 }  \\
+   {x_2 }  \\
+   {x_3 }  \\
+   \vdots   \\
+   {x_n }  \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+   {d_1' }  \\
+   {d_2' }  \\
+   {d_3'}  \\
+   \vdots   \\
+   {d_n' }  \\
+\end{bmatrix}.
+\end{eqnarray*}
+
+Neste estágio, podemos encontrar os $x_n$ através de substituição reversa, isto é: a última linha diz $$x_n=d_n'.$$
+A penúltima linha diz $$x_{n-1}+c_{n-1}'x_n=d_{n-1}' \Longrightarrow x_{n-1}=d_{n-1}'-c_{n-1}'x_{n}.$$
+Esse mesmo procedimento aplicada à linha $i=1,\ldots n-1$, nos dá $$x_i = d'_i - c'_i x_{i + 1}. $$
+\end{proof}
 
 
 
