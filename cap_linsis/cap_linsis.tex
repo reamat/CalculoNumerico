@@ -1125,16 +1125,16 @@ O algoritmo para a solução do sistema tridiagonal (\ref{linsis:EqTriDiag}) pel
  c'_i &=&
 \begin{cases}
 \begin{array}{lcl}
-  \cfrac{c_i}{b_i}                   , & i = 1 \\
-  \cfrac{c_i}{b_i - a_i c'_{i - 1}}  , & i = 2, 3, \dots, n-1 \\
+  \frac{c_i}{b_i}                   , & i = 1 \\
+  \frac{c_i}{b_i - a_i c'_{i - 1}}  , & i = 2, 3, \dots, n-1 \\
 \end{array}
 \end{cases}\\
 \text{e}\nonumber\\
 d'_i &=&
 \begin{cases}
 \begin{array}{lcl}
-  \cfrac{d_i}{b_i}                   , & i = 1 \\
-  \cfrac{d_i - a_i d'_{i - 1}}{b_i - a_i c'_{i - 1}}  , & i = 2, 3, \dots, n. \\
+  \frac{d_i}{b_i}                   , & i = 1 \\
+  \frac{d_i - a_i d'_{i - 1}}{b_i - a_i c'_{i - 1}}  , & i = 2, 3, \dots, n. \\
 \end{array}
 \end{cases}
 \end{eqnarray}
@@ -1144,24 +1144,24 @@ x_n &=& d'_n\\
  x_i &=& d'_i - c'_i x_{i + 1}, \qquad   i = n - 1, n - 2, \ldots, 1.
 \end{eqnarray}
 
-\begin{teo} A aplicação da eliminação gaussiana sem pivotamento ao sistema (\ref{linsis:EqTriDiag}) produz o algoritmo dado em (\ref{linsis:TriDiag_1}) e (\ref{linis:TriDiag_2})
+\begin{teo} A aplicação da eliminação gaussiana sem pivotamento ao sistema (\ref{linsis:EqTriDiag}) produz o algoritmo dado em (\ref{linsis:TriDiag_1}) e (\ref{linsis:TriDiag_2})
 \end{teo}
 \begin{proof}
-O primeiro passo consiste em dividir todos os elementos da primeira linha de (\ref{linsin:EqTriDiag}) por $b_1$:
+O primeiro passo consiste em dividir todos os elementos da primeira linha de (\ref{linsis:EqTriDiag}) por $b_1$:
 
 \begin{eqnarray*} \begin{bmatrix}
    {1} & {c_1'} & {   } & {   } & {   } \\
    {a_2} & {b_2} & {c_2} & {   } & {   } \\
    {   } & {a_3} & {b_3} & \ddots & {   } \\
    {   } & {   } & \ddots & \ddots & {c_{n-1}}\\
-   {   } & {   } & {   } & {a_n} & {b_n}\\
+   {   } & {   } & {   } & {a_n} & {b_n}
 \end{bmatrix}
 \begin{bmatrix}
    {x_1 }  \\
    {x_2 }  \\
    {x_3 }  \\
    \vdots   \\
-   {x_n }  \\
+   {x_n }  
 \end{bmatrix}
 =
 \begin{bmatrix}
@@ -1169,7 +1169,7 @@ O primeiro passo consiste em dividir todos os elementos da primeira linha de (\r
    {d_2 }  \\
    {d_3 }  \\
    \vdots   \\
-   {d_n }  \\
+   {d_n }  
 \end{bmatrix},
 \end{eqnarray*}
 onde $c_1'=\frac{c_1}{b_1}$ e $d_1'=\frac{d_1}{b_1}.$
@@ -1180,14 +1180,14 @@ O segundo passo consiste em substituir a segunda linha por ela mesma substraída
    {0} & {b_2-a_2c_1'} & {c_2} & {   } & {   } \\
    {   } & {a_3} & {b_3} & \ddots & {   } \\
    {   } & {   } & \ddots & \ddots & {c_{n-1}}\\
-   {   } & {   } & {   } & {a_n} & {b_n}\\
+   {   } & {   } & {   } & {a_n} & {b_n}
 \end{bmatrix}
 \begin{bmatrix}
    {x_1 }  \\
    {x_2 }  \\
    {x_3 }  \\
    \vdots   \\
-   {x_n }  \\
+   {x_n }  
 \end{bmatrix}
 =
 \begin{bmatrix}
@@ -1195,7 +1195,7 @@ O segundo passo consiste em substituir a segunda linha por ela mesma substraída
    {d_2 -a_2d_1' }  \\
    {d_3 }  \\
    \vdots   \\
-   {d_n }  \\
+   {d_n }  
 \end{bmatrix}.
 \end{eqnarray*}
 Em seguida, dividimos a segunda linha por $b_2-a_2c_1'$, a fim de normalizar a diagonal principal:
@@ -1204,14 +1204,14 @@ Em seguida, dividimos a segunda linha por $b_2-a_2c_1'$, a fim de normalizar a d
    {0} & {1} & {c_2'} & {   } & {   } \\
    {   } & {a_3} & {b_3} & \ddots & {   } \\
    {   } & {   } & \ddots & \ddots & {c_{n-1}}\\
-   {   } & {   } & {   } & {a_n} & {b_n}\\
+   {   } & {   } & {   } & {a_n} & {b_n}
 \end{bmatrix}
 \begin{bmatrix}
    {x_1 }  \\
    {x_2 }  \\
    {x_3 }  \\
    \vdots   \\
-   {x_n }  \\
+   {x_n }  
 \end{bmatrix}
 =
 \begin{bmatrix}
@@ -1219,7 +1219,7 @@ Em seguida, dividimos a segunda linha por $b_2-a_2c_1'$, a fim de normalizar a d
    {d_2' }  \\
    {d_3 }  \\
    \vdots   \\
-   {d_n }  \\
+   {d_n }  
 \end{bmatrix}.
 \end{eqnarray*}
 onde $c_2'=\frac{c_2}{b_2-a_2c_1'}$ e $d_2'=\frac{d_2 -a_2d_1'}{b_2-a_2c_1'}$.
@@ -1230,14 +1230,14 @@ O próximo passo consiste em substituir a terceira linha por ela mesma substraí
    {0} & {1} & {c_2'} & {   } & {   } \\
    {   } & { 0 } & {b_3-a_3 c_2'} & \ddots & {   } \\
    {   } & {   } & \ddots & \ddots & {c_{n-1}}\\
-   {   } & {   } & {   } & {a_n} & {b_n}\\
+   {   } & {   } & {   } & {a_n} & {b_n}
 \end{bmatrix}
 \begin{bmatrix}
    {x_1 }  \\
    {x_2 }  \\
    {x_3 }  \\
    \vdots   \\
-   {x_n }  \\
+   {x_n }  
 \end{bmatrix}
 =
 \begin{bmatrix}
@@ -1245,7 +1245,7 @@ O próximo passo consiste em substituir a terceira linha por ela mesma substraí
    {d_2' }  \\
    {d_3 - a_3d_2'}  \\
    \vdots   \\
-   {d_n }  \\
+   {d_n }  
 \end{bmatrix}.
 \end{eqnarray*}
 A fim de normalizar o elemento da diagonal da terceira linha, dividimos toda a linha por $d_3 - a_3d_2'$:
@@ -1254,14 +1254,14 @@ A fim de normalizar o elemento da diagonal da terceira linha, dividimos toda a l
    {0} & {1} & {c_2'} & {   } & {   } \\
    {   } & { 0 } & {1} & \ddots & {   } \\
    {   } & {   } & \ddots & \ddots & {c_{n-1}}\\
-   {   } & {   } & {   } & {a_n} & {b_n}\\
+   {   } & {   } & {   } & {a_n} & {b_n}
 \end{bmatrix}
 \begin{bmatrix}
    {x_1 }  \\
    {x_2 }  \\
    {x_3 }  \\
    \vdots   \\
-   {x_n }  \\
+   {x_n }  
 \end{bmatrix}
 =
 \begin{bmatrix}
@@ -1269,7 +1269,7 @@ A fim de normalizar o elemento da diagonal da terceira linha, dividimos toda a l
    {d_2' }  \\
    {d_3'}  \\
    \vdots   \\
-   {d_n }  \\
+   {d_n }  
 \end{bmatrix}.
 \end{eqnarray*}
 
@@ -1279,14 +1279,14 @@ Este procedimento é realizado até que se atinja a última linha e temos o segu
    {0} & {1} & {c_2'} & {   } & {   } \\
    {   } & { 0 } & {1} & \ddots & {   } \\
    {   } & {   } & \ddots & \ddots & {c_{n-1}'}\\
-   {   } & {   } & {   } & { 0 } & { 1 }\\
+   {   } & {   } & {   } & { 0 } & { 1 }
 \end{bmatrix}
 \begin{bmatrix}
    {x_1 }  \\
    {x_2 }  \\
    {x_3 }  \\
    \vdots   \\
-   {x_n }  \\
+   {x_n }  
 \end{bmatrix}
 =
 \begin{bmatrix}
@@ -1294,7 +1294,7 @@ Este procedimento é realizado até que se atinja a última linha e temos o segu
    {d_2' }  \\
    {d_3'}  \\
    \vdots   \\
-   {d_n' }  \\
+   {d_n' }  
 \end{bmatrix}.
 \end{eqnarray*}
 
@@ -1303,7 +1303,132 @@ A penúltima linha diz $$x_{n-1}+c_{n-1}'x_n=d_{n-1}' \Longrightarrow x_{n-1}=d_
 Esse mesmo procedimento aplicada à linha $i=1,\ldots n-1$, nos dá $$x_i = d'_i - c'_i x_{i + 1}. $$
 \end{proof}
 
+\begin{ex}\label{linsis:exemplo5_5}
+Considere a resolução do seguinte sistema tridiagonal pelo algoritmo de Thomas:
+ \begin{eqnarray}\label{linsis:EqTriDiag} \begin{bmatrix}
+   { 2 } & { 1 } & { 0 } & { 0 } & { 0 } \\
+   { 1 } & { 2 } & { 1 } & { 0 } & { 0 } \\
+   { 0 } & { 1 } & { 2 } & { 1 } & { 0 } \\
+   { 0 } & { 0 } & { 1 } & { 2 } & { 1 } \\
+   { 0 } & { 0 } & { 0 } & { 1 } & { 2 } 
+ \end{bmatrix}
+\begin{bmatrix}
+   {x_1 }  \\
+   {x_2 }  \\
+   {x_3 }  \\
+   {x_4 }  \\
+   {x_5 }  
+\end{bmatrix}
+=
+\begin{bmatrix}
+   {4}  \\
+   {4 }  \\
+   {0}  \\
+   {0}\\
+   {2 }  
+\end{bmatrix}
+.
+\end{eqnarray}
+Primeiramente identificamos os vetores $a$, $b$, $c$ e $d$:
+\begin{eqnarray*}
+ a&=& [0, 1, 1, 1, 1 ]\\
+ b&=& [2, 2, 2, 2, 2 ]\\
+ c&=& [1, 1, 1, 1, 0 ]\\
+ d&=& [4, 4, 0, 0, 2 ]
+\end{eqnarray*}
+Agora, calculamos os vetores $c'$ e $d'$:
+\begin{eqnarray*}
+ c_1'&=&\frac{c_1}{b_1}=\frac{1}{2}\\
+ c_2'&=&\frac{c_2}{b_2-a_2c_1'}=\frac{1}{2-1\cdot \frac{1}{2}}=\frac{2}{3} \\
+ c_3'&=&\frac{c_3}{b_3-a_3c_2'}=\frac{1}{2-1\cdot \frac{2}{3}}=\frac{3}{4} \\
+ c_4'&=&\frac{c_4}{b_4-a_4c_3'}=\frac{1}{2-1\cdot \frac{3}{4}}=\frac{4}{5} \\
+ d_1'&=&\frac{d_1}{b_1}=\frac{4}{2}=2\\
+ d_2'&=&\frac{d_2-a_2d_1'}{b_2-a_2c_1'}=\frac{4-1\cdot 2}{2-1\cdot \frac{1}{2}}=\frac{4}{3} \\
+ d_3'&=&\frac{d_3-a_3d_2'}{b_3-a_3c_2'}=\frac{0-1\cdot \frac{4}{3}}{2-1\cdot \frac{2}{3}}=-1 \\
+ d_4'&=&\frac{d_4-a_4d_3'}{b_4-a_4c_3'}=\frac{0-1\cdot (-1)}{2-1\cdot \frac{3}{4}}=\frac{4}{5} \\
+ d_5'&=&\frac{d_5-a_5d_4'}{b_5-a_5c_4'}=\frac{2-1\cdot \frac{4}{5}}{2-1\cdot \frac{4}{5}}=1 
+\end{eqnarray*}
+ Finalmente, calculamos o vetor $x$:
 
+\begin{eqnarray*}
+ x_5&=&d_5'=1\\
+ x_4&=&d_4'-c_4'\cdot x_5=\frac{4}{5}-\frac{4}{5}\cdot 1 = 0\\
+ x_3&=&d_3'-c_3'\cdot x_4=-1-\frac{3}{4}\cdot 0 = -1\\
+ x_2&=&d_2'-c_2'\cdot x_3=\frac{4}{3}-\frac{2}{3}\cdot (-1) = 2\\
+ x_1&=&d_1'-c_1'\cdot x_2=2-\frac{1}{2}\cdot 2 = 1
+ \end{eqnarray*}
+E assim, obtemos o vetor $x=[1, 2, -1, 0, 1]$.
+\end{ex}
+
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+\subsubsection{Código Scilab: Método da matriz tridiagonal}
+
+\verbatiminput{./cap_linsis/codes/scilab/metodo_da_matriz_tridiagonal/metodo_tridiagonal.sci}
+
+Nesse código, usou-se \verb+cl+ e \verb+dl+ para denotar $c'$ e $d'$. Observe que se for desnecessário preservar os valores originais dos vetores $c$ e $d$, eles podem, com economia de memória e simplicidade de código, ser sobrescritos pelos vetores $c'$ e $d'$, respectivamente. Eis uma nova implementação:
+
+\verbatiminput{./cap_linsis/codes/scilab/metodo_da_matriz_tridiagonal/metodo_tridiagonal_2.sci}
+
+A solução do sistema do exemplo \ref{linsis:exemplo5_5} pode ser obtida através do seguintes comandos:
+\begin{verbatim}
+-->a=[0; 1; 1; 1; 1];
+-->b=[2; 2; 2; 2; 2];
+-->c=[1; 1; 1; 1; 0];
+-->d=[4; 4; 0; 0; 2];
+-->TDMA(a,b,c,d)
+\end{verbatim}
+
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\subsubsection{Código Python: Método da matriz tridiagonal}
+
+\verbatiminput{./cap_linsis/codes/python/metodo_da_matriz_tridiagonal/metodo_tridiagonal.py}
+
+Nesse código, usou-se \verb+cl+ e \verb+dl+ para denotar $c'$ e $d'$. Observe que se for desnecessário preservar os valores originais dos vetores $c$ e $d$, eles podem, com economia de memória e simplicidade de código, ser sobrescritos pelos vetores $c'$ e $d'$, respectivamente. Eis uma nova implementação:
+
+\verbatiminput{./cap_linsis/codes/python/metodo_da_matriz_tridiagonal/metodo_tridiagonal_2.py}
+
+A solução do sistema do exemplo \ref{linsis:exemplo5_5} pode ser obtida através do seguintes comandos:
+\begin{verbatim}
+>>>a=np.array([1,1,1,1,1])
+>>>b=np.array([2,2,2,2,2])
+>>>c=np.array([1,1,1,1,1])
+>>>d=np.array([4,4,0,0,2])
+>>>TDMA(a,b,c,d)
+\end{verbatim}
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%
+% GNU Octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\subsubsection{Código GNU Octave: Método da matriz tridiagonal}
+
+\verbatiminput{./cap_linsis/codes/octave/metodo_da_matriz_tridiagonal/metodo_tridiagonal.m}
+
+Nesse código, usou-se \verb+cl+ e \verb+dl+ para denotar $c'$ e $d'$. Observe que se for desnecessário preservar os valores originais dos vetores $c$ e $d$, eles podem, com economia de memória e simplicidade de código, ser sobrescritos pelos vetores $c'$ e $d'$, respectivamente. Eis uma nova implementação:
+
+\verbatiminput{./cap_linsis/codes/octave/metodo_da_matriz_tridiagonal/metodo_tridiagonal_2.gnu}
+
+A solução do sistema do exemplo \ref{linsis:exemplo5_5} pode ser obtida através do seguintes comandos:
+\begin{verbatim}
+>>a=[0; 1; 1; 1; 1]
+>>b=[2; 2; 2; 2; 2]
+>>c=[1; 1; 1; 1; 0]
+>>d=[4; 4; 0; 0; 2]
+>>TDMA(a,b,c,d)
+\end{verbatim}
+\fi
 
 \section{Condicionamento de sistemas lineares}\index{sistema linear!condicionamento}\index{matriz!condicionamento}
 
