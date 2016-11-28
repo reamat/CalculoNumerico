@@ -1305,7 +1305,7 @@ Esse mesmo procedimento aplicada à linha $i=1,\ldots n-1$, nos dá $$x_i = d'_i
 
 \begin{ex}\label{linsis:exemplo5_5}
 Considere a resolução do seguinte sistema tridiagonal pelo algoritmo de Thomas:
- \begin{eqnarray}\label{linsis:EqTriDiag} \begin{bmatrix}
+ \begin{eqnarray}\label{linsis:Exemplo5_5} \begin{bmatrix}
    { 2 } & { 1 } & { 0 } & { 0 } & { 0 } \\
    { 1 } & { 2 } & { 1 } & { 0 } & { 0 } \\
    { 0 } & { 1 } & { 2 } & { 1 } & { 0 } \\
@@ -1367,7 +1367,7 @@ E assim, obtemos o vetor $x=[1, 2, -1, 0, 1]$.
 \ifisscilab
 \subsubsection{Código Scilab: Método da matriz tridiagonal}
 
-\verbatiminput{./cap_linsis/codes/scilab/metodo_da_matriz_tridiagonal/metodo_tridiagonal.sci}
+\lstinputlisting[language=Scilab,numbers=left]{./cap_linsis/codes/scilab/metodo_da_matriz_tridiagonal/metodo_tridiagonal.sci}
 
 Nesse código, usou-se \verb+cl+ e \verb+dl+ para denotar $c'$ e $d'$. Observe que se for desnecessário preservar os valores originais dos vetores $c$ e $d$, eles podem, com economia de memória e simplicidade de código, ser sobrescritos pelos vetores $c'$ e $d'$, respectivamente. Eis uma nova implementação:
 
@@ -1471,6 +1471,26 @@ A solução do sistema do exemplo \ref{linsis:exemplo5_5} pode ser obtida atrav�
   x&=&[1, 2, 3, 4, 5, 6]
  \end{eqnarray*}
 \end{resp}
+
+\begin{exer}\label{linsis:tridia_jacobi_2} Considere o seguinte sistema de equações lineares:
+\begin{eqnarray}
+x_1-x_2&=&0\nonumber\\
+-x_{j-1}+5x_j-x_{j+1}&=&\cos(j/10),~~ 2\leq j \leq 10\nonumber\\
+x_{11}&=&x_{10}/2
+\end{eqnarray}
+
+Identifique os vetores $a$, $b$, $c$ e $d$  relativos ao algoritmo da matriz tridiagonal no sistema linear dado.  Depois resolva o sistema usando o computador. Veja também exercício \ref{linsis:tridia_jacobi_1}
+ \end{exer}
+\begin{resp}
+ \begin{eqnarray*}
+  a&=&[0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1/2]\\ 
+  b&=&[1,  5,  5,  5,  5,  5,  5,  5,  5,  5,  1  ]\\
+  c&=&[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0  ]\\ 
+  d&=&[0, \cos(2/10), \cos(3/10), \cos(4/10), \cos(5/10),\\&& \cos(6/10), \cos(7/10), \cos(8/10), \cos(9/10), \cos(1) ,0]\\
+  x&=&[0,324295, 0,324295, 0,317115, 0,305943, 0,291539,\\&& 0,274169, 0,253971, 0,230846, 0,20355, 0,165301, 0,082650]
+ \end{eqnarray*}
+\end{resp}
+
 
 
 \section{Condicionamento de sistemas lineares}\index{sistema linear!condicionamento}\index{matriz!condicionamento}
@@ -2582,17 +2602,17 @@ Use como critério de paragem tolerância inferior a $10^{-3}$ e inicialize com 
 \begin{exer}Refaça o Exercício~\ref{exer:trid} construindo um algoritmo que implemente os métodos de Jacobi e Gauss-Seidel.
 \end{exer}
 
-\begin{exer} Considere o seguinte sistema de equações lineares:
+\begin{exer}\label{linsis:tridia_jacobi_1} Considere o seguinte sistema de equações lineares:
 \begin{eqnarray}
 x_1-x_2&=&0\nonumber\\
 -x_{j-1}+5x_j-x_{j+1}&=&\cos(j/10),~~ 2\leq j \leq 10\nonumber\\
 x_{11}&=&x_{10}/2
 \end{eqnarray}
-Construa a iteração para encontrar a solução deste problema pelos métodos de Gauss-Seidel e Jacobi. Usando esses métodos, encontre uma solução aproximada com erro absoluto inferior a $10^{-5}$.
+Construa a iteração para encontrar a solução deste problema pelos métodos de Gauss-Seidel e Jacobi. Usando esses métodos, encontre uma solução aproximada com erro absoluto inferior a $10^{-5}$. Veja também exercício \ref{linsis:tridia_jacobi_2}
 \end{exer}
 \begin{resp}
   
-$0.324295$, $0.324295$, $0.317115$, $0.305943$, $0.291539$, $0.274169$, $0.253971$, $0.230846$, $0.203551$, $0.165301$, $0.082650$
+$0,324295$, $0,324295$, $0,317115$, $0,305943$, $0,291539$, $0,274169$, $0,253971$, $0,230846$, $0,203551$, $0,165301$, $0,082650$
 
 \ifisscilab
 Exemplos de rotinas:
