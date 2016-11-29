@@ -6,7 +6,7 @@
 
 \chapter{Solução de sistemas lineares}\index{sistema linear}
 
-Muitos problemas da engenharia, física e matemática estão associados à solução de sistemas de equações lineares. Nesse capítulo, tratamos de técnicas numéricas empregadas para obter a solução desses sistemas. Iniciamos por uma rápida revisão do Método de eliminação gaussiana do ponto de vista computacional. No contexto de análise da propagação dos erros de arredondamento, introduzimos o método de eliminação gaussiana com pivotamento parcial, bem como, apresentamos o conceito de condicionamento de um sistema linear. Então, passamos a discutir sobre técnicas iterativos, mais especificamente, sobre os métodos de Jacobi e Gauss-Seidel.
+Muitos problemas da engenharia, física e matemática estão associados à solução de sistemas de equações lineares. Nesse capítulo, tratamos de técnicas numéricas empregadas para obter a solução desses sistemas. Iniciamos por uma rápida revisão do método de eliminação gaussiana do ponto de vista computacional. No contexto de análise da propagação dos erros de arredondamento, introduzimos o método de eliminação gaussiana com pivotamento parcial, bem como, apresentamos o conceito de condicionamento de um sistema linear. Então, passamos a discutir sobre técnicas iterativos, mais especificamente, sobre os métodos de Jacobi e Gauss-Seidel.
 
 
 Considere o sistema de equações lineares:
@@ -1088,6 +1088,411 @@ $$\frac{8n^3}{3}-\frac{n^2}{2}-\frac{n}{6}.$$
 \end{ex}
 
 
+\section{Método da matriz tridiagonal}\index{método!da matrix tridiagonal}\index{algoritmo!de Thomas}\index{algoritmo!TDMA}
+O método da matriz tridiagonal ou algoritmo de Thomas\footnote{Llewellyn Hilleth Thomas (21 de outubro de 1903 – 20 de april de 1992) foi um matemático e físico britânico.} ou ainda TDMA (do inglês {\it tridiagonal matrix algorithm}) é o caso particular da eliminação gaussiana aplicada a matrizes tridiagonais.
+
+Uma matriz tridiagonal é uma matrix quadrada cujos únicos elementos não nulas estão na diagonal principal e nas diagonais imediatamente acima e abaixo da principal. Um sistema tridiagonal é um sistema de equações lineares cuja matriz associada é tridiagonal, conforme a seguir:
+\begin{eqnarray}\label{linsis:EqTriDiag} \begin{bmatrix}
+   {b_1} & {c_1} & {   } & {   } & {   } \\
+   {a_2} & {b_2} & {c_2} & {   } & {   } \\
+   {   } & {a_3} & {b_3} & \ddots & {   } \\
+   {   } & {   } & \ddots & \ddots & {c_{n-1}}\\
+   {   } & {   } & {   } & {a_n} & {b_n}\\
+\end{bmatrix}
+\begin{bmatrix}
+   {x_1 }  \\
+   {x_2 }  \\
+   {x_3 }  \\
+   \vdots   \\
+   {x_n }  \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+   {d_1 }  \\
+   {d_2 }  \\
+   {d_3 }  \\
+   \vdots   \\
+   {d_n }  \\
+\end{bmatrix}
+.
+\end{eqnarray}
+
+Observamos que não é necessário armazenar todos os $n^2$ elementos da matriz em memória, sendo suficiente armazenar os vetores $a_n$, $b_n$ e $c_n$. Por conveniência, a partir daqui, definiremos os elementos inexistentes na matriz $a_1$ e $c_n$ como zero:
+$$a_1=c_n=0.$$
+
+O algoritmo para a solução do sistema tridiagonal (\ref{linsis:EqTriDiag}) pelo algoritmo de Thomas é dada pelas seguintes expressões:
+\begin{eqnarray}\label{linsis:TriDiag_1}
+ c'_i &=&
+\begin{cases}
+\begin{array}{lcl}
+  \frac{c_i}{b_i}                   , & i = 1 \\
+  \frac{c_i}{b_i - a_i c'_{i - 1}}  , & i = 2, 3, \dots, n-1 \\
+\end{array}
+\end{cases}\\
+\text{e}\nonumber\\
+d'_i &=&
+\begin{cases}
+\begin{array}{lcl}
+  \frac{d_i}{b_i}                   , & i = 1 \\
+  \frac{d_i - a_i d'_{i - 1}}{b_i - a_i c'_{i - 1}}  , & i = 2, 3, \dots, n. \\
+\end{array}
+\end{cases}
+\end{eqnarray}
+Finalmente a solução final é obtida por substituição reversa:
+\begin{eqnarray}\label{linsis:TriDiag_2}
+x_n &=& d'_n\\
+ x_i &=& d'_i - c'_i x_{i + 1}, \qquad   i = n - 1, n - 2, \ldots, 1.
+\end{eqnarray}
+
+\begin{teo} A aplicação da eliminação gaussiana sem pivotamento ao sistema (\ref{linsis:EqTriDiag}) produz o algoritmo dado em (\ref{linsis:TriDiag_1}) e (\ref{linsis:TriDiag_2})
+\end{teo}
+\begin{proof}
+O primeiro passo consiste em dividir todos os elementos da primeira linha de (\ref{linsis:EqTriDiag}) por $b_1$:
+
+\begin{eqnarray*} \begin{bmatrix}
+   {1} & {c_1'} & {   } & {   } & {   } \\
+   {a_2} & {b_2} & {c_2} & {   } & {   } \\
+   {   } & {a_3} & {b_3} & \ddots & {   } \\
+   {   } & {   } & \ddots & \ddots & {c_{n-1}}\\
+   {   } & {   } & {   } & {a_n} & {b_n}
+\end{bmatrix}
+\begin{bmatrix}
+   {x_1 }  \\
+   {x_2 }  \\
+   {x_3 }  \\
+   \vdots   \\
+   {x_n }  
+\end{bmatrix}
+=
+\begin{bmatrix}
+   {d_1' }  \\
+   {d_2 }  \\
+   {d_3 }  \\
+   \vdots   \\
+   {d_n }  
+\end{bmatrix},
+\end{eqnarray*}
+onde $c_1'=\frac{c_1}{b_1}$ e $d_1'=\frac{d_1}{b_1}.$
+
+O segundo passo consiste em substituir a segunda linha por ela mesma substraída da linha 1 multiplicada por $a_2$ ($l_2\leftarrow l_2-a_2l_1$):
+\begin{eqnarray*} \begin{bmatrix}
+   {1} & {c_1'} & {   } & {   } & {   } \\
+   {0} & {b_2-a_2c_1'} & {c_2} & {   } & {   } \\
+   {   } & {a_3} & {b_3} & \ddots & {   } \\
+   {   } & {   } & \ddots & \ddots & {c_{n-1}}\\
+   {   } & {   } & {   } & {a_n} & {b_n}
+\end{bmatrix}
+\begin{bmatrix}
+   {x_1 }  \\
+   {x_2 }  \\
+   {x_3 }  \\
+   \vdots   \\
+   {x_n }  
+\end{bmatrix}
+=
+\begin{bmatrix}
+   {d_1' }  \\
+   {d_2 -a_2d_1' }  \\
+   {d_3 }  \\
+   \vdots   \\
+   {d_n }  
+\end{bmatrix}.
+\end{eqnarray*}
+Em seguida, dividimos a segunda linha por $b_2-a_2c_1'$, a fim de normalizar a diagonal principal:
+\begin{eqnarray*} \begin{bmatrix}
+   {1} & {c_1'} & {   } & {   } & {   } \\
+   {0} & {1} & {c_2'} & {   } & {   } \\
+   {   } & {a_3} & {b_3} & \ddots & {   } \\
+   {   } & {   } & \ddots & \ddots & {c_{n-1}}\\
+   {   } & {   } & {   } & {a_n} & {b_n}
+\end{bmatrix}
+\begin{bmatrix}
+   {x_1 }  \\
+   {x_2 }  \\
+   {x_3 }  \\
+   \vdots   \\
+   {x_n }  
+\end{bmatrix}
+=
+\begin{bmatrix}
+   {d_1' }  \\
+   {d_2' }  \\
+   {d_3 }  \\
+   \vdots   \\
+   {d_n }  
+\end{bmatrix}.
+\end{eqnarray*}
+onde $c_2'=\frac{c_2}{b_2-a_2c_1'}$ e $d_2'=\frac{d_2 -a_2d_1'}{b_2-a_2c_1'}$.
+
+O próximo passo consiste em substituir a terceira linha por ela mesma substraída da linha 2 multiplicada por $a_3$ ($l_3\leftarrow l_3-a_3l_2$):
+\begin{eqnarray*} \begin{bmatrix}
+   {1} & {c_1'} & {   } & {   } & {   } \\
+   {0} & {1} & {c_2'} & {   } & {   } \\
+   {   } & { 0 } & {b_3-a_3 c_2'} & \ddots & {   } \\
+   {   } & {   } & \ddots & \ddots & {c_{n-1}}\\
+   {   } & {   } & {   } & {a_n} & {b_n}
+\end{bmatrix}
+\begin{bmatrix}
+   {x_1 }  \\
+   {x_2 }  \\
+   {x_3 }  \\
+   \vdots   \\
+   {x_n }  
+\end{bmatrix}
+=
+\begin{bmatrix}
+   {d_1' }  \\
+   {d_2' }  \\
+   {d_3 - a_3d_2'}  \\
+   \vdots   \\
+   {d_n }  
+\end{bmatrix}.
+\end{eqnarray*}
+A fim de normalizar o elemento da diagonal da terceira linha, dividimos toda a linha por $d_3 - a_3d_2'$:
+\begin{eqnarray*} \begin{bmatrix}
+   {1} & {c_1'} & {   } & {   } & {   } \\
+   {0} & {1} & {c_2'} & {   } & {   } \\
+   {   } & { 0 } & {1} & \ddots & {   } \\
+   {   } & {   } & \ddots & \ddots & {c_{n-1}}\\
+   {   } & {   } & {   } & {a_n} & {b_n}
+\end{bmatrix}
+\begin{bmatrix}
+   {x_1 }  \\
+   {x_2 }  \\
+   {x_3 }  \\
+   \vdots   \\
+   {x_n }  
+\end{bmatrix}
+=
+\begin{bmatrix}
+   {d_1' }  \\
+   {d_2' }  \\
+   {d_3'}  \\
+   \vdots   \\
+   {d_n }  
+\end{bmatrix}.
+\end{eqnarray*}
+
+Este procedimento é realizado até que se atinja a última linha e temos o seguinte sistema:
+\begin{eqnarray*} \begin{bmatrix}
+   {1} & {c_1'} & {   } & {   } & {   } \\
+   {0} & {1} & {c_2'} & {   } & {   } \\
+   {   } & { 0 } & {1} & \ddots & {   } \\
+   {   } & {   } & \ddots & \ddots & {c_{n-1}'}\\
+   {   } & {   } & {   } & { 0 } & { 1 }
+\end{bmatrix}
+\begin{bmatrix}
+   {x_1 }  \\
+   {x_2 }  \\
+   {x_3 }  \\
+   \vdots   \\
+   {x_n }  
+\end{bmatrix}
+=
+\begin{bmatrix}
+   {d_1' }  \\
+   {d_2' }  \\
+   {d_3'}  \\
+   \vdots   \\
+   {d_n' }  
+\end{bmatrix}.
+\end{eqnarray*}
+
+Neste estágio, podemos encontrar os $x_n$ através de substituição reversa, isto é: a última linha diz $$x_n=d_n'.$$
+A penúltima linha diz $$x_{n-1}+c_{n-1}'x_n=d_{n-1}' \Longrightarrow x_{n-1}=d_{n-1}'-c_{n-1}'x_{n}.$$
+Esse mesmo procedimento aplicada à linha $i=1,\ldots n-1$, nos dá $$x_i = d'_i - c'_i x_{i + 1}. $$
+\end{proof}
+
+\begin{ex}\label{linsis:exemplo5_5}
+Considere a resolução do seguinte sistema tridiagonal pelo algoritmo de Thomas:
+ \begin{eqnarray}\label{linsis:Exemplo5_5} \begin{bmatrix}
+   { 2 } & { 1 } & { 0 } & { 0 } & { 0 } \\
+   { 1 } & { 2 } & { 1 } & { 0 } & { 0 } \\
+   { 0 } & { 1 } & { 2 } & { 1 } & { 0 } \\
+   { 0 } & { 0 } & { 1 } & { 2 } & { 1 } \\
+   { 0 } & { 0 } & { 0 } & { 1 } & { 2 } 
+ \end{bmatrix}
+\begin{bmatrix}
+   {x_1 }  \\
+   {x_2 }  \\
+   {x_3 }  \\
+   {x_4 }  \\
+   {x_5 }  
+\end{bmatrix}
+=
+\begin{bmatrix}
+   {4}  \\
+   {4 }  \\
+   {0}  \\
+   {0}\\
+   {2 }  
+\end{bmatrix}
+.
+\end{eqnarray}
+Primeiramente identificamos os vetores $a$, $b$, $c$ e $d$:
+\begin{eqnarray*}
+ a&=& [0, 1, 1, 1, 1 ]\\
+ b&=& [2, 2, 2, 2, 2 ]\\
+ c&=& [1, 1, 1, 1, 0 ]\\
+ d&=& [4, 4, 0, 0, 2 ]
+\end{eqnarray*}
+Agora, calculamos os vetores $c'$ e $d'$:
+\begin{eqnarray*}
+ c_1'&=&\frac{c_1}{b_1}=\frac{1}{2}\\
+ c_2'&=&\frac{c_2}{b_2-a_2c_1'}=\frac{1}{2-1\cdot \frac{1}{2}}=\frac{2}{3} \\
+ c_3'&=&\frac{c_3}{b_3-a_3c_2'}=\frac{1}{2-1\cdot \frac{2}{3}}=\frac{3}{4} \\
+ c_4'&=&\frac{c_4}{b_4-a_4c_3'}=\frac{1}{2-1\cdot \frac{3}{4}}=\frac{4}{5} \\
+ d_1'&=&\frac{d_1}{b_1}=\frac{4}{2}=2\\
+ d_2'&=&\frac{d_2-a_2d_1'}{b_2-a_2c_1'}=\frac{4-1\cdot 2}{2-1\cdot \frac{1}{2}}=\frac{4}{3} \\
+ d_3'&=&\frac{d_3-a_3d_2'}{b_3-a_3c_2'}=\frac{0-1\cdot \frac{4}{3}}{2-1\cdot \frac{2}{3}}=-1 \\
+ d_4'&=&\frac{d_4-a_4d_3'}{b_4-a_4c_3'}=\frac{0-1\cdot (-1)}{2-1\cdot \frac{3}{4}}=\frac{4}{5} \\
+ d_5'&=&\frac{d_5-a_5d_4'}{b_5-a_5c_4'}=\frac{2-1\cdot \frac{4}{5}}{2-1\cdot \frac{4}{5}}=1 
+\end{eqnarray*}
+ Finalmente, calculamos o vetor $x$:
+
+\begin{eqnarray*}
+ x_5&=&d_5'=1\\
+ x_4&=&d_4'-c_4'\cdot x_5=\frac{4}{5}-\frac{4}{5}\cdot 1 = 0\\
+ x_3&=&d_3'-c_3'\cdot x_4=-1-\frac{3}{4}\cdot 0 = -1\\
+ x_2&=&d_2'-c_2'\cdot x_3=\frac{4}{3}-\frac{2}{3}\cdot (-1) = 2\\
+ x_1&=&d_1'-c_1'\cdot x_2=2-\frac{1}{2}\cdot 2 = 1
+ \end{eqnarray*}
+E assim, obtemos o vetor $x=[1, 2, -1, 0, 1]$.
+\end{ex}
+
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+\subsubsection{Código Scilab: Método da matriz tridiagonal}
+
+\lstinputlisting[language=Scilab,numbers=left]{./cap_linsis/codes/scilab/metodo_da_matriz_tridiagonal/metodo_tridiagonal.sci}
+
+Nesse código, usou-se \verb+cl+ e \verb+dl+ para denotar $c'$ e $d'$. Observe que se for desnecessário preservar os valores originais dos vetores $c$ e $d$, eles podem, com economia de memória e simplicidade de código, ser sobrescritos pelos vetores $c'$ e $d'$, respectivamente. Eis uma nova implementação:
+
+\verbatiminput{./cap_linsis/codes/scilab/metodo_da_matriz_tridiagonal/metodo_tridiagonal_2.sci}
+
+A solução do sistema do exemplo \ref{linsis:exemplo5_5} pode ser obtida através do seguintes comandos:
+\begin{verbatim}
+-->a=[0; 1; 1; 1; 1];
+-->b=[2; 2; 2; 2; 2];
+-->c=[1; 1; 1; 1; 0];
+-->d=[4; 4; 0; 0; 2];
+-->TDMA(a,b,c,d)
+\end{verbatim}
+
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\subsubsection{Código Python: Método da matriz tridiagonal}
+
+\verbatiminput{./cap_linsis/codes/python/metodo_da_matriz_tridiagonal/metodo_tridiagonal.py}
+
+Nesse código, usou-se \verb+cl+ e \verb+dl+ para denotar $c'$ e $d'$. Observe que se for desnecessário preservar os valores originais dos vetores $c$ e $d$, eles podem, com economia de memória e simplicidade de código, ser sobrescritos pelos vetores $c'$ e $d'$, respectivamente. Eis uma nova implementação:
+
+\verbatiminput{./cap_linsis/codes/python/metodo_da_matriz_tridiagonal/metodo_tridiagonal_2.py}
+
+A solução do sistema do exemplo \ref{linsis:exemplo5_5} pode ser obtida através do seguintes comandos:
+\begin{verbatim}
+>>>a=np.array([1,1,1,1,1])
+>>>b=np.array([2,2,2,2,2])
+>>>c=np.array([1,1,1,1,1])
+>>>d=np.array([4,4,0,0,2])
+>>>TDMA(a,b,c,d)
+\end{verbatim}
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%
+% GNU Octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\subsubsection{Código GNU Octave: Método da matriz tridiagonal}
+
+\verbatiminput{./cap_linsis/codes/octave/metodo_da_matriz_tridiagonal/metodo_tridiagonal.m}
+
+Nesse código, usou-se \verb+cl+ e \verb+dl+ para denotar $c'$ e $d'$. Observe que se for desnecessário preservar os valores originais dos vetores $c$ e $d$, eles podem, com economia de memória e simplicidade de código, ser sobrescritos pelos vetores $c'$ e $d'$, respectivamente. Eis uma nova implementação:
+
+\verbatiminput{./cap_linsis/codes/octave/metodo_da_matriz_tridiagonal/metodo_tridiagonal_2.gnu}
+
+A solução do sistema do exemplo \ref{linsis:exemplo5_5} pode ser obtida através do seguintes comandos:
+\begin{verbatim}
+>>a=[0; 1; 1; 1; 1]
+>>b=[2; 2; 2; 2; 2]
+>>c=[1; 1; 1; 1; 0]
+>>d=[4; 4; 0; 0; 2]
+>>TDMA(a,b,c,d)
+\end{verbatim}
+\fi
+
+
+\begin{exer} Considere o problema linear tridiagonal dado por
+\begin{eqnarray} \begin{bmatrix}
+   { 5  } & { 4 } & { 0 } & { 0 } & { 0 } & { 0 } \\    
+   { 1  } & { 3 } & { 1 } & { 0 } & { 0 } & { 0 } \\
+   { 0  } & { 2 } & { 4 } & { 1 } & { 0 } & { 0 } \\
+   { 0  } & { 0 } & { 1 } & { 2 } & { 1 } & { 0 } \\
+   { 0  } & { 0 } & { 0 } & { 2 } & { 3 } & { 2 } \\
+   { 0  } & { 0 } & { 0 } & { 0 } & { 1 } & { 2 } 
+    \end{bmatrix}
+\begin{bmatrix}
+   {x_1 }  \\
+   {x_2 }  \\
+   {x_3 }  \\
+   {x_4 }  \\
+   {x_5 }  \\
+   {x_6}  
+\end{bmatrix}
+=
+\begin{bmatrix}
+   {13}  \\
+   {10 }  \\
+   {20}  \\
+   {16}\\
+   {35}\\
+   {17}
+\end{bmatrix}
+.
+\end{eqnarray}
+ Identifique os vetores $a$, $b$, $c$ e $d$  relativos ao algoritmo da matriz tridiagonal. Depois resolva o sistema usando o computador.
+\end{exer}
+
+\begin{resp}
+ \begin{eqnarray*}
+  a&=&[0, 1, 2, 1, 2, 1]\\ 
+  b&=&[5, 3, 4, 2, 3, 2]\\
+  c&=&[4, 1, 1, 1, 2, 0]\\
+  d&=&[13, 10, 20, 16, 35, 17]\\
+  x&=&[1, 2, 3, 4, 5, 6]
+ \end{eqnarray*}
+\end{resp}
+
+\begin{exer}\label{linsis:tridia_jacobi_2} Considere o seguinte sistema de equações lineares:
+\begin{eqnarray}
+x_1-x_2&=&0\nonumber\\
+-x_{j-1}+5x_j-x_{j+1}&=&\cos(j/10),~~ 2\leq j \leq 10\nonumber\\
+x_{11}&=&x_{10}/2
+\end{eqnarray}
+
+Identifique os vetores $a$, $b$, $c$ e $d$  relativos ao algoritmo da matriz tridiagonal no sistema linear dado.  Depois resolva o sistema usando o computador. Veja também exercício \ref{linsis:tridia_jacobi_1}
+ \end{exer}
+\begin{resp}
+ \begin{eqnarray*}
+  a&=&[0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1/2]\\ 
+  b&=&[1,  5,  5,  5,  5,  5,  5,  5,  5,  5,  1  ]\\
+  c&=&[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0  ]\\ 
+  d&=&[0, \cos(2/10), \cos(3/10), \cos(4/10), \cos(5/10),\\&& \cos(6/10), \cos(7/10), \cos(8/10), \cos(9/10), \cos(1) ,0]\\
+  x&=&[0,324295, 0,324295, 0,317115, 0,305943, 0,291539,\\&& 0,274169, 0,253971, 0,230846, 0,20355, 0,165301, 0,082650]
+ \end{eqnarray*}
+\end{resp}
+
+
+
 \section{Condicionamento de sistemas lineares}\index{sistema linear!condicionamento}\index{matriz!condicionamento}
 
 Quando lidamos com matrizes no corpo do números reais (ou complexos), existem apenas duas alternativas: i) a matriz é inversível; ii) a matriz não é inversível e, neste caso, é chamada de matriz singular. Ao lidarmos em aritmética de precisão finita, encontramos uma situação mais sutil: alguns problema lineares são mais difíceis de serem resolvidos, pois os erros de arredondamento se propagam de forma mais significativa que em outros problemas. Neste caso falamos de problemas bem-condicionados e mal-condicionados. Intuitivamente falando, um problema bem-condicionado é um problema em que os erros de arredondamento se propagam de forma menos importante; enquanto problemas mal-condicionados são problemas em que os erros se propagam de forma mais relevante.
@@ -1965,7 +2370,7 @@ $x^{(1)}$ dado, estabelecemos condições nas quais $x^{(k)}\to x^{*}$, onde $x^
 \begin{proof}
   Aqui, fazemos apenas um esboço da demonstração. Para mais detalhes, veja \cite{Isaacson1994a}, Teorema 4, pág. 14.
 
-  Primeiramente, suponhamos que $\left\|T\right\|_p < 1$, $1\leq p \leq \infty$. Como (veja \cite{Isaacson1994a}, Lema 2, pág. 12):
+  Primeiramente, suponhamos que $\left\|T\right\|_p < 1$, $1\leq p \leq \infty$. Como (veja \cite{Isaacson1994a}, lema 2, pág. 12):
   \begin{equation*}
     \rho(T) \leq \left\|T\right\|_p,
   \end{equation*}
@@ -1997,7 +2402,7 @@ Da equivalência entre as normas segue a recíproca.
 \end{lem}
 \begin{proof}
   Primeiramente, provamos a existência de $(I - T)^{-1}$. Seja $\lambda$ um autovalor de $T$ e $x$ um autovetor associado, isto é, $Tx = \lambda x$. Então, $(I-T)x = (1-\lambda)x$. Além disso, temos $|\lambda| < \rho(T) < 1$, logo $(1 - \lambda) \neq 0$, o que garante que $(I - T)$ é não singular.
-  Agora, mostramos que $(I - T)^{-1}$ admite a expansão acima. Do Lema~\ref{lema:matriz_convergente} e da observação~\ref{obs:matriz_convergente} temos:
+  Agora, mostramos que $(I - T)^{-1}$ admite a expansão acima. Do lema~\ref{lema:matriz_convergente} e da observação~\ref{obs:matriz_convergente} temos:
   \begin{equation*}
    (I - T)\sum_{k=0}^\infty T^k =  \lim_{m\to\infty} (I - T)\sum_{k=0}^m T^k = \lim_{m\to\infty} (I - T^{m+1}) = I,
   \end{equation*}
@@ -2019,7 +2424,7 @@ converge para solução de $x = Tx + c$ para qualquer escolha de $x^{(1)}$ se, e
     &\vdots\\
     &= T^{(k)}x^{(1)} + \left(\sum_{k=0}^{k-1}T^k\right)c.
   \end{eqnarray*}
-Daí, do Lema~\ref{lema:matriz_convergente} e do Lema~\ref{lema:inversa} temos:
+Daí, do lema~\ref{lema:matriz_convergente} e do lema~\ref{lema:inversa} temos:
 \begin{equation*}
   \lim_{k\to\infty} x^{(k)} = (I - T)^{(-1)}c.
 \end{equation*}
@@ -2036,7 +2441,7 @@ Logo, para qualquer $1 \leq p \leq\infty$, temos, :
 \begin{equation*}
   0 = \lim_{k\to\infty} x^* - x^{(k+1)} = \lim_{k\to\infty} T^{(k)}y.
 \end{equation*}
-Como $y$ é arbitrário, da observação~\ref{obs:matriz_convergente} temos $\displaystyle\lim_{k\to\infty} \|T^{(k)}\|_p = 0$, $1 \leq p \leq \infty$. Então, o Lema~\ref{lema:matriz_convergente} garante que $\rho(T) < 1$.
+Como $y$ é arbitrário, da observação~\ref{obs:matriz_convergente} temos $\displaystyle\lim_{k\to\infty} \|T^{(k)}\|_p = 0$, $1 \leq p \leq \infty$. Então, o lema~\ref{lema:matriz_convergente} garante que $\rho(T) < 1$.
 \end{proof}
 
 \begin{obs}
@@ -2194,17 +2599,17 @@ Use como critério de paragem tolerância inferior a $10^{-3}$ e inicialize com 
 \begin{exer}Refaça o Exercício~\ref{exer:trid} construindo um algoritmo que implemente os métodos de Jacobi e Gauss-Seidel.
 \end{exer}
 
-\begin{exer} Considere o seguinte sistema de equações lineares:
+\begin{exer}\label{linsis:tridia_jacobi_1} Considere o seguinte sistema de equações lineares:
 \begin{eqnarray}
 x_1-x_2&=&0\nonumber\\
 -x_{j-1}+5x_j-x_{j+1}&=&\cos(j/10),~~ 2\leq j \leq 10\nonumber\\
 x_{11}&=&x_{10}/2
 \end{eqnarray}
-Construa a iteração para encontrar a solução deste problema pelos métodos de Gauss-Seidel e Jacobi. Usando esses métodos, encontre uma solução aproximada com erro absoluto inferior a $10^{-5}$.
+Construa a iteração para encontrar a solução deste problema pelos métodos de Gauss-Seidel e Jacobi. Usando esses métodos, encontre uma solução aproximada com erro absoluto inferior a $10^{-5}$. Veja também exercício \ref{linsis:tridia_jacobi_2}
 \end{exer}
 \begin{resp}
   
-$0.324295$, $0.324295$, $0.317115$, $0.305943$, $0.291539$, $0.274169$, $0.253971$, $0.230846$, $0.203551$, $0.165301$, $0.082650$
+$0,324295$, $0,324295$, $0,317115$, $0,305943$, $0,291539$, $0,274169$, $0,253971$, $0,230846$, $0,203551$, $0,165301$, $0,082650$
 
 \ifisscilab
 Exemplos de rotinas:
