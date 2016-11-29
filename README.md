@@ -21,7 +21,7 @@ Este trabalho está licenciado sob a Licença Creative Commons Atribuição-Comp
 O código fonte está escrito em [Latex](https://latex-project.org/) e as referências bibliográficas em [BibTex](http://www.bibtex.org/), testados em computador Linux com o pacote [TexLive](http://www.tug.org/texlive/). O texto está em formatação **utf-8**.
 
 ## Compilando
-O código LaTeX pode ser compilado com:
+O código LaTeX está testado em computador [Linux](https://pt.wikipedia.org/wiki/Linux) com o pacote [TexLive](https://www.tug.org/texlive/) instalado. O livro pode ser compilado com:
 
     $ make
 
@@ -55,6 +55,22 @@ Este comando cria a pasta `./html` onde todo os arquivos da versão HTML do livr
 		$ make epub
 
 Este comando cria o arquivo `main.epub` contendo o livro em formato EPUB.
+
+### Outros sistemas operacionais
+O código LaTeX pode ser compilado em outros sistemas operacionais.
+
+Em primeiro lugar, deve-se editar o arquivo texto `main.knd`. Este arquivo contém instruções TeX para controlar o formato e a versão do livro. Por exemplo, para setar o formato do livro em PDF na versão Scilab, garanta que este arquivo contenha o seguinte texto:
+
+    \isbooktrue \isslidefalse \ishtmlfalse \isscilabtrue \isoctavefalse \ispythonfalse
+
+Por fim, o livro pode ser compilado com a seguinte sequência de comandos:
+
+    pdflatex main
+    bibtex main
+    makeindex main
+    pdflatex main
+    pdflatex main
+
 
 ## Colaborações
 Há várias maneiras de colaborar com a escrita do livro. Toda a colaboração é bem vinda, seja ela um aviso de erro de digitação, uma reformulação de uma parte do livro, uma nova figura, uma nova seção ou um novo capítulo.

@@ -128,11 +128,11 @@ Desta forma, o método iterativo de Newton-Raphson para encontrar as raízes de 
 \begin{equation*}
 \left\{\begin{array}{rcl}
 x^{(k+1)} &=& x^{(k)}-J_F^{-1}\left(x^{(k)}\right)F(x^{(k)}),~~ n\geq 0\\
-x^{(0)}&=&\hbox{dado inicial}
+x^{(0)}&=&\text{dado inicial}
 \end{array}\right.  
 \end{equation*}
 
-\begin{obs} Usamos subíndices para indicar o elemento de um vetor e superíndices para indicar o passo da iteração. Assim $x^{(k)}$ se refere à iteração $k$ e $x_i^{(k)}$ se refere à componente $i$ no vetor $x^{(k)}$.
+\begin{obs} Usamos subíndices para indicar o elemento de um vetor e superíndices para indicar o passo da iteração. Assim, $x^{(k)}$ se refere à iteração $k$ e $x_i^{(k)}$ se refere à componente $i$ no vetor $x^{(k)}$.
 \end{obs}
 \begin{obs} A notação $J_F^{-1}\left(x^{(k)}\right)$ enfatiza que a jacobiana deve ser calculada a cada passo.
 \end{obs}
@@ -401,8 +401,8 @@ Partindo das seguintes aproximações iniciais:
 \item[a)] Faça um esboço das duas curvas e entenda o problema. Verifique que existem dois pontos de intersecção, um no primeiro quadrante e outro no segundo quadrante do plano $xy$.
 \item[b)] A partir de seu esboço, encontre aproximações para $x$ e $y$ em cada ponto.
 \item[c)] Escreva o problema na forma $F\left(\left[\begin{array}{c}x\\y\end{array}\right]\right)=\left[\begin{array}{c}0\\0\end{array}\right]$
-\item[d)] Encontre a Jacobiana $J_F$.
-\item[e)] Construa a iteração do Método de Newton.
+\item[d)] Encontre a jacobiana $J_F$.
+\item[e)] Construa a iteração do método de Newton.
 \item[f)] Implemente no computador.
 \item[g)] Resolva o sistema analiticamente e compare as respostas.
 \end{itemize}
@@ -416,18 +416,29 @@ As curvas possuem dois pontos de intersecção. A posição exata destes pontos 
 \item[a]) Faça um esboço das duas curvas, entenda o problema. Verifique que existem dois pontos de intersecção, um no primeiro quadrante e outro no segundo quadrando do plano $xy$.
 \item[b]) A partir de seu esboço, encontre aproximações para $x$ e $y$ em cada ponto.
 \item[c]) Escreva o problema na forma $F\left(\left[\begin{array}{c}x\\y\end{array}\right]\right)=\left[\begin{array}{c}0\\0\end{array}\right]$
-\item[d]) Encontre a Jacobiana $J_F$.
-\item[e]) Construa a iteração do Método de Newton.
+\item[d]) Encontre a jacobiana $J_F$.
+\item[e]) Construa a iteração do método de Newton.
 \item[f]) Implemente no Scilab.
-\item[g]) Transforme o sistema em um problema de uma única variável, e compare com a resposta do problema \ref{1d:cosx2}.
-%\item[h]) Refaça o item e, usando a função {\it derivative()} para aproximar a matriz Jacobiana.
+\item[g]) Transforme o sistema em um problema de uma única variável e compare com a resposta do problema \ref{1d:cosx2}.
+%\item[h]) Refaça o item e, usando a função {\it derivative()} para aproximar a matriz jacobiana.
 \end{itemize}
-
 \end{exer}
 
 \begin{resp}
  $\left(\pm 0.8241323, 0.6791941\right)$
 \end{resp}
+
+\begin{exer} Encontre uma aproximação com erro inferior a $10^{-5}$ em cada incógnita para a solução próxima da origem do sistema
+\begin{eqnarray*}
+6x-2y+e^{z}&=&2\\
+\sin(x)-y+z&=&0\\
+\sin(x)+2y+3z&=&1
+\end{eqnarray*}
+\end{exer}
+\begin{resp}
+$x\approx 0,259751, y\approx  0,302736, z\approx  0,045896$
+\end{resp}
+
 
 
 \begin{exer}(Entenda casos particulares)
@@ -463,14 +474,14 @@ $$m=f'(x_1)=f'(x_2)$$
 E sabemos que:
 $$f'(x)=\frac{\cos(x)}{1+x}-\frac{\sin(x)}{(1+x)^2}.$$
 
-Assim podemos reescrever o problema como
+Assim, podemos reescrever o problema como
 \begin{eqnarray*}
 \frac{\cos(x_1)}{1+x_1}-\frac{\sin(x_1)}{(1+x_1)^2}-\frac{\cos(x_2)}{1+x_2}+\frac{\sin(x_2)}{(1+x_2)^2}=0\\
 \frac{\cos(x_1)}{1+x_1}-\frac{\sin(x_1)}{(1+x_1)^2}-\frac{f(x_2)-f(x_1)}{x_2-x_1}=0
 \end{eqnarray*}
 Este é um sistema não-linear de duas incógnitas.
 
-Os valores iniciais para o método podem ser obtidos do gráfico buscando valores próximos aos dois primeiros pontos de máximos. Por exemplo: $x_1^{(0)}=1$ e $x_2^{(0)}=8$. Obtemos $x_1\approx 1.2464783$ e $x_2\approx 8.1782997$ e $m$ pode ser obtido através desses valores.
+Os valores iniciais para o método podem ser obtidos do gráfico buscando valores próximos aos dois primeiros pontos de máximos. Por exemplo: $x_1^{(0)}=1$ e $x_2^{(0)}=8$. Obtemos $x_1\approx 1,2464783$ e $x_2\approx 8,1782997$ e $m$ pode ser obtido através desses valores.
 
 
 \end{resp}
@@ -576,6 +587,9 @@ x=x-JF(x)\F(x)   // 4 vezes
 \end{verbatim}
 \fi
 \end{resp}
+
+
+
 
 \begin{exer} Considere o sistema de equações dado por
 \begin{eqnarray*}
@@ -782,60 +796,19 @@ Resposta final: 0,80447, 0,80447, 0,68686, 0,57124, 0,46535,
 \end{resp}
 
 
-% \begin{exer} Considere a função
-% $$f(x,y)=\frac{e^{-(x-1)^2-(y-2)^2}}{1+x^2+y^2}$$
-% \begin{itemize}
-% \item[a)] Encontre o valor máximo desta função.
-% \item[b)] Usando multiplicadores de Lagrange, encontre o valor máximo desta função restrito à condição $$(x-1)^2+(y-2)^2=1.$$
-% \item[c)] Parametrize a circunferência para transformar o problema de máximo com restrição em um problema de uma única variável. Resolva usando as técnicas de equações lineares de uma variável.
-% \end{itemize}
-% 
-% \end{exer}
-% \begin{resp}
-% $f(0.8108792,1.6217584)\approx 0.1950369$ e $f(0.5527864 , 1.1055728 )\approx 0.1455298 $
-% \end{resp}
-% 
-% 
-% \begin{exer} Encontre uma aproximação com erro inferior a $10^{-5}$ em cada incógnita para a solução próxima da origem do sistema
-% \begin{eqnarray*}
-% 6x-2y+e^{z}&=&2\\
-% \sin(x)-y+z&=&0\\
-% \sin(x)+2y+3z&=&1
-% \end{eqnarray*}
-% \end{exer}
-% \begin{resp}
-% $x\approx 0.259751, y\approx  0.302736, z\approx  0.045896$
-% \end{resp}
-% 
-% 
-% 
-% 
-% \begin{exer} Considere o problema de encontrar as parâmetro $A$, $B$ e $\lambda$ tais que a função $f(x)=A+B e^{\lambda x}$ passa por três pontos dados.
-% \begin{itemize}
-% \item[a)] Verifique que se $A=1$, $B=2$ e $\lambda=-\ln(2)$ então $f(0)=3$, $f(1)=2$ e $f(2)=1.5$
-% \item[b)] Encontre os valores de $A$, $B$ e $\lambda$ tais que $f(0)=3.1$, $f(1)=1.9$ e $f(2)=1.6$
-% \item[c)] Encontre os valores de $A$, $B$ e $\lambda$ tais que $f(0)=2.9$, $f(1)=2.1$ e $f(2)=1.6$
-% \item[d)] Compare os parâmetros para cada um dos três casos. Discuta a viabilidade do problema de ajustar curvas desse tipo a um conjunto de dados com erro experimental.
-% 
-% {\bf Dica:} Calcule  número de condicionamento da matriz jacobiana associada ao problema no caso a.
-% \end{itemize}
-% \end{exer}
-% \begin{resp}
-% $1.5,1.6 ,- 1.3862944$ e $0.7666667 , 2.1333333 ,- 0.4700036$
-% \end{resp}
-% 
-% 
-% \begin{exer} Considere o problema de encontrar as parâmetros $A$, $B$, $\lambda_1$ e $\lambda_2$ tais que a função $f(x)=Ae^{\lambda_1 x}+B e^{\lambda_2 x}$ passa por quatro pontos dados.
-% \begin{itemize}
-% \item[a)] Verifique que função se $A=10$, $B=20$, $\lambda_1=\ln(2)$ e $\lambda_2=\ln(3)$ então $f(-1)=35/3$, $f(0)=30$, $f(1)=80$, $f(2)=220$
-% \item[b)] Imagine que você desconheça os valores de $A$, $B$, $\lambda_1$ e $\lambda_2$ no item acima e deseja encontrá-los com base nos valores da função nos quatro pontos dados pelo método de Newton-Raphson com quatro incóginta. Descreva a função jacobiana envolvida e calcule o número de condicionamento quando as incógnitas são dadas conforme o item a.
-% \item[c)] Implemente o método de Newton-Raphson apartir das condições iniciais dadas pelos valores numéricos aproximados de $A=10$, $B=20$, $\lambda_1=\ln(2)$ e $\lambda_2=\ln(3)$ (ou seja, a solução exata acrescida de erros de arredondamento). Discuta.
-% \end{itemize}
-% \end{exer}
-% 
-% \begin{resp}
-% O número de condicionamento é $k_2 \approx 10^9$.
-% \end{resp}
+\begin{exer} Considere a função
+$$f(x,y)=\frac{e^{-(x-1)^2-(y-2)^2}}{1+x^2+y^2}$$
+\begin{itemize}
+\item[a)] Encontre o valor máximo desta função.
+\item[b)] Usando multiplicadores de Lagrange, encontre o valor máximo desta função restrito à condição $$(x-1)^2+(y-2)^2=1.$$
+\item[c)] Parametrize a circunferência para transformar o problema de máximo com restrição em um problema de uma única variável. Resolva usando as técnicas de equações lineares de uma variável.
+\end{itemize}
+
+\end{exer}
+\begin{resp}
+$f(0,8108792, 1,6217584)\approx 0,1950369$ e $f(0,5527864, 1,1055728 )\approx 0,1455298 $
+\end{resp}
+
 
 
 \section{Linearização de uma função de várias variáveis}
@@ -845,14 +818,12 @@ Nesta seção, discutimos de forma distinta e mais rigorosa os conceitos de matr
 Considere primeiramente uma função $f:\mathbb{R}^n\to \mathbb{R}$, ou seja, uma função que mapeia n variáveis reais em um único real, por exemplo:
 $$f(x)=x_1^2+x_2^2/4$$
 
-Para construirmos a linearização, fixemos uma direção no espaço $\mathbb{R}^n$, ou seja um vetor $v$:
+Para construirmos a linearização, fixemos uma direção no espaço $\mathbb{R}^n$, ou seja, um vetor $v$:
 $$v=[v_1,  v_2,  \cdots,  v_n]^T$$
 
 Queremos estudar como a função $f(x)$ varia quando ``andamos'' na direção $v$ a partir do ponto $x^{(0)}$. Para tal, inserimos um parâmetro  real pequeno $h$, dizemos que $$x=x^{(0)}+hv$$ e definimos a função auxiliar
 $$g(h)=f(x^{0}+hv).$$
 Observamos que a função $g(h)$ é uma função de $\mathbb{R}$ em $\mathbb{R}$.
-
-
 
 A linearização de $g(h)$ em torno de $h=0$ é dada por
 
@@ -860,18 +831,18 @@ $$g(h)=g(0) + hg'(0) +O(h^2)$$
 Observamos que $g(h)=f(x^{(0)}+hv)$ e $g(0)=f(x^{(0)})$. Precisamos calcular $g'(0)$:
 
 \begin{eqnarray*}
-g'(h)=\frac{d}{dh}g(h)=\frac{d}{dh}f(x^{(0)}+hv)
+g'(h)=\frac{d}{dh}g(h)=\frac{d}{dh}f(x^{(0)}+hv).
 \end{eqnarray*}
 Pela regra da cadeia temos:
 \begin{eqnarray*}
-\frac{d}{dh}f(x^{(0)}+hv)= \sum_{j=1}^n \frac{\partial f}{\partial x_j}\frac{d x_j}{d h}
+\frac{d}{dh}f(x^{(0)}+hv)= \sum_{j=1}^n \frac{\partial f}{\partial x_j}\frac{d x_j}{d h}.
 \end{eqnarray*}
 
 Observamos que $x_j=x^{(0)}_j+hv_j$, portanto
 $$\frac{d x_j}{d h}=v_j$$
 Assim:
 \begin{eqnarray*}
-\frac{d}{dh}f(x^{(0)}+hv)= \sum_{j=1}^n \frac{\partial f}{\partial x_j}v_j
+\frac{d}{dh}f(x^{(0)}+hv)= \sum_{j=1}^n \frac{\partial f}{\partial x_j}v_j.
 \end{eqnarray*}
 Observamos que esta expressão pode ser vista como o produto interno entre o gradiente de $f$ e o vetor $v$:
 \begin{eqnarray*}
@@ -925,7 +896,7 @@ f_2\left(x^{(0)}\right)+\nabla^T\! f_2(x^{(0)})\!~\left(x-x^{(0)}\right)   + O(\
 \vdots\\~\\
 f_n\left(x^{(0)}\right)+\nabla^T\! f_n(x^{(0)})\!~\left(x-x^{(0)}\right)   + O(\|x-x^{(0)}\|^2)
 \end{array}
-\right]}_{\hbox{Vetor coluna}}
+\right]}_{\text{Vetor coluna}}
 \end{eqnarray*}
 ou, equivalentemente:
 \begin{eqnarray*}
@@ -936,14 +907,14 @@ f_2\left(x^{(0)}\right)\\~\\
 \vdots\\~\\
 f_n\left(x^{(0)}\right)
 \end{array}
-\right]}_{\hbox{Vetor coluna}}+
+\right]}_{\text{Vetor coluna}}+
 \underbrace{\left[
 \begin{array}{c}\nabla^T\! f_1(x^{(0)})\\~~\\
 \nabla^T\! f_2(x^{(0)})\\~~\\
 \vdots\\~~\\
 \nabla^T\! f_n(x^{(0)})
 \end{array}
-\right]}_{\hbox{Matriz jacobiana}}\underbrace{\left(x-x^{(0)}\right)}_{\hbox{Vetor coluna}}+O(\|x-x^{(0)}\|^2)
+\right]}_{\text{Matriz jacobiana}}\underbrace{\left(x-x^{(0)}\right)}_{\text{Vetor coluna}}+O(\|x-x^{(0)}\|^2)
 \end{eqnarray*}
 
 Podemos escrever a linearização de $F(x)$ na seguinte forma mais enxuta:
@@ -959,7 +930,7 @@ $$J_F= \frac{\partial(f_1,f_2,\ldots,f_n)}{\partial(x_1,x_2,\ldots,x_n)}=\left[
 \end{array}
 \right]
 $$
-A matriz jacobiana de uma função ou simplesmente, o Jacobiano de uma função $F(x)$ é a matriz formada pelas suas derivadas parciais:
+A matriz jacobiana de uma função ou simplesmente, o jacobiano de uma função $F(x)$ é a matriz formada pelas suas derivadas parciais:
 $$\left(J_F\right)_{ij}=\frac{\partial f_i}{\partial x_j}$$
 
 

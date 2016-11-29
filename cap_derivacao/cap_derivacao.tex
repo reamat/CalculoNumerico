@@ -5,38 +5,42 @@
 
 \chapter{Derivação Numérica}\index{derivação}
 
-Nesta seção, discutiremos sobre estratégias numéricas de aproximação de derivadas de funções reais. Com as técnicas que abordaremos é possível o cálculo aproximado da derivada de uma função a partir de um conjunto de pontos discretos $\{x_i, y_i\}_{i=1}^n$. Começamos discutindo sobre as chamadas \emph{aproximações por diferenças finitas}\index{aproximações por diferenças finitas} e, então, discutimos sobre aproximações de derivadas via ajuste ou interpolação.
+Nesta seção, discutiremos sobre estratégias numéricas de aproximação de derivadas de funções reais. Com as técnicas que abordaremos é possível o cálculo aproximado da derivada de uma função a partir de um conjunto de pontos discretos $\{(x_i, y_i)\}_{i=1}^n$. Começamos discutindo sobre as chamadas \emph{aproximações por diferenças finitas}\index{aproximações por diferenças finitas} e, então, discutimos sobre aproximações de derivadas via ajuste ou interpolação.
 
 \section{Diferenças finitas}\index{diferenças finitas}
 
-A técnica de \emph{diferenças finitas}\index{diferenças finitas} consiste em aproximar a derivada de uma função via fórmulas discretas que requerem apenas um conjunto finito de pares ordenados $\left\{\left(x_i, y_i=f(x_i)\right)\right\}_{i=1}^n$. As chamadas fórmulas de diferenças finitas podem ser obtidas de várias formas. Começamos discutindo a mais básica delas, a chamada fórmula de diferenças progressiva de ordem 1.
+Uma diferença finita é simplesmente uma expressão da forma $f(x+b)-f(x+a)$, que ao ser dividida por $(b-a)$ chama-se um quociente de diferenças. 
 
-Seja dada uma função diferenciável $y = f(x)$. A derivada $f'(x_0)$ da função $f(x)$ no ponto $x_0$ é, por definição,
+A técnica de \emph{diferenças finitas}\index{diferenças finitas} consiste em aproximar a derivada de uma função via fórmulas discretas que requerem apenas um conjunto finito de pares ordenados $\left\{\left(x_i, y_i\right)\right\}_{i=1}^n$, onde geralmente temos que $y_i=f(x_i)$.
+
+Essas fórmulas podem ser obtidas de várias maneiras. Começamos com a fórmula mais simples que pode ser obtida do Cálculo diferencial.
+
+Seja $f$ uma função diferenciável, a derivada de $f$ no ponto $x_0$ é, por definição,
 \begin{equation*}
   f'(x_0)=\lim_{h\to 0}\frac{f(x_0+h)-f(x_0)}{h}.
 \end{equation*}
-Deste limite, tomando $h\neq 0$ pequeno (não muito pequeno para evitar o cancelamento catastrófico), é esperado que possamos obter uma aproximação razoável para $f'(x_0)$ calculando:
+Deste limite, tomando $h\neq 0$ pequeno (não muito pequeno para evitar o cancelamento catastrófico), é esperado que possamos obter uma aproximação razoável para $f'(x_0)$. Assim, a \emph{diferença finita progressiva} de ordem 1
 \begin{equation}\label{eq:dp}
-  D_{+,h}f(x_0) := \frac{f(x_0+h)-f(x_0)}{h} \approx f'(x_0).
+  D_{+,h}f(x_0) := \frac{f(x_0+h)-f(x_0)}{h} \approx f'(x_0)
 \end{equation}
-Aqui, $D_{+,h}f(x_0)$ é a chamada fórmula de diferenças progressiva de ordem 1 (ou de dois pontos).
+é uma aproximação para $f'(x_0)$.
 
 \begin{ex}\label{ex:dp}
-Use a fórmula de diferenças finitas progressiva de ordem 1, calcule aproximações da derivada de $f(x)=\cos(x)$ no ponto $x=1$ usando $h=10^{-1}$, $10^{-2}$, $10^{-3}$, $10^{-4}$, $10^{-12}$ e $10^{-14}$. Então, compute o erro $|D_{+,h}f(1)-f'(1)|$ obtido com cada valor de $h$.
+Usando a diferença finita progressiva de ordem 1, calcule aproximações da derivada de $f(x)=\cos(x)$ no ponto $x=1$ usando $h=10^{-1}$, $10^{-2}$, $10^{-3}$, $10^{-4}$, $10^{-12}$ e $10^{-14}$. Calcule o erro $|D_{+,h}f(1)-f'(1)|$ obtido para cada valor de $h$.
 \end{ex}
 \begin{sol}
-Usando a fórmula de diferenças dada na equação~\eqref{eq:dp}, devemos calcular:
+Usando a diferença progressiva em ~\eqref{eq:dp}, devemos calcular
 \begin{equation*}
   D_{+,h}f(1) = \frac{\cos(1 + h) - \cos(1)}{h}
 \end{equation*}
-para cada valor de $h$ solicitado. Fazendo isso, obtemos:
+Fazendo isso, obtemos:
 \begin{center}
   \begin{tabular}{r|c|c}
-    $h$ & $Df(1)$ & $|f'(1) - D_{+,h}F(1)|$ \\ \hline
-    $10^{-1}$ & $-8,67062\E-01$ & $2,55909\E-02$\\
-    $10^{-2}$ & $-8,44158\E-01$ & $2,68746\E-03$\\
-    $10^{-3}$ & $-8,41741\E-01$ & $2,70011\E-04$\\
-    $10^{-4}$ & $-8,41498\E-01$ & $2,70137\E-05$ \\
+    $h$        & $D_{+,h}f(1)$   & $|f'(1) - D_{+,h}f(1)|$ \\ \hline
+    $10^{-1}$  & $-8,67062\E-01$ & $2,55909\E-02$\\
+    $10^{-2}$  & $-8,44158\E-01$ & $2,68746\E-03$\\
+    $10^{-3}$  & $-8,41741\E-01$ & $2,70011\E-04$\\
+    $10^{-4}$  & $-8,41498\E-01$ & $2,70137\E-05$ \\
     $10^{-12}$ & $-8,41549\E-01$ & $7,80679\E-05$\\
     $10^{-14}$ & $-8,43769\E-01$ & $2,29851\E-03$ \\\hline
   \end{tabular}
@@ -50,7 +54,7 @@ No \verb+Scilab+, podemos calcular a aproximação da derivada $f'(1)$ com $h=0,
 \begin{verbatim}
 --> deff('y = f(x)','y = cos(x)')
 --> x0 = 1
---> h = 0.1
+--> h  = 0.1
 --> df = (f(x0+h) - f(x0))/h
 \end{verbatim}
 E, similarmente, para outros valores de $x_0$ e $h$.
@@ -77,89 +81,84 @@ E, similarmente, para outros valores de $x_0$ e $h$.
 \begin{figure}
   \centering
   \includegraphics{./cap_derivacao/pics/ex_derivacao/ex_derivacao}
-  \caption{Erro absoluto das derivadas numéricas no Exemplo~\ref{ex:dp}.}
+  \caption{Erro absoluto das derivadas numéricas no exemplo~\ref{ex:dp}.}
   \label{fig:ex_derivacao}
 \end{figure}
 
-Exploremos o Exemplo~\ref{ex:dp} um pouco mais. Observamos que, para valores moderados de $h$, o erro $|f'(1)-D_{+,h}f(1)|$ diminui linearmente com $h$ (veja Figura~\ref{fig:ex_derivacao}). Isto é consequência da ordem de truncamento da fórmula de diferenças finitas aplicada (que é de ordem 1). Porém, para valores muito pequenos de $h < 10^{-8}$, o erro passa a aumentar quando diminuímos $h$. Isto é devido ao efeito de cancelamento catastrófico.
+Exploremos o exemplo~\ref{ex:dp} um pouco mais. Observamos que, para valores moderados de $h$, o erro $|f'(1)-D_{+,h}f(1)|$ diminui linearmente com $h$ (veja figura~\ref{fig:ex_derivacao}). Isto é consequência da ordem de truncamento da fórmula de diferenças finitas aplicada (que é de ordem 1). Porém, para valores muito pequenos de $h < 10^{-8}$, o erro passa a aumentar quando diminuímos $h$. Isto é devido ao efeito de cancelamento catastrófico.
 
-\subsection{Obtenção de fórmulas de diferenças via série de Taylor}
+\subsection{Diferenças finitas via série de Taylor}
 
-Podemos construir fórmulas de diferenças finitas para uma função $f(x)$ (suave\footnote{Uma função suave é uma função infinitamente continuamente diferenciável, i.e. $f\in C^\infty(\mathbb{R})$. Uma análise mais cuidadosa, rapidamente revela que hipóteses mais fracas podem ser assumidas.}) no ponto $x = x_0$ a partir de sua expansão em série de Taylor. Em alguns casos, este procedimento acaba por nos fornecer, também, a ordem de truncamento da fórmula.
+Podemos construir fórmulas de diferenças finitas para uma função $f(x)$ (suave\footnote{Uma função suave é uma função infinitamente continuamente diferenciável, isto é, $f\in C^\infty(\mathbb{R})$. Uma análise mais cuidadosa, revela que hipóteses mais fracas podem ser assumidas.}) no ponto $x = x_0$ a partir de sua expansão em série de Taylor. Em alguns casos, este procedimento acaba por nos fornecer, também, a ordem de truncamento da fórmula.
 
-\subsubsection{Fórmula de diferenças finitas progressiva de ordem 1}\index{diferenças finitas!progressiva}
-
-A fórmula de diferenças finitas progressiva pode ser obtida fazendo a seguinte expansão em série de Taylor:
+\subsubsection{Diferença finita progressiva de ordem 1}\index{diferenças finitas!progressiva}
+Podemos obter uma aproximação para $f'(x_0)$ a partir da série de Taylor
 \begin{equation*}
   f(x_0+h) = f(x_0) + hf'(x_0) + h^2\frac{f''(\xi)}{2},\quad h>0, \xi\in(x_0,x_0+h).
 \end{equation*}
-Então, isolando $f'(x_0)$, obtemos:
+Isolando $f'(x_0)$, obtemos
 \begin{equation}\label{eq:dp_trunc}
-  f'(x_0) = \underbrace{\frac{f(x_0+h) - f(x_0)}{h}}_{D_{+,h}} - \underbrace{h\frac{f''(\xi)}{2}}_{O(h)},
+  f'(x_0) = \underbrace{\frac{f(x_0+h) - f(x_0)}{h}}_{D_{+,h}} - \underbrace{h\frac{f''(\xi)}{2}}_{\mathcal{O}(h)},
 \end{equation}
-o que corrobora que o erro de truncamento da fórmula de diferença finitas progressiva\footnote{Também chamada de fórmula de diferenças finitas progressiva de dois pontos.}:
+o que mostra que o erro de truncamento da \emph{diferença finita progressiva}\footnote{Também chamada de diferença finita progressiva de dois pontos ou diferença pra frente.}
 \begin{equation*}
   D_{+,h}f(x_0) := \frac{f(x_0+h)-f(x_0)}{h}
 \end{equation*}
 é de ordem $h$.
 
-\subsubsection{Fórmula de diferenças finitas regressiva de ordem 1}\index{diferenças finitas!regressiva}
-
-A fórmula de diferenças finitas regressiva também pode ser obtida fazendo, agora, a seguinte expansão em série de Taylor:
+\subsubsection{Diferença finita regressiva de ordem 1}\index{diferenças finitas!regressiva}
+Outra aproximação para a derivada primeira pode ser obtida da série de Taylor de $f$ em torno de $(x_0-h)$ dada por
 \begin{equation*}
   f(x_0-h) = f(x_0) - hf'(x_0) + h^2\frac{f''(\xi)}{2},\quad h>0, \xi\in(x_0, x_0+h).
 \end{equation*}
-Então, isolando $f'(x_0)$, obtemos:
+Isolando $f'(x_0)$, obtemos
 \begin{equation*}
-  f'(x_0) = \underbrace{\frac{f(x_0) - f(x_0-h)}{h}}_{D_{-,h}} + \underbrace{h\frac{f''(\xi)}{2}}_{O(h)}.
+  f'(x_0) = \underbrace{\frac{f(x_0) - f(x_0-h)}{h}}_{D_{-,h}} + \underbrace{h\frac{f''(\xi)}{2}}_{\mathcal{O}(h)}.
 \end{equation*}
-Desta equação, temos que a fórmula:
+que fornece a \emph{diferença finita regressiva}\footnote{Também chamada de diferença regressiva de dois pontos ou diferença pra trás.}
 \begin{equation*}
   D_{-,h}f(x_0) := \frac{f(x_0)-f(x_0-h)}{h},
 \end{equation*}
-a qual é chamada de fórmula de diferenças finitas regressiva\footnote{Também chamada de fórmula de diferenças finitas regressiva de dois pontos.} tem erro de truncamento da ordem $h$.
+que possui erro de truncamento de ordem $h$.
 
-\subsubsection{Fórmula de diferenças finitas central de ordem 2}\index{diferenças finitas!central}
-
-A fórmula de diferenças finitas central\footnote{Também chamada de fórmula de diferenças finitas central de dois pontos.} pode-se obter de duas expansões em série de Taylor: uma progressiva e outra regressiva. Seguem as expansões:
-\begin{equation*}
-  \begin{split}
+\subsubsection{Diferença finita central de ordem 2}\index{diferenças finitas!central}
+Para obter uma aproximação para a derivada primeira com um erro menor, podemos utilizar as séries de Taylor:
+\begin{eqnarray*}
     f(x_0+h) &= f(x_0) + hf'(x_0) + h^2f''(x_0) + h^3\frac{f'''(\xi_{+})}{3!},\\
     f(x_0-h) &= f(x_0) - hf'(x_0) + h^2f''(x_0) + h^3\frac{f'''(\xi_{-})}{3!}
-  \end{split}
-\end{equation*}
-Fazendo a primeira equação menos a segunda, obtemos:
+\end{eqnarray*}
+Fazendo a primeira equação menos a segunda, obtemos
 \begin{equation*}
   f(x_0+h)-f(x_0-h) = 2hf'(x_0) + h^{3}\left(\frac{f'''(\xi_{+}) - f'''(\xi_{-})}{3!}\right).
 \end{equation*}
-Então, isolando $f'(x_0)$ obtemos:
+Dividindo por $2h$ e isolando $f'(x_0)$ obtemos
 \begin{equation*}
-  f'(x_0) = \underbrace{\frac{f(x_0+h) - f(x_0-h)}{2h}}_{D_{0,h}} - \underbrace{h^2\left(\frac{f'''(\xi_+) - f'''(\xi_-)}{3!}\right)}_{O(h^2)}.
+  f'(x_0) = \underbrace{\frac{f(x_0+h) - f(x_0-h)}{2h}}_{D_{0,h}} - \underbrace{h^2\left(\frac{f'''(\xi_+) - f'''(\xi_-)}{2\cdot 3!}\right)}_{\mathcal{O}(h^2)}.
 \end{equation*}
-Desta equação, temos que a fórmula:
+Assim, a \emph{diferença finita central}\footnote{Também chamada de diferença finita central de três pontos. Note que o ponto $f(x_0)$ possui coeficiente $0$, por isso $3$ pontos.}
 \begin{equation*}
   D_{0,h}f(x_0) := \frac{f(x_0+h)-f(x_0-h)}{2h},
 \end{equation*}
-a qual é chamada de fórmula de diferenças finitas central\footnote{Também chamada de fórmula de diferenças finitas central de três pontos.} e tem erro de truncamento da ordem $2$.
+é uma aproximação para $f'(x_0)$ com erro de truncamento de ordem $h^2$, ou simplesmente ordem $2$.
 
 \begin{ex}\label{ex:derivacao2}
-Calcule a derivada numérica da função $f(x)=e^{\frac{1}{2}x}$ no ponto $x=2$ usando diferenças finitas progressivas, diferenças regressivas e diferenças centrais com $h=10^{-1}$, $h=10^{-2}$ e $h=10^{-4}$. Também, compute o valor do erro absoluto da aproximação obtida em cada caso.
+Calcule a derivada numérica da função $f(x)=e^{\frac{1}{2}x}$ no ponto $x=2$ usando a diferença progressiva, diferença regressiva e diferença central com $h=10^{-1}$, $h=10^{-2}$ e $h=10^{-4}$. Também, calcule o erro absoluto da aproximação obtida em cada caso.
 \end{ex}
 \begin{sol}
-  Usando diferenças finitas progressiva, devemos computar:
+  Usando a diferença progressiva, devemos calcular
   \begin{equation*}
     D_{+,h} = \frac{f(x+h) - f(x)}{h} = \frac{e^{\frac{1}{2}(x+h)} - e^{\frac{1}{2}x}}{h}.
   \end{equation*}
-  Com a fórmula de diferenças finitas regressiva, computamos:
+  Com a diferença regressiva, calculamos
   \begin{equation*}
     D_{-,h} = \frac{f(x) - f(x-h)}{h} = \frac{e^{\frac{1}{2}x} - e^{\frac{1}{2}(x-h)}}{h}.
   \end{equation*}
-  Então, usando diferenças finitas central temos:
+  Por fim, usando a diferença central temos
   \begin{equation*}
     D_{0,h} = \frac{f(x+h) - f(x-h)}{2h} = \frac{e^{\frac{1}{2}(h+h)} - e^{\frac{1}{2}(x-h)}}{2h}.
   \end{equation*}
 
-  As aproximações e os erros absolutos computados em cada caso estão apresentados na seguinte tabela:
+  As aproximações e os erros absolutos calculados em cada caso estão apresentados na seguinte tabela:
   \begin{center}
     \begin{tabular}{r|cc|cc|cc}
       $h$  & $D_{+,h}f(2)$ & Erro & $D_{-,h}$ & Erro & $D_{0,h}$ & Erro \\\hline
@@ -173,38 +172,38 @@ Calcule a derivada numérica da função $f(x)=e^{\frac{1}{2}x}$ no ponto $x=2$ 
 \begin{figure}
   \centering
   \includegraphics{./cap_derivacao/pics/ex_derivacao2/ex_derivacao2}
-  \caption{Erro absoluto das derivadas numéricas no Exemplo~\ref{ex:derivacao2}.}
+  \caption{Erro absoluto das derivadas numéricas no exemplo~\ref{ex:derivacao2}.}
   \label{fig:ex_derivacao2}
 \end{figure}
 
 
 \begin{obs}
-  O experimento numérico realizado no Exemplo~\ref{ex:derivacao2}, nos mostra que a erro absoluto na derivação numérica não é da ordem do erro de truncamento. Entretanto, este erro tende a variar com $h$ na mesma ordem do erro de truncamento. A Figura~\ref{ex:derivacao2} apresenta o erro absoluto das derivadas numéricas computadas para o Exemplo~\ref{ex:derivacao2}. Note que, devido ao efeito de cancelamento catastrófico, o erro absoluto deixa de variar na ordem do erro de truncamento para valores muito pequenos de $h$.
+  O experimento numérico realizado no exemplo~\ref{ex:derivacao2}, nos mostra que o erro absoluto na derivação numérica não é da ordem do erro de truncamento. Entretanto, este erro tende a variar com $h$ na mesma ordem do erro de truncamento. A figura~\ref{ex:derivacao2} apresenta o erro absoluto das derivadas numéricas computadas para o exemplo~\ref{ex:derivacao2}. Note que, devido ao efeito de cancelamento catastrófico, o erro absoluto deixa de variar na ordem do erro de truncamento para valores muito pequenos de $h$.
 \end{obs}
 
 % \subsection{Erros de truncamento}\index{erros!truncamento}
 % Seja $D_{+,h}f(x_0)$ a aproximação da derivada de $f$ em $x_0$ por diferenças progressivas, $D_{-,h}f(x_0)$ a aproximação por diferenças regressivas e $D_{0,h}f(x_0)$ a aproximação por diferenças centrais, então
 % \begin{eqnarray*}
 % D_{+,h}f(x_0)-f'(x_0)&=&\frac{f(x_0+h)-f(x_0)}{h}-f'(x_0)\\
-% &=&\frac{f(x_0)+hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)-f(x_0)}{h}-f'(x_0)\\
-% &=&\frac{h}{2}f''(x_0)+O(h^2)=O(h).\\
+% &=&\frac{f(x_0)+hf'(x_0)+\frac{h^2}{2}f''(x_0)+\mathcal{O}(h^3)-f(x_0)}{h}-f'(x_0)\\
+% &=&\frac{h}{2}f''(x_0)+\mathcal{O}(h^2)=\mathcal{O}(h).\\
 % \end{eqnarray*}
 % Analogamente:
 % \begin{eqnarray*}
 % D_{-,h}f(x_0)-f'(x_0)&=&\frac{f(x_0)-f(x_0-h)}{h}-f'(x_0)\\
-% &=&\frac{f(x_0)-\left(f(x_0)-hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)\right)}{h}-f'(x_0)\\
-% &=&-\frac{h}{2}f''(x_0)+O(h^2)=O(h).\\
+% &=&\frac{f(x_0)-\left(f(x_0)-hf'(x_0)+\frac{h^2}{2}f''(x_0)+\mathcal{O}(h^3)\right)}{h}-f'(x_0)\\
+% &=&-\frac{h}{2}f''(x_0)+\mathcal{O}(h^2)=\mathcal{O}(h).\\
 % \end{eqnarray*}
 % Também:
 % \begin{eqnarray*}
 % D_{0,h}f(x_0)-f'(x_0)&=& \frac{f(x_0+h)-f(x_0-h)}{2h}-f'(x_0)\\
-% &=& \frac{f(x_0)+hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)}{2h} \\
-% &-& \frac{f(x_0)-hf'(x_0)+\frac{h^2}{2}f''(x_0)+O(h^3)}{2h}-f'(x_0)\\
-% &=& O(h^2).
+% &=& \frac{f(x_0)+hf'(x_0)+\frac{h^2}{2}f''(x_0)+\mathcal{O}(h^3)}{2h} \\
+% &-& \frac{f(x_0)-hf'(x_0)+\frac{h^2}{2}f''(x_0)+\mathcal{O}(h^3)}{2h}-f'(x_0)\\
+% &=& \mathcal{O}(h^2).
 % \end{eqnarray*}
 
 \begin{ex}
-Estime o erro absoluto no cálculo da derivada de $f(x)=e^{-x}$ para $x>0$ pela fórmula de diferença progressiva.
+Estime o erro absoluto no cálculo da derivada de $f(x)=e^{-x}$ para $x>0$ utilizando a diferença progressiva.
 \end{ex}
 \begin{sol}
 Da equação~\ref{eq:dp_trunc}, temos:
@@ -273,7 +272,7 @@ Por fim, obtemos a seguinte estimativa para o erro absoluto na computação da d
 Esta estimativa mostra que se o valor de $h$ for muito pequeno o erro ao calcular a aproximação numérica cresce. Isso nos motiva a procurar o valor ótimo de $h$ que minimiza o erro.
 
 \begin{ex}
-No Exemplo~\ref{ex:derivacao2}, computamos a derivada numérica da função $f(x)=e^{\frac{1}{2}x}$ no ponto $x=2$ usando as fórmulas de diferenças finitas progressiva, regressiva e central. A Figura~\ref{fig:ex_derivacao2}, mostra que, para valores $h$ muito pequenos, os erros de arredondamento passam a dominar os cálculos e, por consequência, o erro da derivada numérica passa a aumentar. Pela figura, podemos inferir que a escolha ótima de $h$ para as fórmulas progressiva e regressiva é $h\approx 10^{-7}$. Agora, para a fórmula central, $h\approx 10^{-5}$ parece ser a melhor escolha.
+No exemplo~\ref{ex:derivacao2}, computamos a derivada numérica da função $f(x)=e^{\frac{1}{2}x}$ no ponto $x=2$ usando as fórmulas de diferenças finitas progressivas, regressivas e central. A figura~\ref{fig:ex_derivacao2}, mostra que, para valores $h$ muito pequenos, os erros de arredondamento passam a dominar os cálculos e, por consequência, o erro da derivada numérica passa a aumentar. Pela figura, podemos inferir que a escolha ótima de $h$ para as fórmulas progressiva e regressivas é $h\approx 10^{-7}$. Agora, para a fórmula central, $h\approx 10^{-5}$ parece ser a melhor escolha.
 \end{ex}
 
 \begin{obs}
@@ -358,25 +357,25 @@ Use $h=10^{-2}$ e $h=10^{-3}$ e compare com os valores obtidos através da avali
 
 \begin{exer}\label{ex1} Expanda a função suave $f(x)$ em um polinômio de Taylor adequado para obter as seguintes aproximações:
 \begin{itemize}
-\item[a)] $f'(x)=\frac{f(x+h)-f(x)}{h}+O(h)$
-\item[b)] $f'(x)=\frac{f(x)-f(x-h)}{h}+O(h)$
-\item[c)] $f'(x)=\frac{f(x+h)-f(x-h)}{2h}+O(h^2)$
+\item[a)] $f'(x)=\frac{f(x+h)-f(x)}{h}+\mathcal{O}(h)$
+\item[b)] $f'(x)=\frac{f(x)-f(x-h)}{h}+\mathcal{O}(h)$
+\item[c)] $f'(x)=\frac{f(x+h)-f(x-h)}{2h}+\mathcal{O}(h^2)$
 \end{itemize}
 \end{exer}
 
 
 \begin{exer} Use a expansão da função $f(x)$ em torno de $x=0$ em polinômios de Taylor para encontrar os coeficientes $a_1$, $a_2$ e $a_3$ tais que
 \begin{itemize}
-\item[a)] $f'(0)=a_1f(0)+a_2f(h)+a_3f(2h) + O(h^2)$
-\item[b)] $f'(0)=a_1f(0)+a_2f(-h)+a_3f(-2h) + O(h^2)$
-\item[c)] $f'(0)=a_1f(-h_1)+a_2f(0)+a_3f(h_2) + O(h^2),~~|h_1|, |h_2|=O(h)$
+\item[a)] $f'(0)=a_1f(0)+a_2f(h)+a_3f(2h) + \mathcal{O}(h^2)$
+\item[b)] $f'(0)=a_1f(0)+a_2f(-h)+a_3f(-2h) + \mathcal{O}(h^2)$
+\item[c)] $f'(0)=a_1f(-h_1)+a_2f(0)+a_3f(h_2) + \mathcal{O}(h^2),~~|h_1|, |h_2|=\mathcal{O}(h)$
 \end{itemize}
 \end{exer}
 \begin{resp}
 %  
 \begin{itemize}
-\item[a)] $f'(0)=\frac{-3f(0)+4f(h)-f(2h)}{2h} + O(h^2)$
-\item[b)] $f'(0)=\frac{3f(0)-4f(-h)+f(-2h)}{2h} + O(h^2)$
+\item[a)] $f'(0)=\frac{-3f(0)+4f(h)-f(2h)}{2h} + \mathcal{O}(h^2)$
+\item[b)] $f'(0)=\frac{3f(0)-4f(-h)+f(-2h)}{2h} + \mathcal{O}(h^2)$
 \item[c)] $f'(0)=\frac{1}{h_1+h_2}l\left[-\frac{h_2}{h_1}f(-h_1) +\left(\frac{h_2}{h_1}-\frac{h_1}{h_2}\right)f(0)+ \frac{h_1}{h_2}f(h_2)\right]$
 \end{itemize}    
 %  
@@ -447,6 +446,41 @@ D_{+,h}f(1,5)&- 0,3161976&- 0,3161971&- 0,3162332&- 0,3158585&- 0,3178013&- 0,37
 Observe que o valor exato é $-0,3161977$ e o $h$ ótimo é algo entre $10^{-8}$ e $10^{-9}$.      
   
 \end{resp}
+
+\section{Diferença finita para derivada segunda}\index{fórmula de diferenças finitas!central}
+
+Para aproximar a derivada segunda, considere as expansões em série de Taylor
+$$
+f(x_0+h)=f(x_0)+hf'(x_0)+\frac{h^2}{2}f''(x_0)+\frac{h^3}{6}f'''(x_0)+O(h^4)
+$$
+$$
+f(x_0-h)=f(x_0)-hf'(x_0)+\frac{h^2}{2}f''(x_0)-\frac{h^3}{6}f'''(x_0)+O(h^4).
+$$
+Somando as duas expressões, temos:
+$$
+f(x_0+h)+f(x_0-h)=2f(x_0)+h^2f''(x_0)+O(h^4)
+$$
+ou seja, uma aproximação de segunda ordem para a derivada segunda em $x_0$ é
+$$
+f''(x_0)=\frac{f(x_0+h)-2f(x_0)+f(x_0-h)}{h^2}+\mathcal{O}(h^2):=D^2_{0,h}f(x_0)+\mathcal{O}(h^2),
+$$
+onde
+$$
+D^2_{0,h}f(x_0)=\frac{f(x_0+h)-2f(x_0)+f(x_0-h)}{h^2}.
+$$
+\begin{ex}
+Calcule a derivada segunda numérica de $f(x)=e^{-x^2}$ em $x=1,5$ para $h=0,1$, $h=0,01$ e $h=0,001$.
+\end{ex}
+\begin{sol}
+A tabela mostra os resultados:
+\begin{center}
+  \begin{tabular}{|c|c|c|c|}\hline
+    $h$ & $h=0,1$ & $h=0,01$ & $h=0,001$\\\hline
+    $D^2_{0,h}f(1,5)$ & $0,7364712$ & $0,7377814$ & $0,7377944$\\\hline
+  \end{tabular}  
+\end{center}
+Observe que $f''(x)=(4x^2-2)e^{-x^2}$ e $f''(1,5)=0,7377946$.  
+\end{sol}
 
 
 \section{Diferenças finitas de ordem mais alta}\index{diferenças finitas!ordem mais alta}
@@ -530,15 +564,15 @@ No \verb+Scilab+, podemos computar estas derivadas numéricas com $h=0.1$ da seg
 --> deff('y=f(x)','y=exp(-x^2)')
 --> x=1.5
 --> h=0.1
---> //progressiva de ordem 1
+--> //progressivas de ordem 1
 --> dp1 = (f(x+h)-f(x))/h
---> //regressiva de ordem 1
+--> //regressivas de ordem 1
 --> dr1 = (f(x)-f(x-h))/h
 --> //central de ordem 2
 --> dc2 = (f(x+h)-f(x-h))/(2*h)
---> //progressiva de ordem 2
+--> //progressivas de ordem 2
 --> dp2 = (-3*f(x)+4*f(x+h)-f(x+2*h))/(2*h)
---> //regressiva de ordem 2
+--> //regressivas de ordem 2
 --> dr2 = (f(x-2*h)-4*f(x-h)+3*f(x))/(2*h)
 --> //central de ordem 4
 --> dc4 = (f(x-2*h)-8*f(x-h)+8*f(x+h)-f(x+2*h))/(12*h)
@@ -572,20 +606,20 @@ Em \verb+Python+, podemos computar estas derivadas numéricas com $h=0.1$ da seg
 e, análogo, para $h=0.01$ e $h=0.001$.
 \fi
 %%%%%%%%%%%%%%%%%%%%
-O valor analítico da derivada é $f'(1,5) \approx -0,3161976736856$. A Tabela~\ref{tab:ex_varias_formulas} mostra os resultados computados com as derivadas numéricas.
+O valor analítico da derivada é $f'(1,5) \approx -0,3161976736856$. A tabela~\ref{tab:ex_varias_formulas} mostra os resultados computados com as derivadas numéricas.
 
 \begin{table}
   \centering
   \begin{tabular}{l|ccc}
     Diferenças Finitas & $h=0,1$ & $0,01$ & $0,001$\\\hline
-    Progressiva $O(h)$ & $-0,2809448$ & $-0,3125246$ & $-0,3158289$\\
-    Regressiva $O(h)$ & $-0,3545920$ & $-0,3199024$ & $-0,3165667$\\
-    Progressiva $O(h^2)$ & $-0,3127746$ & $-0,3161657$ & $-0,3161974$\\
-    Central $O(h^2)$ & $-0,3177684$ & $-0,3162135$ & $-0,3161978$ \\
-    Regressiva $O(h^2)$ & $-0,3135824$ & $-0,3161665$ & $-0,3161974$\\
+    Progressiva $\mathcal{O}(h)$ & $-0,2809448$ & $-0,3125246$ & $-0,3158289$\\
+    Regressiva $\mathcal{O}(h)$ & $-0,3545920$ & $-0,3199024$ & $-0,3165667$\\
+    Progressiva $\mathcal{O}(h^2)$ & $-0,3127746$ & $-0,3161657$ & $-0,3161974$\\
+    Central $\mathcal{O}(h^2)$ & $-0,3177684$ & $-0,3162135$ & $-0,3161978$ \\
+    Regressiva $\mathcal{O}(h^2)$ & $-0,3135824$ & $-0,3161665$ & $-0,3161974$\\
     Central $O(h^4)$ & $-0,3162384$ & $-0,3161977$ & $-0,31619767$ \\\hline
   \end{tabular}
-  \caption{Derivadas numéricas de $f(x) = e^{-x^ 2}$ em $x=1,5$. Veja o Exemplo~\ref{ex:varias_formulas}.}
+  \caption{Derivadas numéricas de $f(x) = e^{-x^ 2}$ em $x=1,5$. Veja o exemplo~\ref{ex:varias_formulas}.}
   \label{tab:ex_varias_formulas}
 \end{table}
 \end{sol}
@@ -594,54 +628,136 @@ O valor analítico da derivada é $f'(1,5) \approx -0,3161976736856$. A Tabela~\
 
 \emconstrucao
 
-\section{Diferenças finitas para derivadas de ordem mais alta}\index{fórmula de diferenças finitas!central}
 
-Para aproximar a derivada segunda, considere as expansões em série de Taylor
-$$
-f(x_0+h)=f(x_0)+hf'(x_0)+\frac{h^2}{2}f''(x_0)+\frac{h^3}{6}f'''(x_0)+O(h^4)
-$$
-$$
-f(x_0-h)=f(x_0)-hf'(x_0)+\frac{h^2}{2}f''(x_0)-\frac{h^3}{6}f'''(x_0)+O(h^4).
-$$
-Somando as duas expressões, temos:
-$$
-f(x_0+h)+f(x_0-h)=2f(x_0)+h^2f''(x_0)+O(h^4)
-$$
-ou seja, uma aproximação de segunda ordem para a derivada segunda em $x_0$ é
-$$
-f''(x_0)=\frac{f(x_0+h)-2f(x_0)+f(x_0-h)}{h^2}+O(h^2):=D^2_{0,h}f(x_0)+O(h^2),
-$$
-onde
-$$
-D^2_{0,h}f(x_0)=\frac{f(x_0+h)-2f(x_0)+f(x_0-h)}{h^2}.
-$$
+\section{Fórmulas de diferenças finitas}
+
+Veremos nessa seção uma outra maneira de obter fórmulas de diferenças finitas para derivadas de qualquer ordem de tal forma que elas possuam alta ordem de precisão.
+
+Dados $n+1$ pontos $[x_1,x_2,\ldots ,x_n]$, queremos obter uma aproximação para a derivada de $f(x)$ calculada em $x^*$ do tipo
+\begin{eqnarray}\label{regradif}
+  f'(x^*)\approx c_1f(x_1)+c_2f(x_2)+\ldots +c_nf(x_n)
+\end{eqnarray}
+que seja exata para polinômios até ordem $n-1$.
+
+
+Seja $q(x)=c_1\phi_1(x)+c_2\phi_2(x)+\ldots +c_n \phi_n(x)$ o polinômio de ordem $n$ que aproxima $f(x)$. Fixe a base $\phi_k(x)=x^k$. Como a regra \eqref{regradif} deve ser exata para qualquer $q(x)$ até ordem $n-1$, então também deve ser exata para qualquer função da base. Substituindo $f(x)$ por $\phi_1(x)=1$ em \eqref{regradif} obtemos
+\begin{eqnarray}
+\phi_1'(x)|_{x^*} &=& (1)'|_{x^*} = \\
+            0     &=&  c_1\phi_1(x_1)+c_2\phi_1(x_2)+\ldots +c_n\phi_1(x_n) \\
+            0     &=& c_1+c_2+\ldots +c_n
+\end{eqnarray}
+Da mesma forma para $k=1,\ldots ,n-1$, obtemos
+\begin{eqnarray}
+      (x)'_{x^*}  = 1            &=&  c_1x_1      +c_2x_2  +\ldots +c_nx_n \\
+      (x^2)'_{x^*}= 2x^*         &=&  c_1x_1^2    +c_2x_2^2+\ldots +c_nx_n^2 \\
+      (x^3)'_{x^*}= 3(x^*)^2     &=&  c_1x_1^3    +c_2x_2^3+\ldots +c_nx_n^3 \\
+                    \vdots       &=&  \vdots        \\
+      (x^{n-1})'_{x^*}= (n-1)(x^*)^{n-2} &=&  c_1x_1^{n-1}+c_1x_1^{n-1}+\ldots +c_nx_n^{n-1}
+\end{eqnarray}
+que pode ser escrito na forma matricial
+\begin{eqnarray}
+\left(
+  \begin{array}{cccc}
+    1         & 1         & \ldots   & 1 \\
+    x_1       & x_2       & \ldots   & x_n \\
+    x_1^2     & x_2^2     & \ldots   & x_n^2 \\
+    \vdots    & \vdots    &          & \vdots   \\
+    x_1^{n-1} & x_2^{n-1} & \ldots   & x_n^{n-1}
+  \end{array}
+\right)
+\left(\begin{array}{c}  c_1 \\ c_2\\ c_3  \\ \vdots   \\ c_n     \end{array}\right)
+=
+\left(\begin{array}{c}  0  \\ 1 \\ 2x^* \\ \vdots  \\ (n-1)(x^*)^{n-2}  \end{array}\right)
+\end{eqnarray}
+Resolvendo o sistema obtemos os coeficientes $c_k$ para a regra de diferenciação.
+
+
 \begin{ex}
-Calcule a derivada segunda numérica de $f(x)=e^{-x^2}$ em $x=1,5$ para $h=0,1$, $h=0,01$ e $h=0,001$.
+Sejam $[x_1,x_2,x_3]=[-h,0,h]$ e $x^*=x_2=0$, obtenha uma regra de diferenciação para aproximar $f'(x^*)$.
 \end{ex}
 \begin{sol}
-A tabela mostra os resultados:
-\begin{center}
-  \begin{tabular}{|c|c|c|c|}\hline
-    $h$ & $h=0,1$ & $h=0,01$ & $h=0,001$\\\hline
-    $D^2_{0,h}f(1,5)$ & $0,7364712$ & $0,7377814$ & $0,7377944$\\\hline
-  \end{tabular}  
-\end{center}
-Observe que $f''(x)=(4x^2-2)e^{-x^2}$ e $f''(1,5)=0,7377946$.  
+A regra terá a forma
+\begin{eqnarray}
+  f'(x^*) & \approx c_1f(x_1)+c_2f(x_2)+c_3f(x_3)\\
+          & \approx c_1f_1   +c_2f_2   +c_3f_3
+\end{eqnarray}
+Considere a base polinomial $[\phi _1(x),\phi _2(x),\phi _3(x)]=[1,x,x^2]$ e substitua $f(x)$ por $\phi _k(x)$ obtendo
+\begin{eqnarray}
+    (1)'_{x=0} = 0  &=  c_1(1)   +c_2(1)  + c_3 (1) \\
+    (x)'_{x=0} = 1  &=  c_1(-h)  +c_2(0)  + c_3 (h)\\
+  (x^2)'_{x=0} = 0  &=  c_1(-h)^2+c_2(0)^2+ c_3 (h)^2
+\end{eqnarray}
+que pode ser escrito na forma matricial
+\begin{eqnarray}
+\left(
+  \begin{array}{ccc}
+    1   &  1    & 1  \\
+    -h  &  0    & h  \\
+    h^2 &  0    & h^2
+  \end{array}
+\right)
+\left(\begin{array}{c}  c_1 \\ c_2\\ c_3   \end{array}\right)
+=
+\left(\begin{array}{c}  0  \\ 1 \\ 0  \end{array}\right)
+\end{eqnarray}
+Resolvendo o sistema obtemos $[c_1,c_2,c_3]=[-\frac{1}{2h},0,\frac{1}{2h}]$ fornecendo a regra
+\begin{eqnarray}
+  f'|_{x=x_1}& \approx &  -\frac{1}{2h}f_1+\frac{1}{2h}f_3\\
+             & \approx &\frac{f_3-f_1}{2h}
+\end{eqnarray}
 \end{sol}
+
+\begin{exer}
+Seja $[x_0,x_1,x_2]=[0,h,2h]$ e $x^*=x_0=0$, obtenha uma regra unilateral de diferenciação para aproximar $f'(x_0)$.
+\end{exer}
+
+\begin{exer}
+Seja $[x_0,x_1,x_2]=[-h,0,h]$ e $x^*=x_1=0$, obtenha uma regra de diferenciação para aproximar $f''(x^*)$.
+\end{exer}
+
+\begin{exer}
+Seja $[x_0,x_1,\ldots ,x_4]=[-2h,-h,0,h,2h]$ e $x^*=0$, obtenha uma regra de diferenciação para aproximar $f'(x^*)$.
+\end{exer}
+
+\begin{exer}
+Seja $[x_0,x_1,\ldots ,x_4]=[-2h,-h,0,h,2h]$ e $x^*=0$, obtenha uma regra de diferenciação para aproximar $f''(x^*)$.
+\end{exer}
+
+\begin{exer}
+Seja $[x_0,x_1,\ldots ,x_4]=[0,h,3h,6h,10h]$ e $x^*=0$, obtenha uma regra de diferenciação para aproximar $f'(x^*)$.
+\end{exer}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \subsection*{Exercícios}
 
 \begin{exer} Use a expansão da função $f(x)$ em torno de $x=0$ em polinômios de Taylor para encontrar os coeficientes $a_1$, $a_2$ e $a_3$ tais que
 \begin{itemize}
-\item[a)] $f''(0)=a_1f(0)+a_2f(h)+a_3f(2h) + O(h)$
-\item[b)] $f''(0)=a_1f(0)+a_2f(-h)+a_3f(-2h) + O(h)$
+\item[a)] $f''(0)=a_1f(0)+a_2f(h)+a_3f(2h) + \mathcal{O}(h)$
+\item[b)] $f''(0)=a_1f(0)+a_2f(-h)+a_3f(-2h) + \mathcal{O}(h)$
 \end{itemize}
 \end{exer}
 \begin{resp}
   
 \begin{itemize}
-\item[a)] $f''(0)=\frac{f(0)-2f(h)+f(2h)}{h^2}+O(h)$
-\item[b)] $f''(0)=\frac{f(0)-2f(-h)+f(-2h)}{h^2}+O(h)$
+\item[a)] $f''(0)=\frac{f(0)-2f(h)+f(2h)}{h^2}+\mathcal{O}(h)$
+\item[b)] $f''(0)=\frac{f(0)-2f(-h)+f(-2h)}{h^2}+\mathcal{O}(h)$
 \end{itemize}    
   
 \end{resp}
@@ -658,7 +774,7 @@ Q'(x)=0,45 + 1,5x
 $$
 e
 \begin{eqnarray*}
-&&y'(x_1)\approx Q'(x_1)=0,45, \qquad\qquad y'(x_2)\approx Q'(x_2)=1,95, \\&& y'(x_3)\approx Q'(x_3)=3,45 \qquad ~ \hbox{e} ~ \qquad y'(x_4)\approx Q'(x_4)=4,95
+&&y'(x_1)\approx Q'(x_1)=0,45, \qquad\qquad y'(x_2)\approx Q'(x_2)=1,95, \\&& y'(x_3)\approx Q'(x_3)=3,45 \qquad ~ \text{e} ~ \qquad y'(x_4)\approx Q'(x_4)=4,95
 \end{eqnarray*}
 
 Agora olhe o gráfico da seguinte tabela de pontos.
