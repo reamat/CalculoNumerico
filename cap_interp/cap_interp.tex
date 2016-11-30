@@ -40,7 +40,7 @@ Um problema de interpolação cuja a família de funções constitui-se de polin
 
 \section{Interpolação polinomial}\index{interpolação!polinomial}
 
-Interpolação polinomial é um caso particular do problema geral de interpolação, no qual a família de funções é constituída de polinômios. A escolha de polinômios como funções interpolantes é natural por diversos  motivos: se $p$ é um polinômio de grau $n$, o valor $p(x)$ para um $x$ real é calculado através de $n+1$ operações de multiplicação e $n+1$ operações de soma\footnote{Essa forma de calcular o valor de $p(x)$ é denominada algoritmo de Horner. Dado um polinômio $p$ de grau $n$ da forma \begin{equation*}p(x)=\sum_{k=0}^{n}a_k x^k,\end{equation*} é possível reescrevê-lo como a sequência de operações dada por \begin{equation*}a_0 + x\left(a_1 + x\left(a_2 + x\left(\ldots + x\left(a_{n-1} + x a_n\right)\ldots\right)\right)\right).\end{equation*} O que requer $n+1$ operações de multiplicação e $n+1$ operações de soma.}; derivadas e primitivas de polinômios são também polinômios cuja relação algébrica com o original é simples; e finalmente o teorema da Aproximação de Weierstrass, segundo o qual, qualquer função contínua definida em um intervalo fechado pode ser aproximada uniformemente por um polinômio tão bem quanto se queira.  
+Interpolação polinomial é um caso particular do problema geral de interpolação, no qual a família de funções é constituída de polinômios. A escolha de polinômios como funções interpolantes é natural por diversos  motivos: se $p$ é um polinômio de grau $n$, o valor $p(x)$ para um $x$ real é calculado através de $n+1$ operações de multiplicação e $n+1$ operações de soma\footnote{Essa forma de calcular o valor de $p(x)$ é denominada algoritmo de Horner\footnote{William George Horner, 1786 - 1837, matemático britânico.}. Dado um polinômio $p$ de grau $n$ da forma \begin{equation*}p(x)=\sum_{k=0}^{n}a_k x^k,\end{equation*} é possível reescrevê-lo como a sequência de operações dada por \begin{equation*}a_0 + x\left(a_1 + x\left(a_2 + x\left(\ldots + x\left(a_{n-1} + x a_n\right)\ldots\right)\right)\right).\end{equation*} O que requer $n+1$ operações de multiplicação e $n+1$ operações de soma.}; derivadas e primitivas de polinômios são também polinômios cuja relação algébrica com o original é simples; e finalmente o teorema da Aproximação de Weierstrass, segundo o qual, qualquer função contínua definida em um intervalo fechado pode ser aproximada uniformemente por um polinômio tão bem quanto se queira.  
 
 \begin{teo}[Weierstrass]Seja $f$ uma função contínua definida no intervalo fechado $[a,b]$ e seja $\delta$ um número positivo. Então existe um polinômio $p$, tal que para todo $x\in[a,b]$,
 	\begin{equation*}
@@ -105,6 +105,21 @@ No \verb+Scilab+, podemos encontrar o polinômio interpolador e esboçar seu gr�
 \fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos encontrar o polinômio interpolador e esboçar seu gráfico com os seguintes comandos:
+\begin{verbatim}
+xi = [0 1 2 3]';
+yi = [1 6 5 -8]'; 
+A = [xi.^3 xi.^2 xi.^1 xi.^0];
+a = A\yi; 
+xx = linspace(-0.5,3.25); 
+plot(xi,yi,'ro',xx,polyval(a,xx),'b-');xgrid
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
@@ -150,9 +165,9 @@ a_0\\a_1\\a_2\\ \vdots \\a_{n-1}
 y_1\\y_2\\y_3\\ \vdots \\y_n
 \end{bmatrix}
 $$
-A matriz envolvida é uma \emph{matriz de Vandermonde}\index{matriz de Vandermonde} de ordem $n$ cujo determinante é dado pelo produtório duplo
+A matriz envolvida é uma \emph{matriz de Vandermonde}\footnote{Alexandre-Théophile Vandermonde, 1735 - 1796, matemático francês.}\index{matriz de Vandermonde} de ordem $n$ cujo determinante é dado pelo produtório duplo
 $$\prod_{1\leq i<j\leq n}\left(x_j-x_i\right)$$
-É fácil ver que se as abscissas são diferentes dois a dois, então o determinante é não nulo. Disto decorre que a matriz envolvida é inversível e portanto o sistema possui uma solução que é única.
+É fácil ver que se as abscissas são diferentes dois a dois, então o determinante é não nulo. Disto decorre que a matriz envolvida é inversível e, portanto, o sistema possui uma solução que é única.
 \end{proof}
 
 % \begin{ex} Encontre o polinômio da forma $P(x)=a_0+a_1x+a_2x^2+a_3x^3$ que passa pelos pontos
@@ -339,52 +354,22 @@ $$L_k(x)=\prod_{\substack{j=1\\j\ne i}}^{n} \frac{(x-x_j)}{(x_k-x_j)}$$
 \begin{obs} O problema de interpolação quando escrito usando como base os polinômios de Lagrange produz um sistema linear diagonal.
 \end{obs}
 
-\begin{ex}Encontre o polinômio da forma $p(x)=a_1+a_2x+a_3x^2+a_4x^3$ que passa pelos pontos $(0, 0)$, $(1, 1)$, $(2, 4)$, $(3, 9)$.
+\begin{ex}
+  Encontre o polinômio da forma $p(x)=a_1+a_2x+a_3x^2+a_4x^3$ que passa pelos pontos $(0, 0)$, $(1, 1)$, $(2, 4)$, $(3, 9)$.
+\end{ex}
+\begin{sol}
 Escrevemos:
 \begin{eqnarray*}
-L_1(x)&=& \frac{(x-1)(x-2)(x-3)}{(0-1)(0-2)(0-3)}=-\frac{1}{6}x^3+x^2-\frac{11}{6}x+1\\
-L_2(x)&=& \frac{x(x-2)(x-3)}{1(1-2)(1-3)}=\frac{1}{2}x^3-\frac{5}{2}x^2+3x\\
-L_3(x)&=& \frac{x(x-1)(x-3)}{2(2-1)(2-3)}=-\frac{1}{2}x^3+2x^2-\frac{3}{2}x\\
-L_4(x)&=& \frac{x(x-1)(x-2)}{3(3-1)(3-2)}=\frac{1}{6}x^3-\frac{1}{2}x^2+\frac{1}{3}x
+	L_1(x)&=& \frac{(x-1)(x-2)(x-3)}{(0-1)(0-2)(0-3)}=-\frac{1}{6}x^3+x^2-\frac{11}{6}x+1\\
+	L_2(x)&=& \frac{x(x-2)(x-3)}{1(1-2)(1-3)}=\frac{1}{2}x^3-\frac{5}{2}x^2+3x\\
+	L_3(x)&=& \frac{x(x-1)(x-3)}{2(2-1)(2-3)}=-\frac{1}{2}x^3+2x^2-\frac{3}{2}x\\
+	L_4(x)&=& \frac{x(x-1)(x-2)}{3(3-1)(3-2)}=\frac{1}{6}x^3-\frac{1}{2}x^2+\frac{1}{3}x
 \end{eqnarray*}
 Assim, temos:
 \begin{equation*}
   P(x)=0\cdot L_1(x)+1\cdot L_2(x)+4\cdot L_3(x)+9\cdot L_4(x)=x^2
 \end{equation*}
 
-%%%%%%%%%%%%%%%%%%%%
-% python
-%%%%%%%%%%%%%%%%%%%%
-\ifispython
-Em \verb+Python+, podemos usar a função \href{https://docs.scipy.org/doc/numpy/reference/generated/numpy.poly.html}{numpy.poly}, por exemplo:
-\begin{verbatim}
->>> xi = np.array([0,1,2,3], dtype='double')
->>> yi = np.array([0,1,4,9], dtype='double')
->>> L1 = np.poly([xi[1],xi[2],xi[3]]);L1=L1/np.polyval(L1,xi[0]);L1
-array([-0.16666667,  1.        , -1.83333333,  1.        ])
->>> L2 = np.poly([xi[0],xi[2],xi[3]]);L2=L2/np.polyval(L2,xi[1]);L2
-array([ 0.5, -2.5,  3. ,  0. ])
->>> L3 = np.poly([xi[0],xi[1],xi[3]]);L3=L3/np.polyval(L3,xi[2]);L3
-array([-0.5,  2. , -1.5, -0. ])
->>> L4 = np.poly([xi[0],xi[1],xi[2]]);L4=L4/np.polyval(L4,xi[3]);L4
-array([ 0.16666667, -0.5       ,  0.33333333,  0.        ])
->>> a = yi[0]*L1 + yi[1]*L2 + yi[2]*L3 + yi[3]*L4;a
-array([ 0.,  1.,  0.,  0.])
-\end{verbatim}
-Para plotar os pontos e o polinômio interpolador, podemos usar:
-\begin{verbatim}
->>> xx = np.linspace(-0.25,3.25)
->>> plt.plot(xi,yi,'ro',xx,np.polyval(a,xx),'b-')
->>> plt.grid();plt.show()
-\end{verbatim}
-\fi
-%%%%%%%%%%%%%%%%%%%%
-\end{ex}
-
-\begin{ex}Encontre o polinômio da forma $p(x)=a_1+a_2x+a_3x^2+a_4x^3$ que passa pelos pontos $(0, 0)$, $(1, 1)$, $(2, 0)$, $(3, 1)$.
-\end{ex}
-\begin{sol}
-Como as abscissas são as mesmas do exemplo anterior, podemos utilizar os mesmos polinômios de Lagrange, assim, temos:
 \begin{equation*}
   p(x)=0\cdot L_1(x)+1\cdot L_2(x)+0\cdot L_3(x)+1\cdot L_4(x)=\frac{2}{3}x^3-3x^2+\frac{10}{3}x.
 \end{equation*}
@@ -410,16 +395,20 @@ $$
 \begin{ex}
 Considere a função $f(x)=\cos(x)$ e o polinômio $P(x)$ de grau 2 tal que $P(0)=\cos(0)=1$, $P(\frac{1}{2})=\cos(\frac{1}{2})$ e $P(1)=\cos(1)$. Use a fórmula de Lagrange para encontrar $P(x)$. Encontre o erro máximo que se assume ao aproximar o valor de $\cos(x)$ pelo de $P(x)$ no intervalo $[0,1]$. Trace os gráficos de $f(x)$ e $P(x)$ no intervalo $[0,1]$ no mesmo plano cartesiano e, depois, trace o gráfico da diferença $\cos(x)-P(x)$. Encontre o erro efetivo máximo $|\cos(x)-P(x)|$.
 \end{ex}
-
-\begin{eqnarray*}
-P(x)&=&1\frac{(x-\frac{1}{2})(x-1)}{(0-\frac{1}{2})(0-1)}+\cos\left(\frac{1}{2}\right)\frac{(x-0)(x-1)}{(\frac{1}{2}-0)(\frac{1}{2}-1)}+\cos(1)\frac{(x-0)(x-\frac{1}{2})}{(1-0)(1-\frac{1}{2})}\\
-&\approx&   1 - 0,0299720583066x - 0,4297256358252x^2
+\begin{sol}
+  Usando polinômios de Lagrange, obtemos
+  \begin{eqnarray*}
+    P(x) &=& 1\frac{(x-\frac{1}{2})(x-1)}{(0-\frac{1}{2})(0-1)}\\
+    &+& \cos\left(\frac{1}{2}\right)\frac{(x-0)(x-1)}{(\frac{1}{2}-0)(\frac{1}{2}-1)}\\
+    &+& \cos(1)\frac{(x-0)(x-\frac{1}{2})}{(1-0)(1-\frac{1}{2})}\\
+    &\approx&   1 - 0,0299720583066x - 0,4297256358252x^2
 \end{eqnarray*}
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
-%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%  
 \ifisscilab
+No \verb+Scilab+, podemos computar o polinômio interpolador da seguinte forma:  
 \begin{verbatim}
 L1=poly([.5 1],'x');L1=L1/horner(L1,0)
 L2=poly([0 1],'x');L2=L2/horner(L2,0.5)
@@ -447,6 +436,8 @@ $$
 $$
 
 Para encontrar o erro efetivo máximo, basta encontrar o máximo de $|P(x)-\cos(x)|$. O mínimo (negativo) de $P(x)-\cos(x)$ acontece em $x_1=4,29\cdot 10^{-3}$ e o máximo (positivo) acontece em $x_2=3,29\cdot 10^{-3}$. Portanto, o erro máximo efetivo é $4,29\cdot 10^{-3}$.
+\end{sol}
+
 
 \begin{ex}\label{exemp_simpson}
 Considere o problema de aproximar o valor da integral $\int_0^1 f(x)dx$ pelo valor da integral do polinômio $P(x)$ que coincide com $f(x)$ nos pontos $x_0=0$, $x_1=\frac{1}{2}$ e $x_2=1$. Use a fórmula de Lagrange para encontrar $P(x)$. Obtenha o valor de $\int_0^1f(x)dx$ e encontre uma expressão para o erro de truncamento.
@@ -543,10 +534,15 @@ Simplificando, obtemos:
 \end{ex}
 
 A figura \ref{fig:linear_segmentada} é um esboço da função $f(x)$ obtida. 
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 Ela foi gerada no \verb+Scilab+ usando os comandos:
 \verbatiminput{./cap_interp/codes/interpolacao_linear_segmentada/ex_linear_segmentada.sce}
 \fi
+%%%%%%%%%%%%%%%%%%%%
 
 \begin{figure}[htp]
   \begin{center}
@@ -642,38 +638,40 @@ c_1=0\quad\text{e}\quad 2c_{n-1}+6d_{n-1}h_{n-1}=0,
 \end{equation*}
 ou seja, 
 \begin{equation}
-\left\{\begin{array}{l}
-2y'_1+y'_2=3\dfrac{y_2-y_1}{h_1}\\
-\\
-y'_{n-1}+2y'_n=3\dfrac{y_n-y_{n-1}}{h_{n-1}}
-\end{array}\right.
+	\left\{\begin{array}{l}
+		2y'_1+y'_2=3\dfrac{y_2-y_1}{h_1}\\
+		\\
+		y'_{n-1}+2y'_n=3\dfrac{y_n-y_{n-1}}{h_{n-1}}
+	\end{array}\right.
 \end{equation}
-Essas duas equações em conjunto com as equações \eqref{eq:spline3-der} formam um sistema de $n$ equações $Ay'=z$, onde
+Essas duas equações em conjunto com as equações \eqref{eq:spline3-der} formam um sistema de $n$ equações algébricas lineares $Ay'=z$, onde
 \begin{equation}
-A=\left[\begin{array}{ccccccc}
-2 &1&0&0 &\cdots&0&0\\
-h_2&2(h_1+h_2)&h_1&0&\cdots&0&0\\
-0&h_3&2(h_2+h_3)&h_2&\cdots&0&0\\
-\vdots&\vdots&\vdots&\vdots&\ddots&\vdots&\vdots\\
-0&0&0&\cdots&h_{n-1} & 2(h_{n-1}+h_{n-2})&h_{n-2}\\
-0&0&0&\cdots &0&1&2
-\end{array}\right]  
+	\begin{scriptsize}
+		A=\left[\begin{array}{ccccccc}
+			2 &1&0&0 &\cdots&0&0\\
+			h_2&2(h_1+h_2)&h_1&0&\cdots&0&0\\
+			0&h_3&2(h_2+h_3)&h_2&\cdots&0&0\\
+			\vdots&\vdots&\vdots&\vdots&\ddots&\vdots&\vdots\\
+			0&0&0&\cdots&h_{n-1} & 2(h_{n-1}+h_{n-2})&h_{n-2}\\
+			0&0&0&\cdots &0&1&2
+		\end{array}\right]  
+	\end{scriptsize}
 \end{equation}
 \begin{equation}
-y' = \left[\begin{array}{c}
-y'_1\\
-y'_2\\
-\vdots\\
-y'_n
-\end{array}\right]\qquad \text{e}\qquad
-z = 3\left[\begin{array}{c}
-\frac{y_2-y_1}{h_1}\\
-h_2\frac{y_2-y_1}{h_1}+h_1\frac{y_3-y_2}{h_2}\\
-h_3\frac{y_3-y_2}{h_2}+h_2\frac{y_4-y_3}{h_3}\\
-\vdots\\
-h_{n-1}\frac{y_{n-1}-y_{n-2}}{h_{n-2}}+h_{n-2}\frac{y_n-y_{n-1}}{h_{n-1}}\\
-\frac{y_n-y_{n-1}}{h_{n-1}}
-\end{array}\right]
+	y' = \left[\begin{array}{c}
+		y'_1\\
+		y'_2\\
+		\vdots\\
+		y'_n
+	\end{array}\right]\qquad \text{e}\qquad
+	z = 3\left[\begin{array}{c}
+		\frac{y_2-y_1}{h_1}\\
+		h_2\frac{y_2-y_1}{h_1}+h_1\frac{y_3-y_2}{h_2}\\
+		h_3\frac{y_3-y_2}{h_2}+h_2\frac{y_4-y_3}{h_3}\\
+		\vdots\\
+		h_{n-1}\frac{y_{n-1}-y_{n-2}}{h_{n-2}}+h_{n-2}\frac{y_n-y_{n-1}}{h_{n-1}}\\
+		\frac{y_n-y_{n-1}}{h_{n-1}}
+	\end{array}\right]
 \end{equation}
 Observe que a matriz $A$ é diagonal dominante estrita e, portanto, o sistema $Ay'=z$ possui solução única. Calculado $y'$, os valores dos $a_j$, $b_j$, $c_j$ e $d_j$ são obtidos diretamente pelas expressões \eqref{eq:spline3-coef}.
 
@@ -682,68 +680,71 @@ Observe que a matriz $A$ é diagonal dominante estrita e, portanto, o sistema $A
 \begin{sol}
 O spline desejado é uma função definida por partes da forma:
 \begin{equation}
-s(x)=\left\{\begin{array}{ll}
-    a_1+b_1(x-2)+c_1(x-2)^2+d_1(x-2)^3 &, 2\leq x <5\\
-    a_2+b_2(x-5)+c_2(x-5)^2+d_2(x-5)^3 &, 5\leq x <9\\
-    a_3+b_3(x-9)+c_3(x-9)^2+d_3(x-9)^3 &, 9\leq x \leq 12
-\end{array}\right..  
+	s(x)=\left\{\begin{array}{ll}
+		a_1+b_1(x-2)+c_1(x-2)^2+d_1(x-2)^3 &, 2\leq x <5\\
+	    a_2+b_2(x-5)+c_2(x-5)^2+d_2(x-5)^3 &, 5\leq x <9\\
+	    a_3+b_3(x-9)+c_3(x-9)^2+d_3(x-9)^3 &, 9\leq x \leq 12
+	\end{array}\right..  
 \end{equation}
 As variáveis $y'_1$, $y'_2$, $y'_3$ e $y'_4$ resolvem o sistema $Ay' = z$, onde
 \begin{equation*}
-A = \begin{bmatrix}
-  2 &1&0&0 \\
-  4&2(4+3)&3&0\\
-  0&3&2(3+4)&4\\
-  0&0&1&2
-\end{bmatrix} = \begin{bmatrix}
-  2 &1&0&0 \\
-  4&14&3&0\\
-  0&3&14&4\\
-  0&0&1&2
-\end{bmatrix}  ,
+	A = \begin{bmatrix}
+		2 &1&0&0 \\
+		4&2(4+3)&3&0\\
+		0&3&2(3+4)&4\\
+		0&0&1&2
+	\end{bmatrix} = \begin{bmatrix}
+		2 &1&0&0 \\
+		4&14&3&0\\
+		0&3&14&4\\
+		0&0&1&2
+	\end{bmatrix}  ,
 \end{equation*}
 \begin{equation*}
-y = \begin{bmatrix}
-y'_1\\
-y'_2\\
-y'_3\\
-y'_4
-\end{bmatrix} \quad \text{e}\quad
-z = 3\begin{bmatrix}
-\frac{1}{3}(-1,9-4,5)\\
-\frac{4}{3}(-1,9-4,5)+\frac{3}{4}(0,5-(-1,9))\\
-\frac{3}{4}(0,5-(-1,9))+\frac{4}{3}(-0.5-(0,5))\\
-\frac{1}{3}(-0,5-(0.5))
-\end{bmatrix} = \begin{bmatrix}
--6,4\\
--20,2\\
-1,4\\
--1
-\end{bmatrix}  
+	y = \begin{bmatrix}
+		y'_1\\
+		y'_2\\
+		y'_3\\
+		y'_4
+	\end{bmatrix} \quad \text{e}\quad
+	z = 3\begin{bmatrix}
+		\frac{1}{3}(-1,9-4,5)\\
+		\frac{4}{3}(-1,9-4,5)+\frac{3}{4}(0,5-(-1,9))\\
+		\frac{3}{4}(0,5-(-1,9))+\frac{4}{3}(-0.5-(0,5))\\
+		\frac{1}{3}(-0,5-(0.5))
+	\end{bmatrix} = \begin{bmatrix}
+		-6,4\\
+		-20,2\\
+		1,4\\
+		-1
+	\end{bmatrix}  
 \end{equation*}
 A solução é  $y'_1=-2,8\bar{3}$, $y'_2=-0,7\bar{3}$, $y'_3=0,4\bar{6}$ e $y'_4=-0,7\bar{3}$. Calculamos os coeficientes usando as expressões \eqref{eq:spline3-coef}:
 \begin{equation*}
-\begin{array}{lclclcl}
-a_1&=&y_1=4,5&\qquad&b_1 &=&y'_1=-2,8\bar{3}\\
-a_2&=&y_2=-1,9&\qquad&b_2&=&y'_2=-0,7\bar{3}\\
-a_3&=&y_3=0,5&\qquad&b_3&=&y'_3=0,4\bar{6}\\
-&&&&&&\\
-c_1&=&0&\qquad&d_1&=&0,0\bar{7}\\
-c_2&=&0,7&\qquad&d_2&=&-0,091\bar{6}\\
-c_3&=&-0,4&\qquad&d_3&=&0,0\bar{4}
-\end{array}.
+	\begin{array}{lclclcl}
+		a_1&=&y_1=4,5&\qquad&b_1 &=&y'_1=-2,8\bar{3}\\
+		a_2&=&y_2=-1,9&\qquad&b_2&=&y'_2=-0,7\bar{3}\\
+		a_3&=&y_3=0,5&\qquad&b_3&=&y'_3=0,4\bar{6}\\
+		&&&&&&\\
+		c_1&=&0&\qquad&d_1&=&0,0\bar{7}\\
+		c_2&=&0,7&\qquad&d_2&=&-0,091\bar{6}\\
+		c_3&=&-0,4&\qquad&d_3&=&0,0\bar{4}
+	\end{array}.
 \end{equation*}
 Portanto:
 \begin{small}
-\begin{equation*}
-S(x)=\left\{\begin{array}{ll}
-4,5-2,8\bar{3}(x-2)+0,0\bar{7}(x-2)^3 &\!, 2\leq x<5\\
--1,9-0,7\bar{3}(x-5)+0,7(x-5)^2-0,091\bar{6}(x-5)^3 &\!, 5\leq x<9\\
-0,5+0,4\bar{6}(x-9)-0,4(x-9)^2+0,0\bar{4}(x-9)^3 &\!, 9\leq x\leq 12
-\end{array}\right. .
-\end{equation*}  
+	\begin{equation*}
+		S(x)=\left\{\begin{array}{ll}
+			4,5-2,8\bar{3}(x-2)+0,0\bar{7}(x-2)^3 &\!, 2\leq x<5\\
+			-1,9-0,7\bar{3}(x-5)+0,7(x-5)^2-0,091\bar{6}(x-5)^3 &\!, 5\leq x<9\\
+			0,5+0,4\bar{6}(x-9)-0,4(x-9)^2+0,0\bar{4}(x-9)^3 &\!, 9\leq x\leq 12
+		\end{array}\right. .
+	\end{equation*}  
 \end{small}
 
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 No \verb+Scilab+, podemos utilizar:
 \begin{verbatim}
@@ -779,6 +780,7 @@ z=linspace(xi(1),xi($))
 plot(z,interp(z,xi,yi,dyi))
 \end{verbatim}
 \fi
+%%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
 \subsection{Spline fixado}\index{spline!fixado}
@@ -788,34 +790,34 @@ O spline fixado $s$ é obtido pela escolha dos valores das derivadas nas extremi
 As equações \eqref{eq:spline3-der} formam um sistema de $n-2$ equações $Ay' = z$, onde
 \begin{equation*}
 	\begin{scriptsize}
-A=\left[\begin{array}{ccccccc}
-2(h_1+h_2)&h_1&0&0 &\cdots&0&0\\
-h_3&2(h_2+h_3)&h_2&0&\cdots&0&0\\
-0&h_4&2(h_3+h_4)&h_3&\cdots&0&0\\
-\vdots&\vdots&\vdots&\vdots&\ddots&\vdots&\vdots\\
-0&0&0&\cdots&h_{n-2} & 2(h_{n-3}+h_{n-2})&h_{n-3}\\
-0&0&0&\cdots &0&h_{n-1}&2(h_{n-2}+h_{n-1})
-\end{array}\right],
-\end{scriptsize} 
+		A=\left[\begin{array}{ccccccc}
+			2(h_1+h_2)&h_1&0&0 &\cdots&0&0\\
+			h_3&2(h_2+h_3)&h_2&0&\cdots&0&0\\
+			0&h_4&2(h_3+h_4)&h_3&\cdots&0&0\\
+			\vdots&\vdots&\vdots&\vdots&\ddots&\vdots&\vdots\\
+			0&0&0&\cdots&h_{n-2} & 2(h_{n-3}+h_{n-2})&h_{n-3}\\
+			0&0&0&\cdots &0&h_{n-1}&2(h_{n-2}+h_{n-1})
+		\end{array}\right],
+	\end{scriptsize} 
 \end{equation*}
 \begin{equation*}
 	\begin{small}
-y'= \left[\begin{array}{c}
-y'_2\\
-y'_3\\
-\vdots\\
-y'_{n-1}
-\end{array}\right]\qquad \text{e}\qquad
-z = 3\left[\begin{array}{c}
-	h_2\frac{y_2-y_1}{h_1}+h_1\frac{y_3-y_2}{h_2}-h_2y'_1\\
-	h_3\frac{y_3-y_2}{h_2}+h_2\frac{y_4-y_3}{h_3}\\
-	\vdots\\
-	h_{n-2}\frac{y_{n-2}-y_{n-3}}{h_{n-3}}+h_{n-3}\frac{y_{n-1}-y_{n-2}}{h_{n-2}}\\
-	h_{n-1}\frac{y_{n-1}-y_{n-2}}{h_{n-2}}+h_{n-2}\frac{y_n-y_{n-1}}{h_{n-1}}-h_{n-2}y'_n
-\end{array}\right].
-\end{small}
+		y'= \left[\begin{array}{c}
+			y'_2\\
+			y'_3\\
+			\vdots\\
+			y'_{n-1}
+		\end{array}\right]\qquad \text{e}\qquad
+		z = 3\left[\begin{array}{c}
+			h_2\frac{y_2-y_1}{h_1}+h_1\frac{y_3-y_2}{h_2}-h_2y'_1\\
+			h_3\frac{y_3-y_2}{h_2}+h_2\frac{y_4-y_3}{h_3}\\
+			\vdots\\
+			h_{n-2}\frac{y_{n-2}-y_{n-3}}{h_{n-3}}+h_{n-3}\frac{y_{n-1}-y_{n-2}}{h_{n-2}}\\
+			h_{n-1}\frac{y_{n-1}-y_{n-2}}{h_{n-2}}+h_{n-2}\frac{y_n-y_{n-1}}{h_{n-1}}-h_{n-2}y'_n
+		\end{array}\right].
+	\end{small}
 \end{equation*}
-Observe que a matriz $A$ é diagonal dominante estrita e portanto o sistema $Ay' = z$ possui solução única.
+Observe que a matriz $A$ é diagonal dominante estrita e, portanto, o sistema $Ay' = z$ possui solução única.
 
 %\begin{ex}Construa um spline cúbico com fronteira fixada que interpola a função $y=\sin (x)$ nos pontos $x=0$, $x=\frac{\pi}{2}$, $x=\pi$, $x=\frac{3\pi}{2}$ e $x=2\pi$.
 %\end{ex}
@@ -950,9 +952,9 @@ Essas duas equações agregadas às equações \eqref{eq:spline3-der} formam um 
 		\end{array}\right]
 	\end{small}
 \end{equation*}
-Se reduzirmos esse sistema pela eliminação das incógnitas $y'_1$ e $y'_n$, o sistema resultante possui uma matriz de coeficientes diagonal dominante estrita, portanto a solução é única.
+Se reduzirmos esse sistema pela eliminação das incógnitas $y'_1$ e $y'_n$, o sistema resultante possui uma matriz de coeficientes diagonal dominante estrita, portanto, a solução é única.
 
-O termo \textit{not-a-knot} (não nó) relaciona-se à nomenclatura dos splines. O termo \textit{nó} é utilizado para os pontos interpolados. Neles, a derivada terceira da função spline é descontínua, portanto quando impomos a continuidade dessa derivada em $x_2$ e $x_{n-1}$ é como se esses pontos deixassem de ser nós.
+O termo \textit{not-a-knot} (não nó) relaciona-se à nomenclatura dos splines. O termo \textit{nó} é utilizado para os pontos interpolados. Neles, a derivada terceira da função spline é descontínua, portanto, quando impomos a continuidade dessa derivada em $x_2$ e $x_{n-1}$ é como se esses pontos deixassem de ser nós.
 
 \subsection{Spline periódico}\index{spline!periodico}
 Se o conjunto de $n$ pontos da interpolação $\mathcal{I}$ for tal que $y_1=y_n$, então é possível construir o spline periódico, definido com um spline cúbico que satisfaz as seguintes condições de periodicidade
@@ -1002,7 +1004,7 @@ Essas duas equações agregadas às equações \eqref{eq:spline3-der} formam um 
 			\end{array}\right].
 	\end{small}
 \end{equation*}
-Neste caso também, se reduzirmos esse sistema pela eliminação das incógnitas $y'_1$ e $y'_n$, o sistema resultante possui uma matriz de coeficientes diagonal dominante estrita, portanto a solução é única.
+Neste caso também, se reduzirmos esse sistema pela eliminação das incógnitas $y'_1$ e $y'_n$, o sistema resultante possui uma matriz de coeficientes diagonal dominante estrita, portanto, a solução é única.
 
 %\subsection{Resumo sobre splines}
 
@@ -1091,7 +1093,7 @@ Neste caso também, se reduzirmos esse sistema pela eliminação das incógnitas
 % \begin{itemize}
 % \item[a)] Verifique que função se $A=10$, $B=20$, $\lambda_1=\ln(2)$ e $\lambda_2=\ln(3)$ então $f(-1)=35/3$, $f(0)=30$, $f(1)=80$, $f(2)=220$
 % \item[b)] Imagine que você desconheça os valores de $A$, $B$, $\lambda_1$ e $\lambda_2$ no item acima e deseja encontrá-los com base nos valores da função nos quatro pontos dados pelo método de Newton-Raphson com quatro incóginta. Descreva a função jacobiana envolvida e calcule o número de condicionamento quando as incógnitas são dadas conforme o item a.
-% \item[c)] Implemente o método de Newton-Raphson apartir das condições iniciais dadas pelos valores numéricos aproximados de $A=10$, $B=20$, $\lambda_1=\ln(2)$ e $\lambda_2=\ln(3)$ (ou seja, a solução exata acrescida de erros de arredondamento). Discuta.
+% \item[c)] Implemente o método de Newton-Raphson a partir das condições iniciais dadas pelos valores numéricos aproximados de $A=10$, $B=20$, $\lambda_1=\ln(2)$ e $\lambda_2=\ln(3)$ (ou seja, a solução exata acrescida de erros de arredondamento). Discuta.
 % \end{itemize}
 % \end{exer}
 % 

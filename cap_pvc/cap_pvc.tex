@@ -106,7 +106,7 @@ Para o PVC \eqref{eq:pvc1-eq}-\eqref{eq:pvc1-bc2}, construímos o problema discr
   \end{eqnarray}
 Use a fórmula de diferenças finitas central de ordem 2 para discretizar a derivada em uma malha uniforme de 11 pontos. Calcule, também, a solução analítica deste problema, faça um esboço das soluções numérica e analítica e compute o erro absoluto médio definido por
 \begin{equation*}
-  E := \frac{1}{N}\sum_{i=1}^N |u(x_i) - u_i|,
+  E := \frac{1}{N}\sum_{i=1}^N \left|u(x_i) - u_i\right|,
 \end{equation*}
 onde $x_i$ é o $i$-ésimo ponto da malha, $i=1, 2, \dotsc, N$ e $N$ é o número de pontos na mesma. Por fim, repita seus cálculos para uma malha com $101$ pontos. O que ocorre com o erro absoluto médio?
 \end{ex}
@@ -123,6 +123,20 @@ com $h = 1/(N-1)$.
 %%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 No \verb+Scilab+, podemos construir a malha da seguinte forma:
+\begin{verbatim}
+a = 0
+b = 1
+N = 11
+h = (b-a)/(N-1)
+x = linspace(a,b,N)
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos construir a malha da seguinte forma:
 \begin{verbatim}
 a = 0
 b = 1
@@ -215,6 +229,28 @@ b(N) = 0
 \fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos construir o problema discreto a seguinte forma:
+\begin{verbatim}
+A = zeros(N,N)
+b = zeros(N)
+
+A(1,1) = 1
+b(1) = 0
+for i = 2:N-1
+    A(i,i-1) = 1
+    A(i,i) = -2
+    A(i,i+1) = 1
+    b(i) = -100 * h^2 * (x(i)-1)^2
+end
+A(N,N) = 1
+b(N) = 0
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
@@ -246,6 +282,16 @@ b[N-1] = 0
 %%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 No \verb+Scilab+, podemos computar a solução do sistema $A\underline{u} = b$ com:
+\begin{verbatim}
+u = A\b
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos computar a solução do sistema $A\underline{u} = b$ com:
 \begin{verbatim}
 u = A\b
 \end{verbatim}
@@ -310,6 +356,23 @@ plot(x,u,'ro',xx,yy,'b-')
 \fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos fazer o esboço das soluções analítica e numérica da seguinte forma:
+\begin{verbatim}
+#def. sol. analitica
+ue = inline("-100.0*(x-1).^4/12 - 100*x/12 + 100.0/12")
+
+#grafico
+xx = linspace(0,1)
+yy = ue(xx)
+
+plot(x,u,'ro',xx,yy,'b-')
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
@@ -349,6 +412,16 @@ Por fim, computamos o erro absoluto médio das soluções numéricas com $N=11$ 
 %%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 No \verb+Scilab+, podemos computar o erro absoluto médio da seguinte forma:
+\begin{verbatim}
+E = sum(abs(ue(x)' - u))/N
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos computar o erro absoluto médio da seguinte forma:
 \begin{verbatim}
 E = sum(abs(ue(x)' - u))/N
 \end{verbatim}
@@ -459,6 +532,42 @@ b(N) = 2
 u = A\b
 
 //grafico
+plot(x,u,'b-o')
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos computar a solução numérica e graficá-la com o seguinte código:
+\begin{verbatim}
+#malha
+a = 0.5
+b = 1.5
+N = 11
+h = (b-a)/(N-1)
+x = linspace(a,b,N)'
+
+#sistema
+A = zeros(N,N)
+b = zeros(N,1)
+
+A(1,1) = 1
+b(1) = 1
+for i = 2:N-1
+    A(i,i-1) = -1
+    A(i,i) = 2 + h^2
+    A(i,i+1) = -1
+    b(i) = h^2 * exp(x(i))
+endfor
+A(N,N) = 1
+b(N) = 2
+
+#solucao
+u = A\b
+
+#grafico
 plot(x,u,'b-o')
 \end{verbatim}
 \fi

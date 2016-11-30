@@ -239,19 +239,28 @@ epub-py: main.tex
 
 
 ########################################
-# TODOS AS VERSÕES EM FORMATO PDF E SLIDE
+# TODOS AS VERSÕES EM FORMATO PDF
 ########################################
 
 all-pdf: main.tex
 	make clean
 	make pdf
 	make clean
-	make slide
-	make clean
 	make pdf-py
 	make clean
-	make slide-py
+	make pdf-oct
 
+########################################
+# TODOS AS VERSÕES EM FORMATO Slide
+########################################
+
+all-slide: main.tex
+	make clean
+	make slide
+	make clean
+	make slide-py
+	make clean
+	make slide-oct
 
 ########################################
 # TODOS OS FORMATOS
