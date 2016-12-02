@@ -1,9 +1,8 @@
 function [x] = TDMA2(a,b,c,d)
-
+  
   n=size(a,1);   %Recupera ordem do sistema. 
-    
   x=zeros(n,1);  %Inicializa x
-      
+  
   c(1)=c(1)/b(1);
   for i=2:n-1
     c(i)=c(i)/(b(i)-a(i)*c(i-1));
