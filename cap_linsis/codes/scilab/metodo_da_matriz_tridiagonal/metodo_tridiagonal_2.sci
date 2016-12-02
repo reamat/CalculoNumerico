@@ -1,7 +1,7 @@
 //entradas: vetores coluna a,b,c,d
 //saida:    vetor coluna x
 function x=TDMA2(a,b,c,d)
-    n=size(a,1) // Recupera ordem do sistema. Substituir para size(a,2) se desejar trabalhar com vetores linha.   
+    n=size(a,1) // Recupera ordem do sistema.
     x=zeros(n,1) //Inicializa x
 
     c(1)=c(1)/b(1)
