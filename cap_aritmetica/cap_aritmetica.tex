@@ -389,7 +389,7 @@ Como vimos, no sistema posicional usual um número $x$ na base $b$ é representa
 \end{equation*}
 onde $d_{n}\neq 0$ e $d_i\in\{0, 1, \dotsc, b-1\}$ é o dígito da $i$-ésima posição. Alternativamente, é costumeiro usarmos a chamada notação científica. Nesta, o número $x$ é representado como
 \begin{equation*}
-  x = \pm (M)_b\times b^E,
+  x = \pm (M)_b\times b^e,
 \end{equation*}
 onde $(M)_b = (d_{m}d_{m-1}\cdots d_{0},d_{-1}d_{-2}d_{-3}\cdots)_b$ é chamada de mantissa e $e\in\mathbb{Z}$ é chamado de expoente de $x$.
 
@@ -413,12 +413,159 @@ Observamos que um número pode ser representado de várias formas equivalentes e
 onde $(M)_b = (d_1,d_{-1}d_{-2}d_{-3}\cdot)_b$, com $d_{1}\neq 0$\footnote{Em algumas referências é usado $M_b = (0,d_{-1}d_{-2}d_{-3}\cdot)_b$.}\footnote{No caso de $x=0$, $M_b = (0,00\cdots)_b$.}, $s$ é $0$ para positivo e $1$ para negativo, $E$ é o expoente.
  \end{defn}
 
-\begin{ex}
+\begin{ex} Vejamos os seguintes casos:
   \begin{itemize}
   \item[a)] O número $602,2141$ em notação (científica) normalizada é representado por $6,022141\times 10^{2}$.
   \item[b)] O número $(1010,10)_2$ escrito em notação normalizada é $(1,01010)_2\times 2^3$.
   \end{itemize}
 \end{ex}
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+\begin{obs}
+No \verb+Scilab+, A representação em ponto flutuante decimal com $8$ dígitos é a padrão, por exemplo:
+\begin{verbatim}
+-->-%pi
+ ans  =
+  - 3.14159D+00 
+\end{verbatim}
+Podemos controlar a impressão de números com o comando \verb+format+. Por exemplo:
+\begin{verbatim}
+-->format('v',12); -%pi
+ ans  =
+  - 3.141592654  
+-->format('e',12); -%pi
+ ans  =
+  - 3.14159D+00  
+\end{verbatim}
+Observamos que, no primeiro caso, obtemos a representação em ponto flutuante decimal com $10$ dígitos ($2$ posições são reservadas para o sinal e o ponto), enquanto que na segunda obtemos a representação em notação científica normalizada com $6$ dígitos ($6$ posições são reservadas para o sinal, ponto, símbolo $D := 10$ e expoente). Alternativamente, podemos usar o comando \verb+printf+, por exemplo:
+\begin{verbatim}
+-->printf('%1.5f',-%pi)
+-3.14159 
+-->printf('%1.5e',-%pi)
+-3.14159e+00 
+\end{verbatim}
+\end{obs}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\begin{obs}
+No $\verb+GNU Octave+$, podemos controlar a impressão de números usando o comando \verb+printf+. Por exemplo:
+\begin{verbatim}
+>> printf('%1.5f\n',-pi)
+-3.14159
+>> printf('%1.5e\n',-pi)
+-3.14159e+00
+\end{verbatim}
+No primeiro caso, obtemos a representação em ponto flutuante decimal com $6$ dígitos do número $-\pi$. No segundo caso, obtemos a representação em notação científica normalizada com $6$ dígitos.  
+\end{obs}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\begin{obs}
+Em $\verb+Python+$, podemos controlar a impressão de números usando o comando \verb+print+. Por exemplo:
+\begin{verbatim}
+>>> print("%1.5f" % -np.pi)
+-3.14159
+>>> print("%1.5e" % -np.pi)
+-3.14159e+00
+\end{verbatim}
+No primeiro caso, obtemos a representação em ponto flutuante decimal com $6$ dígitos do número $-\pi$. No segundo caso, obtemos a representação em notação científica normalizada com $6$ dígitos.  
+\end{obs}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Exercícios}
+
+\begin{exer}\label{exer:notacao_cientifica_normalizada}
+  Represente os seguintes números em notação científica normalizada:
+  \begin{equation*}
+    \begin{array}{ll}
+      a)~299792,458 & b)~66,2607\times 10^{-35}\\
+      c)~0,6674\times 10^{-7} & d)~9806,65\times 10^{1}
+    \end{array}
+  \end{equation*}
+  \begin{eqnarray*}
+  \end{eqnarray*}
+\end{exer}
+\begin{resp}
+  \begin{equation*}
+  \begin{array}{ll}
+    a)~2,99792458\times 10^5 & b)~6,62607\times 10^{-34}\\
+    c)~6,674\times 10^{-8} & d)~9,80665\times 10^4
+  \end{array}
+  \end{equation*}
+\end{resp}
+
+\begin{exer}
+  Use o computador para verificar as respostas do Exercício~\ref{exer:notacao_cientifica_normalizada}.
+\end{exer}
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+\begin{resp}
+No \verb+Scilab+, temos:
+\begin{verbatim}
+-->printf("%1.7e", 29979.458)
+2.9979458e+04 
+-->printf("%1.5e", 66.2607)
+6.62607e+01 
+-->printf("%1.3e", 0.6674)
+6.674e-01 
+-->printf("%1.5e", 9806.65e1)
+9.80665e+04 
+\end{verbatim}
+\end{resp}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\begin{resp}
+No \verb+GNU Octave+, temos:
+\begin{verbatim}
+>> printf("%1.7e\n", 29979.458)
+2.9979458e+04
+>> printf("%1.5e\n", 66.2607)
+6.62607e+01
+>> printf("%1.3e\n", 0.6674)
+6.674e-01
+>> printf("%1.5e\n", 9806.65e1)
+9.80665e+04
+\end{verbatim}
+\end{resp}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\begin{resp}
+Em \verb+Python+, temos:
+\begin{verbatim}
+>>> print("%1.7e" % 29979.458)
+2.9979458e+04
+>>> print("%1.5e" % 66.2607)
+6.62607e+01
+>>> print("%1.3e" % 0.6674)
+6.674e-01
+>>> print("%1.5e" % 9806.65e1)
+9.80665e+04
+\end{verbatim}
+\end{resp}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+
 
 \section{Representação decimal finita}
 
@@ -925,7 +1072,7 @@ Para mais informações sobre aritmética de ponto flutuante em \verb+Python+, v
 \fi
 %%%%%%%%%%%%%%%%%%%%
 
-\subsection{A precisão e o épsilon de máquina}
+\subsection{Precisão e épsilon de máquina}
 
 A \emph{precisão} $p$ de uma máquina é o número de dígitos significativos usado para representar um número. Note que $p=|M|+1$ em binário e $p=|M|$ para outras bases.
 
@@ -945,7 +1092,7 @@ Assim, $\epsilon = 2^{-52}$.
 
 
 
-\subsection{A distribuição dos números}
+\subsection{Distribuição dos números}
 Utilizando uma máquina em ponto flutuante, temos um número finito de números que podemos representar.
 
 Um número muito pequeno geralmente é aproximado por zero (underflow) e um número muito grande (overflow) geralmente faz o cálculo parar.
