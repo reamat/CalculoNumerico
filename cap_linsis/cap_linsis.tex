@@ -1126,7 +1126,7 @@ O algoritmo para a solução do sistema tridiagonal (\ref{linsis:EqTriDiag}) pel
 \begin{cases}
 \begin{array}{lcl}
   \frac{c_i}{b_i}                   , & i = 1 \\
-  \frac{c_i}{b_i - a_i c'_{i - 1}}  , & i = 2, 3, \dots, n-1 \\
+  \frac{c_i}{b_i - a_i c'_{i - 1}}  , & i = 2, 3, \dots, n-1 
 \end{array}
 \end{cases}\\
 \text{e}\nonumber\\
@@ -1134,7 +1134,7 @@ d'_i &=&
 \begin{cases}
 \begin{array}{lcl}
   \frac{d_i}{b_i}                   , & i = 1 \\
-  \frac{d_i - a_i d'_{i - 1}}{b_i - a_i c'_{i - 1}}  , & i = 2, 3, \dots, n. \\
+  \frac{d_i - a_i d'_{i - 1}}{b_i - a_i c'_{i - 1}}  , & i = 2, 3, \dots, n. 
 \end{array}
 \end{cases}
 \end{eqnarray}
@@ -1331,22 +1331,22 @@ Considere a resolução do seguinte sistema tridiagonal pelo algoritmo de Thomas
 \end{eqnarray}
 Primeiramente identificamos os vetores $a$, $b$, $c$ e $d$:
 \begin{eqnarray*}
- a&=& [0, 1, 1, 1, 1 ]\\
- b&=& [2, 2, 2, 2, 2 ]\\
- c&=& [1, 1, 1, 1, 0 ]\\
- d&=& [4, 4, 0, 0, 2 ]
+ a &=& (0, 1, 1, 1, 1)\\
+ b &=& (2, 2, 2, 2, 2)\\
+ c &=& (1, 1, 1, 1, 0)\\
+ d &=& (4, 4, 0, 0, 2)
 \end{eqnarray*}
 Agora, calculamos os vetores $c'$ e $d'$:
 \begin{eqnarray*}
- c_1'&=&\frac{c_1}{b_1}=\frac{1}{2}\\
- c_2'&=&\frac{c_2}{b_2-a_2c_1'}=\frac{1}{2-1\cdot \frac{1}{2}}=\frac{2}{3} \\
- c_3'&=&\frac{c_3}{b_3-a_3c_2'}=\frac{1}{2-1\cdot \frac{2}{3}}=\frac{3}{4} \\
- c_4'&=&\frac{c_4}{b_4-a_4c_3'}=\frac{1}{2-1\cdot \frac{3}{4}}=\frac{4}{5} \\
- d_1'&=&\frac{d_1}{b_1}=\frac{4}{2}=2\\
- d_2'&=&\frac{d_2-a_2d_1'}{b_2-a_2c_1'}=\frac{4-1\cdot 2}{2-1\cdot \frac{1}{2}}=\frac{4}{3} \\
- d_3'&=&\frac{d_3-a_3d_2'}{b_3-a_3c_2'}=\frac{0-1\cdot \frac{4}{3}}{2-1\cdot \frac{2}{3}}=-1 \\
- d_4'&=&\frac{d_4-a_4d_3'}{b_4-a_4c_3'}=\frac{0-1\cdot (-1)}{2-1\cdot \frac{3}{4}}=\frac{4}{5} \\
- d_5'&=&\frac{d_5-a_5d_4'}{b_5-a_5c_4'}=\frac{2-1\cdot \frac{4}{5}}{2-1\cdot \frac{4}{5}}=1 
+ c_1' &=&\frac{c_1}{b_1}=\frac{1}{2}\\
+ c_2' &=&\frac{c_2}{b_2-a_2c_1'}=\frac{1}{2-1\cdot \frac{1}{2}}=\frac{2}{3} \\
+ c_3' &=&\frac{c_3}{b_3-a_3c_2'}=\frac{1}{2-1\cdot \frac{2}{3}}=\frac{3}{4} \\
+ c_4' &=&\frac{c_4}{b_4-a_4c_3'}=\frac{1}{2-1\cdot \frac{3}{4}}=\frac{4}{5} \\
+ d_1' &=&\frac{d_1}{b_1}=\frac{4}{2}=2\\
+ d_2' &=&\frac{d_2-a_2d_1'}{b_2-a_2c_1'}=\frac{4-1\cdot 2}{2-1\cdot \frac{1}{2}}=\frac{4}{3} \\
+ d_3' &=&\frac{d_3-a_3d_2'}{b_3-a_3c_2'}=\frac{0-1\cdot \frac{4}{3}}{2-1\cdot \frac{2}{3}}=-1 \\
+ d_4' &=&\frac{d_4-a_4d_3'}{b_4-a_4c_3'}=\frac{0-1\cdot (-1)}{2-1\cdot \frac{3}{4}}=\frac{4}{5} \\
+ d_5' &=&\frac{d_5-a_5d_4'}{b_5-a_5c_4'}=\frac{2-1\cdot \frac{4}{5}}{2-1\cdot \frac{4}{5}}=1 
 \end{eqnarray*}
  Finalmente, calculamos o vetor $x$:
 
@@ -1367,7 +1367,7 @@ E assim, obtemos o vetor $x=[1, 2, -1, 0, 1]$.
 \ifisscilab
 \subsubsection{Código Scilab: Método da matriz tridiagonal}
 
-\lstinputlisting[language=Scilab,numbers=left]{./cap_linsis/codes/scilab/metodo_da_matriz_tridiagonal/metodo_tridiagonal.sci}
+\verbatiminput{./cap_linsis/codes/scilab/metodo_da_matriz_tridiagonal/metodo_tridiagonal.sci}
 
 Nesse código, usou-se \verb+cl+ e \verb+dl+ para denotar $c'$ e $d'$. Observe que se for desnecessário preservar os valores originais dos vetores $c$ e $d$, eles podem, com economia de memória e simplicidade de código, ser sobrescritos pelos vetores $c'$ e $d'$, respectivamente. Eis uma nova implementação:
 
@@ -1418,7 +1418,7 @@ A solução do sistema do exemplo \ref{linsis:exemplo5_5} pode ser obtida atrav�
 
 Nesse código, usou-se \verb+cl+ e \verb+dl+ para denotar $c'$ e $d'$. Observe que se for desnecessário preservar os valores originais dos vetores $c$ e $d$, eles podem, com economia de memória e simplicidade de código, ser sobrescritos pelos vetores $c'$ e $d'$, respectivamente. Eis uma nova implementação:
 
-\verbatiminput{./cap_linsis/codes/octave/metodo_da_matriz_tridiagonal/metodo_tridiagonal_2.gnu}
+\verbatiminput{./cap_linsis/codes/octave/metodo_da_matriz_tridiagonal/metodo_tridiagonal_2.m}
 
 A solução do sistema do exemplo \ref{linsis:exemplo5_5} pode ser obtida através do seguintes comandos:
 \begin{verbatim}
@@ -1464,11 +1464,11 @@ A solução do sistema do exemplo \ref{linsis:exemplo5_5} pode ser obtida atrav�
 
 \begin{resp}
  \begin{eqnarray*}
-  a&=&[0, 1, 2, 1, 2, 1]\\ 
-  b&=&[5, 3, 4, 2, 3, 2]\\
-  c&=&[4, 1, 1, 1, 2, 0]\\
-  d&=&[13, 10, 20, 16, 35, 17]\\
-  x&=&[1, 2, 3, 4, 5, 6]
+  a &=& (0, 1, 2, 1, 2, 1)\\ 
+  b &=& (5, 3, 4, 2, 3, 2)\\
+  c &=& (4, 1, 1, 1, 2, 0)\\
+  d &=& (13, 10, 20, 16, 35, 17)\\
+  x &=& (1, 2, 3, 4, 5, 6)
  \end{eqnarray*}
 \end{resp}
 
@@ -1483,11 +1483,11 @@ Identifique os vetores $a$, $b$, $c$ e $d$  relativos ao algoritmo da matriz tri
  \end{exer}
 \begin{resp}
  \begin{eqnarray*}
-  a&=&[0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1/2]\\ 
-  b&=&[1,  5,  5,  5,  5,  5,  5,  5,  5,  5,  1  ]\\
-  c&=&[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0  ]\\ 
-  d&=&[0, \cos(2/10), \cos(3/10), \cos(4/10), \cos(5/10),\\&& \cos(6/10), \cos(7/10), \cos(8/10), \cos(9/10), \cos(1) ,0]\\
-  x&=&[0,324295, 0,324295, 0,317115, 0,305943, 0,291539,\\&& 0,274169, 0,253971, 0,230846, 0,20355, 0,165301, 0,082650]
+  a &=& (0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1/2)\\ 
+  b &=& (1,  5,  5,  5,  5,  5,  5,  5,  5,  5,  1)\\
+  c &=& (-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0)\\ 
+  d &=& (0, \cos(2/10), \cos(3/10), \cos(4/10), \cos(5/10),\\&& \cos(6/10), \cos(7/10), \cos(8/10), \cos(9/10), \cos(1) ,0)\\
+  x &=& (0,324295, 0,324295, 0,317115, 0,305943, 0,291539,\\&& 0,274169, 0,253971, 0,230846, 0,20355, 0,165301, 0,082650)
  \end{eqnarray*}
 \end{resp}
 
@@ -1889,7 +1889,7 @@ A\b2
 \end{resp}
 
 \begin{exer} Considere os vetores de 10 entradas dados por $$x_j=\sin(j/10),~~~y_j=j/10~~~~z_j=j/10-\frac{\left(j/10\right)^3}{6},~~ j=1,\ldots,10$$
-Use o \verb+Scilab+ para construir os seguintes vetores de erro:
+Use o \ifisscilab\verb+Scilab+\fi\ifispython\verb+Python+\fi\ifisoctave\verb+Octave+\fi para construir os seguintes vetores de erro:
 $$e_{j}=\frac{|x_j-y_j|}{|x_j|}~~~ f_j=\frac{|x_j-z_j|}{x_j}$$
 Calcule as normas $1$, $2$ e $\infty$ de $e$ e $f$
 \end{exer}
@@ -2513,19 +2513,15 @@ x_1-x_2&=&1\\
 x_{4}-x_{5}&=&1
 \end{eqnarray*}
 \begin{itemize}
-\item[a)]  Escreva na forma $Ax=b$ e resolva usando eliminação gaussiana para $\varepsilon=10^{-3}$ no \verb+Scilab+.
-\item[b)]  Obtenha o vetor incógnita $x$ com $\varepsilon=10^{-3}$ usando o comando $A\backslash b$.
-\item[c)]  Obtenha o vetor incógnita $x$ com $\varepsilon=10^{-3}$ usando Jacobi com tolerância $10^{-2}$. Compare o resultado com o resultado obtido no item d.
-\item[d)]  Obtenha o vetor incógnita $x$ com $\varepsilon=10^{-3}$ usando Gauss-Seidel com tolerância $10^{-2}$. Compare o resultado com o resultado obtido no item d.
-\item[e)]  Discuta com base na relação esperada entre tolerância e exatidão conforme estudado na primeira área para problemas de uma variável.
+\item[a)]  Escreva na forma $Ax=b$ e resolva usando eliminação gaussiana para $\varepsilon=10^{-3}$ no \ifisscilab\verb+Scilab+\fi\ifispython\verb+Python+\fi\ifisoctave\verb+Octave+\fi.
+\item[b)]  Obtenha o vetor incógnita $x$ com $\varepsilon=10^{-3}$ usando Jacobi com tolerância $10^{-2}$. Compare o resultado com o resultado obtido no item d.
+\item[c)]  Obtenha o vetor incógnita $x$ com $\varepsilon=10^{-3}$ usando Gauss-Seidel com tolerância $10^{-2}$. Compare o resultado com o resultado obtido no item d.
+\item[d)]  Discuta com base na relação esperada entre tolerância e exatidão conforme estudado na primeira área para problemas de uma variável.
 \end{itemize}
-
 \end{exer}
-
-\begin{resp}
-  
 \ifisscilab
-\begin{verbatim}
+\begin{resp}
+  \begin{verbatim}
 epsilon=1e-3;
 
 A=[1 -1 0 0 0; -1 2 -1 0 0; 0 -1 (2+epsilon) -1 0; 0 0 -1 2 -1; 0 0 0 1 -1]
@@ -2553,7 +2549,7 @@ function x=q_Jacobi()
     else
         controle=0
     end
-    mprintf('i=%d, x1=%f, x5=%f, tol=%.12f\n',i,x(1),x(5),delta)
+    mprintf('i=%d, x1=%f, x5=%f, tol=%.12f\n', i, x(1), x(5), delta)
     x0=x;
     end
 
@@ -2585,9 +2581,9 @@ function x=q_Gauss_Seidel()
 
 endfunction
 \end{verbatim}    
-\fi
-  
 \end{resp}
+\fi
+
 
 \begin{exer}
 Resolva o seguinte sistema pelo método de Jacobi e Gauss-Seidel:
