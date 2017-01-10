@@ -606,7 +606,7 @@ Esta relação entre o conjunto de valores para a derivada de um spline cúbico 
 	\end{equation}
 	é a distância entre as abscissas de dois pontos de interpolação consecutivos.
 \end{prop}
-De acordo com a proposição anterior, toda informação sobre um spline cúbico é armazenada no conjunto $\{(x_j,y_j,y'_j)\}_{j=1}^n$. Por construção, uma função $s$ definida a partir de \eqref{eq:spline3}, \eqref{eq:spline3-coef} e \eqref{eq:espacamento} com um conjunto $\{(x_j,y_j,y'_j)\}_{j=1}^n\subset\mathbb{R}^3$, onde $x_{j+1}>x_j$ é de classe $\mathcal{C}^1$ mas não necessariamente um spline cúbico. Para ser um spline cúbico, as derivadas $\{y'_j\}_{j=1}^n$ devem garantir a continuidade da derivada segunda de $s$ em todo intervalo $(x_1,x_n)$. Ou seja, devemos ter 
+De acordo com a proposição anterior, toda informação sobre um spline cúbico é armazenada no conjunto $\{(x_j,y_j,y'_j)\}_{j=1}^n$. Por construção, uma função $s$ definida a partir de \eqref{eq:spline3}, \eqref{eq:spline3-coef} e \eqref{eq:espacamento} com um conjunto $\{(x_j,y_j,y'_j)\}_{j=1}^n\subset\mathbb{R}^3$, onde $x_{j+1}>x_j$ é de classe $\mathcal{C}^1$ mas não necessariamente um spline cúbico. Para ser um spline cúbico, os valores do conjunto $\{y'_j\}_{j=1}^n$ devem garantir a continuidade da derivada segunda de $s$ em todo intervalo $(x_1,x_n)$. Ou seja, devemos ter 
 \begin{equation*}
 \lim\limits_{x\nearrow x_{j+1} }s''_j(x)=s''_{j+1}(x_{j+1})
 \end{equation*}
@@ -621,7 +621,7 @@ h_jy'_{j-1}+2(h_{j-1}+h_j)y'_j+h_{j-1}y'_{j+1}=3\left(h_j\dfrac{y_j-y_{j-1}}{h_{
 \end{equation}
 onde $j=2,3,\ldots,n-1$ e $h_j=x_{j+1}-x_j$.
 \end{prop}
-O sistema de equações \eqref{eq:spline3-der} é subdeterminado, são $n$ variáveis e $n-2$ equações. A inclusão de duas equações adicionais linearmente independentes das $n-2$ equações \eqref{eq:spline3-der} possibilita a existência de uma única solução. Tipicamente essas equações adicionais envolvem o comportamento do spline na fronteira ou na sua vizinhança.  A seguir veremos quatro escolhas mais conhecidas.
+O sistema de equações \eqref{eq:spline3-der} é subdeterminado. São $n$ variáveis e $n-2$ equações. A inclusão de duas equações adicionais linearmente independentes das $n-2$ equações \eqref{eq:spline3-der} possibilita a existência de uma única solução. Tipicamente essas equações adicionais envolvem o comportamento do spline na fronteira ou na sua vizinhança.  A seguir, veremos quatro escolhas mais conhecidas.
 
 
 \subsection{Spline natural}\index{spline!natural}
@@ -640,7 +640,7 @@ ou seja,
 		2y'_1+y'_2=3\dfrac{y_2-y_1}{h_1}\\
 		\\
 		y'_{n-1}+2y'_n=3\dfrac{y_n-y_{n-1}}{h_{n-1}}
-	\end{array}\right.
+	\end{array}\right..
 \end{equation}
 Essas duas equações em conjunto com as equações \eqref{eq:spline3-der} formam um sistema de $n$ equações algébricas lineares $Ay'=z$, onde
 \begin{equation}
@@ -652,7 +652,7 @@ Essas duas equações em conjunto com as equações \eqref{eq:spline3-der} forma
 			\vdots&\vdots&\vdots&\vdots&\ddots&\vdots&\vdots\\
 			0&0&0&\cdots&h_{n-1} & 2(h_{n-1}+h_{n-2})&h_{n-2}\\
 			0&0&0&\cdots &0&1&2
-		\end{array}\right]  
+		\end{array}\right] , 
 	\end{scriptsize}
 \end{equation}
 \begin{equation}
@@ -669,7 +669,7 @@ Essas duas equações em conjunto com as equações \eqref{eq:spline3-der} forma
 		\vdots\\
 		h_{n-1}\frac{y_{n-1}-y_{n-2}}{h_{n-2}}+h_{n-2}\frac{y_n-y_{n-1}}{h_{n-1}}\\
 		\frac{y_n-y_{n-1}}{h_{n-1}}
-	\end{array}\right]
+	\end{array}\right].
 \end{equation}
 Observe que a matriz $A$ é diagonal dominante estrita e, portanto, o sistema $Ay'=z$ possui solução única. Calculado $y'$, os valores dos $a_j$, $b_j$, $c_j$ e $d_j$ são obtidos diretamente pelas expressões \eqref{eq:spline3-coef}.
 
@@ -715,19 +715,19 @@ As variáveis $y'_1$, $y'_2$, $y'_3$ e $y'_4$ resolvem o sistema $Ay' = z$, onde
 		-20,2\\
 		1,4\\
 		-1
-	\end{bmatrix}  
+	\end{bmatrix} . 
 \end{equation*}
 A solução é  $y'_1=-2,8\bar{3}$, $y'_2=-0,7\bar{3}$, $y'_3=0,4\bar{6}$ e $y'_4=-0,7\bar{3}$. Calculamos os coeficientes usando as expressões \eqref{eq:spline3-coef}:
 \begin{equation*}
 	\begin{array}{lclclcl}
-		a_1&=&y_1=4,5&\qquad&b_1 &=&y'_1=-2,8\bar{3}\\
-		a_2&=&y_2=-1,9&\qquad&b_2&=&y'_2=-0,7\bar{3}\\
-		a_3&=&y_3=0,5&\qquad&b_3&=&y'_3=0,4\bar{6}\\
+		a_1&=&y_1=4,5&, \qquad&b_1 &=&y'_1=-2,8\bar{3}, \\
+		a_2&=&y_2=-1,9&, \qquad&b_2&=&y'_2=-0,7\bar{3}, \\
+		a_3&=&y_3=0,5&. \qquad&b_3&=&y'_3=0,4\bar{6}, \\
 		&&&&&&\\
-		c_1&=&0&\qquad&d_1&=&0,0\bar{7}\\
-		c_2&=&0,7&\qquad&d_2&=&-0,091\bar{6}\\
-		c_3&=&-0,4&\qquad&d_3&=&0,0\bar{4}
-	\end{array}.
+		c_1&=&0&, \qquad&d_1&=&0,0\bar{7}, \\
+		c_2&=&0,7&, \qquad&d_2&=&-0,091\bar{6}, \\
+		c_3&=&-0,4&, \qquad&d_3&=&0,0\bar{4}.
+	\end{array}
 \end{equation*}
 Portanto:
 \begin{small}
@@ -918,7 +918,7 @@ ou seja,
 	h_2^2y'_1+(h_2^2-h_1^2)y'_2-h_1^2y'_3=2\left(h_2^2\dfrac{y_2-y_1}{h_1}-h_1^2\dfrac{y_3-y_2}{h_2}\right)\\
 	\\
 	h_{n-1}^2y'_{n-2}+(h_{n-1}^2-h_{n-2}^2)y'_{n-1}-h_{n-2}^2y'_n=2\left(h_{n-1}^2\dfrac{y_{n-1}-y_{n-2}}{h_{n-2}}-h_{n-2}^2\dfrac{y_n-y_{n-1}}{h_{n-1}}\right)
-	\end{array}\right.
+	\end{array}\right..
 \end{equation*}
 Essas duas equações agregadas às equações \eqref{eq:spline3-der} formam um sistema de $n$ equações $Ay' = z$, onde
 \begin{equation*}
@@ -930,7 +930,7 @@ Essas duas equações agregadas às equações \eqref{eq:spline3-der} formam um 
 			\vdots&\vdots&\vdots&\vdots&\ddots&\vdots&\vdots\\
 			0&0&0&\cdots&h_{n-1} & 2(h_{n-2}+h_{n-1})&h_{n-2}\\
 			0&0&0&\cdots &h_{n-1}^2&h_{n-1}^2-h_{n-2}^2&-h_{n-2}^2
-		\end{array}\right] 
+		\end{array}\right],  
 	\end{scriptsize} 
 \end{equation*}
 \begin{equation*}
@@ -947,7 +947,7 @@ Essas duas equações agregadas às equações \eqref{eq:spline3-der} formam um 
 			\vdots\\
 			3\left(h_{n-1}\frac{y_{n-1}-y_{n-2}}{h_{n-2}}+h_{n-2}\frac{y_n-y_{n-1}}{h_{n-1}}\right)\\
 			2\left(h_{n-1}^2\dfrac{y_{n-1}-y_{n-2}}{h_{n-2}}-h_{n-2}^2\dfrac{y_n-y_{n-1}}{h_{n-1}}\right)\\
-		\end{array}\right]
+		\end{array}\right].
 	\end{small}
 \end{equation*}
 Se reduzirmos esse sistema pela eliminação das incógnitas $y'_1$ e $y'_n$, o sistema resultante possui uma matriz de coeficientes diagonal dominante estrita, portanto, a solução é única.
@@ -982,7 +982,7 @@ Essas duas equações agregadas às equações \eqref{eq:spline3-der} formam um 
 			\vdots&\vdots&\vdots&\vdots&\ddots&\vdots&\vdots\\
 			0&0&0&\cdots&h_{n-1} & 2(h_{n-2}+h_{n-1})&h_{n-2}\\
 			2h_{n-1}&h_{n-1}&0&\cdots &0&h_1&2h_1
-			\end{array}\right] 
+			\end{array}\right], 
 	\end{scriptsize} 
 \end{equation*}
 \begin{equation*}
