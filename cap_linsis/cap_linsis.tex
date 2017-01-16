@@ -2680,55 +2680,158 @@ x_1+10x_2+3x_3=27\\
 \end{resp}
 
 
-\section{Método da potência para cálculo de autovalores}\index{autovalores}\index{método da potência}
-Consideremos uma matriz $A\in \mathbb{R}^{n,n}$ diagonalizável, isto é, existe um conjunto $\{v_{j}\}_{j=1}^n$ de autovetores de $A$ tais que qualquer elemento $x\in\mathbb{R}^n$ pode ser escrito como uma combinação linear dos $v_{j}$. Sejam $\{\lambda_j\}_{j=1}^n$ o conjunto de autovalores associados aos autovetores tal que um deles seja dominante, ou seja,
+\section{Cálculo de autovalores e autovetores}\index{autovalores}
+Considere o problema de autovalores $Av=\lambda v$, onde $A$ é uma matriz diagonalizável, isto é, existe uma matriz diagonal $D$ e uma matriz ortogonal $U$ tal que $A=UDU^{-1}$.
+\subsection{Método da Potência}\index{método da potência}
+
+O método da potência para cálculo do maior autovalor (em módulo) consiste na sequência
 $$
-|\lambda_1|>|\lambda_2|\geq |\lambda_3|\geq\cdots |\lambda_n|>0
+x_0,\ \frac{Ax_0}{\|Ax_0\|_2},\ \frac{A^2x_0}{\|A^2x_0\|_2},\ \frac{A^3x_0}{\|A^3x_0\|_2},\ \frac{A^4x_0}{\|A^4x_0\|_2},\ \cdots
 $$
-Como os autovetores são l.i., todo vetor $x\in\mathbb{R}^n$, $x=(x_1,x_2,...,x_n)$, pode ser escrito com combinação linear dos autovetores da seguinte forma:
+para algum chute inicial $x_0$. Para entender melhor o comportamento assintótico dessa sequência, primeiro considere o caso particular onde $A$ é uma matriz diagonal, isto é, 
+$$
+A=\left[\begin{array}{ccccc}
+\lambda_1&0&0&\cdots&0\\
+0&\lambda_2&0&\cdots&0\\
+0&  0&\lambda_3&\cdots&0\\
+ &\vdots& &\ddots&\\
+ 0&  0&0&\cdots&\lambda_n\\
+\end{array}\right].
+$$ 
+Suponha que um dos autovalores seja estritamente maior que os demais, isto é, $|\lambda_1|>|\lambda_2|\geq |\lambda_3|\geq \cdots\geq |\lambda_n|$. Dado $x_0=[\xi_1\ \ \xi_2\ \ \xi_3\ \ \cdots \ \ \xi_n]^T$, então
+$$
+A^kx_0=A^k\left[\begin{array}{c}\xi_1\\ \xi_2\\ \xi_3\\ \vdots \\ \xi_n\end{array}\right]=\left[\begin{array}{c}\lambda_1^k\xi_1\\ \lambda_2^i\xi_2\\ \lambda_3^k\xi_3\\ \vdots \\ \lambda_n^k\xi_n\end{array}\right]=\lambda_1^k\xi_1\left[\begin{array}{c}1\\ \frac{\xi_2}{\xi_1}\left(\frac{\lambda_2}{\lambda_1}\right)^k\\ \frac{\xi_3}{\xi_1}\left(\frac{\lambda_3}{\lambda_1}\right)^k\\ \vdots \\ \frac{\xi_n}{\xi_1}\left(\frac{\lambda_n}{\lambda_1}\right)^k\end{array}\right],
+$$
+desde que $\xi_1\neq 0$. Como $\frac{\lambda_n}{\lambda_1}\leq \frac{\lambda_{n-1}}{\lambda_1}\leq \cdots \frac{\lambda_3}{\lambda_1}\leq \frac{\lambda_2}{\lambda_1}<1$, então $\left(\frac{\lambda_j}{\lambda_1}\right)^k$ tende a $0$ para cada $j$, $2\leq j\leq n$. Devido a normalização a cada passo da sequência, 
+$$
+x_k=\frac{A^kx_0}{\|A^kx_0\|_2}
+$$
+converge para $\pm e_1$, $e_1=[1\ \ 0\ \ 0\ \ \cdots \ \ 0]^T$. Também, a sequência
+$$
+\lambda_k=x_k^TAx_k
+$$
+converge para $\lambda_1$:
+$$
+\lim_{k\to\infty}\lambda_k=(\pm e_1)^TA(\pm e_1)=\lambda_1e_1^Te_1=\lambda_1.
+$$
+
+Considere agora o caso onde $A$ é diagonalizável, ou seja, $A=U D U^{-1}$ com $U$ uma matriz ortogonal contendo os autovetores em cada coluna e $D$ uma matriz diagonal contendo os autovalores:
+$$
+D=\left[\begin{array}{ccccc}
+\lambda_1&0&0&\cdots&0\\
+0&\lambda_2&0&\cdots&0\\
+0&  0&\lambda_3&\cdots&0\\
+ &\vdots& &\ddots&\\
+ 0&  0&0&\cdots&\lambda_n\\
+\end{array}\right].
+$$ 
+Considere a mesma hipótese sobre os autovalores: $|\lambda_1|>|\lambda_2|\geq |\lambda_3|\geq \cdots\geq |\lambda_n|$. Então
+$$
+A^k=(U D U^{-1})(U D U^{-1})(U D U^{-1})\cdots (U D U^{-1})=UD^kU^ {-1} 
+$$
+visto que $U  U^{-1}=I$. Suponha que o chute inicial $x_0$ pode ser escrito da forma
+$$
+x_0=UU^ {-1}x_0=U[\xi_1\ \ \xi_2\ \ \xi_3\ \ \cdots \ \ \xi_n]^T
+$$
+com $\xi_1\neq 0$. Então
+$$
+A^kx_0=(UD^kU^{-1})U\left[\begin{array}{c}\xi_1\\ \xi_2\\ \xi_3\\ \vdots \\ \xi_n\end{array}\right]=U\left[\begin{array}{c}\lambda_1^k\xi_1\\ \lambda_2^k\xi_2\\ \lambda_3^k\xi_3\\ \vdots \\ \lambda_n^k\xi_n\end{array}\right]=\lambda_1^k\xi_1U\left[\begin{array}{c}1\\ \frac{\xi_2}{\xi_1}\left(\frac{\lambda_2}{\lambda_1}\right)^k\\ \frac{\xi_3}{\xi_1}\left(\frac{\lambda_3}{\lambda_1}\right)^k\\ \vdots \\ \frac{\xi_n}{\xi_1}\left(\frac{\lambda_n}{\lambda_1}\right)^k\end{array}\right].
+$$
+Como na discussão anterior, o último vetor converge para $\pm e_1$ e 
+$$
+x_k=\frac{A^kx_0}{\|A^kx_0\|_2}
+$$
+converge para $v_1=\pm Ue_1$ que é um múltiplo do autovetor associado a $\lambda_1$. Também, a sequência
+$$
+\lambda_k=x_k^TAx_k
+$$
+converge para o autovalor dominante $\lambda_1$:
+$$
+\lim_{k\to\infty}\lambda_k= v_1^TA v_1=\lambda_1v_1^Tv_1=\lambda_1.
+$$
+
+O método da potência tem duas restrições: 
+\begin{itemize}
+ \item[i)] O chute $x_0$ não pode ser ortogonal ao autovetor associado ao autovalor dominante.
+ \item[ii)] Um autovalor deve ter o módulo estritamente maior que os demais. Essa restrição impede o funcionamento do método no caso em que o autovalor dominante é complexo, pois eles aparecem em pares conjugados, possuindo o mesmo módulo.
+\end{itemize}
+
+
+A seguir vamos fazer uma análise alternativa para a convergência do método da potência: se $A\in \mathbb{R}^{n,n}$ é diagonalizável, então existe um conjunto $\{v_{j}\}_{j=1}^n$ de autovetores de $A$ tais que qualquer elemento $x\in\mathbb{R}^n$ pode ser escrito como uma combinação linear dos $v_{j}$. Sejam $\{\lambda_j\}_{j=1}^n$ o conjunto de autovalores associados aos autovetores tal que um deles seja dominante, ou seja, $|\lambda_1|>|\lambda_2|\geq |\lambda_3|\geq\cdots |\lambda_n|>0$. Como os autovetores são L.I., todo vetor $x_0\in\mathbb{R}^n$, $x_0=(x_1,x_2,...,x_n)$, pode ser escrito com combinação linear dos autovetores da seguinte forma:
 \begin{equation}\label{eq:met_pot_forma}
-x=\sum_{j=1}^n\beta_jv_{j}.
+x_0=\sum_{j=1}^n\beta_jv_{j}.
 \end{equation}
 
-O método da potência permite o cálculo do autovetor dominante com base no comportamento assintótico (isto é, ``no infinito'') da sequência
-$$x, Ax, A^2x, A^3x, \ldots$$.
-
-Por questões de convergência, consideramos a seguinte sequência semelhante à anterior, porém normalizada:
-$$\frac{x}{\left\|x\right\|}, \frac{Ax}{\|Ax\|}, \frac{A^2x}{\|A^2x\|}, \frac{A^3x}{\|A^3x\|}, \ldots,$$
-que pode ser obtida pelo seguinte processo iterativo:
-$$x^{(k+1)}=\frac{A^{k}x}{\|A^{k}x\|}$$
-Observamos que se $x$ está na forma \eqref{eq:met_pot_forma}, então $A^k x$ pode ser escrito como
-$$A^{k} x = \sum_{j=1}^n\beta_j A^k v_{j}=\sum_{j=1}^n\beta_j \lambda_j^k v_{j}= \beta_1\lambda_1^k\left(v_1+\sum_{j=2}^n\frac{\beta_j}{\beta_1} \left(\frac{\lambda_j}{\lambda_1}\right)^k v_{j}\right)$$
+Observamos que se $x_0$ está na forma \eqref{eq:met_pot_forma}, então $A^k x_0$ pode ser escrito como
+$$A^{k} x_0 = \sum_{j=1}^n\beta_j A^k v_{j}=\sum_{j=1}^n\beta_j \lambda_j^k v_{j}= \beta_1\lambda_1^k\left(v_1+\sum_{j=2}^n\frac{\beta_j}{\beta_1} \left(\frac{\lambda_j}{\lambda_1}\right)^k v_{j}\right)$$
 Como $\left|\frac{\lambda_j}{\lambda_1}\right|<1$ para todo $j\geq 2$, temos
 $$\sum_{j=2}^n\frac{\beta_j}{\beta_1} \left(\frac{\lambda_j}{\lambda_1}\right)^k v_{j} \to 0.$$
-Assim
+Assim,
 \begin{equation}\label{eq:met_pot_assim}
-  \frac{A^k x}{\left\|A^k x\right\|} = \frac{\beta_1\lambda_1^k}{\left\|A^k x\right\|}\left( v_1 + O\left(\left|\frac{\lambda_2}{\lambda_1}\right|^k\right))\right) 
+  \frac{A^k x_0}{\left\|A^k x_0\right\|} = \frac{\beta_1\lambda_1^k}{\left\|A^k x\right\|}\left( v_1 + O\left(\left|\frac{\lambda_2}{\lambda_1}\right|^k\right))\right) 
 \end{equation}
-Como a norma de $\frac{A^k x}{\left\|A^k x\right\|}$ é igual a um, temos
-$$\left\|\frac{\beta_1\lambda_1^k}{\left\|A^k x\right\|}v_1\right\| \to 1$$
+Como a norma de $\frac{A^k x_0}{\left\|A^k x_0\right\|}$ é igual a um, temos
+$$\left\|\frac{\beta_1\lambda_1^k}{\left\|A^k x_0\right\|}v_1\right\| \to 1$$
 e, portanto,
-$$\left|\frac{\beta_1\lambda_1^k}{\left\|A^k x\right\|}\right| \to \frac{1}{\left\|v_1\right\|}$$
-Ou seja, se definimos $\alpha^{(k)}=\frac{\beta_1\lambda_1^k}{\left\|A^k x\right\|}$, então
+$$\left|\frac{\beta_1\lambda_1^k}{\left\|A^k x_0\right\|}\right| \to \frac{1}{\left\|v_1\right\|}$$
+Ou seja, se definimos $\alpha^{(k)}=\frac{\beta_1\lambda_1^k}{\left\|A^k x_0\right\|}$, então
 $$
 |\alpha^{(k)}|\to 1
 $$
 Retornando a \eqref{eq:met_pot_assim}, temos:
 
-$$\frac{A^k x}{\left\|A^k x\right\|}-\alpha^{(k)} v_1 \to 0$$
+$$\frac{A^k x_0}{\left\|A^k x_0\right\|}-\alpha^{(k)} v_1 \to 0$$
 
-Observe que um múltiplo de autovetor  também é um autovetor e, portanto, 
+Observe que um múltiplo de autovetor também é um autovetor e, portanto, 
 $$
-\frac{A^k x}{\left\|A^k x\right\|}
+x_k=\frac{A^k x_0}{\left\|A^k x_0\right\|}
 $$
 é um esquema que oscila entre os autovetores ou converge para o autovetor $v_1$.
 
+\subsection{Método da iteração Inversa}
+Nesta seção, vamos estudar a seguência
+$$
+x_0,\ \frac{(A-\sigma I)^{-1}x_0}{\|(A-\sigma I)^{-1}x_0\|_2},\ \frac{(A-\sigma I)^{-2}x_0}{\|(A-\sigma I)^{-2}x_0\|_2},\ \frac{(A-\sigma I)^{-3}x_0}{\|(A-\sigma I)^{-3}x_0\|_2},\ \cdots
+$$
+para valores iniciais $x_0$ e $\sigma$. Para o caso onde $A$ é diagonalizável podemos escrever $A=UDU^{-1}$ com $D$ diagonal,
+$$
+D=\left[\begin{array}{ccccc}
+\lambda_1&0&0&\cdots&0\\
+0&\lambda_2&0&\cdots&0\\
+0&  0&\lambda_3&\cdots&0\\
+ &\vdots& &\ddots&\\
+ 0&  0&0&\cdots&\lambda_n\\
+\end{array}\right].
+$$
+Assim, $A-\sigma I=U(D-\sigma I)U^{-1}$ e, portanto, $(A-\sigma I)^{-1}=U(D-\sigma I)^{-1}U^{-1}$. Observamos que as matrizes $A$ e $(A-\sigma I)^{-1}$ possuem os mesmos autovetores associados aos autovalores $\lambda_j$ e $(\lambda_j-\sigma)^{-1}$, respectivamente. Agora, supomos que $\sigma$ satisfaça $|\lambda_k-\sigma|<|\lambda_j-\sigma|$ para algum $k$ e para todo $j\neq k$.  Também, Supomos que o chute inicial $x_0$ possa ser escrito da forma
+$$
+x_0=UU^ {-1}x_0=U[\xi_1\ \ \xi_2\ \ \xi_3\ \ \cdots \ \ \xi_n]^T
+$$
+com $\xi_k\neq 0$. Então
+\begin{eqnarray*}
+(A-\sigma I)^{-k}x_0&=&(U(D-\sigma I)^{-k }U^{-1} )U\left[\begin{array}{c}\xi_1\\ \xi_2\\ \xi_3\\ \vdots \\ \xi_n\end{array}\right]\\&=&U\left[\begin{array}{c}(\lambda_1-\sigma)^{-k}\xi_1\\ (\lambda_2-\sigma)^{-k}\xi_2\\ (\lambda_3-\sigma)^{-k}\xi_3\\ \vdots \\ (\lambda_n-\sigma)^{-k}\xi_n\end{array}\right]=(\lambda_i-\sigma)^{-k}\xi_1U\left[\begin{array}{c}\frac{\xi_1}{\xi_i}\left(\frac{\lambda_i-\sigma}{\lambda_1-\sigma}\right)^k\\ \cdots\\ 1\\ \vdots \\ \cdots \\ \frac{\xi_n}{\xi_i}\left(\frac{\lambda_i-\sigma}{\lambda_n-\sigma}\right)^k \end{array}\right].
+\end{eqnarray*}
+Como $\left|\frac{\lambda_i-\sigma}{\lambda_j-\sigma}\right|<1$, o último vetor converge para $\pm e_i$ e 
+$$
+x_k=\frac{(A-\sigma I)^{-k}x_0}{\|(A-\sigma I)^{-k}x_0\|_2}
+$$
+converge para $Ue_i=v_i$ que é um múltiplo do autovetor associado a $\lambda_i$. Também, a sequência
+$$
+\lambda_k=x_k^TAx_k
+$$
+converge para $\lambda_i$:
+$$
+\lim_{k\to\infty}\lambda_k= v_i^TA v_i=\lambda_iv_i^Tv_i=\lambda_i.
+$$
 
-Uma vez que temos o autovetor $v_1$ de $A$, podemos calcular $\lambda_1$ da seguinte forma:
-\begin{equation*}
-A v_1=\lambda_1 v_1 ~\Longrightarrow~ v_1^TA v_1= v_1^T\lambda_1 v_1 ~ \Longrightarrow~ \lambda_1=\frac{v_1^TA v_1}{ v_1^Tv_1}  
-\end{equation*}
-Observe que a última identidade é válida, pois $\left\|v_1\right\|=1$ por construção.
+A método da iteração inversa tem restrições semelhantes àquelas do método da potência: 
+\begin{itemize}
+ \item[i)] O chute $x_0$ não pode ser ortogonal ao autovetor associado ao autovalor $\lambda_i$.
+ \item[ii)] O chute $\sigma$ deve estar mais próximo de $\lambda_i$ do que dos $\lambda_j$, $j\neq i$. 
+\end{itemize}
+A vantagem é que conseguimos calcular qualquer autovalor, não apenas o autovalor dominante.
+
+
 
 \subsection*{Exercícios}
 
