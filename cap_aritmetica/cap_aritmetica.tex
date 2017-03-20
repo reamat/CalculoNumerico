@@ -168,7 +168,7 @@ A partir da definição \ref{def:sistema_de_numeracao}, acabamos de mostrar vár
 
 Separando as partes inteira e fracionária de $X$, isto é, $X = X^{\mbox{i}} + X^{\mbox{f}}$, temos:
 \begin{equation*}
-X^{\mbox{i}} = d_n\cdot b^{n}+ \cdots+d_{n-1}b^{n-1} \cdot  +d_1\cdot b^1 +d_0\cdot b^0
+X^{\mbox{i}} = d_n\cdot b^{n}+ \cdots+d_{n-1}b^{n-1} \cdots  +d_1\cdot b^1 +d_0\cdot b^0
 \end{equation*}
 e
 \begin{equation*}
@@ -410,7 +410,7 @@ Observamos que um número pode ser representado de várias formas equivalentes e
   \begin{equation*}
     x=(-1)^{s}(M)_b \times b^{E},
   \end{equation*}
-onde $(M)_b = (d_1,d_{-1}d_{-2}d_{-3}\cdot)_b$, com $d_{1}\neq 0$\footnote{Em algumas referências é usado $M_b = (0,d_{-1}d_{-2}d_{-3}\cdot)_b$.}\footnote{No caso de $x=0$, $M_b = (0,00\cdots)_b$.}, $s$ é $0$ para positivo e $1$ para negativo, $E$ é o expoente.
+onde $(M)_b = (d_1,d_{-1}d_{-2}d_{-3}\cdots)_b$, com $d_{1}\neq 0$\footnote{Em algumas referências é usado $M_b = (0,d_{-1}d_{-2}d_{-3}\cdot)_b$.}\footnote{No caso de $x=0$, $M_b = (0,00\cdots)_b$.}, $s$ é $0$ para positivo e $1$ para negativo, $E$ é o expoente.
  \end{defn}
 
 \begin{ex} Vejamos os seguintes casos:
@@ -425,7 +425,7 @@ onde $(M)_b = (d_1,d_{-1}d_{-2}d_{-3}\cdot)_b$, com $d_{1}\neq 0$\footnote{Em al
 %%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \begin{obs}
-No \verb+Scilab+, A representação em ponto flutuante decimal com $8$ dígitos é a padrão, por exemplo:
+No \verb+Scilab+, a representação em ponto flutuante decimal com $8$ dígitos é a padrão, por exemplo:
 \begin{verbatim}
 -->-%pi
  ans  =
@@ -571,7 +571,7 @@ Em \verb+Python+, temos:
 
 Em computadores, é usual representarmos números usando uma quantidade de dígitos finita. A quantidade a ser usada normalmente depende da precisão com que as computações estão sendo feitas. Ocorre, que quando restringimos a representação a um número finito de dígitos, muitos números não podem ser representado de forma exata. Por exemplo, dízimas infinitas e números irracionais não são usualmente representados de forma exata em computadores. Esta questão nos leva aos conceitos de número de dígitos significativos e arredondamento.
 
-\begin{defn}[Número de dígitos significativos] Um número decimal $x = \pm d_1,d_{-1}\cdots d_{-i}d_{-i-1}\cdot d_{-i-n} d_{-i-n-1}\cdot \times 10^E$ é dito ter $n$ dígitos significativos quando $d_{j}=0$ para $j\geq -i$ e $j\leq-i-n-1$.  
+\begin{defn}[Número de dígitos significativos] Um número decimal $x = \pm d_1,d_{-1}\cdots d_{-i}d_{-i-1}\cdots d_{-i-n} d_{-i-n-1}\cdot \times 10^E$ é dito ter $n$ dígitos significativos quando $d_{j}=0$ para $j\geq -i$ e $j\leq-i-n-1$.  
 \end{defn}
 
 \begin{ex} O número $0,0602100\times 10^{-3}$ tem $4$ dígitos significativos.
@@ -783,15 +783,15 @@ Um registro com $n$ bits da forma
  \end{center}
 representa o número $(d_{n-1}d_{n-2}...d_1d_0)_2$. 
 
-Assim, é possível representar números inteiros entre
+Assim, é possível representar números inteiros entre $2^n-1$ e $0$, sendo
 \begin{equation*}
 \begin{split}
-  (111...111)_2 & = 2^{n-1}+2^{n-2}+\cdots+2^1+2^0=2^n-1.\\
+  (111\ldots 111)_2 & = 2^{n-1}+2^{n-2}+\cdots+2^1+2^0=2^n-1,\\
                 &\vdots\\
-  (000...011)_2 &= 3 \\
-  (000...010)_2 &= 2 \\
-  (000...001)_2 &= 1 \\
-  (000...000)_2 & = 0 
+  (000\ldots 011)_2 &= 3, \\
+  (000\ldots 010)_2 &= 2, \\
+  (000\ldots 001)_2 &= 1, \\
+  (000\ldots 000)_2 & = 0. 
 \end{split}
 \end{equation*}
 
@@ -818,21 +818,21 @@ O bit mais significativo (o primeiro à esquerda) representa o sinal: por conven
     $s$ & $d_{n-2}$ & $\cdots$ & $d_1$ & $d_0$ \\\hline
   \end{tabular}  
 \end{center}
-representa o número $(-1)^s(d_{n-2}...d_1d_0)_2$. Assim, é possível representar números inteiros entre $-2^{n-1}$ e $2^{n-1}$, com duas representações para o zero: $(1000...000)_2$ e $(00000...000)_2$.
+representa o número $(-1)^s(d_{n-2}\ldots d_1d_0)_2$. Assim, é possível representar números inteiros entre $-2^{n-1}$ e $2^{n-1}$, com duas representações para o zero: $(1000\ldots 000)_2$ e $(00000\ldots 000)_2$.
 
 \begin{ex}
 Em um registro com $8$ bits, teremos os números
 \begin{equation*}
 \begin{split}
- (11111111)_2 &= -(2^{6}+\cdots+2+1)=-127\\
+ (11111111)_2 &= -(2^{6}+\cdots+2+1)=-127,\\
  &\vdots    \\
- (10000001)_2 &= -1 \\
- (10000000)_2 &= -0 \\
- (01111111)_2 &= 2^6+\cdots+2+1=127 \\
+ (10000001)_2 &= -1, \\
+ (10000000)_2 &= -0, \\
+ (01111111)_2 &= 2^6+\cdots+2+1=127, \\
  &\vdots    \\
- (00000010)_2 &= 2 \\
- (00000001)_2 &= 1 \\
- (00000000)_2 &= 0 
+ (00000010)_2 &= 2, \\
+ (00000001)_2 &= 1, \\
+ (00000000)_2 &= 0. 
 \end{split}  
 \end{equation*}
 \end{ex}
@@ -845,7 +845,7 @@ O bit mais significativo (o primeiro à esquerda) representa o coeficiente de $-
     $d_{n-1}$ & $d_{n-2}$ & $\cdots$ & $d_1$ & $d_0$\\\hline
   \end{tabular}    
 \end{center}
-representa o número $-d_{n-1}2^{n-1}+(d_{n-2}...d_1d_0)_2$. 
+representa o número $-d_{n-1}2^{n-1}+(d_{n-2}\ldots d_1d_0)_2$. 
 
 Note que todo registro começando com $1$ será um número negativo.
 
@@ -969,7 +969,7 @@ Em base $2$ não é necessário armazenar o primeiro dígito (por quê?).
 
 Por exemplo, o registro
 $$
-[0|\RED{100~0000~0000} |\BLU{101}0~0000~0000...0000~0000]
+[0|\RED{100~0000~0000} |\BLU{101}0~0000~0000\ldots 0000~0000]
 $$
 representa o número
 $$
@@ -981,7 +981,7 @@ $$
 \subsubsection{O expoente deslocado}
 Uma maneira de representar os expoentes inteiros é deslocar todos eles uma mesma quantidade. Desta forma permitimos a representação de números negativos e a ordem deles continua crescente. O expoente é representado por um inteiro sem sinal do qual é deslocado o \emph{BIAS}.
 
-Tendo $|E|$ dígitos para representar o expoente, geralmente o $BIAS$ é predefinido de tal forma a dividir a tabela ao meio de tal forma que o expoente \textit{um} seja representado pelo sequência $[100...000]$. 
+Tendo $|E|$ dígitos para representar o expoente, geralmente o $BIAS$ é predefinido de tal forma a dividir a tabela ao meio de tal forma que o expoente \textit{um} seja representado pelo sequência $[100\ldots 000]$. 
 
 \begin{ex}
 Com $64$ bits, pelo padrão $IEEE754$, temos que $|E|:=11$. Assim, $(100~0000~0000)_2=2^{10}=1024$. Como queremos que esta sequência represente o $1$, definimos $BIAS:=1023$, pois
@@ -1013,19 +1013,19 @@ O maior expoente é dado por $E_{MAX}=1023$ e o menor expoente é dado por $E_{M
 
 
 O menor número representável positivo é dado pelo registro
-$$
-[0|000~0000~000\RED{1} |\BLU{0000~0000~0000...0000~0000}]
-$$
+\begin{equation*}
+[0|000~0000~000\RED{1} |\BLU{0000~0000~0000\ldots 0000~0000}]  
+\end{equation*}
 quando $s=0$, $c=\RED{1}$ e $M=(1.\BLU{000...000})_2$, ou seja,
-$$
-MINR=(1+\BLU{0})_2\times 2^{\RED{1}-1023} \approx 0.2225\times 10^{-307}.
-$$
+\begin{equation*}
+MINR=(1+\BLU{0})_2\times 2^{\RED{1}-1023} \approx 0.2225\times 10^{-307}.  
+\end{equation*}
 
 O maior número representável é dado por
-$$
-[0|\RED{111~1111~1110} |\BLU{1111~1111~...1111~1111}]
-$$
-quando $s=0$, $c=2046$ e $M=(1.1111~1111....1111)_2=2-2^{-52}$, ou seja,
+\begin{equation*}
+[0|\RED{111~1111~1110} |\BLU{1111~1111~\cdots~1111~1111}]  
+\end{equation*}
+quando $s=0$, $c=2046$ e $M=(1.1111~1111\cdots~1111)_2=2-2^{-52}$, ou seja,
 $$
 MAXR=(2-2^{-52})\times 2^{2046-1023} \approx 2^{1024}\approx0.17977\times 10^{309}.
 $$

@@ -648,9 +648,9 @@ Teremos em mente que a ideia é estimar o custo quando lidamos com vetores e mat
 Qual o custo para multiplicar um escalar por um vetor?
 \end{ex}
 \begin{sol}
-Seja $a \in \mathbb{R}$ e $\bf{x} \in \mathbb{R}^n$, temos que
+Seja $a \in \mathbb{R}$ e $\pmb{x} \in \mathbb{R}^n$, temos que
 \begin{equation}
-  a \bf{x} = [a\times x_1 , a\times x_2 , ... ,a\times x_n]
+  a \pmb{x} = [a\times x_1 , a\times x_2 , ... ,a\times x_n]
 \end{equation}
 usando $n$ multiplicações, ou seja, um custo computacional, $C$, de
 \begin{equation}
@@ -659,12 +659,12 @@ usando $n$ multiplicações, ou seja, um custo computacional, $C$, de
 \end{sol}
 
 \begin{ex}[Produto vetor-vetor]
-Qual o custo para calcular o produto interno $\bf{x}\cdot\bf{y}$?
+Qual o custo para calcular o produto interno $\pmb{x}\cdot\pmb{y}$?
 \end{ex}
 \begin{sol}
-Sejam $\bf{x}, \bf{y} \in \mathbb{R}^n$, temos que
+Sejam $\pmb{x}, \pmb{y} \in \mathbb{R}^n$, temos que
 \begin{equation}
-  \bf{x}\cdot\bf{y} = x_1 \times y_1 + x_2\times y_2 + ... +x_n\times y_n
+  \pmb{x}\cdot\pmb{y} = x_1 \times y_1 + x_2\times y_2 + ... +x_n\times y_n
 \end{equation}
 
 São realizadas $n$ multiplicações (cada produto $x_i$ por $y_i$) e $n-1$ somas, ou seja, o custo total de operações é de
@@ -675,16 +675,16 @@ São realizadas $n$ multiplicações (cada produto $x_i$ por $y_i$) e $n-1$ soma
 
 
 \begin{ex}[Produto matriz-vetor]
-Qual o custo para calcular o produto de matriz por vetor $A \bf{x}$?
+Qual o custo para calcular o produto de matriz por vetor $A \pmb{x}$?
 \end{ex}
 \begin{sol}
- Sejam $A \in \mathbb{R}^{n\times n}$ e $\bf{x} \in \mathbb{R}^n$, temos que
+ Sejam $A \in \mathbb{R}^{n\times n}$ e $\pmb{x} \in \mathbb{R}^n$, temos que
 \begin{equation}
   \matddd{a_{11}}{a_{12}}{\cdots a_{1n}}{\vdots}{}{\vdots}{a_{n1}}{}{\cdots a_{nn}} \vetddd{x_1}{\vdots }{x_n}
   =\vetddd{ a_{11}\times x_1 + a_{12}x_2 +...+a_{1n}\times x_n }{\vdots }{a_{n1}\times x_1 + a_{n2}x_2 +...+a_{nn}\times x_n} 
 \end{equation}
 
-Para obter o primeiro elemento do vetor do lado direito devemos multiplicar a  primeira linha de $A$ pelo vetor coluna $\bf{x}$. Note que esse é exatamente o custo do produto vetor-vetor do exemplo anterior. Como o custo para cada elemento do vetor do lado direito é o mesmo e temos $n$ elementos, teremos que o custo para multiplicar matriz-vetor é\footnote{Contando apenas multiplicações/divisões obtemos
+Para obter o primeiro elemento do vetor do lado direito devemos multiplicar a  primeira linha de $A$ pelo vetor coluna $\pmb{x}$. Note que esse é exatamente o custo do produto vetor-vetor do exemplo anterior. Como o custo para cada elemento do vetor do lado direito é o mesmo e temos $n$ elementos, teremos que o custo para multiplicar matriz-vetor é\footnote{Contando apenas multiplicações/divisões obtemos
 \begin{equation}
   n\cdot \mathcal{O}(n) = \mathcal{O}(n^2) \text{~flops.}
 \end{equation}
@@ -1060,7 +1060,7 @@ $$m(\frac{2n^3}{3}+\frac{3n^2}{2}-\frac{n}{6})=\frac{2mn^3}{3}+\frac{3mn^2}{2}-\
 e com $m=n$ temos
 $$\frac{2n^4}{3}+\frac{3n^3}{2}-\frac{n^2}{6}.$$
 
-Porém, se estivermos resolvendo $n$ sistemas com \textit{a mesma matriz $A$ }(e diferente lado direito $\bf b$ para cada sistema) podemos fazer a fatoração LU uma única vez e contar apenas o custo de resolver os sistemas triangulares obtidos.
+Porém, se estivermos resolvendo $n$ sistemas com \textit{a mesma matriz $A$ }(e diferente lado direito $\pmb b$ para cada sistema) podemos fazer a fatoração LU uma única vez e contar apenas o custo de resolver os sistemas triangulares obtidos.
 
 Custo para fatoração LU de $A$: $\frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6}$.
 
@@ -1076,9 +1076,9 @@ $$\frac{8n^3}{3}-\frac{n^2}{2}-\frac{n}{6} \text{~flops}.$$
 \subsection{Custo para calcular a matriz inversa de $A$}
 Como vemos em Álgebra Linear, um método para obter a matriz $A^{-1}$ é realizar o escalonamento da matriz $[A|I]$ onde $I$ é a matriz identidade. Ao terminar o escalonamento, o bloco do lado direito conterá $A^{-1}$.
 
-Isto é equivalente a resolver $n$ sistemas lineares com a mesma matriz $A$ e os vetores da base canônica $\bf e_i = [0,...,0,1,0,....0]^T$ tal que
-$$ A \bf x_i = \bf e_i, \quad\quad i=1:n $$
-onde $\bf x_i$ serão as colunas da matriz $A$ inversa, já que $A X=I$.
+Isto é equivalente a resolver $n$ sistemas lineares com a mesma matriz $A$ e os vetores da base canônica $\pmb e_i = [0,...,0,1,0,....0]^T$ tal que
+$$ A \pmb x_i = \pmb e_i, \quad\quad i=1:n $$
+onde $\pmb x_i$ serão as colunas da matriz $A$ inversa, já que $A X=I$.
 
 O custo para resolver esses $n$ sistemas lineares foi calculado na seção anterior como
 $$\frac{8n^3}{3}-\frac{n^2}{2}-\frac{n}{6}.$$
