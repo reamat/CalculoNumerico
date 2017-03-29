@@ -29,7 +29,7 @@ Usualmente, utilizamos o sistema de numeração decimal para representar número
   \begin{equation*}
     \begin{split}
       293 &= 2\ \text{centenas}+9\ \text{dezenas}+3\ \text{unidades}\\
-      &= 2\times 10^2+9\times 10^1+3\times 10^0.      
+      &= 2\cdot 10^2+9\cdot 10^1+3\cdot 10^0.      
     \end{split}
   \end{equation*}
 \end{ex}
@@ -37,7 +37,7 @@ Usualmente, utilizamos o sistema de numeração decimal para representar número
 O sistema de numeração posicional também pode ser usado com outras bases. Vejamos a seguinte definição.
 
 \begin{defn}[Sistema de numeração de base $b$]\label{def:sistema_de_numeracao}
-Dado um número natural $b>1$ e o conjunto de símbolos $\{\pmb{,}, \pmb{-},  \pmb{0}, \pmb{1}, \pmb{2},\dotsc, \pmb{b-1}\}$\footnote{Para $b>10$, veja a observação \ref{obs:sistema_de_numeracao}}, a sequência de símbolos
+Dado um número natural $b>1$ e o conjunto de símbolos $\{\pmb{\pm},  \pmb{0}, \pmb{1}, \pmb{2},\dotsc, \pmb{b-1}\}$\footnote{Para $b>10$, veja a observação \ref{obs:sistema_de_numeracao}.}, a sequência de símbolos
 \begin{equation*}
   \left(d_nd_{n-1} \cdots d_1d_0,d_{-1}d_{-2} \cdots \right)_b  
 \end{equation*}
@@ -45,7 +45,7 @@ representa o número positivo
 \begin{equation*}
   d_n\cdot b^n + d_{n-1}\cdot b^{n-1} + \cdots + d_0\cdot b^0 + d_{-1}\cdot b^{-1}+d_{-2}\cdot b^{-2} + \cdots
 \end{equation*}
-Para representar números negativos usamos o símbolo $-$ a esquerda do numeral.
+Para representar números negativos usamos o símbolo $-$ a esquerda do numeral\footnote{O uso do símbolo $+$ é opcional na representação de números positivos.}.
 \end{defn}
 
 \begin{obs}[$b\geq 10$]\label{obs:sistema_de_numeracao}
@@ -53,49 +53,86 @@ Para sistemas de numeração com base $b \geq 10$ é usual utilizar as seguintes
 \begin{itemize}
 \item No sistema de numeração decimal ($b=10$), costumamos representar o número sem os parênteses e o subíndice, ou seja,
 \begin{equation*}
-  \pm d_nd_{n-1}\ldots d_1d_0,d_{-1}d_{-2}\ldots := \pm (d_nd_{n-1}\ldots d_1d_0,d_{-1}d_{-2}\ldots)_{10}  
+  \pm d_nd_{n-1}\ldots d_1d_0,d_{-1}d_{-2}\ldots := \pm (d_nd_{n-1}\ldots d_1d_0,d_{-1}d_{-2}\ldots)_{10}.
 \end{equation*}
-\item Se $b>10$, usamos as letras $A, B, C, \cdots$ para completar os símbolos: $A=10$, $B=11$, $C=12$, $D=13$, $E=14$, $F=15$.
+\item Se $b>10$, usamos as letras $A, B, C, \cdots$ para denotar os algarismos: $A=10$, $B=11$, $C=12$, $D=13$, $E=14$, $F=15$.
 \end{itemize}
 \end{obs}
 
 
-\begin{ex}[Sistema binário] O sistema de numeração em base dois é chamado de binário e os algarismos binários são conhecidos como \textit{bits}, do inglês \textit{\bf{b}inary dig\bf{its}}. Um \textit{bit} pode assumir dois valores distintos: $0$ ou $1$. Por exemplo:
+\begin{ex}[Sistema binário] O sistema de numeração em base dois é chamado de binário e os algarismos binários são conhecidos como \textit{bits} (do inglês \textit{\bf{b}inary dig\bf{its}}). Um \textit{bit} pode assumir dois valores distintos: $0$ ou $1$. Por exemplo:
 \begin{equation*}
   \begin{split}
     x &= (1001,101)_{2} \\
     &= 1\cdot 2^3 +0\cdot 2^2 +0\cdot 2^1 +1\cdot 2^0  +1\cdot 2^{-1} +0\cdot 2^{-2} +1\cdot 2^{-3} \\
-    &= 8+0+0+1+ 0,5+0+0,125 = 9,625    
+    &= 8+0+0+1+ 0,5+0+0,125 = 9,625.
   \end{split}
 \end{equation*}
 Ou seja, $(1001,101)_{2}$ é igual a $9,625$ no sistema decimal.
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+No \verb+Scilab+ podemos converter o número $(1001,101)_2$ para a base decimal computando
+\begin{verbatim}
+--> 1*2^3 + 0*2^2 + 0*2^1 + 1*2^0 + 1*2^-1 + 0*2^-2 + 1*2^-3
+ans =  9.6250
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+ podemos converter o número $(1001,101)_2$ para a base decimal computando
+\begin{verbatim}
+>> 1*2^3 + 0*2^2 + 0*2^1 + 1*2^0 + 1*2^-1 + 0*2^-2 + 1*2^-3
+ans =  9.6250
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+ podemos converter o número $(1001,101)_2$ para a base decimal computando
+\begin{verbatim}
+>>> 1*2**3 + 0*2**2 + 0*2**1 + 1*2**0 + 1*2**-1 + 0*2**-2 + 1*2**-3
+9.625
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{ex}
 
 
 \begin{ex}[Sistema quaternário]
-No sistema quaternário a base $b$ é igual a $4$. Por exemplo:
+No sistema quaternário a base $b$ é igual a $4$ e, portanto, temos o seguinte conjunto de algarismos $\{0, 1, 2, 3\}$. Por exemplo:
   \begin{equation*}
-    (301,2)_{4}=3\cdot 4^2+0\cdot 4^1+1\cdot 4^0+2\cdot 4^{-1}=49,5    
+    (301,2)_{4}=3\cdot 4^2+0\cdot 4^1+1\cdot 4^0+2\cdot 4^{-1}=49,5.
   \end{equation*}
+Verifique no computador!
 \end{ex}
 
 \begin{ex}[Sistema octal]
-No sistema octal a base é $b=8$ e utilizamos os símbolos em $\{0, 1, 2, 3, 4, 5, 6, 7\}$. Por exemplo:
+No sistema octal a base é $b=8$. Por exemplo:
 \begin{equation*}
   \begin{split}
     (1357,24)_{8}&= 1\cdot 8^3+3\cdot 8^2+5\cdot 8^1+7\cdot 8^{0}+2\cdot 8^{-1}+4\cdot 8^{-2}\\
-    &= 512+192+40+7+0,25+0,0625=751,3125    
+    &= 512+192+40+7+0,25+0,0625=751,3125.
   \end{split}
 \end{equation*}
+Verifique no computador!
 \end{ex}
 
-\begin{ex}[Sistema hexadecimal] O sistema de numeração cuja a base é $b=16$ é chamado de sistema hexadecimal. O conjunto de símbolos necessários é  $S=\{``,", -, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F\}$. Convertendo o número $(E2AC)_{16}$ para a base $10$ temos
+\begin{ex}[Sistema hexadecimal] O sistema de numeração cuja a base é $b=16$ é chamado de sistema hexadecimal. Neste, temos o conjunto de algarismos $\{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F\}$. Convertendo o número $(E2AC)_{16}$ para a base $10$ temos
 \begin{equation*}
   \begin{split}
   (E2AC)_{16} &= 14\cdot 16^3+2\cdot 16^2+10\cdot 16^1+12\cdot 16^{0}\\
-  &=57344+512+160+12=58028  
+  &=57344+512+160+12=58028.
   \end{split}
 \end{equation*}
+Verifique no computador!
 \end{ex}
 
 %%%%%%%%%%%%%%%%%%%%
@@ -158,7 +195,7 @@ ans =  48826
 \fi
 %%%%%%%%%%%%%%%%%%%%
 
-A partir da definição \ref{def:sistema_de_numeracao}, acabamos de mostrar vários exemplos de conversão de números de uma sistema de numeração de base $b$ para o sistema decimal. Agora, vamos estudar como fazer o processo inverso. Isto é, dado um número decimal $(X)_{10}$ queremos escrevê-lo em uma outra base $b$, isto é, queremos obter a seguinte representação:
+Nos exemplos acima vimos como converter números representados em um sistema de numeração de base $b$ para o sistema decimal. Agora, vamos estudar como fazer o processo inverso. Isto é, dado um número decimal $(X)_{10}$ queremos escrevê-lo em uma outra base $b$, isto é, queremos obter a seguinte representação:
 \begin{equation*}
   \begin{split}
     (X)_{10} &= (d_nd_{n-1}\cdots d_0,d_{-1}\cdots)_{b} \\
@@ -166,7 +203,7 @@ A partir da definição \ref{def:sistema_de_numeracao}, acabamos de mostrar vár
   \end{split}
 \end{equation*}
 
-Separando as partes inteira e fracionária de $X$, isto é, $X = X^{\mbox{i}} + X^{\mbox{f}}$, temos:
+Separando as partes inteira e fracionária de $X$, isto é, $X = X^{\mbox{i}} + X^{\mbox{f}}$, temos
 \begin{equation*}
 X^{\mbox{i}} = d_n\cdot b^{n}+ \cdots+d_{n-1}b^{n-1} \cdots  +d_1\cdot b^1 +d_0\cdot b^0
 \end{equation*}
@@ -174,49 +211,180 @@ e
 \begin{equation*}
   X^{\mbox{f}} = \frac{d_{-1}}{b^1} + \frac{d_{-2}}{b^{2}} + \cdots
 \end{equation*}
-Nosso objetivo é determinar os algarismos $\{d_n, d_{n-1}, ...\}$. 
+Nosso objetivo é determinar os algarismos $\{d_n, d_{n-1}, ...\}$.
 
-Primeiramente, vejamos como tratar a parte inteira $X^{\mbox{i}}$. Calculando sua divisão por $b$, temos:
+Primeiramente, vejamos como tratar a parte inteira $X^{\mbox{i}}$. Calculando sua divisão de $X^{\mbox{i}}$ por $b$, temos:
 \begin{equation*}
-  \frac{X^{\mbox{i}}}{b}=   \frac{d_0}{b}+d_1+d_2 b^1\cdots+d_{n-1}\cdot b^{n-2} +d_n\cdot b^{n-1}.  
+  \frac{X^{\mbox{i}}}{b}=   \frac{d_0}{b}+d_1+d_2\cdot b^1+\cdots+d_{n-1}\cdot b^{n-2} +d_n\cdot b^{n-1}.  
 \end{equation*}
-Observe que $d_0$ é o resto da divisão de $X^{\mbox{i}}$ por $b$, pois $d_1+d_2 b^1\cdots+d_{n-1}\cdot b^{n-2} +d_n\cdot b^{n-1}$ é inteiro e $\frac{d_0}{b}$ é uma fração (lembramos que $d_0<b$). Da mesma forma, o resto da divisão de $d_1+d_2 b^1\cdots+d_{n-1}\cdot b^{n-2} +d_n\cdot b^{n-1}$ por $b$ é $d_1$. Repetimos o processo até encontrar os símbolos $d_0, d_1, d_2, \ldots$.
+Observe que $d_0$ é o resto da divisão de $X^{\mbox{i}}$ por $b$, pois $d_1+d_2\cdot b^1+\cdots+d_{n-1}\cdot b^{n-2} +d_n\cdot b^{n-1}$ é inteiro e $\frac{d_0}{b}$ é uma fração com $d_0<b$. Da mesma forma, o resto da divisão de $d_1+d_2\cdot b^1+\cdots+d_{n-1}\cdot b^{n-2} +d_n\cdot b^{n-1}$ por $b$ é $d_1$. Ou seja, repetindo este processo encontramos os algarismos $d_0$, $d_1$, $d_2$, $\ldots$, $d_n$.
 
-\begin{ex}[Conversão da parte inteira] Vamos escrever o número $125$ na base $6$. Para tanto, fazemos sucessivas divisões por $6$ como segue:
+Vamos, agora, converter a parte fracionária $X^{\mbox{f}}$ do número decimal $X$ para o sistema de base $b$. Multiplicando $X^{\mbox{f}}$ por $b$, temos
+\begin{equation*}
+  bX^{\mbox{f}}=d_{-1}+\frac{d_{-2}}{b}+\frac{d_{-3}}{b^2}+\cdots  
+\end{equation*}
+Observe que a parte inteira desse produto é $d_{-1}$ e $\frac{d_{-2}}{b}+\frac{d_{-3}}{b^2}+\cdots$ é a parte fracionária. Quando multiplicamos $\frac{d_{-2}}{b}+\frac{d_{-3}}{b^2}+\cdots$ por $b$ novamente, encontramos $d_{-2}$. Repetindo este processo encontramos os demais algarismos.
+
+
+\begin{ex} 
+  Vamos converter o número $9,625$ para a base binária ($b=2$). Primeiramente, decompomos $9,625$ na soma de suas partes inteira e fracionária.
   \begin{equation*}
-    \begin{split}
-      125 &= 20\cdot 6 + 5\quad(\mbox{$125$ dividido por $6$ é igual a $20$ e resta $5$})\\
-      &= (3\cdot 6 + 2)\cdot 6 + 5 = 3\cdot 6^2 + 2\cdot 6 + 5,      
-    \end{split}
+    9,625 = 9 + 0,625.
   \end{equation*}
-logo $125 = (325)_6$.
 
+{\bf Conversão da parte inteira}. Para converter a parte inteira, fazemos sucessivas divisões por $b=2$ obtendo
+\begin{align*}
+  9 &= 4\cdot 2 + 1\\
+  &= (2\cdot 2 + 0)\cdot 2 + 1\\
+  &= 2^3 + 1.
+\end{align*}
+Ou seja, temos que $9 = (1001)_2$.
 %%%%%%%%%%%%%%%%%%%%
 % scilab
 %%%%%%%%%%%%%%%%%%%%
 \ifisscilab
-Estes cálculos podem ser feitos no \verb+Scilab+ com o auxílio das funções \verb'modulo' e \verb'int'. A primeira calcula o resto da divisão entre dois números, enquanto que a segunda retorna a parte inteira de um número dado. No nosso exemplo, temos:
+No \verb+Scilab+, podemos usar os comandos \verb+fix+ (truncamento) e \verb+modulo+ (resto da divisão) para computar esta conversão da seguinte forma
 \begin{verbatim}
--->q = 125, d0 = modulo(q,6)
--->q = int(q/6), d1 = modulo(q,6)
--->q = int(q/6), d2 = modulo(q,6)
+-->x = 9
+ x  =
+    9.  
+-->d0 = modulo(9,2), x = fix(x/2)
+ d0  =
+    1.  
+ x  =
+    4.  
+-->d1 = modulo(9,2), x = fix(x/2)
+ d1  =
+    1.  
+ x  =
+    2.  
+-->d2 = modulo(9,2), x = fix(x/2)
+ d2  =
+    1.  
+ x  =
+    1.  
+-->d3 = modulo(9,2), x = fix(x/2)
+ d3  =
+    1.  
+ x  =
+    0.  
 \end{verbatim}
-Verifique!
 \fi
-
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos usar os comandos \verb+fix+ (truncamento) e \verb+mod+ (resto da divisão) para computar esta conversão da seguinte forma
+\begin{verbatim}
+>> x = 9
+x =  9
+>> d0 = mod(x,2), x = fix(x/2)
+d0 =  1
+x =  4
+>> d1 = mod(x,2), x = fix(x/2)
+d1 = 0
+x =  2
+>> d2 = mod(x,2), x = fix(x/2)
+d2 = 0
+x =  1
+>> d3 = mod(x,2), x = fix(x/2)
+d3 =  1
+x = 0
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-Estes cálculos podem ser feitos em \verb+Python+ com o auxílio do comando \verb+%+ e da função \verb'int'. Com o primeiro calculamos o resto da divisão entre dois números, enquanto que a segunda retorna a parte inteira de um número dado. No nosso exemplo, temos:
+Em \verb+Python+, podemos usar os comandos \verb+int+ (truncamento) e a operação \verb+%+ (resto da divisão) para computar esta conversão da seguinte forma
 \begin{verbatim}
->>> q = 125; d0 = (q % 6); print(q,d0)
->>> q = int(q/6); d1 = (q % 6); print(q,d1)
->>> q = int(q/6); d2 = (q % 6); print(q,d2)
+>>> x = 9
+>>> d0 = x%2; x = int(x/2); print("d0 = %d, x = %d" % (d0,x))               
+d0 = 1, x = 4                                                
+>>> d1 = x%2; x = int(x/2); print("d1 = %d, x = %d" % (d1,x))
+d1 = 0, x = 2                  
+>>> d2 = x%2; x = int(x/2); print("d2 = %d, x = %d" % (d2,x))
+d2 = 0, x = 1                  
+>>> d3 = x%2; x = int(x/2); print("d3 = %d, x = %d" % (d3,x))
+d3 = 1, x = 0   
 \end{verbatim}
-Verifique!
 \fi
 %%%%%%%%%%%%%%%%%%%%
+
+{\bf Conversão da parte fracionária}. Para converter a parte fracionária, fazemos sucessivas multiplicações por $b=2$ obtendo
+\begin{align*}
+  0,625 &= 1,25\cdot 2^{-1} = 1\cdot 2^{-1} + 0,25\cdot 2^{-1}\\
+  &= 1\cdot 2^{-1} + (0,5\cdot 2^{-1})\cdot 2^{-1} = 1\cdot 2^{-1} + 0,5\cdot 2^{-2}\\
+  &= 1\cdot 2^{-1} + (1\cdot 2^{-1})\cdot 2^{-2} = 1\cdot 2^{-1} + 1\cdot 2^{-3}.
+\end{align*}
+Ou seja, temos que $0,625 = (0,101)_2$.
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+No \verb+Scilab+, podemos computar esta conversão da parte fracionária da seguinte forma
+\begin{verbatim}
+-->x = 0.625
+ x  =
+    0.625  
+-->d = fix(2*x), x = 2*x - d
+ d  =
+    1.  
+ x  =
+    0.25  
+-->d = fix(2*x), x = 2*x - d
+ d  =
+    0.  
+ x  =
+    0.5  
+-->d = fix(2*x), x = 2*x - d
+ d  =
+    1.  
+ x  =
+    0.  
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos computar esta conversão da parte fracionária da seguinte forma
+\begin{verbatim}
+>> x = 0.625
+x =  0.62500
+>> d = fix(2*x), x = 2*x - d
+d =  1
+x =  0.25000
+>> d = fix(2*x), x = 2*x - d
+d = 0
+x =  0.50000
+>> d = fix(2*x), x = 2*x - d
+d =  1
+x = 0
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos computar esta conversão da parte fracionária da seguinte forma
+\begin{verbatim}
+>>> x=0.625
+>>> d = int(2*x); x = 2*x - d; print("d = %d, x = %f" % (d,x))
+d = 1, x = 0.250000
+>>> d = int(2*x); x = 2*x - d; print("d = %d, x = %f" % (d,x))
+d = 0, x = 0.500000
+>>> d = int(2*x); x = 2*x - d; print("d = %d, x = %f" % (d,x))
+d = 1, x = 0.000000
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+
+{\bf Conclusão.} Da conversão das partes inteira e fracionária de $9,625$, obtemos $9 = (1001)_2$ e $0,625 = (0,101)_2$. Logo, concluímos que $9,625 = (1001,101)_2$.
 \end{ex}
 
 %%%%%%%%%%%%%%%%%%%%
@@ -274,13 +442,76 @@ ans = BEBA
 \fi
 %%%%%%%%%%%%%%%%%%%%
 
-Vamos converter a parte fracionária de um número decimal em uma dada base $b$. Usando a notação $X = X^{\mbox{i}} + X^{\mbox{f}}$ para as partes inteira e fracionária, respectivamente, temos:
-\begin{equation*}
-  bX^{\mbox{f}}=d_{-1}+\frac{d_{-2}}{b}+\frac{d_{-3}}{b^2}+\cdots  
-\end{equation*}
-Observe que a parte inteira desse produto é $d_{-1}$ e $\frac{d_{-2}}{b}+\frac{d_{-3}}{b^2}+\cdots$ é a parte fracionária. Quando multiplicamos $\frac{d_{-2}}{b}+\frac{d_{-3}}{b^2}+\cdots$ por $b$ novamente, encontramos $d_{-2}$. Repetimos o processo até encontrar todos os símbolos.
+\begin{obs}
+  Uma maneira de converter um número dado em uma base $b_1$ para uma base $b_2$ é fazer em duas partes: primeiro converter o número dado na base $b_2$ para base decimal e depois converter para a base $b_1$.  
+\end{obs}
 
-\begin{ex}[Conversão da parte fracionária] Escrever o número $125,58\overline{3}$ na base $6$. Do exemplo anterior temos que $125=(325)_6$. Assim, nos resta converter a parte fracionária. Para tanto, fazemos sucessivas multiplicações por $6$ como segue:
+\subsection*{Exercícios Resolvidos}
+
+\begin{exeresol}
+Obtenha a representação do número $125,58\bar{3}$ na base $6$.
+\end{exeresol}
+\begin{resol}
+  Decompomos $125,58\bar{3}$ nas suas partes inteira $125$ e fracionária $0,58\bar{3}$. Então, convertemos cada parte.
+
+  {\bf Conversão da parte inteira.} Vamos escrever o número $125$ na base $6$. Para tanto, fazemos sucessivas divisões por $6$ como segue:
+  \begin{equation*}
+    \begin{split}
+      125 &= 20\cdot 6 + 5\quad(\mbox{$125$ dividido por $6$ é igual a $20$ e resta $5$})\\
+      &= (3\cdot 6 + 2)\cdot 6 + 5 = 3\cdot 6^2 + 2\cdot 6 + 5,      
+    \end{split}
+  \end{equation*}
+logo $125 = (325)_6$.
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+Estes cálculos podem ser feitos no \verb+Scilab+ com o auxílio das funções \verb'modulo' e \verb'int'. A primeira calcula o resto da divisão entre dois números, enquanto que a segunda retorna a parte inteira de um número dado. No nosso exemplo, temos:
+\begin{verbatim}
+-->q = 125, d0 = modulo(q,6)
+-->q = int(q/6), d1 = modulo(q,6)
+-->q = int(q/6), d2 = modulo(q,6)
+\end{verbatim}
+Verifique!
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+Estes cálculos podem ser feitos no \verb+GNU Octave+ com o auxílio das funções \verb'mod' e \verb'fix'. A primeira calcula o resto da divisão entre dois números, enquanto que a segunda retorna a parte inteira de um número dado. No nosso exemplo, temos:
+\begin{verbatim}
+>> x = 125
+x =  125
+>> d = mod(x,6), x = fix(x/6)
+d =  5
+x =  20
+>> d = mod(x,6), x = fix(x/6)
+d =  2
+x =  3
+>> d = mod(x,6), x = fix(x/6)
+d =  3
+x = 0
+\end{verbatim}
+Verifique!
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Estes cálculos podem ser feitos em \verb+Python+ com o auxílio do comando \verb+%+ e da função \verb'int'. Com o primeiro calculamos o resto da divisão entre dois números, enquanto que a segunda retorna a parte inteira de um número dado. No nosso exemplo, temos:
+\begin{verbatim}
+>>> q = 125; d0 = (q % 6); print(q,d0)
+>>> q = int(q/6); d1 = (q % 6); print(q,d1)
+>>> q = int(q/6); d2 = (q % 6); print(q,d2)
+\end{verbatim}
+Verifique!
+\fi
+%%%%%%%%%%%%%%%%%%%%
+
+{\bf Conversão da parte fracionária.} Para converter $0,58\bar{3}$ para a base $6$, fazemos sucessivas multiplicações por $6$ como segue:
   \begin{equation*}
     \begin{split}
     0,58\overline{3} &= 3,5\cdot 6^{-1}\quad(\mbox{$0,58\overline{3}$ multiplicado por $6$ é igual a $3,5$})\\
@@ -290,15 +521,59 @@ Observe que a parte inteira desse produto é $d_{-1}$ e $\frac{d_{-2}}{b}+\frac{
     \end{split}
   \end{equation*}
 logo $0,58\overline{3} = (0,33)_6$.
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 As contas feitas aqui, também podem ser computadas no \verb+Scilab+. Você sabe como?
 \fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos computar esta conversão da parte fracionária da seguinte forma
+\begin{verbatim}
+>> x = 0.58 + 1/3/100
+x =  0.58333
+>> d = fix(6*x), x = 6*x - d
+d =  3
+x =  0.50000
+>> x = 0.5 #isso é realmente necessário?
+x =  0.50000
+>> d = fix(6*x), x = 6*x - d
+d =  3
+x = 0
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
 \ifispython
 As contas feitas aqui, também podem ser computadas em \verb+Python+. Você sabe como?
 \fi
-\end{ex}
+%%%%%%%%%%%%%%%%%%%%
+\end{resol}
 
-Uma maneira de converter um número dado em uma base $b_1$ para uma base $b_2$ é fazer em duas partes: primeiro converter o número dado na base $b_2$ para base decimal e depois converter para a base $b_1$.
+\begin{exeresol}
+  Obtenha a representação na base $4$ do número $(101,01)_2$.
+\end{exeresol}
+\begin{resol}
+  Começamos convertendo $(101,01)_2$ para a base decimal:
+  \begin{equation*}
+    (1001,101)_2 = 1\cdot 2^2 + 1\cdot 2^0 + 1\cdot 2^{-2} = 5,25.
+  \end{equation*}
+Então, convermetos $5,25$ para a base $4$. Para sua parte inteira, temos
+\begin{equation*}
+  5 = 1\cdot 4 + 1 = (11)_4.
+\end{equation*}
+Para sua parte fracionária, temos
+\begin{equation*}
+  0,25 = 1\cdot 4^{-1} = (0,1)_4.
+\end{equation*}
+Logo, $(101,01)_2 = (11,1)_4$. Verifique estas contas no computador!
+\end{resol}
 
 \subsection*{Exercícios}
 
@@ -317,19 +592,35 @@ Uma maneira de converter um número dado em uma base $b_1$ para uma base $b_2$ �
   \end{multicols}
 \end{exer}
 \begin{resp}
-  
     a)~$4$; b)~$9$; c)~$b^2$; d)~$7$; e)~$170$; f)~$7,125$; g)~$3,28$
-  
 \end{resp}
 
 \begin{exer}Escreva os números abaixo na base decimal.
+\begin{multicols}{2}
   \begin{itemize}
   \item[a)] $(25,13)_8$
   \item[b)] $(101,1)_2$
   \item[c)] $(12F,4)_{16}$
   \item[d)] $(11,2)_{3}$
   \end{itemize}
+\end{multicols}
 \end{exer}
+\begin{resp}
+  a)~$21,172$; b)~$5,5$; c)~$303,25$; d)~$4,\bar{6}$.
+\end{resp}
+
+\begin{exer} 
+  Escreva o número $5,5$ em base binária.
+\end{exer}
+\begin{resp}
+    $(101,1)_2$.
+\end{resp}
+
+\begin{exer} 
+  Escreva o número $17,109375$ em base hexadecimal ($b=16$).
+\end{exer}
+\begin{resp} $(11,1C)_{16}$.
+\end{resp}
 
 \begin{exer} Escreva cada número decimal na base $b$.
   \begin{itemize}
@@ -337,6 +628,16 @@ Uma maneira de converter um número dado em uma base $b_1$ para uma base $b_2$ �
   \item[b)] $29,1\overline{6}$ na base $b=6$
   \end{itemize}
 \end{exer}
+\begin{resp}
+  a)~$(12,\bar{31})_5$; b)~$(45,1)_6$.
+\end{resp}
+
+\begin{exer} 
+  Escreva $(12.4)_8$ em base decimal e binária.
+\end{exer}
+\begin{resp}
+    $10,5$; $(1010,1)_2$.  
+\end{resp}
 
 \begin{exer} Escreva cada número dado para a base $b$.
   \begin{itemize}
@@ -346,39 +647,14 @@ Uma maneira de converter um número dado em uma base $b_1$ para uma base $b_2$ �
   \item[d)] $(1001,101)_2$ para a base $b=16$
   \end{itemize}
 \end{exer}
-
-\begin{exer} Escreva o número $x=5,5$ em base binária.
-\end{exer}
 \begin{resp}
-  
-    $(101,1)_2$
-  
-\end{resp}
-
-
-\begin{exer} Escreva o número $x=17,109375$ em base hexadecimal (16).
-\end{exer}
-\begin{resp}
-  
-    $(11,1C)_{16}$    
-  
+  a)~$(100101,001)_2$; b)~$(11,4)_{16}$; c)~$(11,5)_8$; d)~$(9,A)_{16}$.
 \end{resp}
 
 \begin{exer} Quantos algarismos são necessários para representar o número $937163832173947$ em base binária? E em base 7? Dica: Qual é o menor e o maior inteiro que pode ser escrito em dada base com $N$ algarismos?
 \end{exer}
-\begin{resp}
-  
-    $50$; $18$    
-  
-\end{resp}
-
-
-\begin{exer} Escreva $x=(12.4)_8$ em base decimal e binária.
-\end{exer}
-\begin{resp}
-  
-    $10,5$; $(1010,1)_2$
-  
+\begin{resp} 
+  $50$; $18$.  
 \end{resp}
 
 \section{Notação científica e notação normalizada}\index{sistema numérico!notação normalizada}
@@ -1079,7 +1355,7 @@ A \emph{precisão} $p$ de uma máquina é o número de dígitos significativos u
 O \emph{épsilon de máquina}, $\epsilon_{mach}=\epsilon$, é definido de forma que $1+\epsilon$ seja o menor número representável maior que $1$, isto é, $1+\epsilon$ é representável, mas não existem números representáveis em $(1, 1+\epsilon)$.
 
 \begin{ex}
-  Com $64$ bits, temos que o epsilon será dado por
+  Com $64$ bits, temos que o épsilon será dado por
 \begin{equation*}
   \begin{split}
   1      &\rightarrow ~~(1.0000~0000....0000)_2\times 2^{0} \\
@@ -1095,7 +1371,7 @@ Assim, $\epsilon = 2^{-52}$.
 \subsection{Distribuição dos números}
 Utilizando uma máquina em ponto flutuante, temos um número finito de números que podemos representar.
 
-Um número muito pequeno geralmente é aproximado por zero (underflow) e um número muito grande (overflow) geralmente faz o cálculo parar.
+Um número muito pequeno geralmente é aproximado por zero (\emph{underflow}) e um número muito grande (\emph{overflow}) geralmente faz o cálculo parar.
 Além disso, os números não estão uniformemente espaçados no eixo real. Números pequenos estão bem próximos enquanto que números com expoentes grandes estão bem distantes.
 
 Se tentarmos armazenar um número que não é representável, devemos utilizar o número mais próximo, gerando os erros de arredondamento.
@@ -1301,7 +1577,7 @@ Verifique quantos são os dígitos significativos corretos em cada aproximação
 
 
 \section{Erros nas operações elementares}
-O erro relativo presente nas operações elementares de adição, subtração, multiplicação e divisão é da ordem do epsilon de máquina. Se estivermos usando uma máquina com 64 bits, temos que $\epsilon = 2^{-52} \approx 2,22E16$. 
+O erro relativo presente nas operações elementares de adição, subtração, multiplicação e divisão é da ordem do épsilon de máquina. Se estivermos usando uma máquina com 64 bits, temos que $\epsilon = 2^{-52} \approx 2,22E16$. 
 
 Este erro é bem pequeno! Assumindo que $x$ e $y$ são representados com todos dígitos corretos, temos aproximadamente 15 dígitos significativos corretos quando fazemos uma das operações $x+y$, $x-y$, $x\times y$ ou $x/y$. 
 
@@ -1769,7 +2045,7 @@ Devido ao limite de precisão da representação de números em ponto flutuante,
 % scilab
 %%%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
-No \verb+Scilab+, o epsilon de máquina é a constante \verb+eps+. Observe que:
+No \verb+Scilab+, o épsilon de máquina é a constante \verb+eps+. Observe que:
 \begin{verbatim}
 -->1+%eps
  ans  =
@@ -1781,7 +2057,7 @@ No \verb+Scilab+, o epsilon de máquina é a constante \verb+eps+. Observe que:
 % octave
 %%%%%%%%%%%%%%%%%%%%%%
 \ifisoctave
-No \verb+GNU Octave+, o epsilon de máquina é a constante \verb+eps+. Observe que:
+No \verb+GNU Octave+, o épsilon de máquina é a constante \verb+eps+. Observe que:
 \begin{verbatim}
 >> printf('%1.25f\n', 1+eps)
 1.0000000000000002220446049
@@ -1792,7 +2068,7 @@ No \verb+GNU Octave+, o epsilon de máquina é a constante \verb+eps+. Observe q
 % python
 %%%%%%%%%%%%%%%%%%%%%%
 \ifispython
-Em \verb+Python+ podemos obter o epsilon de máquina com o seguinte comando \verb+numpy+:
+Em \verb+Python+ podemos obter o épsilon de máquina com o seguinte comando \verb+numpy+:
 \begin{verbatim}
 >>> eps = np.finfo(float).eps
 >>> print(eps)
