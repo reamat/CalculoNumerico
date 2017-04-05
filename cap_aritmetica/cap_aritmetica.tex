@@ -20,7 +20,7 @@ Ao longo do capítulo, faremos alguns comentários usando códigos em \verb+Pyth
 \end{verbatim}
 A primeira instrução garante que divisões de números inteiros sejam computadas em ponto flutuante (\verb+double+) e a segunda carrega a biblioteca de computação científica \href{http://www.numpy.org/}{numpy}.
 \fi
-
+%%%%%%%%%%%%%%%%%%%%
 \section{Sistema de numeração e mudança de base}\index{mudança de base}\index{sistema de numeração}
 Usualmente, utilizamos o sistema de numeração decimal para representar números. Esse é um sistema de numeração posicional onde a posição do dígito indica a potência de $10$ que o dígito está representando.
 
@@ -1123,53 +1123,59 @@ O bit mais significativo (o primeiro à esquerda) representa o coeficiente de $-
 \end{center}
 representa o número $-d_{n-1}2^{n-1}+(d_{n-2}\ldots d_1d_0)_2$. 
 
-Note que todo registro começando com $1$ será um número negativo.
+\begin{obs}
+  Note que todo registro começando com $1$ será um número negativo.  
+\end{obs}
+
 
 \begin{ex}
  O registro com $8$ bits $[01000011]$ representa o número:
  \begin{equation*}
-   -0(2^7)+(1000011)_2=64+2+1=67.
+   -0(2^7) + (1000011)_2 = 2^6 + 2 + 1 = 67.
  \end{equation*}
- 
- O registro com $8$ bits $[10111101]$ representa o número:
+ Agora, o registro $[10111101]$ representa:
  \begin{equation*}
-   -1(2^7)+(0111101)_2=-128+ 32+16+8+4+1=-67.
+   -1(2^7) + (0111101)_2 = -128 + 2^5 + + 2^4 2^3 + 2^2 + 1 = -67.
  \end{equation*}
-
- Note que podemos obter a representação de $-67$ invertendo os dígitos de $67$ em binário e somando 1.
+ Note que podemos obter a representação de $-67$ invertendo os dígitos de $67$ em binário e somando $1$.
 \end{ex}
 
 \begin{ex}
 Em um registro com $8$ bits, teremos os números
 \begin{equation*}
   \begin{split}
-    (11111111)_2 &= -2^7+2^{6}+\cdots+2+1=-1\\
+    [11111111] &= -2^7+2^{6}+\cdots+2+1=-1\\
     &\vdots   \\
-    (10000001)_2 &= -2^7+1 = -127 \\
-    (10000000)_2 &= -2^7   = -128 \\
-    (01111111)_2 &= 2^6+\cdots+2+1=127 \\
+    [10000001] &= -2^7+1 = -127 \\
+    [10000000] &= -2^7   = -128 \\
+    [01111111] &= 2^6+\cdots+2+1=127 \\
     &\vdots   \\
-    (00000010)_2 &= 2 \\
-    (00000001)_2 &= 1 \\
-    (00000000)_2 &= 0
+    [00000010] &= 2 \\
+    [00000001] &= 1 \\
+    [00000000] &= 0
   \end{split}
 \end{equation*}
-\end{ex}
 
 %%%%%%%%%%%%%%%%%%%%
-\ifisscilab
-\begin{ex}
-  No \verb+Scilab+,
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+O \verb+GNU Octave+ trabalha com representação complemento de 2 de números inteiros. O comando \verb+bitunpack+ mostra o barramento de um número dado, por exemplo:
 \begin{verbatim}
--->int8( bin2dec('00000011') )
-   ans = 3
--->int8( bin2dec('11111110') )
-   ans = -2
+>> bitunpack(int8(3))
+ans =
+   1   1   0   0   0   0   0   0
 \end{verbatim}
-\end{ex}
+mostra o barramento com $8$ \emph{bits} do número inteiro $3$. Note que a ordem dos \emph{bits} é inversa daquela apresentada no texto acima. Aqui, o \emph{bit} mais a esquerda fornece o coeficiente de $2^0$, enquando o \emph{bit} mais a direita fornece o coeficiente de $-2^7$.
+
+O comando \verb+bitpack+ converte um barramento para o número em decimal, por exemplo:
+\begin{verbatim}
+>> bitpack(logical([1 1 0 0 0 0 0 0]),'int8')
+ans = 3
+\end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%
-
+\end{ex}
 
 \subsection{Sistema de ponto fixo}\index{sistema numérico!de ponto fixo}
 
@@ -1187,25 +1193,25 @@ pode representar o número
 \item $(-1)^{d_{31}}(d_{30}d_{29}\cdots d_{17}d_{16}, d_{15}d_{14}\cdots d_1d_0)_2$
 se o sinal for representado por um dígito. Observe que nesse caso o zero possui duas representações possíveis: 
 \begin{equation*}
-  10000000000000000000000000000000  
+  [10000000000000000000000000000000]
 \end{equation*}
 e
 \begin{equation*}
-  00000000000000000000000000000000
+  [00000000000000000000000000000000]
 \end{equation*}
 \item $(d_{30}d_{29}\cdots d_{17}d_{16})_2-d_{31}(2^{15}-2^{-16})+(0,d_{15}d_{14}\cdots d_1d_0)_2$
 se o sinal do número estiver representado por uma implementação em complemento de um. Observe que o zero também possui duas representações possíveis: 
 \begin{equation*}
-  11111111111111111111111111111111  
+  [11111111111111111111111111111111]
 \end{equation*}
 e
 \begin{equation*}
-  00000000000000000000000000000000
+  [00000000000000000000000000000000]
 \end{equation*}
 \item $(d_{30}d_{29}\cdots d_{17}d_{16})_2-d_{31}2^{15}+(0,d_{15}d_{14}\cdots d_1d_0)_2$
 se o sinal do número estiver representado por uma implementação em complemento de dois. Nesse caso o zero é unicamente representado por
 \begin{equation*}
-  00000000000000000000000000000000  
+  [00000000000000000000000000000000]
 \end{equation*}
 \end{itemize}
 Observe que $16$ dígitos são usados para representar a parte fracionária, $15$ são para representar a parte inteira e um dígito, o $d_{31}$, está relacionado ao sinal do número.
@@ -1241,36 +1247,60 @@ $$c=(c_{10}c_9\cdots c_1c_0)_2=c_{10}2^{10}+\cdots+c_12^1+c_02^0 $$
 e o significando por
 $$M=(1.m_1m_2\cdots m_{51}m_{52})_2.$$
 
-Em base $2$ não é necessário armazenar o primeiro dígito (por quê?).
+\begin{obs}
+  Em base $2$ não é necessário armazenar o primeiro dígito (por quê?).  
+\end{obs}
 
-Por exemplo, o registro
+\begin{ex}
+O registro
 $$
 [0|\RED{100~0000~0000} |\BLU{101}0~0000~0000\ldots 0000~0000]
 $$
 representa o número
 $$
 (-1)^0(1+\BLU{2^{-1}+2^{-3}})\times  2^{\RED{1024}-1023}=(1+0.5+0.125)2=3.25.
-$$
+$$  
+\end{ex}
 
-
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\begin{obs}
+  No \verb+GNU Octave+, podemos usar os comandos \verb+bitpack+ e \verb+bitunpack+ transformar um registro de ponto flutuante de $64$ \emph{bits} em decimal e vice-e-versa. Entretanto, um tal registro no \verb+GNU Octave+ tem a seguinte estrutura
+  \begin{equation*}
+    [m_{52}m_{51}m_{50}\ldots m_{1}|c_0c_1c_2\cdots c_{10}|s].
+  \end{equation*}
+Desta forma, o decimal $3.25$ tem, aqui, o registro
+\begin{equation*}
+  [000\ldots 0101|000\ldots 01|0].
+\end{equation*}
+O que podemos verificar com o comando
+\begin{verbatim}
+>> bitpack(logical([zeros(1,49) 1 0 1 zeros(1,10) 1 0]),'double')
+ans =  3.2500
+\end{verbatim}
+\end{obs}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
 \subsubsection{O expoente deslocado}
+
 Uma maneira de representar os expoentes inteiros é deslocar todos eles uma mesma quantidade. Desta forma permitimos a representação de números negativos e a ordem deles continua crescente. O expoente é representado por um inteiro sem sinal do qual é deslocado o \emph{BIAS}.
 
 Tendo $|E|$ dígitos para representar o expoente, geralmente o $BIAS$ é predefinido de tal forma a dividir a tabela ao meio de tal forma que o expoente \textit{um} seja representado pelo sequência $[100\ldots 000]$. 
 
 \begin{ex}
-Com $64$ bits, pelo padrão $IEEE754$, temos que $|E|:=11$. Assim, $(100~0000~0000)_2=2^{10}=1024$. Como queremos que esta sequência represente o $1$, definimos $BIAS:=1023$, pois
-$$ 1024-BIAS=1.$$
+  Com $64$ bits, pelo padrão $IEEE754$, temos que $|E|:=11$. Assim, $(100~0000~0000)_2=2^{10}=1024$. Como queremos que esta sequência represente o $1$, definimos $BIAS:=1023$, pois
+  $$ 1024-BIAS=1.$$
 
-Com $32$ bits, temos $|E|:=8$ e $BIAS:=127$. E com $128$ bits, temos $|E|:=15$ e $BIAS:=16383$.
+  Com $32$ bits, temos $|E|:=8$ e $BIAS:=127$. E com $128$ bits, temos $|E|:=15$ e $BIAS:=16383$.
 \end{ex}
 
-
-Com $11$ bits temos 
+Com $|E| = 11$ temos
 \begin{equation*}
   \begin{split}
- [111~1111~1111] &= reservado\\
+ [111~1111~1111] &= \text{reservado}\\
  [111~1111~1110] &= 2046-BIAS      = 1023_{10}= E_{MAX}\\
      \vdots      &=  \\
  [100~0000~0001] &= 2^{10}+1  -BIAS =  2_{10} \\
@@ -1280,13 +1310,11 @@ Com $11$ bits temos
      \vdots      &=  \\
 % [000~0000~0010] &= 2-BIAS = -1021 \\
  [000~0000~0001] &= 1-BIAS = -1022 = E_{MIN}\\
- [000~0000~0000] &= reservado    
+ [000~0000~0000] &= \text{reservado}
   \end{split}
 \end{equation*}
 
 O maior expoente é dado por $E_{MAX}=1023$ e o menor expoente é dado por $E_{MIN}=-1022$.
-
-
 
 O menor número representável positivo é dado pelo registro
 \begin{equation*}
@@ -1306,25 +1334,6 @@ $$
 MAXR=(2-2^{-52})\times 2^{2046-1023} \approx 2^{1024}\approx0.17977\times 10^{309}.
 $$
 
-
-\subsubsection{Casos especiais}
-O \emph{zero} é um caso especial representado pelo registro 
-$$
-[0|\RED{000~0000~0000} |0000~0000~0000...0000~0000]
-$$
-
-
-
-
-Os expoentes \emph{reservados} são usados para casos especiais:
-\begin{itemize}
- \item $c=[0000...0000]$ é usado para representar o zero (se $m=0$) e os números subnormais (se $m\neq 0$).
- \item $c=[1111...1111]$ é usado para representar o infinito (se $m=0$) e NaN (se $m\neq 0$).
-\end{itemize}
-
-Os números subnormais\footnote{Note que poderíamos definir números um pouco menores que o $MINR$.} tem a forma
-$$ x=(-1)^{s}(\RED{0}.m_{1}m_{2}\cdots m_{51}m_{52})_2 \times 2^{1-BIAS}.$$
-
 %%%%%%%%%%%%%%%%%%%%
 % scilab
 %%%%%%%%%%%%%%%%%%%%
@@ -1341,12 +1350,52 @@ Outras informações sobre a representação em ponto flutuante podem ser obtida
 \fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\begin{obs}
+  No \verb+GNU Octave+, podemos obter o maior e o menor \verb+double+ positivo não nulo com os comandos:
+\begin{verbatim}
+>> realmax
+ans =   1.7977e+308
+>> realmin
+ans =   2.2251e-308
+\end{verbatim}
+\end{obs}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-Para mais informações sobre aritmética de ponto flutuante em \verb+Python+, veja a \href{https://docs.python.org/3/tutorial/floatingpoint.html?highlight=double}{documentação}.
+\begin{obs}
+  Em \verb+Python+, podemos podemos obter o maior e o menor \verb+double+ positivo não nulo com os comandos:
+\begin{verbatim}
+>>> import sys
+>>> sys.float_info.max
+1.7976931348623157e+308                 
+>>> sys.float_info.min
+2.2250738585072014e-308         
+\end{verbatim}
+Outras informações sobre a representação em ponto flutuante podem ser obtidas com \verb+sys.float_info+.
+\end{obs}
 \fi
 %%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Casos especiais}
+O \emph{zero} é um caso especial representado pelo registro 
+$$
+[0|\RED{000~0000~0000} |0000~0000~0000...0000~0000]
+$$
+
+Os expoentes \emph{reservados} são usados para casos especiais:
+\begin{itemize}
+ \item $c=[0000...0000]$ é usado para representar o zero (se $m=0$) e os números subnormais (se $m\neq 0$).
+ \item $c=[1111...1111]$ é usado para representar o infinito (se $m=0$) e NaN (se $m\neq 0$).
+\end{itemize}
+
+Os números subnormais\footnote{Note que poderíamos definir números um pouco menores que o $MINR$.} tem a forma
+$$ x=(-1)^{s}(\RED{0}.m_{1}m_{2}\cdots m_{51}m_{52})_2 \times 2^{1-BIAS}.$$
 
 \subsection{Precisão e épsilon de máquina}
 
@@ -1366,17 +1415,65 @@ O \emph{épsilon de máquina}, $\epsilon_{mach}=\epsilon$, é definido de forma 
 Assim, $\epsilon = 2^{-52}$.
 \end{ex}
 
-
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+\begin{obs}
+  No \verb+Scilab+, o épsilon de máquina é representado pela constante \verb+%eps+. Observe os seguintes resultados:
+\begin{verbatim}
+-->1 + 1e-16 == 1
+ ans  =
+  T  
+-->1 + %eps == 1
+ ans  =
+  F  
+\end{verbatim}
+\end{obs}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\begin{obs}
+  No \verb+GNU Octave+, o épsilon de máquina é representado pela constante \verb+eps+. Observe os seguintes resultados:
+\begin{verbatim}
+>> 1 + 1e-16 == 1
+ans =  1
+>> 1 + eps == 1
+ans = 0
+\end{verbatim}
+\end{obs}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+  Em \verb+Python+, podemos obter o épsilon de máquina com os comandos:
+\begin{verbatim}
+>>> import sys     
+>>> sys.float_info.epsilon                               
+2.220446049250313e-16                     
+\end{verbatim}
+Observe, também, os seguintes resultados:
+\begin{verbatim}
+>>> eps = sys.float_info.epsilon
+>>> 1 + 1e-16 == 1
+True
+>>> 1 + eps == 1
+False
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Distribuição dos números}
 Utilizando uma máquina em ponto flutuante, temos um número finito de números que podemos representar.
 
-Um número muito pequeno geralmente é aproximado por zero (\emph{underflow}) e um número muito grande (\emph{overflow}) geralmente faz o cálculo parar.
-Além disso, os números não estão uniformemente espaçados no eixo real. Números pequenos estão bem próximos enquanto que números com expoentes grandes estão bem distantes.
+Um número muito pequeno geralmente é aproximado por zero (\emph{underflow}) e um número muito grande (\emph{overflow}) geralmente faz o cálculo parar. Além disso, os números não estão uniformemente espaçados no eixo real. Números pequenos estão bem próximos enquanto que números com expoentes grandes estão bem distantes.
 
 Se tentarmos armazenar um número que não é representável, devemos utilizar o número mais próximo, gerando os erros de arredondamento.
-
-Por simplicidade, a partir daqui, nós adotaremos $b=10$.
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
@@ -1390,11 +1487,127 @@ Por simplicidade, a partir daqui, nós adotaremos $b=10$.
 \end{obs}
 \fi
 %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\begin{obs}
+  Veja como o \verb+GNU Octave+ se comporta nos seguintes casos de excessão:
+\begin{verbatim}
+>> 0/0
+warning: division by zero
+ans = NaN
+>> 1/0
+warning: division by zero
+ans = Inf
+>> 1/-0
+warning: division by zero
+ans = -Inf
+>> 2*realmax
+ans = Inf
+>> 1/2^9999
+ans = 0
+\end{verbatim}
+\end{obs}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
 \subsection*{Exercícios}
 
-\begin{exer} Explique a diferença entre o sistema de ponto fixo e ponto flutuante.
+\begin{exer}
+  Usando a representação complemento de dois de números inteiros com $8$ \emph{bits}, escreva o número decimal que corresponde aos seguintes barramentos:
+  \begin{itemize}
+  \item[a)] $[01100010]$.
+  \item[c)] $[00011101]$.
+  \item[b)] $[11100011]$.
+  \end{itemize}
 \end{exer}
+\begin{resp}
+  a)~$98$; b)~$29$; c)~$-29$.
+\end{resp}
+
+\begin{exer}
+  Usando a representação complemento de dois de números inteiros com $16$ \emph{bits}, escreva o número decimal que corresponde aos seguintes barramentos:
+  \begin{itemize}
+  \item[a)] $[0110001001100010]$.
+  \item[c)] $[0001110100011101]$.
+  \item[b)] $[1110001011100011]$.
+  \end{itemize}
+\end{exer}
+\begin{resp}
+  a)~$25186$; b)~$7453$; c)~$-7453$.
+\end{resp}
+
+
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\begin{exer}
+  Usando a representação complemento de dois de números inteiros com $8$ \emph{bits} no \verb+GNU Octave+, escreva o número decimal que corresponde aos seguintes barramentos:
+  \begin{itemize}
+  \item[a)] $[01100010]$.
+  \item[c)] $[00011101]$.
+  \item[b)] $[00010010]$.
+  \end{itemize}
+\end{exer}
+\begin{resp}
+  a)~$70$; b)~$-72$; c)~$72$.
+\end{resp}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\begin{exer}
+  Usando a representação complemento de dois de números inteiros com $16$ \emph{bits} no \verb+GNU Octave+, escreva o número decimal que corresponde aos seguintes barramentos:
+  \begin{itemize}
+  \item[a)] $[0110001001100010]$.
+  \item[c)] $[0001110100011101]$.
+  \item[b)] $[0001001011100010]$.
+  \end{itemize}
+\end{exer}
+\begin{resp}
+  a)~$17990$; b)~$-18248$; c)~$18248$.
+\end{resp}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+
+\begin{exer}
+  Usando a representação de ponto flutuante com $64$ \emph{bits}, escreva o número decimal que corresponde aos seguintes barramentos:
+  \begin{itemize}
+  \item[a)] $[0|10000000000|111000\ldots 0]$.
+  \item[b)] $[1|10000000001|0111000\ldots 0]$.
+  \end{itemize}
+\end{exer}
+\begin{resp}
+  a)~$3,75$; b)~$-5,75$.
+\end{resp}
+
+\begin{exer} 
+  Explique a diferença entre o sistema de ponto fixo e ponto flutuante.
+\end{exer}
+
+
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\begin{exer}
+  Usando a representação de \verb+double+ no \verb+GNU Octave+, escreva o número decimal que corresponde aos seguintes barramentos:
+  \begin{itemize}
+  \item[a)] $[000\ldots 0111|00000000001|0]$.
+  \item[b)] $[000\ldots 01110|10000000001|1]$.
+  \end{itemize}
+\end{exer}
+\begin{resp}
+  a)~$3,75$; b)~$-5,75$.
+\end{resp}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
@@ -1409,8 +1622,8 @@ Por simplicidade, a partir daqui, nós adotaremos $b=10$.
  \end{verbatim}
  Explique se esta rotina finaliza em tempo finito, em caso afirmativo calcule a ordem de grandeza do tempo de execução supondo que cada passo do laço demore $10^{-7}s$. Justifique sua reposta.
  \end{exer}
-%%%%%%%%%%%%%%%%%%%%
 \fi
+%%%%%%%%%%%%%%%%%%%%
 
 \section{Tipos de Erros}\index{erros}
 
