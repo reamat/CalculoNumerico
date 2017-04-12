@@ -787,17 +787,17 @@ e aproxime seu valor usando o esquema de trapézios e Simpson para $n=5$, $n=7$ 
 Estamos interessados em avaliar numericamente a seguinte integral:
 $$\int_0^1 \ln(x)\sin(x)\;dx$$
 cujo valor com 10 casas decimais corretas é $-.2398117420$.
-\begin{itemize}
-\item[a)] Aproxime esta integral via Gauss-Legendre com $n=2$,$n=3$, $n=4$, $n=5$, $n=6$ e $n=7$.
-\item[b)] Use a identidade
+\begin{enumerate}[a)]
+\item Aproxime esta integral via Gauss-Legendre com $n=2$,$n=3$, $n=4$, $n=5$, $n=6$ e $n=7$.
+\item Use a identidade
 \begin{eqnarray*}
 \int_0^1 \ln(x)\sin(x)\;dx&=&\int_0^1 \ln(x)x\;dx+\int_0^1 \ln(x)\left[\sin(x)-x\right]\;dx\\
 &=&\left.\left(\frac{x^2}{2}\ln x-\frac{x^2}{4}\right)\right|_0^1+\int_0^1 \ln(x)\left[\sin(x)-x\right]\;dx\\
 &=&-\frac{1}{4}+\int_0^1 \ln(x)\left[\sin(x)-x\right]\;dx
 \end{eqnarray*}
 e aproxime a integral $\int_0^1 \ln(x)\left[\sin(x)-x\right]\;dx$ numericamente via Gauss-Legendre com $n=2$, $n=3$, $n=4$, $n=5$, $n=6$ e $n=7$.
-\item[c)] Compare os resultados e discuta levando em consideração as respostas às seguintes perguntas: 1)Qual função é mais bem-comportada na origem? 2)Na segunda formulação, qual porção da solução foi obtida analiticamente e, portanto, sem erro de truncamento?
-\end{itemize}
+\item Compare os resultados e discuta levando em consideração as respostas às seguintes perguntas: 1)Qual função é mais bem-comportada na origem? 2)Na segunda formulação, qual porção da solução foi obtida analiticamente e, portanto, sem erro de truncamento?
+\end{enumerate}
 \end{exer}
 \begin{resp}
   
@@ -951,16 +951,14 @@ $$a)I(h)=4.41041\cdot 10^{-1} - 8.49372\cdot 10^{-12}h - 1.22104\cdot 10^{-2}h^2
 
 \begin{exer}
 Sem usar rotinas prontas, use o método de integração de Romberg para obter a aproximação $R_{3,3}$ das seguintes integrais:
-\begin{itemize}
-\item[a)] $\int_{0}^1 e^{-x^2}\;dx$
-\item[b)] $\int_{0}^2 \sqrt{2-\cos(x)}\;dx$
-\item[c)] $\int_{0}^2 \frac{1}{\sqrt{2-\cos(x)}}\;dx$
-\end{itemize}
+\begin{enumerate}[a)]
+\item $\int_{0}^1 e^{-x^2}\;dx$
+\item $\int_{0}^2 \sqrt{2-\cos(x)}\;dx$
+\item $\int_{0}^2 \frac{1}{\sqrt{2-\cos(x)}}\;dx$
+\end{enumerate}
 \end{exer}
 \begin{resp}
-  
-0.7468337,2.4606311, 1.6595275.    
-  
+  a)~0.7468337; b)~2.4606311; c)~1.6595275.
 \end{resp}
 
 \begin{exer}
@@ -971,47 +969,46 @@ Encontre uma expressão para $R_{2,2}$ em termos de $f(x)$ e verifique o método
 Considere o problema de aproximar numericamente o valor de
 $$\int_0^{100} \left(e^{\frac{1}{2}\cos(x)}-1\right)\;dx$$
 pelo método de Romberg. Usando rotinas prontas, faça o que se pede.
-\begin{itemize}
+\begin{enumerate}[a)]
 \item Calcule $R(6,k),~~ k=1,\ldots,6$ e observe os valores obtidos.
 \item Calcule $R(7,k),~~ k=1,\ldots,6$ e observe os valores obtidos.
 \item Calcule $R(8,k),~~ k=1,\ldots,6$ e observe os valores obtidos.
 \item Discuta os resultados anteriores e proponha uma estratégia mais eficiente para calcular o valor da integral.
-\end{itemize}
+\end{enumerate}
 \end{exer}
 \begin{resp}
-  
- $R(6,6)=- 10.772065$, $R(7,7)=5.2677002$, $R(8,8)=6.1884951$, $R(9,9)=6.0554327$, $R(10,10)=6.0574643$. O valor desta integral com oito dígitos corretos é aproximado por  $6.0574613$.      
-  
+  $R(6,6)=- 10.772065$, $R(7,7)=5.2677002$, $R(8,8)=6.1884951$, $R(9,9)=6.0554327$, $R(10,10)=6.0574643$. O valor desta integral com oito dígitos corretos é aproximado por  $6.0574613$.
 \end{resp}
 
 \section{Ordem de precisão}\index{integração numérica!ordem de precisão}
 
 Todos os métodos de quadratura que vimos até o momento são da forma
 $$\int_a^b f(x)\;dx \approx \sum_{j=1}^N w_j f(x_j)$$
+
 \begin{ex}
-\begin{itemize}
-\item[(a)] Método do trapézio
+\begin{enumerate}[a)]
+\item Método do trapézio
 \begin{eqnarray*}
 \int_a^b f(x)\;dx &\approx& \left[f(a)+f(b)\right]\frac{b-a}{2}\\
 &=&\frac{b-a}{2}f(a)+\frac{b-a}{2}f(b)\\
 &:=&w_1f(x_1)+w_2f(x_2)= \sum_{j=1}^2 w_j f(x_j)
 \end{eqnarray*}
 
-\item[(b)] Método do trapézio com dois intervalos
+\item Método do trapézio com dois intervalos
 \begin{eqnarray*}
 \int_a^b f(x)\;dx &\approx& \left[f(a)+2f\left(\frac{a+b}{2}\right)+f(b)\right]\frac{b-a}{4}\\
 &=&\frac{b-a}{4}f(a)+\frac{b-a}{2}f\left(\frac{a+b}{2}\right)+\frac{b-a}{4}f(b)\\
 &:=&w_1f(x_1)+w_2f(x_2)+w_3f(x_3)= \sum_{j=1}^3 w_j f(x_j)
 \end{eqnarray*}
 
-\item[(c)] Método de Simpson
+\item Método de Simpson
 \begin{eqnarray*}
 \int_a^b f(x)\;dx &\approx& \left[f(a)+4f\left(\frac{a+b}{2}\right)+f(b)\right]\frac{b-a}{6}\\
 &=&\frac{b-a}{6}f(a)+\frac{2(b-a)}{3}f\left(\frac{a+b}{2}\right)+\frac{b-a}{6}f(b)\\
 &:=&\sum_{j=1}^3 w_j f(x_j)
 \end{eqnarray*}
 
-\item[(d)] Método de Simpson com dois intervalos
+\item Método de Simpson com dois intervalos
 \begin{eqnarray*}
 \int_a^b f(x)\;dx &\approx& \left[f(a)+4f\left(\frac{3a+b}{4}\right)+2f\left(\frac{a+b}{2}\right)\right.\\
 &+& \left. 4f\left(\frac{a+3b}{4}\right)+f(b)\right]\frac{b-a}{12}\\
@@ -1020,7 +1017,7 @@ $$\int_a^b f(x)\;dx \approx \sum_{j=1}^N w_j f(x_j)$$
 &:=&\sum_{j=1}^5 w_j f(x_j)
 \end{eqnarray*}
 
-\end{itemize}
+\end{enumerate}
 \end{ex}
 
 A principal técnica que temos usado para desenvolver os métodos numéricos é o {\bf polinômio de Taylor}:
@@ -1455,11 +1452,11 @@ usando a quadratura de Gauss-Legendre com 2, 3, 4 e 5 pontos. Então, compare co
 \end{resp}
 
 \begin{exer} Encontre aproximações para as seguintes integrais via Gauss-Legendre com 4 e 5 pontos:
-\begin{itemize}
-\item[a)] $\int_0^1 e^{-x^4}dx$
-\item[b)] $\int_1^4 \log(x+e^x)dx$
-\item[c)] $\int_0^1 e^{-x^2}dx$
-\end{itemize}
+\begin{enumerate}[a)]
+\item $\displaystyle \int_0^1 e^{-x^4}dx$
+\item $\displaystyle \int_1^4 \log(x+e^x)dx$
+\item $\displaystyle \int_0^1 e^{-x^2}dx$
+\end{enumerate}
 \end{exer}
 
 % \begin{exer}Calcule numericamente o valor das seguintes integrais usando a quadratura de Gauss-Legendre para os seguintes valores de $n$:
@@ -1505,30 +1502,29 @@ usando a quadratura de Gauss-Legendre com 2, 3, 4 e 5 pontos. Então, compare co
 
 
 \begin{exer} Considere o problema de calcular numericamente a integral $I=\int_{-1}^1f(x)dx$ quando $f(x)=\frac{\cos(x)}{\sqrt{|x|}}$.
-\begin{itemize}
-\item[a)] O que acontece quando se aplica diretamente a quadratura gaussiana com um número impar de abscissas?
-\item[b)] Calcule o valor aproximado por quadratura gaussiana com $n=2$, $n=4$, $n=6$ e $n=8$.
-\item[c)] Calcule o valor aproximado da integral removendo a singularidade
+\begin{enumerate}[a)]
+\item O que acontece quando se aplica diretamente a quadratura gaussiana com um número impar de abscissas?
+\item Calcule o valor aproximado por quadratura gaussiana com $n=2$, $n=4$, $n=6$ e $n=8$.
+\item Calcule o valor aproximado da integral removendo a singularidade
 \begin{eqnarray*}
 I&=&\int_{-1}^1\frac{\cos(x)}{\sqrt{|x|}}dx=\int_{-1}^1\frac{\cos(x)-1}{\sqrt{|x|}}dx+\int_{-1}^1\frac{1}{\sqrt{|x|}}dx \\
 &=&\int_{-1}^1\frac{\cos(x)-1}{\sqrt{|x|}}dx+2\int_{0}^1\frac{1}{\sqrt{x}}dx=\int_{-1}^1\frac{\cos(x)-1}{\sqrt{|x|}}dx+4
 \end{eqnarray*}
 e aplicando quadratura gaussiana com $n=2$, $n=4$, $n=6$ e $n=8$.
-\item[d)] Calcule o valor aproximado da integral removendo a singularidade, considerando a paridade da função
+\item Calcule o valor aproximado da integral removendo a singularidade, considerando a paridade da função
 \begin{eqnarray*}
 I&=&4+\int_{-1}^1\frac{\cos(x)-1}{\sqrt{|x|}}dx=4+2\int_{0}^1\frac{\cos(x)-1}{\sqrt{x}}dx=4+\sqrt{2}\int_{-1}^1\frac{\cos\left(\frac{1+u}{2}\right)-1}{\sqrt{1+u}}du
 \end{eqnarray*}
 e aplicando quadratura gaussiana com $n=2$, $n=4$, $n=6$ e $n=8$.
-\item[e)] Expandindo a função $\cos(x)$ em série de Taylor, truncando a série depois  do $n$-ésimo  termos não nulo e integrando analiticamente. \\
-\item[f)] Aproximando a função $\cos(x)$ pelo polinômio de Taylor  de grau 4 dado por $$P_4(x)=1-\frac{x^2}{2}+\frac{x^4}{24}$$
+\item Expandindo a função $\cos(x)$ em série de Taylor, truncando a série depois  do $n$-ésimo  termos não nulo e integrando analiticamente. \\
+\item Aproximando a função $\cos(x)$ pelo polinômio de Taylor  de grau 4 dado por $$P_4(x)=1-\frac{x^2}{2}+\frac{x^4}{24}$$
 e escrevendo
 \begin{eqnarray*}I&=&\int_{-1}^1\frac{\cos(x)}{\sqrt{|x|}}dx=\int_{-1}^1\frac{\cos(x)-P_4(x)}{\sqrt{|x|}}dx+\int_{-1}^1\frac{P_4(x)}{\sqrt{|x|}}dx\\
 &=&2\underbrace{\int_{0}^1\frac{\cos(x)-P_4(x)}{\sqrt{x}}dx}_{\text{Resolver numericamente}}+2\underbrace{\int_{0}^1\left(x^{-1/2}-\frac{x^{3/2}}{2}+\frac{x^{7/2}}{24}\right)dx}_{\text{Resolver analiticamente}}
 \end{eqnarray*}
-\end{itemize}
+\end{enumerate}
 \end{exer}
 \begin{resp}
-  
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
@@ -1558,18 +1554,17 @@ I&=&4+2\int_{0}^1\frac{\cos(x)-1}{\sqrt{|x|}}dx=4-2\sum_{n=1}^\infty(-1)^{n}\int
 \begin{eqnarray*}2\int_{0}^1\left(x^{-1/2}-\frac{x^{3/2}}{2}+\frac{x^{7/2}}{24}\right)dx=2\left(2-\frac{1}{5}+\frac{1}{54}\right)=\frac{977}{270}
 \end{eqnarray*}
 \begin{eqnarray*}2\int_{0}^1\frac{\cos(x)-P_4(x)}{\sqrt{x}}dx=\sqrt{2}\int_{-1}^1\frac{\cos\left(\frac{1+u}{2}\right)-P_4\left(\frac{1+u}{2}\right)}{\sqrt{1+u}}du
-\end{eqnarray*}    
-  
+\end{eqnarray*}
 \end{resp}
 
 \begin{exer}Calcule numericamente o valor das seguintes integrais com um erro relativo inferior a $10^{-4}$.
-\begin{itemize}
-\item[a)]   $\displaystyle\int_0^1\frac{\sin(\pi x)}{x}dx$
-\item[b)]  $\displaystyle\int_0^1\frac{\sin(\pi x)}{x(1-x)}dx$
+\begin{enumerate}[a)]
+\item $\displaystyle\int_0^1\frac{\sin(\pi x)}{x}dx$
+\item $\displaystyle\int_0^1\frac{\sin(\pi x)}{x(1-x)}dx$
 %\item[c)]  $\displaystyle\int_0^1\frac{\cos(\pi x)}{\sqrt{x(1-x)}}dx$
-\item[c)] $\displaystyle \int_0^1\frac{\sin\left(\frac{\pi}{2} x\right)}{\sqrt{x(1-x)}}dx$
-\item[d)] $\displaystyle \int_0^1\ln(x) \cos(x) dx$
-\end{itemize}
+\item $\displaystyle \int_0^1\frac{\sin\left(\frac{\pi}{2} x\right)}{\sqrt{x(1-x)}}dx$
+\item $\displaystyle \int_0^1\ln(x) \cos(x) dx$
+\end{enumerate}
 \end{exer}
 
 \begin{exer}Calcule as integrais $\int_0^{1}\frac{e^x}{|x|^{1/4}}dx$ e $\int_0^1\frac{e^{-x}}{|x|^{4/5}}dx$ usando procedimentos analíticos e numéricos.
@@ -1585,25 +1580,20 @@ $$x+\int_0^x e^{-y^2}dy=5$$
 com 5 dígitos significativos.
 \end{exer}
 \begin{resp}
-  
-4.1138    
-  
+  $4,1138$
 \end{resp}
 
 \begin{exer}(Ciência dos materiais) O calor específico (molar) de um sólido pode ser aproximado pela teoria de Debye usando a seguinte expressão
 $$C_V=9Nk_B\left(\frac{T}{T_D}\right)^3\int_0^{T_D/T} \frac{y^4e^y}{(e^y-1)^2}dy$$
-onde $N$ é a constante de Avogrado dado por $N=6.022\times 10^{23}$ e $k_B$ é a constante de Boltzmann dada por $k_B=1.38\times 10^{-23}$. $T_D$ é temperatura de Debye do sólido.
-\begin{itemize}
-\item[a)] Calcule o calor específico do ferro em quando $T=200K$, $T=300K$ e $T=400K$ supondo $T_D=470K$.
-\item[b)] Calcule a temperatura de Debye de um sólido cujo calor específico a temperatura de $300K$ é $24J/K/mol$. Dica: aproxime a integral por um esquema numérico com um número fixo de pontos.
-\item[c)] Melhore sua cultura geral: A lei de Dulong-Petit para o calor específico dos sólidos precede a teoria de Debye. Verifique que a equação de Debye é consistente com Dulong-Petit, ou seja: $$\lim_{T\to \infty}C_v=3Nk_B.$$ Dica: use $e^y\approx 1+y$ quando $y\approx 0$
-\end{itemize}
-
+onde $N$ é a constante de Avogrado dado por $N=6,022\times 10^{23}$ e $k_B$ é a constante de Boltzmann dada por $k_B=1,38\times 10^{-23}$. $T_D$ é temperatura de Debye do sólido.
+\begin{enumerate}[a)]
+\item Calcule o calor específico do ferro em quando $T=200K$, $T=300K$ e $T=400K$ supondo $T_D=470K$.
+\item Calcule a temperatura de Debye de um sólido cujo calor específico a temperatura de $300K$ é $24J/K/mol$. Dica: aproxime a integral por um esquema numérico com um número fixo de pontos.
+\item Melhore sua cultura geral: A lei de Dulong-Petit para o calor específico dos sólidos precede a teoria de Debye. Verifique que a equação de Debye é consistente com Dulong-Petit, ou seja: $$\lim_{T\to \infty}C_v=3Nk_B.$$ Dica: use $e^y\approx 1+y$ quando $y\approx 0$
+\end{enumerate}
 \end{exer}
 \begin{resp}
-  
-a)19.2, 22.1, 23.3 b)513.67K    
-  
+  a)~19,2; 22,1; 23,3; b)~513,67K    
 \end{resp}
 
 \begin{exer} Explique por quê quando um método simples tem estimativa de erro de truncamento local de ordem $h^n$, então o método composto associado tem estimativa de erro de ordem $h^{n-1}$.
@@ -1614,16 +1604,14 @@ $$\int_{-1}^1f(x)=w_1f(x_1)+w_2f(x_2)$$
 quando $f(x)=x^k, ~k=0,1,2,3$, isto é, o método que apresente máxima ordem de exatidão possível com dois pontos.
 
 Use esse método para avaliar o valor da integral das seguintes integrais e compare com os valores obtidos para Simpson e trapézio, bom como com o valor exato.
-\begin{itemize}
-\item[a)] $\int_{-1}^1\left(2+x-5x^2+x^3\right)dx$
-\item[b)] $\int_{-1}^1e^{x}dx$
-\item[c)] $\int_{-1}^1\frac{dx}{\sqrt{x^2+1}}$
-\end{itemize}
+\begin{enumerate}[a)]
+\item $\displaystyle \int_{-1}^1\left(2+x-5x^2+x^3\right)dx$
+\item $\displaystyle \int_{-1}^1e^{x}dx$
+\item $\displaystyle \int_{-1}^1\frac{dx}{\sqrt{x^2+1}}$
+\end{enumerate}
 \end{exer}
 \begin{resp}
-  
-$\int_{-1}^1f(x)dx=f\left(-\frac{\sqrt{3}}{3}\right)+f\left(\frac{\sqrt{3}}{3}\right)$    
-  
+  $\displaystyle \int_{-1}^1f(x)dx=f\left(-\frac{\sqrt{3}}{3}\right)+f\left(\frac{\sqrt{3}}{3}\right)$
 \end{resp}
 
 
@@ -1632,9 +1620,7 @@ $$\int_{-1}^1 f(x)dx \approx w_1 f\left(-\frac{\sqrt{3}}{3}\right)  + w_2f(0) + 
 tenha ordem de exatidão máxima. Qual é ordem obtida?
 \end{exer}
 \begin{resp}
-  
-$w_1=w_3=1$ e $w_2=0$ com ordem 3.    
-  
+  $w_1=w_3=1$ e $w_2=0$ com ordem 3.
 \end{resp}
 
 
