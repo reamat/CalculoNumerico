@@ -1,4 +1,4 @@
-#Folha de Estilo
+#Folha de estilo
 
 Este documento contém informações sobre os padrões de estilo de escrita e organização do livro colaborativo. Antes de submeter uma colaboração, verifique que seu trabalho está de acordo com todos os pontos observados nesta folha de estilo.
 
@@ -48,13 +48,13 @@ Fazemos a conversão do livro de código LaTeX para HTML usando o pacote [TeX4ht
 * Não usar `array` para composição de tabelas. A alternativa é usar o ambiente `tabular`, por exemplo:
 
         \begin{center}
-	      \begin{tabular}{r|c|c}
-             $h$ & $Df(1)$ & $|f'(1) - D_{+,h}F(1)|$ \\ \hline
-             $10^{-1}$ & $-8,67062\E-01$ & $2,55909\E-02$\\
-             $10^{-2}$ & $-8,44158\E-01$ & $2,68746\E-03$\\
-             $10^{-14}$ & $-8,43769\E-01$ & $2,29851\E-03$ \\\hline
-		   \end{tabular}
-	    \end{center}
+	  \begin{tabular}{r|c|c}
+	    $h$ & $Df(1)$ & $|f'(1) - D_{+,h}F(1)|$ \\ \hline
+            $10^{-1}$ & $-8,67062\E-01$ & $2,55909\E-02$\\
+            $10^{-2}$ & $-8,44158\E-01$ & $2,68746\E-03$\\
+            $10^{-14}$ & $-8,43769\E-01$ & $2,29851\E-03$ \\\hline
+	  \end{tabular}
+	\end{center}
 
 * Não colocar `label` dentro de colchetes.
 
@@ -75,7 +75,7 @@ A inclusão de uma figura no código LaTex deve ser feita da seguinte forma:
 		\label{pic:picfoo}
 	\end{figure}
 
-Não insira figuras dentro de outro ambientes como, por exemplo, `ex`, `teo`, `sol` e outros.
+Não insira figuras dentro de outros ambientes como, por exemplo, `ex`, `teo`, `sol` e outros.
 
 Sempre que possível, forneça o código fonte da figura armazenando-o na pasta `cap_foo/pics/picfoo`. Nesta mesma pasta, crie um arquivo README.md com uma descrição da figura e a linceça da mesma, a qual deve ser compatível com a CC-BY-SA 3.0.
 
@@ -113,9 +113,9 @@ Números em notação científica podem ser representados, tando usando `$\times
 
 O livro conta com três tipos de exercícios, os chamados: Exercícios Resolvidos, Exercícios e Exercícios Finais.
 
-#### Exercícios Resolvidos
+#### Exercícios resolvidos
 
-Esercícios Resolvidos são exercícios com resolução completa. Eles devem ser colocados em subseção da seção a que se referem. A subseção deve ser não numerada e intitulada "Exercícios Resolvidos" , i.e.:
+Exercícios resolvidos são exercícios com resolução completa. Eles devem ser colocados em subseção da seção a que se referem. A subseção deve ser não numerada e intitulada "Exercícios Resolvidos" , i.e.:
 
     \subsection*{Exercícios Resolvidos}
 
