@@ -14,12 +14,12 @@ O livro está escrito em língua portuguesa, seguindo os costumes linguísticos 
 
 ### Capitalização de nomes de métodos
 
-Deve-se usar maiúscula apenas em nomes próprios, ex: método de Newton, métodos dos mínimos quadrados. 
+Deve-se usar maiúscula apenas em nomes próprios, ex: método de Newton, métodos dos mínimos quadrados.
 
 
 ## Código fonte LaTeX
 
-O livro está escrito em [LaTex](https://latex-project.org/). O arquivo principal `main.tex` escontra-se no diretório principal `CalculoNumerico`. O código LaTeX de cada capítulo encontra-se em um subdiretório específico com nome `cap_abrev`, onde `abrev` é uma abreviação que lembre o conteúdo do capítulo. Por exemplo, o código do capítulo sobre técnicas numéricas para sistemas lineares está no subdiretório `cap_linsis`.
+O livro está escrito em [LaTex](https://latex-project.org/). O arquivo principal `main.tex` encontra-se no diretório principal `CalculoNumerico`. O código LaTeX de cada capítulo encontra-se em um subdiretório específico com nome `cap_abrev`, onde `abrev` é uma abreviação que lembre o conteúdo do capítulo. Por exemplo, o código do capítulo sobre técnicas numéricas para sistemas lineares está no subdiretório `cap_linsis`.
 
 Para informações sobre como compilar o código fonte, leia o arquivo `README.md`.
 
@@ -56,7 +56,7 @@ Fazemos a conversão do livro de código LaTeX para HTML usando o pacote [TeX4ht
 		   \end{tabular}
 	    \end{center}
 
-* Não colocar `label` dentre de colchetes.
+* Não colocar `label` dentro de colchetes.
 
 ### Capítulos
 
@@ -75,7 +75,7 @@ A inclusão de uma figura no código LaTex deve ser feita da seguinte forma:
 		\label{pic:picfoo}
 	\end{figure}
 
-Não insira figuras dentro de outro ambientes como, por exemplo, `ex`, `teo`, `sol` e outros. 
+Não insira figuras dentro de outro ambientes como, por exemplo, `ex`, `teo`, `sol` e outros.
 
 Sempre que possível, forneça o código fonte da figura armazenando-o na pasta `cap_foo/pics/picfoo`. Nesta mesma pasta, crie um arquivo README.md com uma descrição da figura e a linceça da mesma, a qual deve ser compatível com a CC-BY-SA 3.0.
 
@@ -115,7 +115,7 @@ O livro conta com três tipos de exercícios, os chamados: Exercícios Resolvido
 
 #### Exercícios Resolvidos
 
-Esercícios Resolvidos são exercícios com resolução completa. Eles devem ser colocados em subseção da seção que se referem. A subseção deve ser não numerada e intitulada "Exercícios Resolvidos" , i.e.:
+Esercícios Resolvidos são exercícios com resolução completa. Eles devem ser colocados em subseção da seção a que se referem. A subseção deve ser não numerada e intitulada "Exercícios Resolvidos" , i.e.:
 
     \subsection*{Exercícios Resolvidos}
 
@@ -133,19 +133,18 @@ A resolução do exercício deve ser colocada dentro de um ambiente `resol`, col
 
 #### Exercícios
 
-Exercícios com resposta ou sem devem ser colocados em subseção da seção que se referem. A subseção deve ser não numerada e intitulada "Exercícios", i.e.:
+Exercícios com resposta ou sem devem ser colocados em subseção da seção a que se referem. A subseção deve ser não numerada e intitulada "Exercícios", i.e.:
 
     \subsection*{Exercícios}
 
 O enunciado de um exercício com resposta ou sem deve ser colocado dentro de um ambiente `exer` como, por exemplo:
 
     \begin{exer}
-	   Excreva aqui o enunciado do exercício com resposta ou sem.
+	   Escreva aqui o enunciado do exercício com resposta ou sem.
 	\end{exer}
 
-Caso o exercício tenha resposta (final, para resolução completa, veja a subsecção Exercícios Resolvidos) ela deve ser colocado em um ambiente `resp` logo abaixo do ambiente que o exercício se refere como, por exemplo:
+Caso o exercício tenha resposta (final, para resolução completa, veja a subsecção Exercícios Resolvidos) ela deve ser colocado em um ambiente `resp` logo abaixo do ambiente ao qual o exercício se refere como, por exemplo:
 
     \begin{resp}
-	   Excreva aqui a resposta do exercício.
+	   Escreva aqui a resposta do exercício.
 	\end{resp}
-
