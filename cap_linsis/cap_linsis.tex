@@ -145,7 +145,7 @@ E =
 
 
 \section{Eliminação gaussiana}\index{eliminação gaussiana}
-A \emph{eliminação gaussiana}, também conhecida como \emph{escalonamento}, é um método para resolver sistemas lineares. Este método consiste em manipular o sistema através de determinadas operações elementares, transformando a matriz estendida do sistema em uma matriz triangular. Uma vez, triangularizado o sistema, a solução pode ser obtida via substituição regressiva. Naturalmente estas operações elementares devem preservar a solução do sistema e consistem em:
+A \emph{eliminação gaussiana}, também conhecida como \emph{escalonamento}, é um método para resolver sistemas lineares. Este método consiste em manipular o sistema através de determinadas operações elementares, transformando a matriz estendida do sistema em uma matriz triangular (chamada de \emph{matriz escalonada do sistema}\index{matriz escalonada}). Uma vez, triangularizado o sistema, a solução pode ser obtida via substituição regressiva. Naturalmente estas operações elementares devem preservar a solução do sistema e consistem em:
 \begin{enumerate}
 \item multiplicação de um linha por uma constante não nula.
 \item substituição de uma linha por ela mesma somada a um múltiplo de outra linha.
@@ -174,19 +174,202 @@ No primeiro passo, subtraímos da segunda linha o quádruplo da primeira e subtr
   \begin{bmatrix}
        1 &1& 1&1\\
        0 & 0 &-2&-2\\
-       0 &-1& -3&-1
+       0 &-1& -3&-2
   \end{bmatrix}
 \end{equation*}
 No segundo passo, permutamos a segunda linha com a terceira:
 \begin{equation*}
   \begin{bmatrix}
        1 &1& 1&1\\
-       0 &-1& -3&-1\\
+       0 &-1& -3&-2\\
        0 & 0 &-2&-2
   \end{bmatrix}
 \end{equation*}
-Neste momento, a matriz já se encontra na forma triangular. Da terceira linha, encontramos $-2z=-2$, ou seja, $z=1$. Substituindo na segunda equação, temos $-y-3z=-2$, ou seja, $y=-1$ e finalmente, da primeira linha, $x+y+z=1$, resultando em $x=1$.
+Neste momento, a matriz já se encontra na forma triangular (chamada de \emph{matriz escalonada do sistema}\index{matriz escalonada}). Da terceira linha, encontramos $-2z=-2$, ou seja, $z=1$. Substituindo na segunda equação, temos $-y-3z=-2$, ou seja, $y=-1$ e finalmente, da primeira linha, $x+y+z=1$, resultando em $x=1$.
+
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos fazer as computações acima da seguinte forma:
+\begin{verbatim}
+>> #matriz dos coeficientes
+>> A = [1 1 1;4 4 2;2 1 -1];
+>> #vetor dos termos constantes
+>> b = [1 2 0]';
+>> #matriz estendida
+>> E = [A b]
+E =
+   1   1   1   1
+   4   4   2   2
+   2   1  -1   0
+
+>> #L2 <- L2 - (e21/e11)*L1
+>> E(2,:) = E(2,:) - E(2,1)/E(1,1) * E(1,:)
+E =
+   1   1   1   1
+   0   0  -2  -2
+   2   1  -1   0
+
+>> #L2 <- L2 - (e21/e11)*L1
+>> E(3,:) = E(3,:) - E(3,1)/E(1,1) * E(1,:)
+E =
+   1   1   1   1
+   0   0  -2  -2
+   0  -1  -3  -2
+
+>> #L2 <-> L3
+>> aux = E(2,:); E(2,:) = E(3,:); E(3,:) = aux
+E =
+   1   1   1   1
+   0  -1  -3  -2
+   0   0  -2  -2
+>> #resolvendo
+>> z = E(3,4)/E(3,3)
+z =  1
+>> y = (E(2,4) - E(2,3)*z)/E(2,2)
+y = -1
+>> x = (E(1,4) - E(1,3)*z - E(1,2)*y)/E(1,1)
+x =  1
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{sol}
+
+Neste exemplo~\ref{ex:elim_gaussiana}, o procedimento de eliminação gaussiana foi usado para obtermos um sistema triangular (superior) equivalente ao sistema original. Este, por sua vez, nos permitiu obter a solução do sistema obtento o valor de cada váriável, começando da última (pela última equação) seguindo linha por linha até a primeira.
+
+Alternativamente, podemos continuar o procedimento de eliminação gaussiana, anulando os elementos da matriz estendida acima da diagonal principal. Isto nos leva a uma matriz estendida diagonal (chamada \emph{matriz escalonada reduzida}\index{matriz escalonada reduzida}), na qual a solução do sistema original aparece na última coluna.
+
+\begin{ex}
+  No exemplo~\ref{ex:elim_gaussiana}, usamos o procedimento de eliminação gaussiana e obtivemos
+  \begin{equation*}
+      \underbrace{
+        \begin{bmatrix}
+          1 & 1 & 1 & 1\\
+          4 & 4 & 2 & 2\\
+          2 & 1 & -1 & 0
+        \end{bmatrix}
+}_{\text{matriz estendida}} \sim
+      \underbrace{
+        \begin{bmatrix}
+          1 & 1 & 1 & 1\\
+          0 & -1 & -3 & -2\\
+          0 & 0 & -2 & -2
+        \end{bmatrix}
+}_{\text{matriz escalonada}}.
+  \end{equation*}
+
+Agora, seguindo com o procedimento de eliminação gaussiana, buscaremos anular os elementos acima da diagonal principal. Começamos dividindo cada elemento da última linha pelo valor do elemento da sua diagonal, obtemos
+\begin{equation*}
+  \begin{bmatrix}
+    1 & 1 & 1 & 1\\
+    0 & -1 & -3 & -2\\
+    0 & 0 & 1 & 1
+  \end{bmatrix}
+\end{equation*}
+Então, somando da segunda linha o triplo da terceira e subtraindo da primeira a terceira linha, obtemos
+\begin{equation*}
+  \begin{bmatrix}
+    1 & 1 & 0 & 0\\
+    0 & -1 & 0 & 1\\
+    0 & 0 & 1 & 1
+  \end{bmatrix}
+\end{equation*}
+Fixamos, agora, na segunda linha. Dividimos esta linha pelo valor do elemento em sua diagonal, isto nos fornece
+\begin{equation*}
+  \begin{bmatrix}
+    1 & 1 & 0 & 0\\
+    0 & 1 & 0 & -1\\
+    0 & 0 & 1 & 1
+  \end{bmatrix}
+\end{equation*}
+Por fim, subtraímos da primeira linha a segunda, obtendo a matriz escalonada reduzida
+\begin{equation*}
+  \begin{bmatrix}
+    1 & 0 & 0 & 1\\
+    0 & 1 & 0 & -1\\
+    0 & 0 & 1 & 1
+  \end{bmatrix}
+\end{equation*}
+Desta matriz escalonada reduzida temos, imediatamente, $x=1$, $y=-1$ e $z=1$, como no exemplo~\ref{ex:elim_gaussiana}.
+
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos fazer as computações acima da seguinte forma:
+\begin{verbatim}
+>> #matriz escalonada
+>> E = [1 1 1 1;0 -1 -3 -2;0 0 -2 -2]
+E =
+
+   1   1   1   1
+   0  -1  -3  -2
+   0   0  -2  -2
+
+>> #L3 <- (1/e33)*L3
+>> E(3,:) = 1/E(3,3)*E(3,:)
+E =
+
+   1   1   1   1
+   0  -1  -3  -2
+  -0  -0   1   1
+
+>> #L2 <- L2 - (e23/e33)*L3
+>> E(2,:) = E(2,:) - E(2,3)/E(3,3)*E(3,:)
+E =
+
+   1   1   1   1
+   0  -1   0   1
+  -0  -0   1   1
+
+>> #L1 <- L1 - (e13/e33)*L3
+>> E(1,:) = E(1,:) - E(1,3)/E(3,3)*E(3,:)
+E =
+
+   1   1   0   0
+   0  -1   0   1
+  -0  -0   1   1
+
+>> #L2 <- (1/e22)*L2
+>> E(2,:) = 1/E(2,2)*E(2,:)
+E =
+
+   1   1   0   0
+  -0   1  -0  -1
+  -0  -0   1   1
+
+>> #L1 <- L1 - (e12/e22)L1
+>> E(1,:) = E(1,:) - E(1,2)/E(2,2)*E(2,:)
+E =
+
+   1   0   0   1
+  -0   1  -0  -1
+  -0  -0   1   1
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+\end{ex}
+
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\begin{obs}
+O \verb+GNU Octave+ oferece a função \verb+rref+ (do inglês {\it row reduced echelon form}), a qual obtem a matriz escalonada reduzida de uma matriz estendida dada. No caso do exemplo~\ref{ex:elim_gaussiana}, temos:
+\begin{verbatim}
+>> E = [1 1 1 1;4 4 2 2;2 1 -1 0]
+E =
+
+   1   1   1   1
+   4   4   2   2
+   2   1  -1   0
+
+>> rref(E)
+ans =
+
+   1   0   0   1
+   0   1   0  -1
+   0   0   1   1
+\end{verbatim}  
+\end{obs}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+
 
 \subsection{Eliminação gaussiana com pivotamento parcial}
 A eliminação gaussiana com \emph{pivotamento parcial} consiste em fazer uma permutação de linhas de forma a escolher o maior pivô (em módulo) a cada passo.
@@ -411,7 +594,15 @@ Observe que tais expressões são analiticamente idênticas às anteriores, no e
 \subsection*{Exercícios Resolvidos}
 
 \begin{exeresol}
-Resolva o sistema por eliminação gaussiana com pivotamento parcial.
+Resolva o seguinte sistema por eliminação gaussiana com pivotamento parcial.
+\begin{eqnarray*}
+  2y + 2z &=& 8\\
+  x + 2y + z &=& 9\\
+  x + y + z &=& 6
+\end{eqnarray*}
+\end{exeresol}
+\begin{resol}
+A forma matricial do sistema dado é
 \begin{equation*}
 \left[
 \begin{array}{ccc}
@@ -435,9 +626,7 @@ z
 \end{array}
 \right]
 \end{equation*}
-\end{exeresol}
-\begin{resol}
-Construímos a matriz completa:
+Construímos, então, a matriz completa e seguimos com o procedimento de eliminação gaussiana com pivotamento parcial:
 \begin{eqnarray*}\left[
 \begin{array}{ccc|c}
 0 &2& 2&8\\
@@ -451,8 +640,8 @@ Construímos a matriz completa:
 0 &2& 2&8\\
 1 & 1 &1&6
 \end{array}
-\right] \\
-&\sim&
+\right]
+\sim
 \left[
 \begin{array}{ccc|c}
 1 &2& 1&9\\
@@ -467,8 +656,8 @@ Construímos a matriz completa:
 0 &2& 2&8\\
 0 & 0 &1&1
 \end{array}
-\right]\\
-&\sim&
+\right]
+\sim
 \left[
 \begin{array}{ccc|c}
 1 &2& 0&8\\
@@ -486,6 +675,80 @@ Construímos a matriz completa:
 \right]
 \end{eqnarray*}
 Portanto $x=2$, $y=3$ e $z=1$.
+
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos fazer estas computações da seguinte forma:
+\begin{verbatim}
+>> #matriz estendida
+>> E = [0 2 2 8;1 2 1 9;1 1 1 6]
+E =
+
+   0   2   2   8
+   1   2   1   9
+   1   1   1   6
+
+>> #L1 <-> L2
+>> aux = E(1,:); E(1,:) = E(2,:); E(2,:) = aux
+E =
+
+   1   2   1   9
+   0   2   2   8
+   1   1   1   6
+
+>> #L3 <- L3 - (e31/e11)*L1
+>> E(3,:) = E(3,:) - E(3,1)/E(1,1)*E(1,:)
+E =
+
+   1   2   1   9
+   0   2   2   8
+   0  -1   0  -3
+
+>> #L3 <- L3 - (e32/e22)*L2
+>> E(3,:) = E(3,:) - E(3,2)/E(2,2)*E(2,:)
+E =
+
+   1   2   1   9
+   0   2   2   8
+   0   0   1   1
+
+>> #L2 <- L2 - (e23/e33)*L3
+>> E(2,:) = E(2,:) - E(2,3)/E(3,3)*E(3,:)
+E =
+
+   1   2   1   9
+   0   2   0   6
+   0   0   1   1
+
+>> #L1 <- L1 - (e13/e33)*L3
+>> E(1,:) = E(1,:) - E(1,3)/E(3,3)*E(3,:)
+E =
+
+   1   2   0   8
+   0   2   0   6
+   0   0   1   1
+
+>> #L1 <- L1 - (e12/e22)*L2
+>> E(1,:) = E(1,:) - E(1,2)/E(2,2)*E(2,:)
+E =
+
+   1   0   0   2
+   0   2   0   6
+   0   0   1   1
+
+>> #obtendo a solucão
+>> z = E(3,4)/E(3,3)
+z =  1
+>> y = E(2,4)/E(2,2)
+y =  3
+>> x = E(1,4)/E(1,1)
+x =  2
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+
 \end{resol}
 
 
