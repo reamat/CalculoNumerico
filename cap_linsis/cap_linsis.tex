@@ -6,17 +6,17 @@
 
 \chapter{Solução de sistemas lineares}\index{sistema linear}
 
-Muitos problemas da engenharia, física e matemática estão associados à solução de sistemas de equações lineares. Nesse capítulo, tratamos de técnicas numéricas empregadas para obter a solução desses sistemas. Iniciamos por uma rápida revisão do método de eliminação gaussiana do ponto de vista computacional. No contexto de análise da propagação dos erros de arredondamento, introduzimos o método de eliminação gaussiana com pivotamento parcial, bem como, apresentamos o conceito de condicionamento de um sistema linear. Então, passamos a discutir sobre técnicas iterativas, mais especificamente, sobre os métodos de Jacobi e Gauss-Seidel.
+Muitos problemas da engenharia, física e matemática estão associados à solução de sistemas de equações lineares. Nesse capítulo, tratamos de técnicas numéricas empregadas para obter a solução desses sistemas. Iniciamos por uma rápida revisão do método de eliminação gaussiana do ponto de vista computacional. No contexto de análise da propagação dos erros de arredondamento, introduzimos o método de eliminação gaussiana com pivotamento parcial, bem como, apresentamos o conceito de condicionamento de um sistema linear. Além disso, exploramos o conceito de complexidade de algarismos em álgebra linear. Então, passamos a discutir sobre técnicas iterativas, mais especificamente, sobre os métodos de Jacobi e Gauss-Seidel.
 
 
-Considere o sistema de equações lineares:
+Considere o sistema de equações lineares (escrito na forma algébrica)
 \begin{eqnarray*}
 a_{11}x_1 + a_{12}x_2 + \cdots +a_{1n}x_n &=& b_1\\
 a_{21}x_1 + a_{22}x_2 + \cdots +a_{2n}x_n &=& b_2\\
                                       &\vdots& \\
 a_{m1}x_1 + a_{m2}x_2 + \cdots +a_{mn}x_n &=& b_m
 \end{eqnarray*}
-onde $m$ é o número de equações e $n$ é o número de incógnitas.  Este sistema pode ser escrito na forma matricial:
+onde $m$ é o número de equações e $n$ é o número de incógnitas.  Este sistema pode ser escrito na \emph{forma matricial}
 \begin{equation*}
   Ax = b
 \end{equation*}
@@ -39,10 +39,12 @@ b_{1} \\
 b_{2} \\
 \vdots \\
 b_{m}
-\end{bmatrix}
+\end{bmatrix},
 \end{equation*}
+onde $A$ é chamada de \emph{matriz dos coeficientes}\index{matriz!dos coeficientes}, $x$ de \emph{vetor das incógnitas}\index{vetor!das incógnitas} e $b$ de \emph{vetor dos termos constantes}\index{vetor!dos termos constantes}.
 
-Definimos também a matriz completa de uma sistema como $Ax=b$ como $[A|b]$, isto é:
+
+Definimos também a \emph{matriz completa}\index{matriz!completa} (também chamada de \emph{matriz estendida}\index{matriz!estendida}) de um sistema como $Ax=b$ como $[A|b]$, i.e.
 \begin{equation*}
  [A|b]=\left[\begin{array}{cccc|c}
 a_{11} & a_{12} & \cdots & a_{1n}&b_1\\
@@ -53,7 +55,7 @@ a_{m1} & a_{m2} & \cdots & a_{mn}&b_m
 \end{equation*}
 
 
-Salvo especificado ao contrário, assumiremos ao longo deste capítulo que a matriz dos coeficientes $A$ é uma matriz real não singular.
+Salvo especificado ao contrário, assumiremos ao longo deste capítulo que a matriz dos coeficientes $A$ é uma matriz real não singular (i.e. invertível).
 
 %%%%%%%%%%%%%%%%%%%%
 % python
@@ -67,7 +69,76 @@ Ao longo do capítulo, apresentamos algumas computações com \verb+Python+. Nes
 \end{verbatim}
 \fi
 
+\begin{ex}
+  Consideramos o seguinte sistema linear
+  \begin{eqnarray*}
+    x+y+z  &=& 1\\
+    4x+4y+2z&=& 2\\
+    2x+y-z &=& 0
+  \end{eqnarray*}.
+Na sua forma matricial, este sistema é escrito como
+\begin{equation*}
+  Ax = b \Leftrightarrow
+  \underbrace{\begin{bmatrix}
+    1 & 1 & 1\\
+    4 & 4 & 2\\
+    2 & 1 & -1
+  \end{bmatrix}}_{A}
+\underbrace{
+  \begin{bmatrix}
+    x\\y\\z
+  \end{bmatrix}
+}_{\underline{x}} = 
+\underbrace{
+  \begin{bmatrix}
+    1\\2\\0
+  \end{bmatrix}}_{b}
+\end{equation*}.
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos definir a matriz dos coeficientes $A$ e o vetor dos termos constantes $b$ da seguinte forma:
+\begin{verbatim}
+>> A = [1 1 1;4 4 2;2 1 -1]
+A =
+   1   1   1
+   4   4   2
+   2   1  -1
 
+>> b = [1 2 0]'
+b =
+   1
+   2
+   0
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+
+A matriz estendida do sistema acima é
+\begin{equation*}
+  E := [A|b] =
+  \begin{bmatrix}
+    1 & 1 & 1 & 1\\
+    4 & 4 & 2 & 2\\
+    2 & 1 & -1 & 0
+  \end{bmatrix}
+\end{equation*}
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos definir a matriz dos estendida $E$ deste sistema com
+\begin{verbatim}
+>> E = [A b]
+E =
+   1   1   1   1
+   4   4   2   2
+   2   1  -1   0
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+\end{ex}
 
 %Vários fatores podem ser analisados nas técnicas utilizadas: método direto ou iterativo, tempo de execução, estabilidade. Qual técnica é a melhor? na próxima seção trataremos do custo computacional que ajudará a responder essa pergunta considerando a eficiência.
 
