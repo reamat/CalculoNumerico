@@ -65,12 +65,12 @@ Usando a fórmula de diferenças finitas central de ordem 2 para a segunda deriv
 \end{equation*}
 Rearranjando os termos, obtemos
 \begin{equation*}
-  \frac{u(x_i-h) - 2u(x_i) + u(x_i+h)}{h^2} = f(x_i, u(x_i)) + O(h^2). 
+  -\frac{u(x_i-h) - 2u(x_i) + u(x_i+h)}{h^2} = f(x_i, u(x_i)) + O(h^2). 
 \end{equation*}
 
 Agora, denotando por $u_i$ a aproximação numérica de $u(x_i)$, a equação acima nos fornece
 \begin{equation}\label{eq:pvc1-disc-eq}
-\frac{1}{h^2}u_{i-1} + \frac{2}{h^2}u_i + \frac{1}{h^2}u_{i+1} = f(x_i, u_i),
+\frac{1}{h^2}u_{i-1} - \frac{2}{h^2}u_i + \frac{1}{h^2}u_{i+1} = -f(x_i, u_i),
 \end{equation}
 para $i=2, 3, \dotsc, N-1$. Observamos que trata-se de um sistema de $N$ incógnitas, a saber $u_i$, e de $N-2$ equações, isto é, um sistema subdeterminado.
 
@@ -86,7 +86,7 @@ Analogamente, da condição de contorno dada na equação~\eqref{eq:pvc1-bc1}, t
 Por fim, as equações \eqref{eq:pvc1-disc-bc2}, \eqref{eq:pvc1-disc-eq} e \eqref{eq:pvc1-disc-bc1} determinam o problema discreto associado
 \begin{eqnarray}
   u_1 &=& u_a,\label{eq:pvc1-disc-eq1}\\
-  \frac{1}{h^2}u_{i-1} + \frac{2}{h^2}u_i + \frac{1}{h^2}u_{i+1} &=& f(x_i, u_i),\quad i=2, \dotsc, N-1,\label{eq:pvc1-disc-eqi}\\
+  \frac{1}{h^2}u_{i-1} - \frac{2}{h^2}u_i + \frac{1}{h^2}u_{i+1} &=& -f(x_i, u_i),\quad i=2, \dotsc, N-1,\label{eq:pvc1-disc-eqi}\\
   u_N &=& u_b.\label{eq:pvc1-disc-eqN}
 \end{eqnarray}
 Este é um sistema de equações de $N$ incógnitas e $N$ equações.
