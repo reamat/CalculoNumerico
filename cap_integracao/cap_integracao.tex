@@ -12,12 +12,12 @@ $$
  I = \int_a^b f(x) \;dx.
 $$
 
-Uma maneira de estimar esta integral numericamente consiste em subdividir o intervalo $[a,b]$ em $n-1$ intervalos a partir de um conjunto ordenado de pontos $a=x_1<x_2<...<x_n=b$. 
-Em cada intervalo $i$, a integral será aproximada por $\Delta S_i$ e a integral será aproximada por 
+Uma maneira de estimar esta integral numericamente consiste em subdividir o intervalo $[a,b]$ em $n-1$ intervalos a partir de um conjunto ordenado de pontos $a=x_1<x_2<...<x_n=b$.
+Em cada intervalo $i$, a integral será aproximada por $\Delta S_i$ e a integral será aproximada por
 $$
- I \approx S = \sum_{i=1}^{n-1} \Delta S_i
+ I \approx S = \sum_{i=1}^{n-1} \Delta S_i.
 $$
-O tamanho de cada intervalo é dado por $h_i=x_{i+1}-x_i$. No caso uniforme, todos os intervalos possuem o mesmo tamanho $h=h_i=\frac{b-a}{n}$.
+O tamanho de cada intervalo é dado por $h_i=x_{i+1}-x_i$. No caso uniforme, todos os intervalos possuem o mesmo tamanho $h=h_i=\frac{b-a}{n-1}$.
 
 Nas próximas seções apresentaremos formas diferentes de aproximar $\Delta S_i$ iniciando com o caso mais simples que é um retângulo. Cada uma das regras obtidas também é chamada de quadratura.
 
@@ -42,7 +42,7 @@ Os valores aproximados para a integral são dados na seguinte tabela:
 
 Observe que:
 \begin{equation*}
-  \int_0^2(x^2+1)\,dx = \left[\frac{x^3}{3}+x\right]_0^2 = \frac{8}{3}+2=4,6666667
+  \int_0^2(x^2+1)\,dx = \left[\frac{x^3}{3}+x\right]_0^2 = \frac{8}{3}+2=4,6666667.
 \end{equation*}
 \end{ex}
 
@@ -69,10 +69,10 @@ $$
 
 % Quanto maior o número de pontos $n$, melhor será a regra de quadratura.
 
-Podemos obter os coeficientes $A_i$ aproximando a função $f$ pelo polinômio de Lagrange $p_n$ que interpola $\{(x_i,f_i)\}_{i=1}^n$, tal que, 
+Podemos obter os coeficientes $A_i$ aproximando a função $f$ pelo polinômio de Lagrange $p_{n-1}$ que interpola $\{(x_i,f_i)\}_{i=1}^n$, tal que,
 \begin{eqnarray}
   f(x) &=& p_n(x)+E^n_{LAG}(x) \\
-       &=& \sum_{i=1}^n f_iL_i(x)+E^n_{LAG}(x) 
+       &=& \sum_{i=1}^n f_iL_i(x)+E^n_{LAG}(x)
 \end{eqnarray}
 onde o erro na interpolação de Lagrange é
 \begin{equation}
@@ -86,7 +86,7 @@ Substituindo na integral obtemos
 \end{eqnarray}
 
 
-A fórmula de quadratura é então 
+A fórmula de quadratura é então
 \begin{equation}
 \int_a^bf(x)\,dx\approx\sum_{i=1}^nA_if_i,
 \end{equation}
@@ -97,29 +97,29 @@ A_i=\int_a^b L_i(x)\;dx.
 
 
 \subsection{Somas de Riemann}
-O método mais simples de aproximar 
+O método mais simples de aproximar
 $$
  I = \int_a^b f(x) \;dx.
 $$
 com apenas um intervalo, é aproximar $f(x)$ por um polinômio constante no intervalo $[a,b]$, ou seja, $f(x)=c$. Se aproximarmos $f(x)$ pelo ponto a esquerda do intervalo temos que $f(x)\approx f(a)$ e
 \begin{eqnarray}
- I &= \int_a^b f(x) \;dx 
+ I &= \int_a^b f(x) \;dx
    &\approx \int_a^b f(a) \;dx \\
-   &= f(a) \int_a^b\,dx 
+   &= f(a) \int_a^b\,dx
    &= f(a) (b-a)
 \end{eqnarray}
 Esta é a regra de quadratura local para $1$ intervalo.
 
 Quando subdividimos $[a,b]$ em $n$ intervalos com tamanho $h=(b-a)/n$ nos pontos $x_i=a+(i-1)h$ , em cada intervalo $i$ aproximamos a área por
 $$
-  \Delta S_i \approx f(x_i)h 
+  \Delta S_i \approx f(x_i)h
 $$
 tal que a área total será aproximada pelas \emph{somas de Riemann à esquerda}
 $$
 S =\sum_{i=1}^{n-1} \Delta S_i = \sum_{i=1}^{n-1} f(x_i) h
 $$
 
-Podemos obter uma fórmula similar se usarmos os pontos a direita do intervalo, ou seja, as \emph{somas de Riemann à direita} 
+Podemos obter uma fórmula similar se usarmos os pontos a direita do intervalo, ou seja, as \emph{somas de Riemann à direita}
 $$
 S = \sum_{i=1}^{n-1} f(x_{i+1}) h
 $$
@@ -205,22 +205,22 @@ S = \sum_{i=1}^{n-1} f(\xi_i ) h, \;\;\;\; \xi_i=\frac{x_i+x_{i+1}}{2}.
 
 \subsection{Regra do trapézio}\index{integração numérica!regra do trapézio}
 
-A regra do trapézio consiste em aproximar a função $f(x)$ por um polinômio de grau 1. Se utilizarmos uma reta ligando extremos do intervalo obtemos um trapézio que fornece o nome da regra. 
+A regra do trapézio consiste em aproximar a função $f(x)$ por um polinômio de grau 1. Se utilizarmos uma reta ligando extremos do intervalo obtemos um trapézio que fornece o nome da regra.
 
 % \begin{center}
 % \includegraphics[scale=0.7]{./cap_integracao/pics/int_2/int_2}
 % \end{center}
 
 Desta forma, utilizando $x_1:=a$,  $x_2:=b$, $h=x_2-x_1$ e a notação $f_i=f(x_i)$ obtemos através da interpolação de Lagrange o polinômio
-\begin{eqnarray} 
-p_1(x) &=& f_1 L_1(x)+ f_2 L_2(x) 
+\begin{eqnarray}
+p_1(x) &=& f_1 L_1(x)+ f_2 L_2(x)
 \end{eqnarray}
 Aproximando $f(x)$ por $p_1(x)$ e integrando obtemos
 \begin{eqnarray*}
   \int_a^bf(x)\;dx &\approx& \int_a^bp_1(x)\;dx \\
     &=& \int_a^b f_1L_1(x) + f_2L_2(x)\;dx \\
     &=& f_1 \int_a^b L_1(x)\;dx + f_2 \int_a^b L_2(x)\;dx \\
-    &=& A_1 f_1 + A_2 f_2 
+    &=& A_1 f_1 + A_2 f_2
 \end{eqnarray*}
 onde
 \begin{eqnarray*}
@@ -235,14 +235,14 @@ Da mesma forma,
 
 de onde obtemos a \emph{regra do trapézio} dada por
 \begin{equation}
-  \int_a^b f(x)\;dx \approx \left(\frac{1}{2}f_1 + \frac{1}{2}f_2\right)h 
+  \int_a^b f(x)\;dx \approx \left(\frac{1}{2}f_1 + \frac{1}{2}f_2\right)h.
 \end{equation}
 
 
 \subsubsection{Erro na regra do trapézio}
-O \textit{erro na regra do trapézio} pode ser obtida integrando o erro da interpolação de Lagrange,
+O \textit{erro na regra do trapézio} pode ser obtido integrando o erro da interpolação de Lagrange,
 \begin{eqnarray*}
-   E_{TRAP} = \int_a^b E^2_{LAG}(x) \;dx= \int_a^b \frac{f''(\xi(x))}{2!}(x-x_1)(x-x_2) \;dx
+   E_{TRAP} = \int_a^b E^2_{LAG}(x) \;dx= \int_a^b \frac{f''(\xi(x))}{2!}(x-x_1)(x-x_2) \;dx.
 \end{eqnarray*}
 Pelo teorema do valor médio, existe $a\leq \eta\leq b$ tal que
 \begin{eqnarray*}
@@ -254,12 +254,12 @@ portanto
   &=& \frac{f''(\eta)}{2}\left[\frac{x^3}{3}-\frac{x^2}{2}(x_2+x_1)+x_1x_2x\right]_{x_1}^{x_2}\\
   &=& \frac{f''(\eta)}{2}\left(\frac{x_2^3}{3}-\frac{x_2^2}{2}(x_2+x_1)+x_1x_2x_2-\frac{x_1^3}{3}+\frac{x_1^2}{2}(x_2+x_1)-x_1x_2x_1\right)\\
   &=& \frac{f''(\eta)}{2}\frac{2x_2^3-3x_2^2(x_2+x_1)+6x_2^2x_1-2x_1^3+3x_1^2(x_2+x_1)-6x_2x_1^2}{6}\\
-  &=& \frac{f''(\eta)}{12}\left(x_1^3-3x_1^2x_2+3x_2^2x_1-x_2^3\right) 
+  &=& \frac{f''(\eta)}{12}\left(x_1^3-3x_1^2x_2+3x_2^2x_1-x_2^3\right)
    =  \frac{f''(\eta)}{12}(x_1-x_2)^3\\
   &=& -\frac{f''(\eta)}{12}h^3.
 \end{eqnarray*}
 
-Assim, o erro na regra do trapézio é 
+Assim, o erro na regra do trapézio é
 $$
 E_{TRAP}  = -\frac{f''(\eta)}{12}h^3 = \mathcal{O}(h^3).
 $$
@@ -277,7 +277,7 @@ e aplique a regra do trapézio em cada uma delas. Finalmente, repita o processo 
 \end{ex}
 Usando o intervalo $[0,1]$, temos $h=1$, $x_0=0$ e $x_1=1$. A regra do trapézio resulta em
 $$
-\int_0^1e^{-x^2}\;dx\approx \frac{1}{2}(e^{0}+e^{-1})=0,6839397
+\int_0^1e^{-x^2}\;dx\approx \frac{1}{2}(e^{0}+e^{-1})=0,6839397.
 $$
 Usando dois intervalos, $[0,1/2]$ e $[1/2,1]$ e usando a regra do trapézio em cada um dos intervalos, temos:
 \begin{eqnarray*}
@@ -288,7 +288,7 @@ Agora, usando quatro intervalos, temos
 \begin{eqnarray*}
 \int_0^1e^{-x^2}\;dx &\approx& \frac{0,25}{2}\left(e^{0}+e^{-1/16}\right) + \frac{0,25}{2}\left(e^{-1/16}+e^{-1/4}\right) \\
 &+& \frac{0,25}{2}\left(e^{-1/4}+e^{-9/16}\right)+\frac{0,25}{2}\left(e^{-9/16}+e^{-1}\right) \\
-&=& 0,7429841
+&=& 0,7429841.
 \end{eqnarray*}
 
 
@@ -298,20 +298,20 @@ Na regra de Simpson aproximamos $f$ por um polinômio de grau $2$, portanto prec
 $$
 x_1:=a,\qquad x_2:=\frac{a+b}{2}\qquad \text{e}\qquad x_3:=b
 $$
-com $h=x_3-x_1$, podemos obter o polinômio de Lagrange 
+com $h=x_3-x_1$, podemos obter o polinômio de Lagrange
 \begin{equation*}
     p_2(x) = f_1L_1(x) + f_2L_2(x)  + f_3L_3(x)
 \end{equation*}
 
 Aproximando $f$ por $p_2$ e integrando temos
 \begin{eqnarray}
-\int_a^bf(x)\;dx &\approx&\int_a^b p_2(x) \;dx \\ 
-               &=&\int_a^b f_1L_1(x) + f_2L_2(x)  + f_3L_3(x) \;dx \\  
-               &=&f_1 A_1 + f_2A_2  + f_3A_3  
+\int_a^bf(x)\;dx &\approx&\int_a^b p_2(x) \;dx \\
+               &=&\int_a^b f_1L_1(x) + f_2L_2(x)  + f_3L_3(x) \;dx \\
+               &=&f_1 A_1 + f_2A_2  + f_3A_3
 \end{eqnarray}
 onde
 \begin{eqnarray}
-  A_i = \int_a^b L_i(x) \;dx  
+  A_i = \int_a^b L_i(x) \;dx
 \end{eqnarray}
 Calculando essas integrais obtemos \emph{a regra de Simpson}
 $$
@@ -324,13 +324,13 @@ Obtenha os coeficientes $A_i$ do método de Simpson  integrando os polinômios d
 Fazendo uma translação para a origem (subtraindo $x_1$ de $x_2$ e $x_3$)
 \begin{eqnarray*}
    A_1 &=& \int_{x_1}^{x_3} \frac{(x-x_2)(x-x_3)}{(x_1-x_2)(x_1-x_3)}\;dx \\
-       &=& \int_0^h \frac{(x-h/2)(x-h)}{(0-h/2)(0-h)}\;dx 
+       &=& \int_0^h \frac{(x-h/2)(x-h)}{(0-h/2)(0-h)}\;dx
         =  \frac{2}{h^2} \int_0^h (x-h/2)(x-h)\;dx \\
-       &=& \frac{2}{h^2} \int_0^h x^2 -\frac{3}{2}hx+\frac{h^2}{2}\;dx 
-        =  \frac{2}{h^2} (x^3/3 -\frac{3}{4}hx^2+\frac{h^2x}{2})_0^h \\  
-       &=& \frac{2}{h^2} (h^3/3 -\frac{3}{4}h^3+\frac{h^3}{2})   
+       &=& \frac{2}{h^2} \int_0^h x^2 -\frac{3}{2}hx+\frac{h^2}{2}\;dx
+        =  \frac{2}{h^2} (x^3/3 -\frac{3}{4}hx^2+\frac{h^2x}{2})_0^h \\
+       &=& \frac{2}{h^2} (h^3/3 -\frac{3}{4}h^3+\frac{h^3}{2})
         =  (\frac{2}{3}-\frac{3}{2}+1)h\\
-       &=& \frac{1}{6}h
+       &=& \frac{1}{6}h.
 \end{eqnarray*}
 Apesar de longa, é apenas a integral de um polinômio de grau 2. De forma semelhante podemos obter
 $$
@@ -356,7 +356,7 @@ onde $x_1\leq\xi(x)\leq x_3$ e integre no intervalo $[a,b]=[x_1,x_3]$:
   \begin{split}
     \int_a^bf(x)\;dx&= \left[f(x_2)(x-x_2)+f'(x_2)\frac{(x-x_2)^2}{2} + \frac{f''(x_2)}{6}(x-x_2)^3\right. \\
       &\left. + \frac{f'''(x_2)}{24}(x-x_2)^4\right]_{x_1}^{x_3}\\
-      &+ \frac{1}{24}\int_{x_1}^{x_3}f^{(4)}(\xi(x))(x-x_2)^4\;dx,    
+      &+ \frac{1}{24}\int_{x_1}^{x_3}f^{(4)}(\xi(x))(x-x_2)^4\;dx,
   \end{split}
 \end{equation*}
 Pelo teorema do valor médio, existe $x_1\leq\eta\leq x_3$ tal que
@@ -367,7 +367,7 @@ Pelo teorema do valor médio, existe $x_1\leq\eta\leq x_3$ tal que
     &+ \frac{f^{(4)}(\eta)}{24}\int_{x_1}^{x_3}(x-x_2)^4\;dx\\
     &= \left[f(x_2)(x-x_2)+f'(x_2)\frac{(x-x_2)^2}{2}+\frac{f''(x_2)}{6}(x-x_2)^3\right.\\
     &+\left.\frac{f'''(x_2)}{24}(x-x_2)^4\right]_{x_1}^{x_3}\\
-    &+ \frac{f^{(4)}(\eta)}{120}\left[(x-x_2)^5\right]_{x_1}^{x_3}    
+    &+ \frac{f^{(4)}(\eta)}{120}\left[(x-x_2)^5\right]_{x_1}^{x_3}.
   \end{split}
 \end{equation*}
 Usando o fato que
@@ -413,11 +413,11 @@ e aplica a regra de Simpson em cada uma delas.
 \end{ex}
 Usando o intervalo $[0,1]$, temos $h=1/2$, $x_0=0$, $x_1=1/2$ e $x_2=1$. A regra de Simpson resulta em
 $$
-\int_0^1e^{-x^2}\;dx\approx \frac{0,5}{3}(e^{0}+4e^{-1/4}+e^{-1})=0,7471804
+\int_0^1e^{-x^2}\;dx\approx \frac{0,5}{3}(e^{0}+4e^{-1/4}+e^{-1})=0,7471804.
 $$
 Usando dois intervalos, $[0,1/2]$ e $[1/2,1]$ e usando a regra do trapézio em cada um dos intervalos, temos:
 $$
-\int_0^1e^{-x^2}\;dx\approx \frac{0,25}{3}(e^{0}+4e^{-1/16}+e^{-1/4})+\frac{0,25}{3}(e^{-1/4}+4e^{-9/16}+e^{-1})=0,7468554
+\int_0^1e^{-x^2}\;dx\approx \frac{0,25}{3}(e^{0}+4e^{-1/16}+e^{-1/4})+\frac{0,25}{3}(e^{-1/4}+4e^{-9/16}+e^{-1})=0,7468554.
 $$
 
 \subsection*{Exercícios}
@@ -426,12 +426,12 @@ $$
   \begin{eqnarray*}
     \text{a)}~\int_0^1e^{-x}\,dx & \text{b)}~\int_0^1x^2\,dx\\
     \text{c)}~\int_0^1x^3\,dx & \text{d)}~\int_0^1xe^{-x^2}\,dx\\
-    \text{e)}~\int_0^1\frac{1}{x^2+1}\,dx &\text{e)}~\int_0^1\frac{x}{x^2+1}\;dx 
+    \text{e)}~\int_0^1\frac{1}{x^2+1}\,dx &\text{e)}~\int_0^1\frac{x}{x^2+1}\;dx
   \end{eqnarray*}
 usando os métodos simples do Ponto médio, Trapézio e Simpson. Calcule, também, o valor analítico destas integrais e o erro nas aproximações dadas pelas quadraturas numérica.
 \end{exer}
 % \begin{resp}
-%   
+%
 %  \begin{center}
 % \begin{tabular}{|c|c|c|c|c|}
 % \hline
@@ -451,7 +451,7 @@ usando os métodos simples do Ponto médio, Trapézio e Simpson. Calcule, també
 % $\int_0^1xe^{-x^2}dx$  &$\frac{1}{2}\left(1-e^{-1}\right)\approx 0.3160603$ & 0.3894004  &  0.1839397 &   0.3209135  \\[.2cm]
 % \hline
 %  & & & &\\[-.3cm]
-% $\int_0^1\frac{1}{x^2+1}dx$  & $\tan^{-1}(1)\approx 0.7853982$ &  0.8  &  0.75 &   0.7833333  
+% $\int_0^1\frac{1}{x^2+1}dx$  & $\tan^{-1}(1)\approx 0.7853982$ &  0.8  &  0.75 &   0.7833333
 %  \\[.2cm]
 % \hline
 %  & & & &\\[-.3cm]
@@ -461,19 +461,19 @@ usando os métodos simples do Ponto médio, Trapézio e Simpson. Calcule, també
 % $\int_0^1\frac{1}{x+1}dx$  & $\ln(2) \approx 0.6931472$ & 0.6666667  &  0.75 &   0.6944444  \\[.2cm]
 % \hline
 % \end{tabular}
-% \end{center}    
-%   
+% \end{center}
+%
 % \end{resp}
 
 \begin{exer}
- Dê a interpretação geométrica dos métodos do ponto médio, trapézio e Simpson. A partir desta construção geométrica, deduza as fórmulas para aproximar 
+ Dê a interpretação geométrica dos métodos do ponto médio, trapézio e Simpson. A partir desta construção geométrica, deduza as fórmulas para aproximar
  $$\int_a^bf(x)\;dx.$$
  Verifique o método de Simpson pode ser entendido como uma média aritmética ponderada entre os métodos de trapézio e ponto médio. Encontre os pesos envolvidos. Explique o que são os métodos compostos.
  \end{exer}
 \begin{resp}
-  
-$$ I_{Simpson}= \frac{1}{3} I_{Trap}+ \frac{2}{3}I_{PM}$$    
-  
+
+$$ I_{Simpson}= \frac{1}{3} I_{Trap}+ \frac{2}{3}I_{PM}$$
+
 \end{resp}
 
 
@@ -496,7 +496,7 @@ $9$  & & &\\
 \end{center}
 \end{exer}
 \begin{resp}
-  
+
     \begin{equation*}
     \begin{array}{c|cccc}
         n   & \text{Ponto médio} & \text{Trapézios} & \text{Simpson} \\  \hline
@@ -504,9 +504,9 @@ $9$  & & &\\
         5 & 0.1726140 &   0.3964724  &  0.2784992   \\\hline
         7 & 0.1973663 &   0.3062023  &  0.2393551  \\ \hline
         9  &  0.2084204 &   0.2721145  &  0.2306618  \\ \hline
-    \end{array}      
+    \end{array}
     \end{equation*}
-  
+
 \end{resp}
 
 
@@ -521,7 +521,7 @@ Dados $n$ pontos $[t_1,t_2,\ldots ,t_n]$, queremos obter uma aproximação para
 \end{align}
 que seja exata para polinômios\footnote{Por exemplo, se $n=2$, então a regra é exata para retas.} até ordem  $n-1$.
 
-Aproxime $f(t)$ pelo polinômio $p(t)=w_1\phi_1(t)+\ldots +w_n \phi_n(t)$ de ordem $n-1$. Escolha uma base, como por exemplo $\phi _k(t)=t^{k-1}$. Como a regra de quadratura deve ser exata para qualquer polinômio até ordem $n-1$, então também deve ser exata para qualquer função da base. Substituindo $f(t)$ por $\phi _1(t)=1$ em \eqref{regraint} obtemos 
+Aproxime $f(t)$ pelo polinômio $p(t)=w_1\phi_1(t)+\ldots +w_n \phi_n(t)$ de ordem $n-1$. Escolha uma base, como por exemplo $\phi _k(t)=t^{k-1}$. Como a regra de quadratura deve ser exata para qualquer polinômio até ordem $n-1$, então também deve ser exata para qualquer função da base. Substituindo $f(t)$ por $\phi _1(t)=1$ em \eqref{regraint} obtemos
 \begin{eqnarray}
 \int _a^b \phi_1(t) \; dt = t|_a^b &=&  w_1\phi _1(t_1)+w_2\phi _1(t_2)+\ldots +w_n\phi_1(t_n) \\
                               b-a  &=&  w_1+w_2+\ldots +w_n
@@ -556,7 +556,7 @@ Seja $n=3$, $[a,b]=[0,h]$, onde $[t_1,t_2,t_3]=[0,h/2,h]$. Obtenha uma regra de 
 A regra terá a forma
 \begin{align}
   \int _a^b f(t)\;dt & \approx w_1f(t_1)+w_2f(t_2)+w_3f(t_3)\\
-                 & \approx w_1f_1   +w_2f_2   +w_3f_3
+                 & \approx w_1f_1   +w_2f_2   +w_3f_3.
 \end{align}
 Considere a base polinomial $[\phi _1(t),\phi _2(t),\phi _3(t)]=[1,t,t^2]$ e substitua $f(t)$ por $\phi_k(t)$ obtendo
 \begin{align}
@@ -606,7 +606,7 @@ Resolvendo o sistema obtemos $\displaystyle [w_1,w_2,w_3]=h[\frac{1}{6},\frac{4}
 
 Vimos que em todas as estimativas de erro que derivamos, o erro depende do tamanho do intervalo de integração. Uma estratégia para reduzir o erro consiste em particionar o intervalo de integração em diversos subintervalos menores tal que
 \begin{equation*}
-\int_{a}^b f(x)\;dx=\sum_{i=1}^{n} \int_{x_i}^{x_{i+1}} f(x)\;dx 
+\int_{a}^b f(x)\;dx=\sum_{i=1}^{n} \int_{x_i}^{x_{i+1}} f(x)\;dx
 \end{equation*}
 onde $a=x_1<...<x_{n+1}=b$, sendo $n$ o número de subintervalos da partição do intervalo de integração. No caso uniforme $x_i = a + (i-1)h$, $h = (b-a)/n$.
 
@@ -616,7 +616,7 @@ $$
 $$
 e a integral será aproximada por
 $$
-\int_a^b f(x)\;dx \approx S= \sum_{i=1}^{n} \Delta S_i
+\int_a^b f(x)\;dx \approx S= \sum_{i=1}^{n} \Delta S_i.
 $$
 
 %%%%%%%%%%%%%%%%%%%%
@@ -624,7 +624,7 @@ $$
 %%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \subsection{Código Scilab: Regras compostas em geral}
-Devemos fazer um {\it loop} sobre todos os intervalos e para cada intervalo aplicamos uma regra de quadratura. 
+Devemos fazer um {\it loop} sobre todos os intervalos e para cada intervalo aplicamos uma regra de quadratura.
 
 \verbatiminput{./cap_integracao/codes/scilab/simpson.sci}
 
@@ -638,7 +638,7 @@ Note que esta não é a implementação mais eficiente, pois reutiliza os termos
 A \emph{regra composta dos trapézios} assume a seguinte forma:
 \begin{eqnarray*}
   \int_{a}^b f(x)\;dx &=& \sum_{i=1}^{n} \int_{x_i}^{x_{i+1}}f(x)\,dx \\
-  &\approx& \sum_{i=1}^{n} \frac{x_{i+1}-x_i}{2}\left[f(x_i)+f(x_{i+1})\right]
+  &\approx& \sum_{i=1}^{n} \frac{x_{i+1}-x_i}{2}\left[f(x_i)+f(x_{i+1})\right].
 \end{eqnarray*}
 Como $h = x_{i+1} - x_i$, temos:
 \begin{eqnarray*}
@@ -733,7 +733,7 @@ pelas regras compostas do ponto médio, trapézio e Simpson variando o número d
     24&46,057757&47,001607&46,372373\\
     48&46,292964&46,529682&46,37187\\
     96&46,352096&46,411323&46,371838\\\hline
-  \end{tabular}        
+  \end{tabular}
   \end{center}
 \end{sol}
 
@@ -771,9 +771,9 @@ $$\int_0^1x\ln(x)\;dx=\left.\left(\frac{x^2}{2}\ln x-\frac{x^2}{4}\right)\right|
 Aproxime o valor desta integral usando a regra  de Simpson para $n=3$, $n=5$ e $n=7$. Como você avalia a qualidade do resultado obtido? Por que isso acontece.
 \end{exer}
 \begin{resp}
-  
--0.2310491, -0.2452073, - 0.2478649.    
-  
+
+-0.2310491, -0.2452073, - 0.2478649.
+
 \end{resp}
 
 \begin{exer}
@@ -800,10 +800,10 @@ e aproxime a integral $\int_0^1 \ln(x)\left[\sin(x)-x\right]\;dx$ numericamente 
 \end{enumerate}
 \end{exer}
 \begin{resp}
-  
+
     a)-0.2472261,  -0.2416451,  -0.2404596,  -0.2400968,  -0.2399563,  -0.2398928.
-    b)-0.2393727,  -0.2397994,  -0.2398104,  -0.2398115,  -0.2398117,  -0.2398117.  
-  
+    b)-0.2393727,  -0.2397994,  -0.2398104,  -0.2398115,  -0.2398117,  -0.2398117.
+
 \end{resp}
 
 \section{O método de Romberg}\index{integração numérica!método de Romberg}
@@ -863,7 +863,7 @@ Os valores $R_{k,2}$ representam então os valores obtidos pelo método de Simps
 Similarmente os valores de $R_{k,j}$ são os valores obtidos pela quadratura de ordem $2j$ obtida via extrapolação de Richardson. Pode-se mostrar que
 $$R_{k,j}=R_{k,j-1}+\frac{R_{k,j-1}-R_{k-1,j-1}}{4^{j-1}-1}.$$
 
-\begin{ex} 
+\begin{ex}
 Construa o esquema de Romberg para aproximar o valor de $\int_0^2e^{-x^2}\;dx$ com erro de ordem 8.
 
 O que nos fornece os seguintes resultados:
@@ -907,12 +907,12 @@ com uma aproximação de ordem 12.
 Para cada integrando encontre o função $I(h)=a_0+a_1h+a_2h^2+a_3h^3+a_4h^4$ que melhor se ajusta aos dados, onde $h=\frac{1}{n-1}$. Discuta os resultados com base no teorema envolvido na construção do método de Romberg.
 \end{exer}
 \begin{resp}
-  
+
 $$a)I(h)=4.41041\cdot 10^{-1} - 8.49372\cdot 10^{-12}h - 1.22104\cdot 10^{-2}h^2 - 1.22376\cdot 10^{-7}h^3 + 8.14294\cdot 10^{-3}h^4$$
 		$$b)I(h)=7.85398\cdot 10^{-1} - 1.46294\cdot 10^{-11}h - 4.16667\cdot 10^{-2}h^2 - 2.16110\cdot 10^{-7}h^3 + 4.65117\cdot 10^{-6}h^4$$
 		$$c)I(h)=1.58730\cdot 10^{-3} - 9.68958\cdot 10^{-10}h + 2.03315\cdot 10^{-7}h^2 - 1.38695\cdot 10^{-5}h^3 + 2.97262\cdot 10^{-4}h^4$$
-		$$d)I(h)=4.61917\cdot 10^{-1} + 3.83229\cdot 10^{-12}h + 2.52721\cdot 10^{-2}h^2 + 5.48935\cdot 10^{-8}h^3 + 5.25326\cdot 10^{-4}h^4$$    
-  
+		$$d)I(h)=4.61917\cdot 10^{-1} + 3.83229\cdot 10^{-12}h + 2.52721\cdot 10^{-2}h^2 + 5.48935\cdot 10^{-8}h^3 + 5.25326\cdot 10^{-4}h^4$$
+
 \end{resp}
 
 \begin{exer}
@@ -932,7 +932,7 @@ $$a)I(h)=4.41041\cdot 10^{-1} - 8.49372\cdot 10^{-12}h - 1.22104\cdot 10^{-2}h^2
 \end{center}
 \end{exer}
 \begin{resp}
-  
+
 \begin{center}
 \begin{tabular}{|c|c|c|c|}
 \hline
@@ -945,8 +945,8 @@ $$a)I(h)=4.41041\cdot 10^{-1} - 8.49372\cdot 10^{-12}h - 1.22104\cdot 10^{-2}h^2
 1.9742316  &  2.0002692 &   1.9999831 &   2.0000055  \\
 \hline
 \end{tabular}
-\end{center}    
-  
+\end{center}
+
 \end{resp}
 
 \begin{exer}
@@ -1033,8 +1033,8 @@ Integrando termo a termo, temos:
 
 Neste momento, é natural investigar o desempenho de um esquema numérico aplicado a funções do tipo $f(x)=x^n$.
 
-\begin{defn} A {\bf ordem de precisão} ou {\bf ordem de exatidão} de um esquema de quadratura numérica como o maior inteiro positivo {\bf n} para o qual o esquema é exato para todas as funções do tipo $x^k$ com $0\leq k\leq n$, ou seja,
-Um esquema é dito de ordem $n$ se
+\begin{defn} A {\bf ordem de precisão} ou {\bf ordem de exatidão} de um esquema de quadratura numérica é definida como o maior inteiro positivo {\bf n} para o qual o esquema é exato para todas as funções do tipo $x^k$ com $0\leq k\leq n$, ou seja,
+um esquema é dito de ordem $n$ se
 $$\sum_{j=1}^n w_jf(x_j)=\int_a^b f(x)\;dx,~~~f(x)=x^k,~k=0,1,\ldots n$$
 ou, equivalentemente:
 $$\sum_{j=1}^n w_jx_j^k=\int_a^b x^k\;dx=\frac{b^{k+1}-a^{k+1}}{k+1},~~~k=0,1,\ldots n$$
@@ -1068,7 +1068,7 @@ onde $w_1=w_3=\frac{b-a}{6}$,$w_2=4\frac{b-a}{6}$, $x_1=a$, $x_2=\frac{a+b}{2}$ 
 \end{eqnarray*}
 \end{ex}
 
-\begin{ex} 
+\begin{ex}
 Encontre os pesos $w_j$ e as abscissas $x_j$ tais que o esquema de dois pontos
 $$\int_{-1}^1 f(x)\;dx = w_1f(x_1)+w_2f(x_2)$$
 é de ordem 3.
@@ -1110,7 +1110,7 @@ f(x)&\text{Exato}&\text{Trapézio} &\text{Simpson} & \text{Gauss-Legendre (2)}\\
 &&&&\\
  \hline
     \end{array}
-$$    
+$$
   \end{small}
 \end{ex}
 
@@ -1122,9 +1122,9 @@ $$\int_{0}^{1}f(x)\;dx\approx w_1f(0)+w_2f(1/2)+w_3 f(1)$$
 apresente máxima ordem de exatidão. Qual a ordem obtida?
 \end{exer}
 \begin{resp}
-  
- $w_1=1/6$, $w_2=2/3$, $w_3=1/6$. O esquema construído é o de Simpson e a ordem de exatidão é 3.   
-  
+
+ $w_1=1/6$, $w_2=2/3$, $w_3=1/6$. O esquema construído é o de Simpson e a ordem de exatidão é 3.
+
 \end{resp}
 
 \begin{exer}
@@ -1141,9 +1141,7 @@ Encontre a ordem de exatidão do seguinte método de integração:
 $$\int_{-1}^1f(x)\;dx=-\frac{1}{210}f'(-1)+\frac{136}{105} f(-1/2) - \frac{62}{105} f(0) + \frac{136}{105}f(1/2) +\frac{1}{210}f'(1)$$
 \end{exer}
 \begin{resp}
-  
-5    
-  
+5
 \end{resp}
 
 \begin{exer} Encontre os pesos $w_1$, $w_2$ e $w_3$ tal que o método de integração
@@ -1151,26 +1149,22 @@ $$\int_0^1 f(x)\;dx \approx w_1 f(1/3)  + w_2f(1/2) + w_3f(2/3)$$
 tenha ordem de exatidão máxima. Qual é ordem obtida?
 \end{exer}
 \begin{resp}
-  
-$\int_0^1 f(x)\;dx \approx \frac{3}{2} f(1/3)  -2f(1/2) + \frac{3}{2}f(2/3)$ com ordem 3.    
-  
+$\int_0^1 f(x)\;dx \approx \frac{3}{2} f(1/3)  -2f(1/2) + \frac{3}{2}f(2/3)$ com ordem 3.
 \end{resp}
 
 \begin{exer}
 Quantos pontos são envolvidos no esquema de quadratura $R_{3,2}$? Qual a ordem do erro deste esquema de quadratura? Qual a ordem de exatidão desta quadratura?
 \end{exer}
 \begin{resp}
-  
- 5, 4, 3    
-  
+ 5, 4, 3
 \end{resp}
 
 
 \section{Quadratura de Gauss-Legendre}\index{quadratura numérica!Gauss-Legendre}
 
-Utilizando $n$ pontos para aproximar a integral de $f(x)$ em $[-1,1]$ podemos encontrar a regra de quadratura de Gauss-Legendre 
+Utilizando $n$ pontos para aproximar a integral de $f(x)$ em $[-1,1]$ podemos encontrar a regra de quadratura de Gauss-Legendre
 $$\int_{-1}^1 f(t)\;dt \approx \sum_{j=1}^n w_j f(t_j)$$
-cuja ordem de exatidão é $2n-1$. 
+cuja ordem de exatidão é $2n-1$.
 
 \begin{itemize}
 \item Note que temos $n$ coeficientes $w_j$ e $n$ pontos $t_j$ para determinar. O problema de encontrar os $n$ pesos e $n$ abscissas é equivalente a um sistema não linear com $2n$ equações e $2n$ incógnitas.
@@ -1204,7 +1198,7 @@ A Tabela~\ref{tab:gauss-legendre} lista os nós e os pesos da quadratura de Gaus
 
 \begin{ex} Aproxime
   \begin{equation*}
-    I = \int_{-1}^1\sqrt{1+x^2}\;dx  
+    I = \int_{-1}^1\sqrt{1+x^2}\;dx
   \end{equation*}
 pelo método de Gauss-Legendre com 2, 3, 4 e 5 pontos.
 \end{ex}
@@ -1258,7 +1252,7 @@ I5 = w5(1)*f(x5(1)) + w5(2)*f(x5(2)) + w5(2)*f(-x5(2)) ...
      + w5(3)*f(x5(3)) + w5(3)*f(-x5(3))
 disp(I5)
 \end{verbatim}
-\fi 
+\fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
 % octave
@@ -1295,7 +1289,7 @@ I5 = w5(1)*f(x5(1)) + w5(2)*f(x5(2)) + w5(2)*f(-x5(2)) ...
      + w5(3)*f(x5(3)) + w5(3)*f(-x5(3));
 printf("%1.7f\n", I5)
 \end{verbatim}
-\fi 
+\fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
 % python
@@ -1333,21 +1327,21 @@ I5 = w5(1)*f(x5(1)) + w5(2)*f(x5(2)) + w5(2)*f(-x5(2)) ...
      + w5(3)*f(x5(3)) + w5(3)*f(-x5(3))
 print("%1.7f\n" % I5)
 \end{verbatim}
-\fi 
+\fi
 %%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
 \subsubsection{Mudança de intervalo}
 Os coeficientes da quadratura de Gauss-Legendre forma obtidos no intervalo $[-1,1]$. Para aproximar a integral de $f(x)$ no intervalo $[a,b]$ devemos fazer a mudança de variável
 $$ \bar{x}_i=\alpha t_i+ \beta , \;\; \alpha =(b-a)/2, \;\; \beta = (b+a)/2 $$
-tal que 
+tal que
 $$
  \int_{a}^{b} f(x) \; dx \approx \sum_{i=1}^n w_i f( \bar{x}_i ) (b-a)/2
 $$
 
 Quando subdividimos o intervalo inicial $[a,b]$ em $N$ intervalos com extremos $[x_i,x_{i+1}]$ a transformação torna-se
 $$
-  \bar{x}_i = \alpha t_i + \beta, \;\;  \;\; \alpha =(x_{i+1}-x_i)/2, \;\; \beta = (x_{i+1}+x_i)/2 
+  \bar{x}_i = \alpha t_i + \beta, \;\;  \;\; \alpha =(x_{i+1}-x_i)/2, \;\; \beta = (x_{i+1}+x_i)/2
 $$
 e
 $$
@@ -1380,7 +1374,7 @@ w3 = [8/9 5/9 5/9]
 I3 = f(x3(1))*w3(1) + f(x3(2))*w3(2) + f(-x3(2))*w3(2)
 disp(I3)
 \end{verbatim}
-\fi  
+\fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
 % octave
@@ -1395,7 +1389,7 @@ w3 = [8/9 5/9 5/9];
 I3 = f(x3(1))*w3(1) + f(x3(2))*w3(2) + f(-x3(2))*w3(2)
 printf("%1.7f\n", I3)
 \end{verbatim}
-\fi  
+\fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
 % python
@@ -1411,7 +1405,7 @@ w3 = [8/9 5/9 5/9]
 I3 = f(x3(1))*w3(1) + f(x3(2))*w3(2) + f(-x3(2))*w3(2)
 print("%1.7f\n" % I3)
 \end{verbatim}
-\fi  
+\fi
 %%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
@@ -1422,7 +1416,7 @@ print("%1.7f\n" % I3)
 \ifisscilab
 \subsection{Código Scilab: Quadratura gaussiana com $N$ intervalos}
 \begin{ex}
-Aproxime a integral de $\sin(x)$ em $[0,1]$ utilizando $5$ intervalos iguais e em cada intervalo utilize uma quadratura gaussiana com $3$ nós. 
+Aproxime a integral de $\sin(x)$ em $[0,1]$ utilizando $5$ intervalos iguais e em cada intervalo utilize uma quadratura gaussiana com $3$ nós.
 \end{ex}
 
 O código Scilab abaixo é uma implementação da quadratura gaussiana com subdivisão de intervalos. Devemos definir a função $f(x)=\sin(x)$ e chamar a função \verb#gaussiana(0,1,5)#.
@@ -1433,7 +1427,7 @@ O código Scilab abaixo é uma implementação da quadratura gaussiana com subdi
 
 \subsection*{Exercícios}
 
-\begin{exer}Encontre aproximações para a integral 
+\begin{exer}Encontre aproximações para a integral
 $$\int_{-1}^1 x^4e^{x^5}dx$$
 usando a quadratura de Gauss-Legendre com 2, 3, 4 e 5 pontos. Então, compare com o seu valor exato.
 \end{exer}
@@ -1493,9 +1487,9 @@ usando a quadratura de Gauss-Legendre com 2, 3, 4 e 5 pontos. Então, compare co
 %  pelos métodos simples de ponto médio, trapézio e Simpson.
 % \end{exer}
 % \begin{resp}
-%   
-%     $-0.2310491$, $-0.2452073$, $-0.2478649$.    
-%   
+%
+%     $-0.2310491$, $-0.2452073$, $-0.2478649$.
+%
 % \end{resp}
 
 
@@ -1591,7 +1585,7 @@ onde $N$ é a constante de Avogrado dado por $N=6,022\times 10^{23}$ e $k_B$ é 
 \end{enumerate}
 \end{exer}
 \begin{resp}
-  a)~19,2; 22,1; 23,3; b)~513,67K    
+  a)~19,2; 22,1; 23,3; b)~513,67K
 \end{resp}
 
 \begin{exer} Explique por quê quando um método simples tem estimativa de erro de truncamento local de ordem $h^n$, então o método composto associado tem estimativa de erro de ordem $h^{n-1}$.
@@ -1622,4 +1616,4 @@ tenha ordem de exatidão máxima. Qual é ordem obtida?
 \end{resp}
 
 
-%\end{document} 
+%\end{document}
