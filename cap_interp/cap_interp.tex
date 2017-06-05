@@ -305,7 +305,7 @@ $1$ & $x_1$ & $\pmb{f[x_1]}=y_1$ & &\\
 &&&$\displaystyle \pmb{f[x_1,x_2]}=\frac{f[x_2]-f[x_1]}{x_2-x_1}$&\\
 $2$ & $x_2$ & $f[x_2] = y_2$ && $\displaystyle \pmb{f[x_1,x_2,x_3]}=\frac{f[x_2,x_3]-f[x_1,x_2]}{x_3-x_1}$\\
 &&&$\displaystyle f[x_2,x_3]=\frac{f[x_3]-f[x_2]}{x_3-x_2}$ &\\
-$3$ & $x_2$ & $f[x_2]=y_2$ &&\\\hline
+$3$ & $x_3$ & $f[x_3]=y_3$ &&\\\hline
 \end{tabular}
 \end{table}
 
@@ -409,26 +409,21 @@ Assim, temos:
 \ifisoctave
 No \verb+GNU Octave+, podemos fazer as contas acima da segunte forma:
 \begin{verbatim}
-x = [-1,0,1,3]';
-y = [3,1,3,43]';
-#inicializando a tabela
-T = zeros(4,4);
-#primeira coluna
-T(:,1)=y;
-#segunda coluna
-T(2,2)=(T(2,1)-T(1,1))/(x(2)-x(1));
-T(3,2)=(T(3,1)-T(2,1))/(x(3)-x(2));
-T(4,2)=(T(4,1)-T(3,1))/(x(4)-x(3));
-#terceira coluna
-T(3,3)=(T(3,2)-T(2,2))/(x(3)-x(1));
-T(4,3)=(T(4,2)-T(3,2))/(x(4)-x(2));
-#quarta coluna
-T(4,4)=(T(4,3)-T(3,3))/(x(4)-x(1));
-#polinomio interpolador
-p = T(1,1);
-p = [0, p] + T(2,2)*[1,-x(1)];
-p = [0, p] + T(3,3)*conv([1,-x(1)],[1,-x(2)]);
-p = [0, p] + T(4,4)*conv(conv([1,-x(1)],[1,-x(2)]),[1,-x(3)]);
+x = [0 1 2 3]';
+y = [0 1 4 9]';
+#L1
+num = poly([x(2),x(3),x(4)]);
+L1 = num/polyval(num,x(1));
+#L2
+num = poly([x(1),x(3),x(4)]);
+L2 = num/polyval(num,x(2));
+#L3
+num = poly([x(1),x(2),x(4)]);
+L3 = num/polyval(num,x(3));
+#L4
+num = poly([x(1),x(2),x(3)]);
+L4 = num/polyval(num,x(4));
+p = y(1)*L1 + y(2)*L2 + y(3)*L3 + y(4)*L4
 \end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%
