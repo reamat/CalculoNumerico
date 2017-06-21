@@ -13,7 +13,7 @@ function [x]=jacobi(A,b,x,tol,N)
     endif
     #prepara nova iteracao
     x0 = x;
-    i += 1;
+    iter += 1;
   endwhile
   error('num. max. iter. excedido.')  
 endfunction
