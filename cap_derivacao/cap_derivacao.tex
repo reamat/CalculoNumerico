@@ -431,7 +431,6 @@ $v_i=4.5$ &~\hspace{50pt}~    &   &  ~\hspace{50pt}~   &\\ \hline
 % \fi
 \end{exer}
 \begin{resp}
-  
 $$\begin{array}{|c|c|c|c|c|}\hline
  Caso &  a  &   b &   c   &   d \\ \hline
  v_i=1 & 1.72   & 1.56  &  1.64 & 1.86 \\ \hline
@@ -439,7 +438,6 @@ v_i=4.5 &2.46    & 1.90  &  2.18  &1.14  \\ \hline
 \multicolumn{5}{c}{}
 \end{array}
 $$    
-  
 \end{resp}
 
 \begin{exer}Estude o comportamento da derivada de $f(x)=e^{-x^2}$ no ponto $x=1,5$ quando $h$ fica pequeno.
@@ -462,9 +460,7 @@ D_{+,h}f(1,5)&- 0,3161976&- 0,3161971&- 0,3162332&- 0,3158585&- 0,3178013&- 0,37
 \multicolumn{7}{c}{}
 \end{array}
 \end{equation*}
-
-Observe que o valor exato é $-0,3161977$ e o $h$ ótimo é algo entre $10^{-8}$ e $10^{-9}$.      
-  
+Observe que o valor exato é $-0,3161977$ e o $h$ ótimo é algo entre $10^{-8}$ e $10^{-9}$.        
 \end{resp}
 
 \section{Diferença finita para derivada segunda}\index{fórmula de diferenças finitas!central}
@@ -502,8 +498,22 @@ A tabela mostra os resultados:
 Observe que $f''(x)=(4x^2-2)e^{-x^2}$ e $f''(1,5)=0,7377946$.  
 \end{sol}
 
+\subsection*{Exercícios}
 
-\section{Diferenças finitas de ordem mais alta}\index{diferenças finitas!ordem mais alta}
+\begin{exer} Use a expansão da função $f(x)$ em torno de $x=0$ em polinômios de Taylor para encontrar os coeficientes $a_1$, $a_2$ e $a_3$ tais que
+\begin{itemize}
+\item[a)] $f''(0)=a_1f(0)+a_2f(h)+a_3f(2h) + \mathcal{O}(h)$
+\item[b)] $f''(0)=a_1f(0)+a_2f(-h)+a_3f(-2h) + \mathcal{O}(h)$
+\end{itemize}
+\end{exer}
+\begin{resp}
+\begin{itemize}
+\item[a)] $f''(0)=\frac{f(0)-2f(h)+f(2h)}{h^2}+\mathcal{O}(h)$
+\item[b)] $f''(0)=\frac{f(0)-2f(-h)+f(-2h)}{h^2}+\mathcal{O}(h)$
+\end{itemize}    
+\end{resp}
+
+\section{Obtenção de fórmulas por polinômios interpoladores}\index{diferenças finitas!ordem mais alta}
 
 Para aproximar a derivada de uma função $f(x)$ em $x_0$, $x_1$ ou $x_2$ usaremos os três pontos vizinhos $(x_0,f(x_0))$, $(x_{1},f(x_{1}))$ e $(x_{2},f(x_{2}))$. Uma interpolação usando polinômios de Lagrange para esses três pontos é da forma:
 \begin{eqnarray*}
@@ -558,13 +568,47 @@ f'(x_0+2h)&=&\frac{1}{h}\left[\frac{1}{2}f(x_0)-2f(x_{0}+h)
 \end{eqnarray*}
 ou ainda
 \begin{eqnarray}
-{\label{tres_pontos_frente}}f'(x_0)&=&\frac{1}{2h}\left[-3f(x_0)+4f(x_{0}+h)
--f(x_{0}+2h)\right]+h^2\frac{f'''(\xi(x_0))}{3}\\
-{\label{tres_pontos_central}}f'(x_0)&=&\frac{1}{2h}\left[f(x_{0}+h)-f(x_0-h)\right]+h^2\frac{f'''(\xi(x_0))}{6}\\
-{\label{tres_pontos_traz}}f'(x_0)&=&\frac{1}{2h}\left[f(x_0-2h)-4f(x_{0}-h)
-+3f(x_{0})\right]+h^2\frac{f'''(\xi(x_{0}))}{3}
+f'(x_0)&=&\frac{1}{2h}\left[-3f(x_0)+4f(x_{0}+h)
+-f(x_{0}+2h)\right]+h^2\frac{f'''(\xi(x_0))}{3}\label{eq:tres_pontos_frente}\\
+f'(x_0)&=&\frac{1}{2h}\left[f(x_{0}+h)-f(x_0-h)\right]+h^2\frac{f'''(\xi(x_0))}{6}\label{eq:tres_pontos_central}\\
+f'(x_0)&=&\frac{1}{2h}\left[f(x_0-2h)-4f(x_{0}-h)
++3f(x_{0})\right]+h^2\frac{f'''(\xi(x_{0}))}{3}\label{eq:tres_pontos_traz}
 \end{eqnarray}
 Observe que uma das fórmulas é exatamente as diferenças centrais obtida anteriormente.
+
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\begin{obs}
+O pacote \verb+symbolic+ do \verb+GNU Octave+ permite-nos fazermos computação simbólica. Por exemplo, podemos obter a fórmula de diferenças finitas progressiva de ordem 2 computando
+\begin{verbatim}
+#carrega o pacote symbolic
+pkg load symbolic;
+#variáveis simbólicas
+syms x x1 x2 x3 y1 y2 y3 h;
+#polinômios de Lagrange
+L1 = (x-x2)*(x-x3)/((x1-x2)*(x1-x3));
+L2 = (x-x1)*(x-x3)/((x2-x1)*(x2-x3));
+L3 = (x-x1)*(x-x2)/((x3-x1)*(x3-x2));
+#polinômio interpolador
+f = y1*L1 + y2*L2 + y3*L3;
+#derivada do polinômio interpolador
+df = diff(f,x);
+#substituições de variáveis
+dfp = subs(df,x,x1);
+dfp = subs(dfp,{x1,x2,x3},{x,x+h,x+2*h})
+\end{verbatim}
+o que produz
+\begin{verbatim}
+    3·y1   2·y2    y3
+  - ____ + ____ - ____
+    2·h     h     2·h
+\end{verbatim}
+Agora, basta observar que, neste caso, $y_1 f(x)$, $y_2 = f(x+h)$ e $y_3 = f(x+2h)$. Logo, temos obtido a fórmula desejada, veja a equação \eqref{eq:tres_pontos_frente}.
+\end{obs}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
 Analogamente, para construir as fórmulas de cinco pontos tomamos o polinômio de Lagrange para cinco pontos e chegamos a cinco fórmulas, sendo uma delas a seguinte:
 \begin{equation}
@@ -669,6 +713,10 @@ O valor analítico da derivada é $f'(1,5) \approx -0,3161976736856$. A tabela~\
 \end{table}
 \end{sol}
 
+\subsection{Exercícios resolvidos}
+
+\emconstrucao
+
 \subsection*{Exercícios}
 
 \emconstrucao
@@ -678,18 +726,17 @@ O valor analítico da derivada é $f'(1,5) \approx -0,3161976736856$. A tabela~\
 
 Veremos nessa seção uma outra maneira de obter fórmulas de diferenças finitas para derivadas de qualquer ordem de tal forma que elas possuam alta ordem de precisão.
 
-Dados $n+1$ pontos $[x_1,x_2,\ldots ,x_n]$, queremos obter uma aproximação para a derivada de $f(x)$ calculada em $x^*$ do tipo
-\begin{eqnarray}\label{regradif}
+Dados $n+1$ pontos $\{x_1, x_2,\dotsc, x_n\}$, queremos obter uma aproximação para a derivada de $f(x)$ calculada em $x^*$ do tipo
+\begin{eqnarray}\label{eq:regradif}
   f'(x^*)\approx c_1f(x_1)+c_2f(x_2)+\ldots +c_nf(x_n)
 \end{eqnarray}
 que seja exata para polinômios até ordem $n-1$.
 
-
-Seja $q(x)=c_1\phi_1(x)+c_2\phi_2(x)+\ldots +c_n \phi_n(x)$ o polinômio de ordem $n$ que aproxima $f(x)$. Fixe a base $\phi_k(x)=x^k$. Como a regra \eqref{regradif} deve ser exata para qualquer $q(x)$ até ordem $n-1$, então também deve ser exata para qualquer função da base. Substituindo $f(x)$ por $\phi_1(x)=1$ em \eqref{regradif} obtemos
+Seja $q(x)=c_1\phi_1(x)+c_2\phi_2(x)+\ldots +c_n \phi_n(x)$ o polinômio de ordem $n$ que aproxima $f(x)$. Fixe a base $\phi_k(x)=x^k$. Como a regra \eqref{eq:regradif} deve ser exata para qualquer $q(x)$ até ordem $n-1$, então também deve ser exata para qualquer função da base. Substituindo $f(x)$ por $\phi_1(x)=1$ em \eqref{eq:regradif} obtemos
 \begin{eqnarray}
 \phi_1'(x)|_{x^*} &=& (1)'|_{x^*} = \\
-            0     &=&  c_1\phi_1(x_1)+c_2\phi_1(x_2)+\ldots +c_n\phi_1(x_n) \\
-            0     &=& c_1+c_2+\ldots +c_n
+            0   &=&  c_1\phi_1(x_1)+c_2\phi_1(x_2)+\ldots +c_n\phi_1(x_n) \\
+            0   &=& c_1+c_2+\ldots +c_n
 \end{eqnarray}
 Da mesma forma para $k=1,\ldots ,n-1$, obtemos
 \begin{eqnarray}
@@ -701,32 +748,32 @@ Da mesma forma para $k=1,\ldots ,n-1$, obtemos
 \end{eqnarray}
 que pode ser escrito na forma matricial
 \begin{eqnarray}
-\left(
-  \begin{array}{cccc}
+  \begin{bmatrix}
     1         & 1         & \ldots   & 1 \\
     x_1       & x_2       & \ldots   & x_n \\
     x_1^2     & x_2^2     & \ldots   & x_n^2 \\
     \vdots    & \vdots    &          & \vdots   \\
-    x_1^{n-1} & x_2^{n-1} & \ldots   & x_n^{n-1}
-  \end{array}
-\right)
-\left(\begin{array}{c}  c_1 \\ c_2\\ c_3  \\ \vdots   \\ c_n     \end{array}\right)
+    x_1^{n-1} & x_2^{n-1} & \ldots   & x_n^{n-1}    
+  \end{bmatrix}
+  \begin{bmatrix}
+    c_1 \\ c_2\\ c_3  \\ \vdots   \\ c_n
+  \end{bmatrix}
 =
-\left(\begin{array}{c}  0  \\ 1 \\ 2x^* \\ \vdots  \\ (n-1)(x^*)^{n-2}  \end{array}\right)
+\begin{bmatrix}
+  0  \\ 1 \\ 2x^* \\ \vdots  \\ (n-1)(x^*)^{n-2}
+\end{bmatrix}
 \end{eqnarray}
 Resolvendo o sistema obtemos os coeficientes $c_k$ para a regra de diferenciação.
 
-
 \begin{ex}
-Sejam $[x_1,x_2,x_3]=[-h,0,h]$ e $x^*=x_2=0$, obtenha uma regra de diferenciação para aproximar $f'(x^*)$.
+Sejam $\{x_1, x_2, x_3\}=\{-h, 0, h\}$ e $x^*=x_2=0$, obtenha uma regra de diferenciação para aproximar $f'(x^*)$.
 \end{ex}
 \begin{sol}
 A regra terá a forma
-\begin{eqnarray}
-  f'(x^*) & \approx c_1f(x_1)+c_2f(x_2)+c_3f(x_3)\\
-          & \approx c_1f_1   +c_2f_2   +c_3f_3
-\end{eqnarray}
-Considere a base polinomial $[\phi _1(x),\phi _2(x),\phi _3(x)]=[1,x,x^2]$ e substitua $f(x)$ por $\phi _k(x)$ obtendo
+\begin{equation*}
+  f'(x^*) \approx c_1f(x_1)+c_2f(x_2)+c_3f(x_3)
+\end{equation*}
+Considere a base polinomial $\{\phi _1(x), \phi _2(x), \phi _3(x)\} = \{1, x, x^2\}$ e substitua $f(x)$ por $\phi _k(x)$ obtendo
 \begin{eqnarray}
     (1)'_{x=0} = 0  &=  c_1(1)   +c_2(1)  + c_3 (1) \\
     (x)'_{x=0} = 1  &=  c_1(-h)  +c_2(0)  + c_3 (h)\\
@@ -734,34 +781,42 @@ Considere a base polinomial $[\phi _1(x),\phi _2(x),\phi _3(x)]=[1,x,x^2]$ e sub
 \end{eqnarray}
 que pode ser escrito na forma matricial
 \begin{eqnarray}
-\left(
-  \begin{array}{ccc}
+  \begin{bmatrix}
     1   &  1    & 1  \\
     -h  &  0    & h  \\
-    h^2 &  0    & h^2
-  \end{array}
-\right)
-\left(\begin{array}{c}  c_1 \\ c_2\\ c_3   \end{array}\right)
+    h^2 &  0    & h^2    
+  \end{bmatrix}
+  \begin{bmatrix}
+    c_1 \\ c_2\\ c_3
+  \end{bmatrix}
 =
-\left(\begin{array}{c}  0  \\ 1 \\ 0  \end{array}\right)
+\begin{bmatrix}
+  0  \\ 1 \\ 0
+\end{bmatrix}
 \end{eqnarray}
-Resolvendo o sistema obtemos $[c_1,c_2,c_3]=[-\frac{1}{2h},0,\frac{1}{2h}]$ fornecendo a regra
+Resolvendo o sistema obtemos $\{c_1, c_2, c_3\}=\{-\frac{1}{2h}, 0, \frac{1}{2h}\}$ fornecendo a regra
 \begin{eqnarray}
-  f'|_{x=x_1}& \approx &  -\frac{1}{2h}f_1+\frac{1}{2h}f_3\\
-             & \approx &\frac{f_3-f_1}{2h}
+  f'|_{x=x_1}& \approx &  -\frac{1}{2h}f(x_1) + \frac{1}{2h}f(x_3)\\
+             & \approx &\frac{f(x_3)-f(x_1)}{2h}
 \end{eqnarray}
 \end{sol}
 
+\subsection*{Exercícios resolvidos}
+
+\emconstrucao
+
+\subsection*{Exercícios}
+
 \begin{exer}
-Seja $[x_0,x_1,x_2]=[0,h,2h]$ e $x^*=x_0=0$, obtenha uma regra unilateral de diferenciação para aproximar $f'(x_0)$.
+Seja $\{x_0, x_1, x_2\}=\{0, h, 2h\}$ e $x^*=x_0=0$, obtenha uma regra unilateral de diferenciação para aproximar $f'(x_0)$.
 \end{exer}
 
 \begin{exer}
-Seja $[x_0,x_1,x_2]=[-h,0,h]$ e $x^*=x_1=0$, obtenha uma regra de diferenciação para aproximar $f''(x^*)$.
+Seja $\{x_0, x_1, x_2\}=\{-h, 0, h\}$ e $x^*=x_1=0$, obtenha uma regra de diferenciação para aproximar $f''(x^*)$.
 \end{exer}
 
 \begin{exer}
-Seja $[x_0,x_1,\ldots ,x_4]=[-2h,-h,0,h,2h]$ e $x^*=0$, obtenha uma regra de diferenciação para aproximar $f'(x^*)$.
+Seja $\{x_0, x_1, \ldots, x_4\}=\{-2h, -h, 0, h, 2h\}$ e $x^*=0$, obtenha uma regra de diferenciação para aproximar $f'(x^*)$.
 \end{exer}
 
 \begin{exer}
@@ -771,41 +826,6 @@ Seja $[x_0,x_1,\ldots ,x_4]=[-2h,-h,0,h,2h]$ e $x^*=0$, obtenha uma regra de dif
 \begin{exer}
 Seja $[x_0,x_1,\ldots ,x_4]=[0,h,3h,6h,10h]$ e $x^*=0$, obtenha uma regra de diferenciação para aproximar $f'(x^*)$.
 \end{exer}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-\subsection*{Exercícios}
-
-\begin{exer} Use a expansão da função $f(x)$ em torno de $x=0$ em polinômios de Taylor para encontrar os coeficientes $a_1$, $a_2$ e $a_3$ tais que
-\begin{itemize}
-\item[a)] $f''(0)=a_1f(0)+a_2f(h)+a_3f(2h) + \mathcal{O}(h)$
-\item[b)] $f''(0)=a_1f(0)+a_2f(-h)+a_3f(-2h) + \mathcal{O}(h)$
-\end{itemize}
-\end{exer}
-\begin{resp}
-  
-\begin{itemize}
-\item[a)] $f''(0)=\frac{f(0)-2f(h)+f(2h)}{h^2}+\mathcal{O}(h)$
-\item[b)] $f''(0)=\frac{f(0)-2f(-h)+f(-2h)}{h^2}+\mathcal{O}(h)$
-\end{itemize}    
-  
-\end{resp}
 
 \section{Derivada via ajuste ou interpolação}\index{ajuste!derivação}\index{interpolação!derivação}
 
@@ -857,6 +877,10 @@ x&y\\
 \end{center}
 
 Observe que as derivadas calculadas por diferenças finitas oscilam entre um valor pequeno e um grande em cada intervalo e além disso, a fórmula progressiva difere da regressiva significantemente. Por exemplo, por diferenças regressivas $f'(7)\approx \frac{(7,55 -  7,50)}{1}=0,05$ e por diferenças progressivas $f'(7)\approx \frac{(9,33 -  7,55)}{1}=1,78$. A melhor forma de calcular a derivada aqui é fazer um ajuste de curva. A reta que melhor ajusta os dados da tabela é $y=f(x)=1,2522727+0,9655455x$. Usando esse ajuste, temos $f'(7)\approx 0,9655455$.
+
+\subsection*{Exercícios resolvidos}
+
+\emconstrucao
 
 \subsection*{Exercícios}
 
