@@ -1,4 +1,4 @@
-#Folha de estilo
+# Folha de estilo
 
 Este documento contém informações sobre os padrões de estilo de escrita e organização do livro colaborativo. Antes de submeter uma colaboração, verifique que seu trabalho está de acordo com todos os pontos observados nesta folha de estilo.
 
