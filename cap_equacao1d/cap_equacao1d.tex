@@ -92,7 +92,7 @@ Alternativamente (e com maior precisão), podemos verificar diretamente o sinal 
 \ifisoctave
 Podemos usar o \verb+GNU Octave+ para estudarmos esta função. Por exemplo, podemos definir a função $f(x)$ e computá-la nos extremos do intervalo dado com os seguintes comandos:
 \begin{verbatim}
->> f = inline("exp(x)-x-2")
+>> f = @(x) exp(x)-x-2
 f = f(x) = exp(x)-x-2
 >> f(-2),f(0)
 ans =  0.13534
@@ -159,7 +159,7 @@ Podemos inspecionar o comportamento da função $f(x)= e^x - x - 2$ e de sua der
 Podemos inspecionar o comportamento da função $f(x)= e^x - x - 2$ e de sua derivada fazendo seus gráficos no \verb+GNU Octave+. Para tanto, podemos fazer o seguinte teste:
 \begin{verbatim}
 >> xx = linspace(-2,0,50);
->> f = inline("exp(x)-x-2")  #define f
+>> f = @(x) exp(x)-x-2  #define f
 f = f(x) = exp(x)-x-2
 >> plot(xx,f(xx))grid on;hold on #grafico de f
 >> plot(xx,fl(xx)) #grafico de f'
@@ -319,7 +319,7 @@ Usando o \verb+Scilab+ neste exemplo, temos:
 \ifisoctave
 Usando o \verb+GNU Octave+ neste exemplo, temos:
 \begin{verbatim}
->> f = inline("exp(x) - x - 2")
+>> f = @(x) exp(x) - x - 2
 f = f(x) = exp(x) - x - 2
 >> a=-2, b=0, x=(a+b)/2, TOL = (b-a)/2, sign(f(a)*f(x))
 a = -2
@@ -729,9 +729,9 @@ e, assim, sucessivamente. Itere com a função $g_2(x)$ e verifique a convergên
 \ifisoctave
 No \verb+GNU Octave+, podemos computar as iterações do ponto fixo $x^{(n+1)} = g_1(x^{(n)})$ com o seguinte código:
 \begin{verbatim}
->> f = inline("x*exp(x)-10")
+>> f = @(x) x*exp(x)-10
 f = f(x) = x*exp(x)-10
->> g1 = inline("x - 0.5*f(x)")
+>> g1 = @(x) x - 0.5*f(x)
 g1 = f(x) = x - 0.5*f(x)
 >> x = 1.7;
 >> x = g1(x)
@@ -937,11 +937,11 @@ end
 No \verb+GNU Octave+, podemos computar estas iterações e o erro absoluto com o seguinte código:
 \begin{verbatim}
 #est. da solucao
-f = inline("cos(x)-x");
+f = @(x) cos(x)-x;
 xe = fsolve(f, 0.7);
 
 #funcao do pto. fixo
-g = inline("cos(x)");
+g = @(x) cos(x);
 
 #aprox. inicial
 x0 = 0.7;
