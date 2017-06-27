@@ -330,6 +330,35 @@ onde $f'(x) = 2\sen(2x) - 2x$ é a derivada analítica. Tomando $h=0,01$ temos:
 \end{equation*}
 
 %%%%%%%%%%%%%%%%%%%%
+% GNU octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos fazer os cálculos com o seguinte código:
+\begin{verbatim}
+#funcao
+f = @(x) sin(2*x) - x^2;
+
+#derivada analitica
+fl = @(x) 2*cos(2*x) - 2*x;
+
+#d.f. progressiva de ordem 1
+dp1 = @(f,x,h=0.1) (f(x+h)-f(x))/h;
+
+#h=0.1
+dy = dp1(f,2)
+printf("D.F. Progressiva de ordem 1 com h = %f\n", 1e-1)
+printf("Df = %f\n", dy)
+printf("Erro = %1.2e\n", abs(fl(2)-dy))
+
+#h=0.01
+dy = dp1(f,2,1e-2)
+printf("D.F. Progressiva de ordem 1 com h = %f\n", 1e-2)
+printf("Df = %f\n", dy)
+printf("Erro = %1.2e\n", abs(fl(2)-dy))
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
@@ -484,6 +513,7 @@ onde
 $$
 D^2_{0,h}f(x_0)=\frac{f(x_0+h)-2f(x_0)+f(x_0-h)}{h^2}.
 $$
+
 \begin{ex}
 Calcule a derivada segunda numérica de $f(x)=e^{-x^2}$ em $x=1,5$ para $h=0,1$, $h=0,01$ e $h=0,001$.
 \end{ex}
@@ -496,6 +526,26 @@ A tabela mostra os resultados:
   \end{tabular}  
 \end{center}
 Observe que $f''(x)=(4x^2-2)e^{-x^2}$ e $f''(1,5)=0,7377946$.  
+
+%%%%%%%%%%%%%%%%%%%%
+% GNU octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos fazer os cálculos acima com o seguinte código:
+\begin{verbatim}
+#funcao
+f = @(x) exp(-x^2);
+
+#d.f. central para segunda derivada
+d2c = @(f,x,h) (f(x-h)-2*f(x)+f(x+h))/(h^2);
+
+x0 = 1.5;
+d2c(f,x0,1e-1) #h=0.1
+d2c(f,x0,1e-2) #h=0.01
+d2c(f,x0,1e-3) #h=0.001
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
 \subsection*{Exercícios}
