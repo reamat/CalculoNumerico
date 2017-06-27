@@ -8,7 +8,7 @@ Qualquer dúvida, escreva em nossa lista de discussão:
 
 <livro_colaborativo@googlegroups.com>
 
-## Regionalização e Estilo de Escrita
+## Regionalização e estilo de escrita
 
 O livro está escrito em língua portuguesa, seguindo os costumes linguísticos brasileiros. Dá-se prioridade à ortografia prevista no Acordo Ortográfico de 1990.
 
@@ -111,13 +111,13 @@ Números em notação científica podem ser representados, tando usando `$\times
 
 ### Exercícios
 
-O livro conta com três tipos de exercícios, os chamados: Exercícios Resolvidos, Exercícios e Exercícios Finais.
+O livro conta com três tipos de exercícios, os intitulados "Exercícios resolvidos", "Exercícios" e "Exercícios finais".
 
 #### Exercícios resolvidos
 
 Exercícios resolvidos são exercícios com resolução completa. Eles devem ser colocados em subseção da seção a que se referem. A subseção deve ser não numerada e intitulada "Exercícios Resolvidos" , i.e.:
 
-    \subsection*{Exercícios Resolvidos}
+    \subsection*{Exercícios resolvidos}
 
 O enunciado de um exercício resolvido  deve ser colocado dentro de um ambiente `exeresol` como, por exemplo:
 
@@ -129,7 +129,7 @@ A resolução do exercício deve ser colocada dentro de um ambiente `resol`, col
 
     \begin{resol}
 	    Escreva aqui a resolução completa (detalhada) do exercício.
-	\end{resol}
+    \end{resol}
 
 #### Exercícios
 
@@ -141,10 +141,28 @@ O enunciado de um exercício com resposta ou sem deve ser colocado dentro de um 
 
     \begin{exer}
 	   Escreva aqui o enunciado do exercício com resposta ou sem.
-	\end{exer}
+    \end{exer}
 
-Caso o exercício tenha resposta (final, para resolução completa, veja a subsecção Exercícios Resolvidos) ela deve ser colocado em um ambiente `resp` logo abaixo do ambiente ao qual o exercício se refere como, por exemplo:
+Caso o exercício tenha resposta (para resolução completa, veja a subsecção Exercícios resolvidos) ela deve ser colocada em um ambiente `resp` logo abaixo do ambiente ao qual o exercício se refere como, por exemplo:
 
     \begin{resp}
 	   Escreva aqui a resposta do exercício.
-	\end{resp}
+    \end{resp}
+
+#### Exercícios finais
+
+Exercícios finais constituem uma seção contendo a lista de exercícios (com resposta ou sem) de final de capítulo. A seção dever numerada e intitulada "Exercícios finais", i.e.:
+
+    \section{Exercícios finais}
+
+O enunciado de cada exercícios deve ser colocado dentro de um ambiente `exer` como, por exemplo:
+
+    \begin{exer}
+	   Escreva aqui o enunciado do exercício com resposta ou sem.
+    \end{exer}
+
+No caso do exercícios ter resposta indicada, esta deve ser colocada dentro de um ambiente `resp` como, por exemplo:
+
+    \begin{resp}
+	   Escreva aqui a resposta do exercício.
+    \end{resp}
