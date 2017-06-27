@@ -18,14 +18,16 @@ Também disponibilizamos o e-mail de contato:
 Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite <http://creativecommons.org/licenses/by-sa/3.0/> ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
 ## Sobre o código fonte
-O código fonte está escrito em [Latex](https://latex-project.org/) e as referências bibliográficas em [BibTex](http://www.bibtex.org/), testados em computador Linux com o pacote [TexLive](http://www.tug.org/texlive/). O texto está em formatação **utf-8**.
+O código fonte está escrito em [Latex](https://latex-project.org/) e as referências bibliográficas em [BibTex](http://www.bibtex.org/), testado em computador Linux com o pacote [TexLive](http://www.tug.org/texlive/). O texto está em formatação **utf-8**.
 
 ## Compilando
+
+### Em computador Linux
 O código LaTeX está testado em computador [Linux](https://pt.wikipedia.org/wiki/Linux) com o pacote [TexLive](https://www.tug.org/texlive/) instalado. O livro pode ser compilado com:
 
     $ make
 
-Isto gera o livro em formato PDF (main.pdf), o qual é o formato principal. Também, o código pode ser compilado em formato DVI:
+Isto gera o livro em formato PDF (main.pdf) na versão [Scilab](http://www.scilab.org/). Também, o código pode ser compilado em formato DVI:
 
     $ make dvi
 
@@ -35,7 +37,7 @@ Alguma vezes a compilação pode gerar erros devido a incompatibilidade com anti
 
 Alternativamente, o livro pode ser compilado com os comandos usuais `latex main`, `bibtex main`, `pdflatex main`, `makeindex main`. Lembrando que `main.tex` é o arquivo LaTeX principal.
 
-### Outros formatos
+#### Outros formatos
 O livro também pode ser compilado em formato slides, HTML e EPUB, digitando:
 
 - Slides:
@@ -56,10 +58,24 @@ Este comando cria a pasta `./html` onde todo os arquivos da versão HTML do livr
 
 Este comando cria o arquivo `main.epub` contendo o livro em formato EPUB.
 
+#### Outras versões
+
+Atualmente, o livro também conta com versão [GNU Octave](https://www.gnu.org/software/octave/) e versão [Python](https://www.python.org/).
+
+Para compilar o formato PDF da versão **GNU Octave** basta digitar:
+
+    $ make pdf-oct
+
+Similarmente, para compilar o formato PDF da versão **Python** basta digitar:
+
+    $ make pdf-py
+
+Use o comando análogo para compilar em outros formatos.
+
 ### Outros sistemas operacionais
 O código LaTeX pode ser compilado em outros sistemas operacionais.
 
-Em primeiro lugar, deve-se editar o arquivo texto `main.knd`. Este arquivo contém instruções TeX para controlar o formato e a versão do livro. Por exemplo, para setar o formato do livro em PDF na versão Scilab, garanta que este arquivo contenha o seguinte texto:
+Em primeiro lugar, deve-se editar o arquivo de configuração `main.knd`. Este arquivo contém instruções TeX para controlar o formato e a versão do livro. Por exemplo, para setar o formato do livro em PDF na versão Scilab, garanta que este arquivo contenha o seguinte texto:
 
     \isbooktrue \isslidefalse \ishtmlfalse \isscilabtrue \isoctavefalse \ispythonfalse
 
@@ -81,8 +97,6 @@ O código [LaTeX](http://www.latex-project.org/) livro está disponível no repo
 <https://github.com/livroscolaborativos/CalculoNumerico>
 
 No GitHub você pode fazer sua própria cópia do repositório, editá-la e, então, sugerir que sua cópia seja incorporada a versão oficial do projeto.
-
-<livroscolaborativos@gmail.com>
 
 ### Envie sua colaboração
 Antes de requerer que sua colaboração seja incorporada a versão oficial do livro, verifique se ela está de acordo com nossa [folha de estilo](https://github.com/livroscolaborativos/CalculoNumerico/blob/master/FOLHA_DE_ESTILO.md).
