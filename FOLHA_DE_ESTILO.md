@@ -1,4 +1,4 @@
-#Folha de Estilo
+# Folha de estilo
 
 Este documento contém informações sobre os padrões de estilo de escrita e organização do livro colaborativo. Antes de submeter uma colaboração, verifique que seu trabalho está de acordo com todos os pontos observados nesta folha de estilo.
 
@@ -8,18 +8,18 @@ Qualquer dúvida, escreva em nossa lista de discussão:
 
 <livro_colaborativo@googlegroups.com>
 
-## Regionalização e Estilo de Escrita
+## Regionalização e estilo de escrita
 
 O livro está escrito em língua portuguesa, seguindo os costumes linguísticos brasileiros. Dá-se prioridade à ortografia prevista no Acordo Ortográfico de 1990.
 
 ### Capitalização de nomes de métodos
 
-Deve-se usar maiúscula apenas em nomes próprios, ex: método de Newton, métodos dos mínimos quadrados. 
+Deve-se usar maiúscula apenas em nomes próprios, ex: método de Newton, métodos dos mínimos quadrados.
 
 
 ## Código fonte LaTeX
 
-O livro está escrito em [LaTex](https://latex-project.org/). O arquivo principal `main.tex` escontra-se no diretório principal `CalculoNumerico`. O código LaTeX de cada capítulo encontra-se em um subdiretório específico com nome `cap_abrev`, onde `abrev` é uma abreviação que lembre o conteúdo do capítulo. Por exemplo, o código do capítulo sobre técnicas numéricas para sistemas lineares está no subdiretório `cap_linsis`.
+O livro está escrito em [LaTex](https://latex-project.org/). O arquivo principal `main.tex` encontra-se no diretório principal `CalculoNumerico`. O código LaTeX de cada capítulo encontra-se em um subdiretório específico com nome `cap_abrev`, onde `abrev` é uma abreviação que lembre o conteúdo do capítulo. Por exemplo, o código do capítulo sobre técnicas numéricas para sistemas lineares está no subdiretório `cap_linsis`.
 
 Para informações sobre como compilar o código fonte, leia o arquivo `README.md`.
 
@@ -48,15 +48,15 @@ Fazemos a conversão do livro de código LaTeX para HTML usando o pacote [TeX4ht
 * Não usar `array` para composição de tabelas. A alternativa é usar o ambiente `tabular`, por exemplo:
 
         \begin{center}
-	      \begin{tabular}{r|c|c}
-             $h$ & $Df(1)$ & $|f'(1) - D_{+,h}F(1)|$ \\ \hline
-             $10^{-1}$ & $-8,67062\E-01$ & $2,55909\E-02$\\
-             $10^{-2}$ & $-8,44158\E-01$ & $2,68746\E-03$\\
-             $10^{-14}$ & $-8,43769\E-01$ & $2,29851\E-03$ \\\hline
-		   \end{tabular}
-	    \end{center}
+	  \begin{tabular}{r|c|c}
+	    $h$ & $Df(1)$ & $|f'(1) - D_{+,h}F(1)|$ \\ \hline
+            $10^{-1}$ & $-8,67062\E-01$ & $2,55909\E-02$\\
+            $10^{-2}$ & $-8,44158\E-01$ & $2,68746\E-03$\\
+            $10^{-14}$ & $-8,43769\E-01$ & $2,29851\E-03$ \\\hline
+	  \end{tabular}
+	\end{center}
 
-* Não colocar `label` dentre de colchetes.
+* Não colocar `label` dentro de colchetes.
 
 ### Capítulos
 
@@ -75,7 +75,7 @@ A inclusão de uma figura no código LaTex deve ser feita da seguinte forma:
 		\label{pic:picfoo}
 	\end{figure}
 
-Não insira figuras dentro de outro ambientes como, por exemplo, `ex`, `teo`, `sol` e outros. 
+Não insira figuras dentro de outros ambientes como, por exemplo, `ex`, `teo`, `sol` e outros.
 
 Sempre que possível, forneça o código fonte da figura armazenando-o na pasta `cap_foo/pics/picfoo`. Nesta mesma pasta, crie um arquivo README.md com uma descrição da figura e a linceça da mesma, a qual deve ser compatível com a CC-BY-SA 3.0.
 
@@ -111,13 +111,13 @@ Números em notação científica podem ser representados, tando usando `$\times
 
 ### Exercícios
 
-O livro conta com três tipos de exercícios, os chamados: Exercícios Resolvidos, Exercícios e Exercícios Finais.
+O livro conta com três tipos de exercícios, os intitulados "Exercícios resolvidos", "Exercícios" e "Exercícios finais".
 
-#### Exercícios Resolvidos
+#### Exercícios resolvidos
 
-Esercícios Resolvidos são exercícios com resolução completa. Eles devem ser colocados em subseção da seção que se referem. A subseção deve ser não numerada e intitulada "Exercícios Resolvidos" , i.e.:
+Exercícios resolvidos são exercícios com resolução completa. Eles devem ser colocados em subseção da seção a que se referem. A subseção deve ser não numerada e intitulada "Exercícios Resolvidos" , i.e.:
 
-    \subsection*{Exercícios Resolvidos}
+    \subsection*{Exercícios resolvidos}
 
 O enunciado de um exercício resolvido  deve ser colocado dentro de um ambiente `exeresol` como, por exemplo:
 
@@ -129,23 +129,40 @@ A resolução do exercício deve ser colocada dentro de um ambiente `resol`, col
 
     \begin{resol}
 	    Escreva aqui a resolução completa (detalhada) do exercício.
-	\end{resol}
+    \end{resol}
 
 #### Exercícios
 
-Exercícios com resposta ou sem devem ser colocados em subseção da seção que se referem. A subseção deve ser não numerada e intitulada "Exercícios", i.e.:
+Exercícios com resposta ou sem devem ser colocados em subseção da seção a que se referem. A subseção deve ser não numerada e intitulada "Exercícios", i.e.:
 
     \subsection*{Exercícios}
 
 O enunciado de um exercício com resposta ou sem deve ser colocado dentro de um ambiente `exer` como, por exemplo:
 
     \begin{exer}
-	   Excreva aqui o enunciado do exercício com resposta ou sem.
-	\end{exer}
+	   Escreva aqui o enunciado do exercício com resposta ou sem.
+    \end{exer}
 
-Caso o exercício tenha resposta (final, para resolução completa, veja a subsecção Exercícios Resolvidos) ela deve ser colocado em um ambiente `resp` logo abaixo do ambiente que o exercício se refere como, por exemplo:
+Caso o exercício tenha resposta (para resolução completa, veja a subsecção Exercícios resolvidos) ela deve ser colocada em um ambiente `resp` logo abaixo do ambiente ao qual o exercício se refere como, por exemplo:
 
     \begin{resp}
-	   Excreva aqui a resposta do exercício.
-	\end{resp}
+	   Escreva aqui a resposta do exercício.
+    \end{resp}
 
+#### Exercícios finais
+
+Exercícios finais constituem uma seção contendo a lista de exercícios (com resposta ou sem) de final de capítulo. A seção dever numerada e intitulada "Exercícios finais", i.e.:
+
+    \section{Exercícios finais}
+
+O enunciado de cada exercícios deve ser colocado dentro de um ambiente `exer` como, por exemplo:
+
+    \begin{exer}
+	   Escreva aqui o enunciado do exercício com resposta ou sem.
+    \end{exer}
+
+No caso do exercícios ter resposta indicada, esta deve ser colocada dentro de um ambiente `resp` como, por exemplo:
+
+    \begin{resp}
+	   Escreva aqui a resposta do exercício.
+    \end{resp}
