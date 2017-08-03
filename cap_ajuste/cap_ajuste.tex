@@ -1055,24 +1055,94 @@ ou seja, resolver o sistema
 que é não linear em $A$ e $b$. Esse sistema pode ser resolvido pelo método de Newton-Raphson, o que pode se tornar custoso, ou mesmo inviável quando não dispomos de uma boa aproximação da solução para inicializar o método.
 
 Felizmente, algumas famílias de curvas admitem uma transformação que nos leva a um problema linear. No caso da curva $y=Ae^{bx}$, observe que $\ln y=\ln A+bx$. Assim, em vez de ajustar a curva original $y=Ae^{bx}$ a tabela de pontos, ajustamos a curva submetida a transformação logarítmica
-$$
-\tilde y:=a_1+a_2 \tilde x=\ln A+bx.
-$$
+\begin{equation*}
+  \tilde y:=a_1+a_2 \tilde x=\ln A+bx.  
+\end{equation*}
 Usamos os pontos $(\tilde x_j,\tilde y_j):=(x_j,\ln y_j)$, $j=1,2,3$ e resolvemos o sistema linear
-$$
-V^T V \left[\begin{array}{c} a_1\\a_2 \end{array}\right]=V^T\left[\begin{array}{c}\tilde{y}_1\\\tilde{y}_2\\\tilde{y}_3 \end{array}\right],
-$$
+\begin{equation*}
+V^T V \begin{bmatrix} a_1\\a_2\end{bmatrix} = V^T\begin{bmatrix}\tilde{y}_1\\\tilde{y}_2\\\tilde{y}_3\end{bmatrix},  
+\end{equation*}
 onde
-$$
-A=\left[\begin{array}{cc} 1&x_1\\1&x_2\\1&x_3 \end{array}\right]
-$$
-\begin{ex}Encontre uma curva da forma $y=Ae^x$ que melhor ajusta os pontos $(1, 2)$, $(2, 3)$ e $(3, 5)$.
+\begin{equation*}
+V=\begin{bmatrix} 1&x_1\\1&x_2\\1&x_3 \end{bmatrix}.  
+\end{equation*}
+
+\begin{ex}Encontre uma curva da forma $y=Ae^{bx}$ que melhor ajusta os pontos $(1, 2)$, $(2, 3)$ e $(3, 5)$.
 \end{ex}
-Temos
-$$
-A=\left[\begin{array}{cc} 1&1\\1&2\\1&3 \end{array}\right]
-$$
-e a solução do sistema leva em $B=0,217442$ e $b=0,458145$. Portanto, $A=e^{0,217442}=1,24289$.
+\begin{sol}
+  Aplicando o logarítmo natural de ambos os lados da equação $y=Ae^{bx}$, temos
+\begin{equation*}
+  \ln y = \ln A + bx.
+\end{equation*}
+Então, denotando $\tilde{y} := \ln y$, $a_1 := \ln A$ e $a_2 := b$, o problema reduz-se a ajustar a reta $\tilde{y} = a_1 + a_2x$ aos pontos $(1, \ln 2)$, $(2, \ln 3)$ e $(3, \ln 5)$. Para tanto, resolvemos o sistema
+\begin{equation*}
+  \underbrace{\begin{bmatrix}
+    1 & 1\\
+    1 & 2\\
+    1 & 3
+  \end{bmatrix}}_{V}
+  \underbrace{\begin{bmatrix}
+    a_1\\
+    a_2
+  \end{bmatrix}}{a} = 
+  \underbrace{\begin{bmatrix}
+    \ln 2\\
+    \ln 3\\
+    \ln 5
+  \end{bmatrix}}_{\tilde{y}}
+\end{equation*}
+por mínimos quadrados, i.e. 
+\begin{equation*}
+ V^TVa = V^T\tilde{y} \Rightarrow a = \left(V^TV\right)^{-1}V^T\tilde{y}.
+\end{equation*}
+A solução do sistema é, então, $a_1=0,217442$ e $a_2=0,458145$. Portanto, $A=e^{a_1}=1,24289$ e $b=a_2=0,458145$.
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+No \verb+Scilab+, podemos resolver este problema com o seguinte código:
+\begin{verbatim}
+x = [1 2 3]'
+y = [2 3 5]'
+V = [ones(3,1) x]
+a = V\log(y) //a = inv(V'*V)*V'*log(y)
+A = exp(a(1))
+b = a(2)
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos resolver este problema com o seguinte código:
+\begin{verbatim}
+x = [1 2 3]';
+y = [2 3 5]';
+V = [ones(3,1) x];
+a = V\log(y) %a = inv(V'*V)*V'*log(y)
+A = exp(a(1))
+b = a(2)
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos resolver este problema com o seguinte código:
+\begin{verbatim}
+x = np.array([1,2,3])
+y = np.array([2,3,5])
+V = np.array([np.ones(3),x]).transpose()
+a = np.linalg.lstsq(V,np.log(y))[0]
+A = np.exp(a[0])
+b = a[1]
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+\end{sol}
 
 \begin{obs}
 Os coeficientes obtidos a partir dessa linearização são aproximados, ou seja, são diferentes daqueles obtidos quando aplicamos mínimos quadrados não linear. Observe que estamos minimizando $\displaystyle\sum_i [\ln y_i -\ln (f(x_i))]^2$ em vez de $\displaystyle\sum_i [ y_i -f(x_i)]^2$. No exemplo resolvido, a solução do sistema não linear original seria $A=1,19789$ e $b=0,474348$
