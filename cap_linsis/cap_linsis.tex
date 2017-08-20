@@ -61,7 +61,7 @@ Salvo especificado ao contrário, assumiremos ao longo deste capítulo que a mat
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-Ao longo do capítulo, apresentamos algumas computações com \verb+Python+. Nestas, estaremos assumindo que a biblioteca \href{http://www.numpy.org/}{numpy} e seu módulo \href{https://docs.scipy.org/doc/numpy/reference/routines.linalg.html}{numpy.linalg} estão carregados:
+Ao longo do capítulo, apresentamos algumas computações com \verb+Python+. Nestas, assumiremos que a biblioteca \href{http://www.numpy.org/}{numpy} e seu módulo \href{https://docs.scipy.org/doc/numpy/reference/routines.linalg.html}{numpy.linalg} estão carregados:
 \begin{verbatim}
 >>> from __future__ import division
 >>> import numpy as np
@@ -2257,9 +2257,9 @@ norm(f,'inf')
 
 
 \section{Métodos iterativos para sistemas lineares}\index{métodos iterativos!sistemas lineares}
-Na seção anterior tratamos de métodos diretos para a resolução de sistemas lineares. Em um \emph{método direto} (por exemplo, solução via fatoração LU) obtemos uma aproximação da solução depois de realizarmos um número finito de operações (só teremos a solução ao final do processo).
+Na seção anterior, tratamos de métodos diretos para a resolução de sistemas lineares. Em um \emph{método direto} (por exemplo, solução via fatoração LU) obtemos uma aproximação da solução depois de realizarmos um número finito de operações (só teremos a solução ao final do processo).
 
-Veremos nessa seção dois \emph{métodos iterativos} básicos para obter uma aproximação para a solução de um sistema linear. Geralmente em um método iterativo iniciamos com uma aproximação para a solução (que pode ser ruim) e vamos melhorando essa aproximação através de sucessivas iterações.
+Veremos nessa seção dois \emph{métodos iterativos} básicos para obter uma aproximação para a solução de um sistema linear. Geralmente em um método iterativo, iniciamos com uma aproximação para a solução (que pode ser ruim) e vamos melhorando essa aproximação através de sucessivas iterações.
 
 \subsection{Método de Jacobi}\index{método de!Jacobi}
 O método de Jacobi pode ser obtido a partir do sistema linear
@@ -2342,7 +2342,7 @@ Assim, como no método de Jacobi, no método de Gauss-Seidel também isolamos o 
 \begin{equation*}
 x_2^{(k+1)} =\frac{y_2 - \left(a_{21}x_1^{(k+1)}+a_{23}x_3^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}
 \end{equation*}
-Aplicando esse raciocínio podemos construir o método de Gauss-Seidel como
+Aplicando esse raciocínio, podemos construir o método de Gauss-Seidel como
 \begin{eqnarray*}
 x_1^{(k+1)}&=&\frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}}\\
 x_2^{(k+1)}&=&\frac{y_2 - \left(a_{21}x_1^{(k+1)}+a_{23}x_3^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}\\
@@ -2361,7 +2361,7 @@ Resolva o sistema
   10x+y&=&23\\
   x+8y&=&26
 \end{eqnarray*}
-usando o método de Guass-Seidel iniciando com $x^{(1)}=y^{(1)}=0$.
+usando o método de Guass-Seidel com condições iniciais $x^{(1)}=y^{(1)}=0$.
 \begin{eqnarray*}
 x^{(k+1)}&=&\frac{23-y^{(k)}}{10}\\
 y^{(k+1)}&=&\frac{26-x^{(k+1)}}{8}\\
@@ -2402,7 +2402,7 @@ y^{(3)}&=&\frac{26-x^{(3)}}{8}=2,9995312
 
 \subsection{Análise de convergência}\index{métodos iterativos!sistemas lineares!convergência}
 
-Nesta seção, discutimos sobre a análise de convergência de métodos iterativos para solução de sistema lineares. Para tanto, consideramos um sistema linear $Ax = b$, onde $A = [a_{i,j}]_{i,j=1}^{n,n}$ é a matriz (real) dos coeficientes, $b = (a_j)_{j=1}^n$ é um vetor dos termos constantes e $x = (x_j)_{j=1}^n$ é o vetor incógnita. No decorrer, assumimos que $A$ é uma matriz não singular.
+Nesta seção, analisamos a convergência de métodos iterativos para solução de sistema lineares. Para tanto, consideramos um sistema linear $Ax = b$, onde $A = [a_{i,j}]_{i,j=1}^{n,n}$ é a matriz (real) dos coeficientes, $b = (a_j)_{j=1}^n$ é um vetor dos termos constantes e $x = (x_j)_{j=1}^n$ é o vetor incógnita. No decorrer, assumimos que $A$ é uma matriz não singular.
 
 Geralmente, métodos iterativos são construídos como uma iteração de ponto fixo. No caso de um sistema linear, reescreve-se a equação matricial em um problema de ponto fixo equivalente, isto é:
 \begin{equation*}
@@ -3048,7 +3048,7 @@ Suponha que um dos autovalores seja estritamente maior que os demais, isto é, $
 \begin{equation*}
   A^kx^{(1)} = A^k\begin{bmatrix}\xi_1\\ \xi_2\\ \xi_3\\ \vdots \\ \xi_n\end{bmatrix} = \begin{bmatrix}\lambda_1^k\xi_1\\ \lambda_2^k\xi_2\\ \lambda_3^k\xi_3\\ \vdots \\ \lambda_n^k\xi_n\end{bmatrix} = \lambda_1^k\xi_1\begin{bmatrix}1\\ \frac{\xi_2}{\xi_1}\left(\frac{\lambda_2}{\lambda_1}\right)^k\\ \frac{\xi_3}{\xi_1}\left(\frac{\lambda_3}{\lambda_1}\right)^k\\ \vdots \\ \frac{\xi_n}{\xi_1}\left(\frac{\lambda_n}{\lambda_1}\right)^k\end{bmatrix},  
 \end{equation*}
-desde que $\xi_1\neq 0$. Como $\frac{\lambda_n}{\lambda_1}\leq \frac{\lambda_{n-1}}{\lambda_1}\leq \cdots \frac{\lambda_3}{\lambda_1}\leq \frac{\lambda_2}{\lambda_1}<1$, então $\left(\frac{\lambda_j}{\lambda_1}\right)^k$ tende a $0$ para cada $j$, $2\leq j\leq n$. Devido a normalização a cada passo da sequência,
+desde que $\xi_1\neq 0$. Como $\frac{\lambda_n}{\lambda_1}\leq \frac{\lambda_{n-1}}{\lambda_1}\leq \cdots \frac{\lambda_3}{\lambda_1}\leq \frac{\lambda_2}{\lambda_1}<1$, então $\left(\frac{\lambda_j}{\lambda_1}\right)^k$ tende a $0$ para cada $j$, $2\leq j\leq n$. Devido à normalização realizada em cada passo da sequência,
 \begin{equation*}
   x^{(k+1)}=\frac{A^kx^{(1)}}{\|A^kx^{(1)}\|_2}  
 \end{equation*}
@@ -3106,7 +3106,7 @@ O método da potência tem duas restrições:
 
 \subsubsection{Outra análise para a convergência do método}
 
-Aqui vamos apresentar uma análise alternativa para a convergência do método da potência: se $A\in \mathbb{R}^{n,n}$ é diagonalizável, então existe um conjunto $\{v_{j}\}_{j=1}^n$ de autovetores de $A$ tais que qualquer elemento $x\in\mathbb{R}^n$ pode ser escrito como uma combinação linear dos $v_{j}$. Sejam $\{\lambda_j\}_{j=1}^n$ o conjunto de autovalores associados aos autovetores tal que um deles seja dominante, ou seja, $|\lambda_1|>|\lambda_2|\geq |\lambda_3|\geq\cdots |\lambda_n|>0$. Como os autovetores são linearmente indempendentes, todo vetor $x\in\mathbb{R}^n$, $x=(x_1,x_2,...,x_n)$, pode ser escrito com combinação linear dos autovetores da seguinte forma:
+Aqui, vamos apresentar uma análise alternativa para a convergência do método da potência: se $A\in \mathbb{R}^{n,n}$ é diagonalizável, então existe um conjunto $\{v_{j}\}_{j=1}^n$ de autovetores de $A$ tais que qualquer elemento $x\in\mathbb{R}^n$ pode ser escrito como uma combinação linear dos $v_{j}$. Sejam $\{\lambda_j\}_{j=1}^n$ o conjunto de autovalores associados aos autovetores tal que um deles seja dominante, ou seja, $|\lambda_1|>|\lambda_2|\geq |\lambda_3|\geq\cdots |\lambda_n|>0$. Como os autovetores são linearmente indempendentes, todo vetor $x\in\mathbb{R}^n$, $x=(x_1,x_2,...,x_n)$, pode ser escrito com combinação linear dos autovetores da seguinte forma:
 \begin{equation}\label{eq:met_pot_forma}
 x = \sum_{j=1}^n \beta_jv_{j}.
 \end{equation}
@@ -3146,7 +3146,7 @@ Observe que um múltiplo de autovetor também é um autovetor e, portanto,
 \end{equation*}
 é um esquema que oscila entre os autovetores ou converge para o autovetor $v_1$.
 
-\subsection{Método da iteração Inversa}
+\subsection{Método da iteração inversa}
 Nesta seção, vamos estudar a seguência
 $$
 x_0,\ \frac{(A-\sigma I)^{-1}x_0}{\|(A-\sigma I)^{-1}x_0\|_2},\ \frac{(A-\sigma I)^{-2}x_0}{\|(A-\sigma I)^{-2}x_0\|_2},\ \frac{(A-\sigma I)^{-3}x_0}{\|(A-\sigma I)^{-3}x_0\|_2},\ \cdots
@@ -3226,7 +3226,7 @@ $$A=\left[\begin{array}{ccc}
     70&    41&    20
 \end{array}\right]
 $$
-Expresse sua resposta com seis dígitos significativos
+Expresse sua resposta com seis dígitos significativos.
 \end{exer}
 \begin{resp}
 
