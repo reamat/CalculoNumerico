@@ -1656,14 +1656,14 @@ Em geral, os números não são representados de forma exata nos computadores. I
 
 Quando fazemos aproximações numéricas, os erros são gerados de várias formas, sendo as principais delas as seguintes:
 \begin{enumerate}
- \item \emph{Incerteza dos dados}: equipamentos de medição possuem precisão finita, acarretando erros nas medidas físicas.
- \item \emph{Erros de Arredondamento}: são aqueles relacionados com as limitações que existem na forma representar números de máquina. 
- \item \emph{Erros de Truncamento}: surgem quando aproximamos um procedimento formado por uma sequência infinita de passos através de um procedimento finito. Por exemplo, a definição de integral é dada por uma soma infinita e a aproximamos por um soma finita. O erro de truncamento deve ser analisado para cada método empregado. 
+ \item \emph{Incerteza dos dados} são devidos aos erros nos dados de entrada. Quando o modelo matemático é oriundo de um problema físico, exitem incerteza nas medidas feitas pelos intrumentos de medição, que possuem acurácia finita.
+ \item \emph{Erros de Arredondamento} são aqueles relacionados com as limitações exitentes na forma representar números em máquina. 
+ \item \emph{Erros de Truncamento} surgem quando aproximamos um conceito matemáticos formado por uma sequência infinita de passos por de um procedimento finito. Por exemplo, a definição de integral é dada por um processo de limite de somas. Numericamente, aproximamos por um soma finita. O erro de truncamento deve ser estudado analíticamente para cada método empregado e normalmente envolve matemática mais avançada que a estudado em um curso de graduação. 
 \end{enumerate}
 
-Uma questão fundamental é a quantificação dos erros que estamos sujeitos ao computar a solução de um dado problema. Para tanto, precisamos definir medidas de erros (ou de exatidão)\index{medida!de erro}\index{medida!de exatidão}. As medidas de erro mais utilizadas são o \emph{erro absoluto}\index{erro!absoluto} e o \emph{erro relativo}\index{erro!relativo}.
+Uma questão fundamental é a quantificação dos erros imbricados na computação da solução de um dado problema. Para tanto, precisamos definir medidas de erros (ou de exatidão)\index{medida!de erro}\index{medida!de exatidão}. As medidas de erro mais utilizadas são o \emph{erro absoluto}\index{erro!absoluto} e o \emph{erro relativo}\index{erro!relativo}.
 
-\begin{defn}[Erro absoluto e relativo] Seja $x$ um número real e $\overline{x}$ sua aproximação. O \emph{erro absoluto} da aproximação $\overline{x}$ é definido como
+\begin{defn}[Erro absoluto e relativo] Seja $x$ um número real e $\overline{x}$, sua aproximação. O \emph{erro absoluto} da aproximação $\overline{x}$ é definido como
   \begin{equation*}
     |x-\overline{x}|.
   \end{equation*}
@@ -1674,7 +1674,7 @@ O \emph{erro relativo} da aproximação $\overline{x}$ é definido como
 \end{defn}
 
 \begin{obs}
-  Observe que o erro relativo é adimensional e, muitas vezes, é dado em porcentagem. Mais precisamente, o erro relativo em porcentagem da aproximação $\overline{x}$ é dado por
+  Observe que o erro relativo é adimensional e, muitas vezes, é expresso em porcentagens. Mais precisamente, o erro relativo em porcentagem da aproximação $\overline{x}$ é dado por
   \begin{equation*}
     \frac{|x-\bar{x}|}{|x|}\times 100 \%.
   \end{equation*}
@@ -1706,7 +1706,7 @@ Note que o erro relativo leva em consideração a escala do problema.
 
 
 \begin{ex}
-Observe os erros absolutos e relativos em cada caso
+Observe os erros absolutos e relativos em cada caso a seguir:
 \begin{center}
   \begin{tabular}{ll|rr} \hline
     $x$ & $\bar{x}$ &\ Erro absoluto & Erro relativo\\\hline
@@ -1719,7 +1719,7 @@ Observe os erros absolutos e relativos em cada caso
 
 Outra forma de medir a exatidão de uma aproximação numérica é contar o \emph{número de dígitos significativos corretos} em relação ao valor exato.
 
-\begin{defn}[Número de dígitos significativos corretos]\label{def:num_dig_sig_corretos}
+\begin{defn}[Número de dígitos significativos corretos]\label{def:num_dig_sig_corretos}\index{medida!de erro}\index{dígitos significativos}
 A aproximação $\overline{x}$ de um número $x$ tem $s$ \emph{dígitos significativos corretos} quando\footnote{Esta definição é apresentada em \cite{Burden2013}. Não existe uma definição única na literatura para o conceito de dígitos significativos corretos, embora não precisamente equivalentes, elas transmitem o mesmo conceito.
 Uma maneira de interpretar essa regra é: calcula-se o erro relativo na forma normalizada e a partir da ordem do expoente temos o número de dígitos significativos corretos. Como queremos o expoente, podemos estimar $s$ por
 $$ DIGSE(x,\bar{x})=s \approx int \left|\log_{10} \frac{|x-\overline{x}|}{|x|}\right|. $$
@@ -1758,7 +1758,7 @@ $$
 
 \subsection*{Exercícios}
 
-\begin{exer} Calcule os erros absoluto e relativo das aproximações $\bar{x}$ para $x$.
+\begin{exer} Calcule os erros absoluto e relativo das aproximações $\bar{x}$ para $x$ em cada caso:
   \begin{enumerate}[a)]
   \item $x=\pi=3,14159265358979\ldots$ e $\bar{x}=3,141$
   \item $x=1,00001$ e $\bar{x}=1$
@@ -1823,21 +1823,21 @@ Usando a definição~\ref{def:num_dig_sig_corretos}, verifique quantos são os d
 
 
 \section{Erros nas operações elementares}
-O erro relativo presente nas operações elementares de adição, subtração, multiplicação e divisão é da ordem do épsilon de máquina. Se estivermos usando uma máquina com 64 bits, temos que $\epsilon = 2^{-52} \approx 2,22E16$. 
+O erro relativo presente nas operações elementares de adição, subtração, multiplicação e divisão é da ordem do épsilon de máquina. Se estivermos usando uma máquina com 64 bits, temos que $\epsilon = 2^{-52} \approx 2,22E-16$. 
 
-Este erro é bem pequeno! Assumindo que $x$ e $y$ são representados com todos dígitos corretos, temos aproximadamente 15 dígitos significativos corretos quando fazemos uma das operações $x+y$, $x-y$, $x\times y$ ou $x/y$. 
+Este erro é bem pequeno para a maioria das aplicações! Assumindo que $x$ e $y$ são representados com todos dígitos corretos, temos aproximadamente 15 dígitos significativos corretos quando fazemos uma das operações $x+y$, $x-y$, $x\times y$ ou $x/y$. 
 
 %%
 %% fornecer exemplo para +,-,*,/
 %%
 
-Mesmo que fizéssemos, por exemplo, $1000$ operações elementares em ponto flutuante sucessivas, teríamos, no pior dos casos, acumulado todos esses erros e perdido $3$ casas decimais ($1000\times 10^{-15} \approx 10^{-12})$.
+Mesmo que fizéssemos, por exemplo, $1000$ operações elementares sucessivas em ponto flutuante, teríamos, no pior dos casos, acumulado todos esses erros e perdido $3$ casas decimais ($1000\times 10^{-15} \approx 10^{-12})$.
 
-Entretanto, quando subtraímos números muito próximos, os problemas aumentam.
+Entretanto, quando subtraímos números muito próximos, o erro pode se propagar de forma catastrófico.
 
 \section{Cancelamento catastrófico}\index{cancelamento catastrófico}
 
-Quando fazemos subtrações com números muito próximos entre si ocorre o cancelamento catastrófico, onde podemos perder vários dígitos de precisão em uma única subtração.
+Quando fazemos subtrações com números muito próximos entre si, ocorre o que chamamos de ``cancelamento catastrófico'', onde podemos perder vários dígitos de precisão em uma única subtração.
 
 \begin{ex}Efetue a operação
   \begin{equation*}
@@ -2156,7 +2156,7 @@ Calcule a corrente e o erro relativo associado quando a tensão vale $220\pm 1\%
 \emph{Dica:} lembre que $x^\alpha=e^{\alpha \ln(x)}$
 \end{exer}
 
-\section{Mais exemplos de cancelamento catastrófico}
+\section{Exemplos selecionados de cancelamento catastrófico}
 
 \begin{ex} Considere o seguinte processo iterativo:
   \begin{eqnarray*}
@@ -2413,7 +2413,7 @@ Observe a perda de informação ao deslocar a mantissa de $1/n$. Para evidenciar
 
 \begin{ex}[Analogia da balança] Observe a seguinte comparação interessante que pode ser feita para ilustrar os sistemas de numeração com ponto fixo e flutuante: o sistema de ponto fixo é como uma balança cujas marcas estão igualmente espaçadas; o sistema de ponto flutuante é como uma balança cuja distância entre as marcas é proporcional à massa medida. Assim, podemos ter uma balança de ponto fixo cujas marcas estão sempre distanciadas de $100$g ($100$g, $200$g, $300$g, ..., $1$Kg, $1,1$Kg,...) e outra balança de ponto flutuante cujas marcas estão distanciadas sempre de aproximadamente um décimo do valor lido ($100$g, $110$g, $121$g, $133$g, ..., $1$Kg, $1,1$Kg, $1,21$Kg, ...) A balança de ponto fixo apresenta uma resolução baixa para pequenas medidas, porém uma resolução alta para grandes medidas. A balança de ponto flutuante distribui a resolução de forma proporcional ao longo da escala.    
 
-Seguindo nesta analogia, o fenômeno de perda de significância pode ser interpretado como a seguir: imagine que você deseje obter o peso de um gato (aproximadamente $4$Kg). Dois processos estão disponíveis: colocar o gato diretamente na balança ou medir seu peso com o gato e, depois, sem o gato. Na balança de ponto flutuante, a incerteza associada na medida do peso do gato (sozinho) é aproximadamente $10\%$ de $4$Kg, isto é, $400$g. Já a incerteza associada à medida da uma pessoa (aproximadamente $70$Kg) com o gato é de $10\%$ do peso total, isto é, aproximadamente $7$Kg. Esta incerteza é da mesma ordem de grandeza da medida a ser realizada, tornado o processo impossível de ser realizado, já que teríamos uma incerteza da ordem de $14$Kg (devido à dupla medição) sobre uma grandeza de $4$Kg.    
+Seguindo nesta analogia, o fenômeno de perda de significância pode ser interpretado como a seguir: imagine que você deseje obter o peso de um gato (aproximadamente $4$Kg). Dois processos estão disponíveis: colocar o gato diretamente na balança ou medir seu peso com o gato e, depois, sem o gato. Na balança de ponto flutuante, a incerteza associada à medida do peso do gato (sozinho) é aproximadamente $10\%$ de $4$Kg, isto é, $400$g. Já a incerteza associada à medida da uma pessoa (aproximadamente $70$Kg) com o gato é de $10\%$ do peso total, isto é, aproximadamente $7$Kg. Esta incerteza é da mesma ordem de grandeza da medida a ser realizada, tornado o processo impossível de ser realizado, já que teríamos uma incerteza da ordem de $14$Kg (devido à dupla medição) sobre uma grandeza de $4$Kg.    
 \end{ex}
 
 \subsection*{Exercícios resolvidos}
