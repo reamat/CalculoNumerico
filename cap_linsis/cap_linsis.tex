@@ -962,20 +962,20 @@ $$\left[
 
 
 
-\section{Complexidade de algoritmos em álgebra linear}
+\section{Complexidade de algoritmos em álgebra linear}\index{Complexidade!computacional}
 Nesta seção, discutiremos um importante conceito em teoria de algoritmos, a complexidade, isto é, uma medida do custo ou eficiência do algoritmo.
 
 Dados dois algoritmos diferentes para resolver o mesmo problema, como podemos escolher qual desses algoritmos é o melhor? Se pensarmos em termos de \emph{eficiência} (ou custo computacional), queremos saber qual desses algoritmos consome menos recursos para realizar a mesma tarefa.
 
-Em geral podemos responder essa pergunta de duas formas: em termos de tempo ou de espaço.
+Em geral podemos responder esta pergunta de duas formas: em termos de tempo ou de espaço.
 
 Quando tratamos de \emph{eficiência espacial}, queremos saber quanta memória (em geral RAM) é utilizada pelo algoritmo para armazenar os dados, sejam eles matrizes, vetores ou escalares.
 
-Quando tratamos de \emph{eficiência temporal}, queremos saber quanto tempo um algoritmo leva para realizar determinada tarefa. Vamos nos concentrar nessa segunda opção, que em geral é a mais difícil de ser respondida.
+Quando tratamos de \emph{eficiência temporal}, queremos saber quanto tempo um algoritmo demanda para realizar determinada tarefa. Vamos nos concentrar neste segundo conceito, que em geral é o mais difícil de tratar.
 
-Obviamente o tempo vai depender do tipo de computador utilizado. É razoável de se pensar que o tempo vai ser proporcional ao número de operações de ponto flutuante (flops) feitas pelo algoritmo (observe que o tempo total não depende apenas disso, mas também de outros fatores como memória, taxas de transferências de dados da memória para o cpu, redes,...). Entretanto vamos nos concentrar na contagem do número de operações (flops) para realizar determinada tarefa.
+Naturalmente o tempo vai depender do tipo de computador utilizado. É razoável pensar que o tempo vai ser proporcional ao número de operações de ponto flutuante (flops) feitas pelo algoritmo (observe que o tempo total não depende apenas disso, mas também de outros fatores como memória, taxas de transferências de dados da memória para o cpu, redes,...). Entretanto vamos nos concentrar na contagem do número de operações (flops) para realizar determinada tarefa.
 
-No passado (antes dos anos 80), os computadores demoravam mais tempo para realizar operações como multiplicação e divisão, se comparados a adição ou subtração. Assim, em livros clássicos eram contados apenas o custo das operações $\times$ e $/$. Nos computadores atuais as quatro operações básicas  levam o mesmo tempo. Entretanto, na maioria dos algoritmos de álgebra linear o custo associado as multiplicações e divisões é proporcional ao custo das somas e subtrações (pois a maioria dessas operações podem ser escritas como a combinação de produtos internos). Dessa forma, na maior parte deste material levaremos em conta somente multiplicações e divisões, a não ser que mencionado o contrário.
+No passado (antes dos anos 80), os computadores demoravam mais tempo para realizar operações como multiplicação e divisão, se comparados à adição ou à subtração. Assim, em livros clássicos eram contados apenas o custo das operações $\times$ e $/$. Nos computadores atuais as quatro operações básicas demandam aproximadamente o mesmo tempo. Não obstante, como na maioria dos algoritmos de álgebra linear, o número de multiplicações e divisões é proporcional ao número somas e subtrações (pois a maioria dessas operações podem ser escritas como a combinações de produtos internos), é justificável dizer que o tempo de computação continua podendo ser estimado pelo número de multiplicações e divisões. Desta forma, na maior parte deste material, levaremos em conta somente multiplicações e divisões, a não ser que mencionado o contrário.
 
 Teremos em mente que a ideia é estimar o custo quando lidamos com vetores e matrizes muito grande, isto é, o custo quando estas dimensões crescem infinitamente.
 
@@ -1019,7 +1019,7 @@ Qual o custo para calcular o produto de matriz por vetor $A \pmb{x}$?
   =\vetddd{ a_{11}\times x_1 + a_{12}x_2 +...+a_{1n}\times x_n }{\vdots }{a_{n1}\times x_1 + a_{n2}x_2 +...+a_{nn}\times x_n}
 \end{equation}
 
-Para obter o primeiro elemento do vetor do lado direito devemos multiplicar a  primeira linha de $A$ pelo vetor coluna $\pmb{x}$. Note que esse é exatamente o custo do produto vetor-vetor do exemplo anterior. Como o custo para cada elemento do vetor do lado direito é o mesmo e temos $n$ elementos, teremos que o custo para multiplicar matriz-vetor é\footnote{Contando apenas multiplicações/divisões obtemos
+Para obter o primeiro elemento do vetor do lado direito, devemos multiplicar a  primeira linha de $A$ pelo vetor coluna $\pmb{x}$. Note que esse é exatamente o custo do produto vetor-vetor do exemplo anterior. Como o custo para cada elemento do vetor do lado direito é o mesmo e temos $n$ elementos, teremos que o custo para multiplicar matriz-vetor é\footnote{Contando apenas multiplicações/divisões obtemos
 \begin{equation}
   n\cdot \mathcal{O}(n) = \mathcal{O}(n^2) \text{~flops.}
 \end{equation}
@@ -1028,7 +1028,7 @@ Para obter o primeiro elemento do vetor do lado direito devemos multiplicar a  p
   C:=n \cdot ( 2n-1) = 2n^2-n \text{~flops}.
 \end{equation}
 
-A medida que $n \rightarrow \infty$, temos
+À medida que $n \rightarrow \infty$, temos
 \begin{equation}
   \mathcal{O}(2n^2-n) =\mathcal{O}(2n^2)=\mathcal{O}(n^2) \text{~flops.}
 \end{equation}
@@ -1036,7 +1036,7 @@ A medida que $n \rightarrow \infty$, temos
 \end{sol}
 
 \begin{ex}[Produto matriz-matriz]
-Qual o custo para calcular o produto de duas matrizes  $A B$?
+Qual o custo para calcular o produto de duas matrizes  $A$ e $B$?
 \end{ex}
 \begin{sol}
 Sejam $A, B \in \mathbb{R}^{n\times n}$ temos que
@@ -1049,7 +1049,7 @@ onde o elemento $d_{ij}$ é o produto da linha $i$ de $A$ pela coluna $j$ de $B$
 \begin{equation}
   d_{ij}=  a_{i1}\times b_{1j} + a_{i2}\times b_{2j} +...+a_{i2}\times b_{2j}
 \end{equation}
-Note que esse produto tem o custo do produto vetor-vetor, ou seja, $2n-1$. Como temos $n\times n$ elementos em $D$, o custo total para multiplicar duas matrizes é\footnote{Contando apenas $\times$ e $/$ obtemos
+Note que este produto tem o custo do produto vetor-vetor, ou seja, $2n-1$. Como temos $n\times n$ elementos em $D$, o custo total para multiplicar duas matrizes é\footnote{Contando apenas $\times$ e $/$ obtemos
 \begin{equation}
   n\times n \times(n)  = n^3 \text{~flops.}
 \end{equation}
@@ -1306,7 +1306,7 @@ Em \verb+Python+, podemos implementar o algoritmo para fatoração $LU$ da segui
 %%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \subsubsection{Custo computacional}
-Podemos analisar o custo computacional reduzindo o problema em problemas menores. % Vamos contar apenas o número de multiplicações e divisões.
+Podemos analisar o custo computacional, reduzindo o problema em problemas menores. % Vamos contar apenas o número de multiplicações e divisões.
 
 Na linha 4, iniciamos com $j=1$. Desta forma $i$ varia de $2$ até $n$ na linha 5.
 
@@ -1375,12 +1375,12 @@ Somando todos esses custos, temos
 %%%%%%%%%%%%%%%%%%%%
 
 \subsection{Custo computacional para resolver um sistema linear usando fatoração LU}
-Para calcularmos o custo computacional de um algoritmo completo, uma estratégia é separar o algoritmo em partes menores mais fáceis de calcular.
+Para calcularmos o custo computacional de um algoritmo completo, uma estratégia é separar o algoritmo em partes menores, mais fáceis de analisar.
 
 Para resolver o sistema, devemos primeiro fatorar a matriz $A$ nas matrizes $L$ e $U$. Vimos que o custo é
 $$\frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6} \text{~flops}.$$
 
-Depois devemos resolver os sistemas $Ly=b$ e $Ux=y$. O custo de resolver os dois sistemas é  (devemos contar duas vezes)
+Depois devemos resolver os sistemas $Ly=b$ e $Ux=y$. O custo de resolver os dois sistemas é (devemos contar duas vezes)
 $$ 2 n^2\text{~flops}.$$
 
 Somando esses $3$ custos, temos que o custo para resolver um sistema linear usando fatoração $LU$ é
