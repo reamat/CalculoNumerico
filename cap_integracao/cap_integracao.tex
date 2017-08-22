@@ -516,9 +516,9 @@ $9$  & & &\\
 Na seção anterior, obtivemos as regras de quadraturas pela aproximação do integrando por polinômios interpoladores de Lagrange. Aqui, veremos um outro método para obter regras de quadratura, que torna-se bastante útil para quando temos muitos pontos ou quando o intervalo entre os pontos não é uniforme.
 
 Dados $n$ pontos $[t_1,t_2,\ldots ,t_n]$, queremos obter uma aproximação para
-\begin{align}\label{regraint}
+\begin{equation}\label{regraint}
   \int _a^b f(t) \;dt \approx w_1f(t_1)+w_2f(t_2)+\ldots +w_nf(t_n)
-\end{align}
+\end{equation}
 que seja exata para polinômios\footnote{Por exemplo, se $n=2$, então a regra é exata para retas.} até ordem  $n-1$.
 
 Aproxime $f(t)$ pelo polinômio $p(t)=w_1\phi_1(t)+\ldots +w_n \phi_n(t)$ de ordem $n-1$. Escolha uma base, como por exemplo $\phi _k(t)=t^{k-1}$. Como a regra de quadratura deve ser exata para qualquer polinômio até ordem $n-1$, então também deve ser exata para qualquer função da base. Substituindo $f(t)$ por $\phi _1(t)=1$ em \eqref{regraint} obtemos
@@ -527,14 +527,14 @@ Aproxime $f(t)$ pelo polinômio $p(t)=w_1\phi_1(t)+\ldots +w_n \phi_n(t)$ de ord
                               b-a  &=&  w_1+w_2+\ldots +w_n
 \end{eqnarray}
 
-Da mesma forma para $\phi_k(t)$, $k=2,\ldots,n$, obtemos
-\begin{align}
-   (t^2/2)|_a^b = \frac{b^2-a^2}{2} &=  w_1t_1  +w_2t_2  +\ldots +w_nt_n   \\
-   (t^3/3)|_a^b = \frac{b^3-a^3}{3} &=  w_1t_1^2+w_2t_2^2+\ldots +w_nt_n^2 \\
-                    \vdots          &=  \vdots    \\
- \frac{b^{n}-a^{n}}{n}              &=  w_1t_1^{n-1}+w_2t_2^{n-1}+\ldots +w_nt_n^{n-1}
-\end{align}
-que pode ser escrito na forma matricial
+Da mesma forma para $\phi_k(t)$, $k=2,\ldots,n$, obtemos:
+\begin{eqnarray}
+   (t^2/2)|_a^b = \frac{b^2-a^2}{2} &=&  w_1t_1  +w_2t_2  +\ldots +w_nt_n   \\
+   (t^3/3)|_a^b = \frac{b^3-a^3}{3} &=&  w_1t_1^2+w_2t_2^2+\ldots +w_nt_n^2 \\
+                              &\vdots&      \\
+ \frac{b^{n}-a^{n}}{n}              &=&  w_1t_1^{n-1}+w_2t_2^{n-1}+\ldots +w_nt_n^{n-1}
+\end{eqnarray}
+que pode ser escrito na forma matricial a seguir:
 \begin{equation}
 \begin{bmatrix}
     1     &  1    & \ldots   &  1 \\
@@ -545,25 +545,25 @@ que pode ser escrito na forma matricial
 \end{bmatrix}
 \begin{bmatrix}  w_1 \\ w_2\\ w_3  \\ \vdots   \\ w_n     \end{bmatrix}
 =
-\begin{bmatrix}  b-a  \\ \frac{b^2-a^2}{2} \\ \frac{b^3-a^3}{3} \\ \vdots  \\ \frac{b^{n}-a^{n}}{n}  \end{bmatrix}
+\begin{bmatrix}  b-a  \\ \frac{b^2-a^2}{2} \\ \frac{b^3-a^3}{3} \\ \vdots  \\ \frac{b^{n}-a^{n}}{n}  \end{bmatrix}.
 \end{equation}
-Resolvendo o sistema obtemos os coeficientes $w_k$ para a regra de integração.
+Resolvendo o sistema, obtemos os coeficientes $w_k$ para a regra de integração.
 
 \begin{ex}
 Seja $n=3$, $[a,b]=[0,h]$, onde $[t_1,t_2,t_3]=[0,h/2,h]$. Obtenha uma regra de integração para aproximar $\int _a^b f(t)\;dt$.
 \end{ex}
 \begin{sol}
 A regra terá a forma
-\begin{align}
-  \int _a^b f(t)\;dt & \approx w_1f(t_1)+w_2f(t_2)+w_3f(t_3)\\
-                 & \approx w_1f_1   +w_2f_2   +w_3f_3.
-\end{align}
+\begin{eqnarray}
+  \int _a^b f(t)\;dt & \approx& w_1f(t_1)+w_2f(t_2)+w_3f(t_3)\\
+                 & \approx& w_1f_1   +w_2f_2   +w_3f_3.
+\end{eqnarray}
 Considere a base polinomial $[\phi _1(t),\phi _2(t),\phi _3(t)]=[1,t,t^2]$ e substitua $f(t)$ por $\phi_k(t)$ obtendo
-\begin{align}
-   \int _0^h 1   \;dt = h     &=  w_1(1)   +w_2(1)     + w_3(1) \\
-   \int _0^h t   \;dt = h^2/2 &=  w_1(0)   +w_2(h/2)   + w_3(h) \\
-   \int _0^h t^2 \;dt = h^3/3 &=  w_1(0)^2 +w_2(h/2)^2 + w_3(h)^2
-\end{align}
+\begin{eqnarray}
+   \int _0^h 1   \;dt = h     &=&  w_1(1)   +w_2(1)     + w_3(1) \\
+   \int _0^h t   \;dt = h^2/2 &=&  w_1(0)   +w_2(h/2)   + w_3(h) \\
+   \int _0^h t^2 \;dt = h^3/3 &=&  w_1(0)^2 +w_2(h/2)^2 + w_3(h)^2
+\end{eqnarray}
 que pode ser escrito na forma matricial
 \begin{equation}
 \begin{bmatrix}

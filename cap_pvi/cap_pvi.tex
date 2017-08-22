@@ -4,7 +4,7 @@
 %\begin{document}
 
 \chapter{Problemas de valor inicial}\index{problema de valor inicial}
-Neste capítulo, vamos desenvolver técnicas numéricas para aproximar a solução do problema de valor inicial (PVI) dado pela equação diferencial ordinária (EDO) de primeira ordem
+Neste capítulo, vamos estudar técnicas numéricas para aproximar a solução do problema de valor inicial (PVI) dado pela equação diferencial ordinária (EDO) de primeira ordem
 \begin{subequations}\label{PVI}
 \begin{eqnarray}
   u'(t) &=& f(t, u(t))\label{PVI_EDO}\\
@@ -12,7 +12,7 @@ Neste capítulo, vamos desenvolver técnicas numéricas para aproximar a soluç�
 \end{eqnarray}
 \end{subequations}
 
-A incógnita de um problema de valor inicial é uma função que satisfaz a equação diferencial \eqref{PVI_EDO}  e a condição inicial \eqref{PVI_CI}.
+A incógnita de um problema de valor inicial é uma função que satisfaz a equação diferencial \eqref{PVI_EDO} e a condição inicial \eqref{PVI_CI}.
 
 Considere os próximos três exemplos:
 \begin{ex}
@@ -56,7 +56,7 @@ A solução do segundo exemplo é fácil de ser obtida: $u(t)=ae^t$. Porém como
 
 Muitos problemas de valor inicial da forma \eqref{PVI} não podem ser resolvidos exatamente, ou seja, sabe-se que a solução existe e é única, porém não podemos expressá-la em termos de funções elementares. Por isso é necessário calcular aproximações numéricas. Diversos métodos completamente diferentes estão disponíveis para aproximar uma função real.
 
-Existem várias maneiras de obter aproximações para a solução deste problema. Nos limitaremos a estudar métodos que aproximam $u(t)$ em um conjunto finito de valores de $t$ chamado \emph{malha} que será denotado por  $\{t_i\}_{i=1}^N=\{t_1, t_2, t_3,\ldots, t_N\}$. Desta forma, aproximamos a solução $u(t_i)$ por $u_i$ em cada ponto da malha usando diferentes esquemas numéricos.
+Existem várias maneiras de obter aproximações para a solução deste problema. Vamos nos limitar a estudar métodos que aproximam $u(t)$ em um conjunto finito de valores de $t$ chamado \emph{malha} que será denotado por  $\{t_i\}_{i=1}^N=\{t_1, t_2, t_3,\ldots, t_N\}$. Desta forma, aproximamos a solução $u(t_i)$ por $u_i$ em cada ponto da malha usando diferentes esquemas numéricos.
 
 %%%%%%%%%%%%%%%%%%%%
 % python
@@ -105,6 +105,28 @@ $$ |u(t)-v(t)| \leq  e^{L(t-t_1)}|u_1-v_1| . $$
 \end{teo}
 
 \subsection*{Exercícios resolvidos}
+
+\begin{exeresol} A função $f(t,u)=\sqrt{u},~~u\geq 0$ não é uma função Lipschitz em $u$, pois
+$$\lim_{u\to 0+} \frac{|f(t,u)-f(t,0)|}{|u-0|}=\lim_{u\to 0+} \frac{\sqrt{u}}{u}=\lim_{u\to 0+} \frac{1}{\sqrt{u}}=\infty$$
+ Mostre que o seguinte problema de valor inicial não admite solução única:
+\begin{eqnarray}
+   \frac{du}{dt} &=&\sqrt{u},~~u>0,\\
+            u(0) &=& 0.
+\end{eqnarray}
+\end{exeresol}
+\begin{resol}
+ A função identicamente nula, $u(t)=0$, satisfaz a equação diferencial e a condição de contorno, logo é uma solução do problema de valor inicial. No entanto, a função\footnote{Esta solução pode ser obtida por separação de variáveis.} $u(t)=\frac{t^2}{4}$ satisfaz a condição inicial, pois $u(0)=0$ e a equação diferencial poir $\frac{du}{dt}=\frac{t}{2}=\sqrt{\frac{t^2}{4}}$.
+ 
+ De fato, qualquer função do tipo
+ $$u(t)=\left\{
+ \begin{array}{ll}
+  0,&0\leq t \leq t_0\\
+  \frac{(t-t_0)^2}{4},& t >t_0\\
+ \end{array}
+ \right.$$
+ é solução do problema de valor inicial dado.
+\end{resol}
+
 
 \emconstrucao
 
@@ -328,7 +350,7 @@ Para fins de comparação, calculamos a solução exata e aproximada para alguns
 \end{table}
 
 
-No exemplo a seguir, apresentamos um problema envolvendo uma equação não-autônoma\index{equação diferencial!não autônoma}, isto é, quando a função $f(u)$ depende explicitamente do tempo.
+No exemplo a seguir, apresentamos um problema envolvendo uma equação não-autônoma\index{equação diferencial!não autônoma}, isto é, quando a função $f(t,u)$ depende explicitamente do tempo.
 
 \begin{ex}
 Resolva o problema de valor inicial
@@ -575,7 +597,7 @@ Para que o método de Euler seja estável, é necessário que $h$ seja escolhido
 
 Tal análise pode ser facilmente estendida para $u'=\lambda u+b$ (veja exercícios).
 
-Para o caso EDO não-linear, seja
+Para o caso EDO não linear, seja
 \begin{eqnarray}
 u'= f(t,u), \quad  t\geq t_0, \quad  u(t_0)=u_0
 \end{eqnarray}
@@ -725,7 +747,7 @@ Note que $\mathcal D_{Tr}=\field{C}^-$, o semiplano negativo. Portanto o método
 
 
 \section{O método de Heun}
-Também chamado de método de \emph{Euler Modificado}. A ideia é calcular primeiramente um valor intermediário $\tilde{u}$ usando o método de Euler expl\'icito e usar esse valor na equação para o método do Trapézio. Ou seja, o \emph{método de Heun} é
+Também chamado de método de \emph{Euler modificado}. A ideia é calcular primeiramente um valor intermediário $\tilde{u}$ usando o método de Euler expl\'icito e usar esse valor na equação para o método do Trapézio. Ou seja, o \emph{método de Heun} é
 \begin{eqnarray}
   \tilde{u} &=& u_n +   h f(t_n,u_n) \\
   u_{n+1}   &=& u_n +  \frac{h}{2} \left(f(t_n,u_n)+f(t_{n+1},\tilde{u})\right)
@@ -854,7 +876,7 @@ onde  $u_n = (p(z))^nu_0$ e a região de estabilidade é dada por
  \mathcal D_{T} = \{z \in  \field{C}:  \left|p(z)\right|<1\}
 \end{eqnarray}
 
-Plote as regiões de estabilidade para o método de Taylor para $p=1,\ldots ,6$ no mesmo gráfico.
+Trace as regiões de estabilidade para o método de Taylor para $p=1,\ldots ,6$ no mesmo gráfico.
 \end{ex}
 
 % \begin{figure}
@@ -874,14 +896,14 @@ Aproxime a solução do PVI
 para  $t\in [0,10]$.
 
 \begin{enumerate}
-\item [a.] Plote a solução para $h=0.16,0.08, 0.04, 0.02, 0.01$ para o método de Taylor de ordem $1$, $2$ e $3$. (Plote todos de ordem $1$ no mesmo gráfico, ordem $2$ em outro gráfico e ordem $3$ outro gráfico separado.)
+\item [a.] Trace a solução para $h=0.16,0.08, 0.04, 0.02, 0.01$ para o método de Taylor de ordem $1$, $2$ e $3$. (Trace todos de ordem $1$ no mesmo gráfico, ordem $2$ em outro gráfico e ordem $3$ outro gráfico separado.)
 
-\item [b.] Utilizando a solução exata, plote um gráfico do erro em escala logar\'itmica.
+\item [b.] Utilizando a solução exata, trace um gráfico do erro em escala logar\'itmica.
 Comente os resultados (novamente, em cada gráfico separado para cada método repita os valores acima)
 
-\item [c.] Fixe agora o valor $h=0.02$ e plote no mesmo gráfico uma curva para cada método.
+\item [c.] Fixe agora o valor $h=0.02$ e trace no mesmo gráfico uma curva para cada método.
 
-\item [d.] Plote em um gráfico o erro em $t=10$ para cada um dos métodos (uma curva para cada ordem) a medida que $h$ diminui. (Use escala \verb#loglog#)
+\item [d.] Trace em um gráfico o erro em $t=10$ para cada um dos métodos (uma curva para cada ordem) a medida que $h$ diminui. (Use escala \verb#loglog#)
 \end{enumerate}
 \end{ex}
 
@@ -1903,17 +1925,17 @@ O valor exato é $\sqrt{\frac{g}{\alpha}\left[1-e^{{-200\alpha}}\right]}$ em $t=
 \end{resp}
 
 
-\begin{exer} Considere o seguinte modelo para o oscilador não-linear de Van der Pol:
+\begin{exer} Considere o seguinte modelo para o oscilador não linear de Van der Pol:
 $$u''(t) - \alpha (A-u(t)^2)u'(t) + w_0^2u(t)=0$$
 onde $A$, $\alpha$ e $w_0$ são constantes positivas.
 \begin{itemize}
 \item Encontre a frequência e a amplitude de oscilações quando $w_0=1$, $\alpha=.1$ e $A=10$. (Teste diversas condições iniciais)
 \item Estude a dependência da frequência e da amplitude com os parâmetros  $A$, $\alpha$ e $w_0$. (Teste diversas condições iniciais)
-\item Que diferenças existem entre esse oscilador não-linear e o oscilador linear?
+\item Que diferenças existem entre esse oscilador não linear e o oscilador linear?
 \end{itemize}
 \end{exer}
 
-\begin{exer} Considere o seguinte modelo para um oscilador não-linear:
+\begin{exer} Considere o seguinte modelo para um oscilador não linear:
 \begin{eqnarray*}
 u''(t)-\alpha(A-z(t))u'(t)+w_0^2 u(t)&=&0\\
 Cz'(t)+z(t)&=&u(t)^2
