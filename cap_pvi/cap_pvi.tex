@@ -4,7 +4,7 @@
 %\begin{document}
 
 \chapter{Problemas de valor inicial}\index{problema de valor inicial}
-Neste capítulo, vamos desenvolver técnicas numéricas para aproximar a solução do problema de valor inicial (PVI) dado pela equação diferencial ordinária (EDO) de primeira ordem
+Neste capítulo, vamos estudar técnicas numéricas para aproximar a solução do problema de valor inicial (PVI) dado pela equação diferencial ordinária (EDO) de primeira ordem
 \begin{subequations}\label{PVI}
 \begin{eqnarray}
   u'(t) &=& f(t, u(t))\label{PVI_EDO}\\
@@ -12,7 +12,7 @@ Neste capítulo, vamos desenvolver técnicas numéricas para aproximar a soluç�
 \end{eqnarray}
 \end{subequations}
 
-A incógnita de um problema de valor inicial é uma função que satisfaz a equação diferencial \eqref{PVI_EDO}  e a condição inicial \eqref{PVI_CI}.
+A incógnita de um problema de valor inicial é uma função que satisfaz a equação diferencial \eqref{PVI_EDO} e a condição inicial \eqref{PVI_CI}.
 
 Considere os próximos três exemplos:
 \begin{ex}
@@ -56,13 +56,13 @@ A solução do segundo exemplo é fácil de ser obtida: $u(t)=ae^t$. Porém como
 
 Muitos problemas de valor inicial da forma \eqref{PVI} não podem ser resolvidos exatamente, ou seja, sabe-se que a solução existe e é única, porém não podemos expressá-la em termos de funções elementares. Por isso é necessário calcular aproximações numéricas. Diversos métodos completamente diferentes estão disponíveis para aproximar uma função real.
 
-Existem várias maneiras de obter aproximações para a solução deste problema. Nos limitaremos a estudar métodos que aproximam $u(t)$ em um conjunto finito de valores de $t$ chamado \emph{malha} que será denotado por  $\{t_i\}_{i=1}^N=\{t_1, t_2, t_3,\ldots, t_N\}$. Desta forma, aproximamos a solução $u(t_i)$ por $u_i$ em cada ponto da malha usando diferentes esquemas numéricos.
+Existem várias maneiras de obter aproximações para a solução deste problema. Vamos nos limitar a estudar métodos que aproximam $u(t)$ em um conjunto finito de valores de $t$ chamado \emph{malha} que será denotado por  $\{t_i\}_{i=1}^N=\{t_1, t_2, t_3,\ldots, t_N\}$. Desta forma, aproximamos a solução $u(t_i)$ por $u_i$ em cada ponto da malha usando diferentes esquemas numéricos.
 
 %%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-Nos códgos em \verb+Python+ apresentados neste capítulo, estaremos assumindo que as seguintes bibliotecas e módulos estão importados:
+Nos códgos em \verb+Python+ apresentados neste capítulo, assumiremos que as seguintes bibliotecas e módulos estão importados:
 \begin{verbatim}
 from __future__ import division
 import numpy as np
@@ -105,6 +105,28 @@ $$ |u(t)-v(t)| \leq  e^{L(t-t_1)}|u_1-v_1| . $$
 \end{teo}
 
 \subsection*{Exercícios resolvidos}
+
+\begin{exeresol} A função $f(t,u)=\sqrt{u},~~u\geq 0$ não é uma função Lipschitz em $u$, pois
+$$\lim_{u\to 0+} \frac{|f(t,u)-f(t,0)|}{|u-0|}=\lim_{u\to 0+} \frac{\sqrt{u}}{u}=\lim_{u\to 0+} \frac{1}{\sqrt{u}}=\infty$$
+ Mostre que o seguinte problema de valor inicial não admite solução única:
+\begin{eqnarray}
+   \frac{du}{dt} &=&\sqrt{u},~~u>0,\\
+            u(0) &=& 0.
+\end{eqnarray}
+\end{exeresol}
+\begin{resol}
+ A função identicamente nula, $u(t)=0$, satisfaz a equação diferencial e a condição de contorno, logo é uma solução do problema de valor inicial. No entanto, a função\footnote{Esta solução pode ser obtida por separação de variáveis.} $u(t)=\frac{t^2}{4}$ satisfaz a condição inicial, pois $u(0)=0$ e a equação diferencial poir $\frac{du}{dt}=\frac{t}{2}=\sqrt{\frac{t^2}{4}}$.
+ 
+ De fato, qualquer função do tipo
+ $$u(t)=\left\{
+ \begin{array}{ll}
+  0,&0\leq t \leq t_0\\
+  \frac{(t-t_0)^2}{4},& t >t_0\\
+ \end{array}
+ \right.$$
+ é solução do problema de valor inicial dado.
+\end{resol}
+
 
 \emconstrucao
 
@@ -312,10 +334,10 @@ u_{k+1}&=& u_k+h u_k(1-u_k), \\
 u_1&=& 1/2.
 \end{eqnarray*}
 
-Para fins de comparação, calculamos a solução exata e aproximada para alguns valores de $t$ e de passo $h$ e resumimos na tabela~\ref{tab:log}.
+Para fins de comparação, calculamos a solução exata e aproximada para alguns valores de $t$ e de passo $h$ e resumimos na Tabela~\ref{tab:log}.
 
 \begin{table}
-  \caption{Tabela comparativa entre método de Euler e solução exata para problema \ref{ex_euler_1}.}
+  \caption{Tabela comparativa entre método de Euler e solução exata para Problema~\ref{ex_euler_1}.}
   \label{tab:log}
   \begin{tabular}{|c|c|c|c|}\hline
     $t$ & $\text{Exato}$ & $\text{Euler}~~ h=0,1$ & $\text{Euler}~~ h=0,01$\\\hline
@@ -328,7 +350,7 @@ Para fins de comparação, calculamos a solução exata e aproximada para alguns
 \end{table}
 
 
-No exemplo a seguir, apresentamos um problema envolvendo uma equação não-autônoma\index{equação diferencial!não autônoma}, isto é, quando a função $f(u)$ depende explicitamente do tempo.
+No exemplo a seguir, apresentamos um problema envolvendo uma equação não-autônoma\index{equação diferencial!não autônoma}, isto é, quando a função $f(t,u)$ depende explicitamente do tempo.
 
 \begin{ex}
 Resolva o problema de valor inicial
@@ -392,9 +414,9 @@ Usando a condição de Lipschitz em $f$  temos
                   &\le &  (1+ hL) |e_n|+\frac{h^2}{2}|u''_n|+\mathcal O(h^3)
 \end{eqnarray}
 
-\subsection{Erro de truncamento Local}
+\subsection{Erro de truncamento local}
 
-O \emph{Erro de Truncamento Local} é o erro cometido em \textbf{uma} iteração do método numérico supondo que a solução exata é conhecida no passo anterior.
+O \emph{erro de truncamento local} é o erro cometido em \textbf{uma} iteração do método numérico supondo que a solução exata é conhecida no passo anterior.
 
 Assim, supondo que a solução é exata em $t_n$ ($|e_n|=0$), obtemos que o ETL é
 $$ETL_{Euler}^{n+1}= h^2/2|u''|+ \mathcal O(h^3) = \mathcal O(h^2)$$
@@ -402,8 +424,8 @@ $$ETL_{Euler}^{n+1}= h^2/2|u''|+ \mathcal O(h^3) = \mathcal O(h^2)$$
 Como o $ETL=\mathcal O(h^2)$ temos que o método de Euler possui ordem $1$.
 
 
-\subsection{Erro de truncamento Global}
-O \emph{Erro de Truncamento Global} é o erro cometido durante \textbf{várias} iterações do método numérico.
+\subsection{Erro de truncamento global}
+O \emph{erro de truncamento global} é o erro cometido durante \textbf{várias} iterações do método numérico.
 
 Supondo que a solução exata é conhecida em $t_1$ ($\|e_1\|=0$), então realizando $n=\frac{T}{h}$ iterações obtemos
 \begin{eqnarray}
@@ -563,7 +585,7 @@ Para que o método de Euler seja estável, é necessário que $h$ seja escolhido
 \begin{eqnarray}
  \mathcal D_{Euler} = \{z \in  \mathbb{C}: |1+z|<1\}
 \end{eqnarray}
-é o interior de um disco no plano complexo de raio $1$ e centro em $z=-1$ como na Fig.\ref{RegiaoEuler}.
+é o interior de um disco no plano complexo de raio $1$ e centro em $z=-1$.% como na Fig.\ref{RegiaoEuler}.
 % \begin{figure}[htp]
 % \begin{center}
 %   \includegraphics[width=8cm]{RegiaoEuler.eps}\\
@@ -575,7 +597,7 @@ Para que o método de Euler seja estável, é necessário que $h$ seja escolhido
 
 Tal análise pode ser facilmente estendida para $u'=\lambda u+b$ (veja exercícios).
 
-Para o caso EDO não-linear, seja
+Para o caso EDO não linear, seja
 \begin{eqnarray}
 u'= f(t,u), \quad  t\geq t_0, \quad  u(t_0)=u_0
 \end{eqnarray}
@@ -682,7 +704,7 @@ $$    \{z \in \field{C}: \Re{z}<0\} \subseteq \mathcal D$$
 Portanto o método de Euler implícito é $A$-estável (incondicionalmente estável).
 
 
-\section{Método Trapezoidal}\index{método!trapezoidal}
+\section{Método trapezoidal}\index{método!trapezoidal}
 O método de Euler aproxima $f$ como uma constante no intervalo $[t_1,t_2]$. Podemos melhorar isso usando a regra do trapézio,
 
 \begin{eqnarray}
@@ -725,7 +747,7 @@ Note que $\mathcal D_{Tr}=\field{C}^-$, o semiplano negativo. Portanto o método
 
 
 \section{O método de Heun}
-Também chamado de método de \emph{Euler Modificado}. A ideia é calcular primeiramente um valor intermediário $\tilde{u}$ usando o método de Euler expl\'icito e usar esse valor na equação para o método do Trapézio. Ou seja, o \emph{método de Heun} é
+Também chamado de método de \emph{Euler modificado}. A ideia é calcular primeiramente um valor intermediário $\tilde{u}$ usando o método de Euler expl\'icito e usar esse valor na equação para o método do Trapézio. Ou seja, o \emph{método de Heun} é
 \begin{eqnarray}
   \tilde{u} &=& u_n +   h f(t_n,u_n) \\
   u_{n+1}   &=& u_n +  \frac{h}{2} \left(f(t_n,u_n)+f(t_{n+1},\tilde{u})\right)
@@ -854,7 +876,7 @@ onde  $u_n = (p(z))^nu_0$ e a região de estabilidade é dada por
  \mathcal D_{T} = \{z \in  \field{C}:  \left|p(z)\right|<1\}
 \end{eqnarray}
 
-Plote as regiões de estabilidade para o método de Taylor para $p=1,\ldots ,6$ no mesmo gráfico.
+Trace as regiões de estabilidade para o método de Taylor para $p=1,\ldots ,6$ no mesmo gráfico.
 \end{ex}
 
 % \begin{figure}
@@ -874,14 +896,14 @@ Aproxime a solução do PVI
 para  $t\in [0,10]$.
 
 \begin{enumerate}
-\item [a.] Plote a solução para $h=0.16,0.08, 0.04, 0.02, 0.01$ para o método de Taylor de ordem $1$, $2$ e $3$. (Plote todos de ordem $1$ no mesmo gráfico, ordem $2$ em outro gráfico e ordem $3$ outro gráfico separado.)
+\item [a.] Trace a solução para $h=0.16,0.08, 0.04, 0.02, 0.01$ para o método de Taylor de ordem $1$, $2$ e $3$. (Trace todos de ordem $1$ no mesmo gráfico, ordem $2$ em outro gráfico e ordem $3$ outro gráfico separado.)
 
-\item [b.] Utilizando a solução exata, plote um gráfico do erro em escala logar\'itmica.
+\item [b.] Utilizando a solução exata, trace um gráfico do erro em escala logar\'itmica.
 Comente os resultados (novamente, em cada gráfico separado para cada método repita os valores acima)
 
-\item [c.] Fixe agora o valor $h=0.02$ e plote no mesmo gráfico uma curva para cada método.
+\item [c.] Fixe agora o valor $h=0.02$ e trace no mesmo gráfico uma curva para cada método.
 
-\item [d.] Plote em um gráfico o erro em $t=10$ para cada um dos métodos (uma curva para cada ordem) a medida que $h$ diminui. (Use escala \verb#loglog#)
+\item [d.] Trace em um gráfico o erro em $t=10$ para cada um dos métodos (uma curva para cada ordem) a medida que $h$ diminui. (Use escala \verb#loglog#)
 \end{enumerate}
 \end{ex}
 
@@ -905,7 +927,7 @@ Comente os resultados (novamente, em cada gráfico separado para cada método re
 % \begin{equation}{\label{erro_local_1}}
 % u(t_{n+1})=\mathcal{F}(f, h, u(t_n), u(t_{n-1}), \cdots, u_0) + O(h^{p+1})
 % \end{equation}
-% para cada função analítica $f$, dizemos que o método tem erro de truncamento da ordem de $O(h^{p})$ ou {\bf ordem de precisão $p$}\index{método!de Euler!ordem de precisão}. Essa afirmação faz sentido quando fazemos a seguinte análise informal: para aproximar $u_1$, acumulamos erros da ordem $O(h^{p+1})$, para calcular $u_2$ acumulamos os erros de $u_1$ e novos erros $O(h^{p+1})$. Para calcular $u_N$, acumulamos todos os erros até $t_N$, ou seja, $N$ vezes $O(h^{p+1})$. Como $N=O(1/h)$, temos que os erros ao calcular $u_N$ são da ordem $O(h^p)$. É verdade que essa análise só vale quando impomos condições de suavidade para $f$ e condições adequada para a expressão $\mathcal{F}(f, h, u(t_n), u(t_{n-1}), \cdots, u_0)$. Para explicar melhor esse pequeno texto, fazemos em detalhes essa operação para o método de Euler na seção \ref{sec_pre_euler}.
+% para cada função analítica $f$, dizemos que o método tem erro de truncamento da ordem de $O(h^{p})$ ou {\bf ordem de precisão $p$}\index{método!de Euler!ordem de precisão}. Essa afirmação faz sentido quando fazemos a seguinte análise informal: para aproximar $u_1$, acumulamos erros da ordem $O(h^{p+1})$, para calcular $u_2$ acumulamos os erros de $u_1$ e novos erros $O(h^{p+1})$. Para calcular $u_N$, acumulamos todos os erros até $t_N$, ou seja, $N$ vezes $O(h^{p+1})$. Como $N=O(1/h)$, temos que os erros ao calcular $u_N$ são da ordem $O(h^p)$. É verdade que essa análise só vale quando impomos condições de suavidade para $f$ e condições adequada para a expressão $\mathcal{F}(f, h, u(t_n), u(t_{n-1}), \cdots, u_0)$. Para explicar melhor esse pequeno texto, fazemos em detalhes essa operação para o método de Euler na Seção~\ref{sec_pre_euler}.
 %
 % \subsection{Ordem de precisão do método de Euler}{\label{sec_pre_euler}}
 % Primeiro lembramos da expressão (\ref{erro_local}) que origina a seguinte relação de recorrência:
@@ -924,7 +946,7 @@ Comente os resultados (novamente, em cada gráfico separado para cada método re
 %  &=&u(t_1)+hf(u_1,t_1) +O(h^2)\\
 %  &=&u_1+O(h^2)+hf(u_1,t_1) +O(h^2)= u_2+O(h^2)+O(h^2).
 % \end{eqnarray*}
-% onde usamos o primeiro termo da série de Taulor $hf(u_1+O(h^2),t_1)=hf(u_1,t_1)+O(h^3)$ na passagem da segunda para terceira linha. Repetindo sucessivamente o passo anterior, obtemos uma expressão geral para o valor exato $u(t_N)$ em termos do valor aproximado $u_N$:
+% onde usamos o primeiro termo da série de Taylor $hf(u_1+O(h^2),t_1)=hf(u_1,t_1)+O(h^3)$ na passagem da segunda para terceira linha. Repetindo sucessivamente o passo anterior, obtemos uma expressão geral para o valor exato $u(t_N)$ em termos do valor aproximado $u_N$:
 % \begin{eqnarray*}
 %  u(t_N)=u_N+N O(h^2) .
 % \end{eqnarray*}
@@ -932,7 +954,7 @@ Comente os resultados (novamente, em cada gráfico separado para cada método re
 % \begin{eqnarray}{\label{euler_precisao}}
 %  u(t_N)&=&=u_{N}+\frac{t-t_0}{h}O(h^2)=u_{N}+\mathcal{O}(h),
 % \end{eqnarray}
-% ou seja, o erro entre o valor exato e o aproximado é de ordem $h$. Uma demonstração mais formal que garante que o erro é limitado por uma expressão que é proporcional a $h$ está discutido na seção \ref{sec_conv_Euler}.
+% ou seja, o erro entre o valor exato e o aproximado é de ordem $h$. Uma demonstração mais formal que garante que o erro é limitado por uma expressão que é proporcional a $h$ está discutido na Seção~\ref{sec_conv_Euler}.
 %
 % \subsection{Ordem de precisão do método de Euler melhorado}
 % Para obter o erro de precisão do método de Euler melhorado vamos calcular o erro de truncamento do método, ou seja, precisamos demonstrar que:
@@ -945,12 +967,12 @@ Comente os resultados (novamente, em cada gráfico separado para cada método re
 % &&=u(t)+hu'(t)+\frac{h^2}{2}u''(t)+O(h^3)\\
 % &&-\left(u(t)+\frac{h}{2} u'(t)+\frac{h}{2} f(t,u(t)+hf(t,u(t))),t+h)\right),
 % \end{eqnarray*}
-% onde usamos uma expansão em série de Taulor para $u(t+h)$ e a equação diferencial $u'(t)=f(t,u(t))$. Portanto,
+% onde usamos uma expansão em série de Taylor para $u(t+h)$ e a equação diferencial $u'(t)=f(t,u(t))$. Portanto,
 % \begin{eqnarray*}
 % &&u(t+h)-\left(u(t)+\frac{h}{2} f(t,u(t))+\frac{h}{2} f(t,u(t)+hf(t,u(t))),t+h)\right)\\
 % &&=\frac{h}{2}u'(t)+\frac{h^2}{2}u''(t)-\frac{h}{2} f(t,u(t)+hf(t,u(t))),t+h)+O(h^3).
 % \end{eqnarray*}
-% Agora, usamos a série de Taulor de $f(t,u(t)+hf(t,u(t)),t+h)$ e, torno de $(t,u)$:
+% Agora, usamos a série de Taylor de $f(t,u(t)+hf(t,u(t)),t+h)$ e, torno de $(t,u)$:
 % \begin{eqnarray*}
 % &&u(t+h)-\left(u(t)+\frac{h}{2} f(t,u(t))+\frac{h}{2} f(t,u(t)+hf(t,u(t))),t+h)\right)\\
 % &&=\frac{h}{2}u'(t)+\frac{h^2}{2}u''(t)+O(h^3)\\
@@ -968,7 +990,7 @@ Comente os resultados (novamente, em cada gráfico separado para cada método re
 % &&=\frac{h}{2}u'(t)+\frac{h^2}{2}u''(t)\\
 % &&-\frac{h}{2}\left(u'(t)+hu''(t)\right)+O(h^3)=O(h^3)
 % \end{eqnarray*}
-% Portanto, a expressão (\ref{es_Euler_melhorado}) é válida. Logo, usando uma discussão análoga aquela feita na seção \ref{sec_pre_euler} para o método de Euler, concluímos que o método de Euler melhorado possui ordem de precisão 2.
+% Portanto, a expressão (\ref{es_Euler_melhorado}) é válida. Logo, usando uma discussão análoga aquela feita na Seção~\ref{sec_pre_euler} para o método de Euler, concluímos que o método de Euler melhorado possui ordem de precisão 2.
 
 % \section{Convergência}
 %
@@ -993,7 +1015,7 @@ Comente os resultados (novamente, em cada gráfico separado para cada método re
 
 \emconstrucao
 
-\section{Métodos de Passo Múltiplo}
+\section{Métodos de passo múltiplo}
 Seja o PVI
 \begin{eqnarray}
   u'(t) &= f(t,u(t)) \\
@@ -1314,7 +1336,7 @@ O método \eqref{AB3} de Adams-Bashforth para $s=3$ estágios é de ordem $3$ de
 \end{ex}
 
 
-\subsection{Consistência, Estabilidade e Convergência}
+\subsection{Consistência, estabilidade e convergência}
 \begin{teo}
 Um método de passo múltiplo é \emph{consistente} se $\rho (1)=0$ e $\rho '(1)=\sigma (1)$.
 \end{teo}
@@ -1434,7 +1456,7 @@ O método BDF de 2 estágios é A-estável.
 %%
 %%Para que o método seja estável, é necessário que $|w_1|<1$ e $|w_2|<1$.
 %%
-%%Tal condição é satisfeita para a região dentro da curva na figura \ref{RegiaoBDF}.
+%%Tal condição é satisfeita para a região dentro da curva na Figura~\ref{RegiaoBDF}.
 %%
 %%\begin{figure}
 %%\begin{center}
@@ -1522,7 +1544,7 @@ O método BDF de 2 estágios é A-estável.
 
 \section{Métodos de Runge-Kutta}
 
-\subsection{Método de Runge-Kutta Explícito}
+\subsection{Método de Runge-Kutta explícito}
 Seja a EDO
 \begin{eqnarray}
   u'(t) &=&f(t,u(t)) \\
@@ -1715,7 +1737,7 @@ que possui uma tabela como
 % k_n&=&hf(u_k+\alpha_{n,1}k_1+\alpha_{n,2}k_2+\ldots \alpha_{n,n-1}k_{n-1},t_k+\beta_{n}h)\\
 % \end{eqnarray*}
 %
-% Os coeficientes são escolhidos de forma que a expansão em Taulor de $u_{k+1}$ e $u_k+w_1 k_1 + \ldots + w_n k_n$ coincidam até ordem $n+1$.
+% Os coeficientes são escolhidos de forma que a expansão em Taylor de $u_{k+1}$ e $u_k+w_1 k_1 + \ldots + w_n k_n$ coincidam até ordem $n+1$.
 %
 % \begin{ex} O método de Euler melhorado é um exemplo de Runge-Kutta de segunda ordem
 % $$u^{(n+1)}=u^{(n)}+\frac{k_1+k_2}{2}$$
@@ -1797,7 +1819,7 @@ Segundo Ferziger/Peric/Roache, podemos também estimar $p$ diretamente de
 
 
 \section{Sistemas de equações diferenciais e equações de ordem superior}
-O problema \eqref{PVI} pode ser um sistema de equações de primeira ordem, isto é, a incógnita $y(t)$ pode ser um vetor de funções, como mostra o exemplo~\ref{eq_exemplo_sistema}
+O Problema~\eqref{PVI} pode ser um sistema de equações de primeira ordem, isto é, a incógnita $y(t)$ pode ser um vetor de funções, como mostra o Exemplo~\ref{eq_exemplo_sistema}
 \begin{ex}\label{exemplo_sistema_PVI}O problema de valor inicial
 \begin{subequations}\label{eq_exemplo_sistema}
 \begin{eqnarray}
@@ -1810,7 +1832,7 @@ v(0)&=&0.
 pode ser escrito na forma \eqref{PVI} com $y(t)$
 \end{ex}
 
-No exemplo \ref{sys_edo}, mostramos como o método de Euler pode ser facilmente estendido para problemas envolvendo sistemas de equações diferenciais.\index{sistemas!de equações diferenciais}.
+No Exemplo~\ref{sys_edo}, mostramos como o método de Euler pode ser facilmente estendido para problemas envolvendo sistemas de equações diferenciais.\index{sistemas!de equações diferenciais}.
 \begin{ex}\label{sys_edo} Escreva o processo iterativo de Euler para resolver numericamente o seguinte sistema de equações diferenciais
 \begin{eqnarray*}
 x'&=&-y\\
@@ -1903,17 +1925,17 @@ O valor exato é $\sqrt{\frac{g}{\alpha}\left[1-e^{{-200\alpha}}\right]}$ em $t=
 \end{resp}
 
 
-\begin{exer} Considere o seguinte modelo para o oscilador não-linear de Van der Pol:
+\begin{exer} Considere o seguinte modelo para o oscilador não linear de Van der Pol:
 $$u''(t) - \alpha (A-u(t)^2)u'(t) + w_0^2u(t)=0$$
 onde $A$, $\alpha$ e $w_0$ são constantes positivas.
 \begin{itemize}
 \item Encontre a frequência e a amplitude de oscilações quando $w_0=1$, $\alpha=.1$ e $A=10$. (Teste diversas condições iniciais)
 \item Estude a dependência da frequência e da amplitude com os parâmetros  $A$, $\alpha$ e $w_0$. (Teste diversas condições iniciais)
-\item Que diferenças existem entre esse oscilador não-linear e o oscilador linear?
+\item Que diferenças existem entre esse oscilador não linear e o oscilador linear?
 \end{itemize}
 \end{exer}
 
-\begin{exer} Considere o seguinte modelo para um oscilador não-linear:
+\begin{exer} Considere o seguinte modelo para um oscilador não linear:
 \begin{eqnarray*}
 u''(t)-\alpha(A-z(t))u'(t)+w_0^2 u(t)&=&0\\
 Cz'(t)+z(t)&=&u(t)^2
@@ -1980,7 +2002,7 @@ onde $I$ é a corrente de excitação.
 \frac{d u(t)}{dt} &=& -u(t) + e^{-t} \\
 u(0)&=&0
 \end{eqnarray*}
-Resolva analiticamente este problema usando as técnicas elementares de equações diferenciais ordinárias. A seguir encontre aproximações numéricas usando os métodos de Euler, Euler modificado, Runge-Kutta Clássico e Adams-Bashforth de ordem 4 conforme pedido nos itens.
+Resolva analiticamente este problema usando as técnicas elementares de equações diferenciais ordinárias. A seguir encontre aproximações numéricas usando os métodos de Euler, Euler modificado, Runge-Kutta clássico e Adams-Bashforth de ordem 4 conforme pedido nos itens.
 \begin{itemize}
 \item[a)]  Construa uma tabela apresentando valores com 7 algarismos significativos para comparar a solução analítica com as aproximações numéricas produzidas pelos métodos sugeridos. Construa também uma tabela para o erro absoluto obtido por cada método numérico em relação à solução analítica. Nesta última tabela, expresse o erro com 2 algarismos significativos em formato científico. Dica: $format('e',8)$ para a segunda tabela.
 \begin{center}
@@ -1994,7 +2016,7 @@ Euler&&&&&\\
 \hline
 Euler modificado&&&&&\\
 \hline
-Runge-Kutta Clássico&&&&&\\
+Runge-Kutta clássico&&&&&\\
 \hline
 Adams-Bashforth ordem 4&&&&&\\
 \hline
@@ -2010,7 +2032,7 @@ Euler&&&&&\\
 \hline
 Euler modificado&&&&&\\
 \hline
-Runge-Kutta Clássico&&&&&\\
+Runge-Kutta clássico&&&&&\\
 \hline
 Adams-Bashforth ordem 4&&&&&\\
 \hline
@@ -2027,7 +2049,7 @@ Euler&&&&&\\
 \hline
 Euler modificado&&&&&   \\
 \hline
-Runge-Kutta Clássico&&&&&\\
+Runge-Kutta clássico&&&&&\\
 \hline
 Adams-Bashforth ordem 4&&&&&\\
 \hline
@@ -2052,7 +2074,7 @@ Euler& 0.3315955 &   0.3969266 &   0.3563684 &   0.2844209  &  0.2128243\\
 \hline
 Euler modificado &0.3025634 &   0.3671929 &   0.3342207 &   0.2704083  &  0.2051058 \\
 \hline
-Runge-Kutta Clássico& 0.3032649  &  0.3678790  &  0.3346949  &  0.2706703  &  0.2052124\\
+Runge-Kutta clássico& 0.3032649  &  0.3678790  &  0.3346949  &  0.2706703  &  0.2052124\\
 \hline
 Adams-Bashforth ordem 4& 0.3032421  &  0.3678319 &   0.3346486  &  0.2706329  &  0.2051848  \\
 \hline
@@ -2069,7 +2091,7 @@ Euler& 2.8D-02  &  2.9D-02  &  2.2D-02  &  1.4D-02 &   7.6D-03\\
 \hline
 Euler modificado& 7.0D-04  &  6.9D-04   & 4.7D-04 &   2.6D-04 &   1.1D-04\\
 \hline
-Runge-Kutta Clássico& 4.6D-07 &   4.7D-07    &3.5D-07  &  2.2D-07 &   1.2D-07\\
+Runge-Kutta clássico& 4.6D-07 &   4.7D-07    &3.5D-07  &  2.2D-07 &   1.2D-07\\
 \hline
 Adams-Bashforth ordem 4&  2.3D-05 &   4.8D-05  &  4.7D-05  &  3.8D-05  &  2.8D-05 \\
 \hline
@@ -2085,7 +2107,7 @@ Euler&2.9D-02  &  5.6D-03 &   2.8D-03 &   5.5D-04 &   2.8D-04\\
 \hline
 Euler modificado&6.9D-04 &   2.5D-05  &  6.2D-06 &   2.5D-07 &   6.1D-08   \\
 \hline
-Runge-Kutta Clássico& 4.7D-07 &   6.9D-10 &   4.3D-11   & 6.8D-14  &  4.4D-15\\
+Runge-Kutta clássico& 4.7D-07 &   6.9D-10 &   4.3D-11   & 6.8D-14  &  4.4D-15\\
 \hline
 Adams-Bashforth ordem 4&4.8D-05 &   9.0D-08 &   5.7D-09 &   9.2D-12 &   5.8D-13  \\
 \hline

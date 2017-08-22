@@ -12,9 +12,12 @@ Qualquer dúvida, escreva em nossa lista de discussão:
 
 O livro está escrito em língua portuguesa, seguindo os costumes linguísticos brasileiros. Dá-se prioridade à ortografia prevista no Acordo Ortográfico de 1990.
 
-### Capitalização de nomes de métodos
+### Capitalização 
 
-Deve-se usar maiúscula apenas em nomes próprios, ex: método de Newton, métodos dos mínimos quadrados.
+Deve-se usar maiúscula apenas em nomes próprios, ex: método de Newton, métodos dos mínimos quadrados, teorema de Liouville, método de Euler implícito.
+O uso de maiúsculas e minúsculas nos títulos (de capítulos, seções etc) segue a mesma regra do corpo do texto.
+Em referências internas, como a teoremas, lemas e exercícios, usa-se Maiúscula inicial, seguido de (~) tilde e o comendo de referencia:
+  Seguindo o Teorema~\ref{rótulo_do_teorema}.
 
 
 ## Código fonte LaTeX

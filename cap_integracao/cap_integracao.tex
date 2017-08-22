@@ -22,7 +22,7 @@ O tamanho de cada intervalo é dado por $h_i=x_{i+1}-x_i$. No caso uniforme, tod
 Nas próximas seções apresentaremos formas diferentes de aproximar $\Delta S_i$ iniciando com o caso mais simples que é um retângulo. Cada uma das regras obtidas também é chamada de quadratura.
 
 \begin{ex}
-A figura~\ref{fig:int_101} mostra um exemplo quando $f(x)=x^2+1$, $0\leq x\leq 2$. Temos a aproximação por um retângulo com base $h_1=2$, depois com dois retângulos de base $h_2=1$ e, finalmente com quatro retângulo de bases $h_3=0,5$.
+A Figura~\ref{fig:int_101} mostra um exemplo quando $f(x)=x^2+1$, $0\leq x\leq 2$. Temos a aproximação por um retângulo com base $h_1=2$, depois com dois retângulos de base $h_2=1$ e, finalmente com quatro retângulo de bases $h_3=0,5$.
 \begin{figure}
   \centering
   \includegraphics[scale=0.7]{./cap_integracao/pics/int_1/int_1.eps}
@@ -50,7 +50,7 @@ Observe que:
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-Nos códigos \verb+Python+ apresentados ao longo deste capítulo, estaremos assumindo:
+Nos códigos \verb+Python+ apresentados ao longo deste capítulo, assumiremos o seguinte:
 \begin{verbatim}
 >>> from __future__ import division
 >>> import numpy as np
@@ -428,7 +428,7 @@ $$
     \text{c)}~\int_0^1x^3\,dx & \text{d)}~\int_0^1xe^{-x^2}\,dx\\
     \text{e)}~\int_0^1\frac{1}{x^2+1}\,dx &\text{e)}~\int_0^1\frac{x}{x^2+1}\;dx
   \end{eqnarray*}
-usando os métodos simples do Ponto médio, Trapézio e Simpson. Calcule, também, o valor analítico destas integrais e o erro nas aproximações dadas pelas quadraturas numéricas.
+usando os métodos simples do ponto médio, Trapézio e Simpson. Calcule, também, o valor analítico destas integrais e o erro nas aproximações dadas pelas quadraturas numéricas.
 \end{exer}
 % \begin{resp}
 %
@@ -516,9 +516,9 @@ $9$  & & &\\
 Na seção anterior, obtivemos as regras de quadraturas pela aproximação do integrando por polinômios interpoladores de Lagrange. Aqui, veremos um outro método para obter regras de quadratura, que torna-se bastante útil para quando temos muitos pontos ou quando o intervalo entre os pontos não é uniforme.
 
 Dados $n$ pontos $[t_1,t_2,\ldots ,t_n]$, queremos obter uma aproximação para
-\begin{align}\label{regraint}
+\begin{equation}\label{regraint}
   \int _a^b f(t) \;dt \approx w_1f(t_1)+w_2f(t_2)+\ldots +w_nf(t_n)
-\end{align}
+\end{equation}
 que seja exata para polinômios\footnote{Por exemplo, se $n=2$, então a regra é exata para retas.} até ordem  $n-1$.
 
 Aproxime $f(t)$ pelo polinômio $p(t)=w_1\phi_1(t)+\ldots +w_n \phi_n(t)$ de ordem $n-1$. Escolha uma base, como por exemplo $\phi _k(t)=t^{k-1}$. Como a regra de quadratura deve ser exata para qualquer polinômio até ordem $n-1$, então também deve ser exata para qualquer função da base. Substituindo $f(t)$ por $\phi _1(t)=1$ em \eqref{regraint} obtemos
@@ -527,14 +527,14 @@ Aproxime $f(t)$ pelo polinômio $p(t)=w_1\phi_1(t)+\ldots +w_n \phi_n(t)$ de ord
                               b-a  &=&  w_1+w_2+\ldots +w_n
 \end{eqnarray}
 
-Da mesma forma para $\phi_k(t)$, $k=2,\ldots,n$, obtemos
-\begin{align}
-   (t^2/2)|_a^b = \frac{b^2-a^2}{2} &=  w_1t_1  +w_2t_2  +\ldots +w_nt_n   \\
-   (t^3/3)|_a^b = \frac{b^3-a^3}{3} &=  w_1t_1^2+w_2t_2^2+\ldots +w_nt_n^2 \\
-                    \vdots          &=  \vdots    \\
- \frac{b^{n}-a^{n}}{n}              &=  w_1t_1^{n-1}+w_2t_2^{n-1}+\ldots +w_nt_n^{n-1}
-\end{align}
-que pode ser escrito na forma matricial
+Da mesma forma para $\phi_k(t)$, $k=2,\ldots,n$, obtemos:
+\begin{eqnarray}
+   (t^2/2)|_a^b = \frac{b^2-a^2}{2} &=&  w_1t_1  +w_2t_2  +\ldots +w_nt_n   \\
+   (t^3/3)|_a^b = \frac{b^3-a^3}{3} &=&  w_1t_1^2+w_2t_2^2+\ldots +w_nt_n^2 \\
+                              &\vdots&      \\
+ \frac{b^{n}-a^{n}}{n}              &=&  w_1t_1^{n-1}+w_2t_2^{n-1}+\ldots +w_nt_n^{n-1}
+\end{eqnarray}
+que pode ser escrito na forma matricial a seguir:
 \begin{equation}
 \begin{bmatrix}
     1     &  1    & \ldots   &  1 \\
@@ -545,25 +545,25 @@ que pode ser escrito na forma matricial
 \end{bmatrix}
 \begin{bmatrix}  w_1 \\ w_2\\ w_3  \\ \vdots   \\ w_n     \end{bmatrix}
 =
-\begin{bmatrix}  b-a  \\ \frac{b^2-a^2}{2} \\ \frac{b^3-a^3}{3} \\ \vdots  \\ \frac{b^{n}-a^{n}}{n}  \end{bmatrix}
+\begin{bmatrix}  b-a  \\ \frac{b^2-a^2}{2} \\ \frac{b^3-a^3}{3} \\ \vdots  \\ \frac{b^{n}-a^{n}}{n}  \end{bmatrix}.
 \end{equation}
-Resolvendo o sistema obtemos os coeficientes $w_k$ para a regra de integração.
+Resolvendo o sistema, obtemos os coeficientes $w_k$ para a regra de integração.
 
 \begin{ex}
 Seja $n=3$, $[a,b]=[0,h]$, onde $[t_1,t_2,t_3]=[0,h/2,h]$. Obtenha uma regra de integração para aproximar $\int _a^b f(t)\;dt$.
 \end{ex}
 \begin{sol}
 A regra terá a forma
-\begin{align}
-  \int _a^b f(t)\;dt & \approx w_1f(t_1)+w_2f(t_2)+w_3f(t_3)\\
-                 & \approx w_1f_1   +w_2f_2   +w_3f_3.
-\end{align}
+\begin{eqnarray}
+  \int _a^b f(t)\;dt & \approx& w_1f(t_1)+w_2f(t_2)+w_3f(t_3)\\
+                 & \approx& w_1f_1   +w_2f_2   +w_3f_3.
+\end{eqnarray}
 Considere a base polinomial $[\phi _1(t),\phi _2(t),\phi _3(t)]=[1,t,t^2]$ e substitua $f(t)$ por $\phi_k(t)$ obtendo
-\begin{align}
-   \int _0^h 1   \;dt = h     &=  w_1(1)   +w_2(1)     + w_3(1) \\
-   \int _0^h t   \;dt = h^2/2 &=  w_1(0)   +w_2(h/2)   + w_3(h) \\
-   \int _0^h t^2 \;dt = h^3/3 &=  w_1(0)^2 +w_2(h/2)^2 + w_3(h)^2
-\end{align}
+\begin{eqnarray}
+   \int _0^h 1   \;dt = h     &=&  w_1(1)   +w_2(1)     + w_3(1) \\
+   \int _0^h t   \;dt = h^2/2 &=&  w_1(0)   +w_2(h/2)   + w_3(h) \\
+   \int _0^h t^2 \;dt = h^3/3 &=&  w_1(0)^2 +w_2(h/2)^2 + w_3(h)^2
+\end{eqnarray}
 que pode ser escrito na forma matricial
 \begin{equation}
 \begin{bmatrix}
@@ -724,7 +724,7 @@ pelas regras compostas do ponto médio, trapézio e Simpson variando o número d
   As aproximações calculadas são apresentadas na seguinte tabela:
   \begin{center}
   \begin{tabular}{c|ccc}\hline
-    n &  \text{Ponto Médio} &  \text{Trapézios} & \text{Simpson}\\ \hline
+    n &  \text{Ponto médio} &  \text{Trapézios} & \text{Simpson}\\ \hline
     1 & 5,4365637&218,3926&76,421909\\
     2&21,668412&111,91458&51,750469\\
     3&31,678746&80,272022&47,876505\\
@@ -740,7 +740,7 @@ pelas regras compostas do ponto médio, trapézio e Simpson variando o número d
 \subsection*{Exercícios}
 
 \begin{exer}
-Use as rotinas construídas em aula e calcule numericamente o valor das seguintes integrais usando o método composto dos trapézios para os seguintes números de pontos:
+Use as rotinas computacionais para calcular numericamente o valor das seguintes integrais usando o método composto dos trapézios para os seguintes números de pontos:
 $$
 \begin{array}{|c|c|c|c|c|c|}
 \hline
@@ -811,7 +811,7 @@ O método de Romberg é um método simplificado para construir quadraturas de al
 
 Considere o método de trapézios composto aplicado à integral
 $$\int_a^bf(x)\;dx$$
-Defina $I(h)$ a aproximação desta integral pelo método dos trapézios composto com  malha de largura constante igual a h. Aqui $h=\frac{b-a}{N_i}$ para algum $N_i$ inteiro, i.e.:
+Defina $I(h)$ a aproximação desta integral pelo método dos trapézios composto com  malha de largura constante igual a h. Aqui $h=\frac{b-a}{N_i}$ para algum $N_i$ inteiro, isto é:
 $$I(h)=\frac{h}{2}\left[f(a)+2\sum_{j=2}^{N_i} f(x_j)+ f(b)\right],~~~N_i=\frac{b-a}{h}$$
 
 \begin{teo} Se $f(x)$ é uma função analítica no intervalo $(a,b)$, então a função $I(h)$ admite uma representação na forma
@@ -856,7 +856,7 @@ R_{n,1}&=&I(h/2^{n-1})
 Observamos que os pontos envolvidos na quadratura $R_{k,1}$ são os mesmos pontos envolvidos na quadratura $R(k-1,1)$ acrescidos dos pontos centrais, assim, temos a seguinte fórmula de recorrência:
 $$R_{k,1}=\frac{1}{2}R_{k-1,1}+\frac{h}{2^{k-1}} \sum_{i=1}^{2^{k-2}}f\left(a+(2i-1)\frac{h}{2^{k-1}}\right)$$
 
-Definimos $R_{k,2}$ para $k\geq 2$ como o esquema de ordem quatro obtido da fórmula do exemplo \ref{exemplo_romberg_1}:
+Definimos $R_{k,2}$ para $k\geq 2$ como o esquema de ordem quatro obtido da fórmula do Exemplo~\ref{exemplo_romberg_1}:
 $$R_{k,2}=\frac{4R_{k,1}-R_{k-1,1}}{3}$$
 Os valores $R_{k,2}$ representam então os valores obtidos pelo método de Simpson composto aplicado a uma malha composta de $2^{k-1}+1$ pontos.
 
