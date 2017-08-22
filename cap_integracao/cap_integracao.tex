@@ -515,7 +515,7 @@ $9$  & & &\\
 
 Na seção anterior, obtivemos as regras de quadraturas pela aproximação do integrando por polinômios interpoladores de Lagrange. Aqui, veremos um outro método para obter regras de quadratura, que torna-se bastante útil para quando temos muitos pontos ou quando o intervalo entre os pontos não é uniforme.
 
-Dados $n$ pontos $[t_1,t_2,\ldots ,t_n]$, queremos obter uma aproximação para
+Dados $n$ pontos $[t_1, t_2, \ldots,t_n]$, queremos obter uma aproximação para
 \begin{equation}\label{regraint}
   \int _a^b f(t) \;dt \approx w_1f(t_1)+w_2f(t_2)+\ldots +w_nf(t_n)
 \end{equation}
@@ -558,7 +558,7 @@ A regra terá a forma
   \int _a^b f(t)\;dt & \approx& w_1f(t_1)+w_2f(t_2)+w_3f(t_3)\\
                  & \approx& w_1f_1   +w_2f_2   +w_3f_3.
 \end{eqnarray}
-Considere a base polinomial $[\phi _1(t),\phi _2(t),\phi _3(t)]=[1,t,t^2]$ e substitua $f(t)$ por $\phi_k(t)$ obtendo
+Considere a base polinomial $[\phi _1(t),\phi _2(t),\phi _3(t)]=[1, t, t^2]$ e substitua $f(t)$ por $\phi_k(t)$ obtendo
 \begin{eqnarray}
    \int _0^h 1   \;dt = h     &=&  w_1(1)   +w_2(1)     + w_3(1) \\
    \int _0^h t   \;dt = h^2/2 &=&  w_1(0)   +w_2(h/2)   + w_3(h) \\
@@ -596,9 +596,9 @@ h
 \end{bmatrix}
 \end{equation}
 
-Resolvendo o sistema obtemos $\displaystyle [w_1,w_2,w_3]=h[\frac{1}{6},\frac{4}{6},\frac{1}{6}]$ fornecendo a regra de Simpson
+Resolvendo o sistema obtemos $\displaystyle [w_1,w_2,w_3]=h\left[\frac{1}{6},\frac{4}{6},\frac{1}{6}\right]$, o que fornece a regra de Simpson:
 \begin{equation}
-  \int _0^h f(t) \;dt \approx  \frac{h}{6}f_0+\frac{4h}{6}f_1+\frac{h}{6}f_2
+  \int _0^h f(t) \;dt \approx  \frac{h}{6}f_0+\frac{4h}{6}f_1+\frac{h}{6}f_2.
 \end{equation}
 \end{sol}
 
@@ -624,13 +624,13 @@ $$
 %%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \subsection{Código Scilab: Regras compostas em geral}
-Devemos fazer um {\it loop} sobre todos os intervalos e para cada intervalo aplicamos uma regra de quadratura.
+Devemos fazer um laço\footnote{Em computação, muitas vezes se usa o anglicismo {\it loop}.} sobre todos os intervalos e para cada intervalo aplicamos uma regra de quadratura.
 
 \verbatiminput{./cap_integracao/codes/scilab/simpson.sci}
 
 Acumulamos o valor da integral em \verb+S+. No código acima temos o método de Simpson, mas basta trocarmos a fórmula para termos outras quadraturas.
 
-Note que esta não é a implementação mais eficiente, pois reutiliza os termos no contorno dos intervalos. Nas próximas seções veremos regras compostas específicas para alguns métodos.
+Note que esta não é a implementação mais eficiente, pois recalcula os termos no contorno dos intervalos. Nas próximas seções veremos regras compostas específicas para alguns métodos.
 \fi
 %%%%%%%%%%%%%%%%%%%%
 
@@ -767,7 +767,7 @@ $$
 
 \begin{exer}
 O valor exato da integral imprópria $\int_0^1x\ln(x)\;dx$ é dado por
-$$\int_0^1x\ln(x)\;dx=\left.\left(\frac{x^2}{2}\ln x-\frac{x^2}{4}\right)\right|_0^1=-1/4$$
+$$\int_0^1x\ln(x)\;dx=\left.\left(\frac{x^2}{2}\ln x-\frac{x^2}{4}\right)\right|_0^1=-1/4.$$
 Aproxime o valor desta integral usando a regra  de Simpson para $n=3$, $n=5$ e $n=7$. Como você avalia a qualidade do resultado obtido? Por que isso acontece.
 \end{exer}
 \begin{resp}
@@ -788,7 +788,7 @@ Estamos interessados em avaliar numericamente a seguinte integral:
 $$\int_0^1 \ln(x)\sin(x)\;dx$$
 cujo valor com 10 casas decimais corretas é $-.2398117420$.
 \begin{enumerate}[a)]
-\item Aproxime esta integral via Gauss-Legendre com $n=2$,$n=3$, $n=4$, $n=5$, $n=6$ e $n=7$.
+\item Aproxime esta integral via Gauss-Legendre com $n=2$, $n=3$, $n=4$, $n=5$, $n=6$ e $n=7$.
 \item Use a identidade
 \begin{eqnarray*}
 \int_0^1 \ln(x)\sin(x)\;dx&=&\int_0^1 \ln(x)x\;dx+\int_0^1 \ln(x)\left[\sin(x)-x\right]\;dx\\
@@ -810,7 +810,7 @@ e aproxime a integral $\int_0^1 \ln(x)\left[\sin(x)-x\right]\;dx$ numericamente 
 O método de Romberg é um método simplificado para construir quadraturas de alta ordem.
 
 Considere o método de trapézios composto aplicado à integral
-$$\int_a^bf(x)\;dx$$
+$$\int_a^bf(x)\;dx.$$
 Defina $I(h)$ a aproximação desta integral pelo método dos trapézios composto com  malha de largura constante igual a h. Aqui $h=\frac{b-a}{N_i}$ para algum $N_i$ inteiro, isto é:
 $$I(h)=\frac{h}{2}\left[f(a)+2\sum_{j=2}^{N_i} f(x_j)+ f(b)\right],~~~N_i=\frac{b-a}{h}$$
 
@@ -834,23 +834,23 @@ Usamos agora uma eliminação gaussiana para obter o termo $I_0$:
 Vamos agora aplicar a fórmula para $h=b-a$,
 \begin{eqnarray*}
 I(h)&=& \frac{h}{2} \left[f(a)+f(b)\right]\\
-I(h/2)&=& \frac{h}{4} \left[f(a)+2f\left(c\right)+f(b)\right],~~ c=\frac{a+b}{2}\\
+I(h/2)&=& \frac{h}{4} \left[f(a)+2f\left(c\right)+f(b)\right],~~ c=\frac{a+b}{2}.\\
 \end{eqnarray*}
 
 \begin{eqnarray*}
 \frac{4I(h/2)-I(h)}{3}&=&\frac{h}{3}\left[f(a)+2f\left(c\right)+f(b)\right]-\frac{h}{6} \left[f(a)+f(b)\right]\\
-&=&\frac{h}{6}\left[f(a)+4f\left(c\right)+f(b)\right]
+&=&\frac{h}{6}\left[f(a)+4f\left(c\right)+f(b)\right].
 \end{eqnarray*}
-Observe que esquema coincide com o método de Simpson.
+Note que este esquema obtido coincide com o método de Simpson.
 \end{ex}
 
-A partir de agora, usaremos a seguinte notação
+A partir de agora, a fim de deduzir o caso geral, utilizaremos a seguinte notação:
 \begin{eqnarray*}
-R_{1,1}&=&I(h)\\
-R_{2,1}&=&I(h/2)\\
-R_{3,1}&=&I(h/4)\\
+R_{1,1}&=&I(h),\\
+R_{2,1}&=&I(h/2),\\
+R_{3,1}&=&I(h/4),\\
 &\vdots&\\
-R_{n,1}&=&I(h/2^{n-1})
+R_{n,1}&=&I(h/2^{n-1}).
 \end{eqnarray*}
 
 Observamos que os pontos envolvidos na quadratura $R_{k,1}$ são os mesmos pontos envolvidos na quadratura $R(k-1,1)$ acrescidos dos pontos centrais, assim, temos a seguinte fórmula de recorrência:
@@ -867,6 +867,7 @@ $$R_{k,j}=R_{k,j-1}+\frac{R_{k,j-1}-R_{k-1,j-1}}{4^{j-1}-1}.$$
 Construa o esquema de Romberg para aproximar o valor de $\int_0^2e^{x^2}\;dx$ com erro de ordem 8.
 
 O que nos fornece os seguintes resultados:
+
 \begin{tabular}{|c|c|c|c|}\hline
     55,59815  &   0,000000    &       0,000000  &         0,000000         \\
     30,517357 &   22,157092 &   0,000000   &        0,000000         \\
@@ -885,6 +886,7 @@ usando uma aproximação de ordem 8.
 \begin{ex} Construa o esquema de Romberg para aproximar o valor de $\int_0^2x^2e^{x^2}\;dx$ com erro de ordem 12.
 
 O que nos fornece:
+
 \begin{tabular}{|c|c|c|c|c|c|}\hline
      218,3926  &          &           &            &           &         \\  \hline
     111,91458  &  76,421909 &           &            &           &         \\ \hline
@@ -904,7 +906,7 @@ com uma aproximação de ordem 12.
 \subsection*{Exercícios}
 
 \begin{exer}
-Para cada integrando encontre o função $I(h)=a_0+a_1h+a_2h^2+a_3h^3+a_4h^4$ que melhor se ajusta aos dados, onde $h=\frac{1}{n-1}$. Discuta os resultados com base no teorema envolvido na construção do método de Romberg.
+Para cada integrando, encontre o função $I(h)=a_0+a_1h+a_2h^2+a_3h^3+a_4h^4$ que melhor se ajusta aos dados, onde $h=\frac{1}{n-1}$. Discuta os resultados com base no teorema envolvido na construção do método de Romberg.
 \end{exer}
 \begin{resp}
 
@@ -1058,7 +1060,7 @@ onde $w_j=\frac{b-a}{2}$, $x_1=a$ e $x_2=b$.
 \begin{ex}
 A ordem de precisão do esquema de Simpson é 3:
 $$\int_a^b f(x)\;dx \approx \left[f(a)+4f\left(\frac{a+b}{2}\right)+f(b)\right]\frac{b-a}{6}=\sum_{j=1}^3w_jf(x_j)$$
-onde $w_1=w_3=\frac{b-a}{6}$,$w_2=4\frac{b-a}{6}$, $x_1=a$, $x_2=\frac{a+b}{2}$ e $x_3=b$
+onde $w_1=w_3=\frac{b-a}{6}$, $w_2=4\frac{b-a}{6}$, $x_1=a$, $x_2=\frac{a+b}{2}$ e $x_3=b$
 \begin{eqnarray*}
   &(k=0):\quad\sum_{j=1}^n w_j = (1+4+1)\frac{b-a}{6}=b-a\\
   &(k=1):\quad\sum_{j=1}^n w_jx_j = (a+4\frac{a+b}{2}+b)\frac{b-a}{6} = (a+b)\frac{b-a}{2} = \frac{b^2-a^2}{2}\\

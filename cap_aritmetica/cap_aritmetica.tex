@@ -1623,7 +1623,7 @@ ans = 0
  Explique se esta rotina finaliza em tempo finito, em caso afirmativo calcule a ordem de grandeza do tempo de execução supondo que cada passo do laço demore $10^{-7}s$. Justifique sua reposta.
  \end{exer}
 \begin{resp}
- Devido à presição finita do sistema de numeração, o laço para quando x for suficientemente grande para que x+1 seja aproximado para 1. Isso acontece quando 1 é da ordem do épsilon de máquina em relação a x, isto é, quando $x\approx 2/\%eps$. O tempo de execução fica em torno de 28 anos.
+ Devido à precisão finita do sistema de numeração, o laço para quando x for suficientemente grande para que x+1 seja aproximado para 1. Isso acontece quando 1 é da ordem do épsilon de máquina em relação a x, isto é, quando $x\approx 2/\%eps$. O tempo de execução fica em torno de 28 anos.
 \end{resp}
 
  \fi
@@ -1645,7 +1645,7 @@ ans = 0
  Explique se esta rotina finaliza em tempo finito, em caso afirmativo calcule a ordem de grandeza do tempo de execução supondo que cada passo do laço demore $10^{-7}s$. Justifique sua reposta.
  \end{exer}
 \begin{resp}
- Devido à presição finita do sistema de numeração, o laço para quando x for suficientemente grande para que x+1 seja aproximado para 1. Isso acontece quando 1 é da ordem do épsilon de máquina em relação a x, isto é, quando $x\approx 2/\%eps$. O tempo de execução fica em torno de 28 anos.
+ Devido à precisão finita do sistema de numeração, o laço para quando x for suficientemente grande para que x+1 seja aproximado para 1. Isso acontece quando 1 é da ordem do épsilon de máquina em relação a x, isto é, quando $x\approx 2/\%eps$. O tempo de execução fica em torno de 28 anos.
 \end{resp}
  \fi
 %%%%%%%%%%%%%%%%%%%%
@@ -1796,7 +1796,7 @@ a)~$1,7889$; b)~$1788,9$; c)~$0,0017889$; d)~$0,0045966$; e)~$2,1755\times 10^{-
 \end{resp}
 
 \begin{exer}
-Usando a definição~\ref{def:num_dig_sig_corretos}, verifique quantos são os dígitos significativos corretos na aproximação de $x$ por $\bar{x}$.
+Usando a Definição~\ref{def:num_dig_sig_corretos}, verifique quantos são os dígitos significativos corretos na aproximação de $x$ por $\bar{x}$.
 \begin{enumerate}[a)]
 \item $x=2,5834$ e $\bar{x}=2,6$
 \item $x=100$ e $\bar{x}=99$
@@ -1806,8 +1806,16 @@ Usando a definição~\ref{def:num_dig_sig_corretos}, verifique quantos são os d
   a)~$2$; b)~$2$.
 \end{resp}
 
-\begin{exer} Resolva a equação $0,1x-0,01=12$ usando arredondamento com três dígitos significativos em cada passo e compare com o resultado analítico.
+\begin{exer} Resolva a equação $0,1x-0,01=12$ usando arredondamento com três dígitos significativos em cada passo e compare com o resultado exato.
 \end{exer}
+\begin{resp}
+ \begin{eqnarray*}
+  0,1x-0,01&=&12\\
+  0,1x&=&12+0,01=12,01\\
+  x&=&120,1
+ \end{eqnarray*}
+A resposta exata é $120,1$.
+\end{resp}
 
 
 \begin{exer} Calcule o erro relativo e absoluto envolvido nas seguintes aproximações e expresse as respostas com três algarismos significativos corretos.
@@ -2143,18 +2151,14 @@ Suponha que você precise conhecer o valor de $z$ com um erro de $0,5\%$. Você 
     I=\left(\frac{V}{V_0}\right)^\alpha,
   \end{equation*}
 onde $\alpha$ é um número entre $0$ e $1$ e $V_0$ é tensão nominal em volts. Sabendo que $V_0=220\pm 3\%$ e $\alpha=-0,8\pm 4\%$, calcule a corrente e o erro relativo associado quando a tensão vale $220\pm 1\%$.\\
-\emph{Obs:.} Este problema pode ser resolvido de duas formas distintas: usando a expressão aproximada para a propagação de erro e inspecionando os valores máximos e mínimos que a expressão pode assumir. Pratique os dois métodos.
+\emph{Obs:.} Este problema pode ser resolvido de duas formas distintas: usando a expressão aproximada para a propagação de erro e inspecionando os valores máximos e mínimos que a expressão pode assumir. Pratique os dois métodos.\emph{Dica:} lembre que $x^\alpha=e^{\alpha \ln(x)}$
 \end{exer}
 \begin{resp}
-    $3,2\%$ pela aproximação ou $3,4\%$ pela segundo método  $\left(0,96758 \leq I\leq 1,0342\right)$.
+  $3,2\%$ pela aproximação ou $3,4\%$ pelo segundo método, isto é, $\left(0,96758 \leq I\leq 1,0342\right)$.
 \end{resp}
 
-\begin{exer} A corrente $I$ em ampères e a tensão $V$ em volts em uma lâmpada se relacionam conforme a seguinte expressão:
-$$I=\left(\frac{V}{V_0}\right)^\alpha$$
-Onde $\alpha$ é um número entre 0 e 1 e $V_0$ é a tensão nominal em volts. Sabendo que $V_0=220\pm 3\%$ e $\alpha=0,8\pm 4\%$
-Calcule a corrente e o erro relativo associado quando a tensão vale $220\pm 1\%$.
-\emph{Dica:} lembre que $x^\alpha=e^{\alpha \ln(x)}$
-\end{exer}
+
+
 
 \section{Exemplos selecionados de cancelamento catastrófico}
 
@@ -2351,7 +2355,7 @@ Para entendermos isso melhor, vejamos o que acontece no \verb+Scilab+ quando $n=
  y  =
     1.000000000000014211D+00  
 \end{verbatim}
-Observe a perda de informação ao deslocar a mantissa de $1/n$. Para evidenciar o fenômenos, observamos o que acontece quando tentamos recalcular $n$ subtraindo $1$ de $1+1/n$ e invertendo o resultado:
+Observe a perda de informação ao deslocar a mantissa de $1/n$. Para evidenciar o fenômeno, observamos o que acontece quando tentamos recalcular $n$ subtraindo $1$ de $1+1/n$ e invertendo o resultado:
 \begin{verbatim}
 -->y-1
  ans  =
