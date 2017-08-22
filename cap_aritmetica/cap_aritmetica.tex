@@ -13,7 +13,7 @@ A representação de números e a aritmética em computadores levam aos chamados
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-Ao longo do capítulo, faremos alguns comentários usando códigos em \verb+Python 2.7+. Nestes, estaremos assumindo que os seguintes módulos estão carregados:
+Ao longo do capítulo, faremos alguns comentários usando códigos em \verb+Python 2.7+. Nestes, assumiremos que os seguintes módulos estão carregados:
 \begin{verbatim}
 >>> from __future__ import division
 >>> import numpy as np
@@ -37,7 +37,7 @@ Usualmente, utilizamos o sistema de numeração decimal para representar número
 O sistema de numeração posicional também pode ser usado com outras bases. Vejamos a seguinte definição.
 
 \begin{defn}[Sistema de numeração de base $b$]\label{def:sistema_de_numeracao}
-Dado um número natural $b>1$ e o conjunto de símbolos $\{\pmb{\pm},  \pmb{0}, \pmb{1}, \pmb{2},\dotsc, \pmb{b-1}\}$\footnote{Para $b>10$, veja a observação \ref{obs:sistema_de_numeracao}.}, a sequência de símbolos
+Dado um número natural $b>1$ e o conjunto de símbolos $\{\pmb{\pm},  \pmb{0}, \pmb{1}, \pmb{2},\dotsc, \pmb{b-1}\}$\footnote{Para $b>10$, veja a Observação~\ref{obs:sistema_de_numeracao}.}, a sequência de símbolos
 \begin{equation*}
   \left(d_nd_{n-1} \cdots d_1d_0,d_{-1}d_{-2} \cdots \right)_b  
 \end{equation*}
@@ -233,11 +233,11 @@ Observe que a parte inteira desse produto é $d_{-1}$ e $\frac{d_{-2}}{b}+\frac{
   \end{equation*}
 
 {\bf Conversão da parte inteira}. Para converter a parte inteira, fazemos sucessivas divisões por $b=2$ obtendo
-\begin{align*}
-  9 &= 4\cdot 2 + 1\\
-  &= (2\cdot 2 + 0)\cdot 2 + 1\\
-  &= 2^3 + 1.
-\end{align*}
+\begin{eqnarray*}
+  9 &=& 4\cdot 2 + 1\\
+  &=& (2\cdot 2 + 0)\cdot 2 + 1\\
+  &=& 2^3 + 1.
+\end{eqnarray*}
 Ou seja, temos que $9 = (1001)_2$.
 %%%%%%%%%%%%%%%%%%%%
 % scilab
@@ -314,11 +314,11 @@ d3 = 1, x = 0
 %%%%%%%%%%%%%%%%%%%%
 
 {\bf Conversão da parte fracionária}. Para converter a parte fracionária, fazemos sucessivas multiplicações por $b=2$ obtendo
-\begin{align*}
+\begin{eqnarray*}
   0,625 &= 1,25\cdot 2^{-1} = 1\cdot 2^{-1} + 0,25\cdot 2^{-1}\\
-  &= 1\cdot 2^{-1} + (0,5\cdot 2^{-1})\cdot 2^{-1} = 1\cdot 2^{-1} + 0,5\cdot 2^{-2}\\
-  &= 1\cdot 2^{-1} + (1\cdot 2^{-1})\cdot 2^{-2} = 1\cdot 2^{-1} + 1\cdot 2^{-3}.
-\end{align*}
+  &=& 1\cdot 2^{-1} + (0,5\cdot 2^{-1})\cdot 2^{-1} = 1\cdot 2^{-1} + 0,5\cdot 2^{-2}\\
+  &=& 1\cdot 2^{-1} + (1\cdot 2^{-1})\cdot 2^{-2} = 1\cdot 2^{-1} + 1\cdot 2^{-3}.
+\end{eqnarray*}
 Ou seja, temos que $0,625 = (0,101)_2$.
 %%%%%%%%%%%%%%%%%%%%
 % scilab
@@ -845,7 +845,7 @@ Em \verb+Python+, temos:
 
 \section{Representação decimal finita}
 
-Em computadores, é usual representarmos números usando uma quantidade de dígitos finita. A quantidade a ser usada normalmente depende da precisão com que as computações estão sendo feitas. Ocorre, que quando restringimos a representação a um número finito de dígitos, muitos números não podem ser representado de forma exata. Por exemplo, dízimas infinitas e números irracionais não são usualmente representados de forma exata em computadores. Esta questão nos leva aos conceitos de número de dígitos significativos e arredondamento.
+Em computadores, é usual representarmos números usando uma quantidade de dígitos finita. A quantidade a ser usada normalmente depende da precisão com que as computações estão sendo feitas. Ocorre que quando restringimos a representação a um número finito de dígitos, muitos números não podem ser representado de forma exata, por exemplo, as dízimas infinitas e os números irracionais. Este fenômeno nos leva aos conceitos de número de dígitos significativos e de arredondamento.
 
 \begin{defn}[Número de dígitos significativos] Um número decimal $x = \pm d_1,d_{-1}\cdots d_{-i}d_{-i-1}\cdots d_{-i-n} d_{-i-n-1}\cdot \times 10^E$ é dito ter $n$ dígitos significativos quando $d_{j}=0$ para $j\geq -i$ e $j\leq-i-n-1$.  
 \end{defn}
@@ -859,7 +859,7 @@ Quando representamos um número $x$ com uma quantidade de dígitos menor que a d
 \begin{equation*}
   x = \pm d_0,d_1d_2\ldots d_{k-1}d_kd_{k+1}\ldots d_n \times 10^e
 \end{equation*}
-em notação normalizada, i.e. $d_0\neq 0$. Podemos representar $x$ com $k$ dígitos fazendo:
+em notação normalizada, isto é, $d_0\neq 0$. Podemos representar $x$ com $k$ dígitos da seguinte forma:
 \begin{enumerate}
 \item \emph{Arredondamento por truncamento} (ou corte): aproximamos $x$ por
 $$
@@ -1002,7 +1002,7 @@ e, em notação normalizada:
 
 \section{Representação de números em máquina}\index{representação!de números em máquina}
 
-Os computadores, em geral, usam a base binária para representar os números, onde as posições, chamadas de bits, assume as condições ``verdadeiro'' ou ``falso'', ou seja, $1$ ou $0$, respectivamente. Os computadores representam os números com uma quantidade fixa de bits, o que se traduz em um conjunto finito de números representáveis. Os demais números são tomados por proximidade àqueles conhecidos, gerando erros de arredondamento.\index{erros!de arredondamento} Por exemplo, em aritmética de computador, o número $2$ tem representação exata, logo $2^2=4$, mas $\sqrt{3}$ não tem representação finita, logo $(\sqrt{3})^2\neq 3$. 
+Os computadores, em geral, usam a base binária para representar os números, onde as posições, chamadas de bits, assumem as condições ``verdadeiro'' ou ``falso'', ou seja, $1$ ou $0$, respectivamente. Os computadores representam os números com uma quantidade fixa de bits, o que se traduz em um conjunto finito de números representáveis. Os demais números são tomados por proximidade àqueles conhecidos, gerando erros de arredondamento.\index{erros!de arredondamento} Por exemplo, em aritmética de computador, o número $2$ tem representação exata, logo $2^2=4$, mas $\sqrt{3}$ não tem representação finita, logo $(\sqrt{3})^2\neq 3$. 
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
@@ -1191,7 +1191,7 @@ Em um computador de 32 bits que usa o sistema de ponto fixo, o registro
 pode representar o número
 \begin{itemize}
 \item $(-1)^{d_{31}}(d_{30}d_{29}\cdots d_{17}d_{16}, d_{15}d_{14}\cdots d_1d_0)_2$
-se o sinal for representado por um dígito. Observe que nesse caso o zero possui duas representações possíveis: 
+se o sinal for representado por um dígito. Observe que, neste caso, o zero possui duas representações possíveis: 
 \begin{equation*}
   [10000000000000000000000000000000]
 \end{equation*}
@@ -1622,23 +1622,48 @@ ans = 0
  \end{verbatim}
  Explique se esta rotina finaliza em tempo finito, em caso afirmativo calcule a ordem de grandeza do tempo de execução supondo que cada passo do laço demore $10^{-7}s$. Justifique sua reposta.
  \end{exer}
-\fi
+\begin{resp}
+ Devido à presição finita do sistema de numeração, o laço para quando x for suficientemente grande para que x+1 seja aproximado para 1. Isso acontece quando 1 é da ordem do épsilon de máquina em relação a x, isto é, quando $x\approx 2/\%eps$. O tempo de execução fica em torno de 28 anos.
+\end{resp}
+
+ \fi
+%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\begin{exer}Considere a seguinte rotina escrita para ser usada no \verb+GNU Octave+:
+ \begin{verbatim}
+     x=1
+     while x+1>x
+         x=x+1
+     end
+ \end{verbatim}
+ Explique se esta rotina finaliza em tempo finito, em caso afirmativo calcule a ordem de grandeza do tempo de execução supondo que cada passo do laço demore $10^{-7}s$. Justifique sua reposta.
+ \end{exer}
+\begin{resp}
+ Devido à presição finita do sistema de numeração, o laço para quando x for suficientemente grande para que x+1 seja aproximado para 1. Isso acontece quando 1 é da ordem do épsilon de máquina em relação a x, isto é, quando $x\approx 2/\%eps$. O tempo de execução fica em torno de 28 anos.
+\end{resp}
+ \fi
 %%%%%%%%%%%%%%%%%%%%
 
 \section{Tipos de erros}\index{erros}
 
-Em geral, os números não são representados de forma exata nos computadores. Isto nos leva ao chamado erro de arredondamento. Quando resolvemos problemas com técnicas numéricas estamos sujeitos a este e outros tipos de erros. Nesta seção, veremos quais são estes erros e como controlá-los, quando possível.
+Em geral, os números não são representados de forma exata nos computadores. Isto nos leva ao chamado erro de arredondamento. Quando resolvemos problemas com técnicas numéricas, estamos sujeitos a este e outros tipos de erros. Nesta seção, veremos quais são estes erros e como controlá-los, quando possível.
 
 Quando fazemos aproximações numéricas, os erros são gerados de várias formas, sendo as principais delas as seguintes:
 \begin{enumerate}
- \item \emph{Incerteza dos dados}: equipamentos de medição possuem precisão finita, acarretando erros nas medidas físicas.
- \item \emph{Erros de Arredondamento}: são aqueles relacionados com as limitações que existem na forma representar números de máquina. 
- \item \emph{Erros de Truncamento}: surgem quando aproximamos um procedimento formado por uma sequência infinita de passos através de um procedimento finito. Por exemplo, a definição de integral é dada por uma soma infinita e a aproximamos por um soma finita. O erro de truncamento deve ser analisado para cada método empregado. 
+ \item \emph{Incerteza dos dados} são devidos aos erros nos dados de entrada. Quando o modelo matemático é oriundo de um problema físico, exitem incerteza nas medidas feitas pelos intrumentos de medição, que possuem acurácia finita.
+ \item \emph{Erros de Arredondamento} são aqueles relacionados com as limitações exitentes na forma representar números em máquina. 
+ \item \emph{Erros de Truncamento} surgem quando aproximamos um conceito matemáticos formado por uma sequência infinita de passos por de um procedimento finito. Por exemplo, a definição de integral é dada por um processo de limite de somas. Numericamente, aproximamos por um soma finita. O erro de truncamento deve ser estudado analíticamente para cada método empregado e normalmente envolve matemática mais avançada que a estudado em um curso de graduação. 
 \end{enumerate}
 
-Uma questão fundamental é a quantificação dos erros que estamos sujeitos ao computar a solução de um dado problema. Para tanto, precisamos definir medidas de erros (ou de exatidão)\index{medida!de erro}\index{medida!de exatidão}. As medidas de erro mais utilizadas são o \emph{erro absoluto}\index{erro!absoluto} e o \emph{erro relativo}\index{erro!relativo}.
+Uma questão fundamental é a quantificação dos erros imbricados na computação da solução de um dado problema. Para tanto, precisamos definir medidas de erros (ou de exatidão)\index{medida!de erro}\index{medida!de exatidão}. As medidas de erro mais utilizadas são o \emph{erro absoluto}\index{erro!absoluto} e o \emph{erro relativo}\index{erro!relativo}.
 
-\begin{defn}[Erro absoluto e relativo] Seja $x$ um número real e $\overline{x}$ sua aproximação. O \emph{erro absoluto} da aproximação $\overline{x}$ é definido como
+\begin{defn}[Erro absoluto e relativo] Seja $x$ um número real e $\overline{x}$, sua aproximação. O \emph{erro absoluto} da aproximação $\overline{x}$ é definido como
   \begin{equation*}
     |x-\overline{x}|.
   \end{equation*}
@@ -1649,7 +1674,7 @@ O \emph{erro relativo} da aproximação $\overline{x}$ é definido como
 \end{defn}
 
 \begin{obs}
-  Observe que o erro relativo é adimensional e, muitas vezes, é dado em porcentagem. Mais precisamente, o erro relativo em porcentagem da aproximação $\overline{x}$ é dado por
+  Observe que o erro relativo é adimensional e, muitas vezes, é expresso em porcentagens. Mais precisamente, o erro relativo em porcentagem da aproximação $\overline{x}$ é dado por
   \begin{equation*}
     \frac{|x-\bar{x}|}{|x|}\times 100 \%.
   \end{equation*}
@@ -1681,7 +1706,7 @@ Note que o erro relativo leva em consideração a escala do problema.
 
 
 \begin{ex}
-Observe os erros absolutos e relativos em cada caso
+Observe os erros absolutos e relativos em cada caso a seguir:
 \begin{center}
   \begin{tabular}{ll|rr} \hline
     $x$ & $\bar{x}$ &\ Erro absoluto & Erro relativo\\\hline
@@ -1694,7 +1719,7 @@ Observe os erros absolutos e relativos em cada caso
 
 Outra forma de medir a exatidão de uma aproximação numérica é contar o \emph{número de dígitos significativos corretos} em relação ao valor exato.
 
-\begin{defn}[Número de dígitos significativos corretos]\label{def:num_dig_sig_corretos}
+\begin{defn}[Número de dígitos significativos corretos]\label{def:num_dig_sig_corretos}\index{medida!de erro}\index{dígitos significativos}
 A aproximação $\overline{x}$ de um número $x$ tem $s$ \emph{dígitos significativos corretos} quando\footnote{Esta definição é apresentada em \cite{Burden2013}. Não existe uma definição única na literatura para o conceito de dígitos significativos corretos, embora não precisamente equivalentes, elas transmitem o mesmo conceito.
 Uma maneira de interpretar essa regra é: calcula-se o erro relativo na forma normalizada e a partir da ordem do expoente temos o número de dígitos significativos corretos. Como queremos o expoente, podemos estimar $s$ por
 $$ DIGSE(x,\bar{x})=s \approx int \left|\log_{10} \frac{|x-\overline{x}|}{|x|}\right|. $$
@@ -1733,7 +1758,7 @@ $$
 
 \subsection*{Exercícios}
 
-\begin{exer} Calcule os erros absoluto e relativo das aproximações $\bar{x}$ para $x$.
+\begin{exer} Calcule os erros absoluto e relativo das aproximações $\bar{x}$ para $x$ em cada caso:
   \begin{enumerate}[a)]
   \item $x=\pi=3,14159265358979\ldots$ e $\bar{x}=3,141$
   \item $x=1,00001$ e $\bar{x}=1$
@@ -1798,21 +1823,21 @@ Usando a definição~\ref{def:num_dig_sig_corretos}, verifique quantos são os d
 
 
 \section{Erros nas operações elementares}
-O erro relativo presente nas operações elementares de adição, subtração, multiplicação e divisão é da ordem do épsilon de máquina. Se estivermos usando uma máquina com 64 bits, temos que $\epsilon = 2^{-52} \approx 2,22E16$. 
+O erro relativo presente nas operações elementares de adição, subtração, multiplicação e divisão é da ordem do épsilon de máquina. Se estivermos usando uma máquina com 64 bits, temos que $\epsilon = 2^{-52} \approx 2,22E-16$. 
 
-Este erro é bem pequeno! Assumindo que $x$ e $y$ são representados com todos dígitos corretos, temos aproximadamente 15 dígitos significativos corretos quando fazemos uma das operações $x+y$, $x-y$, $x\times y$ ou $x/y$. 
+Este erro é bem pequeno para a maioria das aplicações! Assumindo que $x$ e $y$ são representados com todos dígitos corretos, temos aproximadamente 15 dígitos significativos corretos quando fazemos uma das operações $x+y$, $x-y$, $x\times y$ ou $x/y$. 
 
 %%
 %% fornecer exemplo para +,-,*,/
 %%
 
-Mesmo que fizéssemos, por exemplo, $1000$ operações elementares em ponto flutuante sucessivas, teríamos, no pior dos casos, acumulado todos esses erros e perdido $3$ casas decimais ($1000\times 10^{-15} \approx 10^{-12})$.
+Mesmo que fizéssemos, por exemplo, $1000$ operações elementares sucessivas em ponto flutuante, teríamos, no pior dos casos, acumulado todos esses erros e perdido $3$ casas decimais ($1000\times 10^{-15} \approx 10^{-12})$.
 
-Entretanto, quando subtraímos números muito próximos, os problemas aumentam.
+Entretanto, quando subtraímos números muito próximos, o erro pode se propagar de forma catastrófico.
 
 \section{Cancelamento catastrófico}\index{cancelamento catastrófico}
 
-Quando fazemos subtrações com números muito próximos entre si ocorre o cancelamento catastrófico, onde podemos perder vários dígitos de precisão em uma única subtração.
+Quando fazemos subtrações com números muito próximos entre si, ocorre o que chamamos de ``cancelamento catastrófico'', onde podemos perder vários dígitos de precisão em uma única subtração.
 
 \begin{ex}Efetue a operação
   \begin{equation*}
@@ -2131,14 +2156,14 @@ Calcule a corrente e o erro relativo associado quando a tensão vale $220\pm 1\%
 \emph{Dica:} lembre que $x^\alpha=e^{\alpha \ln(x)}$
 \end{exer}
 
-\section{Mais exemplos de cancelamento catastrófico}
+\section{Exemplos selecionados de cancelamento catastrófico}
 
 \begin{ex} Considere o seguinte processo iterativo:
   \begin{eqnarray*}
     x_0 &=& \frac{1}{3}\\
     x_{n+1} &=& 4x_n-1,\qquad n\in\mathbb{N}.
   \end{eqnarray*}
-Observe que $x_0=\frac{1}{3}$, $x_1=4\cdot \frac{1}{3}-1=\frac{1}{3}$, $x_2=\frac{1}{3}$, ou seja, temos uma sequência constante igual a $\frac{1}{3}$. No entanto, ao calcularmos no computador, usando o sistema de numeração 'double', a sequencia obtida não é constante e, de fato, diverge.
+Observe que $x_0=\frac{1}{3}$, $x_1=4\cdot \frac{1}{3}-1=\frac{1}{3}$, $x_2=\frac{1}{3}$, ou seja, temos uma sequência constante igual a $\frac{1}{3}$. No entanto, ao calcularmos no computador, usando o sistema de numeração 'double', a sequência obtida não é constante e, de fato, diverge.
 %%%%%%%%%%%%%%%%%%%%%%
 % scilab
 %%%%%%%%%%%%%%%%%%%%%%
@@ -2202,13 +2227,13 @@ Qual o número de condicionamento desse problema?
 $$
 f(x)=\frac{(1+x)-1}{x}=1
 $$
-Calcule o valor da expressão à esquerda para $x=10^{-12}$, $x=10^{-13}$, $x=10^{-14}$, $x=10^{-15}$, $x=10^{-16}$ e $x=10^{-17}$. Observe que quando $x$ se aproxima do $\epsilon$ de máquina a expressão perde o significado. Veja a figura~\ref{fig:cancelamento_0} com o gráfico de $f(x)$ em escala logarítmica.
+Calcule o valor da expressão à esquerda para $x=10^{-12}$, $x=10^{-13}$, $x=10^{-14}$, $x=10^{-15}$, $x=10^{-16}$ e $x=10^{-17}$. Observe que quando $x$ se aproxima do $\epsilon$ de máquina a expressão perde o significado. Veja a Figura~\ref{fig:cancelamento_0} com o gráfico de $f(x)$ em escala logarítmica.
 \end{ex}
 
 \begin{figure}
   \centering
   \includegraphics[width=0.8\textwidth]{./cap_aritmetica/pics/cancelamento_0}  
-  \caption{Gráfico na função do exemplo~\ref{ex:cancelamento_0}.}
+  \caption{Gráfico na função do Exemplo~\ref{ex:cancelamento_0}.}
   \label{fig:cancelamento_0}
 \end{figure}
 
@@ -2216,7 +2241,7 @@ Calcule o valor da expressão à esquerda para $x=10^{-12}$, $x=10^{-13}$, $x=10
 \begin{figure}
   \includegraphics[width=0.8\textwidth]{./cap_aritmetica/pics/cancelamento_euler}
   \label{fig:cancelamento_euler}
-  \caption{Gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$ em escala linear-logarítmica variando de $10^0$ até $10^{18}$. Veja o exemplo~\ref{ex:cancelamento_euler}.}
+  \caption{Gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$ em escala linear-logarítmica variando de $10^0$ até $10^{18}$. Veja o Exemplo~\ref{ex:cancelamento_euler}.}
 \end{figure}
 
 \begin{ex}\label{ex:cancelamento_euler} Neste exemplo, estamos interessados em compreender mais detalhadamente o comportamento da expressão
@@ -2224,7 +2249,7 @@ Calcule o valor da expressão à esquerda para $x=10^{-12}$, $x=10^{-13}$, $x=10
   \label{def_lim}\left(1+\frac{1}{n}\right)^n
 \end{equation*}
 quando $n$ é um número grande ao computá-la em sistemas de numeral de ponto flutuante com acurácia finita.
-Um resultado bem conhecido do cálculo nos diz que o limite de (\ref{def_lim}) quando $n$ tende a infinito é o número de Euler:
+Um resultado bem conhecido do cálculo nos diz que o limite de \eqref{def_lim} quando $n$ tende a infinito é o número de Euler:
 \begin{equation*}\label{lim}
   \lim_{n\to \infty}\left(1+\frac{1}{n}\right)^n=e= 2,718281828459...
 \end{equation*}
@@ -2249,7 +2274,7 @@ $10$ & $2,5937424601000$ && $10^{20}$ & $1,0000000000000$ \\\hline
 \end{tabular}  
 \end{center}
 
-Podemos resumir esses dados no gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$, veja a figura~\ref{fig:cancelamento_euler}.
+Podemos resumir esses dados no gráfico de $\left(1+\frac{1}{n}\right)^n$ em função de $n$, veja a Figura~\ref{fig:cancelamento_euler}.
 
 Observe que quando $n$ se torna grande, da ordem de $10^{15}$, o gráfico da função deixa de se crescente e apresenta oscilações.  Observe também que a expressão se torna identicamente igual a $1$ depois de um certo limiar. Tais fenômenos não são intrínsecos da função $f(n)=(1+1/n)^n$, mas \emph{\uline{oriundas de erros de arredondamento}}, isto é, são resultados numéricos espúrios. A fim de pôr o comportamento numérico de tal expressão, apresentamos abaixo o gráfico da mesma função, porém restrito à região entre $10^{14}$ e $10^{16}$.
 
@@ -2388,7 +2413,7 @@ Observe a perda de informação ao deslocar a mantissa de $1/n$. Para evidenciar
 
 \begin{ex}[Analogia da balança] Observe a seguinte comparação interessante que pode ser feita para ilustrar os sistemas de numeração com ponto fixo e flutuante: o sistema de ponto fixo é como uma balança cujas marcas estão igualmente espaçadas; o sistema de ponto flutuante é como uma balança cuja distância entre as marcas é proporcional à massa medida. Assim, podemos ter uma balança de ponto fixo cujas marcas estão sempre distanciadas de $100$g ($100$g, $200$g, $300$g, ..., $1$Kg, $1,1$Kg,...) e outra balança de ponto flutuante cujas marcas estão distanciadas sempre de aproximadamente um décimo do valor lido ($100$g, $110$g, $121$g, $133$g, ..., $1$Kg, $1,1$Kg, $1,21$Kg, ...) A balança de ponto fixo apresenta uma resolução baixa para pequenas medidas, porém uma resolução alta para grandes medidas. A balança de ponto flutuante distribui a resolução de forma proporcional ao longo da escala.    
 
-Seguindo nesta analogia, o fenômeno de perda de significância pode ser interpretado como a seguir: imagine que você deseje obter o peso de um gato (aproximadamente $4$Kg). Dois processos estão disponíveis: colocar o gato diretamente na balança ou medir seu peso com o gato e, depois, sem o gato. Na balança de ponto flutuante, a incerteza associada na medida do peso do gato (sozinho) é aproximadamente $10\%$ de $4$Kg, isto é, $400$g. Já a incerteza associada à medida da uma pessoa (aproximadamente $70$Kg) com o gato é de $10\%$ do peso total, isto é, aproximadamente $7$Kg. Esta incerteza é da mesma ordem de grandeza da medida a ser realizada, tornado o processo impossível de ser realizado, já que teríamos uma incerteza da ordem de $14$Kg (devido à dupla medição) sobre uma grandeza de $4$Kg.    
+Seguindo nesta analogia, o fenômeno de perda de significância pode ser interpretado como a seguir: imagine que você deseje obter o peso de um gato (aproximadamente $4$Kg). Dois processos estão disponíveis: colocar o gato diretamente na balança ou medir seu peso com o gato e, depois, sem o gato. Na balança de ponto flutuante, a incerteza associada à medida do peso do gato (sozinho) é aproximadamente $10\%$ de $4$Kg, isto é, $400$g. Já a incerteza associada à medida da uma pessoa (aproximadamente $70$Kg) com o gato é de $10\%$ do peso total, isto é, aproximadamente $7$Kg. Esta incerteza é da mesma ordem de grandeza da medida a ser realizada, tornado o processo impossível de ser realizado, já que teríamos uma incerteza da ordem de $14$Kg (devido à dupla medição) sobre uma grandeza de $4$Kg.    
 \end{ex}
 
 \subsection*{Exercícios resolvidos}
