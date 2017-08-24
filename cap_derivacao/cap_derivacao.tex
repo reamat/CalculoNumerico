@@ -2,7 +2,7 @@
 
 \chapter{Derivação numérica}\index{derivação}
 
-Nesta seção, trataremos das estratégias numéricas para aproximação de derivadas de funções reais. Com as técnicas abordadas, é possível cálcular aproximadamente a derivada de uma função a partir de um conjunto discreto de pontos $\{(x_i, y_i)\}_{i=1}^n$. Começamos discutindo as chamadas \emph{aproximações por diferenças finitas}\index{aproximações por diferenças finitas} e, então, as aproximações de derivadas via ajuste ou interpolação.
+Nesta seção, trataremos das estratégias numéricas para aproximação de derivadas de funções reais. Com as técnicas abordadas, é possível calcular aproximadamente a derivada de uma função a partir de um conjunto discreto de pontos $\{(x_i, y_i)\}_{i=1}^n$. Começamos discutindo as chamadas \emph{aproximações por diferenças finitas}\index{aproximações por diferenças finitas} e, então, as aproximações de derivadas via ajuste ou interpolação.
 
 %%%%%%%%%%%%%%%%%%%%
 % python
@@ -393,13 +393,28 @@ print("Erro = %1.2e" % np.abs(fl(2)-dy))
 \subsection*{Exercícios}
 
 \begin{exer}
-Use os esquemas numéricos do Exercício~\ref{ex1} para aproximar as seguintes derivadas:
+Use os esquemas numéricos de diferença finita regressiva de ordem 1, diferença finita progressiva de ordem 1 e diferença finita central de ordem 2 para aproximar as seguintes derivadas:
 \begin{itemize}
 \item[a)] $f'(x)$ onde $f(x)=\sen(x)$ e $x=2$.
 \item[b)] $f'(x)$ onde $f(x)=e^{-x}$ e $x=1$.
 \end{itemize}
 Use $h=10^{-2}$ e $h=10^{-3}$ e compare com os valores obtidos através da avaliação numérica das derivadas exatas.
 \end{exer}
+\begin{resp}
+  \begin{itemize}
+\item[a)] $f'(x)$ onde $f(x)=\sen(x)$ e $x=2$ para $h=10^{-2}$ e $h=10^{-3}$, respectivamente.
+\subitem Progressiva ordem 1: $-0,42069$ e $-0,41660$.
+\subitem Regressiva ordem 1: $-0,41159$ e $-0,41569$.
+\subitem Central ordem 2: $-0,41614$ e $-0,41615$.
+\subitem Exata: $\cos(2)=-0,41615$
+\item[b)] $f'(x)$ onde $f(x)=e^{-x}$ e $x=1$ para $h=10^{-2}$ e $h=10^{-3}$, respectivamente.
+\subitem Progressiva ordem 1: $-0,36605$ e $-0,36788$.
+\subitem Regressiva ordem 1: $-0,36972$ e $-0,36806$.
+\subitem Central ordem 2: $-0,36789$ e $-0,36788$.
+\subitem Exata: $-e^{-1}=-0,36788$
+  \end{itemize}
+ \end{resp}
+
 
 \begin{exer}\label{ex1} Expanda a função suave $f(x)$ em um polinômio de Taylor adequado para obter as seguintes aproximações:
 \begin{itemize}
@@ -407,7 +422,7 @@ Use $h=10^{-2}$ e $h=10^{-3}$ e compare com os valores obtidos através da avali
 \item[b)] $f'(x)=\frac{f(x)-f(x-h)}{h}+\mathcal{O}(h)$
 \item[c)] $f'(x)=\frac{f(x+h)-f(x-h)}{2h}+\mathcal{O}(h^2)$
 \end{itemize}
-\end{exer}
+\end{exer}%resposta no texto
 
 
 \begin{exer} Use a expansão da função $f(x)$ em torno de $x=0$ em polinômios de Taylor para encontrar os coeficientes $a_1$, $a_2$ e $a_3$ tais que
@@ -810,7 +825,7 @@ que pode ser escrito na forma matricial
   0  \\ 1 \\ 2x^* \\ \vdots  \\ (n-1)(x^*)^{n-2}
 \end{bmatrix}
 \end{eqnarray}
-Resolvendo o sistema obtemos os coeficientes $c_k$ para a regra de diferenciação.
+Resolvendo o sistema, obtemos os coeficientes $c_k$ para a regra de diferenciação.
 
 \begin{ex}
 Sejam $\{x_1, x_2, x_3\}=\{-h, 0, h\}$ e $x^*=x_2=0$, obtenha uma regra de diferenciação para aproximar $f'(x^*)$.
@@ -841,7 +856,7 @@ que pode ser escrito na forma matricial
   0  \\ 1 \\ 0
 \end{bmatrix}
 \end{eqnarray}
-Resolvendo o sistema obtemos $\{c_1, c_2, c_3\}=\{-\frac{1}{2h}, 0, \frac{1}{2h}\}$ fornecendo a regra
+Resolvendo o sistema, obtemos $\{c_1, c_2, c_3\}=\{-\frac{1}{2h}, 0, \frac{1}{2h}\}$ fornecendo a regra
 \begin{eqnarray}
   f'|_{x=x_1}& \approx &  -\frac{1}{2h}f(x_1) + \frac{1}{2h}f(x_3)\\
              & \approx &\frac{f(x_3)-f(x_1)}{2h}
@@ -856,27 +871,31 @@ Resolvendo o sistema obtemos $\{c_1, c_2, c_3\}=\{-\frac{1}{2h}, 0, \frac{1}{2h}
 
 \begin{exer}
 Seja $\{x_0, x_1, x_2\}=\{0, h, 2h\}$ e $x^*=x_0=0$, obtenha uma regra unilateral de diferenciação para aproximar $f'(x_0)$.
-\end{exer}
+\end{exer}%sem resposta
 
 \begin{exer}
 Seja $\{x_0, x_1, x_2\}=\{-h, 0, h\}$ e $x^*=x_1=0$, obtenha uma regra de diferenciação para aproximar $f''(x^*)$.
 \end{exer}
+\begin{resp}
+ $f''(x^*)=\frac{f(x_0)-2f(x_1)+f(x_2)}{h^2}$ 
+\end{resp}
+
 
 \begin{exer}
 Seja $\{x_0, x_1, \ldots, x_4\}=\{-2h, -h, 0, h, 2h\}$ e $x^*=0$, obtenha uma regra de diferenciação para aproximar $f'(x^*)$.
-\end{exer}
+\end{exer}%sem resposta
 
 \begin{exer}
 Seja $[x_0,x_1,\ldots ,x_4]=[-2h,-h,0,h,2h]$ e $x^*=0$, obtenha uma regra de diferenciação para aproximar $f''(x^*)$.
-\end{exer}
+\end{exer}%sem resposta
 
 \begin{exer}
 Seja $[x_0,x_1,\ldots ,x_4]=[0,h,3h,6h,10h]$ e $x^*=0$, obtenha uma regra de diferenciação para aproximar $f'(x^*)$.
-\end{exer}
+\end{exer}%sem resposta
 
 \section{Derivada via ajuste ou interpolação}\index{ajuste!derivação}\index{interpolação!derivação}
 
-Dados os valores de uma função em pontos $\{(x_i,y_i)\}_{i=1}^N$, as derivadas $\left(\frac{dy}{dx}\right)_i$ podem ser obtidas através da derivada de uma curva que melhor ajusta ou interpola os pontos. Esse tipo de técnica é necessário quando os pontos são muito espaçados entre si ou quando a função oscila muito. Por exemplo, dados os pontos $(0,1)$, $(1,2)$, $(2,5)$, $(3,9)$, a parábola que melhor ajusta os pontos é
+Dados os valores de uma função em um conjuntos de pontos $\{(x_i,y_i)\}_{i=1}^N$, as derivadas $\left(\frac{dy}{dx}\right)_i$ podem ser obtidas através da derivada de uma curva que melhor ajusta ou interpola os pontos. Esse tipo de técnica é necessário quando os pontos são muito espaçados entre si ou quando a função oscila muito. Por exemplo, dados os pontos $(0,1)$, $(1,2)$, $(2,5)$, $(3,9)$, a parábola que melhor ajusta os pontos é
 $$
 Q(x)=0,95 + 0,45x + 0,75x^2.
 $$

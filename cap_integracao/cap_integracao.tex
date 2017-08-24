@@ -79,7 +79,7 @@ onde o erro na interpolação de Lagrange é
    E^n_{LAG}(x)=\frac{f^{(n)}(\xi(x))}{n!}\prod_{i=1}^n(x-x_i).
 \end{equation}
 
-Substituindo na integral obtemos
+Substituindo na integral, obtemos:
 \begin{eqnarray}
   \int_a^bf(x)\,dx &=& \sum_{i=1}^n\left[f_i\int_a^bL_i(x)\,dx\right] +  \int_a^b E^n_{LAG}(x) \;dx.
 %   \int_a^bf(x)dx &=& \sum_{i=1}^n\left[f(x_i)\int_a^bL_i(x)dx\right] +  \frac{1}{(n+1)!}\int_a^b\prod_{i=1}^n(x-x_i)f^{(n+1)}(\xi)dx.
@@ -205,35 +205,33 @@ S = \sum_{i=1}^{n-1} f(\xi_i ) h, \;\;\;\; \xi_i=\frac{x_i+x_{i+1}}{2}.
 
 \subsection{Regra do trapézio}\index{integração numérica!regra do trapézio}
 
-A regra do trapézio consiste em aproximar a função $f(x)$ por um polinômio de grau 1. Se utilizarmos uma reta ligando extremos do intervalo obtemos um trapézio que fornece o nome da regra.
+A regra do trapézio consiste em aproximar a função $f(x)$ por um polinômio de grau 1. O nome do método vem do fato que a região entre o eixo $x$ e a reta que liga o pontos sobre o gráfico da função nos extremos do intervalo forma um trapézio.
 
 % \begin{center}
 % \includegraphics[scale=0.7]{./cap_integracao/pics/int_2/int_2}
 % \end{center}
 
-Desta forma, utilizando $x_1:=a$,  $x_2:=b$, $h=x_2-x_1$ e a notação $f_i=f(x_i)$ obtemos através da interpolação de Lagrange o polinômio
+Desta forma, utilizando $x_1:=a$,  $x_2:=b$, $h=x_2-x_1$ e a notação $f_i=f(x_i)$, obtemos através da interpolação de Lagrange o polinômio
 \begin{eqnarray}
 p_1(x) &=& f_1 L_1(x)+ f_2 L_2(x)
 \end{eqnarray}
-Aproximando $f(x)$ por $p_1(x)$ e integrando obtemos
+Aproximando $f(x)$ por $p_1(x)$ e integrando, obtemos:
 \begin{eqnarray*}
   \int_a^bf(x)\;dx &\approx& \int_a^bp_1(x)\;dx \\
     &=& \int_a^b f_1L_1(x) + f_2L_2(x)\;dx \\
     &=& f_1 \int_a^b L_1(x)\;dx + f_2 \int_a^b L_2(x)\;dx \\
-    &=& A_1 f_1 + A_2 f_2
+    &=& A_1 f_1 + A_2 f_2,
 \end{eqnarray*}
 onde
 \begin{eqnarray*}
   A_1 &=& \int_a^b\frac{x-x_1}{x_2-x_1}dx =  \left[\frac{(x-x_1)^2}{2h}\right]_{x_1}^{x_2}\\
-      &=& \frac{(x_2-x_1)^2}{2h} = \frac{h^2}{2h} = \frac{1}{2}h
+      &=& \frac{(x_2-x_1)^2}{2h} = \frac{h^2}{2h} = \frac{1}{2}h.
 \end{eqnarray*}
 Da mesma forma,
 \begin{eqnarray*}
-  A_2 &=& \int_a^b\frac{(x-x_2)}{(x_1-x_2)}\,dx = \frac{1}{2}h
+  A_2 &=& \int_a^b\frac{(x-x_2)}{(x_1-x_2)}\,dx = \frac{1}{2}h,
 \end{eqnarray*}
-
-
-de onde obtemos a \emph{regra do trapézio} dada por
+de onde obtemos a \emph{regra do trapézio} dada por:
 \begin{equation}
   \int_a^b f(x)\;dx \approx \left(\frac{1}{2}f_1 + \frac{1}{2}f_2\right)h.
 \end{equation}
@@ -313,7 +311,7 @@ onde
 \begin{eqnarray}
   A_i = \int_a^b L_i(x) \;dx
 \end{eqnarray}
-Calculando essas integrais obtemos \emph{a regra de Simpson}
+Calculando essas integrais obtemos \emph{a regra de Simpson}:
 $$
 \int_a^bf(x)\;dx=\left(\frac{1}{6}f(x_1)+\frac{4}{6}f(x_2)+\frac{1}{6}f(x_3)\right)h.
 $$
@@ -521,10 +519,10 @@ Dados $n$ pontos $[t_1, t_2, \ldots,t_n]$, queremos obter uma aproximação para
 \end{equation}
 que seja exata para polinômios\footnote{Por exemplo, se $n=2$, então a regra é exata para retas.} até ordem  $n-1$.
 
-Aproxime $f(t)$ pelo polinômio $p(t)=w_1\phi_1(t)+\ldots +w_n \phi_n(t)$ de ordem $n-1$. Escolha uma base, como por exemplo $\phi _k(t)=t^{k-1}$. Como a regra de quadratura deve ser exata para qualquer polinômio até ordem $n-1$, então também deve ser exata para qualquer função da base. Substituindo $f(t)$ por $\phi _1(t)=1$ em \eqref{regraint} obtemos
+Aproxime $f(t)$ pelo polinômio $p(t)=w_1\phi_1(t)+\ldots +w_n \phi_n(t)$ de ordem $n-1$. Escolha uma base, como por exemplo $\phi _k(t)=t^{k-1}$. Como a regra de quadratura deve ser exata para qualquer polinômio até ordem $n-1$, então também deve ser exata para qualquer função da base. Substituindo $f(t)$ por $\phi _1(t)=1$ em \eqref{regraint}. obtemos:
 \begin{eqnarray}
 \int _a^b \phi_1(t) \; dt = t|_a^b &=&  w_1\phi _1(t_1)+w_2\phi _1(t_2)+\ldots +w_n\phi_1(t_n) \\
-                              b-a  &=&  w_1+w_2+\ldots +w_n
+                              b-a  &=&  w_1+w_2+\ldots +w_n.
 \end{eqnarray}
 
 Da mesma forma para $\phi_k(t)$, $k=2,\ldots,n$, obtemos:
@@ -532,7 +530,7 @@ Da mesma forma para $\phi_k(t)$, $k=2,\ldots,n$, obtemos:
    (t^2/2)|_a^b = \frac{b^2-a^2}{2} &=&  w_1t_1  +w_2t_2  +\ldots +w_nt_n   \\
    (t^3/3)|_a^b = \frac{b^3-a^3}{3} &=&  w_1t_1^2+w_2t_2^2+\ldots +w_nt_n^2 \\
                               &\vdots&      \\
- \frac{b^{n}-a^{n}}{n}              &=&  w_1t_1^{n-1}+w_2t_2^{n-1}+\ldots +w_nt_n^{n-1}
+ \frac{b^{n}-a^{n}}{n}              &=&  w_1t_1^{n-1}+w_2t_2^{n-1}+\ldots +w_nt_n^{n-1},
 \end{eqnarray}
 que pode ser escrito na forma matricial a seguir:
 \begin{equation}
@@ -596,7 +594,7 @@ h
 \end{bmatrix}
 \end{equation}
 
-Resolvendo o sistema obtemos $\displaystyle [w_1,w_2,w_3]=h\left[\frac{1}{6},\frac{4}{6},\frac{1}{6}\right]$, o que fornece a regra de Simpson:
+Resolvendo o sistema, obtemos $\displaystyle [w_1,w_2,w_3]=h\left[\frac{1}{6},\frac{4}{6},\frac{1}{6}\right]$, o que fornece a regra de Simpson:
 \begin{equation}
   \int _0^h f(t) \;dt \approx  \frac{h}{6}f_0+\frac{4h}{6}f_1+\frac{h}{6}f_2.
 \end{equation}
