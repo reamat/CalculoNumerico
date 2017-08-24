@@ -4,59 +4,43 @@
 %\begin{document}
 
 \chapter{Problemas de valor inicial}\index{problema de valor inicial}
-Neste capítulo, vamos estudar técnicas numéricas para aproximar a solução do problema de valor inicial (PVI) dado pela equação diferencial ordinária (EDO) de primeira ordem
+Neste capítulo, vamos estudar metodologias numéricas para aproximar a solução de problema de valor inicial (problema de valor inicial) para equações diferenciais ordinárias. Primeiramente, daremos atenção aos problemas de primeira ordem e, depois, mostraremos que estas técnicas podem ser estendidas para problemas e sistemas de ordem superior. Considere um problema de valor inicial de primeira ordem dado por:
 \begin{subequations}\label{PVI}
 \begin{eqnarray}
-  u'(t) &=& f(t, u(t))\label{PVI_EDO}\\
-  u(t_1) &=& a ~~ \text{(condição inicial)}.\label{PVI_CI}
+  u'(t) &=& f(t, u(t)),~~t>t_1\label{problema de valor inicial_EDO}\\
+  u(t_1) &=& a ~~ \text{(condição inicial)}.\label{problema de valor inicial_CI}
 \end{eqnarray}
 \end{subequations}
 
-A incógnita de um problema de valor inicial é uma função que satisfaz a equação diferencial \eqref{PVI_EDO} e a condição inicial \eqref{PVI_CI}.
+A incógnita de um problema de valor inicial é uma função que satisfaz a equação diferencial \eqref{problema de valor inicial_EDO} e a condição inicial \eqref{problema de valor inicial_CI}.
 
 Considere os próximos três exemplos:
 \begin{ex}
 \begin{eqnarray}
-   \frac{du}{dt} &=t\\
-            u(0) &= a
+   u'(t) &=t\\
+   u(0) &= 2
 \end{eqnarray}
 \end{ex}
 
 \begin{ex}
 \begin{eqnarray}
-   \frac{du}{dt} &=u\\
-            u(0) &= a
+   u'(t) &=u(t)\\
+            u(0) &= 1
 \end{eqnarray}
 \end{ex}
 
 \begin{ex}
 \begin{eqnarray}
-   \frac{du}{dt} &=&\sin(u^2+\sin(t))\\
+   u'(t) &=&\sin(u(t)^2+\sin(t))\\
             u(0) &=& a
 \end{eqnarray}
 \end{ex}
 
-A solução do primeiro exemplo é $u(t)=t^2/2+a$ pois satisfaz a equação diferencial e a condição inicial.
+A solução do primeiro exemplo é $u(t)=t^2/2+2$ pois satisfaz a equação diferencial e a condição inicial. A solução do segundo também é facilmente obtida: $u(t)=e^t$. Porém como podemos resolver o terceiro problema?
 
-A solução do segundo exemplo é fácil de ser obtida: $u(t)=ae^t$. Porém como podemos resolver o terceiro problema?
+Para muitos problemas de valor inicial da forma \eqref{problema de valor inicial}, não é possível encontrar uma expressão analítica fechada, ou seja, sabe-se que a solução existe e é única, porém não podemos expressá-la em termos de funções elementares. Por isso é necessário calcular aproximações numéricas para a solução. 
 
-
-%
-% \begin{ex}
-% Considere o seguinte problema de valor inicial
-% \begin{subequations}\label{exemplo_u_2u}
-% \begin{eqnarray}
-% u'(t)&=&2u(t),\\
-% u(0)&=&1.
-% \end{eqnarray}
-% \end{subequations}
-% A solução desta equação é dada pela função $u(t)=e^{2t}$ pois $u'(t)=2e^{2t}=2u(t)$ e $u(0)=e^0=1$.
-% \end{ex}
-
-
-Muitos problemas de valor inicial da forma \eqref{PVI} não podem ser resolvidos exatamente, ou seja, sabe-se que a solução existe e é única, porém não podemos expressá-la em termos de funções elementares. Por isso é necessário calcular aproximações numéricas. Diversos métodos completamente diferentes estão disponíveis para aproximar uma função real.
-
-Existem várias maneiras de obter aproximações para a solução deste problema. Vamos nos limitar a estudar métodos que aproximam $u(t)$ em um conjunto finito de valores de $t$ chamado \emph{malha} que será denotado por  $\{t_i\}_{i=1}^N=\{t_1, t_2, t_3,\ldots, t_N\}$. Desta forma, aproximamos a solução $u(t_i)$ por $u_i$ em cada ponto da malha usando diferentes esquemas numéricos.
+Existem uma enorme família de metodologias para construir soluções numéricas para problemas de valor inicial. Aqui, vamos nos limitar a estudar métodos que aproximam $u(t)$ em um conjunto finito de valores de $t$. Este conjunto de valores será chamado de \emph{malha} e será denotado por  $\{t^{(i)}\}_{i=1}^N=\{t^{(1)}, t^{(2)}, t^{(3)},\ldots, t^{(N)}\}$. Desta forma, aproximamos a solução $u(t^{(i)})$ por $u^{(i)}$ em cada ponto da malha usando diferentes esquemas numéricos.
 
 %%%%%%%%%%%%%%%%%%%%
 % python
@@ -72,81 +56,24 @@ import matplotlib.pyplot as plt
 \fi
 %%%%%%%%%%%%%%%%%%%%
 
-\section{Teoria de equações diferenciais}
-Uma questão fundamental é analisar se um dado PVI é um problema \emph{bem posto}. Ou seja,
-\begin{itemize}
- \item Existe uma solução para o $PVI$?
- \item A solução é única?
- \item A solução do PVI é pouco sensível a pequenas perturbações nas condições iniciais?
-\end{itemize}
-
-
-\begin{defn}
-A função $f(t, u)$ é Lipschitz em $u$ se existe uma constante $L$, tal que $\forall t \in [a, b]$ e $u, v \in \mathbb R$,
-$$ |f(t, u)-f(t, v)| \leq L|u(t)-v(t)|. $$
-\end{defn}
-
-
-\begin{teo}
-Seja $f(t, u)$ contínua em $t$ e Lipschitz em $u$. Então existe uma única solução para o PVI
-\begin{eqnarray}
-  u'(t)  &=& f(t, u(t)) \\
-  u(t_1) &=& a.
-\end{eqnarray}
-\end{teo}
-
-\begin{defn}
-  \emph{Estabilidade dinâmica} refere-se a propriedade de pequenas perturbações sobre o estado inicial de um sistema gerarem pequenas variações no estado final deste sistema (haverá decaimento nas variações, ou pelo menos não crescimento, quanto $t$ cresce).
-\end{defn}
-
-\begin{teo}[Dependência na condição inicial]
-Se $u(t)$ e $v(t)$ são soluções do PVI com $f$ Lipschitz com $u(t_1)=u_1$, $v(t_1)=v_1$, então
-$$ |u(t)-v(t)| \leq  e^{L(t-t_1)}|u_1-v_1| . $$
-\end{teo}
-
-\subsection*{Exercícios resolvidos}
-
-\begin{exeresol} A função $f(t,u)=\sqrt{u},~~u\geq 0$ não é uma função Lipschitz em $u$, pois
-$$\lim_{u\to 0+} \frac{|f(t,u)-f(t,0)|}{|u-0|}=\lim_{u\to 0+} \frac{\sqrt{u}}{u}=\lim_{u\to 0+} \frac{1}{\sqrt{u}}=\infty$$
- Mostre que o seguinte problema de valor inicial não admite solução única:
-\begin{eqnarray}
-   \frac{du}{dt} &=&\sqrt{u},~~u>0,\\
-            u(0) &=& 0.
-\end{eqnarray}
-\end{exeresol}
-\begin{resol}
- A função identicamente nula, $u(t)=0$, satisfaz a equação diferencial e a condição de contorno, logo é uma solução do problema de valor inicial. No entanto, a função\footnote{Esta solução pode ser obtida por separação de variáveis.} $u(t)=\frac{t^2}{4}$ satisfaz a condição inicial, pois $u(0)=0$ e a equação diferencial pois $\frac{du}{dt}=\frac{t}{2}=\sqrt{\frac{t^2}{4}}$.
- 
- De fato, qualquer função do tipo
- $$u(t)=\left\{
- \begin{array}{ll}
-  0,&0\leq t \leq t_0\\
-  \frac{(t-t_0)^2}{4},& t >t_0\\
- \end{array}
- \right.$$
- é solução do problema de valor inicial dado.
-\end{resol}
-
-
-\emconstrucao
-
-\subsection*{Exercícios}
-
-\emconstrucao
 
 \section{Método de Euler}\index{método!de Euler}
-Considere o PVI dado por
-\begin{eqnarray}\label{EDO1}
-  u'(t)  &=& f(t,u(t)) \\
-  u(t_1) &=& a
-\end{eqnarray}
-Ao invés de solucionar o problema para qualquer $t>t_1$, (encontrar $u(t)$), iremos aproximar $u(t)$ em $t_2=t_1+h$.
+Nesta seção, contruiremos o mais simples dos métodos para resolver problemas de valor inicial: o método de Euler com passo constante.\index{Passo} Por passo constante, queremos dizer que os pontos da malha estão todos igualmente espaçados, isto é:
+$$t^{(i)}=(i-1)h,~~~i=1,2,\ldots,N.$$
+onde $h$ é passo, ou seja, a distância entre dois pontos da malha.
 
-Integrando \eqref{EDO1} de $t_1$ até $t_2$,
+Considere, agora, o problema de valor inicial dado por:
+\begin{eqnarray}\label{EDO1}
+  u'(t)  &=& f(t,u(t)),~~t>t^{(1)} \\
+  u(t^{(1)}) &=& a.
+\end{eqnarray}
+Ao invés de tentar solucionar o problema para qualquer $t>t_1$, iremos aproximar $u(t)$ em $t=t_2$.
+
+Integrando \eqref{EDO1} de $t_1$ até $t_2$, obtemos:
 \begin{eqnarray}
-  \int_{t_1}^{t_2} u'(t) \;dt &=& \int_{t_1}^{t_2} f(t,u(t)) \; dt\\
-  u(t_2)-u(t_1)               &=& \int_{t_1}^{t_2} f(t,u(t)) \; dt\\
-  u(t_2)                      &=& u(t_1) +  \int _{t_1}^{t_2} f(t,u(t)) \; dt
+  \int_{t^{(1)}}^{t^{(2)}} u'(t) \;dt &=& \int_{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt\\
+  u(t^{(2)})-u(t^{(1)})               &=& \int_{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt\\
+  u(t^{(1)})                      &=& u(t^{(1)}) +  \int _{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt
 \end{eqnarray}
 
 Seja $u_n$ a aproximação de $u(t_n)$. Para obter o método numérico mais simples aproximamos $f$ em $[t_1,t_2]$ pela função constante $f(t,u(t)) \approx  f(t_1,u_1)$,
@@ -175,7 +102,7 @@ u(t+h)&=&u(t)+hf(t,u(t))+O(h^2).{\label{erro_local}}
 \end{eqnarray}
 
 Sendo $u_n$ a aproximação de $u$ em $t_n$ produzida pelo método de Euler, obtemos
-\begin{eqnarray}\label{PVI_EULER}
+\begin{eqnarray}\label{problema de valor inicial_EULER}
 u_{n+1}&=&u_n+hf(t_n,u_n),\\
 u_1    &=&a.
 \end{eqnarray}
@@ -217,7 +144,7 @@ Essa aproximação é bem grosseira quando comparamos com a solução do problem
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-Em \verb+Python+, podemos computar a solução numérica deste PVI via o método de Euler com o seguite código:
+Em \verb+Python+, podemos computar a solução numérica deste problema de valor inicial via o método de Euler com o seguite código:
 \begin{verbatim}
 #define f(t,u)
 def f(t,u):
@@ -250,7 +177,7 @@ for i,tt in enumerate(t):
 
 
 \begin{ex}
-Aproxime a solução do PVI
+Aproxime a solução do problema de valor inicial
 \begin{eqnarray}
    \frac{du}{dt} &=& -0,5u+2+t\\
             u(0) &=&  8
@@ -379,7 +306,7 @@ $3$ &   $2e^{-3}+2\approx 2,0995741$  & $ 2,0847823$ & $2,0980818$   \\\hline
 
 \subsection{Ordem de precisão}
 
-A \emph{precisão} de um método numérico que aproxima a solução de um PVI é dada pela ordem do erro acumulado ao calcular a aproximação em um ponto $t_{n+1}$ em função do espaçamento da malha $h$.
+A \emph{precisão} de um método numérico que aproxima a solução de um problema de valor inicial é dada pela ordem do erro acumulado ao calcular a aproximação em um ponto $t_{n+1}$ em função do espaçamento da malha $h$.
 
 Se $u(t_{n+1})$ for aproximado por $u_{n+1}$ com erro da ordem $O(h^{p+1})$ dizemos que o método tem \textbf{ordem de precisão $p$}\index{método!de Euler!ordem de precisão}.
 
@@ -496,7 +423,7 @@ Nesta seção veremos três conceitos fundamentais em análise numérica: conver
 \subsection{Convergência}
 Um método é dito \emph{convergente} se para toda EDO com $f$ Lipschitz e todo $t>0$ temos que
 $$ \lim_{h \rightarrow 0} |u_n - u(t_n)| =0, \quad \quad \forall n$$
-Convergência significa que a solução numérica tende a solução do PVI.
+Convergência significa que a solução numérica tende a solução do problema de valor inicial.
 
 
 \begin{teo}
@@ -511,7 +438,7 @@ De fato, se $f$ é Lipschitz-contínua e $|e_0|=0$, temos que
 
 \subsection{Consistência}
 \begin{defn}
-Dizemos que um método numérico $R_h(u_n)=f$ é consistente com o PVI $u'(t)=f$ se para qualquer $u(t)$
+Dizemos que um método numérico $R_h(u_n)=f$ é consistente com o problema de valor inicial $u'(t)=f$ se para qualquer $u(t)$
 \begin{eqnarray}
   \lim_{h \rightarrow 0} |u'(t_n)-R_h(u_n)| = 0, \quad  \forall n
 \end{eqnarray}
@@ -527,7 +454,7 @@ Isto é equivalente a
 %\novapagina
 %\section{Estabilidade}
 %\begin{defn}\label{def:estnum}
-% Um método numérico $P_h(u_n)$ para um PVI é \emph{estável} em uma região $\Lambda $ se  $\exists  J$ inteiro tal que $\forall T>0$, $\exists  C_T$ tal que
+% Um método numérico $P_h(u_n)$ para um problema de valor inicial é \emph{estável} em uma região $\Lambda $ se  $\exists  J$ inteiro tal que $\forall T>0$, $\exists  C_T$ tal que
 % \begin{eqnarray}
 % |u_n|  \leq   C_T |u_0|
 % \end{eqnarray}
@@ -545,20 +472,20 @@ $$ |u_n-v_n| \leq  C_1|u_1-v_1|, \quad  \forall n$$
 Isto significa que dadas duas condições iniciais $u_1$ e $v_1$, teremos que as soluções $u_n$ e $v_n$ estarão a uma distância limitada  por uma constante $C_1$ vezes $|u_1-v_1|$. Se $u_1$ e $v_1$ estiverem próximas então $u_n$ e $v_n$ estão também próximas dependendo da constante $C_1$ (obviamente $C_1$ depende da função $f$).
 
 
-Considere o PVI linear bem-posto
+Considere o problema de valor inicial linear bem-posto
 \begin{eqnarray}\label{EDO4.7}
   u'(t)= \lambda u(t), \quad  u(0)=1,
 \end{eqnarray}
 onde $\lambda  \in  \mathbb{C}$. Note que:
 \begin{itemize}
 \item Possui solução exata $u(t)=e^{\lambda t}.$
-\item O PVI é \emph{assintoticamente estável}, isto é, $\lim_{t\rightarrow \infty }u(t)=0$, se e somente se $\Re{\lambda }<0$.
+\item O problema de valor inicial é \emph{assintoticamente estável}, isto é, $\lim_{t\rightarrow \infty }u(t)=0$, se e somente se $\Re{\lambda }<0$.
 \
 \end{itemize}
 %Não estamos interessados no momento em soluções que crescem rapidamente ($\Re{\lambda }>0$).
 
 %\begin{defn}
-%O PVI linear é \emph{assintoticamente estável} se e somente se $\Re{\lambda }<0$.
+%O problema de valor inicial linear é \emph{assintoticamente estável} se e somente se $\Re{\lambda }<0$.
 %\end{defn}
 
 
@@ -611,7 +538,7 @@ Esta prática não é exata e fornece apenas uma ideia local do comportamento da
 Um dos teoremas mais importantes em análise numérica é o seguinte:
 
 \begin{teo}
-Um método numérico \emph{consistente} para um PVI bem-posto é \emph{convergente} se e somente se ele é \emph{estável}.
+Um método numérico \emph{consistente} para um problema de valor inicial bem-posto é \emph{convergente} se e somente se ele é \emph{estável}.
 \end{teo}
 
 
@@ -633,7 +560,7 @@ Se um método numérico é \emph{consistente} e \emph{estável} em $[a,b]$ entã
 
 
 \section{O método de Euler implícito}
-Integrando o PVI
+Integrando o problema de valor inicial
 \begin{eqnarray}
   u'(t)  &=& f(t,u(t)) \\
   u(t_1) &=& a
@@ -888,7 +815,7 @@ Trace as regiões de estabilidade para o método de Taylor para $p=1,\ldots ,6$ 
 
 
 \begin{ex}
-Aproxime a solução do PVI
+Aproxime a solução do problema de valor inicial
 \begin{eqnarray}
    \frac{du}{dt} &=\sin{t}\\
             u(0) &= 1
@@ -1016,7 +943,7 @@ Comente os resultados (novamente, em cada gráfico separado para cada método re
 \emconstrucao
 
 \section{Métodos de passo múltiplo}
-Seja o PVI
+Seja o problema de valor inicial
 \begin{eqnarray}
   u'(t) &= f(t,u(t)) \\
   u(t_0) &= a
@@ -1439,7 +1366,7 @@ O método BDF de 2 estágios é A-estável.
 %%\begin{eqnarray}
 %%  u_{n+2} - \frac{4}{3} u_{n+1} + \frac{1}{3} u_n = \frac{2}{3}h f_{n+2}
 %%\end{eqnarray}
-%%para o PVI $u'=\lambda u$, que possui polinômio característico
+%%para o problema de valor inicial $u'=\lambda u$, que possui polinômio característico
 %%\begin{eqnarray}
 %%  w^2 - \frac{4}{3} w + \frac{1}{3} = \frac{2}{3}h \lambda (w^2)
 %%\end{eqnarray}
@@ -1769,7 +1696,7 @@ Raramente temos a solução exata $u(t)$ para calcular o erro obtido na soluçã
 
 Como visto nos exemplo numéricos anteriores, em gráficos na escala \verb#loglog#, se $h$ é grande não obtemos a ordem de convergência utilizada (por exemplo, encontramos que o método de Euler possui ordem $p\approx 0,7$ onde deveria ser $1$). A medida que $h$ decresce se aproximando de $0$, a ordem de convergência tende a se aproximar de $p\approx 1$. (Entretanto $h$ não pode ficar muito pequeno a ponto que as operações de ponto flutuante atrapalhem na convergência).
 
-Portanto existe uma faixa $h_{min} < h < h_{max}$ onde o método apresenta a ordem desejada. Essa região depende do método e do PVI estudado.
+Portanto existe uma faixa $h_{min} < h < h_{max}$ onde o método apresenta a ordem desejada. Essa região depende do método e do problema de valor inicial estudado.
 
 Mas se estivermos nessa região podemos aproximar a ordem do método da seguinte forma: Considere a solução para um determinado $t=T^*$ fixo, $u(T^*)$. Considere também as aproximações das soluções obtidas com espaçamento $h$, denotada por $u^{h}$; a aproximação obtida com espaçamento dividido por $2$, $h/2$, denotada por $u^{h/2}$; a aproximação obtida com espaçamento $h/4$, denotada por $u^{h/4}$, $\ldots $ e assim por diante, todas calculadas em $t=T^*$.
 
@@ -1818,8 +1745,8 @@ Segundo Ferziger/Peric/Roache, podemos também estimar $p$ diretamente de
 
 
 \section{Sistemas de equações diferenciais e equações de ordem superior}
-O Problema~\eqref{PVI} pode ser um sistema de equações de primeira ordem, isto é, a incógnita $y(t)$ pode ser um vetor de funções, como mostra o Exemplo~\ref{eq_exemplo_sistema}
-\begin{ex}\label{exemplo_sistema_PVI}O problema de valor inicial
+O Problema~\eqref{problema de valor inicial} pode ser um sistema de equações de primeira ordem, isto é, a incógnita $y(t)$ pode ser um vetor de funções, como mostra o Exemplo~\ref{eq_exemplo_sistema}
+\begin{ex}\label{exemplo_sistema_problema de valor inicial}O problema de valor inicial
 \begin{subequations}\label{eq_exemplo_sistema}
 \begin{eqnarray}
 u'(t)&=&v(t),\\
@@ -1828,7 +1755,7 @@ u(0)&=&1.\\
 v(0)&=&0.
 \end{eqnarray}
 \end{subequations}
-pode ser escrito na forma \eqref{PVI} com $y(t)$
+pode ser escrito na forma \eqref{problema de valor inicial} com $y(t)$
 \end{ex}
 
 No Exemplo~\ref{sys_edo}, mostramos como o método de Euler pode ser facilmente estendido para problemas envolvendo sistemas de equações diferenciais.\index{sistemas!de equações diferenciais}.
@@ -2116,3 +2043,67 @@ Adams-Bashforth ordem 4&4,8e-5 &   9,0e-8 &   5,7e-9 &   9,2e-12 &   5,8e-13  \\
 \end{resp}
 
 %\end{document}
+
+
+\chapter{Limbo}
+\section{Teoria de equações diferenciais}
+Uma questão fundamental é analisar se um dado problema de valor inicial é um problema \emph{bem posto}. Ou seja,
+\begin{itemize}
+ \item Existe uma solução para o problema de valor inicial?
+ \item A solução é única?
+ \item A solução do problema de valor inicial é pouco sensível a pequenas perturbações nas condições iniciais?
+\end{itemize}
+
+
+\begin{defn}
+A função $f(t, u)$ é Lipschitz em $u$ se existe uma constante $L$, tal que $\forall t \in [a, b]$ e $u, v \in \mathbb R$,
+$$ |f(t, u)-f(t, v)| \leq L|u(t)-v(t)|. $$
+\end{defn}
+
+
+\begin{teo}
+Seja $f(t, u)$ contínua em $t$ e Lipschitz em $u$. Então existe uma única solução para o problema de valor inicial
+\begin{eqnarray}
+  u'(t)  &=& f(t, u(t)) \\
+  u(t_1) &=& a.
+\end{eqnarray}
+\end{teo}
+
+\begin{defn}
+  \emph{Estabilidade dinâmica} refere-se a propriedade de pequenas perturbações sobre o estado inicial de um sistema gerarem pequenas variações no estado final deste sistema (haverá decaimento nas variações, ou pelo menos não crescimento, quanto $t$ cresce).
+\end{defn}
+
+\begin{teo}[Dependência na condição inicial]
+Se $u(t)$ e $v(t)$ são soluções do problema de valor inicial com $f$ Lipschitz com $u(t_1)=u_1$, $v(t_1)=v_1$, então
+$$ |u(t)-v(t)| \leq  e^{L(t-t_1)}|u_1-v_1| . $$
+\end{teo}
+
+\subsection*{Exercícios resolvidos}
+
+\begin{exeresol} A função $f(t,u)=\sqrt{u},~~u\geq 0$ não é uma função Lipschitz em $u$, pois
+$$\lim_{u\to 0+} \frac{|f(t,u)-f(t,0)|}{|u-0|}=\lim_{u\to 0+} \frac{\sqrt{u}}{u}=\lim_{u\to 0+} \frac{1}{\sqrt{u}}=\infty$$
+ Mostre que o seguinte problema de valor inicial não admite solução única:
+\begin{eqnarray}
+   \frac{du}{dt} &=&\sqrt{u},~~u>0,\\
+            u(0) &=& 0.
+\end{eqnarray}
+\end{exeresol}
+\begin{resol}
+ A função identicamente nula, $u(t)=0$, satisfaz a equação diferencial e a condição de contorno, logo é uma solução do problema de valor inicial. No entanto, a função\footnote{Esta solução pode ser obtida por separação de variáveis.} $u(t)=\frac{t^2}{4}$ satisfaz a condição inicial, pois $u(0)=0$ e a equação diferencial pois $\frac{du}{dt}=\frac{t}{2}=\sqrt{\frac{t^2}{4}}$.
+ 
+ De fato, qualquer função do tipo
+ $$u(t)=\left\{
+ \begin{array}{ll}
+  0,&0\leq t \leq t_0\\
+  \frac{(t-t_0)^2}{4},& t >t_0\\
+ \end{array}
+ \right.$$
+ é solução do problema de valor inicial dado.
+\end{resol}
+
+
+\emconstrucao
+
+\subsection*{Exercícios}
+
+\emconstrucao
