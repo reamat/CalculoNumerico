@@ -38,6 +38,21 @@ o que nos fornece $a = 0$ e $b = 1$. Então, a função interpoladora $f$ é tal
 
 Um problema de interpolação cuja a família de funções constitui-se de polinômios é chamado de problema de interpolação polinomial.
 
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Ao longo do capítulo, faremos alguns comentários usando códigos em \verb+Python 2.7+. Nestes, assumiremos que os seguintes módulos estão carregados:
+\begin{verbatim}
+from __future__ import division
+import numpy as np
+from numpy import linalg
+from numpy.polynomial import polynomial as poly
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+
+
 \section{Interpolação polinomial}\index{interpolação!polinomial}
 
 Interpolação polinomial é um caso particular do problema geral de interpolação, no qual a família de funções é constituída de polinômios. A escolha de polinômios como funções interpolantes é natural por diversos  motivos, entre eles: se $p$ é um polinômio de grau $n$, o valor $p(x)$ para um $x$ real é calculado através de $n+1$ operações de multiplicação e $n+1$ operações de adição. Para tanto, pode-se usar o algoritmo de Horner\footnote{William George Horner, 1786 - 1837, matemático britânico.}. Dado um polinômio $p$ de grau $n$ da forma 
@@ -358,6 +373,42 @@ p = T(1,1);
 p = [0, p] + T(2,2)*[1,-x(1)];
 p = [0, p] + T(3,3)*conv([1,-x(1)],[1,-x(2)]);
 p = [0, p] + T(4,4)*conv(conv([1,-x(1)],[1,-x(2)]),[1,-x(3)]);
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos fazer as contas acima da segunte forma:
+\begin{verbatim}
+x = np.array([-1,0,1,3], dtype="double")
+y = np.array([3,1,3,43], dtype="double")
+#inicializando a tabela
+T = np.zeros((4,4));
+#primeira coluna
+T[:,0]=y;
+#segunda coluna
+T[1,1]=(T[1,0]-T[0,0])/(x[1]-x[0]);
+T[2,1]=(T[2,0]-T[1,0])/(x[2]-x[1]);
+T[3,1]=(T[3,0]-T[2,0])/(x[3]-x[2]);
+#terceira coluna
+T[2,2]=(T[2,1]-T[1,1])/(x[2]-x[0]);
+T[3,2]=(T[3,1]-T[2,1])/(x[3]-x[1]);
+#quarta coluna
+T[3,3]=(T[3,2]-T[2,2])/(x[3]-x[0]);
+print(T)
+#polinomio interpolador
+p = np.array([T[0,0]], dtype="double")
+paux = np.array([-x[0],1], dtype="double")
+p.resize(2)
+p += T[1,1]*paux
+paux = poly.polymul(paux,[-x[1],1])
+p.resize(3)
+p += T[2,2]*paux
+paux = poly.polymul(paux,[-x[2],1])
+p.resize(4)
+p += T[3,3]*paux
 \end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%
