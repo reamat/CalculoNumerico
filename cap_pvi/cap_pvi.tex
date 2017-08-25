@@ -476,10 +476,34 @@ $3$ &   $1,4713043 $  & $ 1.4827638 $ & $1.4724512 $   \\\hline
  Aproximação via Euler: $2,4826529 $, exata: $e^{\sin(2)}\approx 2,4825777 $. Erro relativo aproximado: $ 3\times 10^{-5}$.
 \end{resp}
 
-\section{O método de Euler melhorado} 
+\section{O método de Euler melhorado}\index{Método de Euler melhorado} 
+O método de Euler estudado na Seção~\ref{pvi:euler} é aplicação bastante restrita devido à sua pequena precisão, isto é, normalmente precisamos escolher um passo $h$ muito pequeno para obter soluções de boa qualidade, o que implica um número elevado de passos e, consequentemente, alto custo computacional. 
+
+Nesta seção, contruiremos o \emph{método de Euler melhorado} ou \emph{método de Euler modificado} ou, ainda, . Para tal, considere o problema de valor inicial dado por:
+\begin{eqnarray}\label{EDO2}
+  u'(t)  &=& f(t,u(t)),~~t>t^{(1)} \\
+  u(t^{(1)}) &=& a.
+\end{eqnarray}
+
+Assim como fizemos para o método de Euler, integramos \eqref{EDO2} de $t^{(1)}$ até $t^{(2)}$ e obtemos:
+\begin{eqnarray}
+  \int_{t^{(1)}}^{t^{(2)}} u'(t) \;dt &=& \int_{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt\\
+  u(t^{(2)})-u(t^{(1)})               &=& \int_{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt\\
+  u(t^{(1)})                      &=& u(t^{(1)}) +  \int _{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt
+\end{eqnarray}
+A invés de aproximar $f(t,u(t))$ como uma constante igual ao seu valor em $t=t^{(1)}$, aplicamos a regra do trapézio (ver \ref{int:trapézio}) à integral envolvida no lado direito da expressão, isto é:
+\begin{eqnarray}\label{pvi:euler_mel_eq}
+\int _{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt = \left[\frac{f\left(t^{(1)},u(t^{(1)})\right)+f\left(t^{(2)},u(t^{(2)})\right)}{2}\right]h + O(h^3)
+\end{eqnarray}
+onde $h=t^{(2)}-t^{(1)}$.
+Como o valor de $u(t^{(2)})$ não é conhecido antes de o passo ser realizado, aproximamos seu valor aplicando o método de Euler:
+\begin{eqnarray*}
+\tilde{u(t^{(2)})}= u(t^{(1)})+h f\left(t^{(1)},u(t^{(1)})\right)
+\end{eqnarray*}
+Substituindo esta última expressão em \ref{pvi:euler_mel_eq}
 
 
-
+\chapter{Em reestruturação}
 
 \subsection{Ordem de precisão}
 
