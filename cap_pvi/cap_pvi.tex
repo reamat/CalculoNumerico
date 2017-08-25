@@ -103,7 +103,7 @@ Considere o problema de valor inicial
 \end{eqnarray*}
 cuja solução é $u(t)=e^{2t}$. O método de Euler aplicado a este problema produz o  esquema:
 \begin{eqnarray}\label{exemplo_y_2y_euler}
-  u_{k+1}&=&u_k+2hu_k=(1+2h)u_k\\
+  u^{(k+1)}&=&u^{(k)}+2hu^{(k)}=(1+2h)u^{(k)}\\
   u^{(1)}&=&1,
 \end{eqnarray}
 Suponha que queremos calcular o valor aproximado de $u(1)$ com $h=0,2$. Então os pontos $t^{(1)}=0$, $t^{(2)}=0,2$, $t^{(3)}=0,4$, $t^{(4)}=0,6$, $t^{(5)}=0,8$ e $t^{(6)}=1,0$ formam os seis pontos da malha. As aproximações para a solução nos pontos da malha usando o método de Euler são:
@@ -172,9 +172,9 @@ for i,tt in enumerate(t):
      u'(t)&=& -0,5u(t)+2+t\\
             u(0) &=&  8
 \end{eqnarray}
-Usando os seguinte passos: $h=1,6$, $h=0,8$, $h=0,4$, $h=0,2$ e $h=0,1$ e compare com a solução exata dada por:
+Usando os seguinte passos: $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e $h=10^{-5}$ e compare a solução aproximada em $t=1$ com a solução exata dada por:
 \begin{equation}
-     u(t) = 2t+8e^{-t/2}.
+     u(t) = 2t+8e^{-t/2} \Longrightarrow u(1)=2+8e^{-1/2} \approx 6,85224527770107
 \end{equation}
 \end{exeresol}
 \begin{resol} Primeramente itentificamos $f(t,u)=-0,5u+2+t$ e construímos o processo iterativo do método de Euler: 
@@ -183,23 +183,75 @@ Usando os seguinte passos: $h=1,6$, $h=0,8$, $h=0,4$, $h=0,2$ e $h=0,1$ e compar
   u^{(1)}&=&8
 \end{eqnarray}
 
-até aqui.
-------------------------------------------------
-através do código abaixo:
-
+\ifisscilab
+O seguinte código pode ser usado para implementar no Scilab a recurssão acima:
 \begin{verbatim}
-%---------------------------
-function [u,t]=euler(h,Tmax)
-  u(1)= 8;
-  t(1)= 0;
+function u=euler(h,Tmax)
+  u= 8;
+  t= 0;
   itmax = Tmax/h;
   for n=1:itmax
-    t(n+1)= t(n) + h;
-    u(n+1)= u(n) + h*(-0.5*u(n)+2+t(n));
-  end
-  plot(t,u,'g*-');
-%---------------------------
+    t= t + h;
+    u= u + h*(-0.5*u+2+t);
+   end
+endfunction
 \end{verbatim}
+o qual pode ser invocado da seguinte forma:
+\begin{verbatim}
+-->euler(1e-1,1)
+ ans  =
+ 
+    6.8701481 
+\end{verbatim}
+Podemos construir um vetor com as cinco soluções da seguinte forma:
+\begin{verbatim}
+ -->S=[euler(1e-1,1) euler(1e-2,1) euler(1e-3,1) euler(1e-4,1) euler(1e-5,1)]
+ S  =
+ 
+    6.8701481    6.8540481    6.8524257    6.8522633    6.8522471  
+\end{verbatim}
+
+\fi
+
+\ifisoctave
+O seguinte código pode ser usado para implementar no Scilab a recurssão acima:
+\begin{verbatim}
+function u=euler(h,Tmax)
+  u= 8;
+  t= 0;
+  itmax = Tmax/h;
+  for n=1:itmax
+    t= t + h;
+    u= u + h*(-0.5*u+2+t);
+   end
+endfunction
+\end{verbatim}
+o qual pode ser invocado da seguinte forma:
+\begin{verbatim}
+>> euler(1e-1,1)
+ans =  6.8701
+\end{verbatim}
+Podemos construir um vetor com as cinco soluções da seguinte forma:
+\begin{verbatim}
+ >> S=[euler(1e-1,1) euler(1e-2,1) euler(1e-3,1) euler(1e-4,1) euler(1e-5,1)]
+S =
+
+   6.8701   6.8540   6.8524   6.8523   6.8522
+\end{verbatim}
+\fi
+A seguinte tabela resume os resultados obtidos:
+\begin{center}
+ \begin{tabular}{|l|l|l|l|l|l|l|l|}%\label{pvi:tab_euler}
+\hline
+   h&$10^{-1}$&$10^{-2}$&$10^{-3}$&$10^{-4}$&$10^{-5}$\\
+   \hline
+   $u^{(N)}$ & 6,8701481  &  6,8540481  &  6,8524257  &  6,8522633  &  6,8522471  \\
+   \hline
+   $\varepsilon_{rel}$ &2,6e-03 &  2,6e-04  & 2,6e-05&   2,6e-06 &  2,6e-07\\
+   \hline
+  \end{tabular}
+\end{center}
+
 
 % Veja o gráfico da solução para $h=1, 0.5, 0.1, 0.05$:
 % \begin{figure}
