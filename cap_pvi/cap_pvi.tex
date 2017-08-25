@@ -7,12 +7,12 @@
 Neste capítulo, vamos estudar metodologias numéricas para aproximar a solução de problema de valor inicial (problema de valor inicial) para equações diferenciais ordinárias. Primeiramente, daremos atenção aos problemas de primeira ordem e, depois, mostraremos que estas técnicas podem ser estendidas para problemas e sistemas de ordem superior. Considere um problema de valor inicial de primeira ordem dado por:
 \begin{subequations}\label{PVI}
 \begin{eqnarray}
-  u'(t) &=& f(t, u(t)),~~t>t^{(1)}\label{problema de valor inicial_EDO}\\
-  u(t^{(1)}) &=& a ~~ \text{(condição inicial)}.\label{problema de valor inicial_CI}
+  u'(t) &=& f(t, u(t)),~~t>t^{(1)}\label{PVI_EDO}\\
+  u(t^{(1)}) &=& a ~~ \text{(condição inicial)}.\label{PVI_CI}
 \end{eqnarray}
 \end{subequations}
 
-A incógnita de um problema de valor inicial é uma função que satisfaz a equação diferencial \eqref{problema de valor inicial_EDO} e a condição inicial \eqref{problema de valor inicial_CI}.
+A incógnita de um problema de valor inicial é uma função que satisfaz a equação diferencial \eqref{PVI_EDO} e a condição inicial \eqref{PVI_CI}.
 
 Considere os próximos três exemplos:
 \begin{ex}
@@ -38,7 +38,7 @@ Considere os próximos três exemplos:
 
 A solução do primeiro exemplo é $u(t)=t^2/2+2$ pois satisfaz a equação diferencial e a condição inicial. A solução do segundo também é facilmente obtida: $u(t)=e^t$. Porém como podemos resolver o terceiro problema?
 
-Para muitos problemas de valor inicial da forma \eqref{problema de valor inicial}, não é possível encontrar uma expressão analítica fechada, ou seja, sabe-se que a solução existe e é única, porém não podemos expressá-la em termos de funções elementares. Por isso é necessário calcular aproximações numéricas para a solução. 
+Para muitos problemas de valor inicial da forma \eqref{PVI}, não é possível encontrar uma expressão analítica fechada, ou seja, sabe-se que a solução existe e é única, porém não podemos expressá-la em termos de funções elementares. Por isso é necessário calcular aproximações numéricas para a solução. 
 
 Existem uma enorme família de metodologias para construir soluções numéricas para problemas de valor inicial. Aqui, vamos nos limitar a estudar métodos que aproximam $u(t)$ em um conjunto finito de valores de $t$. Este conjunto de valores será chamado de \emph{malha} e será denotado por  $\{t^{(i)}\}_{i=1}^N=\{t^{(1)}, t^{(2)}, t^{(3)},\ldots, t^{(N)}\}$. Desta forma, aproximamos a solução $u(t^{(i)})$ por $u^{(i)}$ em cada ponto da malha usando diferentes esquemas numéricos.
 
@@ -86,7 +86,7 @@ Seja $u_n$ a aproximação de $u(t_n)$. Para obter o método numérico mais simp
 Este procedimento pode ser repetido para  $t^{(3)}$, $t^{(4)}$, $\ldots$, obtendo, assim, o chamado \emph{método de Euler}:
 \begin{eqnarray}\label{euler}
 u^{(n+1)}&=&u^{(n)} + h\;f(t^{(n)},u^{(n)}),\\
-u^{(1)}&=&u_1=u(t_1)~ \hbox{(condição inicial)}.
+u^{(1)}&=&u^{(1)}=u(t^{(1)})~ \hbox{(condição inicial)}.
 \end{eqnarray}
 
 
@@ -102,10 +102,10 @@ Considere o problema de valor inicial
   u(0)&=&1
 \end{eqnarray*}
 cuja solução é $u(t)=e^{2t}$. O método de Euler aplicado a este problema produz o  esquema:
-\begin{eqnarray*}
+\begin{eqnarray}\label{exemplo_y_2y_euler}
   u_{k+1}&=&u_k+2hu_k=(1+2h)u_k\\
   u^{(1)}&=&1,
-\end{eqnarray*}
+\end{eqnarray}
 Suponha que queremos calcular o valor aproximado de $u(1)$ com $h=0,2$. Então os pontos $t^{(1)}=0$, $t^{(2)}=0,2$, $t^{(3)}=0,4$, $t^{(4)}=0,6$, $t^{(5)}=0,8$ e $t^{(6)}=1,0$ formam os seis pontos da malha. As aproximações para a solução nos pontos da malha usando o método de Euler são:
 \begin{eqnarray*}
   u(0)  &\approx &u^{(1)}=1\\
@@ -115,13 +115,22 @@ Suponha que queremos calcular o valor aproximado de $u(1)$ com $h=0,2$. Então o
   u(0,8)&\approx &u^{(5)}=1,4 u^{(4)}=3,8416\\
   u(1,0)&\approx &u^{(6)}=1,4 u^{(5)}=5,37824
 \end{eqnarray*}
-Essa aproximação é bem grosseira quando comparamos com a solução do problema em $t=1$: $u(1)=e^{2}\approx 7,38906$.
-% Observe que a solução da relação de recorrência \eqref{exemplo_y_2y_euler} é dada por
-% $$u^{(k)}=(1+2h)^{k-1}.$$
-% Em um ponto genérico da malha $t\approx t^{(k)}=(k-1)h$ a solução aproximada pelo método de Euler é
-% $$u(t)\approx \tilde{u}(t)= (1+2h)^{\frac{t}{h}}.$$
-% Observe que $\tilde{u}(t) \neq u(t)$, mas se $h$ é pequeno, a aproximação é boa, pois
-% $$\lim_{h\to 0+} (1+2h)^{\frac{t}{h}}= e^{2t}.$$
+Essa aproximação é bem grosseira quando comparamos com a solução do problema em $t=1$: $u(1)=e^{2}\approx 7,38906$. Não obstante, se tivéssemos escolhido um passo menor, teríamos obtido uma aproximação melhor. Veja tabela abaixo com valores obtidos com diferentes valores de passo $h$.
+
+\begin{tabular}{|l|l|l|l|l|l|l|l|}%\label{pvi:tab_euler}
+\hline
+   h&$10^{-1}$&$10^{-2}$&$10^{-3}$&$10^{-4}$&$10^{-5}$&$10^{-6}$&$10^{-7}$\\
+   \hline
+   $u^{(N)}$& 6,1917 &  6,7275 &  7,0400 &  7,2096  & 7,2980 &  7,3432  & 7,3660\\
+   \hline
+  \end{tabular}
+ 
+De fato, podemos mostrar que quando $h$ se aproxima de $0$, a solução aproximada via método de Euler converge para a solução exata $e^2$. Para isto, basta observar que a solução da relação de recorrência \eqref{exemplo_y_2y_euler} é dada por
+ $$u^{(k)}=(1+2h)^{k-1}.$$
+ Como $t^{(k)}=(k-1)h$ e queremos a solução em $t=2$, a solução aproximada pelo método de Euler com passo $h$ em é dada por:
+ $$u^{(k)}= (1+2h)^{k-1}= (1+2h)^{\frac{2}{h}}.$$
+Aplicando o limite $h\to 0+$, temos:
+  $$\lim_{h\to 0+} (1+2h)^{\frac{2}{h}}= e^{2}.$$
 
 %%%%%%%%%%%%%%%%%%%%
 % python
@@ -158,24 +167,24 @@ for i,tt in enumerate(t):
 %%%%%%%%%%%%%%%%%%%%
 \end{ex}
 
-
-\begin{ex}
-Aproxime a solução do problema de valor inicial
+\begin{exeresol} Aproxime a solução do problema de valor inicial
 \begin{eqnarray}
-   \frac{du}{dt} &=& -0,5u+2+t\\
+     u'(t)&=& -0,5u(t)+2+t\\
             u(0) &=&  8
 \end{eqnarray}
-Teste para $h=1,6$, $0,8$, $0,4$, $0,2$ e $0,1$.
-
-Note que a solução exata do problema é
+Usando os seguinte passos: $h=1,6$, $h=0,8$, $h=0,4$, $h=0,2$ e $h=0,1$ e compare com a solução exata dada por:
 \begin{equation}
-     u(t) = 2t+8e^{-t/2}
+     u(t) = 2t+8e^{-t/2}.
 \end{equation}
-
-Itere a fórmula
+\end{exeresol}
+\begin{resol} Primeramente itentificamos $f(t,u)=-0,5u+2+t$ e construímos o processo iterativo do método de Euler: 
 \begin{eqnarray}
-  u_{n+1}=u_n + h( -0,5u_n+2+t_n), \quad  u^{(1)}=8
+  u^{(n+1)}&=&u^{(n)} + h( -0,5u^{(n)}+2+t^{(n)}),~~n=1,2,3,\ldots\\
+  u^{(1)}&=&8
 \end{eqnarray}
+
+até aqui.
+------------------------------------------------
 através do código abaixo:
 
 \begin{verbatim}
@@ -197,7 +206,7 @@ function [u,t]=euler(h,Tmax)
 % \includegraphics[width=\textwidth]{euler.eps}
 % \end{figure}
 
-\end{ex}
+\end{resol}
 
 
 Vamos agora, analisar o desempenho do método de Euler usando um exemplo mais complicado, porém ainda simples suficiente para que possamos obter a solução exata:
@@ -1728,8 +1737,8 @@ Segundo Ferziger/Peric/Roache, podemos também estimar $p$ diretamente de
 
 
 \section{Sistemas de equações diferenciais e equações de ordem superior}
-O Problema~\eqref{problema de valor inicial} pode ser um sistema de equações de primeira ordem, isto é, a incógnita $y(t)$ pode ser um vetor de funções, como mostra o Exemplo~\ref{eq_exemplo_sistema}
-\begin{ex}\label{exemplo_sistema_problema de valor inicial}O problema de valor inicial
+O Problema~\eqref{PVI} pode ser um sistema de equações de primeira ordem, isto é, a incógnita $y(t)$ pode ser um vetor de funções, como mostra o Exemplo~\ref{eq_exemplo_sistema}
+\begin{ex}\label{exemplo_sistema_PVI}O problema de valor inicial
 \begin{subequations}\label{eq_exemplo_sistema}
 \begin{eqnarray}
 u'(t)&=&v(t),\\
@@ -1738,7 +1747,7 @@ u(0)&=&1.\\
 v(0)&=&0.
 \end{eqnarray}
 \end{subequations}
-pode ser escrito na forma \eqref{problema de valor inicial} com $y(t)$
+pode ser escrito na forma \eqref{PVI} com $y(t)$
 \end{ex}
 
 No Exemplo~\ref{sys_edo}, mostramos como o método de Euler pode ser facilmente estendido para problemas envolvendo sistemas de equações diferenciais.\index{sistemas!de equações diferenciais}.
