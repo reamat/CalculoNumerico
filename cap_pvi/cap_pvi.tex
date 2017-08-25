@@ -184,7 +184,7 @@ Usando os seguinte passos: $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e 
 \end{eqnarray}
 
 \ifisscilab
-O seguinte código pode ser usado para implementar no Scilab a recurssão acima:
+O seguinte código pode ser usado para implementar no \verb+Scilab+ a recursão acima:
 \begin{verbatim}
 function u=euler(h,Tmax)
   u= 8;
@@ -214,7 +214,7 @@ Podemos construir um vetor com as cinco soluções da seguinte forma:
 \fi
 
 \ifisoctave
-O seguinte código pode ser usado para implementar no Scilab a recurssão acima:
+O seguinte código pode ser usado para implementar no \verb+Octave+ a recursão acima:
 \begin{verbatim}
 function u=euler(h,Tmax)
   u= 8;
@@ -237,6 +237,31 @@ Podemos construir um vetor com as cinco soluções da seguinte forma:
 S =
 
    6.8701   6.8540   6.8524   6.8523   6.8522
+\end{verbatim}
+\fi
+
+
+\ifispython
+O seguinte código pode ser usado para implementar no \verb+Python+ a recursão acima:
+
+\begin{verbatim}
+ def euler(h,Tmax):
+	u=8
+	t=0
+  	itmax = Tmax/h;
+	for i in np.arange(itmax):
+		t = t + h
+		u = u + h*(-0.5*u+2+t)
+	return u
+
+	
+sol_exata = 2+8*np.exp(-.5)
+h=1e-1
+for i in np.arange(1,5):
+	sol_euler=euler(h,1);
+	erro_relativo = np.fabs((sol_euler-sol_exata)/sol_exata)
+	print("h=%1.0e - u(1) =~ %1.7f - erro_relativo = %1.1e" % (h, sol_euler, erro_relativo) )
+	h=h/10
 \end{verbatim}
 \fi
 A seguinte tabela resume os resultados obtidos:
@@ -273,43 +298,105 @@ Podemos obter a solução exata desta equação usando o método de separação 
 \begin{equation*}
 \frac{du(t)}{u(t)(1-u(t))}=dt
 \end{equation*}
-O termo $\frac{1}{u(1-u)}$ pode ser decomposto em frações parciais como $\frac{1}{u}+\frac{1}{1-u}$ e chegamos na seguinte equação diferencial:
+O termo $\frac{1}{u(t)(1-u(t))}$ pode ser decomposto em frações parciais como $\frac{1}{u}+\frac{1}{1-u}$ e chegamos na seguinte equação diferencial:
 \begin{equation*}
-\left(\frac{1}{u}+\frac{1}{1-u}\right)du=dt.
+\left(\frac{1}{u(t)}+\frac{1}{1-u(t)}\right)du=dt.
 \end{equation*}
 Integrando termo-a-termo, temos a seguinte equação algébrica relacionando $u(t)$ e $t$:
 \begin{equation*}
-\ln(u)-\ln(1-u)=t+C
+\ln(u(t))-\ln\left(1-u(t)\right)=t+C
 \end{equation*}
 Onde $C$ é a constante de integração, que é definida pela condição inicial, isto é, $u=1/2$ em $t=0$. Substituindo, temos $C=0$. O que resulta em:
 \begin{equation*}
-\ln\left(\frac{u}{1-u}\right)=t
+\ln\left(\frac{u(t)}{1-u(t)}\right)=t
 \end{equation*}
 Equivalente a
 \begin{equation*}
-\frac{u}{1-u}=e^{t}
+\frac{u(t)}{1-u(t)}=e^{t} \Longrightarrow u(t)=(1-u(t))e^{t} \Longrightarrow (1+e^t)u(t)=e^{t}
 \end{equation*}
-e
-\begin{equation*}
-u=(1-u)e^{t}
-\end{equation*}
-Colocando o termo $u$ em evidência, encontramos:
-\begin{equation}
-(1+e^t)u=e^{t}
-\end{equation}
 E, finalmente, encontramos a solução exata dada por $u(t)=\frac{e^t}{1+e^{t}}$.
 
 Vejamos, agora, o esquema iterativo produzido pelo método de Euler:
 \begin{eqnarray*}
-u_{k+1}&=& u_k+h u_k(1-u_k), \\
+u^{(k+1)}&=& u^{(k)}+h u^{(k)}(1-u^{(k)}), \\
 u^{(1)}&=& 1/2.
 \end{eqnarray*}
 
-Para fins de comparação, calculamos a solução exata e aproximada para alguns valores de $t$ e de passo $h$ e resumimos na Tabela~\ref{tab:log}.
 
-\begin{table}
-  \caption{Tabela comparativa entre método de Euler e solução exata para Problema~\ref{ex_euler_1}.}
-  \label{tab:log}
+\ifisscilab
+O seguinte código pode ser usado para implementar no \verb+Scilab+ a recursão acima:
+\begin{verbatim}
+function u=euler(h,Tmax)
+  u= .5;
+  itmax = Tmax/h;
+  for n=1:itmax
+    u= u + h*u*(1-u);
+   end
+endfunction
+\end{verbatim}
+o qual pode ser invocado da seguinte forma $\left(h=1e-1, t=2\right)$:
+\begin{verbatim}
+-->euler(1e-1,2)
+ ans  =
+ 
+    0.8854273  
+\end{verbatim}
+
+\fi
+
+\ifisoctave
+O seguinte código pode ser usado para implementar no \verb+Octave+ a recursão acima:
+\begin{verbatim}
+function u=euler(h,Tmax)
+  u= .5;
+  itmax = Tmax/h;
+  for n=1:itmax
+    u= u + h*u*(1-u);
+   end
+endfunction
+\end{verbatim}
+o qual pode ser invocado da seguinte forma $\left(h=1e-1, t=2\right)$:
+\begin{verbatim}
+>> euler(1e-1,1)
+ans =  0.88543
+\end{verbatim}
+\fi
+
+
+\ifispython
+O seguinte código pode ser usado para implementar no \verb+Python+ a recursão acima:
+
+\begin{verbatim}
+def euler(h,Tmax):
+	u=.5
+  	itmax = Tmax/h;
+	for i in np.arange(itmax):
+		u = u + h*u*(1-u)
+	return u
+
+	
+h=1e-1
+for t in [.5, 1, 2, 3]:
+	sol_euler=euler(h,t);
+	sol_exata=1/(1+np.exp(-t))
+	erro_relativo = np.fabs((sol_euler-sol_exata)/sol_exata)
+	print("h=%1.0e - u(%1.1f) =~ %1.7f - erro_relativo = %1.1e" % (h, t, sol_euler, erro_relativo) )
+
+h=1e-2
+print;
+for t in [.5, 1, 2, 3]:
+	sol_euler=euler(h,t);
+	sol_exata=1/(1+np.exp(-t))
+	erro_relativo = np.fabs((sol_euler-sol_exata)/sol_exata)
+	print("h=%1.0e - u(%1.1f) =~ %1.7f - erro_relativo = %1.1e" % (h, t, sol_euler, erro_relativo) )
+
+\end{verbatim}
+\fi
+Para fins de comparação, calculamos a solução exata e aproximada para alguns valores de $t$ e de passo $h$ e resumimos na tabela abaixo:
+
+%\begin{table}[h]
+ % \caption{Tabela comparativa entre método de Euler e solução exata para Problema~\ref{ex_euler_1}.}
+ % \label{tab:log}
   \begin{tabular}{|c|c|c|c|}\hline
     $t$ & $\text{Exato}$ & $\text{Euler}~~ h=0,1$ & $\text{Euler}~~ h=0,01$\\\hline
     $0$ & $1/2$ & $0,5$ & $0,5$\\\hline
@@ -318,26 +405,27 @@ Para fins de comparação, calculamos a solução exata e aproximada para alguns
     $2$ & $\frac{e^2}{1+e^2}\approx  0,8807971$ & $0,8854273$  & $0,8812533$ \\\hline
     $3$ & $\frac{e^3}{1+e^3}\approx   0,9525741$  & $0,9564754$ & $0,9529609$ \\\hline
   \end{tabular}
-\end{table}
+%\end{table}
+
+\subsection*{Exercícios}
 
 
-No exemplo a seguir, apresentamos um problema envolvendo uma equação não-autônoma\index{equação diferencial!não autônoma}, isto é, quando a função $f(t,u)$ depende explicitamente do tempo.
 
-\begin{ex}
-Resolva o problema de valor inicial
+\begin{exer} Resolva o problema de valor inicial a seguir envolvendo uma equação não autônoma\index{equação diferencial!não autônoma}, isto é, quando a função $f(t,u)$ depende explicitamente do tempo. Use passo $h=0,1$ e $h=0,01$. Depois compare com a solução exata dada por $u(t)=2e^{-t}+t-1$ nos intantes $t=0$, $t=1$, $t=2$ e $t=3$.
   \begin{eqnarray*}
     u'(t)&=&-u(t)+t\\
     u(0)&=&1,
   \end{eqnarray*}
-cuja solução exata é $u(t)=2e^{-t}+t-1$.
-\end{ex}
+\end{exer}
+
+\begin{resp}
 O esquema recursivo de Euler fica:
 \begin{eqnarray*}
-  u_{k+1}&=&u_k+h(-u_k+t_k)\\
+  u^{(k+1)}&=&u^{(k)}+h(-u^{(k)}+t^{(k)})\\
   u^{(1)}&=&1
 \end{eqnarray*}
 
-Comparação
+Comparação:
 \begin{center}
 \begin{tabular}{|c|c|c|c|}\hline
 $t$ &  Exato & Euler~~ $h=0,1$ & Euler~~ $h=0,01$\\\hline
@@ -347,6 +435,51 @@ $2$ &   $2e^{-2}+1\approx  1,2706706$ & $ 1,2431533 $   &  $ 1,2679593$     \\\h
 $3$ &   $2e^{-3}+2\approx 2,0995741$  & $ 2,0847823$ & $2,0980818$   \\\hline
 \end{tabular}
 \end{center}
+\end{resp}
+
+\begin{exer} Resolva o prolema de valor inicial envolvendo uma equação não linear\index{Problema de valor inicial!não linear} usando passo $h=0,1$ e $h=0,01$. 
+ \begin{eqnarray*}
+    u'(t)&=&\cos(u(t))\\
+    u(0)&=&0,
+  \end{eqnarray*}
+
+Depois compare com a solução exata dada por 
+$$u(t)=\tan^{-1} \left( \frac {e^{2t}-1}{{2 e^t}}
+ \right).
+$$
+nos intantes $t=0$, $t=1$, $t=2$ e $t=3$.
+\end{exer}
+\begin{resp}
+ \begin{eqnarray*}
+  u^{(k+1)}&=&u^{(k)}+h\cos(u^{(k)})\\
+  u^{(1)}&=&0
+\end{eqnarray*}
+Comparação:
+\begin{center}
+\begin{tabular}{|c|c|c|c|}\hline
+$t$ &  Exato & Euler~~ $h=0,1$ & Euler~~ $h=0,01$\\\hline
+$0$ &  $0$ & $0$ & $0$\\\hline
+$1$ &   $0,8657695 $ & $ 0.8799602$   &   $0.8671764 $  \\\hline
+$2$ &   $1,3017603 $ & $ 1.3196842 $   &  $  1.3035243$     \\\hline
+$3$ &   $1,4713043 $  & $ 1.4827638 $ & $1.4724512 $   \\\hline
+\end{tabular}
+\end{center}
+\end{resp}
+
+\begin{exer} Resolva a seguinte problema de valor inicial linear com passo $h=10^{-4}$ via método de Euler e compare a solução obtida com o valor exato $y(t)=e^{\sin(t)}$ em $t=2$:
+ \begin{eqnarray*}
+    y'(t)&=&\cos(t)y(t)\\
+    y(0)&=&1.
+  \end{eqnarray*}
+\end{exer}  
+\begin{resp}
+ Aproximação via Euler: $2,4826529 $, exata: $e^{\sin(2)}\approx 2,4825777 $. Erro relativo aproximado: $ 3\times 10^{-5}$.
+\end{resp}
+
+ 
+
+
+
 
 \subsection{Ordem de precisão}
 
