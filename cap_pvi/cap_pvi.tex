@@ -167,7 +167,7 @@ for i,tt in enumerate(t):
 %%%%%%%%%%%%%%%%%%%%
 \end{ex}
 
-\begin{exeresol} Aproxime a solução do problema de valor inicial
+\begin{exeresol}\label{pvi:exeresol1} Aproxime a solução do problema de valor inicial
 \begin{eqnarray}
      u'(t)&=& -0,5u(t)+2+t\\
             u(0) &=&  8
@@ -191,7 +191,7 @@ function u=euler(h,Tmax)
   t= 0;
   itmax = Tmax/h;
   for n=1:itmax
-    t= t + h;
+    t= (n-1)*h;
     u= u + h*(-0.5*u+2+t);
    end
 endfunction
@@ -201,14 +201,14 @@ o qual pode ser invocado da seguinte forma:
 -->euler(1e-1,1)
  ans  =
  
-    6.8701481 
+    6.7898955 
 \end{verbatim}
 Podemos construir um vetor com as cinco soluções da seguinte forma:
 \begin{verbatim}
  -->S=[euler(1e-1,1) euler(1e-2,1) euler(1e-3,1) euler(1e-4,1) euler(1e-5,1)]
  S  =
  
-    6.8701481    6.8540481    6.8524257    6.8522633    6.8522471  
+    6.7898956   6.846163    6.851639    6.852185    6.8522392  
 \end{verbatim}
 
 \fi
@@ -221,7 +221,7 @@ function u=euler(h,Tmax)
   t= 0;
   itmax = Tmax/h;
   for n=1:itmax
-    t= t + h;
+    t= (n-1)*h;
     u= u + h*(-0.5*u+2+t);
    end
 endfunction
@@ -229,14 +229,14 @@ endfunction
 o qual pode ser invocado da seguinte forma:
 \begin{verbatim}
 >> euler(1e-1,1)
-ans =  6.8701
+ans =  6.8799
 \end{verbatim}
 Podemos construir um vetor com as cinco soluções da seguinte forma:
 \begin{verbatim}
  >> S=[euler(1e-1,1) euler(1e-2,1) euler(1e-3,1) euler(1e-4,1) euler(1e-5,1)]
 S =
 
-   6.8701   6.8540   6.8524   6.8523   6.8522
+   6.7899   6.8462   6.8516   6.8522   6.8522
 \end{verbatim}
 \fi
 
@@ -245,13 +245,13 @@ S =
 O seguinte código pode ser usado para implementar no \verb+Python+ a recursão acima:
 
 \begin{verbatim}
- def euler(h,Tmax):
+def euler(h,Tmax):
 	u=8
-	t=0
   	itmax = Tmax/h;
-	for i in np.arange(itmax):
-		t = t + h
-		u = u + h*(-0.5*u+2+t)
+	for i in np.arange(0,itmax):
+		t=i*h
+		k1 = -0.5*u+2+t
+		u = u + h*k1
 	return u
 
 	
@@ -270,10 +270,10 @@ A seguinte tabela resume os resultados obtidos:
 \hline
    h&$10^{-1}$&$10^{-2}$&$10^{-3}$&$10^{-4}$&$10^{-5}$\\
    \hline
-   $u^{(N)}$ & 6,8701481  &  6,8540481  &  6,8524257  &  6,8522633  &  6,8522471  \\
+  Euler & 6,7898955 &  6,8461635  &  6,8516386  &  6,8521846  &  6,8522392  \\
    \hline
-   $\varepsilon_{rel}$ &2,6e-03 &  2,6e-04  & 2,6e-05&   2,6e-06 &  2,6e-07\\
-   \hline
+   $\varepsilon_{rel}$ &9,1e-03 &  8,9e-04  & 8,9e-05&   8,9e-06 &  8,9e-07\\
+    \hline
   \end{tabular}
 \end{center}
 
@@ -489,7 +489,7 @@ Assim como fizemos para o método de Euler, integramos \eqref{EDO2} de $t^{(1)}$
 \begin{eqnarray}
   \int_{t^{(1)}}^{t^{(2)}} u'(t) \;dt &=& \int_{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt\\
   u(t^{(2)})-u(t^{(1)})               &=& \int_{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt\\
-  u(t^{(1)})                      &=& u(t^{(1)}) +  \int _{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt
+  u(t^{(2)})                      &=& u(t^{(1)}) +  \int _{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt
 \end{eqnarray}
 A invés de aproximar $f(t,u(t))$ como uma constante igual ao seu valor em $t=t^{(1)}$, aplicamos a regra do trapézio (ver \ref{int:trapézio}) à integral envolvida no lado direito da expressão, isto é:
 \begin{eqnarray}\label{pvi:euler_mel_eq}
@@ -498,9 +498,195 @@ A invés de aproximar $f(t,u(t))$ como uma constante igual ao seu valor em $t=t^
 onde $h=t^{(2)}-t^{(1)}$.
 Como o valor de $u(t^{(2)})$ não é conhecido antes de o passo ser realizado, aproximamos seu valor aplicando o método de Euler:
 \begin{eqnarray*}
-\tilde{u(t^{(2)})}= u(t^{(1)})+h f\left(t^{(1)},u(t^{(1)})\right)
+\tilde{u}(t^{(2)})= u(t^{(1)})+h f\left(t^{(1)},u(t^{(1)})\right)
 \end{eqnarray*}
-Substituindo esta última expressão em \ref{pvi:euler_mel_eq}
+Assim obtemos:
+\begin{eqnarray*}
+  u(t^{(2)})&=& u(t^{(1)}) +  \int _{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt\\
+  &\approx& u(t^{(1)}) +\left[\frac{f\left(t^{(1)},u(t^{(1)})\right)+f\left(t^{(2)},u(t^{(2)})\right)}{2}\right]h\\
+  &\approx& u(t^{(1)}) +\left[\frac{f\left(t^{(1)},u(t^{(1)})\right)+f\left(t^{(2)},\tilde{u}(t^{(2)})\right)}{2}\right]h\\
+  &=& u(t^{(1)}) + \frac{k_1+k_2}{2}h
+\end{eqnarray*}
+onde 
+\begin{eqnarray*}
+k_1&=&f\left(t^{(1)},u(t^{(1)})\right)\\
+\hbox{e}\\
+k_2&=&f\left(t^{(2)},\tilde{u}(t^{(2)})\right)=f\left(t^{(2)}, u(t^{(1)})+hk_1 \right )
+\end{eqnarray*}
+
+Portanto, o método recursivo de Euler modificado assume a seguinte forma:
+\begin{eqnarray*}
+k_1&=&hf(u^{(k)},t^{(k)}),\\
+k_2&=&hf(u^{(k)}+k_1,t^{(k+1)}),\\
+u^{(k+1)}&=&u^{(k)}+\frac{k_1+k_2}{2},\\
+u^{(1)}&=&a~~ \hbox{(condição inicial)}.
+\end{eqnarray*}
+Aqui $k_1$ e $k_2$ são variáveis auxiliares que representam as inclinações e devem ser calculadas a cada passo. Esta notação é compatível com a notação usada nos métodos de Runge-Kutta, uma família de esquemas iterativos para aproximar problemas de valor inicial, da qual o método de Euler e o método de Euler melhorado são casos particulares. Veremos os métodos de Runge-Kutta na Seção~\ref{pvi:sec_RK}.
+
+
+
+\begin{exeresol}\label{pvi:exeresol1_euler_melhorado} Resolva pelo método de Euler melhorado problema de valor inicial do Exercício Resolvido~\ref{pvi:exeresol1}:
+\begin{eqnarray}
+     u'(t)&=& -0,5u(t)+2+t\\
+            u(0) &=&  8
+\end{eqnarray}
+
+Usando os seguinte passos: $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e $h=10^{-5}$ e compare a solução aproximada em $t=1$ com a solução obtida pelo método de Euler e a solução exata dada por:
+\begin{equation}
+     u(t) = 2t+8e^{-t/2} \Longrightarrow u(1)=2+8e^{-1/2} \approx 6,85224527770107
+\end{equation}
+\end{exeresol}
+\begin{resol} Primeramente itentificamos $f(t,u)=-0,5u+2+t$ e construímos o processo iterativo do método de Euler melhorado: 
+\begin{eqnarray}
+  k_1&=&  f(t^{(n)},u^{(n)})=-0,5u^{(n)}+2+t^{(n)}\\
+  \tilde{u}&=& u^{(n)} + hk_1\\
+  k_2&=&  f(t^{(n+1)},\tilde{u})=-0,5\tilde{u}+2+t^{(n+1)}\\
+  u^{(n+1)}&=&u^{(n)} + h( k_1+k_2),~~n=1,2,3,\ldots\\
+  u^{(1)}&=&8 ~~ \hbox{(condição inicial)}.
+\end{eqnarray}
+
+\ifisscilab
+O seguinte código pode ser usado para implementar no \verb+Scilab+ a recursão acima:
+\begin{verbatim}
+function u=euler_mod(h,Tmax)
+  u= 8;
+  itmax = Tmax/h;
+
+  for n=1:itmax
+    t=(n-1)*h;
+    k1 = (-0.5*u + 2 + t);
+    u_til = u + h*k1;
+    k2 = (-0.5*u_til + 2 + t + h);
+    u= u + h * (k1 + k2)/2;
+  end
+endfunction
+\end{verbatim}
+o qual pode ser invocado da seguinte forma:
+\begin{verbatim}
+-->euler_mod(1e-1,1)
+ ans  =
+ 
+    6.8532941 
+\end{verbatim}
+Podemos construir um vetor com as cinco soluções da seguinte forma:
+\begin{verbatim}
+ -->S=[euler_mod(1e-1,1) euler_mod(1e-2,1) euler_mod(1e-3,1) euler_mod(1e-4,1) euler_mod(1e-5,1)]
+S  =
+ 
+    6.8532949    6.8522554    6.8522454    6.8522453    6.8522453 
+ \end{verbatim}
+
+\fi
+
+\ifisoctave
+O seguinte código pode ser usado para implementar no \verb+Octave+ a recursão acima:
+\begin{verbatim}
+function u=euler_mod(h,Tmax)
+  u= 8;
+  itmax = Tmax/h;
+
+  for n=1:itmax
+    t=(n-1)*h;
+    k1 = (-0.5*u + 2 + t);
+    u_til = u + h*k1;
+    k2 = (-0.5*u_til + 2 + t + h);
+    u= u + h * (k1 + k2)/2;
+  end
+endfunction
+\end{verbatim}
+o qual pode ser invocado da seguinte forma:
+\begin{verbatim}
+>> euler_mod(1e-1,1)
+ans =  6.8701
+\end{verbatim}
+Podemos construir um vetor com as cinco soluções da seguinte forma:
+\begin{verbatim}
+ >> S=[euler_mod(1e-1,1) euler_mod(1e-2,1) euler_mod(1e-3,1) euler_mod(1e-4,1) euler_mod(1e-5,1)]
+S =
+
+    6.8533   6.8523   6.8522   6.8522   6.8522
+\end{verbatim}
+\fi
+
+
+\ifispython
+O seguinte código pode ser usado para implementar no \verb+Python+ a recursão acima:
+
+\begin{verbatim}
+def euler_mod(h,Tmax):
+	u=8
+  	itmax = Tmax/h;
+	for i in np.arange(0,itmax):
+		t=i*h
+		k1 = -0.5*u+2+t
+		u_til = u + h*k1
+		k2 = -0.5*u_til+2+(t+h)
+		u=u+h*(k1+k2)/2
+	return u
+
+	
+
+sol_exata = 2+8*np.exp(-1/2)
+for h in [1e-1, 1e-2, 1e-3, 1e-4, 1e-5]:
+	sol_euler=euler_mod(h,1);
+	erro_relativo = np.fabs((sol_euler-sol_exata)/sol_exata)
+	print("h=%1.0e - u(1) =~ %1.7f - erro_relativo = %1.1e" % (h, sol_euler, erro_relativo) )
+
+\end{verbatim}
+\fi
+A seguinte tabela resume os resultados obtidos:
+\begin{center}
+ \begin{tabular}{|l|l|l|l|l|l|l|l|}%\label{pvi:tab_euler}
+\hline
+   h&$10^{-1}$&$10^{-2}$&$10^{-3}$&$10^{-4}$&$10^{-5}$\\
+   \hline
+   Euler & 6,7898955 &  6,8461635  &  6,8516386  &  6,8521846  &  6,8522392  \\
+   \hline
+   $\varepsilon_{rel}$ &9,1e-03 &  8,9e-04  & 8,9e-05&   8,9e-06 &  8,9e-07\\
+   \hline
+   \hline
+  Euler mod. & 6,8532949 &  6,8522554  &  6,8522454  &  6,8522453  &  6,8522453 \\
+   \hline
+   $\varepsilon_{rel}$ &1,5e-04 &  1,5e-06  & 1,5e-08&   1,5e-10 &  2,6e-07\\
+   \hline
+ 
+   \end{tabular}
+\end{center}
+
+
+% Veja o gráfico da solução para $h=1, 0.5, 0.1, 0.05$:
+% \begin{figure}
+% \includegraphics[width=\textwidth]{euler.eps}
+% \end{figure}
+
+\end{resol}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \chapter{Em reestruturação}
@@ -1675,7 +1861,7 @@ O método BDF de 2 estágios é A-estável.
 
 
 
-\section{Métodos de Runge-Kutta}
+\section{Métodos de Runge-Kutta}\label{pvi:sec_RK}
 
 \subsection{Método de Runge-Kutta explícito}
 Seja a EDO
