@@ -166,7 +166,7 @@ for i,tt in enumerate(t):
 \fi
 %%%%%%%%%%%%%%%%%%%%
 \end{ex}
-
+\subsection*{Exercícios Resolvidos}
 \begin{exeresol}\label{pvi:exeresol1} Aproxime a solução do problema de valor inicial
 \begin{eqnarray}
      u'(t)&=& -0,5u(t)+2+t\\
@@ -223,7 +223,7 @@ function u=euler(h,Tmax)
   for n=1:itmax
     t= (n-1)*h;
     u= u + h*(-0.5*u+2+t);
-   end
+   end	
 endfunction
 \end{verbatim}
 o qual pode ser invocado da seguinte forma:
@@ -530,7 +530,7 @@ u^{(1)}&=&a~~ \hbox{(condição inicial)}.
 \end{eqnarray*}
 Aqui $k_1$ e $k_2$ são variáveis auxiliares que representam as inclinações e devem ser calculadas a cada passo. Esta notação é compatível com a notação usada nos métodos de Runge-Kutta, uma família de esquemas iterativos para aproximar problemas de valor inicial, da qual o método de Euler e o método de Euler melhorado são casos particulares. Veremos os métodos de Runge-Kutta na Seção~\ref{pvi:sec_RK}.
 
-
+\subsection*{Exercícios Resolvidos}
 \begin{exeresol}\label{pvi:exeresol1_euler_melhorado} Resolva pelo método de Euler melhorado problema de valor inicial do Exercício Resolvido~\ref{pvi:exeresol1}:
 \begin{eqnarray}
      u'(t)&=& -0,5u(t)+2+t\\
@@ -615,6 +615,14 @@ S =
 \fi
 
 
+
+
+
+
+
+
+
+
 \ifispython
 O seguinte código pode ser usado para implementar no \verb+Python+ a recursão acima:
 
@@ -650,7 +658,6 @@ A seguinte tabela resume os resultados obtidos:
    \hline
    $\varepsilon_{rel}$ &9,1e-03 &  8,9e-04  & 8,9e-05&   8,9e-06 &  8,9e-07\\
    \hline
-   \hline
   Euler mod. & 6,8532949 &  6,8522554  &  6,8522454  &  6,8522453  &  6,8522453 \\
    \hline
    $\varepsilon_{rel}$ &1,5e-04 &  1,5e-06  & 1,5e-08&   1,5e-10 &  2,6e-07\\
@@ -663,6 +670,411 @@ A seguinte tabela resume os resultados obtidos:
 % \includegraphics[width=\textwidth]{euler.eps}
 % \end{figure}
 \end{resol}
+
+\section{Solução de sistemas de equações diferenciais}\index{Sistemas de equações diferenciais}\label{pvi:solsistema}
+
+Nas seções \ref{pvi:euler} e \ref{pvi:sec_euler_mod}, construimos dois métodos numéricos para resolver problemas de valor inicial. Nestas seções, sempre consideremos problemas envolvendo equações diferenciais ordinárias de primeira ordem, isto é:
+\begin{eqnarray*}
+  u'(t)  &=& f(t,u(t)),~~t>t^{(1)} \\
+  u(t^{(1)}) &=& a.
+\end{eqnarray*}
+Estas técnicas podem ser diretamente estendidas para resolver numericamente problemas de valor inicial envolvendo sistemas de equações diferenciais ordinárias de primeira ordem, isto é:
+\begin{eqnarray}\label{pvi:exemplo_sistema}
+  u_1'(t)  &=& f_1(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t)),~~t>t^{(1)} ,\\
+  u_2'(t)  &=& f_2(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t)),~~t>t^{(1)} ,\\
+  u_3'(t)  &=& f_3(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t)),~~t>t^{(1)} ,\\
+           &\vdots &\\
+  u_n'(t)  &=& f_n(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t)),~~t>t^{(1)} ,\\
+  u(t^{(1)}) &=& a_1 ,\\
+  u(t^{(2)}) &=& a_2 ,\\
+  u(t^{(3)}) &=& a_3 ,\\
+  &\vdots&\\
+  u(t^{(n)}) &=& a_n.
+\end{eqnarray}
+O Problema~\eqref{pvi:exemplo_sistema} pode ser escrito como um problema de primeira ordem envolvendo uma única incógnita, $u(t)$, dada como um vetor de funções $u_j(t)$, isto é:
+$$u(t)=\left[
+\begin{array}{c}
+ u_1(t)\\
+ u_2(t)\\
+ u_3(t)\\
+ \vdots\\
+ u_n(t)
+\end{array}
+\right]$$
+De forma que o Problema~\eqref{pvi:exemplo_sistema} assuma a seguinte forma:
+\begin{eqnarray*}
+  u'(t)  &=& f(t,u(t)),~~t>t^{(1)} \\
+  u(t^{(1)}) &=& a.
+\end{eqnarray*}
+onde
+$$f(t,u(t))=\left[
+\begin{array}{c}
+  f_1(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t))\\
+  f_2(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t))\\
+  f_3(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t))\\  
+  \vdots\\
+  f_n(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t))\\
+  \end{array}
+\right]$$
+e
+$$a=\left[
+\begin{array}{c}
+ a_1\\
+ a_2\\
+ a_3\\
+ \vdots\\
+ a_n
+\end{array}
+\right]$$
+
+Veja o  o Exemplo~\ref{eq_exemplo_sistema}
+\begin{ex}\label{exemplo_sistema_PVI}Considere o problema de resolver numericamente pelo método de Euler o seguinte sistema de equações diferenciais ordinárias com valores iniciais:
+\begin{subequations}\label{eq_exemplo_sistema}
+\begin{eqnarray}
+x'(t)&=&-y(t),\\
+y'(t)&=&x(t),\\
+u(0)&=&1.\\
+v(0)&=&0.
+\end{eqnarray}
+\end{subequations}
+%cuja solução exata é $x(t)=\cos(t)$ e $y(t)=\sin(t)$.
+Para aplicar o método de Euler a este sistema, devemos encarar as duas incógnitas do sistema como entradas de um vetor, ou seja, escrevemos:
+ $$u(t)=\left[\begin{array}{c}x(t)\\y(t)\end{array}\right].$$
+ e, portanto, o sistema pode ser escrito como:
+\begin{eqnarray*}
+\left[\begin{array}{c}x^{(k+1)}\\y^{(k+1)}\end{array}\right]=\left[\begin{array}{c}x^{(k)}\\y^{(k)}\end{array}\right]+h\left[\begin{array}{c}-y^{(k)}\\x^{(k)}\end{array}\right].
+\end{eqnarray*}
+Observe que este processo iterativo é equivalente a discretiza as equações do sistema uma-a-uma, isto é:
+\begin{eqnarray*}
+x^{(k+1)}&=&x^{(k)}-hy^{(k)},\\
+y^{(k+1)}&=&y^{(k)}+hx^{(k)},\\
+x^{(1)}&=&1,\\
+y^{(1)}&=&0,\\
+\end{eqnarray*}
+\end{ex}
+
+\subsection*{Exercícios Resolvidos}
+\begin{exeresol} Resolva pelo método de Euler melhorado o seguinte problema de valor inicial para aproximar o valor de $x$ e $y$ entre $t=0$ e $t=1$:
+\begin{eqnarray*}
+x'(t)&=&x(t)-y(t),\\
+y'(t)&=&x(t)-y(t)^3,\\
+u(0)&=&1.\\
+v(0)&=&0.
+\end{eqnarray*}
+\end{exeresol}
+\begin{resol}
+ Primeiramente, identificamos $u(t)$ como o vetor incógnita:
+ $$u(t)=\left[\begin{array}{c}x(t)\\y(t)\end{array}\right].$$
+Depois aplicamos a recursão do método de Euler melhorado dada por:
+ \begin{eqnarray*}
+\tilde{u}^{(k+1)}&=&u^{(k)}+hf(u^{(k)},t^{(k)}),\\
+u^{(k+1)}&=&u^{(k)}+\frac{h}{2}\left(f(u^{(k)},t^{(k)})+f(\tilde{u}^{(k)},t^{(k)})\right),\\
+\end{eqnarray*}
+isto é:
+ \begin{eqnarray*}
+\tilde{x}^{(k+1)}&=&x^{(k)}+h\left(x^{(k)}-y^{(k)}\right)\\
+\tilde{y}^{(k+1)}&=&y^{(k)}+h\left(x^{(k)}-{y^{(k)}}^3\right)\\
+{x}^{(k+1)}&=&x^{(k)}+\frac{h}{2}\left[\left({x}^{(k)}-{y}^{(k)}\right)+\left(\tilde{x}^{(k)}-\tilde{y}^{(k)}\right)\right]\\
+{y}^{(k+1)}&=&y^{(k)}+\frac{h}{2}\left[\left({x}^{(k)}-{{y}^{(k)}}^3\right)+ \left(\tilde{x}^{(k)}-\left.{\tilde{y}^{(k)}}\right.^3\right)\right]\\
+ \end{eqnarray*}
+
+ A tabela a seguir resume os resultados obtidos:
+ 
+ 
+ \begin{center}
+ \begin{tabular}{|l|l|l|l|l|l|l|}%\label{pvi:tab_euler}
+\hline
+   h&&$t=0,2$&$t=0,4$&$t=0,6$&$t=0,8$&$t=1,0$\\
+   \hline
+   \multirow{2}{*}{$10^{-2}$} &x  &1.1986240 &1.3890564 &1.5654561 &1.7287187 &1.8874532 \\
+			       &y&0.2194288 &0.4692676 &0.7206154 &0.9332802 &1.0850012 \\			
+   \hline
+  \multirow{2}{*}{$10^{-3}$} &x  &1.1986201 &1.3890485 &1.5654455 &1.7287066 &1.8874392\\
+			       &y &0.2194293 &0.4692707 &0.7206252 &0.9332999 &1.0850259\\
+			       \hline
+ 
+ 
+   \multirow{2}{*}{$10^{-4}$} &x  &1.1986201 &1.3890484 &1.5653609 &1.7287065 &1.8874390\\
+			       &y&  0.2194293 &0.4692707 &0.7205062 &0.9333001 &1.0850262 \\			
+   \hline
+   \end{tabular}
+\end{center}
+\ifispython
+A seguinte rotina pode ser usada para implementar a solução do sistema:
+\begin{verbatim}
+def euler_mod(h,Tmax,u1):
+  	itmax = Tmax/h;
+	x=np.empty(itmax+1)
+	y=np.empty(itmax+1)
+	x[0]=u1[0]
+	y[0]=u1[1]
+
+	for i in np.arange(0,itmax):
+		t=i*h
+		kx1 = (x[i]-y[i])
+		ky1 = (x[i]-y[i]**3)
+
+		x_til = x[i] + h*kx1
+		y_til = y[i] + h*ky1
+
+		kx2 = (x_til-y_til)
+		ky2 = (x_til-y_til**3)
+
+		x[i+1]=x[i]+h*(kx1+kx2)/2
+		y[i+1]=y[i]+h*(ky1+ky2)/2
+
+	return [x,y]
+
+
+Tmax=1 			#tempo maximo de simulacao
+u1=np.asarray([1,0])	#condicoes iniciais na forma vetorial
+h=1e-4			#passo
+sol_euler=euler_mod(h,Tmax,u1);
+
+itmax=Tmax/h
+
+for t in [0, .2, .4, .6, .8, 1]:
+	k=t/h
+	print("h=%1.0e - x(%1.1f) =~ %1.6f - y(%1.1f) =~ %1.6f" % (h, t, sol_euler[0][k], t, sol_euler[1][k]) )
+
+\end{verbatim}
+\fi
+
+\ifisoctave
+A seguinte rotina pode ser usada para implementar a solução do sistema:
+\begin{verbatim}
+function [x,y]=euler_mod(h,Tmax,u1)
+  itmax = Tmax/h;
+  x=zeros(itmax+1);
+  y=zeros(itmax+1);
+  x(1)=u1(1);
+  y(1)=u1(2);
+  
+  for n = 1:itmax
+    t=(n-1)*h;
+    kx1 = (x(n)-y(n));
+    ky1 = (x(n)-y(n)^3);
+    x_til = x(n) + h*kx1;
+    y_til = y(n) + h*ky1;
+    
+    kx2 = (x_til-y_til);
+    ky2 = (x_til-y_til^3);
+
+    x(n+1)=x(n)+h*(kx1+kx2)/2;
+    y(n+1)=y(n)+h*(ky1+ky2)/2;
+  end
+endfunction 
+\end{verbatim}
+Que pode ser invocada como:
+\begin{verbatim}
+h=1e-2
+Tmax=1
+itmax=Tmax/h
+[x,y]=euler_mod(h,Tmax,[1,0]);
+[x(1) x(1+itmax*.2) x(1+itmax*.4) x(1+itmax*.6) x(1+itmax*.8) x(1+itmax)]
+[y(1) y(1+itmax*.2) y(1+itmax*.4) y(1+itmax*.6) y(1+itmax*.8) y(1+itmax)]
+ \end{verbatim}
+
+\fi
+
+
+\ifisscilab
+A seguinte rotina pode ser usada para implementar a solução do sistema:
+\begin{verbatim}
+function [x,y]=euler_mod(h,Tmax,u1)
+  itmax = Tmax/h;
+  x=zeros(itmax+1);
+  y=zeros(itmax+1);
+  x(1)=u1(1);
+  y(1)=u1(2);
+  
+  for n = 1:itmax
+    t=(n-1)*h;
+    kx1 = (x(n)-y(n));
+    ky1 = (x(n)-y(n)^3);
+    x_til = x(n) + h*kx1;
+    y_til = y(n) + h*ky1;
+    
+    kx2 = (x_til-y_til);
+    ky2 = (x_til-y_til^3);
+
+    x(n+1)=x(n)+h*(kx1+kx2)/2;
+    y(n+1)=y(n)+h*(ky1+ky2)/2;
+  end
+endfunction 
+\end{verbatim}
+Que pode ser invocada como:
+\begin{verbatim}
+h=1e-2
+Tmax=1
+itmax=Tmax/h
+[x,y]=euler_mod(h,Tmax,[1,0]);
+[x(1) x(1+itmax*.2) x(1+itmax*.4) x(1+itmax*.6) x(1+itmax*.8) x(1+itmax)]
+[y(1) y(1+itmax*.2) y(1+itmax*.4) y(1+itmax*.6) y(1+itmax*.8) y(1+itmax)]
+ \end{verbatim}
+\fi
+\end{resol}
+
+
+\section{Solução equações e sistemas de ordem superior}
+
+Na Seção~\ref{pvi:solsistema}, estendemos os métodos de Euler e Euler melhorado visto nas seções \ref{pvi:euler} e \ref{pvi:sec_euler_mod} para resolver numericamente problemas de valor inicial envolvendo sistemas de equações diferenciais ordinárias de primeira ordem. Nesta seção, estenderemos estas técnicas para resolver alguns tipos de problemas de ordem superior. Para tal, converteremos a equação diferencial em um sistema, incluindo as derivadas da incógnita como novas incógnitas. Vejamos um exemplo:
+
+\begin{ex} Resolva o problema de valor inicial de segunda ordem dado por
+\begin{eqnarray*}
+y''+y'+y&=&\cos(t),\\
+y(0)&=&1,\\
+y'(0)&=&0,
+\end{eqnarray*}
+A fim de transformar a equação diferencial dada em um sistema de equações de primeira ordem, introduzimos a substituição $w=y'$, de forma que obteremos o sistema:
+\begin{eqnarray*}
+y'&=&w\\
+w'&=&-w-y+\cos(t)\\
+y(0)&=&1\\
+w(0)&=&0
+\end{eqnarray*}
+Este sistema pode ser resolvido usando as técnicas da Seção~\ref{pvi:solsistema}.
+%Portanto, o método de Euler produz o seguinte processo iterativo:
+%\begin{eqnarray*}
+%y^{(k+1)}&=&y^{(k)}+hw^{(k)},\\
+%w^{(k+1)}&=&w^{(k)}-hw^{(k)}-hy^{(k)}+h\cos(t^{(k)}),\\
+%y^{(1)}&=&1,\\
+%w^{(1)}&=&0.
+%\end{eqnarray*}
+\end{ex}
+
+\subsection*{Exercícios resolvidos}
+\begin{exeresol} Considere o seguinte sistema envolvendo uma equação de segunda ordem e uma de primeira ordem:
+\begin{eqnarray*}
+x''(t)-(1- 0,1 z(t))x'(t)+ x(t)&=&0\\
+10 z'(t)+z(t)&=&x(t)^2
+\end{eqnarray*}
+sujeito a condições iniciais dadas por:
+\begin{eqnarray*}
+x(0)&=&3\\
+x'(0)&=&0\\
+z(0)&=&10\\
+\end{eqnarray*}
+Rescreva este sistema como um sistema de três equações de primeira ordem.
+\end{exeresol}
+\begin{resol}
+ Definimos $y(t)=x'(t)$, pelo que o sistema se torna:
+\begin{eqnarray*}
+x'(t)&=&y(t)\\
+y'(t)-(1- 0,1 z(t))y(t)+ x(t)&=&0\\
+10 z'(t)+z(t)&=&x(t)^2
+\end{eqnarray*}
+ defina o vetor $u(t)$ como:
+$$u(t)=\left[
+\begin{array}{c}
+ x(t)\\y(t)\\z(t)
+\end{array}
+\right]$$ 
+De forma que:
+\begin{eqnarray*}
+u'(t)&=&\left[
+\begin{array}{c}
+ x'(t)\\y'(t)\\z'(t)
+\end{array}
+\right]=\left[
+\begin{array}{c}
+ y(t)\\
+ \left[1- 0,1 z(t)\right]y(t)- x(t)\\
+ \left[x(t)^2-z(t)\right]/10
+\end{array}
+\right]\\
+&\hbox{ou}&\\
+u'(t)&=&\left[
+\begin{array}{c}
+ u_1'(t)\\u_2'(t)\\u_3'(t)
+\end{array}
+\right]=\left[
+\begin{array}{c}
+ u_2(t)\\
+ \left[1- 0,1 u_3(t)\right]u_2(t)- u_1(t)\\
+ \left[u_1(t)^2-u_3(t)\right]/10
+\end{array}
+\right]
+\end{eqnarray*}
+sujeito às condições iniciais dadas por:
+\begin{eqnarray*}
+u'(0)&=&\left[
+\begin{array}{c}
+ x'(0)\\y'(0)\\z'(0)
+\end{array}
+\right]=\left[
+\begin{array}{c}
+3\\0\\10
+\end{array}
+\right]
+\end{eqnarray*}
+
+\end{resol}
+
+
+
+\subsection*{Exercícios}
+
+\begin{exer}Resolva o problema de valor inicial dado por
+\begin{eqnarray*}
+x'&=& -2x + \sqrt{y}\\
+y'&=& x - y\\
+x(0)&=&0\\
+y(0)&=&2\\
+\end{eqnarray*}
+com passo $h=2\cdot 10^{-1}$ $h=2\cdot 10^{-2}$, $h=2\cdot 10^{-3}$ e $h=2\cdot 10^{-4}$ para obter aproximações para $x(2)$ e $y(2)$.  
+\end{exer},
+\begin{resp}
+ 
+ \begin{center}
+ \begin{tabular}{|l|l|l|l|l|l|}%\label{pvi:tab_euler}
+\hline
+   h                   & &$2\cdot 10^{-2}$&$2\cdot 10^{-2}$&$2\cdot 10^{-3}$&$2\cdot 10^{-4}$\\
+   \hline
+ \multirow{2}{*}{Euler}&x&0,4302019&0,4355057&0,4358046&0,4358324\\
+                       &y& 0,6172935&0,6457760&0,6486383&0,6489245\\
+  \hline
+ 
+ \multirow{2}{*}{Euler mod,}&x&  0,4343130&0,4358269&0,4358354&0,4358355\\
+                       &y& 0,6515479&0,6489764&0,6489566&0,6489564 \\
+
+   \hline
+   
+ 
+ \end{tabular}
+\end{center}
+\end{resp}
+
+\begin{exer} Considere o problema de segunda order dado por:
+\begin{eqnarray*}
+ x''(t)+x'(t)+\sin(x(t))=1,
+\end{eqnarray*}
+sujeito às condições iniciais dadas por:
+\begin{eqnarray*}
+x(0)&=&2,\\
+x'(0)&=&0.
+\end{eqnarray*}
+Resolva numericamente para obter o valor de $x(0,5)$, $x(1)$, $x(1,5)$ e $x(2)$ com passo $h=10^{-2}$ e $h=10^{-3}$ via método de Euler modificado.
+\end{exer}
+
+\begin{resp} \begin{center}
+ \begin{tabular}{|l|l|l|l|l|l|}%\label{pvi:tab_euler}
+\hline
+   h&&$t=0,5$&$t=1,0$&$t=1,5$&$t=2,0$\\
+   \hline
+   \multirow{2}{*}{$10^{-3}$} &x & 1,9023516 &1,6564208&1,3124281&0,9168299\\
+		              &y'& -0,3635613&-0,6044859&-0,7564252& -0,8072298\\			
+   \hline
+
+   \multirow{2}{*}{$10^{-4}$} &x & 1,9023552 & 1,6564243 & 1,3124309 & 0,9168319\\
+		              &y'& -0,3635670&-0,6044930&-0,7564334& -0,8072397 \\			
+   \hline
+   
+   \end{tabular}
+\end{center}
+ 
+\end{resp}
+
 
 
 \section{Erro de truncamento}\index{Ordem! de precisão}\index{Erro! de truncamento}
@@ -751,7 +1163,6 @@ com passo $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e $h=10^{-5}$ para 
 
 
 
-\section{Solução de sistemas}
 
 
 
@@ -771,39 +1182,7 @@ com passo $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e $h=10^{-5}$ para 
 
 \chapter{Em reestruturação}
 
-\begin{exer}Resolva o problema de valor inicial dado por
-\begin{eqnarray*}
-u'&=& \cos(tu(t))\\
-u(0)&=&1\\
-\end{eqnarray*}
-com passo $h=10^{-1}$ e $h=10^{-2}$ para obter aproximações para $u(2)$
-\end{exer}
-\begin{resp}
-$u(2)\approx 1,161793$ com $h=0,1$,
-$u(2)\approx 1,139573$ com $h=0,01$,
-$u(2)\approx 1,137448$ com $h=0,001$,
-$u(2)\approx 1,137237$ com $h=0,0001$,
-$u(2)\approx 1,137216$ com $h=0,00001$
-\end{resp}
 
-
-\begin{exer}Resolva o problema de valor inicial dado por
-\begin{eqnarray*}
-u'&=& -2u + \sqrt{z}\\
-z'&=& -z + u\\
-u(0)&=&0\\
-z(0)&=&2\\
-\end{eqnarray*}
-com passo $h=0,2$, $h=0,02$, $h=0,002$ e $h=0,0002$ para obter aproximações para $u(2)$ e $z(2)$.
-\end{exer}
-\begin{resp}
-
-$u(2)\approx 0,430202$ e $z(2)=0,617294$ com $h=0,2$,
-$u(2)\approx 0,435506$ e $z(2)=0,645776$ com $h=0,02$,
-$u(2)\approx 0,435805$ e $z(2)=0,648638$ com $h=0,002$ e
-$u(2)\approx 0,435832$ e $z(2)=0,648925$ com $h=0,0002$.
-
-\end{resp}
 
 
 \subsection{Ordem de precisão}
@@ -2204,79 +2583,6 @@ Segundo Ferziger/Peric/Roache, podemos também estimar $p$ diretamente de
 
 
 
-
-\section{Sistemas de equações diferenciais e equações de ordem superior}
-O Problema~\eqref{PVI} pode ser um sistema de equações de primeira ordem, isto é, a incógnita $y(t)$ pode ser um vetor de funções, como mostra o Exemplo~\ref{eq_exemplo_sistema}
-\begin{ex}\label{exemplo_sistema_PVI}O problema de valor inicial
-\begin{subequations}\label{eq_exemplo_sistema}
-\begin{eqnarray}
-u'(t)&=&v(t),\\
-v'(t)&=&u(t),\\
-u(0)&=&1.\\
-v(0)&=&0.
-\end{eqnarray}
-\end{subequations}
-pode ser escrito na forma \eqref{PVI} com $y(t)$
-\end{ex}
-
-No Exemplo~\ref{sys_edo}, mostramos como o método de Euler pode ser facilmente estendido para problemas envolvendo sistemas de equações diferenciais.\index{sistemas!de equações diferenciais}.
-\begin{ex}\label{sys_edo} Escreva o processo iterativo de Euler para resolver numericamente o seguinte sistema de equações diferenciais
-\begin{eqnarray*}
-x'&=&-y\\
-y'&=&x\\
-x(0)&=&1\\
-y(0)&=&0,\\
-\end{eqnarray*}
-cuja solução exata é $x(t)=\cos(t)$ e $y(t)=\sin(t)$.
-\end{ex}
-Para aplicar o método de Euler a um sistema, devemos encarar as diversas incógnitas do sistema como formando um vetor, neste caso, escrevemos:
- $$z(t)=\left[\begin{array}{c}x(t)\\y(t)\end{array}\right].$$
- O sistema é igualmente escrito na forma vetorial:
-\begin{eqnarray*}
-\left[\begin{array}{c}x^{(k+1)}\\y^{(k+1)}\end{array}\right]=\left[\begin{array}{c}x^{(k)}\\y^{(k)}\end{array}\right]+h\left[\begin{array}{c}-y^{(k)}\\x^{(k)}\end{array}\right].
-\end{eqnarray*}
-Observe que este processo iterativo é equivalente a:
-\begin{eqnarray*}
-x^{(k+1)}&=&x^{(k)}-hy^{(k)}\\
-y^{(k+1)}&=&y^{(k)}+hx^{(k)}.
-\end{eqnarray*}
-
-
-\begin{ex} Escreva o problema de valor inicial de segunda ordem dado por
-\begin{eqnarray*}
-y''+y'+y&=&\cos(t),\\
-y(0)&=&1,\\
-y'(0)&=&0,
-\end{eqnarray*}
-como um problema envolvendo um sistema de primeira ordem.
-\end{ex}
-A fim de transformar a equação diferencial dada em um sistema de equações de primeira ordem, introduzimos a substituição $w=y'$, de forma que obteremos o sistema:
-\begin{eqnarray*}
-y'&=&w\\
-w'&=&-w-y+\cos(t)\\
-y(0)&=&1\\
-w(0)&=&0
-\end{eqnarray*}
-Portanto, o método de Euler produz o seguinte processo iterativo:
-\begin{eqnarray*}
-y^{(k+1)}&=&y^{(k)}+hw^{(k)},\\
-w^{(k+1)}&=&w^{(k)}-hw^{(k)}-hy^{(k)}+h\cos(t^{(k)}),\\
-y^{(1)}&=&1,\\
-w^{(1)}&=&0.
-\end{eqnarray*}
-
-
-\subsection*{Exercícios}
-
-\begin{exer}Resolva o problema de valor inicial dado por
-\begin{eqnarray*}
-y'&=& -2y + \sqrt{z}\\
-z'&=& -z + y\\
-y(0)&=&0\\
-z(0)&=&2\\
-\end{eqnarray*}
-com passo $h=0,2$, $h=0,02$, $h=0,002$ e $h=0,0002$ para obter aproximações para $y(2)$ e $z(2)$.
-\end{exer}
 
 
 \section{Exercícios finais}
