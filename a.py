@@ -1,53 +1,68 @@
 from __future__ import division
 import numpy as np
 
-def euler_mod(h,Tmax):
-	u=8
+def f(t,u):
+	return np.cos(t*u)
+
+
+def euler_RK4(h,Tmax,u1):
+	u=u1
   	itmax = Tmax/h;
-	t=0
 	for i in np.arange(0,itmax):
 		t=i*h
-		k1 = -0.5*u+2+t
+		k1 = f(t,u)
+		k2 = f(t+h/2,u+h*k1/2)
+		k3 = f(t+h/2,u+h*k2/2)
+		k4 = f(t+h,u+h*k3)
+
+
+		u=u+h*(k1+2*k2+2*k3+k4)/6
+	return u
+
+
+def euler_mod(h,Tmax,u1):
+	u=u1
+  	itmax = Tmax/h;
+	for i in np.arange(0,itmax):
+		t=i*h
+		k1 = f(t,u)
 		u_til = u + h*k1
-		k2 = -0.5*u_til+2+(t+h)
+		k2 = f(t+h,u_til)
 		u=u+h*(k1+k2)/2
 	return u
 
 
-def euler(h,Tmax):
-	u=1
+def euler(h,Tmax,u1):
+	u=u1
   	itmax = Tmax/h;
-	t=0
 	for i in np.arange(0,itmax):
-	
-		k1 = -u+t
+		t=i*h
+		k1 = f(t,u)
 		u = u + h*k1
-		t=t+h	
 	return u
 	
 
-
-h=1e-1
-for t in [1, 2, 3, 4]:
-	sol_euler=euler(h,t);
-	sol_exata = 2*np.exp(-t)+t-1
-	erro_relativo = np.fabs((sol_euler-sol_exata)/sol_exata)
-	print("h=%1.0e - u(%1.1f) =~ %1.7f - erro_relativo = %1.1e - exata=%1.7f" % (h, t, sol_euler, erro_relativo, sol_exata) )
-
-h=1e-2
-print;
-for t in [1, 2, 3, 4]:
-	sol_euler=euler(h,t);
-	sol_exata = 2*np.exp(-t)+t-1
-	erro_relativo = np.fabs((sol_euler-sol_exata)/sol_exata)
-	print("h=%1.0e - u(%1.1f) =~ %1.7f - erro_relativo = %1.1e" % (h, t, sol_euler, erro_relativo) )
-
-
-
-sol_exata = 2+8*np.exp(-1/2)
+t=2
+u1=1
+sol_exata = (1 + np.exp(-t))**2/4
+n=0
+sol=[0,0,0,0,0,0,0,0]
+err=[0,0,0,0,0,0,0,0]
 for h in [1e-1, 1e-2, 1e-3, 1e-4, 1e-5]:
-	sol_euler=euler(h,1);
+	sol_euler=euler_mod(h,t,u1);
 	erro_relativo = np.fabs((sol_euler-sol_exata)/sol_exata)
-	print("h=%1.0e - u(1) =~ %1.7f - erro_relativo = %1.1e" % (h, sol_euler, erro_relativo) )
-	
-print;
+	print("h=%1.0e - u(1) =~ %1.17f - erro_relativo = %1.1e" % (h, sol_euler, erro_relativo) )
+	sol[n]=sol_euler;
+	err[n]=erro_relativo
+	n=n+1
+		
+print("%1.7f & %1.7f & %1.7f & %1.7f & %1.7f" % (sol[0], sol[1], sol[2], sol[3], sol[4]) )
+print("%1.1e & %1.1e & %1.1e & %1.1e & %1.1e" % (err[0], err[1], err[2], err[3], err[4]) )
+
+print sol_exata;
+
+#for h in [1e-1, 1e-2, 1e-3, 1e-4, 1e-5]:
+#	sol_euler=euler_mod(h,t,u1);
+#	erro_relativo = np.fabs((sol_euler-sol_exata)/sol_exata)
+#	print("h=%1.0e - u(1) =~ %1.7f - erro_relativo = %1.1e" % (h, sol_euler, erro_relativo) )
+
