@@ -476,7 +476,7 @@ $3$ &   $1,4713043 $  & $ 1.4827638 $ & $1.4724512 $   \\\hline
  Aproximação via Euler: $2,4826529 $, exata: $e^{\sin(2)}\approx 2,4825777 $. Erro relativo aproximado: $ 3\times 10^{-5}$.
 \end{resp}
 
-\section{O método de Euler melhorado}\index{Método de Euler melhorado} 
+\section{O método de Euler melhorado}\index{Método de Euler melhorado}\label{pvi:sec_euler_mod} 
 O método de Euler estudado na Seção~\ref{pvi:euler} é aplicação bastante restrita devido à sua pequena precisão, isto é, normalmente precisamos escolher um passo $h$ muito pequeno para obter soluções de boa qualidade, o que implica um número elevado de passos e, consequentemente, alto custo computacional. 
 
 Nesta seção, contruiremos o \emph{método de Euler melhorado} ou \emph{método de Euler modificado} ou, ainda, . Para tal, considere o problema de valor inicial dado por:
@@ -505,7 +505,7 @@ Assim obtemos:
   u(t^{(2)})&=& u(t^{(1)}) +  \int _{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt\\
   &\approx& u(t^{(1)}) +\left[\frac{f\left(t^{(1)},u(t^{(1)})\right)+f\left(t^{(2)},u(t^{(2)})\right)}{2}\right]h\\
   &\approx& u(t^{(1)}) +\left[\frac{f\left(t^{(1)},u(t^{(1)})\right)+f\left(t^{(2)},\tilde{u}(t^{(2)})\right)}{2}\right]h\\
-  &=& u(t^{(1)}) + \frac{k_1+k_2}{2}h
+ % &=& u(t^{(1)}) + \frac{k_1+k_2}{2}h
 \end{eqnarray*}
 onde 
 \begin{eqnarray*}
@@ -514,15 +514,21 @@ k_1&=&f\left(t^{(1)},u(t^{(1)})\right)\\
 k_2&=&f\left(t^{(2)},\tilde{u}(t^{(2)})\right)=f\left(t^{(2)}, u(t^{(1)})+hk_1 \right )
 \end{eqnarray*}
 
-Portanto, o método recursivo de Euler modificado assume a seguinte forma:
+Portanto, o método recursivo de Euler melhorado assume a seguinte forma:
 \begin{eqnarray*}
-k_1&=&hf(u^{(k)},t^{(k)}),\\
-k_2&=&hf(u^{(k)}+k_1,t^{(k+1)}),\\
-u^{(k+1)}&=&u^{(k)}+\frac{k_1+k_2}{2},\\
+\tilde{u}^{(k+1)}&=&u^{(k)}+hf(u^{(k)},t^{(k)}),\\
+u^{(k+1)}&=&u^{(k)}+\frac{h}{2}\left(f(u^{(k)},t^{(k)})+f(\tilde{u}^{(k)},t^{(k)})\right),\\
+u^{(1)}&=&a~~ \hbox{(condição inicial)}.
+\end{eqnarray*}
+
+Que pode ser escrito equivalentemente como:
+\begin{eqnarray*}
+k_1&=&f(u^{(k)},t^{(k)}),\\
+k_2&=&f(u^{(k)}+k_1,t^{(k+1)}),\\
+u^{(k+1)}&=&u^{(k)}+h\frac{k_1+k_2}{2},\\
 u^{(1)}&=&a~~ \hbox{(condição inicial)}.
 \end{eqnarray*}
 Aqui $k_1$ e $k_2$ são variáveis auxiliares que representam as inclinações e devem ser calculadas a cada passo. Esta notação é compatível com a notação usada nos métodos de Runge-Kutta, uma família de esquemas iterativos para aproximar problemas de valor inicial, da qual o método de Euler e o método de Euler melhorado são casos particulares. Veremos os métodos de Runge-Kutta na Seção~\ref{pvi:sec_RK}.
-
 
 
 \begin{exeresol}\label{pvi:exeresol1_euler_melhorado} Resolva pelo método de Euler melhorado problema de valor inicial do Exercício Resolvido~\ref{pvi:exeresol1}:
@@ -652,26 +658,100 @@ A seguinte tabela resume os resultados obtidos:
  
    \end{tabular}
 \end{center}
-
-
 % Veja o gráfico da solução para $h=1, 0.5, 0.1, 0.05$:
 % \begin{figure}
 % \includegraphics[width=\textwidth]{euler.eps}
 % \end{figure}
-
 \end{resol}
 
 
+\section{Erro de truncamento}\index{Ordem! de precisão}\index{Erro! de truncamento}
+Nas seções \ref{pvi:euler} e \ref{pvi:sec_euler_mod}, construimos dois métodos numéricos para resolver problemas de valor inicial. No Exercício Resolvido~\ref{pvi:exeresol1_euler_melhorado}, vimos que o erro do método de Euler de do método de Euler melhorado caem quando se reduz o passo $h$, ademais, o erro do método de Euler melhorado cai conforme o quadrado de $h$, enquando o do método de Euler cai conforme $h^2$. Este fenômeno motiva a definção de \emph{ordem de precisão}.
+
+\begin{defn} O \emph{erro de truncamento local} é definido como o erro introduzido em cada passo pelo truncamento da equação diferencial supondo conhecida a solução exata no início do intervalo. Um método numérico é dito ter \emph{ordem de precisão} $p$ se o erro de truncamento local for da ordem de $h^{p+1}$.
+\end{defn}
+\begin{ex} O método de Euler tem erro de truncamento local de ordem $1$. Para obter este resultado, observamos via expansão de Taylor que:
+$$u(t+h)=u(t)+hu'(t)+\frac{h^2}{2}u''(t)+O(h^3).$$
+%Subtraindo $u(t)$ desta expressão e dividindo por $h$, obtemos:
+%$$\frac{u(t+h)-u(t)}{h}=u'(t)+\frac{h}{2}u''(t)+O(h^2)$$
+Se escolhermos nesta expressão $t=t^{(n)}$ e, portanto, $t+h=t^{(n)}+h=t^{(n+1)}$, temos:
+$$t^{(n+1)}=t^{(n)}+hu'(t^{(n)})+\frac{h^2}{2}u''(t^{(n)})+O(h^3)$$
+Agora notamos que o termo principal do erro é dado por $\frac{h^2}{2}u''(t^{(n)})$, como a derivada segunda da solução não depende de $h$, o erro local de truncamento decresce conforme $h^2$ e assim a ordem de precisão do método é 1.
+\end{ex}
+
+\begin{defn} O \emph{erro de truncamento global} é definido como erro acumulado ao longo de todos os passo de resolução, supondo a condição inicial exata.
+\end{defn}
+
+A relação entre o erro de truncamento global e o erro de truncamento local depende da função $f(t,u)$ envolvida, sobre suficiente regularidade, o erro acumulado é da mesma ordem de grande do erro de truncamento local multiplicado pelo número de passos. Como o número de passos $N$ necessários para calcular a solução de um problema de valor inicial no ponto $t=t_{f}$ é dado por $N=\frac{t_f}{h}$, temos que a erro de truncamento global é uma ordem inferior ao erro de truncamento local e equivale à ordem de precisão do método.
+
+Usamos também a notação $ETL$ para o erro de truncamento local e $ETG$ para o erro de truncamento global. De forma que, para o método de Euler, temos:
+$$ETL_{Euler} = O(h^2) ~~~ \hbox{e} ~~~ ETG_{Euler}=O(h).$$
+\begin{ex} Vamos obter o erro de truncamento local do método de Euler melhorado.
+Partimos da construção do esquema iterativo de Euler melhorado:
+\begin{eqnarray}
+  \int_{t^{(1)}}^{t^{(2)}} u'(t) \;dt &=& \int_{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt\\
+  u(t^{(2)})-u(t^{(1)})               &=& \int_{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt\\
+  u(t^{(2)})                      &=& u(t^{(1)}) +  \int _{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt
+\end{eqnarray}
+Neste ponto, usamos o erro de truncamento do método de trapézios para aproximar a integral envolvida:
+\begin{eqnarray*}
+\int _{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt = \frac{h}{2}\left[f\left(t^{(1)},u(t^{(1)})\right) + f\left(t^{(2)},u(t^{(2)})\right)\right] + O(h^3)
+\end{eqnarray*}
+Assim, temos que o erro de truncamento local do método de Euler melhorado é $O(h^3)$ e, portanto, um método de ordem 2.
+\end{ex}
+
+\begin{exer}Aplique o método de Euler e o método de Euler melhorado para resolver o problema de valor inicial dado por
+\begin{eqnarray*}
+u'&=& -2u + \sqrt{u}\\
+u(0)&=&1
+\end{eqnarray*}
+com passo $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e $h=10^{-5}$ para obter aproximações para $u(1)$. Compare com a solução exata dada do problema dada por $u(t) =  \left({1+2 e^{-t}+e^{-2 t}}\right)/{4}$ através do erro relativo e observe a ordem de precisão do método.
+\end{exer}
+\begin{resp}
+
+\begin{center}
+ \begin{tabular}{|l|l|l|l|l|l|l|l|}%\label{pvi:tab_euler}
+\hline
+   h&$10^{-1}$&$10^{-2}$&$10^{-3}$&$10^{-4}$&$10^{-5}$\\
+   \hline
+   Euler & 0,4495791 & 0,4660297 & 0,4675999 & 0,4677562 & 0,4677718\\
+   \hline
+   $\varepsilon_{rel}$ &9,1e-03 &  8,9e-04  & 8,9e-05&   8,9e-06 &  8,9e-07\\
+   \hline
+  Euler mod, & 0,4686037 & 0,4677811 & 0,4677736 & 0,4677735 & 0,4677735\\
+   \hline
+   $\varepsilon_{rel}$ & 1,8e-03 & 1,6e-05 & 1,6e-07 & 1,6e-09 & 1,6e-11\\
+   \hline
+   \end{tabular}
+\end{center}
+A solução exata vale $u(1)=\frac{1+2e^{-1}+e^{-2}}{4}= \left(\frac{1+e^{-1}}{2}\right)^2\approx 0.467773541395$.
+\end{resp}
+
+
+\begin{exer}Resolva o problema de valor inicial dado por
+\begin{eqnarray*}
+u'&=& \cos(tu(t))\\
+u(0)&=&1\\
+\end{eqnarray*}
+com passo $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e $h=10^{-5}$ para obter aproximações para $u(2)$
+\end{exer}
+\begin{resp}
+\begin{center}
+ \begin{tabular}{|l|l|l|l|l|l|l|l|}%\label{pvi:tab_euler}
+\hline
+   h&$10^{-1}$&$10^{-2}$&$10^{-3}$&$10^{-4}$&$10^{-5}$\\
+   \hline
+   Euler & 1,1617930 & 1,1395726 & 1,1374484 & 1,1372369 & 1,1372157\\
+   \hline
+  Euler mod & 1,1365230 & 1,1372075 & 1,1372133 & 1,1372134 & 1,1372134\\
+   \hline
+   \end{tabular}
+\end{center}
+\end{resp}
 
 
 
-
-
-
-
-
-
-
+\section{Solução de sistemas}
 
 
 
@@ -691,7 +771,43 @@ A seguinte tabela resume os resultados obtidos:
 
 \chapter{Em reestruturação}
 
+\begin{exer}Resolva o problema de valor inicial dado por
+\begin{eqnarray*}
+u'&=& \cos(tu(t))\\
+u(0)&=&1\\
+\end{eqnarray*}
+com passo $h=10^{-1}$ e $h=10^{-2}$ para obter aproximações para $u(2)$
+\end{exer}
+\begin{resp}
+$u(2)\approx 1,161793$ com $h=0,1$,
+$u(2)\approx 1,139573$ com $h=0,01$,
+$u(2)\approx 1,137448$ com $h=0,001$,
+$u(2)\approx 1,137237$ com $h=0,0001$,
+$u(2)\approx 1,137216$ com $h=0,00001$
+\end{resp}
+
+
+\begin{exer}Resolva o problema de valor inicial dado por
+\begin{eqnarray*}
+u'&=& -2u + \sqrt{z}\\
+z'&=& -z + u\\
+u(0)&=&0\\
+z(0)&=&2\\
+\end{eqnarray*}
+com passo $h=0,2$, $h=0,02$, $h=0,002$ e $h=0,0002$ para obter aproximações para $u(2)$ e $z(2)$.
+\end{exer}
+\begin{resp}
+
+$u(2)\approx 0,430202$ e $z(2)=0,617294$ com $h=0,2$,
+$u(2)\approx 0,435506$ e $z(2)=0,645776$ com $h=0,02$,
+$u(2)\approx 0,435805$ e $z(2)=0,648638$ com $h=0,002$ e
+$u(2)\approx 0,435832$ e $z(2)=0,648925$ com $h=0,0002$.
+
+\end{resp}
+
+
 \subsection{Ordem de precisão}
+
 
 
 
@@ -757,54 +873,7 @@ $$ETG_{Euler}^{n+1} = \mathcal \mathcal{O}(h)$$
 \emconstrucao
 
 \subsection*{Exercícios}
-\begin{exer}Resolva o problema de valor inicial dado por
-\begin{eqnarray*}
-u'&=& -2u + \sqrt{u}\\
-u(0)&=&1
-\end{eqnarray*}
-com passo $h=0,1$ e $h=0,01$ para obter aproximações para $u(1)$. Compare com a solução exata dada por $u(t) =  \left({1+2 e^{-t}+e^{-2 t}}\right)/{4}$
-\end{exer}
-\begin{resp}
-
- $0,4496$ com $h=0,1$ e $0,4660$ com $h=0,01$. A solução exata vale $u(1)=\frac{1+2e^{-1}+e^{-2}}{4}= \left(\frac{1+e^{-1}}{2}\right)^2\approx 0,4678$
-
-\end{resp}
-
-
-\begin{exer}Resolva o problema de valor inicial dado por
-\begin{eqnarray*}
-u'&=& -2u + \sqrt{z}\\
-z'&=& -z + u\\
-u(0)&=&0\\
-z(0)&=&2\\
-\end{eqnarray*}
-com passo $h=0,2$, $h=0,02$, $h=0,002$ e $h=0,0002$ para obter aproximações para $u(2)$ e $z(2)$.
-\end{exer}
-\begin{resp}
-
-$u(2)\approx 0,430202$ e $z(2)=0,617294$ com $h=0,2$,
-$u(2)\approx 0,435506$ e $z(2)=0,645776$ com $h=0,02$,
-$u(2)\approx 0,435805$ e $z(2)=0,648638$ com $h=0,002$ e
-$u(2)\approx 0,435832$ e $z(2)=0,648925$ com $h=0,0002$.
-
-\end{resp}
-
-\begin{exer}Resolva o problema de valor inicial dado por
-\begin{eqnarray*}
-u'&=& \cos(tu(t))\\
-u(0)&=&1\\
-\end{eqnarray*}
-com passo $h=0,1$, $h=0,01$, $h=0,001$, $h=0,0001$ e $0,00001$ para obter aproximações para $u(2)$.
-\end{exer}
-\begin{resp}
-
-$u(2)\approx 1,161793$ com $h=0,1$,
-$u(2)\approx 1,139573$ com $h=0,01$,
-$u(2)\approx 1,137448$ com $h=0,001$,
-$u(2)\approx 1,137237$ com $h=0,0001$,
-$u(2)\approx 1,137216$ com $h=0,00001$
-\end{resp}
-
+\
 
 \section{Convergência, consistência e estabilidade}
 Nesta seção veremos três conceitos fundamentais em análise numérica: convergência, consistência e estabilidade.
