@@ -660,7 +660,7 @@ A seguinte tabela resume os resultados obtidos:
    \hline
   Euler mod. & 6,8532949 &  6,8522554  &  6,8522454  &  6,8522453  &  6,8522453 \\
    \hline
-   $\varepsilon_{rel}$ &1,5e-04 &  1,5e-06  & 1,5e-08&   1,5e-10 &  2,6e-07\\
+   $\varepsilon_{rel}$ &1,5e-04 &  1,5e-06  & 1,5e-08&   1,5e-10 &  1,5e-12\\
    \hline
  
    \end{tabular}
@@ -1166,7 +1166,7 @@ com passo $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e $h=10^{-5}$ para 
 \section{Métodos de Runge-Kutta explícitos}\label{pvi:sec_RK}\index{método!de Runge-Kutta exlícito}
 Nas seções anteriores, exploramos os métodos de Euler e Euler modificado para resolver problemas de valor inicial. Neste momento, deve estar claro ao leitor que o método de Euler melhorado produz soluções de melhor qualidade que o método de Euler para a maior parte dos problemas estudados. Isso se deve, conforme Seção~\ref{pvi:erro_truncamento}, à ordem de precisão do método. 
 
-Os métodos de Runge-Kutta generalizam o esquema do método de Euler melhorado, inserindo mais estágios de cálculo e buscando ordens de precisão mais altas. Nesta seção, trataremos dos métodos de \emph{Runge-Kutta explícitos}\footnote{Existem também os métodos implícitos que serão abordados na Seção~\ref{pvi:sec_IRK}.}
+Os métodos de Runge-Kutta generalizam o esquema do método de Euler melhorado, inserindo mais estágios de cálculo e buscando ordens de precisão mais altas. Nesta seção, trataremos dos métodos de \emph{Runge-Kutta explícitos}\footnote{Existem também os métodos implícitos que serão abordados na Seção~\ref{pvi:sec_IRK}. Ver Observação~\ref{pvi:obs_imp}.}
 
 Para tal, considere o  problema de valor inicial:
 \begin{eqnarray}
@@ -1185,8 +1185,8 @@ O método de Euler aproxima a integral no lado direito da expressão acima utili
   $|$   &      &       &      &  $|$  \\ \hline
 %  $-+-$ & $--$ &  $--$ & $--$ & $-+-$ \\
   $t^{(n)}$ &      &       &      & $t^{(n+1)}$ \\
-  $\tau _1$  & $\tau _2$ & $\cdots $ &      & %$\tau_\nu $\\
-  $t^{(n)}$~~  &~~ $t^{(n)}+c_2h$~~ & $\cdots $ &      & %~~$t^{(n)}+c_\nu h $~~
+  $\tau _1$  & $\tau _2$ & $\cdots $ &      & $\tau_\nu $\\
+  $t^{(n)}$~~  &~~ $t^{(n)}+c_2h$~~ & $\cdots $ &      & ~~$t^{(n)}+c_\nu h $~~
   \end{tabular}
 \end{center}
 Observe que $\tau_j=t^{(n)}+c_jh$ com $0=c_1 \leq c_2 \leq \cdots \leq c_\nu \leq 1$, isto é, o primeira ponto sempre coincide com o extremo esquerdo do intervalo, mas o último ponto não precisa ser o extremo direito. Ademais, um mesmo ponto pode ser usado mais de uma vez com aproximações diferentes para $u(\tau_j)$.
@@ -1226,7 +1226,8 @@ onde $k_j=f\left(\tau_j,\tilde{u}_{j}\right)$, $A:=\left(a_{ij}\right)$ é a mat
   $c_3$  & $a_{31}$ & $a_{22}$ &      \\  \hline
          & $b_1$    & $b_2$    & $b_3$.
 \end{tabular}
-Na tabela mais à direita, omitimos os termo obrigatórimente nulos.
+
+Na tabela mais à direita, omitimos os termos obrigatoriamente nulos.
 \end{center}
  
 \begin{ex} O método de Euler modificado pode ser escrito conforme:
@@ -1252,8 +1253,14 @@ Identificando os coeficientes, obtemos $\nu=2$, $c_1=0$, $c_2=1$, $a_{21}=1$, $b
 \end{center}
 \end{ex}
  
+ \begin{obs}\label{pvi:obs_imp} Nos métodos chamados explícitos, os elementos da diagonal principal (e acima dela) da matriz $A$ devem ser nulos, pois a aproximação em cada estágio é calculada com base nos valores dos estágios anteriores. Nos métodos implícitos, essa restrição é removida, neste caso, o cálculo da aproximação em um estágio envolve a solução de uma equação algébrica.
+  \end{obs}
+\begin{obs}Além da condição fixa $c_1=0$, para que um método seja de ordem pelo menos unitária, isto é, $p\geq 1$.
  
-\subsection{Métodos de Runge-Kutta com dois estágios}
+\end{obs}
+
+ 
+\subsection{Métodos de Runge-Kutta com dois estágios}\label{pvi:RK_2_subsec}
 Os métodos de Runge-Kutta com dois estágios $\left(\nu=2\right)$ são da seguinte forma:
 \begin{eqnarray}\label{RKa}
   \tilde{u}_1 &=&u^{(n)} \\
@@ -1290,11 +1297,11 @@ Agora,  expandimos em série de Taylor a solução exata $u(t)$ em $t=t^{(n)}$,
            \end{eqnarray}
 Finalmente comparamos os termos em \eqref{pvi:rk2_1} e \eqref{pvi:rk2_2} de forma a haver concordância na expansão de Taylor até segunda ordem, isto é, restanto apenas o erro de ordem 3 e produzindo um método de ordem de precisão $p=2$:
 \begin{eqnarray}\label{pvi:cond_euler_2est}
-  b_1+b_2=1, \quad b_2c_2 = \frac{1}{2} \quad a_{21}=c_2
+  b_1+b_2=1, \quad b_2c_2 = \frac{1}{2} \quad \hbox{e} \quad a_{21}=c_2
 \end{eqnarray}
-Este sistema é formada por três equações e quatro incógnitas, pelo que admite infinitas soluções. Para construir toda a família de soluções, escolha $\alpha\in (0,1] $ e defina a partir de \eqref{pvi:cond_euler_2est}:
-$$b_1=1-\alpha,~~b_2=\alpha,~~c_2=\frac{1}{2\alpha},~~a_{21}=\frac{1}{2\alpha} $$
-Portanto obtemos o seguinte esquema genérico:
+Este sistema é formada por três equações e quatro incógnitas, pelo que admite infinitas soluções. Para construir toda a família de soluções, escolha um parâmetro $\alpha\in (0,1] $ e defina a partir de \eqref{pvi:cond_euler_2est}:
+$$b_1=1-\frac{1}{2\alpha},~~b_2=\frac{1}{2\alpha},~~c_2=\alpha,~~a_{21}=\alpha $$
+Portanto, obtemos o seguinte esquema genérico:
 \begin{center}
 \begin{tabular}{c|cc}
   \multirow{2}{*}{$c$}    &  \multicolumn{2}{c}{\multirow{2}{*}{$A$}} 	     \\
@@ -1311,11 +1318,11 @@ Portanto obtemos o seguinte esquema genérico:
 ~~~=~~~
 \begin{tabular}{c|cc}
    &   &   \\
-  $\frac{1}{2\alpha}$ & $\frac{1}{2\alpha}$ &   \\  \hline
-      & $1-\alpha$ &$\alpha$
+  $\alpha$ & $\alpha$ &   \\  \hline
+      & $\left(1-\frac{1}{2\alpha}\right)$ &$\frac{1}{2\alpha}$
 \end{tabular},~~~$0<\alpha\leq 1$.
 \end{center}
- Algumas escolhas comuns são $\alpha=1$, $\alpha=\frac{3}{4}$ e $\alpha=\frac{1}{2}$:
+ Algumas escolhas comuns são $\alpha=\frac{1}{2}$, $\alpha=\frac{2}{3}$ e $\alpha=1$:
 \begin{center}
 \begin{tabular}{c|cc}
   $0$ &     &   \\
@@ -1331,31 +1338,55 @@ Portanto obtemos o seguinte esquema genérico:
   $0$ &   &   \\
   $1$ & $1$ &   \\  \hline
       & $\frac{1}{2}$ &$\frac{1}{2}$
-\end{tabular},
+\end{tabular}.
 \end{center}
-onde a última tabela fornece o método Euler modificado $\left(\alpha=\frac{1}{2}\right)$. O esquema iterativa assume a seguinte forma:
+Note que a tabela da direita fornece o método Euler modificado $\left(\alpha=1\right)$. O esquema iterativo assume a seguinte forma:
 \begin{eqnarray}
   \tilde{u}_1 &=&u^{(n)} \\
-  \tilde{u}_2 &=&u^{(n)}  +  \frac{h}{2\alpha}k_1 \\
-  u^{(n+1)}&=&u^{(n)}  + h \left[ (1-\alpha)k_1+\alpha k_2\right],
+  \tilde{u}_2 &=&u^{(n)}  +  h\alpha k_1 \\
+  u^{(n+1)}&=&u^{(n)}  + h \left[ \left(1-\frac{1}{2\alpha}\right)k_1+\frac{1}{2\alpha} k_2\right],
 \end{eqnarray}
-onde $k_1=f(t^{(n)},u^{(n)})$ e $k_2=f(t^{(n)}+\frac{h}{2\alpha},\tilde{u}_2)$. Ou,equivalentemente:
+onde $k_1=f(t^{(n)},u^{(n)})$ e $k_2=f(t^{(n)}+h\alpha,\tilde{u}_2)$. Ou, equivalentemente:
 \begin{eqnarray}
 k_1&=&f(t^{(n)},u^{(n)})\\
-k_2&=&f(t^{(n)}+\frac{h}{2\alpha},u^{(n)}  +  \frac{h}{2\alpha}k_1)\\
-  u^{(n+1)}&=&u^{(n)}  + h \left[ (1-\alpha)k_1+\alpha k_2\right],
+k_2&=&f(t^{(n)}+h\alpha,u^{(n)}  +  h\alpha k_1)\\
+  u^{(n+1)}&=&u^{(n)}  + h \left[\left (1-\frac{1}{2\alpha}\right)k_1+\frac{1}{2\alpha} k_2\right],
 \end{eqnarray}
 
 
-\subsection{Métodos de Runge-Kutta com três estágios}
+\subsection{Métodos de Runge-Kutta com três estágios}\label{pvi:RK_3_subsec}
+Os métodos de Runge-Kutta com 3 estágios podem ser descritos na forma tabular como:
+\begin{center}
+\begin{tabular}{c|ccc}
+  $0$              &          &               & \\
+  $c_2$            & $a_{21}$ &               & \\
+  $c_3$            & $a_{31}$ & $a_{32}$      & \\  \hline
+                   & $b_{1}$  & $b_{2}$       & $b_{3}$
+\end{tabular}
+\end{center}
 
-Seguindo um procedimento similar, podemos obter as condições para um método com $\nu =3$ e ordem $p=3$, que são
-\begin{eqnarray}
-  b_1+b_2+b_3=1,               & b_2c_2+b_3c_3 = \frac{1}{2} \\
-  b_2c_2^2+b_3c_3^2=\frac{1}{3}, & b_3a_{32}c_2=\frac{1}{6}
+
+Seguindo um procedimento similar ao da Seção~\ref{pvi:RK_2_subsec}, podemos obter as condições equivalentes às condições \eqref{pvi:cond_euler_2est} para um método com $\nu =3$ e ordem $p=3$, as quais são:
+\begin{eqnarray}\label{pvi:cond_euler_3est}
+  b_1+b_2+b_3		&=& 1,            		\label{pvi:cond_euler_3est:1} \\
+  b_2c_2+b_3c_3 	&=& \frac{1}{2},	 	\label{pvi:cond_euler_3est:2} \\
+  b_2c_2^2+b_3c_3^2	&=& \frac{1}{3}, 		\label{pvi:cond_euler_3est:3} \\
+  b_3a_{32}c_2		&=& \frac{1}{6},		\label{pvi:cond_euler_3est:4} \\
+  a_{21}		&=& c_2,			\label{pvi:cond_euler_3est:5} \\
+  a_{31}+a_{32}		&=& c_3.			\label{pvi:cond_euler_3est:6} 
 \end{eqnarray}
+Assim, temos 6 condições para determinar 8 incógnitas, o que implica a existência de uma enorme família de métodos de Runge-Kutta com três estágios e ordem $p=3$. Se fixarmos os coeficientes $c_2$ e $c_3$, podemos os outros de forma única:
+\begin{eqnarray*}
+ b_1&=&1-\frac{1}{2c_2}-\frac{1}{2c_3}+\frac{1}{3c_2c_3}\\
+ b_2&=&\frac{3c_3-2}{6c_2(c_3-c_2)}\\
+ b_3&=&\frac{2-3c_2}{6c_3(c_3-c_2)}\\
+ a_{21}&=&c_2\\
+ a_{31}&=&c_3-\frac{1}{6b_3c_2}\\
+ a_{32}&=&\frac{1}{6b_3c_2}
+\end{eqnarray*}
 
-Alguns exemplos de métodos de RK de 3 estágios são o método clássico de Runge-Kutta:
+
+ Alguns exemplos de métodos de Runge-Kutta de 3 estágios são o método clássico de Runge-Kutta $\left(c_2=\frac{1}{2}\hbox{ e } c_3=1\right)$ e o método de Nyström $\left(c_2=c_3=\frac{2}{3}\right)$:
 \begin{center}
 \begin{tabular}{c|ccc}
   $0$           &               &               & \\
@@ -1363,17 +1394,15 @@ Alguns exemplos de métodos de RK de 3 estágios são o método clássico de Run
   $1$           & $-1$          & $2$           & \\  \hline
                 & $\frac{1}{6}$ & $\frac{4}{6}$ & $\frac{1}{6}$
 \end{tabular}
-\end{center}
-e o método de Nyström:
-\begin{center}
-\begin{tabular}{c|ccc}
+~~~e~~~~~~\begin{tabular}{c|ccc} 
   $0$ &     &   & \\
   $\frac{2}{3}$ & $\frac{2}{3}$ &   & \\
   $\frac{2}{3}$ & $0$ &$\frac{2}{3}$& \\  \hline
       & $\frac{2}{8}$ &$\frac{3}{8}$& $\frac{3}{8}$
-\end{tabular}
+\end{tabular}.
 \end{center}
 
+\subsection{Métodos de Runge-Kutta com quatro estágios}\label{pvi:RK_4_subsec}
 Com paciência e a ajuda de um software de manipulação algébrica simbólica,  é possível encontrar um método de quarta ordem e $\nu =4$ estágios como:
 \begin{center}
 \begin{tabular}{c|cccc}
@@ -1384,31 +1413,6 @@ Com paciência e a ajuda de um software de manipulação algébrica simbólica, 
       & $\frac{1}{6}$ &$\frac{2}{6}$& $\frac{2}{6}$& $\frac{1}{6}$
 \end{tabular}
 \end{center}
-
-
-
-
-
-consistem em iterações do tipo:
-$$u^{(k+1)}=u^{(k)}+w_1 k_1 + \ldots + w_n k_n$$
-onde
-\begin{eqnarray*}
-k_1&=&hf(u^{(k)},t_k),\\
-k_2&=&hf(u^{(k)}+\alpha_{2,1}k_1,t_k+\beta_{2}h),\\
-k_3&=&hf(u^{(k)}+\alpha_{3,1}k_1+\alpha_{3,2}k_2,t_k+\beta_{3}h),\\
-&\vdots&\\
-k_n&=&hf(u^{(k)}+\alpha_{n,1}k_1+\alpha_{n,2}k_2+\ldots \alpha_{n,n-1}k_{n-1},t_k+\beta_{n}h).\\
-\end{eqnarray*}
-aqui $n$ é o número de estágio do método.
-
-Os coeficientes são escolhidos de forma a prover a ordem de precisão desejada.
-
-\begin{ex} O método de Euler melhorado é um exemplo de Runge-Kutta de segunda ordem
-$$u^{(n+1)}=u^{(n)}+\frac{k_1+k_2}{2}$$
-onde $k_1=hf(u^{(n)},t^{(n)})$ e $k_2=hf(u^{(n)}+k_1,t^{(n)}+h)$.
-No método de Euler melhorado, os coeficientes $\alpha$ e $\beta$ são dados por:
-
-\end{ex}
 
 \subsection{Métodos de Runge-Kutta - quarta ordem}\index{método!de Runge-Kutta!de quarta ordem}
 
