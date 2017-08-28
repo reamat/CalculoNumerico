@@ -1,8 +1,10 @@
 from __future__ import division
+from __future__ import print_function
+
 import numpy as np
 
 def f(t,u):
-	return np.cos(t*u)
+	return np.asarray([-u[1],u[0]])
 
 
 def euler_RK4(h,Tmax,u1):
@@ -21,15 +23,27 @@ def euler_RK4(h,Tmax,u1):
 
 
 def euler_mod(h,Tmax,u1):
-	u=u1
   	itmax = Tmax/h;
+	x=np.empty(itmax+1)
+	y=np.empty(itmax+1)
+	x[0]=u1[0]
+	y[0]=u1[1]
+
 	for i in np.arange(0,itmax):
 		t=i*h
-		k1 = f(t,u)
-		u_til = u + h*k1
-		k2 = f(t+h,u_til)
-		u=u+h*(k1+k2)/2
-	return u
+		kx1 = (y[i])
+		ky1 = -(np.sin(x[i])+y[i])
+
+		x_til = x[i] + h*kx1
+		y_til = y[i] + h*ky1
+
+		kx2 = (y_til)
+		ky2 = -(np.sin(x_til)+y_til)
+
+		x[i+1]=x[i]+h*(kx1+kx2)/2
+		y[i+1]=y[i]+h*(ky1+ky2)/2
+
+	return [x,y]
 
 
 def euler(h,Tmax,u1):
@@ -40,29 +54,20 @@ def euler(h,Tmax,u1):
 		k1 = f(t,u)
 		u = u + h*k1
 	return u
+
+
 	
+Tmax=2			#tempo maximo de simulacao
+u1=np.asarray([2,0])	#condicoes iniciais na forma vetorial
+h=1e-2			#passo
+sol_euler=euler_mod(h,Tmax,u1);
 
-t=2
-u1=1
-sol_exata = (1 + np.exp(-t))**2/4
-n=0
-sol=[0,0,0,0,0,0,0,0]
-err=[0,0,0,0,0,0,0,0]
-for h in [1e-1, 1e-2, 1e-3, 1e-4, 1e-5]:
-	sol_euler=euler_mod(h,t,u1);
-	erro_relativo = np.fabs((sol_euler-sol_exata)/sol_exata)
-	print("h=%1.0e - u(1) =~ %1.17f - erro_relativo = %1.1e" % (h, sol_euler, erro_relativo) )
-	sol[n]=sol_euler;
-	err[n]=erro_relativo
-	n=n+1
-		
-print("%1.7f & %1.7f & %1.7f & %1.7f & %1.7f" % (sol[0], sol[1], sol[2], sol[3], sol[4]) )
-print("%1.1e & %1.1e & %1.1e & %1.1e & %1.1e" % (err[0], err[1], err[2], err[3], err[4]) )
+itmax=Tmax/h
 
-print sol_exata;
+for t in [0, .5, 1, 1.5, 2.0]:
+	k=t/h
+	#print("h=%1.0e - x(%1.1f) =~ %1.6f - y(%1.1f) =~ %1.6f" % (h, t, sol_euler[0][k], t, sol_euler[1][k]) )
+	print("%1.7f" % (sol_euler[0][k]))
 
-#for h in [1e-1, 1e-2, 1e-3, 1e-4, 1e-5]:
-#	sol_euler=euler_mod(h,t,u1);
-#	erro_relativo = np.fabs((sol_euler-sol_exata)/sol_exata)
-#	print("h=%1.0e - u(1) =~ %1.7f - erro_relativo = %1.1e" % (h, sol_euler, erro_relativo) )
+
 
