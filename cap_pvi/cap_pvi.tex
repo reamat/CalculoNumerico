@@ -1185,11 +1185,11 @@ O método de Euler aproxima a integral no lado direito da expressão acima utili
   $|$   &      &       &      &  $|$  \\ \hline
 %  $-+-$ & $--$ &  $--$ & $--$ & $-+-$ \\
   $t^{(n)}$ &      &       &      & $t^{(n+1)}$ \\
-  $\tau _1$  & $\tau _2$ & $\cdots $ &      & $\tau_\nu $\\
-  $t^{(n)}$~~  &~~ $t^{(n)}+c_2h$~~ & $\cdots $ &      & ~~$t^{(n)}+c_\nu h $~~
+  $\tau _1$  & $\tau _2$ & $\cdots $ &      & %$\tau_\nu $\\
+  $t^{(n)}$~~  &~~ $t^{(n)}+c_2h$~~ & $\cdots $ &      & %~~$t^{(n)}+c_\nu h $~~
   \end{tabular}
 \end{center}
-Observe que $\tau_j=t^{(n)}+c_jh$ com $0=c_1 \leq c_2 \leq \cdots \leq c_\nu =1$, ademais, um mesmo ponto pode ser usado mais de uma vez com aproximações diferentes para $u(\tau_j)$.
+Observe que $\tau_j=t^{(n)}+c_jh$ com $0=c_1 \leq c_2 \leq \cdots \leq c_\nu \leq 1$, isto é, o primeira ponto sempre coincide com o extremo esquerdo do intervalo, mas o último ponto não precisa ser o extremo direito. Ademais, um mesmo ponto pode ser usado mais de uma vez com aproximações diferentes para $u(\tau_j)$.
 
 Desta forma, aproximamos a integral por um esquema de quadratura com $\nu$ pontos: 
 \begin{eqnarray}
@@ -1219,6 +1219,14 @@ onde $k_j=f\left(\tau_j,\tilde{u}_{j}\right)$, $A:=\left(a_{ij}\right)$ é a mat
   $c_3$ & $a_{31}$ & $a_{22}$ & $0$\\  \hline
         & $b_1$     & $b_2$     & $b_3$.
 \end{tabular}
+~~~$=$~~~
+\begin{tabular}{c|ccc}
+  $c_1$  &          &         &       \\
+  $c_2$  & $a_{21}$ &          &      \\
+  $c_3$  & $a_{31}$ & $a_{22}$ &      \\  \hline
+         & $b_1$    & $b_2$    & $b_3$.
+\end{tabular}
+Na tabela mais à direita, omitimos os termo obrigatórimente nulos.
 \end{center}
  
 \begin{ex} O método de Euler modificado pode ser escrito conforme:
@@ -1280,38 +1288,66 @@ Agora,  expandimos em série de Taylor a solução exata $u(t)$ em $t=t^{(n)}$,
            &=&u^{(n)}  + hf(t,u^{(n)}) +\frac{h^2}{2}\left(\frac{\partial f}{\partial t}+\frac{\partial f}{\partial u}f(t,u^{(n)})\right) +O(h^3)\\
            &=&u^{(n)}  + hf(t,u^{(n)}) +\frac{h^2}{2}\left(\frac{\partial f}{\partial t}+\frac{\partial f}{\partial u}k_1\right) +O(h^3)\label{pvi:rk2_2}
            \end{eqnarray}
-Finalmente comparamos os termos em \eqref{pvi:rk2_1} e \eqref{pvi:rk2_2} de forma a haver concordância na expansão de Taylor até segunda ordem, isto é, restanto apenas o erro de ordem 3:
-\begin{eqnarray}
+Finalmente comparamos os termos em \eqref{pvi:rk2_1} e \eqref{pvi:rk2_2} de forma a haver concordância na expansão de Taylor até segunda ordem, isto é, restanto apenas o erro de ordem 3 e produzindo um método de ordem de precisão $p=2$:
+\begin{eqnarray}\label{pvi:cond_euler_2est}
   b_1+b_2=1, \quad b_2c_2 = \frac{1}{2} \quad a_{21}=c_2
 \end{eqnarray}
-
-(até aqui)
-O sistema possui mais de uma solução. Algumas escolhas comuns são
+Este sistema é formada por três equações e quatro incógnitas, pelo que admite infinitas soluções. Para construir toda a família de soluções, escolha $\alpha\in (0,1] $ e defina a partir de \eqref{pvi:cond_euler_2est}:
+$$b_1=1-\alpha,~~b_2=\alpha,~~c_2=\frac{1}{2\alpha},~~a_{21}=\frac{1}{2\alpha} $$
+Portanto obtemos o seguinte esquema genérico:
+\begin{center}
+\begin{tabular}{c|cc}
+  \multirow{2}{*}{$c$}    &  \multicolumn{2}{c}{\multirow{2}{*}{$A$}} 	     \\
+                          &  \multicolumn{2}{c}{}                            \\ 
+  \hline
+                          & \multicolumn{2}{c}{$~~b~~$}   
+\end{tabular}
+~~~=~~~
+\begin{tabular}{c|cc}
+   &   &   \\
+  $c_2$ & $a_{21}$ &   \\  \hline
+      & $b_1$ &$b_2$
+\end{tabular}
+~~~=~~~
+\begin{tabular}{c|cc}
+   &   &   \\
+  $\frac{1}{2\alpha}$ & $\frac{1}{2\alpha}$ &   \\  \hline
+      & $1-\alpha$ &$\alpha$
+\end{tabular},~~~$0<\alpha\leq 1$.
+\end{center}
+ Algumas escolhas comuns são $\alpha=1$, $\alpha=\frac{3}{4}$ e $\alpha=\frac{1}{2}$:
 \begin{center}
 \begin{tabular}{c|cc}
   $0$ &     &   \\
   $\frac{1}{2}$ & $\frac{1}{2}$ &   \\  \hline
       & $0$ & $1$
-\end{tabular},~~~~
+\end{tabular},\hphantom{~~~e~~~}
 \begin{tabular}{c|cc}
   $0$ &   &   \\
   $\frac{2}{3}$ & $\frac{2}{3}$ &   \\  \hline
     & $\frac{1}{4}$ & $\frac{3}{4}$
-\end{tabular} ~~e~~
+\end{tabular} ~~~e~~~
 \begin{tabular}{c|cc}
   $0$ &   &   \\
   $1$ & $1$ &   \\  \hline
       & $\frac{1}{2}$ &$\frac{1}{2}$
-\end{tabular}
+\end{tabular},
 \end{center}
-onde a última tabela fornece o método de Heun (ou Euler modificado):
+onde a última tabela fornece o método Euler modificado $\left(\alpha=\frac{1}{2}\right)$. O esquema iterativa assume a seguinte forma:
 \begin{eqnarray}
-  U_1 &=&u_n \\
-  U_2 &=&u_n  + h F_1 \\
-  u_{n+1}&=&u_n  + h [ \frac{1}{2} F_1+\frac{1}{2}F_2]
+  \tilde{u}_1 &=&u^{(n)} \\
+  \tilde{u}_2 &=&u^{(n)}  +  \frac{h}{2\alpha}k_1 \\
+  u^{(n+1)}&=&u^{(n)}  + h \left[ (1-\alpha)k_1+\alpha k_2\right],
 \end{eqnarray}
-Note que o método é de ordem $p=2$ pois os termos que sobraram são de $O(h^3)$.
+onde $k_1=f(t^{(n)},u^{(n)})$ e $k_2=f(t^{(n)}+\frac{h}{2\alpha},\tilde{u}_2)$. Ou,equivalentemente:
+\begin{eqnarray}
+k_1&=&f(t^{(n)},u^{(n)})\\
+k_2&=&f(t^{(n)}+\frac{h}{2\alpha},u^{(n)}  +  \frac{h}{2\alpha}k_1)\\
+  u^{(n+1)}&=&u^{(n)}  + h \left[ (1-\alpha)k_1+\alpha k_2\right],
+\end{eqnarray}
 
+
+\subsection{Métodos de Runge-Kutta com três estágios}
 
 Seguindo um procedimento similar, podemos obter as condições para um método com $\nu =3$ e ordem $p=3$, que são
 \begin{eqnarray}
@@ -1322,10 +1358,10 @@ Seguindo um procedimento similar, podemos obter as condições para um método c
 Alguns exemplos de métodos de RK de 3 estágios são o método clássico de Runge-Kutta:
 \begin{center}
 \begin{tabular}{c|ccc}
-  $0$ &     &   & \\
-  $\frac{1}{2}$ & $\frac{1}{2}$ &   & \\
-  $1$ & $-1$ &$2$& \\  \hline
-      & $\frac{1}{6}$ &$\frac{4}{6}$& $\frac{1}{6}$
+  $0$           &               &               & \\
+  $\frac{1}{2}$ & $\frac{1}{2}$ &               & \\
+  $1$           & $-1$          & $2$           & \\  \hline
+                & $\frac{1}{6}$ & $\frac{4}{6}$ & $\frac{1}{6}$
 \end{tabular}
 \end{center}
 e o método de Nyström:
