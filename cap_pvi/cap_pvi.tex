@@ -516,15 +516,15 @@ k_2&=&f\left(t^{(2)},\tilde{u}(t^{(2)})\right)=f\left(t^{(2)}, u(t^{(1)})+hk_1 \
 
 Portanto, o método recursivo de Euler melhorado assume a seguinte forma:
 \begin{eqnarray*}
-\tilde{u}^{(k+1)}&=&u^{(k)}+hf(u^{(k)},t^{(k)}),\\
-u^{(k+1)}&=&u^{(k)}+\frac{h}{2}\left(f(u^{(k)},t^{(k)})+f(\tilde{u}^{(k)},t^{(k)})\right),\\
+\tilde{u}^{(k+1)}&=&u^{(k)}+h f(t^{(k)},u^{(k)}),\\
+u^{(k+1)}&=&u^{(k)}+\frac{h}{2}\left(f(t^{(k)},u^{(k)})+f(t^{(k)},\tilde{u}^{(k)})\right),\\
 u^{(1)}&=&a~~ \hbox{(condição inicial)}.
 \end{eqnarray*}
 
 Que pode ser escrito equivalentemente como:
 \begin{eqnarray*}
-k_1&=&f(u^{(k)},t^{(k)}),\\
-k_2&=&f(u^{(k)}+k_1,t^{(k+1)}),\\
+k_1&=&f(t^{(k)},u^{(k)}),\\
+k_2&=&f(t^{(k+1)},u^{(k)}+k_1),\\
 u^{(k+1)}&=&u^{(k)}+h\frac{k_1+k_2}{2},\\
 u^{(1)}&=&a~~ \hbox{(condição inicial)}.
 \end{eqnarray*}
@@ -767,8 +767,8 @@ v(0)&=&0.
  $$u(t)=\left[\begin{array}{c}x(t)\\y(t)\end{array}\right].$$
 Depois aplicamos a recursão do método de Euler melhorado dada por:
  \begin{eqnarray*}
-\tilde{u}^{(k+1)}&=&u^{(k)}+hf(u^{(k)},t^{(k)}),\\
-u^{(k+1)}&=&u^{(k)}+\frac{h}{2}\left(f(u^{(k)},t^{(k)})+f(\tilde{u}^{(k)},t^{(k)})\right),\\
+\tilde{u}^{(k+1)}&=&u^{(k)}+hf(t^{(k)},u^{(k)}),\\
+u^{(k+1)}&=&u^{(k)}+\frac{h}{2}\left(f(t^{(k)},u^{(k)})+f(t^{(k)},\tilde{u}^{(k)})\right),\\
 \end{eqnarray*}
 isto é:
  \begin{eqnarray*}
@@ -1403,40 +1403,176 @@ Assim, temos 6 condições para determinar 8 incógnitas, o que implica a exist�
 \end{center}
 
 \subsection{Métodos de Runge-Kutta com quatro estágios}\label{pvi:RK_4_subsec}
-Com paciência e a ajuda de um software de manipulação algébrica simbólica,  é possível encontrar um método de quarta ordem e $\nu =4$ estágios como:
+As técnicas utilizadas nas seções \ref{pvi:RK_2_subsec}  e \ref{pvi:RK_3_subsec} podem ser usadas para obter métodos de quarta ordem ($p=4$) e quatro estágios ($\nu=4$). As seguintes tabelas descrevem os dois esquemas mais conhecidos de Runge-Kutta quarta ordem com quatro estágios. O primeiro é denominado \emph{método de Runge-Kutta 3/8} e o segundo é chamado de \emph{método de Runge-Kutta clássico}.
+
 \begin{center}
 \begin{tabular}{c|cccc}
-  $0$ &     &   &   &    \\
-  $\frac{1}{2}$ & $\frac{1}{2}$ &   &   &    \\
-  $\frac{1}{2}$ & $0$ &$\frac{1}{2}$&   &    \\
-  $1$ & $0$ &$0$&$1$&    \\  \hline
-      & $\frac{1}{6}$ &$\frac{2}{6}$& $\frac{2}{6}$& $\frac{1}{6}$
+  $0$ 		&     			&   		&   		&    \\
+  $\frac{1}{3}$ & $\frac{1}{3}$ 	&   		&   		&    \\
+  $\frac{2}{3}$ & $-\frac{1}{3}$ 	&$1$		&   		&    \\
+  $1$ 		& $1$ 			&$-1$		&$1$		&    \\  \hline
+		& $\frac{1}{8}$ 	&$\frac{3}{8}$	& $\frac{3}{8}$	& $\frac{1}{8}$
+\end{tabular}
+~~~\hbox{e}~~~~~~~
+\begin{tabular}{c|cccc}
+  $0$ 		&     			&   		&   		&    \\
+  $\frac{1}{2}$ & $\frac{1}{2}$ 	&   		&   		&    \\
+  $\frac{1}{2}$ & $0$ 			&$\frac{1}{2}$	&   		&    \\
+  $1$ 		& $0$ 			&$0$		&$1$		&    \\  \hline
+		& $\frac{1}{6}$ 	&$\frac{2}{6}$	& $\frac{2}{6}$	& $\frac{1}{6}$
 \end{tabular}
 \end{center}
 
-\subsection{Métodos de Runge-Kutta - quarta ordem}\index{método!de Runge-Kutta!de quarta ordem}
-
-$$u^{(n+1)}=u^{(n)}+\frac{k_1+2k_2+2k_3+k_4}{6}$$
-onde
+O método de Runge-Kutta clássico é certamente o mais notório dos métodos de Runge-Kutta e seu esquema iterativo pode ser escrito como a seguir:
 \begin{eqnarray*}
-k_1&=&hf(u^{(n)},t^{(n)})\\
-k_2&=&hf(u^{(n)}+k_1/2,t^{(n)}+h/2)\\
-k_3&=&hf(u^{(n)}+k_2/2,t^{(n)}+h/2)\\
-k_4&=&hf(u^{(n)}+k_3,t^{(n)}+h)\\
+k_1&=&f\left(t^{(n)},u^{(n)}\right)\\
+k_2&=&f\left(t^{(n)}+h/2,u^{(n)}+k_1/2\right)\\
+k_3&=&f\left(t^{(n)}+h/2,u^{(n)}+k_2/2\right)\\
+k_4&=&f\left(t^{(n)}+h,u^{(n)}+k_3\right)\\
+u^{(n+1)}&=&u^{(n)}+h\frac{k_1+2k_2+2k_3+k_4}{6}
 \end{eqnarray*}
-Este método tem ordem de precisão 4. Uma discussão heurística usando método de Simpson pode ajudar a compreender os estranhos coeficientes:
+A seguinte heurística, usando o método de Simpson para quadratura numérica, pode ajudar a compreender os estranhos coeficientes:
 \begin{eqnarray*}
-u({t^{(n+1)}})-u({t^{(n)}})&=&\int_{t^{(n)}}^{t^{(n+1)}}f(t,u(s),s)ds \\
-&\approx& \frac{h}{6}\left[ f\left(u(t^{(n)}),t^{(n)}\right)+4f\left(u(t^{(n)}+h/2),t^{(n)}+h/2\right)\right.\\
-&+&\left.f\left(u(t^{(n)}+h),t^{(n)}+h\right)\right]\\
-&\approx& \frac{k_1+4(\frac{k_2+k_3}{2})+k_4}{6}
+u({t^{(n+1)}})-u({t^{(n)}})&=&\int_{t^{(n)}}^{t^{(n+1)}}f(t,u(s))ds \\
+&\approx& \frac{h}{6}\left[ f\left(t^{(n)},u(t^{(n)})\right)+4f\left(t^{(n)}+h/2,u(t^{(n)}+h/2)\right)\right.\\
+&+&\left.f\left(t^{(n)}+hu(t^{(n)}+h)\right)\right]\\
+&\approx& h\frac{k_1+4(\frac{k_2+k_3}{2})+k_4}{6}
 \end{eqnarray*}
-onde $k_1$ e $k_4$ representam as inclinações nos extremos e $k_2$ e $k_3$ são duas aproximações diferentes para a inclinação no meio do intervalo.
+onde $k_1$ e $k_4$ representam os valores de $f(t,u)$ nos extremos; $k_2$ e $k_3$ são duas aproximações diferentes para a inclinação no meio do intervalo.
+
+\subsection*{Exercícios resolvidos}
+\begin{exeresol}\label{pvi:problema_resolvido_RK3} Construa o esquema iterativo o método clássico de Runge-Kutta três estágios cuja tabela é dada a seguir:
+
+\begin{tabular}{c|ccc}
+  $0$           &               &               & \\
+  $\frac{1}{2}$ & $\frac{1}{2}$ &               & \\
+  $1$           & $-1$          & $2$           & \\  \hline
+                & $\frac{1}{6}$ & $\frac{4}{6}$ & $\frac{1}{6}$
+\end{tabular}
+
+\end{exeresol}
+\begin{resol}
+ \begin{eqnarray*}
+    k_1&=&f\left(t^{(n)},u^{(n)}\right)\\
+    k_2&=&f\left(t^{(n)}+h/2,u^{(n)}+k_1/2\right)\\
+    k_3&=&f\left(t^{(n)}+h,u^{(n)}-k_1+2k_2\right)\\
+  u^{(n+1)}&=&u^{(n)}+h\frac{k_1+4k_2+k_4}{6}
+ \end{eqnarray*}
+\end{resol}
+
+\begin{exeresol} Utilize o método clássico de Runge-Kutta três estágios para calcular o valor de $u(2)$ com passos $h=10^{-1}$ e $h=10^{-2}$ para o seguinte problema de valor inicial:
+\begin{eqnarray*}
+ u'(t)&=& -u(t)^2 + t,\\
+ u(0) &=&0.
+\end{eqnarray*}
+\ifisscilab
+Aplicando o processo iterativo obtido no Problema Resolvido~\ref{pvi:problema_resolvido_RK3}, obtemos a seguinte rotina:
+\begin{verbatim}
+function [y]= f(t,u)
+    y= t-u**2
+endfunction
 
 
+function [u] = RK3_classico(h,Tmax,u1)
+    itmax = Tmax/h;
+    u=zeros(itmax+1)
+    u(1)=u1
+
+    for i = 1:itmax
+        t=(i-1)*h
+        k1 = f(t, u(i))
+        k2 = f(t+h/2, u(i) + h*k1/2)
+        k3 = f(t+h,   u(i) + h*(2*k2-k1))
+
+        u(i+1) = u(i) + h*(k1+4*k2+k3)/6
+    end
+endfunction
+ \end{verbatim}
+A qual pode ser invocada com:
+\begin{verbatim}
+->soltm=RK3_classico(1e-2,2,0);sol(201)
+ ans  =
+ 
+    1.1935760016451  
+ 
+-->sol=RK3_classico(1e-3,2,0);sol(2001)
+ ans  =
+ 
+    1.1935759753635 
+\end{verbatim}
+
+ 
+\fi
+\ifisoctave
+Aplicando o processo iterativo obtido no Problema Resolvido~\ref{pvi:problema_resolvido_RK3}, obtemos a seguinte rotina:
+\begin{verbatim}
+function [y]= f(t,u)
+  y= t-u**2;
+endfunction
+
+function [u] = RK3_classico(h,Tmax,u1)
+  itmax = Tmax/h;
+  u=zeros(itmax+1);
+  u(1)=u1;
+
+  for i = 1:itmax
+    t=(i-1)*h;
+    k1 = f(t, u(i));
+    k2 = f(t+h/2, u(i) + h*k1/2);
+    k3 = f(t+h,   u(i) + h*(2*k2-k1));
+
+    u(i+1) = u(i) + h*(k1+4*k2+k3)/6;
+  end
+endfunction
+ \end{verbatim}
+A qual pode ser invocada como:
+\begin{verbatim}
+>> sol=RK3_classico(1e-2,2,0);sol(201)
+ans =  1.19357600164514
+>> sol=RK3_classico(1e-3,2,0);sol(2001)
+ans =  1.19357597536351 
+\end{verbatim}
+\fi
+
+\ifispython
+Aplicando o processo iterativo obtido no Problema Resolvido~\ref{pvi:problema_resolvido_RK3}, obtemos a seguinte rotina:
+\begin{verbatim}
+ def f(t,u):
+	return t-u**2
 
 
+def RK3_classico(h,Tmax,u1):
+  	itmax = Tmax/h;
+	u=np.empty(itmax+1)
+	u[0]=u1
+	
+	for i in np.arange(0,itmax):
+		t=i*h
 
+		k1 = f(t,     u[i])
+		k2 = f(t+h/2, u[i] + h*k1/2)
+		k3 = f(t+h,   u[i] + h*(2*k2-k1))
+
+		u[i+1] = u[i] + h*(k1+4*k2+k3)/6
+	return u
+
+
+	
+Tmax=2			#tempo maximo de simulacao
+u1=0			#condicoes iniciais na forma vetorial
+h=1e-2			#passo
+
+sol=RK3_classico(h,Tmax,u1);
+itmax=Tmax/h
+print(sol[itmax])
+\end{verbatim}
+
+\fi
+ 
+\end{exeresol}
+
+
+\subsection*{Exercícios}
 
 
 
