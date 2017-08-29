@@ -4,7 +4,8 @@ import numpy as np
 def f(t,u):
 #	return np.asarray([u[1], (1-u[2]/10)*u[1]-u[0], (u[0]**2-u[2])/10 ])
 	#return np.asarray([-2*u[0]+np.sqrt(u[1]), -u[1]+u[0] ])
-	return np.asarray([u[1], -u[1]-np.sin(u[0]) ])
+	#return np.asarray([u[1], -u[1]-np.sin(u[0]) ])
+	return -u**2+t
 
 def euler_RK4(h,Tmax,u1):
 	u=u1
@@ -47,23 +48,23 @@ def euler(h,Tmax,u1):
 
 
 Tmax=2 			#tempo maximo de simulacao
-u1=np.asarray([2,0])	#condicoes iniciais na forma vetorial
+u1=np.asarray([0])	#condicoes iniciais na forma vetorial
 h=1e-4			#passo
-sol_euler=euler_mod(h,Tmax,u1);
+#sol_euler=euler_mod(h,Tmax,u1);
 
 itmax=Tmax/h
 
-for t in [0, .5, 1, 1.5, 2]:
-	k=t/h
-	print("h=%1.0e - x(%1.1f) =~ %1.6f - y(%1.1f) =~ %1.6f" % (h, t, sol_euler[0][k], t, sol_euler[1][k]) )
+#for t in [0, .5, 1, 1.5, 2]:
+#	k=t/h
+#	print("h=%1.0e - x(%1.1f) =~ %1.6f - y(%1.1f) =~ %1.6f" % (h, t, sol_euler[0][k], t, sol_euler[1][k]) )
 
 
 
 
 
 t=2
-u1=[2,0]
-for h in [2e-1, 2e-2, 2e-3, 2e-4]:
+u1=0#[2,0]
+for h in [e-1, e-2, e-3, e-4]:
 	sol_euler=euler_mod(h,t,u1);
 #	print("h=%1.0e - u(1) =~ %1.7f - u(2) =~ %1.7f - u(3) =~ %1.17f" % (h, sol_euler[0], sol_euler[1], sol_euler[2]) )
 		

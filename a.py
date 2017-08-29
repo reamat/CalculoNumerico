@@ -3,8 +3,6 @@ from __future__ import print_function
 
 import numpy as np
 
-def f(t,u):
-	return np.asarray([-u[1],u[0]])
 
 
 def euler_RK4(h,Tmax,u1):
@@ -20,6 +18,8 @@ def euler_RK4(h,Tmax,u1):
 
 		u=u+h*(k1+2*k2+2*k3+k4)/6
 	return u
+
+
 
 
 def euler_mod(h,Tmax,u1):
@@ -56,18 +56,33 @@ def euler(h,Tmax,u1):
 	return u
 
 
+
+def f(t,u):
+	return t-u**2
+
+
+def RK3_classico(h,Tmax,u1):
+  	itmax = Tmax/h;
+	u=np.empty(itmax+1)
+	u[0]=u1
+	
+	for i in np.arange(0,itmax):
+		t=i*h
+
+		k1 = f(t,     u[i])
+		k2 = f(t+h/2, u[i] + h*k1/2)
+		k3 = f(t+h,   u[i] + h*(2*k2-k1))
+
+		u[i+1] = u[i] + h*(k1+4*k2+k3)/6
+	return u
+
+
 	
 Tmax=2			#tempo maximo de simulacao
-u1=np.asarray([2,0])	#condicoes iniciais na forma vetorial
+u1=0			#condicoes iniciais na forma vetorial
 h=1e-2			#passo
-sol_euler=euler_mod(h,Tmax,u1);
 
+sol=RK3_classico(h,Tmax,u1);
 itmax=Tmax/h
-
-for t in [0, .5, 1, 1.5, 2.0]:
-	k=t/h
-	#print("h=%1.0e - x(%1.1f) =~ %1.6f - y(%1.1f) =~ %1.6f" % (h, t, sol_euler[0][k], t, sol_euler[1][k]) )
-	print("%1.7f" % (sol_euler[0][k]))
-
-
+print(sol[itmax])
 
