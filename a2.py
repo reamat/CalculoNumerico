@@ -5,7 +5,7 @@ def f(t,u):
 #	return np.asarray([u[1], (1-u[2]/10)*u[1]-u[0], (u[0]**2-u[2])/10 ])
 	#return np.asarray([-2*u[0]+np.sqrt(u[1]), -u[1]+u[0] ])
 	#return np.asarray([u[1], -u[1]-np.sin(u[0]) ])
-	return -u**2+t
+	return u+t
 
 def euler_RK4(h,Tmax,u1):
 	u=u1
@@ -63,7 +63,8 @@ itmax=Tmax/h
 
 
 t=2
-u1=0#[2,0]
+u1=1#[2,0]
+sol_exata
 for h in [e-1, e-2, e-3, e-4]:
 	sol_euler=euler_mod(h,t,u1);
 #	print("h=%1.0e - u(1) =~ %1.7f - u(2) =~ %1.7f - u(3) =~ %1.17f" % (h, sol_euler[0], sol_euler[1], sol_euler[2]) )
