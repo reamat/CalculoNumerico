@@ -1672,16 +1672,65 @@ $\varepsilon_{rel}$ & 5,8e-03 & 1,2e-06 & 1,3e-10 & 1,2e-14\\
 
 
 
-
-
-
-
-
-
-
-
+\section{Métodos de Runge-Kutta implícitos}\label{pvi:sec_IRK}
 
 até aqui
+
+\section{O método de Euler implícito}
+Integrando o problema de valor inicial
+\begin{eqnarray}
+  u'(t)  &=& f(t,u(t)) \\
+  u(t^{(1)}) &=& a
+\end{eqnarray}
+de $t^{(1)}$ até $t^{(2)}$ obtemos (como feito anteriormente)
+\begin{eqnarray}
+  u(t^{(2)})      &=& u(t^{(1)}) +  \int_{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt
+\end{eqnarray}
+
+Entretanto se aproximarmos a função $f$ por uma função constante $f(t,u(t)) \approx  f(t^{(2)},u^{(2)})$, obteremos um novo método
+\begin{eqnarray}
+  u^{(2)} &=&  u^{(1)} + f(t^{(2)},u^{(2)}) \int _{t^{(1)}}^{t^{(2)}}  \; dt \\
+  u^{(2)} &=&  u^{(1)} + h f(t^{(2)},u^{(2)})
+\end{eqnarray}
+
+
+Generalizando este procedimento para $t_n$ obtemos o \emph{método de Euler implícito}
+\begin{eqnarray}
+u_{n+1}=u_n + h\;f(t^{(n+1)},u_{n+1}).
+\end{eqnarray}
+
+Note que este método é \emph{implícito} (a equação é implícita) pois depende de $u_{n+1}$ dos dois lados da equação. Se a função $f$ for simples o suficiente, podemos resolver a equação isolando o termo $u_{n+1}$. Se isso não for possível, devemos usar um dos métodos vistos anteriormente para calcular as raízes da equação (por exemplo, método da bissecção e método de Newton).
+
+
+
+Pode ser mostrado que o erro de truncamento local é
+$$ETL_{EulImp}^{n+1}= \mathcal{O}(h^2).$$
+portanto o método é de ordem $1$. E o erro de truncamento global é
+$$ETG_{EulImp}^{n+1}= \mathcal{O}(h).$$
+
+
+
+\begin{ex}
+Utilizando o \textbf{método de Euler implícito} para solucionar \eqref{EDO4.7} obtemos
+\begin{eqnarray}
+ u_{n+1}      &=& u_n+h\lambda u_{n+1}, \\
+ (1-h\lambda )u_{n+1} & =& u_n, \\
+       u_{n+1} & =& \left(\frac{1}{1- h\lambda }\right)u_n, \\
+       u_{n+1} & =& \left(\frac{1}{1- h\lambda }\right)^2u_{n-1}, \\
+       u_{n+1} & =& \left(\frac{1}{1- h\lambda }\right)^{n+1}, \quad  n=0,1,\ldots
+\end{eqnarray}
+onde $u^{(1)}=1$.
+Concluímos então que
+\begin{eqnarray}
+ \mathcal D_{EulImp} = \{z \in  \field{C}:  \left|\frac{1}{1- z}\right|<1\}
+\end{eqnarray}
+ou ainda,
+\begin{eqnarray}
+ \mathcal D_{EulImp} = \{z \in  \field{C}:  |1- z|>1\}
+\end{eqnarray}
+
+
+\end{ex}
 
 
 
