@@ -3,13 +3,9 @@ from __future__ import print_function
 
 import numpy as np
 
-def f(t,u):
-	return u+t
 
 
-
-def RK4_classico
-,(h,Tmax,u1):
+def euler_RK4(h,Tmax,u1):
 	u=u1
   	itmax = Tmax/h;
 	for i in np.arange(0,itmax):
@@ -61,9 +57,12 @@ def euler(h,Tmax,u1):
 
 
 
+def f(t,u):
+	return t-u**2
+
 
 def RK3_classico(h,Tmax,u1):
-  	itmax = np.int(Tmax/h);
+  	itmax = Tmax/h;
 	u=np.empty(itmax+1)
 	u[0]=u1
 	
@@ -80,10 +79,10 @@ def RK3_classico(h,Tmax,u1):
 
 	
 Tmax=2			#tempo maximo de simulacao
-u1=1			#condicoes iniciais na forma vetorial
+u1=0			#condicoes iniciais na forma vetorial
 h=1e-2			#passo
-sol_exata=2*np.exp(Tmax)-Tmax-1;
-sol=RK4_classico(h,Tmax,u1);
-itmax = np.int(Tmax/h);
+
+sol=RK3_classico(h,Tmax,u1);
+itmax=Tmax/h
 print(sol[itmax])
-print(sol_exata)
+
