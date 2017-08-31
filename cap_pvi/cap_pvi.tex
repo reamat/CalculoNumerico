@@ -1708,17 +1708,17 @@ Note que este método é \emph{implícito} (a equação é implícita) pois depe
 
 \begin{ex} Considere o problema de valor inicial dado por
 \begin{eqnarray}
-u'(t)&=& -u(t) \\
+u'(t)&=& \lambda u(t) \\
 u(0)&=&1
 \end{eqnarray}
 A relação de recorrência do método de Euler implícito é dado por:
 \begin{eqnarray*}
- y^{(n+1)}&=&y^{(n)}-h y^{(n+1)}\\
+ y^{(n+1)}&=&y^{(n)} h\lambda y^{(n+1)}\\
  y^{(1)}&=&1
 \end{eqnarray*}
 Isolando a $y^{(n+1)}$ na primeira equação, obtemos o processo iterativo dado por:
 \begin{eqnarray*}
- y^{(n+1)}&=&\frac{y^{(n)}}{1+h}\\
+ y^{(n+1)}&=&\frac{y^{(n)}}{1-\lambda h}\\
  y^{(1)}&=&1
 \end{eqnarray*}
 \end{ex}
@@ -1747,6 +1747,50 @@ Repetindo este procedimento para cada $n$, obtemos o esquema iterativo do métod
   u^{(n+1)} &=& u^{(n)} +  \frac{h}{2} \left(f(t^{(n)},u^{(n)})+f(t^{(n+1)},u^{(n+1)})\right)\\
   u^{(1)} &=&a
 \end{eqnarray}
+
+
+\begin{ex} Considere o problema de valor inicial dado por
+\begin{eqnarray}
+u'(t)&=& \lambda u(t) \\
+u(0)&=&1
+\end{eqnarray}
+onde $\lambda$ é uma constante. A relação de recorrência do método de Euler trapezoidal é dado por:
+\begin{eqnarray*}
+ y^{(n+1)}&=&y^{(n)}-\frac{\lambda h}{2} \left[y^{(n+1)}+y^{(n)}\right]\\
+ y^{(1)}&=&1
+\end{eqnarray*}
+Isolando a $y^{(n+1)}$ na primeira equação, obtemos o processo iterativo dado por:
+\begin{eqnarray*}
+ y^{(n+1)}&=&\frac{1+ \lambda h/2}{1-\lambda h/2}y^{(n)}\\
+ y^{(1)}&=&1
+\end{eqnarray*}
+\end{ex}
+\section*{Exercícios}
+\begin{ex}
+ Considere o problema de valor inicial dado por:
+ \begin{eqnarray*}
+  y'(t)&=&y(t)\left(1-y(t)\right),\\
+  y(0)&=&\frac{1}{2}.
+ \end{eqnarray*}
+Construa a recursão via método de Euler implícito e explicite o termo $y^{(n+1)}$
+\end{ex}
+\begin{resp}
+ O método de Euler implícito produz a seguinte recursão:
+ $$y^{(n+1)}=y^{(n)}+h y^{(n+1)}\left(1-y^{(n+1)}\right)$$
+ a qual pode ser escrita como:
+ $$h\left[y^{(n+1)}\right]^2+ (1-h)y^{(n+1)}-y^{(n)}=0$$
+ Usando a fórmula da equação quadrática temos:
+ $$y^{(n+1)}= \frac{-(1-h)\pm \sqrt{(1-h)^2+4hy^{(n)}}}{2h}$$
+\end{resp}
+Como a condição inicial é positiva, é fácil ver que $y(t)>0$ para todo $t$ e, portanto:
+ \begin{eqnarray*}
+y^{(n+1)}&=& \frac{-(1-h)+ \sqrt{(1-h)^2+4hy^{(n)}}}{2h}\\
+&=&  (1-h) \frac{-1+ \sqrt{1+ \frac{4hy^{(n)}}{(1-h)^2} }}{2h}\\
+&=&  \frac{(1-h)}{2h} \left[\sqrt{1+ \frac{4hy^{(n)}}{(1-h)^2} }-1\right]\\
+&=&  \frac{(1-h)}{2h} \frac{4hy^{(n)}}{(1-h)^2} \frac{1}{\left[\sqrt{1+ \frac{4hy^{(n)}}{(1-h)^2} }+1\right]}\\
+&=&  \frac{2}{(1-h)} \ \frac{1}{\left[1+\sqrt{1+ \frac{4hy^{(n)}}{(1-h)^2} }\right]}y^{(n)}\\
+ \end{eqnarray*}
+
 
 
 
