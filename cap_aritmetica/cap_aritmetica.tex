@@ -859,23 +859,90 @@ Quando representamos um número $x$ com uma quantidade de dígitos menor que a d
 \begin{equation*}
   x = \pm d_0,d_1d_2\ldots d_{k-1}d_kd_{k+1}\ldots d_n \times 10^e
 \end{equation*}
-em notação normalizada, isto é, $d_0\neq 0$. Podemos representar $x$ com $k$ dígitos da seguinte forma:
+em notação normalizada, isto é, $d_0\neq 0$\footnote{caso $x\neq 0$.}. Podemos representar $x$ com $k$ dígitos da seguinte forma:
 \begin{enumerate}
 \item \emph{Arredondamento por truncamento} (ou corte): aproximamos $x$ por
 $$
   \bar{x} = \pm d_{0},d_{1}d_{2}\ldots d_{k}\times 10^e
 $$
 simplesmente descartando os dígitos $d_{j}$ com $j > k$.
-\item \emph{Arredondamento por proximidade}: se $d_{k+1}<5$ aproximamos $x$ por
+\item \emph{Arredondamento por proximidade\footnote{com desempate infinito.}}: se $d_{k+1}<5$ aproximamos $x$ por
 $$
   \bar{x} = \pm d_0,d_1d_2\ldots d_{k}\times 10^{e}
 $$
 senão aproximamos $x$ por\footnote{Note que essas duas opções são equivalentes a somar $5$ no dígito a direita do corte e depois arredondar por corte, ou seja, arredondar por corte
 $$ \pm(d_0,d_1d_2\ldots d_kd_{k+1}+ 5 \times10^{-(k+1)} )\times 10^{e} $$}
 $$
- \bar{x} = \pm(d_0,d_1d_2\ldots d_{k} + 10^{-k}) \times 10^{e}
+ \bar{x} = \pm (d_0,d_1d_2\ldots d_{k} + 10^{-k}) \times 10^{e}
+$$
+\item \emph{Arredondamento por proximidade com desempate par}: se $d_{k+1}<5$ aproximamos $x$ por
+$$
+  \bar{x} = \pm d_0,d_1d_2\ldots d_{k}\times 10^{e}.
+$$
+Se $d_{k+1},d_{d+2}d_{k+3}\ldots>5$ aproximamos $x$ por
+$$
+ \bar{x} = \pm (d_0,d_1d_2\ldots d_{k} + 10^{-k}) \times 10^{e}.
+$$
+Agora, no caso de empate, i.e. $d_{k+1},d_{k+2}d_{k+3}\ldots = 5$, então $x$ é aproximado por
+$$
+  \bar{x} = \pm d_0,d_1d_2\ldots d_{k}\times 10^{e}
+$$
+caso $d_{k}$ seja par e, caso contrário, por
+$$
+ \bar{x} = \pm (d_0,d_1d_2\ldots d_{k} + 10^{-k}) \times 10^{e}.
 $$
 \end{enumerate}
+
+\begin{obs}
+  O arredondamento por proximidade é frequentemente empregado para arredondamentos de números reais para inteiros. Por exemplo:
+  \begin{itemize}
+  \item $x=1,49$ arredonda-se para o inteiro $1$.
+  \item $x=1,50$ arredonda-se para o inteiro $2$.
+  \item $x=2,50$ arredonda-se para o inteiro $3$.
+  \end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+No \verb+Scilab+, temos:
+\begin{verbatim}
+-->round(1.49)
+ ans  =
+    1.  
+-->round(1.50)
+ ans  =
+    2.  
+-->round(2.50)
+ ans  =
+    3.  
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+>> round(1.49)
+ans =  1
+>> round(1.50)
+ans =  2
+>> round(2.50)
+ans =  3
+\fi
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%%%%
+\ifispython
+>>> round(1.49)
+1.0
+>>> round(1.50)
+2.0
+>>> round(2.50)
+3.0
+\fi
+%%%%%%%%%%%%%%%%%%%%%%
+\end{obs}
 
 \begin{ex} Represente os números $x_1 = 0,567$, $x_2 = 0,233$, $x_3 = -0,675$ e $x_4 = 0,314159265 \ldots \times 10^1$ com dois dígitos significativos por truncamento e arredondamento.
 \end{ex}
@@ -944,7 +1011,7 @@ e, em notação normalizada, temos:
 % scilab
 %%%%%%%%%%%%%%%%%%%%%%
 \ifisscilab
-No \verb+Scilab+, a representação de números por arredondamento é o padrão. Assim, para obtermos a representação desejada de $x_3 = 0,675$ fazemos:
+No \verb+Scilab+, a representação de números por arredondamento por proximidade com desempate par é o padrão. Assim, para obtermos a representação desejada de $x_3 = 0,675$ fazemos:
 \begin{verbatim}
 -->format('v',5)
 -->-0.675
@@ -964,7 +1031,7 @@ e, em notação normalizada, temos:
 % octave
 %%%%%%%%%%%%%%%%%%%%%%
 \ifisoctave
-Em \verb+GNU Octave+, a representação de números por arredondamento é o padrão. Assim, para obtermos a representação desejada de $x_3 = 0,675$ fazemos:
+Em \verb+GNU Octave+, a representação de números por arredondamento por proximidade com desempate par é o padrão. Assim, para obtermos a representação desejada de $x_3 = 0,675$ fazemos:
 \begin{verbatim}
 >> printf("%1.2f\n", -0.675)
 -0.68
@@ -998,6 +1065,98 @@ e, em notação normalizada:
 \begin{obs}
   Observe que o arredondamento pode mudar todos os dígitos e o expoente da representação em ponto flutuante de um número dado. Por exemplo, o arredondamento de $0,9999\times 10^{-1}$ com $3$ dígitos significativos é $0,1\times 10^{0}$.
 \end{obs}
+
+\subsection*{Exercícios resolvidos}
+
+\emconstrucao
+
+\subsection*{Exercícios}
+
+\begin{exer}
+  Aproxime os seguintes números para 2 dígitos significativos por arredondamento por truncamento.
+  \begin{itemize}
+  \item[(a)]~$1,159$
+  \item[(b)]~$7,399$
+  \item[(c)]~$-5,901$
+  \end{itemize}
+\end{exer}
+\begin{resp}
+  (a)~$1,1$; (b)~$7,3$; (c)~$-5,9$.
+\end{resp}
+
+\begin{exer}
+  Aproxime os seguintes números para 2 dígitos significativos por arredondamento por proximidade com desempate par.
+  \begin{itemize}
+  \item[(a)]~$1,151$
+  \item[(b)]~$1,15$
+  \item[(c)]~$2,45$
+  \item[(d)]~$-2,45$
+  \end{itemize}
+\end{exer}
+\begin{resp}
+  (a)~$1,2$; (b)~$1,2$; (c)~$2,4$; (d)~$-2,4$.
+\end{resp}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+\begin{exer}
+  O \verb+Scilab+ usa arredondamento por proximidade com desempate par
+  como padrão. Assim sendo, por exemplo
+\begin{verbatim}
+--> printf('%1.1e\n', 1.25) 
+1.2e+00
+\end{verbatim}
+  Agora:
+\begin{verbatim}
+--> printf('%1.1e\n', 2.45)
+2.5e+00
+\end{verbatim}
+  Não deveria ser $2.4$? Explique o que está ocorrendo.
+\end{exer}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\begin{exer}
+  O \verb+GNU Octave+ usa arredondamento por proximidade com desempate
+  par como padrão. Assim sendo, por exemplo
+\begin{verbatim}
+>> printf('%1.1e\n', 1.25)
+1.2e+00
+\end{verbatim}
+  Agora:
+\begin{verbatim}
+>> printf('%1.1e\n', 2.45)
+2.5e+00
+\end{verbatim}
+  Não deveria ser $2.4$? Explique o que está ocorrendo.
+\end{exer}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\begin{exer}
+  O \verb+Python+ usa arredondamento por proximidade com desempate par
+  como padrão. Assim sendo, por exemplo
+\begin{verbatim}
+>>> print('%1.1e\n' % 1.25)
+1.2e+00
+\end{verbatim}
+  Agora:
+\begin{verbatim}
+>>> print('%1.1e\n' % 2.45)
+2.5e+00
+\end{verbatim}
+  Não deveria ser $2.4$? Explique o que está ocorrendo.
+\end{exer}
+\fi
+%%%%%%%%%%%%%%%%%%%%%%
 
 
 \section{Representação de números em máquina}\index{representação!de números em máquina}
@@ -1166,7 +1325,7 @@ O \verb+GNU Octave+ trabalha com representação complemento de 2 de números in
 ans =
    1   1   0   0   0   0   0   0
 \end{verbatim}
-mostra o barramento com $8$ \emph{bits} do número inteiro $3$. Note que a ordem dos \emph{bits} é inversa daquela apresentada no texto acima. Aqui, o \emph{bit} mais a esquerda fornece o coeficiente de $2^0$, enquando o \emph{bit} mais a direita fornece o coeficiente de $-2^7$.
+mostra o barramento com $8$ \emph{bits} do número inteiro $3$. Note que a ordem dos \emph{bits} é inversa daquela apresentada no texto acima. Aqui, o \emph{bit} mais a esquerda fornece o coeficiente de $2^0$, enquanto o \emph{bit} mais a direita fornece o coeficiente de $-2^7$.
 
 O comando \verb+bitpack+ converte um barramento para o número em decimal, por exemplo:
 \begin{verbatim}
@@ -1267,7 +1426,7 @@ $$
 %%%%%%%%%%%%%%%%%%%%
 \ifisoctave
 \begin{obs}
-  No \verb+GNU Octave+, podemos usar os comandos \verb+bitpack+ e \verb+bitunpack+ transformar um registro de ponto flutuante de $64$ \emph{bits} em decimal e vice-e-versa. Entretanto, um tal registro no \verb+GNU Octave+ tem a seguinte estrutura
+  No \verb+GNU Octave+, podemos usar os comandos \verb+bitpack+ e \verb+bitunpack+ transformar um registro de ponto flutuante de $64$ \emph{bits} em decimal e vice-versa. Entretanto, um tal registro no \verb+GNU Octave+ tem a seguinte estrutura
   \begin{equation*}
     [m_{52}m_{51}m_{50}\ldots m_{1}|c_0c_1c_2\cdots c_{10}|s].
   \end{equation*}
@@ -1492,7 +1651,7 @@ Se tentarmos armazenar um número que não é representável, devemos utilizar o
 %%%%%%%%%%%%%%%%%%%%
 \ifisoctave
 \begin{obs}
-  Veja como o \verb+GNU Octave+ se comporta nos seguintes casos de excessão:
+  Veja como o \verb+GNU Octave+ se comporta nos seguintes casos de exceção:
 \begin{verbatim}
 >> 0/0
 warning: division by zero
