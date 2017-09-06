@@ -6,7 +6,7 @@
 
 \chapter{Solução de sistemas lineares}\index{sistema linear}
 
-Muitos problemas da engenharia, física e matemática estão associados à solução de sistemas de equações lineares. Nesse capítulo, tratamos de técnicas numéricas empregadas para obter a solução desses sistemas. Iniciamos por uma rápida revisão do método de eliminação gaussiana do ponto de vista computacional. No contexto de análise da propagação dos erros de arredondamento, introduzimos o método de eliminação gaussiana com pivotamento parcial, bem como, apresentamos o conceito de condicionamento de um sistema linear. Além disso, exploramos o conceito de complexidade de algarismos em álgebra linear. Então, passamos a discutir sobre técnicas iterativas, mais especificamente, sobre os métodos de Jacobi e Gauss-Seidel.
+Muitos problemas da engenharia, física e matemática estão associados à solução de sistemas de equações lineares. Nesse capítulo, tratamos de técnicas numéricas empregadas para obter a solução desses sistemas. Iniciamos por uma rápida revisão do método de eliminação gaussiana do ponto de vista computacional. No contexto de análise da propagação dos erros de arredondamento, introduzimos o método de eliminação gaussiana com pivotamento parcial, bem como, apresentamos o conceito de condicionamento de um sistema linear. Além disso, exploramos o conceito de complexidade de algoritmos em álgebra linear. Então, passamos a discutir sobre técnicas iterativas, mais especificamente, sobre os métodos de Jacobi e Gauss-Seidel.
 
 
 Considere o sistema de equações lineares (escrito na forma algébrica)
@@ -1119,6 +1119,18 @@ Para resolver um sistema triangular superior iniciamos da última linha em dire�
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\subsection{Código GNU octave: resolução de um sistema triangular superior}
+
+Para resolver um sistema triangular superior iniciamos da última linha em direção a primeira.
+
+\lstinputlisting[language=Scilab,numbers=left]{./cap_linsis/codes/octave/solveU.m}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
 % scilab
 %%%%%%%%%%%%%%%%%%%%
 \ifisscilab
@@ -1126,7 +1138,6 @@ Para resolver um sistema triangular superior iniciamos da última linha em dire�
 Para resolver um sistema triangular inferior podemos fazer o processo inverso iniciando da primeira equação.
 
 \lstinputlisting[language=Scilab,numbers=left]{./cap_linsis/codes/scilab/solveL.sci}
-
 
 \subsubsection{Custo computacional}
 Vamos contar o número total de flops para resolver um sistema triangular inferior. Note que o custo para um sistema triangular superior será o mesmo.
@@ -1166,7 +1177,53 @@ e utilizando que a soma dos $k$ inteiros é a soma dos termos de uma progressão
 \end{equation}
 \fi
 %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+\subsection{Código GNU octave: resolução de um sistema triangular inferior}
+Para resolver um sistema triangular inferior podemos fazer o processo inverso iniciando da primeira equação.
 
+\lstinputlisting[language=Scilab,numbers=left]{./cap_linsis/codes/octave/solveL.m}
+
+\subsubsection{Custo computacional}
+Vamos contar o número total de flops para resolver um sistema triangular inferior. Note que o custo para um sistema triangular superior será o mesmo.
+
+Na linha 3, temos uma divisão, portanto 1 flop.
+
+Na linha 5 quando $i=2$, temos
+
+\verb#     x(2)=(b(2)-L(2,1:1)*x(1:1)')/L(2,2)#,
+
+ou seja, 1 subtração+1 multiplicação + 1 divisão $=3$ flops.
+
+Quando $i=3$,
+
+\verb#     x(3)=(b(3)-L(3,1:2)*x(1:2)')/L(3,3)#
+
+temos 1 subtração+(2 multiplicações + 1 soma) +1 divisão $=5$ flops.
+
+Quando $i=4$, temos 1 subtração+(3 multiplicações + 2 somas) +1 divisão $=7$ flops.
+
+Até que para $i=n$, temos
+
+\verb#     x(n)=(b(n)-L(n,1:n-1)*x(1:n-1)')/L(n,n)#,
+
+com $1$ subtração+($n-1$ multiplicações + $n-2$ somas) + $1$ divisão, ou seja, $1+(n-1+n-2)+1=2n-1$ flops.
+
+Somando todos esses custos\footnote{Contando apenas multiplicações/divisões obtemos
+	\begin{equation}
+	(n^2+n)/2  \text{~flops}.
+	\end{equation}} temos que o custo para resolver um sistema triangular inferior é
+\begin{equation}
+1 +3+5+7+...+2n-1=  \sum_{k=1}^n(2k-1) = 2 \sum_{k=1}^nk -\sum_{k=1}^n1
+\end{equation}
+e utilizando que a soma dos $k$ inteiros é a soma dos termos de uma progressão aritmética\footnote{Temos que $\displaystyle \sum_{k=1}^n k =n(n+1)/2, \quad\quad \sum_{k=1}^n 1=n$}
+\begin{equation}
+2 ( n(n+1)/2 ) -n=  n^2 \text{~flops}.
+\end{equation}
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
 \section{Fatoração LU}
 Considere um sistema linear $Ax = b$, onde a matriz $A$ é densa\footnote{Diferentemente de uma matriz esparsa, uma matriz densa possui a maioria dos elementos diferentes de zero.}. A fim de resolver o sistema, podemos fatorar a matriz $A$ como o produto de uma matriz $L$ triangular inferior e uma matriz $U$ triangular superior, ou seja, $A=LU$.
