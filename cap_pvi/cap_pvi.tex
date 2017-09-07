@@ -1781,7 +1781,6 @@ Construa a recursão via método de Euler implícito e explicite o termo $y^{(n+
  $$h\left[y^{(n+1)}\right]^2+ (1-h)y^{(n+1)}-y^{(n)}=0$$
  Usando a fórmula da equação quadrática temos:
  $$y^{(n+1)}= \frac{-(1-h)\pm \sqrt{(1-h)^2+4hy^{(n)}}}{2h}$$
-\end{resp}
 Como a condição inicial é positiva, é fácil ver que $y(t)>0$ para todo $t$ e, portanto:
  \begin{eqnarray*}
 y^{(n+1)}&=& \frac{-(1-h)+ \sqrt{(1-h)^2+4hy^{(n)}}}{2h}\\
@@ -1790,18 +1789,24 @@ y^{(n+1)}&=& \frac{-(1-h)+ \sqrt{(1-h)^2+4hy^{(n)}}}{2h}\\
 &=&  \frac{(1-h)}{2h} \frac{4hy^{(n)}}{(1-h)^2} \frac{1}{\left[\sqrt{1+ \frac{4hy^{(n)}}{(1-h)^2} }+1\right]}\\
 &=&  \frac{2}{(1-h)} \ \frac{1}{\left[1+\sqrt{1+ \frac{4hy^{(n)}}{(1-h)^2} }\right]}y^{(n)}\\
  \end{eqnarray*}
-
+\end{resp}
 
 
 
 % ---Até aqui---
+\section{O método theta}
+O método theta é uma generalização dos métodos de Euler e trapezoidal. A relação de recorrência do método theta é dada por:
+\begin{eqnarray}
+  u^{(n+1)} &= u^{(n)} +  h (\theta f(t^{(n)},u^{(n)})+(1-\theta )f(t^{(n+1)},u^{(n+1)}))
+\end{eqnarray}
+Observe que quando $\theta =1$, a relação recai no método de Euler, quando $\theta =\frac{1}{2}$, no método trapezoidal e quando $\theta=0$, no método de Euler implícito.
 
 
 
 
 
 
-\chapter{}
+\chapter{Em reestruturação}
 
 Pode ser mostrado que o erro de truncamento local é
 $$ETL_{EulImp}^{n+1}= \mathcal{O}(h^2).$$
@@ -1863,7 +1868,6 @@ ou ainda,
 
 
 
-\chapter{Em reestruturação}
 
 
 
@@ -2274,12 +2278,6 @@ $$
 \end{resp}
 
 
-\section{O método theta}
-Tanto o método de Euler quanto o método trapezoidal se encaixam no método
-\begin{eqnarray}
-  u_{n+1} &= u_n +  h (\theta f(t_n,u_n)+(1-\theta )f(t^{(n+1)},u_{n+1}))
-\end{eqnarray}
-com $\theta =1$ e $\theta =\frac{1}{2}$ respectivamente. O método é explícito somente para $\theta =1$. Para $\theta =0$, obtemos o método implícito de Euler.
 
 \subsection*{Exercícios resolvidos}
 
