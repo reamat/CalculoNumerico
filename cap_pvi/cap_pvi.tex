@@ -476,10 +476,10 @@ $3$ &   $1,4713043 $  & $ 1.4827638 $ & $1.4724512 $   \\\hline
  Aproximação via Euler: $2,4826529 $, exata: $e^{\sin(2)}\approx 2,4825777 $. Erro relativo aproximado: $ 3\times 10^{-5}$.
 \end{resp}
 
-\section{O método de Euler melhorado}\index{Método de Euler melhorado}\label{pvi:sec_euler_mod} 
+\section{O método de Euler melhorado}\index{Método! de Euler melhorado}\label{pvi:sec_euler_mod} 
 O método de Euler estudado na Seção~\ref{pvi:euler} é aplicação bastante restrita devido à sua pequena precisão, isto é, normalmente precisamos escolher um passo $h$ muito pequeno para obter soluções de boa qualidade, o que implica um número elevado de passos e, consequentemente, alto custo computacional. 
 
-Nesta seção, contruiremos o \emph{método de Euler melhorado} ou \emph{método de Euler modificado} ou, ainda, . Para tal, considere o problema de valor inicial dado por:
+Nesta seção, contruiremos o \emph{método de Euler melhorado} ou \emph{método de Euler modificado} ou, ainda, \emph{método de Heun}. Para tal, considere o problema de valor inicial dado por:
 \begin{eqnarray}\label{EDO2}
   u'(t)  &=& f(t,u(t)),~~t>t^{(1)} \\
   u(t^{(1)}) &=& a.
@@ -1589,11 +1589,6 @@ para $t=2$ com $h=1e-1$, $h=1e-2$ e $h=1e-3$. Expresse sua resposta com oito dí
  $2,9677921$, $2,9682284$ e $2,9682325$.
 \end{resp}
 
-\begin{exer}
- 
-\end{exer}
-
-
 
 \begin{exer}Resolva pelo método de Euler, Euler melhorado, Runge-Kutta clássico três estágios e Runge-Kutta clássico quatro estágios o problema de valor inicial tratados nos  exercícios resolvidos \ref{pvi:exeresol1} e \ref{pvi:exeresol1_euler_melhorado} dado por:
 \begin{eqnarray}
@@ -1672,36 +1667,141 @@ $\varepsilon_{rel}$ & 5,8e-03 & 1,2e-06 & 1,3e-10 & 1,2e-14\\
 
 
 
-\section{Métodos de Runge-Kutta implícitos}\label{pvi:sec_IRK}
+\section{Métodos de Runge-Kutta implícitos}\label{pvi:sec_IRK}\index{método!de Runge-Kutta exlícito}
+Nas seções anteriores contruímos os métodos de Runge-Kutta implícito, nesta seção veremos uma nova família de métodos chamados implícitos. Nos métodos implícitos o processo recursivo produz uma equação implícita para $y^{(n+1)}$ em termos de $y^{(n)}$, como por exemplo:
+\begin{eqnarray}\label{pvi:IRK:exemplo1}
+ y^{(n+1)}&=&y^{(n)}+h y^{(n+1)}\\
+ y^{(1)}&=&1
+\end{eqnarray}
+para resolver o problema de valor inicial dado por:
+\begin{eqnarray*}
+ y'(t)&=&y(t)\\
+ y(0)&=&1
+ \end{eqnarray*}
+Note que este método é \emph{implícito} pois a expressão que define a iteração depende de $u^{(n+1)}$ dos dois lados da Equação~\eqref{pvi:IRK:exemplo1}, exigindo que o termo seja isolado para a aplicação do método. 
+ 
 
-até aqui
-
-\section{O método de Euler implícito}
-Integrando o problema de valor inicial
+\subsection{Método de Euler implícito}\index{método!de Euler}\label{pvi:euler_imp}
+Contruiremos, agora, o mais simples dos métodos para resolver problemas de valor inicial: o método de Euler implícito, uma variante do método de Euler (explícito) que vimos na Seção~\ref{pvi:euler}. Seguinte o mesmo raciocício daquela seção, integramos o problema de valor inicial dado por
 \begin{eqnarray}
   u'(t)  &=& f(t,u(t)) \\
   u(t^{(1)}) &=& a
 \end{eqnarray}
-de $t^{(1)}$ até $t^{(2)}$ obtemos (como feito anteriormente)
+de $t^{(1)}$ até $t^{(2)}$ obtemos (como feito anteriormente) para obter
 \begin{eqnarray}
   u(t^{(2)})      &=& u(t^{(1)}) +  \int_{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt
 \end{eqnarray}
 
-Entretanto se aproximarmos a função $f$ por uma função constante $f(t,u(t)) \approx  f(t^{(2)},u^{(2)})$, obteremos um novo método
+Diferentemente do método de Euler estudado, o método de Euler implícito aproxima a função $f(t,u)$ pela uma função constante $f(t,u(t)) \approx  f(t^{(2)},u^{(2)})$ e, assim, obtemos o seguinte esquema:
 \begin{eqnarray}
-  u^{(2)} &=&  u^{(1)} + f(t^{(2)},u^{(2)}) \int _{t^{(1)}}^{t^{(2)}}  \; dt \\
-  u^{(2)} &=&  u^{(1)} + h f(t^{(2)},u^{(2)})
+   u^{(2)} &=&  u^{(1)} + h f(t^{(2)},u^{(2)})
 \end{eqnarray}
 
 
 Generalizando este procedimento para $t_n$ obtemos o \emph{método de Euler implícito}
 \begin{eqnarray}
-u_{n+1}=u_n + h\;f(t^{(n+1)},u_{n+1}).
+u^{(n+1)}=u^{(n)} + h\;f(t^{(n+1)},u^{(n+1)}).
 \end{eqnarray}
+
 
 Note que este método é \emph{implícito} (a equação é implícita) pois depende de $u_{n+1}$ dos dois lados da equação. Se a função $f$ for simples o suficiente, podemos resolver a equação isolando o termo $u_{n+1}$. Se isso não for possível, devemos usar um dos métodos vistos anteriormente para calcular as raízes da equação (por exemplo, método da bissecção e método de Newton).
 
+\begin{ex} Considere o problema de valor inicial dado por
+\begin{eqnarray}
+u'(t)&=& \lambda u(t) \\
+u(0)&=&1
+\end{eqnarray}
+A relação de recorrência do método de Euler implícito é dado por:
+\begin{eqnarray*}
+ y^{(n+1)}&=&y^{(n)} h\lambda y^{(n+1)}\\
+ y^{(1)}&=&1
+\end{eqnarray*}
+Isolando a $y^{(n+1)}$ na primeira equação, obtemos o processo iterativo dado por:
+\begin{eqnarray*}
+ y^{(n+1)}&=&\frac{y^{(n)}}{1-\lambda h}\\
+ y^{(1)}&=&1
+\end{eqnarray*}
+\end{ex}
 
+
+\subsection{O método trapezoidal}\index{método!trapezoidal}\label{pvi:trapezoidal}
+O método de Euler aproxima a função $f(t,u)$ como uma constante no intervalo $[t^{(1)},t^{(2)}]$. O método trapezoidal é muito semelhante ao método de Euler melhorado estudado na Seção~\ref{pvi:sec_euler_mod}, integramos de $t^{(1)}$ até $t^{(2)}$ a equação diferencial envolvida no problema de valor inicial
+\begin{eqnarray}\label{EDO2}
+  u'(t)  &=& f(t,u(t)),~~t>t^{(1)} \\
+  u(t^{(1)}) &=& a.
+\end{eqnarray}
+para obter:
+\begin{eqnarray}
+  \int_{t^{(1)}}^{t^{(2)}} u'(t) \;dt &=& \int_{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt\\
+  u(t^{(2)})-u(t^{(1)})               &=& \int_{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt\\
+  u(t^{(2)})                      &=& u(t^{(1)}) +  \int _{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt
+\end{eqnarray}
+Exatamente como no método de Euler melhorado, aplicamos a regra do trapézio (ver \ref{int:trapézio}) à integral envolvida no lado direito da expressão, isto é:
+\begin{eqnarray*}
+\int _{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt = \left[\frac{f\left(t^{(1)},u(t^{(1)})\right)+f\left(t^{(2)},u(t^{(2)})\right)}{2}\right]h + O(h^3)
+\end{eqnarray*}
+onde $h=t^{(2)}-t^{(1)}$.
+
+Repetindo este procedimento para cada $n$, obtemos o esquema iterativo do método trapezoidal:
+\begin{eqnarray}
+  u^{(n+1)} &=& u^{(n)} +  \frac{h}{2} \left(f(t^{(n)},u^{(n)})+f(t^{(n+1)},u^{(n+1)})\right)\\
+  u^{(1)} &=&a
+\end{eqnarray}
+
+
+\begin{ex} Considere o problema de valor inicial dado por
+\begin{eqnarray}
+u'(t)&=& \lambda u(t) \\
+u(0)&=&1
+\end{eqnarray}
+onde $\lambda$ é uma constante. A relação de recorrência do método de Euler trapezoidal é dado por:
+\begin{eqnarray*}
+ y^{(n+1)}&=&y^{(n)}-\frac{\lambda h}{2} \left[y^{(n+1)}+y^{(n)}\right]\\
+ y^{(1)}&=&1
+\end{eqnarray*}
+Isolando a $y^{(n+1)}$ na primeira equação, obtemos o processo iterativo dado por:
+\begin{eqnarray*}
+ y^{(n+1)}&=&\frac{1+ \lambda h/2}{1-\lambda h/2}y^{(n)}\\
+ y^{(1)}&=&1
+\end{eqnarray*}
+\end{ex}
+\section*{Exercícios}
+\begin{ex}
+ Considere o problema de valor inicial dado por:
+ \begin{eqnarray*}
+  y'(t)&=&y(t)\left(1-y(t)\right),\\
+  y(0)&=&\frac{1}{2}.
+ \end{eqnarray*}
+Construa a recursão via método de Euler implícito e explicite o termo $y^{(n+1)}$
+\end{ex}
+\begin{resp}
+ O método de Euler implícito produz a seguinte recursão:
+ $$y^{(n+1)}=y^{(n)}+h y^{(n+1)}\left(1-y^{(n+1)}\right)$$
+ a qual pode ser escrita como:
+ $$h\left[y^{(n+1)}\right]^2+ (1-h)y^{(n+1)}-y^{(n)}=0$$
+ Usando a fórmula da equação quadrática temos:
+ $$y^{(n+1)}= \frac{-(1-h)\pm \sqrt{(1-h)^2+4hy^{(n)}}}{2h}$$
+\end{resp}
+Como a condição inicial é positiva, é fácil ver que $y(t)>0$ para todo $t$ e, portanto:
+ \begin{eqnarray*}
+y^{(n+1)}&=& \frac{-(1-h)+ \sqrt{(1-h)^2+4hy^{(n)}}}{2h}\\
+&=&  (1-h) \frac{-1+ \sqrt{1+ \frac{4hy^{(n)}}{(1-h)^2} }}{2h}\\
+&=&  \frac{(1-h)}{2h} \left[\sqrt{1+ \frac{4hy^{(n)}}{(1-h)^2} }-1\right]\\
+&=&  \frac{(1-h)}{2h} \frac{4hy^{(n)}}{(1-h)^2} \frac{1}{\left[\sqrt{1+ \frac{4hy^{(n)}}{(1-h)^2} }+1\right]}\\
+&=&  \frac{2}{(1-h)} \ \frac{1}{\left[1+\sqrt{1+ \frac{4hy^{(n)}}{(1-h)^2} }\right]}y^{(n)}\\
+ \end{eqnarray*}
+
+
+
+
+% ---Até aqui---
+
+
+
+
+
+
+\chapter{}
 
 Pode ser mostrado que o erro de truncamento local é
 $$ETL_{EulImp}^{n+1}= \mathcal{O}(h^2).$$
