@@ -684,7 +684,7 @@ Estas técnicas podem ser diretamente estendidas para resolver numericamente pro
   u_2'(t)  &=& f_2(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t)),~~t>t^{(1)} ,\\
   u_3'(t)  &=& f_3(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t)),~~t>t^{(1)} ,\\
            &\vdots &\\
-  u_n'(t)  &=& f_n(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t)),~~t>t^{(1)} ,\\
+  u_n'(t)  &=& f^{(n)}(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t)),~~t>t^{(1)} ,\\
   u(t^{(1)}) &=& a_1 ,\\
   u(t^{(2)}) &=& a_2 ,\\
   u(t^{(3)}) &=& a_3 ,\\
@@ -713,7 +713,7 @@ $$f(t,u(t))=\left[
   f_2(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t))\\
   f_3(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t))\\  
   \vdots\\
-  f_n(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t))\\
+  f^{(n)}(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t))\\
   \end{array}
 \right]$$
 e
@@ -1794,7 +1794,7 @@ y^{(n+1)}&=& \frac{-(1-h)+ \sqrt{(1-h)^2+4hy^{(n)}}}{2h}\\
 
 
 % ---Até aqui---
-\section{O método theta}
+\subsection{O método theta}
 O método theta é uma generalização dos métodos de Euler e trapezoidal. A relação de recorrência do método theta é dada por:
 \begin{eqnarray}
   u^{(n+1)} &= u^{(n)} +  h (\theta f(t^{(n)},u^{(n)})+(1-\theta )f(t^{(n+1)},u^{(n+1)}))
@@ -1806,39 +1806,54 @@ Observe que quando $\theta =1$, a relação recai no método de Euler, quando $\
 
 
 \section{Métodos de passo múltiplo}
+\subsection{Método de Adams}
 Seja o problema de valor inicial
 \begin{eqnarray}
   u'(t) &= f(t,u(t)) \\
   u(t_0) &= a
 \end{eqnarray}
 
-Nos métodos de passo simples, os valores calculados para $f\left(t^{(n)},u(t^{(n)})\right)$ nos passos anteriores são desprezados ao calcular o próximo passo. Nos métodos de passo múltiplo, os valores de $f\left(t^{(n)},u(t^{(n)})\right)$, $f\left(t^{(n+1)},u(t^{(n+1)})\right)$, ...,
-$f\left(t^{(n+s-1)},u(t^{(n+s-1)})\right)$ são considerados 
+Nos métodos de passo simples, os valores calculados para $f\left(t^{(n)},u(t^{(n)})\right)$ nos passos anteriores são desprezados ao calcular o próximo passo. Nos métodos de passo múltiplo, os valores de $f\left(t,u)\right)$, nos passos $n$, $n+1$, ..., $n+s-1$ são utilizados ao calcular $f$ em $t^{(n+s)}$.
 
-Integrando a equação diferencial em $[t^{(n)},t^{(n+s)}]$ obtemos
-\begin{eqnarray}
-  u^{(n+1)}  &= u^{(n)}  + \int _{t^{(n)}}^{t^{(n+s)}} f(t,u(t)) \; dt
+Integrando a equação diferencial no intervalo $[t^{(n+s-1)},t^{(n+s)}]$, obtemos:
+\begin{eqnarray}\label{pvi:mpm1}
+  u^{(n+s)}  &=& u^{(n+s-1)}  + \int_{t^{(n+s-1)}}^{t^{(n+s)}} f(t,u(t)) dt
 \end{eqnarray}
-Denote por $f_n\equiv f(t^{(n)},u^{(n)})$. Um método de passo simples utiliza $f_{n+1}$ e $f_{n}$. Um método de passo múltiplo utiliza também $s$ valores anteriores já calculados como $f_{n-1},f_{n-2},\ldots ,f_{n-s}$, onde $s\geq 1$ inteiro.
+No método de Adams, o integrando em \eqref{pvi:mpm1} é aproximado pelo polinômio que interpola $f(t^{(k)},u^{(k)})$ para $k = n, n+1, n+2, \ldots, n+s-1$, isto é:
+\begin{eqnarray}\label{pvi:mpm1}
+  u^{(n+s)}  &=& u^{(n+s-1)}  + \int_{t^{(n+s-1)}}^{t^{(n+s)}} p(t) dt
+\end{eqnarray}
+onde $p(t)$ é polinômio de grau $s-1$ dada forma de Lagrange por:
+$$p(t)=\sum_{j=0}^{s-1}\left[f(t^{(n)},u^{(n)}) \prod_{k=0,k\neq j}^{s-1} \frac{t-t^{(n+k)}}{t^{(n+j)}-t^{(n+k)}}\right]$$
+Agora observamos que
+$$\int _{t^{(n+s-1)}}^{t^{(n+s)}} p(t) dt=h\sum_{j=0}^{s-1}\beta_j f(t^{(n+j)},u^{(n+j)})$$
+onde 
+\begin{equation}\label{pvi:betaj}
+\beta_j= \frac{1}{h}\int_{t^{(n+s-1)}}^{t^{(n+s)}} \prod_{k=0,k\neq j}^{s-1} \frac{t-t^{(n+k)}}{t^{(n+j)}-t^{(n+k)}}dt
+\end{equation}
 
-\begin{eqnarray}
-  u_{n+1}  &= u_{n}  + h[b_s f_{n+1}+b_{s-1}f_{n}+\ldots +b_1f_{n-s+2}+b_0f_{n-s+1}]
-%\\  u_{n+1}  &= u_{n}  + h \sum_{m=0}^s b_m f_{n-s+1+m}
+e obtemos a relação de recorrência:
+\begin{eqnarray}\label{pvi:mpm2}
+  u^{(n+s)}  &=& u^{(n+s-1)}  + h\sum_{j=0}^{s-1}\beta_j f(t^{(n+j)},u^{(n+j)})
 \end{eqnarray}
+Observe que a integral envolvida no cálculo dos coeficientes $\beta_j$ em \eqref{pvi:betaj} pode ser simplificada via a mudança de variáveis $t=t^{(n+s-1)}+h\tau$:
+\begin{equation}\label{pvi:betaj_s}
+\beta_j= \int_{0}^{1} \prod_{k=0,k\neq j}^{s-1} \frac{\tau+s-k-1}{j-k}d\tau
+\end{equation}
 
-Para conformidade com \cite{iserles2009first}, translade $s-1$ índices,
-\begin{eqnarray}
-  u_{n+s}  &= u_{n+s-1}  + h[b_s f_{n+s}+b_{s-1}f_{n+s-1}+\ldots +b_1f_{n+1}+b_0f_n] \label{multiad}
-\end{eqnarray}
-e teremos
-\begin{eqnarray}
-  u_{n+s}  &= u_{n+s-1}  + h \sum_{m=0}^s b_m f_{n+m}
-\end{eqnarray}
 
-De forma geral um \emph{método de passo múltiplo} será
-\begin{eqnarray}
-  \sum_{m=0}^s a_m u_{n+m}  &=  h \sum_{m=0}^s b_m f_{n+m}
-\end{eqnarray}
+\begin{exer} Calcule os coeficientes e de Adams para $s=2$ e, depois, construa o processo iterativo.
+ \begin{eqnarray*}
+  \beta_0&=&\int_0^1 \frac{\tau+2-1-1}{0-1}d\tau=-\frac{1}{2}\\
+  \beta_1&=&\int_0^1 \frac{\tau+2-0-1}{1-0}d\tau=\frac{3}{2}
+ \end{eqnarray*}
+ O processo iterativo é dado por:
+ \begin{equation*}
+  y_{n+2}=y_n+\frac{h}{2}\left[3f\left(t^{(n+1)},u(t^{(n+1)})\right)-f\left(t^{(n)},u(t^{(n)})\right)\right]
+ \end{equation*}
+
+
+\end{exer}
 
 \subsection*{Exercícios resolvidos}
 
@@ -1863,7 +1878,7 @@ Vamos obter o método de Adams-Bashforth para $s=4$ como
 \begin{eqnarray}
   u_{n+4}  &= u_{n+3}  + \int _{t_{n+3}}^{t_{n+4}} f(t,u(t)) \; dt \\
   u_{n+4}  &= u_{n+3}  + h \sum_{m=0}^{3} b_m f_{n+m} \\
-  u_{n+4}  &= u_{n+3}  + h [b_3f_{n+3} +b_2f_{n+2} +b_1f_{n+1} +b_0f_n]
+  u_{n+4}  &= u_{n+3}  + h [b_3f_{n+3} +b_2f_{n+2} +b_1f_{n+1} +b_0f^{(n)}]
 \end{eqnarray}
 Para isso devemos obter $[b_3,b_2,b_1,b_0]$ tal que o método seja exato para polinômios até ordem $3$. Podemos obter esses coeficientes de maneira análoga a obter os coeficientes de um método para integração.
 
@@ -1894,7 +1909,7 @@ Resolvendo o sistema obtemos
 $$[b_0,b_1,b_2,b_3]=[-\frac{9}{24},\frac{37}{24},-\frac{59}{24},\frac{55}{24}]$$
 fornecendo o \emph{método de Adams-Bashforth de $4$ estágios}
 \begin{eqnarray}\label{AB4}
-  u_{n+4}  &= u_{n+3}  + \frac{h}{24} [55 f_{n+3} -59f_{n+2} +37f_{n+1} -9f_n]
+  u_{n+4}  &= u_{n+3}  + \frac{h}{24} [55 f_{n+3} -59f_{n+2} +37f_{n+1} -9f^{(n)}]
 \end{eqnarray}
 \end{ex}
 
@@ -1935,7 +1950,7 @@ Vamos obter o método de Adams-Moulton para $s=3$ como
 \begin{eqnarray}\label{AM4}
   u_{n+3}  &= u_{n+2}  + \int _{t_{n+3}}^{t_{n+4}} f(t,u(t)) \; dt \\
   u_{n+3}  &= u_{n+2}  + h \sum_{m=0}^{3} b_m f_{n+m} \\
-  u_{n+3}  &= u_{n+2}  + h [b_3f_{n+3} +b_2f_{n+2} +b_1f_{n+1} +b_0f_n]
+  u_{n+3}  &= u_{n+2}  + h [b_3f_{n+3} +b_2f_{n+2} +b_1f_{n+1} +b_0f^{(n)}]
 \end{eqnarray}
 Para isso devemos obter $[b_3,b_2,b_1,b_0]$ tal que o método seja exato para polinômios até ordem $3$. Podemos obter esses coeficientes de maneira análoga a obter os coeficientes de um método para integração.
 
@@ -1966,7 +1981,7 @@ Resolvendo o sistema obtemos
 $$[b_0,b_1,b_2,b_3]=[\frac{1}{24},-\frac{5}{24},\frac{19}{24},\frac{9}{24},]$$
 fornecendo a regra
 \begin{eqnarray}
-  u_{n+3}  &= u_{n+2}  + \frac{h}{24} [9 f_{n+3} +19f_{n+2} -5f_{n+1} +f_n]
+  u_{n+3}  &= u_{n+2}  + \frac{h}{24} [9 f_{n+3} +19f_{n+2} -5f_{n+1} +f^{(n)}]
 \end{eqnarray}
 \end{ex}
 
@@ -2688,7 +2703,7 @@ Integrando a EDO em $[t^{(n+1)},t^{(n)}]$ obtemos
 \begin{eqnarray}
   u_{n+1}  &= u^{(n)}  + \int _{t^{(n)}}^{t^{(n+1)}} f(t,u(t)) \; dt
 \end{eqnarray}
-Denote por $f_n\equiv f(t^{(n)},u^{(n)})$. Um método de passo simples utiliza $f_{n+1}$ e $f_{n}$. Um método de passo múltiplo utiliza também $s$ valores anteriores já calculados como $f_{n-1},f_{n-2},\ldots ,f_{n-s}$, onde $s\geq 1$ inteiro.
+Denote por $f^{(n)}\equiv f(t^{(n)},u^{(n)})$. Um método de passo simples utiliza $f_{n+1}$ e $f_{n}$. Um método de passo múltiplo utiliza também $s$ valores anteriores já calculados como $f^{(n-1)},f_{n-2},\ldots ,f_{n-s}$, onde $s\geq 1$ inteiro.
 
 \begin{eqnarray}
   u_{n+1}  &= u_{n}  + h[b_s f_{n+1}+b_{s-1}f_{n}+\ldots +b_1f_{n-s+2}+b_0f_{n-s+1}]
@@ -2697,7 +2712,7 @@ Denote por $f_n\equiv f(t^{(n)},u^{(n)})$. Um método de passo simples utiliza $
 
 Para conformidade com \cite{iserles2009first}, translade $s-1$ índices,
 \begin{eqnarray}
-  u_{n+s}  &= u_{n+s-1}  + h[b_s f_{n+s}+b_{s-1}f_{n+s-1}+\ldots +b_1f_{n+1}+b_0f_n] \label{multiad}
+  u_{n+s}  &= u_{n+s-1}  + h[b_s f_{n+s}+b_{s-1}f_{n+s-1}+\ldots +b_1f_{n+1}+b_0f^{(n)}] \label{multiad}
 \end{eqnarray}
 e teremos
 \begin{eqnarray}
@@ -2732,7 +2747,7 @@ Vamos obter o método de Adams-Bashforth para $s=4$ como
 \begin{eqnarray}
   u_{n+4}  &= u_{n+3}  + \int _{t_{n+3}}^{t_{n+4}} f(t,u(t)) \; dt \\
   u_{n+4}  &= u_{n+3}  + h \sum_{m=0}^{3} b_m f_{n+m} \\
-  u_{n+4}  &= u_{n+3}  + h [b_3f_{n+3} +b_2f_{n+2} +b_1f_{n+1} +b_0f_n]
+  u_{n+4}  &= u_{n+3}  + h [b_3f_{n+3} +b_2f_{n+2} +b_1f_{n+1} +b_0f^{(n)}]
 \end{eqnarray}
 Para isso devemos obter $[b_3,b_2,b_1,b_0]$ tal que o método seja exato para polinômios até ordem $3$. Podemos obter esses coeficientes de maneira análoga a obter os coeficientes de um método para integração.
 
@@ -2763,7 +2778,7 @@ Resolvendo o sistema obtemos
 $$[b_0,b_1,b_2,b_3]=[-\frac{9}{24},\frac{37}{24},-\frac{59}{24},\frac{55}{24}]$$
 fornecendo o \emph{método de Adams-Bashforth de $4$ estágios}
 \begin{eqnarray}\label{AB4}
-  u_{n+4}  &= u_{n+3}  + \frac{h}{24} [55 f_{n+3} -59f_{n+2} +37f_{n+1} -9f_n]
+  u_{n+4}  &= u_{n+3}  + \frac{h}{24} [55 f_{n+3} -59f_{n+2} +37f_{n+1} -9f^{(n)}]
 \end{eqnarray}
 \end{ex}
 
@@ -2804,7 +2819,7 @@ Vamos obter o método de Adams-Moulton para $s=3$ como
 \begin{eqnarray}\label{AM4}
   u_{n+3}  &= u_{n+2}  + \int _{t_{n+3}}^{t_{n+4}} f(t,u(t)) \; dt \\
   u_{n+3}  &= u_{n+2}  + h \sum_{m=0}^{3} b_m f_{n+m} \\
-  u_{n+3}  &= u_{n+2}  + h [b_3f_{n+3} +b_2f_{n+2} +b_1f_{n+1} +b_0f_n]
+  u_{n+3}  &= u_{n+2}  + h [b_3f_{n+3} +b_2f_{n+2} +b_1f_{n+1} +b_0f^{(n)}]
 \end{eqnarray}
 Para isso devemos obter $[b_3,b_2,b_1,b_0]$ tal que o método seja exato para polinômios até ordem $3$. Podemos obter esses coeficientes de maneira análoga a obter os coeficientes de um método para integração.
 
@@ -2835,7 +2850,7 @@ Resolvendo o sistema obtemos
 $$[b_0,b_1,b_2,b_3]=[\frac{1}{24},-\frac{5}{24},\frac{19}{24},\frac{9}{24},]$$
 fornecendo a regra
 \begin{eqnarray}
-  u_{n+3}  &= u_{n+2}  + \frac{h}{24} [9 f_{n+3} +19f_{n+2} -5f_{n+1} +f_n]
+  u_{n+3}  &= u_{n+2}  + \frac{h}{24} [9 f_{n+3} +19f_{n+2} -5f_{n+1} +f^{(n)}]
 \end{eqnarray}
 \end{ex}
 
@@ -2889,7 +2904,7 @@ Mostre que o método BDF com $s=2$ é
 \section{Ordem e convergência de métodos de passo múltiplo}
 Mais geralmente, um método de passo múltiplo será da forma
 \begin{eqnarray}\label{multistep}
-  a_s u_{n+s}+ ...+ a_1 u_{n+1} + a_0u_{n} &=  h [b_sf_{n+s} +... +b_1f_{n+1} +b_0f_n]
+  a_s u_{n+s}+ ...+ a_1 u_{n+1} + a_0u_{n} &=  h [b_sf_{n+s} +... +b_1f_{n+1} +b_0f^{(n)}]
 \end{eqnarray}
 Por convenção normalizamos a equação acima tomando $a_s=1$. Quando $b_s=0$ temos um método explícito e quando $b_s \neq 0$ temos um método implícito.
 
