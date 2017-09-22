@@ -1806,7 +1806,7 @@ Observe que quando $\theta =1$, a relação recai no método de Euler, quando $\
 
 
 \section{Métodos de passo múltiplo}
-\subsection{Método de Adams}
+\subsection{Método de Adams-Bashforth}
 Seja o problema de valor inicial
 \begin{eqnarray}
   u'(t) &= f(t,u(t)) \\
@@ -1819,7 +1819,7 @@ Integrando a equação diferencial no intervalo $[t^{(n+s-1)},t^{(n+s)}]$, obtem
 \begin{eqnarray}\label{pvi:mpm1}
   u^{(n+s)}  &=& u^{(n+s-1)}  + \int_{t^{(n+s-1)}}^{t^{(n+s)}} f(t,u(t)) dt
 \end{eqnarray}
-No método de Adams, o integrando em \eqref{pvi:mpm1} é aproximado pelo polinômio que interpola $f(t^{(k)},u^{(k)})$ para $k = n, n+1, n+2, \ldots, n+s-1$, isto é:
+No método de Adams-Bashforth, o integrando em \eqref{pvi:mpm1} é aproximado pelo polinômio que interpola $f(t^{(k)},u^{(k)})$ para $k = n, n+1, n+2, \ldots, n+s-1$, isto é:
 \begin{eqnarray}\label{pvi:mpm1}
   u^{(n+s)}  &=& u^{(n+s-1)}  + \int_{t^{(n+s-1)}}^{t^{(n+s)}} p(t) dt
 \end{eqnarray}
@@ -1842,18 +1842,48 @@ Observe que a integral envolvida no cálculo dos coeficientes $\beta_j$ em \eqre
 \end{equation}
 
 
-\begin{exer} Calcule os coeficientes e de Adams para $s=2$ e, depois, construa o processo iterativo.
+\begin{exer} Calcule os coeficientes e de Adams-Bashforth para $s=2$ e, depois, construa o processo iterativo.
  \begin{eqnarray*}
   \beta_0&=&\int_0^1 \frac{\tau+2-1-1}{0-1}d\tau=-\frac{1}{2}\\
   \beta_1&=&\int_0^1 \frac{\tau+2-0-1}{1-0}d\tau=\frac{3}{2}
  \end{eqnarray*}
  O processo iterativo é dado por:
  \begin{equation*}
-  y_{n+2}=y_n+\frac{h}{2}\left[3f\left(t^{(n+1)},u(t^{(n+1)})\right)-f\left(t^{(n)},u(t^{(n)})\right)\right]
+  y^{(n+2)}=y^{(n)}+\frac{h}{2}\left[3f\left(t^{(n+1)},u(t^{(n+1)})\right)-f\left(t^{(n)},u(t^{(n)})\right)\right]
  \end{equation*}
-
-
 \end{exer}
+
+
+\begin{exer} Calcule os coeficientes e de Adams-Bashforth para $s=3$ e, depois, construa o processo iterativo.
+ \begin{eqnarray*}
+  \beta_0&=&\int_0^1 \frac{(\tau+3-1-1)}{0-1}\cdot \frac{(\tau+3-2-1)}{0-2} d\tau=\frac{5}{12}\\
+  \beta_1&=&\int_0^1 \frac{(\tau+3-0-1)}{1-0}\cdot \frac{(\tau+3-2-1)}{1-2} d\tau=-\frac{4}{3}\\
+  \beta_2&=&\int_0^1 \frac{(\tau+3-0-1)}{2-0}\cdot \frac{(\tau+3-1-1)}{2-1} d\tau=\frac{23}{12}
+ \end{eqnarray*}
+ O processo iterativo é dado por:
+ \begin{equation*}
+  y^{(n+3)}=y^{(n)}+\frac{h}{12}\left[23f\left(t^{(n+2)},u(t^{(n+2)})\right)-16f\left(t^{(n+1)},u(t^{(n+1)})\right)+5f\left(t^{(n)},u(t^{(n)})\right)\right]
+ \end{equation*}
+\end{exer}
+
+
+ \begin{center}
+\begin{tabular}{|c|cccccccc|}
+\hline
+1 & 1 &&&&&&&\\
+2 & $-\frac{1}{2}$ & $\frac{3}{2}$&&&&&&\\
+3 & $\frac{5}{12}$ & $-\frac{4}{3}$ & $\frac{23}{12}$&&&&&\\
+4 & $-\frac{3}{8}$ & $\frac{37}{24}$ & -$\frac{59}{24}$ & $\frac{55}{24}$&&&&\\
+5 & $\frac{251}{720}$ & -$\frac{637}{360}$ & $\frac{109}{30}$& -$\frac{1387}{360}$& $\frac{1901}{720}$&&&\\
+6 & $-{\frac {95}{288}}$ & ${\frac {959}{480}}$ & $-{\frac {3649}{720}}$ & ${\frac {4991}{720}}$ & $-{\frac {2641}{480}}$ & $\frac {4277}{1440}$&&\\
+7 & $\frac {19087}{60480}$ & $-{\frac {5603}{2520}}$ & ${\frac {135713}{20160}}$ & $-{\frac {10754}{945}}$ & ${\frac {235183}{20160}}$ & $-{\frac {18637}{2520}}$ & ${\frac {198721}{60480}}$&\\
+8 & $-{\frac {5257}{17280}}$&${\frac {32863}{13440}}$&$-{\frac {115747}{13440}}$&${\frac {2102243}{120960}}$&$-{\frac {296053}{13440}}$&${\frac {242653}{13440}}$&$-{\frac {1152169}{120960}}$&${\frac {16083}{4480}}$\\
+\hline
+\end{tabular}
+ \end{center}
+
+
+
 
 \subsection*{Exercícios resolvidos}
 
