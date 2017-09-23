@@ -1841,8 +1841,11 @@ Observe que a integral envolvida no cálculo dos coeficientes $\beta_j$ em \eqre
 \beta_j= \int_{0}^{1} \prod_{k=0,k\neq j}^{s-1} \frac{\tau+s-k-1}{j-k}d\tau
 \end{equation}
 
+\begin{obs}[Ordem do método de Adasm-Bashforth ] Da teoria de interpolação (ver capítulos \ref{cap_interpola} e \ref{cap_integra} ), temos que o erro de aproximação da integral de uma função suficientemente suave por um polinômio interpolador em $s$ pontos é de ordem $s+1$. Assim, o erro local de truncamento do método de Adams-Bashforth com $s$ passos é $s+1$ e, portanto, o erro global de truncamente é de ordem $s$.   
+\end{obs}
 
-\begin{exer} Calcule os coeficientes e de Adams-Bashforth para $s=2$ e, depois, construa o processo iterativo.
+
+\begin{ex} Calcule os coeficientes e de Adams-Bashforth para $s=2$ e, depois, construa o processo iterativo.
  \begin{eqnarray*}
   \beta_0&=&\int_0^1 \frac{\tau+2-1-1}{0-1}d\tau=-\frac{1}{2}\\
   \beta_1&=&\int_0^1 \frac{\tau+2-0-1}{1-0}d\tau=\frac{3}{2}
@@ -1851,10 +1854,10 @@ Observe que a integral envolvida no cálculo dos coeficientes $\beta_j$ em \eqre
  \begin{equation*}
   y^{(n+2)}=y^{(n)}+\frac{h}{2}\left[3f\left(t^{(n+1)},u(t^{(n+1)})\right)-f\left(t^{(n)},u(t^{(n)})\right)\right]
  \end{equation*}
-\end{exer}
+\end{ex}
 
 
-\begin{exer} Calcule os coeficientes e de Adams-Bashforth para $s=3$ e, depois, construa o processo iterativo.
+\begin{ex} Calcule os coeficientes e de Adams-Bashforth para $s=3$ e, depois, construa o processo iterativo.
  \begin{eqnarray*}
   \beta_0&=&\int_0^1 \frac{(\tau+3-1-1)}{0-1}\cdot \frac{(\tau+3-2-1)}{0-2} d\tau=\frac{5}{12}\\
   \beta_1&=&\int_0^1 \frac{(\tau+3-0-1)}{1-0}\cdot \frac{(\tau+3-2-1)}{1-2} d\tau=-\frac{4}{3}\\
@@ -1864,9 +1867,10 @@ Observe que a integral envolvida no cálculo dos coeficientes $\beta_j$ em \eqre
  \begin{equation*}
   y^{(n+3)}=y^{(n)}+\frac{h}{12}\left[23f\left(t^{(n+2)},u(t^{(n+2)})\right)-16f\left(t^{(n+1)},u(t^{(n+1)})\right)+5f\left(t^{(n)},u(t^{(n)})\right)\right]
  \end{equation*}
-\end{exer}
+\end{ex}
 
 
+A tabela abaixo mostra as coeficientes do método de Adams-Bashforth para até passos. 
  \begin{center}
 \begin{tabular}{|c|cccccccc|}
 \hline
@@ -1878,10 +1882,45 @@ Observe que a integral envolvida no cálculo dos coeficientes $\beta_j$ em \eqre
 6 & $-{\frac {95}{288}}$ & ${\frac {959}{480}}$ & $-{\frac {3649}{720}}$ & ${\frac {4991}{720}}$ & $-{\frac {2641}{480}}$ & $\frac {4277}{1440}$&&\\
 7 & $\frac {19087}{60480}$ & $-{\frac {5603}{2520}}$ & ${\frac {135713}{20160}}$ & $-{\frac {10754}{945}}$ & ${\frac {235183}{20160}}$ & $-{\frac {18637}{2520}}$ & ${\frac {198721}{60480}}$&\\
 8 & $-{\frac {5257}{17280}}$&${\frac {32863}{13440}}$&$-{\frac {115747}{13440}}$&${\frac {2102243}{120960}}$&$-{\frac {296053}{13440}}$&${\frac {242653}{13440}}$&$-{\frac {1152169}{120960}}$&${\frac {16083}{4480}}$\\
-\hline
+\hline 
 \end{tabular}
  \end{center}
+\begin{obs} Note que os métodos de múltiplo passo requerem o conhecimento dos $s$ valores previamente computados para calcular $y^{(n+s)}$. Assim, para inicializar um algoritmo com mais de um passo, não é suficiente conhecer a condição inicial. Usualmente, calcula-se os primeiros $s$ passos usando um algoritmo de passo simples da mesma ordem do método múltiplo passo a ser aplicado.
+\end{obs}
 
+\begin{exeresol} Resolva numericamente o problema de valor inicial dado por:
+\begin{eqnarray*}
+ y'(t)&=& \sqrt{1+y(t)}\\
+ y(0)&=& 0
+\end{eqnarray*}
+aplicando o método de Adams-Bashforth de dois passos e inicializando o método através do método de Euler modificado. Calcule o valor de $y(1)$ com passo de tamanha $h=0,1$.
+\end{exeresol}
+\begin{resol} 
+Primeiro observamos que o processo resursivo do método de Adams é dado por: 
+\begin{equation*}
+  y^{(n+2)}=y^{(n)}+\frac{h}{2}\left[3f\left(t^{(n+1)},u(t^{(n+1)})\right)-f\left(t^{(n)},u(t^{(n)})\right)\right],~n=1,2,\ldots
+ \end{equation*}
+O valor inicial é dado por $y^{(1)}=0$. No entanto, para inicializar o método, precisamos calcular $y^{(2)}$, para tal, aplicamos o método de Euler modificado:
+\begin{eqnarray*}
+ k_1&=&\sqrt{1+0}=1\\
+ k_2&=&\sqrt{1+0,1}=\sqrt{1,1}\approx 1,0488088 \\
+ y^{(2)}&=& \frac{0,1}{2}\left(1+1,0488088 \right)=0,10244044 
+  \end{eqnarray*}
+
+  \begin{eqnarray*}
+ y^{(1)}&=&0\\
+ y^{(2)}&=&0,10244044\\
+ y^{(3)}&=&0,2\\
+ y^{(4)}&=&0,30749575\\
+ y^{(5)}&=&0,41931393\\
+ y^{(6)}&=&0,53606035\\
+ y^{(7)}&=&0,65758990\\
+ y^{(8)}&=&0,78392927\\
+ y^{(9)}&=&0,91508145\\
+ y^{(10)}&=&1,0510535
+\end{eqnarray*}
+
+\end{resol}
 
 
 
