@@ -2148,22 +2148,40 @@ Comente os resultados (novamente, em cada gráfico separado para cada método re
 
 \section{Estratégia preditor-corretor}
 
-\section{Benchmark}
+\section{Validação e {\it Benchmarking}}\index{validação}\index{Benchmark} %Talvez um dia mover para um capítulo aparte falando de métodos numéricos em geral.
+Toda metodologia numérica deve ser validada ao ser aplicada para resolver um problema. A validação aumenta a confiabilidade na qualidade dos resultados obtidos. A validação procura detectar erros de implementação, características numéricas espúrias não prevista em projeto, como propagação catastrófica erros de arrendodamento, inadequação do método para o problema proposto etc.  A principal técnica de validação consiste em comparar a solução produzida com soluções de alta qualidade e confiabilidade, os chamados {\it benchmarks}. Quando um {\it benchmark} não estiver disponível, ainda se dispõe de algumas técnicas para avaliar a qualidade do método. Existe uma hierarquia das técnicas de  validação conforme listados a seguir:
+\begin{enumerate}
+\item Expressão analítica: Testar o código com problemas que admitem soluções analíticas constitui a forma mais confiável para validar o esquema usado. Expressões analíticas são expressões matemáticas das seguintes formas:
+\subitem Expressão aritmética: Expressões envolvendo apenas um número finito de operações aritméticas elementares (soma, subtração, multiplicação e divisão) e números inteiros. Ex: $u(t)=\frac{t^2+1}{3t-4}$ ou $u(t)=t^3+\frac{3}{4}.$
+\subitem Expressão algébrica:  Expressões envolvendo apenas um número finito de operações aritméticas elementares e expoentes fracionários. Ex: $u(t)=t^2+ \sqrt{t} $ ou $u(t)=t^{3/2}+\sqrt{2}$. 
+\subitem Expressão forma-fechada: Expressões envolvendo apenas um número finito de operações aritméticas elementares, expoentes reais, logaritmos, exponencias, funções trigonométricas e funções trigonométricas inversas. Ex: $u(t)=\log(1+t^{\pi})$, $u(t)=e^{-t}\sin(t)$ ou $u(t)=\tan^{-1}(t+1)$.
+\subitem Expressão envolvendo funções especiais: Além das operações e funções acima, são permitadas funções especiais, como a função gama, funções de Bessel, séries de taylor, series de Fourier e outras séries envolvendo funções elementares e especiais. 
+\item Expressão matemática semi-analítica: Expressão matemática envolvendo, além das operações e funções acima, outros processos de limite, como derivação e integração. Ex: $u(t)=\int_{0}^1 \log|t-s|x^t dx$.  
+\item Solução numérica com reformulação analítica prévia: Neste caso, não se dispõe de uma expressão matemática para a solução, mas pode-se comparar resultado produzido pelo método numérico com outro problema numérico cuja solução é a mesma e pode ser obtida por outra metodologia numérica mais confiável. 
+\item Benchmark puramente numérico: Um {\it benchmark} puramente numérico é uma aproximação numérica para a solução de um problema muito bem estabelecida e de alta confiabilidade. Os benchmarks numéricos normalmente são produzidos comparando diversos métodos numéricos diferentes e independentes e com grande refinamento.
+\item Validação por comparação: Quando não se dispõe de {\it benchmarks}, ainda se pode comparar o resultado obtido com outros métodos numéricos. Em caso de divergência, pode ser bastante difícil dissernir qual método produz melhores resultados.
+\item Convergência numérica: Este é o teste mais rudimentar que se aplica a métodos e numéricos e consiste em comparar o resultados produzidos com diferentes malhas de cálculo diferentes. Espera-se que o refino da malha produza soluções que convergem para a soluçao exata. Resultados muito próximos entre refinos sugere qualidade nos resultados.
+\end{enumerate}
 
 
+[
+\begin{ex}[Expressão analítica] A solução do problema de valor inicial estudado no Exercício Resolvido~\ref{pvi:exeresol1} dado por:
+\begin{eqnarray*}
+     u'(t)&=& -0,5u(t)+2+t,\\
+            u(0) &=&  8,
+\end{eqnarray*}
+admite uma solução em forma de expressão analítica dada por:
+\begin{equation*}
+     u(t) = 2t+8e^{-t/2}. 
+\end{equation*} 
+\end{ex}
+
+\begin{ex}[Expressão matemática semi-analítica]
+ 
+\end{ex}
 
 
-
-
-
-
-
-
-
-
-
-
-\section{Exercícios finais}
+\section*{Exercícios finais}
 
 
 \begin{exer} Considere o problema de valor inicial dado por
@@ -2189,7 +2207,7 @@ Runge-Kutta clássico&&&&&\\
 \hline
 Adams-Bashforth ordem 4&&&&&\\
 \hline
-\end{tabular}
+\end{tabular} 
 \end{center}
 
 \begin{center}
@@ -2394,65 +2412,4 @@ onde $I$ é a corrente de excitação.
 %\end{document}
 
 
-\chapter{Limbo}
-\section{Teoria de equações diferenciais}
-Uma questão fundamental é analisar se um dado problema de valor inicial é um problema \emph{bem posto}. Ou seja,
-\begin{itemize}
- \item Existe uma solução para o problema de valor inicial?
- \item A solução é única?
- \item A solução do problema de valor inicial é pouco sensível a pequenas perturbações nas condições iniciais?
-\end{itemize}
 
-
-\begin{defn}
-A função $f(t, u)$ é Lipschitz em $u$ se existe uma constante $L$, tal que $\forall t \in [a, b]$ e $u, v \in \mathbb R$,
-$$ |f(t, u)-f(t, v)| \leq L|u(t)-v(t)|. $$
-\end{defn}
-
-
-\begin{teo}
-Seja $f(t, u)$ contínua em $t$ e Lipschitz em $u$. Então existe uma única solução para o problema de valor inicial
-\begin{eqnarray}
-  u'(t)  &=& f(t, u(t)) \\
-  u(t^{(1)}) &=& a.
-\end{eqnarray}
-\end{teo}
-
-\begin{defn}
-  \emph{Estabilidade dinâmica} refere-se a propriedade de pequenas perturbações sobre o estado inicial de um sistema gerarem pequenas variações no estado final deste sistema (haverá decaimento nas variações, ou pelo menos não crescimento, quanto $t$ cresce).
-\end{defn}
-
-\begin{teo}[Dependência na condição inicial]
-Se $u(t)$ e $v(t)$ são soluções do problema de valor inicial com $f$ Lipschitz com $u(t^{(1)})=u^{(1)}$, $v(t^{(1)})=v_1$, então
-$$ |u(t)-v(t)| \leq  e^{L(t-t^{(1)})}|u^{(1)}-v_1| . $$
-\end{teo}
-
-\subsection*{Exercícios resolvidos}
-
-\begin{exeresol} A função $f(t,u)=\sqrt{u},~~u\geq 0$ não é uma função Lipschitz em $u$, pois
-$$\lim_{u\to 0+} \frac{|f(t,u)-f(t,0)|}{|u-0|}=\lim_{u\to 0+} \frac{\sqrt{u}}{u}=\lim_{u\to 0+} \frac{1}{\sqrt{u}}=\infty$$
- Mostre que o seguinte problema de valor inicial não admite solução única:
-\begin{eqnarray}
-   \frac{du}{dt} &=&\sqrt{u},~~u>0,\\
-            u(0) &=& 0.
-\end{eqnarray}
-\end{exeresol}
-\begin{resol}
- A função identicamente nula, $u(t)=0$, satisfaz a equação diferencial e a condição de contorno, logo é uma solução do problema de valor inicial. No entanto, a função\footnote{Esta solução pode ser obtida por separação de variáveis.} $u(t)=\frac{t^2}{4}$ satisfaz a condição inicial, pois $u(0)=0$ e a equação diferencial pois $\frac{du}{dt}=\frac{t}{2}=\sqrt{\frac{t^2}{4}}$.
- 
- De fato, qualquer função do tipo
- $$u(t)=\left\{
- \begin{array}{ll}
-  0,&0\leq t \leq t_0\\
-  \frac{(t-t_0)^2}{4},& t >t_0\\
- \end{array}
- \right.$$
- é solução do problema de valor inicial dado.
-\end{resol}
-
-
-\emconstrucao
-
-\subsection*{Exercícios}
-
-\emconstrucao
