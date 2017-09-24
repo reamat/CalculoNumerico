@@ -289,10 +289,10 @@ A seguinte tabela resume os resultados obtidos:
 Vamos agora, analisar o desempenho do método de Euler usando um exemplo mais complicado, porém ainda simples suficiente para que possamos obter a solução exata:
 \begin{ex}\label{ex_euler_1}
 Considere o problema de valor inicial relacionado à equação logística\index{equação!logística}:
-\begin{eqnarray*}
+\begin{eqnarray}\label{pvi:logistica}
 u'(t)&=&u(t)(1-u(t))\\
 u(0)&=&1/2
-\end{eqnarray*}
+\end{eqnarray}
 \end{ex}
 Podemos obter a solução exata desta equação usando o método de separação de variáveis\index{método!de separação de variáveis} e o método das frações parciais\index{método das frações parciais}. Para tal escrevemos:
 \begin{equation*}
@@ -2146,6 +2146,11 @@ Comente os resultados (novamente, em cada gráfico separado para cada método re
 
 
 
+\section{Estratégia preditor-corretor}
+
+\section{Benchmark}
+
+
 
 
 
@@ -2159,108 +2164,6 @@ Comente os resultados (novamente, em cada gráfico separado para cada método re
 
 
 \section{Exercícios finais}
-
-\begin{exer} Considere o seguinte modelo para o crescimento de uma colônia de bactérias:
-$$\frac{du}{dt}=\alpha u (A-u)$$
-onde $u$ indica a densidade de bactérias em unidades arbitrárias na colônia e $\alpha$ e $A$ são constantes positivas.
-Pergunta-se:
-\begin{itemize}
-\item[a)] Qual a solução quando a condição inicial $u(0)$ é igual a $0$ ou $A$?
-\item[b)] O que acontece quando a condição inicial $u(0)$ é um número entre $0$ e $A$?
-\item[c)] O que acontece quando a condição inicial $u(0)$ é um número negativo?
-\item[d)] O que acontece quando a condição inicial $u(0)$ é um número positivo maior que A?
-\item[e)] Se $A=10$ e $\alpha=1$ e $u(0)=1$, use métodos numéricos para obter tempo necessário para que a população dobre?
-\item[f)] Se $A=10$ e $\alpha=1$ e $u(0)=4$, use métodos numéricos para obter tempo necessário para que a população dobre?
-\end{itemize}
-\end{exer}
-\begin{resp}
-
-Os valores exatos para os itens e e f são:$\frac{1}{10}\ln\left(\frac{9}{4}\right)$ e $\frac{1}{10}\ln\left(6\right)$
-
-\end{resp}
-
-\begin{exer} Considere o seguinte modelo para a evolução da velocidade de um objeto em queda (unidades no SI):
-$$v'=g-\alpha v^2$$
-Sabendo que $g=9,8$ e $\alpha=10^{-2}$ e $v(0)=0$. Pede-se a velocidade ao tocar o solo, sabendo que a altura inicial era 100.
-
-\end{exer}
-\begin{resp}
-
-O valor exato é $\sqrt{\frac{g}{\alpha}\left[1-e^{{-200\alpha}}\right]}$ em $t=\frac{1}{\sqrt{g\alpha}}\tanh^{-1}\left(\sqrt{1-e^{{-200\alpha}}}\right)$
-
-\end{resp}
-
-
-\begin{exer} Considere o seguinte modelo para o oscilador não linear de Van der Pol:
-$$u''(t) - \alpha (A-u(t)^2)u'(t) + w_0^2u(t)=0$$
-onde $A$, $\alpha$ e $w_0$ são constantes positivas.
-\begin{itemize}
-\item Encontre a frequência e a amplitude de oscilações quando $w_0=1$, $\alpha=.1$ e $A=10$. (Teste diversas condições iniciais)
-\item Estude a dependência da frequência e da amplitude com os parâmetros  $A$, $\alpha$ e $w_0$. (Teste diversas condições iniciais)
-\item Que diferenças existem entre esse oscilador não linear e o oscilador linear?
-\end{itemize}
-\end{exer}
-
-\begin{exer} Considere o seguinte modelo para um oscilador não linear:
-\begin{eqnarray*}
-u''(t)-\alpha(A-z(t))u'(t)+w_0^2 u(t)&=&0\\
-Cz'(t)+z(t)&=&u(t)^2
-\end{eqnarray*}
-onde $A$, $\alpha$, $w_0$ e $C$ são constantes positivas.
-\begin{itemize}
-\item Encontre a frequência e a amplitude de oscilações quando $w_0=1$, $\alpha=.1$, $A=10$ e $C=10$. (Teste diversas condições iniciais)
-\item Estude a dependência da frequência e da amplitude com os parâmetros  $A$, $\alpha$, $w_0$ e $C$. (Teste diversas condições iniciais)
-\end{itemize}
-\end{exer}
-
-\begin{exer} Considere o seguinte modelo para o controle de temperatura em um processo químico:
-\begin{eqnarray*}
-CT'(t)+T(t)&=&\kappa P(t)+T_{ext}\\
-P'(t)&=&\alpha(T_{set}-T(t))
-\end{eqnarray*}
-onde $C$, $\alpha$ e $\kappa$ são constantes positivas e $P(t)$ indica o potência do aquecedor. Sabendo que $T_{set}$ é a temperatura desejada, interprete o funcionamento esse sistema de controle.
-\begin{itemize}
-\item Calcule a solução quando a temperatura externa $T_{ext}=0$, $T_{set}=1000$, $C=10$, $\kappa=.1$ e $\alpha=.1$. Considere condições iniciais nulas.
-\item Quanto tempo demora o sistema para atingir a temperatura 900K?
-\item Refaça os dois primeiros itens com $\alpha=0,2$ e $\alpha=1$
-\item Faça testes para verificar a influência de $T_{ext}$, $\alpha$ e $\kappa$ na temperatura final.
-\end{itemize}
-\end{exer}
-
-\begin{exer} Considere a equação do pêndulo dada por:
-$$\frac{d^2\theta(t)}{dt^2}+\frac{g}{l}\sin(\theta(t))=0$$
-onde $g$ é o módulo da aceleração da gravidade e $l$ é o comprimento da haste.
-\begin{itemize}
-\item Mostre analiticamente que a energia total do sistema dada por
-$$\frac{1}{2}\left(\frac{d\theta(t)}{dt}\right)^2-\frac{g}{l}\cos(\theta(t))$$
-é mantida constante.
-\item Resolva numericamente esta equação para $g=9,8m/s^2$ e $l=1m$ e as seguintes condições iniciais:
-\subitem $\theta(0)=0,5$ e $\theta'(0)=0$.
-\subitem $\theta(0)=1,0$ e $\theta'(0)=0$.
-\subitem $\theta(0)=1,5$ e $\theta'(0)=0$.
-\subitem $\theta(0)=2,0$ e $\theta'(0)=0$.
-\subitem $\theta(0)=2,5$ e $\theta'(0)=0$.
-\subitem $\theta(0)=3,0$ e $\theta'(0)=0$.
-\end{itemize}
-Em todos os casos, verifique se o método numérico reproduz a lei de conservação de energia e calcule período e amplitude.
-\end{exer}
-
-\begin{exer} Considere o modelo simplificado de FitzHugh-Nagumo para o potencial elétrico sobre a membrana de um neurônio:
-\begin{eqnarray*}
-\frac{d V}{dt}& = &  V-V^3/3 - W +  I  \\
-\frac{d W}{dt} & = & 0,08(V+0,7 - 0,8W)
-\end{eqnarray*}
-onde $I$ é a corrente de excitação.
-\begin{itemize}
-\item Encontre o único estado estacionário $\left(V_0,W_0\right)$ com $I=0$.
-\item Resolva numericamente o sistema com condições iniciais dadas por $\left(V_0,W_0\right)$ e
-\subitem $I=0$
-\subitem $I=0,2$
-\subitem $I=0,4$
-\subitem $I=0,8$
-\subitem $I=e^{-t/200}$
-\end{itemize}
-\end{exer}
 
 
 \begin{exer} Considere o problema de valor inicial dado por
@@ -2381,6 +2284,112 @@ Adams-Bashforth ordem 4&4,8e-5 &   9,0e-8 &   5,7e-9 &   9,2e-12 &   5,8e-13  \\
 \end{center}
 
 \end{resp}
+
+\begin{exer} Considere o seguinte modelo para o crescimento de uma colônia de bactérias, baseado na equação logística (ver \eqref{pvi:logistica})
+$$u'(t)=\alpha u(t) \left(A-u(t)\right)$$
+onde $u(t)$ indica a densidade de bactérias em unidades arbitrárias na colônia e $\alpha$ e $A$ são constantes positivas.
+Pergunta-se: % Solução $ u(t)=\frac{Au_0}{(A-u_0)e^{-A\alpha at}+u_0}$
+\begin{itemize}
+\item[a)] Se $A=10$ e $\alpha=1$ e $u(0)=1$, use métodos numéricos para obter aproximação para $u(t)$ em $t=5\cdot 10^{-2}$, $t=\cdot 10^{-1}$, $t=5\cdot 10^{-1}$ e $t=1$.
+\item[b)] Se $A=10$ e $\alpha=1$ e $u(0)=1$, use métodos numéricos para obter tempo necessário para que a população dobre?
+\item[c)] Se $A=10$ e $\alpha=1$ e $u(0)=4$, use métodos numéricos para obter tempo necessário para que a população dobre?
+\end{itemize}
+\end{exer}
+\begin{resp}
+\begin{itemize}
+ \item [a)] $1,548280989603$,   $2,319693166841$,    $9,42825618574$ e  $9,995915675174$.
+ \item [b)] $0,081093021622$.
+ \item [c)] $0,179175946923$.
+ \end{itemize}
+
+Obs: A solução analitica do problema de valor inicial é dada por:
+ $$u(t)=\frac{Au_0}{(A-u_0)e^{-A\alpha at}+u_0}$$
+ Os valores exatos para os itens b e c são:$\frac{1}{10}\ln\left(\frac{9}{4}\right)$ e $\frac{1}{10}\ln\left(6\right)$. 
+
+\end{resp}
+
+\begin{exer} Considere o seguinte modelo para a evolução da velocidade de um objeto em queda:
+$$v'=g-\alpha v^2$$
+Sabendo que $g=9,8$ e $\alpha=10^{-2}$ e $v(0)=0$. Pede-se a velocidade ao tocar o solo e o instante quando isto acontece, dado que a altura inicial era 100.
+\end{exer}
+\begin{resp}
+O valor exato é $\sqrt{\frac{g}{\alpha}\left[1-e^{{-200\alpha}}\right]}$ em $t=\frac{1}{\sqrt{g\alpha}}\tanh^{-1}\left(\sqrt{1-e^{{-200\alpha}}}\right)$
+\end{resp}
+
+
+
+\begin{exer} Considere o seguinte modelo para o oscilador não linear de Van der Pol:
+$$u''(t) - \alpha (A-u(t)^2)u'(t) + w_0^2u(t)=0$$
+onde $A$, $\alpha$ e $w_0$ são constantes positivas.
+\begin{itemize}
+\item Encontre a frequência e a amplitude de oscilações quando $w_0=1$, $\alpha=.1$ e $A=10$. (Teste diversas condições iniciais)
+\item Estude a dependência da frequência e da amplitude com os parâmetros  $A$, $\alpha$ e $w_0$. (Teste diversas condições iniciais)
+\item Que diferenças existem entre esse oscilador não linear e o oscilador linear?
+\end{itemize}
+\end{exer}
+
+\begin{exer} Considere o seguinte modelo para um oscilador não linear:
+\begin{eqnarray*}
+u''(t)-\alpha(A-z(t))u'(t)+w_0^2 u(t)&=&0\\
+Cz'(t)+z(t)&=&u(t)^2
+\end{eqnarray*}
+onde $A$, $\alpha$, $w_0$ e $C$ são constantes positivas.
+\begin{itemize}
+\item Encontre a frequência e a amplitude de oscilações quando $w_0=1$, $\alpha=.1$, $A=10$ e $C=10$. (Teste diversas condições iniciais)
+\item Estude a dependência da frequência e da amplitude com os parâmetros  $A$, $\alpha$, $w_0$ e $C$. (Teste diversas condições iniciais)
+\end{itemize}
+\end{exer}
+
+\begin{exer} Considere o seguinte modelo para o controle de temperatura em um processo químico:
+\begin{eqnarray*}
+CT'(t)+T(t)&=&\kappa P(t)+T_{ext}\\
+P'(t)&=&\alpha(T_{set}-T(t))
+\end{eqnarray*}
+onde $C$, $\alpha$ e $\kappa$ são constantes positivas e $P(t)$ indica o potência do aquecedor. Sabendo que $T_{set}$ é a temperatura desejada, interprete o funcionamento esse sistema de controle.
+\begin{itemize}
+\item Calcule a solução quando a temperatura externa $T_{ext}=0$, $T_{set}=1000$, $C=10$, $\kappa=.1$ e $\alpha=.1$. Considere condições iniciais nulas.
+\item Quanto tempo demora o sistema para atingir a temperatura 900K?
+\item Refaça os dois primeiros itens com $\alpha=0,2$ e $\alpha=1$
+\item Faça testes para verificar a influência de $T_{ext}$, $\alpha$ e $\kappa$ na temperatura final.
+\end{itemize}
+\end{exer}
+
+\begin{exer} Considere a equação do pêndulo dada por:
+$$\frac{d^2\theta(t)}{dt^2}+\frac{g}{l}\sin(\theta(t))=0$$
+onde $g$ é o módulo da aceleração da gravidade e $l$ é o comprimento da haste.
+\begin{itemize}
+\item Mostre analiticamente que a energia total do sistema dada por
+$$\frac{1}{2}\left(\frac{d\theta(t)}{dt}\right)^2-\frac{g}{l}\cos(\theta(t))$$
+é mantida constante.
+\item Resolva numericamente esta equação para $g=9,8m/s^2$ e $l=1m$ e as seguintes condições iniciais:
+\subitem $\theta(0)=0,5$ e $\theta'(0)=0$.
+\subitem $\theta(0)=1,0$ e $\theta'(0)=0$.
+\subitem $\theta(0)=1,5$ e $\theta'(0)=0$.
+\subitem $\theta(0)=2,0$ e $\theta'(0)=0$.
+\subitem $\theta(0)=2,5$ e $\theta'(0)=0$.
+\subitem $\theta(0)=3,0$ e $\theta'(0)=0$.
+\end{itemize}
+Em todos os casos, verifique se o método numérico reproduz a lei de conservação de energia e calcule período e amplitude.
+\end{exer}
+
+\begin{exer} Considere o modelo simplificado de FitzHugh-Nagumo para o potencial elétrico sobre a membrana de um neurônio:
+\begin{eqnarray*}
+\frac{d V}{dt}& = &  V-V^3/3 - W +  I  \\
+\frac{d W}{dt} & = & 0,08(V+0,7 - 0,8W)
+\end{eqnarray*}
+onde $I$ é a corrente de excitação.
+\begin{itemize}
+\item Encontre o único estado estacionário $\left(V_0,W_0\right)$ com $I=0$.
+\item Resolva numericamente o sistema com condições iniciais dadas por $\left(V_0,W_0\right)$ e
+\subitem $I=0$
+\subitem $I=0,2$
+\subitem $I=0,4$
+\subitem $I=0,8$
+\subitem $I=e^{-t/200}$
+\end{itemize}
+\end{exer}
+
+
 
 %\end{document}
 
