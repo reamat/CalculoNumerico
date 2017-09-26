@@ -62,7 +62,7 @@ Nesta seção, contruiremos o mais simples dos métodos para resolver problemas 
 $$t^{(i)}=(i-1)h,~~~i=1,2,\ldots,N.$$
 onde $h$ é passo, ou seja, a distância entre dois pontos da malha.
 
-Considere, agora, o problema de valor inicial dado por:
+Considere então o problema de valor inicial dado por:
 \begin{eqnarray}\label{EDO1}
   u'(t)  &=& f(t,u(t)),~~t>t^{(1)} \\
   u(t^{(1)}) &=& a.
@@ -1262,7 +1262,7 @@ Identificando os coeficientes, obtemos $\nu=2$, $c_1=0$, $c_2=1$, $a_{21}=1$, $b
  
 \subsection{Métodos de Runge-Kutta com dois estágios}\label{pvi:RK_2_subsec}
 Os métodos de Runge-Kutta com dois estágios $\left(\nu=2\right)$ são da seguinte forma:
-\begin{eqnarray}\label{RKa}
+\begin{eqnarray}
   \tilde{u}_1 &=&u^{(n)} \\
   \tilde{u}_2 &=&u^{(n)}  + h a_{21}k_1 \\
   u^{(n+1)}&=&u^{(n)}  + h [ b_1k_1+b_2k_2],\label{pvi:RK2a}
@@ -1726,7 +1726,7 @@ Isolando a $y^{(n+1)}$ na primeira equação, obtemos o processo iterativo dado 
 
 \subsection{O método trapezoidal}\index{método!trapezoidal}\label{pvi:trapezoidal}
 O método de Euler aproxima a função $f(t,u)$ como uma constante no intervalo $[t^{(1)},t^{(2)}]$. O método trapezoidal é muito semelhante ao método de Euler melhorado estudado na Seção~\ref{pvi:sec_euler_mod}, integramos de $t^{(1)}$ até $t^{(2)}$ a equação diferencial envolvida no problema de valor inicial
-\begin{eqnarray}\label{EDO2}
+\begin{eqnarray}\label{EDO}
   u'(t)  &=& f(t,u(t)),~~t>t^{(1)} \\
   u(t^{(1)}) &=& a.
 \end{eqnarray}
@@ -1791,9 +1791,6 @@ y^{(n+1)}&=& \frac{-(1-h)+ \sqrt{(1-h)^2+4hy^{(n)}}}{2h}\\
  \end{eqnarray*}
 \end{resp}
 
-
-
-% ---Até aqui---
 \subsection{O método theta}
 O método theta é uma generalização dos métodos de Euler e trapezoidal. A relação de recorrência do método theta é dada por:
 \begin{eqnarray}
@@ -1942,10 +1939,10 @@ Considere o problema de valor inicial
 \end{eqnarray*}
 
 Integrando a equação diferencial no intervalo $[t^{(n+s-1)},t^{(n+s)}]$, obtemos:
-\begin{eqnarray}\label{pvi:mpm2}
+\begin{eqnarray}\label{pvi:mpm2a}
   u^{(n+s)}  &=& u^{(n+s-1)}  + \int_{t^{(n+s-1)}}^{t^{(n+s)}} f(t,u(t)) dt
 \end{eqnarray}
-Agora o integrando em \eqref{pvi:mpm2} é aproximado pelo polinômio que interpola $f(t^{(k)},u^{(k)})$ para $k = n, n+1, n+2, \ldots, n+s$, isto é:
+ Agora o integrando em \eqref{pvi:mpm2a} é aproximado pelo polinômio que interpola $f(t^{(k)},u^{(k)})$ para $k = n, n+1, n+2, \ldots, n+s$, isto é:
 \begin{eqnarray}\label{pvi:mpm2b}
   u^{(n+s)}  &=& u^{(n+s-1)}  + \int_{t^{(n+s-1)}}^{t^{(n+s)}} p(t) dt
 \end{eqnarray}
@@ -2091,101 +2088,101 @@ Encontre o método de Adams-Moulton para $s=1$.
  \end{resp}
 
   
- 
-
-\section{Método BDF}
-Um método de ordem $s$ com $s$ estágios é chamado de \emph{método BDF-Backward Differentiation Formula} se $\sigma (w)=b_sw^s$, onde $b_s \in \mathbb{R}$, ou seja,
-\begin{eqnarray}\label{BDF}
-  a_s u_{n+s}+ ...+ a_1 u_{n+1} + a_0u_{n} &=  h b_sf_{n+s}
-\end{eqnarray}
-
-\begin{ex}
-Mostre que o método BDF com $s=3$ é
-\begin{eqnarray}
-  u_{n+3} -\frac{18}{11} u_{n+2}+\frac{9}{11}u_{n+1}-\frac{2}{11}u^{(n)} &= \frac{6}{11}h f_{n+3}
-\end{eqnarray}
-\end{ex}
-
-\subsection*{Exercícios}
-
-\begin{exer}
-Mostre que o método BDF com $s=1$ é o método de Euler implícito.
-\end{exer}
-
-\begin{exer}
-Mostre que o método BDF com $s=2$ é
-\begin{eqnarray}
-  u_{n+2} -\frac{4}{3} u_{n+1} + \frac{1}{3}u^{(n)} &= \frac{2}{3}h f_{n+2}
-\end{eqnarray}
-\end{exer}
-
-
-\section{O método de Taylor}
-Uma maneira simples de aumentar a ordem dos métodos de Euler anteriormente descritos consiste em truncar a série de Taylor de $u(t+h)$:
-\begin{eqnarray}
- u(t+h)=u(t) +h u'(t)+ \frac{h^2}{2!}u''(t)+\frac{h^3}{3!}u'''(t)+\ldots
-\end{eqnarray}
-
-Utilizando dois termos temos o método de Euler. Utilizando os três primeiros termos da série e substituindo $u'(t)=f(t,x)$ e $u''(t)=\frac{\partial f}{\partial t}(t,x)$ temos o \emph{método de Taylor de ordem $2$}
-\begin{eqnarray}
-   u_{n+1}=u^{(n)} +h f(t^{(n)},u^{(n)})+ \frac{h^2}{2!} \frac{\partial f}{\partial t}(t^{(n)},u^{(n)})
-\end{eqnarray}
-
-
-O método de Taylor de ordem $3$ é
-\begin{eqnarray*}
-   u_{n+1}=u^{(n)} +h f(t^{(n)},u^{(n)})+ \frac{h^2}{2!}\frac{\partial f}{\partial t}(t^{(n)},u^{(n)})+\frac{h^3}{3!}\frac{\partial^2 f}{\partial t^2}(t^{(n)},u^{(n)})
-\end{eqnarray*}
-
-\subsection*{Exercícios resolvidos}
-
-\emconstrucao
-
-\subsection*{Exercícios}
-
-\emconstrucao
-
-\section{Estabilidade dos métodos de Taylor}
-\begin{ex}
-Prove que para um método de Taylor de ordem $p$ para a EDO \eqref{EDO4.7} temos
-\begin{eqnarray}
-  p(z)= 1 + z+ \frac{z^2}{2!} +\frac{z^3}{3!}+\ldots +\frac{z^p}{p!}
-\end{eqnarray}
-onde  $u^{(n)} = (p(z))^nu_0$ e a região de estabilidade é dada por
-\begin{eqnarray}
- \mathcal D_{T} = \{z \in  \field{C}:  \left|p(z)\right|<1\}
-\end{eqnarray}
-
-Trace as regiões de estabilidade para o método de Taylor para $p=1,\ldots ,6$ no mesmo gráfico.
-\end{ex}
-
-% \begin{figure}
-% \begin{center}
-%   \includegraphics[width=8cm]{RegiaoTaylor.eps}\\
-%   \caption{Região de estabilidade paras os métodos de Taylor de ordem $1,\ldots ,4$ (interior as curvas). A curva mais interna é para $p=1$}\label{RegiaoTaylor}
-% \end{center}
-% \end{figure}
-
-
-\begin{ex}
-Aproxime a solução do problema de valor inicial
-\begin{eqnarray}
-   \frac{du}{dt} &=\sin{t}\\
-            u(0) &= 1
-\end{eqnarray}
-para  $t\in [0,10]$.
-
-\begin{enumerate}
-\item [a.] Trace a solução para $h=0,16$, $0,08$, $0,04$, $0,02$ e $0,01$ para o método de Taylor de ordem $1$, $2$ e $3$. (Trace todos de ordem $1$ no mesmo gráfico, ordem $2$ em outro gráfico e ordem $3$ outro gráfico separado.)
-
-\item [b.] Utilizando a solução exata, trace um gráfico do erro em escala logar\'itmica.
-Comente os resultados (novamente, em cada gráfico separado para cada método repita os valores acima)
-
-\item [c.] Fixe agora o valor $h=0,02$ e trace no mesmo gráfico uma curva para cada método.
-
-\item [d.] Trace em um gráfico o erro em $t=10$ para cada um dos métodos (uma curva para cada ordem) a medida que $h$ diminui. (Use escala \verb#loglog#)
-\end{enumerate}
-\end{ex}
+%  
+% 
+% \section{Método BDF}
+% Um método de ordem $s$ com $s$ estágios é chamado de \emph{método BDF-Backward Differentiation Formula} se $\sigma (w)=b_sw^s$, onde $b_s \in \mathbb{R}$, ou seja,
+% \begin{eqnarray}\label{BDF}
+%   a_s u_{n+s}+ ...+ a_1 u_{n+1} + a_0u_{n} &=  h b_sf_{n+s}
+% \end{eqnarray}
+% 
+% \begin{ex}
+% Mostre que o método BDF com $s=3$ é
+% \begin{eqnarray}
+%   u_{n+3} -\frac{18}{11} u_{n+2}+\frac{9}{11}u_{n+1}-\frac{2}{11}u^{(n)} &= \frac{6}{11}h f_{n+3}
+% \end{eqnarray}
+% \end{ex}
+% 
+% \subsection*{Exercícios}
+% 
+% \begin{exer}
+% Mostre que o método BDF com $s=1$ é o método de Euler implícito.
+% \end{exer}
+% 
+% \begin{exer}
+% Mostre que o método BDF com $s=2$ é
+% \begin{eqnarray}
+%   u_{n+2} -\frac{4}{3} u_{n+1} + \frac{1}{3}u^{(n)} &= \frac{2}{3}h f_{n+2}
+% \end{eqnarray}
+% \end{exer}
+% 
+% 
+% \section{O método de Taylor}
+% Uma maneira simples de aumentar a ordem dos métodos de Euler anteriormente descritos consiste em truncar a série de Taylor de $u(t+h)$:
+% \begin{eqnarray}
+%  u(t+h)=u(t) +h u'(t)+ \frac{h^2}{2!}u''(t)+\frac{h^3}{3!}u'''(t)+\ldots
+% \end{eqnarray}
+% 
+% Utilizando dois termos temos o método de Euler. Utilizando os três primeiros termos da série e substituindo $u'(t)=f(t,x)$ e $u''(t)=\frac{\partial f}{\partial t}(t,x)$ temos o \emph{método de Taylor de ordem $2$}
+% \begin{eqnarray}
+%    u_{n+1}=u^{(n)} +h f(t^{(n)},u^{(n)})+ \frac{h^2}{2!} \frac{\partial f}{\partial t}(t^{(n)},u^{(n)})
+% \end{eqnarray}
+% 
+% 
+% O método de Taylor de ordem $3$ é
+% \begin{eqnarray*}
+%    u_{n+1}=u^{(n)} +h f(t^{(n)},u^{(n)})+ \frac{h^2}{2!}\frac{\partial f}{\partial t}(t^{(n)},u^{(n)})+\frac{h^3}{3!}\frac{\partial^2 f}{\partial t^2}(t^{(n)},u^{(n)})
+% \end{eqnarray*}
+% 
+% \subsection*{Exercícios resolvidos}
+% 
+% \emconstrucao
+% 
+% \subsection*{Exercícios}
+% 
+% \emconstrucao
+% 
+% \section{Estabilidade dos métodos de Taylor}
+% \begin{ex}
+% Prove que para um método de Taylor de ordem $p$ para a EDO \eqref{EDO4.7} temos
+% \begin{eqnarray}
+%   p(z)= 1 + z+ \frac{z^2}{2!} +\frac{z^3}{3!}+\ldots +\frac{z^p}{p!}
+% \end{eqnarray}
+% onde  $u^{(n)} = (p(z))^nu_0$ e a região de estabilidade é dada por
+% \begin{eqnarray}
+%  \mathcal D_{T} = \{z \in  \field{C}:  \left|p(z)\right|<1\}
+% \end{eqnarray}
+% 
+% Trace as regiões de estabilidade para o método de Taylor para $p=1,\ldots ,6$ no mesmo gráfico.
+% \end{ex}
+% 
+% % \begin{figure}
+% % \begin{center}
+% %   \includegraphics[width=8cm]{RegiaoTaylor.eps}\\
+% %   \caption{Região de estabilidade paras os métodos de Taylor de ordem $1,\ldots ,4$ (interior as curvas). A curva mais interna é para $p=1$}\label{RegiaoTaylor}
+% % \end{center}
+% % \end{figure}
+% 
+% 
+% \begin{ex}
+% Aproxime a solução do problema de valor inicial
+% \begin{eqnarray}
+%    \frac{du}{dt} &=\sin{t}\\
+%             u(0) &= 1
+% \end{eqnarray}
+% para  $t\in [0,10]$.
+% 
+% \begin{enumerate}
+% \item [a.] Trace a solução para $h=0,16$, $0,08$, $0,04$, $0,02$ e $0,01$ para o método de Taylor de ordem $1$, $2$ e $3$. (Trace todos de ordem $1$ no mesmo gráfico, ordem $2$ em outro gráfico e ordem $3$ outro gráfico separado.)
+% 
+% \item [b.] Utilizando a solução exata, trace um gráfico do erro em escala logar\'itmica.
+% Comente os resultados (novamente, em cada gráfico separado para cada método repita os valores acima)
+% 
+% \item [c.] Fixe agora o valor $h=0,02$ e trace no mesmo gráfico uma curva para cada método.
+% 
+% \item [d.] Trace em um gráfico o erro em $t=10$ para cada um dos métodos (uma curva para cada ordem) a medida que $h$ diminui. (Use escala \verb#loglog#)
+% \end{enumerate}
+% \end{ex}
 
 
 
@@ -2227,7 +2224,7 @@ u^{(4)}(0)&=&u'''(0)=u''(0)=u'(0)=u(0)
 \begin{eqnarray*}
 u(t)=1+Ae^{r_1 t} + Be^{r_2 t} + Ce^{r_3 t} + De^{r_4 t} + Ee^{r_5 t} 
 \end{eqnarray*}
-onde $r_1$, $r_2$, $r_3$, $r_4$ e $r_5$ são as raízes do polinômio característico $$p(x)=x^5+ax^4+bx^3+cx^2+dx+1$$,
+onde $r_1$, $r_2$, $r_3$, $r_4$ e $r_5$ são as raízes do polinômio característico $$p(x)=x^5+ax^4+bx^3+cx^2+dx+1,$$
 cujas raízes, salvo casos particulares, só pode ser obtida por aproximações numéricas.
  \end{ex}
 
