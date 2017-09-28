@@ -15,21 +15,21 @@ Neste capítulo, vamos estudar metodologias numéricas para aproximar a soluçã
 A incógnita de um problema de valor inicial é uma função que satisfaz a equação diferencial \eqref{PVI_EDO} e a condição inicial \eqref{PVI_CI}.
 
 Considere os próximos três exemplos:
-\begin{ex}
+\begin{ex} O seguinte problema é linear não homogêneo:
 \begin{eqnarray}
    u'(t) &=t\\
    u(0) &= 2
 \end{eqnarray}
 \end{ex}
 
-\begin{ex}
+\begin{ex} O seguinte problema é linear homogêneo:
 \begin{eqnarray}
    u'(t) &=u(t)\\
             u(0) &= 1
 \end{eqnarray}
 \end{ex}
 
-\begin{ex}
+\begin{ex} O seguinte problema é não linear e não homogêneo:
 \begin{eqnarray}
    u'(t) &=&\sin(u(t)^2+\sin(t))\\
             u(0) &=& a
@@ -55,6 +55,61 @@ import matplotlib.pyplot as plt
 % \end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%e
+
+\section{Rudimentos da teoria de problemas de valor inicial}
+Uma questão fundamental no estudo dos problemas de valor iniciais consiste em analisar se um dado problema é um problema \emph{bem posto}. Ou seja,
+\begin{itemize}
+ \item Existe uma solução para o problema de valor inicial?
+ \item A solução é única?
+ \item A solução do problema de valor inicial é pouco sensível a pequenas perturbações nas condições iniciais?
+\end{itemize}
+
+A fim de responder tais questões, precisamos definir o conceito de função Lipschitz contínua, ou simplesmente, função Lipschitz \index{função!Lipschitz}
+\begin{defn}
+Uma função $f(t, u)$ é Lipschitz contínua em um intervalo $I$ em $u$ se existe uma constante $L$, tal que $\forall t \in [a, b]$ e $u, v \in \mathbb R$,
+$$ |f(t, u)-f(t, v)| \leq L|u-v|,~~\forall t\in I. $$
+\end{defn}
+
+O seguinte resultado estabelece a existência e unicidade de solução para determinada classe de problemas de valor inicial:
+\begin{teo}[Teorema de Picard-Lindelöf] Seja $f(t, u)$ contínua em $t$ e Lipschitz em $u$. Então o seguinte problema de valor inicial\index{teorema!de Picard-Lindelöf}
+\begin{eqnarray}\label{pvi:pvi_picard}
+  u'(t)  &=& f(t, u(t)), \\
+  u(t^{(1)}) &=& a,
+\end{eqnarray}
+Admite uma única solução em um intervalo $[t^{(1)},t^{(f)})$ com $t^{(f)}>t^{(1)}.$
+\end{teo}
+
+% \begin{defn}
+%   \emph{Estabilidade dinâmica} refere-se a propriedade de pequenas perturbações sobre o estado inicial de um sistema gerarem pequenas variações no estado final deste sistema (haverá decaimento nas variações, ou pelo menos não crescimento, quanto $t$ cresce).
+% \end{defn}
+
+\begin{teo}[Dependência contínua na condição inicial]
+Se $u(t)$ e $v(t)$ são soluções do problema de valor inicial \eqref{pvi:pvi_picard}, isto é, com $f(t, u)$ contínua em $t$ e Lipschitz em $u$ Lipschitz com $u(a)=u^{(1)}$, $v(a)=v^{(1)}$, então
+$$ |u(t)-v(t)| \leq  e^{L(t-t^{(1)})}|u^{(1)}-v_1| . $$
+\end{teo}
+
+\subsection*{Exercícios resolvidos}
+
+\begin{exeresol} A função $f(t,u)=\sqrt{u},~~u\geq 0$ não é uma função Lipschitz em $u$, pois
+$$\lim_{u\to 0+} \frac{|f(t,u)-f(t,0)|}{|u-0|}=\lim_{u\to 0+} \frac{\sqrt{u}}{u}=\lim_{u\to 0+} \frac{1}{\sqrt{u}}=\infty$$
+ Mostre que o seguinte problema de valor inicial não admite solução única:
+\begin{eqnarray}
+   \frac{du}{dt} &=&\sqrt{u},~~u>0,\\
+            u(0) &=& 0.
+\end{eqnarray}
+\end{exeresol}
+\begin{resol}
+ A função identicamente nula, $u(t)=0$, satisfaz a equação diferencial e a condição de contorno, logo é uma solução do problema de valor inicial. No entanto, a função\footnote{Esta solução pode ser obtida por separação de variáveis.} $u(t)=\frac{t^2}{4}$ satisfaz a condição inicial, pois $u(0)=0$ e a equação diferencial pois $\frac{du}{dt}=\frac{t}{2}=\sqrt{\frac{t^2}{4}}$.
+ 
+ De fato, qualquer função do tipo
+ $$u(t)=\left\{
+ \begin{array}{ll}
+  0,&0\leq t \leq t_0\\
+  \frac{(t-t_0)^2}{4},& t >t_0\\
+ \end{array}
+ \right.$$
+ é solução do problema de valor inicial dado.
+\end{resol}
 
 
 \section{Método de Euler}\index{método!de Euler}\label{pvi:euler}
@@ -88,11 +143,6 @@ Este procedimento pode ser repetido para  $t^{(3)}$, $t^{(4)}$, $\ldots$, obtend
 u^{(n+1)}&=&u^{(n)} + h\;f(t^{(n)},u^{(n)}),\\
 u^{(1)}&=&u^{(1)}=u(t^{(1)})~ \hbox{(condição inicial)}.
 \end{eqnarray}
-
-
-
-% Note que o método numérico pode ser escrito como $R_h(u)_n=f(t_n,u_n)$ onde, para o método de Euler,
-% $$R_h(u)_n=\frac{u_{n+1}-u_n}{h}$$
 
 
 \begin{ex}
@@ -581,9 +631,7 @@ S  =
  
     6.8532949    6.8522554    6.8522454    6.8522453    6.8522453 
  \end{verbatim}
-
 \fi
-
 \ifisoctave
 O seguinte código pode ser usado para implementar no \verb+Octave+ a recursão acima:
 \begin{verbatim}
@@ -613,16 +661,6 @@ S =
     6.8533   6.8523   6.8522   6.8522   6.8522
 \end{verbatim}
 \fi
-
-
-
-
-
-
-
-
-
-
 \ifispython
 O seguinte código pode ser usado para implementar no \verb+Python+ a recursão acima:
 
@@ -1094,7 +1132,7 @@ Agora notamos que o termo principal do erro é dado por $\frac{h^2}{2}u''(t^{(n)
 \begin{defn} O \emph{erro de truncamento global} é definido como erro acumulado ao longo de todos os passo de resolução, supondo a condição inicial exata.
 \end{defn}
 
-A relação entre o erro de truncamento global e o erro de truncamento local depende da função $f(t,u)$ envolvida, sobre suficiente regularidade, o erro acumulado é da mesma ordem de grande do erro de truncamento local multiplicado pelo número de passos. Como o número de passos $N$ necessários para calcular a solução de um problema de valor inicial no ponto $t=t_{f}$ é dado por $N=\frac{t_f}{h}$, temos que a erro de truncamento global é uma ordem inferior ao erro de truncamento local e equivale à ordem de precisão do método.
+A relação entre o erro de truncamento global e o erro de truncamento local depende da função $f(t,u)$ envolvida. Diante de suficiente regularidade, o erro acumulado é da mesma ordem de grande do erro de truncamento local acumulado ao longo do processo, isto é, pode ser estimado multiplicando o erro local pelo número de passos. Como o número de passos $N$ necessários para calcular a solução de um problema de valor inicial no ponto $t=t_{f}$ é dado por $N=\frac{t_f}{h}$, temos que a erro de truncamento global é uma ordem inferior ao erro de truncamento local e equivale à ordem de precisão do método.
 
 Usamos também a notação $ETL$ para o erro de truncamento local e $ETG$ para o erro de truncamento global. De forma que, para o método de Euler, temos:
 $$ETL_{Euler} = O(h^2) ~~~ \hbox{e} ~~~ ETG_{Euler}=O(h).$$
@@ -1160,6 +1198,7 @@ com passo $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e $h=10^{-5}$ para 
    \end{tabular}
 \end{center}
 \end{resp}
+
 
 
 
@@ -1803,7 +1842,7 @@ Observe que quando $\theta =1$, a relação recai no método de Euler, quando $\
 
 
 %\section{Métodos de passo múltiplo}
-\section{Método de Adams-Bashforth}\index{Método!de Adams-Bashforth}\index{Método!de passo múltiplo}
+\section{Método de Adams-Bashforth}\index{Método!de Adams-Bashforth}\index{Método!de passo múltiplo}\label{pvi:Adams_Bashforth}
 Seja o problema de valor inicial
 \begin{eqnarray}
   u'(t) &= f(t,u(t)) \\
@@ -1929,7 +1968,7 @@ O valor inicial é dado por $y^{(1)}=0$. No entanto, para inicializar o método,
 
 \emconstrucao
 
-\section{Método de Adams-Moulton}\index{Método!de Adams-Moulton}
+\section{Método de Adams-Moulton}\index{Método!de Adams-Moulton}\label{pvi:Adams_Moulton}
 O método de Adams-Moulton, assim como o método de Adams-Bashforth, é um método de passo múltiplo. A diferença entre estes dois métodos é que Adams-Bashforth é explícito, enquanto Adams-Moulton é implícito, isto é, os valores de $f\left(t,u)\right)$, nos passos $n$, $n+1$, ..., $n+s-1$ e, inclusive, $n+s$ são utilizados ao calcular $f$ em $t^{(n+s)}$.
 
 Considere o problema de valor inicial
@@ -1984,30 +2023,6 @@ A tabela abaixo mostra as coeficientes do método de Adams-Moulton para até oit
  \end{equation*}
  
 \end{ex}
-
-
-%até aqui
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 % 
@@ -2185,8 +2200,107 @@ Encontre o método de Adams-Moulton para $s=1$.
 % \end{ex}
 
 
+\section{Estratégia preditor-corretor}\index{preditor-corretor}
+Esquemas implícitos como o de Adams-Moulton (Seção~\ref{pvi:Adams_Moulton}) e o de Runge-Kutta (Seção~\ref{pvi:sec_IRK}), embora úteis para resolver problemas rígidos (ver Seção~\ref{pvi:stiff}), apresentam a dificuldade de necessitar do valor de $f(t^{(n+1)},u^{(n+1)})$ para calcular o valor de $u^{(n+1)}$, exigindo a solução de uma equação algébrica a cada passo. Uma forma de aproximar o comportamento de um método ímplicito através de um esquema implícito consiste em aplicar a, assim chamada, \emph{estratégia preditor-corretor}.
 
-\section{Estratégia preditor-corretor}
+Os métodos do tipo preditor-corretor empregam um esquema explícito para \emph{predizer} o valor de $u^{(n+1)}$ e, depois, um método implícito para recalcular, isto é, \emph{corrigir} $u^{(n+1)}$.
+
+\begin{ex} Considere o método de Euler implícito (ver \ref{pvi:euler_imp}) aplicado para resolver  o problema de valor inicial
+\begin{eqnarray*}
+  u'(t)  &=& f(t,u(t)) \\
+  u(t^{(1)}) &=& a
+\end{eqnarray*}
+cujo processo iterativo é dado por
+\begin{eqnarray*}
+u^{(n+1)}=u^{(n)} + h f(t^{(n+1)},u^{(n+1)}).
+\end{eqnarray*}
+Agora aplicamos o método de Euler (ver \ref{pvi:euler}) para predizer $u^{(n+1)}$:
+\begin{eqnarray*}
+u^{(n+1)}=u^{(n)} + h f(t^{(n)},u^{(n)}).
+\end{eqnarray*}
+E agora, retornamos ao método de Euler implícito:
+\begin{eqnarray*}
+u^{(n+1)}=u^{(n)} + h f(t^{(n+1)},\tilde{u}^{(n+1)}).
+\end{eqnarray*}
+Desta forma, a estratégia preditor-corretor aplicada ao método de Euler implícito com predição via método de Euler produz o método de Euler melhorado, ver \ref{pvi:sec_euler_mod}, isto é:
+\begin{eqnarray*}
+\tilde{u}^{(n+1)}&=&u^{(n)} + h f(t^{(n)},u^{(n)}),\\
+u^{(n+1)}&=&u^{(n)} + h f(t^{(n+1)},\tilde{u}^{(n+1)}).
+\end{eqnarray*}
+\end{ex}
+
+
+\begin{ex} Considere o método de trapezoidal (ver \ref{pvi:trapezoidal}) aplicado para resolver o problema de valor inicial
+\begin{eqnarray*}
+  u'(t)  &=& f(t,u(t)) \\
+  u(t^{(1)}) &=& a
+\end{eqnarray*}
+cujo processo iterativo é dado por
+\begin{eqnarray*}
+u^{(n+1)}=u^{(n)} + \frac{h}{2} \left[f(t^{(n)},u^{(n)})+f(t^{(n+1)},u^{(n+1)})\right].
+\end{eqnarray*}
+Agora aplicamos o método de Euler (ver \ref{pvi:euler}) para predizer $u^{(n+1)}$:
+\begin{eqnarray*}
+\tilde{u}^{(n+1)}=u^{(n)} + h f(t^{(n)},u^{(n)}).
+\end{eqnarray*}
+E agora, retornamos ao método trapezoidal para obter:
+\begin{eqnarray*}
+\tilde{u}^{(n+1)}&=&u^{(n)} + h f(t^{(n)},u^{(n)}),\\
+u^{(n+1)}&=&u^{(n)} + \frac{h}{2} \left[f(t^{(n)},u^{(n)})+f(t^{(n+1)},\tilde{u}^{(n+1)})\right].
+\end{eqnarray*}
+\end{ex}
+
+\begin{ex} Considere o método de Adams-Moulton de segunda ordem (ver \ref{pvi:Adams_Moulton}) aplicado para resolver  o problema de valor inicial
+\begin{eqnarray*}
+  u'(t)  &=& f(t,u(t)) \\
+  u(t^{(1)}) &=& a
+\end{eqnarray*}
+cujo processo iterativo é dado por
+\begin{eqnarray*}
+u^{(n+1)}=u^{(n)} + \frac{h}{2} \left[f(t^{(n)},u^{(n)})+f(t^{(n+1)},u^{(n+1)})\right].
+\end{eqnarray*}
+Agora aplicamos o método de Adams-Bashforth de segunda ordem (ver \ref{pvi:Adams_Bashforth}) para predizer $u^{(n+1)}$:
+\begin{eqnarray*}
+\tilde{u}^{(n+1)}=u^{(n)} + \frac{h}{2} \left[-f(t^{(n-1)},u^{(n-1)})+3f(t^{(n)},u^{(n)})\right].
+\end{eqnarray*}
+Assim, obtemos o seguinte método:
+\begin{eqnarray*}
+\tilde{u}^{(n+1)}&=&u^{(n)} + \frac{h}{2} \left[-f(t^{(n-1)},u^{(n-1)})+3f(t^{(n)},u^{(n)})\right],\\
+u^{(n+1)}&=&u^{(n)} + \frac{h}{2} \left[f(t^{(n)},u^{(n)})+f(t^{(n+1)},\tilde{u}^{(n+1)})\right].
+\end{eqnarray*}
+\end{ex}
+
+\subsection*{Exercícios}
+\begin{exer} Construa o esquema preditor corretor combinando Adams-Moulton de quarta ordem e Adams-Bashforth de quarta ordem. 
+\end{exer}
+\begin{resp}
+\begin{eqnarray*}
+\tilde{u}^{(n+1)}&=&u^{(n)} + \frac{h}{24} \left[-9f(t^{(n-3)},u^{(n-3)}) + 37f(t^{(n-2)},u^{(n-2)}) - 59 f(t^{(n-1)},u^{(n-1)})  + 55f(t^{(n)},u^{(n)})\right],\\
+u^{(n+1)}&=&u^{(n)} + \frac{h}{24} \left[f(t^{(n-2)},u^{(n-2)})-5f(t^{(n-1)},u^{(n-1)})+19f(t^{(n)},u^{(n)})+9 f(t^{(n+1)},\tilde{u}^{(n+1)})\right].
+\end{eqnarray*}
+ \end{resp}
+
+ \begin{exer} Seja o problema de valor inicial dado por:
+\begin{eqnarray*}
+  u'(t)  &=& \sqrt{u(t)+1} \\
+  u(0) &=& 0
+\end{eqnarray*} Resolva numéricamente esse problema pelos seguintes métodos:
+\begin{enumerate}
+ \item Runge-Kutta segunda ordem.
+\end{enumerate}
+
+
+pelo método de Adams-Bashforth de segunda ordem e pelo método preditor corretor combinando Adams-Bashforth de segunda order com Adams-Moulton de segunda ordem. Compare a solução obtida para $t=10$ com a solução exata dada por:
+$$u(t)=\frac{t^2+t}{4}.$$
+ Inicialize os métodos empregando Runge-Kuta de segunda ordem. 
+\end{exer}
+
+
+
+
+
+\section{Problemas rígidos}\index{problema!rígido}\index{problema!stiff}\label{pvi:stiff}
+
 
 \section{Validação e {\it Benchmarking}}\index{validação}\index{Benchmark} %Talvez um dia mover para um capítulo aparte falando de métodos numéricos em geral.
 Toda metodologia numérica deve ser validada ao ser aplicada para resolver um problema. A validação aumenta a confiabilidade na qualidade dos resultados obtidos. A validação procura detectar erros de implementação, características numéricas espúrias não prevista em projeto, como propagação catastrófica erros de arrendodamento, inadequação do método para o problema proposto etc.  A principal técnica de validação consiste em comparar a solução produzida com soluções de alta qualidade e confiabilidade, os chamados {\it benchmarks}. Quando um {\it benchmark} não estiver disponível, ainda se dispõe de algumas técnicas para avaliar a qualidade do método. Existe uma hierarquia das técnicas de  validação conforme listados a seguir:
