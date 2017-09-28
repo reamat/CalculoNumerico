@@ -3,60 +3,6 @@
 %\documentclass[main.tex]{subfiles}
 %\begin{document}
 
-\section{Teoria qualitativa para problemas de valor inicial}
-Uma questão fundamental é analisar se um dado problema de valor inicial é um problema \emph{bem posto}. Ou seja,
-\begin{itemize}
- \item Existe uma solução para o problema de valor inicial?
- \item A solução é única?
- \item A solução do problema de valor inicial é pouco sensível a pequenas perturbações nas condições iniciais?
-\end{itemize}
-
-
-\begin{defn}
-A função $f(t, u)$ é Lipschitz em $u$ se existe uma constante $L$, tal que $\forall t \in [a, b]$ e $u, v \in \mathbb R$,
-$$ |f(t, u)-f(t, v)| \leq L|u(t)-v(t)|. $$
-\end{defn}
-
-
-\begin{teo}
-Seja $f(t, u)$ contínua em $t$ e Lipschitz em $u$. Então existe uma única solução para o problema de valor inicial
-\begin{eqnarray}
-  u'(t)  &=& f(t, u(t)) \\
-  u(t^{(1)}) &=& a.
-\end{eqnarray}
-\end{teo}
-
-\begin{defn}
-  \emph{Estabilidade dinâmica} refere-se a propriedade de pequenas perturbações sobre o estado inicial de um sistema gerarem pequenas variações no estado final deste sistema (haverá decaimento nas variações, ou pelo menos não crescimento, quanto $t$ cresce).
-\end{defn}
-
-\begin{teo}[Dependência na condição inicial]
-Se $u(t)$ e $v(t)$ são soluções do problema de valor inicial com $f$ Lipschitz com $u(t^{(1)})=u^{(1)}$, $v(t^{(1)})=v_1$, então
-$$ |u(t)-v(t)| \leq  e^{L(t-t^{(1)})}|u^{(1)}-v_1| . $$
-\end{teo}
-
-\subsection*{Exercícios resolvidos}
-
-\begin{exeresol} A função $f(t,u)=\sqrt{u},~~u\geq 0$ não é uma função Lipschitz em $u$, pois
-$$\lim_{u\to 0+} \frac{|f(t,u)-f(t,0)|}{|u-0|}=\lim_{u\to 0+} \frac{\sqrt{u}}{u}=\lim_{u\to 0+} \frac{1}{\sqrt{u}}=\infty$$
- Mostre que o seguinte problema de valor inicial não admite solução única:
-\begin{eqnarray}
-   \frac{du}{dt} &=&\sqrt{u},~~u>0,\\
-            u(0) &=& 0.
-\end{eqnarray}
-\end{exeresol}
-\begin{resol}
- A função identicamente nula, $u(t)=0$, satisfaz a equação diferencial e a condição de contorno, logo é uma solução do problema de valor inicial. No entanto, a função\footnote{Esta solução pode ser obtida por separação de variáveis.} $u(t)=\frac{t^2}{4}$ satisfaz a condição inicial, pois $u(0)=0$ e a equação diferencial pois $\frac{du}{dt}=\frac{t}{2}=\sqrt{\frac{t^2}{4}}$.
- 
- De fato, qualquer função do tipo
- $$u(t)=\left\{
- \begin{array}{ll}
-  0,&0\leq t \leq t_0\\
-  \frac{(t-t_0)^2}{4},& t >t_0\\
- \end{array}
- \right.$$
- é solução do problema de valor inicial dado.
-\end{resol}
 
 
 \emconstrucao
