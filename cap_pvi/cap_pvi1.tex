@@ -1928,7 +1928,7 @@ A tabela abaixo mostra as coeficientes do método de Adams-Bashforth para até p
 \end{obs}
 
 \subsection*{Exercícios resolvidos}
-\begin{exeresol} Resolva numericamente o problema de valor inicial dado por:
+\begin{exeresol}\label{pvi:Adams_Bashforth:prob1} Resolva numericamente o problema de valor inicial dado por:
 \begin{eqnarray*}
  y'(t)&=& \sqrt{1+y(t)}\\
  y(0)&=& 0
@@ -1950,14 +1950,15 @@ O valor inicial é dado por $y^{(1)}=0$. No entanto, para inicializar o método,
   \begin{eqnarray*}
  y^{(1)}&=&0\\
  y^{(2)}&=&0,10244044\\
- y^{(3)}&=&0,2\\
- y^{(4)}&=&0,30749575\\
- y^{(5)}&=&0,41931393\\
- y^{(6)}&=&0,53606035\\
- y^{(7)}&=&0,65758990\\
- y^{(8)}&=&0,78392927\\
- y^{(9)}&=&0,91508145\\
- y^{(10)}&=&1,0510535
+  y^{(3)}&=& 0,20749575\\
+ y^{(4)}&=& 0,31982633\\
+ y^{(5)}&=& 0,43720882\\
+ y^{(6)}&=& 0,55959244\\
+ y^{(7)}&=& 0,68697608\\
+ y^{(8)}&=& 0,81935972\\
+ y^{(9)}&=& 0,95674337\\
+ y^{(10)}&=& 1,09912701\\
+ y^{(11)}&=& 1,24651065
 \end{eqnarray*}
 
 \end{resol}
@@ -2076,7 +2077,41 @@ A tabela abaixo mostra as coeficientes do método de Adams-Moulton para até oit
 
 \subsection*{Exercícios resolvidos}
 
-\emconstrucao
+\begin{exeresol}\label{pvi:Adams_Moulton:prob1} Repita o Problema~\ref{pvi:Adams_Bashforth:prob1} pelo método de Adams-Moulton, isto, é  resolva numericamente o problema de valor inicial dado por:
+\begin{eqnarray*}
+ y'(t)&=& \sqrt{1+y(t)}\\
+ y(0)&=& 0
+\end{eqnarray*}
+aplicando o método de Adams-Moulton de dois passos. Calcule o valor de $y(1)$ com passo de tamanho $h=0,1$.
+\end{exeresol}
+\begin{resol} 
+Primeiro observamos que o processo resursivo do método de Adams é dado por: 
+\begin{equation}\label{pvi:Adams_Moulton:prob1:rec}
+  y^{(n+1)}=y^{(n)}+\frac{h}{2}\left[f\left(t^{(n+1)},u(t^{(n+1)})\right)+f\left(t^{(n)},u(t^{(n)})\right)\right],~n=1,2,\ldots
+ \end{equation}
+O valor inicial é dado por $y^{(1)}=0$. Primeiramente, precisamos isolar $y^{(x+1)}$ na Equação~\ref{pvi:Adams_Moulton:prob1:rec}:
+\begin{equation*}
+  y^{(n+1)}=y^{(n)}+\frac{h}{8} \sqrt {{h}^{2}+16+16y^{(n)}+8h\sqrt {1+y^{(n)}}} +\frac{h}{2}\sqrt {1+y^{(n)}}+\frac{h^2}{8},~n=1,2,\ldots
+ \end{equation*}
+
+  \begin{eqnarray*}
+ y^{(1)}&=&0\\
+ y^{(2)}&=&0,1025\\
+y^{(3)}&=&0,21\\
+y^{(4)}&=&0,3225\\
+y^{(5)}&=&0,44\\
+y^{(6)}&=&0,5625\\
+y^{(7)}&=&0,69\\
+y^{(8)}&=&0,8225\\
+y^{(9)}&=&0,96\\
+y^{(10)}&=&1,1025\\
+y^{(11)}&=&1,25
+\end{eqnarray*}
+
+\end{resol}
+
+
+
 
 \subsection*{Exercícios}
 
