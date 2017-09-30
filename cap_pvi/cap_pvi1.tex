@@ -2001,6 +2001,11 @@ Aplicando a mudança de variáveis $t=t^{(n+s-1)}+h\tau$, temos:
 &=& \frac{(-1)^{s-j}}{j!(s-j)!}\int_{0}^{1} \prod_{k=0,k\neq s-j-1}^{s}(\tau+k-1)d\tau
 \end{eqnarray*}
 
+Assim, obtemos a relação de recorrência:
+\begin{eqnarray}\label{pvi:mam}
+  u^{(n+s)}  &=& u^{(n+s-1)}  + h\sum_{j=0}^{s}\beta_j f(t^{(n+j)},u^{(n+j)})
+\end{eqnarray}
+
 
 A tabela abaixo mostra as coeficientes do método de Adams-Moulton para até oito passos. 
  \begin{center}
@@ -2024,6 +2029,25 @@ A tabela abaixo mostra as coeficientes do método de Adams-Moulton para até oit
  \end{equation*}
  
 \end{ex}
+
+\subsection{Problemas lineares}
+Esquemas implícitos como o de Adams-Moulton apresentam a dificuldade adicional de necessitar do valor de $f(t^{(n+1)},u^{(n+1)})$ para calcular o valor de $u^{(n+1)}$. Pelo menos para sistemas lineares, o método pode ser explicitado. Seja o seguinte problema de valor inicial linear:
+\begin{eqnarray*}
+ u'(t)&=& Au(t) + g(t),\\
+ u(t^{(1)}) &=& a.
+\end{eqnarray*}
+Onde $u(t)$ é um vetor de n entradas e $A$ é uma matriz $n\times n$.
+
+Considere agora o esquema de Adams-Moulton dado na Equação~\eqref{pvi:mam} com $f(t,u)=Au+g(t)$:
+\begin{eqnarray*}
+  u^{(n+s)}  &=& u^{(n+s-1)}  + h\sum_{j=0}^{s}\beta_j \left[Au^{(n+j)} + g(t^{(n+j)})\right]
+\end{eqnarray*}
+o que pode ser escrito como:
+\begin{eqnarray}\label{pvi:adams:lineares}
+  \left(I_d-h\beta_s A\right)u^{(n+s)}  &=& u^{(n+s-1)}  + h\sum_{j=0}^{s-1}\beta_j \left[Au^{(n+j)}+ g(t^{(n+j)})\right]\nonumber\\
+  &+& h\beta_s g(t^{(n+s)}) 
+\end{eqnarray}
+onde $I_d$ é matriz identidade $n\times n$. O sistema linear envolvido em \ref{pvi:adams:lineares} pode ser resolvido sempre que $I_d-h\beta_s A$ for inversível, o que sempre acontece quando $h$ é suficientemente pequeno.
 
 
 % 
