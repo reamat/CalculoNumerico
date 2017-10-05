@@ -1927,6 +1927,57 @@ A tabela abaixo mostra as coeficientes do método de Adams-Bashforth para até p
 \begin{obs} Note que os métodos de múltiplo passo requerem o conhecimento dos $s$ valores previamente computados para calcular $y^{(n+s)}$. Assim, para inicializar um algoritmo com mais de um passo, não é suficiente conhecer a condição inicial. Usualmente, calcula-se os primeiros $s$ passos usando um algoritmo de passo simples da mesma ordem do método múltiplo passo a ser aplicado.
 \end{obs}
 
+
+
+% 
+% Quando $a_s=1$, $a_{s-1}=-1$, $a_m=0$ para $m=s-2,\ldots ,0$, $b_s\neq 0$ temos um método de Adams-Moulton do tipo
+% \begin{eqnarray}\label{AM}
+%   u_{n+s}  &= u_{n+s-1}  + h \sum_{m=0}^{s} b_m f_{n+m}
+% \end{eqnarray}
+% Note que os métodos de Adams-Moulton são implícitos pois $b_s\neq 0$.
+% 
+% 
+% 
+% \begin{ex}
+% Vamos obter o método de Adams-Moulton para $s=3$ como
+% \begin{eqnarray}\label{AM4}
+%   u_{n+3}  &= u_{n+2}  + \int _{t_{n+3}}^{t_{n+4}} f(t,u(t)) \; dt \\
+%   u_{n+3}  &= u_{n+2}  + h \sum_{m=0}^{3} b_m f_{n+m} \\
+%   u_{n+3}  &= u_{n+2}  + h [b_3f_{n+3} +b_2f_{n+2} +b_1f_{n+1} +b_0f^{(n)}]
+% \end{eqnarray}
+% Para isso devemos obter $[b_3,b_2,b_1,b_0]$ tal que o método seja exato para polinômios até ordem $3$. Podemos obter esses coeficientes de maneira análoga a obter os coeficientes de um método para integração.
+% 
+% Supondo que os nós $t_k$ estejam igualmente espaçados, e para facilidade dos cálculos, como o intervalo de integração é $[t_{n+2},t_{n+3}]$, translade $t_{n+2}$ para a origem tal que $[t^{(n)},t^{(n+1)},\ldots ,t_{n+3}]=[-2h,-h,0,h]$.
+% 
+% Considere a base $[\phi _0(t),\ldots ,\phi _3(t)]=[1, t, t^2, t^3]$ e substitua $f(t)$ por $\phi _k(t)$ obtendo
+% \begin{eqnarray*}
+%       \int _0^{h} 1  \;dt = h             &= h( b_0(1)  +b_1(1)   + b_2(1)   + b_3(1)    )\\
+%       \int _0^{h} t  \;dt = \frac{h^2}{2}  &= h( b_0(h)  +b_1(0)   + b_2(-h) + b_3(-2h)  )\\
+%       \int _0^{h} t^2 \;dt = \frac{h^3}{3}  &= h( b_0(h)^2 +b_1(0)^2  + b_2(-h)^2+ b_3(-2h)^2 )\\
+%       \int _0^{h} t^3 \;dt = \frac{h^4}{4} &= h( b_0(h)^3 +b_1(0)^3  + b_2(-h)^3+ b_3(-2h)^3 )
+% \end{eqnarray*}
+% que pode ser escrito na forma matricial
+% \begin{eqnarray}
+% \left(
+%   \begin{array}{cccc}
+%     1  & 0 & 1    & 1   \\
+%     1  & 0 & -1   & -2  \\
+%     1  & 0 & 1    & 4   \\
+%     1  & 0 & -1   & -8
+%   \end{array}
+% \right)
+% \left(\begin{array}{c}  b_0 \\ b_1\\ b_2\\b_3   \end{array}\right)
+% =
+% \left(\begin{array}{c}  1  \\ 1/2 \\ 1/3 \\ 1/4  \end{array}\right)
+% \end{eqnarray}
+% Resolvendo o sistema obtemos
+% $$[b_0,b_1,b_2,b_3]=[\frac{1}{24},-\frac{5}{24},\frac{19}{24},\frac{9}{24},]$$
+% fornecendo a regra
+% \begin{eqnarray}
+%   u_{n+3}  &= u_{n+2}  + \frac{h}{24} [9 f_{n+3} +19f_{n+2} -5f_{n+1} +f^{(n)}]
+% \end{eqnarray}
+% \end{ex}
+
 \subsection*{Exercícios resolvidos}
 \begin{exeresol}\label{pvi:Adams_Bashforth:prob1} Resolva numericamente o problema de valor inicial dado por:
 \begin{eqnarray*}
@@ -1938,7 +1989,7 @@ aplicando o método de Adams-Bashforth de dois passos e inicializando o método 
 \begin{resol} 
 Primeiro observamos que o processo resursivo do método de Adams é dado por: 
 \begin{equation*}
-  y^{(n+2)}=y^{(n)}+\frac{h}{2}\left[3f\left(t^{(n+1)},u(t^{(n+1)})\right)-f\left(t^{(n)},u(t^{(n)})\right)\right],~n=1,2,\ldots
+  y^{(n+2)}=y^{(n+1)}+\frac{h}{2}\left[3f\left(t^{(n+1)},u(t^{(n+1)})\right)-f\left(t^{(n)},u(t^{(n)})\right)\right],~n=1,2,\ldots
  \end{equation*}
 O valor inicial é dado por $y^{(1)}=0$. No entanto, para inicializar o método, precisamos calcular $y^{(2)}$, para tal, aplicamos o método de Euler modificado:
 \begin{eqnarray*}
@@ -1946,22 +1997,60 @@ O valor inicial é dado por $y^{(1)}=0$. No entanto, para inicializar o método,
  k_2&=&\sqrt{1+0,1}=\sqrt{1,1}\approx 1,0488088 \\
  y^{(2)}&=& \frac{0,1}{2}\left(1+1,0488088 \right)=0,10244044 
   \end{eqnarray*}
-
+Aplicando o método de Adams-Bashforth, obtemos:  
   \begin{eqnarray*}
  y^{(1)}&=&0\\
  y^{(2)}&=&0,10244044\\
-  y^{(3)}&=& 0,20749575\\
- y^{(4)}&=& 0,31982633\\
- y^{(5)}&=& 0,43720882\\
- y^{(6)}&=& 0,55959244\\
- y^{(7)}&=& 0,68697608\\
- y^{(8)}&=& 0,81935972\\
- y^{(9)}&=& 0,95674337\\
- y^{(10)}&=& 1,09912701\\
- y^{(11)}&=& 1,24651065
-\end{eqnarray*}
-
+ y^{(3)}&=&0,20993619\\
+ y^{(4)}&=&0,32243326\\
+ y^{(5)}&=&0,43993035\\
+ y^{(6)}&=&0,56242745\\
+ y^{(7)}&=&0,68992455\\
+ y^{(8)}&=&0,82242165\\
+ y^{(9)}&=&0,95991874\\
+ y^{(10)}&=&1,10241584\\
+ y^{(11)}&=&1,24991294
+  \end{eqnarray*}
 \end{resol}
+
+\ifispython
+A seguinte rotina implementa o método:
+\begin{verbatim}
+def f(t,u):
+	return np.sqrt(1+u)
+
+def adams_bash_2(h,Tmax,u1):
+	dim=np.size(u1)
+	itmax=np.int(Tmax/h)
+	u=np.empty((itmax+1,dim))
+	u[0,:]=u1
+
+	#inicaliza com RK2
+	k1 = f(0,   u[0,:])
+	k2 = f(h, u[0,:] + k1* h)
+	u[1,:] = u[0,:] + (k1+k2)* h/2
+
+	fn_0=k1
+	for i in np.arange(0,itmax-1):
+		t=(i+1)*h
+		fn_1 = f(t,   u[i+1,:])
+		u[i+2,:] = u[i+1,:] + h*(-.5*fn_0 + 1.5*fn_1)
+		fn_0=fn_1
+	return u
+
+
+
+
+
+u0=0
+h=1e-1
+Tmax=1
+u=adams_bash_2(h,Tmax,u0)
+
+print u
+\end{verbatim}
+
+\fi
 
 \emconstrucao
 
@@ -2025,81 +2114,95 @@ A tabela abaixo mostra as coeficientes do método de Adams-Moulton para até oit
 
 \begin{ex} O esquema iterativo de Adams-Moulton com três passos, isto é, $s=2$ é dado na forma:
  \begin{equation*}
-  y^{(n+2)}=y^{(n)}+\frac{h}{12}\left[5f\left(t^{(n+2)},u(t^{(n+2)})\right)+8f\left(t^{(n+1)},u(t^{(n+1)})\right)-f\left(t^{(n)},u(t^{(n)})\right)\right]
+  u^{(n+2)}=u^{(n+1)}+\frac{h}{12}\left[5f\left(t^{(n+2)},u(t^{(n+2)})\right)+8f\left(t^{(n+1)},u(t^{(n+1)})\right)-f\left(t^{(n)},u(t^{(n)})\right)\right]
  \end{equation*}
+ \end{ex}
+
  
-\end{ex}
-
-\subsection{Problemas lineares}
-Esquemas implícitos como o de Adams-Moulton apresentam a dificuldade adicional de necessitar do valor de $f(t^{(n+1)},u^{(n+1)})$ para calcular o valor de $u^{(n+1)}$. Pelo menos para sistemas lineares, o método pode ser explicitado. Seja o seguinte problema de valor inicial linear:
-\begin{eqnarray*}
- u'(t)&=& Au(t) + g(t),\\
- u(t^{(1)}) &=& a.
-\end{eqnarray*}
-Onde $u(t)$ é um vetor de n entradas e $A$ é uma matriz $n\times n$.
-
-Considere agora o esquema de Adams-Moulton dado na Equação~\eqref{pvi:mam} com $f(t,u)=Au+g(t)$:
-\begin{eqnarray*}
-  u^{(n+s)}  &=& u^{(n+s-1)}  + h\sum_{j=0}^{s}\beta_j \left[Au^{(n+j)} + g(t^{(n+j)})\right]
-\end{eqnarray*}
-o que pode ser escrito como:
-\begin{eqnarray}\label{pvi:adams:lineares}
-  \left(I_d-h\beta_s A\right)u^{(n+s)}  &=& u^{(n+s-1)}  + h\sum_{j=0}^{s-1}\beta_j \left[Au^{(n+j)}+ g(t^{(n+j)})\right]\nonumber\\
-  &+& h\beta_s g(t^{(n+s)}) 
-\end{eqnarray}
-onde $I_d$ é matriz identidade $n\times n$. O sistema linear envolvido em \ref{pvi:adams:lineares} pode ser resolvido sempre que $I_d-h\beta_s A$ for inversível, o que sempre acontece quando $h$ é suficientemente pequeno.
-
-
-% 
-% Quando $a_s=1$, $a_{s-1}=-1$, $a_m=0$ para $m=s-2,\ldots ,0$, $b_s\neq 0$ temos um método de Adams-Moulton do tipo
-% \begin{eqnarray}\label{AM}
-%   u_{n+s}  &= u_{n+s-1}  + h \sum_{m=0}^{s} b_m f_{n+m}
-% \end{eqnarray}
-% Note que os métodos de Adams-Moulton são implícitos pois $b_s\neq 0$.
-% 
-% 
-% 
-% \begin{ex}
-% Vamos obter o método de Adams-Moulton para $s=3$ como
-% \begin{eqnarray}\label{AM4}
-%   u_{n+3}  &= u_{n+2}  + \int _{t_{n+3}}^{t_{n+4}} f(t,u(t)) \; dt \\
-%   u_{n+3}  &= u_{n+2}  + h \sum_{m=0}^{3} b_m f_{n+m} \\
-%   u_{n+3}  &= u_{n+2}  + h [b_3f_{n+3} +b_2f_{n+2} +b_1f_{n+1} +b_0f^{(n)}]
-% \end{eqnarray}
-% Para isso devemos obter $[b_3,b_2,b_1,b_0]$ tal que o método seja exato para polinômios até ordem $3$. Podemos obter esses coeficientes de maneira análoga a obter os coeficientes de um método para integração.
-% 
-% Supondo que os nós $t_k$ estejam igualmente espaçados, e para facilidade dos cálculos, como o intervalo de integração é $[t_{n+2},t_{n+3}]$, translade $t_{n+2}$ para a origem tal que $[t^{(n)},t^{(n+1)},\ldots ,t_{n+3}]=[-2h,-h,0,h]$.
-% 
-% Considere a base $[\phi _0(t),\ldots ,\phi _3(t)]=[1, t, t^2, t^3]$ e substitua $f(t)$ por $\phi _k(t)$ obtendo
-% \begin{eqnarray*}
-%       \int _0^{h} 1  \;dt = h             &= h( b_0(1)  +b_1(1)   + b_2(1)   + b_3(1)    )\\
-%       \int _0^{h} t  \;dt = \frac{h^2}{2}  &= h( b_0(h)  +b_1(0)   + b_2(-h) + b_3(-2h)  )\\
-%       \int _0^{h} t^2 \;dt = \frac{h^3}{3}  &= h( b_0(h)^2 +b_1(0)^2  + b_2(-h)^2+ b_3(-2h)^2 )\\
-%       \int _0^{h} t^3 \;dt = \frac{h^4}{4} &= h( b_0(h)^3 +b_1(0)^3  + b_2(-h)^3+ b_3(-2h)^3 )
-% \end{eqnarray*}
-% que pode ser escrito na forma matricial
-% \begin{eqnarray}
-% \left(
-%   \begin{array}{cccc}
-%     1  & 0 & 1    & 1   \\
-%     1  & 0 & -1   & -2  \\
-%     1  & 0 & 1    & 4   \\
-%     1  & 0 & -1   & -8
-%   \end{array}
-% \right)
-% \left(\begin{array}{c}  b_0 \\ b_1\\ b_2\\b_3   \end{array}\right)
-% =
-% \left(\begin{array}{c}  1  \\ 1/2 \\ 1/3 \\ 1/4  \end{array}\right)
-% \end{eqnarray}
-% Resolvendo o sistema obtemos
-% $$[b_0,b_1,b_2,b_3]=[\frac{1}{24},-\frac{5}{24},\frac{19}{24},\frac{9}{24},]$$
-% fornecendo a regra
-% \begin{eqnarray}
-%   u_{n+3}  &= u_{n+2}  + \frac{h}{24} [9 f_{n+3} +19f_{n+2} -5f_{n+1} +f^{(n)}]
-% \end{eqnarray}
-% \end{ex}
-
 \subsection*{Exercícios resolvidos}
+\begin{exeresol} Resolva o problema de valor inicial dado por:
+\begin{eqnarray*}
+ u'(t)&=& -2u(t) + te^{-t}\\
+ u(0)&=&-1
+\end{eqnarray*}
+via Adams-Moulton com $s=2$ (três passos) com $h=0,1$ e $h=0,01$ e compare com a solução exata dada por $u(t)=(t-1)e^{-t}$ nos instantes $t=1$ e $t=2$. Inicialize com Euler modificado.
+
+ \end{exeresol}
+\begin{resol}
+ Primeiro observamos que $f(u,t)=-2u + te^{-t}$ e que o esquema de Adams-Moulton pode ser escrito como:
+ \begin{equation*}
+  u^{(n+2)}=u^{(n+1)}+\frac{h}{12}\left[5f\left(t^{(n+2)},u(t^{(n+2)})\right)+8f\left(t^{(n+1)},u(t^{(n+1)})\right)-f\left(t^{(n)},u(t^{(n)})\right)\right]
+ \end{equation*}
+ de forma que:
+ \begin{eqnarray*}
+  u^{(n+2)}&=&u^{(n+1)}+\frac{h}{12}\left[8f\left(t^{(n+1)},u(t^{(n+1)})\right)-f\left(t^{(n)},u(t^{(n)})\right)\right]+\frac{5h}{12}f\left(t^{(n+2)},u(t^{(n+2)})\right)\\
+  &=&u^{(n)}+\frac{h}{12}\left[8f^{(n+1)}-f^{(n)}\right]+\frac{5h}{12}\left(t^{(n+2)}e^{t^{(n+2)}} -2 u(t^{(n+2)})\right)
+   \end{eqnarray*}
+ Assim:
+ \begin{eqnarray*}
+  \left(1+\frac{5h}{6}\right)u^{(n+2)}
+  &=&u^{(n+1)}+\frac{h}{12}\left[8f^{(n+1)}-f^{(n)}\right]+\frac{5h}{12}t^{(n+2)}e^{-t^{(n+2)}} 
+  \end{eqnarray*}
+ 
+ Os valores obtidos são:
+ 
+ \begin{tabular}{|c|c|c|}
+ \hline
+  &t=1&t=2\\
+ \hline
+  h=0,1  & -0,000223212480142 & 0,135292280956\\
+  h=0,01 & -2,02891229566e-07& 0,135335243537\\
+  Exato  & 0 & 0,135335283237\\
+  \hline
+ \end{tabular}
+\ifispython
+A seguinte rotina implementa a recursão:
+\begin{verbatim}
+## resolve u'(t)=l*u(t) + g
+
+def g(t):
+	return t*np.exp(-t)
+
+
+
+
+u0=-1
+h=1e-2
+Tmax=2
+itmax=np.int(Tmax/h)
+
+u=np.empty(itmax+1)
+fn=np.empty(itmax+1)
+
+u[0]=u0
+l=-2
+#Iniciliza com Euler modificado
+k1= l*u[0] + g(0)
+k2= l*(u[0]+h*k1) + g(h)
+u[1]= u[0]+ h *(k1+k2)/2
+
+fn[0]= k1
+fn[1]= l*u[1] + g(h)
+
+
+
+for n in np.arange(0,itmax-1):
+	gn2=g((n+2)*h)
+	
+	u[n+2]= (u[n+1] + h/12*(8*fn[n+1]-fn[n]) + 5*h/12*gn2 ) / (1+5*h/6)
+	fn[n+2]=l*u[n+2]+gn2
+
+for n in np.arange(0,itmax+1):
+	print h*n,u[n], (h*n-1)*np.exp(-h*n)
+\end{verbatim}
+
+
+\fi
+ 
+\end{resol}
+
+
+
 
 \begin{exeresol}\label{pvi:Adams_Moulton:prob1} Repita o Problema~\ref{pvi:Adams_Bashforth:prob1} pelo método de Adams-Moulton, isto, é  resolva numericamente o problema de valor inicial dado por:
 \begin{eqnarray*}
@@ -2258,6 +2361,26 @@ Encontre o método de Adams-Moulton para $s=1$.
 % \end{enumerate}
 % \end{ex}
 
+\section{Método de Adams-Moulton para sistemas lineares}
+Esquemas implícitos como o de Adams-Moulton apresentam a dificuldade adicional de necessitar do valor de $f(t^{(n+1)},u^{(n+1)})$ para calcular o valor de $u^{(n+1)}$. Pelo menos para sistemas lineares, o método pode ser explicitado. Seja o seguinte problema de valor inicial linear:
+\begin{eqnarray*}
+ u'(t)&=& Au(t) + g(t),\\
+ u(t^{(1)}) &=& a.
+\end{eqnarray*}
+Onde $u(t)$ é um vetor de n entradas e $A$ é uma matriz $n\times n$.
+
+Considere agora o esquema de Adams-Moulton dado na Equação~\eqref{pvi:mam} com $f(t,u)=Au+g(t)$:
+\begin{eqnarray*}
+  u^{(n+s)}  &=& u^{(n+s-1)}  + h\sum_{j=0}^{s}\beta_j \left[Au^{(n+j)} + g(t^{(n+j)})\right]
+\end{eqnarray*}
+o que pode ser escrito como:
+\begin{eqnarray}\label{pvi:adams:lineares}
+  \left(I_d-h\beta_s A\right)u^{(n+s)}  &=& u^{(n+s-1)}  + h\sum_{j=0}^{s-1}\beta_j \left[Au^{(n+j)}+ g(t^{(n+j)})\right]\nonumber\\
+  &+& h\beta_s g(t^{(n+s)}) 
+\end{eqnarray}
+onde $I_d$ é matriz identidade $n\times n$. O sistema linear envolvido em \ref{pvi:adams:lineares} pode ser resolvido sempre que $I_d-h\beta_s A$ for inversível, o que sempre acontece quando $h$ é suficientemente pequeno.
+
+
 
 \section{Estratégia preditor-corretor}\index{preditor-corretor}
 Esquemas implícitos como o de Adams-Moulton (Seção~\ref{pvi:Adams_Moulton}) e o de Runge-Kutta (Seção~\ref{pvi:sec_IRK}), embora úteis para resolver problemas rígidos (ver Seção~\ref{pvi:stiff}), apresentam a dificuldade de necessitar do valor de $f(t^{(n+1)},u^{(n+1)})$ para calcular o valor de $u^{(n+1)}$, exigindo a solução de uma equação algébrica a cada passo. Uma forma de aproximar o comportamento de um método ímplicito através de um esquema implícito consiste em aplicar a, assim chamada, \emph{estratégia preditor-corretor}.
@@ -2343,16 +2466,14 @@ u^{(n+1)}&=&u^{(n)} + \frac{h}{24} \left[f(t^{(n-2)},u^{(n-2)})-5f(t^{(n-1)},u^{
 \begin{eqnarray*}
   u'(t)  &=& \sqrt{u(t)+1} \\
   u(0) &=& 0
-\end{eqnarray*} Resolva numéricamente esse problema pelos seguintes métodos:
-\begin{enumerate}
- \item Runge-Kutta segunda ordem.
-\end{enumerate}
-
-
-pelo método de Adams-Bashforth de segunda ordem e pelo método preditor corretor combinando Adams-Bashforth de segunda order com Adams-Moulton de segunda ordem. Compare a solução obtida para $t=10$ com a solução exata dada por:
-$$u(t)=\frac{t^2+t}{4}.$$
+\end{eqnarray*} Resolva numericamente esse problema pelo método de Adams-Bashforth de segunda ordem e pelo método preditor corretor combinando Adams-Bashforth de segunda order com Adams-Moulton de segunda ordem. Compare a solução obtida para $t=10$ com a solução exata dada por:
+$$u(t)=\frac{t^2}{4}+t.$$
  Inicialize os métodos empregando Runge-Kuta de segunda ordem. 
 \end{exer}
+\begin{resp}
+ Adams-Bashforth: 34,99965176,~~ Preditor-corretor: 34,99965949,~~  Exato: 35
+
+\end{resp}
 
 
 
