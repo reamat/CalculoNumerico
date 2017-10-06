@@ -153,7 +153,7 @@ def pred_corr_adams_2_iterado(h,Tmax,u1):
 	k2 = f(h, u[0,:] + k1* h)
 	u[1,:] = u[0,:] + (k1+k2)* h/2
 
-	fn_0=k2
+	fn_0=k1
 	for i in np.arange(0,itmax-1):
 		t=(i+1)*h
 		fn_1 = f(t,   u[i+1,:])
