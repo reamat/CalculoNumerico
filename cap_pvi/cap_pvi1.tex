@@ -2192,9 +2192,82 @@ for n in np.arange(0,itmax+1):
 	print h*n,u[n], (h*n-1)*np.exp(-h*n)
 \end{verbatim}
 
+\fi
+\ifisoctave
+A seguinte rotina implementa a recursão:
+\begin{verbatim}
+function y = g(x)
+  y=x*exp(-x);
+endfunction
+
+function u=moulton(u0,h,Tmax)
+  itmax=Tmax/h;
+
+  u=[0:h:Tmax];
+  fn=[0:h:Tmax];
+
+  u(1)=u0;
+  l=-2;
+  %Iniciliza com Euler modificado
+  k1= l*u(1) + g(0);
+  k2= l*(u(1)+h*k1) + g(h);
+  u(2)= u(1)+ h *(k1+k2)/2;
+
+  fn(1)= k1;
+  fn(2)= l*u(2) + g(h);
+
+
+
+  for n=1:itmax-1
+    gn2=g((n+1)*h);
+    
+    u(n+2)= (u(n+1) + h/12*(8*fn(n+1)-fn(n)) + 5*h/12*gn2 ) / (1+5*h/6);
+    fn(n+2)=l*u(n+2)+gn2;
+  endfor
+  
+endfunction
+\end{verbatim}
 
 \fi
- 
+\ifisoctave
+A seguinte rotina implementa a recursão:
+\begin{verbatim}
+function y = g(x)
+  y=x*exp(-x);
+endfunction
+
+function u=moulton(u0,h,Tmax)
+  itmax=Tmax/h;
+
+  u=[0:h:Tmax];
+  fn=[0:h:Tmax];
+
+  u(1)=u0;
+  l=-2;
+  Iniciliza com Euler modificado
+  k1= l*u(1) + g(0);
+  k2= l*(u(1)+h*k1) + g(h);
+  u(2)= u(1)+ h *(k1+k2)/2;
+
+  fn(1)= k1;
+  fn(2)= l*u(2) + g(h);
+
+
+
+  for n=1:itmax-1
+    gn2=g((n+1)*h);
+    
+    u(n+2)= (u(n+1) + h/12*(8*fn(n+1)-fn(n)) + 5*h/12*gn2 ) / (1+5*h/6);
+    fn(n+2)=l*u(n+2)+gn2;
+  end
+  
+endfunction
+
+\end{verbatim}
+
+
+\fi
+
 \end{resol}
 
 
@@ -2202,8 +2275,8 @@ for n in np.arange(0,itmax+1):
 
 \begin{exeresol}\label{pvi:Adams_Moulton:prob1} Repita o Problema~\ref{pvi:Adams_Bashforth:prob1} pelo método de Adams-Moulton, isto, é  resolva numericamente o problema de valor inicial dado por:
 \begin{eqnarray*}
- y'(t)&=& \sqrt{1+y(t)}\\
- y(0)&=& 0
+ y'(t)&=& \sqrt{1+y(t)},\\
+ y(0)&=& 0,
 \end{eqnarray*}
 aplicando o método de Adams-Moulton de dois passos. Calcule o valor de $y(1)$ com passo de tamanho $h=0,1$.
 \end{exeresol}
@@ -2234,6 +2307,27 @@ y^{(11)}&=&1,25
 \end{resol}
 
 
+\begin{exeresol} Resolva o problema de valor inicial dado por
+\begin{eqnarray*}
+ y'(t)&=& y^3+t,\\
+ y(0)&=& 0,
+\end{eqnarray*}
+aplicando o método de Adams-Moulton de dois passos. Calcule o valor de $y(1)$ com passo de tamanho $h=0,1$.
+Primeiro observamos que o processo resursivo do método de Adams é dado por: 
+\begin{eqnarray*}
+  y^{(n+1)}&=&y^{(n)}+\frac{h}{2}\left[f\left(t^{(n+1)},u(t^{(n+1)})\right)+f\left(t^{(n)},u(t^{(n)})\right)\right],~n=1,2,\ldots,\\
+  y^{(1)}&=&0
+ \end{eqnarray*}
+Observamos que o problema de isolar $y^{(n+1)}$ pode ser escrito como
+\begin{eqnarray*}
+  y^{(n+1)}-\frac{h}{2}f\left(t^{(n+1)},u(t^{(n+1)})\right) &=&y^{(n)}+\frac{h}{2}f\left(t^{(n)},u(t^{(n)})\right)
+ \end{eqnarray*}
+O termo da direita é uma expressão não linear em $y^{(n+1)}$ e o termo da direita é conhecido, isto é, pode ser calculado com base nos valores anteriormente calculados. Devemos, então, escolher um método numérico de solução de equações algébricas não lineares (veja capítulo~\ref{cap_equacao1d}) como o método de Newton visto na Seção~\ref{metodo_newton_1d} para resolver uma equação do tipo:
+$$u-\frac{h}{2}f(t,u)=a,$$
+isto é:
+$$u-\frac{h}{2}\left(u^3+t\right)=a,$$
+com $a=y^{(n)}+\frac{h}{2}f\left(t^{(n)},u(t^{(n)})\right)$
+\end{exeresol}
 
 
 \subsection*{Exercícios}
