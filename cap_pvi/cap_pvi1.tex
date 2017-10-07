@@ -2307,12 +2307,12 @@ y^{(11)}&=&1,25
 \end{resol}
 
 
-\begin{exeresol} Resolva o problema de valor inicial dado por
+\begin{exeresol}\label{pvi:exersol_moulton_nl} Resolva o problema de valor inicial dado por
 \begin{eqnarray*}
  y'(t)&=& y^3+t,\\
  y(0)&=& 0,
 \end{eqnarray*}
-aplicando o método de Adams-Moulton de dois passos. Calcule o valor de $y(1)$ com passo de tamanho $h=0,1$.
+aplicando o método de Adams-Moulton de dois passos. Calcule o valor de $y(1)$ com passo de tamanho $h=0,1$ e $h=0,01$.
 Primeiro observamos que o processo resursivo do método de Adams é dado por: 
 \begin{eqnarray*}
   y^{(n+1)}&=&y^{(n)}+\frac{h}{2}\left[f\left(t^{(n+1)},u(t^{(n+1)})\right)+f\left(t^{(n)},u(t^{(n)})\right)\right],~n=1,2,\ldots,\\
@@ -2322,11 +2322,58 @@ Observamos que o problema de isolar $y^{(n+1)}$ pode ser escrito como
 \begin{eqnarray*}
   y^{(n+1)}-\frac{h}{2}f\left(t^{(n+1)},u(t^{(n+1)})\right) &=&y^{(n)}+\frac{h}{2}f\left(t^{(n)},u(t^{(n)})\right)
  \end{eqnarray*}
-O termo da direita é uma expressão não linear em $y^{(n+1)}$ e o termo da direita é conhecido, isto é, pode ser calculado com base nos valores anteriormente calculados. Devemos, então, escolher um método numérico de solução de equações algébricas não lineares (veja capítulo~\ref{cap_equacao1d}) como o método de Newton visto na Seção~\ref{metodo_newton_1d} para resolver uma equação do tipo:
-$$u-\frac{h}{2}f(t,u)=a,$$
+O termo da esquerda é uma expressão não linear em $y^{(n+1)}$ e o termo da direita é conhecido, isto é, pode ser calculado com base nos valores anteriormente calculados. Devemos, então, escolher um método numérico de solução de equações algébricas não lineares (veja capítulo~\ref{cap_equacao1d}) como o método de Newton visto na Seção~\ref{metodo_newton_1d} para resolver uma equação do tipo:
+$$u-\frac{h}{2}f(t^{(n+1)},u)=a,$$
 isto é:
-$$u-\frac{h}{2}\left(u^3+t\right)=a,$$
+$$u-\frac{h}{2}\left(u^3+t^{(n+1)}\right)=a,$$
 com $a=y^{(n)}+\frac{h}{2}f\left(t^{(n)},u(t^{(n)})\right)$
+Os valores obtidos são: $0,51988523$ e $0,51906493$ quando o método é inicializadom com Euler melhorado.
+\ifispython
+A seguinte rotina implementa a recursão:
+\begin{verbatim}
+ def f(t,u):
+	return u**3+t
+
+def resolve(u,t,a,h,beta): #resolve equacao nao-linear por metodo de Newton
+	ctrl=2
+	cont=0
+	while (ctrl>0):
+		cont=cont+1
+		residuo=u-beta*h*(u**3+t)-a
+		derivada=1-beta*h*3/2*u**2
+		u1=u-residuo/derivada
+		if np.abs(u1-u)<derivada*1e-10:
+			ctrl=ctrl-1
+		u=u1
+	#print cont
+	return u
+
+
+def adams_moulton_2(h,Tmax,u1):
+	itmax=np.int(Tmax/h)
+	u=np.empty((itmax+1,1))
+	u[0]=u1
+
+	for i in np.arange(0,itmax):
+		t=i*h
+		fn=f(t,u[i])
+		a=u[i] + h*fn/2
+		u[i+1]=resolve(u[i]+ h*fn,t+h,a,h,1/2)
+	return u
+
+
+
+u0=0
+h=1e-2
+Tmax=1
+itmax=np.int(Tmax/h)
+
+u=adams_moulton_2(h,Tmax,u0)
+print u[itmax]
+
+\end{verbatim}
+
+\fi
 \end{exeresol}
 
 
@@ -2353,6 +2400,13 @@ Encontre o método de Adams-Moulton para $s=1$.
  \end{equation*}
  Este esquema é equivalente ao método trapezoidal.
  \end{resp}
+
+ 
+ \begin{exer} Repita o Problema~\ref{pvi:exersol_moulton_nl} usando Adams-Moulton com 3 passos e inicilizando com Runge-Kutta quarta ordem clássico.
+  \end{exer}
+\begin{resp}
+ $0,51926089$ e  $0,5190569$.
+\end{resp}
 
   
 %  
