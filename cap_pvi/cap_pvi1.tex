@@ -2309,7 +2309,7 @@ y^{(11)}&=&1,25
 
 \begin{exeresol}\label{pvi:exersol_moulton_nl} Resolva o problema de valor inicial dado por
 \begin{eqnarray*}
- y'(t)&=& y^3+t,\\
+ y'(t)&=& y^3-y+t,\\
  y(0)&=& 0,
 \end{eqnarray*}
 aplicando o método de Adams-Moulton de dois passos. Calcule o valor de $y(1)$ com passo de tamanho $h=0,1$ e $h=0,01$.
@@ -2325,27 +2325,27 @@ Observamos que o problema de isolar $y^{(n+1)}$ pode ser escrito como
 O termo da esquerda é uma expressão não linear em $y^{(n+1)}$ e o termo da direita é conhecido, isto é, pode ser calculado com base nos valores anteriormente calculados. Devemos, então, escolher um método numérico de solução de equações algébricas não lineares (veja capítulo~\ref{cap_equacao1d}) como o método de Newton visto na Seção~\ref{metodo_newton_1d} para resolver uma equação do tipo:
 $$u-\frac{h}{2}f(t^{(n+1)},u)=a,$$
 isto é:
-$$u-\frac{h}{2}\left(u^3+t^{(n+1)}\right)=a,$$
+$$u-\frac{h}{2}\left(u^3-u+t^{(n+1)}\right)=a,$$
 com $a=y^{(n)}+\frac{h}{2}f\left(t^{(n)},u(t^{(n)})\right)$
-Os valores obtidos são: $0,51988523$ e $0,51906493$ quando o método é inicializadom com Euler melhorado.
+Os valores obtidos são: $0,37496894$ e $0,37512382$ quando o método é inicializadom com Euler melhorado.
 \ifispython
 A seguinte rotina implementa a recursão:
 \begin{verbatim}
- def f(t,u):
-	return u**3+t
+def f(t,u):
+	return u**3-u+t
 
 def resolve(u,t,a,h,beta): #resolve equacao nao-linear por metodo de Newton
 	ctrl=2
 	cont=0
 	while (ctrl>0):
 		cont=cont+1
-		residuo=u-beta*h*(u**3+t)-a
-		derivada=1-beta*h*3/2*u**2
+		residuo=u-beta*h*(u**3-u+t)-a
+		derivada=1-beta*h*(3*u**2-1)
 		u1=u-residuo/derivada
 		if np.abs(u1-u)<derivada*1e-10:
 			ctrl=ctrl-1
 		u=u1
-	#print cont
+#	print cont
 	return u
 
 
@@ -2405,7 +2405,7 @@ Encontre o método de Adams-Moulton para $s=1$.
  \begin{exer} Repita o Problema~\ref{pvi:exersol_moulton_nl} usando Adams-Moulton com 3 passos e inicilizando com Runge-Kutta quarta ordem clássico.
   \end{exer}
 \begin{resp}
- $0,51926089$ e  $0,5190569$.
+ $0,37517345$ e  $0,37512543$.
 \end{resp}
 
   
@@ -2625,6 +2625,12 @@ $$u(t)=\frac{t^2}{4}+t.$$
 
 \section{Problemas rígidos}\index{problema!rígido}\index{problema!stiff}\label{pvi:stiff}
 
+
+Considere o problema
+\begin{eqnarray*}
+ \left[\begin{array}{c}x_1'\\y_1'\end{array}\right]=\left[\begin{array}{cc}0 & 1\\100 & -101\end{array}\right]=\left[\begin{array}{c}x_1\\y_1\end{array}\right]
+\end{eqnarray*}
+com $x_1(0)=101$ e $x_2(0)=-10001$.
 
 \section{Validação e {\it Benchmarking}}\index{validação}\index{Benchmark} %Talvez um dia mover para um capítulo aparte falando de métodos numéricos em geral.
 Toda metodologia numérica deve ser validada ao ser aplicada para resolver um problema. A validação aumenta a confiabilidade na qualidade dos resultados obtidos. A validação procura detectar erros de implementação, características numéricas espúrias não prevista em projeto, como propagação catastrófica erros de arrendodamento, inadequação do método para o problema proposto etc.  A principal técnica de validação consiste em comparar a solução produzida com soluções de alta qualidade e confiabilidade, os chamados {\it benchmarks}. Quando um {\it benchmark} não estiver disponível, ainda se dispõe de algumas técnicas para avaliar a qualidade do método. Existe uma hierarquia das técnicas de  validação conforme listados a seguir:
