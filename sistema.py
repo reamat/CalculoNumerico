@@ -3,11 +3,11 @@ import numpy as np
 
 
 def f(t,u):
-#	return np.array([u[1], -u[0]])
+	return np.array([u[1], 100*u[0]-101*u[1]])
 #	return np.sqrt(1+u)
 #	return np.sqrt(1+u)*(np.fabs(2-u))
 #	return np.array([-u[1],u[0]+t])
-	return u**3+t+u
+	return u**3+t-u
 
 def euler(h,Tmax,u1):
 	dim=np.size(u1)
@@ -221,17 +221,19 @@ def adams_moulton_2(h,Tmax,u1):
 	return u
 
 
-#u0=np.array([0,1])
-u0=0
-h=1e-1
-Tmax=.7
+u0=np.array([101,-10001])
+#u0=0
+h=1e-4
+Tmax=.1
 itmax=np.int(Tmax/h)
 
 #for metodo in [euler, euler_mod, RK3_classico, RK4_classico, adams_bash_2]:
 #for metodo in [euler_mod, adams_bash_2, pred_corr_adams_2, pred_corr_adams_2_iterado, RK4_classico]:
-for metodo in [adams_moulton_2, adams_bash_2, pred_corr_adams_2, RK4_classico]:
+for metodo in [adams_bash_2, pred_corr_adams_2, RK4_classico]:
 	u=metodo(h,Tmax,u0)
 	print u[itmax,:]
+
+print 100*np.exp(-100*Tmax)+np.exp(-Tmax)
 
 	#for i in np.arange(0,itmax+1):
 #print u
