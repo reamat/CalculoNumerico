@@ -8,16 +8,16 @@ Neste capítulo, estudaremos o método de Newton aplicado à resolução de sist
 
 O método de Newton aplicado a encontrar a raiz $x^*$ da função $y=f(x)$ estudado na Seção~\ref{metodo_newton_1d} consiste em um processo iterativo. Em cada passo deste processo, dispomos de uma aproximação $x^{(k)}$ para $x^*$ e construímos uma nova aproximação $x^{(k+1)}$.  Cada passo do método de Newton envolve os seguintes procedimentos:
 \begin{itemize}
-\item Linearização da função $f(x)$ no ponto $x^{(k)}$: 
+\item Linearização da função $f(x)$ no ponto $x^{(k)}$:
   \begin{equation*}
-    f(x)= f(x^{(k)})+ (x-x^{(k)}) f'(x^{(k)}) + O\left(|x-x^{(k)}|^2\right)    
+    f(x)= f(x^{(k)})+ (x-x^{(k)}) f'(x^{(k)}) + O\left(|x-x^{(k)}|^2\right)
   \end{equation*}
 \item A aproximação $x^{(k+1)}$ é definida como o valor de $x$ em que a linearização $f(x^{(k)})+ (x-x^{(k)}) f'(x^{(k)})$ passa por zero.
 \end{itemize}
 
 %{\bf Observação:} $y=f(x^{(k)})+ (x-x^{(k)}) f'(x^{(k)})$ é a equação da reta que tangencia a curva $y=f(x)$ no ponto $(x^{(k)},f(x^{(k)}))$.
 
-Queremos, agora, generalizar o método de Newton a fim de resolver problemas de várias equações e várias incógnitas, ou seja, encontrar $x_1,x_2,\ldots x_n$ que satisfazem as seguinte equações:
+Queremos, agora, generalizar o método de Newton a fim de resolver problemas de várias equações e várias incógnitas, ou seja, encontrar $x_1,x_2,\ldots x_n$ que satisfazem as seguintes equações:
 
 \begin{eqnarray*}
 f_1(x_1,x_2,\ldots,x_n)&=&0\\
@@ -34,9 +34,9 @@ f_2(x_1,x_2,\ldots,x_n)\\
 \vdots\\
 f_n(x_1,x_2,\ldots,x_n)
 \end{array}
-\right]$$
+\right].$$
 
-\begin{ex} Suponha que queiramos resolver numericamente os seguinte sistema de duas equações e duas incógnitas:
+\begin{ex} Suponha que queiramos resolver numericamente o seguinte sistema de duas equações e duas incógnitas:
 \begin{eqnarray*}
 \frac{x_1^2}{3}+x_2^2&=&1\\
 x_1^2+\frac{x_2^2}{4}&=&1
@@ -119,9 +119,9 @@ from numpy import linalg
 Nesta seção, construiremos o método de Newton ou Newton-Raphson generalizado para sistemas. Assumimos, portanto, que a função $F(x)$ é diferenciável e que existe um ponto $x^*$ tal que $F(x^*)=0$. Seja $x^{(k)}$ uma aproximação para $x^*$, queremos construir uma nova aproximação $x^{(k+1)}$ através da linearização de $F(x)$ no ponto $x^{(k)}$.
 
 \begin{itemize}
-\item Linearização da função $F(x)$ no ponto $x^{(k)}$: 
+\item Linearização da função $F(x)$ no ponto $x^{(k)}$:
   \begin{equation*}
-F(x)= F(x^{(k)})+ J_F\left(x^{(k)}\right) \left(x-x^{(k)}\right)  + O\left(\|x-x^{(k)}\|^2\right)    
+F(x)= F(x^{(k)})+ J_F\left(x^{(k)}\right) \left(x-x^{(k)}\right)  + O\left(\|x-x^{(k)}\|^2\right)
   \end{equation*}
 \item A aproximação $x^{(k)}$ é definida como o ponto $x$ em que a linearização $F(x^{(k)})+ J_F\left(x^{(k)}\right) \left(x-x^{(k)}\right)$ é nula, ou seja:
 $$F(x^{(k)})+ J_F\left(x^{(k)}\right) \left(x^{(k+1)}-x^{(k)}\right)=0$$
@@ -139,7 +139,7 @@ Desta forma, o método iterativo de Newton-Raphson para encontrar as raízes de 
 \left\{\begin{array}{rcl}
 x^{(k+1)} &=& x^{(k)}-J_F^{-1}\left(x^{(k)}\right)F(x^{(k)}),~~ n\geq 0\\
 x^{(0)}&=&\text{dado inicial}
-\end{array}\right.  
+\end{array}\right.
 \end{equation*}
 
 \begin{obs} Usamos subíndices para indicar o elemento de um vetor e superíndices para indicar o passo da iteração. Assim, $x^{(k)}$ se refere à iteração $k$ e $x_i^{(k)}$ se refere à componente $i$ no vetor $x^{(k)}$.
@@ -153,7 +153,7 @@ $$J_F\left(x^{(k)}\right)\Delta^{(k)}= - F(x^{(k)})$$
 Em geral, é menos custoso resolver o sistema acima do que calcular o inverso da jacobiana e multiplicar pelo vetor $F(x^{(k)})$.
 \end{obs}
 
-\begin{ex} Retornamos ao nosso exemplo inicial, isto é, resolver numericamente os seguinte sistema não linear:
+\begin{ex} Retornamos ao nosso exemplo inicial, isto é, resolver numericamente o seguinte sistema não linear:
 \begin{eqnarray*}
 \frac{x_1^2}{3}+x_2^2&=&1\\
 x_1^2+\frac{x_2^2}{4}&=&1
@@ -264,7 +264,7 @@ Faremos a implementação numérica em \verb+Python+. Para tal definimos as fun�
 ...     y[0] = x[0]**2/3 + x[1]**2 - 1
 ...     y[1] = x[0]**2 + x[1]**2/4 - 1
 ...     return y
-... 
+...
 >>> def JF(x):
 ...     y = np.zeros((2,2))
 ...     y[0,0] = 2*x[0]/3
@@ -272,7 +272,7 @@ Faremos a implementação numérica em \verb+Python+. Para tal definimos as fun�
 ...     y[1,0] = 2*x[0]
 ...     y[1,1] = x[1]/2
 ...     return y
-... 
+...
 \end{verbatim}
 Desta forma, se $x$ é uma aproximação para a raiz, pode-se calcular a próxima aproximação através dos comandos:
 \begin{verbatim}
@@ -296,7 +296,7 @@ x_1^2=\cos(x_1x_2)+1\\
 \end{eqnarray*}
 que fica próxima ao ponto $x_1=1,5$ e $x_2=0,5$.
 \end{ex}
-\begin{sol} Vamos, aqui, dar as principais ideias para obter a solução usando o método de Newton. 
+\begin{sol} Vamos, aqui, dar as principais ideias para obter a solução usando o método de Newton.
 Começamos definindo nossa aproximação inicial por $x^{(1)} = (1,5, 0,5)$. Então iteramos:
 \begin{equation*}
   x^{(n+1)} = x^{(n)} - J_F^{-1}(x)F(x), \quad n\geq 1.
@@ -306,9 +306,9 @@ onde
     F(x)=\left[\begin{array}{c}
         \displaystyle x_1^2-\cos(x_1x_2)-1\\
         \displaystyle \sin(x_2)-2\cos(x_1)
-      \end{array}\right]  
+      \end{array}\right]
   \end{equation*}
-e sua jacobiana é 
+e sua jacobiana é
 \begin{equation*}
   J_F(x) = \left[\begin{array}{cc}
     \displaystyle 2x_1 +x_2\sin(x_1x_2) & x_1\sin(x_1x_2)\\
@@ -329,10 +329,10 @@ function y=F(x)
 endfunction
 
 function y=JF(x)
-    y(1,1) = 2*x(1)+x(2)*sin(x(1)*x(2)) 
+    y(1,1) = 2*x(1)+x(2)*sin(x(1)*x(2))
     y(1,2) = x(1)*sin(x(1)*x(2))
 
-    y(2,1) = 2*sin(x(1)) 
+    y(2,1) = 2*sin(x(1))
     y(2,2) = cos(x(2))
 endfunction
 \end{verbatim}
@@ -341,7 +341,7 @@ E agora, basta iterar:
 \begin{verbatim}
 x=[1.5; .5]
 x=x-JF(x)\F(x) //(5 vezes)
-\end{verbatim}  
+\end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
@@ -356,10 +356,10 @@ function y=F(x)
 endfunction
 
 function y=JF(x)
-    y(1,1) = 2*x(1)+x(2)*sin(x(1)*x(2)) 
+    y(1,1) = 2*x(1)+x(2)*sin(x(1)*x(2))
     y(1,2) = x(1)*sin(x(1)*x(2))
 
-    y(2,1) = 2*sin(x(1)) 
+    y(2,1) = 2*sin(x(1))
     y(2,2) = cos(x(2))
 endfunction
 \end{verbatim}
@@ -368,7 +368,7 @@ E agora, basta iterar:
 \begin{verbatim}
 x=[1.5; .5]
 x=x-JF(x)\F(x) //(5 vezes)
-\end{verbatim}  
+\end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
@@ -379,15 +379,15 @@ Em \verb+Python+, podemos implementá-las com o seguinte código:
 \begin{verbatim}
 def F(x):
     y = np.zeros(2)
-    
+
     y[0] = x[0]**2 - np.cos(x[0]*x[1]) - 1
     y[1] = np.sin(x[1]) - 2*np.cos(x[0])
-    
+
     return y
 
 def JF(x):
     y = np.zeros((2,2))
-    
+
     y[0,0] = 2*x[0] + x[1]*np.sin(x[0]*x[1])
     y[0,1] = x[0]*np.sin(x[0]*x[1])
 
@@ -401,7 +401,7 @@ E agora, basta iterar:
 \begin{verbatim}
 >>> x = np.array([1.5,0.5])
 >>> x=x-np.linalg.inv(JF(x)).dot(F(x))
-\end{verbatim}  
+\end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%
 \end{sol}
@@ -546,7 +546,7 @@ $x\approx 0,259751, y\approx  0,302736, z\approx  0,045896$
 
  \begin{resp}
   $y=mx+b$ com $m\approx - 0.0459710 $ e $b\approx 0.479237$
- 
+
  Uma metodologia possível para resolver este problema é dada a seguir:
 
 Sejam $x_1$ e $x_2$ as abscissas dos dois pontos em que a reta tangencia a curva. A equação da reta bitangente assume a seguinte forma:
@@ -686,14 +686,14 @@ Usando procedimentos analíticos, determine uma região limitada do plano onde s
 Encontre as raízes desse sistema com pelo menos quatro dígitos significativos corretos usando o método de Newton. Você deve construir o método de Newton indicando as funções envolvidas e calculando a matriz jacobiana analiticamente. Use que $\frac{d}{du}\tanh u = 1-\tanh^2u$, se precisar.
 \end{exer}
 \begin{resp}
- A primeira curva trata-se de uma elipse de centro $(3,1)$ e semi-eixos 4 e 6, portanto seus pontos estão contidos no retângulo $-1\leq x \leq 7$ e $-5\leq y \leq 7$. 
+ A primeira curva trata-se de uma elipse de centro $(3,1)$ e semi-eixos 4 e 6, portanto seus pontos estão contidos no retângulo $-1\leq x \leq 7$ e $-5\leq y \leq 7$.
 
 As soluções são $\left( -0,5384844 , -1,7978634\right)$ e $\left(2,8441544, 6,9954443\right)$.
 
 \ifisscilab
 Uma possível implementação é
 \begin{verbatim}
-    
+
 function z=f(x,y)
     z=(x-3)^2/16+(y-1)^2/36-1
 endfunction
@@ -704,7 +704,7 @@ endfunction
 
 contour([-1:.1:7],[-5:.1:7],f,[0 0])
 contour([-1:.1:7],[-5:.1:7],g,[0 0])
-    
+
 function y=F(x)
     y(1)=f(x(1),x(2))
     y(2)=g(x(1),x(2))
@@ -714,9 +714,9 @@ function y=JF(x)
     y(1,2)=(x(2)-1)/18
     y(2,1)=1/(1+x(1)^2)+1
     y(2,2)=-cos(x(2))-0.03*x(2)^2
-endfunction    
+endfunction
  \end{resp}
-    
+
 //primeiro ponto
 //x=[-.5;-2.0]
 
@@ -762,12 +762,12 @@ $A\approx  3.0297384 $ e $b\approx 1.4835346$.
 \end{resp}
 
 
- 
- 
+
+
  \begin{exer}Encontre o valor máximo da função $$f(x,y)=-x^4-y^6+3xy^3-x$$ na região $(x,y)\in [-2,0]\times [-2,0]$
  seguindo os seguintes passos:
 \begin{itemize}
-  \item[a)] Defina a função $z=f(x,y)=-x^4-y^6+3xy^3-x$ e trace o gráfico de contorno na região. 
+  \item[a)] Defina a função $z=f(x,y)=-x^4-y^6+3xy^3-x$ e trace o gráfico de contorno na região.
   \item[b)] Com base no gráfico, encontre valores aproximados para as coordenadas $xy$ do ponto de máximo.
   \item[c)] Sabendo que o ponto de máximo acontece quando o gradiente é nulo, escreva o problema como um sistema de duas equações não lineares e duas incógnitas.
   \item[d)] Implemente o método de Newton.
@@ -791,14 +791,14 @@ x=x-JF(x)\F(x)
 mprintf('f(%f,%f)=%f',x(1),x(2),f(x(1),x(2)))
 \end{verbatim}
 \fi
-\end{resp} 
+\end{resp}
 
- 
- 
+
+
  \begin{exer}A função $f(x,y,z)=\sin(x)+\sin(2y)+\sin(3z)$ possui um máximo quando $x=\pi/2$, $y=\pi/4$ e $z=\pi/6$. Calcule numericamente este ponto.
  \end{exer}
 
- 
+
  \begin{exer}\label{prob_sis3} Encontre as raizes do problema
  \begin{eqnarray*}
  3x-\cos(yz+z)-1/2&=&0\\
@@ -808,7 +808,7 @@ mprintf('f(%f,%f)=%f',x(1),x(2),f(x(1),x(2)))
  no cubo $|x|<2, |y|<2, |z|<2.$
  Dica: Reduza a um problema de duas incógnitas e use recursos gráficos para aproximar as raízes na região.
  \end{exer}
- 
+
  \begin{resp}
  $x\approx 0,2982646, y\approx -0,2990796, z\approx- 1,6620333$  e $x\approx -0,0691328, y\approx 0,2923039, z\approx -0,8235705$.
  \end{resp}
@@ -1042,4 +1042,4 @@ $$J_F=\left[
 $$
 \end{ex}
 
-%\end{document} 
+%\end{document}
