@@ -3,11 +3,13 @@ import numpy as np
 
 
 def f(t,u):
-	return np.array([u[1], 100*u[0]-101*u[1]])
+	return -50*(u-np.cos(t))
+#	return u**2-u**3
+#	return np.array([u[1], -100*u[0]-101*u[1]])
 #	return np.sqrt(1+u)
 #	return np.sqrt(1+u)*(np.fabs(2-u))
 #	return np.array([-u[1],u[0]+t])
-	return u**3+t-u
+#	return u**3+t-u
 
 def euler(h,Tmax,u1):
 	dim=np.size(u1)
@@ -179,60 +181,92 @@ def pred_corr_adams_2_iterado(h,Tmax,u1):
 
 	return u
 
-def adams_moulton_2(h,Tmax,u1):
+
+
+def adams_bash_4(h,Tmax,u1):
+	dim=np.size(u1)
 	itmax=np.int(Tmax/h)
-	u=np.empty((itmax+1,1))
-	u[0]=u1
+	u=np.empty((itmax+1,dim))
+	u[0,:]=u1
+	fn=np.empty((4,dim))
+
+	#inicaliza com RK4
+	for i in np.arange(0,3):
+		t=i*h
+		k1 = f(t,     u[i,:]         )
+		k2 = f(t+h/2, u[i,:] + h*k1/2)
+		k3 = f(t+h/2, u[i,:] + h*k2/2)
+		k4 = f(t+h,   u[i,:] + h*k3  )
+
+		u[i+1,:]=u[i,:]+h*(k1+2*k2+2*k3+k4)/6
+		fn[i]=k1
 
 
-	x0=u1
-	x1 = u[0] + f(0,   u[0])* h 	#constroi uma aproximacao para u[1] 
 
-	for i in np.arange(0,itmax-1):
-		t=(i+1)*h
-		fn_0=f(t-h,x0)
-		fn=fn_0
-		a=u[i] + h*fn_0/2
-	#	print t,a
-	
+	for i in np.arange(0,itmax-3):
+		fn[3] = f( (i+3)*h,  u[i+3,:])
+		u[i+4,:] = u[i+3,:] + h*(-9*fn[0] + 37*fn[1]- 59*fn[2]+ 55*fn[3])/24
 
-		res=1
-		cont=0;
-		while (cont<10): # and np.abs(x0-x1)>1e-10 and np.abs(res)>1e-10): #Aplica metodo das Secantes
-		#	print t,x1				
-			cont=cont+1
-			fn_1=f(t,x1)
-			m= 1-(3*x1**2+1)*h/2  # 1 - h*(fn_1-fn_0)/2/(x1-x0)
-			#print "m=",m
-		#	res=x1-h*fn_1/2-a
-			res=(x1-u[i])-h*(fn_1+fn)/2
-			x0=x1
-			x1=x1-(res)/m
-			#fn_0=fn_1
-
-		u[i+1] = x1 
-
-		x0=x1
-		x1=x1+h*fn_1
-
-
-#		print "u=",x1
+		fn[0]=fn[1]
+		fn[1]=fn[2]
+		fn[2]=fn[3]
+		
 
 	return u
 
 
-u0=np.array([101,-10001])
-#u0=0
-h=1e-4
-Tmax=.1
+def pred_corr_adams_4(h,Tmax,u1):
+	dim=np.size(u1)
+	itmax=np.int(Tmax/h)
+	u=np.empty((itmax+1,dim))
+	u[0,:]=u1
+	fn=np.empty((5,dim))
+
+	#inicaliza com RK4
+	for i in np.arange(0,3):
+		t=i*h
+		k1 = f(t,     u[i,:]         )
+		k2 = f(t+h/2, u[i,:] + h*k1/2)
+		k3 = f(t+h/2, u[i,:] + h*k2/2)
+		k4 = f(t+h,   u[i,:] + h*k3  )
+
+		u[i+1,:]=u[i,:]+h*(k1+2*k2+2*k3+k4)/6
+		fn[i]=k1
+
+
+
+	for i in np.arange(0,itmax-3):
+		fn[3] = f( (i+3)*h,  u[i+3,:])
+		u[i+4,:] = u[i+3,:] + h*(-9*fn[0] + 37*fn[1]- 59*fn[2]+ 55*fn[3])/24
+
+		for k in [0,1,2,3]:	
+			fn[4] = f( (i+4)*h,  u[i+4,:])
+			u[i+4,:] = u[i+3,:] + h*(fn[1] - 5*fn[2] + 19*fn[3]+ 9*fn[4])/24
+
+	
+		fn[0]=fn[1]
+		fn[1]=fn[2]
+		fn[2]=fn[3]
+		
+
+	return u
+
+
+
+#u0=np.array([101,-10001])
+u0=0.01
+h=1e-2
+Tmax=1000
 itmax=np.int(Tmax/h)
 
 #for metodo in [euler, euler_mod, RK3_classico, RK4_classico, adams_bash_2]:
 #for metodo in [euler_mod, adams_bash_2, pred_corr_adams_2, pred_corr_adams_2_iterado, RK4_classico]:
-for metodo in [adams_bash_2, pred_corr_adams_2, RK4_classico]:
+
+
+for metodo in [pred_corr_adams_4, adams_bash_4,  RK4_classico,adams_bash_2, pred_corr_adams_2]:
 	u=metodo(h,Tmax,u0)
 	print u[itmax,:]
-
+#	print u
 print 100*np.exp(-100*Tmax)+np.exp(-Tmax)
 
 	#for i in np.arange(0,itmax+1):
