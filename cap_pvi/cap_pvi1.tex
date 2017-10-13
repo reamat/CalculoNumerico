@@ -2639,7 +2639,7 @@ Toda metodologia numérica deve ser validada ao ser aplicada para resolver um pr
 \subitem Expressão aritmética: Expressões envolvendo apenas um número finito de operações aritméticas elementares (soma, subtração, multiplicação e divisão) e números inteiros. Ex: $u(t)=\frac{t^2+1}{3t-4}$ ou $u(t)=t^3+\frac{3}{4}.$
 \subitem Expressão algébrica:  Expressões envolvendo apenas um número finito de operações aritméticas elementares e expoentes fracionários. Ex: $u(t)=t^2+ \sqrt{t} $ ou $u(t)=t^{3/2}+\sqrt{2}$. 
 \subitem Expressão forma-fechada: Expressões envolvendo apenas um número finito de operações aritméticas elementares, expoentes reais, logaritmos, exponencias, funções trigonométricas e funções trigonométricas inversas. Ex: $u(t)=\ln(1+t^{\pi})$, $u(t)=e^{-t}\sin(t)$ ou $u(t)=\tan^{-1}(t+1)$.
-\subitem Expressão envolvendo funções especiais: Além das operações e funções acima, são permitadas funções especiais, como a função gama, funções de Bessel, séries de taylor, series de Fourier e outras séries envolvendo funções elementares e especiais. 
+\subitem Expressão envolvendo funções especiais: Além das operações e funções acima, são permitidas funções especiais, como a função gama, funções de Bessel, séries de taylor, series de Fourier e outras séries envolvendo funções elementares e especiais. 
 \item Expressão matemática semi-analítica: Expressão matemática envolvendo, além das operações e funções acima, outros processos de limite, como derivação e integração. Ex: $u(t)=\int_{0}^1 \log|t-x|x^t dx$.  
 \item Solução numérica com reformulação analítica prévia: Neste caso, não se dispõe de uma expressão matemática para a solução, mas pode-se comparar resultado produzido pelo método numérico com outro problema numérico cuja solução é a mesma e pode ser obtida por outra metodologia numérica mais confiável. 
 \item Benchmark puramente numérico: Um {\it benchmark} puramente numérico é uma aproximação numérica para a solução de um problema muito bem estabelecida e de alta confiabilidade. Os benchmarks numéricos normalmente são produzidos comparando diversos métodos numéricos diferentes e independentes e com grande refinamento.
@@ -2658,6 +2658,19 @@ admite uma solução em forma de expressão analítica dada por:
      u(t) = 2t+8e^{-t/2}. 
 \end{equation*} 
 \end{ex}
+
+\begin{ex}[Expressão envolvendo funções especiais] A solução do problema de valor inicial dado por:
+\begin{eqnarray*}
+u'(t)&=&-u^3(t)+u^2(t)\\
+u(0)&=&\frac{1}{2}
+\end{eqnarray*}
+é dada na forma:
+\begin{eqnarray*}
+u(t)=\frac{1}{1+W(e^{1-t})}
+\end{eqnarray*}
+onde $W$ é a função de Lambert é a função inversa de $f(y)=ye^y$, onde $y=W(x)$.
+\end{ex}
+
 
 \begin{ex}[Expressão matemática semi-analítica] A solução do problema de valor inicial dado por:
 \begin{eqnarray*}
@@ -2685,22 +2698,42 @@ u(0)&=&0
 Esta analítica estabelece uma relação funcional implícita entre $t$ e $u(t)$, no entanto, é necessário resolver uma equação algébrica não-linear para cada $t$. Ainda assim, pode ser um excelente benchmark, pois o valor de $u(t)$ é dado explicitamente em função de $t$, isto é, podemos ver $t$ como uma função de $u$. Por exemplo, é fácil descobrir que $u=1$ quando $t=\frac{\ln(2)}{4}+\frac{\pi}{8}\approx 0.5659858768387104$. Além disso tomando o limite $u\to +\infty$, descobrimos que $u(t)$ tende a infinito quando $t\to \frac{\pi}{4}-$.
 \end{ex}
 
- 
- 
- 
- \begin{ex}[??] A solução do problema de valor inicial dado por:
+ \begin{ex}[Solução numérica com reformulação analítica prévia] A solução do problema de valor inicial dado por:
 \begin{eqnarray*}
-u'(t)&=&-u^3(t)+u^2(t)\\
-u(0)&=&\frac{1}{2}
+u'(t)&=&\left[\cos\left(u(t)\right)+u(t)\right](1+\cos(t))\\
+u(0)&=&0
 \end{eqnarray*}
 é dada na forma:
 \begin{eqnarray*}
-u(t)=\frac{1}{1+W(e^{1-t})}
+\int_0^{y(t)}\frac{d\tau}{\cos(\tau)+\tau}=t+\sin(t)
 \end{eqnarray*}
-onde $W$ é a função de Lambert é a função inversa de $f(y)=ye^y$, onde $y=W(x)$.
+Esta expressão reformula o problema como uma equação integral em $y(t)$. Esta nova reformulação pode ser bastante útil para produzir resultados de benchmark se fixamos o forma de $y(t)$, usamos uma técnica de quadratura númerica de boa qualidade para aproximar a integral do lado esquerdo da equação. Por exemplo, escolhendo $t(y)=100$, temos:
+\begin{eqnarray*}
+\int_0^{100}\frac{d\tau}{\cos(\tau)+\tau}=5,574304717298400
+\end{eqnarray*}
+Resolvendo a equação algébrica 
+$$t+\sin(t)=5,574304717298400,$$
+obtemos:
+$$t=5,924938036503083.$$
+A tabela a seguir mostra os valores de $y(t)$ para $t=5,924938036503083$ obtidos por quatro métodos de quarta-ordem: Runge-Kutta clássico, Adams-Bashforth, preditor-corretor com Adams-Bashforth quarta ordem e Adams-Moulton quarta ordem e Adams-Moulton. Os últimos três métodos foram inicializados com Runge-Kutta clássico de quarta ordem.
 
+\begin{tabular}{|c|c|c|c|c|}
+ \hline
+ &$h=10^{-1}$&$h=10^{-2}$&$h=10^{-3}$&$h=10^{-4}$\\
+ \hline
+  Runge-Kutta 4 &       95,02737096& 99,04376734& 99,81705606 & 99,9925711 \\
+  \hline
+  Adams-Bashforth 4 &   94,68537569& 99,04349066& 99,81705572& 99,9925711\\
+  \hline
+  Pred. Corr. 4 &       94,68537569& 99,04349066& 99,81705572& 99,9925711\\
+  \hline
+  Adams-Moulton 4 &     94,71724913& 99,04324261& 99,81705570& 99,9925711\\
+\hline
+ \end{tabular}
+Para $h=10^{-6}$, todos os quatro métodos produzem o resultado $99,99999287$.
 \end{ex}
 
+  
  
  
 \section*{Exercícios finais}
