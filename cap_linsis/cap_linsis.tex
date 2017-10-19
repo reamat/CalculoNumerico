@@ -88,7 +88,7 @@ Na sua forma matricial, este sistema é escrito como
   \begin{bmatrix}
     x\\y\\z
   \end{bmatrix}
-}_{\underline{x}} = 
+}_{\underline{x}} =
 \underbrace{
   \begin{bmatrix}
     1\\2\\0
@@ -365,7 +365,7 @@ ans =
    1   0   0   1
    0   1   0  -1
    0   0   1   1
-\end{verbatim}  
+\end{verbatim}
 \end{obs}
 \fi
 %%%%%%%%%%%%%%%%%%%%
@@ -2871,7 +2871,7 @@ e para ao menos um $i$, $a_{ii}$ é estritamente maior que a soma dos elementos 
 \end{defn}
 
 \begin{teo}
- Se a matriz $A$ for diagonal dominante\footnote{E consequentemente estritamente diagonal dominante.}, então os métodos de Jacobi e Gauss-Seidel serão convergentes independente da escolha inicial $x^{(1)}$.
+ Se a matriz $A$ for diagonal dominante\footnote{Ou se for estritamente diagonal dominante e, consequentemente, diagonal dominante.}, então os métodos de Jacobi e Gauss-Seidel serão convergentes independente da escolha inicial $x^{(1)}$.
 \end{teo}
 
 Se conhecermos a solução exata $x$ do problema, podemos calcular o erro relativo em cada iteração como:
@@ -3082,12 +3082,12 @@ O método da potência para cálculo do maior autovalor (em módulo) consiste na
 \begin{equation}\begin{array}{l}
   \left\{\begin{array}{ll}
     \displaystyle x^{(1)} &=\text{aprox. inicial do autovetor},\\
-    \displaystyle \lambda^{(1)} &= {x^{(1)}}^T A x^{(1)},\\ 
+    \displaystyle \lambda^{(1)} &= {x^{(1)}}^T A x^{(1)},\\
   \end{array}\right.\\
   \left\{
   \begin{array}{ll}
     \displaystyle x^{(k+1)} &= \frac{A^kx^{(1)}}{\|A^kx^{(1)}\|_2},\\
-    \displaystyle \lambda^{(k+1)} &= {x^{(k+1)}}^T A x^{(k+1)},    
+    \displaystyle \lambda^{(k+1)} &= {x^{(k+1)}}^T A x^{(k+1)},
   \end{array}\right.,\quad k\geq 1.
   \end{array}\end{equation}
 
@@ -3100,23 +3100,23 @@ Para entender melhor o comportamento assintótico da sequência $\{x^{(n)}\}_{n\
     0&  0&\lambda_3&\cdots&0\\
     &\vdots& &\ddots&\\
     0&  0&0&\cdots&\lambda_n\\
-  \end{bmatrix}.  
+  \end{bmatrix}.
 \end{equation*}
 Suponha que um dos autovalores seja estritamente maior que os demais, isto é, $|\lambda_1|>|\lambda_2|\geq |\lambda_3|\geq \cdots\geq |\lambda_n|$. Dado $x^{(1)}=(\xi_1, \xi_2, \xi_3, \dotsc, \xi_n)$, então
 \begin{equation*}
-  A^kx^{(1)} = A^k\begin{bmatrix}\xi_1\\ \xi_2\\ \xi_3\\ \vdots \\ \xi_n\end{bmatrix} = \begin{bmatrix}\lambda_1^k\xi_1\\ \lambda_2^k\xi_2\\ \lambda_3^k\xi_3\\ \vdots \\ \lambda_n^k\xi_n\end{bmatrix} = \lambda_1^k\xi_1\begin{bmatrix}1\\ \frac{\xi_2}{\xi_1}\left(\frac{\lambda_2}{\lambda_1}\right)^k\\ \frac{\xi_3}{\xi_1}\left(\frac{\lambda_3}{\lambda_1}\right)^k\\ \vdots \\ \frac{\xi_n}{\xi_1}\left(\frac{\lambda_n}{\lambda_1}\right)^k\end{bmatrix},  
+  A^kx^{(1)} = A^k\begin{bmatrix}\xi_1\\ \xi_2\\ \xi_3\\ \vdots \\ \xi_n\end{bmatrix} = \begin{bmatrix}\lambda_1^k\xi_1\\ \lambda_2^k\xi_2\\ \lambda_3^k\xi_3\\ \vdots \\ \lambda_n^k\xi_n\end{bmatrix} = \lambda_1^k\xi_1\begin{bmatrix}1\\ \frac{\xi_2}{\xi_1}\left(\frac{\lambda_2}{\lambda_1}\right)^k\\ \frac{\xi_3}{\xi_1}\left(\frac{\lambda_3}{\lambda_1}\right)^k\\ \vdots \\ \frac{\xi_n}{\xi_1}\left(\frac{\lambda_n}{\lambda_1}\right)^k\end{bmatrix},
 \end{equation*}
 desde que $\xi_1\neq 0$. Como $\frac{\lambda_n}{\lambda_1}\leq \frac{\lambda_{n-1}}{\lambda_1}\leq \cdots \frac{\lambda_3}{\lambda_1}\leq \frac{\lambda_2}{\lambda_1}<1$, então $\left(\frac{\lambda_j}{\lambda_1}\right)^k$ tende a $0$ para cada $j$, $2\leq j\leq n$. Devido à normalização realizada em cada passo da sequência,
 \begin{equation*}
-  x^{(k+1)}=\frac{A^kx^{(1)}}{\|A^kx^{(1)}\|_2}  
+  x^{(k+1)}=\frac{A^kx^{(1)}}{\|A^kx^{(1)}\|_2}
 \end{equation*}
 converge para $\pm e_1$, $e_1=(1, 0, 0, \dotsc, 0)$. Também, a sequência
 \begin{equation*}
-  \lambda^{(k)}={x^{(k)}}^TAx^{(k)}  
+  \lambda^{(k)}={x^{(k)}}^TAx^{(k)}
 \end{equation*}
 converge para $\lambda_1$, pois
 \begin{equation*}
-  \lim_{k\to\infty}\lambda^{(k)}=(\pm e_1)^TA(\pm e_1)=\lambda_1e_1^Te_1=\lambda_1.  
+  \lim_{k\to\infty}\lambda^{(k)}=(\pm e_1)^TA(\pm e_1)=\lambda_1e_1^Te_1=\lambda_1.
 \end{equation*}
 
 Considere, agora, o caso onde $A$ é diagonalizável, ou seja, $A=U D U^{-1}$ com $U$ uma matriz ortogonal contendo os autovetores em cada coluna e $D$ uma matriz diagonal contendo os autovalores:
@@ -3127,7 +3127,7 @@ Considere, agora, o caso onde $A$ é diagonalizável, ou seja, $A=U D U^{-1}$ co
       0&  0&\lambda_3&\cdots&0\\
       &\vdots& &\ddots&\\
       0&  0&0&\cdots&\lambda_n\\
-    \end{bmatrix}.  
+    \end{bmatrix}.
 \end{equation*}
 Considere a mesma hipótese sobre os autovalores: $|\lambda_1|>|\lambda_2|\geq |\lambda_3|\geq \cdots\geq |\lambda_n|$. Então
 \begin{equation*}
@@ -3135,23 +3135,23 @@ Considere a mesma hipótese sobre os autovalores: $|\lambda_1|>|\lambda_2|\geq |
 \end{equation*}
 visto que $UU^{-1} = I$. Suponha que o chute inicial $x^{(1)}$ pode ser escrito da forma
 \begin{equation*}
-  x^{(1)} = UU^ {-1}x^{(1)} = U[\xi_1\ \ \xi_2\ \ \xi_3\ \ \cdots \ \ \xi_n]^T  
+  x^{(1)} = UU^ {-1}x^{(1)} = U[\xi_1\ \ \xi_2\ \ \xi_3\ \ \cdots \ \ \xi_n]^T
 \end{equation*}
 com $\xi_1\neq 0$. Então
 \begin{equation*}
-  A^kx^{(1)} = (UD^kU^{-1})U\begin{bmatrix} \xi_1\\ \xi_2\\ \xi_3\\ \vdots \\ \xi_n\end{bmatrix} = U\begin{bmatrix}\lambda_1^k\xi_1\\ \lambda_2^k\xi_2\\ \lambda_3^k\xi_3\\ \vdots \\ \lambda_n^k\xi_n\end{bmatrix} = \lambda_1^k\xi_1U\begin{bmatrix} 1\\ \frac{\xi_2}{\xi_1}\left(\frac{\lambda_2}{\lambda_1}\right)^k\\ \frac{\xi_3}{\xi_1}\left(\frac{\lambda_3}{\lambda_1}\right)^k\\ \vdots \\ \frac{\xi_n}{\xi_1}\left(\frac{\lambda_n}{\lambda_1}\right)^k\end{bmatrix}.  
+  A^kx^{(1)} = (UD^kU^{-1})U\begin{bmatrix} \xi_1\\ \xi_2\\ \xi_3\\ \vdots \\ \xi_n\end{bmatrix} = U\begin{bmatrix}\lambda_1^k\xi_1\\ \lambda_2^k\xi_2\\ \lambda_3^k\xi_3\\ \vdots \\ \lambda_n^k\xi_n\end{bmatrix} = \lambda_1^k\xi_1U\begin{bmatrix} 1\\ \frac{\xi_2}{\xi_1}\left(\frac{\lambda_2}{\lambda_1}\right)^k\\ \frac{\xi_3}{\xi_1}\left(\frac{\lambda_3}{\lambda_1}\right)^k\\ \vdots \\ \frac{\xi_n}{\xi_1}\left(\frac{\lambda_n}{\lambda_1}\right)^k\end{bmatrix}.
 \end{equation*}
 Como na discussão anterior, o último vetor converge para $\pm e_1$ e
 \begin{equation*}
-  x^{(k)} = \frac{A^kx^{(1)}}{\|A^kx^{(1)}\|_2}  
+  x^{(k)} = \frac{A^kx^{(1)}}{\|A^kx^{(1)}\|_2}
 \end{equation*}
 converge para $v_1=\pm Ue_1$ que é um múltiplo do autovetor associado a $\lambda_1$. Também, a sequência
 \begin{equation*}
-  \lambda^{(k)} = {x^{(k)}}^TAx^{(k)}  
+  \lambda^{(k)} = {x^{(k)}}^TAx^{(k)}
 \end{equation*}
 converge para o autovalor dominante $\lambda_1$:
 \begin{equation*}
-  \lim_{k\to\infty}\lambda^{(k)} =  v_1^TA v_1 = \lambda_1v_1^Tv_1=\lambda_1.  
+  \lim_{k\to\infty}\lambda^{(k)} =  v_1^TA v_1 = \lambda_1v_1^Tv_1=\lambda_1.
 \end{equation*}
 
 \begin{obs}
@@ -3159,7 +3159,7 @@ O método da potência tem duas restrições:
 \begin{itemize}
  \item[i)] A aproximação inicial $x^{(1)}$ não pode ser ortogonal ao autovetor associado ao autovalor dominante.
  \item[ii)] Um autovalor deve ter o módulo estritamente maior que os demais. Essa restrição impede o funcionamento do método no caso em que o autovalor dominante é complexo, pois eles aparecem em pares conjugados, possuindo o mesmo módulo.
-\end{itemize}  
+\end{itemize}
 \end{obs}
 
 \subsubsection{Outra análise para a convergência do método}
