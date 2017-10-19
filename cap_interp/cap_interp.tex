@@ -623,8 +623,10 @@ A função procurada pode ser construída da seguinte forma:
   f(x) = \left\{
     \begin{array}{ll}
       0\frac{x-1}{0-1} + 1\frac{x-0}{1-0} ,& 0 \leq x < 1\\
-      4\frac{x-2}{1-2} + 3\frac{x-1}{2-1} ,& 1\leq x < 2\\
-      3\frac{x-3}{2-3} + 0\frac{x-2}{3-2} ,& 2\leq x \leq 3
+      4\frac{x-2}{1-2} + 3\frac{x-1}{2-1} ,& 1 \leq x < 2\\
+      3\frac{x-3}{2-3} + 0\frac{x-2}{3-2} ,& 2 \leq x < 3\\
+      0\frac{x-4}{3-4} + 2\frac{x-3}{4-3} ,& 3 \leq x < 4\\
+      2\frac{x-5}{4-5} + 0\frac{x-4}{5-4} ,& 4 \leq x \leq 5
     \end{array}
 \right.
 \end{equation*}
@@ -632,9 +634,11 @@ Simplificando, obtemos:
 \begin{equation*}
   f(x) = \left\{
     \begin{array}{ll}
-      x ,& 0 \leq x < 1\\
-      -x + 5 ,& 1\leq x < 2\\
-      -3x + 9 ,& 2\leq x \leq 3
+        x     ,& 0 \leq x < 1\\
+       -x + 5 ,& 1 \leq x < 2\\
+      -3x + 9 ,& 2 \leq x < 3\\
+       2x - 6 ,& 3 \leq x < 4\\
+      -2x +10 ,& 4 \leq x \leq 5
     \end{array}
 \right.
 \end{equation*}
@@ -696,7 +700,7 @@ As duas últimas são obtidas pela solução do sistema de equações formado pe
 \begin{equation*}
 c_j=3\frac{y_{j+1}-y_j}{\left(x_{j+1}-x_j\right)^2}-\frac{y'_{j+1}+2y'_j}{x_{j+1}-x_j} \quad\text{e}\quad d_j=-2\frac{y_{j+1}-y_j}{\left(x_{j+1}-x_j\right)^3}+\frac{y'_{j+1}+y'_j}{\left(x_{j+1}-x_j\right)^2}
 \end{equation*}
-Esta relação entre o conjunto de valores para a derivada de um spline cúbico $\{y'_j\}_j=1^{n}$ nos pontos de interpolação $\mathcal{I}$ e os coeficientes dos polinômios em cada intervalo de interpolação pode ser resumida na seguinte proposição:
+Esta relação entre o conjunto de valores para a derivada de um spline cúbico $\{y'_j\}_{j=1}^{n}$ nos pontos de interpolação $\mathcal{I}$ e os coeficientes dos polinômios em cada intervalo de interpolação pode ser resumida na seguinte proposição:
 \begin{prop}
 	Seja $s$ um spline cúbico que interpola o conjunto de pontos $\mathcal{I}=\{(x_j,y_j)\}_{j=1}^n\subset\mathbb{R}^2$ tais que $x_{j+1}>x_j$. Se $\{y'_j\}_{j=1}^n$ é o conjunto dos valores da derivada de $s$ em $x_j$, então em cada intervalo $[x_j,x_{j+1})$ (fechado também à direita quando $j=n-1$) o spline é igual a $s_j$:
 	\begin{equation}\label{eq:spline3}
