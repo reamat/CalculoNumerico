@@ -115,9 +115,11 @@ Números em notação científica podem ser representados, tando usando `$\times
 #### Subíndices e superíndices
 
 Entradas de vetores e matrizes devem ser indicadas com subíndices:
+
     [v_1, v_2, v_3]
 
 Processos iterativos devem ser indicados com superíndices:
+
     x^{(n+1)}=x^{(n)} + \frac{1}{n}
 
 ### Exercícios
