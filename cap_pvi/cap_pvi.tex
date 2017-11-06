@@ -1925,8 +1925,51 @@ Observe que a integral envolvida no cálculo dos coeficientes $\beta_j$ em \eqre
  \end{equation*}
 \end{ex}
 
+\begin{obs} Os coeficientes do método de Adams-Bashforth de ordem $s$ podem, alternativamente, ser obtidos exigindo que o sistema seja exato para $f(t,u)=t^0$, $f(t,u)=t^1$, $f(t,u)=t^2$, \ldots, $f(t,u)=t^{s-1}$.
+ 
+\end{obs}
 
-A tabela abaixo mostra as coeficientes do método de Adams-Bashforth para até passos. 
+\begin{ex} Obtenha o método de Adams-Bashforth para $s=4$ como
+\begin{eqnarray}
+  u^{(n+4)}  &=& u^{(n+3)}  + \int _{t^{(n+3)}}^{t^{(n+4)}} f(t,u(t)) dt \\
+  u^{(n+4)}  &=& u^{(n+3)}  + h \sum_{m=0}^{3} b_m f^{(n+m)} \\
+  u^{(n+4)}  &=& u^{(n+3)}  + h \left[b_3f^{(n+3)} +b_2f^{(n+2)} +b_1f^{(n+1)} +b_0f^{(n)}\right]
+\end{eqnarray}
+Para isso devemos obter $[b_3,b_2,b_1,b_0]$ tal que o método seja exato para polinômios até ordem $3$. Podemos obter esses coeficientes de maneira análoga a obter os coeficientes de um método para integração.
+
+Supondo que os nós $t^{(k)}$ estejam igualmente espaçados, e para facilidade dos cálculos, como o intervalo de integração é $[t^{(n+3)},t^{(n+4)}]$, translade $t^{(n+3)}$ para a origem tal que $[t^{(n)},t^{(n+1)},\ldots ,t^{(n+4)}]=[-3h,-2h,-h,0,h]$.
+
+Considere a base $[1, t, t^2, t^3]$ e substitua $f(t)$ por cada um dos elementos desta basa, obtendo:
+\begin{eqnarray*}
+  \int _0^{h} 1  \;dt = h             &=& h\left[ b_0(1)  +b_1(1)    + b_2(1)   + b_3(1)    \right]\\
+  \int _0^{h} t  \;dt = \frac{h^2}{2}  &=& h\left[ b_0(0)  +b_1(-h)   + b_2(-2h) + b_3(-3h)  \right]\\
+  \int _0^{h} t^2 \;dt = \frac{h^3}{3}  &=& h\left[b_0(0)^2 +b_1(-h)^2  + b_2(-2h)^2+ b_3(-3h)^2 \right]\\
+  \int _0^{h} t^3 \;dt = \frac{h^4}{4} &=& h\left[ b_0(0)^3 +b_1(-h)^3  + b_2(-2h)^3+ b_3(-3h)^3 \right]
+\end{eqnarray*}
+que pode ser escrito na forma matricial
+\begin{eqnarray}
+\left(
+  \begin{array}{cccc}
+    1  &  1    & 1   & 1\\
+    0  &  -1   & -2  & -3\\
+    0  &  1    & 4   &  9\\
+    0  &  -1   & -8  & -27
+  \end{array}
+\right)
+\left(\begin{array}{c}  b_0 \\ b_1\\ b_2\\b_3   \end{array}\right)
+=
+\left(\begin{array}{c}  1  \\ 1/2 \\ 1/3 \\ 1/4  \end{array}\right)
+\end{eqnarray}
+Resolvendo o sistema obtemos
+$$[b_0,b_1,b_2,b_3]=\left[-\frac{9}{24},\frac{37}{24},-\frac{59}{24},\frac{55}{24}\right]$$
+fornecendo o \emph{método de Adams-Bashforth de $4$ estágios}
+\begin{eqnarray}\label{AB4}
+  u^{(n+4)}  &= u^{(n+3)}  + \frac{h}{24} [55 f^{(n+3)} -59f^{(n+2)} +37f^{(n+1)} -9f^{(n)}]
+\end{eqnarray}
+\end{ex}
+
+
+A tabela abaixo mostra as coeficientes do método de Adams-Bashforth para até 8 passos. 
  \begin{center}
 \begin{tabular}{|c|cccccccc|}
 \hline
@@ -1946,54 +1989,6 @@ A tabela abaixo mostra as coeficientes do método de Adams-Bashforth para até p
 
 
 
-% 
-% Quando $a_s=1$, $a_{s-1}=-1$, $a_m=0$ para $m=s-2,\ldots ,0$, $b_s\neq 0$ temos um método de Adams-Moulton do tipo
-% \begin{eqnarray}\label{AM}
-%   u_{n+s}  &= u_{n+s-1}  + h \sum_{m=0}^{s} b_m f_{n+m}
-% \end{eqnarray}
-% Note que os métodos de Adams-Moulton são implícitos pois $b_s\neq 0$.
-% 
-% 
-% 
-% \begin{ex}
-% Vamos obter o método de Adams-Moulton para $s=3$ como
-% \begin{eqnarray}\label{AM4}
-%   u_{n+3}  &= u_{n+2}  + \int _{t_{n+3}}^{t_{n+4}} f(t,u(t)) \; dt \\
-%   u_{n+3}  &= u_{n+2}  + h \sum_{m=0}^{3} b_m f_{n+m} \\
-%   u_{n+3}  &= u_{n+2}  + h [b_3f_{n+3} +b_2f_{n+2} +b_1f_{n+1} +b_0f^{(n)}]
-% \end{eqnarray}
-% Para isso devemos obter $[b_3,b_2,b_1,b_0]$ tal que o método seja exato para polinômios até ordem $3$. Podemos obter esses coeficientes de maneira análoga a obter os coeficientes de um método para integração.
-% 
-% Supondo que os nós $t_k$ estejam igualmente espaçados, e para facilidade dos cálculos, como o intervalo de integração é $[t_{n+2},t_{n+3}]$, translade $t_{n+2}$ para a origem tal que $[t^{(n)},t^{(n+1)},\ldots ,t_{n+3}]=[-2h,-h,0,h]$.
-% 
-% Considere a base $[\phi _0(t),\ldots ,\phi _3(t)]=[1, t, t^2, t^3]$ e substitua $f(t)$ por $\phi _k(t)$ obtendo
-% \begin{eqnarray*}
-%       \int _0^{h} 1  \;dt = h             &= h( b_0(1)  +b_1(1)   + b_2(1)   + b_3(1)    )\\
-%       \int _0^{h} t  \;dt = \frac{h^2}{2}  &= h( b_0(h)  +b_1(0)   + b_2(-h) + b_3(-2h)  )\\
-%       \int _0^{h} t^2 \;dt = \frac{h^3}{3}  &= h( b_0(h)^2 +b_1(0)^2  + b_2(-h)^2+ b_3(-2h)^2 )\\
-%       \int _0^{h} t^3 \;dt = \frac{h^4}{4} &= h( b_0(h)^3 +b_1(0)^3  + b_2(-h)^3+ b_3(-2h)^3 )
-% \end{eqnarray*}
-% que pode ser escrito na forma matricial
-% \begin{eqnarray}
-% \left(
-%   \begin{array}{cccc}
-%     1  & 0 & 1    & 1   \\
-%     1  & 0 & -1   & -2  \\
-%     1  & 0 & 1    & 4   \\
-%     1  & 0 & -1   & -8
-%   \end{array}
-% \right)
-% \left(\begin{array}{c}  b_0 \\ b_1\\ b_2\\b_3   \end{array}\right)
-% =
-% \left(\begin{array}{c}  1  \\ 1/2 \\ 1/3 \\ 1/4  \end{array}\right)
-% \end{eqnarray}
-% Resolvendo o sistema obtemos
-% $$[b_0,b_1,b_2,b_3]=[\frac{1}{24},-\frac{5}{24},\frac{19}{24},\frac{9}{24},]$$
-% fornecendo a regra
-% \begin{eqnarray}
-%   u_{n+3}  &= u_{n+2}  + \frac{h}{24} [9 f_{n+3} +19f_{n+2} -5f_{n+1} +f^{(n)}]
-% \end{eqnarray}
-% \end{ex}
 
 \subsection*{Exercícios resolvidos}
 \begin{exeresol}\label{exeresol:Adams_Bashforth:prob1} Resolva numericamente o problema de valor inicial dado por:
@@ -2111,6 +2106,52 @@ Assim, obtemos a relação de recorrência:
 \begin{eqnarray}\label{eq:mam}
   u^{(n+s)}  &=& u^{(n+s-1)}  + h\sum_{j=0}^{s}\beta_j f(t^{(n+j)},u^{(n+j)})
 \end{eqnarray}
+
+
+\begin{obs} Os coeficientes do método de Adams-Moulton de $s$ passos podem, alternativamente, ser obtidos exigindo que o sistema seja exato para $f(t,u)=t^0$, $f(t,u)=t^1$, $f(t,u)=t^2$, \ldots, $f(t,u)=t^{s}$.
+
+\end{obs}
+
+\begin{ex} Obtenha o método de Adams-Moulton para $s=3$ como
+\begin{eqnarray}\label{AM4}
+  u^{(n+3)}  &= u^{(n+2)}  + \int _{t^{(n+3)}}^{t^{(n+4)}} f(t,u(t)) \; dt \\
+  u^{(n+3)}  &= u^{(n+2)}  + h \sum_{m=0}^{3} b_m f^{(n+m)} \\
+  u^{(n+3)}  &= u^{(n+2)}  + h \left[b_3f^{(n+3)} +b_2f^{(n+2)} +b_1f^{(n+1)} +b_0f^{(n)}\right]
+\end{eqnarray}
+Para isso devemos obter $[b_3,b_2,b_1,b_0]$ tal que o método seja exato para polinômios até ordem $3$. Podemos obter esses coeficientes de maneira análoga a obter os coeficientes de um método para integração.
+
+Supondo que os nós $t_k$ estejam igualmente espaçados, e para facilidade dos cálculos, como o intervalo de integração é $[t^{(n+2)},t^{(n+3)}]$, translade $t^{(n+2)}$ para a origem tal que $[t^{(n)},t^{(n+1)},\ldots ,t^{(n+3)}]=[-2h,-h,0,h]$.
+
+Considere a base $[1, t, t^2, t^3]$ e substitua $f(t)$ por cada um dos elementos da base,obtendo:
+\begin{eqnarray*}
+      \int _0^{h} 1  \;dt = h             &= h( b_0(1)  +b_1(1)   + b_2(1)   + b_3(1)    )\\
+      \int _0^{h} t  \;dt = \frac{h^2}{2}  &= h( b_0(h)  +b_1(0)   + b_2(-h) + b_3(-2h)  )\\
+      \int _0^{h} t^2 \;dt = \frac{h^3}{3}  &= h( b_0(h)^2 +b_1(0)^2  + b_2(-h)^2+ b_3(-2h)^2 )\\
+      \int _0^{h} t^3 \;dt = \frac{h^4}{4} &= h( b_0(h)^3 +b_1(0)^3  + b_2(-h)^3+ b_3(-2h)^3 )
+\end{eqnarray*}
+que pode ser escrito na forma matricial
+\begin{eqnarray}
+\left(
+  \begin{array}{cccc}
+    1  & 0 & 1    & 1   \\
+    1  & 0 & -1   & -2  \\
+    1  & 0 & 1    & 4   \\
+    1  & 0 & -1   & -8
+  \end{array}
+\right)
+\left(\begin{array}{c}  b_0 \\ b_1\\ b_2\\b_3   \end{array}\right)
+=
+\left(\begin{array}{c}  1  \\ 1/2 \\ 1/3 \\ 1/4  \end{array}\right)
+\end{eqnarray}
+Resolvendo o sistema obtemos
+$$[b_0,b_1,b_2,b_3]=\left[\frac{1}{24},-\frac{5}{24},\frac{19}{24},\frac{9}{24}\right]$$
+fornecendo a regra
+\begin{eqnarray}
+  u_{n+3}  &= u_{n+2}  + \frac{h}{24} [9 f_{n+3} +19f_{n+2} -5f_{n+1} +f^{(n)}]
+\end{eqnarray}
+\end{ex}
+
+
 
 
 A tabela abaixo mostra as coeficientes do método de Adams-Moulton para até oito passos. 
