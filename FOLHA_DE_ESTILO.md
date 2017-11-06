@@ -112,6 +112,14 @@ Números em notação científica podem ser representados, tando usando `$\times
 
     1,25673\times 10^{-13} = 1,25673\E-13.
 
+#### Subíndices e superíndices
+
+Entradas de vetores e matrizes devem ser indicadas com subíndices:
+	[v_1, v_2, v_3]
+
+Processos iterativos devem ser indicados com superíndices:
+	x^{(n+1)}=x^{(n)} + \frac{1}{n}
+
 ### Exercícios
 
 O livro conta com três tipos de exercícios, os intitulados "Exercícios resolvidos", "Exercícios" e "Exercícios finais".
