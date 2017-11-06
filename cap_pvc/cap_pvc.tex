@@ -3,9 +3,9 @@
 %\documentclass[main.tex]{subfiles}
 %\begin{document}
 
-\chapter{Problemas de Valores de Contorno}\index{Problemas de valores de contorno}
+\chapter{Problemas de valores de contorno}\index{Problemas de valores de contorno}
 
-Neste capítulo, discutimos sobre métodos numéricos para resolver equações diferenciais ordinárias com condições de contorno.
+Neste capítulo, tratamos dos métodos numéricos para resolver equações diferenciais ordinárias com condições de contorno.
 
 %%%%%%%%%%%%%%%%%%%%
 % python
@@ -20,7 +20,7 @@ Nos códigos \verb+Python+ apresentados, assumimos que as seguintes bibliotecas 
 \fi
 %%%%%%%%%%%%%%%%%%%%
 
-\section{Método de Diferenças Finitas}
+\section{Método de diferenças finitas}
 
 Nesta seção, discutimos os fundamentos do \emph{método de diferenças finitas}\index{método de diferenças finitas} (MDF) para \emph{problemas de valores de contorno}\index{problema de valor de contorno} (PVC). Este método consiste na reformulação do problema contínuo em um problema discreto usando fórmulas de diferenças finitas\index{fórmulas de diferenças finitas} tomadas sobre uma malha apropriada.
 
@@ -32,7 +32,7 @@ Para introduzir os conceitos principais, consideramos o seguinte problema de val
 \end{eqnarray}
 onde $u_a$ e $u_b$ são dados. Por ter fixados os valores da variável $u$ nos contornos, este é chamado de PVC com condições de Dirichlet\footnote{Johann Peter Gustav Lejeune Dirichlet, 1805 - 1859, matemático alemão.}.
 
-A resolução de um tal problema pelo método de elementos finitos consiste em quatro etapas fundamentais: 1. construção da malha, 2. construção do problema discreto, 3. resolução do problema discreto e 4. visualização e interpretação dos resultados. 
+A resolução de um tal problema pelo método de diferenças finitas consiste em quatro etapas fundamentais: 1. construção da malha, 2. construção do problema discreto, 3. resolução do problema discreto e 4. visualização e interpretação dos resultados. 
 
 \begin{figure}
   \centering
@@ -51,11 +51,11 @@ com
 \begin{equation*}
   h:=\frac{b-a}{N-1},
 \end{equation*}
-o qual é chamado de \emph{tamanho (ou passo) da malha}\index{tamanho da malha}\index{passo da malha} (veja a figura~\ref{fig:malha_uniforme}).
+o qual é chamado de \emph{tamanho (ou passo) da malha}\index{tamanho da malha}\index{passo da malha} (veja a Figura~\ref{fig:malha_uniforme}).
 
 {\bf 2. Construção do problema discreto.}\index{problema discreto} A segunda etapa consiste na discretização das equações, no nosso caso, das equações \eqref{eq:pvc1-eq}-\eqref{eq:pvc1-bc2}. 
 
-Vamos começar pela equação~\eqref{eq:pvc1-eq}. Em um ponto da malha $x_i$, $i = 2, 3, \dotsc, N-1$, temos
+Vamos começar pela Equação~\eqref{eq:pvc1-eq}. Em um ponto da malha $x_i$, $i = 2, 3, \dotsc, N-1$, temos
 \begin{equation*}
   -u_{xx}(x_i) = f(x_i, u(x_i)).
 \end{equation*}
@@ -74,11 +74,11 @@ Agora, denotando por $u_i$ a aproximação numérica de $u(x_i)$, a equação ac
 \end{equation}
 para $i=2, 3, \dotsc, N-1$. Observamos que trata-se de um sistema de $N$ incógnitas, a saber $u_i$, e de $N-2$ equações, isto é, um sistema subdeterminado.
 
-Para obtermos um sistema determina, aplicamos as condições de contorno. Da condição de contorno dada na equação~\eqref{eq:pvc1-bc1}, temos
+Para obtermos um sistema determinado, aplicamos as condições de contorno. Da condição de contorno dada na Equação~\eqref{eq:pvc1-bc1}, temos
 \begin{equation}\label{eq:pvc1-disc-bc1}
   u(a) = u_a\Rightarrow u_1 = u_a.
 \end{equation}
-Analogamente, da condição de contorno dada na equação~\eqref{eq:pvc1-bc1}, temos
+Analogamente, da condição de contorno dada na Equação~\eqref{eq:pvc1-bc1}, temos
 \begin{equation}\label{eq:pvc1-disc-bc2}
   u(b) = u_b\Rightarrow u_N = u_b.
 \end{equation}
@@ -161,7 +161,7 @@ x = np.linspace(a,b,N)
 \fi
 %%%%%%%%%%%%%%%%%%%%
 
-{\bf 2. Construção do problema discreto.} Usando a fórmula de diferenças finitas central de ordem 2 para aproximar a derivada na equação~\eqref{eq:pvc2-eq}, obtemos o seguinte sistema de equações:
+{\bf 2. Construção do problema discreto.} Usando a fórmula de diferenças finitas central de ordem 2 para aproximar a derivada na Equação~\eqref{eq:pvc2-eq}, obtemos o seguinte sistema de equações:
 \begin{equation*}
   - \frac{u_{i-1} - 2u_i + u_{i+1}}{h^2} = 100(x_i - 1)^2,\quad i = 2, \dotsc, N-1.
 \end{equation*}
@@ -311,7 +311,7 @@ u = np.linalg.solve(A,b)
 \begin{figure}
   \centering
   \includegraphics{./cap_pvc/pics/ex_pvc2/ex_pvc2}
-  \caption{Esboço dos gráficos das soluções analítica (linha) e numérica (pontos) do PVC dado no exemplo~\ref{ex:pvc2}.}
+  \caption{Esboço dos gráficos das soluções analítica (linha) e numérica (pontos) do PVC dado no Exemplo~\ref{ex:pvc2}.}
   \label{fig:ex_pvc2}
 \end{figure}
 
@@ -336,7 +336,7 @@ Portanto, a solução analítica é:
   u(x) = -100\frac{(x-1)^4}{12} - 100\frac{x}{12} + \frac{100}{12}
 \end{equation}
 
-A figura~\ref{fig:ex_pvc2} mostra o esboço dos gráficos das soluções analítica \eqref{eq:pvc2_analitica} e a da solução numérica \eqref{eq:pvc2_numerica}.
+A Figura~\ref{fig:ex_pvc2} mostra o esboço dos gráficos das soluções analítica \eqref{eq:pvc2_analitica} e a da solução numérica \eqref{eq:pvc2_numerica}.
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
@@ -396,7 +396,7 @@ plt.show()
 
 \begin{table}
   \centering
-  \caption{Erro absoluto médio das soluções numéricas com $N=11$ e $N=101$ do PVC dado no exemplo~\ref{ex:pvc2}.}
+  \caption{Erro absoluto médio das soluções numéricas com $N=11$ e $N=101$ do PVC dado no Exemplo~\ref{ex:pvc2}.}
   \begin{tabular}{ll|c}
     $N$ & $h$ & $E$\\\hline
     11 & 0,1 & $1,3\times 10^{-2}$\\
@@ -405,7 +405,7 @@ plt.show()
   \label{tab:pvc2_erro}
 \end{table}
 
-Por fim, computamos o erro absoluto médio das soluções numéricas com $N=11$ e $N=101$. A tabela~\ref{tab:pvc2_erro} mostra os resultados obtidos. Observamos, que ao diminuirmos $10$ vezes o tamanho da malha $h$, o erro absoluto médio diminui aproximadamente $100$ vezes. Este resultado é esperado, pois o problema discreto \eqref{eq:pvc2_disc_bc1}-\eqref{eq:pvc2_disc_bc2} aproxima o problema contínuo \eqref{eq:pvc2-eq}-\eqref{eq:pvc2-bc2} com erro de truncamento de ordem $h^2$. Verifique!
+Por fim, computamos o erro absoluto médio das soluções numéricas com $N=11$ e $N=101$. A Tabela~\ref{tab:pvc2_erro} mostra os resultados obtidos. Observamos, que ao diminuirmos $10$ vezes o tamanho do passo $h$, o erro absoluto médio diminui aproximadamente $100$ vezes. Este resultado é esperado, pois o problema discreto \eqref{eq:pvc2_disc_bc1}-\eqref{eq:pvc2_disc_bc2} aproxima o problema contínuo \eqref{eq:pvc2-eq}-\eqref{eq:pvc2-bc2} com erro de truncamento de ordem $h^2$. Verifique!
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
@@ -442,7 +442,7 @@ E /= N
 %%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
-\subsection*{Exercícios Resolvidos}
+\subsection*{Exercícios resolvidos}
 
 \begin{exeresol}\label{exeresol:pvc_linear} Use o método de diferenças finitas para resolver o seguinte problema de valor de contorno:
   \begin{eqnarray}
@@ -470,7 +470,7 @@ Ou seja, a malha deve conter $N = 11$ pontos igualmente espaçados. Denotamos os
 0.90 & 1.531724 & 1.40 & 1.964534 \\
 1.00 & 1.643900 & 1.50 & 2.000000 \\\hline
   \end{tabular}
-  \caption{Solução numérica do exercício ER~\ref{exeresol:pvc_linear}.}
+  \caption{Solução numérica do Exercício~\ref{exeresol:pvc_linear}.}
   \label{tab:exeresol_pvc_linear}
 \end{table}
 
@@ -494,11 +494,11 @@ para $i= 2, 3, \dotsc, N-1$. Rearranjando os termos e aplicando as condições d
 \begin{figure}
   \centering
   \includegraphics{./cap_pvc/pics/exeresol_pvc_linear/exeresol_pvc_linear}
-  \caption{Esboço do gráfico da solução numérica do exercício ER~\ref{exeresol:pvc_linear}.}
+  \caption{Esboço do gráfico da solução numérica do Exercício~\ref{exeresol:pvc_linear}.}
   \label{fig:exeresol_pvc_linear}
 \end{figure}
 
-O problema discreto obtido é um sistema linear $N\times N$. Resolvendo este sistema, obtemos a solução discreta apresentada na tabela~\ref{tab:exeresol_pvc_linear}. A figura~\ref{fig:exeresol_pvc_linear} mostra um esboço do gráfico da solução computada.
+O problema discreto obtido é um sistema linear $N\times N$. Resolvendo este sistema, obtemos a solução discreta apresentada na Tabela~\ref{tab:exeresol_pvc_linear}. A Figura~\ref{fig:exeresol_pvc_linear} mostra um esboço do gráfico da solução computada.
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab

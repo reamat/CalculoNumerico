@@ -4,20 +4,20 @@
 %\begin{document}
 
 \chapter{Solução de sistemas de equações não lineares}\index{sistema de equações!não lineares}
-Neste capítulo, estudaremos o método de Newton aplicado à resolução de sistemas não-lineares de equações.
+Neste capítulo, estudaremos o método de Newton aplicado à resolução de sistemas não lineares de equações.
 
-O método de Newton aplicado a encontrar a raiz $x^*$ da função $y=f(x)$ estudado na seção \ref{metodo_newton_1d} consiste em um processo iterativo. Em cada passo deste processo, dispomos de uma aproximação $x^{(k)}$ para $x^*$ e construímos uma aproximação $x^{(k+1)}$.  Cada passo do método de Newton envolve os seguintes procedimentos:
+O método de Newton aplicado a encontrar a raiz $x^*$ da função $y=f(x)$ estudado na Seção~\ref{metodo_newton_1d} consiste em um processo iterativo. Em cada passo deste processo, dispomos de uma aproximação $x^{(k)}$ para $x^*$ e construímos uma nova aproximação $x^{(k+1)}$.  Cada passo do método de Newton envolve os seguintes procedimentos:
 \begin{itemize}
-\item Linearização da função $f(x)$ no ponto $x^{(k)}$: 
+\item Linearização da função $f(x)$ no ponto $x^{(k)}$:
   \begin{equation*}
-    f(x)= f(x^{(k)})+ (x-x^{(k)}) f'(x^{(k)}) + O\left(|x-x^{(k)}|^2\right)    
+    f(x)= f(x^{(k)})+ (x-x^{(k)}) f'(x^{(k)}) + O\left(|x-x^{(k)}|^2\right)
   \end{equation*}
 \item A aproximação $x^{(k+1)}$ é definida como o valor de $x$ em que a linearização $f(x^{(k)})+ (x-x^{(k)}) f'(x^{(k)})$ passa por zero.
 \end{itemize}
 
 %{\bf Observação:} $y=f(x^{(k)})+ (x-x^{(k)}) f'(x^{(k)})$ é a equação da reta que tangencia a curva $y=f(x)$ no ponto $(x^{(k)},f(x^{(k)}))$.
 
-Queremos, agora, generalizar o método de Newton a fim de resolver problemas de várias equações e várias incógnitas, ou seja, encontrar $x_1,x_2,\ldots x_n$ que satisfazem as seguinte equações:
+Queremos, agora, generalizar o método de Newton a fim de resolver problemas de várias equações e várias incógnitas, ou seja, encontrar $x_1,x_2,\ldots x_n$ que satisfazem as seguintes equações:
 
 \begin{eqnarray*}
 f_1(x_1,x_2,\ldots,x_n)&=&0\\
@@ -34,9 +34,9 @@ f_2(x_1,x_2,\ldots,x_n)\\
 \vdots\\
 f_n(x_1,x_2,\ldots,x_n)
 \end{array}
-\right]$$
+\right].$$
 
-\begin{ex} Suponha que queiramos resolver numericamente os seguinte sistema de duas equações e duas incógnitas:
+\begin{ex} Suponha que queiramos resolver numericamente o seguinte sistema de duas equações e duas incógnitas:
 \begin{eqnarray*}
 \frac{x_1^2}{3}+x_2^2&=&1\\
 x_1^2+\frac{x_2^2}{4}&=&1
@@ -98,7 +98,7 @@ $$
 Isto é, a matriz jacobiana de uma função ou simplesmente, o jacobiano de uma função $F(x)$ é a matriz formada pelas suas derivadas parciais:
 $$\left(J_F\right)_{ij}=\frac{\partial f_i}{\partial x_j}.$$
 
-Nestes termos, podemos reescrever (\ref{eq_approx_newton}) como
+Nestes termos, podemos reescrever \eqref{eq_approx_newton} como
 $$F(x)\approx F(x^{(0)}) + J_F(x^{(0)}) (x-x^{(0)})$$
 Esta expressão é chamada de linearização de $F(x)$ no ponto $x^{(0)}$ e generaliza a linearização em uma dimensão dada por $f(x)\approx f(x^{(0)})+f'(x^{(0)}) (x-x^{(0)})$.
 
@@ -106,7 +106,7 @@ Esta expressão é chamada de linearização de $F(x)$ no ponto $x^{(0)}$ e gene
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-Ao longo deste capítulo, estaremos assumindo que as seguintes bibliotecas e módulos \verb+Python+ estão importadas:
+Ao longo deste capítulo, assumiremos que as seguintes bibliotecas e módulos \verb+Python+ estão importadas:
 \begin{verbatim}
 import numpy as np
 from numpy import linalg
@@ -119,9 +119,9 @@ from numpy import linalg
 Nesta seção, construiremos o método de Newton ou Newton-Raphson generalizado para sistemas. Assumimos, portanto, que a função $F(x)$ é diferenciável e que existe um ponto $x^*$ tal que $F(x^*)=0$. Seja $x^{(k)}$ uma aproximação para $x^*$, queremos construir uma nova aproximação $x^{(k+1)}$ através da linearização de $F(x)$ no ponto $x^{(k)}$.
 
 \begin{itemize}
-\item Linearização da função $F(x)$ no ponto $x^{(k)}$: 
+\item Linearização da função $F(x)$ no ponto $x^{(k)}$:
   \begin{equation*}
-F(x)= F(x^{(k)})+ J_F\left(x^{(k)}\right) \left(x-x^{(k)}\right)  + O\left(\|x-x^{(k)}\|^2\right)    
+F(x)= F(x^{(k)})+ J_F\left(x^{(k)}\right) \left(x-x^{(k)}\right)  + O\left(\|x-x^{(k)}\|^2\right)
   \end{equation*}
 \item A aproximação $x^{(k)}$ é definida como o ponto $x$ em que a linearização $F(x^{(k)})+ J_F\left(x^{(k)}\right) \left(x-x^{(k)}\right)$ é nula, ou seja:
 $$F(x^{(k)})+ J_F\left(x^{(k)}\right) \left(x^{(k+1)}-x^{(k)}\right)=0$$
@@ -139,7 +139,7 @@ Desta forma, o método iterativo de Newton-Raphson para encontrar as raízes de 
 \left\{\begin{array}{rcl}
 x^{(k+1)} &=& x^{(k)}-J_F^{-1}\left(x^{(k)}\right)F(x^{(k)}),~~ n\geq 0\\
 x^{(0)}&=&\text{dado inicial}
-\end{array}\right.  
+\end{array}\right.
 \end{equation*}
 
 \begin{obs} Usamos subíndices para indicar o elemento de um vetor e superíndices para indicar o passo da iteração. Assim, $x^{(k)}$ se refere à iteração $k$ e $x_i^{(k)}$ se refere à componente $i$ no vetor $x^{(k)}$.
@@ -153,7 +153,7 @@ $$J_F\left(x^{(k)}\right)\Delta^{(k)}= - F(x^{(k)})$$
 Em geral, é menos custoso resolver o sistema acima do que calcular o inverso da jacobiana e multiplicar pelo vetor $F(x^{(k)})$.
 \end{obs}
 
-\begin{ex} Retornamos ao nosso exemplo inicial, isto é, resolver numericamente os seguinte sistema não-linear:
+\begin{ex} Retornamos ao nosso exemplo inicial, isto é, resolver numericamente o seguinte sistema não linear:
 \begin{eqnarray*}
 \frac{x_1^2}{3}+x_2^2&=&1\\
 x_1^2+\frac{x_2^2}{4}&=&1
@@ -264,7 +264,7 @@ Faremos a implementação numérica em \verb+Python+. Para tal definimos as fun�
 ...     y[0] = x[0]**2/3 + x[1]**2 - 1
 ...     y[1] = x[0]**2 + x[1]**2/4 - 1
 ...     return y
-... 
+...
 >>> def JF(x):
 ...     y = np.zeros((2,2))
 ...     y[0,0] = 2*x[0]/3
@@ -272,7 +272,7 @@ Faremos a implementação numérica em \verb+Python+. Para tal definimos as fun�
 ...     y[1,0] = 2*x[0]
 ...     y[1,1] = x[1]/2
 ...     return y
-... 
+...
 \end{verbatim}
 Desta forma, se $x$ é uma aproximação para a raiz, pode-se calcular a próxima aproximação através dos comandos:
 \begin{verbatim}
@@ -296,7 +296,7 @@ x_1^2=\cos(x_1x_2)+1\\
 \end{eqnarray*}
 que fica próxima ao ponto $x_1=1,5$ e $x_2=0,5$.
 \end{ex}
-\begin{sol} Vamos, aqui, dar as principais ideias para se obter a solução usando o método de Newton. 
+\begin{sol} Vamos, aqui, dar as principais ideias para obter a solução usando o método de Newton.
 Começamos definindo nossa aproximação inicial por $x^{(1)} = (1,5, 0,5)$. Então iteramos:
 \begin{equation*}
   x^{(n+1)} = x^{(n)} - J_F^{-1}(x)F(x), \quad n\geq 1.
@@ -306,9 +306,9 @@ onde
     F(x)=\left[\begin{array}{c}
         \displaystyle x_1^2-\cos(x_1x_2)-1\\
         \displaystyle \sin(x_2)-2\cos(x_1)
-      \end{array}\right]  
+      \end{array}\right]
   \end{equation*}
-e sua jacobiana é 
+e sua jacobiana é
 \begin{equation*}
   J_F(x) = \left[\begin{array}{cc}
     \displaystyle 2x_1 +x_2\sin(x_1x_2) & x_1\sin(x_1x_2)\\
@@ -329,10 +329,10 @@ function y=F(x)
 endfunction
 
 function y=JF(x)
-    y(1,1) = 2*x(1)+x(2)*sin(x(1)*x(2)) 
+    y(1,1) = 2*x(1)+x(2)*sin(x(1)*x(2))
     y(1,2) = x(1)*sin(x(1)*x(2))
 
-    y(2,1) = 2*sin(x(1)) 
+    y(2,1) = 2*sin(x(1))
     y(2,2) = cos(x(2))
 endfunction
 \end{verbatim}
@@ -341,7 +341,7 @@ E agora, basta iterar:
 \begin{verbatim}
 x=[1.5; .5]
 x=x-JF(x)\F(x) //(5 vezes)
-\end{verbatim}  
+\end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
@@ -356,10 +356,10 @@ function y=F(x)
 endfunction
 
 function y=JF(x)
-    y(1,1) = 2*x(1)+x(2)*sin(x(1)*x(2)) 
+    y(1,1) = 2*x(1)+x(2)*sin(x(1)*x(2))
     y(1,2) = x(1)*sin(x(1)*x(2))
 
-    y(2,1) = 2*sin(x(1)) 
+    y(2,1) = 2*sin(x(1))
     y(2,2) = cos(x(2))
 endfunction
 \end{verbatim}
@@ -368,7 +368,7 @@ E agora, basta iterar:
 \begin{verbatim}
 x=[1.5; .5]
 x=x-JF(x)\F(x) //(5 vezes)
-\end{verbatim}  
+\end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
@@ -379,15 +379,15 @@ Em \verb+Python+, podemos implementá-las com o seguinte código:
 \begin{verbatim}
 def F(x):
     y = np.zeros(2)
-    
+
     y[0] = x[0]**2 - np.cos(x[0]*x[1]) - 1
     y[1] = np.sin(x[1]) - 2*np.cos(x[0])
-    
+
     return y
 
 def JF(x):
     y = np.zeros((2,2))
-    
+
     y[0,0] = 2*x[0] + x[1]*np.sin(x[0]*x[1])
     y[0,1] = x[0]*np.sin(x[0]*x[1])
 
@@ -401,7 +401,7 @@ E agora, basta iterar:
 \begin{verbatim}
 >>> x = np.array([1.5,0.5])
 >>> x=x-np.linalg.inv(JF(x)).dot(F(x))
-\end{verbatim}  
+\end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%
 \end{sol}
@@ -463,7 +463,7 @@ $$\left(J_L\right)_{ij}=a_{ij}$$
 \end{resp}
 
 
-\begin{exer} Encontre uma aproximação numérica para o seguinte problema não-linear de três equações e três incógnitas:
+\begin{exer} Encontre uma aproximação numérica para o seguinte problema não linear de três equações e três incógnitas:
 \begin{eqnarray*}
 2x_1-x_2&=&\cos(x_1)\\
 -x_1+2x_2-x_3&=&\cos(x_2)\\
@@ -493,18 +493,18 @@ Partindo das seguintes aproximações iniciais:
 \end{itemize}
 \end{exer}
 \begin{resp}
-As curvas possuem dois pontos de intersecção. A posição exata destes pontos de intesecção é dada por $\left(\sqrt{2\sqrt{3}-3},2\sqrt{3}-2\right)$ e $\left(-\sqrt{2\sqrt{3}-3},2\sqrt{3}-2\right)$. Use a solução exata para comparar com a solução aproximada obtida.
+As curvas possuem dois pontos de intersecção. A posição exata destes pontos de intersecção é dada por $\left(\sqrt{2\sqrt{3}-3},2\sqrt{3}-2\right)$ e $\left(-\sqrt{2\sqrt{3}-3},2\sqrt{3}-2\right)$. Use a solução exata para comparar com a solução aproximada obtida.
 \end{resp}
 
 \begin{exer} Encontre os pontos de intersecção entre a parábola $y=x^2$ e a curva $y=\cos(x)$ seguindo os seguintes passos:
 \begin{itemize}
-\item[a]) Faça um esboço das duas curvas, entenda o problema. Verifique que existem dois pontos de intersecção, um no primeiro quadrante e outro no segundo quadrando do plano $xy$.
+\item[a]) Faça um esboço das duas curvas, entenda o problema. Verifique que existem dois pontos de intersecção, um no primeiro quadrante e outro no segundo quadrante do plano $xy$.
 \item[b]) A partir de seu esboço, encontre aproximações para $x$ e $y$ em cada ponto.
 \item[c]) Escreva o problema na forma $F\left(\left[\begin{array}{c}x\\y\end{array}\right]\right)=\left[\begin{array}{c}0\\0\end{array}\right]$
 \item[d]) Encontre a jacobiana $J_F$.
 \item[e]) Construa a iteração do método de Newton.
 \item[f]) Implemente no \ifisscilab\verb+Scilab+\fi\ifispython\verb+Python+\fi\ifisoctave\verb+Octave+\fi.
-\item[g]) Transforme o sistema em um problema de uma única variável e compare com a resposta do problema \ref{1d:cosx2}.
+\item[g]) Transforme o sistema em um problema de uma única variável e compare com a resposta do Problema~\ref{1d:cosx2}.
 %\item[h]) Refaça o item e, usando a função {\it derivative()} para aproximar a matriz jacobiana.
 \end{itemize}
 \end{exer}
@@ -535,7 +535,7 @@ $x\approx 0,259751, y\approx  0,302736, z\approx  0,045896$
 \end{exer}
 
 
-\begin{exer}\label{prob_bitang}Considere a função $f(x)=\frac{\sin(x)}{x+1}$, encontre a equação da reta que tangencia dois pontos da curva $y=f(x)$ próximos ao primeiro e segundo ponto de máximo no primeiro quadrante, respectivamente. Veja a figura \ref{pic:bitang}.
+\begin{exer}\label{prob_bitang}Considere a função $f(x)=\frac{\sin(x)}{x+1}$, encontre a equação da reta que tangencia dois pontos da curva $y=f(x)$ próximos ao primeiro e segundo ponto de máximo no primeiro quadrante, respectivamente. Veja a Figura~\ref{pic:bitang}.
 \end{exer}
 \begin{figure}
         \centering
@@ -546,7 +546,7 @@ $x\approx 0,259751, y\approx  0,302736, z\approx  0,045896$
 
  \begin{resp}
   $y=mx+b$ com $m\approx - 0.0459710 $ e $b\approx 0.479237$
- 
+
  Uma metodologia possível para resolver este problema é dada a seguir:
 
 Sejam $x_1$ e $x_2$ as abscissas dos dois pontos em que a reta tangencia a curva. A equação da reta bitangente assume a seguinte forma:
@@ -564,7 +564,7 @@ Assim, podemos reescrever o problema como
 \frac{\cos(x_1)}{1+x_1}-\frac{\sin(x_1)}{(1+x_1)^2}-\frac{\cos(x_2)}{1+x_2}+\frac{\sin(x_2)}{(1+x_2)^2}=0\\
 \frac{\cos(x_1)}{1+x_1}-\frac{\sin(x_1)}{(1+x_1)^2}-\frac{f(x_2)-f(x_1)}{x_2-x_1}=0
 \end{eqnarray*}
-Este é um sistema não-linear de duas incógnitas.
+Este é um sistema não linear de duas incógnitas.
 
 Os valores iniciais para o método podem ser obtidos do gráfico buscando valores próximos aos dois primeiros pontos de máximos. Por exemplo: $x_1^{(0)}=1$ e $x_2^{(0)}=8$. Obtemos $x_1\approx 1,2464783$ e $x_2\approx 8,1782997$ e $m$ pode ser obtido através desses valores.
 
@@ -578,7 +578,7 @@ Os valores iniciais para o método podem ser obtidos do gráfico buscando valore
 		\label{pic:dois_segmentos}
 	\end{figure}
 
-\begin{exer}{(Estática)}\label{prob:dois_segmentos} Considere o sistema mecânico constituído de dois segmentos de mesmo comprimento $L$ presos entre si e a uma parede por articulações conforme a figura \ref{pic:dois_segmentos}.
+\begin{exer}{(Estática)}\label{prob:dois_segmentos} Considere o sistema mecânico constituído de dois segmentos de mesmo comprimento $L$ presos entre si e a uma parede por articulações conforme a Figura~\ref{pic:dois_segmentos}.
 
 O momento em cada articulação é proporcional à deflexão com constante de proporcionalidade $k$. Os segmentos são feitos de material homogêneo de peso $P$. A condição de equilíbrio pode ser expressa em termos dos ângulos $\theta_1$ e $\theta_2$ conforme:
 \begin{eqnarray*}
@@ -600,7 +600,7 @@ $\left(0.1956550;0.2441719 \right)$, $\left(0.3694093;0.4590564\right) $, $\left
 \end{resp}
 
 
-\begin{exer}{(estática - problemas de três variáveis)} Considere, agora, o sistema mecânico semelhante ao do problema \ref{prob:dois_segmentos}, porém constituído de três segmentos de mesmo comprimento $L$ presos entre si e a uma parede por articulações.
+\begin{exer}{(estática - problemas de três variáveis)} Considere, agora, o sistema mecânico semelhante ao do Problema~\ref{prob:dois_segmentos}, porém constituído de três segmentos de mesmo comprimento $L$ presos entre si e a uma parede por articulações.
 
 O momento em cada articulação é proporcional à deflexão com constante de proporcionalidade $k$. Os segmentos são feitos de material homogêneo de peso $P$. A condição de equilíbrio pode ser expressa em termos dos ângulos $\theta_1$, $\theta_2$ e $\theta_3$ conforme:
 \begin{eqnarray*}
@@ -628,7 +628,7 @@ $\left(1.1862966;1.4348545;1.480127  \right)$
 		\label{pic:inter_curvas}
 	\end{figure}
 
-\begin{exer}  Considere o problema de encontrar os pontos de intersecção das curvas descritas por (ver figura \ref{pic:inter_curvas}):
+\begin{exer}  Considere o problema de encontrar os pontos de intersecção das curvas descritas por (ver Figura~\ref{pic:inter_curvas}):
 \begin{eqnarray*}
 \frac{x^2}{8}+\frac{(y-1)^2}{5}&=&1\\~\\
 \tan^{-1}(x)+x&=&y+y^3
@@ -683,17 +683,17 @@ x=x-JF(x)\F(x)   // 4 vezes
 \tanh(x)+x&=&2\sin y-0.01y^3
 \end{eqnarray*}
 Usando procedimentos analíticos, determine uma região limitada do plano onde se encontram necessariamente todas as raízes do problema.
-Encontre as raízes desse sistema com pelo menos quatro dígitos significativos corretos usando o método de Newton. Você deve contruir o método de Newton indicando as funções envolvidas e calculando a matriz jacobiana analiticamente. Use que $\frac{d}{du}\tanh u = 1-\tanh^2u$, se precisar.
+Encontre as raízes desse sistema com pelo menos quatro dígitos significativos corretos usando o método de Newton. Você deve construir o método de Newton indicando as funções envolvidas e calculando a matriz jacobiana analiticamente. Use que $\frac{d}{du}\tanh u = 1-\tanh^2u$, se precisar.
 \end{exer}
 \begin{resp}
- A primeira curva trata-se de uma elipse de centro $(3,1)$ e semi-eixos 4 e 6, portanto seus pontos estão contidos no retângulo $-1\leq x \leq 7$ e $-5\leq y \leq 7$. 
+ A primeira curva trata-se de uma elipse de centro $(3,1)$ e semi-eixos 4 e 6, portanto seus pontos estão contidos no retângulo $-1\leq x \leq 7$ e $-5\leq y \leq 7$.
 
-A soluções são $\left( -0,5384844 , -1,7978634\right)$ e $\left(2,8441544, 6,9954443\right)$.
+As soluções são $\left( -0,5384844 , -1,7978634\right)$ e $\left(2,8441544, 6,9954443\right)$.
 
 \ifisscilab
 Uma possível implementação é
 \begin{verbatim}
-    
+
 function z=f(x,y)
     z=(x-3)^2/16+(y-1)^2/36-1
 endfunction
@@ -704,7 +704,7 @@ endfunction
 
 contour([-1:.1:7],[-5:.1:7],f,[0 0])
 contour([-1:.1:7],[-5:.1:7],g,[0 0])
-    
+
 function y=F(x)
     y(1)=f(x(1),x(2))
     y(2)=g(x(1),x(2))
@@ -714,9 +714,9 @@ function y=JF(x)
     y(1,2)=(x(2)-1)/18
     y(2,1)=1/(1+x(1)^2)+1
     y(2,2)=-cos(x(2))-0.03*x(2)^2
-endfunction    
+endfunction
  \end{resp}
-    
+
 //primeiro ponto
 //x=[-.5;-2.0]
 
@@ -757,17 +757,17 @@ $$R=\left[3,1-f(0)\right]^2+\left[4,4-f(1)\right]^2+\left[6,7-f(2)\right]^2.$$
 {\bf Dica:} Para construir aproximações para resposta e iniciar o método, considere a função $f(x)=Ab^x$ que passa pelo primeiro e terceiro ponto.
 \end{exer}
 \begin{resp}
-Incialização do método: $A^{(0)}= 3,1$ e $b^{(0)}= \sqrt{\frac{6,7}{3,1}}$
+Inicialização do método: $A^{(0)}= 3,1$ e $b^{(0)}= \sqrt{\frac{6,7}{3,1}}$
 $A\approx  3.0297384 $ e $b\approx 1.4835346$.
 \end{resp}
 
 
- 
- 
+
+
  \begin{exer}Encontre o valor máximo da função $$f(x,y)=-x^4-y^6+3xy^3-x$$ na região $(x,y)\in [-2,0]\times [-2,0]$
  seguindo os seguintes passos:
 \begin{itemize}
-  \item[a)] Defina a função $z=f(x,y)=-x^4-y^6+3xy^3-x$ e trace o gráfico de contorno na região. 
+  \item[a)] Defina a função $z=f(x,y)=-x^4-y^6+3xy^3-x$ e trace o gráfico de contorno na região.
   \item[b)] Com base no gráfico, encontre valores aproximados para as coordenadas $xy$ do ponto de máximo.
   \item[c)] Sabendo que o ponto de máximo acontece quando o gradiente é nulo, escreva o problema como um sistema de duas equações não lineares e duas incógnitas.
   \item[d)] Implemente o método de Newton.
@@ -791,14 +791,14 @@ x=x-JF(x)\F(x)
 mprintf('f(%f,%f)=%f',x(1),x(2),f(x(1),x(2)))
 \end{verbatim}
 \fi
-\end{resp} 
+\end{resp}
 
- 
- 
+
+
  \begin{exer}A função $f(x,y,z)=\sin(x)+\sin(2y)+\sin(3z)$ possui um máximo quando $x=\pi/2$, $y=\pi/4$ e $z=\pi/6$. Calcule numericamente este ponto.
  \end{exer}
 
- 
+
  \begin{exer}\label{prob_sis3} Encontre as raizes do problema
  \begin{eqnarray*}
  3x-\cos(yz+z)-1/2&=&0\\
@@ -808,13 +808,13 @@ mprintf('f(%f,%f)=%f',x(1),x(2),f(x(1),x(2)))
  no cubo $|x|<2, |y|<2, |z|<2.$
  Dica: Reduza a um problema de duas incógnitas e use recursos gráficos para aproximar as raízes na região.
  \end{exer}
- 
+
  \begin{resp}
  $x\approx 0,2982646, y\approx -0,2990796, z\approx- 1,6620333$  e $x\approx -0,0691328, y\approx 0,2923039, z\approx -0,8235705$.
  \end{resp}
 
 
-\begin{exer}  Considere o seguinte sistema de equações não-lineares:
+\begin{exer}  Considere o seguinte sistema de equações não lineares:
 \begin{eqnarray}
 x_1-x_2&=&0\nonumber\\
 -x_{j-1}+5(x_j+x_j^3)-x_{j+1}&=&10\exp(-j/3),~~ 2\leq j \leq 10\nonumber\\
@@ -1042,4 +1042,4 @@ $$J_F=\left[
 $$
 \end{ex}
 
-%\end{document} 
+%\end{document}

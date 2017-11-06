@@ -3,7 +3,7 @@
 %\documentclass[main.tex]{subfiles}
 %\begin{document}
 
-\chapter{Integração numérica}\index{integração}
+\chapter{Integração numérica}\index{integração} \label{cap_integra}
 
 Neste capítulo discutiremos técnicas numéricas para aproximar \emph{integrais}\index{integral} definidas de funções reais.
 
@@ -22,7 +22,7 @@ O tamanho de cada intervalo é dado por $h_i=x_{i+1}-x_i$. No caso uniforme, tod
 Nas próximas seções apresentaremos formas diferentes de aproximar $\Delta S_i$ iniciando com o caso mais simples que é um retângulo. Cada uma das regras obtidas também é chamada de quadratura.
 
 \begin{ex}
-A figura~\ref{fig:int_101} mostra um exemplo quando $f(x)=x^2+1$, $0\leq x\leq 2$. Temos a aproximação por um retângulo com base $h_1=2$, depois com dois retângulos de base $h_2=1$ e, finalmente com quatro retângulo de bases $h_3=0,5$.
+A Figura~\ref{fig:int_101} mostra um exemplo quando $f(x)=x^2+1$, $0\leq x\leq 2$. Temos a aproximação por um retângulo com base $h_1=2$, depois com dois retângulos de base $h_2=1$ e, finalmente com quatro retângulo de bases $h_3=0,5$.
 \begin{figure}
   \centering
   \includegraphics[scale=0.7]{./cap_integracao/pics/int_1/int_1.eps}
@@ -50,7 +50,7 @@ Observe que:
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-Nos códigos \verb+Python+ apresentados ao longo deste capítulo, estaremos assumindo:
+Nos códigos \verb+Python+ apresentados ao longo deste capítulo, assumiremos o seguinte:
 \begin{verbatim}
 >>> from __future__ import division
 >>> import numpy as np
@@ -79,7 +79,7 @@ onde o erro na interpolação de Lagrange é
    E^n_{LAG}(x)=\frac{f^{(n)}(\xi(x))}{n!}\prod_{i=1}^n(x-x_i).
 \end{equation}
 
-Substituindo na integral obtemos
+Substituindo na integral, obtemos:
 \begin{eqnarray}
   \int_a^bf(x)\,dx &=& \sum_{i=1}^n\left[f_i\int_a^bL_i(x)\,dx\right] +  \int_a^b E^n_{LAG}(x) \;dx.
 %   \int_a^bf(x)dx &=& \sum_{i=1}^n\left[f(x_i)\int_a^bL_i(x)dx\right] +  \frac{1}{(n+1)!}\int_a^b\prod_{i=1}^n(x-x_i)f^{(n+1)}(\xi)dx.
@@ -203,37 +203,35 @@ S = \sum_{i=1}^{n-1} f(\xi_i ) h, \;\;\;\; \xi_i=\frac{x_i+x_{i+1}}{2}.
 % \end{ex}
 
 
-\subsection{Regra do trapézio}\index{integração numérica!regra do trapézio}
+\subsection{Regra do trapézio}\index{integração numérica!regra do trapézio}\label{int:trapézio}
 
-A regra do trapézio consiste em aproximar a função $f(x)$ por um polinômio de grau 1. Se utilizarmos uma reta ligando extremos do intervalo obtemos um trapézio que fornece o nome da regra.
+A regra do trapézio consiste em aproximar a função $f(x)$ por um polinômio de grau 1. O nome do método vem do fato que a região entre o eixo $x$ e a reta que liga o pontos sobre o gráfico da função nos extremos do intervalo forma um trapézio.
 
 % \begin{center}
 % \includegraphics[scale=0.7]{./cap_integracao/pics/int_2/int_2}
 % \end{center}
 
-Desta forma, utilizando $x_1:=a$,  $x_2:=b$, $h=x_2-x_1$ e a notação $f_i=f(x_i)$ obtemos através da interpolação de Lagrange o polinômio
+Desta forma, utilizando $x_1:=a$,  $x_2:=b$, $h=x_2-x_1$ e a notação $f_i=f(x_i)$, obtemos através da interpolação de Lagrange o polinômio
 \begin{eqnarray}
 p_1(x) &=& f_1 L_1(x)+ f_2 L_2(x)
 \end{eqnarray}
-Aproximando $f(x)$ por $p_1(x)$ e integrando obtemos
+Aproximando $f(x)$ por $p_1(x)$ e integrando, obtemos:
 \begin{eqnarray*}
   \int_a^bf(x)\;dx &\approx& \int_a^bp_1(x)\;dx \\
     &=& \int_a^b f_1L_1(x) + f_2L_2(x)\;dx \\
     &=& f_1 \int_a^b L_1(x)\;dx + f_2 \int_a^b L_2(x)\;dx \\
-    &=& A_1 f_1 + A_2 f_2
+    &=& A_1 f_1 + A_2 f_2,
 \end{eqnarray*}
 onde
 \begin{eqnarray*}
   A_1 &=& \int_a^b\frac{x-x_1}{x_2-x_1}dx =  \left[\frac{(x-x_1)^2}{2h}\right]_{x_1}^{x_2}\\
-      &=& \frac{(x_2-x_1)^2}{2h} = \frac{h^2}{2h} = \frac{1}{2}h
+      &=& \frac{(x_2-x_1)^2}{2h} = \frac{h^2}{2h} = \frac{1}{2}h.
 \end{eqnarray*}
 Da mesma forma,
 \begin{eqnarray*}
-  A_2 &=& \int_a^b\frac{(x-x_2)}{(x_1-x_2)}\,dx = \frac{1}{2}h
+  A_2 &=& \int_a^b\frac{(x-x_2)}{(x_1-x_2)}\,dx = \frac{1}{2}h,
 \end{eqnarray*}
-
-
-de onde obtemos a \emph{regra do trapézio} dada por
+de onde obtemos a \emph{regra do trapézio} dada por:
 \begin{equation}
   \int_a^b f(x)\;dx \approx \left(\frac{1}{2}f_1 + \frac{1}{2}f_2\right)h.
 \end{equation}
@@ -313,7 +311,7 @@ onde
 \begin{eqnarray}
   A_i = \int_a^b L_i(x) \;dx
 \end{eqnarray}
-Calculando essas integrais obtemos \emph{a regra de Simpson}
+Calculando essas integrais obtemos \emph{a regra de Simpson}:
 $$
 \int_a^bf(x)\;dx=\left(\frac{1}{6}f(x_1)+\frac{4}{6}f(x_2)+\frac{1}{6}f(x_3)\right)h.
 $$
@@ -428,7 +426,7 @@ $$
     \text{c)}~\int_0^1x^3\,dx & \text{d)}~\int_0^1xe^{-x^2}\,dx\\
     \text{e)}~\int_0^1\frac{1}{x^2+1}\,dx &\text{e)}~\int_0^1\frac{x}{x^2+1}\;dx
   \end{eqnarray*}
-usando os métodos simples do Ponto médio, Trapézio e Simpson. Calcule, também, o valor analítico destas integrais e o erro nas aproximações dadas pelas quadraturas numéricas.
+usando os métodos simples do ponto médio, Trapézio e Simpson. Calcule, também, o valor analítico destas integrais e o erro nas aproximações dadas pelas quadraturas numéricas.
 \end{exer}
 % \begin{resp}
 %
@@ -515,26 +513,26 @@ $9$  & & &\\
 
 Na seção anterior, obtivemos as regras de quadraturas pela aproximação do integrando por polinômios interpoladores de Lagrange. Aqui, veremos um outro método para obter regras de quadratura, que torna-se bastante útil para quando temos muitos pontos ou quando o intervalo entre os pontos não é uniforme.
 
-Dados $n$ pontos $[t_1,t_2,\ldots ,t_n]$, queremos obter uma aproximação para
-\begin{align}\label{regraint}
+Dados $n$ pontos $[t_1, t_2, \ldots,t_n]$, queremos obter uma aproximação para
+\begin{equation}\label{regraint}
   \int _a^b f(t) \;dt \approx w_1f(t_1)+w_2f(t_2)+\ldots +w_nf(t_n)
-\end{align}
+\end{equation}
 que seja exata para polinômios\footnote{Por exemplo, se $n=2$, então a regra é exata para retas.} até ordem  $n-1$.
 
-Aproxime $f(t)$ pelo polinômio $p(t)=w_1\phi_1(t)+\ldots +w_n \phi_n(t)$ de ordem $n-1$. Escolha uma base, como por exemplo $\phi _k(t)=t^{k-1}$. Como a regra de quadratura deve ser exata para qualquer polinômio até ordem $n-1$, então também deve ser exata para qualquer função da base. Substituindo $f(t)$ por $\phi _1(t)=1$ em \eqref{regraint} obtemos
+Aproxime $f(t)$ pelo polinômio $p(t)=w_1\phi_1(t)+\ldots +w_n \phi_n(t)$ de ordem $n-1$. Escolha uma base, como por exemplo $\phi _k(t)=t^{k-1}$. Como a regra de quadratura deve ser exata para qualquer polinômio até ordem $n-1$, então também deve ser exata para qualquer função da base. Substituindo $f(t)$ por $\phi _1(t)=1$ em \eqref{regraint}. obtemos:
 \begin{eqnarray}
 \int _a^b \phi_1(t) \; dt = t|_a^b &=&  w_1\phi _1(t_1)+w_2\phi _1(t_2)+\ldots +w_n\phi_1(t_n) \\
-                              b-a  &=&  w_1+w_2+\ldots +w_n
+                              b-a  &=&  w_1+w_2+\ldots +w_n.
 \end{eqnarray}
 
-Da mesma forma para $\phi_k(t)$, $k=2,\ldots,n$, obtemos
-\begin{align}
-   (t^2/2)|_a^b = \frac{b^2-a^2}{2} &=  w_1t_1  +w_2t_2  +\ldots +w_nt_n   \\
-   (t^3/3)|_a^b = \frac{b^3-a^3}{3} &=  w_1t_1^2+w_2t_2^2+\ldots +w_nt_n^2 \\
-                    \vdots          &=  \vdots    \\
- \frac{b^{n}-a^{n}}{n}              &=  w_1t_1^{n-1}+w_2t_2^{n-1}+\ldots +w_nt_n^{n-1}
-\end{align}
-que pode ser escrito na forma matricial
+Da mesma forma para $\phi_k(t)$, $k=2,\ldots,n$, obtemos:
+\begin{eqnarray}
+   (t^2/2)|_a^b = \frac{b^2-a^2}{2} &=&  w_1t_1  +w_2t_2  +\ldots +w_nt_n   \\
+   (t^3/3)|_a^b = \frac{b^3-a^3}{3} &=&  w_1t_1^2+w_2t_2^2+\ldots +w_nt_n^2 \\
+                              &\vdots&      \\
+ \frac{b^{n}-a^{n}}{n}              &=&  w_1t_1^{n-1}+w_2t_2^{n-1}+\ldots +w_nt_n^{n-1},
+\end{eqnarray}
+que pode ser escrito na forma matricial a seguir:
 \begin{equation}
 \begin{bmatrix}
     1     &  1    & \ldots   &  1 \\
@@ -545,25 +543,25 @@ que pode ser escrito na forma matricial
 \end{bmatrix}
 \begin{bmatrix}  w_1 \\ w_2\\ w_3  \\ \vdots   \\ w_n     \end{bmatrix}
 =
-\begin{bmatrix}  b-a  \\ \frac{b^2-a^2}{2} \\ \frac{b^3-a^3}{3} \\ \vdots  \\ \frac{b^{n}-a^{n}}{n}  \end{bmatrix}
+\begin{bmatrix}  b-a  \\ \frac{b^2-a^2}{2} \\ \frac{b^3-a^3}{3} \\ \vdots  \\ \frac{b^{n}-a^{n}}{n}  \end{bmatrix}.
 \end{equation}
-Resolvendo o sistema obtemos os coeficientes $w_k$ para a regra de integração.
+Resolvendo o sistema, obtemos os coeficientes $w_k$ para a regra de integração.
 
 \begin{ex}
 Seja $n=3$, $[a,b]=[0,h]$, onde $[t_1,t_2,t_3]=[0,h/2,h]$. Obtenha uma regra de integração para aproximar $\int _a^b f(t)\;dt$.
 \end{ex}
 \begin{sol}
 A regra terá a forma
-\begin{align}
-  \int _a^b f(t)\;dt & \approx w_1f(t_1)+w_2f(t_2)+w_3f(t_3)\\
-                 & \approx w_1f_1   +w_2f_2   +w_3f_3.
-\end{align}
-Considere a base polinomial $[\phi _1(t),\phi _2(t),\phi _3(t)]=[1,t,t^2]$ e substitua $f(t)$ por $\phi_k(t)$ obtendo
-\begin{align}
-   \int _0^h 1   \;dt = h     &=  w_1(1)   +w_2(1)     + w_3(1) \\
-   \int _0^h t   \;dt = h^2/2 &=  w_1(0)   +w_2(h/2)   + w_3(h) \\
-   \int _0^h t^2 \;dt = h^3/3 &=  w_1(0)^2 +w_2(h/2)^2 + w_3(h)^2
-\end{align}
+\begin{eqnarray}
+  \int _a^b f(t)\;dt & \approx& w_1f(t_1)+w_2f(t_2)+w_3f(t_3)\\
+                 & \approx& w_1f_1   +w_2f_2   +w_3f_3.
+\end{eqnarray}
+Considere a base polinomial $[\phi _1(t),\phi _2(t),\phi _3(t)]=[1, t, t^2]$ e substitua $f(t)$ por $\phi_k(t)$ obtendo
+\begin{eqnarray}
+   \int _0^h 1   \;dt = h     &=&  w_1(1)   +w_2(1)     + w_3(1) \\
+   \int _0^h t   \;dt = h^2/2 &=&  w_1(0)   +w_2(h/2)   + w_3(h) \\
+   \int _0^h t^2 \;dt = h^3/3 &=&  w_1(0)^2 +w_2(h/2)^2 + w_3(h)^2
+\end{eqnarray}
 que pode ser escrito na forma matricial
 \begin{equation}
 \begin{bmatrix}
@@ -596,15 +594,15 @@ h
 \end{bmatrix}
 \end{equation}
 
-Resolvendo o sistema obtemos $\displaystyle [w_1,w_2,w_3]=h[\frac{1}{6},\frac{4}{6},\frac{1}{6}]$ fornecendo a regra de Simpson
+Resolvendo o sistema, obtemos $\displaystyle [w_1,w_2,w_3]=h\left[\frac{1}{6},\frac{4}{6},\frac{1}{6}\right]$, o que fornece a regra de Simpson:
 \begin{equation}
-  \int _0^h f(t) \;dt \approx  \frac{h}{6}f_0+\frac{4h}{6}f_1+\frac{h}{6}f_2
+  \int _0^h f(t) \;dt \approx  \frac{h}{6}f_0+\frac{4h}{6}f_1+\frac{h}{6}f_2.
 \end{equation}
 \end{sol}
 
 \section{Regras compostas}\index{integração numérica!regras compostas}
 
-Vimos que em todas as estimativas de erro que derivamos, o erro depende do tamanho do intervalo de integração. Uma estratégia para reduzir o erro consiste em particionar o intervalo de integração em diversos subintervalos menores tal que
+Em todas as estimativas de erro que derivamos, o erro depende do tamanho do intervalo de integração. Uma estratégia para reduzir o erro consiste em particionar o intervalo de integração em diversos subintervalos menores de forma que
 \begin{equation*}
 \int_{a}^b f(x)\;dx=\sum_{i=1}^{n} \int_{x_i}^{x_{i+1}} f(x)\;dx
 \end{equation*}
@@ -624,13 +622,13 @@ $$
 %%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \subsection{Código Scilab: Regras compostas em geral}
-Devemos fazer um {\it loop} sobre todos os intervalos e para cada intervalo aplicamos uma regra de quadratura.
+Devemos fazer um laço\footnote{Em computação, muitas vezes se usa o anglicismo {\it loop}.} sobre todos os intervalos e para cada intervalo aplicamos uma regra de quadratura.
 
 \verbatiminput{./cap_integracao/codes/scilab/simpson.sci}
 
 Acumulamos o valor da integral em \verb+S+. No código acima temos o método de Simpson, mas basta trocarmos a fórmula para termos outras quadraturas.
 
-Note que esta não é a implementação mais eficiente, pois reutiliza os termos no contorno dos intervalos. Nas próximas seções veremos regras compostas específicas para alguns métodos.
+Note que esta não é a implementação mais eficiente, pois recalcula os termos no contorno dos intervalos. Nas próximas seções veremos regras compostas específicas para alguns métodos.
 \fi
 %%%%%%%%%%%%%%%%%%%%
 
@@ -724,7 +722,7 @@ pelas regras compostas do ponto médio, trapézio e Simpson variando o número d
   As aproximações calculadas são apresentadas na seguinte tabela:
   \begin{center}
   \begin{tabular}{c|ccc}\hline
-    n &  \text{Ponto Médio} &  \text{Trapézios} & \text{Simpson}\\ \hline
+    n &  \text{Ponto médio} &  \text{Trapézios} & \text{Simpson}\\ \hline
     1 & 5,4365637&218,3926&76,421909\\
     2&21,668412&111,91458&51,750469\\
     3&31,678746&80,272022&47,876505\\
@@ -740,34 +738,34 @@ pelas regras compostas do ponto médio, trapézio e Simpson variando o número d
 \subsection*{Exercícios}
 
 \begin{exer}
-Use as rotinas construídas em aula e calcule numericamente o valor das seguintes integrais usando o método composto dos trapézios para os seguintes números de pontos:
-$$
-\begin{array}{|c|c|c|c|c|c|}
-\hline
-n   &h& \int_{0}^1e^{-4x^2}\;dx & \int_{0}^1\frac{1}{1+x^2}dx & \int_{0}^1x^4(1-x)^4dx & \int_{0}^1e^{-\frac{1}{x^2+1}}dx  \\
-\hline
-$17$ && 0.4409931& & ~\hspace{40pt}~& ~\hspace{40pt}~\\
-\hline
-$33 $ &&0.4410288    &      & & \\
-\hline
-$65 $  &&0.4410377  &   & &\\
-\hline
-$129$   &&0.4410400 &  & &\\
-\hline
-$257$   &&0.4410405 &  & &\\
-\hline
-$513$   &&0.4410406 & & &\\
-\hline
-$1025$   &&0.4410407&0.7853981 &1.5873015873016\cdot 10^{-3} &4.6191723776309\cdot 10^{-1} \\
-\hline
-\end{array}
-$$
+Use as rotinas computacionais para calcular numericamente o valor das seguintes integrais usando o método composto dos trapézios para os seguintes números de pontos:
+\begin{center}
+  \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    $n$   & $\displaystyle \int_{0}^1e^{-4x^2}\;dx$ & $\displaystyle \int_{0}^1\frac{1}{1+x^2}dx$ & $\displaystyle \int_{0}^1x^4(1-x)^4\;dx$ & $\displaystyle \int_{0}^1e^{-\frac{1}{x^2+1}}\;dx$  \\
+    \hline
+    $17$ & 0,4409931 & & ~\hspace{40pt}~& ~\hspace{40pt}~\\
+    \hline
+    $33$ & 0,4410288 &      & & \\
+    \hline
+    $65$ & 0,4410377  &   & &\\
+    \hline
+    $129$ & 0,4410400 &  & &\\
+    \hline
+    $257$ & 0,4410405 &  & &\\
+    \hline
+    $513$ & 0,4410406 & & &\\
+    \hline
+    $1025$ & 0,4410407 & 0,7853981 & 1,5873015873016$\E$-3  &4,6191723776309$\E$-3 \\
+    \hline
+  \end{tabular}
+\end{center}
 \end{exer}
 
 
 \begin{exer}
 O valor exato da integral imprópria $\int_0^1x\ln(x)\;dx$ é dado por
-$$\int_0^1x\ln(x)\;dx=\left.\left(\frac{x^2}{2}\ln x-\frac{x^2}{4}\right)\right|_0^1=-1/4$$
+$$\int_0^1x\ln(x)\;dx=\left.\left(\frac{x^2}{2}\ln x-\frac{x^2}{4}\right)\right|_0^1=-1/4.$$
 Aproxime o valor desta integral usando a regra  de Simpson para $n=3$, $n=5$ e $n=7$. Como você avalia a qualidade do resultado obtido? Por que isso acontece.
 \end{exer}
 \begin{resp}
@@ -788,7 +786,7 @@ Estamos interessados em avaliar numericamente a seguinte integral:
 $$\int_0^1 \ln(x)\sin(x)\;dx$$
 cujo valor com 10 casas decimais corretas é $-.2398117420$.
 \begin{enumerate}[a)]
-\item Aproxime esta integral via Gauss-Legendre com $n=2$,$n=3$, $n=4$, $n=5$, $n=6$ e $n=7$.
+\item Aproxime esta integral via Gauss-Legendre com $n=2$, $n=3$, $n=4$, $n=5$, $n=6$ e $n=7$.
 \item Use a identidade
 \begin{eqnarray*}
 \int_0^1 \ln(x)\sin(x)\;dx&=&\int_0^1 \ln(x)x\;dx+\int_0^1 \ln(x)\left[\sin(x)-x\right]\;dx\\
@@ -810,8 +808,8 @@ e aproxime a integral $\int_0^1 \ln(x)\left[\sin(x)-x\right]\;dx$ numericamente 
 O método de Romberg é um método simplificado para construir quadraturas de alta ordem.
 
 Considere o método de trapézios composto aplicado à integral
-$$\int_a^bf(x)\;dx$$
-Defina $I(h)$ a aproximação desta integral pelo método dos trapézios composto com  malha de largura constante igual a h. Aqui $h=\frac{b-a}{N_i}$ para algum $N_i$ inteiro, i.e.:
+$$\int_a^bf(x)\;dx.$$
+Defina $I(h)$ a aproximação desta integral pelo método dos trapézios composto com  malha de largura constante igual a h. Aqui $h=\frac{b-a}{N_i}$ para algum $N_i$ inteiro, isto é:
 $$I(h)=\frac{h}{2}\left[f(a)+2\sum_{j=2}^{N_i} f(x_j)+ f(b)\right],~~~N_i=\frac{b-a}{h}$$
 
 \begin{teo} Se $f(x)$ é uma função analítica no intervalo $(a,b)$, então a função $I(h)$ admite uma representação na forma
@@ -834,29 +832,29 @@ Usamos agora uma eliminação gaussiana para obter o termo $I_0$:
 Vamos agora aplicar a fórmula para $h=b-a$,
 \begin{eqnarray*}
 I(h)&=& \frac{h}{2} \left[f(a)+f(b)\right]\\
-I(h/2)&=& \frac{h}{4} \left[f(a)+2f\left(c\right)+f(b)\right],~~ c=\frac{a+b}{2}\\
+I(h/2)&=& \frac{h}{4} \left[f(a)+2f\left(c\right)+f(b)\right],~~ c=\frac{a+b}{2}.\\
 \end{eqnarray*}
 
 \begin{eqnarray*}
 \frac{4I(h/2)-I(h)}{3}&=&\frac{h}{3}\left[f(a)+2f\left(c\right)+f(b)\right]-\frac{h}{6} \left[f(a)+f(b)\right]\\
-&=&\frac{h}{6}\left[f(a)+4f\left(c\right)+f(b)\right]
+&=&\frac{h}{6}\left[f(a)+4f\left(c\right)+f(b)\right].
 \end{eqnarray*}
-Observe que esquema coincide com o método de Simpson.
+Note que este esquema obtido coincide com o método de Simpson.
 \end{ex}
 
-A partir de agora, usaremos a seguinte notação
+A partir de agora, a fim de deduzir o caso geral, utilizaremos a seguinte notação:
 \begin{eqnarray*}
-R_{1,1}&=&I(h)\\
-R_{2,1}&=&I(h/2)\\
-R_{3,1}&=&I(h/4)\\
+R_{1,1}&=&I(h),\\
+R_{2,1}&=&I(h/2),\\
+R_{3,1}&=&I(h/4),\\
 &\vdots&\\
-R_{n,1}&=&I(h/2^{n-1})
+R_{n,1}&=&I(h/2^{n-1}).
 \end{eqnarray*}
 
 Observamos que os pontos envolvidos na quadratura $R_{k,1}$ são os mesmos pontos envolvidos na quadratura $R(k-1,1)$ acrescidos dos pontos centrais, assim, temos a seguinte fórmula de recorrência:
 $$R_{k,1}=\frac{1}{2}R_{k-1,1}+\frac{h}{2^{k-1}} \sum_{i=1}^{2^{k-2}}f\left(a+(2i-1)\frac{h}{2^{k-1}}\right)$$
 
-Definimos $R_{k,2}$ para $k\geq 2$ como o esquema de ordem quatro obtido da fórmula do exemplo \ref{exemplo_romberg_1}:
+Definimos $R_{k,2}$ para $k\geq 2$ como o esquema de ordem quatro obtido da fórmula do Exemplo~\ref{exemplo_romberg_1}:
 $$R_{k,2}=\frac{4R_{k,1}-R_{k-1,1}}{3}$$
 Os valores $R_{k,2}$ representam então os valores obtidos pelo método de Simpson composto aplicado a uma malha composta de $2^{k-1}+1$ pontos.
 
@@ -867,6 +865,7 @@ $$R_{k,j}=R_{k,j-1}+\frac{R_{k,j-1}-R_{k-1,j-1}}{4^{j-1}-1}.$$
 Construa o esquema de Romberg para aproximar o valor de $\int_0^2e^{x^2}\;dx$ com erro de ordem 8.
 
 O que nos fornece os seguintes resultados:
+
 \begin{tabular}{|c|c|c|c|}\hline
     55,59815  &   0,000000    &       0,000000  &         0,000000         \\
     30,517357 &   22,157092 &   0,000000   &        0,000000         \\
@@ -885,6 +884,7 @@ usando uma aproximação de ordem 8.
 \begin{ex} Construa o esquema de Romberg para aproximar o valor de $\int_0^2x^2e^{x^2}\;dx$ com erro de ordem 12.
 
 O que nos fornece:
+
 \begin{tabular}{|c|c|c|c|c|c|}\hline
      218,3926  &          &           &            &           &         \\  \hline
     111,91458  &  76,421909 &           &            &           &         \\ \hline
@@ -904,7 +904,7 @@ com uma aproximação de ordem 12.
 \subsection*{Exercícios}
 
 \begin{exer}
-Para cada integrando encontre o função $I(h)=a_0+a_1h+a_2h^2+a_3h^3+a_4h^4$ que melhor se ajusta aos dados, onde $h=\frac{1}{n-1}$. Discuta os resultados com base no teorema envolvido na construção do método de Romberg.
+Para cada integrando, encontre o função $I(h)=a_0+a_1h+a_2h^2+a_3h^3+a_4h^4$ que melhor se ajusta aos dados, onde $h=\frac{1}{n-1}$. Discuta os resultados com base no teorema envolvido na construção do método de Romberg.
 \end{exer}
 \begin{resp}
 
@@ -1058,7 +1058,7 @@ onde $w_j=\frac{b-a}{2}$, $x_1=a$ e $x_2=b$.
 \begin{ex}
 A ordem de precisão do esquema de Simpson é 3:
 $$\int_a^b f(x)\;dx \approx \left[f(a)+4f\left(\frac{a+b}{2}\right)+f(b)\right]\frac{b-a}{6}=\sum_{j=1}^3w_jf(x_j)$$
-onde $w_1=w_3=\frac{b-a}{6}$,$w_2=4\frac{b-a}{6}$, $x_1=a$, $x_2=\frac{a+b}{2}$ e $x_3=b$
+onde $w_1=w_3=\frac{b-a}{6}$, $w_2=4\frac{b-a}{6}$, $x_1=a$, $x_2=\frac{a+b}{2}$ e $x_3=b$
 \begin{eqnarray*}
   &(k=0):\quad\sum_{j=1}^n w_j = (1+4+1)\frac{b-a}{6}=b-a\\
   &(k=1):\quad\sum_{j=1}^n w_jx_j = (a+4\frac{a+b}{2}+b)\frac{b-a}{6} = (a+b)\frac{b-a}{2} = \frac{b^2-a^2}{2}\\

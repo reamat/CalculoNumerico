@@ -3,17 +3,17 @@
 %\documentclass[main.tex]{subfiles}
 %\begin{document}
 
-\chapter{Solução de equações de uma variável}\index{equações!de uma variável}
+\chapter{Solução de equações de uma variável}\index{equações!de uma variável}\label{cap_equacao1d}
 
-Neste capítulo, buscaremos aproximações numéricas para a solução de \emph{equações de uma variável real}. Observamos que obter uma solução para uma tal dada equação é equivalente a encontrar um \emph{zero de uma função}\index{função!zero de}\index{função!raiz de} apropriada. Com isso, iniciamos este capítulo discutindo sobre condições de existência e unicidade de raízes de funções de uma variável real. Então, apresentamos o \emph{método da bisseção}\index{método da bisseção} como uma primeira abordagem numérica para a solução de tais equações.
+Neste capítulo, construiremos aproximações numéricas para a solução de \emph{equações algébricas em uma única variável real}. Observamos que obter uma solução para uma dada equação é equivalente a encontrar um \emph{zero de uma função real}\index{função!zero de}\index{função!raiz de} apropriada. Com isso, iniciamos este capítulo discutindo condições de existência e unicidade de raízes de funções de uma variável real. Então, apresentamos o \emph{método da bisseção}\index{método da bisseção} como uma primeira abordagem numérica para a solução de tais equações.
 
-Em seguida, exploramos uma outra abordagem via \emph{iteração do ponto fixo}\index{iteração do ponto fixo}. Desta, obtemos o \emph{método de Newton}\footnote{Sir Isaac Newton, 1642 - 1727, matemático e físico inglês.}\index{método de Newton}, para o qual discutimos sua aplicação e convergência. Por fim, apresentamos o \emph{método das secantes}\index{método das secantes} como uma das possíveis variações do método de Newton.
+Em seguida, exploramos outra abordagem via \emph{iteração do ponto fixo}\index{iteração do ponto fixo}. Desta, obtemos o \emph{método de Newton}\footnote{Sir Isaac Newton, 1642 - 1727, matemático e físico inglês.}\index{método de Newton}, para o qual estudamos aplicações e critérios de convergência. Por fim, apresentamos o \emph{método das secantes}\index{método das secantes} como uma das possíveis variações do método de Newton.
 
 %%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-Ao longo do capítulo, apresentamos algumas computações com \verb+Python+. Nestas, estaremos assumindo o que os seguintes módulos estão carregados:
+Ao longo do capítulo, apresentamos algumas computações com \verb+Python+. Nestas, assumiremos o que os seguintes módulos estão carregados:
 \begin{verbatim}
 >>> from __future__ import division
 >>> import numpy as np
@@ -29,13 +29,13 @@ A segunda instrução carrega a biblioteca de computação científica \href{htt
 O \emph{teorema de Bolzano}\footnote{Bernhard Placidus Johann Gonzal Nepomuk Bolzano, 1781 - 1848, matemático do Reino da Boêmia.}\index{teorema de!Bolzano} nos fornece condições suficientes para a existência do zero de uma função. Este é uma aplicação direta do \emph{teorema do valor intermediário}\index{teorema do valor intermediário}.
 
 \begin{teo}[Teorema de Bolzano]\label{teo:teorema_de_Bolzano}
-  Se $f:[a, b]\to\mathbb{R}$, $y = f(x)$, é uma função contínua tal que $f(a)\cdot f(b) < 0$, então existe $x^*\in (a, b)$ tal que $f(x^*) = 0$.
+  Se $f:[a, b]\to\mathbb{R}$, $y = f(x)$, é uma função contínua tal que $f(a)\cdot f(b) < 0$\footnote{Esta condição é equivalente a dizer que a função troca de sinal no intervalo.}, então existe $x^*\in (a, b)$ tal que $f(x^*) = 0$.
 \end{teo}
 \begin{proof}
   O resultado é uma consequência imediata do teorema do valor intermediário que estabelece que dada uma função contínua $f:[a, b]\to\mathbb{R}$, $y = f(x)$, tal que $f(a) < f(b)$ (ou $f(b) < f(a)$), então para qualquer $d\in \left(f(a), f(b)\right)$ (ou $k\in \left(f(b), f(a)\right)$) existe $x^*\in (a, b)$ tal que $f(x^*) = k$. Ou seja, nestas notações, se $f(a)\cdot f(b) < 0$, então $f(a) < 0 < f(b)$ (ou $f(b) < 0 < f(a)$). Logo, tomando $k = 0$, temos que existe $x^*\in (a, b)$ tal que $f(x^*) = k = 0$.
 \end{proof}
 
-Em outras palavras, se $f(x)$ é uma função contínua em um dado intervalo no qual ela troca de sinal, então ela têm pelo menos um zero neste intervalo (veja a figura~\ref{fig:teorema_de_Bolzano}).
+Em outras palavras, se $f(x)$ é uma função contínua em um dado intervalo no qual ela troca de sinal, então ela tem pelo menos um zero neste intervalo (veja a Figura~\ref{fig:teorema_de_Bolzano}).
 
 \begin{figure}
   \centering
@@ -136,7 +136,7 @@ Se $f:[a, b]\to\mathbb{R}$ é um função diferenciável, $f(a)\cdot f(b)<0$ e $
 Em outras palavras, para garantirmos que exista um único zero de uma dada função diferenciável em um intervalo, é suficiente que ela troque de sinal e seja monótona neste intervalo.
 
 \begin{ex}
-No exemplo~\ref{ex:teorema_de_Bolzano}, mostramos que existe pelo menos um zero de $f(x) = e^{x}-x-2$ no intervalo $(-2,0)$, pois $f(x)$ é contínua e $f(-2)\cdot f(0) < 0$. Agora, observamos que, além disso, $f'(x)=e^x-1$ e, portanto, $f'(x)<0$ para todo $x\in(-2,0)$. Logo, da proposição~\ref{prop:existencia_e_unicidade}, temos garantida a existência de um único zero no intervalo dado.
+No Exemplo~\ref{ex:teorema_de_Bolzano}, mostramos que existe pelo menos um zero de $f(x) = e^{x}-x-2$ no intervalo $(-2,0)$, pois $f(x)$ é contínua e $f(-2)\cdot f(0) < 0$. Agora, observamos que, além disso, $f'(x)=e^x-1$ e, portanto, $f'(x) < 0$ para todo $x\in(-2,0)$. Logo, da Proposição~\ref{prop:existencia_e_unicidade}, temos garantida a existência de um único zero no intervalo dado.
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
@@ -162,6 +162,8 @@ Podemos inspecionar o comportamento da função $f(x)= e^x - x - 2$ e de sua der
 >> f = @(x) exp(x)-x-2  #define f
 f = f(x) = exp(x)-x-2
 >> plot(xx,f(xx))grid on;hold on #grafico de f
+>> fl = @(x) exp(x)-1  #a derivada
+fl = f(x) = exp(x)-1
 >> plot(xx,fl(xx)) #grafico de f'
 \end{verbatim}
 \fi
@@ -204,7 +206,7 @@ A discussão feita nesta seção, especialmente o teorema de Bolzano, nos fornec
 \end{exer}
 \begin{resp}
   
-    No exercício~\ref{exer:existencia_sol1}, mostramos que a função $f(x) = \cos(x) - x$ tem um zero no intervalo $[0, \pi/2]$. Agora, observamos que $f'(x) = -\sen(x) - 1$. Como $0 < \sen x < 1$ para todo $x\in (0, \pi/2)$, temos que $f'(x) < 0$ em $(0, \pi/2)$, isto é, $f(x)$ é monotonicamente decrescente neste intervalo. Logo, da proposição~\ref{prop:existencia_e_unicidade}, temos que existe um único zero da função neste intervalo.
+    No Exercício~\ref{exer:existencia_sol1}, mostramos que a função $f(x) = \cos(x) - x$ tem um zero no intervalo $[0, \pi/2]$. Agora, observamos que $f'(x) = -\sen(x) - 1$. Como $0 < \sen x < 1$ para todo $x\in (0, \pi/2)$, temos que $f'(x) < 0$ em $(0, \pi/2)$, isto é, $f(x)$ é monotonicamente decrescente neste intervalo. Logo, da Proposição~\ref{prop:existencia_e_unicidade}, temos que existe um único zero da função neste intervalo.
   
 \end{resp}
 
@@ -239,7 +241,7 @@ possui uma única solução positiva.
 é menor que $10^{-4}$.
 \end{exer}
 \begin{resp}
-  Basta aplicar as ideias da solução do exercício~\ref{exer:teorema_de_Bolzano_exatidao}.
+  Basta aplicar as ideias da solução do Exercício~\ref{exer:teorema_de_Bolzano_exatidao}.
 \end{resp}
 
 \begin{exer}\label{existe_unica} Mostre que a equação
@@ -255,7 +257,7 @@ O \emph{método da bisseção} explora o fato de que uma função contínua $f:[
 \begin{equation*}
   x^{(0)} = \frac{(a + b)}{2}. 
 \end{equation*}
-Pode ocorrer de $f(x^{(0)}) = 0$ e, neste caso, o zero de $f(x)$ é $x^* = x^{(0)}$. Caso contrário, se $f(a)\cdot f(x^{(0)}) < 0$, então $x^*\in (a, x^{(0)})$. Neste caso, tomamos como segunda aproximação do zero de $f(x)$ o ponto médio do intervalo $[a, x^{(0)}]$, isto é, $x^{(1)} = (a + x^{(0)})/2$. Noutro caso, temos $f(x^{(0)})\cdot f(b) < 0$ e, então, tomamos $x^{(1)} = (x^{(0)} + b)/2$. Repetimos este procedimento até obtermos a aproximação desejada (veja figura~\ref{fig:metodo_da_bissecao}).
+Pode ocorrer de $f(x^{(0)}) = 0$ e, neste caso, o zero de $f(x)$ é $x^* = x^{(0)}$. Caso contrário, se $f(a)\cdot f(x^{(0)}) < 0$, então $x^*\in (a, x^{(0)})$. Neste caso, tomamos como segunda aproximação do zero de $f(x)$ o ponto médio do intervalo $[a, x^{(0)}]$, isto é, $x^{(1)} = (a + x^{(0)})/2$. No outro caso, temos $f(x^{(0)})\cdot f(b) < 0$ e, então, tomamos $x^{(1)} = (x^{(0)} + b)/2$. Repetimos este procedimento até obtermos a aproximação desejada (veja Figura~\ref{fig:metodo_da_bissecao}).
  
 \begin{figure}
   \centering
@@ -272,7 +274,7 @@ Verificamos o \emph{critério de parada}\index{critério de parada}, isto é, se
 \begin{equation*}
   \displaystyle \frac{|b^{(n)} - a^{(n)}|}{2} < TOL,
 \end{equation*}
-então $x^{(n)}$ é a aproximação desejada. Caso contrário, preparamos a próxima iteração $n+1$ da seguinte forma: se $f(a^{(n)})\cdot f(x^{(n)}) < 0$, então setamos $a^{(n+1)} = a^{(n)}$ e $b^{(n+1)} = x^{(n)}$; noutro caso, se $f(x^{(n)})\cdot f(b^{(n)}) < 0$, então setamos $a^{(n+1)} = x^{(n)}$ e $b^{(n+1)} = b^{(n)}$. Trocando $n$ por $n+1$, temos a nova aproximação do zero de $f(x)$ dada por:
+então $x^{(n)}$ é a aproximação desejada. Caso contrário, preparamos a próxima iteração $n+1$ da seguinte forma: se $f(a^{(n)})\cdot f(x^{(n)}) < 0$, então definimos $a^{(n+1)} = a^{(n)}$ e $b^{(n+1)} = x^{(n)}$; no outro caso, se $f(x^{(n)})\cdot f(b^{(n)}) < 0$, então definimos $a^{(n+1)} = x^{(n)}$ e $b^{(n+1)} = b^{(n)}$. Trocando $n$ por $n+1$, temos a nova aproximação do zero de $f(x)$ dada por:
 \begin{equation*}
   x^{(n+1)} = \frac{a^{(n+1)} + b^{(n+1)}}{2}.
 \end{equation*}
@@ -285,10 +287,10 @@ Voltamos a verificar o critério de parada acima e, caso não satisfeito, iteram
   \begin{equation*}
     x^{(0)} = \frac{a^{(0)} + b^{(0)}}{2} = -1.
   \end{equation*}
-  Apresentamos as iterações na tabela~\ref{tab:metodo_da_bissecao}. Observamos que a precisão $TOL = 10^{-1}$ foi obtida na quarta iteração com o zero de $f(x)$ sendo aproximado por $x^{(4)} = 1,8125$.
+  Apresentamos as iterações na Tabela~\ref{tab:metodo_da_bissecao}. Observamos que a precisão $TOL = 10^{-1}$ foi obtida na quarta iteração com o zero de $f(x)$ sendo aproximado por $x^{(4)} = 1,8125$.
   \begin{table}
     \centering
-    \caption{Iteração do método da bisseção para o exemplo~\ref{ex:metodo_da_bissecao}.}
+    \caption{Iteração do método da bisseção para o Exemplo~\ref{ex:metodo_da_bissecao}.}
     \label{tab:metodo_da_bissecao}
     \begin{tabular}{l|ccc|c|c}\hline
       $n$ & $a^{(n)}$ & $b^{(n)}$ & $x^{(n)}$ & $f(a^{(n)})f(x^{(n)})$ & $\displaystyle \frac{|b^{(n)}-a^{(n)}|}{2}$\\\hline
@@ -357,7 +359,7 @@ e, assim, sucessivamente. Veja o código completo na Seção~\ref{subsec:codigo_
 %%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
-Vamos, agora, discutir sobre a \emph{convergência} do método da bisseção. O próximo teorema~\ref{teo:convergencia_bissecao} nos garante a convergência do método da bisseção.
+Vamos agora discutir sobre a \emph{convergência} do método da bisseção. O próximo Teorema~\ref{teo:convergencia_bissecao} nos garante a convergência do método da bisseção.
 
 \begin{teo}[Convergência do método da bisseção]\label{teo:convergencia_bissecao} Sejam $f:[a, b]\to \mathbb{R}$ uma função contínua tal que $f(a)\cdot f(b) < 0$ e $x^*$ o único zero de $f(x)$ no intervalo $(a, b)$. Então, a sequência $\{x^{(n)}\}_{n>=0}$ do método da bisseção satisfaz:
   \begin{equation*}
@@ -366,9 +368,9 @@ Vamos, agora, discutir sobre a \emph{convergência} do método da bisseção. O 
 isto é, $x^{(n)}\to x^*$ quando $n\to\infty$.
 \end{teo}
 \begin{proof}
- Notemos que, a cada iteração, a distância entre a aproximação $x^{(n)}$ e o zero $x^*$ da função é menor que a metade do tamanho do intervalo $[a^{(n)}, b^{(n)}]$ (veja figura~\ref{fig:metodo_da_bissecao}), isto é:
+ Notemos que, a cada iteração, a distância entre a aproximação $x^{(n)}$ e o zero $x^*$ da função é menor ou igual que a metade do tamanho do intervalo $[a^{(n)}, b^{(n)}]$ (veja Figura~\ref{fig:metodo_da_bissecao}), isto é:
 \begin{equation*}
-  |x^{(n)}-x^*| < \frac{b^{(n)}-a^{(n)}}{2}.
+  |x^{(n)}-x^*| \leq \frac{b^{(n)}-a^{(n)}}{2}.
 \end{equation*}
 Por construção do método, temos $[a^{(n)}, b^{(n)}]\subset [a^{(n-1)}, b^{(n-1)}]$ e:
 \begin{equation*}
@@ -376,25 +378,25 @@ Por construção do método, temos $[a^{(n)}, b^{(n)}]\subset [a^{(n-1)}, b^{(n-
 \end{equation*}
 Desta forma:
 \begin{equation*}
-  |x^{(n)}-x^*|  < \frac{b^{(n)}-a^{(n)}}{2} = \frac{b^{(n-1)}-a^{(n-1)}}{2^2} = \cdots = \frac{b^{(0)}-a^{(0)}}{2^{n+1}},\quad \forall n\geq 1.
+  |x^{(n)}-x^*|  \leq \frac{b^{(n)}-a^{(n)}}{2} = \frac{b^{(n-1)}-a^{(n-1)}}{2^2} = \cdots = \frac{b^{(0)}-a^{(0)}}{2^{n+1}},\quad \forall n\geq 1.
 \end{equation*}
 Logo, vemos que:
 \begin{equation*}
-  |x^{(n)}-x^*|  < \frac{b-a}{2^{n+1}},\quad \forall n\geq 0.
+  |x^{(n)}-x^*|  \leq \frac{b-a}{2^{n+1}},\quad \forall n\geq 0.
 \end{equation*} 
 \end{proof}
 
-Observamos que a hipótese de que $f(x)$ tenha um único zero no intervalo não é necessária. Se a função tiver mais de um zero no intervalo inicial, as iterações irão convergir para um dos zeros. Veja o exercício~\ref{exer:raizes_multiplas}.
+Observamos que a hipótese de que $f(x)$ tenha um único zero no intervalo não é realmente necessária. Se a função tiver mais de um zero no intervalo inicial, as iterações ainda convergem para um dos zero. Veja o Exercício~\ref{exer:raizes_multiplas}.
 
 \begin{obs}
-  O teorema~\ref{teo:convergencia_bissecao} nos fornece uma estimativa para a convergência do método da bisseção. Aproximadamente, temos:
+  O Teorema~\ref{teo:convergencia_bissecao} nos fornece uma estimativa para a convergência do método da bisseção. Aproximadamente, temos:
   \begin{equation*}
     |x^{(n+1)} - x^*| \lesssim \frac{1}{2}|x^{(n)} - x^*|.
   \end{equation*}
 Isto nos leva a concluir que o método da bisseção tem \emph{taxa de convergência}\index{Método da bisseção!taxa de convergência} linear.
 \end{obs}
 
-\begin{ex}No exemplo~\ref{ex:metodo_da_bissecao}, precisamos de $4$ iterações do método da bisseção para computar uma aproximação com precisão de $10^{-1}$ do zero de $f(x) = e^x - x - 2$ tomando como intervalo inicial $[a, b] = [-2, 0]$. Poderíamos ter estimado o número de iterações \emph{a priori}, pois, como vimos acima:
+\begin{ex}No Exemplo~\ref{ex:metodo_da_bissecao}, precisamos de $4$ iterações do método da bisseção para computar uma aproximação com precisão de $10^{-1}$ do zero de $f(x) = e^x - x - 2$ tomando como intervalo inicial $[a, b] = [-2, 0]$. Poderíamos ter estimado o número de iterações \emph{a priori}, pois, como vimos acima:
   \begin{equation*}
     |x^{(n)}-x^*|\leq \frac{b-a}{2^{n+1}},\quad n\geq 0.
   \end{equation*}
@@ -406,7 +408,7 @@ Logo, temos:
 O que está de acordo com o experimento numérico realizado naquele exemplo.
 \end{ex}
 
-O método da bisseção tem a boa propriedade de garantia de convergência, bem como de fornecer uma simples estimativa da precisão da aproximação calculada. Entretanto, a taxa de convergência linear é superada por outros métodos. A construção de tais métodos está, normalmente, associada a iteração do ponto fixo, a qual exploramos na próxima seção.
+O método da bisseção tem a boa propriedade de garantia de convergência, bem como de fornecer uma simples estimativa do erro na aproximação calculada. Entretanto, a taxa de convergência linear é superada por outros métodos. A construção de tais métodos está, normalmente, associada à iteração do ponto fixo, a qual exploramos na próxima seção.
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
@@ -446,7 +448,7 @@ O seguinte código é uma implementação no \verb+GNU Octave+ do algoritmo da b
 \end{itemize}
 A variável de saída é:
 \begin{itemize}
-\item \verb+p+ - aproximação da raiz de \verb+f+, i.e. $f(p) \approx 0$.
+\item \verb+p+ - aproximação da raiz de \verb+f+, isto é, $f(p) \approx 0$.
 \end{itemize}
 
 \verbatiminput{./cap_equacao1d/codes/octave/metodo_da_bissecao/bissecao.m}
@@ -501,14 +503,14 @@ em intervalos de comprimento $0,1$. Então, use o método da bisseção para obt
   \end{itemize}
 \end{exer}
 \begin{resp}
-  a) $x_1=1$. b) Dica: como $x_2=2$ é raíz dupla, tem-se que $p'(x_2) = 0$.
+  a) $x_1=1$. b) Dica: como $x_2=2$ é raiz dupla, tem-se que $p'(x_2) = 0$.
 \end{resp}
 
 \begin{exer}\label{prob_raiz_dupla} O polinômio $f(x)=x^4-4x^2+4$ possui raízes duplas em $\sqrt{2}$ e $-\sqrt{2}$. O método da bisseção pode ser aplicados a $f$? Explique.
 \end{exer}
 
 
-\begin{exer} Mostre que a equação do problema \ref{existe_unica} possui uma solução no intervalo $[1, v+1]$ para todo $v$ positivo. Dica: defina $f(x)=\ln(x)+x-\frac{1}{x}-v$  e considere a seguinte estimativa:
+\begin{exer} Mostre que a equação do Problema~\ref{existe_unica} possui uma solução no intervalo $[1, v+1]$ para todo $v$ positivo. Dica: defina $f(x)=\ln(x)+x-\frac{1}{x}-v$  e considere a seguinte estimativa:
   \begin{equation*}
     f(v+1)=f(1)+\int_1^{v+1}f'(x)dx\geq -v+\int_1^{v+1}dx=0.  
   \end{equation*}
@@ -562,7 +564,7 @@ Dica: $V=RI_d+v_d$.
     a) $0,623$; b) $0,559$; c) $0,500$; d) $0,300$; e) $-0,3$; f) $-30$; g) $-30$
 \end{resp}
 
-\begin{exer}(Propagação de erros) Obtenha os valores de $I_d$ no problema \ref{prob_diodo}. Lembre que existem duas expressões disponíveis:
+\begin{exer}(Propagação de erros) Obtenha os valores de $I_d$ no Problema~\ref{prob_diodo}. Lembre que existem duas expressões disponíveis:
   \begin{equation*}
     I_d=I_R\left(\exp\left(\frac{v_d}{v_t}\right)-1\right)  
   \end{equation*}
@@ -578,7 +580,7 @@ Faça o estudo da propagação do erro e decida qual a melhor expressão em cada
 
 \section{Iteração de ponto fixo}\index{iteração do ponto fixo}
 
-Nesta seção, discutimos a abordagem da \emph{iteração do ponto fixo} para a solução numérica de equações de uma variável real. Observamos que sempre podemos reescrever uma equação da forma $f(x) = 0$ (problema de encontrar os zeros de uma função) em uma equação equivalente na forma $g(x) = x$ (\emph{problema de ponto fixo}\index{problema de!ponto fixo}). Um ponto $x = x^*$ tal que $g(x^*) = x^*$ é chamado de \emph{ponto fixo}\index{ponto fixo} da função $g(x)$. Geometricamente, um ponto fixo de uma função é um ponto de interseção entre a reta $y = x$ com o gráfico da função (veja figura~\ref{fig:defn_ponto_fixo}).
+Nesta seção, discutimos a abordagem da \emph{iteração do ponto fixo} para a solução numérica de equações de uma variável real. Observamos que sempre podemos reescrever uma equação da forma $f(x) = 0$ (problema de encontrar os zeros de uma função) em uma equação equivalente na forma $g(x) = x$ (\emph{problema de ponto fixo}\index{problema de!ponto fixo}). Um ponto $x = x^*$ tal que $g(x^*) = x^*$ é chamado de \emph{ponto fixo}\index{ponto fixo} da função $g(x)$. Geometricamente, um ponto fixo de uma função é um ponto de interseção entre a reta $y = x$ com o gráfico da função $g(x)$ (veja Figura~\ref{fig:defn_ponto_fixo}).
 
 \begin{figure}[h]
   \centering
@@ -588,7 +590,7 @@ Nesta seção, discutimos a abordagem da \emph{iteração do ponto fixo} para a 
 \end{figure}
 
 \begin{ex}\label{ex:ponto_fixo_1}
-  Resolver a equação $e^x = x + 2$ é equivalente a resolver $f(x) = 0$, com $f(x) = e^x - x - 2$. Estes são equivalentes a resolver $g(x) = x$, com $g(x) = e^x - 2$. Ou seja, temos:
+  Resolver a equação $e^x = x + 2$ é equivalente a resolver $f(x) = 0$, com $f(x) = e^x - x - 2$. Estes são equivalentes a resolver $g(x) = x$, com $g(x) = e^x - 2$, isto é:
   \begin{equation*}
     e^x = x + 2 \Leftrightarrow e^x - x - 2 = 0 \Leftrightarrow e^x - 2 = x
   \end{equation*}
@@ -652,7 +654,7 @@ x^{(5)}&=&\frac{2,236068}{2}+\frac{2,5}{2,236068}= 2,236068
 O método babilônico sugere que a iteração do ponto fixo pode ser uma abordagem eficiente para a solução de equações. Ficam, entretanto, as seguintes perguntas:
 \begin{enumerate}
 \item Será que a iteração do ponto fixo é convergente?
-\item Caso seja convergente, será que o limite $x^* = \lim_{n\to \infty }x^{(n)}$ é um ponto fixo?
+\item Caso seja convergente, será que o limite da sequência produzida, isto é, $x^* := \lim_{n\to \infty }x^{(n)}$ é um ponto fixo?
 \item Caso seja convergente, qual é a taxa de convergência?
 \end{enumerate}
 
@@ -689,11 +691,11 @@ Notamos que o ponto fixo destas duas funções coincide com o zero de $f(x)$. Co
 \begin{equation*}
   x_1^{(n+1)} = g_1(x_1^{(n)})\quad\text{e}\quad x_2^{(n+1)} = g_2(x_2^{(n)}),
 \end{equation*}
-tomando $x_1^{(1)} = x_2^{(1)} = 1,7$, obtemos os resultados apresentados na tabela~\ref{tab:ponto_fixo_2}. Observamos que, enquanto, a iteração do ponto fixo com a função $g_1(x)$ ($\alpha = 0,5$) parece divergir, a iteração com a função $g_2(x)$ ($\alpha = 0,05$) parece convergir.
+tomando $x_1^{(1)} = x_2^{(1)} = 1,7$, obtemos os resultados apresentados na Tabela~\ref{tab:ponto_fixo_2}. Observamos que, enquanto, a iteração do ponto fixo com a função $g_1(x)$ ($\alpha = 0,5$) parece divergir, a iteração com a função $g_2(x)$ ($\alpha = 0,05$) parece convergir.
 
 \begin{table}
   \centering
-  \caption{Iterações do ponto fixo para o exemplo~\ref{ex:ponto_fixo_2}.}\label{tab:ponto_fixo_2}
+  \caption{Iterações do ponto fixo para o Exemplo~\ref{ex:ponto_fixo_2}.}\label{tab:ponto_fixo_2}
   \begin{tabular}{c|rr}\hline
     $n$ & $x_1^{(n)}$ & $x_2^{(n)}$ \\\hline
     $1$ & $1,700$ & $1,700$\\
@@ -778,7 +780,7 @@ e, assim, sucessivamente. Itere com a função $g_2(x)$ e verifique a convergên
 %   Dizemos que  $p$ é um \emph{ponto fixo} de uma função $g$ se $g(p)=p$.
 % \end{defn}
 
-Afim de estudarmos a convergência da iteração do ponto fixo, apresentamos o teorema do ponto fixo.
+A fim de estudarmos a convergência da iteração do ponto fixo, apresentamos o teorema do ponto fixo.
 
 \subsection{Teorema do ponto fixo}\index{Teorema do!ponto fixo}
 
@@ -846,7 +848,7 @@ Isto é, as iterações do ponto fixo têm taxa de convergência linear\index{it
 \end{obs}
 
 \begin{ex}\label{ex:ponto_fixo_3}
-Mostre que o teorema do ponto fixo se aplica a função $g(x) = \cos(x)$ no intervalo $[1/2, 1]$, isto é, a iteração de ponto fixo converge para a solução da equação $\cos x = x$. Então, calcule as iterações do ponto fixo com aproximação inicial $x^{(1)} = 0,7$, estime o erro absoluto da aproximação e verfique a taxa de convergência.
+Mostre que o teorema do ponto fixo se aplica a função $g(x) = \cos(x)$ no intervalo $[1/2, 1]$, isto é, a iteração de ponto fixo converge para a solução da equação $\cos x = x$. Então, calcule as iterações do ponto fixo com aproximação inicial $x^{(1)} = 0,7$, estime o erro absoluto da aproximação e verifique a taxa de convergência.
 \end{ex}
 \begin{sol}
   Basta mostrarmos que:
@@ -883,7 +885,7 @@ Assim, $|g'(x)|<0,85$ temos a desigualdade com $\beta=0,85<1$.
    $6$ & $0,74442$ & $5,3\E-03$ \\
    $7$ & $0,73548$ & $3,6\E-03$ \\\hline
   \end{tabular}
-  \caption{Iteração do ponto fixo para o exemplo~\ref{ex:ponto_fixo_3}.}
+  \caption{Iteração do ponto fixo para o Exemplo~\ref{ex:ponto_fixo_3}.}
   \label{tab:ponto_fixo_3}
 \end{table}
 
@@ -997,11 +999,11 @@ Seja $g:[a,b]\to\mathbb{R}$ uma função $C^0[a,b]$ e $x^*\in(a,b)$ um ponto fix
         \includegraphics{./cap_equacao1d/pics/ponto_fixo_instavel/ponto_fixo_instavel.eps}
 ~
         \includegraphics{./cap_equacao1d/pics/ponto_fixo_estavel/ponto_fixo_estavel.eps}
-    \caption{Ilustração das iterações do ponto fixo para: (esquerda) $y = g_1(x)$ e (direita) $y = g_2(x)$. Veja exemplo~\ref{ex:ponto_fixo_4}.} \label{fig:teste_de_convergencia}
+    \caption{Ilustração das iterações do ponto fixo para: (esquerda) $y = g_1(x)$ e (direita) $y = g_2(x)$. Veja Exemplo~\ref{ex:ponto_fixo_4}.} \label{fig:teste_de_convergencia}
 \end{figure}
 
 \begin{ex}\label{ex:ponto_fixo_4}
-  No exemplo~\ref{ex:ponto_fixo_2}, observamos que a função $g_1(x)$ nos forneceu uma iteração divergente, enquanto que a função $g_2(x)$ forneceu uma iteração convergente (veja a figura~\ref{fig:teste_de_convergencia}. A razão destes comportamentos é explicada pelo teste da convergência. Com efeito, sabemos que o ponto fixo destas funções está no intervalo $[1,6, 1,8]$ e temos:
+  No Exemplo~\ref{ex:ponto_fixo_2}, observamos que a função $g_1(x)$ nos forneceu uma iteração divergente, enquanto que a função $g_2(x)$ forneceu uma iteração convergente (veja a Figura~\ref{fig:teste_de_convergencia}. Estes comportamentos são explicados pelo teste da convergência. Com efeito, sabemos que o ponto fixo destas funções está no intervalo $[1,6, 1,8]$ e temos:
   \begin{equation*}
     |g_1'(x)| = |1 - 0,5(x+1)e^x| > 4,8,\quad\forall x\in [1,6, 1,8],
   \end{equation*}
@@ -1104,7 +1106,7 @@ $$\epsilon_N \approx \frac{\Delta_N}{1-\frac{\Delta_n}{\Delta_{n-1}}}.$$
 \subsection*{Exercícios}
 
 \begin{exer}
-  Resolver a equação $e^x = x + 2$ é equivalente a calcular os pontos fixos da função $g(x) = e^x - 2$ (veja o exemplo~\ref{ex:ponto_fixo_1}). Use a iteração do ponto fixo $x^{(n+1)} = g(x^{n})$ com $x^{(1)} = -1,8$ para obter uma aproximação de uma das soluções da equação dada com $8$ dígitos significativos.
+  Resolver a equação $e^x = x + 2$ é equivalente a calcular os pontos fixos da função $g(x) = e^x - 2$ (veja o Exemplo~\ref{ex:ponto_fixo_1}). Use a iteração do ponto fixo $x^{(n+1)} = g(x^{n})$ com $x^{(1)} = -1,8$ para obter uma aproximação de uma das soluções da equação dada com $8$ dígitos significativos.
 \end{exer}
 \begin{resp}
     $-1,8414057$
@@ -1202,6 +1204,10 @@ Implemente o processo iterativo $x^{(n+1)}=g(x^{(n)})$ para $n\geq 0$ e compare 
   \end{equation*}
 com erro absoluto inferior a $10^{-6}$.
 \end{exer}
+\begin{resp}
+ $x_1\approx 1,4506619$, $x_2\approx 4,8574864$, $x_3= 7,7430681$. 
+\end{resp}
+
 
 
 \begin{exer} Considere os seguintes processos iterativos:
@@ -1243,7 +1249,7 @@ $0.0431266$
 \begin{exer} Encontre uma solução aproximada para equação algébrica
 $$180-100x=0.052\sinh^{-1}(10^{13}x)$$
 com erro absoluto inferior a $10^{-3}$ usando um método iterativo.
-Estime o erro associado ao valor de $v=180-100x=0.052\sinh^{-1}(10^{13}x)$, usando cada uma dessas expressões. Discuta sucintamente o resultado obtido. Dica: Este caso é semelhante ao problema \ref{prob_diodo}.
+Estime o erro associado ao valor de $v=180-100x=0.052\sinh^{-1}(10^{13}x)$, usando cada uma dessas expressões. Discuta sucintamente o resultado obtido. Dica: Este caso é semelhante ao Problema~\ref{prob_diodo}.
 \end{exer}
 
 \begin{exer}Considere que $x_n$ satisfaz a seguinte relação de recorrência:
@@ -1301,7 +1307,7 @@ $$f(x)=f(x^*)+f'(x^*)(x-x^*)+O\left((x-x^*)^2\right).$$
 Em vista do problema anterior, qual valor de $\gamma$ você escolheria para que a sequência $x^{(n)}$ convirja rapidamente para $x^*$. 
 \end{exer}
 
-\begin{exer} Considere o problema da questão \ref{prob_diodo} e dois seguintes esquemas iterativos.
+\begin{exer} Considere o problema da Questão~\ref{prob_diodo} e dois seguintes esquemas iterativos.
 $$\begin{array}{l}
 A\left\{
 \begin{array}{ll}
@@ -1322,13 +1328,13 @@ Verifique numericamente que apenas o processo A é convergente para a, b e c; en
 
 Nesta seção, apresentamos o \emph{método de Newton-Raphson}\footnote{Joseph Raphson, 1648 - 1715, matemático inglês.}\footnote{Também chamado apenas de método de Newton.}\index{método de!Newton-Raphson}\index{método de!Newton} para calcular o zero de funções reais de uma variável real. 
 
-Assumimos que $x^*$ é um zero de uma dada função $f(x)$ continuamente diferenciável, isto é, $f(x^*) = 0$. Afim de usar a iteração do ponto fixo, observamos que, equivalentemente, $x^*$ é um ponto fixo da função:
+Consideramos que $x^*$ seja um zero de uma dada função $f(x)$ continuamente diferenciável, isto é, $f(x^*) = 0$. A fim de usar a iteração do ponto fixo, observamos que, equivalentemente, $x^*$ é um ponto fixo da função:
 \begin{equation*}
   g(x)= x + \alpha(x)f(x),\quad\alpha(x)\neq 0,
 \end{equation*}
-onde $\alpha(x)$ é uma função arbitrária que queremos escolher de forma que a iteração do ponto fixo tenha ótima taxa de convergência. 
+onde $\alpha(x)$ é uma função arbitrária, a qual escolheremos de forma que a iteração do ponto fixo tenha ótima taxa de convergência. 
 
-Do \emph{Teorema do ponto fixo}\index{teorema do!ponto fixo} temos que a taxa de convergência é dada em função do valor absoluto da derivada de $g(x)$. Calculando a derivada temos:
+Do \emph{teorema do ponto fixo}\index{teorema do!ponto fixo}, a taxa de convergência é dada em função do valor absoluto da derivada de $g(x)$. Calculando a derivada temos:
 \begin{equation*}
   g'(x)=1+\alpha(x)f'(x)+\alpha'(x)f(x).
 \end{equation*}
@@ -1359,7 +1365,7 @@ sendo $x^{(1)}$ uma aproximação inicial dada.
 
 \subsection{Interpretação geométrica}
 
-Seja dada uma função $f(x)$ conforme na figura~\ref{fig:metodo_de_Newton}. Para tanto, escolhemos uma aproximação inicial $x^{(1)}$ e computamos:
+Seja uma dada função $f(x)$  conforme na Figura~\ref{fig:metodo_de_Newton}. Para tanto, escolhemos uma aproximação inicial $x^{(1)}$ e computamos:
 \begin{equation*}
   x^{(2)} = x^{(1)} - \frac{f(x^{(1)})}{f'(x^{(1)})}.
 \end{equation*}
@@ -1367,7 +1373,7 @@ Geometricamente, o ponto $x^{(2)}$ é a interseção da reta tangente ao gráfic
 \begin{equation*}
   y = f'(x^{(1)})(x - x^{(1)}) + f(x^{(1)}).
 \end{equation*}
-Assim, a interseção desta reta com o eixo das abscissas ocorre quando ($y=0$):
+Assim, a interseção desta reta com o eixo das abscissas ($y=0$) ocorre quando:
 \begin{equation*}
   f'(x^{(1)})(x - x^{(1)}) + f(x^{(1)}) = 0\Rightarrow x = x^{(1)} - \frac{f(x^{(1)})}{f'(x^{(1)})}.
 \end{equation*}
@@ -1379,7 +1385,7 @@ Assim, a interseção desta reta com o eixo das abscissas ocorre quando ($y=0$):
   \label{fig:metodo_de_Newton}
 \end{figure}
 
-Ou seja, dado $x^{(n)}$ a próxima aproximação $x^{(n+1)}$ é o ponto de interseção entre o eixo das abscissas e a reta tangente ao gráfico da função no ponto $x = x^{(n)}$. Observe a figura~\ref{fig:metodo_de_Newton}.
+Ou seja, dada aproximação $x^{(n)}$, a próxima aproximação $x^{(n+1)}$ é o ponto de interseção entre o eixo das abscissas e a reta tangente ao gráfico da função no ponto $x = x^{(n)}$. Observe a Figura~\ref{fig:metodo_de_Newton}.
 
 \subsection{Análise de convergência}\index{método de Newton-Raphson!convergência}\label{Analise_conv_Newton}
 
@@ -1578,8 +1584,8 @@ f'(x)=\sec^2(x)-4x=\frac{1}{\cos^2(x)}-4x\geq \frac{1}{\cos^2(1,2)}-4*1,3>0, ~~x
 
 % As raízes obtidas são $0.55970415$ e $1.2703426$. 
 
-\item[b)] Para recalcular as raízes pelo método de Newton, basta executar a interação
-$$x^{(n+1)}=x^{(n)}-\frac{f(x^{(n)})}{f'(x^{(n)}}$$    
+\item[b)] Para recalcular as raízes pelo método de Newton, basta executar a iteração:
+$$x^{(n+1)}=x^{(n)}-\frac{f(x^{(n)})}{f'(x^{(n)}}.$$    
 \end{itemize}
 Em relação à observação, o erro se deveu à falta de cuidado em compreender o problema antes de tentar resolvê-lo, em especial, à falta de observar que a função é descontínua em  múltiplos ímpares de $\frac{\pi}{2}$. Nestes pontos, a função $f(x)$ troca de sinal, mas não passa por zero.    
 \end{resp}
@@ -1603,7 +1609,7 @@ $$\cos(10x)=e^{-x}.$$ Dica: a primeira raiz positiva está no intervalo $(0, 0,0
   \end{resp}
 
 
-\begin{exer}\label{new3} Encontre as raízes do polinômio $f(x)=x^4-4x^2+4$ através do método de Newton. O que você observa em relação ao erro obtido? Compare com a situação do problema \ref{prob_raiz_dupla}.
+\begin{exer}\label{new3} Encontre as raízes do polinômio $f(x)=x^4-4x^2+4$ através do método de Newton. O que você observa em relação ao erro obtido? Compare com a situação do Problema~\ref{prob_raiz_dupla}.
 \end{exer}
 
 \begin{exer}\label{new4} Encontre as raízes reais do polinômio $f(x)=\frac{x^5}{100}+x^4+3x+1$ isolando-as pelo método do gráfico e depois usando o método de Newton. Expresse a solução com 7 dígitos significativos.
@@ -1666,8 +1672,8 @@ $x_0>1$.
 \end{eqnarray*}
 definida para $x\in \left(0,e^{15}\right)$
 \begin{itemize}
-\item [a)] (1.5) Use o teorema do ponto fixo para provar que se $x^{(0)}$ pertence ao intervalo $[1,3]$, então a sequência dada iterativamente por $$x^{(n+1)}=\psi(x^{(n)}),n\geq 0$$ converge para o único ponto fixo, $x^*$, de $\psi$. Construa a iteração $x^{(n+1)}=\psi(x^{(n)})$ e obtenha numericamente o valor do ponto fixo $x^*$. Expresse a resposta com 5 algarismos significativos corretos.
-\item [b)] (1.0) Construa a iteração do método de Newton para encontrar $x^*$, explicitando a relação de recorrência e iniciando com $x_0=2$. Use o computador para obter a raiz e expresse a resposta com oito dígitos significativos corretos.
+\item [a)] Use o teorema do ponto fixo para provar que se $x^{(0)}$ pertence ao intervalo $[1,3]$, então a sequência dada iterativamente por $$x^{(n+1)}=\psi(x^{(n)}),n\geq 0$$ converge para o único ponto fixo, $x^*$, de $\psi$. Construa a iteração $x^{(n+1)}=\psi(x^{(n)})$ e obtenha numericamente o valor do ponto fixo $x^*$. Expresse a resposta com 5 algarismos significativos corretos.
+\item [b)] Construa a iteração do método de Newton para encontrar $x^*$, explicitando a relação de recorrência e iniciando com $x_0=2$. Use o computador para obter a raiz e expresse a resposta com oito dígitos significativos corretos.
 \end{itemize}
 \end{exer}
 
@@ -1719,7 +1725,7 @@ Enquanto, o método de Newton está relacionado às retas tangentes ao gráfico 
   \label{fig:metodo_das_secantes}
 \end{figure}
 
-Sejam $f(x)$ e as aproximações $x^{(1)}$ e $x^{(2)}$ do zero $x^*$ desta função (veja figura~\ref{fig:metodo_das_secantes}). A iteração do método das secantes fornece:
+Sejam $f(x)$ e as aproximações $x^{(1)}$ e $x^{(2)}$ do zero $x^*$ desta função (veja Figura~\ref{fig:metodo_das_secantes}). A iteração do método das secantes fornece:
 \begin{equation*}
   x^{(3)} = x^{(2)} - f(x^{(2)})\frac{x^{(2)} - x^{(1)}}{f(x^{(2)}) - f(x^{(1)})}.
 \end{equation*}
@@ -1735,7 +1741,7 @@ Esta reta intercepta o eixo das abscissas no ponto $x$ tal que $y=0$, isto é:
 
 \subsection{Análise de convergência}\index{método das secantes!convergência}
 
-Uma análise assintótica semelhante àquela feita para o método de Newton na subseção \ref{Analise_conv_Newton} nos indica que, para uma função $f(x)$ duas vezes diferenciável, as iterações do método da secante satisfazem:
+Uma análise assintótica semelhante àquela feita para o método de Newton na subseção~\ref{Analise_conv_Newton} nos indica que, para uma função $f(x)$ duas vezes diferenciável, as iterações do método da secante satisfazem:
 \begin{equation*}
   |x^{(n+1)} - x^*| \approx C |x^{(n)} - x^*||x^{(n-1)} - x^*|,
 \end{equation*}
@@ -1801,11 +1807,11 @@ Agora, novamente temos:
   &= \int_0^r f''(x^{(n)} + r(x^{(n-1)} - x^{(n)}) + s(x^* - x^{(n-1)}))\,ds(x^* - x^{(n-1)}).
   \end{split}
 \end{equation*}
-Retornando à equação~\eqref{eq:secantes-0} e usando a cota para a segunda derivada, obtemos:
+Retornando à Equação~\eqref{eq:secantes-0} e usando a cota para a segunda derivada, obtemos:
 \begin{equation*}
   \left|\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} - \frac{f(x^{(n)}) - f(x^*)}{x^{(n)} - x^*} \right| \leq \frac{M}{2}|x^{(n-1)} - x^*|.
 \end{equation*}
-Utilizando a equação~\eqref{eq:secantes-est0}, obtemos:
+Utilizando a Equação~\eqref{eq:secantes-est0}, obtemos:
 \begin{equation*}
   |g(x^{(n)},x^{(n-1)})-x^*| \leq \frac{M}{2m}|x^{(n)}-x^*||x^{(n-1)}-x^*| \leq \frac{M}{2m}\rho^2 < \rho.
 \end{equation*}
@@ -1880,7 +1886,7 @@ Daí, segue imediatamente o enunciado.
 \end{proof}
 
 \begin{obs}
-  Sob as hipóteses do teorema~\ref{teo:metodo_das_secantes} e da proposição~\ref{prop:sequencia_de_Fibonacci}, temos:
+  Sob as hipóteses do Teorema~\ref{teo:metodo_das_secantes} e da Proposição~\ref{prop:sequencia_de_Fibonacci}, temos:
   \begin{eqnarray*}
     \lim_{n\to\infty} \frac{|x^{(n+1)}-x^*|}{|x^{(n)} - x^*|^{\lambda_1}} &\leq& \lim_{n\to\infty} \frac{M}{2m}|x^{(n)}-x^*|^{1-\lambda_1}|x^{(n-1)}-x^*| \\
     &\leq& \lim_{n\to\infty} \left(\frac{2m}{M}\right)^{1-\lambda_1}q^{(2-\lambda_1)\lambda_1^{n}/\sqrt{5}} = 0.
@@ -1891,7 +1897,7 @@ Isto mostra que o método das secantes (nestas hipóteses) tem taxa de convergê
 
 \section{Critérios de parada}
 
-Quando usamos métodos iterativos precisamos determinar um critério de parada. A tabela~\ref{tab:quadro_comparativo} indica critérios de parada usuais para os métodos que estudamos neste capítulo.
+Quando usamos métodos iterativos precisamos determinar um critério de parada. A Tabela~\ref{tab:quadro_comparativo} indica critérios de parada usuais para os métodos que estudamos neste capítulo.
 
 \begin{table}[h!]
   \centering
@@ -1938,7 +1944,7 @@ O erro na tabela sempre se refere ao erro absoluto esperado. Nos três últimos 
   \end{equation*}
 \end{exer}
 
-\begin{exer} Refaça o problema \ref{prob_diodo} usando o método de Newton e das secantes.
+\begin{exer} Refaça o Problema~\ref{prob_diodo} usando o método de Newton e das secantes.
 \end{exer}
 
 \begin{exer}

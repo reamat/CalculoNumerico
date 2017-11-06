@@ -2,13 +2,13 @@
 
 \chapter{Derivação numérica}\index{derivação}
 
-Nesta seção, discutiremos sobre estratégias numéricas de aproximação de derivadas de funções reais. Com as técnicas que abordaremos é possível o cálculo aproximado da derivada de uma função a partir de um conjunto de pontos discretos $\{(x_i, y_i)\}_{i=1}^n$. Começamos discutindo sobre as chamadas \emph{aproximações por diferenças finitas}\index{aproximações por diferenças finitas} e, então, discutimos sobre aproximações de derivadas via ajuste ou interpolação.
+Nesta seção, trataremos das estratégias numéricas para aproximação de derivadas de funções reais. Com as técnicas abordadas, é possível calcular aproximadamente a derivada de uma função a partir de um conjunto discreto de pontos $\{(x_i, y_i)\}_{i=1}^n$. Começamos discutindo as chamadas \emph{aproximações por diferenças finitas}\index{aproximações por diferenças finitas} e, então, as aproximações de derivadas via ajuste ou interpolação.
 
 %%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-Ao longo deste capítulo, estaremos assumindo que as seguintes bibliotecas e módulos \verb+Python+ estão importados:
+Ao longo deste capítulo, assumiremos que as seguintes bibliotecas e módulos \verb+Python+ estão importados:
 \begin{verbatim}
 from __future__ import division
 import numpy as np
@@ -101,15 +101,15 @@ E, similarmente, para outros valores de $x_0$ e $h$.
 \begin{figure}
   \centering
   \includegraphics{./cap_derivacao/pics/ex_derivacao/ex_derivacao}
-  \caption{Erro absoluto das derivadas numéricas no exemplo~\ref{ex:dp}.}
+  \caption{Erro absoluto das derivadas numéricas no Exemplo~\ref{ex:dp}.}
   \label{fig:ex_derivacao}
 \end{figure}
 
-Exploremos o exemplo~\ref{ex:dp} um pouco mais. Observamos que, para valores moderados de $h$, o erro $|f'(1)-D_{+,h}f(1)|$ diminui linearmente com $h$ (veja figura~\ref{fig:ex_derivacao}). Isto é consequência da ordem de truncamento da fórmula de diferenças finitas aplicada (que é de ordem 1). Porém, para valores muito pequenos de $h < 10^{-8}$, o erro passa a aumentar quando diminuímos $h$. Isto é devido ao efeito de cancelamento catastrófico.
+Exploremos o Exemplo~\ref{ex:dp} um pouco mais. Observamos que, para valores moderados de $h$, o erro $|f'(1)-D_{+,h}f(1)|$ diminui linearmente com $h$ (veja Figura~\ref{fig:ex_derivacao}). Isto é consequência da ordem de truncamento da fórmula de diferenças finitas aplicada (que é de ordem 1). Porém, para valores muito pequenos de $h < 10^{-8}$, o erro passa a aumentar quando diminuímos $h$. Isto é devido ao efeito de cancelamento catastrófico.
 
 \subsection{Diferenças finitas via série de Taylor}
 
-Podemos construir fórmulas de diferenças finitas para uma função $f(x)$ (suave\footnote{Uma função suave é uma função infinitamente continuamente diferenciável, isto é, $f\in C^\infty(\mathbb{R})$. Uma análise mais cuidadosa, revela que hipóteses mais fracas podem ser assumidas.}) no ponto $x = x_0$ a partir de sua expansão em série de Taylor. Em alguns casos, este procedimento acaba por nos fornecer, também, a ordem de truncamento da fórmula.
+Podemos construir fórmulas de diferenças finitas para uma função $f(x)$ (suave\footnote{Uma função suave é uma função infinitamente continuamente diferenciável, isto é, $f\in C^\infty(\mathbb{R})$. Uma análise mais cuidadosa, revela que hipóteses mais fracas podem ser assumidas.}) no ponto $x = x_0$ a partir de seu polinômio de Taylor. Em alguns casos, este procedimento acaba por nos fornecer, também, a ordem de truncamento da fórmula.
 
 \subsubsection{Diferença finita progressiva de ordem 1}\index{diferenças finitas!progressiva}
 Podemos obter uma aproximação para $f'(x_0)$ a partir da série de Taylor
@@ -192,13 +192,13 @@ Calcule a derivada numérica da função $f(x)=e^{\frac{1}{2}x}$ no ponto $x=2$ 
 \begin{figure}
   \centering
   \includegraphics{./cap_derivacao/pics/ex_derivacao2/ex_derivacao2}
-  \caption{Erro absoluto das derivadas numéricas no exemplo~\ref{ex:derivacao2}.}
+  \caption{Erro absoluto das derivadas numéricas no Exemplo~\ref{ex:derivacao2}.}
   \label{fig:ex_derivacao2}
 \end{figure}
 
 
 \begin{obs}
-  O experimento numérico realizado no exemplo~\ref{ex:derivacao2}, nos mostra que o erro absoluto na derivação numérica não é da ordem do erro de truncamento. Entretanto, este erro tende a variar com $h$ na mesma ordem do erro de truncamento. A figura~\ref{ex:derivacao2} apresenta o erro absoluto das derivadas numéricas computadas para o exemplo~\ref{ex:derivacao2}. Note que, devido ao efeito de cancelamento catastrófico, o erro absoluto deixa de variar na ordem do erro de truncamento para valores muito pequenos de $h$.
+  O experimento numérico realizado no Exemplo~\ref{ex:derivacao2}, nos mostra que o erro absoluto na derivação numérica não é da ordem do erro de truncamento. Entretanto, este erro tende a variar com $h$ na mesma ordem do erro de truncamento. A Figura~\ref{ex:derivacao2} apresenta o erro absoluto das derivadas numéricas computadas para o Exemplo~\ref{ex:derivacao2}. Note que, devido ao efeito de cancelamento catastrófico, o erro absoluto deixa de variar na ordem do erro de truncamento para valores muito pequenos de $h$.
 \end{obs}
 
 % \subsection{Erros de truncamento}\index{erros!truncamento}
@@ -226,7 +226,7 @@ Calcule a derivada numérica da função $f(x)=e^{\frac{1}{2}x}$ no ponto $x=2$ 
 Estime o erro absoluto no cálculo da derivada de $f(x)=e^{-x}$ para $x>0$ utilizando a diferença progressiva.
 \end{ex}
 \begin{sol}
-Da equação~\ref{eq:dp_trunc}, temos:
+Da Equação~\ref{eq:dp_trunc}, temos:
 \begin{equation*}
   f'(x) = D_{+,h}f(x) - h\frac{f''(\xi)}{2},\quad \xi>0,
 \end{equation*}
@@ -260,7 +260,7 @@ e
 \end{equation*}
 onde $\overline{f(x+h)}$ e $\overline{f(x)}$ são as representações em ponto flutuante dos números $f(x+h)$ e $f(x)$, respectivamente. 
 
-Então, da equação~\eqref{ex:ea_dp}, a diferença do valor da derivada e sua aproximação representada em ponto flutuante pode ser estimada por:
+Então, da Equação~\eqref{ex:ea_dp}, a diferença do valor da derivada e sua aproximação representada em ponto flutuante pode ser estimada por:
 \begin{equation*}
 \left|f'(x)-\overline{D_{+,h}f(x)}\right| = \left| f'(x)-\frac{\overline{f(x+h)}-\overline{f(x)}}{h}(1+\varepsilon(x,h)) \right|.
 \end{equation*}
@@ -292,7 +292,7 @@ Por fim, obtemos a seguinte estimativa para o erro absoluto na computação da d
 Esta estimativa mostra que se o valor de $h$ for muito pequeno o erro ao calcular a aproximação numérica cresce. Isso nos motiva a procurar o valor ótimo de $h$ que minimiza o erro.
 
 \begin{ex}
-No exemplo~\ref{ex:derivacao2}, computamos a derivada numérica da função $f(x)=e^{\frac{1}{2}x}$ no ponto $x=2$ usando as fórmulas de diferenças finitas progressivas, regressivas e central. A figura~\ref{fig:ex_derivacao2}, mostra que, para valores $h$ muito pequenos, os erros de arredondamento passam a dominar os cálculos e, por consequência, o erro da derivada numérica passa a aumentar. Pela figura, podemos inferir que a escolha ótima de $h$ para as fórmulas progressiva e regressivas é $h\approx 10^{-7}$. Agora, para a fórmula central, $h\approx 10^{-5}$ parece ser a melhor escolha.
+No Exemplo~\ref{ex:derivacao2}, computamos a derivada numérica da função $f(x)=e^{\frac{1}{2}x}$ no ponto $x=2$ usando as fórmulas de diferenças finitas progressivas, regressivas e central. A Figura~\ref{fig:ex_derivacao2}, mostra que, para valores $h$ muito pequenos, os erros de arredondamento passam a dominar os cálculos e, por consequência, o erro da derivada numérica passa a aumentar. Pela figura, podemos inferir que a escolha ótima de $h$ para as fórmulas progressiva e regressivas é $h\approx 10^{-7}$. Agora, para a fórmula central, $h\approx 10^{-5}$ parece ser a melhor escolha.
 \end{ex}
 
 \begin{obs}
@@ -393,13 +393,28 @@ print("Erro = %1.2e" % np.abs(fl(2)-dy))
 \subsection*{Exercícios}
 
 \begin{exer}
-Use os esquemas numéricos do exercício \ref{ex1} para aproximar as seguintes derivadas:
+Use os esquemas numéricos de diferença finita regressiva de ordem 1, diferença finita progressiva de ordem 1 e diferença finita central de ordem 2 para aproximar as seguintes derivadas:
 \begin{itemize}
 \item[a)] $f'(x)$ onde $f(x)=\sen(x)$ e $x=2$.
 \item[b)] $f'(x)$ onde $f(x)=e^{-x}$ e $x=1$.
 \end{itemize}
 Use $h=10^{-2}$ e $h=10^{-3}$ e compare com os valores obtidos através da avaliação numérica das derivadas exatas.
 \end{exer}
+\begin{resp}
+  \begin{itemize}
+\item[a)] $f'(x)$ onde $f(x)=\sen(x)$ e $x=2$ para $h=10^{-2}$ e $h=10^{-3}$, respectivamente.
+\subitem Progressiva ordem 1: $-0,42069$ e $-0,41660$.
+\subitem Regressiva ordem 1: $-0,41159$ e $-0,41569$.
+\subitem Central ordem 2: $-0,41614$ e $-0,41615$.
+\subitem Exata: $\cos(2)=-0,41615$
+\item[b)] $f'(x)$ onde $f(x)=e^{-x}$ e $x=1$ para $h=10^{-2}$ e $h=10^{-3}$, respectivamente.
+\subitem Progressiva ordem 1: $-0,36605$ e $-0,36788$.
+\subitem Regressiva ordem 1: $-0,36972$ e $-0,36806$.
+\subitem Central ordem 2: $-0,36789$ e $-0,36788$.
+\subitem Exata: $-e^{-1}=-0,36788$
+  \end{itemize}
+ \end{resp}
+
 
 \begin{exer}\label{ex1} Expanda a função suave $f(x)$ em um polinômio de Taylor adequado para obter as seguintes aproximações:
 \begin{itemize}
@@ -407,7 +422,7 @@ Use $h=10^{-2}$ e $h=10^{-3}$ e compare com os valores obtidos através da avali
 \item[b)] $f'(x)=\frac{f(x)-f(x-h)}{h}+\mathcal{O}(h)$
 \item[c)] $f'(x)=\frac{f(x+h)-f(x-h)}{2h}+\mathcal{O}(h^2)$
 \end{itemize}
-\end{exer}
+\end{exer}%resposta no texto
 
 
 \begin{exer} Use a expansão da função $f(x)$ em torno de $x=0$ em polinômios de Taylor para encontrar os coeficientes $a_1$, $a_2$ e $a_3$ tais que
@@ -597,7 +612,7 @@ Considerando uma malha equiespaçada onde $x_1=x_0+h$ e $x_2=x_0+2h$, temos:
   &= \frac{1}{h}\left[-\frac{3}{2}f(x_0)+2f(x_{1})-\frac{1}{2}f(x_{2})\right]+h^2\frac{f'''(\xi(x_0))}{3}    
   \end{split}
 \end{equation*}
-Similarmente, trocando $x$ por $x_1$ ou trocando $x$ por $x_2$ na expressão (\ref{tres_pontos}), temos outras duas expressões
+Similarmente, trocando $x$ por $x_1$ ou trocando $x$ por $x_2$ na expressão \eqref{tres_pontos}, temos outras duas expressões
 \begin{eqnarray*}
 f'(x_1)&=&\frac{1}{h}\left[-\frac{1}{2}f(x_0)
 +\frac{1}{2}f(x_{2})\right]+h^2\frac{f'''(\xi(x_1))}{6}\\
@@ -742,7 +757,7 @@ Em \verb+Python+, podemos computar estas derivadas numéricas com $h=0.1$ da seg
 e, análogo, para $h=0.01$ e $h=0.001$.
 \fi
 %%%%%%%%%%%%%%%%%%%%
-O valor analítico da derivada é $f'(1,5) \approx -0,3161976736856$. A tabela~\ref{tab:ex_varias_formulas} mostra os resultados computados com as derivadas numéricas.
+O valor analítico da derivada é $f'(1,5) \approx -0,3161976736856$. A Tabela~\ref{tab:ex_varias_formulas} mostra os resultados computados com as derivadas numéricas.
 
 \begin{table}
   \centering
@@ -755,7 +770,7 @@ O valor analítico da derivada é $f'(1,5) \approx -0,3161976736856$. A tabela~\
     Regressiva $\mathcal{O}(h^2)$ & $-0,3135824$ & $-0,3161665$ & $-0,3161974$\\
     Central $O(h^4)$ & $-0,3162384$ & $-0,3161977$ & $-0,31619767$ \\\hline
   \end{tabular}
-  \caption{Derivadas numéricas de $f(x) = e^{-x^ 2}$ em $x=1,5$. Veja o exemplo~\ref{ex:varias_formulas}.}
+  \caption{Derivadas numéricas de $f(x) = e^{-x^ 2}$ em $x=1,5$. Veja o Exemplo~\ref{ex:varias_formulas}.}
   \label{tab:ex_varias_formulas}
 \end{table}
 \end{sol}
@@ -810,7 +825,7 @@ que pode ser escrito na forma matricial
   0  \\ 1 \\ 2x^* \\ \vdots  \\ (n-1)(x^*)^{n-2}
 \end{bmatrix}
 \end{eqnarray}
-Resolvendo o sistema obtemos os coeficientes $c_k$ para a regra de diferenciação.
+Resolvendo o sistema, obtemos os coeficientes $c_k$ para a regra de diferenciação.
 
 \begin{ex}
 Sejam $\{x_1, x_2, x_3\}=\{-h, 0, h\}$ e $x^*=x_2=0$, obtenha uma regra de diferenciação para aproximar $f'(x^*)$.
@@ -841,7 +856,7 @@ que pode ser escrito na forma matricial
   0  \\ 1 \\ 0
 \end{bmatrix}
 \end{eqnarray}
-Resolvendo o sistema obtemos $\{c_1, c_2, c_3\}=\{-\frac{1}{2h}, 0, \frac{1}{2h}\}$ fornecendo a regra
+Resolvendo o sistema, obtemos $\{c_1, c_2, c_3\}=\{-\frac{1}{2h}, 0, \frac{1}{2h}\}$ fornecendo a regra
 \begin{eqnarray}
   f'|_{x=x_1}& \approx &  -\frac{1}{2h}f(x_1) + \frac{1}{2h}f(x_3)\\
              & \approx &\frac{f(x_3)-f(x_1)}{2h}
@@ -856,27 +871,31 @@ Resolvendo o sistema obtemos $\{c_1, c_2, c_3\}=\{-\frac{1}{2h}, 0, \frac{1}{2h}
 
 \begin{exer}
 Seja $\{x_0, x_1, x_2\}=\{0, h, 2h\}$ e $x^*=x_0=0$, obtenha uma regra unilateral de diferenciação para aproximar $f'(x_0)$.
-\end{exer}
+\end{exer}%sem resposta
 
 \begin{exer}
 Seja $\{x_0, x_1, x_2\}=\{-h, 0, h\}$ e $x^*=x_1=0$, obtenha uma regra de diferenciação para aproximar $f''(x^*)$.
 \end{exer}
+\begin{resp}
+ $f''(x^*)=\frac{f(x_0)-2f(x_1)+f(x_2)}{h^2}$ 
+\end{resp}
+
 
 \begin{exer}
 Seja $\{x_0, x_1, \ldots, x_4\}=\{-2h, -h, 0, h, 2h\}$ e $x^*=0$, obtenha uma regra de diferenciação para aproximar $f'(x^*)$.
-\end{exer}
+\end{exer}%sem resposta
 
 \begin{exer}
 Seja $[x_0,x_1,\ldots ,x_4]=[-2h,-h,0,h,2h]$ e $x^*=0$, obtenha uma regra de diferenciação para aproximar $f''(x^*)$.
-\end{exer}
+\end{exer}%sem resposta
 
 \begin{exer}
 Seja $[x_0,x_1,\ldots ,x_4]=[0,h,3h,6h,10h]$ e $x^*=0$, obtenha uma regra de diferenciação para aproximar $f'(x^*)$.
-\end{exer}
+\end{exer}%sem resposta
 
 \section{Derivada via ajuste ou interpolação}\index{ajuste!derivação}\index{interpolação!derivação}
 
-Dado os valores de uma função em pontos $\{(x_i,y_i)\}_{i=1}^N$, as derivadas $\left(\frac{dy}{dx}\right)_i$ podem ser obtidas através da derivada de uma curva que melhor ajusta ou interpola os pontos. Esse tipo de técnica é necessário quando os pontos são muito espaçados entre si ou quando a função oscila muito. Por exemplo, dado os pontos $(0,1)$, $(1,2)$, $(2,5)$, $(3,9)$, a parábola que melhor ajusta os pontos é
+Dados os valores de uma função em um conjuntos de pontos $\{(x_i,y_i)\}_{i=1}^N$, as derivadas $\left(\frac{dy}{dx}\right)_i$ podem ser obtidas através da derivada de uma curva que melhor ajusta ou interpola os pontos. Esse tipo de técnica é necessário quando os pontos são muito espaçados entre si ou quando a função oscila muito. Por exemplo, dados os pontos $(0,1)$, $(1,2)$, $(2,5)$, $(3,9)$, a parábola que melhor ajusta os pontos é
 $$
 Q(x)=0,95 + 0,45x + 0,75x^2.
 $$

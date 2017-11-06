@@ -5,12 +5,12 @@
 
 \chapter{Ajuste de curvas}\index{aproximação!de funções}\index{ajuste!por mínimos quadrados}
 
-Neste capítulo, discutimos sobre problemas de \emph{ajuste de curvas}\index{ajuste de curvas} pelo \emph{método dos mínimos quadrados}\index{método dos mínimos quadrados}. Mais precisamente, dado um conjunto de $N$ pontos $\left\{(x_j, y_j)\in \mathbb{R}^2\right\}_{j=1}^N$ e uma família de funções $\mathcal{F} = \{f:\mathbb{R}\to\mathbb{R}; y = f(x)\}$, o problema de ajuste de curvas consiste em encontrar uma função da família $\mathcal{F}$ que melhor se ajusta aos pontos dados, não necessariamente que os interpola. 
+Neste capítulo, abordamos os problemas de \emph{ajuste de curvas}\index{ajuste de curvas} pelo \emph{método dos mínimos quadrados}\index{método dos mínimos quadrados}. Mais precisamente, dado um conjunto de $N$ pontos $\left\{(x_j, y_j)\in \mathbb{R}^2\right\}_{j=1}^N$ e uma família de funções $\mathcal{F} = \{f:\mathbb{R}\to\mathbb{R}; y = f(x)\}$, o problema de ajuste de curvas consiste em encontrar uma função da família $\mathcal{F}$ que melhor se ajusta aos pontos dados, não necessariamente que os interpola. 
 
 \begin{figure}[h!]
   \centering
   \includegraphics[scale=0.9]{./cap_ajuste/pics/ex_intro_ajuste/ex_intro_ajuste}
-  \caption{Exemplo de um problema de ajuste de uma reta entre três pontos, veja o exemplo~\ref{ex:intro_ajuste}.}
+  \caption{Exemplo de um problema de ajuste de uma reta entre três pontos, veja o Exemplo~\ref{ex:intro_ajuste}.}
   \label{fig:ex_intro}
 \end{figure}
 
@@ -28,7 +28,7 @@ ou seja, $f(x)$ é a função da família $\mathcal{F}$ cujo erro quadrático en
 é chamada de \emph{resíduo}\index{resíduo} e consiste na soma dos quadrados das diferenças entre a ordenadas $y_j$ e o valor da função procurada $f(x_j)$.
 
 \begin{ex}\label{ex:intro_ajuste}
-  Dado o conjunto de pontos $\{(1, 1,2)$, $(1,5, 1,3)$, $(2, 2,3)\}$ e a família de retas $f(x) = a + bx$, podemos mostrar que $f(x) = -0,05 + 1,1x$ é a reta que melhor aproxima os pontos dados no sentido de mínimos quadrados.  Os pontos e a reta ajustada e são esboçados na figura~\ref{fig:ex_intro}.
+  Dado o conjunto de pontos $\{(1, 1,2)$, $(1,5, 1,3)$, $(2, 2,3)\}$ e a família de retas $f(x) = a + bx$, podemos mostrar que $f(x) = -0,05 + 1,1x$ é a reta que melhor aproxima os pontos dados no sentido de mínimos quadrados.  Os pontos e a reta ajustada e são esboçados na Figura~\ref{fig:ex_intro}.
 \end{ex}
 
 Na sequência, discutimos o procedimento de ajuste de uma reta, então, mostramos a generalização da técnica para problemas lineares de ajuste e, por fim, discutimos alguns problemas de ajuste não lineares.
@@ -37,7 +37,7 @@ Na sequência, discutimos o procedimento de ajuste de uma reta, então, mostramo
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-  Ao longo deste capítulo, estaremos assumindo que as seguintes bibliotecas e módulos \verb+Python+ estão carregadas:
+  Ao longo deste capítulo, assumiremos que as seguintes bibliotecas e módulos \verb+Python+ estão carregadas:
 \begin{verbatim}
 >>> from __future__ import division
 >>> import numpy as np
@@ -117,7 +117,7 @@ Pode-se mostrar usando a \emph{desigualdade de Cauchy–Schwarz} que isto aconte
     \end{split}
 \end{equation}
 
-Por fim, observamos que o sistema $Ma = w$ descrito na equação~\eqref{eq:smq_reta} pode ser reescrito na forma $V^TVa = V^Ty$, onde $V := [1~x]$ é a matriz dos coeficientes do seguinte sistema linear sobre determinado:
+Por fim, observamos que o sistema $Ma = w$ descrito na Equação~\eqref{eq:smq_reta} pode ser reescrito na forma $V^TVa = V^Ty$, onde $V := [1~x]$ é a matriz dos coeficientes do seguinte sistema linear sobre determinado:
 \begin{equation}\label{eq:smq_reta2}
   \begin{split}
   a_1 + a_2x_1 &= y_1\\
@@ -126,22 +126,22 @@ Por fim, observamos que o sistema $Ma = w$ descrito na equação~\eqref{eq:smq_r
   a_1 + a_2x_N &= y_N
   \end{split}
 \end{equation}
-Se os pontos dados não são colineares, este sistema não têm solução. Mas, sempre que pelo menos duas abscissas foram diferentes, $M = V^TV$ é uma matriz invertível e (veja o exercício~\ref{exer:smq_reta}), então
+Se os pontos dados não são colineares, este sistema não tem solução. Mas, sempre que pelo menos duas abscissas foram diferentes, $M = V^TV$ é uma matriz invertível e (veja o Exercício~\ref{exer:smq_reta}), então
 \begin{equation}\label{eq:sol_smq_reta}
   a = \left(V^TV\right)^{-1}V^Ty,
 \end{equation}
-nos fornece a chamada solução por mínimos quadrados do sistema \eqref{eq:smq_reta2}. Note que esta é uma forma de se obter os coeficientes $a = (a_1, a_2)$ equivalente àquela dada em \eqref{eq:formula_final_ajuste_reta}.
+nos fornece a chamada solução por mínimos quadrados do sistema \eqref{eq:smq_reta2}. Note que esta é uma forma de obter os coeficientes $a = (a_1, a_2)$ equivalente àquela dada em \eqref{eq:formula_final_ajuste_reta}.
 
 
 \begin{ex}\label{ex:calculo_intro_ajuste}
-  Retornemos ao exemplo \ref{ex:intro_ajuste}. Isto é, dado o conjunto de pontos $\{(1, 1,2)$, $(1,5, 1,3)$, $(2, 2,3)\}$, encontrar a função do tipo $f(x) = a_1 + a_2x$ que melhor se ajusta os pontos dados no sentido de mínimos quadrados.
+  Retornemos ao Exemplo~\ref{ex:intro_ajuste}. Isto é, dado o conjunto de pontos $\{(1, 1,2)$, $(1,5, 1,3)$, $(2, 2,3)\}$, encontrar a função do tipo $f(x) = a_1 + a_2x$ que melhor se ajusta os pontos dados no sentido de mínimos quadrados.
 \end{ex}
 \begin{sol} Usando as fórmulas em \eqref{eq:formula_final_ajuste_reta}, obtemos
   \begin{eqnarray*}
     a_1&=&\frac{7,25 \cdot 4,8 - 4,5 \cdot 7,75  }{3\cdot 7,25 - 20,25 } = -0,05, \\
     a_2&=&\frac{3\cdot 7,75 - 4,5\cdot 4,8}{3\cdot 7,25 - 20,25}=1,1.
   \end{eqnarray*}
-Ou seja, verificamos que, de fato, a função $f(x) = -0,05 + 1,1x$ corresponde à reta que melhor ajusta os pontos dados no sentido de mínimos quadrados. Os pontos e a reta ajustada estão esboçados na figura~\ref{fig:ex_intro}.
+Ou seja, verificamos que, de fato, a função $f(x) = -0,05 + 1,1x$ corresponde à reta que melhor ajusta os pontos dados no sentido de mínimos quadrados. Os pontos e a reta ajustada estão esboçados na Figura~\ref{fig:ex_intro}.
 
 Deixamos ao leitor a verificação de que os coeficientes $a_1$ e $a_2$ também podem ser obtidos pela expressão~\eqref{eq:sol_smq_reta}.
 
@@ -224,7 +224,7 @@ O procedimento apresentado de ajuste de uma reta por mínimos quadrados pode ser
 
 \begin{exeresol}\label{exer:smq_reta}
   \begin{enumerate}[a)]
-  \item Mostre que o sistema linear $Ma = w$ descrito na equação~\ref{eq:smq_reta} pode ser reescrito na forma $V^TVa = V^Ty$, onde $V = [1~x]$.
+  \item Mostre que o sistema linear $Ma = w$ descrito na Equação~\ref{eq:smq_reta} pode ser reescrito na forma $V^TVa = V^Ty$, onde $V = [1~x]$.
   \item Mostre que $V$, como definido no item a), tem posto igual a 2 quando pelo menos duas abscissas do conjunto de pontos $\{(x_j, y_j)\}_{j=1}^N$ são diferentes. E, portanto, $M = V^TV$ é uma matriz invertível.
   \end{enumerate}
 \end{exeresol}
@@ -305,7 +305,7 @@ Forneça os valores calculados com $7$ dígitos significativo por arredondamento
 
 \section{Ajuste linear geral}\index{ajuste!linear}
 
-O problem geral de ajuste linear consiste em dada uma família $\mathcal{F}$ gerada pelo conjunto de $m$ funções $\{f_1(x), f_2(x), \dotsc, f_m(x)\}$ e um conjunto de $n$ pontos $\{(x_1, y_1)$, $(x_2, y_2)$, $\ldots$, $(x_n, y_n)\}$, calcular os coeficientes $a_1$, $a_2$, $\ldots$, $a_m$ tais que a função dada por
+O problema geral de ajuste linear consiste em dada uma família $\mathcal{F}$ gerada pelo conjunto de $m$ funções $\{f_1(x), f_2(x), \dotsc, f_m(x)\}$ e um conjunto de $n$ pares ordenados $\{(x_1, y_1)$, $(x_2, y_2)$, $\ldots$, $(x_n, y_n)\}$, calcular os coeficientes $a_1$, $a_2$, $\ldots$, $a_m$ tais que a função dada por
 \begin{equation*}
   f(x) = \sum_{j=1}^m a_jf_j(x) = a_1f_1(x)+a_2f_2(x)+\ldots+a_mf_m(x)
 \end{equation*}
@@ -342,7 +342,8 @@ M = \begin{bmatrix}
 \sum\limits_{i=1}^n f_1(x_i) f_m(x_i)&\sum\limits_{i=1}^n f_2(x_i)f_m(x_i) & \!\cdots\! & \sum\limits_{i=1}^n f_m(x_i)  ^2
 \end{bmatrix}.
 \end{eqnarray*}
-E os vetores $a$ e $w$, por:
+
+E os vetores $a$ e $w$ são dados por:
 \begin{eqnarray*}
 a=\left[
 \begin{array}{c}
@@ -358,7 +359,7 @@ a_m
 \vdots\\
 \sum\limits_{i=1}^n f_m(x_i) y_i
 \end{array}
-\right]
+\right].
 \end{eqnarray*}
 
 Agora, observamos que $M=V^TV$ e $w=V^T y$, onde a matriz $V$ é dada por:
@@ -371,9 +372,9 @@ Agora, observamos que $M=V^TV$ e $w=V^T y$, onde a matriz $V$ é dada por:
     f_1(x_n)&f_2(x_n) & \cdots & f_m(x_n)
   \end{bmatrix}
 \end{equation*}
-e é o vetor coluna $y = (y_1, y_2, \dotsc, y_N)$,
+e $y$ é o vetor coluna $y = (y_1, y_2, \dotsc, y_N)$.
 
-Então, o problema de ajuste se reduz a resolver o sistema linear $Ma=w$, ou $V^TVa = V^T y$. Este sistema linear tem solução única se a matriz $M$ for inversível. O teorema a seguir mostra que isto acontece sempre a matriz $V$ possui posto $m$, ou seja, o número de linhas linearmente independentes for igual ao número de colunas.\footnote{Nota-se que o posto não pode ultrapassar o número de colunas.}
+Assim, o problema de ajuste se reduz a resolver o sistema linear $Ma=w$, ou $V^TVa = V^T y$. Este sistema linear tem solução única se a matriz $M$ for inversível. O teorema a seguir mostra que isto acontece sempre a matriz $V$ possui posto $m$, ou seja, o número de linhas linearmente independentes for igual ao número de colunas.\footnote{Nota-se que o posto não pode ultrapassar o número de colunas.}
 
 
 \begin{teo}
@@ -383,7 +384,7 @@ A matriz $M=V^TV$ é quadrada de ordem $m$ e é inversível sempre que o posto d
 Para provar que $M$ é inversível, precisamos mostrar que se $v$ é um vetor de ordem $m$ e $Mv=0$, então $v=0$. Suponha, então, que $Mv=0$, isto é, 
 $V^TVv=0$. Tomando o produto interno da expressão $V^TVv=0$ com $v$, temos:
 $$0=\left<V^TVv,v\right>=\left<Vv,Vv\right>=\|Vv\|^2$$
-Portato $Mv=0$ implica obrigatoriamente $Vv=0$. Como o posto de $V$ é igual ao número de colunas, $v$ precisar ser o vetor nulo.
+Portanto $Mv=0$ implica obrigatoriamente $Vv=0$. Como o posto de $V$ é igual ao número de colunas, $v$ precisar ser o vetor nulo.
 \end{proof}
 %\begin{lem}
 % A matriz $M=V^TV$ é simétrica.
@@ -418,12 +419,13 @@ Portato $Mv=0$ implica obrigatoriamente $Vv=0$. Como o posto de $V$ é igual ao 
   \end{equation*}
 \end{obs}
 
-O caso de ajuste de um reta para um conjunto de pontos é um caso particular de ajuste linear.
+
+\begin{obs}O caso de ajuste de um reta para um conjunto de pontos é um caso particular de ajuste linear.\end{obs}
 
 \begin{figure}
   \centering
   \includegraphics{cap_ajuste/pics/ex_ajuste_reta2/ex_ajuste_reta2}
-  \caption{Gráfico da solução do problema apresentado no exemplo~\ref{ex:ajuste_reta2}.}
+  \caption{Gráfico da solução do problema apresentado no Exemplo~\ref{ex:ajuste_reta2}.}
   \label{fig:ex_ajuste_reta2}
 \end{figure}
 
@@ -469,7 +471,7 @@ Ou seja, é a solução do sistema $V^TVa = V^Ty$ dado por
     85,8144
   \end{bmatrix}
 \end{equation*}
-A solução desse sistema é $a_1 = 1,9988251$ e $a_2 = 2,5157653$. A figura~\ref{fig:ex_ajuste_reta2}, apresenta um gráfico dos pontos e da reta ajustada.
+A solução desse sistema é $a_1 = 1,9988251$ e $a_2 = 2,5157653$. A Figura~\ref{fig:ex_ajuste_reta2}, apresenta um gráfico dos pontos e da reta ajustada.
 
 % A tabela abaixo mostra os valores dados e os valores ajustados:
 % \begin{center}
@@ -490,7 +492,7 @@ A solução desse sistema é $a_1 = 1,9988251$ e $a_2 = 2,5157653$. A figura~\re
 \begin{figure}
   \centering
   \includegraphics{cap_ajuste/pics/ex_ajuste_linear/ex_ajuste_linear}
-  \caption{Gráfico da solução do problema apresentado no exemplo~\ref{ex:ajuste_linear}.}
+  \caption{Gráfico da solução do problema apresentado no Exemplo~\ref{ex:ajuste_linear}.}
   \label{fig:ex_ajuste_linear}
 \end{figure}
 
@@ -534,7 +536,7 @@ Então, a solução por mínimos quadrados é
     -161,18783
   \end{bmatrix}.
 \end{equation*}
-Ou seja, $f(x) = 244,03658\sen(\pi x) - 161,18783\cos(\pi x)$ é a função ajustada ao conjunto de pontos dados. A figura~\ref{fig:ex_ajuste_linear} apresenta o gráfica de $f(x)$ e dos pontos dados.
+Ou seja, $f(x) = 244,03658\sen(\pi x) - 161,18783\cos(\pi x)$ é a função ajustada ao conjunto de pontos dados. A Figura~\ref{fig:ex_ajuste_linear} apresenta o gráfica de $f(x)$ e dos pontos dados.
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
@@ -610,7 +612,7 @@ Em \verb+Python+, podemos computar os coeficientes da função $f(x)$ da seguint
 \begin{verbatim}
 -->x = inv(A)*b
 \end{verbatim}
-estamos computando a inversa da matriz $A$ e multiplicando por $b$. Podemos evitar a computação da inversa de $A$ usando o operador contra-barra ($/$). Neste caso, escrevemos
+estamos computando a inversa da matriz $A$ e multiplicando por $b$. Podemos evitar a computação da inversa de $A$ usando o operador contra barra ($/$). Neste caso, escrevemos
 \begin{verbatim}
 -->x = A/b
 \end{verbatim}
@@ -627,7 +629,7 @@ Quando o sistema $A$ não é uma matriz quadrada, \verb+A/b+ retorna a solução
 \begin{verbatim}
 >> x = inv(A)*b
 \end{verbatim}
-estamos computando a inversa da matriz $A$ e multiplicando por $b$. Podemos evitar a computação da inversa de $A$ usando o operador contra-barra ($/$). Neste caso, escrevemos
+estamos computando a inversa da matriz $A$ e multiplicando por $b$. Podemos evitar a computação da inversa de $A$ usando o operador contra barra ($/$). Neste caso, escrevemos
 \begin{verbatim}
 >> x = A/b
 \end{verbatim}
@@ -760,7 +762,7 @@ Então, os coeficientes $a_i$, $i = 1, 2, \ldots, m$, são dados pela solução 
 \begin{figure}
   \centering
   \includegraphics{cap_ajuste/pics/ex_ajuste_polinomial/ex_ajuste_polinomial}
-  \caption{Gráfico da solução do problema apresentado no exemplo~\ref{ex:ajuste_polinomial}.}
+  \caption{Gráfico da solução do problema apresentado no Exemplo~\ref{ex:ajuste_polinomial}.}
   \label{fig:ex_ajuste_polinomial}
 \end{figure}
 
@@ -810,7 +812,7 @@ A solução por mínimos quadrados é, então:
   - 900,57143  
   \end{bmatrix}
 \end{equation*}
-Ou seja, o polinômio de grau 2 que melhor ajusta os pontos dados no sentido de mínimos quadrados é $p(x) = -165,37143 + 1250,9714x -900,57143x^2$. A figura~\ref{fig:ex_ajuste_polinomial} mostra o gráfico do polinômio ajustado e os pontos dados.
+Ou seja, o polinômio de grau 2 que melhor ajusta os pontos dados no sentido de mínimos quadrados é $p(x) = -165,37143 + 1250,9714x -900,57143x^2$. A Figura~\ref{fig:ex_ajuste_polinomial} mostra o gráfico do polinômio ajustado e os pontos dados.
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
@@ -1055,31 +1057,101 @@ ou seja, resolver o sistema
 que é não linear em $A$ e $b$. Esse sistema pode ser resolvido pelo método de Newton-Raphson, o que pode se tornar custoso, ou mesmo inviável quando não dispomos de uma boa aproximação da solução para inicializar o método.
 
 Felizmente, algumas famílias de curvas admitem uma transformação que nos leva a um problema linear. No caso da curva $y=Ae^{bx}$, observe que $\ln y=\ln A+bx$. Assim, em vez de ajustar a curva original $y=Ae^{bx}$ a tabela de pontos, ajustamos a curva submetida a transformação logarítmica
-$$
-\tilde y:=a_1+a_2 \tilde x=\ln A+bx.
-$$
+\begin{equation*}
+  \tilde y:=a_1+a_2 \tilde x=\ln A+bx.  
+\end{equation*}
 Usamos os pontos $(\tilde x_j,\tilde y_j):=(x_j,\ln y_j)$, $j=1,2,3$ e resolvemos o sistema linear
-$$
-V^T V \left[\begin{array}{c} a_1\\a_2 \end{array}\right]=V^T\left[\begin{array}{c}\tilde{y}_1\\\tilde{y}_2\\\tilde{y}_3 \end{array}\right],
-$$
+\begin{equation*}
+V^T V \begin{bmatrix} a_1\\a_2\end{bmatrix} = V^T\begin{bmatrix}\tilde{y}_1\\\tilde{y}_2\\\tilde{y}_3\end{bmatrix},  
+\end{equation*}
 onde
-$$
-A=\left[\begin{array}{cc} 1&x_1\\1&x_2\\1&x_3 \end{array}\right]
-$$
-\begin{ex}Encontre uma curva da forma $y=Ae^x$ que melhor ajusta os pontos $(1, 2)$, $(2, 3)$ e $(3, 5)$.
+\begin{equation*}
+V=\begin{bmatrix} 1&x_1\\1&x_2\\1&x_3 \end{bmatrix}.  
+\end{equation*}
+
+\begin{ex}Encontre uma curva da forma $y=Ae^{bx}$ que melhor ajusta os pontos $(1, 2)$, $(2, 3)$ e $(3, 5)$.
 \end{ex}
-Temos
-$$
-A=\left[\begin{array}{cc} 1&1\\1&2\\1&3 \end{array}\right]
-$$
-e a solução do sistema leva em $B=0,217442$ e $b=0,458145$. Portanto, $A=e^{0,217442}=1,24289$.
+\begin{sol}
+  Aplicando o logaritmo natural de ambos os lados da equação $y=Ae^{bx}$, temos
+\begin{equation*}
+  \ln y = \ln A + bx.
+\end{equation*}
+Então, denotando $\tilde{y} := \ln y$, $a_1 := \ln A$ e $a_2 := b$, o problema reduz-se a ajustar a reta $\tilde{y} = a_1 + a_2x$ aos pontos $(1, \ln 2)$, $(2, \ln 3)$ e $(3, \ln 5)$. Para tanto, resolvemos o sistema
+\begin{equation*}
+  \underbrace{\begin{bmatrix}
+    1 & 1\\
+    1 & 2\\
+    1 & 3
+  \end{bmatrix}}_{V}
+  \underbrace{\begin{bmatrix}
+    a_1\\
+    a_2
+  \end{bmatrix}}{a} = 
+  \underbrace{\begin{bmatrix}
+    \ln 2\\
+    \ln 3\\
+    \ln 5
+  \end{bmatrix}}_{\tilde{y}}
+\end{equation*}
+por mínimos quadrados, isto é, 
+\begin{equation*}
+ V^TVa = V^T\tilde{y} \Rightarrow a = \left(V^TV\right)^{-1}V^T\tilde{y}.
+\end{equation*}
+A solução do sistema é, então, $a_1=0,217442$ e $a_2=0,458145$. Portanto, $A=e^{a_1}=1,24289$ e $b=a_2=0,458145$.
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+No \verb+Scilab+, podemos resolver este problema com o seguinte código:
+\begin{verbatim}
+x = [1 2 3]'
+y = [2 3 5]'
+V = [ones(3,1) x]
+a = V\log(y) //a = inv(V'*V)*V'*log(y)
+A = exp(a(1))
+b = a(2)
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos resolver este problema com o seguinte código:
+\begin{verbatim}
+x = [1 2 3]';
+y = [2 3 5]';
+V = [ones(3,1) x];
+a = V\log(y) %a = inv(V'*V)*V'*log(y)
+A = exp(a(1))
+b = a(2)
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+Em \verb+Python+, podemos resolver este problema com o seguinte código:
+\begin{verbatim}
+x = np.array([1,2,3])
+y = np.array([2,3,5])
+V = np.array([np.ones(3),x]).transpose()
+a = np.linalg.lstsq(V,np.log(y))[0]
+A = np.exp(a[0])
+b = a[1]
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+\end{sol}
 
 \begin{obs}
 Os coeficientes obtidos a partir dessa linearização são aproximados, ou seja, são diferentes daqueles obtidos quando aplicamos mínimos quadrados não linear. Observe que estamos minimizando $\displaystyle\sum_i [\ln y_i -\ln (f(x_i))]^2$ em vez de $\displaystyle\sum_i [ y_i -f(x_i)]^2$. No exemplo resolvido, a solução do sistema não linear original seria $A=1,19789$ e $b=0,474348$
 \end{obs}
 
 \begin{obs}
-Mesmo quando se deseja resolver o sistema não linear, a solução do problema linearizado pode ser usada para construir condições iniciais.
+Mesmo quando se deseja resolver o sistema não linear, a solução do problema linearizado pode ser usada para construir condições iniciais para o problema não linear.
 \end{obs}
 
 
