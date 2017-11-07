@@ -3,7 +3,7 @@
 %\documentclass[main.tex]{subfiles}
 %\begin{document}
 
-\chapter{Integração numérica}\index{integração} \label{cap_integra}
+\chapter{Integração numérica}\index{integração} \label{cap:integracao}
 
 Neste capítulo discutiremos técnicas numéricas para aproximar \emph{integrais}\index{integral} definidas de funções reais.
 
@@ -12,12 +12,11 @@ $$
  I = \int_a^b f(x) \;dx.
 $$
 
-Uma maneira de estimar esta integral numericamente consiste em subdividir o intervalo $[a,b]$ em $n-1$ intervalos a partir de um conjunto ordenado de pontos $a=x_1<x_2<...<x_n=b$.
-Em cada intervalo $i$, a integral será aproximada por $\Delta S_i$ e a integral será aproximada por
+Uma maneira de estimar esta integral numericamente consiste em subdividir o intervalo $[a,b]$ em $n-1$ intervalos a partir de um conjunto ordenado de pontos $a=x_1<x_2<...<x_n=b$. Em cada intervalo $i$, a integral será aproximada por $\Delta S_i$ e a integral será aproximada por
 $$
  I \approx S = \sum_{i=1}^{n-1} \Delta S_i.
 $$
-O tamanho de cada intervalo é dado por $h_i=x_{i+1}-x_i$. No caso uniforme, todos os intervalos possuem o mesmo tamanho $h=h_i=\frac{b-a}{n-1}$.
+O tamanho de cada intervalo é dado por $h_i=x_{i+1}-x_i$. No caso uniforme, todos os intervalos possuem o mesmo tamanho $h=h_i=(b-a)/(n-1)$.
 
 Nas próximas seções apresentaremos formas diferentes de aproximar $\Delta S_i$ iniciando com o caso mais simples que é um retângulo. Cada uma das regras obtidas também é chamada de quadratura.
 
@@ -25,21 +24,21 @@ Nas próximas seções apresentaremos formas diferentes de aproximar $\Delta S_i
 A Figura~\ref{fig:int_101} mostra um exemplo quando $f(x)=x^2+1$, $0\leq x\leq 2$. Temos a aproximação por um retângulo com base $h_1=2$, depois com dois retângulos de base $h_2=1$ e, finalmente com quatro retângulo de bases $h_3=0,5$.
 \begin{figure}
   \centering
-  \includegraphics[scale=0.7]{./cap_integracao/pics/int_1/int_1.eps}
+  \includegraphics[scale=0.7]{./cap_integracao/pics/int_1/int_1}
   \caption{Aproximação por retângulos.}
   \label{fig:int_101}
 \end{figure}
 
 Os valores aproximados para a integral são dados na seguinte tabela:
-
-\begin{tabular}{|c|c|}\hline
-  & $\displaystyle \int_0^2(x^2+1)\,dx$ \\ \hline
-  $h_1=2$ & $h_1f(1)=4$ \\
-  $h_2=1$ & $h_2f(0,5)+h_2f(1,5)=4,5$ \\
-  $h_3=0,5$ & $4,625$ \\
-  $h_4=0,25$ & $4,65625$ \\\hline
-\end{tabular}
-
+\begin{center}
+  \begin{tabular}{|c|c|}\hline
+    & $\displaystyle \int_0^2(x^2+1)\,dx$ \\ \hline
+    $h_1=2$ & $h_1f(1)=4$ \\
+    $h_2=1$ & $h_2f(0,5)+h_2f(1,5)=4,5$ \\
+    $h_3=0,5$ & $4,625$ \\
+    $h_4=0,25$ & $4,65625$ \\\hline
+  \end{tabular}
+\end{center}
 Observe que:
 \begin{equation*}
   \int_0^2(x^2+1)\,dx = \left[\frac{x^3}{3}+x\right]_0^2 = \frac{8}{3}+2=4,6666667.
@@ -58,14 +57,12 @@ Nos códigos \verb+Python+ apresentados ao longo deste capítulo, assumiremos o 
 \fi
 %%%%%%%%%%%%%%%%%%%%
 
-
-
 \section{Regras de Newton-Cotes}\index{integração numérica!regras de Newton-Cotes}
 
 O método básico para encontrar as regras de integração consiste em aproximar a integral de $f$ por uma combinação linear de $n$ valores\footnote{Utilizaremos neste capítulo a notação $f_i$ para indicar $f(x_i)$.} de $f_i := f(x_i)$, ou seja,
-$$
- I = \int_a^b f(x) \;dx \approx \sum_{i=1}^nA_if_i.
-$$
+\begin{equation*}
+I = \int_a^b f(x) \;dx \approx \sum_{i=1}^nA_if_i.
+\end{equation*}
 
 % Quanto maior o número de pontos $n$, melhor será a regra de quadratura.
 
@@ -80,54 +77,50 @@ onde o erro na interpolação de Lagrange é
 \end{equation}
 
 Substituindo na integral, obtemos:
-\begin{eqnarray}
-  \int_a^bf(x)\,dx &=& \sum_{i=1}^n\left[f_i\int_a^bL_i(x)\,dx\right] +  \int_a^b E^n_{LAG}(x) \;dx.
+\begin{equation*}
+  \int_a^bf(x)\,dx = \sum_{i=1}^n\left[f_i\int_a^bL_i(x)\,dx\right] +  \int_a^b E^n_{LAG}(x) \;dx.
 %   \int_a^bf(x)dx &=& \sum_{i=1}^n\left[f(x_i)\int_a^bL_i(x)dx\right] +  \frac{1}{(n+1)!}\int_a^b\prod_{i=1}^n(x-x_i)f^{(n+1)}(\xi)dx.
-\end{eqnarray}
-
+\end{equation*}
 
 A fórmula de quadratura é então
 \begin{equation}
-\int_a^bf(x)\,dx\approx\sum_{i=1}^nA_if_i,
+  \int_a^bf(x)\,dx\approx\sum_{i=1}^nA_if_i,
 \end{equation}
 onde
 \begin{equation}
-A_i=\int_a^b L_i(x)\;dx.
+  A_i=\int_a^b L_i(x)\;dx.
 \end{equation}
-
 
 \subsection{Somas de Riemann}
 O método mais simples de aproximar
-$$
+\begin{equation*}
  I = \int_a^b f(x) \;dx.
-$$
+\end{equation*}
 com apenas um intervalo, é aproximar $f(x)$ por um polinômio constante no intervalo $[a,b]$, ou seja, $f(x)=c$. Se aproximarmos $f(x)$ pelo ponto a esquerda do intervalo temos que $f(x)\approx f(a)$ e
-\begin{eqnarray}
- I &= \int_a^b f(x) \;dx
-   &\approx \int_a^b f(a) \;dx \\
-   &= f(a) \int_a^b\,dx
-   &= f(a) (b-a)
-\end{eqnarray}
+\begin{eqnarray*}
+ I &=& \int_a^b f(x) \;dx\\
+   &\approx& \int_a^b f(a) \;dx \\
+   &=& f(a) \int_a^b\,dx\\
+   &=& f(a) (b-a)
+\end{eqnarray*}
 Esta é a regra de quadratura local para $1$ intervalo.
 
 Quando subdividimos $[a,b]$ em $n$ intervalos com tamanho $h=(b-a)/n$ nos pontos $x_i=a+(i-1)h$ , em cada intervalo $i$ aproximamos a área por
-$$
+\begin{equation*}
   \Delta S_i \approx f(x_i)h
-$$
+\end{equation*}
 tal que a área total será aproximada pelas \emph{somas de Riemann à esquerda}
-$$
+\begin{equation}
 S =\sum_{i=1}^{n-1} \Delta S_i = \sum_{i=1}^{n-1} f(x_i) h
-$$
-
+\end{equation}
 Podemos obter uma fórmula similar se usarmos os pontos a direita do intervalo, ou seja, as \emph{somas de Riemann à direita}
-$$
+\begin{equation}
 S = \sum_{i=1}^{n-1} f(x_{i+1}) h
-$$
+\end{equation}
 
 Uma terceira opção é utilizar o ponto médio do intervalo $[x_i,x_{i+1}]$ o qual fornece a \emph{regra do ponto médio}
-\begin{equation}
-\label{ponto_medio_1}
-S = \sum_{i=1}^{n-1} f(\xi_i ) h, \;\;\;\; \xi_i=\frac{x_i+x_{i+1}}{2}.
+\begin{equation}\label{ponto_medio_1}
+S = \sum_{i=1}^{n-1} f(\xi_i ) h, \qquad \xi_i=\frac{x_i+x_{i+1}}{2}.
 \end{equation}
 
 
@@ -202,8 +195,7 @@ S = \sum_{i=1}^{n-1} f(\xi_i ) h, \;\;\;\; \xi_i=\frac{x_i+x_{i+1}}{2}.
 % $$
 % \end{ex}
 
-
-\subsection{Regra do trapézio}\index{integração numérica!regra do trapézio}\label{int:trapézio}
+\subsection{Regra do trapézio}\index{integração numérica!regra do trapézio}\label{sec:trapezio}
 
 A regra do trapézio consiste em aproximar a função $f(x)$ por um polinômio de grau 1. O nome do método vem do fato que a região entre o eixo $x$ e a reta que liga o pontos sobre o gráfico da função nos extremos do intervalo forma um trapézio.
 
