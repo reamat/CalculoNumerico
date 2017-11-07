@@ -6,7 +6,7 @@
 \chapter{Solução de sistemas de equações não lineares}\index{sistema de equações!não lineares}
 Neste capítulo, estudaremos o método de Newton aplicado à resolução de sistemas não lineares de equações.
 
-O método de Newton aplicado a encontrar a raiz $x^*$ da função $y=f(x)$ estudado na Seção~\ref{metodo_newton_1d} consiste em um processo iterativo. Em cada passo deste processo, dispomos de uma aproximação $x^{(k)}$ para $x^*$ e construímos uma nova aproximação $x^{(k+1)}$.  Cada passo do método de Newton envolve os seguintes procedimentos:
+O método de Newton aplicado a encontrar a raiz $x^*$ da função $y=f(x)$ estudado na Seção~\ref{sec:metodo_newton_1d} consiste em um processo iterativo. Em cada passo deste processo, dispomos de uma aproximação $x^{(k)}$ para $x^*$ e construímos uma nova aproximação $x^{(k+1)}$.  Cada passo do método de Newton envolve os seguintes procedimentos:
 \begin{itemize}
 \item Linearização da função $f(x)$ no ponto $x^{(k)}$:
   \begin{equation*}
@@ -434,6 +434,10 @@ E agora, basta iterar:
 \fi
 %%%%%%%%%%%%%%%%%%%%
 
+\subsection*{Exercícios resolvidos}
+
+\construirExeresol
+
 \subsection*{Exercícios}
 
 \begin{exer} Faça o que se pede:
@@ -449,9 +453,7 @@ a_{31}x_1 + a_{32}x_2 +a_{33}x_3-y_3
 \end{array}
  \right].$$
 \end{itemize}
-
- \end{exer}
-
+\end{exer}
 \begin{resp}
 $\nabla f = [2xy-y\sin(xy), x^2-x\sin(xy)]^T$
 $$J_F=\left[\begin{array}{cc}
@@ -461,7 +463,6 @@ $$J_F=\left[\begin{array}{cc}
 \right]$$
 $$\left(J_L\right)_{ij}=a_{ij}$$
 \end{resp}
-
 
 \begin{exer} Encontre uma aproximação numérica para o seguinte problema não linear de três equações e três incógnitas:
 \begin{eqnarray*}
@@ -477,7 +478,9 @@ Partindo das seguintes aproximações iniciais:
 \item[d)] $x^{(0)}=[0,~0,~0]^T$
 \end{itemize}
 \end{exer}
-
+\begin{resp}
+  \construirResp
+\end{resp}
 
 
 \begin{exer}\label{prob_para_elipse}
@@ -508,7 +511,6 @@ As curvas possuem dois pontos de intersecção. A posição exata destes pontos 
 %\item[h]) Refaça o item e, usando a função {\it derivative()} para aproximar a matriz jacobiana.
 \end{itemize}
 \end{exer}
-
 \begin{resp}
  $\left(\pm 0.8241323, 0.6791941\right)$
 \end{resp}
@@ -525,50 +527,46 @@ $x\approx 0,259751, y\approx  0,302736, z\approx  0,045896$
 \end{resp}
 
 
-
 \begin{exer}(Entenda casos particulares)
 \begin{itemize}
 \item Considere a função $L(x)=Ax-b$, onde $A$ é uma matriz $n\times n$ inversível e $b$ um vetor coluna em $\mathbb{R}^n$. O que acontece quando aplicamos o método de Newton para encontrar as raízes de $L(x)$?
 \item Mostre que o método de Newton-Raphson aplicado a uma função diferenciável do tipo $f:\mathbb{R}\to\mathbb{R}$ se reduz ao método de Newton estudado na primeira área.
 \end{itemize}
-
 \end{exer}
-
+\begin{resp}
+  \construirResp
+\end{resp}
 
 \begin{exer}\label{prob_bitang}Considere a função $f(x)=\frac{\sin(x)}{x+1}$, encontre a equação da reta que tangencia dois pontos da curva $y=f(x)$ próximos ao primeiro e segundo ponto de máximo no primeiro quadrante, respectivamente. Veja a Figura~\ref{pic:bitang}.
 \end{exer}
 \begin{figure}
-        \centering
-	    \includegraphics[width=\textwidth]{cap_nlinsis/pics/curva_Q23}
-		\caption{Reta bitangente a uma curva.}
-		\label{pic:bitang}
-	\end{figure}
-
- \begin{resp}
+  \centering
+  \includegraphics[width=\textwidth]{cap_nlinsis/pics/curva_Q23}
+  \caption{Reta bitangente a uma curva.}
+  \label{pic:bitang}
+\end{figure}
+\begin{resp}
   $y=mx+b$ com $m\approx - 0.0459710 $ e $b\approx 0.479237$
-
- Uma metodologia possível para resolver este problema é dada a seguir:
-
-Sejam $x_1$ e $x_2$ as abscissas dos dois pontos em que a reta tangencia a curva. A equação da reta bitangente assume a seguinte forma:
-$$y=f(x_1) + m(x-x_1) $$
-onde o coeficiente angular $m$ é dado por
-$$m=\frac{f(x_2)-f(x_1)}{x_2-x_1}$$
-
-Da condição de tangência, temos que o coeficiente angular da reta, $m$, deve igual à derivada da função $f(x)$ nos dois pontos de tangência.
-$$m=f'(x_1)=f'(x_2)$$
-E sabemos que:
-$$f'(x)=\frac{\cos(x)}{1+x}-\frac{\sin(x)}{(1+x)^2}.$$
-
-Assim, podemos reescrever o problema como
-\begin{eqnarray*}
+  Uma metodologia possível para resolver este problema é dada a seguir:
+  
+  Sejam $x_1$ e $x_2$ as abscissas dos dois pontos em que a reta tangencia a curva. A equação da reta bitangente assume a seguinte forma:
+  $$y=f(x_1) + m(x-x_1) $$
+  onde o coeficiente angular $m$ é dado por
+  $$m=\frac{f(x_2)-f(x_1)}{x_2-x_1}$$
+  
+  Da condição de tangência, temos que o coeficiente angular da reta, $m$, deve igual à derivada da função $f(x)$ nos dois pontos de tangência.
+  $$m=f'(x_1)=f'(x_2)$$
+  E sabemos que:
+  $$f'(x)=\frac{\cos(x)}{1+x}-\frac{\sin(x)}{(1+x)^2}.$$
+  
+  Assim, podemos reescrever o problema como
+  \begin{eqnarray*}
 \frac{\cos(x_1)}{1+x_1}-\frac{\sin(x_1)}{(1+x_1)^2}-\frac{\cos(x_2)}{1+x_2}+\frac{\sin(x_2)}{(1+x_2)^2}=0\\
 \frac{\cos(x_1)}{1+x_1}-\frac{\sin(x_1)}{(1+x_1)^2}-\frac{f(x_2)-f(x_1)}{x_2-x_1}=0
 \end{eqnarray*}
 Este é um sistema não linear de duas incógnitas.
 
 Os valores iniciais para o método podem ser obtidos do gráfico buscando valores próximos aos dois primeiros pontos de máximos. Por exemplo: $x_1^{(0)}=1$ e $x_2^{(0)}=8$. Obtemos $x_1\approx 1,2464783$ e $x_2\approx 8,1782997$ e $m$ pode ser obtido através desses valores.
-
-
 \end{resp}
 
 \begin{figure}
@@ -594,7 +592,6 @@ Considere $P=100N$, $L=1m$ e calcule os ângulos $\theta_1$ e $\theta_2$ quando:
 \end{itemize}
 \noindent {\bf Obs:}Você deve escolher valores para iniciar o método. Como você interpretaria fisicamente a solução para produzir palpites iniciais satisfatórios? O que se altera entre o caso a e o caso d?
 \end{exer}
-
 \begin{resp}
 $\left(0.1956550;0.2441719 \right)$, $\left(0.3694093;0.4590564\right) $, $\left( 0.9990712;1.1865168  \right)$ e $\left(1.4773606;1.5552232 \right)$
 \end{resp}
@@ -620,7 +617,6 @@ $\left(0.0449310; 0.0648872; 0.0698750  \right)$, $\left(0.3981385; 0.5658310; 0
 $\left(1.1862966;1.4348545;1.480127  \right)$
 \end{resp}
 
-
 \begin{figure}
         \centering
 	    \includegraphics[width=.5\textwidth]{cap_nlinsis/pics/inter_curvas}
@@ -635,7 +631,6 @@ $\left(1.1862966;1.4348545;1.480127  \right)$
 \end{eqnarray*}
  Com base no gráfico, encontre soluções aproximadas para o problema e use-as para iniciar o método de Newton-Raphson. Encontre as raízes com erro inferior a $10^{-5}$.
 \end{exer}
-
 \begin{resp}
 $\left(-1,2085435, -1,0216674 \right)$ e $\left(2,7871115, 1,3807962\right)$
 
@@ -673,8 +668,6 @@ x=x-JF(x)\F(x)   // 4 vezes
 \end{verbatim}
 \fi
 \end{resp}
-
-
 
 
 \begin{exer} Considere o sistema de equações dado por
@@ -729,7 +722,6 @@ x=x-JF(x)\F(x)   // 4 vezes
 \end{resp}
 
 
-
 \begin{exer}(Otimização)\label{nlinsis:usinas} Uma indústria consome energia elétrica de três usinas fornecedoras. O custo de fornecimento em reais por hora como função da potência consumida em kW é dada pelas seguintes funções
 \begin{eqnarray*}
 C_1(x)&=&10+.3x+10^{-4}x^2+3.4\cdot 10^{-9}x^4\\
@@ -746,7 +738,6 @@ Pelos multiplicadores de Lagrange, temos que resolver o sistema dado por:
 G(x_1,x_2,x_3)&=&0
 \end{eqnarray*}
 \end{exer}
-
 \begin{resp}
  $(x_1,x_2,x_3)\approx (453,62,~ 901,94,~ 144,43)$
 \end{resp}
@@ -762,9 +753,7 @@ $A\approx  3.0297384 $ e $b\approx 1.4835346$.
 \end{resp}
 
 
-
-
- \begin{exer}Encontre o valor máximo da função $$f(x,y)=-x^4-y^6+3xy^3-x$$ na região $(x,y)\in [-2,0]\times [-2,0]$
+\begin{exer}Encontre o valor máximo da função $$f(x,y)=-x^4-y^6+3xy^3-x$$ na região $(x,y)\in [-2,0]\times [-2,0]$
  seguindo os seguintes passos:
 \begin{itemize}
   \item[a)] Defina a função $z=f(x,y)=-x^4-y^6+3xy^3-x$ e trace o gráfico de contorno na região.
@@ -793,26 +782,25 @@ mprintf('f(%f,%f)=%f',x(1),x(2),f(x(1),x(2)))
 \fi
 \end{resp}
 
+\begin{exer}A função $f(x,y,z)=\sin(x)+\sin(2y)+\sin(3z)$ possui um máximo quando $x=\pi/2$, $y=\pi/4$ e $z=\pi/6$. Calcule numericamente este ponto.
+\end{exer}
+\begin{resp}
+  \construirResp
+\end{resp}
 
 
- \begin{exer}A função $f(x,y,z)=\sin(x)+\sin(2y)+\sin(3z)$ possui um máximo quando $x=\pi/2$, $y=\pi/4$ e $z=\pi/6$. Calcule numericamente este ponto.
- \end{exer}
-
-
- \begin{exer}\label{prob_sis3} Encontre as raizes do problema
- \begin{eqnarray*}
- 3x-\cos(yz+z)-1/2&=&0\\
- 4x^2-25y^2+0.4y+2&=&0\\
- e^{-xy}+2x-5z&=&10
- \end{eqnarray*}
- no cubo $|x|<2, |y|<2, |z|<2.$
- Dica: Reduza a um problema de duas incógnitas e use recursos gráficos para aproximar as raízes na região.
- \end{exer}
-
- \begin{resp}
- $x\approx 0,2982646, y\approx -0,2990796, z\approx- 1,6620333$  e $x\approx -0,0691328, y\approx 0,2923039, z\approx -0,8235705$.
- \end{resp}
-
+\begin{exer}\label{prob_sis3} Encontre as raizes do problema
+  \begin{eqnarray*}
+    3x-\cos(yz+z)-1/2&=&0\\
+    4x^2-25y^2+0.4y+2&=&0\\
+    e^{-xy}+2x-5z&=&10
+  \end{eqnarray*}
+  no cubo $|x|<2, |y|<2, |z|<2.$
+  Dica: Reduza a um problema de duas incógnitas e use recursos gráficos para aproximar as raízes na região.
+\end{exer}
+\begin{resp}
+  $x\approx 0,2982646, y\approx -0,2990796, z\approx- 1,6620333$  e $x\approx -0,0691328, y\approx 0,2923039, z\approx -0,8235705$.
+\end{resp}
 
 \begin{exer}  Considere o seguinte sistema de equações não lineares:
 \begin{eqnarray}
@@ -825,7 +813,6 @@ x_{11}&=&1
 \item [b)] Construa a iteração para encontrar a única solução deste problema pelo método de Newton e, usando esse método, encontre uma solução aproximada com erro absoluto inferior a $10^{-4}$.
 \end{itemize}
 \end{exer}
-
 \begin{resp}
 $$F\left(x\right)=\left[
 \begin{array}{c}
@@ -889,13 +876,10 @@ $$f(x,y)=\frac{e^{-(x-1)^2-(y-2)^2}}{1+x^2+y^2}$$
 \item[b)] Usando multiplicadores de Lagrange, encontre o valor máximo desta função restrito à condição $$(x-1)^2+(y-2)^2=1.$$
 \item[c)] Parametrize a circunferência para transformar o problema de máximo com restrição em um problema de uma única variável. Resolva usando as técnicas de equações lineares de uma variável.
 \end{itemize}
-
 \end{exer}
 \begin{resp}
 $f(0,8108792, 1,6217584)\approx 0,1950369$ e $f(0,5527864, 1,1055728 )\approx 0,1455298 $
 \end{resp}
-
-
 
 \section{Linearização de uma função de várias variáveis}
 Nesta seção, discutimos de forma distinta e mais rigorosa os conceitos de matriz jacobiana e linearização de uma função de várias variáveis.\index{matriz!jacobiana}
