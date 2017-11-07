@@ -288,7 +288,7 @@ Na regra de Simpson aproximamos $f$ por um polinômio de grau $2$, portanto prec
 $$
 x_1:=a,\qquad x_2:=\frac{a+b}{2}\qquad \text{e}\qquad x_3:=b
 $$
-com $h=x_3-x_1$, podemos obter o polinômio de Lagrange
+com $h=\frac{x_3-x_1}{2}$, isto é, a distância entre dois pontos consecutivos, podemos obter o polinômio de Lagrange
 \begin{equation*}
     p_2(x) = f_1L_1(x) + f_2L_2(x)  + f_3L_3(x)
 \end{equation*}
@@ -305,7 +305,7 @@ onde
 \end{eqnarray}
 Calculando essas integrais obtemos \emph{a regra de Simpson}:
 $$
-\int_a^bf(x)\;dx=\left(\frac{1}{6}f(x_1)+\frac{4}{6}f(x_2)+\frac{1}{6}f(x_3)\right)h.
+\int_a^bf(x)\;dx=\left(\frac{1}{3}f(x_1)+\frac{4}{3}f(x_2)+\frac{1}{3}f(x_3)\right)h.
 $$
 
 \begin{ex}
@@ -314,18 +314,22 @@ Obtenha os coeficientes $A_i$ do método de Simpson  integrando os polinômios d
 Fazendo uma translação para a origem (subtraindo $x_1$ de $x_2$ e $x_3$)
 \begin{eqnarray*}
    A_1 &=& \int_{x_1}^{x_3} \frac{(x-x_2)(x-x_3)}{(x_1-x_2)(x_1-x_3)}\;dx \\
-       &=& \int_0^h \frac{(x-h/2)(x-h)}{(0-h/2)(0-h)}\;dx
-        =  \frac{2}{h^2} \int_0^h (x-h/2)(x-h)\;dx \\
-       &=& \frac{2}{h^2} \int_0^h x^2 -\frac{3}{2}hx+\frac{h^2}{2}\;dx
-        =  \frac{2}{h^2} (x^3/3 -\frac{3}{4}hx^2+\frac{h^2x}{2})_0^h \\
-       &=& \frac{2}{h^2} (h^3/3 -\frac{3}{4}h^3+\frac{h^3}{2})
-        =  (\frac{2}{3}-\frac{3}{2}+1)h\\
-       &=& \frac{1}{6}h.
+       &=& \int_0^{2h} \frac{(x-h)(x-2h)}{(0-h)(0-2h)}\;dx
+        =  \frac{1}{2h^2} \int_0^{2h} (x-h)(x-2h)\;dx \\
+        &=& \frac{1}{2h^2} \int_0^{2h} \left(x^2 -3hx+2h^2\right)dx
+        =  \frac{1}{2h^2} \left.\left(\frac{1}{3}x^3 -\frac{3}{2}hx^2+2h^2x\right)\right|_0^h \\
+       &=& \frac{1}{2h^2} \left(\frac{1}{3}h^3 -\frac{3}{2}h^3+2h^3\right)
+      = \frac{h}{3}.
 \end{eqnarray*}
 Apesar de longa, é apenas a integral de um polinômio de grau 2. De forma semelhante podemos obter
 $$
-A_2 = \frac{4}{6}h, \;\;\; A_3 = \frac{1}{6}h
+A_2 = \frac{4}{3}h, \;\;\; A_3 = \frac{1}{3}h
 $$
+Assim, lembrando que $h=\frac{b-a}{2}$, temos:
+\begin{equation}
+ \int_a^b f(x)dx \approx \frac{b-a}{6}\left[f(a)+4f\left(\frac{a+b}{2}\right)+f(b)\right].
+ \end{equation}
+
 \end{ex}
 
 
