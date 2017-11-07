@@ -1858,6 +1858,29 @@ y^{(n+1)}&=& \frac{-(1-h)+ \sqrt{(1-h)^2+4hy^{(n)}}}{2h}\\
 \end{resol}
 
 
+
+\section{O método de Taylor}
+Uma maneira alternativa de aumentar a ordem dos métodos de Euler anteriormente descritos consiste em truncar a série de Taylor de $u(t+h)$:
+\begin{eqnarray}
+ u(t+h)=u(t) +h u'(t)+ \frac{h^2}{2!}u''(t)+\frac{h^3}{3!}u'''(t)+\ldots
+\end{eqnarray}
+
+Utilizando dois termos temos o método de Euler. Utilizando os três primeiros termos da série e substituindo $u'(t)=f(t,x)$ e $u''(t)=\frac{d f}{d t}(t,x)$ temos o \emph{método de Taylor de ordem $2$}
+\begin{eqnarray}
+   u^{(n+1)}&=&u^{(n)} +h f(t^{(n)},u^{(n)})\\&+& \frac{h^2}{2!} \left[ \frac{\partial}{\partial t}f(t^{(n)},u^{(n)})+\frac{\partial}{\partial u}f(t^{(n)},u^{(n)})f(t^{(n)},u^{(n)})\right]
+\end{eqnarray}
+onde usamos a regra da cadeida para obter:
+\begin{eqnarray}
+  \frac{d }{d t}f(t,u)= \frac{\partial}{\partial t}f(t,u)+\frac{\partial}{\partial u}f(t,u)u'(t)=\frac{\partial}{\partial t}f(t,u)+\frac{\partial}{\partial u}f(t,u)f(t,u)
+\end{eqnarray}
+
+
+
+O método de Taylor de ordem $3$ é
+\begin{eqnarray*}
+   u^{(n+1)}=u^{(n)} +h f(t^{(n)},u^{(n)})+ \frac{h^2}{2!}\frac{d f}{d t}(t^{(n)},u^{(n)})+\frac{h^3}{3!}\frac{d^2 f}{d t^2}(t^{(n)},u^{(n)})
+\end{eqnarray*}
+
 %\section{Métodos de passo múltiplo}
 \section{Método de Adams-Bashforth}\index{Método!de Adams-Bashforth}\index{Método!de passo múltiplo}\label{sec:Adams_Bashforth}
 Seja o problema de valor inicial
