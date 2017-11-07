@@ -1,9 +1,5 @@
  %Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
-%\documentclass[main.tex]{subfiles}
-%\begin{document}
-
-
 \chapter{Solução de sistemas lineares}\index{sistema linear}
 
 Muitos problemas da engenharia, física e matemática estão associados à solução de sistemas de equações lineares. Nesse capítulo, tratamos de técnicas numéricas empregadas para obter a solução desses sistemas. Iniciamos por uma rápida revisão do método de eliminação gaussiana do ponto de vista computacional. No contexto de análise da propagação dos erros de arredondamento, introduzimos o método de eliminação gaussiana com pivotamento parcial, bem como, apresentamos o conceito de condicionamento de um sistema linear. Além disso, exploramos o conceito de complexidade de algoritmos em álgebra linear. Então, passamos a discutir sobre técnicas iterativas, mais especificamente, sobre os métodos de Jacobi e Gauss-Seidel.
@@ -3079,20 +3075,78 @@ Considere o problema de autovalores $Av=\lambda v$, onde $A$ é uma matriz diago
 \subsection{Método da potência}\index{método da potência}
 
 O método da potência para cálculo do maior autovalor (em módulo) consiste na iteração
-\begin{equation}\begin{array}{l}
+\begin{equation}\label{eq:met_da_potencia}
+\begin{array}{l}
   \left\{\begin{array}{ll}
     \displaystyle x^{(1)} &=\text{aprox. inicial do autovetor},\\
     \displaystyle \lambda^{(1)} &= {x^{(1)}}^T A x^{(1)},\\
   \end{array}\right.\\
   \left\{
   \begin{array}{ll}
-    \displaystyle x^{(k+1)} &= \frac{A^kx^{(1)}}{\|A^kx^{(1)}\|_2},\\
+    \displaystyle x^{(k+1)} &= \frac{Ax^{(k)}}{\|Ax^{(k)}\|_2},\\
     \displaystyle \lambda^{(k+1)} &= {x^{(k+1)}}^T A x^{(k+1)},
   \end{array}\right.,\quad k\geq 1.
-  \end{array}\end{equation}
+  \end{array}
+\end{equation}
 
+\begin{obs}
+  Observe que na iteração do método da potência \eqref{eq:met_da_potencia}, temos $Ax^{(k)} = A^{(k)}x^{(1)}$.
+\end{obs}
 
-Para entender melhor o comportamento assintótico da sequência $\{x^{(n)}\}_{n\geq 1}$, primeiro consideramos o caso particular onde $A$ é uma matriz diagonal, isto é,
+\begin{ex}
+  A seguinte matriz
+  \begin{equation}
+    A =
+    \begin{bmatrix}
+      1 & 0 & 0\\
+      2 & 3 & 0\\
+      3 & 4 & 2
+    \end{bmatrix}
+  \end{equation}
+tem $\lambda=3$ como maior autovalor (por quê?). Tomando $x^{(1)} = (1, 1, 1)$, a iteração do método da potência nos fornece os seguintes resultados:
+\begin{center}
+  \begin{tabular}{l|c|c}
+    $k$ & $x^{(k)}$ & $\lambda^{(k)}$\\\hline
+    1   & $(1, 1, 1)$ & 17\\
+    2   & $(0,08,~0,41,~0,91)$ & 4,10\\
+    3   & $(0,02,~0,34,~0,94)$ & 3,50\\
+    4   & $(0,01,~0,30,~0,95)$ & 3,28\\
+    5   & $(0,00,~0,28,~0,96)$ & 3,16\\
+    \vdots & \vdots & \vdots\\
+    14  & $(0,00,~0,24,~0,97)$ & 3,00\\\hline
+  \end{tabular}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+\construirScilab
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos computar as iterações acima com os seguintes comandos:
+\begin{verbatim}
+>> %aprox. inicial
+>> x=[1 1 1]', lambda=x'*A*x
+>> %iteracao
+>> x=A*x/norm(A*x), lambda=x'*A*x
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\construirPython
+\fi
+%%%%%%%%%%%%%%%%%%%%
+\end{ex}
+
+Para entendermos melhor o comportamento assintótico da sequência $\{x^{(n)}\}_{n\geq 1}$, primeiro consideramos o caso particular onde $A$ é uma matriz diagonal, isto é,
 \begin{equation*}
   A=\begin{bmatrix}
     \lambda_1&0&0&\cdots&0\\
@@ -3247,7 +3301,9 @@ A método da iteração inversa tem restrições semelhantes àquelas do método
 \end{itemize}
 A vantagem é que conseguimos calcular qualquer autovalor, não apenas o autovalor dominante.
 
+\subsection*{Exercícios resolvidos}
 
+\construirExeresol
 
 \subsection*{Exercícios}
 
@@ -3261,9 +3317,7 @@ $$
 Expresse sua resposta com seis dígitos significativos.
 \end{exer}
 \begin{resp}
-
 $\lambda=86.1785$ associado ao autovetor dado por $v_1=\left[ 0.65968~~ 0.66834~~ 0.34372\right]^T$.
-
 \end{resp}
 
 \begin{exer}Calcule o autovalor dominante e o autovetor associado da matriz
@@ -3274,6 +3328,9 @@ $$
 $$
 usando o método da potência inciando com o vetor $x=[1~~  1]^T$.
 \end{exer}
+\begin{resp}
+  \construirResp
+\end{resp}
 
 \begin{exer} A norma $L_2$ de um matriz $A$  é dada pela raiz quadrada do autovalor dominante da matriz $A^*A$ (autovalor de maior módulo), isto é: $$\left\|A\right\|_2=\sqrt{\max\{|\lambda|: \lambda\in\sigma(A^*A)\}}.$$
 Use o método da potência para obter a norma $L_2$ da seguinte matriz:
@@ -3300,6 +3357,9 @@ $$
 \end{array}\right].
 $$
 \end{exer}
+\begin{resp}
+  \construirResp
+\end{resp}
 
 \section{Exercícios finais}
 
@@ -3340,7 +3400,6 @@ Então, refaça este problema reduzindo o sistema para apenas 4 incógnitas ($V_
 \end{exer}
 \ifisscilab
 \begin{resp}
-
 a)$V_5=98.44V$ b) $V_5=103.4V$
 
 O problema com cinco incógnitas pode ser escrito na forma matricial conforme a seguir:
@@ -3412,7 +3471,6 @@ A=[  -(1/R1+1/R2+1/R5)    1/R2               0                 0;
 v=[-V/R1; 0; 0; 0]
 y=A\v
 \end{verbatim}
-
 \end{resp}
 \fi
 
@@ -3428,11 +3486,6 @@ y=A\v
 \end{itemize}
 \end{exer}
 \begin{resp}
-
 Dica: $P(-1)=-3$, $P(1)=-1$ e $P(2)=9$ produzem três equações lineares para os coeficientes $a$, $b$ e $c$.
 Resp: a) $P(x)=3x^2+x-5$, b) $A\approx 2.49$ e $B\approx -1.29$ c)$A_1\approx 1.2872058$, $A_2\approx - 4.3033034$, $B_1\approx 2.051533$ e $B_2\approx - 0.9046921$.
-
 \end{resp}
-
-
-%\end{document}
