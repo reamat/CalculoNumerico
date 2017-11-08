@@ -6,18 +6,20 @@ Muitos problemas da engenharia, física e matemática estão associados à solu�
 
 
 Considere o sistema de equações lineares (escrito na forma algébrica)
-\begin{eqnarray*}
-a_{11}x_1 + a_{12}x_2 + \cdots +a_{1n}x_n &=& b_1\\
-a_{21}x_1 + a_{22}x_2 + \cdots +a_{2n}x_n &=& b_2\\
-                                      &\vdots& \\
-a_{m1}x_1 + a_{m2}x_2 + \cdots +a_{mn}x_n &=& b_m
-\end{eqnarray*}
+\begin{equation}
+  \begin{split}
+    a_{11}x_1 + a_{12}x_2 + \cdots +a_{1n}x_n &= b_1\\
+    a_{21}x_1 + a_{22}x_2 + \cdots +a_{2n}x_n &= b_2\\
+    &\vdots \\
+    a_{m1}x_1 + a_{m2}x_2 + \cdots +a_{mn}x_n &= b_m
+  \end{split}
+\end{equation}
 onde $m$ é o número de equações e $n$ é o número de incógnitas.  Este sistema pode ser escrito na \emph{forma matricial}
-\begin{equation*}
+\begin{equation}
   Ax = b
-\end{equation*}
+\end{equation}
 onde:
-\begin{equation*}
+\begin{equation}
   A=\begin{bmatrix}
 a_{11} & a_{12} & \cdots & a_{1n}\\
 a_{21} & a_{22} & \cdots & a_{2n}\\
@@ -36,19 +38,19 @@ b_{2} \\
 \vdots \\
 b_{m}
 \end{bmatrix},
-\end{equation*}
+\end{equation}
 onde $A$ é chamada de \emph{matriz dos coeficientes}\index{matriz!dos coeficientes}, $x$ de \emph{vetor das incógnitas}\index{vetor!das incógnitas} e $b$ de \emph{vetor dos termos constantes}\index{vetor!dos termos constantes}.
 
 
 Definimos também a \emph{matriz completa}\index{matriz!completa} (também chamada de \emph{matriz estendida}\index{matriz!estendida}) de um sistema como $Ax=b$ como $[A|b]$, isto é
-\begin{equation*}
+\begin{equation}
  [A|b]=\left[\begin{array}{cccc|c}
 a_{11} & a_{12} & \cdots & a_{1n}&b_1\\
 a_{21} & a_{22} & \cdots & a_{2n}&b_2\\
 \vdots & \vdots & \ddots & \vdots&\vdots\\
 a_{m1} & a_{m2} & \cdots & a_{mn}&b_m
 \end{array}\right]
-\end{equation*}
+\end{equation}
 
 
 Salvo especificado ao contrário, assumiremos ao longo deste capítulo que a matriz dos coeficientes $A$ é uma matriz real não singular (isto é, invertível).
@@ -67,13 +69,15 @@ Ao longo do capítulo, apresentamos algumas computações com \verb+Python+. Nes
 
 \begin{ex}
   Consideramos o seguinte sistema linear
-  \begin{eqnarray*}
-    x+y+z  &=& 1\\
-    4x+4y+2z&=& 2\\
-    2x+y-z &=& 0
-  \end{eqnarray*}.
+  \begin{equation}
+    \begin{split}
+      x+y+z  &= 1\\
+      4x+4y+2z&= 2\\
+      2x+y-z &= 0
+    \end{split}
+  \end{equation}.
 Na sua forma matricial, este sistema é escrito como
-\begin{equation*}
+\begin{equation}
   Ax = b \Leftrightarrow
   \underbrace{\begin{bmatrix}
     1 & 1 & 1\\
@@ -89,7 +93,7 @@ Na sua forma matricial, este sistema é escrito como
   \begin{bmatrix}
     1\\2\\0
   \end{bmatrix}}_{b}
-\end{equation*}.
+\end{equation}.
 %%%%%%%%%%%%%%%%%%%%
 % octave
 %%%%%%%%%%%%%%%%%%%%
@@ -112,14 +116,14 @@ b =
 %%%%%%%%%%%%%%%%%%%%
 
 A matriz estendida do sistema acima é
-\begin{equation*}
+\begin{equation}
   E := [A|b] =
   \begin{bmatrix}
     1 & 1 & 1 & 1\\
     4 & 4 & 2 & 2\\
     2 & 1 & -1 & 0
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 %%%%%%%%%%%%%%%%%%%%
 % octave
 %%%%%%%%%%%%%%%%%%%%
@@ -149,38 +153,40 @@ A \emph{eliminação gaussiana}, também conhecida como \emph{escalonamento}, é
 \end{enumerate}
 
 \begin{ex}\label{ex:elim_gaussiana} Resolva o sistema
-  \begin{eqnarray*}
-    x+y+z  &=& 1\\
-    4x+4y+2z&=& 2\\
-    2x+y-z &=& 0
-  \end{eqnarray*}
+  \begin{equation}
+    \begin{split}
+      x+y+z  &= 1\\
+      4x+4y+2z&= 2\\
+      2x+y-z &= 0
+    \end{split}
+  \end{equation}
 pelo método de eliminação gaussiana.
 \end{ex}
 \begin{sol}
 A matriz estendida do sistema é escrita como
-\begin{equation*}
+\begin{equation}
   \begin{bmatrix}
       1 &1& 1&1\\
       4 & 4 &2&2\\
       2 &1& -1&0
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 No primeiro passo, subtraímos da segunda linha o quádruplo da primeira e subtraímos da terceira linha o dobro da primeira linha:
-\begin{equation*}
+\begin{equation}
   \begin{bmatrix}
        1 &1& 1&1\\
        0 & 0 &-2&-2\\
        0 &-1& -3&-2
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 No segundo passo, permutamos a segunda linha com a terceira:
-\begin{equation*}
+\begin{equation}
   \begin{bmatrix}
        1 &1& 1&1\\
        0 &-1& -3&-2\\
        0 & 0 &-2&-2
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 Neste momento, a matriz já se encontra na forma triangular (chamada de \emph{matriz escalonada do sistema}\index{matriz escalonada}). Da terceira linha, encontramos $-2z=-2$, ou seja, $z=1$. Substituindo na segunda equação, temos $-y-3z=-2$, ou seja, $y=-1$ e finalmente, da primeira linha, $x+y+z=1$, resultando em $x=1$.
 
 %%%%%%%%%%%%%%%%%%%%
@@ -236,7 +242,7 @@ Alternativamente, podemos continuar o procedimento de eliminação gaussiana, an
 
 \begin{ex}
   No Exemplo~\ref{ex:elim_gaussiana}, usamos o procedimento de eliminação gaussiana e obtivemos
-  \begin{equation*}
+  \begin{equation}
       \underbrace{
         \begin{bmatrix}
           1 & 1 & 1 & 1\\
@@ -251,40 +257,40 @@ Alternativamente, podemos continuar o procedimento de eliminação gaussiana, an
           0 & 0 & -2 & -2
         \end{bmatrix}
 }_{\text{matriz escalonada}}.
-  \end{equation*}
+  \end{equation}
 
 Agora, seguindo com o procedimento de eliminação gaussiana, buscaremos anular os elementos acima da diagonal principal. Começamos dividindo cada elemento da última linha pelo valor do elemento da sua diagonal, obtemos
-\begin{equation*}
+\begin{equation}
   \begin{bmatrix}
     1 & 1 & 1 & 1\\
     0 & -1 & -3 & -2\\
     0 & 0 & 1 & 1
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 Então, somando da segunda linha o triplo da terceira e subtraindo da primeira a terceira linha, obtemos
-\begin{equation*}
+\begin{equation}
   \begin{bmatrix}
     1 & 1 & 0 & 0\\
     0 & -1 & 0 & 1\\
     0 & 0 & 1 & 1
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 Fixamos, agora, na segunda linha. Dividimos esta linha pelo valor do elemento em sua diagonal, isto nos fornece
-\begin{equation*}
+\begin{equation}
   \begin{bmatrix}
     1 & 1 & 0 & 0\\
     0 & 1 & 0 & -1\\
     0 & 0 & 1 & 1
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 Por fim, subtraímos da primeira linha a segunda, obtendo a matriz escalonada reduzida
-\begin{equation*}
+\begin{equation}
   \begin{bmatrix}
     1 & 0 & 0 & 1\\
     0 & 1 & 0 & -1\\
     0 & 0 & 1 & 1
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 Desta matriz escalonada reduzida temos, imediatamente, $x=1$, $y=-1$ e $z=1$, como no Exemplo~\ref{ex:elim_gaussiana}.
 
 %%%%%%%%%%%%%%%%%%%%
@@ -371,16 +377,18 @@ ans =
 A eliminação gaussiana com \emph{pivotamento parcial} consiste em fazer uma permutação de linhas de forma a escolher o maior pivô (em módulo) a cada passo.
 
 \begin{ex} Resolva o sistema
-\begin{eqnarray*}
-  x+y+z  &=& 1\\
-  2x+y-z &=& 0\\
-  2x+2y+z &=& 1
-\end{eqnarray*}
+\begin{equation}
+  \begin{split}
+    x+y+z  &= 1\\
+    2x+y-z &= 0\\
+    2x+2y+z &= 1
+  \end{split}
+\end{equation}
 por eliminação gaussiana com pivotamento parcial.
 \end{ex}
 \begin{sol}
 A matriz estendida do sistema é
-\begin{equation*}
+\begin{equation}
   \begin{split}
     \begin{bmatrix}
       1 &1&  1&1\\
@@ -412,7 +420,7 @@ A matriz estendida do sistema é
       0 &0& 1/2&1/2
     \end{bmatrix}
   \end{split}
-\end{equation*}
+\end{equation}
 Encontramos $1/2z=1/2$, ou seja, $z=1$. Substituímos na segunda equação e temos $y+2z=1$, ou seja, $y=-1$ e, finalmente $2x+y-z=0$, resultando em $x=1$.
 
 %%%%%%%%%%%%%%%%%%%%
@@ -516,7 +524,7 @@ print(x)
 A técnica de eliminação gaussiana com pivotamento parcial ajuda a evitar a propagação dos erros de arredondamento. Vejamos o próximo exemplo.
 
 \begin{ex}[Problema com elementos com grande diferença de escala] Resolva o seguinte sistema usando eliminação gaussiana sem e com pivotamento parcial. Discuta, em cada caso, o resultado frente a aritmética de ponto flutuante quando $0<|\epsilon| \ll 1$.
-  \begin{equation*}
+  \begin{equation}
     \begin{bmatrix}
       \varepsilon & 2\\
       1 & \varepsilon
@@ -528,7 +536,7 @@ A técnica de eliminação gaussiana com pivotamento parcial ajuda a evitar a pr
     \begin{bmatrix}
       4\\3
     \end{bmatrix}
-  \end{equation*}
+  \end{equation}
 \end{ex}
 \begin{sol}
 Vamos, primeiramente, executar a eliminação gaussiana sem pivotamento parcial para $\varepsilon \neq 0$ e $|\varepsilon|\ll 1$:
@@ -591,15 +599,17 @@ Observe que tais expressões são analiticamente idênticas às anteriores, no e
 
 \begin{exeresol}
 Resolva o seguinte sistema por eliminação gaussiana com pivotamento parcial.
-\begin{eqnarray*}
-  2y + 2z &=& 8\\
-  x + 2y + z &=& 9\\
-  x + y + z &=& 6
-\end{eqnarray*}
+\begin{equation}
+  \begin{split}
+    2y + 2z &= 8\\
+    x + 2y + z &= 9\\
+    x + y + z &= 6
+  \end{split}
+\end{equation}
 \end{exeresol}
 \begin{resol}
 A forma matricial do sistema dado é
-\begin{equation*}
+\begin{equation}
 \left[
 \begin{array}{ccc}
 0 &2& 2\\
@@ -621,7 +631,7 @@ z
 6
 \end{array}
 \right]
-\end{equation*}
+\end{equation}
 Construímos, então, a matriz completa e seguimos com o procedimento de eliminação gaussiana com pivotamento parcial:
 \begin{eqnarray*}\left[
 \begin{array}{ccc|c}
@@ -751,14 +761,16 @@ x =  2
 \subsection*{Exercícios}
 
 \begin{exer} Resolva o seguinte sistema de equações lineares
-\begin{eqnarray*}
-x+y+z&=&0\\
-x+10z&=&-48\\
-10y+z&=&25
-\end{eqnarray*} Usando eliminação gaussiana com pivotamento parcial (não use o computador para resolver essa questão).
+\begin{equation}
+  \begin{split}
+    x+y+z&=0\\
+    x+10z&=-48\\
+    10y+z&=25
+  \end{split}
+\end{equation} 
+Usando eliminação gaussiana com pivotamento parcial (não use o computador para resolver essa questão).
 \end{exer}
 \begin{resp}
-
 Escrevemos o sistema na forma matricial e resolvemos:
 \begin{eqnarray*}
 \left[
@@ -2358,6 +2370,67 @@ y^{(2)}&=&\frac{26-x^{(1)}}{8}=3,25\\
 x^{(3)}&=&\frac{23-y^{(2)}}{10}=1,975 \\
 y^{(3)}&=&\frac{26-x^{(2)}}{8}=2,9625
 \end{eqnarray*}
+\end{ex}
+
+\begin{ex}
+  Considere o seguinte sistema
+  \begin{equation}
+    \begin{split}
+      -3x_1 + x_2 + x_3 &= 2\\
+      2x_1 + 5x_2 + x_3 &= 5\\
+      2x_1 + 3x_2 + 7x_3 &= -17
+    \end{split}
+  \end{equation}
+Usando o método de Jacobi com aproximação inicial $x^{(1)} = (1, 1, -1)$, obtemos os seguintes resultados:
+\begin{center}
+  \begin{tabular}{rcc}\hline
+    $k$ & $x^{(k)}$ & $\|x^{(k)}-x^{(k-1)}\|_\infty$\\\hline
+    1   & $(1, 1, 1)$ & -x-\\
+    2   & $(-0,67,~0,80,~-3,14)$ & $2,1$\\
+    3   & $(-1,45,~1,90,~-2,58)$ & $1,1$\\
+    4   & $(-0,90,~2,10,~-2,83)$ & $5,5\E-1$\\
+    5   & $(-0,91,~1,92,~-3,07)$ & $2,4\E-1$\\
+    \vdots & \vdots & \vdots\\
+    10  & $(-1,00,~2,00,~-3,00)$ & $6,0\E-3$\\\hline 
+  \end{tabular}
+\end{center}
+Verifique a resposta.
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+\construirScilab
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos fazer as contas com o seguinte script:
+\begin{verbatim}
+A = [-3 1 1;2 5 1;2 3 7];
+b = [2,5,-17]';
+
+x=[1 1 -1]';
+for iter=1:9
+  x0 = x;
+  for i=1:3
+    x(i) = (b(i)-A(i,[1:i-1,i+1:3])*x0([1:i-1,i+1:3]))/A(i,i);
+  endfor
+  x'
+  norm(x-x0,'inf')
+endfor
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\construirPython
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{ex}
 
 %%%%%%%%%%%%%%%%%%%%
