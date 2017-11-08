@@ -102,6 +102,8 @@ Em breve iremos disponibilizar mais informações sobre como gerar uma versão d
 
 As equações e símbolos matemáticos estão escritos usando a coleção de pacotes [AMS-LaTeX](http://www.ams.org/publications/authors/tex/amslatex).
 
+Afim de facilitar a discussão sobre o material do livro, todas as equações devem ser numeradas.
+
 #### Uso da vírgula
 
 O livro usa o pacote LaTeX [`icomma`](https://www.ctan.org/pkg/icomma). Desta forma, para que um espaço apareça após uma vírgula é necessário por o espaço no código LaTeX. Por exemplo, o código LaTeX `$1,24$` produz o número 1,24, enquanto o código `$1, 24$` porduz os números 1 e 24 separados por uma vírgula e um espaço.
@@ -110,17 +112,21 @@ O livro usa o pacote LaTeX [`icomma`](https://www.ctan.org/pkg/icomma). Desta fo
 
 Números em notação científica podem ser representados, tando usando `$\times 10^$` como usando o macro `\E`, por exemplo:
 
-    1,25673\times 10^{-13} = 1,25673\E-13.
+    $1,25673\times 10^{-13} = 1,25673\E-13.$
 
 #### Subíndices e superíndices
 
 Entradas de vetores e matrizes devem ser indicadas com subíndices:
 
-    [v_1, v_2, v_3]
+    $v = (v_1, v_2, v_3).$
+
+O uso dos parênteses denota um vetor coluna, i.e.
+
+    $v = (v_1, v_2, v_3) = [v_1 v_2 v_3]^T.$
 
 Processos iterativos devem ser indicados com superíndices:
 
-    x^{(n+1)}=x^{(n)} + \frac{1}{n}
+    $x^{(n+1)} = x^{(n)} + \frac{1}{n}.$
 
 ### Exercícios
 
