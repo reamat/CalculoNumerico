@@ -6,9 +6,9 @@
 \chapter{Interpolação}\index{aproximação!de funções}\label{cap:interp}
 
 Neste capítulo, discutimos os problemas de \emph{interpolação}\index{interpolação}. Mais precisamente, dada uma sequência de $n$ reais $x_1<x_2<\ldots<x_n$, um conjunto de pontos $\left\{(x_i, y_i)\in I\times\mathbb{R}\right\}_{i=1}^n$, onde $I=\left[x_1,x_n\right]$ e uma família de funções $\mathcal{F}_I = \{\varphi:I\rightarrow\mathbb{R}\}$, o problema de interpolação consiste em encontrar alguma função $f\in\mathcal{F}_I$ tal que
-\begin{equation*}
+\begin{equation}
   f(x_i) = y_i,\quad i=1, 2, \dotsc, n.
-\end{equation*}
+\end{equation}
 Chamamos uma tal $f$ de \emph{função interpoladora} dos pontos dados. Ou ainda, dizemos que $f$ interpola os pontos dados.
 
 \begin{figure}
@@ -19,11 +19,11 @@ Chamamos uma tal $f$ de \emph{função interpoladora} dos pontos dados. Ou ainda
 
 \begin{ex}\label{ex:intro_interpolacao}
   Um dos problemas de interpolação mais simples é o de encontrar a equação da reta que passa por dois pontos dados. Por exemplo, sejam dados o conjunto de pontos $\{(1, 1), (2, 2)\}$ e a família de funções $\mathcal{F}_{[1,2]}$:
-  \begin{equation*}
+  \begin{equation}
    \mathcal{F}_{[1,2]} = \left\{f:[1,2]\rightarrow \mathbb{R}~;~[1,2]\ni x\mapsto f(x) = a + bx;\,a,b\in\mathbb{R}\right\}.
-  \end{equation*}
+  \end{equation}
   Para que uma $f$ na família seja a função interpoladora do conjunto de pontos dados, precisamos que
-  \begin{equation*}
+  \begin{equation}
     \begin{array}{l}
       a + bx_1 = y_1\\
       a + bx_2 = y_2
@@ -32,7 +32,7 @@ Chamamos uma tal $f$ de \emph{função interpoladora} dos pontos dados. Ou ainda
       a + b = 1\\
       a + 2b = 2
     \end{array}
-  \end{equation*}
+  \end{equation}
 o que nos fornece $a = 0$ e $b = 1$. Então, a função interpoladora $f$ é tal que  $f(x) = x$ para um $x\in[1,2]$. Os pontos e a reta interpolada estão esboçados na Figura~\ref{fig:ex_intro_interp}.
 \end{ex}
 
@@ -56,26 +56,26 @@ from numpy.polynomial import polynomial as poly
 \section{Interpolação polinomial}\index{interpolação!polinomial}
 
 Interpolação polinomial é um caso particular do problema geral de interpolação, no qual a família de funções é constituída de polinômios. A escolha de polinômios como funções interpolantes é natural por diversos  motivos, entre eles: se $p$ é um polinômio de grau $n$, o valor $p(x)$ para um $x$ real é calculado através de $n+1$ operações de multiplicação e $n+1$ operações de adição. Para tanto, pode-se usar o algoritmo de Horner\footnote{William George Horner, 1786 - 1837, matemático britânico.}. Dado um polinômio $p$ de grau $n$ da forma
-\begin{equation*}
+\begin{equation}
   p(x)=\sum_{k=0}^{n}a_k x^k,
-\end{equation*}
+\end{equation}
 é possível reescrevê-lo como a sequência de operações dada por
-\begin{equation*}
+\begin{equation}
   a_0 + x\left(a_1 + x\left(a_2 + x\left(\ldots + x\left(a_{n-1} + x a_n\right)\ldots\right)\right)\right).
-\end{equation*}
+\end{equation}
 
 Também, derivadas e primitivas de polinômios são também polinômios cuja relação algébrica com o original é simples. Além disso, o teorema da aproximação de Weierstrass estabelece que qualquer função contínua definida em um intervalo fechado pode ser aproximada uniformemente por um polinômio tão bem quanto se queira.
 
 \begin{teo}[Weierstrass]Seja $f$ uma função contínua definida no intervalo fechado $[a,b]$ e seja $\delta$ um número positivo. Então existe um polinômio $p$, tal que para todo $x\in[a,b]$,
-  \begin{equation*}
+  \begin{equation}
     |f(x)-p(x)|<\delta.
-  \end{equation*}
+  \end{equation}
 \end{teo}
 
 Observe que para o problema ser bem determinado, é necessário restringirmos o grau dos polinômios. Dado um conjunto de $n$ pontos a serem interpolados $\{(x_i,y_i)\}_{i=1}^{n}$, $x_i\neq x_j$ para $i\neq j$, a família de polinômios $\mathcal{F} = \mathbb{P}_{n-1}$ deve ser escolhida, onde:
-\begin{equation*}
+\begin{equation}
   \mathbb{P}_{n-1} := \left\{p : x\mapsto p(x) = \sum_{k=0}^{n-1}a_kx^k ;\, \{a_0,a_1,\ldots,a_{n-1}\}\in\mathbb{R}\right\},
-\end{equation*}
+\end{equation}
 isto é, a família dos polinômios reais de grau menor ou igual a $n-1$.
 
 O Exemplo~\ref{ex:intro_interpolacao} discute um dos casos mais simples de interpolação polinomial, o qual consiste em interpolar uma reta por dois pontos. Neste caso, a família de funções consiste de polinômios de grau 1. Se buscarmos interpolar uma parábola pelos dois pontos dados, o problema fica subdeterminado, pois existem infinitas parábolas que passam por dois pontos dados. Além disso, se buscarmos interpolar uma reta por três pontos dados, o problema estaria sobredeterminado e poderia não ter solução se os pontos não fossem colineares. Veja o Exercício~\ref{exer:problemas_mal_determinados}.
@@ -93,18 +93,18 @@ Assim, dado um conjunto com $n$ pontos $\{(x_i,y_i)\}_{i=1}^{n}$, chamamos de \e
 \end{ex}
 \begin{sol}
 Como o conjunto consiste de 4 pontos, o polinômio interpolador deve ser da forma:
-\begin{equation*}
+\begin{equation}
   p(x) = a_0 + a_1x + a_2x^2 + a_3x^3.
-\end{equation*}
+\end{equation}
 As condições de interpolação são $p(x_i) = y_i$, $i = 0, 1, 2, 3$, o que nos leva ao sistema linear:
-\begin{equation*}
+\begin{equation}
   \begin{array}{lclclclcl}
     a_0& & & & & & &=&1\\
     a_0&+& a_1&+& a_2&+&  a_3&=&6\\
     a_0&+&2a_1&+&4a_2&+& 8a_3&=&5\\
     a_0&+&3a_1&+&9a_2&+&27a_3&=&-8
   \end{array}
-\end{equation*}
+\end{equation}
 cuja solução é $a_0=1$, $a_1=6$, $a_2=0$ e $a_3=-1$. Portanto, o polinômio interpolador é $p(x)=1+6x-x^3$. Veja Figura~\ref{fig:ex_interpolacao_polinomial}.
 
 %%%%%%%%%%%%%%%%%%%%
@@ -164,7 +164,7 @@ array([ -1,  0.,  6,  1. ])
 \begin{teo}\label{teo:interp_poli} Seja $\{(x_i,y_i)\}_{i=1}^{n}$ um conjunto de $n$ pares ordenados de números reais tais que $x_i \ne x_j$ se $i\ne j$, então existe um único polinômio $p(x)$ de grau $n-1$ ou inferior que passa por todos os pontos dados, isto é, $p(x_i)=y_i, i=1,\ldots, n$.
 \end{teo}
 \begin{proof} Observe que o problema de encontrar os coeficientes $a_0$, $a_1$,\ldots, $a_{n-1}$ do polinômio
-$$p(x)=a_0+a_1x+a_2x^2+\cdots a_{n-1}x^{n-1}=\sum_{k=0}^{n-1} a_k x^k$$
+\begin{equation} p(x)=a_0+a_1x+a_2x^2+\cdots a_{n-1}x^{n-1}=\sum_{k=0}^{n-1} a_k x^k \end{equation}
 tal que $p(x_i)=y_i$ é equivalente a resolver o sistema linear com $n$ equações e $n$ incógnitas dado por
 \begin{eqnarray*}
 a_0+a_1x_1+a_1x_1^2+\cdots +a_{n-1} x_1^{n-1}&=&y_1,\\
@@ -188,12 +188,12 @@ y_1\\y_2\\y_3\\ \vdots \\y_n
 \end{bmatrix}
 $$
 A matriz envolvida é uma \emph{matriz de Vandermonde}\footnote{Alexandre-Théophile Vandermonde, 1735 - 1796, matemático francês.}\index{matriz de Vandermonde} de ordem $n$ cujo determinante é dado pelo produtório duplo
-$$\prod_{1\leq i<j\leq n}\left(x_j-x_i\right)$$
+\begin{equation} \prod_{1\leq i<j\leq n}\left(x_j-x_i\right) \end{equation}
 É fácil ver que se as abscissas são diferentes dois a dois, então o determinante é não nulo. Disto decorre que a matriz envolvida é inversível e, portanto, o sistema possui uma solução que é única.
 \end{proof}
 
 % \begin{ex} Encontre o polinômio da forma $P(x)=a_0+a_1x+a_2x^2+a_3x^3$ que passa pelos pontos
-% $$(0,0),(1,1),(2,4),(3,9)$$
+% \begin{equation} (0,0),(1,1),(2,4),(3,9) \end{equation}
 % Este problema é equivalente ao seguinte sistema linear:
 % \begin{eqnarray*}
 % a_0&=&0\\
@@ -202,7 +202,7 @@ $$\prod_{1\leq i<j\leq n}\left(x_j-x_i\right)$$
 % a_0+3a_1+9a_2+27a_3&=&9
 % \end{eqnarray*}
 % cuja solução é $a_0=0$, $a_1=0$, $a_2=1$ e $a_3=0$. Portanto
-% $$P(x)=x^2$$
+% \begin{equation} P(x)=x^2 \end{equation}
 % \end{ex}
 
 Esta abordagem direta que usamos no Exemplo~\ref{ex:interpolacao_polinomial} e na demonstração do Teorema~\ref{teo:interp_poli} se mostra ineficiente quando o número de pontos é grande e quando existe grande variação nas abscissas. Neste caso, a matriz de Vandermonde é mal condicionada (ver \cite{Gautschi}), o que acarreta um aumento dos erros de arredondamento na solução do sistema.
@@ -237,28 +237,28 @@ Encontre o polinômio interpolador para o conjunto de pontos $\{(-2, -47)$, $(0,
 
   \begin{itemize}
   \item[a)] Uma parábola de equação $y = a_1 + a_2x + a_3x^2$ que interpola os pontos deve satisfazer o sistema:
-    \begin{equation*}
+    \begin{equation}
       \begin{split}
       a_1 + a_2x_1 + a_3x_1^2 &= y_1\\
       a_1 + a_2x_2 + a_3x_2^2 &= y_2
       \end{split}
-    \end{equation*}
+    \end{equation}
 Sem perda de generalidade, para cada $a_3\in\mathbb{R}$ dado, temos:
-    \begin{equation*}
+    \begin{equation}
       \begin{split}
       a_1 + a_2x_1  &= y_1 - a_3x_1^2\\
       a_1 + a_2x_2  &= y_2 - a_3x_2^2
       \end{split},
-    \end{equation*}
+    \end{equation}
 o qual tem solução única, pois $x_1\neq x_2$. Ou seja, para cada $a_3\in\mathbb{R}$ dado, existem $a_1, a_2\in\mathbb{R}$ tais que a parábola de equação $y = a_1 + a_2x + a_3x^2$ interpola os pontos dados.
 \item[b)] Certamente não existem retas de equação $x = a$ que interpolam os pontos dados. Consideremos então retas de equação $y = a_1 + a_2x$. Para uma tal reta interpolar os pontos dados é necessário que:
-  \begin{equation*}
+  \begin{equation}
     \begin{split}
     a_1 + a_2 = 1\\
     a_1 + 2a_2 = 2,1\\
     a_1 + 3a_2 = 3
     \end{split},
-  \end{equation*}
+  \end{equation}
 o qual é um sistema impossível.
 \item[c)] Não existe uma parábola de equação $y = a_1 + a_2x + a_3x^2$ que interpole os pontos dados, pois tal equação determina uma função de $x$ em $y$. Agora, para mostrar que existem infinitas parábolas de equação $x = a_1 + a_2y + a_3y^2$ que interpolam os pontos dados, basta seguir um raciocínio análogo ao do item a), trocando $x$ por $y$ e $y$ por $x$.
   \end{itemize}
@@ -274,7 +274,7 @@ p(x) &=& a_1 + a_2 (x-x_1) + a_3 (x-x_1)(x-x_2) + \cdots \\
 \end{eqnarray*}
 Como $p(x_i) = y_i$, $i=1, 2, \dotsc, n$, os coeficientes $a_i$ satisfazem o seguinte sistema triangular inferior:
 \begin{small}
-  \begin{equation*}
+  \begin{equation}
     \begin{array}{ll}
 a_1               &= y_1\\
 a_1+a_2(x_2-x_1)  &= y_2\\
@@ -282,17 +282,17 @@ a_1+a_2(x_3-x_1)+a_3(x_3-x_1)(x_3-x_2) &= y_3\\
 &\vdots\\
 a_1+a_2(x_n-x_1)+\cdots + a_n(x_n-x_1)\cdots (x_n-x_{n-1}) &= y_n
     \end{array}
-  \end{equation*}
+  \end{equation}
 \end{small}
 Resolvendo de cima para baixo, obtemos
-\begin{equation*}\label{eq:coef_dif_div}
+\begin{equation}\label{eq:coef_dif_div}
   \begin{split}
 a_1&=y_1\\
 a_2&=\frac{y_2-a_1}{x_2-x_1}=\frac{y_2-y_1}{x_2-x_1}\\
 a_3&=\frac{y_3-a_2(x_3-x_1)-a_1}{(x_3-x_1)(x_3-x_2)}=\frac{\frac{y_3-y_2}{(x_3-x_2)}-\frac{y_2-y_1}{(x_2-x_1)}}{(x_3-x_1)}\\
 &\ldots
   \end{split}
-\end{equation*}
+\end{equation}
 
 Note que os coeficientes são obtidos por diferenças das ordenadas divididas por diferenças das abscissas dos pontos dados. Para vermos isso mais claramente, introduzimos a seguinte notação:
 \begin{eqnarray*}
@@ -305,9 +305,9 @@ f[x_j, x_{j+1}, \dotsc, x_{j+k}] &:=& \frac{f[x_{j+1}, x_{j+2}, \dotsc, x_{j+k}]
 Chamamos $f[x_j]$ de diferença dividida de ordem zero (ou primeira diferença dividida), $f[x_i,x_j+1]$ de diferença dividida de ordem 1 (ou segunda diferença dividida) e assim por diante.
 
 Uma inspeção cuidadosa dos coeficientes obtidos em \eqref{eq:coef_dif_div} nos mostra que
-\begin{equation*}
+\begin{equation}
  a_k=f[x_1,x_2,\ldots,x_k]
-\end{equation*}
+\end{equation}
 Isto nos permite esquematizar o método conforme apresentado na Tabela~\ref{tab:esquema_difdiv}.
 
 \begin{table}
@@ -416,24 +416,24 @@ p += T[3,3]*paux
 
 \section{Polinômios de Lagrange}\index{polinômios!de Lagrange}
 Outra maneira clássica de resolver o problema da interpolação polinomial é através dos polinômios de Lagrange. Dado um conjunto de pontos $\{x_j\}_{j=1}^n$ distintos dois a dois, definimos os polinômios de Lagrange como os polinômios de grau $n-1$ que satisfazem
-\begin{equation*}
+\begin{equation}
 L_k(x_j)=\left\{\begin{array}{rl}
 1,& \text{se }k=j\\
 0,& \text{se }k\neq j
 \end{array}
 \right.
-\end{equation*}
+\end{equation}
 Assim, o polinômio $p(x)$ de grau $n-1$ que interpola os pontos dados, isto é, $p(x_j)=y_j, j=1,\ldots,n$ é dado por
-\begin{equation*}
+\begin{equation}
   p(x)=y_1L_1(x)+y_2L_2(x)+\cdots +y_nL_n(x)=\sum_{k=1}^n y_k L_k(x).
-\end{equation*}
+\end{equation}
 
 Para construir os polinômios de Lagrange, podemos analisar a sua forma fatorada, ou seja:
-$$L_k(x)=c_k\prod_{\substack{j=1\\j\ne i}}^{n} (x-x_j)$$
+\begin{equation} L_k(x)=c_k\prod_{\substack{j=1\\j\ne i}}^{n} (x-x_j) \end{equation}
 onde o coeficiente $c_k$ é obtido da condição $L_k(x_k)=1$:
-$$L_k(x_k)=c_k\prod_{\substack{j=1\\j\ne i}}^{n} (x_k-x_j) \Longrightarrow  c_k=\frac{1}{\displaystyle \prod_{\substack{j=1\\j\ne i}}^{n} (x_k-x_j)}$$
+\begin{equation} L_k(x_k)=c_k\prod_{\substack{j=1\\j\ne i}}^{n} (x_k-x_j) \Longrightarrow  c_k=\frac{1}{\displaystyle \prod_{\substack{j=1\\j\ne i}}^{n} (x_k-x_j)} \end{equation}
 Portanto,
-$$L_k(x)=\prod_{\substack{j=1\\j\ne i}}^{n} \frac{(x-x_j)}{(x_k-x_j)}$$
+\begin{equation} L_k(x)=\prod_{\substack{j=1\\j\ne i}}^{n} \frac{(x-x_j)}{(x_k-x_j)} \end{equation}
 
 \begin{obs} O problema de interpolação quando escrito usando como base os polinômios de Lagrange produz um sistema linear diagonal.
 \end{obs}
@@ -450,9 +450,9 @@ Escrevemos:
 	L_4(x)&=& \frac{x(x-1)(x-2)}{3(3-1)(3-2)}=\frac{1}{6}x^3-\frac{1}{2}x^2+\frac{1}{3}x
 \end{eqnarray*}
 Assim, temos:
-\begin{equation*}
+\begin{equation}
   P(x)=0\cdot L_1(x)+1\cdot L_2(x)+4\cdot L_3(x)+9\cdot L_4(x)=x^2
-\end{equation*}
+\end{equation}
 
 %%%%%%%%%%%%%%%%%%%%
 % octave
@@ -528,7 +528,7 @@ plot(x,horner(P,x)-cos(x))
 %%%%%%%%%%%%%%%%%%%%
 
 Para estimar o erro máximo, precisamos estimar a derivada terceira de $f(x)$:
-$$|f'''(x)|=|\sin(x)|\leq \sin(1)<0,85$$
+\begin{equation} |f'''(x)|=|\sin(x)|\leq \sin(1)<0,85 \end{equation}
 e, assim,
 $$
 \max_{x\in[0,1]} \left|x\left(x-\frac{1}{2}\right)(x-1)\right|.
@@ -597,9 +597,9 @@ $$
 
 \begin{exer}
   Use as mesmas técnicas usadas o resultado do Exemplo~\ref{exemp_simpson} para obter uma aproximação do valor de:
-  \begin{equation*}
+  \begin{equation}
     \int_0^1 f(x)dx
-  \end{equation*}
+  \end{equation}
 através do polinômio interpolador que coincide com $f(x)$ nos pontos $x=0$ e $x=1$.
 \end{exer}
 \begin{resp}
@@ -610,16 +610,16 @@ através do polinômio interpolador que coincide com $f(x)$ nos pontos $x=0$ e $
 
 \section{Interpolação linear segmentada}\index{interpolação!linear segmentada}
 Considere o conjunto $\left(x_i,y_i\right)_{j=1}^n$ de $n$ pontos. Assumiremos que $x_{i+1}>x_i$, ou seja, as abscissas são distintas e estão em ordem crescente. A função linear que interpola os pontos $x_i$ e $x_{i+1}$ no intervalo $i$ é dada por
-$$P_i(x)=y_i \frac{(x_{i+1}-x)}{(x_{i+1}-x_i)} + y_{i+1} \frac{(x-x_i)}{(x_{i+1}-x_i)}$$
+\begin{equation} P_i(x)=y_i \frac{(x_{i+1}-x)}{(x_{i+1}-x_i)} + y_{i+1} \frac{(x-x_i)}{(x_{i+1}-x_i)} \end{equation}
 
 O resultado da interpolação linear segmentada é a seguinte função contínua definida por partes no intervalo $[x_1,x_n]$:
-$$f(x)=P_i(x), ~~~~ x\in [x_i,x_{i+1}]$$
+\begin{equation} f(x)=P_i(x), ~~~~ x\in [x_i,x_{i+1}] \end{equation}
 
 \begin{ex}
   Construa uma função linear por partes que interpola os pontos $(0,0)$, $(1,4)$, $(2,3)$, $(3,0)$, $(4,2)$, $(5,0)$.
 
 A função procurada pode ser construída da seguinte forma:
-\begin{equation*}
+\begin{equation}
   f(x) = \left\{
     \begin{array}{ll}
       0\frac{x-1}{0-1} + 1\frac{x-0}{1-0} ,& 0 \leq x < 1\\
@@ -629,9 +629,9 @@ A função procurada pode ser construída da seguinte forma:
       2\frac{x-5}{4-5} + 0\frac{x-4}{5-4} ,& 4 \leq x \leq 5
     \end{array}
 \right.
-\end{equation*}
+\end{equation}
 Simplificando, obtemos:
-\begin{equation*}
+\begin{equation}
   f(x) = \left\{
     \begin{array}{ll}
         x     ,& 0 \leq x < 1\\
@@ -641,7 +641,7 @@ Simplificando, obtemos:
       -2x +10 ,& 4 \leq x \leq 5
     \end{array}
 \right.
-\end{equation*}
+\end{equation}
 \end{ex}
 
 A Figura~\ref{fig:linear_segmentada} é um esboço da função $f(x)$ obtida.
@@ -685,21 +685,21 @@ O caso $m=3$, denominado spline cúbico, é de grande interesse pois reproduz o 
 cuja solução geral é um polinômio de grau 3.
 
 Vamos supor que um spline cúbico que interpola o conjunto de pontos $\mathcal{I}$ é conhecido. Como esse spline é uma função de classe $\mathcal{C}^2$, as suas derivadas nos pontos do conjunto $\mathcal{I}$  são conhecidas também. Seja $y'_j$, o valor dessa derivada em $x=x_j$. Agora, vamos considerar dois pares de pontos sucessivos de $\mathcal{I}$,  $(x_j,y_j)$ e $(x_{j+1},y_{j+1})$. A forma do spline cúbico no intervalo $[x_j,x_{j+1})$ pode ser identificada com a solução da equação diferencial \eqref{eq:ed-splin3} no intervalo $(x_j,x_{j+1})$ sujeita às condições de contorno
-\begin{equation*}
+\begin{equation}
 y(x_j)=y_j,\quad y'(x_j)=y'_j,\quad y(x_{j+1})=y_{j+1}\quad\text{e}\quad y'(x_{j+1})=y'_{j+1}.
-\end{equation*}
+\end{equation}
 A solução desse problema de contorno é escrita de modo conveniente como
-\begin{equation*}
+\begin{equation}
 s_j(x)=a_j+b_j(x-x_j)+c_j(x-x_j)^2+d_j(x-x_j)^3,
-\end{equation*}
+\end{equation}
 onde as constantes $a_j$, $b_j$, $c_j$ e $d_j$ se relacionam às do problema de contorno.  As duas primeiras seguem imediatamente das condições de contorno em $x_j$:
-\begin{equation*}
+\begin{equation}
 a_j=y_j\quad\text{e}\quad b_j=y'_j.
-\end{equation*}
+\end{equation}
 As duas últimas são obtidas pela solução do sistema de equações formado pelas condições de contorno em $x_{j+1}$:
-\begin{equation*}
+\begin{equation}
 c_j=3\frac{y_{j+1}-y_j}{\left(x_{j+1}-x_j\right)^2}-\frac{y'_{j+1}+2y'_j}{x_{j+1}-x_j} \quad\text{e}\quad d_j=-2\frac{y_{j+1}-y_j}{\left(x_{j+1}-x_j\right)^3}+\frac{y'_{j+1}+y'_j}{\left(x_{j+1}-x_j\right)^2}
-\end{equation*}
+\end{equation}
 Esta relação entre o conjunto de valores para a derivada de um spline cúbico $\{y'_j\}_{j=1}^{n}$ nos pontos de interpolação $\mathcal{I}$ e os coeficientes dos polinômios em cada intervalo de interpolação pode ser resumida na seguinte proposição:
 \begin{prop}
 	Seja $s$ um spline cúbico que interpola o conjunto de pontos $\mathcal{I}=\{(x_j,y_j)\}_{j=1}^n\subset\mathbb{R}^2$ tais que $x_{j+1}>x_j$. Se $\{y'_j\}_{j=1}^n$ é o conjunto dos valores da derivada de $s$ em $x_j$, então em cada intervalo $[x_j,x_{j+1})$ (fechado também à direita quando $j=n-1$) o spline é igual a $s_j$:
@@ -720,13 +720,13 @@ Esta relação entre o conjunto de valores para a derivada de um spline cúbico 
 	é a distância entre as abscissas de dois pontos de interpolação consecutivos.
 \end{prop}
 De acordo com a proposição anterior, toda informação sobre um spline cúbico é armazenada no conjunto $\{(x_j,y_j,y'_j)\}_{j=1}^n$. Por construção, uma função $s$ definida a partir de \eqref{eq:spline3}, \eqref{eq:spline3-coef} e \eqref{eq:espacamento} com um conjunto $\{(x_j,y_j,y'_j)\}_{j=1}^n\subset\mathbb{R}^3$, onde $x_{j+1}>x_j$ é de classe $\mathcal{C}^1$ mas não necessariamente um spline cúbico. Para ser um spline cúbico, os valores do conjunto $\{y'_j\}_{j=1}^n$ devem garantir a continuidade da derivada segunda de $s$ em todo intervalo $(x_1,x_n)$. Ou seja, devemos ter
-\begin{equation*}
+\begin{equation}
 \lim\limits_{x\nearrow x_{j+1} }s''_j(x)=s''_{j+1}(x_{j+1})
-\end{equation*}
+\end{equation}
 em todos os pontos internos $j=1,2,\ldots,n-2$.  Em termos dos coeficientes dos polinômios cúbicos \eqref{eq:spline3}, a equação anterior assume a forma
-\begin{equation*}
+\begin{equation}
 2c_j+6d_jh_j=2c_{j+1},\quad j=1,2,\ldots,n-2.
-\end{equation*}
+\end{equation}
 Esta última equação e \eqref{eq:spline3-coef} permitem construir um sistema de equações lineares para as variáveis $y'_j$:
 \begin{prop} Dado o conjunto de pontos $\mathcal{I}=\{(x_j,y_j)\}_{j=1}^n\subset\mathbb{R}^2$ tais que $x_{j+1}>x_j$, as derivadas de um spline cúbico que interpola os pontos $\mathcal{I}$, $y'_j$, $j=1,2,\ldots,n$ satisfazem o sistema de equações algébricas lineares
 \begin{equation}\label{eq:spline3-der}
@@ -744,9 +744,9 @@ Uma forma de definir as duas equações adicionais para completar o sistema \eqr
 s''(x_1)=s''(x_n)=0.
 \end{equation}
 De acordo com \eqref{eq:spline3} essas equações implicam respectivamente
-\begin{equation*}
+\begin{equation}
 c_1=0\quad\text{e}\quad 2c_{n-1}+6d_{n-1}h_{n-1}=0,
-\end{equation*}
+\end{equation}
 ou seja,
 \begin{equation}
 	\left\{\begin{array}{l}
@@ -798,7 +798,7 @@ O spline desejado é uma função definida por partes da forma:
 	\end{array}\right..
 \end{equation}
 As variáveis $y'_1$, $y'_2$, $y'_3$ e $y'_4$ resolvem o sistema $Ay' = z$, onde
-\begin{equation*}
+\begin{equation}
 	A = \begin{bmatrix}
 		2 &1&0&0 \\
 		4&2(4+3)&3&0\\
@@ -810,8 +810,8 @@ As variáveis $y'_1$, $y'_2$, $y'_3$ e $y'_4$ resolvem o sistema $Ay' = z$, onde
 		0&3&14&4\\
 		0&0&1&2
 	\end{bmatrix}  ,
-\end{equation*}
-\begin{equation*}
+\end{equation}
+\begin{equation}
 	y = \begin{bmatrix}
 		y'_1\\
 		y'_2\\
@@ -829,9 +829,9 @@ As variáveis $y'_1$, $y'_2$, $y'_3$ e $y'_4$ resolvem o sistema $Ay' = z$, onde
 		1,4\\
 		-1
 	\end{bmatrix} .
-\end{equation*}
+\end{equation}
 A solução é  $y'_1=-2,8\bar{3}$, $y'_2=-0,7\bar{3}$, $y'_3=0,4\bar{6}$ e $y'_4=-0,7\bar{3}$. Calculamos os coeficientes usando as expressões \eqref{eq:spline3-coef}:
-\begin{equation*}
+\begin{equation}
 	\begin{array}{lclclcl}
 		a_1&=&y_1=4,5,& \qquad&b_1 &=&y'_1=-2,8\bar{3}, \\
 		a_2&=&y_2=-1,9,& \qquad&b_2&=&y'_2=-0,7\bar{3}, \\
@@ -841,16 +841,16 @@ A solução é  $y'_1=-2,8\bar{3}$, $y'_2=-0,7\bar{3}$, $y'_3=0,4\bar{6}$ e $y'_
 		c_2&=&0,7,& \qquad&d_2&=&-0,091\bar{6}, \\
 		c_3&=&-0,4,& \qquad&d_3&=&0,0\bar{4}.
 	\end{array}
-\end{equation*}
+\end{equation}
 Portanto:
 \begin{small}
-	\begin{equation*}
+	\begin{equation}
 		S(x)=\left\{\begin{array}{ll}
 			4,5-2,8\bar{3}(x-2)+0,0\bar{7}(x-2)^3 &\!, 2\leq x<5\\
 			-1,9-0,7\bar{3}(x-5)+0,7(x-5)^2-0,091\bar{6}(x-5)^3 &\!, 5\leq x<9\\
 			0,5+0,4\bar{6}(x-9)-0,4(x-9)^2+0,0\bar{4}(x-9)^3 &\!, 9\leq x\leq 12
 		\end{array}\right. .
-	\end{equation*}
+	\end{equation}
 \end{small}
 
 %%%%%%%%%%%%%%%%%%%%
@@ -899,7 +899,7 @@ plot(z,interp(z,xi,yi,dyi))
 O spline fixado $s$ é obtido pela escolha dos valores das derivadas nas extremidades do intervalo de interpolação. Isto diminui o número de variáveis para $n-2$ pois $y'_1$ e $y'_n$ deixam de ser incógnitas.
 
 As equações \eqref{eq:spline3-der} formam um sistema de $n-2$ equações $Ay' = z$, onde
-\begin{equation*}
+\begin{equation}
 	\begin{scriptsize}
 		A=\left[\begin{array}{ccccccc}
 			2(h_1+h_2)&h_1&0&0 &\cdots&0&0\\
@@ -910,8 +910,8 @@ As equações \eqref{eq:spline3-der} formam um sistema de $n-2$ equações $Ay' 
 			0&0&0&\cdots &0&h_{n-1}&2(h_{n-2}+h_{n-1})
 		\end{array}\right],
 	\end{scriptsize}
-\end{equation*}
-\begin{equation*}
+\end{equation}
+\begin{equation}
 	\begin{small}
 		y'= \left[\begin{array}{c}
 			y'_2\\
@@ -927,24 +927,24 @@ As equações \eqref{eq:spline3-der} formam um sistema de $n-2$ equações $Ay' 
 			h_{n-1}\frac{y_{n-1}-y_{n-2}}{h_{n-2}}+h_{n-2}\frac{y_n-y_{n-1}}{h_{n-1}}-h_{n-2}y'_n
 		\end{array}\right].
 	\end{small}
-\end{equation*}
+\end{equation}
 Observe que a matriz $A$ é diagonal dominante estrita e, portanto, o sistema $Ay' = z$ possui solução única.
 
 %\begin{ex}Construa um spline cúbico com fronteira fixada que interpola a função $y=\sin (x)$ nos pontos $x=0$, $x=\frac{\pi}{2}$, $x=\pi$, $x=\frac{3\pi}{2}$ e $x=2\pi$.
 %\end{ex}
 %O spline desejado passa pelos pontos $(0,0)$, $(\pi/2,1)$, $(\pi,0)$, $(3\pi/2,-1)$ e $(2\pi,0)$ e tem a forma:
-%\begin{equation*}
+%\begin{equation}
 %S(x)=\left\{\begin{array}{ll}
 %a_1+b_1x+c_1x^2+d_1x^3,& 0\leq x<\frac{\pi}{2}\\
 %a_2+b_2(x-\frac{\pi}{2})+c_2(x-\frac{\pi}{2})^2+d_2(x-\frac{\pi}{2})^3,& \frac{\pi}{2}\leq x<\pi\\
 %a_3+b_3(x-\pi)+c_3(x-\pi)^2+d_3(x-\pi)^3,& \pi\leq x<\frac{3\pi}{2}\\
 %a_4+b_4(x-\frac{3\pi}{2})+c_4(x-\frac{3\pi}{2})^2+d_4(x-\frac{3\pi}{2})^3,& \frac{3\pi}{2}\leq x\leq 2\pi
 %\end{array}\right..
-%\end{equation*}
+%\end{equation}
 %Observe que ele satisfaz as condição de contorno $f'(0)=\cos(0)=1$ e $f'(2\pi)=\cos(2\pi)=1$.
 
 %Os coeficientes $c_1$, $c_2$, $c_3$ e $c_4$ resolvem o sistema $Ac = z$, onde:
-%\begin{equation*}
+%\begin{equation}
 %A=\left[\begin{array}{ccccc}
 %\pi &\pi/2&0&0&0 \\
 %\pi/2&2\pi&\pi/2&0&0\\
@@ -952,8 +952,8 @@ Observe que a matriz $A$ é diagonal dominante estrita e, portanto, o sistema $A
 %0&0&\pi/2&2\pi&\pi/2\\
 %0&0&0&\pi/2&\pi\\
 %\end{array}\right]
-%\end{equation*}
-%\begin{equation*}
+%\end{equation}
+%\begin{equation}
 %c = \left[\begin{array}{c}
 %c_1\\
 %c_2\\
@@ -974,7 +974,7 @@ Observe que a matriz $A$ é diagonal dominante estrita e, portanto, o sistema $A
 %12/\pi\\
 %3-6/\pi
 %\end{array}\right]
-%\end{equation*}
+%\end{equation}
 %Aqui $c_5$ é um coeficiente artificial para o problema. A solução é  $c_1=-0,0491874$, $c_2=-0,5956302$, $c_3=0$, $c_4=0,5956302$ e $c_5=0,0491874$. Calculamos os demais coeficientes usando as expressões \eqref{eq_an_spline}, \eqref{eq_bn_spline} e \eqref{eq_dn_spline}:
 %\begin{eqnarray*}
 %a_1&=&y_1=0\\
@@ -1000,14 +1000,14 @@ Observe que a matriz $A$ é diagonal dominante estrita e, portanto, o sistema $A
 %\end{eqnarray*}
 %Portanto,
 %\begin{small}
-%\begin{equation*}
+%\begin{equation}
 %S(x)=\left\{\begin{array}{ll}
 %x-0,049x^2-0,12x^3,& 0\leq x<\frac{\pi}{2}\\
 %1+-0,01(x-\frac{\pi}{2})-0,6(x-\frac{\pi}{2})^2+0,13(x-\frac{\pi}{2})^3,& \frac{\pi}{2}\leq x<\pi\\
 %-0,95(x-\pi)+0,13(x-\pi)^3,& \pi\leq x<\frac{3\pi}{2}\\
 %-1-0,01(x-\frac{3\pi}{2})+0,6(x-\frac{3\pi}{2})^2-0,12(x-\frac{3\pi}{2})^3,& \frac{3\pi}{2}\leq x\leq2\pi
 %\end{array}\right.
-%\end{equation*}
+%\end{equation}
 %\end{small}
 
 %\ifisscilab
@@ -1018,23 +1018,23 @@ Observe que a matriz $A$ é diagonal dominante estrita e, portanto, o sistema $A
 \subsection{Spline \textit{not-a-knot}}\index{spline!not-a-knot}
 
 O spline \textit{not-a-knot} é definido com um spline cúbico que satisfaz as equações adicionais
-\begin{equation*}
+\begin{equation}
 	\lim\limits_{x\nearrow x_2 }s'''_1(x)=s'''_2(x_2)\quad\text{e}\quad	\lim\limits_{x\nearrow x_{n-1} }s'''_{n-2}(x)=s'''_{n-1}(x_{n-1}).
-\end{equation*}
+\end{equation}
 Em termos dos coeficientes \eqref{eq:spline3}, as equações anteriores correspondem a
-\begin{equation*}
+\begin{equation}
 	d_1=d_2\quad\text{e}\quad d_{n-2}=d_{n-1},
-\end{equation*}
+\end{equation}
 ou seja,
-\begin{equation*}
+\begin{equation}
 \left\{\begin{array}{l}
 	h_2^2y'_1+(h_2^2-h_1^2)y'_2-h_1^2y'_3=2\left(h_2^2\dfrac{y_2-y_1}{h_1}-h_1^2\dfrac{y_3-y_2}{h_2}\right)\\
 	\\
 	h_{n-1}^2y'_{n-2}+(h_{n-1}^2-h_{n-2}^2)y'_{n-1}-h_{n-2}^2y'_n=2\left(h_{n-1}^2\dfrac{y_{n-1}-y_{n-2}}{h_{n-2}}-h_{n-2}^2\dfrac{y_n-y_{n-1}}{h_{n-1}}\right)
 	\end{array}\right..
-\end{equation*}
+\end{equation}
 Essas duas equações agregadas às equações \eqref{eq:spline3-der} formam um sistema de $n$ equações $Ay' = z$, onde
-\begin{equation*}
+\begin{equation}
 	\begin{scriptsize}
 		A=\left[\begin{array}{ccccccc}
 			h_2^2&h_2^2-h_1^2&-h_1^2&0&\cdots&0&0\\
@@ -1045,8 +1045,8 @@ Essas duas equações agregadas às equações \eqref{eq:spline3-der} formam um 
 			0&0&0&\cdots &h_{n-1}^2&h_{n-1}^2-h_{n-2}^2&-h_{n-2}^2
 		\end{array}\right],
 	\end{scriptsize}
-\end{equation*}
-\begin{equation*}
+\end{equation}
+\begin{equation}
 	\begin{small}
 		y'= \left[\begin{array}{c}
 			y'_1\\
@@ -1062,20 +1062,20 @@ Essas duas equações agregadas às equações \eqref{eq:spline3-der} formam um 
 			2\left(h_{n-1}^2\dfrac{y_{n-1}-y_{n-2}}{h_{n-2}}-h_{n-2}^2\dfrac{y_n-y_{n-1}}{h_{n-1}}\right)\\
 		\end{array}\right].
 	\end{small}
-\end{equation*}
+\end{equation}
 Se reduzirmos esse sistema pela eliminação das incógnitas $y'_1$ e $y'_n$, o sistema resultante possui uma matriz de coeficientes diagonal dominante estrita, portanto, a solução é única.
 
 O termo \textit{not-a-knot} (não nó) relaciona-se à nomenclatura dos splines. O termo \textit{nó} é utilizado para os pontos interpolados. Neles, a derivada terceira da função spline é descontínua, portanto, quando impomos a continuidade dessa derivada em $x_2$ e $x_{n-1}$ é como se esses pontos deixassem de ser nós.
 
 \subsection{Spline periódico}\index{spline!periódico}
 Se o conjunto de $n$ pontos da interpolação $\mathcal{I}$ for tal que $y_1=y_n$, então é possível construir o spline periódico, definido com um spline cúbico que satisfaz as seguintes condições de periodicidade
-\begin{equation*}
+\begin{equation}
 	s'_1(x_1)=s'_{n-1}(x_n)\quad\text{e}\quad	s''_1(x_1)=s''_{n-1}(x_n).
-\end{equation*}
+\end{equation}
 Em termos dos coeficientes \eqref{eq:spline3}
-\begin{equation*}
+\begin{equation}
 	b_1=b_{n-1}\quad\text{e}\quad 2c_1=2c_{n-1}+6d_{n-1}h_{n-1},
-\end{equation*}
+\end{equation}
 ou seja,
 \begin{equation}
 	\left\{\begin{array}{l}
@@ -1086,7 +1086,7 @@ ou seja,
 	\right. .
 \end{equation}
 Essas duas equações agregadas às equações \eqref{eq:spline3-der} formam um sistema de $n$ equações $Ay' = z$, onde
-\begin{equation*}
+\begin{equation}
 	\begin{scriptsize}
 		A=\left[\begin{array}{ccccccc}
 			1&0&0&0&\cdots&0&-1\\
@@ -1097,8 +1097,8 @@ Essas duas equações agregadas às equações \eqref{eq:spline3-der} formam um 
 			2h_{n-1}&h_{n-1}&0&\cdots &0&h_1&2h_1
 			\end{array}\right],
 	\end{scriptsize}
-\end{equation*}
-\begin{equation*}
+\end{equation}
+\begin{equation}
 	\begin{small}
 			y'= \left[\begin{array}{c}
 				y'_1\\
@@ -1114,25 +1114,25 @@ Essas duas equações agregadas às equações \eqref{eq:spline3-der} formam um 
 				h_{n-1}\frac{y_2-y_1}{h_1}+h_1\frac{y_n-y_{n-1}}{h_{n-1}}\\
 			\end{array}\right].
 	\end{small}
-\end{equation*}
+\end{equation}
 Neste caso também, se reduzirmos esse sistema pela eliminação das incógnitas $y'_1$ e $y'_n$, o sistema resultante possui uma matriz de coeficientes diagonal dominante estrita, portanto, a solução é única.
 
 %\subsection{Resumo sobre splines}
 
 %Dado um conjunto de pontos $(x_i,y_i)$, $i=1,2,\ldots,n$, um spline cúbico é a seguinte função interpoladora definida por partes:
 %\begin{small}
-%\begin{equation*}
+%\begin{equation}
 %  S(x) \!=\! \left\{\begin{array}{ll}
 %       \!\!\!a_1 \!+\! b_1(x\!-\!x_1) \!+\! c_1(x\!-\!x_1)^2 \!+\! d_1(x\!-\!x_1)^3 &\!\!\!\!\!, x_1\leq x < x_2\\
 %      \!\!\!a_2 \!+\! b_2(x\!-\!x_2) \!+\! c_2(x\!-\!x_2)^2 \!+\! d_2(x\!-\!x_2)^3 &\!\!\!\!\!, x_2 \leq x < x_3\\
 %      \qquad\qquad \vdots & \qquad\vdots \\
 %      \!\!\!a_{n-1} \!+\! b_{n-1}(x\!-\!x_{n-1}) \!+\! c_{n-1}(x\!-\!x_{n-1})^2 \!+\! d_{n-1}(x\!-\!x_{n-1})^3 &\!\!\!\!\!, x_{n-1} \leq x \leq x_n \end{array}\right.
-%\end{equation*}
+%\end{equation}
 %\end{small}
 
 %Definindo-se $h_j = x_{j+1} - x_j$, os coeficientes $c_j$, $j=1,2,\dotsc,n$, são solução do sistema linear $Ac = z$, onde:
 %\begin{small}
-%  \begin{equation*}
+%  \begin{equation}
 %  \begin{array}{|l|l|}\hline
 %    \text{Spline Natural} & \text{Spline Fixado}\\
 %    s_1''(x_1) = 0 \text{ e } s_{n-1}''(x_n) = 0 & s_1'(x_1) = f'(x_1) \text{ e } s_{n-1}'(x_n) = f'(x_n)\\ \hline
@@ -1171,7 +1171,7 @@ Neste caso também, se reduzirmos esse sistema pela eliminação das incógnitas
 %\right. \\ \hline
 %\multicolumn{2}{c}{}
 %  \end{array}
-%\end{equation*}
+%\end{equation}
 %\end{small}
 %os coeficientes $a_j$, $b_j$ e $d_j$, $j=1,2,\dotsc,n-1$, são calculados conforme segue:
 %\begin{eqnarray*}
