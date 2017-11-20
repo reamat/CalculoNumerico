@@ -102,7 +102,7 @@ Em breve iremos disponibilizar mais informações sobre como gerar uma versão d
 
 As equações e símbolos matemáticos estão escritos usando a coleção de pacotes [AMS-LaTeX](http://www.ams.org/publications/authors/tex/amslatex).
 
-Afim de facilitar a discussão sobre o material do livro, todas as equações devem ser numeradas.
+A fim de facilitar a discussão sobre o material do livro, todas as equações devem ser numeradas.
 
 #### Uso da vírgula
 
