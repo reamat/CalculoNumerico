@@ -1,4 +1,4 @@
-%Este está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/bu-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+%Este está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite https://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
 %\documentclass[main.tex]{subfiles}
 %\begin{document}
@@ -40,7 +40,7 @@ Considere os próximos três exemplos:
 
 A solução do primeiro exemplo é $u(t)=t^2/2+2$ pois satisfaz a equação diferencial e a condição inicial. A solução do segundo também é facilmente obtida: $u(t)=e^t$. Porém como podemos resolver o terceiro problema?
 
-Para muitos problemas de valor inicial da forma \eqref{eq:PVI}, não é possível encontrar uma expressão analítica fechada, ou seja, sabe-se que a solução existe e é única, porém não podemos expressá-la em termos de funções elementares. Por isso é necessário calcular aproximações numéricas para a solução. 
+Para muitos problemas de valor inicial da forma \eqref{eq:PVI}, não é possível encontrar uma expressão analítica fechada, ou seja, sabe-se que a solução existe e é única, porém não podemos expressá-la em termos de funções elementares. Por isso é necessário calcular aproximações numéricas para a solução.
 
 Existem uma enorme família de metodologias para construir soluções numéricas para problemas de valor inicial. Aqui, vamos nos limitar a estudar métodos que aproximam $u(t)$ em um conjunto finito de valores de $t$. Este conjunto de valores será chamado de \emph{malha} e será denotado por  $\{t^{(i)}\}_{i=1}^N=\{t^{(1)}, t^{(2)}, t^{(3)},\ldots, t^{(N)}\}$. Desta forma, aproximamos a solução $u(t^{(i)})$ por $u^{(i)}$ em cada ponto da malha usando diferentes esquemas numéricos.
 
@@ -104,7 +104,7 @@ u(0) &=& 0.
 \end{exeresol}
 \begin{resol}
  A função identicamente nula, $u(t)=0$, satisfaz a equação diferencial e a condição de contorno, logo é uma solução do problema de valor inicial. No entanto, a função\footnote{Esta solução pode ser obtida por separação de variáveis.} $u(t)=\frac{t^2}{4}$ satisfaz a condição inicial, pois $u(0)=0$ e a equação diferencial pois $\frac{du}{dt}=\frac{t}{2}=\sqrt{\frac{t^2}{4}}$.
- 
+
  De fato, qualquer função do tipo
  $$u(t)=\left\{
  \begin{array}{ll}
@@ -125,7 +125,7 @@ Considere então o problema de valor inicial dado por:
 \begin{equation}\label{eq:EDO1}
   \begin{split}
     u'(t)  &= f(t,u(t)),~~t>t^{(1)} \\
-    u(t^{(1)}) &= a.    
+    u(t^{(1)}) &= a.
   \end{split}
 \end{equation}
 Ao invés de tentar solucionar o problema para qualquer $t>t^{(1)}$, iremos aproximar $u(t)$ em $t=t^{(2)}$.
@@ -189,7 +189,7 @@ Essa aproximação é bem grosseira quando comparamos com a solução do problem
    $u^{(N)}$& 6,1917 &  6,7275 &  7,0400 &  7,2096  & 7,2980 &  7,3432  & 7,3660\\
    \hline
 \end{tabular}
- 
+
 De fato, podemos mostrar que quando $h$ se aproxima de $0$, a solução aproximada via método de Euler converge para a solução exata $e^2$. Para isto, basta observar que a solução da relação de recorrência \eqref{eq:exemplo_y_2y_euler} é dada por
  \begin{equation} u^{(k)}=(1+2h)^{k-1}. \end{equation}
  Como $t^{(k)}=(k-1)h$ e queremos a solução em $t=2$, a solução aproximada pelo método de Euler com passo $h$ em é dada por:
@@ -248,7 +248,7 @@ Usando os seguinte passos: $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e 
      u(t) = 2t+8e^{-t/2} \Longrightarrow u(1)=2+8e^{-1/2} \approx 6,85224527770107
 \end{equation}
 \end{exeresol}
-\begin{resol} Primeramente itentificamos $f(t,u)=-0,5u+2+t$ e construímos o processo iterativo do método de Euler: 
+\begin{resol} Primeramente itentificamos $f(t,u)=-0,5u+2+t$ e construímos o processo iterativo do método de Euler:
 \begin{eqnarray}
   u^{(n+1)}&=&u^{(n)} + h( -0,5u^{(n)}+2+t^{(n)}),~~n=1,2,3,\ldots\\
   u^{(1)}&=&8
@@ -271,15 +271,15 @@ o qual pode ser invocado da seguinte forma:
 \begin{verbatim}
 -->euler(1e-1,1)
  ans  =
- 
-    6.7898955 
+
+    6.7898955
 \end{verbatim}
 Podemos construir um vetor com as cinco soluções da seguinte forma:
 \begin{verbatim}
  -->S=[euler(1e-1,1) euler(1e-2,1) euler(1e-3,1) euler(1e-4,1) euler(1e-5,1)]
  S  =
- 
-    6.7898956   6.846163    6.851639    6.852185    6.8522392  
+
+    6.7898956   6.846163    6.851639    6.852185    6.8522392
 \end{verbatim}
 
 \fi
@@ -294,7 +294,7 @@ function u=euler(h,Tmax)
   for n=1:itmax
     t= (n-1)*h;
     u= u + h*(-0.5*u+2+t);
-   end	
+   end
 endfunction
 \end{verbatim}
 o qual pode ser invocado da seguinte forma:
@@ -325,7 +325,7 @@ def euler(h,Tmax):
 		u = u + h*k1
 	return u
 
-	
+
 sol_exata = 2+8*np.exp(-.5)
 h=1e-1
 for i in np.arange(1,5):
@@ -412,8 +412,8 @@ o qual pode ser invocado da seguinte forma $\left(h=1e-1, t=2\right)$:
 \begin{verbatim}
 -->euler(1e-1,2)
  ans  =
- 
-    0.8854273  
+
+    0.8854273
 \end{verbatim}
 
 \fi
@@ -448,7 +448,7 @@ def euler(h,Tmax):
 		u = u + h*u*(1-u)
 	return u
 
-	
+
 h=1e-1
 for t in [.5, 1, 2, 3]:
 	sol_euler=euler(h,t);
@@ -508,7 +508,7 @@ Para fins de comparação, calculamos a solução exata e aproximada para alguns
 \end{center}
 \end{resp}
 
-\begin{exer} Resolva o prolema de valor inicial envolvendo uma equação não linear\index{Problema de valor inicial!não linear} usando passo $h=0,1$ e $h=0,01$. 
+\begin{exer} Resolva o prolema de valor inicial envolvendo uma equação não linear\index{Problema de valor inicial!não linear} usando passo $h=0,1$ e $h=0,01$.
  \begin{equation}
   \begin{split}
     u'(t)&=\cos(u(t))\\
@@ -516,7 +516,7 @@ Para fins de comparação, calculamos a solução exata e aproximada para alguns
   \end{split}
  \end{equation}
 
-Depois compare com a solução exata dada por 
+Depois compare com a solução exata dada por
 $$u(t)=\tan^{-1} \left( \frac {e^{2t}-1}{{2 e^t}}
  \right).
 $$
@@ -546,13 +546,13 @@ nos intantes $t=0$, $t=1$, $t=2$ e $t=3$.
     y(0)&=1.
   \end{split}
  \end{equation}
-\end{exer}  
+\end{exer}
 \begin{resp}
  Aproximação via Euler: $2,4826529 $, exata: $e^{\sin(2)}\approx 2,4825777 $. Erro relativo aproximado: $ 3\times 10^{-5}$.
 \end{resp}
 
-\section{Método de Euler melhorado}\index{Método! de Euler melhorado}\label{sec:sec_euler_mod} 
-O método de Euler estudado na Seção~\ref{sec:euler} é aplicação bastante restrita devido à sua pequena precisão, isto é, normalmente precisamos escolher um passo $h$ muito pequeno para obter soluções de boa qualidade, o que implica um número elevado de passos e, consequentemente, alto custo computacional. 
+\section{Método de Euler melhorado}\index{Método! de Euler melhorado}\label{sec:sec_euler_mod}
+O método de Euler estudado na Seção~\ref{sec:euler} é aplicação bastante restrita devido à sua pequena precisão, isto é, normalmente precisamos escolher um passo $h$ muito pequeno para obter soluções de boa qualidade, o que implica um número elevado de passos e, consequentemente, alto custo computacional.
 
 Nesta seção, contruiremos o \emph{método de Euler melhorado} ou \emph{método de Euler modificado} ou, ainda, \emph{método de Heun}. Para tal, considere o problema de valor inicial dado por:
 \begin{equation}\label{eq:EDO2}
@@ -584,7 +584,7 @@ Assim obtemos:
   &\approx& u(t^{(1)}) +\left[\frac{f\left(t^{(1)},u(t^{(1)})\right)+f\left(t^{(2)},\tilde{u}(t^{(2)})\right)}{2}\right]h\\
  % &=& u(t^{(1)}) + \frac{k_1+k_2}{2}h
 \end{eqnarray}
-onde 
+onde
 \begin{eqnarray}
 k_1&=&f\left(t^{(1)},u(t^{(1)})\right)\\
 \hbox{e}\\
@@ -624,7 +624,7 @@ Usando os seguinte passos: $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e 
      u(t) = 2t+8e^{-t/2} \Longrightarrow u(1)=2+8e^{-1/2} \approx 6,85224527770107
 \end{equation}
 \end{exeresol}
-\begin{resol} Primeramente itentificamos $f(t,u)=-0,5u+2+t$ e construímos o processo iterativo do método de Euler melhorado: 
+\begin{resol} Primeramente itentificamos $f(t,u)=-0,5u+2+t$ e construímos o processo iterativo do método de Euler melhorado:
 \begin{eqnarray*}
   k_1&=&  f(t^{(n)},u^{(n)})=-0,5u^{(n)}+2+t^{(n)}\\
   \tilde{u}&=& u^{(n)} + hk_1\\
@@ -653,15 +653,15 @@ o qual pode ser invocado da seguinte forma:
 \begin{verbatim}
 -->euler_mod(1e-1,1)
  ans  =
- 
-    6.8532941 
+
+    6.8532941
 \end{verbatim}
 Podemos construir um vetor com as cinco soluções da seguinte forma:
 \begin{verbatim}
  -->S=[euler_mod(1e-1,1) euler_mod(1e-2,1) euler_mod(1e-3,1) euler_mod(1e-4,1) euler_mod(1e-5,1)]
 S  =
- 
-    6.8532949    6.8522554    6.8522454    6.8522453    6.8522453 
+
+    6.8532949    6.8522554    6.8522454    6.8522453    6.8522453
  \end{verbatim}
 \fi
 \ifisoctave
@@ -708,7 +708,7 @@ def euler_mod(h,Tmax):
 		u=u+h*(k1+k2)/2
 	return u
 
-	
+
 
 sol_exata = 2+8*np.exp(-1/2)
 for h in [1e-1, 1e-2, 1e-3, 1e-4, 1e-5]:
@@ -732,7 +732,7 @@ A seguinte tabela resume os resultados obtidos:
    \hline
    $\varepsilon_{rel}$ &1,5e-04 &  1,5e-06  & 1,5e-08&   1,5e-10 &  1,5e-12\\
    \hline
- 
+
    \end{tabular}
 \end{center}
 % Veja o gráfico da solução para $h=1, 0.5, 0.1, 0.05$:
@@ -783,7 +783,7 @@ $$f(t,u(t))=\left[
 \begin{array}{c}
   f_1(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t))\\
   f_2(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t))\\
-  f_3(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t))\\  
+  f_3(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t))\\
   \vdots\\
   f^{(n)}(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t))\\
   \end{array}
@@ -851,23 +851,23 @@ isto é:
  \end{eqnarray*}
 
  A tabela a seguir resume os resultados obtidos:
- 
- 
+
+
  \begin{center}
  \begin{tabular}{|l|l|l|l|l|l|l|}%\label{pvi:tab_euler}
 \hline
    h&&$t=0,2$&$t=0,4$&$t=0,6$&$t=0,8$&$t=1,0$\\
    \hline
    \multirow{2}{*}{$10^{-2}$} &x  &1.1986240 &1.3890564 &1.5654561 &1.7287187 &1.8874532 \\
-			       &y&0.2194288 &0.4692676 &0.7206154 &0.9332802 &1.0850012 \\			
+			       &y&0.2194288 &0.4692676 &0.7206154 &0.9332802 &1.0850012 \\
    \hline
   \multirow{2}{*}{$10^{-3}$} &x  &1.1986201 &1.3890485 &1.5654455 &1.7287066 &1.8874392\\
 			       &y &0.2194293 &0.4692707 &0.7206252 &0.9332999 &1.0850259\\
 			       \hline
- 
- 
+
+
    \multirow{2}{*}{$10^{-4}$} &x  &1.1986201 &1.3890484 &1.5653609 &1.7287065 &1.8874390\\
-			       &y&  0.2194293 &0.4692707 &0.7205062 &0.9333001 &1.0850262 \\			
+			       &y&  0.2194293 &0.4692707 &0.7205062 &0.9333001 &1.0850262 \\
    \hline
    \end{tabular}
 \end{center}
@@ -921,21 +921,21 @@ function [x,y]=euler_mod(h,Tmax,u1)
   y=zeros(itmax+1);
   x(1)=u1(1);
   y(1)=u1(2);
-  
+
   for n = 1:itmax
     t=(n-1)*h;
     kx1 = (x(n)-y(n));
     ky1 = (x(n)-y(n)^3);
     x_til = x(n) + h*kx1;
     y_til = y(n) + h*ky1;
-    
+
     kx2 = (x_til-y_til);
     ky2 = (x_til-y_til^3);
 
     x(n+1)=x(n)+h*(kx1+kx2)/2;
     y(n+1)=y(n)+h*(ky1+ky2)/2;
   end
-endfunction 
+endfunction
 \end{verbatim}
 Que pode ser invocada como:
 \begin{verbatim}
@@ -959,21 +959,21 @@ function [x,y]=euler_mod(h,Tmax,u1)
   y=zeros(itmax+1);
   x(1)=u1(1);
   y(1)=u1(2);
-  
+
   for n = 1:itmax
     t=(n-1)*h;
     kx1 = (x(n)-y(n));
     ky1 = (x(n)-y(n)^3);
     x_til = x(n) + h*kx1;
     y_til = y(n) + h*ky1;
-    
+
     kx2 = (x_til-y_til);
     ky2 = (x_til-y_til^3);
 
     x(n+1)=x(n)+h*(kx1+kx2)/2;
     y(n+1)=y(n)+h*(ky1+ky2)/2;
   end
-endfunction 
+endfunction
 \end{verbatim}
 Que pode ser invocada como:
 \begin{verbatim}
@@ -1041,7 +1041,7 @@ $$u(t)=\left[
 \begin{array}{c}
  x(t)\\y(t)\\z(t)
 \end{array}
-\right]$$ 
+\right]$$
 De forma que:
 \begin{eqnarray*}
 u'(t)&=&\left[
@@ -1094,10 +1094,10 @@ y'&=& x - y\\
 x(0)&=&0\\
 y(0)&=&2\\
 \end{eqnarray*}
-com passo $h=2\cdot 10^{-1}$ $h=2\cdot 10^{-2}$, $h=2\cdot 10^{-3}$ e $h=2\cdot 10^{-4}$ para obter aproximações para $x(2)$ e $y(2)$.  
+com passo $h=2\cdot 10^{-1}$ $h=2\cdot 10^{-2}$, $h=2\cdot 10^{-3}$ e $h=2\cdot 10^{-4}$ para obter aproximações para $x(2)$ e $y(2)$.
 \end{exer}
 \begin{resp}
- 
+
  \begin{center}
  \begin{tabular}{|l|l|l|l|l|l|}%\label{pvi:tab_euler}
 \hline
@@ -1106,13 +1106,13 @@ com passo $h=2\cdot 10^{-1}$ $h=2\cdot 10^{-2}$, $h=2\cdot 10^{-3}$ e $h=2\cdot 
  \multirow{2}{*}{Euler}&x&0,4302019&0,4355057&0,4358046&0,4358324\\
                        &y& 0,6172935&0,6457760&0,6486383&0,6489245\\
   \hline
- 
+
  \multirow{2}{*}{Euler mod,}&x&  0,4343130&0,4358269&0,4358354&0,4358355\\
                        &y& 0,6515479&0,6489764&0,6489566&0,6489564 \\
 
    \hline
-   
- 
+
+
  \end{tabular}
 \end{center}
 \end{resp}
@@ -1135,16 +1135,16 @@ Resolva numericamente para obter o valor de $x(0,5)$, $x(1)$, $x(1,5)$ e $x(2)$ 
    h&&$t=0,5$&$t=1,0$&$t=1,5$&$t=2,0$\\
    \hline
    \multirow{2}{*}{$10^{-3}$} &x & 1,9023516 &1,6564208&1,3124281&0,9168299\\
-		              &y'& -0,3635613&-0,6044859&-0,7564252& -0,8072298\\			
+		              &y'& -0,3635613&-0,6044859&-0,7564252& -0,8072298\\
    \hline
 
    \multirow{2}{*}{$10^{-4}$} &x & 1,9023552 & 1,6564243 & 1,3124309 & 0,9168319\\
-		              &y'& -0,3635670&-0,6044930&-0,7564334& -0,8072397 \\			
+		              &y'& -0,3635670&-0,6044930&-0,7564334& -0,8072397 \\
    \hline
-   
+
    \end{tabular}
 \end{center}
- 
+
 \end{resp}
 
 
@@ -1237,7 +1237,7 @@ com passo $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e $h=10^{-5}$ para 
 
 
 \section{Métodos de Runge-Kutta explícitos}\label{sec:sec_RK}\index{método!de Runge-Kutta exlícito}
-Nas seções anteriores, exploramos os métodos de Euler e Euler modificado para resolver problemas de valor inicial. Neste momento, deve estar claro ao leitor que o método de Euler melhorado produz soluções de melhor qualidade que o método de Euler para a maior parte dos problemas estudados. Isso se deve, conforme Seção~\ref{sec:erro_truncamento}, à ordem de precisão do método. 
+Nas seções anteriores, exploramos os métodos de Euler e Euler modificado para resolver problemas de valor inicial. Neste momento, deve estar claro ao leitor que o método de Euler melhorado produz soluções de melhor qualidade que o método de Euler para a maior parte dos problemas estudados. Isso se deve, conforme Seção~\ref{sec:erro_truncamento}, à ordem de precisão do método.
 
 Os métodos de Runge-Kutta generalizam o esquema do método de Euler melhorado, inserindo mais estágios de cálculo e buscando ordens de precisão mais altas. Nesta seção, trataremos dos métodos de \emph{Runge-Kutta explícitos}\footnote{Existem também os métodos implícitos que serão abordados na Seção~\ref{sec:sec_IRK}. Ver Observação~\ref{obs:obs_imp}.}
 
@@ -1264,9 +1264,9 @@ O método de Euler aproxima a integral no lado direito da expressão acima utili
 \end{center}
 Observe que $\tau_j=t^{(n)}+c_jh$ com $0=c_1 \leq c_2 \leq \cdots \leq c_\nu \leq 1$, isto é, o primeira ponto sempre coincide com o extremo esquerdo do intervalo, mas o último ponto não precisa ser o extremo direito. Ademais, um mesmo ponto pode ser usado mais de uma vez com aproximações diferentes para $u(\tau_j)$.
 
-Desta forma, aproximamos a integral por um esquema de quadratura com $\nu$ pontos: 
+Desta forma, aproximamos a integral por um esquema de quadratura com $\nu$ pontos:
 \begin{eqnarray}
-   \int_{t^{(n)}}^{t^{(n+1)}} f(t,u(t)) \; dt 
+   \int_{t^{(n)}}^{t^{(n+1)}} f(t,u(t)) \; dt
            &\approx&u_n  + h\sum_{j=1}^\nu   b_j f\left(\tau_j,u(\tau_j)\right) %%revisar itentidades
 \end{eqnarray}
 onde $b_j$ são os pesos da quadratura numérica que aproxima a integral. Assim como na construção do método de Euler melhorado, não dispomos dos valores $u(\tau_j)$ antes de calculá-los e, por isso, precisamos estimá-los com base nos estágios anteriores:
@@ -1304,7 +1304,7 @@ onde $k_j=f\left(\tau_j,\tilde{u}_{j}\right)$, $A:=\left(a_{ij}\right)$ é a mat
 
 Na tabela mais à direita, omitimos os termos obrigatoriamente nulos.
 \end{center}
- 
+
 \begin{ex} O método de Euler modificado pode ser escrito conforme:
 \begin{eqnarray*}
  \tilde{u}_1 &=& u^{(n)}\\
@@ -1315,9 +1315,9 @@ Identificando os coeficientes, obtemos $\nu=2$, $c_1=0$, $c_2=1$, $a_{21}=1$, $b
 \begin{center}
 \begin{tabular}{c|cc}
   \multirow{2}{*}{$c$}    &  \multicolumn{2}{c}{\multirow{2}{*}{$A$}} 	     \\
-                          &  \multicolumn{2}{c}{}                            \\ 
+                          &  \multicolumn{2}{c}{}                            \\
   \hline
-                          & \multicolumn{2}{c}{$~~b~~$}   
+                          & \multicolumn{2}{c}{$~~b~~$}
 \end{tabular}
 ~~~=~~~
 \begin{tabular}{c|cc}
@@ -1327,15 +1327,15 @@ Identificando os coeficientes, obtemos $\nu=2$, $c_1=0$, $c_2=1$, $a_{21}=1$, $b
 \end{tabular}
 \end{center}
 \end{ex}
- 
+
  \begin{obs}\label{obs:obs_imp} Nos métodos chamados explícitos, os elementos da diagonal principal (e acima dela) da matriz $A$ devem ser nulos, pois a aproximação em cada estágio é calculada com base nos valores dos estágios anteriores. Nos métodos implícitos, essa restrição é removida, neste caso, o cálculo da aproximação em um estágio envolve a solução de uma equação algébrica.
   \end{obs}
 
 \begin{obs}
-Além da condição fixa $c_1=0$, para que um método seja de ordem pelo menos unitária, isto é, $p\geq 1$. 
+Além da condição fixa $c_1=0$, para que um método seja de ordem pelo menos unitária, isto é, $p\geq 1$.
 \end{obs}
 
- 
+
 \subsection{Métodos de Runge-Kutta com dois estágios}\label{eq:RK_2_subsec}
 Os métodos de Runge-Kutta com dois estágios $\left(\nu=2\right)$ são da seguinte forma:
 \begin{eqnarray}
@@ -1381,9 +1381,9 @@ Portanto, obtemos o seguinte esquema genérico:
 \begin{center}
 \begin{tabular}{c|cc}
   \multirow{2}{*}{$c$}    &  \multicolumn{2}{c}{\multirow{2}{*}{$A$}} 	     \\
-                          &  \multicolumn{2}{c}{}                            \\ 
+                          &  \multicolumn{2}{c}{}                            \\
   \hline
-                          & \multicolumn{2}{c}{$~~b~~$}   
+                          & \multicolumn{2}{c}{$~~b~~$}
 \end{tabular}
 ~~~=~~~
 \begin{tabular}{c|cc}
@@ -1449,7 +1449,7 @@ Seguindo um procedimento similar ao da Seção~\ref{eq:RK_2_subsec}, podemos obt
   b_2c_2^2+b_3c_3^2	&=& \frac{1}{3}, 		\label{eq:cond_euler_3est:3} \\
   b_3a_{32}c_2		&=& \frac{1}{6},		\label{eq:cond_euler_3est:4} \\
   a_{21}		&=& c_2,			\label{eq:cond_euler_3est:5} \\
-  a_{31}+a_{32}		&=& c_3.			\label{eq:cond_euler_3est:6} 
+  a_{31}+a_{32}		&=& c_3.			\label{eq:cond_euler_3est:6}
 \end{eqnarray}
 Assim, temos 6 condições para determinar 8 incógnitas, o que implica a existência de uma enorme família de métodos de Runge-Kutta com três estágios e ordem $p=3$. Se fixarmos os coeficientes $c_2$ e $c_3$, podemos os outros de forma única:
 \begin{eqnarray*}
@@ -1470,7 +1470,7 @@ Assim, temos 6 condições para determinar 8 incógnitas, o que implica a exist�
   $1$           & $-1$          & $2$           & \\  \hline
                 & $\frac{1}{6}$ & $\frac{4}{6}$ & $\frac{1}{6}$
 \end{tabular}
-~~~e~~~~~~\begin{tabular}{c|ccc} 
+~~~e~~~~~~\begin{tabular}{c|ccc}
   $0$ &     &   & \\
   $\frac{2}{3}$ & $\frac{2}{3}$ &   & \\
   $\frac{2}{3}$ & $0$ &$\frac{2}{3}$& \\  \hline
@@ -1568,16 +1568,16 @@ A qual pode ser invocada com:
 \begin{verbatim}
 ->sol=RK3_classico(1e-2,2,0);sol(201)
  ans  =
- 
-    1.1935760016451  
- 
+
+    1.1935760016451
+
 -->sol=RK3_classico(1e-3,2,0);sol(2001)
  ans  =
- 
-    1.1935759753635 
+
+    1.1935759753635
 \end{verbatim}
 
- 
+
 \fi
 \ifisoctave
 Aplicando o processo iterativo obtido no Problema Resolvido~\ref{exeresol:problema_resolvido_RK3}, obtemos a seguinte rotina:
@@ -1606,7 +1606,7 @@ A qual pode ser invocada como:
 >> sol=RK3_classico(1e-2,2,0);sol(201)
 ans =  1.19357600164514
 >> sol=RK3_classico(1e-3,2,0);sol(2001)
-ans =  1.19357597536351 
+ans =  1.19357597536351
 \end{verbatim}
 \fi
 
@@ -1621,7 +1621,7 @@ def RK3_classico(h,Tmax,u1):
   	itmax = Tmax/h;
 	u=np.empty(itmax+1)
 	u[0]=u1
-	
+
 	for i in np.arange(0,itmax):
 		t=i*h
 
@@ -1633,7 +1633,7 @@ def RK3_classico(h,Tmax,u1):
 	return u
 
 
-	
+
 Tmax=2			#tempo maximo de simulacao
 u1=0			#condicoes iniciais na forma vetorial
 h=1e-2			#passo
@@ -1644,7 +1644,7 @@ print(sol[itmax])
 \end{verbatim}
 
 \fi
- 
+
 \end{exeresol}
 
 \subsection*{Exercícios}
@@ -1678,7 +1678,7 @@ Usando os seguinte passos: $h=1$, $h=10^{-1}$, $h=10^{-2}$ e $h=10^{-3}$ e compa
 \end{equation}
 \end{exer}
 
-\begin{resp} 
+\begin{resp}
 \begin{center}
  \begin{tabular}{|l|l|l|l|l|}%\label{pvi:tab_euler}
 \hline
@@ -1756,8 +1756,8 @@ para resolver o problema de valor inicial dado por:
  y'(t)&=&y(t)\\
  y(0)&=&1
  \end{eqnarray}
-Note que este método é \emph{implícito} pois a expressão que define a iteração depende de $u^{(n+1)}$ dos dois lados da Equação~\eqref{eq:IRK:exemplo1}, exigindo que o termo seja isolado para a aplicação do método. 
- 
+Note que este método é \emph{implícito} pois a expressão que define a iteração depende de $u^{(n+1)}$ dos dois lados da Equação~\eqref{eq:IRK:exemplo1}, exigindo que o termo seja isolado para a aplicação do método.
+
 
 \subsection{Método de Euler implícito}\index{método!de Euler}\label{sec:euler_imp}
 Contruiremos, agora, o mais simples dos métodos para resolver problemas de valor inicial: o método de Euler implícito, uma variante do método de Euler (explícito) que vimos na Seção~\ref{sec:euler}. Seguinte o mesmo raciocício daquela seção, integramos o problema de valor inicial dado por
@@ -1927,7 +1927,7 @@ onde $p(t)$ é polinômio de grau $s-1$ dado na forma de Lagrange por:
 \begin{equation} p(t)=\sum_{j=0}^{s-1}\left[f(t^{(n)},u^{(n)}) \prod_{k=0,k\neq j}^{s-1} \frac{t-t^{(n+k)}}{t^{(n+j)}-t^{(n+k)}}\right] \end{equation}
 Agora observamos que
 \begin{equation} \int _{t^{(n+s-1)}}^{t^{(n+s)}} p(t) dt=h\sum_{j=0}^{s-1}\beta_j f(t^{(n+j)},u^{(n+j)}) \end{equation}
-onde 
+onde
 \begin{equation}\label{eq:betaj}
 \beta_j= \frac{1}{h}\int_{t^{(n+s-1)}}^{t^{(n+s)}} \prod_{k=0,k\neq j}^{s-1} \frac{t-t^{(n+k)}}{t^{(n+j)}-t^{(n+k)}}dt
 \end{equation}
@@ -1944,7 +1944,7 @@ Observe que a integral envolvida no cálculo dos coeficientes $\beta_j$ em \eqre
 \end{eqnarray}
 
 
-\begin{obs}[Ordem do método de Adasm-Bashforth] Da teoria de interpolação (ver capítulos \ref{cap:interp} e \ref{cap:integracao}), temos que o erro de aproximação da integral de uma função suficientemente suave por um polinômio interpolador em $s$ pontos é de ordem $s+1$. Assim, o erro local de truncamento do método de Adams-Bashforth com $s$ passos é $s+1$ e, portanto, o erro global de truncamente é de ordem $s$.   
+\begin{obs}[Ordem do método de Adasm-Bashforth] Da teoria de interpolação (ver capítulos \ref{cap:interp} e \ref{cap:integracao}), temos que o erro de aproximação da integral de uma função suficientemente suave por um polinômio interpolador em $s$ pontos é de ordem $s+1$. Assim, o erro local de truncamento do método de Adams-Bashforth com $s$ passos é $s+1$ e, portanto, o erro global de truncamente é de ordem $s$.
 \end{obs}
 
 
@@ -1973,7 +1973,7 @@ Observe que a integral envolvida no cálculo dos coeficientes $\beta_j$ em \eqre
 \end{ex}
 
 \begin{obs} Os coeficientes do método de Adams-Bashforth de ordem $s$ podem, alternativamente, ser obtidos exigindo que o sistema seja exato para $f(t,u)=t^0$, $f(t,u)=t^1$, $f(t,u)=t^2$, \ldots, $f(t,u)=t^{s-1}$.
- 
+
 \end{obs}
 
 \begin{ex} Obtenha o método de Adams-Bashforth para $s=4$ como
@@ -2016,7 +2016,7 @@ fornecendo o \emph{método de Adams-Bashforth de $4$ estágios}
 \end{ex}
 
 
-A tabela abaixo mostra as coeficientes do método de Adams-Bashforth para até 8 passos. 
+A tabela abaixo mostra as coeficientes do método de Adams-Bashforth para até 8 passos.
  \begin{center}
 \begin{tabular}{|c|cccccccc|}
 \hline
@@ -2028,7 +2028,7 @@ A tabela abaixo mostra as coeficientes do método de Adams-Bashforth para até 8
 6 & $-{\frac {95}{288}}$ & ${\frac {959}{480}}$ & $-{\frac {3649}{720}}$ & ${\frac {4991}{720}}$ & $-{\frac {2641}{480}}$ & $\frac {4277}{1440}$&&\\
 7 & $\frac {19087}{60480}$ & $-{\frac {5603}{2520}}$ & ${\frac {135713}{20160}}$ & $-{\frac {10754}{945}}$ & ${\frac {235183}{20160}}$ & $-{\frac {18637}{2520}}$ & ${\frac {198721}{60480}}$&\\
 8 & $-{\frac {5257}{17280}}$&${\frac {32863}{13440}}$&$-{\frac {115747}{13440}}$&${\frac {2102243}{120960}}$&$-{\frac {296053}{13440}}$&${\frac {242653}{13440}}$&$-{\frac {1152169}{120960}}$&${\frac {16083}{4480}}$\\
-\hline 
+\hline
 \end{tabular}
  \end{center}
 \begin{obs} Note que os métodos de múltiplo passo requerem o conhecimento dos $s$ valores previamente computados para calcular $y^{(n+s)}$. Assim, para inicializar um algoritmo com mais de um passo, não é suficiente conhecer a condição inicial. Usualmente, calcula-se os primeiros $s$ passos usando um algoritmo de passo simples da mesma ordem do método múltiplo passo a ser aplicado.
@@ -2045,8 +2045,8 @@ A tabela abaixo mostra as coeficientes do método de Adams-Bashforth para até 8
 \end{eqnarray*}
 aplicando o método de Adams-Bashforth de dois passos e inicializando o método através do método de Euler modificado. Calcule o valor de $y(1)$ com passo de tamanho $h=0,1$.
 \end{exeresol}
-\begin{resol} 
-Primeiro observamos que o processo resursivo do método de Adams é dado por: 
+\begin{resol}
+Primeiro observamos que o processo resursivo do método de Adams é dado por:
 \begin{equation}
   y^{(n+2)}=y^{(n+1)}+\frac{h}{2}\left[3f\left(t^{(n+1)},u(t^{(n+1)})\right)-f\left(t^{(n)},u(t^{(n)})\right)\right],~n=1,2,\ldots
  \end{equation}
@@ -2054,9 +2054,9 @@ O valor inicial é dado por $y^{(1)}=0$. No entanto, para inicializar o método,
 \begin{eqnarray*}
  k_1&=&\sqrt{1+0}=1\\
  k_2&=&\sqrt{1+0,1}=\sqrt{1,1}\approx 1,0488088 \\
- y^{(2)}&=& \frac{0,1}{2}\left(1+1,0488088 \right)=0,10244044 
+ y^{(2)}&=& \frac{0,1}{2}\left(1+1,0488088 \right)=0,10244044
   \end{eqnarray*}
-Aplicando o método de Adams-Bashforth, obtemos:  
+Aplicando o método de Adams-Bashforth, obtemos:
   \begin{eqnarray*}
  y^{(1)}&=&0\\
  y^{(2)}&=&0,10244044\\
@@ -2137,7 +2137,7 @@ onde $p(t)$ é polinômio de grau $s$ dado na forma de Lagrange por:
 \begin{equation} p(t)=\sum_{j=0}^{s}\left[f(t^{(n)},u^{(n)}) \prod_{k=0,k\neq j}^{s} \frac{t-t^{(n+k)}}{t^{(n+j)}-t^{(n+k)}}\right] \end{equation}
 Agora observamos que
 \begin{equation} \int _{t^{(n+s-1)}}^{t^{(n+s)}} p(t) dt=h\sum_{j=0}^{s}\beta_j f(t^{(n+j)},u^{(n+j)}) \end{equation}
-onde 
+onde
 \begin{equation}
 \beta_j= \frac{1}{h}\int_{t^{(n+s-1)}}^{t^{(n+s)}} \prod_{k=0,k\neq j}^{s} \frac{t-t^{(n+k)}}{t^{(n+j)}-t^{(n+k)}}dt
 \end{equation}
@@ -2200,7 +2200,7 @@ fornecendo a regra
 
 
 
-A tabela abaixo mostra as coeficientes do método de Adams-Moulton para até oito passos. 
+A tabela abaixo mostra as coeficientes do método de Adams-Moulton para até oito passos.
  \begin{center}
 \begin{tabular}{|c|cccccccc|}
 \hline
@@ -2212,7 +2212,7 @@ A tabela abaixo mostra as coeficientes do método de Adams-Moulton para até oit
 6 & ${\frac {3}{160}}$ & $-{\frac {173}{1440}}$ & ${\frac {241}{720}}$ & $-{\frac {133}{240}}$ & ${\frac {1427}{1440}}$ & ${\frac {95}{288}}$&&\\
 7 & $-{\frac {863}{60480}}$ & ${\frac {263}{2520}}$ & $-{\frac {6737}{20160}}$ & ${\frac {586}{945}}$ & $-{\frac {15487}{20160}}$ & ${\frac {2713}{2520}}$ &${\frac {19087}{60480}}$&\\
 8 &$ {\frac {275}{24192}}$ & $-{\frac {11351}{120960}}$&${\frac {1537}{4480}}$&$-{\frac {88547}{120960}}$&${\frac {123133}{120960}}$&$-{\frac {4511}{4480}}$&${\frac {139849}{120960}}$&${\frac {5257}{17280}}$\\
-\hline 
+\hline
 \end{tabular}
  \end{center}
 
@@ -2222,7 +2222,7 @@ A tabela abaixo mostra as coeficientes do método de Adams-Moulton para até oit
  \end{equation}
  \end{ex}
 
- 
+
 \subsection*{Exercícios resolvidos}
 \begin{exeresol} Resolva o problema de valor inicial dado por:
 \begin{eqnarray*}
@@ -2245,11 +2245,11 @@ via Adams-Moulton com $s=2$ (três passos) com $h=0,1$ e $h=0,01$ e compare com 
  Assim:
  \begin{eqnarray*}
   \left(1+\frac{5h}{6}\right)u^{(n+2)}
-  &=&u^{(n+1)}+\frac{h}{12}\left[8f^{(n+1)}-f^{(n)}\right]+\frac{5h}{12}t^{(n+2)}e^{-t^{(n+2)}} 
+  &=&u^{(n+1)}+\frac{h}{12}\left[8f^{(n+1)}-f^{(n)}\right]+\frac{5h}{12}t^{(n+2)}e^{-t^{(n+2)}}
   \end{eqnarray*}
- 
+
  Os valores obtidos são:
- 
+
  \begin{tabular}{|c|c|c|}
  \hline
   &t=1&t=2\\
@@ -2292,7 +2292,7 @@ fn[1]= l*u[1] + g(h)
 
 for n in np.arange(0,itmax-1):
 	gn2=g((n+2)*h)
-	
+
 	u[n+2]= (u[n+1] + h/12*(8*fn[n+1]-fn[n]) + 5*h/12*gn2 ) / (1+5*h/6)
 	fn[n+2]=l*u[n+2]+gn2
 
@@ -2328,11 +2328,11 @@ function u=moulton(u0,h,Tmax)
 
   for n=1:itmax-1
     gn2=g((n+1)*h);
-    
+
     u(n+2)= (u(n+1) + h/12*(8*fn(n+1)-fn(n)) + 5*h/12*gn2 ) / (1+5*h/6);
     fn(n+2)=l*u(n+2)+gn2;
   endfor
-  
+
 endfunction
 \end{verbatim}
 
@@ -2364,11 +2364,11 @@ function u=moulton(u0,h,Tmax)
 
   for n=1:itmax-1
     gn2=g((n+1)*h);
-    
+
     u(n+2)= (u(n+1) + h/12*(8*fn(n+1)-fn(n)) + 5*h/12*gn2 ) / (1+5*h/6);
     fn(n+2)=l*u(n+2)+gn2;
   end
-  
+
 endfunction
 
 \end{verbatim}
@@ -2388,8 +2388,8 @@ endfunction
 \end{eqnarray*}
 aplicando o método de Adams-Moulton de dois passos. Calcule o valor de $y(1)$ com passo de tamanho $h=0,1$.
 \end{exeresol}
-\begin{resol} 
-Primeiro observamos que o processo resursivo do método de Adams é dado por: 
+\begin{resol}
+Primeiro observamos que o processo resursivo do método de Adams é dado por:
 \begin{equation}\label{eq:Adams_Moulton:prob1:rec}
   y^{(n+1)}=y^{(n)}+\frac{h}{2}\left[f\left(t^{(n+1)},u(t^{(n+1)})\right)+f\left(t^{(n)},u(t^{(n)})\right)\right],~n=1,2,\ldots
  \end{equation}
@@ -2421,7 +2421,7 @@ y^{(11)}&=&1,25
  y(0)&=& 0,
 \end{eqnarray*}
 aplicando o método de Adams-Moulton de dois passos. Calcule o valor de $y(1)$ com passo de tamanho $h=0,1$ e $h=0,01$.
-Primeiro observamos que o processo resursivo do método de Adams é dado por: 
+Primeiro observamos que o processo resursivo do método de Adams é dado por:
 \begin{eqnarray*}
   y^{(n+1)}&=&y^{(n)}+\frac{h}{2}\left[f\left(t^{(n+1)},u(t^{(n+1)})\right)+f\left(t^{(n)},u(t^{(n)})\right)\right],~n=1,2,\ldots,\\
   y^{(1)}&=&0
@@ -2509,68 +2509,68 @@ Encontre o método de Adams-Moulton para $s=1$.
  Este esquema é equivalente ao método trapezoidal.
  \end{resp}
 
- 
+
  \begin{exer} Repita o Problema~\ref{exeresol:exersol_moulton_nl} usando Adams-Moulton com 3 passos e inicilizando com Runge-Kutta quarta ordem clássico.
   \end{exer}
 \begin{resp}
  $0,37517345$ e  $0,37512543$.
 \end{resp}
 
-  
-%  
-% 
+
+%
+%
 % \section{Método BDF}
 % Um método de ordem $s$ com $s$ estágios é chamado de \emph{método BDF-Backward Differentiation Formula} se $\sigma (w)=b_sw^s$, onde $b_s \in \mathbb{R}$, ou seja,
 % \begin{eqnarray}\label{BDF}
 %   a_s u_{n+s}+ ...+ a_1 u_{n+1} + a_0u_{n} &=  h b_sf_{n+s}
 % \end{eqnarray}
-% 
+%
 % \begin{ex}
 % Mostre que o método BDF com $s=3$ é
 % \begin{eqnarray}
 %   u_{n+3} -\frac{18}{11} u_{n+2}+\frac{9}{11}u_{n+1}-\frac{2}{11}u^{(n)} &= \frac{6}{11}h f_{n+3}
 % \end{eqnarray}
 % \end{ex}
-% 
+%
 % \subsection*{Exercícios}
-% 
+%
 % \begin{exer}
 % Mostre que o método BDF com $s=1$ é o método de Euler implícito.
 % \end{exer}
-% 
+%
 % \begin{exer}
 % Mostre que o método BDF com $s=2$ é
 % \begin{eqnarray}
 %   u_{n+2} -\frac{4}{3} u_{n+1} + \frac{1}{3}u^{(n)} &= \frac{2}{3}h f_{n+2}
 % \end{eqnarray}
 % \end{exer}
-% 
-% 
+%
+%
 % \section{O método de Taylor}
 % Uma maneira simples de aumentar a ordem dos métodos de Euler anteriormente descritos consiste em truncar a série de Taylor de $u(t+h)$:
 % \begin{eqnarray}
 %  u(t+h)=u(t) +h u'(t)+ \frac{h^2}{2!}u''(t)+\frac{h^3}{3!}u'''(t)+\ldots
 % \end{eqnarray}
-% 
+%
 % Utilizando dois termos temos o método de Euler. Utilizando os três primeiros termos da série e substituindo $u'(t)=f(t,x)$ e $u''(t)=\frac{\partial f}{\partial t}(t,x)$ temos o \emph{método de Taylor de ordem $2$}
 % \begin{eqnarray}
 %    u_{n+1}=u^{(n)} +h f(t^{(n)},u^{(n)})+ \frac{h^2}{2!} \frac{\partial f}{\partial t}(t^{(n)},u^{(n)})
 % \end{eqnarray}
-% 
-% 
+%
+%
 % O método de Taylor de ordem $3$ é
 % \begin{eqnarray*}
 %    u_{n+1}=u^{(n)} +h f(t^{(n)},u^{(n)})+ \frac{h^2}{2!}\frac{\partial f}{\partial t}(t^{(n)},u^{(n)})+\frac{h^3}{3!}\frac{\partial^2 f}{\partial t^2}(t^{(n)},u^{(n)})
 % \end{eqnarray*}
-% 
+%
 % \subsection*{Exercícios resolvidos}
-% 
+%
 % \emconstrucao
-% 
+%
 % \subsection*{Exercícios}
-% 
+%
 % \emconstrucao
-% 
+%
 % \section{Estabilidade dos métodos de Taylor}
 % \begin{ex}
 % Prove que para um método de Taylor de ordem $p$ para a EDO \eqref{EDO4.7} temos
@@ -2581,18 +2581,18 @@ Encontre o método de Adams-Moulton para $s=1$.
 % \begin{eqnarray}
 %  \mathcal D_{T} = \{z \in  \field{C}:  \left|p(z)\right|<1\}
 % \end{eqnarray}
-% 
+%
 % Trace as regiões de estabilidade para o método de Taylor para $p=1,\ldots ,6$ no mesmo gráfico.
 % \end{ex}
-% 
+%
 % % \begin{figure}
 % % \begin{center}
 % %   \includegraphics[width=8cm]{RegiaoTaylor.eps}\\
 % %   \caption{Região de estabilidade paras os métodos de Taylor de ordem $1,\ldots ,4$ (interior as curvas). A curva mais interna é para $p=1$}\label{RegiaoTaylor}
 % % \end{center}
 % % \end{figure}
-% 
-% 
+%
+%
 % \begin{ex}
 % Aproxime a solução do problema de valor inicial
 % \begin{eqnarray}
@@ -2600,15 +2600,15 @@ Encontre o método de Adams-Moulton para $s=1$.
 %             u(0) &= 1
 % \end{eqnarray}
 % para  $t\in [0,10]$.
-% 
+%
 % \begin{enumerate}
 % \item [a.] Trace a solução para $h=0,16$, $0,08$, $0,04$, $0,02$ e $0,01$ para o método de Taylor de ordem $1$, $2$ e $3$. (Trace todos de ordem $1$ no mesmo gráfico, ordem $2$ em outro gráfico e ordem $3$ outro gráfico separado.)
-% 
+%
 % \item [b.] Utilizando a solução exata, trace um gráfico do erro em escala logar\'itmica.
 % Comente os resultados (novamente, em cada gráfico separado para cada método repita os valores acima)
-% 
+%
 % \item [c.] Fixe agora o valor $h=0,02$ e trace no mesmo gráfico uma curva para cada método.
-% 
+%
 % \item [d.] Trace em um gráfico o erro em $t=10$ para cada um dos métodos (uma curva para cada ordem) a medida que $h$ diminui. (Use escala \verb#loglog#)
 % \end{enumerate}
 % \end{ex}
@@ -2705,7 +2705,7 @@ u^{(n+1)}&=&u^{(n)} + \frac{h}{2} \left[f(t^{(n)},u^{(n)})+f(t^{(n+1)},\tilde{u}
 \end{ex}
 
 \subsection*{Exercícios}
-\begin{exer} Construa o esquema preditor corretor combinando Adams-Moulton de quarta ordem e Adams-Bashforth de quarta ordem. 
+\begin{exer} Construa o esquema preditor corretor combinando Adams-Moulton de quarta ordem e Adams-Bashforth de quarta ordem.
 \end{exer}
 \begin{resp}
 \begin{eqnarray*}
@@ -2720,7 +2720,7 @@ u^{(n+1)}&=&u^{(n)} + \frac{h}{24} \left[f(t^{(n-2)},u^{(n-2)})-5f(t^{(n-1)},u^{
   u(0) &=& 0
 \end{eqnarray*} Resolva numericamente esse problema pelo método de Adams-Bashforth de segunda ordem e pelo método preditor corretor combinando Adams-Bashforth de segunda order com Adams-Moulton de segunda ordem. Compare a solução obtida para $t=10$ com a solução exata dada por:
 \begin{equation} u(t)=\frac{t^2}{4}+t. \end{equation}
- Inicialize os métodos empregando Runge-Kuta de segunda ordem. 
+ Inicialize os métodos empregando Runge-Kuta de segunda ordem.
 \end{exer}
 \begin{resp}
  Adams-Bashforth: 34,99965176,~~ Preditor-corretor: 34,99965949,~~  Exato: 35
@@ -2741,11 +2741,11 @@ Toda metodologia numérica deve ser validada ao ser aplicada para resolver um pr
 \begin{enumerate}
 \item Expressão analítica: Testar o código com problemas que admitem soluções analíticas constitui a forma mais confiável para validar o esquema usado. Expressões analíticas são expressões matemáticas das seguintes formas:
 \subitem Expressão aritmética: Expressões envolvendo apenas um número finito de operações aritméticas elementares (soma, subtração, multiplicação e divisão) e números inteiros. Ex: $u(t)=\frac{t^2+1}{3t-4}$ ou $u(t)=t^3+\frac{3}{4}.$
-\subitem Expressão algébrica:  Expressões envolvendo apenas um número finito de operações aritméticas elementares e expoentes fracionários. Ex: $u(t)=t^2+ \sqrt{t} $ ou $u(t)=t^{3/2}+\sqrt{2}$. 
+\subitem Expressão algébrica:  Expressões envolvendo apenas um número finito de operações aritméticas elementares e expoentes fracionários. Ex: $u(t)=t^2+ \sqrt{t} $ ou $u(t)=t^{3/2}+\sqrt{2}$.
 \subitem Expressão forma-fechada: Expressões envolvendo apenas um número finito de operações aritméticas elementares, expoentes reais, logaritmos, exponencias, funções trigonométricas e funções trigonométricas inversas. Ex: $u(t)=\ln(1+t^{\pi})$, $u(t)=e^{-t}\sin(t)$ ou $u(t)=\tan^{-1}(t+1)$.
-\subitem Expressão envolvendo funções especiais: Além das operações e funções acima, são permitidas funções especiais, como a função gama, funções de Bessel, séries de taylor, series de Fourier e outras séries envolvendo funções elementares e especiais. 
-\item Expressão matemática semi-analítica: Expressão matemática envolvendo, além das operações e funções acima, outros processos de limite, como derivação e integração. Ex: $u(t)=\int_{0}^1 \log|t-x|x^t dx$.  
-\item Solução numérica com reformulação analítica prévia: Neste caso, não se dispõe de uma expressão matemática para a solução, mas pode-se comparar resultado produzido pelo método numérico com outro problema numérico cuja solução é a mesma e pode ser obtida por outra metodologia numérica mais confiável. 
+\subitem Expressão envolvendo funções especiais: Além das operações e funções acima, são permitidas funções especiais, como a função gama, funções de Bessel, séries de taylor, series de Fourier e outras séries envolvendo funções elementares e especiais.
+\item Expressão matemática semi-analítica: Expressão matemática envolvendo, além das operações e funções acima, outros processos de limite, como derivação e integração. Ex: $u(t)=\int_{0}^1 \log|t-x|x^t dx$.
+\item Solução numérica com reformulação analítica prévia: Neste caso, não se dispõe de uma expressão matemática para a solução, mas pode-se comparar resultado produzido pelo método numérico com outro problema numérico cuja solução é a mesma e pode ser obtida por outra metodologia numérica mais confiável.
 \item Benchmark puramente numérico: Um {\it benchmark} puramente numérico é uma aproximação numérica para a solução de um problema muito bem estabelecida e de alta confiabilidade. Os benchmarks numéricos normalmente são produzidos comparando diversos métodos numéricos diferentes e independentes e com grande refinamento.
 \item Validação por comparação: Quando não se dispõe de {\it benchmarks}, ainda se pode comparar o resultado obtido com outros métodos numéricos. Em caso de divergência, pode ser bastante difícil dissernir qual método produz melhores resultados.
 \item Convergência numérica: Este é o teste mais rudimentar que se aplica a métodos e numéricos e consiste em comparar o resultados produzidos com diferentes malhas de cálculo diferentes. Espera-se que o refino da malha produza soluções que convergem para a soluçao exata. Resultados muito próximos entre refinos sugere qualidade nos resultados.
@@ -2759,8 +2759,8 @@ Toda metodologia numérica deve ser validada ao ser aplicada para resolver um pr
 \end{eqnarray*}
 admite uma solução em forma de expressão analítica dada por:
 \begin{equation}
-     u(t) = 2t+8e^{-t/2}. 
-\end{equation} 
+     u(t) = 2t+8e^{-t/2}.
+\end{equation}
 \end{ex}
 
 \begin{ex}[Expressão envolvendo funções especiais] A solução do problema de valor inicial dado por:
@@ -2783,7 +2783,7 @@ u^{(4)}(0)&=&u'''(0)=u''(0)=u'(0)=u(0)
 \end{eqnarray*}
 é dada na forma:
 \begin{eqnarray*}
-u(t)=1+Ae^{r_1 t} + Be^{r_2 t} + Ce^{r_3 t} + De^{r_4 t} + Ee^{r_5 t} 
+u(t)=1+Ae^{r_1 t} + Be^{r_2 t} + Ce^{r_3 t} + De^{r_4 t} + Ee^{r_5 t}
 \end{eqnarray*}
 onde $r_1$, $r_2$, $r_3$, $r_4$ e $r_5$ são as raízes do polinômio característico \begin{equation} p(x)=x^5+ax^4+bx^3+cx^2+dx+1, \end{equation}
 cujas raízes, salvo casos particulares, só pode ser obtida por aproximações numéricas.
@@ -2815,7 +2815,7 @@ Esta expressão reformula o problema como uma equação integral em $y(t)$. Esta
 \begin{eqnarray*}
 \int_0^{100}\frac{d\tau}{\cos(\tau)+\tau}=5,574304717298400
 \end{eqnarray*}
-Resolvendo a equação algébrica 
+Resolvendo a equação algébrica
 \begin{equation} t+\sin(t)=5,574304717298400, \end{equation}
 obtemos:
 \begin{equation} t=5,924938036503083. \end{equation}
@@ -2867,7 +2867,7 @@ Runge-Kutta clássico&&&&&\\
 \hline
 Adams-Bashforth ordem 4&&&&&\\
 \hline
-\end{tabular} 
+\end{tabular}
 \end{center}
 
 \begin{center}
@@ -2982,7 +2982,7 @@ Pergunta-se: % Solução $ u(t)=\frac{Au_0}{(A-u_0)e^{-A\alpha at}+u_0}$
 
 Obs: A solução analitica do problema de valor inicial é dada por:
  \begin{equation} u(t)=\frac{Au_0}{(A-u_0)e^{-A\alpha at}+u_0} \end{equation}
- Os valores exatos para os itens b e c são:$\frac{1}{10}\ln\left(\frac{9}{4}\right)$ e $\frac{1}{10}\ln\left(6\right)$. 
+ Os valores exatos para os itens b e c são:$\frac{1}{10}\ln\left(\frac{9}{4}\right)$ e $\frac{1}{10}\ln\left(6\right)$.
 
 \end{resp}
 
@@ -3070,6 +3070,3 @@ onde $I$ é a corrente de excitação.
 
 
 %\end{document}
-
-
-

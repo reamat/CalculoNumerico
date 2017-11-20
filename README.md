@@ -15,7 +15,7 @@ Também disponibilizamos o e-mail de contato:
 <livroscolaborativos@gmail.com>
 
 ## Licença
-Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite <http://creativecommons.org/licenses/by-sa/3.0/> ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite <https://creativecommons.org/licenses/by-sa/3.0/> ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
 ## Sobre o código fonte
 O código fonte está escrito em [Latex](https://latex-project.org/) e as referências bibliográficas em [BibTex](http://www.bibtex.org/), testado em computador Linux com o pacote [TexLive](http://www.tug.org/texlive/). O texto está em formatação **utf-8**.
@@ -103,9 +103,9 @@ Antes de requerer que sua colaboração seja incorporada a versão oficial do li
 
 Então, para requerer que suas contribuições no livro sejam incorporadas a versão oficial, faça um "New pull request" do seu "fork" do projeto no GitHub. Ao recebermos seu requerimento, o corpo de organizadores do livro irá analisar e decidir por incorporar por completo, parcialmente ou de forma modificada suas colaborações.
 
-Os organizadores também podem decidir por negar por completo seu pedido de incorporação de suas contribuições na versão oficial do livro. Observe que mesmo neste caso, você construirá de posse de sua versão do livro e poderá usá-la e distribuí-la, dentro do previsto na licença CC-BY-SA 3.0 (veja a [licença](http://creativecommons.org/licenses/by-sa/3.0/)).
+Os organizadores também podem decidir por negar por completo seu pedido de incorporação de suas contribuições na versão oficial do livro. Observe que mesmo neste caso, você construirá de posse de sua versão do livro e poderá usá-la e distribuí-la, dentro do previsto na licença CC-BY-SA 3.0 (veja a [licença](https://creativecommons.org/licenses/by-sa/3.0/)).
 
-Observamos que somente será incorporado à versão oficial do livro material sob licença CC-BY-SA 3.0 (ou equivalente). Isto é, todo o material que deseja incorporar a versão oficial não poderá conter material sob violação de copyright e você deverá explicitamente declarar que está de acordo que seu material seja colocado sob a licença CC-BY-SA 3.0 (veja a [licença](http://creativecommons.org/licenses/by-sa/3.0/)).
+Observamos que somente será incorporado à versão oficial do livro material sob licença CC-BY-SA 3.0 (ou equivalente). Isto é, todo o material que deseja incorporar a versão oficial não poderá conter material sob violação de copyright e você deverá explicitamente declarar que está de acordo que seu material seja colocado sob a licença CC-BY-SA 3.0 (veja a [licença](https://creativecommons.org/licenses/by-sa/3.0/)).
 
 Nós só poderemos incorporar suas colaborações à versão oficial do livro após você assinar os termos CLA. As instruções para assinatura dos termos será exibida na lista de discussão referente ao seu "Pull Request". Leia atentamente os termos. Qualquer dúvida sobre estes termos entre em contato pelo e-mail: <livroscolaborativos@gmail.com>
 
@@ -127,4 +127,4 @@ ou pela lista de e-mails:
 
 <https://groups.google.com/forum/#!forum/livro_colaborativo>
 
-Iremos cuidar para analisar seu aviso o mais prontamente possível e removeremos o material que não esteja de acordo com a licença [CC-BY-SA 3.0](http://creativecommons.org/licenses/by-sa/3.0/).
+Iremos cuidar para analisar seu aviso o mais prontamente possível e removeremos o material que não esteja de acordo com a licença [CC-BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
