@@ -155,10 +155,13 @@ Este procedimento pode ser repetido para  $t^{(3)}$, $t^{(4)}$, $\ldots$, obtend
 
 \begin{ex}
 Considere o problema de valor inicial
-\begin{eqnarray*}
-  u'(t)&=&2u(t)\\
-  u(0)&=&1
-\end{eqnarray*}
+\begin{equation}
+ \begin{split}
+  u'(t)&=2u(t)\\
+  u(0)&=1
+ \end{split}
+\end{equation}
+
 cuja solução é $u(t)=e^{2t}$. O método de Euler aplicado a este problema produz o  esquema:
 \begin{equation}\label{eq:exemplo_y_2y_euler}
   \begin{split}
@@ -167,14 +170,16 @@ cuja solução é $u(t)=e^{2t}$. O método de Euler aplicado a este problema pro
   \end{split}
 \end{equation}
 Suponha que queremos calcular o valor aproximado de $u(1)$ com $h=0,2$. Então os pontos $t^{(1)}=0$, $t^{(2)}=0,2$, $t^{(3)}=0,4$, $t^{(4)}=0,6$, $t^{(5)}=0,8$ e $t^{(6)}=1,0$ formam os seis pontos da malha. As aproximações para a solução nos pontos da malha usando o método de Euler são:
-\begin{eqnarray*}
-  u(0)  &\approx &u^{(1)}=1\\
-  u(0,2)&\approx &u^{(2)}=(1+2h) u^{(1)}=1,4 u^{(1)}=1,4\\
-  u(0,4)&\approx &u^{(3)}=1,4 u^{(2)}=1,96\\
-  u(0,6)&\approx &u^{(4)}=1,4 u^{(3)}=2,744\\
-  u(0,8)&\approx &u^{(5)}=1,4 u^{(4)}=3,8416\\
-  u(1,0)&\approx &u^{(6)}=1,4 u^{(5)}=5,37824
-\end{eqnarray*}
+\begin{equation}
+\begin{split}
+  u(0)  &\approx u^{(1)}=1\\
+  u(0,2)&\approx u^{(2)}=(1+2h) u^{(1)}=1,4 u^{(1)}=1,4\\
+  u(0,4)&\approx u^{(3)}=1,4 u^{(2)}=1,96\\
+  u(0,6)&\approx u^{(4)}=1,4 u^{(3)}=2,744\\
+  u(0,8)&\approx u^{(5)}=1,4 u^{(4)}=3,8416\\
+  u(1,0)&\approx u^{(6)}=1,4 u^{(5)}=5,37824
+  \end{split}
+\end{equation}
 Essa aproximação é bem grosseira quando comparamos com a solução do problema em $t=1$: $u(1)=e^{2}\approx 7,38906$. Não obstante, se tivéssemos escolhido um passo menor, teríamos obtido uma aproximação melhor. Veja tabela abaixo com valores obtidos com diferentes valores de passo $h$.
 
 \begin{tabular}{|l|l|l|l|l|l|l|l|}%\label{pvi:tab_euler}
@@ -188,9 +193,13 @@ Essa aproximação é bem grosseira quando comparamos com a solução do problem
 De fato, podemos mostrar que quando $h$ se aproxima de $0$, a solução aproximada via método de Euler converge para a solução exata $e^2$. Para isto, basta observar que a solução da relação de recorrência \eqref{eq:exemplo_y_2y_euler} é dada por
  \begin{equation} u^{(k)}=(1+2h)^{k-1}. \end{equation}
  Como $t^{(k)}=(k-1)h$ e queremos a solução em $t=2$, a solução aproximada pelo método de Euler com passo $h$ em é dada por:
- \begin{equation} u^{(k)}= (1+2h)^{k-1}= (1+2h)^{\frac{2}{h}}. \end{equation}
+ \begin{equation} 
+ u^{(k)}= (1+2h)^{k-1}= (1+2h)^{\frac{2}{h}}. 
+ \end{equation}
 Aplicando o limite $h\to 0+$, temos:
-  \begin{equation} \lim_{h\to 0+} (1+2h)^{\frac{2}{h}}= e^{2}. \end{equation}
+  \begin{equation} 
+  \lim_{h\to 0+} (1+2h)^{\frac{2}{h}}= e^{2}. 
+  \end{equation}
 
 %%%%%%%%%%%%%%%%%%%%
 % python
@@ -381,11 +390,12 @@ Equivalente a
 E, finalmente, encontramos a solução exata dada por $u(t)=\frac{e^t}{1+e^{t}}$.
 
 Vejamos, agora, o esquema iterativo produzido pelo método de Euler:
-\begin{eqnarray*}
-u^{(k+1)}&=& u^{(k)}+h u^{(k)}(1-u^{(k)}), \\
-u^{(1)}&=& 1/2.
-\end{eqnarray*}
-
+\begin{equation}
+ \begin{split}
+u^{(k+1)}&= u^{(k)}+h u^{(k)}(1-u^{(k)}), \\
+u^{(1)}&= 1/2.
+ \end{split}
+\end{equation}
 
 \ifisscilab
 O seguinte código pode ser usado para implementar no \verb+Scilab+ a recursão acima:
@@ -473,10 +483,13 @@ Para fins de comparação, calculamos a solução exata e aproximada para alguns
 
 \subsection*{Exercícios}
 \begin{exer} Resolva o problema de valor inicial a seguir envolvendo uma equação não autônoma\index{equação diferencial!não autônoma}, isto é, quando a função $f(t,u)$ depende explicitamente do tempo. Use passo $h=0,1$ e $h=0,01$. Depois compare com a solução exata dada por $u(t)=2e^{-t}+t-1$ nos intantes $t=0$, $t=1$, $t=2$ e $t=3$.
-  \begin{eqnarray*}
-    u'(t)&=&-u(t)+t,\\
-    u(0)&=&1.
-  \end{eqnarray*}
+  \begin{equation}
+   \begin{split}
+    u'(t)&=-u(t)+t,\\
+    u(0)&=1.
+   \end{split}
+  \end{equation}
+
 \end{exer}
 \begin{resp}
 % O esquema recursivo de Euler fica dado por:
@@ -496,10 +509,12 @@ Para fins de comparação, calculamos a solução exata e aproximada para alguns
 \end{resp}
 
 \begin{exer} Resolva o prolema de valor inicial envolvendo uma equação não linear\index{Problema de valor inicial!não linear} usando passo $h=0,1$ e $h=0,01$. 
- \begin{eqnarray*}
-    u'(t)&=&\cos(u(t))\\
-    u(0)&=&0,
-  \end{eqnarray*}
+ \begin{equation}
+  \begin{split}
+    u'(t)&=\cos(u(t))\\
+    u(0)&=0,
+  \end{split}
+ \end{equation}
 
 Depois compare com a solução exata dada por 
 $$u(t)=\tan^{-1} \left( \frac {e^{2t}-1}{{2 e^t}}
@@ -525,10 +540,12 @@ nos intantes $t=0$, $t=1$, $t=2$ e $t=3$.
 \end{resp}
 
 \begin{exer} Resolva a seguinte problema de valor inicial linear com passo $h=10^{-4}$ via método de Euler e compare a solução obtida com o valor exato $y(t)=e^{\sin(t)}$ em $t=2$:
- \begin{eqnarray*}
-    y'(t)&=&\cos(t)y(t)\\
-    y(0)&=&1.
-  \end{eqnarray*}
+ \begin{equation}
+  \begin{split}
+    y'(t)&=\cos(t)y(t)\\
+    y(0)&=1.
+  \end{split}
+ \end{equation}
 \end{exer}  
 \begin{resp}
  Aproximação via Euler: $2,4826529 $, exata: $e^{\sin(2)}\approx 2,4825777 $. Erro relativo aproximado: $ 3\times 10^{-5}$.
@@ -575,19 +592,24 @@ k_2&=&f\left(t^{(2)},\tilde{u}(t^{(2)})\right)=f\left(t^{(2)}, u(t^{(1)})+hk_1 \
 \end{eqnarray}
 
 Portanto, o método recursivo de Euler melhorado assume a seguinte forma:
-\begin{eqnarray}
-\tilde{u}^{(k+1)}&=&u^{(k)}+h f(t^{(k)},u^{(k)}),\\
-u^{(k+1)}&=&u^{(k)}+\frac{h}{2}\left(f(t^{(k)},u^{(k)})+f(t^{(k)},\tilde{u}^{(k)})\right),\\
-u^{(1)}&=&a~~ \hbox{(condição inicial)}.
-\end{eqnarray}
+\begin{equation}
+ \begin{split}
+\tilde{u}^{(k+1)}&=u^{(k)}+h f(t^{(k)},u^{(k)}),\\
+u^{(k+1)}&=u^{(k)}+\frac{h}{2}\left(f(t^{(k)},u^{(k)})+f(t^{(k)},\tilde{u}^{(k)})\right),\\
+u^{(1)}&=a~~ \hbox{(condição inicial)}.
+ \end{split}
+\end{equation}
+
 
 Que pode ser escrito equivalentemente como:
-\begin{eqnarray*}
-k_1&=&f(t^{(k)},u^{(k)}),\\
-k_2&=&f(t^{(k+1)},u^{(k)}+k_1),\\
-u^{(k+1)}&=&u^{(k)}+h\frac{k_1+k_2}{2},\\
-u^{(1)}&=&a~~ \hbox{(condição inicial)}.
-\end{eqnarray*}
+\begin{equation}
+ \begin{split}
+k_1&=f(t^{(k)},u^{(k)}),\\
+k_2&=f(t^{(k+1)},u^{(k)}+k_1),\\
+u^{(k+1)}&=u^{(k)}+h\frac{k_1+k_2}{2},\\
+u^{(1)}&=a~~ \hbox{(condição inicial)}.
+ \end{split}
+\end{equation}
 Aqui $k_1$ e $k_2$ são variáveis auxiliares que representam as inclinações e devem ser calculadas a cada passo. Esta notação é compatível com a notação usada nos métodos de Runge-Kutta, uma família de esquemas iterativos para aproximar problemas de valor inicial, da qual o método de Euler e o método de Euler melhorado são casos particulares. Veremos os métodos de Runge-Kutta na Seção~\ref{sec:sec_RK}.
 
 \subsection*{Exercícios Resolvidos}
