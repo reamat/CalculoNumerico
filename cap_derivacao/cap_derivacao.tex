@@ -1,4 +1,4 @@
-%Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+%Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite https://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
 \chapter{Derivação numérica}\index{derivação}
 
@@ -22,9 +22,9 @@ import matplotlib.pyplot as plt
 Uma diferença finita é uma expressão da forma $f(x+b)-f(x+a)$, que ao ser dividida por $(b-a)$ chama-se um quociente de diferenças. A técnica de \emph{diferenças finitas}\index{diferenças finitas} consiste em aproximar a derivada de uma função via fórmulas discretas que requerem apenas um conjunto finito de pares ordenados $\left\{\left(x_i, y_i\right)\right\}_{i=1}^n$, onde geralmente denotamos $y_i=f(x_i)$.
 
 Essas fórmulas podem ser obtidas de várias maneiras. Começamos com a fórmula mais simples que pode ser obtida do cálculo diferencial. Seja $f$ uma função diferenciável, a derivada de $f$ no ponto $x_0$ é, por definição,
-\begin{equation*}
+\begin{equation}
   f'(x_0)=\lim_{h\to 0}\frac{f(x_0+h)-f(x_0)}{h}.
-\end{equation*}
+\end{equation}
 Deste limite, tomando $h\neq 0$ pequeno (não muito pequeno para evitar o cancelamento catastrófico), é esperado que possamos obter uma aproximação razoável para $f'(x_0)$. Assim, a \emph{diferença finita progressiva} de ordem 1
 \begin{equation}\label{eq:dp}
   D_{+,h}f(x_0) := \frac{f(x_0+h)-f(x_0)}{h} \approx f'(x_0)
@@ -36,9 +36,9 @@ Usando a diferença finita progressiva de ordem 1, calcule aproximações da der
 \end{ex}
 \begin{sol}
 Usando a diferença progressiva em ~\eqref{eq:dp}, devemos calcular
-\begin{equation*}
+\begin{equation}
   D_{+,h}f(1) = \frac{\cos(1 + h) - \cos(1)}{h}
-\end{equation*}
+\end{equation}
 Fazendo isso, obtemos:
 \begin{center}
   \begin{tabular}{r|c|c}
@@ -113,32 +113,32 @@ Podemos construir fórmulas de diferenças finitas para uma função $f(x)$ (sua
 
 \subsubsection{Diferença finita progressiva de ordem 1}\index{diferenças finitas!progressiva}
 Podemos obter uma aproximação para $f'(x_0)$ a partir da série de Taylor
-\begin{equation*}
+\begin{equation}
   f(x_0+h) = f(x_0) + hf'(x_0) + h^2\frac{f''(\xi)}{2},\quad h>0, \xi\in(x_0,x_0+h).
-\end{equation*}
+\end{equation}
 Isolando $f'(x_0)$, obtemos
 \begin{equation}\label{eq:dp_trunc}
   f'(x_0) = \underbrace{\frac{f(x_0+h) - f(x_0)}{h}}_{D_{+,h}} - \underbrace{h\frac{f''(\xi)}{2}}_{\mathcal{O}(h)},
 \end{equation}
 o que mostra que o erro de truncamento da \emph{diferença finita progressiva}\footnote{Também chamada de diferença finita progressiva de dois pontos ou diferença pra frente.}
-\begin{equation*}
+\begin{equation}
   D_{+,h}f(x_0) := \frac{f(x_0+h)-f(x_0)}{h}
-\end{equation*}
+\end{equation}
 é de ordem $h$.
 
 \subsubsection{Diferença finita regressiva de ordem 1}\index{diferenças finitas!regressiva}
 Outra aproximação para a derivada primeira pode ser obtida da série de Taylor de $f$ em torno de $(x_0-h)$ dada por
-\begin{equation*}
+\begin{equation}
   f(x_0-h) = f(x_0) - hf'(x_0) + h^2\frac{f''(\xi)}{2},\quad h>0, \xi\in(x_0, x_0+h).
-\end{equation*}
+\end{equation}
 Isolando $f'(x_0)$, obtemos
-\begin{equation*}
+\begin{equation}
   f'(x_0) = \underbrace{\frac{f(x_0) - f(x_0-h)}{h}}_{D_{-,h}} + \underbrace{h\frac{f''(\xi)}{2}}_{\mathcal{O}(h)}.
-\end{equation*}
+\end{equation}
 que fornece a \emph{diferença finita regressiva}\footnote{Também chamada de diferença regressiva de dois pontos ou diferença pra trás.}
-\begin{equation*}
+\begin{equation}
   D_{-,h}f(x_0) := \frac{f(x_0)-f(x_0-h)}{h},
-\end{equation*}
+\end{equation}
 que possui erro de truncamento de ordem $h$.
 
 \subsubsection{Diferença finita central de ordem 2}\index{diferenças finitas!central}
@@ -148,17 +148,17 @@ Para obter uma aproximação para a derivada primeira com um erro menor, podemos
     f(x_0-h) &= f(x_0) - hf'(x_0) + h^2f''(x_0) + h^3\frac{f'''(\xi_{-})}{3!}
 \end{eqnarray*}
 Fazendo a primeira equação menos a segunda, obtemos
-\begin{equation*}
+\begin{equation}
   f(x_0+h)-f(x_0-h) = 2hf'(x_0) + h^{3}\left(\frac{f'''(\xi_{+}) - f'''(\xi_{-})}{3!}\right).
-\end{equation*}
+\end{equation}
 Dividindo por $2h$ e isolando $f'(x_0)$ obtemos
-\begin{equation*}
+\begin{equation}
   f'(x_0) = \underbrace{\frac{f(x_0+h) - f(x_0-h)}{2h}}_{D_{0,h}} - \underbrace{h^2\left(\frac{f'''(\xi_+) - f'''(\xi_-)}{2\cdot 3!}\right)}_{\mathcal{O}(h^2)}.
-\end{equation*}
+\end{equation}
 Assim, a \emph{diferença finita central}\footnote{Também chamada de diferença finita central de três pontos. Note que o ponto $f(x_0)$ possui coeficiente $0$, por isso $3$ pontos.}
-\begin{equation*}
+\begin{equation}
   D_{0,h}f(x_0) := \frac{f(x_0+h)-f(x_0-h)}{2h},
-\end{equation*}
+\end{equation}
 é uma aproximação para $f'(x_0)$ com erro de truncamento de ordem $h^2$, ou simplesmente ordem $2$.
 
 \begin{ex}\label{ex:derivacao2}
@@ -166,17 +166,17 @@ Calcule a derivada numérica da função $f(x)=e^{\frac{1}{2}x}$ no ponto $x=2$ 
 \end{ex}
 \begin{sol}
   Usando a diferença progressiva, devemos calcular
-  \begin{equation*}
+  \begin{equation}
     D_{+,h} = \frac{f(x+h) - f(x)}{h} = \frac{e^{\frac{1}{2}(x+h)} - e^{\frac{1}{2}x}}{h}.
-  \end{equation*}
+  \end{equation}
   Com a diferença regressiva, calculamos
-  \begin{equation*}
+  \begin{equation}
     D_{-,h} = \frac{f(x) - f(x-h)}{h} = \frac{e^{\frac{1}{2}x} - e^{\frac{1}{2}(x-h)}}{h}.
-  \end{equation*}
+  \end{equation}
   Por fim, usando a diferença central temos
-  \begin{equation*}
+  \begin{equation}
     D_{0,h} = \frac{f(x+h) - f(x-h)}{2h} = \frac{e^{\frac{1}{2}(h+h)} - e^{\frac{1}{2}(x-h)}}{2h}.
-  \end{equation*}
+  \end{equation}
 
   As aproximações e os erros absolutos calculados em cada caso estão apresentados na seguinte tabela:
   \begin{center}
@@ -227,43 +227,43 @@ Estime o erro absoluto no cálculo da derivada de $f(x)=e^{-x}$ para $x>0$ utili
 \end{ex}
 \begin{sol}
 Da Equação~\ref{eq:dp_trunc}, temos:
-\begin{equation*}
+\begin{equation}
   f'(x) = D_{+,h}f(x) - h\frac{f''(\xi)}{2},\quad \xi>0,
-\end{equation*}
+\end{equation}
 ou seja:
-\begin{equation*}
+\begin{equation}
   |f'(x) - D_{+,h}f(x)| = \left|\frac{f''(\xi)}{2}\right|h,\quad \xi>0.
-\end{equation*}
+\end{equation}
 Agora, como $|f''(x)| = |e^{-x}| < 1$ para $x>0$, concluímos que:
-\begin{equation*}
+\begin{equation}
   |f'(x) - D_{+,h}f(x)| \leq \frac{1}{2}h,\quad x>0.
-\end{equation*}
+\end{equation}
 \end{sol}
 
 \subsection{Erros de arredondamento}\index{erros!arredondamento}
 Para entender como os erros de arredondamento se propagam ao calcular as derivadas numéricas vamos analisar a fórmula de diferenças finitas progressiva
-\begin{equation*}
+\begin{equation}
   D_{+,h}f(x) =\frac{f(x+h)-f(x)}{h}.  
-\end{equation*}
+\end{equation}
 
 Nesse contexto temos o valor exato $f'(x)$ para a derivada, a sua aproximação numérica $D_{+,h}f(x)$ e a representação em número de máquina do operador $D_{+,h}f(x)$ que denotaremos por $\overline{D_{+,h}f(x)}$. Denotando por $\varepsilon(x,h)$ o erro de arredondamento ao calcularmos a derivada, vamos assumimos que
 \begin{equation}\label{ex:ea_dp}
 \overline{D_{+,h}f(x)}=D_{+,h}f(x)(1+\varepsilon(x,h))=\frac{\overline{f(x+h)}-\overline{f(x)}}{h}(1+\varepsilon(x,h)).  
 \end{equation}
 Também, consideremos
-\begin{equation*}
+\begin{equation}
 |\overline{f(x+h)}-f(x+h)|=\delta(x,h)\leq \delta  
-\end{equation*}
+\end{equation}
 e
-\begin{equation*}
+\begin{equation}
   |\overline{f(x)}-f(x)|=\delta(x,0)\leq \delta,  
-\end{equation*}
+\end{equation}
 onde $\overline{f(x+h)}$ e $\overline{f(x)}$ são as representações em ponto flutuante dos números $f(x+h)$ e $f(x)$, respectivamente. 
 
 Então, da Equação~\eqref{ex:ea_dp}, a diferença do valor da derivada e sua aproximação representada em ponto flutuante pode ser estimada por:
-\begin{equation*}
+\begin{equation}
 \left|f'(x)-\overline{D_{+,h}f(x)}\right| = \left| f'(x)-\frac{\overline{f(x+h)}-\overline{f(x)}}{h}(1+\varepsilon(x,h)) \right|.
-\end{equation*}
+\end{equation}
 Podemos reescrever o lado direito desta equação, da seguinte forma
 \begin{eqnarray*}
   \left|f'(x)-\overline{D_{+,h}f(x)}\right| &=& \left| f'(x)-\left(\frac{\overline{f(x+h)}-\overline{f(x)}}{h}+\frac{f(x+h)-f(x+h)}{h}\right.\right. \\
@@ -306,25 +306,25 @@ Aproxime a derivada de $f(x)=\sen(2x) - x^2$ no ponto $x=2$ usando a fórmula de
 \end{exeresol}
 \begin{resol}
   A fórmula de diferenças finitas de ordem 1 para uma função $y = f(x)$ em um ponto $x = x_0$ é dada por:
-  \begin{equation*}
+  \begin{equation}
     D_{+,h}f(x_0) = \frac{f(x_0+h) - f(x_0)}{h}.
-  \end{equation*}
+  \end{equation}
 Substituindo $f(x) = \sen(2x) - x^2$ e $x_0 = 2$, obtemos:
-  \begin{equation*}
+  \begin{equation}
     \begin{split}
       D_{+,h}f(x_0) &= \frac{(\sen(2(x_0+h)) - (x_0+h)^2) - (\sen(2x_0) - x_0^2)}{h}\\
       &= \frac{\sen(2(x_0+h)) - x_0^2 + 2x_0h + h^2 - \sen(2x_0) + x_0^2)}{h}\\
       &= \frac{\sen(4+2h) + 4h + h^2 - \sen(4))}{h}.
     \end{split}
-  \end{equation*}
+  \end{equation}
 Então, tomando $h=0,1$, podemos computar a derivada numérica e o erro associado:
-\begin{equation*}
+\begin{equation}
   D_{+,0,1}f(2) = -5,247733,\quad |f'(2)-D_{+,0,1}f(2)| = 5,96\times 10^{-2},
-\end{equation*}
+\end{equation}
 onde $f'(x) = 2\sen(2x) - 2x$ é a derivada analítica. Tomando $h=0,01$ temos:
-\begin{equation*}
+\begin{equation}
   D_{+,0,1}f(2) = -5,302065,\quad |f'(2)-D_{+,0,1}f(2)| = 5,22\times 10^{-3}.
-\end{equation*}
+\end{equation}
 
 %%%%%%%%%%%%%%%%%%%%
 % GNU octave
@@ -450,7 +450,7 @@ Use $h=10^{-2}$ e $h=10^{-3}$ e compare com os valores obtidos através da avali
     \end{tabular}
   \end{center}
 onde  a primeira linha é a tensão de entrada em volts e a segunda linha é tensão de saída em volts.
-Sabendo que o ganho é definido como $$\frac{\partial v_o}{\partial v_i}.$$ Calcule o ganho quando $v_i=1$ e $v_i=4.5$ usando as seguintes técnicas:
+Sabendo que o ganho é definido como \begin{equation} \frac{\partial v_o}{\partial v_i}. \end{equation} Calcule o ganho quando $v_i=1$ e $v_i=4.5$ usando as seguintes técnicas:
 \begin{itemize}
 \item[a)] Derivada primeira numérica de primeira ordem usando o próprio ponto e o próximo.
 \item[b)] Derivada primeira numérica de primeira ordem usando o próprio ponto e o anterior.
@@ -487,20 +487,20 @@ $$
   
 Segue a tabela com os valores da derivada para vários valores de $h$.
 
-\begin{equation*}
+\begin{equation}
 \begin{array}{|c|c|c|c|c|c|c|}\hline
 h&10^{-2}&10^{-4}&10^{-6}&10^{-7}&10^{-8}&10^{-9}\\\hline
 D_{+,h}f(1,5)& - 0,3125246&- 0,3161608 &- 0,3161973&- 0,3161976&- 0,3161977&- 0,3161977 \\\hline
 \multicolumn{7}{c}{}
 \end{array}  
-\end{equation*}  
-\begin{equation*}
+\end{equation}  
+\begin{equation}
 \begin{array}{|c|c|c|c|c|c|c|}\hline
 h&10^{-10}&10^{-11}&10^{-12}&10^{-13}&10^{-14}&10^{-15}\\\hline
 D_{+,h}f(1,5)&- 0,3161976&- 0,3161971&- 0,3162332&- 0,3158585&- 0,3178013&- 0,3747003\\\hline
 \multicolumn{7}{c}{}
 \end{array}
-\end{equation*}
+\end{equation}
 Observe que o valor exato é $-0,3161977$ e o $h$ ótimo é algo entre $10^{-8}$ e $10^{-9}$.        
 \end{resp}
 
@@ -595,7 +595,7 @@ A derivada de $f(x)$ é
   \end{split}
 \end{equation}
 Trocando $x$ por $x_0$, temos
-\begin{equation*}
+\begin{equation}
   \begin{split}
     f'(x_0)&= f(x_0)\frac{2x_0-x_{1}-x_{2}}{(x_0-x_{1})(x_0-x_{2})}
     +f(x_{1})\frac{2x_0-x_{0}-x_{2}}{(x_{1}-x_{0})(x_{1}-x_{2})}\\
@@ -603,15 +603,15 @@ Trocando $x$ por $x_0$, temos
     &+ \frac{f'''(\xi(x_0))}{6} \left( (x_0-x_{1})(x_0-x_{2}) +(x_0-x_0)(2x_0-x_{1}-x_{2})\right)\\
     &+ D_x\left(\frac{f'''(\xi(x_0))}{6}\right)(x_0-x_0)(x_0-x_1)(x_0-x_2).
   \end{split}
-\end{equation*}
+\end{equation}
 Considerando uma malha equiespaçada onde $x_1=x_0+h$ e $x_2=x_0+2h$, temos:
-\begin{equation*}
+\begin{equation}
   \begin{split}
   f'(x_0)&= f(x_0)\frac{-3h}{(-h)(-2h)} + f(x_{1})\frac{-2h}{(h)(-h)} \\
   &+f(x_{2})\frac{-h}{(2h)(h)}+\frac{f'''(\xi(x_0))}{6} \left( (-h)(-2h)\right)\\
   &= \frac{1}{h}\left[-\frac{3}{2}f(x_0)+2f(x_{1})-\frac{1}{2}f(x_{2})\right]+h^2\frac{f'''(\xi(x_0))}{3}    
   \end{split}
-\end{equation*}
+\end{equation}
 Similarmente, trocando $x$ por $x_1$ ou trocando $x$ por $x_2$ na expressão \eqref{tres_pontos}, temos outras duas expressões
 \begin{eqnarray*}
 f'(x_1)&=&\frac{1}{h}\left[-\frac{1}{2}f(x_0)
@@ -832,9 +832,9 @@ Sejam $\{x_1, x_2, x_3\}=\{-h, 0, h\}$ e $x^*=x_2=0$, obtenha uma regra de difer
 \end{ex}
 \begin{sol}
 A regra terá a forma
-\begin{equation*}
+\begin{equation}
   f'(x^*) \approx c_1f(x_1)+c_2f(x_2)+c_3f(x_3)
-\end{equation*}
+\end{equation}
 Considere a base polinomial $\{\phi _1(x), \phi _2(x), \phi _3(x)\} = \{1, x, x^2\}$ e substitua $f(x)$ por $\phi _k(x)$ obtendo
 \begin{eqnarray}
     (1)'_{x=0} = 0  &=  c_1(1)   +c_2(1)  + c_3 (1) \\

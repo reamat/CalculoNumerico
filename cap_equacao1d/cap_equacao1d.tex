@@ -1,9 +1,9 @@
-%Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+%Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite https://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
 %\documentclass[main.tex]{subfiles}
 %\begin{document}
 
-\chapter{Solução de equações de uma variável}\index{equações!de uma variável}\label{cap_equacao1d}
+\chapter{Solução de equações de uma variável}\index{equações!de uma variável}\label{cap:equacao1d}
 
 Neste capítulo, construiremos aproximações numéricas para a solução de \emph{equações algébricas em uma única variável real}. Observamos que obter uma solução para uma dada equação é equivalente a encontrar um \emph{zero de uma função real}\index{função!zero de}\index{função!raiz de} apropriada. Com isso, iniciamos este capítulo discutindo condições de existência e unicidade de raízes de funções de uma variável real. Então, apresentamos o \emph{método da bisseção}\index{método da bisseção} como uma primeira abordagem numérica para a solução de tais equações.
 
@@ -21,7 +21,7 @@ Ao longo do capítulo, apresentamos algumas computações com \verb+Python+. Nes
 >>> import scipy as sci
 >>> from scipy import optimize
 \end{verbatim}
-A segunda instrução carrega a biblioteca de computação científica \href{http://www.numpy.org/}{numpy} e a terceira carrega a biblioteca gráfica \href{http://matplotlib.org/}{matplotlib}.
+A segunda instrução carrega a biblioteca de computação científica \href{http://www.numpy.org/}{numpy} e a terceira carrega a biblioteca gráfica \href{https://matplotlib.org/}{matplotlib}.
 \fi
 
 \section{Existência e unicidade}\index{função!}\index{função!zero}
@@ -220,9 +220,9 @@ A discussão feita nesta seção, especialmente o teorema de Bolzano, nos fornec
 
 
 \begin{exer}Mostre que a equação:
-  \begin{equation*}
+  \begin{equation}
     \ln(x)+x^3-\frac{1}{x}=10  
-  \end{equation*}
+  \end{equation}
 possui uma única solução positiva.
 \end{exer}
 
@@ -235,9 +235,9 @@ possui uma única solução positiva.
 \end{resp}
 
 \begin{exer} Mostre que o erro absoluto associado à aproximação $\overline{x} = 1,962$ para a solução exata $x^*$ de:
-  \begin{equation*}
+  \begin{equation}
     e^x+\sin (x) +x = 10  
-  \end{equation*}
+  \end{equation}
 é menor que $10^{-4}$.
 \end{exer}
 \begin{resp}
@@ -245,18 +245,18 @@ possui uma única solução positiva.
 \end{resp}
 
 \begin{exer}\label{existe_unica} Mostre que a equação
-  \begin{equation*}
+  \begin{equation}
     \ln(x)+x-\frac{1}{x}=v
-  \end{equation*}
+  \end{equation}
 possui uma solução para cada $v$ real e que esta solução é única.
 \end{exer}
 
 \section{Método da bisseção}\index{método!da bisseção}
 
 O \emph{método da bisseção} explora o fato de que uma função contínua $f:[a, b]\to \mathbb{R}$ com $f(a)\cdot f(b) < 0$ tem um zero no intervalo $(a, b)$ (veja o teorema de Bolzano~\ref{teo:teorema_de_Bolzano}). Assim, a ideia para aproximar o zero de uma tal função $f(x)$ é tomar, como primeira aproximação, o ponto médio do intervalo $[a, b]$, isto é:
-\begin{equation*}
+\begin{equation}
   x^{(0)} = \frac{(a + b)}{2}. 
-\end{equation*}
+\end{equation}
 Pode ocorrer de $f(x^{(0)}) = 0$ e, neste caso, o zero de $f(x)$ é $x^* = x^{(0)}$. Caso contrário, se $f(a)\cdot f(x^{(0)}) < 0$, então $x^*\in (a, x^{(0)})$. Neste caso, tomamos como segunda aproximação do zero de $f(x)$ o ponto médio do intervalo $[a, x^{(0)}]$, isto é, $x^{(1)} = (a + x^{(0)})/2$. No outro caso, temos $f(x^{(0)})\cdot f(b) < 0$ e, então, tomamos $x^{(1)} = (x^{(0)} + b)/2$. Repetimos este procedimento até obtermos a aproximação desejada (veja Figura~\ref{fig:metodo_da_bissecao}).
  
 \begin{figure}
@@ -267,26 +267,26 @@ Pode ocorrer de $f(x^{(0)}) = 0$ e, neste caso, o zero de $f(x)$ é $x^* = x^{(0
 \end{figure}
 
 De forma mais precisa, suponha que queiramos calcular uma aproximação com uma certa precisão $TOL$ para um zero $x^*$ de uma dada função contínua $f:[a, b]\to\mathbb{R}$ tal que $f(a)\cdot f(b) < 0$. Iniciamos, tomando $n=0$ e:
-\begin{equation*}
+\begin{equation}
   a^{(n)} = a,\quad b^{(n)} = b\quad\text{e}\quad x^{(n)} = \frac{a^{(n)} + b^{(n)}}{2}.
-\end{equation*}
+\end{equation}
 Verificamos o \emph{critério de parada}\index{critério de parada}, isto é, se $f(x^{(n)}) = 0$ ou:
-\begin{equation*}
+\begin{equation}
   \displaystyle \frac{|b^{(n)} - a^{(n)}|}{2} < TOL,
-\end{equation*}
+\end{equation}
 então $x^{(n)}$ é a aproximação desejada. Caso contrário, preparamos a próxima iteração $n+1$ da seguinte forma: se $f(a^{(n)})\cdot f(x^{(n)}) < 0$, então definimos $a^{(n+1)} = a^{(n)}$ e $b^{(n+1)} = x^{(n)}$; no outro caso, se $f(x^{(n)})\cdot f(b^{(n)}) < 0$, então definimos $a^{(n+1)} = x^{(n)}$ e $b^{(n+1)} = b^{(n)}$. Trocando $n$ por $n+1$, temos a nova aproximação do zero de $f(x)$ dada por:
-\begin{equation*}
+\begin{equation}
   x^{(n+1)} = \frac{a^{(n+1)} + b^{(n+1)}}{2}.
-\end{equation*}
+\end{equation}
 Voltamos a verificar o critério de parada acima e, caso não satisfeito, iteramos novamente. Iteramos até obtermos a aproximação desejada ou o número máximo de iterações ter sido atingido.
 
 \begin{ex}\label{ex:metodo_da_bissecao}Use o método da bisseção para calcular uma solução de $e^x = x + 2$ no intervalo $[-2, 0]$ com precisão $TOL = 10^{-1}$.
 \end{ex}
 \begin{sol}
   Primeiramente, observamos que resolver a equação dada é equivalente a calcular o zero de $f(x) = e^x - x - 2$. Além disso, temos $f(-2)\cdot f(0) < 0$. Desta forma, podemos iniciar o método da bisseção tomando o intervalo inicial $[a^{(0)}, b^{(0)}] = [-2, 0]$ e:
-  \begin{equation*}
+  \begin{equation}
     x^{(0)} = \frac{a^{(0)} + b^{(0)}}{2} = -1.
-  \end{equation*}
+  \end{equation}
   Apresentamos as iterações na Tabela~\ref{tab:metodo_da_bissecao}. Observamos que a precisão $TOL = 10^{-1}$ foi obtida na quarta iteração com o zero de $f(x)$ sendo aproximado por $x^{(4)} = 1,8125$.
   \begin{table}
     \centering
@@ -362,44 +362,44 @@ e, assim, sucessivamente. Veja o código completo na Seção~\ref{subsec:codigo_
 Vamos agora discutir sobre a \emph{convergência} do método da bisseção. O próximo Teorema~\ref{teo:convergencia_bissecao} nos garante a convergência do método da bisseção.
 
 \begin{teo}[Convergência do método da bisseção]\label{teo:convergencia_bissecao} Sejam $f:[a, b]\to \mathbb{R}$ uma função contínua tal que $f(a)\cdot f(b) < 0$ e $x^*$ o único zero de $f(x)$ no intervalo $(a, b)$. Então, a sequência $\{x^{(n)}\}_{n>=0}$ do método da bisseção satisfaz:
-  \begin{equation*}
+  \begin{equation}
     |x^{(n)} - x^{*}| < \frac{b - a}{2^{n+1}},\quad\forall n\geq 0,
-  \end{equation*}
+  \end{equation}
 isto é, $x^{(n)}\to x^*$ quando $n\to\infty$.
 \end{teo}
 \begin{proof}
  Notemos que, a cada iteração, a distância entre a aproximação $x^{(n)}$ e o zero $x^*$ da função é menor ou igual que a metade do tamanho do intervalo $[a^{(n)}, b^{(n)}]$ (veja Figura~\ref{fig:metodo_da_bissecao}), isto é:
-\begin{equation*}
+\begin{equation}
   |x^{(n)}-x^*| \leq \frac{b^{(n)}-a^{(n)}}{2}.
-\end{equation*}
+\end{equation}
 Por construção do método, temos $[a^{(n)}, b^{(n)}]\subset [a^{(n-1)}, b^{(n-1)}]$ e:
-\begin{equation*}
+\begin{equation}
   b^{(n)} - a^{(n)} = \frac{b^{(n-1)}-a^{(n-1)}}{2}.
-\end{equation*}
+\end{equation}
 Desta forma:
-\begin{equation*}
+\begin{equation}
   |x^{(n)}-x^*|  \leq \frac{b^{(n)}-a^{(n)}}{2} = \frac{b^{(n-1)}-a^{(n-1)}}{2^2} = \cdots = \frac{b^{(0)}-a^{(0)}}{2^{n+1}},\quad \forall n\geq 1.
-\end{equation*}
+\end{equation}
 Logo, vemos que:
-\begin{equation*}
+\begin{equation}
   |x^{(n)}-x^*|  \leq \frac{b-a}{2^{n+1}},\quad \forall n\geq 0.
-\end{equation*} 
+\end{equation} 
 \end{proof}
 
 Observamos que a hipótese de que $f(x)$ tenha um único zero no intervalo não é realmente necessária. Se a função tiver mais de um zero no intervalo inicial, as iterações ainda convergem para um dos zero. Veja o Exercício~\ref{exer:raizes_multiplas}.
 
 \begin{obs}
   O Teorema~\ref{teo:convergencia_bissecao} nos fornece uma estimativa para a convergência do método da bisseção. Aproximadamente, temos:
-  \begin{equation*}
+  \begin{equation}
     |x^{(n+1)} - x^*| \lesssim \frac{1}{2}|x^{(n)} - x^*|.
-  \end{equation*}
+  \end{equation}
 Isto nos leva a concluir que o método da bisseção tem \emph{taxa de convergência}\index{Método da bisseção!taxa de convergência} linear.
 \end{obs}
 
 \begin{ex}No Exemplo~\ref{ex:metodo_da_bissecao}, precisamos de $4$ iterações do método da bisseção para computar uma aproximação com precisão de $10^{-1}$ do zero de $f(x) = e^x - x - 2$ tomando como intervalo inicial $[a, b] = [-2, 0]$. Poderíamos ter estimado o número de iterações \emph{a priori}, pois, como vimos acima:
-  \begin{equation*}
+  \begin{equation}
     |x^{(n)}-x^*|\leq \frac{b-a}{2^{n+1}},\quad n\geq 0.
-  \end{equation*}
+  \end{equation}
 Logo, temos:
 \begin{eqnarray*}
   |x^{(n)} - x^*| &<& \frac{b - a}{2^{n+1}} = \frac{2}{2^{n+1}}\\
@@ -486,9 +486,9 @@ A variável de saída é:
 \end{resp}
 
 \begin{exer} Trace o gráfico e isole as três primeiras raízes positivas da função:
-  \begin{equation*}
+  \begin{equation}
     f(x)=5\sin(x^2)-\exp\left({\frac{x}{10}}\right)  
-  \end{equation*}
+  \end{equation}
 em intervalos de comprimento $0,1$. Então, use o método da bisseção para obter aproximações dos zeros desta função com precisão de $10^{-5}$.
 \end{exer}
 \begin{resp}
@@ -511,9 +511,9 @@ em intervalos de comprimento $0,1$. Então, use o método da bisseção para obt
 
 
 \begin{exer} Mostre que a equação do Problema~\ref{existe_unica} possui uma solução no intervalo $[1, v+1]$ para todo $v$ positivo. Dica: defina $f(x)=\ln(x)+x-\frac{1}{x}-v$  e considere a seguinte estimativa:
-  \begin{equation*}
+  \begin{equation}
     f(v+1)=f(1)+\int_1^{v+1}f'(x)dx\geq -v+\int_1^{v+1}dx=0.  
-  \end{equation*}
+  \end{equation}
 Use esta estimativa para iniciar o método de bisseção e obtenha o valor da raiz com pelo menos 6 algarismos significativos para $v=1, 2, 3, 4$ e $5$.
 \end{exer}
 \begin{resp}
@@ -521,9 +521,9 @@ Use esta estimativa para iniciar o método de bisseção e obtenha o valor da ra
 \end{resp}
 
 \begin{exer}(Estática) Considere o seguinte problema físico: uma plataforma está fixa a uma parede através de uma dobradiça cujo momento é dado por:
-  \begin{equation*}
+  \begin{equation}
     \tau=k\theta,
-  \end{equation*}
+  \end{equation}
 onde $\theta$ é angulo da plataforma com a horizontal e $k$ é uma constante positiva. A plataforma é feita de material homogêneo, seu peso é $P$ e sua largura é $l$. Modele a relação entre o ângulo $\theta$ e o peso $P$ próprio da plataforma. Encontre o valor de $\theta$ quando $l=1~\mbox{m}$, $P=200~\mbox{N}$, $k=50~\mbox{Nm}/\mbox{rad}$, sabendo que o sistema está em equilíbrio. Use o método da bisseção e expresse o resultado com 4 algarismos significativos.
 \end{exer}
 \begin{resp}
@@ -532,9 +532,9 @@ onde $\theta$ é angulo da plataforma com a horizontal e $k$ é uma constante po
 
 
 \begin{exer} Considere a equação de Lambert dada por:
-  \begin{equation*}
+  \begin{equation}
     xe^x= t,
-  \end{equation*}
+  \end{equation}
 onde $t$ é um número real positivo. Mostre que esta equação possui uma única solução $x^*$ que pertence ao intervalo $[0, t]$. Usando esta estimativa como intervalo inicial, quantos passos são necessário para obter o valor numérico de $x^*$ com erro absoluto inferior a $10^{-6}$ quando $t=1$, $t=10$ e $t=100$ através do método da bisseção? Obtenha esses valores.
 \end{exer}
 \begin{resp}
@@ -542,9 +542,9 @@ onde $t$ é um número real positivo. Mostre que esta equação possui uma únic
 \end{resp}
 
 \begin{exer}(Eletrônica)\label{prob_diodo} O desenho abaixo mostra um circuito não linear envolvendo uma fonte de tensão constante, um diodo retificador e um resistor. Sabendo que a relação entre a corrente ($I_d)$ e a tensão ($v_d$) no diodo é dada pela seguinte expressão:
-  \begin{equation*}
+  \begin{equation}
     I_d=I_R\left(\exp\left(\frac{v_d}{v_t}\right)-1\right),
-  \end{equation*}
+  \end{equation}
 onde $I_R$ é a corrente de condução reversa e $v_t$, a tensão térmica dada por $v_t=\frac{kT}{q}$ com $k$, a constante de Boltzmann, $T$ a temperatura de operação e $q$, a carga do elétron. Aqui  $I_R=1pA=10^{-12}~\mbox{A}$, $T=300~\mbox{K}$. Escreva o problema como uma equação na incógnita $v_d$ e, usando o método da bisseção, resolva este problema com 3 algarismos significativos para os seguintes casos:
 \end{exer}
 \begin{minipage}[l]{0.6\linewidth}
@@ -565,13 +565,13 @@ Dica: $V=RI_d+v_d$.
 \end{resp}
 
 \begin{exer}(Propagação de erros) Obtenha os valores de $I_d$ no Problema~\ref{prob_diodo}. Lembre que existem duas expressões disponíveis:
-  \begin{equation*}
+  \begin{equation}
     I_d=I_R\left(\exp\left(\frac{v_d}{v_t}\right)-1\right)  
-  \end{equation*}
+  \end{equation}
 e
-\begin{equation*}
+\begin{equation}
   I_d=\frac{v-v_d}{R}
-\end{equation*}
+\end{equation}
 Faça o estudo da propagação do erro e decida qual a melhor expressão em cada caso.
 \end{exer}
 \begin{resp}
@@ -591,15 +591,15 @@ Nesta seção, discutimos a abordagem da \emph{iteração do ponto fixo} para a 
 
 \begin{ex}\label{ex:ponto_fixo_1}
   Resolver a equação $e^x = x + 2$ é equivalente a resolver $f(x) = 0$, com $f(x) = e^x - x - 2$. Estes são equivalentes a resolver $g(x) = x$, com $g(x) = e^x - 2$, isto é:
-  \begin{equation*}
+  \begin{equation}
     e^x = x + 2 \Leftrightarrow e^x - x - 2 = 0 \Leftrightarrow e^x - 2 = x
-  \end{equation*}
+  \end{equation}
 \end{ex}
 
 Dada uma função $g(x)$, a \emph{iteração do ponto fixo} consiste em computar a seguinte sequência recursiva:
-\begin{equation*}
+\begin{equation}
   x^{(n+1)} = g(x^{(n)}), \quad n\geq 1,
-\end{equation*}
+\end{equation}
 onde $x^{(1)}$ é uma aproximação inicial do ponto fixo.
 
 \begin{ex}[Método babilônico]
@@ -612,7 +612,7 @@ Seja $r>0$ uma aproximação para $\sqrt{A}$. Temos três possibilidades:
 \item $r<\sqrt{A} \Longrightarrow \frac{A}{r}>\sqrt{A} \Longrightarrow \sqrt{A}\in \left(r, \frac{A}{r}\right).$
 \end{itemize}
 Ou seja, $\sqrt{A}$ sempre está no intervalo entre $r$ e $\frac{A}{r}$, no qual podemos buscar uma nova aproximação como, por exemplo, pelo ponto médio:
-$$x=\frac{r+\frac{A}{r}}{2}.$$
+\begin{equation} x=\frac{r+\frac{A}{r}}{2}. \end{equation}
 
 Aplicando esse método repetidas vezes, podemos construir a iteração (de ponto fixo):
 \begin{eqnarray*}
@@ -659,9 +659,9 @@ O método babilônico sugere que a iteração do ponto fixo pode ser uma abordag
 \end{enumerate}
 
 A segunda pergunta é a mais fácil de ser respondida. No caso de $g(x)$ ser contínua, se $x^{(n)}\to x^*\in\Dom(g)$, então:
-\begin{equation*}
+\begin{equation}
   x^* = \lim_{n\to\infty} x^{(n)} = \lim_{n\to\infty} g(x^{(n-1)}) = g\left(\lim_{n\to\infty} x^{(n-1)}\right) = g(x^*).
-\end{equation*}
+\end{equation}
 
 % Supondo que o limite de $x_n$ exista, basta substituir $x^*$ na iteração:
 % \begin{eqnarray*}
@@ -680,17 +680,17 @@ Antes de respondermos as outras perguntas acima, vejamos mais um exemplo.
 
 \begin{ex}\label{ex:ponto_fixo_2}
   Considere o problema de encontrar o zero da função $f(x) = xe^x - 10$. Uma maneira geral de construir um problema de ponto fixo equivalente é o seguinte:
-  \begin{equation*}
+  \begin{equation}
     f(x) = 0 \Rightarrow \alpha f(x) = 0 \Rightarrow x - \alpha f(x) = x,
-  \end{equation*}
+  \end{equation}
 para qualquer parâmetro $\alpha\neq 0$. Consideremos, então, as seguintes duas funções:
-\begin{equation*}
+\begin{equation}
   g_1(x) = x - 0,5f(x)\quad\text{e}\quad g_2(x) = x - 0,05f(x).
-\end{equation*}
+\end{equation}
 Notamos que o ponto fixo destas duas funções coincide com o zero de $f(x)$. Construindo as iterações do ponto fixo:
-\begin{equation*}
+\begin{equation}
   x_1^{(n+1)} = g_1(x_1^{(n)})\quad\text{e}\quad x_2^{(n+1)} = g_2(x_2^{(n)}),
-\end{equation*}
+\end{equation}
 tomando $x_1^{(1)} = x_2^{(1)} = 1,7$, obtemos os resultados apresentados na Tabela~\ref{tab:ponto_fixo_2}. Observamos que, enquanto, a iteração do ponto fixo com a função $g_1(x)$ ($\alpha = 0,5$) parece divergir, a iteração com a função $g_2(x)$ ($\alpha = 0,05$) parece convergir.
 
 \begin{table}
@@ -769,7 +769,7 @@ e, assim, sucessivamente. Itere com a função $g_2(x)$ e verifique a convergên
 
 
 % Note que queríamos resolver a equação $f(x)=x e^x-10=0$. Ao invés disso, transformamos essa equação em uma equação de iteração do tipo
-%   $$x^{(n+1)}=g(x^{(n)})$$
+%   \begin{equation} x^{(n+1)}=g(x^{(n)}) \end{equation}
 % e iteramos até encontrar $p$ tal que $g(p)=p$.
 
 
@@ -788,9 +788,9 @@ O teorema do ponto fixo nos fornece condições suficientes para a existência e
 
 \begin{defn}
  Uma \emph{contração}\index{contração} é uma função real $g:[a, b]\to [a, b]$ tal que:
- \begin{equation*}
+ \begin{equation}
    |g(x)-g(y)|\leq \beta |x-y|,\quad 0\leq \beta < 1.
- \end{equation*}
+ \end{equation}
 \end{defn}
 
 \begin{obs}Seja $g:[a, b]\to [a, b]$, y=g(x).
@@ -802,48 +802,48 @@ O teorema do ponto fixo nos fornece condições suficientes para a existência e
 
 \begin{teo}[Teorema do ponto fixo]
  Se $g:[a,b]\to [a,b]$ é uma contração, então existe um único ponto $x^*\in [a, b]$ tal que $g(x^*)= x^*$, isto é, $x^*$ é ponto fixo de $g(x)$. Além disso, a sequência $\{x^{(n)}\}_{n\in\mathbb{N}}$ dada por:
- \begin{equation*}
+ \begin{equation}
    x^{(n+1)}=g(x^{(n)})
- \end{equation*}
+ \end{equation}
 converge para $x^*$ para qualquer $x^{(1)}\in [a, b]$.
 \end{teo}
 \begin{proof}
 Começamos demonstrando que existe pelo menos um ponto fixo. Para tal definimos a função $f(x)=x-g(x)$ e observamos que:
-\begin{equation*}
+\begin{equation}
   f(a)=a-g(a)\leq a-a=0
-\end{equation*}
+\end{equation}
 e
-\begin{equation*}
+\begin{equation}
   f(b)=b-g(b)\geq b-b=0
-\end{equation*}
+\end{equation}
 Se $f(a)=a$ ou $f(b)=b$, então o ponto fixo existe. Caso contrário, as desigualdades são estritas e a $f(x)$ muda de sinal no intervalo.  Como esta função é contínua, pelo teorema de Bolzano~\ref{teo:teorema_de_Bolzano}, existe um ponto $x^*$ no intervalo $(a, b)$ tal que $f(x^*)=0$, ou seja, $g(x^*)=x^*$. Isto mostra a existência.
 
 Para provar que o ponto fixo é único, observamos que se $x^*$ e $x^{**}$ são pontos fixos, eles devem ser iguais, pois:
-\begin{equation*}
+\begin{equation}
   |x^*-x^{**}| = |g(x^{*})-g(x^{**})| \leq \beta |x^*-x^{**}|.
-\end{equation*}
+\end{equation}
 A desigualdade $|x^*-x^{**}|\leq \beta |x^*-x^{**}|$ com $0\leq \beta<1$ implica $|x^*-x^{**}|=0$.
 
 Para demonstrar a convergência da sequência, observamos que:
-\begin{equation*}
+\begin{equation}
   |x^{(n+1)}-x^*| = |g(x^{(n)})-x^*| = |g(x^{(n)})-g(x^*)| \leq \beta |x^{(n)}-x^*|.
-\end{equation*}
+\end{equation}
 Daí, temos:
-\begin{equation*}
+\begin{equation}
   |x^{(n)}-x^*|\leq  \beta |x^{(n-1)}-x^*|\leq \beta^2 |x^{(n-2)}-x^*|\leq \cdots \leq \beta^{n}|x^{(0)}-x^*|.
-\end{equation*}
+\end{equation}
 Portanto, como $0\leq\beta<1$, temos:
-\begin{equation*}
+\begin{equation}
   \lim_{n\to\infty}|x^{(n)}-x^*|=0,
-\end{equation*}
+\end{equation}
 ou seja, $x^{(n)}\to x^*$ quando $n\to\infty$.
 \end{proof}
 
 \begin{obs}
   Do teorema do ponto fixo, temos que se $g(x)$ é uma contração com constante $0\leq \beta < 1$, então:
-  \begin{equation*}
+  \begin{equation}
     |x^{(n+1)}-x^*| \leq \beta |x^{(n)}-x^*|,\quad n\geq 1.
-  \end{equation*}
+  \end{equation}
 Isto é, as iterações do ponto fixo têm taxa de convergência linear\index{iteração do ponto fixo!taxa de convergência}.
 \end{obs}
 
@@ -858,19 +858,19 @@ Mostre que o teorema do ponto fixo se aplica a função $g(x) = \cos(x)$ no inte
   \end{enumerate}
 
 Para provar a), observamos que $g(x)$ é decrescente no intervalo, pelo que temos:
-\begin{equation*}
+\begin{equation}
   0,54<\cos(1)\leq \cos(x)\leq \cos(1/2)<0,88
-\end{equation*}
+\end{equation}
 Como $[0,54,~0,88]\subseteq [0,5,~1]$, temos o item a).
 
 Para provar o item b), observamos que:
-\begin{equation*}
+\begin{equation}
   g'(x) = -\sin(x).
-\end{equation*}
+\end{equation}
 Da mesma forma, temos a estimativa:
-\begin{equation*}
+\begin{equation}
   -0,85<-\sin(1) \leq -\sin(x)\leq -\sin(1/2)<-0,47.
-\end{equation*}
+\end{equation}
 Assim, $|g'(x)|<0,85$ temos a desigualdade com $\beta=0,85<1$.
 
 \begin{table}
@@ -1004,13 +1004,13 @@ Seja $g:[a,b]\to\mathbb{R}$ uma função $C^0[a,b]$ e $x^*\in(a,b)$ um ponto fix
 
 \begin{ex}\label{ex:ponto_fixo_4}
   No Exemplo~\ref{ex:ponto_fixo_2}, observamos que a função $g_1(x)$ nos forneceu uma iteração divergente, enquanto que a função $g_2(x)$ forneceu uma iteração convergente (veja a Figura~\ref{fig:teste_de_convergencia}. Estes comportamentos são explicados pelo teste da convergência. Com efeito, sabemos que o ponto fixo destas funções está no intervalo $[1,6, 1,8]$ e temos:
-  \begin{equation*}
+  \begin{equation}
     |g_1'(x)| = |1 - 0,5(x+1)e^x| > 4,8,\quad\forall x\in [1,6, 1,8],
-  \end{equation*}
+  \end{equation}
 enquanto:
-\begin{equation*}
+\begin{equation}
   |g_2'(x)| = |1 - 0,05(x+1)e^x| < 0,962,\quad\forall x\in [1,6, 1,8].
-\end{equation*}
+\end{equation}
 \end{ex}
 
 \subsection{Estabilidade e convergência}\index{iteração do ponto fixo!estabilidade}\index{iteração do ponto fixo!convergência}
@@ -1052,12 +1052,12 @@ onde $\epsilon_n=\left|x^{(n)}-x^*\right|$.
 \subsection{Erro absoluto e tolerância}\index{erros!absoluto}\index{tolerância}
 
 Na prática, quando se aplica uma iteração como esta, não se conhece de antemão o valor do ponto fixo $x^*$. Assim, o erro $\epsilon_n=\left|x^{(n)}-x^*\right|$ precisa ser estimado com base nos valores calculados $x^{(n)}$. Uma abordagem frequente é analisar a evolução da diferença entre dois elementos da sequência:
-$$\Delta_n=\left|x^{(n+1)}-x^{(n)}\right|$$
+\begin{equation} \Delta_n=\left|x^{(n+1)}-x^{(n)}\right| \end{equation}
 
 A pergunta natural é: Será que o erro $\epsilon_n=\left|x^{(n)}-x^*\right|$ é pequeno quando  $\Delta_n=\left|x^{(n+1)}-x^{(n)}\right|$ for pequeno?
 
 Para responder a esta pergunta, observamos que
-$$x^*=\lim_{n\to \infty }x^{(n)}$$
+\begin{equation} x^*=\lim_{n\to \infty }x^{(n)} \end{equation}
 portanto:
 \begin{eqnarray*}
 x^*-x^{(N)}&=&  \left(x^{(N+1)}-x^{(N)}\right)+\left(x^{(N+2)}-x^{(N+1)}\right)+\left(x^{(N+3)}-x^{(N+2)}\right)+\ldots\\
@@ -1097,9 +1097,9 @@ Tendo em mente a relação $x^{(n+1)}-x^{(n)}  \approx (x^{(n)}-x^{(n-1)}) g'(x^
 
 \item Quando $g'(x^*)<0$, o esquema é alternante, isto é, o sinal do erro se altera a cada passo.  O erro $\epsilon_N$ pode ser estimado diretamente da diferença $\Delta_N$, pois o denominador $1-g'(x^*)>1$.
 \item Quando $0<g'(x^*)<1$, o esquema é monótono e $\frac{1}{1-g'(x^*)}>1$, pelo que o erro $\epsilon_N$ é maior que a diferença $\Delta_N$. A relação será tão mais importante quando mais próximo da unidade for $g'(x^*)$, ou seja, quando mais lenta for a convergência. Para estimar o erro em função da diferença $\Delta_N$, observamos que  $g'(x^*)\approx \frac{x^{(n+1)}-x^{(n)}}{x^{(n)}-x^{(n-1)}}$ e 
-$$\left|g'(x^*)\right|\approx \frac{\Delta_n}{\Delta_{n-1}}$$
+\begin{equation} \left|g'(x^*)\right|\approx \frac{\Delta_n}{\Delta_{n-1}} \end{equation}
 e portanto
-$$\epsilon_N \approx \frac{\Delta_N}{1-\frac{\Delta_n}{\Delta_{n-1}}}.$$
+\begin{equation} \epsilon_N \approx \frac{\Delta_N}{1-\frac{\Delta_n}{\Delta_{n-1}}}. \end{equation}
 \end{itemize}  
 \end{obs}
 
@@ -1113,9 +1113,9 @@ $$\epsilon_N \approx \frac{\Delta_N}{1-\frac{\Delta_n}{\Delta_{n-1}}}.$$
 \end{resp}
 
 \begin{exer}  Mostre que a equação:
-  \begin{equation*}
+  \begin{equation}
     \cos(x)=x  
-  \end{equation*}
+  \end{equation}
 possui uma única solução no intervalo $[0, 1]$. Use a iteração do ponto fixo e encontre uma aproximação para esta solução com  4 dígitos significativos.
 \end{exer}
 \begin{resp}
@@ -1126,9 +1126,9 @@ possui uma única solução no intervalo $[0, 1]$. Use a iteração do ponto fix
 
 \begin{exer}
   Mostre que a equação $xe^x = 10$ é equivalente às seguintes equações:
-\begin{equation*}
+\begin{equation}
   x=\ln\left(\frac{10}{x}\right)\quad\text{e}\quad x=10e^{-x}.
-\end{equation*}
+\end{equation}
 Destas, considere as seguintes iterações de ponto fixo:
 \begin{enumerate}
  \item [a)] $\displaystyle x^{(n+1)}=\ln \left(\frac{10}{x^{(n)}}\right)$
@@ -1164,9 +1164,9 @@ Este experimento numérico sugere que a iteração a) converge para $1,745528$ e
 \end{resp}
 
 \begin{exer} Verifique (analiticamente) que a única solução real da equação:
-  \begin{equation*}
+  \begin{equation}
     xe^x=10
-  \end{equation*}
+  \end{equation}
 é ponto fixo das seguintes funções:
 \begin{itemize}
 \item[a)] $g(x)=\ln\left(\frac{10}{x}\right)$
@@ -1177,9 +1177,9 @@ Implemente o processo iterativo $x^{(n+1)}=g(x^{(n)})$ para $n\geq 0$ e compare 
 \end{exer}
 
 \begin{exer} Verifique (analiticamente) que a única solução real da equação:
-  \begin{equation*}
+  \begin{equation}
     \cos(x)=x  
-  \end{equation*}
+  \end{equation}
 é ponto fixo das seguintes funções:
 \begin{itemize}
 \item[a)] $g(x)=\cos(x)$
@@ -1199,9 +1199,9 @@ Implemente o processo iterativo $x^{(n+1)}=g(x^{(n)})$ para $n\geq 0$ e compare 
 \end{exer}
 
 \begin{exer} Encontre numericamente as três primeiras raízes positivas da equação dada por:
-  \begin{equation*}
+  \begin{equation}
     \cos(x)=\frac{x}{10+x^2}  
-  \end{equation*}
+  \end{equation}
 com erro absoluto inferior a $10^{-6}$.
 \end{exer}
 \begin{resp}
@@ -1211,7 +1211,7 @@ com erro absoluto inferior a $10^{-6}$.
 
 
 \begin{exer} Considere os seguintes processos iterativos:
-\begin{equation*}
+\begin{equation}
 \begin{array}{l}
 a\left\{\begin{array}{rcl}
 x^{(n+1)}&=&\cos(x^{(n)})\\
@@ -1224,7 +1224,7 @@ x^{(1)}&=&.5
 \end{array}
 \right.
 \end{array}
-\end{equation*}
+\end{equation}
 
 Use o teorema do ponto fixo para verificar que cada um desses processos converge para a solução da equação $x^*$ de $\cos(x)=x$. Observe o comportamento numérico dessas sequências. Qual estabiliza mais rápido com cinco casas decimais? Discuta.
 
@@ -1236,9 +1236,9 @@ Dica: Verifique que $\cos([0.5,1])\subseteq [0.5,1]$ e depois a mesma identidade
 \end{exer}
 
 \begin{exer}(Fluidos) Na hidráulica, o fator de atrito de Darcy é dado pela implicitamente pela equação de Colebrook-White:
-$$\frac{1}{\sqrt{f}}= -2 \log_{10} \left( \frac{\varepsilon}{14.8 R_h} + \frac{2.51}{\mathrm{Re}\sqrt{f}} \right)$$
+\begin{equation} \frac{1}{\sqrt{f}}= -2 \log_{10} \left( \frac{\varepsilon}{14.8 R_h} + \frac{2.51}{\mathrm{Re}\sqrt{f}} \right) \end{equation}
 onde $f$ é o fator de atrito, $\varepsilon$ é a rugosidade do tubo em metros, $R_{h}$ é o raio hidráulico em metros e ${Re}$ é o número de Reynolds. Considere $\varepsilon=2mm$, $R_{h}=5cm$ e ${Re}=10000$ e obtenha o valor de $f$ pela iteração:
-$$x^{(n+1)}=-2 \log_{10} \left( \frac{\varepsilon}{14.8 R_{h}} + \frac{2.51x^{(n)}}{\mathrm{Re}} \right)$$
+\begin{equation} x^{(n+1)}=-2 \log_{10} \left( \frac{\varepsilon}{14.8 R_{h}} + \frac{2.51x^{(n)}}{\mathrm{Re}} \right) \end{equation}
 \end{exer}
 \begin{resp}
   
@@ -1247,15 +1247,15 @@ $0.0431266$
 \end{resp}
 
 \begin{exer} Encontre uma solução aproximada para equação algébrica
-$$180-100x=0.052\sinh^{-1}(10^{13}x)$$
+\begin{equation} 180-100x=0.052\sinh^{-1}(10^{13}x) \end{equation}
 com erro absoluto inferior a $10^{-3}$ usando um método iterativo.
 Estime o erro associado ao valor de $v=180-100x=0.052\sinh^{-1}(10^{13}x)$, usando cada uma dessas expressões. Discuta sucintamente o resultado obtido. Dica: Este caso é semelhante ao Problema~\ref{prob_diodo}.
 \end{exer}
 
 \begin{exer}Considere que $x_n$ satisfaz a seguinte relação de recorrência:
-$$x_{n+1}=x_n - \beta \left(x_n-x^*\right)$$
+\begin{equation} x_{n+1}=x_n - \beta \left(x_n-x^*\right) \end{equation}
 onde $\beta$ e $x^*$ são constantes.
-Prove que $$x_n-x^*=(1-\beta)^{n-1}(x_1-x^*).$$
+Prove que \begin{equation} x_n-x^*=(1-\beta)^{n-1}(x_1-x^*). \end{equation}
 Conclua que $x_n\to x^*$ quando $|1-\beta|<1$.
 \end{exer}
 
@@ -1266,14 +1266,14 @@ Conclua que $x_n\to x^*$ quando $|1-\beta|<1$.
   \end{eqnarray*}
 onde $q=1-10^{-6}$.
 \begin{itemize}
-\item[a)] Calcule o limite $$x_\infty=\lim_{n\to\infty}x^{(n)}$$ analiticamente.
+\item[a)] Calcule o limite \begin{equation} x_\infty=\lim_{n\to\infty}x^{(n)} \end{equation} analiticamente.
 \item[b)] Considere que o problema de obter o limite da sequência numericamente usando como critério de parada que $|x^{(n+1)}-x^{(n)}|<10^{-5}$. Qual o valor é produzido pelo esquema numérico? Qual o desvio entre o valor obtido pelo esquema numérico e o valor do limite obtido no item a?  Discuta. (Dica: Você não deve implementar o esquema iterativo, obtendo o valor de $x^{(n)}$ analiticamente)
 \item[c)] Qual deve ser a tolerância especificada para obter o resultado com erro relativo inferior a $10^{-2}$?
 \end{itemize}
 \end{exer}
 
 \begin{exer}(Convergência sublinear) Considere o seguinte esquema iterativo:
-$$x^{(n+1)}=x^{(n)}-[x^{(n)}]^3,\ x^{(n)}\geq 0$$
+\begin{equation} x^{(n+1)}=x^{(n)}-[x^{(n)}]^3,\ x^{(n)}\geq 0 \end{equation}
 com $x^{(0)}= 10^{-2}$.
 Prove que $\{x^{(n)}\}$ é sequência de número reais positivos convergindo para zero. Verifique que são necessários mais de mil passos para que $x^{(n)}$ se torne menor que $0.9 x^{(0)}$.
 \end{exer}
@@ -1291,7 +1291,7 @@ Prove que $\{x^{(n)}\}$ é sequência de número reais positivos convergindo par
 \begin{itemize}
 \item[a)] Considere a função $g(x)$ e função composta $\psi(x)=g\circ g=g\left(g(x)\right)$. Verifique todo ponto fixo de $g$ também é ponto fixo de $\psi$.
 
-\item[b)]  Considere a função $$g(x)=10\exp(-x)$$ e função composta $\psi(x)=g\circ g=g\left(g(x)\right)$. Mostre que $\psi$ possui dois pontos fixos que não são pontos fixos de $g$.
+\item[b)]  Considere a função \begin{equation} g(x)=10\exp(-x) \end{equation} e função composta $\psi(x)=g\circ g=g\left(g(x)\right)$. Mostre que $\psi$ possui dois pontos fixos que não são pontos fixos de $g$.
 
 \item[c)]  No problema anterior, o que acontece quando o processo iterativo $x^{(n+1)}=g(x^{(n)})$ é inicializado com um ponto fixo de $\psi$ que não é ponto fixo de $g$?
 \end{itemize}
@@ -1301,9 +1301,9 @@ Prove que $\{x^{(n)}\}$ é sequência de número reais positivos convergindo par
 \end{exer}
 
 \begin{exer}(Aceleração de convergência - introdução ao método de Newton)\label{int_new2} Considere que $x^{(n)}$ satisfaz a seguinte relação de recorrência:
-$$x^{(n+1)}=x^{(n)} - \gamma f(x^{(n)})$$
+\begin{equation} x^{(n+1)}=x^{(n)} - \gamma f(x^{(n)}) \end{equation}
 onde $\gamma$ é uma constante. Suponha que $f(x)$ possui um zero em $x^*$. Aproxime a função $f(x)$ em torno de $x^*$ por
-$$f(x)=f(x^*)+f'(x^*)(x-x^*)+O\left((x-x^*)^2\right).$$
+\begin{equation} f(x)=f(x^*)+f'(x^*)(x-x^*)+O\left((x-x^*)^2\right). \end{equation}
 Em vista do problema anterior, qual valor de $\gamma$ você escolheria para que a sequência $x^{(n)}$ convirja rapidamente para $x^*$. 
 \end{exer}
 
@@ -1324,59 +1324,59 @@ $$
 Verifique numericamente que apenas o processo A é convergente para a, b e c; enquanto apenas o processo B é convergente para os outros itens.
 \end{exer}
 
-\section{Método de Newton-Raphson}\index{método de Newton-Raphson}\label{metodo_newton_1d}
+\section{Método de Newton-Raphson}\index{método de Newton-Raphson}\label{sec:metodo_newton_1d}
 
 Nesta seção, apresentamos o \emph{método de Newton-Raphson}\footnote{Joseph Raphson, 1648 - 1715, matemático inglês.}\footnote{Também chamado apenas de método de Newton.}\index{método de!Newton-Raphson}\index{método de!Newton} para calcular o zero de funções reais de uma variável real. 
 
 Consideramos que $x^*$ seja um zero de uma dada função $f(x)$ continuamente diferenciável, isto é, $f(x^*) = 0$. A fim de usar a iteração do ponto fixo, observamos que, equivalentemente, $x^*$ é um ponto fixo da função:
-\begin{equation*}
+\begin{equation}
   g(x)= x + \alpha(x)f(x),\quad\alpha(x)\neq 0,
-\end{equation*}
+\end{equation}
 onde $\alpha(x)$ é uma função arbitrária, a qual escolheremos de forma que a iteração do ponto fixo tenha ótima taxa de convergência. 
 
 Do \emph{teorema do ponto fixo}\index{teorema do!ponto fixo}, a taxa de convergência é dada em função do valor absoluto da derivada de $g(x)$. Calculando a derivada temos:
-\begin{equation*}
+\begin{equation}
   g'(x)=1+\alpha(x)f'(x)+\alpha'(x)f(x).
-\end{equation*}
+\end{equation}
 No ponto $x = x^*$, temos:
-\begin{equation*}
+\begin{equation}
   g'(x^*) = 1 + \alpha(x^*)f'(x^*) + \alpha'(x^*)f(x^*).
-\end{equation*}
+\end{equation}
 Como $f(x^*)=0$, temos:
-\begin{equation*}
+\begin{equation}
   g'(x^*) = 1 + \alpha(x^*)f'(x^*).
-\end{equation*}
+\end{equation}
 
 Sabemos que o processo iterativo converge tão mais rápido quanto menor for $|g'(x)|$ nas vizinhanças de $x^*$. Isto nos leva a escolher:
-\begin{equation*}
+\begin{equation}
   g'(x^*) = 0,
-\end{equation*}
+\end{equation}
 e, então, temos:
-\begin{equation*}
+\begin{equation}
   \alpha(x^*) = -\frac{1}{f'(x^*)},
-\end{equation*}
+\end{equation}
 se $f'(x^*)\neq 0$.
 
 A discussão acima nos motiva a introduzir o método de Newton, cujas iterações são dada por:
-\begin{equation*}
+\begin{equation}
   x^{(n+1)} = x^{(n)} - \frac{f\left(x^{(n)}\right)}{f'\left(x^{n}\right)}, \quad n\geq 1,
-\end{equation*}
+\end{equation}
 sendo $x^{(1)}$ uma aproximação inicial dada.
 
 \subsection{Interpretação geométrica}
 
 Seja uma dada função $f(x)$  conforme na Figura~\ref{fig:metodo_de_Newton}. Para tanto, escolhemos uma aproximação inicial $x^{(1)}$ e computamos:
-\begin{equation*}
+\begin{equation}
   x^{(2)} = x^{(1)} - \frac{f(x^{(1)})}{f'(x^{(1)})}.
-\end{equation*}
+\end{equation}
 Geometricamente, o ponto $x^{(2)}$ é a interseção da reta tangente ao gráfico da função $f(x)$ no ponto $x = x^{(1)}$ com o eixo das abscissas. Com efeito, a equação desta reta é:
-\begin{equation*}
+\begin{equation}
   y = f'(x^{(1)})(x - x^{(1)}) + f(x^{(1)}).
-\end{equation*}
+\end{equation}
 Assim, a interseção desta reta com o eixo das abscissas ($y=0$) ocorre quando:
-\begin{equation*}
+\begin{equation}
   f'(x^{(1)})(x - x^{(1)}) + f(x^{(1)}) = 0\Rightarrow x = x^{(1)} - \frac{f(x^{(1)})}{f'(x^{(1)})}.
-\end{equation*}
+\end{equation}
 
 \begin{figure}[h]
   \centering
@@ -1390,57 +1390,57 @@ Ou seja, dada aproximação $x^{(n)}$, a próxima aproximação $x^{(n+1)}$ é o
 \subsection{Análise de convergência}\index{método de Newton-Raphson!convergência}\label{Analise_conv_Newton}
 
 Seja $f(x)$ um função com derivadas primeira e segunda contínuas tal que $f(x^*)=0$ e $f'(x^*)\neq 0$. Seja também a função $g(x)$ definida como:
-\begin{equation*}
+\begin{equation}
   g(x)=x-\frac{f(x)}{f'(x)}.
-\end{equation*}
+\end{equation}
 Expandimos em série de Taylor em torno de $x = x^*$, obtemos:
-\begin{equation*}
+\begin{equation}
   g(x)=g(x^*)+g'(x^*)(x-x^*) + \frac{g''(x^*)}{2}(x-x^*)^2 + O\left((x-x^*)^3\right).
-\end{equation*}
+\end{equation}
 Observamos que:
 \begin{eqnarray*}
 g(x^*) &=& x^*\\
 g'(x^*) &=& 1 - \frac{f'(x^*)f'(x^*)-f(x^*)f''(x^*)}{\left(f'(x^*)\right)^2} = 0
 \end{eqnarray*}
 Portanto:
-\begin{equation*}
+\begin{equation}
 g(x) = x^* + \frac{g''(x^*)}{2}(x-x^*)^2 + O\left((x-x^*)^3\right)\\
-\end{equation*}
+\end{equation}
 Com isso, temos:
-\begin{equation*}
+\begin{equation}
 x^{(n+1)} = g(x^{(n)}) =  x^*+ \frac{g''(x^*)}{2}(x^{(n)}-x^*)^2 + O\left((x-x^*)^3\right),
-\end{equation*}
+\end{equation}
 ou seja:
-\begin{equation*}
+\begin{equation}
 \left|x^{(n+1)}-x^*\right| \leq C\left|x^{(n)}-x^*\right|^2,
-\end{equation*}
+\end{equation}
 com constante $C = \left|g''(x^*)/2\right|$. Isto mostra que o método de Newton tem \emph{taxa de convergência quadrática}. Mais precisamente, temos o seguinte teorema.
 
 \begin{teo}[Método de Newton]
   Sejam $f\in C^2([a, b])$ com $x^*\in (a, b)$ tal que $f(x^*) = 0$ e:
-  \begin{equation*}
+  \begin{equation}
     m := \min_{x\in [a, b]}|f'(x)| > 0\quad\text{e}\quad M := \max_{x\in [a, b]} |f''(x)|.
-  \end{equation*}
+  \end{equation}
 Escolhendo $\rho > 0$ tal que:
-\begin{equation*}
+\begin{equation}
   q := \frac{M}{2m}\rho < 1, 
-\end{equation*}
+\end{equation}
 definimos a \emph{bacia de atração} do método de Newton pelo conjunto:
-\begin{equation*}
+\begin{equation}
   K_\rho(x^*) := \left\{x\in\mathbb{R};~|x-x^*| \leq \rho\right\}\subset [a, b].
-\end{equation*}
+\end{equation}
 Então, para qualquer $x^{(1)}\in K_\rho(x^*)$ a iteração do método de Newton:
-\begin{equation*}
+\begin{equation}
   x^{(n+1)} = x^{(n)} - \frac{f(x^{(n)})}{f'(x^{(n)})},
-\end{equation*}
+\end{equation}
 fornece uma sequência $x^{(n)}$ que converge para $x^*$, isto é, $x^{(n)}\to x^*$ quando $n\to \infty$. Além disso, temos a seguinte estimativa de erro \emph{a priori}:
-\begin{equation*}
+\begin{equation}
   |x^{(n)} - x^*| \leq \frac{2m}{M}q^{(2^{n-1})},\quad n\geq 2,
-\end{equation*}
+\end{equation}
 e a seguinte estimativa de erro \emph{a posteriori}:
-\begin{equation*}
+\begin{equation}
   |x^{(n)} - x^*| \leq \frac{M}{2m}|x^{(n)} - x^{(n-1)}|^2,\quad n\geq 2.
-\end{equation*}
+\end{equation}
 \end{teo}
 \begin{proof}
   Para $n\in\mathbb{N}$, $n\geq 2$, temos:
@@ -1448,13 +1448,13 @@ e a seguinte estimativa de erro \emph{a posteriori}:
     x^{n+1}-x^* = x^{(n)} - \frac{f(x^{(n)})}{f'(x^{(n)})} - x^* = -\frac{1}{f(x^{(n)})}\left[f(x^{(n)})+(x^*-x^{(n)})f'(x^{(n)}\right].
   \end{equation}
 Agora, para estimar o lado direito desta equação, usamos o polinômio de Taylor de grau $1$ da função $f(x)$ em torno de $x = x^{(n)}$, isto é:
-\begin{equation*}
+\begin{equation}
   f(x^*) = f(x^{(n)}) + (x^* - x^{(n)})f'(x^{(n)}) + \int_{x^{(n)}}^{x^*} f''(t)(x^* - t)\,dt.
-\end{equation*}
+\end{equation}
 Pela mudança de variável $t = x^{(n)} + s(x^{(n)} - x^*)$, observamos que o resto deste polinômio de Taylor na forma integral é igual a:
-\begin{equation*}
+\begin{equation}
   R(x^*,x^{(n)}) := (x^* - x^{(n)})^2\int_0^1 f''\left(x^{(n)} + s(x^* - x^{(n)})\right)(1-s)\,ds.
-\end{equation*}
+\end{equation}
 Assim, da cota da segunda derivada de $f(x)$, temos:
 \begin{equation}\label{eq:est-resto}
   |R(x^*,x^{(n)})| \leq M|x^*-x^{(n)}|^2\int_0^1 (1-s)\,ds = \frac{M}{2}|x^* - x^{(n)}|^2.
@@ -1466,31 +1466,31 @@ Se $x^{(n)}\in K_\rho(x^*)$, então de \eqref{eq:forma} e \eqref{eq:est-resto} t
 Isto mostra que se $x^{(n)}\in K_\rho(x^*)$, então $x^{(n+1)}\in K_\rho(x^*)$, isto é, $x^{(n)}\in K_\rho(x^*)$ para todo $n\in\mathbb{R}$.
 
 Agora, obtemos a estimativa \emph{a priori} de \eqref{eq:quadratica}, pois:
-\begin{equation*}
+\begin{equation}
   |x^{(n)} - x^*| \leq \frac{2m}{M}\left(\frac{M}{2m}|x^{(n-1)}-x^*|\right)^2 \leq \cdots \leq \frac{2m}{M}\left(\frac{M}{2m} |x^{(1)}-x^*|\right)^{2^{n-1}}.
-\end{equation*}
+\end{equation}
 Logo:
-\begin{equation*}
+\begin{equation}
   |x^{(n)} - x^*| \leq \frac{2m}{M}q^{2^{n-1}},
-\end{equation*}
+\end{equation}
 donde também vemos que $x^{(n)}\to x^*$ quando $n\to\infty$, pois $q < 1$.
 
 Por fim, para provarmos a estimativa \emph{a posteriori} tomamos a seguinte expansão em polinômio de Taylor:
-\begin{equation*}
+\begin{equation}
   f(x^{(n)}) = f(x^{(n-1)}) + (x^{(n)} - x^{(n-1)})f'(x^{(n-1)}) + R(x^{(n)},x^{(n-1)}).
-\end{equation*}
+\end{equation}
 Aqui, temos:
-\begin{equation*}
+\begin{equation}
   f(x^{(n-1)}) + (x^{(n)} - x^{(n-1)})f'(x^{(n-1)}) = 0
-\end{equation*}
+\end{equation}
 e, então, conforme acima:
-\begin{equation*}
+\begin{equation}
   |f(x^{(n)})| = |R(x^{(n)}),x^{(n-1)}| \leq \frac{M}{2}|x^{(n)} - x^{(n-1)}|^2.
-\end{equation*}
+\end{equation}
 Com isso e do teorema do valor médio, concluímos:
-\begin{equation*}
+\begin{equation}
   |x^{(n)} - x^*| \leq \frac{1}{m}|f(x^{(n)}) - f(x^*)| \leq \frac{M}{2m}|x^{(n)} - x^{(n-1)}|^2.
-\end{equation*}
+\end{equation}
 \end{proof}
 
 \begin{ex}
@@ -1498,9 +1498,9 @@ Com isso e do teorema do valor médio, concluímos:
 \end{ex}
 \begin{sol}
   O raio da bacia de atração é tal que:
-  \begin{equation*}
+  \begin{equation}
     \rho < \frac{2m}{M}
-  \end{equation*}
+  \end{equation}
 onde $m := \min |f'(x)|$ e $M := \max |f''(x)|$ com o mínimo e o máximo tomados em um intervalo $[a, b]$ que contenha o zero da função $f(x)$. Aqui, por exemplo, podemos tomar $[a, b] = [0, \pi/2]$. Como, neste caso, $f'(x) = -\sin(x) - 1$, temos que $m = 1$. Também, como $f''(x) = -\cos x$, temos $M = 1$. Assim, concluímos que $\rho < 2$ (lembrando que $K_\rho(x^*)\subset [0, \pi/2]$). Ou seja, neste caso as iterações de Newton convergem para o zero de $f(x)$ para qualquer escolha da aproximação inicial $x^{(1)}\in [0, \pi/2]$.
 \end{sol}
 
@@ -1541,9 +1541,9 @@ Encontre a raiz positiva da função $f(x)=\cos(x)-x^2$ pelo método de Newton i
 \end{resp}
 
 \begin{exer} Considere o problema de calcular as soluções positivas da equação:
-  \begin{equation*}
+  \begin{equation}
     \tg(x)=2x^2.    
-  \end{equation*}
+  \end{equation}
 \begin{itemize}
 \item[a)] Use o método gráfico para isolar as duas primeiras raízes positivas em pequenos intervalos. Use a teoria para argumentar quanto à existência e unicidade das raízes dentro intervalos escolhidos.
 % \item[b)] Calcule o número de iterações necessárias para que o método da bisseção aproxime cada uma das raízes com erro absoluto inferior a $10^{-8}$. Calcule as raízes por este método usando este número de passos.
@@ -1577,15 +1577,15 @@ f'(x)=\sec^2(x)-4x=\frac{1}{\cos^2(x)}-4x\geq \frac{1}{\cos^2(1,2)}-4*1,3>0, ~~x
 
 % \item[b)] 
 % Já isolamos as raízes em intervalos de comprimento $10^{-1}$ e a precisão requerida exige que as isolemos em intervalos de comprimento $2\times 10^{-8}$. Como cada passo da bisseção, confina a raiz em um intervalo com comprimento igual à metade do comprimento do intervalo anterior, temos a seguinte condição para o número de passos $N_p$:
-% $$\frac{10^{-1}}{2^N_p}\leq 2\times 10^{-8}$$
+% \begin{equation} \frac{10^{-1}}{2^N_p}\leq 2\times 10^{-8} \end{equation}
 % isso é equivalente a
-% $$N_p\geq \log_2 \frac{10^{-1}}{2\times 10^{-8}}=\log_2 \frac{10^{7}}{2}=7\log_2 10 -1=\frac{7}{\log_10 2}-1\approx 22.22$$
+% \begin{equation} N_p\geq \log_2 \frac{10^{-1}}{2\times 10^{-8}}=\log_2 \frac{10^{7}}{2}=7\log_2 10 -1=\frac{7}{\log_10 2}-1\approx 22.22 \end{equation}
 % Como $N_p$ é inteiro, o menor $N_p$ que satisfaz a condição é $23$.
 
 % As raízes obtidas são $0.55970415$ e $1.2703426$. 
 
 \item[b)] Para recalcular as raízes pelo método de Newton, basta executar a iteração:
-$$x^{(n+1)}=x^{(n)}-\frac{f(x^{(n)})}{f'(x^{(n)}}.$$    
+\begin{equation} x^{(n+1)}=x^{(n)}-\frac{f(x^{(n)})}{f'(x^{(n)}}. \end{equation}    
 \end{itemize}
 Em relação à observação, o erro se deveu à falta de cuidado em compreender o problema antes de tentar resolvê-lo, em especial, à falta de observar que a função é descontínua em  múltiplos ímpares de $\frac{\pi}{2}$. Nestes pontos, a função $f(x)$ troca de sinal, mas não passa por zero.    
 \end{resp}
@@ -1594,7 +1594,7 @@ Em relação à observação, o erro se deveu à falta de cuidado em compreender
 
 
 \begin{exer}\label{new1} Considere a equação
-  $$e^{-x^2}=x$$
+  \begin{equation} e^{-x^2}=x \end{equation}
 trace o gráfico com auxílio do computador e verifique que ela possui uma raiz positiva. Encontre uma aproximação para esta razão pelo gráfico e use este valor para inicializar o método de Newton e obtenha uma aproximação para a raiz com 8 dígitos significativos. \ifisscilab (Use o comando \verb+format('v',16)+ para alterar a visualização no \verb+Scilab+.)\fi
 \end{exer}
 \begin{resp}
@@ -1602,7 +1602,7 @@ trace o gráfico com auxílio do computador e verifique que ela possui uma raiz 
   \end{resp}
 
 \begin{exer}\label{new2} Isole e encontre as cinco primeiras raízes positivas da equação com 6 dígitos corretos através de traçado de gráfico e do método de Newton.
-$$\cos(10x)=e^{-x}.$$ Dica: a primeira raiz positiva está no intervalo $(0, 0,02)$. Fique atento.
+\begin{equation} \cos(10x)=e^{-x}. \end{equation} Dica: a primeira raiz positiva está no intervalo $(0, 0,02)$. Fique atento.
 \end{exer}
 \begin{resp}
    $0,0198679$; $0,533890$; $0,735412$; $1,13237$ e $1,38851$.
@@ -1672,7 +1672,7 @@ $x_0>1$.
 \end{eqnarray*}
 definida para $x\in \left(0,e^{15}\right)$
 \begin{itemize}
-\item [a)] Use o teorema do ponto fixo para provar que se $x^{(0)}$ pertence ao intervalo $[1,3]$, então a sequência dada iterativamente por $$x^{(n+1)}=\psi(x^{(n)}),n\geq 0$$ converge para o único ponto fixo, $x^*$, de $\psi$. Construa a iteração $x^{(n+1)}=\psi(x^{(n)})$ e obtenha numericamente o valor do ponto fixo $x^*$. Expresse a resposta com 5 algarismos significativos corretos.
+\item [a)] Use o teorema do ponto fixo para provar que se $x^{(0)}$ pertence ao intervalo $[1,3]$, então a sequência dada iterativamente por \begin{equation} x^{(n+1)}=\psi(x^{(n)}),n\geq 0 \end{equation} converge para o único ponto fixo, $x^*$, de $\psi$. Construa a iteração $x^{(n+1)}=\psi(x^{(n)})$ e obtenha numericamente o valor do ponto fixo $x^*$. Expresse a resposta com 5 algarismos significativos corretos.
 \item [b)] Construa a iteração do método de Newton para encontrar $x^*$, explicitando a relação de recorrência e iniciando com $x_0=2$. Use o computador para obter a raiz e expresse a resposta com oito dígitos significativos corretos.
 \end{itemize}
 \end{exer}
@@ -1680,22 +1680,22 @@ definida para $x\in \left(0,e^{15}\right)$
 \section{Método das secantes}\index{método das secantes}
 
 O \emph{método das secantes} é uma variação do método de Newton, evitando a necessidade de conhecer-se a derivada analítica de $f(x)$. Dada uma função $f(x)$, a ideia é aproximar sua derivada pela razão fundamental:
-\begin{equation*}
+\begin{equation}
   f'(x)\approx \frac{f(x)-f(x_0)}{x-x_0},\quad x\approx x_0.
-\end{equation*}
+\end{equation}
 
 Mais precisamente, o método de Newton é uma iteração de ponto fixo da forma:
-\begin{equation*}
+\begin{equation}
   x^{(n+1)} = x^{(n)} - \alpha(x^{(n)})f(x^{(n)}),\quad n\geq 1,
-\end{equation*}
+\end{equation}
 onde $x^{(1)}$ é uma aproximação inicial dada e $\alpha(x^{(n)}) = 1/f'(x^{(n)})$. Usando a aproximação da derivada acima, com $x = x^{(n)}$ e $x_0 = x^{(n-1)}$, temos:
-\begin{equation*}
+\begin{equation}
   \alpha(x^{(n)}) = \frac{1}{f'(x^{(n)})} \approx  \frac{x^{(n)} - x^{(n-1)}}{f(x^{(n)}) - f(x^{(n-1)})}.
-\end{equation*}
+\end{equation}
 Isto nos motiva a introduzir a \emph{iteração do método das secantes} dada por:
-\begin{equation*}
+\begin{equation}
   x^{(n+1)} = x^{(n)} - f(x^{(n)})\frac{x^{(n)} - x^{(n-1)}}{f(x^{(n)}) - f(x^{(n-1)})},\quad n\geq 2.
-\end{equation*}
+\end{equation}
 Observe que para inicializarmos a iteração acima precisamos de duas aproximações iniciais, a saber, $x^{(1)}$ e $x^{(2)}$. Maneiras apropriadas de escolher estas aproximações podem ser inferidas da interpretação geométrica do método.
 
 \begin{ex} Encontre as raízes de $f(x)=\cos(x)-x$.
@@ -1726,54 +1726,54 @@ Enquanto, o método de Newton está relacionado às retas tangentes ao gráfico 
 \end{figure}
 
 Sejam $f(x)$ e as aproximações $x^{(1)}$ e $x^{(2)}$ do zero $x^*$ desta função (veja Figura~\ref{fig:metodo_das_secantes}). A iteração do método das secantes fornece:
-\begin{equation*}
+\begin{equation}
   x^{(3)} = x^{(2)} - f(x^{(2)})\frac{x^{(2)} - x^{(1)}}{f(x^{(2)}) - f(x^{(1)})}.
-\end{equation*}
+\end{equation}
 De fato, $x^{(3)}$ é o ponto de interseção da reta secante ao gráfico de $f(x)$ pelos pontos $x^{(1)}$ e $x^{(2)}$ com o eixo das abscissas. Com efeito, a equação desta reta secante é:
-\begin{equation*}
+\begin{equation}
   y = \frac{f(x^{(2)}) - f(x^{(1)})}{x^{(2)} - x^{(1)}}(x - x^{(2)}) + f(x^{(2)}).
-\end{equation*}
+\end{equation}
 Esta reta intercepta o eixo das abscissas no ponto $x$ tal que $y=0$, isto é:
-\begin{equation*}
+\begin{equation}
   \frac{f(x^{(2)}) - f(x^{(1)})}{x^{(2)} - x^{(1)}}(x - x^{(2)}) + f(x^{(2)}) \Rightarrow x = x^{(2)} - f(x^{(2)})\frac{x^{(2)} - x^{(1)}}{f(x^{(2)}) - f(x^{(1)})}.
-\end{equation*}
+\end{equation}
 
 
 \subsection{Análise de convergência}\index{método das secantes!convergência}
 
 Uma análise assintótica semelhante àquela feita para o método de Newton na subseção~\ref{Analise_conv_Newton} nos indica que, para uma função $f(x)$ duas vezes diferenciável, as iterações do método da secante satisfazem:
-\begin{equation*}
+\begin{equation}
   |x^{(n+1)} - x^*| \approx C |x^{(n)} - x^*||x^{(n-1)} - x^*|,
-\end{equation*}
+\end{equation}
 para aproximações iniciais suficientemente próximas de $x^*$, onde $f(x^*) = 0$. Além disso, veremos que:
-\begin{equation*}
+\begin{equation}
   |x^{(n+1)} - x^*| \leq C |x^{(n)} - x^*|^{p},~~ p=\frac{\sqrt{5}+1}{2}\approx 1,618
-\end{equation*}
+\end{equation}
 sob certas condições. Ou seja, o método das secantes tem \emph{taxa de convergência superlinear}.
 
 \begin{teo}[Método das secantes]\label{teo:metodo_das_secantes}
   Seja $f\in C^2([a, b])$ uma função com $x^*\in (a, b)$ tal que $f(x^*) = 0$. Sejam, também:
-  \begin{equation*}
+  \begin{equation}
     m := \min_{x\in [a, b]} |f'(x)| > 0\quad\text{e}\quad M := \max_{x\in [a,b]} |f''(x)| < \infty.
-  \end{equation*}
+  \end{equation}
 Além disso, seja $\rho > 0$ tal que:
-\begin{equation*}
+\begin{equation}
   q := \frac{M}{2m}\rho < 1,\quad K_\rho(x^*) := \{x\in\mathbb{R};~|x-x^*|\leq \rho\}\subset [a, b].
-\end{equation*}
+\end{equation}
 Então, para aproximações iniciais $x^{(1)}, x^{(2)}\in K_\rho(x^*)$, com $x^{(1)}\neq x^{(2)}$, temos que as iterações do método das secantes $x^{(n)}\in K_\rho(x^*)$, $n\geq 1$, e $x^{(n)}\to x^*$, quando $n\to\infty$. Além disso, vale a seguinte estimativa de convergência \emph{a priori}:
-\begin{equation*}
+\begin{equation}
   |x^{(n)} - x^*| \leq \frac{2m}{M}q^{\gamma_{n-1}},\quad n\geq 1,
-\end{equation*}
+\end{equation}
 onde $\{\gamma_n\}_{n\in\mathbb{N}}$ é a sequência de Fibonacci\footnote{Leonardo Fibonacci, c. 1170 - c. 1250, matemático italiano.}\footnote{A sequência de Fibonacci $\{\gamma_n\}_{n\in\mathbb{N}}$ é definida por $\gamma_0 = \gamma_1 = 1$ e $\gamma_{n+1} = \gamma_{n} - \gamma_{n-1}$, $n\geq 1$.}, bem como vale a estimativa \emph{a posteriori}:
-\begin{equation*}
+\begin{equation}
   |x^{(n)} - x^*| \leq \frac{M}{2m}|x^{(n)}-x^{(n-1)}||x^{(n-1)}-x^{(n-2)}|,\quad n\geq 3.
-\end{equation*}
+\end{equation}
 \end{teo}
 \begin{proof}
   Sejam $n\in\mathbb{N}$ com $n\geq 2$ e $x^{(n)}, x^{(n-1)}\in K_\rho(x^*)$, tal que $x^{(n)}\neq x^{(n-1)}$, $x^{(n)}\neq x^*$ e $x^{(n-1)}\neq x^*$. Seja, também:
-  \begin{equation*}
+  \begin{equation}
     g(x^{(n)},x^{(n-1)}) := x^{(n)} - f(x^{(n)})\frac{x^{(n)} - x^{(n-1)}}{f(x^{(n)}) - f(x^{(n-1)})}.
-  \end{equation*}
+  \end{equation}
 Com isso, temos:
   \begin{eqnarray*}
     &&g(x^{(n)},x^{(n-1)}) - x^* = x^{(n)} - f(x^{(n)})\frac{x^{(n)} - x^{(n-1)}}{f(x^{(n)}) - f(x^{(n-1)})} - x^*\\
@@ -1789,9 +1789,9 @@ Agora, iremos estimar este último termo a direita. Para tanto, começamos obser
   &= \int_0^1 f'(x^{(n)} + r(x^{(n-1)} - x^{(n)}))\,dr
 \end{eqnarray*}
 De forma análoga, temos:
-\begin{equation*}
+\begin{equation}
   \frac{f(x^{(n)}) - f(x^*)}{x^{(n)} - x^*} = \int_0^1 f'(x^{(n)} + r(x^* - x^{(n)}))\,dr
-\end{equation*}
+\end{equation}
 Logo, temos:
 \begin{equation}\label{eq:secantes-0}
   \begin{split}
@@ -1800,33 +1800,33 @@ Logo, temos:
   \end{split}
 \end{equation}
 Agora, novamente temos:
-\begin{equation*}
+\begin{equation}
   \begin{split}
   &f'(x^{(n)} + r(x^{(n-1)} - x^{(n)})) - f'(x^{(n)} + r(x^* - x^{(n)}))\\
   &= \int_0^r \frac{d}{ds}f'(x^{(n)} + r(x^{(n-1)} - x^{(n)}) + s(x^* - x^{(n-1)}))\,ds\\
   &= \int_0^r f''(x^{(n)} + r(x^{(n-1)} - x^{(n)}) + s(x^* - x^{(n-1)}))\,ds(x^* - x^{(n-1)}).
   \end{split}
-\end{equation*}
+\end{equation}
 Retornando à Equação~\eqref{eq:secantes-0} e usando a cota para a segunda derivada, obtemos:
-\begin{equation*}
+\begin{equation}
   \left|\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} - \frac{f(x^{(n)}) - f(x^*)}{x^{(n)} - x^*} \right| \leq \frac{M}{2}|x^{(n-1)} - x^*|.
-\end{equation*}
+\end{equation}
 Utilizando a Equação~\eqref{eq:secantes-est0}, obtemos:
-\begin{equation*}
+\begin{equation}
   |g(x^{(n)},x^{(n-1)})-x^*| \leq \frac{M}{2m}|x^{(n)}-x^*||x^{(n-1)}-x^*| \leq \frac{M}{2m}\rho^2 < \rho.
-\end{equation*}
+\end{equation}
 Portanto, concluímos que as iterações do método da secantes $x^{(n)}$ permanecem no conjunto $K_\rho(x^*)$, se começarem nele. Além disso, temos demonstrado que:
-\begin{equation*}
+\begin{equation}
   |x^{(n+1)} - x^*| \leq \frac{M}{2m}|x^{(n)} - x^*||x^{(n-1)} - x^*|.
-\end{equation*}
+\end{equation}
 Com isso, temos:
-\begin{equation*}
+\begin{equation}
   \rho_n := \frac{M}{2m}|x^{(n)} - x^*| \Rightarrow \rho_{n+1} \leq \rho_{n}\rho_{n-1},\quad n\geq 2.
-\end{equation*}
+\end{equation}
 Como $\rho_1 \leq q$ e $\rho_2 \leq q$, temos $\rho_n \leq q^{\gamma_{n-1}}$, $n\geq 1$. Isto mostra a estimativa de convergência \emph{a priori}:
-\begin{equation*}
+\begin{equation}
   |x^{n} - x^*| \leq \frac{2m}{M}q^{\gamma_{n-1}}.
-\end{equation*}
+\end{equation}
 Além disso, como $\gamma_{n}\to \infty$ quando $n\to\infty$ e $q < 1$, temos que as iterações do método das secantes $x^{(n)}\to x^*$ quando $n\to \infty$.
 
 Por fim, mostramos a estimativa de convergência \emph{a posteriori}. Para tanto, da cota assumida para a primeira derivada e do teorema do valor médio, temos, para $n\geq 3$:
@@ -1836,52 +1836,52 @@ Por fim, mostramos a estimativa de convergência \emph{a posteriori}. Para tanto
   &=& \frac{1}{m}\left|x^{(n)} - x^{(n-1)}\right|\left|\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} + \frac{f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}}\right|.
 \end{eqnarray*}
 Agora, a iteração do método das secantes fornece:
-\begin{equation*}
+\begin{equation}
   x^{(n)} = x^{(n-1)} - f(x^{(n-1)})\frac{x^{(n-1)} - x^{(n-2)}}{f(x^{(n-1)}) - f(x^{(n-2)})} 
-\end{equation*}
+\end{equation}
 e temos:
-\begin{equation*}
+\begin{equation}
   \frac{f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} = -\frac{f(x^{(n-1)}) - f(x^{(n-2)})}{x^{(n-1)} - x^{(n-2)}}.
-\end{equation*}
+\end{equation}
 Portanto:
-\begin{equation*}
+\begin{equation}
   |x^{(n)} - x^*| \leq \frac{1}{m}|x^{(n)} - x^{(n-1)}|\left|\frac{f(x^{(n-1)}) - f(x^{(n)})}{x^{(n-1)} - x^{(n)}} - \frac{f(x^{(n-1)}) - f(x^{(n-2)})}{x^{(n-1)} - x^{(n-2)}}\right|.
-\end{equation*}
+\end{equation}
 Observamos que o último termo pode ser estimado como feito acima para o termo análogo na Inequação~\eqref{eq:secantes-est0}. Com isso, obtemos a estimativa desejada:
-\begin{equation*}
+\begin{equation}
   |x^{(n)} - x^*| \leq \frac{M}{2m}|x^{(n)} - x^{(n-1)}||x^{(n)} - x^{(n-2)}|.
-\end{equation*}
+\end{equation}
 \end{proof}
 
 \begin{prop}[Sequência de Fibonacci]\label{prop:sequencia_de_Fibonacci}\index{sequência de!Fibonacci}
   A sequência de Fibonacci $\{\gamma_n\}_{n\in\mathbb{N}}$ é assintótica a $\gamma_n \sim \lambda_1^{n+1}/\sqrt{5}$ e:
-\begin{equation*}
+\begin{equation}
   \lim_{n\to\infty} \frac{\gamma_{n+1}}{\gamma_{n}} = \lambda_1,
-\end{equation*}
+\end{equation}
 onde $\lambda_1 = (1+\sqrt{5})/2\approx 1,618$ é a porção áurea\index{porção áurea}.
 \end{prop}
 \begin{proof}
   A sequência de Fibonacci $\{\gamma_n\}_{n\in\mathbb{N}}$ é definida por $\gamma_0 = \gamma_1 = 1$ e $\gamma_{n+1} = \gamma_n + \gamma_{n-1}$, $n\geq 1$. Logo, satisfaz a seguinte equação de diferenças:
-  \begin{equation*}
+  \begin{equation}
     \gamma_{n+2} - \gamma_{n+1} - \gamma_{n} = 0,\quad n\in\mathbb{N}.
-  \end{equation*}
+  \end{equation}
 Tomando $\gamma_n = \lambda^n$, $\lambda\neq 0$ temos:
-\begin{equation*}
+\begin{equation}
   \lambda^n\left(\lambda^2 - \lambda - 1\right) = 0 \Rightarrow   \lambda^2 - \lambda - 1 = 0 \Rightarrow \lambda_{1,2} = \frac{1 \pm \sqrt{5}}{2}.
-\end{equation*}
+\end{equation}
 Portanto, $\gamma_n = c_1\lambda_1^n + c_2\lambda_2^n$. Como $\gamma_0 = \gamma_1 = 1$, as constantes satisfazem:
-\begin{equation*}
+\begin{equation}
   \begin{array}{l}
     c_1 + c_2 = 1\\
     c_1\lambda_1 + c_2\lambda_2 = 1
   \end{array}
     \Rightarrow
     c_1 = \frac{1+\sqrt{5}}{2\sqrt{5}},\quad c_2 = -\frac{1-\sqrt{5}}{2\sqrt{5}}.
-\end{equation*}
+\end{equation}
 Ou seja, obtemos a seguinte forma explícita para os números de Fibonacci:
-\begin{equation*}
+\begin{equation}
   \gamma_n = \frac{1}{\sqrt{5}}\left[\left(\frac{1+\sqrt{5}}{2}\right)^{n+1} - \left(\frac{1-\sqrt{5}}{2}\right)^{n+1}\right].
-\end{equation*}
+\end{equation}
 Daí, segue imediatamente o enunciado.
 \end{proof}
 
@@ -1939,9 +1939,9 @@ O erro na tabela sempre se refere ao erro absoluto esperado. Nos três últimos 
 \end{exer}
 
 \begin{exer} Aplique o método das secantes para resolver a equação
-  \begin{equation*}
+  \begin{equation}
     e^{-x^2}=2x  
-  \end{equation*}
+  \end{equation}
 \end{exer}
 
 \begin{exer} Refaça o Problema~\ref{prob_diodo} usando o método de Newton e das secantes.
@@ -1949,14 +1949,14 @@ O erro na tabela sempre se refere ao erro absoluto esperado. Nos três últimos 
 
 \begin{exer}
   Seja uma função $f(x)$ dada duas vezes continuamente diferenciável. Faça uma análise assintótica para mostrar que as iterações do método das secantes satisfazem:
-  \begin{equation*}
+  \begin{equation}
     |x^{(n+1)} - x^*| \approx C |x^{(n)} - x^*||x^{(n-1)} - x^*|,    
-  \end{equation*}
+  \end{equation}
 para aproximações iniciais $x^{(1)}$ e $x^{(2)}$ suficientemente próximas de $x^*$, onde $f(x^*) = 0$.
 \end{exer}
 \begin{resp}
 Seja $f(x)\in C^2$ um função tal que $f(x^*)=0$ e $f'(x^*)\neq 0$. Considere o processo iterativo do método das secantes:
-$$x^{(n+1)}=x^{(n)}- \frac{f(x^{(n)})}{f(x^{(n)})-f(x^{(n-1)})}(x^{(n)}-x^{(n-1)})$$
+\begin{equation} x^{(n+1)}=x^{(n)}- \frac{f(x^{(n)})}{f(x^{(n)})-f(x^{(n-1)})}(x^{(n)}-x^{(n-1)}) \end{equation}
 Esta expressão pode ser escrita como:
 \begin{eqnarray*}
 x^{(n+1)}&=&x^{(n)}- \frac{f(x^{(n)})(x^{(n)}-x^{(n-1)})}{f(x^{(n)})-f(x^{(n-1)})}\\~\\
@@ -2014,9 +2014,9 @@ ou, equivalentemente:
 \end{exer}
 
 \begin{exer} Resolva numericamente a inequação:
-  \begin{equation*}
+  \begin{equation}
     e^{-x^2}<2x  
-  \end{equation*}
+  \end{equation}
 \end{exer}
 \begin{resp}
   
@@ -2025,7 +2025,7 @@ ou, equivalentemente:
 \end{resp}
 
 
-\begin{exer} A equação $$\cos(\pi x)=e^{-2x}$$ tem infinitas raízes.
+\begin{exer} A equação \begin{equation} \cos(\pi x)=e^{-2x} \end{equation} tem infinitas raízes.
 Usando  métodos numéricos encontre as primeiras raízes dessa equação. Verifique a j-ésima raiz ($z_j$) pode ser aproximada por $j-1/2$ para $j$ grande. Use o método de Newton para encontrar uma aproximação melhor para $z_j$.
 \end{exer}
 \begin{resp}
@@ -2036,7 +2036,7 @@ Usando  métodos numéricos encontre as primeiras raízes dessa equação. Verif
 
 
 \begin{exer}(Eletricidade) A corrente elétrica, $I$, em Ampères em uma lâmpada em função da tensão elétrica, $V$, é dada por
-$$I=\left(\frac{V}{150}\right)^{0.8}$$
+\begin{equation} I=\left(\frac{V}{150}\right)^{0.8} \end{equation}
 Qual a potência da lâmpada quando ligada em série com uma resistência de valor R a uma fonte de 150V quando. (procure erro inferior a 1\%)
 \begin{itemize}
 \item [a)] $R=0\Omega$
@@ -2059,7 +2059,7 @@ $150$~W, $133$~W, $87$~W, $55$~W, $6,5$~W
 
 
 \begin{exer} (Bioquímica) A concentração sanguínea de um medicamente é modelado pela seguinte expressão
-$$c(t)=Ate^{-\lambda t}$$
+\begin{equation} c(t)=Ate^{-\lambda t} \end{equation}
 onde $t>0$ é o tempo em minutos decorrido desde a administração da droga. $A$ é a quantidade administrada em $mg/ml$ e $\lambda$ é a constante de tempo em min$^{-1}$.
 Responda:
 \begin{itemize}
@@ -2076,7 +2076,7 @@ a) $42$~s e $8$~min$2$~s, b) $14$~min$56$~s.
 
 
 \begin{exer}\label{pop} Considere o seguinte modelo para crescimento populacional em um país:
-$$P(t)=A+Be^{\lambda t}.$$
+\begin{equation} P(t)=A+Be^{\lambda t}. \end{equation}
 onde $t$ é dado em anos. Use $t$ em anos e $t=0$ para 1960. Encontre os parâmetros $A$, $B$ e $\lambda$ com base nos anos de 1960, 1970 e 1991 conforme tabela:\\~
 
 \begin{tabular}{|c|c|}
@@ -2159,7 +2159,7 @@ $4,54$\% ao mês.
 
 
 \begin{exer}(Controle de sistemas) Depois de acionado um sistema de aquecedores, a temperatura em um forno  evolui conforme a seguinte equação
-$$T(t)=500-800e^{-t}+600e^ {-t/3}.$$
+\begin{equation} T(t)=500-800e^{-t}+600e^ {-t/3}. \end{equation}
 onde $T$ é a temperatura em Kelvin e $t$ é tempo em horas.
 \begin{itemize}
 \item[a)] Obtenha analiticamente o valor de $\lim_{t\to\infty}T(t)$.
@@ -2206,7 +2206,7 @@ Onde $C_1(x)$ e $C_2(x)$ são os custos de fornecimento das usinas 1 e 2, respec
 \end{resp}
 
 \begin{exer}(Termodinâmica) A pressão de saturação (em bar) de um dado hidrocarboneto pode ser modelada pela equação de Antoine:
-$$\ln\left(P^{sat}\right)=A-\frac{B}{T+C}$$
+\begin{equation} \ln\left(P^{sat}\right)=A-\frac{B}{T+C} \end{equation}
 onde $T$ é a temperatura e $A$, $B$ e $C$ são constantes dadas conforme a seguir:
 
 \begin{tabular}{|c|c|c|c|}
@@ -2220,9 +2220,9 @@ N-heptano & 9.2535 &2911.32 &-56.51 \\
 \end{tabular}
 \begin{itemize}
 \item[a)] Calcule a temperatura de bolha de uma mistura de N-pentano e N-heptano à pressão de 1.2bar quando as frações molares  dos gases são  $z_1=z_2=0.5$. Para tal utilize a seguinte equação:
-$$P=\sum_i z_i P_i^{sat}$$
+\begin{equation} P=\sum_i z_i P_i^{sat} \end{equation}
 \item[b)] Calcule a temperatura de orvalho de uma mistura de N-pentano e N-heptano à pressão de 1.2bar quando as frações molares  dos gases são  $z_1=z_2=0.5$. Para tal utilize a seguinte equação:
-$$\frac{1}{P}=\sum_i \frac{z_i}{P_i^{sat}}$$
+\begin{equation} \frac{1}{P}=\sum_i \frac{z_i}{P_i^{sat}} \end{equation}
 \end{itemize}
 \end{exer}
 
@@ -2232,7 +2232,7 @@ $$\frac{1}{P}=\sum_i \frac{z_i}{P_i^{sat}}$$
   
 \end{resp}
 
-\begin{exer} Encontre os três primeiros pontos de mínimo da função $$f(x)=e^{-x/11}+x\cos(2x)$$ para $x>0$ com erro inferior a $10^{-7}$.
+\begin{exer} Encontre os três primeiros pontos de mínimo da função \begin{equation} f(x)=e^{-x/11}+x\cos(2x) \end{equation} para $x>0$ com erro inferior a $10^{-7}$.
 \end{exer}
 \begin{resp}
   
