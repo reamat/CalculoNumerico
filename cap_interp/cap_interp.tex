@@ -166,27 +166,30 @@ array([ -1,  0.,  6,  1. ])
 \begin{proof} Observe que o problema de encontrar os coeficientes $a_0$, $a_1$,\ldots, $a_{n-1}$ do polinômio
 \begin{equation} p(x)=a_0+a_1x+a_2x^2+\cdots a_{n-1}x^{n-1}=\sum_{k=0}^{n-1} a_k x^k \end{equation}
 tal que $p(x_i)=y_i$ é equivalente a resolver o sistema linear com $n$ equações e $n$ incógnitas dado por
-\begin{eqnarray*}
-a_0+a_1x_1+a_1x_1^2+\cdots +a_{n-1} x_1^{n-1}&=&y_1,\\
-a_0+a_1x_2+a_2x_2^2+\cdots +a_{n-1} x_2^{n-1}&=&y_2,\\
-&\vdots&\\
-a_0+a_1x_n+a_2x_n^2+\cdots +a_{n-1} x_n^{n-1}&=&y_n.
-\end{eqnarray*}
+\begin{equation}
+  \begin{split}
+    a_0+a_1x_1+a_1x_1^2+\cdots +a_{n-1} x_1^{n-1} &= y_1,\\
+    a_0+a_1x_2+a_2x_2^2+\cdots +a_{n-1} x_2^{n-1} &= y_2,\\
+    &\vdots\\
+    a_0+a_1x_n+a_2x_n^2+\cdots +a_{n-1} x_n^{n-1}&= y_n.
+  \end{split}
+\end{equation}
 O qual pode ser escrito na forma matricial como
-$$\begin{bmatrix}
-1 & x_1 & x_1^2 & \cdots & x_1^{n-1}\\
-1 & x_2 & x_2^2 & \cdots & x_2^{n-1}\\
-1 & x_3 & x_3^2 & \cdots & x_3^{n-1}\\
-\vdots&\vdots&\vdots&\ddots&\vdots\\
-1 & x_n & x_n^2 & \cdots & x_n^{n-1}
-\end{bmatrix}
-\begin{bmatrix}
-a_0\\a_1\\a_2\\ \vdots \\a_{n-1}
-\end{bmatrix}=
-\begin{bmatrix}
-y_1\\y_2\\y_3\\ \vdots \\y_n
-\end{bmatrix}
-$$
+\begin{equation}
+  \begin{bmatrix}
+    1 & x_1 & x_1^2 & \cdots & x_1^{n-1}\\
+    1 & x_2 & x_2^2 & \cdots & x_2^{n-1}\\
+    1 & x_3 & x_3^2 & \cdots & x_3^{n-1}\\
+    \vdots&\vdots&\vdots&\ddots&\vdots\\
+    1 & x_n & x_n^2 & \cdots & x_n^{n-1}
+  \end{bmatrix}
+  \begin{bmatrix}
+    a_0\\a_1\\a_2\\ \vdots \\a_{n-1}
+  \end{bmatrix} =
+  \begin{bmatrix}
+    y_1\\y_2\\y_3\\ \vdots \\y_n
+  \end{bmatrix}
+\end{equation}
 A matriz envolvida é uma \emph{matriz de Vandermonde}\footnote{Alexandre-Théophile Vandermonde, 1735 - 1796, matemático francês.}\index{matriz de Vandermonde} de ordem $n$ cujo determinante é dado pelo produtório duplo
 \begin{equation} \prod_{1\leq i<j\leq n}\left(x_j-x_i\right) \end{equation}
 É fácil ver que se as abscissas são diferentes dois a dois, então o determinante é não nulo. Disto decorre que a matriz envolvida é inversível e, portanto, o sistema possui uma solução que é única.
@@ -209,7 +212,51 @@ Esta abordagem direta que usamos no Exemplo~\ref{ex:interpolacao_polinomial} e n
 
 Uma maneira de resolver este problema é escrever o polinômio em uma base que produza um sistema bem condicionado.
 
+\subsection*{Exercícios resolvidos}
+
+\construirExeresol
+
+\begin{exeresol}\label{exeresol:problemas_mal_determinados}
+  Mostre que:
+  \begin{itemize}
+  \item[a)] Existem infinitas parábolas que interpolam dois pontos dados $\{(x_1, y_1), (x_2, y_2)\}$, com $x_1 \neq x_2$.
+  \item[b)] Não existe reta que interpola os pontos $\{(1, 1), (2, 2,1), (3, 3)\}$.
+  \item[c)] Não existe parábola de equação $y = a_0 + a_1x + a_2x^2$ que interpola dois pontos dados $\{(x_1, y_1), (x_1, y_2)\}$, com $y_1 \neq y_2$. Mas, existem infinitas parábolas de equação $x = a_0 + a_1y + a_2y^2$ que interpolam estes pontos.
+  \end{itemize}
+\end{exeresol}
+\begin{resol}
+  \begin{itemize}
+  \item[a)] Uma parábola de equação $y = a_1 + a_2x + a_3x^2$ que interpola os pontos deve satisfazer o sistema:
+    \begin{equation}
+      \begin{split}
+        a_1 + a_2x_1 + a_3x_1^2 &= y_1\\
+        a_1 + a_2x_2 + a_3x_2^2 &= y_2
+      \end{split}
+    \end{equation}
+    Sem perda de generalidade, para cada $a_3\in\mathbb{R}$ dado, temos:
+    \begin{equation}
+      \begin{split}
+        a_1 + a_2x_1  &= y_1 - a_3x_1^2\\
+        a_1 + a_2x_2  &= y_2 - a_3x_2^2
+      \end{split},
+    \end{equation}
+    o qual tem solução única, pois $x_1\neq x_2$. Ou seja, para cada $a_3\in\mathbb{R}$ dado, existem $a_1, a_2\in\mathbb{R}$ tais que a parábola de equação $y = a_1 + a_2x + a_3x^2$ interpola os pontos dados.
+  \item[b)] Certamente não existem retas de equação $x = a$ que interpolam os pontos dados. Consideremos então retas de equação $y = a_1 + a_2x$. Para uma tal reta interpolar os pontos dados é necessário que:
+    \begin{equation}
+      \begin{split}
+        a_1 + a_2 = 1\\
+        a_1 + 2a_2 = 2,1\\
+        a_1 + 3a_2 = 3
+      \end{split},
+    \end{equation}
+    o qual é um sistema impossível.
+  \item[c)] Não existe uma parábola de equação $y = a_1 + a_2x + a_3x^2$ que interpole os pontos dados, pois tal equação determina uma função de $x$ em $y$. Agora, para mostrar que existem infinitas parábolas de equação $x = a_1 + a_2y + a_3y^2$ que interpolam os pontos dados, basta seguir um raciocínio análogo ao do item a), trocando $x$ por $y$ e $y$ por $x$.
+  \end{itemize}
+\end{resol}
+
 \subsection*{Exercícios}
+
+\construirExer
 
 \begin{exer}\label{exer:interp1}
 Encontre o polinômio interpolador para o conjunto de pontos $\{(-2, -47)$, $(0, -3)$, $(1, 4)$, $(2, 41)\}$. Então, faça um gráfico com os pontos e o polinômio interpolador encontrado.
@@ -225,53 +272,14 @@ Encontre o polinômio interpolador para o conjunto de pontos $\{(-2, -47)$, $(0,
   $p(x) = 0,25 + x^2$.
 \end{resp}
 
-\begin{exer}\label{exer:problemas_mal_determinados}
-  Mostre que:
-  \begin{itemize}
-  \item[a)] Existem infinitas parábolas que interpolam dois pontos dados $\{(x_1, y_1), (x_2, y_2)\}$, com $x_1 \neq x_2$.
-  \item[b)] Não existe reta que interpola os pontos $\{(1, 1), (2, 2,1), (3, 3)\}$.
-  \item[c)] Não existe parábola de equação $y = a_0 + a_1x + a_2x^2$ que interpola dois pontos dados $\{(x_1, y_1), (x_1, y_2)\}$, com $y_1 \neq y_2$. Mas, existem infinitas parábolas de equação $x = a_0 + a_1y + a_2y^2$ que interpolam estes pontos.
-  \end{itemize}
-\end{exer}
-\begin{resp}
-
-  \begin{itemize}
-  \item[a)] Uma parábola de equação $y = a_1 + a_2x + a_3x^2$ que interpola os pontos deve satisfazer o sistema:
-    \begin{equation}
-      \begin{split}
-      a_1 + a_2x_1 + a_3x_1^2 &= y_1\\
-      a_1 + a_2x_2 + a_3x_2^2 &= y_2
-      \end{split}
-    \end{equation}
-Sem perda de generalidade, para cada $a_3\in\mathbb{R}$ dado, temos:
-    \begin{equation}
-      \begin{split}
-      a_1 + a_2x_1  &= y_1 - a_3x_1^2\\
-      a_1 + a_2x_2  &= y_2 - a_3x_2^2
-      \end{split},
-    \end{equation}
-o qual tem solução única, pois $x_1\neq x_2$. Ou seja, para cada $a_3\in\mathbb{R}$ dado, existem $a_1, a_2\in\mathbb{R}$ tais que a parábola de equação $y = a_1 + a_2x + a_3x^2$ interpola os pontos dados.
-\item[b)] Certamente não existem retas de equação $x = a$ que interpolam os pontos dados. Consideremos então retas de equação $y = a_1 + a_2x$. Para uma tal reta interpolar os pontos dados é necessário que:
-  \begin{equation}
-    \begin{split}
-    a_1 + a_2 = 1\\
-    a_1 + 2a_2 = 2,1\\
-    a_1 + 3a_2 = 3
-    \end{split},
-  \end{equation}
-o qual é um sistema impossível.
-\item[c)] Não existe uma parábola de equação $y = a_1 + a_2x + a_3x^2$ que interpole os pontos dados, pois tal equação determina uma função de $x$ em $y$. Agora, para mostrar que existem infinitas parábolas de equação $x = a_1 + a_2y + a_3y^2$ que interpolam os pontos dados, basta seguir um raciocínio análogo ao do item a), trocando $x$ por $y$ e $y$ por $x$.
-  \end{itemize}
-
-\end{resp}
-
-
 \section{Diferenças divididas de Newton}\index{diferenças divididas de Newton}
 Dado um conjunto com $n$ pontos $\{(x_i, y_i)\}_{i=1}^n$, o \emph{método das diferenças divididas de Newton} consiste em construir o polinômio interpolador da forma
-\begin{eqnarray*}
-p(x) &=& a_1 + a_2 (x-x_1) + a_3 (x-x_1)(x-x_2) + \cdots \\
-     &+& a_n (x-x_1)(x-x_2)\cdots (x-x_{n-1}).
-\end{eqnarray*}
+\begin{equation}
+  \begin{split}
+    p(x) &= a_1 + a_2 (x-x_1) + a_3 (x-x_1)(x-x_2) + \cdots \\
+         &+ a_n (x-x_1)(x-x_2)\cdots (x-x_{n-1}).
+  \end{split}
+\end{equation}
 Como $p(x_i) = y_i$, $i=1, 2, \dotsc, n$, os coeficientes $a_i$ satisfazem o seguinte sistema triangular inferior:
 \begin{small}
   \begin{equation}
@@ -295,13 +303,13 @@ a_3&=\frac{y_3-a_2(x_3-x_1)-a_1}{(x_3-x_1)(x_3-x_2)}=\frac{\frac{y_3-y_2}{(x_3-x
 \end{equation}
 
 Note que os coeficientes são obtidos por diferenças das ordenadas divididas por diferenças das abscissas dos pontos dados. Para vermos isso mais claramente, introduzimos a seguinte notação:
-\begin{eqnarray*}
-f[x_j]&:=&y_j\\
-f[x_j, x_{j+1}]&:=&\frac{f[x_{j+1}]-f[x_j]}{x_{j+1}-x_j}\\
-f[x_j, x_{j+1}, x_{j+2}]&:=&\frac{f[x_{j+1}, x_{j+2}]-f[x_j, x_{j+1}]}{x_{j+2}-x_j}\\
-&\vdots&\\
-f[x_j, x_{j+1}, \dotsc, x_{j+k}] &:=& \frac{f[x_{j+1}, x_{j+2}, \dotsc, x_{j+k}]-f[x_j, x_{j+1}, \dotsc, x_{j+k-1}]}{x_{j+k}-x_j}
-\end{eqnarray*}
+\begin{eqnarray}
+  f[x_j]&:=&y_j\\
+  f[x_j, x_{j+1}]&:=&\frac{f[x_{j+1}]-f[x_j]}{x_{j+1}-x_j}\\
+  f[x_j, x_{j+1}, x_{j+2}]&:=&\frac{f[x_{j+1}, x_{j+2}]-f[x_j, x_{j+1}]}{x_{j+2}-x_j}\\
+        &\vdots&\\
+  f[x_j, x_{j+1}, \dotsc, x_{j+k}] &:=& \frac{f[x_{j+1}, x_{j+2}, \dotsc, x_{j+k}]-f[x_j, x_{j+1}, \dotsc, x_{j+k-1}]}{x_{j+k}-x_j}
+\end{eqnarray}
 Chamamos $f[x_j]$ de diferença dividida de ordem zero (ou primeira diferença dividida), $f[x_i,x_j+1]$ de diferença dividida de ordem 1 (ou segunda diferença dividida) e assim por diante.
 
 Uma inspeção cuidadosa dos coeficientes obtidos em \eqref{eq:coef_dif_div} nos mostra que
@@ -342,9 +350,9 @@ $4$&$3$&$43$&&&\\\hline
 \end{tabular}
 \end{center}
 Portanto, o polinômio interpolador do conjunto de pontos dados é
-\begin{eqnarray*}
-p(x)&=&3-2(x+1)+2(x+1)x+(x+1)x(x-1)
-\end{eqnarray*}
+\begin{equation}
+  p(x) = 3-2(x+1)+2(x+1)x+(x+1)x(x-1)
+\end{equation}
 ou, equivalentemente, $p(x) = x^3+2x^2-x+1$.
 
 %%%%%%%%%%%%%%%%%%%%
@@ -443,12 +451,12 @@ Portanto,
 \end{ex}
 \begin{sol}
 Escrevemos:
-\begin{eqnarray*}
-	L_1(x)&=& \frac{(x-1)(x-2)(x-3)}{(0-1)(0-2)(0-3)}=-\frac{1}{6}x^3+x^2-\frac{11}{6}x+1\\
-	L_2(x)&=& \frac{x(x-2)(x-3)}{1(1-2)(1-3)}=\frac{1}{2}x^3-\frac{5}{2}x^2+3x\\
-	L_3(x)&=& \frac{x(x-1)(x-3)}{2(2-1)(2-3)}=-\frac{1}{2}x^3+2x^2-\frac{3}{2}x\\
-	L_4(x)&=& \frac{x(x-1)(x-2)}{3(3-1)(3-2)}=\frac{1}{6}x^3-\frac{1}{2}x^2+\frac{1}{3}x
-\end{eqnarray*}
+\begin{eqnarray}
+  L_1(x)&=& \frac{(x-1)(x-2)(x-3)}{(0-1)(0-2)(0-3)}=-\frac{1}{6}x^3+x^2-\frac{11}{6}x+1\\
+  L_2(x)&=& \frac{x(x-2)(x-3)}{1(1-2)(1-3)}=\frac{1}{2}x^3-\frac{5}{2}x^2+3x\\
+  L_3(x)&=& \frac{x(x-1)(x-3)}{2(2-1)(2-3)}=-\frac{1}{2}x^3+2x^2-\frac{3}{2}x\\
+  L_4(x)&=& \frac{x(x-1)(x-2)}{3(3-1)(3-2)}=\frac{1}{6}x^3-\frac{1}{2}x^2+\frac{1}{3}x
+\end{eqnarray}
 Assim, temos:
 \begin{equation}
   P(x)=0\cdot L_1(x)+1\cdot L_2(x)+4\cdot L_3(x)+9\cdot L_4(x)=x^2
@@ -502,12 +510,12 @@ Considere a função $f(x)=\cos(x)$ e o polinômio $P(x)$ de grau 2 tal que $P(0
 \end{ex}
 \begin{sol}
   Usando polinômios de Lagrange, obtemos
-  \begin{eqnarray*}
-    P(x) &=& 1\frac{(x-\frac{1}{2})(x-1)}{(0-\frac{1}{2})(0-1)}\\
-    &+& \cos\left(\frac{1}{2}\right)\frac{(x-0)(x-1)}{(\frac{1}{2}-0)(\frac{1}{2}-1)}\\
-    &+& \cos(1)\frac{(x-0)(x-\frac{1}{2})}{(1-0)(1-\frac{1}{2})}\\
-    &\approx&   1 - 0,0299720583066x - 0,4297256358252x^2
-\end{eqnarray*}
+  \begin{eqnarray}
+    P(x) &=& 1\frac{(x-\frac{1}{2})(x-1)}{(0-\frac{1}{2})(0-1)}\nonumber\\
+         &+& \cos\left(\frac{1}{2}\right)\frac{(x-0)(x-1)}{(\frac{1}{2}-0)(\frac{1}{2}-1)}\nonumber\\
+         &+& \cos(1)\frac{(x-0)(x-\frac{1}{2})}{(1-0)(1-\frac{1}{2})}\\
+         &\approx&   1 - 0,0299720583066x - 0,4297256358252x^2
+  \end{eqnarray}
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
@@ -524,6 +532,26 @@ plot(x,cos)
 plot(x,horner(P,x),'red')
 plot(x,horner(P,x)-cos(x))
 \end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos computar o polinômio interpolador da seguinte forma:
+\begin{verbatim}
+L1=poly([.5 1]);L1=L1/polyval(L1,0)
+L2=poly([0 1]);L2=L2/polyval(L2,0.5)
+L3=poly([0 .5]);L3=L3/polyval(L3,1)
+P=L1+cos(.5)*L2+cos(1)*L3
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\construirPython
 \fi
 %%%%%%%%%%%%%%%%%%%%
 
