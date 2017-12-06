@@ -57,6 +57,101 @@ Nos códigos \verb+Python+ apresentados ao longo deste capítulo, assumiremos o 
 \fi
 %%%%%%%%%%%%%%%%%%%%
 
+\section{Somas de Riemann}
+O método mais simples de aproximar
+\begin{equation}
+ I = \int_a^b f(x) \;dx.
+\end{equation}
+com apenas um intervalo, é aproximar $f(x)$ por um polinômio constante no intervalo $[a,b]$, ou seja, $f(x)=c$. Se aproximarmos $f(x)$ pelo ponto a esquerda do intervalo temos que $f(x)\approx f(a)$ e
+\begin{eqnarray*}
+ I &=& \int_a^b f(x) \;dx\\
+   &\approx& \int_a^b f(a) \;dx \\
+   &=& f(a) \int_a^b\,dx\\
+   &=& f(a) (b-a)
+\end{eqnarray*}
+Esta é a regra de quadratura local para $1$ intervalo.
+
+Quando subdividimos $[a,b]$ em $n$ intervalos com tamanho $h=(b-a)/n$ nos pontos $x_i=a+(i-1)h$ , em cada intervalo $i$ aproximamos a área por
+\begin{equation}
+  \Delta S_i \approx f(x_i)h
+\end{equation}
+tal que a área total será aproximada pelas \emph{somas de Riemann à esquerda}
+\begin{equation}
+S =\sum_{i=1}^{n-1} \Delta S_i = \sum_{i=1}^{n-1} f(x_i) h
+\end{equation}
+Podemos obter uma fórmula similar se usarmos os pontos a direita do intervalo, ou seja, as \emph{somas de Riemann à direita}
+\begin{equation}
+S = \sum_{i=1}^{n-1} f(x_{i+1}) h
+\end{equation}
+
+Uma terceira opção é utilizar o ponto médio do intervalo $[x_i,x_{i+1}]$ o qual fornece a \emph{regra do ponto médio}
+\begin{equation}\label{ponto_medio_1}
+S = \sum_{i=1}^{n-1} f(\xi_i ) h, \qquad \xi_i=\frac{x_i+x_{i+1}}{2}.
+\end{equation}
+
+\begin{ex}
+  A integral de $f(x) = e^{-x}\sen(x)$ no intervalo $[0,1, 0,2]$ é
+  \begin{equation}
+    \int_{0}^{1} f(x)\,dx \approx 2,45837\E-1.
+  \end{equation}
+Usando somas de Riemann à esquerda com $10$ intervalos, obtemos
+\begin{equation}
+  \int_0^1 f(x)\,dx \approx \sum_{i=1}^{10} f(x_{i})h = 2,29433\times 10^{-1}.
+\end{equation}
+onde $h=0,1$ e $x_i=(i-1)h$. Analogamente, usando somas de Riemann à direita, obtemos
+\begin{equation}
+  \int_0^1 f(x)\,dx \approx \sum_{i=1}^{10} f(x_{i+1})h = 2,60389\times 10^{-1}.
+\end{equation}
+E, usando a regra do ponto médio, temos
+\begin{equation}
+  \int_0^1 f(x)\,dx \approx \sum_{i=1}^{10} f\left(\frac{x_i+x_{i+1}}{2}\right)h = 2,34296\times 10^{-1}.
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+\construirScilab
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos computar as somas de Riemann à esquerda da seguinte forma:
+\begin{verbatim}
+f = @(x) exp(-x)*sin(x);
+a=0;
+b=1;
+n=10;
+h=(b-a)/n;
+x=0:h:1;
+s=0;
+for i=1:n
+  s += f((x(i+1)+x(i)))*h;
+endfor
+printf("%1.5e\n",s)
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\construirPython
+\fi
+%%%%%%%%%%%%%%%%%%%%
+\end{ex}
+
+\subsection*{Exercícios resolvidos}
+
+\construirExeresol
+
+\subsection*{Exercícios}
+
+\construirExer
+
+
 \section{Regras de Newton-Cotes}\index{integração numérica!regras de Newton-Cotes}
 
 O método básico para encontrar as regras de integração consiste em aproximar a integral de $f$ por uma combinação linear de $n$ valores\footnote{Utilizaremos neste capítulo a notação $f_i$ para indicar $f(x_i)$.} de $f_i := f(x_i)$, ou seja,
@@ -90,39 +185,6 @@ onde
 \begin{equation}
   A_i=\int_a^b L_i(x)\;dx.
 \end{equation}
-
-\subsection{Somas de Riemann}
-O método mais simples de aproximar
-\begin{equation}
- I = \int_a^b f(x) \;dx.
-\end{equation}
-com apenas um intervalo, é aproximar $f(x)$ por um polinômio constante no intervalo $[a,b]$, ou seja, $f(x)=c$. Se aproximarmos $f(x)$ pelo ponto a esquerda do intervalo temos que $f(x)\approx f(a)$ e
-\begin{eqnarray*}
- I &=& \int_a^b f(x) \;dx\\
-   &\approx& \int_a^b f(a) \;dx \\
-   &=& f(a) \int_a^b\,dx\\
-   &=& f(a) (b-a)
-\end{eqnarray*}
-Esta é a regra de quadratura local para $1$ intervalo.
-
-Quando subdividimos $[a,b]$ em $n$ intervalos com tamanho $h=(b-a)/n$ nos pontos $x_i=a+(i-1)h$ , em cada intervalo $i$ aproximamos a área por
-\begin{equation}
-  \Delta S_i \approx f(x_i)h
-\end{equation}
-tal que a área total será aproximada pelas \emph{somas de Riemann à esquerda}
-\begin{equation}
-S =\sum_{i=1}^{n-1} \Delta S_i = \sum_{i=1}^{n-1} f(x_i) h
-\end{equation}
-Podemos obter uma fórmula similar se usarmos os pontos a direita do intervalo, ou seja, as \emph{somas de Riemann à direita}
-\begin{equation}
-S = \sum_{i=1}^{n-1} f(x_{i+1}) h
-\end{equation}
-
-Uma terceira opção é utilizar o ponto médio do intervalo $[x_i,x_{i+1}]$ o qual fornece a \emph{regra do ponto médio}
-\begin{equation}\label{ponto_medio_1}
-S = \sum_{i=1}^{n-1} f(\xi_i ) h, \qquad \xi_i=\frac{x_i+x_{i+1}}{2}.
-\end{equation}
-
 
 % Considere o problema de calcular a área entre uma função positiva, o eixo $x$ e as retas $x=a$ e $x=b$. O valor exato dessa área é calculada fazendo uma aproximação por retângulos com bases iguais e depois tomando o limite quando o número de retângulos tende ao infinito:
 % $$
