@@ -10,6 +10,13 @@ Neste capítulo discutiremos técnicas numéricas para aproximar \emph{integrais
  I = \int_a^b f(x) \;dx.
 \end{equation}
 
+\begin{figure}
+  \centering
+  \includegraphics[scale=1.0]{./cap_integracao/pics/Somas_de_Riemann/Somas_de_Riemann}
+  \caption{Aproximação da integral definida de uma função.}
+  \label{fig:Somas_de_Riemann}
+\end{figure}
+
 Geometricamente, $I$ corresponde a área\footnote{área líquida} entre o gráfico de $f(x)$ e o eixo das abscissas (eixo $x$). Uma maneira de aproximar $I$ consiste em subdividir o intervalo $[a,b]$ em $n-1$ subintervalos a partir de um conjunto ordenado de pontos $a=x_1<x_2<...<x_n=b$. Então, temos:
 \begin{equation}\label{eq:integral_particionada}
   \begin{split}
@@ -22,13 +29,42 @@ Agora, supondo que o tamanho de cada cada subintervalo $h_i = x_{i+1}-x_{i}$ é 
 \begin{equation}
   \int_{x_i}^{x_{i+1}}f(x)\,dx \approx f(x_i^*)h_i.
 \end{equation}
-Isto é equivalente a aproximar a área entre o gráfico de $f(x)$ e o eixo $x$ restrito ao intervalo $[x_i, x_{i+1}]$ pelo retângulo de base $h_i$ e altura $f(x_i^*)$ (veja Figura~\ref{fig:}). Consequentemente, de \eqref{eq:integral_particionada} temos
+Isto é equivalente a aproximar a área entre o gráfico de $f(x)$ e o eixo $x$ restrito ao intervalo $[x_i, x_{i+1}]$ pelo retângulo de base $h_i$ e altura $f(x_i^*)$ (veja Figura~\ref{fig:Somas_de_Riemann}). Consequentemente, de \eqref{eq:integral_particionada} temos
+\begin{eqnarray}
+  I &= \int_{a}^{b}f(x)\,dx = \sum_{i=1}^{n-1}\int_{x_i}^{x_{i+1}}f(x)\,dx\\
+  I  &\approx \sum_{i=1}^{n-1} f(x_i^*)h_i.
+\end{eqnarray}
+
+\begin{figure}
+  \centering
+  \includegraphics[scale=0.7]{./cap_integracao/pics/int_1/int_1}
+  \caption{Aproximação por retângulos.}
+  \label{fig:int_101}
+\end{figure}
+
+\begin{ex}
+A Figura~\ref{fig:int_101} mostra um exemplo quando $f(x)=x^2+1$, $0\leq x\leq 2$. Temos a aproximação por um retângulo com base $h_1=2$, depois com dois retângulos de base $h_2=1$ e, finalmente com quatro retângulos de bases $h_3=0,5$. Os valores aproximados para a integral são dados na seguinte tabela:
+\begin{center}
+  \begin{tabular}{|c|c|}\hline
+    & $\displaystyle \int_0^2(x^2+1)\,dx$ \\ \hline
+    $h_1=2$ & $h_1f(1)=4$ \\
+    $h_2=1$ & $h_2f(0,5)+h_2f(1,5)=4,5$ \\
+    $h_3=0,5$ & $4,625$ \\
+    $h_4=0,25$ & $4,65625$ \\\hline
+  \end{tabular}
+\end{center}
+Observe que:
 \begin{equation}
-  \begin{split}
-    I &= \int_{a}^{b}f(x)\,dx = \sum_{i=1}^{n-1}\int_{x_i}^{x_{i+1}}f(x)\,dx\\
-    &\approx \sum_{i=1}^{n-1} f(x_i^*)h_i.
-  \end{split}
+  \int_0^2(x^2+1)\,dx = \left[\frac{x^3}{3}+x\right]_0^2 = \frac{8}{3}+2=4,6666667.
 \end{equation}
+\end{ex}
+
+
+Uma tal aproximação de uma integral definida
+\begin{equation}
+  \int_a^b f(x)\,dx \approx \sum_{i} f(x_i)w_i,
+\end{equation}
+é chamada de quadratura numérica, onde os números $x_i$ denota seu $i$-ésimo ponto e $w_i$ seu $i$-ésimo peso. Nas próximas seções, mostraremos como obter diferentes quadraturas numéricas e discutiremos sobre suas características.
 
 % Em cada intervalo $[x_i, x_{i+1}]$, a integral será aproximada por $\Delta S_i$ e a integral será aproximada por
 % $$
@@ -37,31 +73,6 @@ Isto é equivalente a aproximar a área entre o gráfico de $f(x)$ e o eixo $x$ 
 % O tamanho de cada intervalo é dado por $h_i=x_{i+1}-x_i$. No caso uniforme, todos os intervalos possuem o mesmo tamanho $h=h_i=(b-a)/(n-1)$.
 
 % Nas próximas seções apresentaremos formas diferentes de aproximar $\Delta S_i$ iniciando com o caso mais simples que é um retângulo. Cada uma das regras obtidas também é chamada de quadratura.
-
-% \begin{ex}
-% A Figura~\ref{fig:int_101} mostra um exemplo quando $f(x)=x^2+1$, $0\leq x\leq 2$. Temos a aproximação por um retângulo com base $h_1=2$, depois com dois retângulos de base $h_2=1$ e, finalmente com quatro retângulos de bases $h_3=0,5$.
-% \begin{figure}
-%   \centering
-%   \includegraphics[scale=0.7]{./cap_integracao/pics/int_1/int_1}
-%   \caption{Aproximação por retângulos.}
-%   \label{fig:int_101}
-% \end{figure}
-
-% Os valores aproximados para a integral são dados na seguinte tabela:
-% \begin{center}
-%   \begin{tabular}{|c|c|}\hline
-%     & $\displaystyle \int_0^2(x^2+1)\,dx$ \\ \hline
-%     $h_1=2$ & $h_1f(1)=4$ \\
-%     $h_2=1$ & $h_2f(0,5)+h_2f(1,5)=4,5$ \\
-%     $h_3=0,5$ & $4,625$ \\
-%     $h_4=0,25$ & $4,65625$ \\\hline
-%   \end{tabular}
-% \end{center}
-% Observe que:
-% \begin{equation}
-%   \int_0^2(x^2+1)\,dx = \left[\frac{x^3}{3}+x\right]_0^2 = \frac{8}{3}+2=4,6666667.
-% \end{equation}
-% \end{ex}
 
 %%%%%%%%%%%%%%%%%%%%
 % python
