@@ -1,11 +1,11 @@
-%Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
+%Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite https://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
 %\documentclass[main.tex]{subfiles}
 %\begin{document}
 
 \chapter{Ajuste de curvas}\index{aproximação!de funções}\index{ajuste!por mínimos quadrados}
 
-Neste capítulo, abordamos os problemas de \emph{ajuste de curvas}\index{ajuste de curvas} pelo \emph{método dos mínimos quadrados}\index{método dos mínimos quadrados}. Mais precisamente, dado um conjunto de $N$ pontos $\left\{(x_j, y_j)\in \mathbb{R}^2\right\}_{j=1}^N$ e uma família de funções $\mathcal{F} = \{f:\mathbb{R}\to\mathbb{R}; y = f(x)\}$, o problema de ajuste de curvas consiste em encontrar uma função da família $\mathcal{F}$ que melhor se ajusta aos pontos dados, não necessariamente que os interpola. 
+Neste capítulo, abordamos os problemas de \emph{ajuste de curvas}\index{ajuste de curvas} pelo \emph{método dos mínimos quadrados}\index{método dos mínimos quadrados}. Mais precisamente, dado um conjunto de $N$ pontos $\left\{(x_j, y_j)\in \mathbb{R}^2\right\}_{j=1}^N$ e uma família de funções $\mathcal{F} = \{f:\mathbb{R}\to\mathbb{R}; y = f(x)\}$, o problema de ajuste de curvas consiste em encontrar uma função da família $\mathcal{F}$ que melhor se ajusta aos pontos dados, não necessariamente que os interpola.
 
 \begin{figure}[h!]
   \centering
@@ -15,16 +15,16 @@ Neste capítulo, abordamos os problemas de \emph{ajuste de curvas}\index{ajuste 
 \end{figure}
 
 Aqui, o termo ``melhor se ajusta'' é entendido no sentido de mínimos quadrados, isto é, buscamos encontrar uma função $f\in\mathcal{F}$ tal que $f(x)$ resolve o seguinte problema de minimização
-\begin{equation*}
+\begin{equation}
   \min_{f\in\mathcal{F}} \sum_{j=1}^N \left(f(x_j) - y_j\right)^2,
-\end{equation*}
+\end{equation}
 ou seja, $f(x)$ é a função da família $\mathcal{F}$ cujo erro quadrático entre $y_j$ e $f(x_j)$, $j = 1, 2, \dotsc, N$, é mínimo. A expressão
-\begin{equation*}
+\begin{equation}
   \begin{split}
   R &:= \sum_{j=1}^N \left(f(x_j)-y_j\right)^2 \\
-  &= \left(f(x_1)-y_1\right)^2 +  \left(f(x_2)-y_2\right)^2 + \cdots + \left(f(x_N)- y_N\right)^2    
+  &= \left(f(x_1)-y_1\right)^2 +  \left(f(x_2)-y_2\right)^2 + \cdots + \left(f(x_N)- y_N\right)^2
   \end{split}
-\end{equation*}
+\end{equation}
 é chamada de \emph{resíduo}\index{resíduo} e consiste na soma dos quadrados das diferenças entre a ordenadas $y_j$ e o valor da função procurada $f(x_j)$.
 
 \begin{ex}\label{ex:intro_ajuste}
@@ -50,18 +50,18 @@ Na sequência, discutimos o procedimento de ajuste de uma reta, então, mostramo
 
 \section{Ajuste de uma reta}\index{ajuste!de uma reta}
 
-Nesta seção, discutiremos o procedimento de ajuste de uma reta a um conjunto de pontos dados. Em outras palavras, discutiremos o método de solução para o problema de encontrar o polinômio do primeiro grau que melhor se aproxima a um dado conjunto de pontos pelo método dos mínimos quadrados. 
+Nesta seção, discutiremos o procedimento de ajuste de uma reta a um conjunto de pontos dados. Em outras palavras, discutiremos o método de solução para o problema de encontrar o polinômio do primeiro grau que melhor se aproxima a um dado conjunto de pontos pelo método dos mínimos quadrados.
 
 Seja, então, $\{(x_1,y_1), (x_2,y_2),\ldots, (x_N,y_N)\}$ um conjunto de $N$ pontos dados. Buscamos encontrar a função $f(x) = a_1 + a_2x$ tal que o resíduo
-\begin{equation*}
+\begin{equation}
   R = \sum_{j=1}^N (f(x_j)-y_j)^2
-\end{equation*}
+\end{equation}
 seja mínimo.
 
 Para tal, primeiro observamos que $f(x_j)=a_1+a_2 x_j$ e, portanto, o resíduo pode ser escrito explicitamente como uma função de $a_1$ e $a_2$ conforme a seguinte expressão:
-\begin{equation*}
+\begin{equation}
   R(a_1,a_2) = \sum_{j=1}^N (a_1 + a_2x_j - y_j)^2.
-\end{equation*}
+\end{equation}
 
 %O objetivo é encontrar $a_1, a_2$ e geralmente temos muito mais equações do que incógnitas, isto é,
 %\begin{eqnarray*}
@@ -69,19 +69,19 @@ Para tal, primeiro observamos que $f(x_j)=a_1+a_2 x_j$ e, portanto, o resíduo p
 % a_1+a_2 x_2 &=&y_2 \\
 % a_1+a_2 x_3 &=&y_3 \\
 %  \vdots     &=& \vdots \\
-% a_N+a_2 x_N &=&y_N   
+% a_N+a_2 x_N &=&y_N
 %\end{eqnarray*}
 %ou simplesmente $V\vec a= \vec y$.
 
 Observamos que $R(a_1,a_2)$ é uma forma quadrática e que seu mínimo ocorre quando suas derivadas parciais primeiras são iguais a zero, isto é,
 \begin{eqnarray*}
   \frac{\partial R}{\partial a_1} &=& \frac{\partial }{\partial a_1} \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2 =0, \\
-  \frac{\partial R}{\partial a_2} &=& \frac{\partial }{\partial a_2} \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2 =0. 
+  \frac{\partial R}{\partial a_2} &=& \frac{\partial }{\partial a_2} \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2 =0.
 \end{eqnarray*}
 Ou seja,
 \begin{eqnarray*}
    2 \sum_{j=1}^N (a_1 + a_2 x_j-y_j)\cdot 1 &=&0, \\
-   2 \sum_{j=1}^N (a_1 + a_2 x_j-y_j)\cdot x_j &=&0, 
+   2 \sum_{j=1}^N (a_1 + a_2 x_j-y_j)\cdot x_j &=&0,
 \end{eqnarray*}
 e isolando as incógnitas temos
 \begin{eqnarray*}
@@ -92,28 +92,28 @@ Observando que $\sum_{j=1}^N 1=N$, o sistema linear acima pode ser escrito na fo
 \begin{equation}\label{eq:smq_reta}
   \underbrace{\begin{bmatrix}
      N &  \sum_{j=1}^N x_j \\
-     \sum_{j=1}^N x_j &  \sum_{j=1}^N x_j^2 
+     \sum_{j=1}^N x_j &  \sum_{j=1}^N x_j^2
   \end{bmatrix}}_{M}
   \underbrace{\begin{bmatrix}
      a_1 \\
-     a_2 
+     a_2
   \end{bmatrix}}_{a} =
   \underbrace{\begin{bmatrix}
      \sum_{j=1}^N y_j \\
-     \sum_{j=1}^N x_j y_j 
+     \sum_{j=1}^N x_j y_j
   \end{bmatrix}}_{w}.
 \end{equation}
 
-Este sistema linear de duas equações e duas incógnitas admite uma única solução quando o determinante da matriz dos coeficientes for não nulo, isto é,  
+Este sistema linear de duas equações e duas incógnitas admite uma única solução quando o determinante da matriz dos coeficientes for não nulo, isto é,
 \begin{eqnarray*}
-N \sum_{j=1}^N x_j^2 - \left(\sum_{j=1}^N x_j\right)^2 \neq 0 
+N \sum_{j=1}^N x_j^2 - \left(\sum_{j=1}^N x_j\right)^2 \neq 0
 \end{eqnarray*}
 
 Pode-se mostrar usando a \emph{desigualdade de Cauchy–Schwarz} que isto acontece quando existem pelo menos duas abscissas diferentes envolvidas no ajuste.  Usando a fórmula da inversa de uma matriz dois-por-dois, chegamos às seguintes fórmulas para os coeficientes $a_1$ e $a_2$:
   \begin{equation}\label{eq:formula_final_ajuste_reta}
     \begin{split}
     a_1 &= \frac{\sum_{j=1}^N x_j^2  \cdot \sum_{j=1}^N y_j - \sum_{j=1}^N x_j \cdot \sum_{j=1}^N x_jy_j}{N \sum_{j=1}^N x_j^2 - \left(\sum_{j=1}^N x_j\right)^2}\\
-    a_2 &= \frac{N \sum_{j=1}^N x_jy_j - \sum_{j=1}^N x_j  \cdot \sum_{j=1}^N y_j }{N \sum_{j=1}^N x_j^2 - \left(\sum_{j=1}^N x_j\right)^2}      
+    a_2 &= \frac{N \sum_{j=1}^N x_jy_j - \sum_{j=1}^N x_j  \cdot \sum_{j=1}^N y_j }{N \sum_{j=1}^N x_j^2 - \left(\sum_{j=1}^N x_j\right)^2}
     \end{split}
 \end{equation}
 
@@ -151,18 +151,18 @@ Deixamos ao leitor a verificação de que os coeficientes $a_1$ e $a_2$ também 
 \ifisscilab
 Os coeficientes $a_1$ e $a_2$ podem ser rapidamente calculados no \verb+Scilab+ usando a expressão~\eqref{eq:sol_smq_reta}. Para tando, digitamos:
 \begin{verbatim}
--->xj = [1, 1.5, 2]';  
--->yj = [1.2, 1.3, 2.3]'; 
--->V = [ones(3,1) xj]; 
--->a = inv(V'*V)*V'*yj 
+-->xj = [1, 1.5, 2]';
+-->yj = [1.2, 1.3, 2.3]';
+-->V = [ones(3,1) xj];
+-->a = inv(V'*V)*V'*yj
  a  =
-  - 0.05  
-    1.1   
+  - 0.05
+    1.1
 \end{verbatim}
 Então, o gráfico da função ajustada e dos pontos pode ser obtido com os comandos:
 \begin{verbatim}
 -->deff('y = f(x)','y = a(1) + a(2)*x')
--->xx = linspace(0.5,2.5); 
+-->xx = linspace(0.5,2.5);
 -->plot(xj,yj,'ro',xx,f(xx),'b-')
 \end{verbatim}
 \fi
@@ -181,13 +181,13 @@ a = inv(V'*V)*V'*yj
 o que nos fornece no {\it prompt}:
 \begin{verbatim}
  a  =
-  - 0.05  
-    1.1     
+  - 0.05
+    1.1
 \end{verbatim}
 Então, o gráfico da função ajustada e dos pontos pode ser obtido com os comandos:
 \begin{verbatim}
 f = inline("a(1) + a(2)*x")
-xx = linspace(0.5,2.5); 
+xx = linspace(0.5,2.5);
 plot(xj,yj,'ro',xx,f(xx),'b-');grid on
 \end{verbatim}
 \fi
@@ -231,7 +231,7 @@ O procedimento apresentado de ajuste de uma reta por mínimos quadrados pode ser
 \begin{resol}
     \begin{enumerate}[a)]
     \item Basta observar que
-      \begin{equation*}
+      \begin{equation}
         V^TV = \begin{bmatrix}
           1 & 1 \cdots & 1\\
           x_1 & x_2 & \cdots & x_N
@@ -244,11 +244,11 @@ O procedimento apresentado de ajuste de uma reta por mínimos quadrados pode ser
         \end{bmatrix} =
         \begin{bmatrix}
           N &  \sum_{j=1}^N x_j \\
-          \sum_{j=1}^N x_j &  \sum_{j=1}^N x_j^2 
+          \sum_{j=1}^N x_j &  \sum_{j=1}^N x_j^2
         \end{bmatrix} = M
-      \end{equation*}
+      \end{equation}
       e
-      \begin{equation*}
+      \begin{equation}
         V^Ty = \begin{bmatrix}
           1 & 1 \cdots & 1\\
           x_1 & x_2 & \cdots & x_N
@@ -258,16 +258,16 @@ O procedimento apresentado de ajuste de uma reta por mínimos quadrados pode ser
           y_2\\
           \vdots\\
           y_N
-        \end{bmatrix} = 
+        \end{bmatrix} =
         \begin{bmatrix}
           \sum_{j=1}^N y_j \\
-          \sum_{j=1}^N x_j y_j 
+          \sum_{j=1}^N x_j y_j
         \end{bmatrix} = w.
-      \end{equation*}
+      \end{equation}
     \item Sejam $x_i\neq x_j$ duas abscissas diferentes. Então, a $i$-ésima e $j$-ésima linhas na matriz $V$ são linearmente independentes e, portanto, o posto de $V$ é igual a 2. Por fim, $V^TV$ é não singular, pois, se $u$ é tal que $V^TVu = 0$, então
-      \begin{equation*}
+      \begin{equation}
         0 = u^TV^TVu = (Vu)^T(Vu) = (Vu)\cdot (Vu) \Rightarrow Vu = 0.
-      \end{equation*}
+      \end{equation}
 Agora, $Vu = 0$ é uma combinação linear das linhas de $V$ igual a zero, logo $u = 0$, pois as linhas de $V$ são linearmente independentes como mostrado antes. Concluímos que se $V^TVu = 0$, então $u = 0$, isto é, $V^TV$ é não singular.
     \end{enumerate}
 \end{resol}
@@ -306,23 +306,23 @@ Forneça os valores calculados com $7$ dígitos significativo por arredondamento
 \section{Ajuste linear geral}\index{ajuste!linear}
 
 O problema geral de ajuste linear consiste em dada uma família $\mathcal{F}$ gerada pelo conjunto de $m$ funções $\{f_1(x), f_2(x), \dotsc, f_m(x)\}$ e um conjunto de $n$ pares ordenados $\{(x_1, y_1)$, $(x_2, y_2)$, $\ldots$, $(x_n, y_n)\}$, calcular os coeficientes $a_1$, $a_2$, $\ldots$, $a_m$ tais que a função dada por
-\begin{equation*}
+\begin{equation}
   f(x) = \sum_{j=1}^m a_jf_j(x) = a_1f_1(x)+a_2f_2(x)+\ldots+a_mf_m(x)
-\end{equation*}
+\end{equation}
 minimiza o resíduo
-\begin{equation*}
+\begin{equation}
   R= \sum_{i=1}^n \left[f(x_i)-y_i\right]^2.
-\end{equation*}
+\end{equation}
 Aqui, a minimização é feita por todas as possíveis escolhas dos coeficientes $a_1$, $a_2$, $\ldots$, $a_m$.
 
 Com o objetivo de tornar a desenvolvimento mais claro, vamos escrever $R$ como a soma dos resíduos parciais:
-\begin{equation*}
+\begin{equation}
   R= \sum_{i=1}^n R_i,\quad \text{onde} \quad R_i := \left[f(x_i)-y_i\right]^2.
-\end{equation*}
+\end{equation}
 Do fato que $f(x_i)=\sum_{j=1}^m a_jf_j(x_i)$, temos que cada resíduo pode ser escrito como
-\begin{equation*}
+\begin{equation}
   R_i=  \left[\sum_{j=1}^m a_jf_j(x_i)-y_i\right]^2.
-\end{equation*}
+\end{equation}
 
 A fim de encontrar o ponto de mínimo, resolvemos o sistema oriundo de igualar a zero cada uma das derivadas parciais de $R$ em relação aos $m$ coeficientes $a_j$, isto é, devemos resolver:
 \begin{eqnarray*}
@@ -363,7 +363,7 @@ a_m
 \end{eqnarray*}
 
 Agora, observamos que $M=V^TV$ e $w=V^T y$, onde a matriz $V$ é dada por:
-\begin{equation*}
+\begin{equation}
   V=\begin{bmatrix}
     f_1(x_1)&f_2(x_1) & \cdots & f_m(x_1)\\
     f_1(x_2)&f_2(x_2) & \cdots & f_m(x_2)\\
@@ -371,7 +371,7 @@ Agora, observamos que $M=V^TV$ e $w=V^T y$, onde a matriz $V$ é dada por:
     \vdots & \vdots & \ddots & \vdots\\
     f_1(x_n)&f_2(x_n) & \cdots & f_m(x_n)
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 e $y$ é o vetor coluna $y = (y_1, y_2, \dotsc, y_N)$.
 
 Assim, o problema de ajuste se reduz a resolver o sistema linear $Ma=w$, ou $V^TVa = V^T y$. Este sistema linear tem solução única se a matriz $M$ for inversível. O teorema a seguir mostra que isto acontece sempre a matriz $V$ possui posto $m$, ou seja, o número de linhas linearmente independentes for igual ao número de colunas.\footnote{Nota-se que o posto não pode ultrapassar o número de colunas.}
@@ -381,9 +381,9 @@ Assim, o problema de ajuste se reduz a resolver o sistema linear $Ma=w$, ou $V^T
 A matriz $M=V^TV$ é quadrada de ordem $m$ e é inversível sempre que o posto da matriz $V$ é igual a número de colunas $m$.
 \end{teo}
 \begin{proof}
-Para provar que $M$ é inversível, precisamos mostrar que se $v$ é um vetor de ordem $m$ e $Mv=0$, então $v=0$. Suponha, então, que $Mv=0$, isto é, 
+Para provar que $M$ é inversível, precisamos mostrar que se $v$ é um vetor de ordem $m$ e $Mv=0$, então $v=0$. Suponha, então, que $Mv=0$, isto é,
 $V^TVv=0$. Tomando o produto interno da expressão $V^TVv=0$ com $v$, temos:
-$$0=\left<V^TVv,v\right>=\left<Vv,Vv\right>=\|Vv\|^2$$
+\begin{equation} 0=\left<V^TVv,v\right>=\left<Vv,Vv\right>=\|Vv\|^2 \end{equation}
 Portanto $Mv=0$ implica obrigatoriamente $Vv=0$. Como o posto de $V$ é igual ao número de colunas, $v$ precisar ser o vetor nulo.
 \end{proof}
 %\begin{lem}
@@ -391,11 +391,11 @@ Portanto $Mv=0$ implica obrigatoriamente $Vv=0$. Como o posto de $V$ é igual ao
 %\end{lem}
 %\begin{proof}
 %Isso é facilmente provado pelo seguinte argumento:
-%$$M^T=(V^TV)^T=(V)^T(V^T)^T=V^TV=M$$
+%\begin{equation} M^T=(V^TV)^T=(V)^T(V^T)^T=V^TV=M \end{equation}
 %\end{proof}
 
 \begin{obs} Este problema é equivalente a resolver pelo métodos dos mínimos quadrados o seguinte sistema linear:
-  \begin{equation*}
+  \begin{equation}
     \begin{bmatrix}
       f_1(x_1)&f_2(x_1) & \cdots & f_m(x_1)\\
       f_1(x_2)&f_2(x_2) & \cdots & f_m(x_2)\\
@@ -416,7 +416,7 @@ Portanto $Mv=0$ implica obrigatoriamente $Vv=0$. Como o posto de $V$ é igual ao
       \vdots\\
       y_n
     \end{bmatrix}
-  \end{equation*}
+  \end{equation}
 \end{obs}
 
 
@@ -440,7 +440,7 @@ Portanto $Mv=0$ implica obrigatoriamente $Vv=0$. Como o posto de $V$ é igual ao
 \end{ex}
 \begin{sol}
 O problema consiste em ajustar uma função da forma $f(x) = a_1 + a_2x$ no conjunto de pontos dados. Notamos que $f(x)$ é uma função da família gerada pelo conjunto de funções $\{f_1(x) = 1, f_2(x) = x\}$. Então, aplicando o procedimento acima, temos que o vetor dos coeficientes $a = (a_1, a_2)$ é solução por mínimos quadrados do sistema linear $Va = y$, onde:
-\begin{equation*}
+\begin{equation}
   V = \begin{bmatrix}
     f_1(x_1) & f_2(x_1)\\
     f_1(x_2) & f_2(x_2)\\
@@ -455,9 +455,9 @@ O problema consiste em ajustar uma função da forma $f(x) = a_1 + a_2x$ no conj
     1 &2,95\\
     1 &3,55
 \end{bmatrix}.
-\end{equation*}
+\end{equation}
 Ou seja, é a solução do sistema $V^TVa = V^Ty$ dado por
-\begin{equation*}
+\begin{equation}
   \begin{bmatrix}
     5     & 9,57 \\
     9,57  & 26,5071
@@ -470,7 +470,7 @@ Ou seja, é a solução do sistema $V^TVa = V^Ty$ dado por
     34,07  \\
     85,8144
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 A solução desse sistema é $a_1 = 1,9988251$ e $a_2 = 2,5157653$. A Figura~\ref{fig:ex_ajuste_reta2}, apresenta um gráfico dos pontos e da reta ajustada.
 
 % A tabela abaixo mostra os valores dados e os valores ajustados:
@@ -485,7 +485,7 @@ A solução desse sistema é $a_1 = 1,9988251$ e $a_2 = 2,5157653$. A Figura~\re
 % $2,95$ & $9,51$ & $9,4203327$ & $-0,0896673$  \\
 % $3,55$ & $10,82$ & $10,929792$ & $0,1097919$ \\
 % \hline
-% \end{tabular}  
+% \end{tabular}
 % \end{center}
 \end{sol}
 
@@ -504,11 +504,11 @@ A solução desse sistema é $a_1 = 1,9988251$ e $a_2 = 2,5157653$. A Figura~\re
       $x_i$ & $0,00$ & $0,25$ & $0,50$ & $0,75$ & $1,00$\\
       $y_i$ & $-153$ & $64$ & $242$ & $284$ & $175$
     \end{tabular}
-  \end{center} 
+  \end{center}
 \end{ex}
 \begin{sol}
 Pelo procedimento visto nesta seção, temos que os coeficientes $a_1$ e $a_2$ são dados pela solução por mínimos quadrados do seguinte sistema linear $Va = y$
-\begin{equation*}
+\begin{equation}
   \begin{split}
     a_1\sen(\pi x_1) + a_2\cos(\pi x_1) &= y_1\\
     a_1\sen(\pi x_2) + a_2\cos(\pi x_2) &= y_2\\
@@ -516,9 +516,9 @@ Pelo procedimento visto nesta seção, temos que os coeficientes $a_1$ e $a_2$ s
     a_1\sen(\pi x_4) + a_2\cos(\pi x_4) &= y_4\\
     a_1\sen(\pi x_5) + a_2\cos(\pi x_5) &= y_5
   \end{split}
-\end{equation*}
+\end{equation}
 cuja matriz de coeficientes $V$ é:
-\begin{equation*}
+\begin{equation}
   V=\begin{bmatrix}
     \sin(0) & \cos(0)  \\
     \sin(0,25\pi) & \cos(0,25\pi)  \\
@@ -526,16 +526,16 @@ cuja matriz de coeficientes $V$ é:
     \sin(0,75\pi) & \cos(0,75\pi)  \\
     \sin(\pi) & \cos(\pi)  \\
  \end{bmatrix}
-\end{equation*}
+\end{equation}
 
 Então, a solução por mínimos quadrados é
-\begin{equation*}
+\begin{equation}
   a = (V^TV)^{-1}V^Ty =
   \begin{bmatrix}
     244,03658\\
     -161,18783
   \end{bmatrix}.
-\end{equation*}
+\end{equation}
 Ou seja, $f(x) = 244,03658\sen(\pi x) - 161,18783\cos(\pi x)$ é a função ajustada ao conjunto de pontos dados. A Figura~\ref{fig:ex_ajuste_linear} apresenta o gráfica de $f(x)$ e dos pontos dados.
 
 %%%%%%%%%%%%%%%%%%%%
@@ -544,13 +544,13 @@ Ou seja, $f(x) = 244,03658\sen(\pi x) - 161,18783\cos(\pi x)$ é a função ajus
 \ifisscilab
 No \verb+Scilab+, podemos computar os coeficientes da função $f(x)$ da seguinte forma:
 \begin{verbatim}
--->xi = [0 0.25 0.5 0.75 1]';  
--->yi = [-153 64 242 284 175]'; 
--->V = [sin(%pi*xi) cos(%pi*xi)]; 
--->a = inv(V'*V)*V'*yi 
+-->xi = [0 0.25 0.5 0.75 1]';
+-->yi = [-153 64 242 284 175]';
+-->V = [sin(%pi*xi) cos(%pi*xi)];
+-->a = inv(V'*V)*V'*yi
  a  =
-    244.03658  
-  - 161.18783  
+    244.03658
+  - 161.18783
 \end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%
@@ -593,13 +593,13 @@ Em \verb+Python+, podemos computar os coeficientes da função $f(x)$ da seguint
 % \hline
 % $x_i$ & $y_i$& $f(x_i)$& $f(x_i)-y_i$\\
 % \hline
-% 0  &   -153&  - 161,18783&  -8,1878306 \\ 
-% 0,25&    64 &    58,582912&  -5,4170876 \\ 
-% 0,5 &    242&    244,03658&   2,0365799 \\ 
-% 0,75&    284&    286,53693&   2,5369286 \\ 
+% 0  &   -153&  - 161,18783&  -8,1878306 \\
+% 0,25&    64 &    58,582912&  -5,4170876 \\
+% 0,5 &    242&    244,03658&   2,0365799 \\
+% 0,75&    284&    286,53693&   2,5369286 \\
 % 1   &    175&    161,18783&  -13,812169 \\
 % \hline
-% \end{tabular}  
+% \end{tabular}
 % \end{center}
 \end{sol}
 
@@ -685,7 +685,7 @@ Isto requer que a matriz $A$ seja quadrada e de posto completo. Alternativamente
 % \begin{equation}\label{erro}
 % E:=\sum_{j=1}^N \left[\sum_{j=1}^m a_{ij} x_j- b_i\right]^2
 % \end{equation}
-% Esta é uma função diferenciável nos coeficientes $x_j$ e portanto todo ponto de mínimo acontece quando $\nabla E=0$, ou seja, quando $$\frac{\partial}{\partial x_l}E=0,\forall 1\leq l \leq m $$
+% Esta é uma função diferenciável nos coeficientes $x_j$ e portanto todo ponto de mínimo acontece quando $\nabla E=0$, ou seja, quando \begin{equation} \frac{\partial}{\partial x_l}E=0,\forall 1\leq l \leq m  \end{equation}
 
 % O que implica a seguinte condição
 % \begin{eqnarray*}
@@ -716,18 +716,18 @@ Isto requer que a matriz $A$ seja quadrada e de posto completo. Alternativamente
 % \right]
 % \end{eqnarray}
 % Observamos agora que a expressão (\ref{cond_vet}) é equivalente ao seguinte problema matricial:
-% 
+%
 % \begin{equation}\framebox[100 pt][c]{$A^TA x = A^Tb$}\end{equation}
 
 \subsection{Ajuste polinomial}\index{ajuste!polimomial}
 
-O \emph{ajuste polinomial} é o caso particular do ajuste linear para \emph{funções polinomiais}, isto é, funções do tipo 
-\begin{equation*}
+O \emph{ajuste polinomial} é o caso particular do ajuste linear para \emph{funções polinomiais}, isto é, funções do tipo
+\begin{equation}
   p(x)=a_1 + a_2 x + \cdots + a_{m}x^{m-1}.
-\end{equation*}
+\end{equation}
 
 Neste caso, a matriz $V$ associada ao ajuste dos pontos $\{(x_1, y_1)$, $(x_2, y_2)$, $(x_3, y_3)$, $\ldots$, $(x_n,y_n)\}$ é dada por:
-\begin{equation*}
+\begin{equation}
   V=
 \begin{bmatrix}
   1     &    x_1   &   x_1^2& \cdots & x_1^{m-1}\\
@@ -736,9 +736,9 @@ Neste caso, a matriz $V$ associada ao ajuste dos pontos $\{(x_1, y_1)$, $(x_2, y
   \vdots&    \vdots&  & \ddots & \vdots    \\
   1     &    x_n   &   x_n^2& \cdots & x_n^{m-1}
 \end{bmatrix}
-\end{equation*}
+\end{equation}
 Então, os coeficientes $a_i$, $i = 1, 2, \ldots, m$, são dados pela solução do sistema linear $V^TV a = v^Ty$:
-\begin{equation*}
+\begin{equation}
   \underbrace{\begin{bmatrix}
      n     &  \sum\limits_{j=1}^n  x_j   & \cdots & \sum\limits_{j=1}^n x_j^{m-1}\\
      \sum\limits_{j=1}^n x_j   &  \sum\limits_{j=1}^n  x_j^2 &        & \sum\limits_{j=1}^n x_j^{m}\\
@@ -755,9 +755,9 @@ Então, os coeficientes $a_i$, $i = 1, 2, \ldots, m$, são dados pela solução 
      \sum\limits_{j=1}^n y_j \\
      \sum\limits_{j=1}^n x_j y_j \\
      \vdots \\
-     \sum\limits_{j=1}^n x_j^{m-1} y_j 
+     \sum\limits_{j=1}^n x_j^{m-1} y_j
   \end{bmatrix}}_{V^Ty}
-\end{equation*}
+\end{equation}
 
 \begin{figure}
   \centering
@@ -774,25 +774,25 @@ Então, os coeficientes $a_i$, $i = 1, 2, \ldots, m$, são dados pela solução 
       $x_i$ & $0,00$ & $0,25$ & $0,50$ & $0,75$ & $1,00$\\
       $y_i$ & $-153$ & $64$ & $242$ & $284$ & $175$
     \end{tabular}
-  \end{center} 
+  \end{center}
 \end{ex}
 \begin{sol}
 Um polinômio de grau 2 pode ser escrito na seguinte forma:
-\begin{equation*}
+\begin{equation}
   p(x) = a_1 + a_2x + a_3x^2.
-\end{equation*}
+\end{equation}
 Assim, o problema se resume em encontrarmos a solução por mínimos quadrados do seguinte sistema linear:
-\begin{equation*}
+\begin{equation}
   \begin{split}
   a_1 + a_2x_1 + a_3x_1^2 &= y_1\\
   a_2 + a_2x_2 + a_3x_2^2 &= y_2\\
   a_3 + a_2x_3 + a_3x_3^2 &= y_3\\
   a_4 + a_2x_4 + a_3x_4^2 &= y_4\\
-  a_5 + a_2x_5 + a_3x_5^2 &= y_5    
+  a_5 + a_2x_5 + a_3x_5^2 &= y_5
   \end{split}
-\end{equation*}
+\end{equation}
 Ou, escrita na forma matricial, $Va = y$, onde:
-\begin{equation*}
+\begin{equation}
   V =
   \begin{bmatrix}
     1 & x_1 & x_1^2\\
@@ -801,17 +801,17 @@ Ou, escrita na forma matricial, $Va = y$, onde:
     1 & x_4 & x_4^2\\
     1 & x_5 & x_5^2
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 
 A solução por mínimos quadrados é, então:
-\begin{equation*}
+\begin{equation}
   a = (V^TV)^{-1}V^Ty =
   \begin{bmatrix}
     - 165,37143 \\
     1250,9714  \\
-  - 900,57143  
+  - 900,57143
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 Ou seja, o polinômio de grau 2 que melhor ajusta os pontos dados no sentido de mínimos quadrados é $p(x) = -165,37143 + 1250,9714x -900,57143x^2$. A Figura~\ref{fig:ex_ajuste_polinomial} mostra o gráfico do polinômio ajustado e os pontos dados.
 
 %%%%%%%%%%%%%%%%%%%%
@@ -824,14 +824,14 @@ No \verb+Scilab+, podemos computar o polinômio $p(x)$ da seguinte forma:
 -->yi = [-153 64 242 284 175]';
 -->V = [ones(5,1) xi xi.^2];
 -->a = V\yi;
--->p = poly(a,'x','c') 
+-->p = poly(a,'x','c')
  p  =
-                                       2  
-  - 165.37143 + 1250.9714x - 900.57143x   
+                                       2
+  - 165.37143 + 1250.9714x - 900.57143x
 \end{verbatim}
 Para fazermos o gráfico do polinômio e dos pontos, digitamos:
 \begin{verbatim}
--->xx = linspace(-0.25,1.25); 
+-->xx = linspace(-0.25,1.25);
 -->plot(xi,yi,'ro',xx,horner(p,xx),'b-');xgrid
 \end{verbatim}
 \fi
@@ -880,27 +880,27 @@ Para fazermos o gráfico do polinômio e dos pontos, digitamos:
 %%%%%%%%%%%%%%%%%%%%
 \end{sol}
 
-% 
-% Dado um conjunto de $n$ pontos, desejamos encontrar o \textit{polinômio} de grau $p$ que melhor se ajusta a esses pontos de tal forma a minimizar o resíduo, ou seja, encontrar a curva $f(x)=a_1+a_2 x+...+a_{p+1}x^{p}$ tal que 
+%
+% Dado um conjunto de $n$ pontos, desejamos encontrar o \textit{polinômio} de grau $p$ que melhor se ajusta a esses pontos de tal forma a minimizar o resíduo, ou seja, encontrar a curva $f(x)=a_1+a_2 x+...+a_{p+1}x^{p}$ tal que
 % \begin{eqnarray*}
 %   R(a_1,...,a_{p+1}) &=&\sum_{j=1}^N (f(x_j)-y_j)^2 \\
 %                  &=&\sum_{j=1}^N (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2
 % \end{eqnarray*}
 % seja o menor possível.
-% 
+%
 % O objetivo é encontrar as incógnitas $a_i$ que minimizam a soma do quadrado do resíduo.
-% 
+%
 % O mínimo de $R$ encontra-se quando a derivada primeira é igual a zero:
 % \begin{eqnarray*}
 %   \frac{\partial R}{\partial a_1}     &=& \frac{\partial }{\partial a_1}     \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2 =0 \\
 %   \vdots &=& \vdots \\
-%   \frac{\partial R}{\partial a_{p+1}} &=& \frac{\partial }{\partial a_{p+1}} \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2 =0 
+%   \frac{\partial R}{\partial a_{p+1}} &=& \frac{\partial }{\partial a_{p+1}} \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2 =0
 % \end{eqnarray*}
 % ou seja,
 % \begin{eqnarray*}
 %    2 \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)\cdot 1    &=&0 \\
 %   \vdots &=& \vdots \\
-%    2 \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)\cdot x_j^p&=&0 
+%    2 \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)\cdot x_j^p&=&0
 % \end{eqnarray*}
 % e isolando as incógnitas temos
 % \begin{eqnarray*}
@@ -908,7 +908,7 @@ Para fazermos o gráfico do polinômio e dos pontos, digitamos:
 %   \vdots &= \vdots \\
 %    a_1\sum_{j=1}^n x_j^p + a_2 \sum_{j=1}^Nx_j^{p+1}+...+a_{p+1} \sum_{j=1}^Nx_j^{2p} &=\sum_{j=1}^N y_jx_j^{p}
 % \end{eqnarray*}
-% 
+%
 % Na forma matricial obtemos
 % \begin{equation}
 %   \begin{bmatrix}
@@ -927,15 +927,15 @@ Para fazermos o gráfico do polinômio e dos pontos, digitamos:
 %      \sum y_j \\
 %      \sum x_j y_j \\
 %      \vdots \\
-%      \sum x_j^p y_j 
+%      \sum x_j^p y_j
 %   \end{bmatrix}
 % \end{equation}
-% 
-% Na forma matricial temos 
+%
+% Na forma matricial temos
 % \begin{equation}
 %    Ma := V^TV a = V^Ty
 % \end{equation}
-% 
+%
 
 \subsection*{Exercícios}
 
@@ -946,11 +946,11 @@ Para fazermos o gráfico do polinômio e dos pontos, digitamos:
       $i$ & $1$ & $2$ & $3$ & $4$ \\\hline
       $x_i$ & $-1,50$ & $-0,50$ & $1,25$ & $1,50$\\
       $y_i$ & $1,15$ & $-0,37$ & $0,17$ & $0,94$
-  \end{tabular} 
+  \end{tabular}
     \end{center}
 \end{exer}
 \begin{resp}
-    $a_1 = -0,67112$, $a_2 = -0,12123$, $a_3 = 0,73907$. 
+    $a_1 = -0,67112$, $a_2 = -0,12123$, $a_3 = 0,73907$.
 \end{resp}
 
 \begin{exer}Encontrar a parábola $y=ax^2+bx+c$ que melhor aproxima o seguinte conjunto de dados:
@@ -960,9 +960,9 @@ Para fazermos o gráfico do polinômio e dos pontos, digitamos:
       $x_i$ & $0,01$ & $1,02$ & $2,04$ & $2,95$ & $3,55$\\
       $y_i$ & $1,99$ & $4,55$ & $7,20$ & $9,51$ & $10,82$
     \end{tabular}
-  \end{center} 
+  \end{center}
 \end{exer}
-\begin{resp}  
+\begin{resp}
     $y=-0,0407898x^2+ 2,6613293x+ 1,9364598$.
 \end{resp}
 
@@ -972,7 +972,7 @@ Para fazermos o gráfico do polinômio e dos pontos, digitamos:
       $x_i$ & $0,0$ & $0,1$ & $0,2$ & $0,3$ & $0,4$ & $0,5$ & $0,6$ & $0,7$ & $0,8$ & $0,9$ & $1,0$\\\hline
       $y_i$ & $31$ & $35$ & $37$ & $33$ & $28$ & $20$ & $16$ & $15$ & $18$ & $23$ & $31$
     \end{tabular}
-  \end{center} 
+  \end{center}
 \begin{enumerate}[a)]
 \item Encontre a função do tipo $f(x)=a+b\sin(2\pi x)+c\cos(2\pi x)$ que melhor aproxima os valores dados.
 \item Encontre a função do tipo $f(x)=a+bx+cx^2+dx^3$ que melhor aproxima os valores dados.
@@ -985,9 +985,9 @@ Para fazermos o gráfico do polinômio e dos pontos, digitamos:
 
 
 % \begin{exer}Encontre a partir de primeiros princípios a função do tipo $f(x)=bx+a$ que melhor aproxima os pontos:
-%   \begin{equation*}
-%     (0,-0,1), (1,~2), (2,~3,7) ~ \text{e} ~(3,~7).  
-%   \end{equation*}
+%   \begin{equation}
+%     (0,-0,1), (1,~2), (2,~3,7) ~ \text{e} ~(3,~7).
+%   \end{equation}
 % \end{exer}
 % \begin{resp}
 % \begin{eqnarray*}
@@ -1009,18 +1009,18 @@ Para fazermos o gráfico do polinômio e dos pontos, digitamos:
 % 12a+28b&=&60,8
 % \end{eqnarray*}
 % Cuja solução é dada por $a=-0,3$ e $b=2,3$.
-% Portanto a função que procuramos é $f(x)=-0,3 +2,3x$.  
+% Portanto a função que procuramos é $f(x)=-0,3 +2,3x$.
 % \end{resp}
 
 
 
 % \begin{exer} Encontre a função do tipo $f(x)=ax$ que melhor se aproxima dos seguintes pontos:
-%   \begin{equation*}
-%     (0, -0,1), (1, 2), (2, 3,7) ~ \text{e} ~(3, 7).  
-%   \end{equation*}
+%   \begin{equation}
+%     (0, -0,1), (1, 2), (2, 3,7) ~ \text{e} ~(3, 7).
+%   \end{equation}
 % \end{exer}
 % \begin{resp}
-% Defina $$E_q=[f(x_1)-y_1]^2+[f(x_2)-y_2]^2+[f(x_3)-y_3]^2+[f(x_4)-y_4]^2$$
+% Defina \begin{equation} E_q=[f(x_1)-y_1]^2+[f(x_2)-y_2]^2+[f(x_3)-y_3]^2+[f(x_4)-y_4]^2 \end{equation}
 % temos que
 % \begin{eqnarray*}
 % E_q&=&[f(0)+0,1]^2+[f(1)-2]^2+[f(2)-3,7]^2+[f(3)-7]^2\\
@@ -1044,7 +1044,7 @@ Para fazermos o gráfico do polinômio e dos pontos, digitamos:
 
 \section{Aproximando problemas não lineares por problemas lineares}
 
-Eventualmente, problemas de ajuste de curvas podem recair em um sistema não linear. Por exemplo, para ajustar função $y=Ae^{bx}$ ao conjunto de pontos $(x_1,y_1)$, $(x_2,y_2)$ e $(x_3,y_3)$, temos que minimizar o resíduo\footnote{A soma do quadrado dos resíduos.} 
+Eventualmente, problemas de ajuste de curvas podem recair em um sistema não linear. Por exemplo, para ajustar função $y=Ae^{bx}$ ao conjunto de pontos $(x_1,y_1)$, $(x_2,y_2)$ e $(x_3,y_3)$, temos que minimizar o resíduo\footnote{A soma do quadrado dos resíduos.}
 $$
 R=(Ae^{x_1b}-y_1)^2+(Ae^{x_2b}-y_2)^2+(Ae^{x_3b}-y_3)^2
 $$
@@ -1057,27 +1057,27 @@ ou seja, resolver o sistema
 que é não linear em $A$ e $b$. Esse sistema pode ser resolvido pelo método de Newton-Raphson, o que pode se tornar custoso, ou mesmo inviável quando não dispomos de uma boa aproximação da solução para inicializar o método.
 
 Felizmente, algumas famílias de curvas admitem uma transformação que nos leva a um problema linear. No caso da curva $y=Ae^{bx}$, observe que $\ln y=\ln A+bx$. Assim, em vez de ajustar a curva original $y=Ae^{bx}$ a tabela de pontos, ajustamos a curva submetida a transformação logarítmica
-\begin{equation*}
-  \tilde y:=a_1+a_2 \tilde x=\ln A+bx.  
-\end{equation*}
+\begin{equation}
+  \tilde y:=a_1+a_2 \tilde x=\ln A+bx.
+\end{equation}
 Usamos os pontos $(\tilde x_j,\tilde y_j):=(x_j,\ln y_j)$, $j=1,2,3$ e resolvemos o sistema linear
-\begin{equation*}
-V^T V \begin{bmatrix} a_1\\a_2\end{bmatrix} = V^T\begin{bmatrix}\tilde{y}_1\\\tilde{y}_2\\\tilde{y}_3\end{bmatrix},  
-\end{equation*}
+\begin{equation}
+V^T V \begin{bmatrix} a_1\\a_2\end{bmatrix} = V^T\begin{bmatrix}\tilde{y}_1\\\tilde{y}_2\\\tilde{y}_3\end{bmatrix},
+\end{equation}
 onde
-\begin{equation*}
-V=\begin{bmatrix} 1&x_1\\1&x_2\\1&x_3 \end{bmatrix}.  
-\end{equation*}
+\begin{equation}
+V=\begin{bmatrix} 1&x_1\\1&x_2\\1&x_3 \end{bmatrix}.
+\end{equation}
 
 \begin{ex}Encontre uma curva da forma $y=Ae^{bx}$ que melhor ajusta os pontos $(1, 2)$, $(2, 3)$ e $(3, 5)$.
 \end{ex}
 \begin{sol}
   Aplicando o logaritmo natural de ambos os lados da equação $y=Ae^{bx}$, temos
-\begin{equation*}
+\begin{equation}
   \ln y = \ln A + bx.
-\end{equation*}
+\end{equation}
 Então, denotando $\tilde{y} := \ln y$, $a_1 := \ln A$ e $a_2 := b$, o problema reduz-se a ajustar a reta $\tilde{y} = a_1 + a_2x$ aos pontos $(1, \ln 2)$, $(2, \ln 3)$ e $(3, \ln 5)$. Para tanto, resolvemos o sistema
-\begin{equation*}
+\begin{equation}
   \underbrace{\begin{bmatrix}
     1 & 1\\
     1 & 2\\
@@ -1086,17 +1086,17 @@ Então, denotando $\tilde{y} := \ln y$, $a_1 := \ln A$ e $a_2 := b$, o problema 
   \underbrace{\begin{bmatrix}
     a_1\\
     a_2
-  \end{bmatrix}}{a} = 
+  \end{bmatrix}}{a} =
   \underbrace{\begin{bmatrix}
     \ln 2\\
     \ln 3\\
     \ln 5
   \end{bmatrix}}_{\tilde{y}}
-\end{equation*}
-por mínimos quadrados, isto é, 
-\begin{equation*}
+\end{equation}
+por mínimos quadrados, isto é,
+\begin{equation}
  V^TVa = V^T\tilde{y} \Rightarrow a = \left(V^TV\right)^{-1}V^T\tilde{y}.
-\end{equation*}
+\end{equation}
 A solução do sistema é, então, $a_1=0,217442$ e $a_2=0,458145$. Portanto, $A=e^{a_1}=1,24289$ e $b=a_2=0,458145$.
 
 %%%%%%%%%%%%%%%%%%%%
@@ -1165,7 +1165,7 @@ $\displaystyle y=ax^be^{cx}$    &$\tilde y=\ln y$  & $\tilde y=\ln a+ b\ln x+cx$
 $\displaystyle y=ae^{(b+cx)^2}$ &$\tilde y=\ln y$       & $\tilde y=\ln a+b^2+ bc x+c^2x^2$\\
 $\displaystyle y=\frac{a}{b+x}$ &$\displaystyle \tilde y=\frac{1}{y}$ & $\displaystyle \tilde y=\frac{b}{a}+\frac{1}{a}x$\\
 $y=A\cos(\omega x+\phi)$   & $-x-$ &  $y=a\cos(\omega x)-b\sin(\omega x)$ \\
-$\omega\ \text{conhecido} $&   &  $a=A\cos(\phi),\ b=A\sin(\phi)$ \\ \hline    
+$\omega\ \text{conhecido} $&   &  $a=A\cos(\phi),\ b=A\sin(\phi)$ \\ \hline
   \end{tabular}
 \end{center}
 
@@ -1188,7 +1188,7 @@ $x_i$ & $y_i$\\
 0,9  &    13,22\\
 1,0  &    9,93 \\
 \hline
-\end{tabular}  
+\end{tabular}
 \end{center}
 \end{ex}
 \begin{sol}
@@ -1228,28 +1228,26 @@ Assim, como $\cos\phi$ também é positivo, $\phi$ é um ângulo do primeiro qua
 $$
 \phi=0,9613976
 $$
-Portanto $f(x)=13,909546\cos(2\pi x+0,9613976)$. Observe que nesse exemplo a solução do problema linear é a mesma do problema não linear.  
+Portanto $f(x)=13,909546\cos(2\pi x+0,9613976)$. Observe que nesse exemplo a solução do problema linear é a mesma do problema não linear.
 \end{sol}
 
-\begin{ex}
-Encontre a função $f$ da forma $y=f(x)=\frac{a}{b+x}$ que ajusta a tabela de pontos
-$$
-\begin{tabular}{|c|c|}
-\hline
-$x_i$ & $y_i$\\
-\hline
-0,0  & 101\\
-0,2  &  85\\
-0,4  &  75\\
-0,6  &  66\\
-0,8  &  60\\
-1,0  &  55 \\
-\hline
-\end{tabular}
-$$
-usando uma das transformações tabeladas.
-\end{ex}
-\begin{sol}
+\subsection*{Exercícios resolvidos}
+
+\begin{exeresol}
+Encontre a função $f$ da forma $y=f(x)=\frac{a}{b+x}$ que ajusta a seguinte tabela de pontos usando uma das transformações tabeladas.
+\begin{center}
+  \begin{tabular}{|r|l|l|}
+    $i$ & $x_i$ & $y_i$\\\hline
+    1 & 0,0 & 101\\
+    2 & 0,2 &  85\\
+    3 & 0,4 &  75\\
+    4 & 0,6 &  66\\
+    5 & 0,8 &  60\\
+    6 & 1,0 &  55\\\hline
+  \end{tabular}
+\end{center}
+\end{exeresol}
+\begin{resol}
 Usando o fato que $Y=\frac{1}{y}=\frac{b}{a}+\frac{1}{a}x$, $z=[\begin{array}{cc}\frac{b}{a} &\frac{1}{a}\end{array}]^T$ é solução do problema
 $$
 A^TAz=A^TY,
@@ -1283,7 +1281,11 @@ Y=\left[\begin{array}{c}
   0,0181818
 \end{array}\right]
 $$
-Assim, $\frac{1}{a}=0,0082755$ e $\frac{b}{a}=0,0100288$ e, então, $a=120,83924$ e $b=1,2118696$, ou seja, $f(x)=\frac{120,83924}{1,2118696+x}$.  
-\end{sol}
+Assim, $\frac{1}{a}=0,0082755$ e $\frac{b}{a}=0,0100288$ e, então, $a=120,83924$ e $b=1,2118696$, ou seja, $f(x)=\frac{120,83924}{1,2118696+x}$.
+\end{resol}
 
-%\end{document} 
+\subsection*{Exercícios}
+
+\construirExer
+
+%\end{document}

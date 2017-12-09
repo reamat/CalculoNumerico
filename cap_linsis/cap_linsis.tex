@@ -1,8 +1,4 @@
- %Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite http://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
-
-%\documentclass[main.tex]{subfiles}
-%\begin{document}
-
+ %Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite https://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
 
 \chapter{Solução de sistemas lineares}\index{sistema linear}
 
@@ -10,18 +6,20 @@ Muitos problemas da engenharia, física e matemática estão associados à solu�
 
 
 Considere o sistema de equações lineares (escrito na forma algébrica)
-\begin{eqnarray*}
-a_{11}x_1 + a_{12}x_2 + \cdots +a_{1n}x_n &=& b_1\\
-a_{21}x_1 + a_{22}x_2 + \cdots +a_{2n}x_n &=& b_2\\
-                                      &\vdots& \\
-a_{m1}x_1 + a_{m2}x_2 + \cdots +a_{mn}x_n &=& b_m
-\end{eqnarray*}
+\begin{equation}
+  \begin{split}
+    a_{11}x_1 + a_{12}x_2 + \cdots +a_{1n}x_n &= b_1\\
+    a_{21}x_1 + a_{22}x_2 + \cdots +a_{2n}x_n &= b_2\\
+    &\vdots \\
+    a_{m1}x_1 + a_{m2}x_2 + \cdots +a_{mn}x_n &= b_m
+  \end{split}
+\end{equation}
 onde $m$ é o número de equações e $n$ é o número de incógnitas.  Este sistema pode ser escrito na \emph{forma matricial}
-\begin{equation*}
+\begin{equation}
   Ax = b
-\end{equation*}
+\end{equation}
 onde:
-\begin{equation*}
+\begin{equation}
   A=\begin{bmatrix}
 a_{11} & a_{12} & \cdots & a_{1n}\\
 a_{21} & a_{22} & \cdots & a_{2n}\\
@@ -40,19 +38,19 @@ b_{2} \\
 \vdots \\
 b_{m}
 \end{bmatrix},
-\end{equation*}
+\end{equation}
 onde $A$ é chamada de \emph{matriz dos coeficientes}\index{matriz!dos coeficientes}, $x$ de \emph{vetor das incógnitas}\index{vetor!das incógnitas} e $b$ de \emph{vetor dos termos constantes}\index{vetor!dos termos constantes}.
 
 
 Definimos também a \emph{matriz completa}\index{matriz!completa} (também chamada de \emph{matriz estendida}\index{matriz!estendida}) de um sistema como $Ax=b$ como $[A|b]$, isto é
-\begin{equation*}
+\begin{equation}
  [A|b]=\left[\begin{array}{cccc|c}
 a_{11} & a_{12} & \cdots & a_{1n}&b_1\\
 a_{21} & a_{22} & \cdots & a_{2n}&b_2\\
 \vdots & \vdots & \ddots & \vdots&\vdots\\
 a_{m1} & a_{m2} & \cdots & a_{mn}&b_m
 \end{array}\right]
-\end{equation*}
+\end{equation}
 
 
 Salvo especificado ao contrário, assumiremos ao longo deste capítulo que a matriz dos coeficientes $A$ é uma matriz real não singular (isto é, invertível).
@@ -71,13 +69,15 @@ Ao longo do capítulo, apresentamos algumas computações com \verb+Python+. Nes
 
 \begin{ex}
   Consideramos o seguinte sistema linear
-  \begin{eqnarray*}
-    x+y+z  &=& 1\\
-    4x+4y+2z&=& 2\\
-    2x+y-z &=& 0
-  \end{eqnarray*}.
+  \begin{equation}
+    \begin{split}
+      x+y+z  &= 1\\
+      4x+4y+2z&= 2\\
+      2x+y-z &= 0
+    \end{split}
+  \end{equation}.
 Na sua forma matricial, este sistema é escrito como
-\begin{equation*}
+\begin{equation}
   Ax = b \Leftrightarrow
   \underbrace{\begin{bmatrix}
     1 & 1 & 1\\
@@ -93,7 +93,7 @@ Na sua forma matricial, este sistema é escrito como
   \begin{bmatrix}
     1\\2\\0
   \end{bmatrix}}_{b}
-\end{equation*}.
+\end{equation}.
 %%%%%%%%%%%%%%%%%%%%
 % octave
 %%%%%%%%%%%%%%%%%%%%
@@ -116,14 +116,14 @@ b =
 %%%%%%%%%%%%%%%%%%%%
 
 A matriz estendida do sistema acima é
-\begin{equation*}
+\begin{equation}
   E := [A|b] =
   \begin{bmatrix}
     1 & 1 & 1 & 1\\
     4 & 4 & 2 & 2\\
     2 & 1 & -1 & 0
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 %%%%%%%%%%%%%%%%%%%%
 % octave
 %%%%%%%%%%%%%%%%%%%%
@@ -153,38 +153,40 @@ A \emph{eliminação gaussiana}, também conhecida como \emph{escalonamento}, é
 \end{enumerate}
 
 \begin{ex}\label{ex:elim_gaussiana} Resolva o sistema
-  \begin{eqnarray*}
-    x+y+z  &=& 1\\
-    4x+4y+2z&=& 2\\
-    2x+y-z &=& 0
-  \end{eqnarray*}
+  \begin{equation}
+    \begin{split}
+      x+y+z  &= 1\\
+      4x+4y+2z&= 2\\
+      2x+y-z &= 0
+    \end{split}
+  \end{equation}
 pelo método de eliminação gaussiana.
 \end{ex}
 \begin{sol}
 A matriz estendida do sistema é escrita como
-\begin{equation*}
+\begin{equation}
   \begin{bmatrix}
       1 &1& 1&1\\
       4 & 4 &2&2\\
       2 &1& -1&0
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 No primeiro passo, subtraímos da segunda linha o quádruplo da primeira e subtraímos da terceira linha o dobro da primeira linha:
-\begin{equation*}
+\begin{equation}
   \begin{bmatrix}
        1 &1& 1&1\\
        0 & 0 &-2&-2\\
        0 &-1& -3&-2
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 No segundo passo, permutamos a segunda linha com a terceira:
-\begin{equation*}
+\begin{equation}
   \begin{bmatrix}
        1 &1& 1&1\\
        0 &-1& -3&-2\\
        0 & 0 &-2&-2
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 Neste momento, a matriz já se encontra na forma triangular (chamada de \emph{matriz escalonada do sistema}\index{matriz escalonada}). Da terceira linha, encontramos $-2z=-2$, ou seja, $z=1$. Substituindo na segunda equação, temos $-y-3z=-2$, ou seja, $y=-1$ e finalmente, da primeira linha, $x+y+z=1$, resultando em $x=1$.
 
 %%%%%%%%%%%%%%%%%%%%
@@ -240,7 +242,7 @@ Alternativamente, podemos continuar o procedimento de eliminação gaussiana, an
 
 \begin{ex}
   No Exemplo~\ref{ex:elim_gaussiana}, usamos o procedimento de eliminação gaussiana e obtivemos
-  \begin{equation*}
+  \begin{equation}
       \underbrace{
         \begin{bmatrix}
           1 & 1 & 1 & 1\\
@@ -255,40 +257,40 @@ Alternativamente, podemos continuar o procedimento de eliminação gaussiana, an
           0 & 0 & -2 & -2
         \end{bmatrix}
 }_{\text{matriz escalonada}}.
-  \end{equation*}
+  \end{equation}
 
 Agora, seguindo com o procedimento de eliminação gaussiana, buscaremos anular os elementos acima da diagonal principal. Começamos dividindo cada elemento da última linha pelo valor do elemento da sua diagonal, obtemos
-\begin{equation*}
+\begin{equation}
   \begin{bmatrix}
     1 & 1 & 1 & 1\\
     0 & -1 & -3 & -2\\
     0 & 0 & 1 & 1
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 Então, somando da segunda linha o triplo da terceira e subtraindo da primeira a terceira linha, obtemos
-\begin{equation*}
+\begin{equation}
   \begin{bmatrix}
     1 & 1 & 0 & 0\\
     0 & -1 & 0 & 1\\
     0 & 0 & 1 & 1
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 Fixamos, agora, na segunda linha. Dividimos esta linha pelo valor do elemento em sua diagonal, isto nos fornece
-\begin{equation*}
+\begin{equation}
   \begin{bmatrix}
     1 & 1 & 0 & 0\\
     0 & 1 & 0 & -1\\
     0 & 0 & 1 & 1
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 Por fim, subtraímos da primeira linha a segunda, obtendo a matriz escalonada reduzida
-\begin{equation*}
+\begin{equation}
   \begin{bmatrix}
     1 & 0 & 0 & 1\\
     0 & 1 & 0 & -1\\
     0 & 0 & 1 & 1
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 Desta matriz escalonada reduzida temos, imediatamente, $x=1$, $y=-1$ e $z=1$, como no Exemplo~\ref{ex:elim_gaussiana}.
 
 %%%%%%%%%%%%%%%%%%%%
@@ -375,16 +377,18 @@ ans =
 A eliminação gaussiana com \emph{pivotamento parcial} consiste em fazer uma permutação de linhas de forma a escolher o maior pivô (em módulo) a cada passo.
 
 \begin{ex} Resolva o sistema
-\begin{eqnarray*}
-  x+y+z  &=& 1\\
-  2x+y-z &=& 0\\
-  2x+2y+z &=& 1
-\end{eqnarray*}
+\begin{equation}
+  \begin{split}
+    x+y+z  &= 1\\
+    2x+y-z &= 0\\
+    2x+2y+z &= 1
+  \end{split}
+\end{equation}
 por eliminação gaussiana com pivotamento parcial.
 \end{ex}
 \begin{sol}
 A matriz estendida do sistema é
-\begin{equation*}
+\begin{equation}
   \begin{split}
     \begin{bmatrix}
       1 &1&  1&1\\
@@ -416,7 +420,7 @@ A matriz estendida do sistema é
       0 &0& 1/2&1/2
     \end{bmatrix}
   \end{split}
-\end{equation*}
+\end{equation}
 Encontramos $1/2z=1/2$, ou seja, $z=1$. Substituímos na segunda equação e temos $y+2z=1$, ou seja, $y=-1$ e, finalmente $2x+y-z=0$, resultando em $x=1$.
 
 %%%%%%%%%%%%%%%%%%%%
@@ -520,7 +524,7 @@ print(x)
 A técnica de eliminação gaussiana com pivotamento parcial ajuda a evitar a propagação dos erros de arredondamento. Vejamos o próximo exemplo.
 
 \begin{ex}[Problema com elementos com grande diferença de escala] Resolva o seguinte sistema usando eliminação gaussiana sem e com pivotamento parcial. Discuta, em cada caso, o resultado frente a aritmética de ponto flutuante quando $0<|\epsilon| \ll 1$.
-  \begin{equation*}
+  \begin{equation}
     \begin{bmatrix}
       \varepsilon & 2\\
       1 & \varepsilon
@@ -532,7 +536,7 @@ A técnica de eliminação gaussiana com pivotamento parcial ajuda a evitar a pr
     \begin{bmatrix}
       4\\3
     \end{bmatrix}
-  \end{equation*}
+  \end{equation}
 \end{ex}
 \begin{sol}
 Vamos, primeiramente, executar a eliminação gaussiana sem pivotamento parcial para $\varepsilon \neq 0$ e $|\varepsilon|\ll 1$:
@@ -554,14 +558,14 @@ $$\left[\begin{array}{cc|c}
 $$
 
 Temos
-$$y=\frac{3-4/\varepsilon}{\varepsilon-2/\varepsilon}$$%=2-{\frac {3}{2}}\varepsilon+{\varepsilon}^{2}-{\frac {3}{4}}{\varepsilon}^{3}+{\frac {1}{2}}{\varepsilon}^{4}+O(\varepsilon^5)$$
+\begin{equation} y=\frac{3-4/\varepsilon}{\varepsilon-2/\varepsilon}\end{equation}%=2-{\frac {3}{2}}\varepsilon+{\varepsilon}^{2}-{\frac {3}{4}}{\varepsilon}^{3}+{\frac {1}{2}}{\varepsilon}^{4}+O(\varepsilon^5) \end{equation}
 e
-$$x=\frac{4-2y}{\varepsilon}$$ %3-2\varepsilon+{\frac {3}{2}}{\varepsilon}^{2}-{\varepsilon}^{3}+{\frac {3}{4}}{\varepsilon}^{4}+O(\varepsilon^5)$$
+\begin{equation} x=\frac{4-2y}{\varepsilon}\end{equation} %3-2\varepsilon+{\frac {3}{2}}{\varepsilon}^{2}-{\varepsilon}^{3}+{\frac {3}{4}}{\varepsilon}^{4}+O(\varepsilon^5) \end{equation}
 
 Observe que a expressão obtida para  $y$ se aproximada de $2$ quando $\varepsilon$ é pequeno:
-$$y=\frac{3-4/\varepsilon}{\varepsilon-2/\varepsilon}=\frac{3\varepsilon-4}{\varepsilon^2-2} \longrightarrow \frac{-4}{-2}=2, ~~\text{quando}~\varepsilon \to 0.$$
+\begin{equation} y=\frac{3-4/\varepsilon}{\varepsilon-2/\varepsilon}=\frac{3\varepsilon-4}{\varepsilon^2-2} \longrightarrow \frac{-4}{-2}=2, ~~\text{quando}~\varepsilon \to 0. \end{equation}
 Já expressão obtida para $x$ depende justamente da diferença $2-y$:
-$$x=\frac{4-2y}{\varepsilon}=\frac{2}{\varepsilon} (2-y)$$
+\begin{equation} x=\frac{4-2y}{\varepsilon}=\frac{2}{\varepsilon} (2-y) \end{equation}
 
 Assim, quando $\varepsilon$ é pequeno, a primeira expressão, implementada em um sistema de ponto flutuante de acurácia finita, produz $y= 2$ e, consequentemente, a expressão para $x$ produz $x=0$. Isto é, estamos diante um problema de cancelamento catastrófico.
 
@@ -585,8 +589,8 @@ $$\left[\begin{array}{cc|c}
 $$
 
 Continuando o procedimento, temos:
-$$y=\frac{4-4\varepsilon}{2-\varepsilon^2}$$ e
-$$x=3-\varepsilon y$$
+\begin{equation} y=\frac{4-4\varepsilon}{2-\varepsilon^2} \end{equation} e
+\begin{equation} x=3-\varepsilon y \end{equation}
 
 Observe que tais expressões são analiticamente idênticas às anteriores, no entanto, são mais estáveis numericamente. Quando $\varepsilon$ converge a zero, $y$ converge a $2$, como no caso anterior. No entanto, mesmo que $y=2$, a segunda expressão produz $x=3-\varepsilon y$, isto é, a aproximação $x\approx 3$ não depende mais de obter $2-y$ com precisão.
 \end{sol}
@@ -595,15 +599,17 @@ Observe que tais expressões são analiticamente idênticas às anteriores, no e
 
 \begin{exeresol}
 Resolva o seguinte sistema por eliminação gaussiana com pivotamento parcial.
-\begin{eqnarray*}
-  2y + 2z &=& 8\\
-  x + 2y + z &=& 9\\
-  x + y + z &=& 6
-\end{eqnarray*}
+\begin{equation}
+  \begin{split}
+    2y + 2z &= 8\\
+    x + 2y + z &= 9\\
+    x + y + z &= 6
+  \end{split}
+\end{equation}
 \end{exeresol}
 \begin{resol}
 A forma matricial do sistema dado é
-\begin{equation*}
+\begin{equation}
 \left[
 \begin{array}{ccc}
 0 &2& 2\\
@@ -625,9 +631,9 @@ z
 6
 \end{array}
 \right]
-\end{equation*}
+\end{equation}
 Construímos, então, a matriz completa e seguimos com o procedimento de eliminação gaussiana com pivotamento parcial:
-\begin{eqnarray*}\left[
+\begin{eqnarray}\left[
 \begin{array}{ccc|c}
 0 &2& 2&8\\
 1 &2& 1&9\\
@@ -673,7 +679,7 @@ Construímos, então, a matriz completa e seguimos com o procedimento de elimina
 0 & 0 &1&1
 \end{array}
 \right]
-\end{eqnarray*}
+\end{eqnarray}
 Portanto $x=2$, $y=3$ e $z=1$.
 
 %%%%%%%%%%%%%%%%%%%%
@@ -755,16 +761,18 @@ x =  2
 \subsection*{Exercícios}
 
 \begin{exer} Resolva o seguinte sistema de equações lineares
-\begin{eqnarray*}
-x+y+z&=&0\\
-x+10z&=&-48\\
-10y+z&=&25
-\end{eqnarray*} Usando eliminação gaussiana com pivotamento parcial (não use o computador para resolver essa questão).
+\begin{equation}
+  \begin{split}
+    x+y+z&=0\\
+    x+10z&=-48\\
+    10y+z&=25
+  \end{split}
+\end{equation} 
+Usando eliminação gaussiana com pivotamento parcial (não use o computador para resolver essa questão).
 \end{exer}
 \begin{resp}
-
 Escrevemos o sistema na forma matricial e resolvemos:
-\begin{eqnarray*}
+\begin{eqnarray}
 \left[
 \begin{array}{ccc|c}
 1&1&1&0\\
@@ -813,43 +821,43 @@ Escrevemos o sistema na forma matricial e resolvemos:
 0&1&0&3\\
 0&0&1&-5
 \end{array}\right]
-\end{eqnarray*}
+\end{eqnarray}
 Portanto $x=2$, $y=3$, $z=-5$
 
 \end{resp}
 
 \begin{exer} Resolva o seguinte sistema de equações lineares
-\begin{eqnarray*}
+\begin{eqnarray}
 x+y+z&=&0\\
 x+10z&=&-48\\
 10y+z&=&25
-\end{eqnarray*} Usando eliminação gaussiana com pivotamento parcial (não use o computador para resolver essa questão).
+\end{eqnarray} Usando eliminação gaussiana com pivotamento parcial (não use o computador para resolver essa questão).
 \end{exer}
 
 \begin{exer}Calcule a inversa da matriz
-  \begin{equation*}
+  \begin{equation}
     A = \begin{bmatrix}
       1&2&-1\\
       -1&2&0\\
       2&1&-1
     \end{bmatrix}
-  \end{equation*}
+  \end{equation}
 usando eliminação gaussiana com pivotamento parcial.
 \end{exer}
 
 \begin{exer} Demonstre que se $ad\neq bc$, então a matriz $A$ dada por:
-  \begin{equation*}
+  \begin{equation}
     A = \begin{bmatrix}
       a&b\\c&d
     \end{bmatrix}
-  \end{equation*}
+  \end{equation}
 é inversível e sua inversa é dada por:
-\begin{equation*}
+\begin{equation}
   A^{-1}=\frac{1}{ad-bc}
   \begin{bmatrix}
     d&-b\\-c&a
   \end{bmatrix}.
-\end{equation*}
+\end{equation}
 \end{exer}
 
 %%%%%%%%%%%%%%%%%%%%
@@ -857,32 +865,32 @@ usando eliminação gaussiana com pivotamento parcial.
 %%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \begin{exer} Considere as matrizes
-  \begin{equation*}
+  \begin{equation}
     A=
     \begin{bmatrix}
       0&0&1\\
       0&1&0\\
       1&0&0
     \end{bmatrix}
-  \end{equation*}
+  \end{equation}
 e
-\begin{equation*}
+\begin{equation}
   E=
   \begin{bmatrix}
     1&1&1\\
     1&1&1\\
     1&1&1
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 e o vetor
-\begin{equation*}
+\begin{equation}
   v=
   \begin{bmatrix}
     2\\
     3\\
     4
   \end{bmatrix}
-\end{equation*}
+\end{equation}
 \begin{itemize}
 \item[a)] Resolva o sistema $Ax=v$ sem usar o computador.
 \item[b)] Sem usar o computador e através da técnica algébrica de sua preferência, resolva o sistema $(A+\varepsilon E)x_\varepsilon=v$ considerando $|\varepsilon|\ll 1$ e obtenha a solução exata em função do parâmetro $\varepsilon$.
@@ -904,7 +912,7 @@ $$
 \end{array}
 $$
 Somando as três equações temos
-$$(1+3\varepsilon)(x_1+x_2+x_3)=9\Longrightarrow x_1+x_2+x_3=\frac{9}{1+3\varepsilon}$$
+\begin{equation} (1+3\varepsilon)(x_1+x_2+x_3)=9\Longrightarrow x_1+x_2+x_3=\frac{9}{1+3\varepsilon} \end{equation}
 Subtraímos $\varepsilon(x_1+x_2+x_3)$ da cada equação do sistema original e temos:
 $$\begin{array}{l}
 x_3=2-\frac{9\varepsilon}{1+3\varepsilon}\\
@@ -913,7 +921,7 @@ x_1=4-\frac{9\varepsilon}{1+3\varepsilon}
 \end{array}
 $$
 Assim, temos:
-$$x_{\varepsilon}=\left[4 ~~3 ~~2\right]^T-\frac{9\varepsilon}{1+3\varepsilon}\left[1 ~~1 ~~1\right]^T$$
+\begin{equation} x_{\varepsilon}=\left[4 ~~3 ~~2\right]^T-\frac{9\varepsilon}{1+3\varepsilon}\left[1 ~~1 ~~1\right]^T \end{equation}
 \end{itemize}
 
 \end{resp}
@@ -925,11 +933,11 @@ $$x_{\varepsilon}=\left[4 ~~3 ~~2\right]^T-\frac{9\varepsilon}{1+3\varepsilon}\l
 %%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \begin{exer}\label{exer:trid} Resolva o seguinte sistema de $5$ equações lineares
-\begin{eqnarray*}
+\begin{eqnarray}
 x_1-x_2&=&0\\
 -x_{i-1}+2.5x_i-x_{i+1}&=&e^{-\frac{(i-3)^2}{20}},\qquad 2\leq i \leq 4\\
 2x_{5}-x_{4}&=&0
-\end{eqnarray*}
+\end{eqnarray}
 representando-o como um problema do tipo $Ax=b$ no \verb+Scilab+ e usando o comando de contra barra para resolvê-lo. Repita usando a rotina que implementa eliminação gaussiana.
 \end{exer}
 \begin{resp}
@@ -1229,12 +1237,12 @@ e utilizando que a soma dos $k$ inteiros é a soma dos termos de uma progressão
 Considere um sistema linear $Ax = b$, onde a matriz $A$ é densa\footnote{Diferentemente de uma matriz esparsa, uma matriz densa possui a maioria dos elementos diferentes de zero.}. A fim de resolver o sistema, podemos fatorar a matriz $A$ como o produto de uma matriz $L$ triangular inferior e uma matriz $U$ triangular superior, ou seja, $A=LU$.
 
 Sendo assim, o sistema pode ser reescrito da seguinte forma:
-\begin{eqnarray*}
+\begin{eqnarray}
   Ax &=&b \\
   (LU)x &=&b \\
   L(Ux) &=&b \\
   L y = b \quad & \text{ e }& \quad Ux=y
-\end{eqnarray*}
+\end{eqnarray}
 Isto significa que, ao invés de resolvermos o sistema original, podemos resolver o sistema triangular inferior $Ly=b$ e, então, o sistema triangular superior $Ux = y$, o qual nos fornece a solução de $Ax = b$.
 
 A matriz $U$ da fatoração\footnote{Não vamos usar pivotamento nesse primeiro exemplo.} $LU$ é a matriz obtida ao final do escalonamento da matriz $A$.
@@ -1242,33 +1250,33 @@ A matriz $U$ da fatoração\footnote{Não vamos usar pivotamento nesse primeiro 
 A matriz $L$ é construída  a partir da matriz identidade $I$, ao longo do escalonamento de A. Os elementos da matriz $L$ são os múltiplos do primeiro elemento da linha de $A$ \underline{a ser zerado} dividido pelo pivô acima na mesma coluna.
 
 Por exemplo, para zerar o primeiro elemento da segunda linha de $A$, calculamos
-$$L_{21} = A_{21}/A_{11}$$
+\begin{equation} L_{21} = A_{21}/A_{11} \end{equation}
 e fazemos
-$$A_{2,:} \Leftarrow A_{2,:} - L_{21}A_{1,:}$$
+\begin{equation} A_{2,:} \Leftarrow A_{2,:} - L_{21}A_{1,:} \end{equation}
 
 Note que denotamos $A_{i,:}$ para nos referenciarmos a linha $i$ de $A$. Da mesma forma, se necessário usaremos $A_{:,j}$ para nos referenciarmos a coluna $j$ de $A$.
 
 Para zerar o primeiro elemento da terceira linha de $A$, temos
-$$L_{31}=A_{31}/A_{11}$$
+\begin{equation} L_{31}=A_{31}/A_{11} \end{equation}
 e fazemos
-$$A_{3,:} \Leftarrow A_{3,:} - L_{31}A_{1,:}$$
+\begin{equation} A_{3,:} \Leftarrow A_{3,:} - L_{31}A_{1,:} \end{equation}
 até chegarmos ao último elemento da primeira coluna de $A$.
 
 Repetimos o processo para as próximas colunas, escalonando a matriz $A$ e coletando os elementos $L_{ij}$ abaixo da diagonal\footnote{Perceba que a partir da segunda coluna para calcular $L_{ij}$ não usamos os elementos de $A$, mas os elementos da matriz $A$ em processo de escalonamento}.
 
 \begin{ex}
   Use a fatoração LU para resolver o seguinte sistema linear:
-  \begin{equation*}
+  \begin{equation}
     \begin{split}
       x_1 + x_2 + x_3 &= -2\\
       2x_1 + x_2 - x_3 &= 1\\
       2x_1 -x_2 + x_3 &= 3
     \end{split}
-  \end{equation*}
+  \end{equation}
 \end{ex}
 \begin{sol}
 Começamos fatorando a matriz $A$ dos coeficientes deste sistema:
-\begin{eqnarray*}
+\begin{eqnarray}
       A =
     \begin{bmatrix}
       1 & 1 & 1\\
@@ -1308,24 +1316,24 @@ Começamos fatorando a matriz $A$ dos coeficientes deste sistema:
       0 & -1 & -3\\
       0 & 0 & 8
     \end{bmatrix}}_{U}\\
-\end{eqnarray*}
+\end{eqnarray}
 
 Completada a fatoração LU, resolvemos, primeiramente, o sistema $Ly = b$:
-\begin{equation*}
+\begin{equation}
   \begin{split}
     y_1 &= -2\\
     2y_1 + y_2 &= 1\\
     2y_1 + 3y_2 + y_3 &= 3
   \end{split}
-\end{equation*}
+\end{equation}
 o qual no fornece $y_1 = -2$, $y_2 = 5$ e $y_3 = -8$. Por fim, obtemos a solução resolvendo o sistema $Ux = y$:
-\begin{equation*}
+\begin{equation}
   \begin{split}
   x_1 + x_2 + x_3 &= -2\\
   -x_2 - 3x_3 &= 5\\
   8x_3 &= -8
   \end{split}
-\end{equation*}
+\end{equation}
 o qual fornece $x_3 = -1$, $x_2 = -2$ e $x_1 = 1$.
 \end{sol}
 
@@ -1389,14 +1397,14 @@ Finalmente, para $j=n-1$, temos $2\cdot 1^2+1$.
 
 
 Somando todos esses custos, temos
-\begin{eqnarray*}
+\begin{eqnarray}
   (n-1)+2(n-1)^2 &+&  (n-2)+2(n-2)^2+... %\\&
    + (2)+2(2)^2+1+2\cdot 1\\
  &=& \sum_{k=1}^{n-1}2k^2+k \\
  &=& 2\sum_{k=1}^{n-1}k^2+\sum_{k=1}^{n-1}k\\
  &=& 2 \frac{(n-1)n(2n-1)}{6}+ \frac{n(n-1)}{2} \\
  &=& \frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6} \text{~flops}.
-\end{eqnarray*}
+\end{eqnarray}
 % \begin{align*}
 %   & \mathcal{O}( (n-1)n+(n-2)(n-1)+...+2\cdot 3+1\cdot 2) \\
 %  =& \mathcal{O}( \sum_{k=1}^{n-1}k(k+1) )
@@ -1412,9 +1420,9 @@ Somando todos esses custos, temos
 \ifisoctave
 \begin{obs}
   O custo computacional do algoritmo da fatoração LU é
-  \begin{equation*}
+  \begin{equation}
     \frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6} \text{~flops}.
-  \end{equation*}
+  \end{equation}
 \end{obs}
 \fi
 %%%%%%%%%%%%%%%%%%%%
@@ -1424,9 +1432,9 @@ Somando todos esses custos, temos
 \ifispython
 \begin{obs}
   O custo computacional do algoritmo da fatoração LU é
-  \begin{equation*}
+  \begin{equation}
     \frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6} \text{~flops}.
-  \end{equation*}
+  \end{equation}
 \end{obs}
 \fi
 %%%%%%%%%%%%%%%%%%%%
@@ -1435,22 +1443,22 @@ Somando todos esses custos, temos
 Para calcularmos o custo computacional de um algoritmo completo, uma estratégia é separar o algoritmo em partes menores, mais fáceis de analisar.
 
 Para resolver o sistema, devemos primeiro fatorar a matriz $A$ nas matrizes $L$ e $U$. Vimos que o custo é
-$$\frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6} \text{~flops}.$$
+\begin{equation} \frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6} \text{~flops}. \end{equation}
 
 Depois devemos resolver os sistemas $Ly=b$ e $Ux=y$. O custo de resolver os dois sistemas é (devemos contar duas vezes)
-$$ 2 n^2\text{~flops}.$$
+\begin{equation}  2 n^2\text{~flops}. \end{equation}
 
 Somando esses $3$ custos, temos que o custo para resolver um sistema linear usando fatoração $LU$ é
-$$\frac{2n^3}{3}+\frac{3n^2}{2}-\frac{n}{6} \text{~flops}.$$
+\begin{equation} \frac{2n^3}{3}+\frac{3n^2}{2}-\frac{n}{6} \text{~flops}. \end{equation}
 
 Quando $n$ cresce, prevalessem os termos de mais alta ordem, ou seja,
-$$\mathcal{O}(\frac{2n^3}{3}+\frac{3n^2}{2}-\frac{n}{6}) = \mathcal{O}(\frac{2n^3}{3}+\frac{3n^2}{2})=\mathcal{O}(\frac{2n^3}{3})$$
+\begin{equation} \mathcal{O}(\frac{2n^3}{3}+\frac{3n^2}{2}-\frac{n}{6}) = \mathcal{O}(\frac{2n^3}{3}+\frac{3n^2}{2})=\mathcal{O}(\frac{2n^3}{3}) \end{equation}
 
 \subsection{Custo para resolver m sistemas lineares}
 Devemos apenas multiplicar $m$ pelo custo de resolver um sistema linear usando fatoração $LU$, ou seja, o custo será
-$$m(\frac{2n^3}{3}+\frac{3n^2}{2}-\frac{n}{6})=\frac{2mn^3}{3}+\frac{3mn^2}{2}-\frac{mn}{6}$$
+\begin{equation} m(\frac{2n^3}{3}+\frac{3n^2}{2}-\frac{n}{6})=\frac{2mn^3}{3}+\frac{3mn^2}{2}-\frac{mn}{6} \end{equation}
 e com $m=n$ temos
-$$\frac{2n^4}{3}+\frac{3n^3}{2}-\frac{n^2}{6}.$$
+\begin{equation} \frac{2n^4}{3}+\frac{3n^3}{2}-\frac{n^2}{6}. \end{equation}
 
 Porém, se estivermos resolvendo $n$ sistemas com \textit{a mesma matriz $A$ }(e diferente lado direito $\pmb b$ para cada sistema) podemos fazer a fatoração LU uma única vez e contar apenas o custo de resolver os sistemas triangulares obtidos.
 
@@ -1461,19 +1469,19 @@ Custo para resolver $m$ sistemas triangulares inferiores: $m n^2 $.
 Custo para resolver $m$ sistemas triangulares superiores: $m n^2 $.
 
 Somando esses custos obtemos
-$$\frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6}+2m n^2 $$
+\begin{equation} \frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6}+2m n^2  \end{equation}
 que quando $m=n$ obtemos
-$$\frac{8n^3}{3}-\frac{n^2}{2}-\frac{n}{6} \text{~flops}.$$
+\begin{equation} \frac{8n^3}{3}-\frac{n^2}{2}-\frac{n}{6} \text{~flops}. \end{equation}
 
 \subsection{Custo para calcular a matriz inversa de $A$}
 Como vemos em Álgebra Linear, um método para obter a matriz $A^{-1}$ é realizar o escalonamento da matriz $[A|I]$ onde $I$ é a matriz identidade. Ao terminar o escalonamento, o bloco do lado direito conterá $A^{-1}$.
 
 Isto é equivalente a resolver $n$ sistemas lineares com a mesma matriz $A$ e os vetores da base canônica $\pmb e_i = [0,...,0,1,0,....0]^T$ tal que
-$$ A \pmb x_i = \pmb e_i, \quad\quad i=1:n $$
+\begin{equation}  A \pmb x_i = \pmb e_i, \quad\quad i=1:n  \end{equation}
 onde $\pmb x_i$ serão as colunas da matriz $A$ inversa, já que $A X=I$.
 
 O custo para resolver esses $n$ sistemas lineares foi calculado na seção anterior como
-$$\frac{8n^3}{3}-\frac{n^2}{2}-\frac{n}{6}.$$
+\begin{equation} \frac{8n^3}{3}-\frac{n^2}{2}-\frac{n}{6}. \end{equation}
 
 \begin{ex}
  Qual o melhor método para resolver um sistema linear: via fatoração LU ou calculando a inversa de $A$ e obtendo $x=A^{-1}b$?
@@ -1510,7 +1518,7 @@ Uma matriz tridiagonal é uma matriz quadrada cujos únicos elementos não nulos
 \end{eqnarray}
 
 Observamos que não é necessário armazenar todos os $n^2$ elementos da matriz em memória, sendo suficiente armazenar os vetores $a_n$, $b_n$ e $c_n$. Por conveniência, a partir daqui, definiremos os elementos inexistentes na matriz $a_1$ e $c_n$ como zero:
-$$a_1=c_n=0.$$
+\begin{equation} a_1=c_n=0. \end{equation}
 
 O algoritmo para a solução do sistema tridiagonal \eqref{linsis:EqTriDiag} pelo algoritmo de Thomas é dada pelas seguintes expressões:
 \begin{eqnarray}\label{linsis:TriDiag_1}
@@ -1541,7 +1549,7 @@ x_n &=& d'_n\\
 \begin{proof}
 O primeiro passo consiste em dividir todos os elementos da primeira linha de \eqref{linsis:EqTriDiag} por $b_1$:
 
-\begin{eqnarray*} \begin{bmatrix}
+\begin{eqnarray} \begin{bmatrix}
    {1} & {c_1'} & {   } & {   } & {   } \\
    {a_2} & {b_2} & {c_2} & {   } & {   } \\
    {   } & {a_3} & {b_3} & \ddots & {   } \\
@@ -1563,11 +1571,11 @@ O primeiro passo consiste em dividir todos os elementos da primeira linha de \eq
    \vdots   \\
    {d_n }
 \end{bmatrix},
-\end{eqnarray*}
+\end{eqnarray}
 onde $c_1'=\frac{c_1}{b_1}$ e $d_1'=\frac{d_1}{b_1}.$
 
 O segundo passo consiste em substituir a segunda linha por ela mesma subtraída da linha 1 multiplicada por $a_2$ ($l_2\leftarrow l_2-a_2l_1$):
-\begin{eqnarray*} \begin{bmatrix}
+\begin{eqnarray} \begin{bmatrix}
    {1} & {c_1'} & {   } & {   } & {   } \\
    {0} & {b_2-a_2c_1'} & {c_2} & {   } & {   } \\
    {   } & {a_3} & {b_3} & \ddots & {   } \\
@@ -1589,9 +1597,9 @@ O segundo passo consiste em substituir a segunda linha por ela mesma subtraída 
    \vdots   \\
    {d_n }
 \end{bmatrix}.
-\end{eqnarray*}
+\end{eqnarray}
 Em seguida, dividimos a segunda linha por $b_2-a_2c_1'$, a fim de normalizar a diagonal principal:
-\begin{eqnarray*} \begin{bmatrix}
+\begin{eqnarray} \begin{bmatrix}
    {1} & {c_1'} & {   } & {   } & {   } \\
    {0} & {1} & {c_2'} & {   } & {   } \\
    {   } & {a_3} & {b_3} & \ddots & {   } \\
@@ -1613,11 +1621,11 @@ Em seguida, dividimos a segunda linha por $b_2-a_2c_1'$, a fim de normalizar a d
    \vdots   \\
    {d_n }
 \end{bmatrix}.
-\end{eqnarray*}
+\end{eqnarray}
 onde $c_2'=\frac{c_2}{b_2-a_2c_1'}$ e $d_2'=\frac{d_2 -a_2d_1'}{b_2-a_2c_1'}$.
 
 O próximo passo consiste em substituir a terceira linha por ela mesma subtraída da linha 2 multiplicada por $a_3$ ($l_3\leftarrow l_3-a_3l_2$):
-\begin{eqnarray*} \begin{bmatrix}
+\begin{eqnarray} \begin{bmatrix}
    {1} & {c_1'} & {   } & {   } & {   } \\
    {0} & {1} & {c_2'} & {   } & {   } \\
    {   } & { 0 } & {b_3-a_3 c_2'} & \ddots & {   } \\
@@ -1639,9 +1647,9 @@ O próximo passo consiste em substituir a terceira linha por ela mesma subtraíd
    \vdots   \\
    {d_n }
 \end{bmatrix}.
-\end{eqnarray*}
+\end{eqnarray}
 A fim de normalizar o elemento da diagonal da terceira linha, dividimos toda a linha por $d_3 - a_3d_2'$:
-\begin{eqnarray*} \begin{bmatrix}
+\begin{eqnarray} \begin{bmatrix}
    {1} & {c_1'} & {   } & {   } & {   } \\
    {0} & {1} & {c_2'} & {   } & {   } \\
    {   } & { 0 } & {1} & \ddots & {   } \\
@@ -1663,10 +1671,10 @@ A fim de normalizar o elemento da diagonal da terceira linha, dividimos toda a l
    \vdots   \\
    {d_n }
 \end{bmatrix}.
-\end{eqnarray*}
+\end{eqnarray}
 
 Este procedimento é realizado até que se atinja a última linha e temos o seguinte sistema:
-\begin{eqnarray*} \begin{bmatrix}
+\begin{eqnarray} \begin{bmatrix}
    {1} & {c_1'} & {   } & {   } & {   } \\
    {0} & {1} & {c_2'} & {   } & {   } \\
    {   } & { 0 } & {1} & \ddots & {   } \\
@@ -1688,11 +1696,11 @@ Este procedimento é realizado até que se atinja a última linha e temos o segu
    \vdots   \\
    {d_n' }
 \end{bmatrix}.
-\end{eqnarray*}
+\end{eqnarray}
 
-Neste estágio, podemos encontrar os $x_n$ através de substituição reversa, isto é: a última linha diz $$x_n=d_n'.$$
-A penúltima linha diz $$x_{n-1}+c_{n-1}'x_n=d_{n-1}' \Longrightarrow x_{n-1}=d_{n-1}'-c_{n-1}'x_{n}.$$
-Esse mesmo procedimento aplicado à linha $i=1,\ldots n-1$, nos dá $$x_i = d'_i - c'_i x_{i + 1}. $$
+Neste estágio, podemos encontrar os $x_n$ através de substituição reversa, isto é: a última linha diz \begin{equation} x_n=d_n'. \end{equation}
+A penúltima linha diz \begin{equation} x_{n-1}+c_{n-1}'x_n=d_{n-1}' \Longrightarrow x_{n-1}=d_{n-1}'-c_{n-1}'x_{n}. \end{equation}
+Esse mesmo procedimento aplicado à linha $i=1,\ldots n-1$, nos dá \begin{equation} x_i = d'_i - c'_i x_{i + 1}.  \end{equation}
 \end{proof}
 
 \begin{ex}\label{linsis:exemplo5_5}
@@ -1722,14 +1730,14 @@ Considere a resolução do seguinte sistema tridiagonal pelo algoritmo de Thomas
 .
 \end{eqnarray}
 Primeiramente identificamos os vetores $a$, $b$, $c$ e $d$:
-\begin{eqnarray*}
+\begin{eqnarray}
  a &=& (0, 1, 1, 1, 1)\\
  b &=& (2, 2, 2, 2, 2)\\
  c &=& (1, 1, 1, 1, 0)\\
  d &=& (4, 4, 0, 0, 2)
-\end{eqnarray*}
+\end{eqnarray}
 Agora, calculamos os vetores $c'$ e $d'$:
-\begin{eqnarray*}
+\begin{eqnarray}
  c_1' &=&\frac{c_1}{b_1}=\frac{1}{2}\\
  c_2' &=&\frac{c_2}{b_2-a_2c_1'}=\frac{1}{2-1\cdot \frac{1}{2}}=\frac{2}{3} \\
  c_3' &=&\frac{c_3}{b_3-a_3c_2'}=\frac{1}{2-1\cdot \frac{2}{3}}=\frac{3}{4} \\
@@ -1739,16 +1747,16 @@ Agora, calculamos os vetores $c'$ e $d'$:
  d_3' &=&\frac{d_3-a_3d_2'}{b_3-a_3c_2'}=\frac{0-1\cdot \frac{4}{3}}{2-1\cdot \frac{2}{3}}=-1 \\
  d_4' &=&\frac{d_4-a_4d_3'}{b_4-a_4c_3'}=\frac{0-1\cdot (-1)}{2-1\cdot \frac{3}{4}}=\frac{4}{5} \\
  d_5' &=&\frac{d_5-a_5d_4'}{b_5-a_5c_4'}=\frac{2-1\cdot \frac{4}{5}}{2-1\cdot \frac{4}{5}}=1
-\end{eqnarray*}
+\end{eqnarray}
  Finalmente, calculamos o vetor $x$:
 
-\begin{eqnarray*}
+\begin{eqnarray}
  x_5&=&d_5'=1\\
  x_4&=&d_4'-c_4'\cdot x_5=\frac{4}{5}-\frac{4}{5}\cdot 1 = 0\\
  x_3&=&d_3'-c_3'\cdot x_4=-1-\frac{3}{4}\cdot 0 = -1\\
  x_2&=&d_2'-c_2'\cdot x_3=\frac{4}{3}-\frac{2}{3}\cdot (-1) = 2\\
  x_1&=&d_1'-c_1'\cdot x_2=2-\frac{1}{2}\cdot 2 = 1
- \end{eqnarray*}
+ \end{eqnarray}
 E assim, obtemos o vetor $x=[1, 2, -1, 0, 1]$.
 \end{ex}
 
@@ -1855,13 +1863,13 @@ A solução do sistema do Exemplo~\ref{linsis:exemplo5_5} pode ser obtida atrav�
 \end{exer}
 
 \begin{resp}
- \begin{eqnarray*}
+ \begin{eqnarray}
   a &=& (0, 1, 2, 1, 2, 1)\\
   b &=& (5, 3, 4, 2, 3, 2)\\
   c &=& (4, 1, 1, 1, 2, 0)\\
   d &=& (13, 10, 20, 16, 35, 17)\\
   x &=& (1, 2, 3, 4, 5, 6)
- \end{eqnarray*}
+ \end{eqnarray}
 \end{resp}
 
 \begin{exer}\label{linsis:tridia_jacobi_2} Considere o seguinte sistema de equações lineares:
@@ -1874,13 +1882,13 @@ x_{11}&=&x_{10}/2
 Identifique os vetores $a$, $b$, $c$ e $d$  relativos ao algoritmo da matriz tridiagonal no sistema linear dado.  Depois resolva o sistema usando o computador. Veja também Exercício~\ref{linsis:tridia_jacobi_1}
  \end{exer}
 \begin{resp}
- \begin{eqnarray*}
+ \begin{eqnarray}
   a &=& (0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1/2)\\
   b &=& (1,  5,  5,  5,  5,  5,  5,  5,  5,  5,  1)\\
   c &=& (-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0)\\
   d &=& (0, \cos(2/10), \cos(3/10), \cos(4/10), \cos(5/10),\\&& \cos(6/10), \cos(7/10), \cos(8/10), \cos(9/10), \cos(1) ,0)\\
   x &=& (0,324295, 0,324295, 0,317115, 0,305943, 0,291539,\\&& 0,274169, 0,253971, 0,230846, 0,20355, 0,165301, 0,082650)
- \end{eqnarray*}
+ \end{eqnarray}
 \end{resp}
 
 
@@ -1913,13 +1921,13 @@ Precisamos uma maneira de medir essas variações. Como os dados de entrada e os
 \subsection{Norma de vetores}\index{norma de!vetores}
 
 Definimos a \emph{norma $L^p$}\index{norma!$L^p$}, $1 \leq p \leq \infty$, de um vetor em $v = (v_1, v_2, \ldots, v_n)\in \mathbb{R}^n$ por:
-\begin{equation*}
+\begin{equation}
   \left\|v\right\|_p := \left(\sum_{i=1}^n \left |v_i\right |^p\right)^{1/p} = \left(\left |v_1\right |^p+\left |v_2\right |^p+ \cdots +\left |v_n\right |^p\right)^{1/p},\quad 1\leq p < \infty.
-\end{equation*}
+\end{equation}
 Para $p=\infty$, definimos a norma $L^{\infty}$\index{norma!$L^\infty$} (\emph{norma do máximo}) por:
-\begin{equation*}
+\begin{equation}
   \left\|v\right\|_\infty = \max_{1\leq j\leq n} \{\left |v_j\right |\}.
-\end{equation*}
+\end{equation}
 
 \begin{prop}[Propriedades de normas]
   Sejam dados $\alpha\in\mathbb{R}$ um escalar e os vetores $u,v\in\mathbb{R}^n$. Então, para cada $1\leq p \leq \infty$, valem as seguintes propriedades:
@@ -1933,13 +1941,13 @@ Para $p=\infty$, definimos a norma $L^{\infty}$\index{norma!$L^\infty$} (\emph{n
 \begin{proof} Demonstramos cada item em separado.
   \begin{itemize}
   \item[a)] Se $u = 0$, então segue imediatamente da definição da norma $L^p$, $1\leq p \leq \infty$, que $\left\|u\right\|_p = 0$. Reciprocamente, se  $\left\|u\right\|_\infty = 0$, então, para cada $i=1, 2, \ldots, n$, temos:
-    \begin{equation*}
+    \begin{equation}
       \left|u_i\right| \leq \max_{1\leq j \leq n}\{|u_j|\} = \left\|u\right\|_{\infty} = 0\Rightarrow u_i = 0.
-    \end{equation*}
+    \end{equation}
 Isto é, $u = 0$. Agora, se $\left\|u\right\|_p = 0$, $1\leq p < \infty$, então:
-\begin{equation*}
+\begin{equation}
   0 = \left\|u\right\|_p^p := \sum_{i=1}^n \left|u_i\right|^p \leq n\left\|u\right\|_\infty \Rightarrow  \left\|u\right\|_\infty = 0.
-\end{equation*}
+\end{equation}
 Logo, pelo resultado para a norma do máximo, concluímos que $u=0$.
 \item[b)] Segue imediatamente da definição da norma $L^p$, $1\leq p \leq \infty$.
 \item[c)] Em construção ...
@@ -1951,11 +1959,11 @@ Logo, pelo resultado para a norma do máximo, concluímos que $u=0$.
   Calcule a norma $L^1$, $L^2$ e $L^\infty$ do vetor coluna $v = (1, 2, -3, 0)$.
 \end{ex}
 \begin{sol}
-  \begin{eqnarray*}
+  \begin{eqnarray}
     \left\|v\right\|_1 &=& 1+2+3+0=6\\
     \left\|v\right\|_2 &=& \sqrt{1+2^2+3^2+0^2}=\sqrt{14}\\
     \left\|v\right\|_\infty &=& \max\{1,2,3,0\}=3
-  \end{eqnarray*}
+  \end{eqnarray}
 \ifisscilab
 No \verb+Scilab+ podemos computar normas $L^p$'s de vetores usando o comando \verb+norm+. Neste exemplo, temos:
 \begin{verbatim}
@@ -1974,13 +1982,13 @@ No \verb+Scilab+ podemos computar normas $L^p$'s de vetores usando o comando \ve
 \subsection{Norma de matrizes}\index{norma de!matrizes}
 
 Definimos a norma induzida $L^p$ de uma matriz $A = [a_{i,j}]_{i,j=1}^{n,n}$ da seguinte forma:
-\begin{equation*}
+\begin{equation}
   \left\|A\right\|_p = \sup_{\left\|v\right\|_p=1} \|Av\|_p,
-\end{equation*}
+\end{equation}
 ou seja, a norma $p$ de uma matriz é o máximo valor assumido pela norma de $Av$ entre todos os vetores de norma unitária.
 
 Temos as seguintes propriedades, se $A$ e $B$ são matrizes, $I$ é a matriz identidade, $v$ é um vetor e $\lambda$ é um real (ou complexo):
-\begin{eqnarray*}
+\begin{eqnarray}
 \left\|A\right\|_p&=&0 \Longleftrightarrow A=0\\
 \|\lambda A\|_p&=&|\lambda| \left\|A\right\|_p\\
 \|A+B\|_p &\leq & \left\|A\right\|_p + \|B\|_p~~~~ (\text{desigualdade do triângulo})\\
@@ -1988,19 +1996,19 @@ Temos as seguintes propriedades, se $A$ e $B$ são matrizes, $I$ é a matriz ide
 \|AB\|_p &\leq& \left\|A\right\|_p\|B\|_p\\
 \|I\|_p&=&1\\
 1&=&\|I\|_p=\|AA^{-1}\|_p\leq \left\|A\right\|_p\|A^{-1}\|_p~~~~ \text{(se A é inversível)}
-\end{eqnarray*}
+\end{eqnarray}
 
 Casos especiais:
-\begin{eqnarray*}
+\begin{eqnarray}
 \left\|A\right\|_1&=& \max_{j=1}^n\sum_{i=1}^n \left|a_{ij}\right|\\
 \left\|A\right\|_2&=& \sqrt{\max\{|\lambda|: \lambda \in \sigma(AA^*)\}}\\
 \left\|A\right\|_\infty&=& \max_{i=1}^n\sum_{j=1}^n \left|a_{ij}\right|
-\end{eqnarray*}
+\end{eqnarray}
 onde $\sigma(M)$ é o conjunto de autovalores da matriz $M$.
 
 \begin{ex}
 Calcule as normas $1$, $2$ e $\infty$ da seguinte matriz:
-\begin{equation*}
+\begin{equation}
   A=\left[
 \begin{array}{ccc}
 3 & -5 & 7\\
@@ -2008,14 +2016,14 @@ Calcule as normas $1$, $2$ e $\infty$ da seguinte matriz:
 -8 & 1 & -7
 \end{array}
 \right]
-\end{equation*}
+\end{equation}
 \end{ex}
 \begin{sol}
-  \begin{eqnarray*}
+  \begin{eqnarray}
     \left\|A\right\|_1 &=& \max\{12, 8, 18\}=18\\
     \left\|A\right\|_\infty &=& \max\{15, 7, 16\}=16\\
     \left\|A\right\|_2 &=& \sqrt{\max\{0,5865124, 21,789128, 195,62436\}}= 13,98657
-  \end{eqnarray*}
+  \end{eqnarray}
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
@@ -2072,30 +2080,30 @@ Em \verb+Python+ podemos computar normas $L^p$'s de matrizes usando a função \
 \subsection{Número de condicionamento}\index{número de condicionamento}
 
 O condicionamento de um sistema linear é um conceito relacionado à forma como os erros se propagam dos dados de entrada para os dados de saída. No contexto de um sistema linear $Ax=y$, temos que a solução $x$ depende dos dados de entrada $y$. Consideremos, então, o problema
-\begin{equation*}
+\begin{equation}
   A(x+\delta_x)=y+\delta_y
-\end{equation*}
+\end{equation}
 Aqui, $\delta_x$ representa uma variação (erro) em $x$ e $\delta_y$ representa uma variação em $y$ (erro). Temos:
-\begin{equation*}
+\begin{equation}
   Ax+A\delta_x=y+\delta_y
-\end{equation*}
+\end{equation}
 e, portanto,
-\begin{equation*}
+\begin{equation}
   A\delta_x=\delta_y.
-\end{equation*}
+\end{equation}
 
 Queremos avaliar a razão entre o erro relativo em $x$ e o erro relativo em $y$, isto é
-\begin{eqnarray*}
+\begin{eqnarray}
 \frac{\left\|\delta_x\right\|/\left\|x\right\|}{\left\|\delta_y\right\|/\|y\|} &=& \frac{\left\|\delta_x\right\|}{\left\|x\right\|}\frac{\|y\|}{\left\|\delta_y\right\|}\\
 &=& \frac{\|A^{-1}\delta_y\|}{\left\|x\right\|}\frac{\|Ax\|}{\left\|\delta_y\right\|} \\
 &\leq& \frac{\|A^{-1}\|\left\|\delta_y\right\|}{\left\|x\right\|}\frac{\left\|A\right\|\left\|x\right\|}{\left\|\delta_y\right\|}\\
 &=& \left\|A\right\|\|A^{-1}\|
-\end{eqnarray*}
+\end{eqnarray}
 
 \begin{defn}[Número de condicionamento] O número de condicionamento de uma matriz não-singular $A$ é
-  \begin{equation*}
+  \begin{equation}
     k_p(A) := \left\|A\right\|_p \|A^{-1}\|_p
-  \end{equation*}
+  \end{equation}
 \end{defn}
 
 \begin{obs}
@@ -2108,7 +2116,7 @@ Queremos avaliar a razão entre o erro relativo em $x$ e o erro relativo em $y$,
 
 \begin{ex}
   No Exemplo~\ref{ex:sist-mal-cond} estudamos a solução de sistemas lineares com as seguintes matrizes de coeficientes:
-  \begin{equation*}
+  \begin{equation}
     A_1 =
     \begin{bmatrix}
       71 & 41\\
@@ -2119,26 +2127,26 @@ Queremos avaliar a razão entre o erro relativo em $x$ e o erro relativo em $y$,
       71 & 41\\
       52 & 30
     \end{bmatrix}.
-  \end{equation*}
+  \end{equation}
 Calcule os números de condicionamento destes sistemas na norma $L^p$ para $p=1$, $2$ e $\infty$.
 \end{ex}
 \begin{sol}
   Para a matriz $A_1$, temos:
-  \begin{equation*}
+  \begin{equation}
     \begin{split}
       k_1(A_1) &:= \|A_1\|\|A_1^{-1}\| \approx 350,36,\\
       k_2(A_1) &:= \|A_2\|\|A_2^{-1}\| \approx 262,12,\\
       k_\infty(A_1) &:= \|A_\infty\|\|A_\infty^{-1}\| \approx 350,36.\\
     \end{split}
-  \end{equation*}
+  \end{equation}
   Para a matriz $A_2$, temos:
-  \begin{equation*}
+  \begin{equation}
     \begin{split}
       k_1(A_2) &:= \|A_1\|_1\|A_1^{-1}\|_1 \approx 6888,0,\\
       k_2(A_2) &:= \|A_1\|_2\|A_1^{-1}\|_2 \approx 5163,0,\\
       k_\infty(A_2) &:= \|A_1\|_\infty\|A_1^{-1}\|_\infty \approx 6888,0.\\
     \end{split}
-  \end{equation*}
+  \end{equation}
 %%%%%%%%%%%%%%%%%%%%
 % scilab
 %%%%%%%%%%%%%%%%%%%%
@@ -2280,9 +2288,9 @@ A\b2
 
 \end{resp}
 
-\begin{exer} Considere os vetores de 10 entradas dados por $$x_j=\sin(j/10),~~~y_j=j/10~~~~z_j=j/10-\frac{\left(j/10\right)^3}{6},~~ j=1,\ldots,10$$
+\begin{exer} Considere os vetores de 10 entradas dados por \begin{equation} x_j=\sin(j/10),~~~y_j=j/10~~~~z_j=j/10-\frac{\left(j/10\right)^3}{6},~~ j=1,\ldots,10 \end{equation}
 Use o \ifisscilab\verb+Scilab+\fi\ifispython\verb+Python+\fi\ifisoctave\verb+Octave+\fi para construir os seguintes vetores de erro:
-$$e_{j}=\frac{|x_j-y_j|}{|x_j|}~~~ f_j=\frac{|x_j-z_j|}{x_j}$$
+\begin{equation} e_{j}=\frac{|x_j-y_j|}{|x_j|}~~~ f_j=\frac{|x_j-z_j|}{x_j} \end{equation}
 Calcule as normas $1$, $2$ e $\infty$ de $e$ e $f$
 \end{exer}
 \begin{resp}
@@ -2320,12 +2328,12 @@ Veremos nessa seção dois \emph{métodos iterativos} básicos para obter uma ap
 
 \subsection{Método de Jacobi}\index{método de!Jacobi}
 O método de Jacobi pode ser obtido a partir do sistema linear
-\begin{eqnarray*}
+\begin{eqnarray}
 a_{11}x_1+a_{12}x_2+\cdots+a_{1n}x_n&=&y_1\\
 a_{21}x_1+a_{22}x_2+\cdots+a_{2n}x_n&=&y_2\\
 &\vdots&     \\
 a_{n1}x_1+a_{n2}x_2+\cdots+a_{nn}x_n&=& y_n
-\end{eqnarray*}
+\end{eqnarray}
 
 Isolando o elemento $x_1$ da primeira equação temos
 \begin{equation}
@@ -2334,34 +2342,95 @@ x_1^{(k+1)}= \frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_
 Note que utilizaremos os elementos $x_i^{(k)}$ da iteração $k$ (a direita da equação) para estimar o elemento $x_1$ da próxima iteração.
 
 Da mesma forma, isolando o elemento $x_i$ de cada equação $i$, para todo $i=2,...,n$ podemos construir a iteração
-\begin{eqnarray*}
+\begin{eqnarray}
 x_1^{(k+1)}&=&\frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}}\\
 x_2^{(k+1)}&=&\frac{y_2 - \left(a_{21}x_1^{(k)}+a_{23}x_3^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}\\
 &\vdots&\\
 x_n^{(k+1)}&=&\frac{y_2 - \left(a_{n1}x_1^{(k)}+\cdots+a_{n,n-2}x_{n-2}^{(k)}+a_{n,n-1}x_{n-1}^{(k)}\right)}{a_{nn}}
-\end{eqnarray*}
+\end{eqnarray}
 
 Em notação mais compacta, o método de Jacobi consiste na iteração
-\begin{eqnarray*}
+\begin{eqnarray}
   x^{(1)}   &=& \text{aproximação inicial}\\
   x_i^{(k+1)} &=& \left(y_i - \sum_{\substack{j=1\\j\ne i}}^{n} a_{ij}x_j^{(k)} \right)/{a_{ii}}
-\end{eqnarray*}
+\end{eqnarray}
 
 \begin{ex}
 Resolva o sistema
-\begin{eqnarray*}
+\begin{eqnarray}
  10x+y&=&23\\
  x+8y &=&26
-\end{eqnarray*}
+\end{eqnarray}
 usando o método de Jacobi iniciando com $x^{(1)}=y^{(1)}=0$.
-\begin{eqnarray*}
+\begin{eqnarray}
 x^{(k+1)}&=&\frac{23-y^{(k)}}{10}\\
 y^{(k+1)}&=&\frac{26-x^{(k)}}{8}\\
 x^{(2)}&=&\frac{23-y^{(1)}}{10}=2,3\\
 y^{(2)}&=&\frac{26-x^{(1)}}{8}=3,25\\
 x^{(3)}&=&\frac{23-y^{(2)}}{10}=1,975 \\
 y^{(3)}&=&\frac{26-x^{(2)}}{8}=2,9625
-\end{eqnarray*}
+\end{eqnarray}
+\end{ex}
+
+\begin{ex}
+  Considere o seguinte sistema
+  \begin{equation}
+    \begin{split}
+      -3x_1 + x_2 + x_3 &= 2\\
+      2x_1 + 5x_2 + x_3 &= 5\\
+      2x_1 + 3x_2 + 7x_3 &= -17
+    \end{split}
+  \end{equation}
+Usando o método de Jacobi com aproximação inicial $x^{(1)} = (1, 1, -1)$, obtemos os seguintes resultados:
+\begin{center}
+  \begin{tabular}{rcc}\hline
+    $k$ & $x^{(k)}$ & $\|x^{(k)}-x^{(k-1)}\|_\infty$\\\hline
+    1   & $(1, 1, 1)$ & -x-\\
+    2   & $(-0,67,~0,80,~-3,14)$ & $2,1$\\
+    3   & $(-1,45,~1,90,~-2,58)$ & $1,1$\\
+    4   & $(-0,90,~2,10,~-2,83)$ & $5,5\E-1$\\
+    5   & $(-0,91,~1,92,~-3,07)$ & $2,4\E-1$\\
+    \vdots & \vdots & \vdots\\
+    10  & $(-1,00,~2,00,~-3,00)$ & $6,0\E-3$\\\hline 
+  \end{tabular}
+\end{center}
+Verifique a resposta.
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+\construirScilab
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos fazer as contas com o seguinte script:
+\begin{verbatim}
+A = [-3 1 1;2 5 1;2 3 7];
+b = [2,5,-17]';
+
+x=[1 1 -1]';
+for iter=1:9
+  x0 = x;
+  for i=1:3
+    x(i) = (b(i)-A(i,[1:i-1,i+1:3])*x0([1:i-1,i+1:3]))/A(i,i);
+  endfor
+  x'
+  norm(x-x0,'inf')
+endfor
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\construirPython
+\fi
+%%%%%%%%%%%%%%%%%%%%
 \end{ex}
 
 %%%%%%%%%%%%%%%%%%%%
@@ -2396,37 +2465,37 @@ y^{(3)}&=&\frac{26-x^{(2)}}{8}=2,9625
 
 Assim, como no método de Jacobi, no método de Gauss-Seidel também isolamos o elemento $x_i$ da equação $i$. Porém perceba que a equação para $x_2^{(k+1)}$ depende de $x_1^{(k)}$ na iteração $k$. Intuitivamente podemos pensar em usar $x_1^{(k+1)}$ que acabou de ser calculado e temos
 
-\begin{equation*}
+\begin{equation}
 x_2^{(k+1)} =\frac{y_2 - \left(a_{21}x_1^{(k+1)}+a_{23}x_3^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}
-\end{equation*}
+\end{equation}
 Aplicando esse raciocínio, podemos construir o método de Gauss-Seidel como
-\begin{eqnarray*}
+\begin{eqnarray}
 x_1^{(k+1)}&=&\frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}}\\
 x_2^{(k+1)}&=&\frac{y_2 - \left(a_{21}x_1^{(k+1)}+a_{23}x_3^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}\\
 &\vdots&\\
 x_n^{(k+1)}&=&\frac{y_2 - \left(a_{n1}x_1^{(k+1)}+\cdots+a_{n(n-1)}x_{n-1}^{(k+1)}\right)}{a_{nn}}
-\end{eqnarray*}
+\end{eqnarray}
 Em notação mais compacta, o método de Gauss-Seidel consiste na iteração:
-\begin{eqnarray*}
+\begin{eqnarray}
   x^{(1)} &=& \text{aproximação inicial}\\
   x_i^{(k+1)} &=& \frac{y_i - \sum_{j=1}^{i-1} a_{ij}x_j^{(k+1)} -\sum_{j=i+1}^{n} a_{ij}x_j^{(k)}}{a_{ii}}
-\end{eqnarray*}
+\end{eqnarray}
 
 \begin{ex}
 Resolva o sistema
-\begin{eqnarray*}
+\begin{eqnarray}
   10x+y&=&23\\
   x+8y&=&26
-\end{eqnarray*}
+\end{eqnarray}
 usando o método de Gauss-Seidel com condições iniciais $x^{(1)}=y^{(1)}=0$.
-\begin{eqnarray*}
+\begin{eqnarray}
 x^{(k+1)}&=&\frac{23-y^{(k)}}{10}\\
 y^{(k+1)}&=&\frac{26-x^{(k+1)}}{8}\\
 x^{(2)}&=&\frac{23-y^{(1)}}{10}=2,3\\
 y^{(2)}&=&\frac{26-x^{(2)}}{8}=2,9625\\
 x^{(3)}&=&\frac{23-y^{(2)}}{10}=2,00375  \\
 y^{(3)}&=&\frac{26-x^{(3)}}{8}=2,9995312
-\end{eqnarray*}
+\end{eqnarray}
 \end{ex}
 
 %%%%%%%%%%%%%%%%%%%%
@@ -2462,21 +2531,21 @@ y^{(3)}&=&\frac{26-x^{(3)}}{8}=2,9995312
 Nesta seção, analisamos a convergência de métodos iterativos para solução de sistema lineares. Para tanto, consideramos um sistema linear $Ax = b$, onde $A = [a_{i,j}]_{i,j=1}^{n,n}$ é a matriz (real) dos coeficientes, $b = (a_j)_{j=1}^n$ é um vetor dos termos constantes e $x = (x_j)_{j=1}^n$ é o vetor incógnita. No decorrer, assumimos que $A$ é uma matriz não singular.
 
 Geralmente, métodos iterativos são construídos como uma iteração de ponto fixo. No caso de um sistema linear, reescreve-se a equação matricial em um problema de ponto fixo equivalente, isto é:
-\begin{equation*}
+\begin{equation}
   Ax = b \Leftrightarrow x = Tx + c,
-\end{equation*}
+\end{equation}
 onde $T = [t_{i,j}]_{i,j=1}^{n,n}$ é chamada de \emph{matriz da iteração}\index{matriz de!iteração} e $c = (c_j)_{j=1}^n$ de \emph{vetor da iteração}\index{vetor de!iteração}. Construídos a matriz $T$ e o vetor $c$, o método iterativo consiste em computar a iteração:
-\begin{equation*}
+\begin{equation}
   x^{(k+1)} = Tx^{(k)} + c,\quad n\geq 1,
-\end{equation*}
+\end{equation}
 onde $x^{(1)}$ é uma aproximação inicial dada.
 
 A fim de construirmos as matrizes e os vetores de iteração do método de Jacobi e de Gauss-Seidel, decompomos a matriz $A$ da seguinte forma:
-\begin{equation*}
+\begin{equation}
   A = L + D + U,
-\end{equation*}
+\end{equation}
 onde $D$ é a matriz diagonal $D = \diag(a_{11}, a_{22}, \ldots, a_{nn})$, isto é:
-\begin{equation*}
+\begin{equation}
   D := \begin{bmatrix}
     a_{11} & 0 & 0 & \cdots & 0\\
     0 & a_{22} & 0 & \cdots & 0\\
@@ -2484,9 +2553,9 @@ onde $D$ é a matriz diagonal $D = \diag(a_{11}, a_{22}, \ldots, a_{nn})$, isto 
     \vdots & \vdots & \vdots & \ddots & \vdots\\
     0 & 0 & 0 & \cdots & a_{nn}
   \end{bmatrix},
-\end{equation*}
+\end{equation}
 e, respectivamente, $L$ e $U$ são as seguintes matrizes triangular inferior e superior:
-\begin{equation*}
+\begin{equation}
   L := \begin{bmatrix}
     0 & 0 & 0 & \cdots & 0\\
     a_{21} & 0 & 0 & \cdots & 0\\
@@ -2501,20 +2570,20 @@ e, respectivamente, $L$ e $U$ são as seguintes matrizes triangular inferior e s
     \vdots & \vdots & \vdots & \ddots & \vdots\\
     0 & 0 & 0 & \cdots & 0
   \end{bmatrix}.
-\end{equation*}
+\end{equation}
 
 \begin{ex}\label{ex:sislin}
   Considere o seguinte sistema linear:
-  \begin{eqnarray*}
+  \begin{eqnarray}
     3x_1 + x_2 - x_3 &=& 2\\
     -x_1 -4x_2 + x_3 &=& -10\\
     x_1 - 2x_2 - 5x_3 &=& 10
-  \end{eqnarray*}
+  \end{eqnarray}
 Escreva o sistema na sua forma matricial $Ax = b$ identificando a matriz dos coeficientes $A$, o vetor incógnita $x$ e o vetor dos termos constantes $b$. Em seguida, faça a decomposição $A = L + D + U$.
 \end{ex}
 \begin{sol}
  A forma matricial deste sistema é $Ax = b$, onde:
-\begin{equation*}
+\begin{equation}
   A =
   \begin{bmatrix}
     3 & 1 & -1\\
@@ -2533,9 +2602,9 @@ Escreva o sistema na sua forma matricial $Ax = b$ identificando a matriz dos coe
     -10\\
     10
   \end{bmatrix}.
-\end{equation*}
+\end{equation}
 A decomposição da matriz $A$ nas matrizes $L$ triangular inferior, $D$ diagonal e $U$ triangular superior é:
-\begin{equation*}
+\begin{equation}
   \underbrace{\begin{bmatrix}
     3 & 1 & -1\\
     -1 & -4 & 1\\
@@ -2556,7 +2625,7 @@ A decomposição da matriz $A$ nas matrizes $L$ triangular inferior, $D$ diagona
     0 & 0 & 1\\
     0 & 0 & 0
   \end{bmatrix}}_{U}.
-\end{equation*}
+\end{equation}
 %%%%%%%%%%%%%%%%%%%%
 % scilab
 %%%%%%%%%%%%%%%%%%%%
@@ -2591,15 +2660,15 @@ Em \verb+Python+, podemos construir as matrizes $L$, $D$ e $U$, da seguinte form
 \subsubsection{Iteração de Jacobi}
 
 Vamos, agora, usar a decomposição discutida acima para construir a matriz de iteração $T_J$\index{Método de Jacobi!matriz de iteração} e o vetor de iteração $c_J$\index{Método de Jacobi!vetor de iteração} associado ao método de Jacobi. Neste caso, temos:
-\begin{eqnarray*}
+\begin{eqnarray}
   Ax = b &\Leftrightarrow& (L + D + U)x = b\\
   &\Leftrightarrow& Dx = -(L+U)x + b\\
   &\Leftrightarrow& x = \underbrace{-D^{-1}(L+U)}_{=: T_J}x + \underbrace{D^{-1}b}_{=: c_J}.
-\end{eqnarray*}
+\end{eqnarray}
 Ou seja, a iteração do método de Jacobi escrita na forma matricial é:
-\begin{equation*}
+\begin{equation}
   x^{(k+1)} = T_Jx^{(k)} + c_J,\quad k\geq 1,
-\end{equation*}
+\end{equation}
 com $x^{(1)}$ uma aproximação inicial dada, sendo $T_J := -D^{-1}(L+U)$ a matriz de iteração e $c_J = D^{-1}b$ o vetor da iteração.
 
 \begin{ex}
@@ -2607,7 +2676,7 @@ com $x^{(1)}$ uma aproximação inicial dada, sendo $T_J := -D^{-1}(L+U)$ a matr
 \end{ex}
 \begin{sol}
   A matriz de iteração é dada por:
-  \begin{equation*}
+  \begin{equation}
     T_J := -D^{-1}(L + U) = -
     \underbrace{\begin{bmatrix}
       \frac{1}{3} & 0 & 0\\
@@ -2624,9 +2693,9 @@ com $x^{(1)}$ uma aproximação inicial dada, sendo $T_J := -D^{-1}(L+U)$ a matr
   -\frac{1}{4} & 0 & \frac{1}{4}\\
   \frac{1}{5} & \frac{2}{5} & 0
 \end{bmatrix}.
-  \end{equation*}
+  \end{equation}
 O vetor da iteração de Jacobi é:
-\begin{equation*}
+\begin{equation}
   c_J := D^{-1}b =
     \underbrace{\begin{bmatrix}
       \frac{1}{3} & 0 & 0\\
@@ -2643,7 +2712,7 @@ O vetor da iteração de Jacobi é:
       \frac{5}{2}\\
       -2
     \end{bmatrix}.
-\end{equation*}
+\end{equation}
 %%%%%%%%%%%%%%%%%%%%
 % scilab
 %%%%%%%%%%%%%%%%%%%%
@@ -2671,15 +2740,15 @@ Em \verb+python+, podemos computar $T_J$ e $c_J$ da seguinte forma:
 \subsubsection{Iteração de Gauss-Seidel}
 
 A forma matricial da iteração do método de Gauss-Seidel também pode ser construída com base na decomposição $A = L + D + U$. Para tando, fazemos:
-\begin{eqnarray*}
+\begin{eqnarray}
   Ax = b &\Leftrightarrow& (L + D + U)x = b\\
   &\Leftrightarrow& (L + D)x = -Ux + b\\
   &\Leftrightarrow& x = \underbrace{-(L + D)^{-1}U}_{=: T_G}x + \underbrace{(L+D)^{-1}b}_{=: c_G}
-\end{eqnarray*}
+\end{eqnarray}
 Ou seja, a iteração do método de Gauss-Seidel escrita na forma matricial é:
-\begin{equation*}
+\begin{equation}
   x^{(k+1)} = T_Gx^{(k)} + c_G,\quad k\geq 1,
-\end{equation*}
+\end{equation}
 com $x^{(1)}$ uma aproximação inicial dada, sendo $T_G := -(L+D)^{-1}U$ a matriz de iteração e $c_J = (L+D)^{-1}b$ o vetor da iteração.
 
 \begin{ex}
@@ -2687,7 +2756,7 @@ com $x^{(1)}$ uma aproximação inicial dada, sendo $T_G := -(L+D)^{-1}U$ a matr
 \end{ex}
 \begin{sol}
   A matriz de iteração é dada por:
-  \begin{equation*}
+  \begin{equation}
     T_G = -(L+D)^{-1}U = -
      \underbrace{\begin{bmatrix}
       3 & 0 & 0\\
@@ -2704,9 +2773,9 @@ com $x^{(1)}$ uma aproximação inicial dada, sendo $T_G := -(L+D)^{-1}U$ a matr
   0 & \frac{1}{12} & \frac{1}{6}\\
   0 & -\frac{1}{10} & 0
 \end{bmatrix}.
-  \end{equation*}
+  \end{equation}
 O vetor da iteração de Gauss-Seidel é:
-\begin{equation*}
+\begin{equation}
   c_G := (L+D)^{-1}b =
     \underbrace{\begin{bmatrix}
       3 & 0 & 0\\
@@ -2723,7 +2792,7 @@ O vetor da iteração de Gauss-Seidel é:
       \frac{7}{3}\\
       -\frac{28}{10}
     \end{bmatrix}.
-\end{equation*}
+\end{equation}
 %%%%%%%%%%%%%%%%%%%%
 % scilab
 %%%%%%%%%%%%%%%%%%%%
@@ -2751,9 +2820,9 @@ Em \verb+Python+, podemos computar $T_G$ e $c_G$ da seguinte forma:
 \subsubsection{Condições de convergência}
 
 Aqui, vamos discutir condições necessárias e suficientes para a convergência de métodos iterativos. Isto é, dado um sistema $Ax = b$ e uma iteração:
-\begin{equation*}
+\begin{equation}
   x^{(k+1)} = Tx^{(k)} + c,\quad k\geq 1,
-\end{equation*}
+\end{equation}
 $x^{(1)}$ dado, estabelecemos condições nas quais $x^{(k)}\to x^{*}$, onde $x^*$ é a solução do sistema dado, isto é, $x^* = Tx^* + c$ ou, equivalentemente, $Ax^* = b$.
 
 \begin{lem}\label{lema:matriz_convergente}
@@ -2763,84 +2832,84 @@ $x^{(1)}$ dado, estabelecemos condições nas quais $x^{(k)}\to x^{*}$, onde $x^
   Aqui, fazemos apenas um esboço da demonstração. Para mais detalhes, veja \cite{Isaacson1994a}, Teorema 4, pág. 14.
 
   Primeiramente, suponhamos que $\left\|T\right\|_p < 1$, $1\leq p \leq \infty$. Como (veja \cite{Isaacson1994a}, lema 2, pág. 12):
-  \begin{equation*}
+  \begin{equation}
     \rho(T) \leq \left\|T\right\|_p,
-  \end{equation*}
+  \end{equation}
 temos $\rho(T) < 1$, o que mostra a implicação.
 
   Agora, suponhamos que $\rho(T) < 1$ e seja $0 < \epsilon < 1 - \rho(T)$. Então, existe $1\leq p \leq \infty$ tal que (veja \cite{Isaacson1994a}, Teorema 3, página 12):
-  \begin{equation*}
+  \begin{equation}
     \left\|T\right\|_p \leq \rho(T) + \epsilon < 1.
-  \end{equation*}
+  \end{equation}
 Assim, temos:
-\begin{equation*}
+\begin{equation}
   \lim_{k\to\infty} \|T^k\|_p \leq \lim_{k\to\infty} \left\|T\right\|_p^m = 0.
-\end{equation*}
+\end{equation}
 Da equivalência entre as normas segue a recíproca.
 \end{proof}
 
 \begin{obs}\label{obs:matriz_convergente}
   Observamos que:
-  \begin{equation*}
+  \begin{equation}
     \lim_{k\to\infty} \|T^k\|_p = 0,\quad,1\leq p\leq \infty,\Leftrightarrow \lim_{k\to\infty} t_{ij}^k = 0,\quad 1\leq i,j\leq n.
-  \end{equation*}
+  \end{equation}
 \end{obs}
 
 \begin{lem}\label{lema:inversa}
   Se $\rho(T) < 1$, então existe $(I - T)^{-1}$ e:
-  \begin{equation*}
+  \begin{equation}
     (I - T)^{-1} = \sum_{k=0}^\infty T^k.
-  \end{equation*}
+  \end{equation}
 \end{lem}
 \begin{proof}
   Primeiramente, provamos a existência de $(I - T)^{-1}$. Seja $\lambda$ um autovalor de $T$ e $x$ um autovetor associado, isto é, $Tx = \lambda x$. Então, $(I-T)x = (1-\lambda)x$. Além disso, temos $|\lambda| < \rho(T) < 1$, logo $(1 - \lambda) \neq 0$, o que garante que $(I - T)$ é não singular.
   Agora, mostramos que $(I - T)^{-1}$ admite a expansão acima. Do Lema~\ref{lema:matriz_convergente} e da Observação~\ref{obs:matriz_convergente} temos:
-  \begin{equation*}
+  \begin{equation}
    (I - T)\sum_{k=0}^\infty T^k =  \lim_{m\to\infty} (I - T)\sum_{k=0}^m T^k = \lim_{m\to\infty} (I - T^{m+1}) = I,
-  \end{equation*}
+  \end{equation}
 o que mostra que $\displaystyle (I - T)^{-1} = \sum_{k=0}^\infty T^k$.
 \end{proof}
 
 \begin{teo}\label{teo:convergencia}
   A sequência recursiva $\{x^{(k)}\}_{k\in\mathbb{N}}$ dada por:
-  \begin{equation*}
+  \begin{equation}
     x^{(k+1)} = Tx^{(k)} + c
-  \end{equation*}
+  \end{equation}
 converge para solução de $x = Tx + c$ para qualquer escolha de $x^{(1)}$ se, e somente se, $\rho(T) < 1$.
 \end{teo}
 \begin{proof}
   Primeiramente, assumimos que $\rho(T) < 1$. Observamos que:
-  \begin{eqnarray*}
+  \begin{eqnarray}
     x^{(k+1)} &= Tx^{(k)} + c = T(Tx^{(k-1)} + c) + c \\
     &= T^2x^{(k-1)} + (I + T)c \\
     &\vdots\\
     &= T^{(k)}x^{(1)} + \left(\sum_{k=0}^{k-1}T^k\right)c.
-  \end{eqnarray*}
+  \end{eqnarray}
 Daí, do Lema~\ref{lema:matriz_convergente} e do Lema~\ref{lema:inversa} temos:
-\begin{equation*}
+\begin{equation}
   \lim_{k\to\infty} x^{(k)} = (I - T)^{(-1)}c.
-\end{equation*}
+\end{equation}
 Ora, se $x^*$ é a solução de $x = Tx + c$, então $(I - T)x^* = c$, isto é, $x^* = (I - T)^{-1}c$. Logo, temos demonstrado que $x^{(k)}$ converge para a solução de  $x = Tx + c$, para qualquer escolha de $x^{(1)}$.
 
 Agora, suponhamos que $x^{(k)}$ converge para $x^*$ solução de $x = Tx + c$, para qualquer escolha de $x^{(1)}$. Seja, então, $y$ um vetor arbitrário e $x^{(1)} = x^* - y$. Observamos que:
-\begin{eqnarray*}
+\begin{eqnarray}
   x^* - x^{(k+1)} &= (Tx^* + c) - (Tx^{(k)} + c) \\
   &= T(x^* - x^{(k)})\\
   &\vdots\\
   &= T^{(k)}(x^* - x^{(1)}) = T^{(k)}y.
-\end{eqnarray*}
+\end{eqnarray}
 Logo, para qualquer $1 \leq p \leq\infty$, temos, :
-\begin{equation*}
+\begin{equation}
   0 = \lim_{k\to\infty} x^* - x^{(k+1)} = \lim_{k\to\infty} T^{(k)}y.
-\end{equation*}
+\end{equation}
 Como $y$ é arbitrário, da Observação~\ref{obs:matriz_convergente} temos $\displaystyle\lim_{k\to\infty} \|T^{(k)}\|_p = 0$, $1 \leq p \leq \infty$. Então, o Lema~\ref{lema:matriz_convergente} garante que $\rho(T) < 1$.
 \end{proof}
 
 \begin{obs}
   Pode-se mostrar que tais métodos iterativos tem taxa de convergência super linear com:
-  \begin{equation*}
+  \begin{equation}
     \|x^{(k+1)} - x^*\| \approx \rho(T)^{k}\|x^{(1)} - x^*\|.
-  \end{equation*}
+  \end{equation}
 Para mais detalhes, veja \cite{Isaacson1994a}, pág. 61-64.
 \end{obs}
 
@@ -2857,16 +2926,16 @@ Uma condição suficiente porém não necessária para que os métodos de Gauss-
 
 \begin{defn}
  Uma matriz $A$ é \emph{estritamente diagonal dominante} quando:
-\begin{equation*}
+\begin{equation}
   \left |a_{ii}\right |> \sum_{\substack{j=1\\j\ne i}}^{n} \left |a_{ij}\right |, i=1,...,n
-\end{equation*}
+\end{equation}
 \end{defn}
 
 \begin{defn}
  Uma matriz $A$ é \emph{diagonal dominante} quando
-\begin{equation*}
+\begin{equation}
   \left |a_{ii}\right | \geq \sum_{\substack{j=1\\j\ne i}}^{n} \left |a_{ij}\right |, i=1,...,n
-\end{equation*}
+\end{equation}
 e para ao menos um $i$, $a_{ii}$ é estritamente maior que a soma dos elementos fora da diagonal.
 \end{defn}
 
@@ -2875,17 +2944,17 @@ e para ao menos um $i$, $a_{ii}$ é estritamente maior que a soma dos elementos 
 \end{teo}
 
 Se conhecermos a solução exata $x$ do problema, podemos calcular o erro relativo em cada iteração como:
-\begin{equation*}
+\begin{equation}
    \frac{ \|x-x^{(k)}\|}{\left\|x\right\|}.
-\end{equation*}
+\end{equation}
 
 Em geral não temos $x$, entretanto podemos estimar o vetor \emph{resíduo} $r^{(k)}=b-A\tilde{x^{(k)}}$. Note que quando o erro tende a zero, o resíduo também tende a zero.
 
 \begin{teo}
  O erro relativo e o resíduo estão relacionados como (veja \cite{Burden2013})
-\begin{equation*}
+\begin{equation}
   \frac{ \|x-x^{(k)}\|}{\left\|x\right\|} \leq  \kappa(A) \frac{\|r\|}{\|b\|}
-\end{equation*}
+\end{equation}
 onde $k(A)$ é o número de condicionamento.
 \end{teo}
 
@@ -2897,13 +2966,13 @@ onde $k(A)$ é o número de condicionamento.
 
 \begin{exer} Considere o problema de 5 incógnitas e cinco equações dado por
 
-\begin{eqnarray*}
+\begin{eqnarray}
 x_1-x_2&=&1\\
 -x_{1}+2x_2-x_{3}&=&1\\
 -x_{2}+(2+\varepsilon) x_3-x_{4}&=&1\\
 -x_{3}+2x_4-x_{5}&=&1\\
 x_{4}-x_{5}&=&1
-\end{eqnarray*}
+\end{eqnarray}
 \begin{itemize}
 \item[a)]  Escreva na forma $Ax=b$ e resolva usando eliminação gaussiana para $\varepsilon=10^{-3}$ no \ifisscilab\verb+Scilab+\fi\ifispython\verb+Python+\fi\ifisoctave\verb+Octave+\fi.
 \item[b)]  Obtenha o vetor incógnita $x$ com $\varepsilon=10^{-3}$ usando Jacobi com tolerância $10^{-2}$. Compare o resultado com o resultado obtido no item d.
@@ -3059,11 +3128,11 @@ endfunction
 \end{resp}
 
 \begin{exer} Faça uma permutação de linhas no sistema abaixo e resolva pelos métodos de Jacobi e Gauss-Seidel:
-\begin{eqnarray*}
+\begin{eqnarray}
 x_1+10x_2+3x_3=27\\
 4x_1+x_3=6\\
 2x_1+x_2+4x_3=12
-\end{eqnarray*}
+\end{eqnarray}
 \end{exer}
 \begin{resp}
 
@@ -3079,21 +3148,79 @@ Considere o problema de autovalores $Av=\lambda v$, onde $A$ é uma matriz diago
 \subsection{Método da potência}\index{método da potência}
 
 O método da potência para cálculo do maior autovalor (em módulo) consiste na iteração
-\begin{equation}\begin{array}{l}
+\begin{equation}\label{eq:met_da_potencia}
+\begin{array}{l}
   \left\{\begin{array}{ll}
     \displaystyle x^{(1)} &=\text{aprox. inicial do autovetor},\\
     \displaystyle \lambda^{(1)} &= {x^{(1)}}^T A x^{(1)},\\
   \end{array}\right.\\
   \left\{
   \begin{array}{ll}
-    \displaystyle x^{(k+1)} &= \frac{A^kx^{(1)}}{\|A^kx^{(1)}\|_2},\\
+    \displaystyle x^{(k+1)} &= \frac{Ax^{(k)}}{\|Ax^{(k)}\|_2},\\
     \displaystyle \lambda^{(k+1)} &= {x^{(k+1)}}^T A x^{(k+1)},
   \end{array}\right.,\quad k\geq 1.
-  \end{array}\end{equation}
+  \end{array}
+\end{equation}
 
+\begin{obs}
+  Observe que na iteração do método da potência \eqref{eq:met_da_potencia}, temos $Ax^{(k)} = A^{(k)}x^{(1)}$.
+\end{obs}
 
-Para entender melhor o comportamento assintótico da sequência $\{x^{(n)}\}_{n\geq 1}$, primeiro consideramos o caso particular onde $A$ é uma matriz diagonal, isto é,
-\begin{equation*}
+\begin{ex}
+  A seguinte matriz
+  \begin{equation}
+    A =
+    \begin{bmatrix}
+      1 & 0 & 0\\
+      2 & 3 & 0\\
+      3 & 4 & 2
+    \end{bmatrix}
+  \end{equation}
+tem $\lambda=3$ como maior autovalor (por quê?). Tomando $x^{(1)} = (1, 1, 1)$, a iteração do método da potência nos fornece os seguintes resultados:
+\begin{center}
+  \begin{tabular}{l|c|c}
+    $k$ & $x^{(k)}$ & $\lambda^{(k)}$\\\hline
+    1   & $(1, 1, 1)$ & 17\\
+    2   & $(0,08,~0,41,~0,91)$ & 4,10\\
+    3   & $(0,02,~0,34,~0,94)$ & 3,50\\
+    4   & $(0,01,~0,30,~0,95)$ & 3,28\\
+    5   & $(0,00,~0,28,~0,96)$ & 3,16\\
+    \vdots & \vdots & \vdots\\
+    14  & $(0,00,~0,24,~0,97)$ & 3,00\\\hline
+  \end{tabular}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+\construirScilab
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos computar as iterações acima com os seguintes comandos:
+\begin{verbatim}
+>> %aprox. inicial
+>> x=[1 1 1]', lambda=x'*A*x
+>> %iteracao
+>> x=A*x/norm(A*x), lambda=x'*A*x
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\construirPython
+\fi
+%%%%%%%%%%%%%%%%%%%%
+\end{ex}
+
+Para entendermos melhor o comportamento assintótico da sequência $\{x^{(n)}\}_{n\geq 1}$, primeiro consideramos o caso particular onde $A$ é uma matriz diagonal, isto é,
+\begin{equation}
   A=\begin{bmatrix}
     \lambda_1&0&0&\cdots&0\\
     0&\lambda_2&0&\cdots&0\\
@@ -3101,26 +3228,26 @@ Para entender melhor o comportamento assintótico da sequência $\{x^{(n)}\}_{n\
     &\vdots& &\ddots&\\
     0&  0&0&\cdots&\lambda_n\\
   \end{bmatrix}.
-\end{equation*}
+\end{equation}
 Suponha que um dos autovalores seja estritamente maior que os demais, isto é, $|\lambda_1|>|\lambda_2|\geq |\lambda_3|\geq \cdots\geq |\lambda_n|$. Dado $x^{(1)}=(\xi_1, \xi_2, \xi_3, \dotsc, \xi_n)$, então
-\begin{equation*}
+\begin{equation}
   A^kx^{(1)} = A^k\begin{bmatrix}\xi_1\\ \xi_2\\ \xi_3\\ \vdots \\ \xi_n\end{bmatrix} = \begin{bmatrix}\lambda_1^k\xi_1\\ \lambda_2^k\xi_2\\ \lambda_3^k\xi_3\\ \vdots \\ \lambda_n^k\xi_n\end{bmatrix} = \lambda_1^k\xi_1\begin{bmatrix}1\\ \frac{\xi_2}{\xi_1}\left(\frac{\lambda_2}{\lambda_1}\right)^k\\ \frac{\xi_3}{\xi_1}\left(\frac{\lambda_3}{\lambda_1}\right)^k\\ \vdots \\ \frac{\xi_n}{\xi_1}\left(\frac{\lambda_n}{\lambda_1}\right)^k\end{bmatrix},
-\end{equation*}
+\end{equation}
 desde que $\xi_1\neq 0$. Como $\frac{\lambda_n}{\lambda_1}\leq \frac{\lambda_{n-1}}{\lambda_1}\leq \cdots \frac{\lambda_3}{\lambda_1}\leq \frac{\lambda_2}{\lambda_1}<1$, então $\left(\frac{\lambda_j}{\lambda_1}\right)^k$ tende a $0$ para cada $j$, $2\leq j\leq n$. Devido à normalização realizada em cada passo da sequência,
-\begin{equation*}
+\begin{equation}
   x^{(k+1)}=\frac{A^kx^{(1)}}{\|A^kx^{(1)}\|_2}
-\end{equation*}
+\end{equation}
 converge para $\pm e_1$, $e_1=(1, 0, 0, \dotsc, 0)$. Também, a sequência
-\begin{equation*}
+\begin{equation}
   \lambda^{(k)}={x^{(k)}}^TAx^{(k)}
-\end{equation*}
+\end{equation}
 converge para $\lambda_1$, pois
-\begin{equation*}
+\begin{equation}
   \lim_{k\to\infty}\lambda^{(k)}=(\pm e_1)^TA(\pm e_1)=\lambda_1e_1^Te_1=\lambda_1.
-\end{equation*}
+\end{equation}
 
 Considere, agora, o caso onde $A$ é diagonalizável, ou seja, $A=U D U^{-1}$ com $U$ uma matriz ortogonal contendo os autovetores em cada coluna e $D$ uma matriz diagonal contendo os autovalores:
-\begin{equation*}
+\begin{equation}
   D=\begin{bmatrix}
       \lambda_1&0&0&\cdots&0\\
       0&\lambda_2&0&\cdots&0\\
@@ -3128,31 +3255,31 @@ Considere, agora, o caso onde $A$ é diagonalizável, ou seja, $A=U D U^{-1}$ co
       &\vdots& &\ddots&\\
       0&  0&0&\cdots&\lambda_n\\
     \end{bmatrix}.
-\end{equation*}
+\end{equation}
 Considere a mesma hipótese sobre os autovalores: $|\lambda_1|>|\lambda_2|\geq |\lambda_3|\geq \cdots\geq |\lambda_n|$. Então
-\begin{equation*}
+\begin{equation}
   A^k=(U D U^{-1})(U D U^{-1})(U D U^{-1})\cdots (U D U^{-1})=UD^kU^ {-1}
-\end{equation*}
+\end{equation}
 visto que $UU^{-1} = I$. Suponha que o chute inicial $x^{(1)}$ pode ser escrito da forma
-\begin{equation*}
+\begin{equation}
   x^{(1)} = UU^ {-1}x^{(1)} = U[\xi_1\ \ \xi_2\ \ \xi_3\ \ \cdots \ \ \xi_n]^T
-\end{equation*}
+\end{equation}
 com $\xi_1\neq 0$. Então
-\begin{equation*}
+\begin{equation}
   A^kx^{(1)} = (UD^kU^{-1})U\begin{bmatrix} \xi_1\\ \xi_2\\ \xi_3\\ \vdots \\ \xi_n\end{bmatrix} = U\begin{bmatrix}\lambda_1^k\xi_1\\ \lambda_2^k\xi_2\\ \lambda_3^k\xi_3\\ \vdots \\ \lambda_n^k\xi_n\end{bmatrix} = \lambda_1^k\xi_1U\begin{bmatrix} 1\\ \frac{\xi_2}{\xi_1}\left(\frac{\lambda_2}{\lambda_1}\right)^k\\ \frac{\xi_3}{\xi_1}\left(\frac{\lambda_3}{\lambda_1}\right)^k\\ \vdots \\ \frac{\xi_n}{\xi_1}\left(\frac{\lambda_n}{\lambda_1}\right)^k\end{bmatrix}.
-\end{equation*}
+\end{equation}
 Como na discussão anterior, o último vetor converge para $\pm e_1$ e
-\begin{equation*}
+\begin{equation}
   x^{(k)} = \frac{A^kx^{(1)}}{\|A^kx^{(1)}\|_2}
-\end{equation*}
+\end{equation}
 converge para $v_1=\pm Ue_1$ que é um múltiplo do autovetor associado a $\lambda_1$. Também, a sequência
-\begin{equation*}
+\begin{equation}
   \lambda^{(k)} = {x^{(k)}}^TAx^{(k)}
-\end{equation*}
+\end{equation}
 converge para o autovalor dominante $\lambda_1$:
-\begin{equation*}
+\begin{equation}
   \lim_{k\to\infty}\lambda^{(k)} =  v_1^TA v_1 = \lambda_1v_1^Tv_1=\lambda_1.
-\end{equation*}
+\end{equation}
 
 \begin{obs}
 O método da potência tem duas restrições:
@@ -3170,38 +3297,38 @@ x = \sum_{j=1}^n \beta_jv_{j}.
 \end{equation}
 
 Observamos que se $x$ está na forma \eqref{eq:met_pot_forma}, então $A^k x$ pode ser escrito como
-\begin{equation*}
+\begin{equation}
   A^{k} x = \sum_{j=1}^n \beta_j A^k v_{j} = \sum_{j=1}^n \beta_j \lambda_j^k v_{j} = \beta_1\lambda_1^k\left(v_1+\sum_{j=2}^n\frac{\beta_j}{\beta_1} \left(\frac{\lambda_j}{\lambda_1}\right)^k v_{j}\right).
-\end{equation*}
+\end{equation}
 Como $\left|\frac{\lambda_j}{\lambda_1}\right|<1$ para todo $j\geq 2$, temos
-\begin{equation*}
+\begin{equation}
   \sum_{j=2}^n\frac{\beta_j}{\beta_1} \left(\frac{\lambda_j}{\lambda_1}\right)^k v_{j} \to 0.
-\end{equation*}
+\end{equation}
 Assim,
 \begin{equation}\label{eq:met_pot_assim}
   \frac{A^k x}{\left\|A^k x\right\|_2} = \frac{\beta_1\lambda_1^k}{\left\|A^k x\right\|}\left( v_1 + O\left(\left|\frac{\lambda_2}{\lambda_1}\right|^k\right)\right).
 \end{equation}
 Como a norma de $\frac{A^k x}{\left\|A^k x\right\|}$ é igual a um, temos
-\begin{equation*}
+\begin{equation}
   \left\|\frac{\beta_1\lambda_1^k}{\left\|A^k x\right\|}v_1\right\| \to 1
-\end{equation*}
+\end{equation}
 e, portanto,
-\begin{equation*}
+\begin{equation}
   \left|\frac{\beta_1\lambda_1^k}{\left\|A^k x\right\|}\right| \to \frac{1}{\left\|v_1\right\|}.
-\end{equation*}
+\end{equation}
 Ou seja, se definimos $\alpha^{(k)}=\frac{\beta_1\lambda_1^k}{\left\|A^k x\right\|}$, então
-\begin{equation*}
+\begin{equation}
   |\alpha^{(k)}|\to 1.
-\end{equation*}
+\end{equation}
 Retornando a \eqref{eq:met_pot_assim}, temos:
-\begin{equation*}
+\begin{equation}
   \frac{A^k x}{\left\|A^k x\right\|}-\alpha^{(k)} v_1 \to 0.
-\end{equation*}
+\end{equation}
 
 Observe que um múltiplo de autovetor também é um autovetor e, portanto,
-\begin{equation*}
+\begin{equation}
   x^{(k)}=\frac{A^k x^{(1)}}{\left\|A^k x^{(1)}\right\|}.
-\end{equation*}
+\end{equation}
 é um esquema que oscila entre os autovetores ou converge para o autovetor $v_1$.
 
 \subsection{Método da iteração inversa}
@@ -3224,9 +3351,9 @@ $$
 x_0=UU^ {-1}x_0=U[\xi_1\ \ \xi_2\ \ \xi_3\ \ \cdots \ \ \xi_n]^T
 $$
 com $\xi_k\neq 0$. Então
-\begin{eqnarray*}
+\begin{eqnarray}
 (A-\sigma I)^{-k}x_0&=&(U(D-\sigma I)^{-k }U^{-1} )U\left[\begin{array}{c}\xi_1\\ \xi_2\\ \xi_3\\ \vdots \\ \xi_n\end{array}\right]\\&=&U\left[\begin{array}{c}(\lambda_1-\sigma)^{-k}\xi_1\\ (\lambda_2-\sigma)^{-k}\xi_2\\ (\lambda_3-\sigma)^{-k}\xi_3\\ \vdots \\ (\lambda_n-\sigma)^{-k}\xi_n\end{array}\right]=(\lambda_i-\sigma)^{-k}\xi_1U\left[\begin{array}{c}\frac{\xi_1}{\xi_i}\left(\frac{\lambda_i-\sigma}{\lambda_1-\sigma}\right)^k\\ \cdots\\ 1\\ \vdots \\ \cdots \\ \frac{\xi_n}{\xi_i}\left(\frac{\lambda_i-\sigma}{\lambda_n-\sigma}\right)^k \end{array}\right].
-\end{eqnarray*}
+\end{eqnarray}
 Como $\left|\frac{\lambda_i-\sigma}{\lambda_j-\sigma}\right|<1$, o último vetor converge para $\pm e_i$ e
 $$
 x_k=\frac{(A-\sigma I)^{-k}x_0}{\|(A-\sigma I)^{-k}x_0\|_2}
@@ -3247,7 +3374,9 @@ A método da iteração inversa tem restrições semelhantes àquelas do método
 \end{itemize}
 A vantagem é que conseguimos calcular qualquer autovalor, não apenas o autovalor dominante.
 
+\subsection*{Exercícios resolvidos}
 
+\construirExeresol
 
 \subsection*{Exercícios}
 
@@ -3261,9 +3390,7 @@ $$
 Expresse sua resposta com seis dígitos significativos.
 \end{exer}
 \begin{resp}
-
 $\lambda=86.1785$ associado ao autovetor dado por $v_1=\left[ 0.65968~~ 0.66834~~ 0.34372\right]^T$.
-
 \end{resp}
 
 \begin{exer}Calcule o autovalor dominante e o autovetor associado da matriz
@@ -3274,8 +3401,11 @@ $$
 $$
 usando o método da potência inciando com o vetor $x=[1~~  1]^T$.
 \end{exer}
+\begin{resp}
+  \construirResp
+\end{resp}
 
-\begin{exer} A norma $L_2$ de um matriz $A$  é dada pela raiz quadrada do autovalor dominante da matriz $A^*A$ (autovalor de maior módulo), isto é: $$\left\|A\right\|_2=\sqrt{\max\{|\lambda|: \lambda\in\sigma(A^*A)\}}.$$
+\begin{exer} A norma $L_2$ de um matriz $A$  é dada pela raiz quadrada do autovalor dominante da matriz $A^*A$ (autovalor de maior módulo), isto é: \begin{equation} \left\|A\right\|_2=\sqrt{\max\{|\lambda|: \lambda\in\sigma(A^*A)\}}. \end{equation}
 Use o método da potência para obter a norma $L_2$ da seguinte matriz:
 $$A=\left[\begin{array}{ccc}
 
@@ -3300,6 +3430,9 @@ $$
 \end{array}\right].
 $$
 \end{exer}
+\begin{resp}
+  \construirResp
+\end{resp}
 
 \section{Exercícios finais}
 
@@ -3310,13 +3443,13 @@ O circuito linear da Figura~\ref{circuitol8} pode ser modelado pelo sistema dado
 \item[b)] $R_1=R_2=R_3=R_4=2$ e $R_5=50$ e $R_6=R_7=R_8=100$
 \end{itemize}
 
-\begin{eqnarray*}
+\begin{eqnarray}
 V_1&=&V\\
 \frac{V_1-V_2}{R_1}+\frac{V_3-V_2}{R_2}-\frac{V_2}{R_5}&=&0\\
 \frac{V_2-V_3}{R_2}+\frac{V_4-V_3}{R_3}-\frac{V_3}{R_6}&=&0\\
 \frac{V_3-V_4}{R_3}+\frac{V_5-V_4}{R_4}-\frac{V_4}{R_7}&=&0\\
 \frac{V_4-V_5}{R_4}-\frac{V_5}{R_8}&=&0
-\end{eqnarray*}
+\end{eqnarray}
 
 \begin{center}
 \includegraphics[width=12cm,angle=0]{./cap_linsis/pics/circuito_linear_8.eps}\label{circuitol8}
@@ -3340,7 +3473,6 @@ Então, refaça este problema reduzindo o sistema para apenas 4 incógnitas ($V_
 \end{exer}
 \ifisscilab
 \begin{resp}
-
 a)$V_5=98.44V$ b) $V_5=103.4V$
 
 O problema com cinco incógnitas pode ser escrito na forma matricial conforme a seguir:
@@ -3412,7 +3544,6 @@ A=[  -(1/R1+1/R2+1/R5)    1/R2               0                 0;
 v=[-V/R1; 0; 0; 0]
 y=A\v
 \end{verbatim}
-
 \end{resp}
 \fi
 
@@ -3428,11 +3559,6 @@ y=A\v
 \end{itemize}
 \end{exer}
 \begin{resp}
-
 Dica: $P(-1)=-3$, $P(1)=-1$ e $P(2)=9$ produzem três equações lineares para os coeficientes $a$, $b$ e $c$.
 Resp: a) $P(x)=3x^2+x-5$, b) $A\approx 2.49$ e $B\approx -1.29$ c)$A_1\approx 1.2872058$, $A_2\approx - 4.3033034$, $B_1\approx 2.051533$ e $B_2\approx - 0.9046921$.
-
 \end{resp}
-
-
-%\end{document}
