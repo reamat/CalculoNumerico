@@ -620,9 +620,9 @@ usando os métodos simples do ponto médio, Trapézio e Simpson. Calcule, també
  Verifique o método de Simpson pode ser entendido como uma média aritmética ponderada entre os métodos de trapézio e ponto médio. Encontre os pesos envolvidos. Explique o que são os métodos compostos.
  \end{exer}
 \begin{resp}
-
-\begin{equation}  I_{Simpson}= \frac{1}{3} I_{Trap}+ \frac{2}{3}I_{PM} \end{equation}
-
+\begin{equation}  
+  I_{Simpson}= \frac{1}{3} I_{Trap}+ \frac{2}{3}I_{PM} 
+\end{equation}
 \end{resp}
 
 
@@ -645,7 +645,6 @@ $9$  & & &\\
 \end{center}
 \end{exer}
 \begin{resp}
-
     \begin{equation}
     \begin{array}{c|cccc}
         n   & \text{Ponto médio} & \text{Trapézios} & \text{Simpson} \\  \hline
@@ -655,7 +654,6 @@ $9$  & & &\\
         9  &  0.2084204 &   0.2721145  &  0.2306618  \\ \hline
     \end{array}
     \end{equation}
-
 \end{resp}
 
 
@@ -832,6 +830,21 @@ onde $h = (b-a)/n$ e $x_i = a + (i-1)h$, $i=1,2,\dotsc,n+1$. Os parâmetros de e
 \verbatiminput{./cap_integracao/codes/octave/trap_comp.m}
 \fi
 %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\subsection{Código Python: trapézio composto}
+O código \verb+Python+ abaixo é uma implementação do método do trapézio composto para calcular:
+\begin{equation}
+  \int_a^b f(x)\,dx = \frac{h}{2}\left[f(x_1) + f(x_{n+1})\right] + h\sum_{i=2}^n f(x_i) + O(h^3),
+\end{equation}
+onde $h = (b-a)/n$ e $x_i = a + (i-1)h$, $i=1,2,\dotsc,n+1$. Os parâmetros de entrada são: \verb+f+ o integrando definido como uma função, \verb+a+ o limite inferior de integração, \verb+b+ o limite superior de integração, \verb+n+ o número de subintervalos desejado. A variável de saída é \verb+y+ e corresponde a aproximação calculada de $\int_a^b f(x)\, dx$.
+
+\construirPython
+
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Método composto de Simpson}\index{integração numérica!método composto!de Simpson}
 Já a regra composta de Simpson assume a seguinte forma:
@@ -870,11 +883,25 @@ onde $h = (b-a)/(2n)$ e $x_i = a + (i-1)h$, $i=1,2,\dotsc,2n+1$. Os parâmetros 
 \verbatiminput{./cap_integracao/codes/octave/simp_comp.m}
 \fi
 %%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\subsection{Código em Python: Simpson composto}
+O código em \verb+GNU Octave+ abaixo é uma implementação do método de Simpson composto para calcular:
+\begin{equation}
+  \int_a^b f(x)\,dx = \frac{h}{3}\left[f(x_1) + 2\sum_{i=1}^{n-1} f(x_{2i+1}) + 4\sum_{i=1}^{n} f(x_{2i}) + f(x_{2n+1})\right] + O(h^3),
+\end{equation}
+onde $h = (b-a)/(2n)$ e $x_i = a + (i-1)h$, $i=1,2,\dotsc,2n+1$. Os parâmetros de entrada são: \verb+f+ o integrando definido como uma função, \verb+a+ o limite inferior de integração, \verb+b+ o limite superior de integração, \verb+n+ o número de subintervalos desejado. A variável de saída é \verb+y+ e corresponde a aproximação calculada de $\int_a^b f(x)\, dx$.
+
+\construirPython
+\fi
+%%%%%%%%%%%%%%%%%%%%
 
 \begin{ex}Calcule numericamente a integral
-$$
-\int_0^2 x^2 e^{x^2}\;dx
-$$
+  \begin{equation}
+    \int_0^2 x^2 e^{x^2}\;dx
+  \end{equation}
 pelas regras compostas do ponto médio, trapézio e Simpson variando o número de intervalos $n=1$, $2$, $3$, $6$, $12$, $24$, $48$ e $96$.
 \end{ex}
 \begin{sol}
@@ -893,6 +920,10 @@ pelas regras compostas do ponto médio, trapézio e Simpson variando o número d
   \end{tabular}
   \end{center}
 \end{sol}
+
+\subsection*{Exercícios resolvidos}
+
+\construirExeresol
 
 \subsection*{Exercícios}
 
@@ -1417,7 +1448,7 @@ disp(I5)
 \ifisoctave
 No \verb+GNU Octave+, temos:
 \begin{verbatim}
-f = inline("sqrt(1 + x^2)")
+f = @(x) sqrt(1 + x^2)
 
 #G-L n=2
 x2 = sqrt(3)/3;
@@ -1582,6 +1613,11 @@ O código Scilab abaixo é uma implementação da quadratura gaussiana com subdi
 \fi
 %%%%%%%%%%%%%%%%%%%%
 
+
+\subsection*{Exercícios resolvidos}
+
+\construirExeresol
+
 \subsection*{Exercícios}
 
 \begin{exer}Encontre aproximações para a integral
@@ -1635,6 +1671,44 @@ usando a quadratura de Gauss-Legendre com 2, 3, 4 e 5 pontos. Então, compare co
 % \end{tabular}
 % \end{center}
 % \end{exer}
+
+\section{Integrais impróprias}
+
+A aplicação de quadraturas numéricas para integrais impróprias geralmente demanda alguns cuidados adicionais. Aqui, abordaremos apenas alguns aspectos, começando por integrandos com singularidade no intervalo de integração.
+
+\subsection{Integrandos com singularidade do tipo $1/(x-a)^n$}
+
+Consideremos a integral imprópria\footnote{convergente com $f(x)$ suficientemente suave, por hipótese.}
+\begin{equation}
+  \int_a^b\frac{f(x)}{(x-a)^n}\,dx.
+\end{equation}
+
+Observamos, que para uma tal integral, não é possível aplicar, diretamente, as regras do trapézio e de Simpson. Alternativamente, podemos aplicar a regra do ponto médio e quadraturas gaussianas, por exemplo. Entretanto, aplicações diretas de tais quadratuas fornecem resultados pouco precisos (veja o Exemplo~\ref{ex:int_impropria1}.
+
+\begin{ex}\label{ex:int_impropria1}
+  Aplicando as regras compostas do ponto médio e quadratura gaussiana com dois pontos à integral
+  \begin{equation}
+    \int_0^1 \frac{e^{-x}}{x^{1/2}}\,dx
+  \end{equation}
+obtemos os seguintes resultados ($n$ número de subintervalos):
+\begin{tabular}{lc|c|c}\hline
+  n      & h        & Ponto Médio & G-L(2)\\\hline
+  1      & 1        & 0,8577 & 1,1363\\
+  10     & $10^{-1}$ & 1,3007 & 1,3829\\
+  $10^2$ & $10^{-2}$ & 1,4331 & 1,4587\\
+  $10^3$ & $10^{-3}$ & 1,4745 & 1,4826\\
+  $10^4$ & $10^{-4}$ & 1,4876 & 1,4902\\\hline
+\end{tabular}
+\end{ex}
+
+
+\subsection*{Exercícios resolvidos}
+
+\construirExeresol
+
+\subsection*{Exercícios}
+
+\construirExer
 
 \section{Exercícios finais}
 
