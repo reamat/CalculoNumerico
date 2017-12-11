@@ -5,23 +5,36 @@
 
 \chapter{Integração numérica}\index{integração} \label{cap:integracao}
 
-Neste capítulo discutiremos técnicas numéricas para aproximar \emph{integrais}\index{integral} definidas de funções reais.
-
-Considere o problema de calcular (ou estimar) a integral de $f(x)$ no intervalo $[a,b]$, ou seja,
-$$
+Neste capítulo discutiremos técnicas numéricas para aproximar \emph{integrais}\index{integral} definidas de funções reais. Mais precisamente, considere o problema de calcular (ou aproximar) a integral de $f(x)$ no intervalo $[a,b]$, ou seja,
+\begin{equation}
  I = \int_a^b f(x) \;dx.
-$$
+\end{equation}
 
-Uma maneira de estimar esta integral numericamente consiste em subdividir o intervalo $[a,b]$ em $n-1$ intervalos a partir de um conjunto ordenado de pontos $a=x_1<x_2<...<x_n=b$. Em cada intervalo $i$, a integral será aproximada por $\Delta S_i$ e a integral será aproximada por
-$$
- I \approx S = \sum_{i=1}^{n-1} \Delta S_i.
-$$
-O tamanho de cada intervalo é dado por $h_i=x_{i+1}-x_i$. No caso uniforme, todos os intervalos possuem o mesmo tamanho $h=h_i=(b-a)/(n-1)$.
+\begin{figure}
+  \centering
+  \includegraphics[scale=1.0]{./cap_integracao/pics/Somas_de_Riemann/Somas_de_Riemann}
+  \caption{Aproximação da integral definida de uma função.}
+  \label{fig:Somas_de_Riemann}
+\end{figure}
 
-Nas próximas seções apresentaremos formas diferentes de aproximar $\Delta S_i$ iniciando com o caso mais simples que é um retângulo. Cada uma das regras obtidas também é chamada de quadratura.
+Geometricamente, $I$ corresponde a área\footnote{área líquida} entre o gráfico de $f(x)$ e o eixo das abscissas (eixo $x$). Uma maneira de aproximar $I$ consiste em subdividir o intervalo $[a,b]$ em $n-1$ subintervalos a partir de um conjunto ordenado de pontos $a=x_1<x_2<...<x_n=b$. Então, temos:
+\begin{equation}\label{eq:integral_particionada}
+  \begin{split}
+    I &= \int_a^b f(x)\,dx\\
+    &= \int_{x_1}^{x_2}f(x)\,dx + \int_{x_2}^{x_3}f(x)\,dx + \cdots + \int_{x_{n-1}}^{x_{n}}f(x)\,dx\\
+    &= \sum_{i=1}^{n-1}\int_{x_i}^{x_{i+1}}f(x)\,dx
+  \end{split}
+\end{equation}
+Agora, supondo que o tamanho de cada cada subintervalo $h_i = x_{i+1}-x_{i}$ é suficientemente pequeno, podemos aproximar $f(x)$ no intervalo $(x_i, x_{i+1})$ por $f(x_i^*)$ escolhendo arbitrariamente $x_i^{*}\in [x_i, x_{i+1}]$. Desta forma, temos
+\begin{equation}
+  \int_{x_i}^{x_{i+1}}f(x)\,dx \approx f(x_i^*)h_i.
+\end{equation}
+Isto é equivalente a aproximar a área entre o gráfico de $f(x)$ e o eixo $x$ restrito ao intervalo $[x_i, x_{i+1}]$ pelo retângulo de base $h_i$ e altura $f(x_i^*)$ (veja Figura~\ref{fig:Somas_de_Riemann}). Consequentemente, de \eqref{eq:integral_particionada} temos
+\begin{eqnarray}
+  I &=& \int_{a}^{b}f(x)\,dx = \sum_{i=1}^{n-1}\int_{x_i}^{x_{i+1}}f(x)\,dx\\
+  I &\approx& \sum_{i=1}^{n-1} f(x_i^*)h_i.
+\end{eqnarray}
 
-\begin{ex}
-A Figura~\ref{fig:int_101} mostra um exemplo quando $f(x)=x^2+1$, $0\leq x\leq 2$. Temos a aproximação por um retângulo com base $h_1=2$, depois com dois retângulos de base $h_2=1$ e, finalmente com quatro retângulo de bases $h_3=0,5$.
 \begin{figure}
   \centering
   \includegraphics[scale=0.7]{./cap_integracao/pics/int_1/int_1}
@@ -29,7 +42,8 @@ A Figura~\ref{fig:int_101} mostra um exemplo quando $f(x)=x^2+1$, $0\leq x\leq 2
   \label{fig:int_101}
 \end{figure}
 
-Os valores aproximados para a integral são dados na seguinte tabela:
+\begin{ex}
+A Figura~\ref{fig:int_101} mostra um exemplo quando $f(x)=x^2+1$, $0\leq x\leq 2$. Temos a aproximação por um retângulo com base $h_1=2$, depois com dois retângulos de base $h_2=1$ e, finalmente com quatro retângulos de bases $h_3=0,5$. Os valores aproximados para a integral são dados na seguinte tabela:
 \begin{center}
   \begin{tabular}{|c|c|}\hline
     & $\displaystyle \int_0^2(x^2+1)\,dx$ \\ \hline
@@ -45,6 +59,21 @@ Observe que:
 \end{equation}
 \end{ex}
 
+
+Uma tal aproximação de uma integral definida
+\begin{equation}
+  \int_a^b f(x)\,dx \approx \sum_{i} f(x_i)w_i,
+\end{equation}
+é chamada de quadratura numérica, onde os números $x_i$ denota seu $i$-ésimo ponto e $w_i$ seu $i$-ésimo peso. Nas próximas seções, mostraremos como obter diferentes quadraturas numéricas e discutiremos sobre suas características.
+
+% Em cada intervalo $[x_i, x_{i+1}]$, a integral será aproximada por $\Delta S_i$ e a integral será aproximada por
+% $$
+%  I \approx S = \sum_{i=1}^{n-1} \Delta S_i.
+% $$
+% O tamanho de cada intervalo é dado por $h_i=x_{i+1}-x_i$. No caso uniforme, todos os intervalos possuem o mesmo tamanho $h=h_i=(b-a)/(n-1)$.
+
+% Nas próximas seções apresentaremos formas diferentes de aproximar $\Delta S_i$ iniciando com o caso mais simples que é um retângulo. Cada uma das regras obtidas também é chamada de quadratura.
+
 %%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%
@@ -57,7 +86,103 @@ Nos códigos \verb+Python+ apresentados ao longo deste capítulo, assumiremos o 
 \fi
 %%%%%%%%%%%%%%%%%%%%
 
+\section{Somas de Riemann}
+O método mais simples de aproximar
+\begin{equation}
+ I = \int_a^b f(x) \;dx.
+\end{equation}
+com apenas um intervalo, é aproximar $f(x)$ por um polinômio constante no intervalo $[a,b]$, ou seja, $f(x)=c$. Se aproximarmos $f(x)$ pelo ponto a esquerda do intervalo temos que $f(x)\approx f(a)$ e
+\begin{eqnarray*}
+ I &=& \int_a^b f(x) \;dx\\
+   &\approx& \int_a^b f(a) \;dx \\
+   &=& f(a) \int_a^b\,dx\\
+   &=& f(a) (b-a)
+\end{eqnarray*}
+Esta é a regra de quadratura local para $1$ intervalo.
+
+Quando subdividimos $[a,b]$ em $n$ intervalos com tamanho $h=(b-a)/n$ nos pontos $x_i=a+(i-1)h$ , em cada intervalo $i$ aproximamos a área por
+\begin{equation}
+  \Delta S_i \approx f(x_i)h
+\end{equation}
+tal que a área total será aproximada pelas \emph{somas de Riemann à esquerda}
+\begin{equation}
+S =\sum_{i=1}^{n-1} \Delta S_i = \sum_{i=1}^{n-1} f(x_i) h
+\end{equation}
+Podemos obter uma fórmula similar se usarmos os pontos a direita do intervalo, ou seja, as \emph{somas de Riemann à direita}
+\begin{equation}
+S = \sum_{i=1}^{n-1} f(x_{i+1}) h
+\end{equation}
+
+Uma terceira opção é utilizar o ponto médio do intervalo $[x_i,x_{i+1}]$ o qual fornece a \emph{regra do ponto médio}
+\begin{equation}\label{eq:regra_do_ponto_medio}
+S = \sum_{i=1}^{n-1} f(\xi_i ) h, \qquad \xi_i=\frac{x_i+x_{i+1}}{2}.
+\end{equation}
+
+\begin{ex}
+  A integral de $f(x) = e^{-x}\sen(x)$ no intervalo $[0,1, 0,2]$ é
+  \begin{equation}
+    \int_{0}^{1} f(x)\,dx \approx 2,45837\E-1.
+  \end{equation}
+Usando somas de Riemann à esquerda com $10$ intervalos, obtemos
+\begin{equation}
+  \int_0^1 f(x)\,dx \approx \sum_{i=1}^{10} f(x_{i})h = 2,29433\times 10^{-1}.
+\end{equation}
+onde $h=0,1$ e $x_i=(i-1)h$. Analogamente, usando somas de Riemann à direita, obtemos
+\begin{equation}
+  \int_0^1 f(x)\,dx \approx \sum_{i=1}^{10} f(x_{i+1})h = 2,60389\times 10^{-1}.
+\end{equation}
+E, usando a regra do ponto médio, temos
+\begin{equation}
+  \int_0^1 f(x)\,dx \approx \sum_{i=1}^{10} f\left(\frac{x_i+x_{i+1}}{2}\right)h = 2,46300\times 10^{-1}.
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+\construirScilab
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, podemos computar as somas de Riemann à esquerda da seguinte forma:
+\begin{verbatim}
+f = @(x) exp(-x)*sin(x);
+a=0;
+b=1;
+n=10;
+h=(b-a)/n;
+x=0:h:1;
+s=0;
+for i=1:n
+  s += f(x(i))*h;
+endfor
+printf("%1.5e\n",s)
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\construirPython
+\fi
+%%%%%%%%%%%%%%%%%%%%
+\end{ex}
+
+\subsection*{Exercícios resolvidos}
+
+\construirExeresol
+
+\subsection*{Exercícios}
+
+\construirExer
+
+
 \section{Regras de Newton-Cotes}\index{integração numérica!regras de Newton-Cotes}
+
 
 O método básico para encontrar as regras de integração consiste em aproximar a integral de $f$ por uma combinação linear de $n$ valores\footnote{Utilizaremos neste capítulo a notação $f_i$ para indicar $f(x_i)$.} de $f_i := f(x_i)$, ou seja,
 \begin{equation}
@@ -90,39 +215,6 @@ onde
 \begin{equation}
   A_i=\int_a^b L_i(x)\;dx.
 \end{equation}
-
-\subsection{Somas de Riemann}
-O método mais simples de aproximar
-\begin{equation}
- I = \int_a^b f(x) \;dx.
-\end{equation}
-com apenas um intervalo, é aproximar $f(x)$ por um polinômio constante no intervalo $[a,b]$, ou seja, $f(x)=c$. Se aproximarmos $f(x)$ pelo ponto a esquerda do intervalo temos que $f(x)\approx f(a)$ e
-\begin{eqnarray*}
- I &=& \int_a^b f(x) \;dx\\
-   &\approx& \int_a^b f(a) \;dx \\
-   &=& f(a) \int_a^b\,dx\\
-   &=& f(a) (b-a)
-\end{eqnarray*}
-Esta é a regra de quadratura local para $1$ intervalo.
-
-Quando subdividimos $[a,b]$ em $n$ intervalos com tamanho $h=(b-a)/n$ nos pontos $x_i=a+(i-1)h$ , em cada intervalo $i$ aproximamos a área por
-\begin{equation}
-  \Delta S_i \approx f(x_i)h
-\end{equation}
-tal que a área total será aproximada pelas \emph{somas de Riemann à esquerda}
-\begin{equation}
-S =\sum_{i=1}^{n-1} \Delta S_i = \sum_{i=1}^{n-1} f(x_i) h
-\end{equation}
-Podemos obter uma fórmula similar se usarmos os pontos a direita do intervalo, ou seja, as \emph{somas de Riemann à direita}
-\begin{equation}
-S = \sum_{i=1}^{n-1} f(x_{i+1}) h
-\end{equation}
-
-Uma terceira opção é utilizar o ponto médio do intervalo $[x_i,x_{i+1}]$ o qual fornece a \emph{regra do ponto médio}
-\begin{equation}\label{ponto_medio_1}
-S = \sum_{i=1}^{n-1} f(\xi_i ) h, \qquad \xi_i=\frac{x_i+x_{i+1}}{2}.
-\end{equation}
-
 
 % Considere o problema de calcular a área entre uma função positiva, o eixo $x$ e as retas $x=a$ e $x=b$. O valor exato dessa área é calculada fazendo uma aproximação por retângulos com bases iguais e depois tomando o limite quando o número de retângulos tende ao infinito:
 % $$
@@ -195,6 +287,64 @@ S = \sum_{i=1}^{n-1} f(\xi_i ) h, \qquad \xi_i=\frac{x_i+x_{i+1}}{2}.
 % $$
 % \end{ex}
 
+\subsection{Regra do ponto médio}
+
+A regra do ponto médio \eqref{eq:regra_do_ponto_medio} é uma quadratura de Newton-Cotes de um ponto. Neste caso, temos $x_1 = (a+b)/2$ e o polinômio interpolador é o polinômio de grau zero
+\begin{equation}
+  p(x) = f(x_1)L_1(x) = f(x_1),
+\end{equation}
+uma vez que $L_1(x)\equiv 1$. Então, temos
+\begin{equation}
+  \begin{split}
+    \int_a^b f(x)\,dx &\approx \int_a^b p(x)\,dx\\
+    &= \int_a^b f(x_1)\,dx\\
+    &= f(x_1)\int_a^b\,dx\\
+    &= hf(\frac{a+b}{2}),
+  \end{split}
+\end{equation}
+onde $h=b-a$.
+
+\begin{ex}
+  Usando a regra do ponto médio, temos
+  \begin{equation}
+    \begin{split}
+    \int_{0,1}^{0,3} e^{-x}\sen(x)\,dx &\approx f(\frac{a+b}{2}) \\
+    &= 0,2e^{-0,2}\sen(0,2) = 3,25313\times 10^{-2}.
+    \end{split}
+  \end{equation}
+
+%%%%%%%%%%%%%%%%%%%%
+% scilab
+%%%%%%%%%%%%%%%%%%%%
+\ifisscilab
+\construirScilab
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% octave
+%%%%%%%%%%%%%%%%%%%%
+\ifisoctave
+No \verb+GNU Octave+, computamos:
+\begin{verbatim}
+f = @(x) exp(-x)*sin(x);
+a=0.1;
+b=0.3;
+h=b-a;
+I = h*f((a+b)/2)
+\end{verbatim}
+\fi
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+% python
+%%%%%%%%%%%%%%%%%%%%
+\ifispython
+\construirPython
+\fi
+%%%%%%%%%%%%%%%%%%%%
+\end{ex}
+
+
+
 \subsection{Regra do trapézio}\index{integração numérica!regra do trapézio}\label{sec:trapezio}
 
 A regra do trapézio consiste em aproximar a função $f(x)$ por um polinômio de grau 1. O nome do método vem do fato que a região entre o eixo $x$ e a reta que liga o pontos sobre o gráfico da função nos extremos do intervalo forma um trapézio.
@@ -203,7 +353,7 @@ A regra do trapézio consiste em aproximar a função $f(x)$ por um polinômio d
 % \includegraphics[scale=0.7]{./cap_integracao/pics/int_2/int_2}
 % \end{center}
 
-Desta forma, utilizando $x_1:=a$,  $x_2:=b$, $h=x_2-x_1$ e a notação $f_i=f(x_i)$, obtemos através da interpolação de Lagrange o polinômio
+Aqui, utilizamos $x_1:=a$,  $x_2:=b$, $h=x_2-x_1$ e a notação $f_i=f(x_i)$, obtemos através da interpolação de Lagrange o polinômio
 \begin{eqnarray}
 p_1(x) &=& f_1 L_1(x)+ f_2 L_2(x)
 \end{eqnarray}
@@ -413,6 +563,10 @@ Usando dois intervalos, $[0,1/2]$ e $[1/2,1]$ e usando a regra do trapézio em c
 $$
 \int_0^1e^{-x^2}\;dx\approx \frac{0,25}{3}(e^{0}+4e^{-1/16}+e^{-1/4})+\frac{0,25}{3}(e^{-1/4}+4e^{-9/16}+e^{-1})=0,7468554.
 $$
+
+\subsection*{Exercícios resolvidos}
+
+\construirExeresol
 
 \subsection*{Exercícios}
 
