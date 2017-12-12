@@ -1680,10 +1680,10 @@ A aplicação de quadraturas numéricas para integrais impróprias geralmente de
 
 Consideremos a integral imprópria\footnote{convergente com $f(x)$ suficientemente suave, por hipótese.}
 \begin{equation}
-  \int_a^b\frac{f(x)}{(x-a)^n}\,dx.
+  \int_a^b\frac{f(x)}{(x-a)^p}\,dx, \quad 0<p<1,
 \end{equation}
 
-Observamos, que para uma tal integral, não é possível aplicar, diretamente, as regras do trapézio e de Simpson. Alternativamente, podemos aplicar a regra do ponto médio e quadraturas gaussianas, por exemplo. Entretanto, aplicações diretas de tais quadratuas fornecem resultados pouco precisos (veja o Exemplo~\ref{ex:int_impropria1}.
+Observamos, que para uma tal integral, não é possível aplicar, diretamente, as regras do trapézio e de Simpson. Alternativamente, podemos aplicar a regra do ponto médio e quadraturas gaussianas, por exemplo. Entretanto, aplicações diretas de tais quadratuas fornecem resultados pouco precisos (veja o Exemplo~\ref{ex:int_impropria1}).
 
 \begin{ex}\label{ex:int_impropria1}
   Aplicando as regras compostas do ponto médio e quadratura gaussiana com dois pontos à integral
@@ -1691,14 +1691,77 @@ Observamos, que para uma tal integral, não é possível aplicar, diretamente, a
     \int_0^1 \frac{e^{-x}}{x^{1/2}}\,dx
   \end{equation}
 obtemos os seguintes resultados ($n$ número de subintervalos):
-\begin{tabular}{lc|c|c}\hline
-  n      & h        & Ponto Médio & G-L(2)\\\hline
-  1      & 1        & 0,8577 & 1,1363\\
-  10     & $10^{-1}$ & 1,3007 & 1,3829\\
-  $10^2$ & $10^{-2}$ & 1,4331 & 1,4587\\
-  $10^3$ & $10^{-3}$ & 1,4745 & 1,4826\\
-  $10^4$ & $10^{-4}$ & 1,4876 & 1,4902\\\hline
-\end{tabular}
+\begin{center}
+  \begin{tabular}{lc|c|c}\hline
+    n      & h        & Ponto Médio & G-L(2)\\\hline
+    1      & 1        & 0,8577 & 1,1363\\
+    10     & $10^{-1}$ & 1,3007 & 1,3829\\
+    $10^2$ & $10^{-2}$ & 1,4331 & 1,4587\\
+    $10^3$ & $10^{-3}$ & 1,4745 & 1,4826\\
+    $10^4$ & $10^{-4}$ & 1,4876 & 1,4902\\\hline
+  \end{tabular}
+\end{center}
+\end{ex}
+
+Uma estragéia para se computar uma tal integral imprópria
+\begin{equation}
+  I = \int_a^b\frac{f(x)}{(x-a)^p}\,dx
+\end{equation}
+é reescrevê-la da forma
+\begin{equation}
+  I = \underbrace{\int_a^b\frac{f(x)-p(x)}{(x-a)^n}\,dx}_{I_1} + \underbrace{\int_a^b \frac{p(x)}{(x-a)^n}\,dx}_{I_2}
+\end{equation}
+onde $p(x)$ é escolhida de forma que a singularidade esteja presente somente em $I_2$ e esta possa ser calculada de forma analítica, restando computar $I_1$ numericamente. Isto pode ser feito, escolhendo $p(x)$ como a expansão em polinômio de Taylor da função $f(x)$ em torno do ponto $x=a$, i.e.
+\begin{equation}
+  \begin{split}
+    p(x) &= f(a) + f'(a)(x-a) + \frac{f''(a)}{2!}(x-a)^2 + \cdots + \frac{f^{(m)}(a)}{m!}(x-a)^m
+  \end{split}
+\end{equation}
+Com esta escolha, o integrando de $I_1$ passa a ter uma singularidade removível
+\begin{equation}
+  \lim_{x\to a}\frac{f(x)-p(x)}{(x-a)^p} = 0.
+\end{equation}
+e pode ser computada numericamente. A integral $I_2$ pode ser calculada analiticamente, de fato
+\begin{equation}
+  \begin{split}
+    \int_a^b \frac{p(x)}{(x-a)^p}\,dx &= \left.\frac{f(a)}{1!(1-p)}(x-a)^{1-p} + \cdots + \frac{f^{(m)}(a)}{m!(m-p)}(x-a)^{m-p}\right|_{a}^b.
+  \end{split}
+\end{equation}
+
+\begin{ex}
+  Consideremos a integral imprópria
+  \begin{equation}
+    I = \int_0^1 \frac{e^{-x}}{\sqrt{x}}\,dx.
+  \end{equation}
+Computando o polinômio de Taylor de grau 4 de $f(x) = e^{-x}$ em torno de $x=0$, obtemos
+\begin{equation}
+  p(x) = 1 - x + \frac{x^2}{2} - \frac{x^3}{3} + \frac{x^4}{4}.
+\end{equation}
+Então, escrevemos
+\begin{equation}
+  I = \underbrace{\int_0^1 \frac{e^{-x}-p(x)}{\sqrt{x}}\,dx}_{I_1} + \underbrace{\int_0^1 \frac{p(x)}{\sqrt{x}}\,dx}_{I_2}.
+\end{equation}
+
+Calculando $I_2$ analiticamente, temos
+\begin{equation}
+  \begin{split}
+    I_2 &= \int_0^1 \frac{p(x)}{\sqrt{x}}\,dx\\
+    &= \left.2x^{1/2} - \frac{2}{3}x^{3/2} + \frac{2}{10}x^{(5/2)} - \frac{2}{42}x^{7/2} + \frac{2}{216}x^{9/2} \right|_0^1\\
+    &= 2 - \frac{2}{3} + \frac{2}{10} - \frac{2}{42} + \frac{2}{216}\\
+    &= 1,4950.
+  \end{split}
+\end{equation}
+
+Agora, computamos a integral $I_1$ numericamente usando a regra composta do ponto médio. A seguinte tabela apresenta os resultados para as aproximações obtidas para $I_1$ e consequentemente para $I = I_1 + I_2$:
+\begin{center}
+  \begin{tabular}{lc|c|c}\hline
+    n      & h        & $I_2$ & $I$\\\hline
+    1      & 1        & $-3,39657\E-4$ & 1,49463\\
+    10     & $10^{-1}$ & $-1,31240\E-3$ & 1,49366\\
+    $10^2$ & $10^{-2}$ & $-1,32515\E-3$ & 1,49365\\
+    $10^3$ & $10^{-3}$ & $-1,32528\E-3$ & 1,49365\\\hline
+  \end{tabular}
+\end{center}
 \end{ex}
 
 
