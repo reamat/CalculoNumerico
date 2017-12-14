@@ -115,6 +115,10 @@ u(0) &=& 0.
  é solução do problema de valor inicial dado.
 \end{resol}
 
+\subsection*{Exercícios}
+
+\construirExer
+
 
 \section{Método de Euler}\index{método!de Euler}\label{sec:euler}
 Nesta seção, contruiremos o mais simples dos métodos para resolver problemas de valor inicial: o método de Euler com passo constante.\index{Passo} Por passo constante, queremos dizer que os pontos da malha estão todos igualmente espaçados, isto é:
@@ -235,127 +239,6 @@ for i,tt in enumerate(t):
 \fi
 %%%%%%%%%%%%%%%%%%%%
 \end{ex}
-
-\subsection*{Exercícios Resolvidos}
-
-\begin{exeresol}\label{exeresol:exeresol1} Aproxime a solução do problema de valor inicial
-\begin{eqnarray}
-     u'(t)&=& -0,5u(t)+2+t\\
-            u(0) &=&  8
-\end{eqnarray}
-Usando os seguinte passos: $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e $h=10^{-5}$ e compare a solução aproximada em $t=1$ com a solução exata dada por:
-\begin{equation}
-     u(t) = 2t+8e^{-t/2} \Longrightarrow u(1)=2+8e^{-1/2} \approx 6,85224527770107
-\end{equation}
-\end{exeresol}
-\begin{resol} Primeramente itentificamos $f(t,u)=-0,5u+2+t$ e construímos o processo iterativo do método de Euler:
-\begin{eqnarray}
-  u^{(n+1)}&=&u^{(n)} + h( -0,5u^{(n)}+2+t^{(n)}),~~n=1,2,3,\ldots\\
-  u^{(1)}&=&8
-\end{eqnarray}
-
-\ifisscilab
-O seguinte código pode ser usado para implementar no \verb+Scilab+ a recursão acima:
-\begin{verbatim}
-function u=euler(h,Tmax)
-  u= 8;
-  t= 0;
-  itmax = Tmax/h;
-  for n=1:itmax
-    t= (n-1)*h;
-    u= u + h*(-0.5*u+2+t);
-   end
-endfunction
-\end{verbatim}
-o qual pode ser invocado da seguinte forma:
-\begin{verbatim}
--->euler(1e-1,1)
- ans  =
-
-    6.7898955
-\end{verbatim}
-Podemos construir um vetor com as cinco soluções da seguinte forma:
-\begin{verbatim}
- -->S=[euler(1e-1,1) euler(1e-2,1) euler(1e-3,1) euler(1e-4,1) euler(1e-5,1)]
- S  =
-
-    6.7898956   6.846163    6.851639    6.852185    6.8522392
-\end{verbatim}
-
-\fi
-
-\ifisoctave
-O seguinte código pode ser usado para implementar no \verb+Octave+ a recursão acima:
-\begin{verbatim}
-function u=euler(h,Tmax)
-  u= 8;
-  t= 0;
-  itmax = Tmax/h;
-  for n=1:itmax
-    t= (n-1)*h;
-    u= u + h*(-0.5*u+2+t);
-   end
-endfunction
-\end{verbatim}
-o qual pode ser invocado da seguinte forma:
-\begin{verbatim}
->> euler(1e-1,1)
-ans =  6.8799
-\end{verbatim}
-Podemos construir um vetor com as cinco soluções da seguinte forma:
-\begin{verbatim}
- >> S=[euler(1e-1,1) euler(1e-2,1) euler(1e-3,1) euler(1e-4,1) euler(1e-5,1)]
-S =
-
-   6.7899   6.8462   6.8516   6.8522   6.8522
-\end{verbatim}
-\fi
-
-
-\ifispython
-O seguinte código pode ser usado para implementar no \verb+Python+ a recursão acima:
-
-\begin{verbatim}
-def euler(h,Tmax):
-	u=8
-  	itmax = Tmax/h;
-	for i in np.arange(0,itmax):
-		t=i*h
-		k1 = -0.5*u+2+t
-		u = u + h*k1
-	return u
-
-
-sol_exata = 2+8*np.exp(-.5)
-h=1e-1
-for i in np.arange(1,5):
-	sol_euler=euler(h,1);
-	erro_relativo = np.fabs((sol_euler-sol_exata)/sol_exata)
-	print("h=%1.0e - u(1) =~ %1.7f - erro_relativo = %1.1e" % (h, sol_euler, erro_relativo) )
-	h=h/10
-\end{verbatim}
-\fi
-A seguinte tabela resume os resultados obtidos:
-\begin{center}
- \begin{tabular}{|l|l|l|l|l|l|l|l|}%\label{pvi:tab_euler}
-\hline
-   h&$10^{-1}$&$10^{-2}$&$10^{-3}$&$10^{-4}$&$10^{-5}$\\
-   \hline
-  Euler & 6,7898955 &  6,8461635  &  6,8516386  &  6,8521846  &  6,8522392  \\
-   \hline
-   $\varepsilon_{rel}$ &9,1e-03 &  8,9e-04  & 8,9e-05&   8,9e-06 &  8,9e-07\\
-    \hline
-  \end{tabular}
-\end{center}
-
-
-% Veja o gráfico da solução para $h=1, 0.5, 0.1, 0.05$:
-% \begin{figure}
-% \includegraphics[width=\textwidth]{euler.eps}
-% \end{figure}
-
-\end{resol}
-
 
 Vamos agora, analisar o desempenho do método de Euler usando um exemplo mais complicado, porém ainda simples suficiente para que possamos obter a solução exata:
 \begin{ex}\label{ex:ex_euler_1}
@@ -481,7 +364,128 @@ Para fins de comparação, calculamos a solução exata e aproximada para alguns
   \end{tabular}
 %\end{table}
 
+\subsection*{Exercícios Resolvidos}
+
+\begin{exeresol}\label{exeresol:exeresol1} Aproxime a solução do problema de valor inicial
+\begin{eqnarray}
+     u'(t)&=& -0,5u(t)+2+t\\
+            u(0) &=&  8
+\end{eqnarray}
+Usando os seguinte passos: $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e $h=10^{-5}$ e compare a solução aproximada em $t=1$ com a solução exata dada por:
+\begin{equation}
+     u(t) = 2t+8e^{-t/2} \Longrightarrow u(1)=2+8e^{-1/2} \approx 6,85224527770107
+\end{equation}
+\end{exeresol}
+\begin{resol} Primeramente itentificamos $f(t,u)=-0,5u+2+t$ e construímos o processo iterativo do método de Euler:
+\begin{eqnarray}
+  u^{(n+1)}&=&u^{(n)} + h( -0,5u^{(n)}+2+t^{(n)}),~~n=1,2,3,\ldots\\
+  u^{(1)}&=&8
+\end{eqnarray}
+
+\ifisscilab
+O seguinte código pode ser usado para implementar no \verb+Scilab+ a recursão acima:
+\begin{verbatim}
+function u=euler(h,Tmax)
+  u= 8;
+  t= 0;
+  itmax = Tmax/h;
+  for n=1:itmax
+    t= (n-1)*h;
+    u= u + h*(-0.5*u+2+t);
+   end
+endfunction
+\end{verbatim}
+o qual pode ser invocado da seguinte forma:
+\begin{verbatim}
+-->euler(1e-1,1)
+ ans  =
+
+    6.7898955
+\end{verbatim}
+Podemos construir um vetor com as cinco soluções da seguinte forma:
+\begin{verbatim}
+ -->S=[euler(1e-1,1) euler(1e-2,1) euler(1e-3,1) euler(1e-4,1) euler(1e-5,1)]
+ S  =
+
+    6.7898956   6.846163    6.851639    6.852185    6.8522392
+\end{verbatim}
+
+\fi
+
+\ifisoctave
+O seguinte código pode ser usado para implementar no \verb+Octave+ a recursão acima:
+\begin{verbatim}
+function u=euler(h,Tmax)
+  u= 8;
+  t= 0;
+  itmax = Tmax/h;
+  for n=1:itmax
+    t= (n-1)*h;
+    u= u + h*(-0.5*u+2+t);
+   end
+endfunction
+\end{verbatim}
+o qual pode ser invocado da seguinte forma:
+\begin{verbatim}
+>> euler(1e-1,1)
+ans =  6.8799
+\end{verbatim}
+Podemos construir um vetor com as cinco soluções da seguinte forma:
+\begin{verbatim}
+ >> S=[euler(1e-1,1) euler(1e-2,1) euler(1e-3,1) euler(1e-4,1) euler(1e-5,1)]
+S =
+
+   6.7899   6.8462   6.8516   6.8522   6.8522
+\end{verbatim}
+\fi
+
+
+\ifispython
+O seguinte código pode ser usado para implementar no \verb+Python+ a recursão acima:
+
+\begin{verbatim}
+def euler(h,Tmax):
+	u=8
+  	itmax = Tmax/h;
+	for i in np.arange(0,itmax):
+		t=i*h
+		k1 = -0.5*u+2+t
+		u = u + h*k1
+	return u
+
+
+sol_exata = 2+8*np.exp(-.5)
+h=1e-1
+for i in np.arange(1,5):
+	sol_euler=euler(h,1);
+	erro_relativo = np.fabs((sol_euler-sol_exata)/sol_exata)
+	print("h=%1.0e - u(1) =~ %1.7f - erro_relativo = %1.1e" % (h, sol_euler, erro_relativo) )
+	h=h/10
+\end{verbatim}
+\fi
+A seguinte tabela resume os resultados obtidos:
+\begin{center}
+ \begin{tabular}{|l|l|l|l|l|l|l|l|}%\label{pvi:tab_euler}
+\hline
+   h&$10^{-1}$&$10^{-2}$&$10^{-3}$&$10^{-4}$&$10^{-5}$\\
+   \hline
+  Euler & 6,7898955 &  6,8461635  &  6,8516386  &  6,8521846  &  6,8522392  \\
+   \hline
+   $\varepsilon_{rel}$ &9,1e-03 &  8,9e-04  & 8,9e-05&   8,9e-06 &  8,9e-07\\
+    \hline
+  \end{tabular}
+\end{center}
+
+
+% Veja o gráfico da solução para $h=1, 0.5, 0.1, 0.05$:
+% \begin{figure}
+% \includegraphics[width=\textwidth]{euler.eps}
+% \end{figure}
+
+\end{resol}
+
 \subsection*{Exercícios}
+
 \begin{exer} Resolva o problema de valor inicial a seguir envolvendo uma equação não autônoma\index{equação diferencial!não autônoma}, isto é, quando a função $f(t,u)$ depende explicitamente do tempo. Use passo $h=0,1$ e $h=0,01$. Depois compare com a solução exata dada por $u(t)=2e^{-t}+t-1$ nos intantes $t=0$, $t=1$, $t=2$ e $t=3$.
   \begin{equation}
    \begin{split}
@@ -741,6 +745,10 @@ A seguinte tabela resume os resultados obtidos:
 % \end{figure}
 \end{resol}
 
+\subsection*{Exercícios}
+
+\construirExer
+
 \section{Solução de sistemas de equações diferenciais}\index{Sistemas de equações diferenciais}\label{sec:solsistema}
 
 Nas seções \ref{sec:euler} e \ref{sec:sec_euler_mod}, construimos dois métodos numéricos para resolver problemas de valor inicial. Nestas seções, sempre consideremos problemas envolvendo equações diferenciais ordinárias de primeira ordem, isto é:
@@ -987,6 +995,10 @@ itmax=Tmax/h
 \fi
 \end{resol}
 
+\subsection*{Exercícios}
+
+\construirExer
+
 
 \section{Solução de equações e sistemas de ordem superior}
 
@@ -1082,7 +1094,6 @@ u'(0)&=&\left[
 \end{eqnarray*}
 
 \end{resol}
-
 
 
 \subsection*{Exercícios}
@@ -1183,6 +1194,14 @@ Neste ponto, usamos o erro de truncamento do método de trapézios para aproxima
 \end{eqnarray*}
 Assim, temos que o erro de truncamento local do método de Euler melhorado é $O(h^3)$ e, portanto, um método de ordem 2.
 \end{ex}
+
+\subsection*{Exercícios resolvidos}
+
+\construirExeresol
+
+\subsection*{Exercícios}
+
+\construirExer
 
 \begin{exer}Aplique o método de Euler e o método de Euler melhorado para resolver o problema de valor inicial dado por
 \begin{eqnarray*}
@@ -1881,7 +1900,9 @@ y^{(n+1)}&=& \frac{-(1-h)+ \sqrt{(1-h)^2+4hy^{(n)}}}{2h}\\
  \end{eqnarray*}
 \end{resol}
 
+\subsection*{Exercícios}
 
+\construirExer
 
 \section{O método de Taylor}
 Uma maneira alternativa de aumentar a ordem dos métodos de Euler anteriormente descritos consiste em truncar a série de Taylor de $u(t+h)$:
@@ -1904,6 +1925,14 @@ O método de Taylor de ordem $3$ é
 \begin{eqnarray*}
    u^{(n+1)}=u^{(n)} +h f(t^{(n)},u^{(n)})+ \frac{h^2}{2!}\frac{d f}{d t}(t^{(n)},u^{(n)})+\frac{h^3}{3!}\frac{d^2 f}{d t^2}(t^{(n)},u^{(n)})
 \end{eqnarray*}
+
+\subsection*{Exercícios resolvidos}
+
+\construirExeresol
+
+\subsection*{Exercícios}
+
+\construirExer
 
 %\section{Métodos de passo múltiplo}
 \section{Método de Adams-Bashforth}\index{Método!de Adams-Bashforth}\index{Método!de passo múltiplo}\label{sec:Adams_Bashforth}
@@ -2632,7 +2661,13 @@ o que pode ser escrito como:
 \end{eqnarray}
 onde $I_d$ é matriz identidade $n\times n$. O sistema linear envolvido em \eqref{eq:adams:lineares} pode ser resolvido sempre que $I_d-h\beta_s A$ for inversível, o que sempre acontece quando $h$ é suficientemente pequeno.
 
+\subsection*{Exercícios resolvidos}
 
+\construirExeresol
+
+\subsection*{Exercícios}
+
+\construirExer
 
 \section{Estratégia preditor-corretor}\index{preditor-corretor}
 Esquemas implícitos como o de Adams-Moulton (Seção~\ref{sec:Adams_Moulton}) e o de Runge-Kutta (Seção~\ref{sec:sec_IRK}), embora úteis para resolver problemas rígidos (ver Seção~\ref{sec:stiff}), apresentam a dificuldade de necessitar do valor de $f(t^{(n+1)},u^{(n+1)})$ para calcular o valor de $u^{(n+1)}$, exigindo a solução de uma equação algébrica a cada passo. Uma forma de aproximar o comportamento de um método ímplicito através de um esquema implícito consiste em aplicar a, assim chamada, \emph{estratégia preditor-corretor}.
@@ -2704,7 +2739,12 @@ u^{(n+1)}&=&u^{(n)} + \frac{h}{2} \left[f(t^{(n)},u^{(n)})+f(t^{(n+1)},\tilde{u}
 \end{eqnarray*}
 \end{ex}
 
+\subsection{Exercícios resolvidos}
+
+\construirExeresol
+
 \subsection*{Exercícios}
+
 \begin{exer} Construa o esquema preditor corretor combinando Adams-Moulton de quarta ordem e Adams-Bashforth de quarta ordem.
 \end{exer}
 \begin{resp}
@@ -2839,7 +2879,7 @@ Para $h=10^{-6}$, todos os quatro métodos produzem o resultado $99,99999287$.
 
 \section{Convergência, consistência e estabilidade}
 
-\emconstrucao
+\construirSec
 
 \section{Exercícios finais}
 
