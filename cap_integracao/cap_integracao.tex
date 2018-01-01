@@ -1486,34 +1486,39 @@ printf("%1.7f\n", I5)
 Em \verb+Python+, temos:
 \begin{verbatim}
 def f(x):
-    return np.sqrt(1+x^2)
+    return np.sqrt(1+x**2)
 
 #G-L n=2
-x2 = sqrt(3)/3
-w2 = 1
-I2 = w2[1]*f(x2[1]) + w2[1]*f(-x2[1])
-print("%1.7f\n" % I2)
+x2 = [np.sqrt(3)/3]
+w2 = [1]
+I2 = w2[0]*f(x2[0]) + w2[0]*f(-x2[0])
+print("Para n = 2, I = %1.7f" % I2)
 
 #G-L n=3
-x3 = [0 -sqrt(3/5) sqrt(3/5)]
-w3 = [8/9 5/9 5/9]
-I3 = w3[1]*f(x3[1]) + w3[2]*f(x3[2]) + w3[2]*f(-x3[2]);
-print("%1.7f\n" % I3)
-
+x3 = [0, np.sqrt(3/5)]
+w3 = [8/9, 5/9]
+I3 = (w3[0]*f(x3[0]) +
+      w3[1]*f(x3[1]) + w3[1]*f(-x3[1]))
+print("Para n = 3, I = %1.7f" % I3)
 
 #G-L n=4
-x4 = [sqrt((3-2*sqrt(6/5))/7) sqrt((3+2*sqrt(6/5))/7)]
-w4 = [(18+sqrt(30))/36 (18-sqrt(30))/36]
-I4 = w4(1)*f(x4(1)) + w4(1)*f(-x4(1)) ...
-   + w4(2)*f(x4(2)) + w4(2)*f(-x4(2))
-print("%1.7f\n" % I4)
+x4 = [np.sqrt((3-2*np.sqrt(6/5))/7),
+      np.sqrt((3+2*np.sqrt(6/5))/7)]
+w4 = [(18+np.sqrt(30))/36, (18-np.sqrt(30))/36]
+I4 = (w4[0]*f(x4[0]) + w4[0]*f(-x4[0]) +
+      w4[1]*f(x4[1]) + w4[1]*f(-x4[1]))
+print("Para n = 4, I = %1.7f" % I4)
 
 #G-L n=5
-x5 = [0 1/3*sqrt(5-2*sqrt(10/7)) 1/3*sqrt(5+2*sqrt(10/7))]
-w5 = [128/225 (322+13*sqrt(70))/900 (322-13*sqrt(70))/900]
-I5 = w5(1)*f(x5(1)) + w5(2)*f(x5(2)) + w5(2)*f(-x5(2)) ...
-     + w5(3)*f(x5(3)) + w5(3)*f(-x5(3))
-print("%1.7f\n" % I5)
+x5 = [0,
+      1/3*np.sqrt(5-2*np.sqrt(10/7)),
+      1/3*np.sqrt(5+2*np.sqrt(10/7))]
+w5 = [128/225, (322+13*np.sqrt(70))/900,
+      (322-13*np.sqrt(70))/900]
+I5 = (w5[0]*f(x5[0]) +
+      w5[1]*f(x5[1]) + w5[1]*f(-x5[1]) +
+      w5[2]*f(x5[2]) + w5[2]*f(-x5[2]))
+print("Para n = 5, I = %1.7f" % I5)
 \end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%
@@ -1583,15 +1588,17 @@ printf("%1.7f\n", I3)
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-No \verb+GNU Octave+, podemos computar estas aproximações com o seguinte código:
+Em \verb+Python+, podemos computar estas aproximações com o seguinte código:
 \begin{verbatim}
-def f(u):
-    return sqrt(1+(u+1)^2/4)/2
-
-x3 = [0 -sqrt(3/5) sqrt(3/5)]
-w3 = [8/9 5/9 5/9]
-I3 = f(x3(1))*w3(1) + f(x3(2))*w3(2) + f(-x3(2))*w3(2)
-print("%1.7f\n" % I3)
+def f(u):  
+    return np.sqrt(1+(u+1)**2/4)/2  
+ 
+#G-L n=3
+x3 = [0, np.sqrt(3/5)]  
+w3 = [8/9, 5/9]  
+I3 = (w3[0]*f(x3[0])
+      + w3[1]*f(x3[1]) + w3[1]*f(-x3[1]))
+print("Para n = 3, I = %1.7f" %(I3))
 \end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%
