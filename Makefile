@@ -138,7 +138,7 @@ slide-py: main.tex
 # FORMATO HTML
 ########################################
 
-html: main-sci.html
+html-sci: main-sci.html
 
 html-oct: main-oct.html
 
