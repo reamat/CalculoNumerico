@@ -198,12 +198,12 @@ A matriz envolvida é uma \emph{matriz de Vandermonde}\footnote{Alexandre-Théop
 % \begin{ex} Encontre o polinômio da forma $P(x)=a_0+a_1x+a_2x^2+a_3x^3$ que passa pelos pontos
 % \begin{equation} (0,0),(1,1),(2,4),(3,9) \end{equation}
 % Este problema é equivalente ao seguinte sistema linear:
-% \begin{eqnarray*}
+% \begin{eqnarray}
 % a_0&=&0\\
 % a_0+a_1+a_2+a_3&=&1\\
 % a_0+2a_1+4a_2+8a_3&=&4\\
 % a_0+3a_1+9a_2+27a_3&=&9
-% \end{eqnarray*}
+% \end{eqnarray}
 % cuja solução é $a_0=0$, $a_1=0$, $a_2=1$ e $a_3=0$. Portanto
 % \begin{equation} P(x)=x^2 \end{equation}
 % \end{ex}
@@ -492,17 +492,17 @@ p = y(1)*L1 + y(2)*L2 + y(3)*L3 + y(4)*L4
 
 \begin{teo}\label{teo_interp}
 Dados $n+1$ pontos distintos, $x_0,\ x_1,\ \cdots,\ x_n$, dentro de um intervalo $[a,b]$ e uma função $f$ com $n+1$ derivadas contínuas nesse intervalo ($f\in C^{n+1}[a,b]$), então para cada $x$ em $[a,b]$, existe um número $\xi(x)$ em $(a,b)$ tal que
-$$
+\begin{equation}
 f(x)=P(x)+\frac{f^{(n+1)}(\xi(x))}{(n+1)!}(x-x_0)(x-x_1)\cdots(x-x_n),
-$$
+\end{equation}
 onde $P(x)$ é o polinômio interpolador. Em especial, pode-se dizer que
-$$
+\begin{equation}
 |f(x)-P(x)|\leq \frac{M}{(n+1)!}\left|(x-x_0)(x-x_1)\cdots(x-x_n)\right|,
-$$
+\end{equation}
 onde
-$$
+\begin{equation}
 M=\max_{x\in[a,b]}|f^{(n+1)}(\xi(x))|
-$$
+\end{equation}
 \end{teo}
 
 \begin{ex}
@@ -558,17 +558,17 @@ P=L1+cos(.5)*L2+cos(1)*L3
 Para estimar o erro máximo, precisamos estimar a derivada terceira de $f(x)$:
 \begin{equation} |f'''(x)|=|\sin(x)|\leq \sin(1)<0,85 \end{equation}
 e, assim,
-$$
+\begin{equation}
 \max_{x\in[0,1]} \left|x\left(x-\frac{1}{2}\right)(x-1)\right|.
-$$
+\end{equation}
 O polinômio de grau três $Q(x)=x\left(x-\frac{1}{2}\right)(x-1)$ tem um mínimo (negativo) em $x_1=\frac{3+\sqrt{3}}{6}$ e um máximo (positivo) em $x_2=\frac{3-\sqrt{3}}{6}$. Logo:
-$$
+\begin{equation}
 \max_{x\in[0,1]} \left|x\left(x-\frac{1}{2}\right)(x-1)\right|\leq \max\{|Q(x_1)|,\ |Q(x_2)|\}\approx 0,0481125.
-$$
+\end{equation}
 Portanto:
-$$
+\begin{equation}
 |f(x)-P(x)|< \frac{0,85}{3!}0,0481125\approx 0,0068159<7\cdot 10^{-3}
-$$
+\end{equation}
 
 Para estimar o erro efetivo máximo, basta encontrar o máximo de $|P(x)-\cos(x)|$. O mínimo (negativo) de $P(x)-\cos(x)$ acontece em $x_1=4,29\cdot 10^{-3}$ e o máximo (positivo) acontece em $x_2=3,29\cdot 10^{-3}$. Portanto, o erro máximo efetivo é $4,29\cdot 10^{-3}$.
 \end{sol}
@@ -578,26 +578,26 @@ Para estimar o erro efetivo máximo, basta encontrar o máximo de $|P(x)-\cos(x)
 Considere o problema de aproximar o valor da integral $\int_0^1 f(x)dx$ pelo valor da integral do polinômio $P(x)$ que coincide com $f(x)$ nos pontos $x_0=0$, $x_1=\frac{1}{2}$ e $x_2=1$. Use a fórmula de Lagrange para encontrar $P(x)$. Obtenha o valor de $\int_0^1P(x)dx$ e encontre uma expressão para o erro de truncamento.
 \end{ex}
 O polinômio interpolador de $f(x)$ é
-\begin{eqnarray*}
+\begin{eqnarray}
 P(x)&=&f(0)\frac{(x-\frac{1}{2})(x-1)}{(0-\frac{1}{2})(0-1)}+f\left(\frac{1}{2}\right)\frac{(x-0)(x-1)}{(\frac{1}{2}-0)(\frac{1}{2}-1)}+f(1)\frac{(x-0)(x-\frac{1}{2})}{(1-0)(1-\frac{1}{2})}\\
 &=&   f(0)(2x^2-3x+1)+f\left(\frac{1}{2}\right)(-4x^2+4x)+f(1)(2x^2-x)
-\end{eqnarray*}
+\end{eqnarray}
 e a integral de $P(x)$ é:
-\begin{eqnarray*}
+\begin{eqnarray}
 \int_0^1 P(x)dx &=& \left[f(0)\left(\frac{2}{3}x^3 - \frac{3}{2}x^2+x\right)\right]_0^1 + \left[f\left(\frac{1}{2}\right)\left(-\frac{4}{3}x^3+2x^2\right)\right]_0^1 \\
 &+& \left[f(1)\left(\frac{2}{3}x^3-\frac{1}{2}x^2\right)\right]_0^1\\
 &=& f(0)\left(\frac{2}{3}-\frac{3}{2}+1\right)+f\left(\frac{1}{2}\right)\left(-\frac{4}{3}+2\right)+f(1)\left(\frac{2}{3}-\frac{1}{2}\right)\\
 &=& \frac{1}{6}f(0)+\frac{2}{3}f\left(\frac{1}{2}\right)+\frac{1}{6}f(1)
-\end{eqnarray*}
+\end{eqnarray}
 Para fazer a estimativa de erro usando o Teorema~\ref{teo_interp} e temos
-\begin{eqnarray*}
+\begin{eqnarray}
 \left|\int_0^1f(x)dx-\int_0^1 P(x)dx\right|&=&\left|\int_0^1f(x)- P(x)dx\right|\\
 &\leq&\int_0^1|f(x)- P(x)|dx\\
 &\leq& \frac{M}{6}  \int_0^1\left|x\left(x-\frac{1}{2}\right)(x-1)\right|dx\\
 &=& \frac{M}{6}  \left[\int_0^{1/2}x\left(x-\frac{1}{2}\right)(x-1)dx\right.\\
 &-&\left.\int_{1/2}^1x\left(x-\frac{1}{2}\right)(x-1)dx\right]\\
 &=& \frac{M}{6}  \left[\frac{1}{64}-\left(-\frac{1}{64}\right)\right]=\frac{M}{192}.
-\end{eqnarray*}
+\end{eqnarray}
 Lembramos que $M=\max_{x\in[0,1]}|f'''(x)|$.
 
 \begin{obs}Existem estimativas melhores para o erro de truncamento para este esquema de integração numérica. Veremos com mais detalhes tais esquemas na teoria de integração numérica.
@@ -613,12 +613,12 @@ b) $\displaystyle \int_0^1 e^{-x^2}dx$
 \end{ex}
 \begin{sol}
 Usando a fórmula obtida, temos que
-$$
+\begin{equation}
 \int_0^1\ln(x+1) dx \approx 0,39\pm \frac{1}{96}
-$$
-$$
+\end{equation}
+\begin{equation}
 \int_0^1 e^{-x^2} dx \approx 0,75\pm \frac{3,87}{192}
-$$
+\end{equation}
 \end{sol}
 
 \subsection*{Exercícios}
@@ -1004,19 +1004,19 @@ Observe que a matriz $A$ é diagonal dominante estrita e, portanto, o sistema $A
 %\end{array}\right]
 %\end{equation}
 %Aqui $c_5$ é um coeficiente artificial para o problema. A solução é  $c_1=-0,0491874$, $c_2=-0,5956302$, $c_3=0$, $c_4=0,5956302$ e $c_5=0,0491874$. Calculamos os demais coeficientes usando as expressões \eqref{eq_an_spline}, \eqref{eq_bn_spline} e \eqref{eq_dn_spline}:
-%\begin{eqnarray*}
+%\begin{eqnarray}
 %a_1&=&y_1=0\\
 %a_2&=&y_2=1\\
 %a_3&=&y_3=0\\
 %a_4&=&y_3=-1\\
-%\end{eqnarray*}
-%\begin{eqnarray*}
+%\end{eqnarray}
+%\begin{eqnarray}
 %d_1&=&\frac{c_{2}-c_1}{3h_1}=\frac{-0,5956302-(-0,0491874)}{3\cdot \pi/2}=-0,1159588\\
 %d_2&=&\frac{c_{3}-c_2}{3h_2}=\frac{0-(-0,5956302)}{3\cdot \pi/2}=0,1263967\\
 %d_3&=&\frac{c_{4}-c_3}{3h_3}=\frac{0,5956302- 0}{3\cdot \pi/2}=0,1263967\\
 %d_4&=&\frac{c_{5}-c_4}{3h_4}=\frac{0,0491874- 0,5956302}{3\cdot \pi/2}=-0,1159588
-%\end{eqnarray*}
-%\begin{eqnarray*}
+%\end{eqnarray}
+%\begin{eqnarray}
 %b_1&=& \frac{y_{2}-y_1}{h_1}-\frac{h_1}{3}(2c_1+c_{2})\\
 %&=&\frac{1-0}{\pi/2}-\frac{\pi/2}{3}(2\cdot (-0,0491874)-0,5956302)=1\\
 %b_2&=&\frac{y_{3}-y_2}{h_2}-\frac{h_2}{3}(2c_2+c_{3})\\
@@ -1025,7 +1025,7 @@ Observe que a matriz $A$ é diagonal dominante estrita e, portanto, o sistema $A
 %&=&\frac{-1-0}{\pi/2}-\frac{\pi/2}{3}(2\cdot 0+0,5956302)=-0,9484910\\
 %b_4&=&\frac{y_{5}-y_4}{h_4}-\frac{h_4}{3}(2c_4+c_{5})\\
 %&=&\frac{0-(-1)}{\pi/2}-\frac{\pi/2}{3}(2\cdot 0,5956302+0,0491874)=-0,0128772
-%\end{eqnarray*}
+%\end{eqnarray}
 %Portanto,
 %\begin{small}
 %\begin{equation}
@@ -1202,11 +1202,11 @@ Neste caso também, se reduzirmos esse sistema pela eliminação das incógnitas
 %\end{equation}
 %\end{small}
 %os coeficientes $a_j$, $b_j$ e $d_j$, $j=1,2,\dotsc,n-1$, são calculados conforme segue:
-%\begin{eqnarray*}
+%\begin{eqnarray}
 %  a_j &=& y_j\\
 %  b_j &=& \frac{3y_{j+1} - 3y_j - 2c_jh_j^2 - c_{j+1}h_j^2}{3h_j}\\
 %  d_j &=& \frac{c_{j+1} - c_j}{3h_j}
-%\end{eqnarray*}
+%\end{eqnarray}
 
 %\end{document}
 

@@ -19,49 +19,49 @@ O método de Newton aplicado a encontrar a raiz $x^*$ da função $y=f(x)$ estud
 
 Queremos, agora, generalizar o método de Newton a fim de resolver problemas de várias equações e várias incógnitas, ou seja, encontrar $x_1,x_2,\ldots x_n$ que satisfazem as seguintes equações:
 
-\begin{eqnarray*}
+\begin{eqnarray}
 f_1(x_1,x_2,\ldots,x_n)&=&0\\
 f_2(x_1,x_2,\ldots,x_n)&=&0\\
 &\vdots&\\
 f_n(x_1,x_2,\ldots,x_n)&=&0
-\end{eqnarray*}
+\end{eqnarray}
 
 Podemos escrever este problema na forma vetorial definindo o vetor $x=[x_1,x_2,\ldots,x_n]^T$ e a função vetorial
-$$F(x)=\left[
+\begin{equation}F(x)=\left[
 \begin{array}{c}
 f_1(x_1,x_2,\ldots,x_n)\\
 f_2(x_1,x_2,\ldots,x_n)\\
 \vdots\\
 f_n(x_1,x_2,\ldots,x_n)
 \end{array}
-\right].$$
+\right].\end{equation}
 
 \begin{ex} Suponha que queiramos resolver numericamente o seguinte sistema de duas equações e duas incógnitas:
-\begin{eqnarray*}
+\begin{eqnarray}
 \frac{x_1^2}{3}+x_2^2&=&1\\
 x_1^2+\frac{x_2^2}{4}&=&1
-\end{eqnarray*}
+\end{eqnarray}
 Então definimos
 
-$$F(x)=\left[
+\begin{equation}F(x)=\left[
 \begin{array}{c}
 \frac{x_1^2}{3}+x_2^2-1\\~\\
 x_1^2+\frac{x_2^2}{4}-1
 \end{array}
-\right]$$
+\right]\end{equation}
 \end{ex}
 Neste momento, dispomos de um problema na forma $F(x)=0$ e precisamos desenvolver uma técnica para linearizar a função $F(x)$. Para tal, precisamos de alguns conceitos do cálculo de várias variáveis.
 
 Observe que $F(x)-F(x^{(0)})$ pode ser escrito como
 
-$$F(x)-F(x^{(0)})=\left[
+\begin{equation}F(x)-F(x^{(0)})=\left[
 \begin{array}{c}
 f_1(x_1,x_2,\ldots,x_n)-f_1(x_1^{(0)},x_2^{(0)},\ldots,x_n^{(0)})\\
 f_2(x_1,x_2,\ldots,x_n)-f_2(x_1^{(0)},x_2^{(0)},\ldots,x_n^{(0)})\\
 \vdots\\
 f_n(x_1,x_2,\ldots,x_n)-f_n(x_1^{(0)},x_2^{(0)},\ldots,x_n^{(0)})
 \end{array}
-\right]$$
+\right]\end{equation}
 
 Usamos a regra da cadeia
 \begin{equation} df_i = \frac{\partial f_i}{\partial x_1} dx_1+\frac{\partial f_i}{\partial x_2} dx_2+\cdots + \frac{\partial f_i}{\partial x_n} dx_n=\sum_{j=1}^n\frac{\partial f_i}{\partial x_j} dx_j \end{equation}
@@ -86,7 +86,7 @@ x_n-x_n^{(0)}
 \end{equation}
 
 Definimos, então, a matriz jacobiana por\index{matrix!jacobiana}
-$$J_F= \frac{\partial(f_1,f_2,\ldots,f_n)}{\partial(x_1,x_2,\ldots,x_n)}=\left[
+\begin{equation}J_F= \frac{\partial(f_1,f_2,\ldots,f_n)}{\partial(x_1,x_2,\ldots,x_n)}=\left[
 \begin{array}{ccccc}
 \frac{\partial f_1}{\partial x_1}&\frac{\partial f_1}{\partial x_2}&\cdots&\frac{\partial f_1}{\partial x_n}\\~\\
 \frac{\partial f_2}{\partial x_1}&\frac{\partial f_2}{\partial x_2}&\cdots&\frac{\partial f_2}{\partial x_n}\\~\\
@@ -94,7 +94,7 @@ $$J_F= \frac{\partial(f_1,f_2,\ldots,f_n)}{\partial(x_1,x_2,\ldots,x_n)}=\left[
 \frac{\partial f_n}{\partial x_1}&\frac{\partial f_n}{\partial x_2}&\cdots&\frac{\partial f_n}{\partial x_n}\\~\\
 \end{array}
 \right].
-$$
+\end{equation}
 Isto é, a matriz jacobiana de uma função ou simplesmente, o jacobiano de uma função $F(x)$ é a matriz formada pelas suas derivadas parciais:
 \begin{equation} \left(J_F\right)_{ij}=\frac{\partial f_i}{\partial x_j}. \end{equation}
 
@@ -128,11 +128,11 @@ F(x)= F(x^{(k)})+ J_F\left(x^{(k)}\right) \left(x-x^{(k)}\right)  + O\left(\|x-x
 \end{itemize}
 
 Supondo que a matriz jacobina seja inversível no ponto $x^{(k)}$, temos:
-\begin{eqnarray*}
+\begin{eqnarray}
 J_F\left(x^{(k)}\right) \left(x^{(k+1)}-x^{(k)}\right)&=&-F(x^{(k)})\\
 x^{(k+1)}-x^{(k)}&=&-J_F^{-1}\left(x^{(k)}\right)F(x^{(k)})\\
 x^{(k+1)}&=&x^{(k)}-J_F^{-1}\left(x^{(k)}\right)F(x^{(k)})
-\end{eqnarray*}
+\end{eqnarray}
 
 Desta forma, o método iterativo de Newton-Raphson para encontrar as raízes de $F(x)=0$ é dado por:
 \begin{equation}
@@ -154,10 +154,10 @@ Em geral, é menos custoso resolver o sistema acima do que calcular o inverso da
 \end{obs}
 
 \begin{ex} Retornamos ao nosso exemplo inicial, isto é, resolver numericamente o seguinte sistema não linear:
-\begin{eqnarray*}
+\begin{eqnarray}
 \frac{x_1^2}{3}+x_2^2&=&1\\
 x_1^2+\frac{x_2^2}{4}&=&1
-\end{eqnarray*}
+\end{eqnarray}
 Para tal, definimos a função $F(x)$:
 \begin{equation}
   F(x)=\left[
@@ -290,10 +290,10 @@ Observe que as soluções exatas desse sistema são $\left(\pm \sqrt{\frac{9}{11
 
 
 \begin{ex} Encontre uma aproximação para a solução do sistema
-\begin{eqnarray*}
+\begin{eqnarray}
 x_1^2=\cos(x_1x_2)+1\\
 \sin(x_2)=2\cos(x_1)
-\end{eqnarray*}
+\end{eqnarray}
 que fica próxima ao ponto $x_1=1,5$ e $x_2=0,5$.
 \end{ex}
 \begin{sol} Vamos, aqui, dar as principais ideias para obter a solução usando o método de Newton.
@@ -446,30 +446,30 @@ E agora, basta iterar:
 \item[b)] Encontre a matriz jacobiana associada à função
 \begin{equation} F(x,y)=\left[\begin{array}{c}x\cos(x)+y\\ e^{-2x+y}\end{array} \right]. \end{equation}
 \item[c)] Encontre a matriz jacobiana associada à função
-$$L(x)=\left[\begin{array}{c}
+\begin{equation}L(x)=\left[\begin{array}{c}
 a_{11}x_1 + a_{12}x_2 +a_{13}x_3-y_1\\
 a_{21}x_1 + a_{22}x_2 +a_{23}x_3-y_2\\
 a_{31}x_1 + a_{32}x_2 +a_{33}x_3-y_3
 \end{array}
- \right].$$
+ \right].\end{equation}
 \end{itemize}
 \end{exer}
 \begin{resp}
 $\nabla f = [2xy-y\sin(xy), x^2-x\sin(xy)]^T$
-$$J_F=\left[\begin{array}{cc}
+\begin{equation}J_F=\left[\begin{array}{cc}
 \cos(x)-x\sin(x) & 1\\
 -2e^{-2x+y} &e^{-2x+y}
 \end{array}
-\right]$$
+\right]\end{equation}
 \begin{equation} \left(J_L\right)_{ij}=a_{ij} \end{equation}
 \end{resp}
 
 \begin{exer} Encontre uma aproximação numérica para o seguinte problema não linear de três equações e três incógnitas:
-\begin{eqnarray*}
+\begin{eqnarray}
 2x_1-x_2&=&\cos(x_1)\\
 -x_1+2x_2-x_3&=&\cos(x_2)\\
 -x_2+	x_3&=&\cos(x_3)
-\end{eqnarray*}
+\end{eqnarray}
 Partindo das seguintes aproximações iniciais:
 \begin{itemize}
 \item[a)] $x^{(0)}=[1,~1,~1]^T$
@@ -516,11 +516,11 @@ As curvas possuem dois pontos de intersecção. A posição exata destes pontos 
 \end{resp}
 
 \begin{exer} Encontre uma aproximação com erro inferior a $10^{-5}$ em cada incógnita para a solução próxima da origem do sistema
-\begin{eqnarray*}
+\begin{eqnarray}
 6x-2y+e^{z}&=&2\\
 \sin(x)-y+z&=&0\\
 \sin(x)+2y+3z&=&1
-\end{eqnarray*}
+\end{eqnarray}
 \end{exer}
 \begin{resp}
 $x\approx 0,259751, y\approx  0,302736, z\approx  0,045896$
@@ -560,10 +560,10 @@ $x\approx 0,259751, y\approx  0,302736, z\approx  0,045896$
   \begin{equation} f'(x)=\frac{\cos(x)}{1+x}-\frac{\sin(x)}{(1+x)^2}. \end{equation}
   
   Assim, podemos reescrever o problema como
-  \begin{eqnarray*}
+  \begin{eqnarray}
 \frac{\cos(x_1)}{1+x_1}-\frac{\sin(x_1)}{(1+x_1)^2}-\frac{\cos(x_2)}{1+x_2}+\frac{\sin(x_2)}{(1+x_2)^2}=0\\
 \frac{\cos(x_1)}{1+x_1}-\frac{\sin(x_1)}{(1+x_1)^2}-\frac{f(x_2)-f(x_1)}{x_2-x_1}=0
-\end{eqnarray*}
+\end{eqnarray}
 Este é um sistema não linear de duas incógnitas.
 
 Os valores iniciais para o método podem ser obtidos do gráfico buscando valores próximos aos dois primeiros pontos de máximos. Por exemplo: $x_1^{(0)}=1$ e $x_2^{(0)}=8$. Obtemos $x_1\approx 1,2464783$ e $x_2\approx 8,1782997$ e $m$ pode ser obtido através desses valores.
@@ -579,10 +579,10 @@ Os valores iniciais para o método podem ser obtidos do gráfico buscando valore
 \begin{exer}{(Estática)}\label{prob:dois_segmentos} Considere o sistema mecânico constituído de dois segmentos de mesmo comprimento $L$ presos entre si e a uma parede por articulações conforme a Figura~\ref{pic:dois_segmentos}.
 
 O momento em cada articulação é proporcional à deflexão com constante de proporcionalidade $k$. Os segmentos são feitos de material homogêneo de peso $P$. A condição de equilíbrio pode ser expressa em termos dos ângulos $\theta_1$ e $\theta_2$ conforme:
-\begin{eqnarray*}
+\begin{eqnarray}
 k\theta_1&=& \frac{3PL}{2}\cos\theta_1 + k\left(\theta_2-\theta_1\right)\\
 k\left(\theta_2-\theta_1\right)&=& \frac{PL}{2}\cos\theta_2
-\end{eqnarray*}
+\end{eqnarray}
 Considere $P=100N$, $L=1m$ e calcule os ângulos $\theta_1$ e $\theta_2$ quando:
 \begin{itemize}
 \item[a)] $k=1000$ Nm/rad
@@ -600,11 +600,11 @@ $\left(0.1956550;0.2441719 \right)$, $\left(0.3694093;0.4590564\right) $, $\left
 \begin{exer}{(estática - problemas de três variáveis)} Considere, agora, o sistema mecânico semelhante ao do Problema~\ref{prob:dois_segmentos}, porém constituído de três segmentos de mesmo comprimento $L$ presos entre si e a uma parede por articulações.
 
 O momento em cada articulação é proporcional à deflexão com constante de proporcionalidade $k$. Os segmentos são feitos de material homogêneo de peso $P$. A condição de equilíbrio pode ser expressa em termos dos ângulos $\theta_1$, $\theta_2$ e $\theta_3$ conforme:
-\begin{eqnarray*}
+\begin{eqnarray}
 k\theta_1&=& \frac{5PL}{2}\cos\theta_1 + k\left(\theta_2-\theta_1\right)\\
 k\left(\theta_2-\theta_1\right)&=& \frac{3PL}{2}\cos\theta_2+k\left(\theta_3-\theta_2\right)\\
 k\left(\theta_3-\theta_2\right)&=& \frac{PL}{2}\cos\theta_3
-\end{eqnarray*}
+\end{eqnarray}
 Considere $P=10$N, $L=1$m e calcule os ângulos $\theta_1$, $\theta_2$ e $\theta_3$ quando:
 \begin{itemize}
 \item[a)] $k=1000$Nm/rad
@@ -625,10 +625,10 @@ $\left(1.1862966;1.4348545;1.480127  \right)$
 	\end{figure}
 
 \begin{exer}  Considere o problema de encontrar os pontos de intersecção das curvas descritas por (ver Figura~\ref{pic:inter_curvas}):
-\begin{eqnarray*}
+\begin{eqnarray}
 \frac{x^2}{8}+\frac{(y-1)^2}{5}&=&1\\~\\
 \tan^{-1}(x)+x&=&y+y^3
-\end{eqnarray*}
+\end{eqnarray}
  Com base no gráfico, encontre soluções aproximadas para o problema e use-as para iniciar o método de Newton-Raphson. Encontre as raízes com erro inferior a $10^{-5}$.
 \end{exer}
 \begin{resp}
@@ -671,10 +671,10 @@ x=x-JF(x)\F(x)   // 4 vezes
 
 
 \begin{exer} Considere o sistema de equações dado por
-\begin{eqnarray*}
+\begin{eqnarray}
 \frac{(x-3)^2}{16}+\frac{(y-1)^2}{36}&=&1\\
 \tanh(x)+x&=&2\sin y-0.01y^3
-\end{eqnarray*}
+\end{eqnarray}
 Usando procedimentos analíticos, determine uma região limitada do plano onde se encontram necessariamente todas as raízes do problema.
 Encontre as raízes desse sistema com pelo menos quatro dígitos significativos corretos usando o método de Newton. Você deve construir o método de Newton indicando as funções envolvidas e calculando a matriz jacobiana analiticamente. Use que $\frac{d}{du}\tanh u = 1-\tanh^2u$, se precisar.
 \end{exer}
@@ -723,20 +723,20 @@ x=x-JF(x)\F(x)   // 4 vezes
 
 
 \begin{exer}(Otimização)\label{nlinsis:usinas} Uma indústria consome energia elétrica de três usinas fornecedoras. O custo de fornecimento em reais por hora como função da potência consumida em kW é dada pelas seguintes funções
-\begin{eqnarray*}
+\begin{eqnarray}
 C_1(x)&=&10+.3x+10^{-4}x^2+3.4\cdot 10^{-9}x^4\\
 C_2(x)&=&50+.25x+2\cdot 10^{-4}x^2+4.3\cdot 10^{-7}x^3\\
 C_3(x)&=&500+.19x+5\cdot 10^{-4}x^2+1.1\cdot 10^{-7}x^4
-\end{eqnarray*}
+\end{eqnarray}
 Calcule a distribuição de consumo que produz custo mínimo quando a potência total consumida é $1500kW$. Dica: Denote por $x_1$, $x_2$ e $x_3$ as potências consumidas das usinas 1, 2 e 3, respectivamente.  O custo total será dado por $C(x_1,x_2,x_3)=C_1(x_1)+C_2(x_2)+C_3(x_3)$ enquanto o consumo total é $x_1+x_2+x_3=1500$. Isto é, queremos minimizar a função custo total dada por:
 \begin{equation} C(x_1,x_2,x_3)=C_1(x_1)+C_2(x_2)+C_3(x_3) \end{equation}
 restrita à condição
 \begin{equation} G(x_1,x_2,x_3)=x_1+x_2+x_3-1500=0. \end{equation}
 Pelos multiplicadores de Lagrange, temos que resolver o sistema dado por:
-\begin{eqnarray*}
+\begin{eqnarray}
 \nabla C(x_1,x_2,x_3) &=& \lambda \nabla G(x_1,x_2,x_3)\\
 G(x_1,x_2,x_3)&=&0
-\end{eqnarray*}
+\end{eqnarray}
 \end{exer}
 \begin{resp}
  $(x_1,x_2,x_3)\approx (453,62,~ 901,94,~ 144,43)$
@@ -790,11 +790,11 @@ mprintf('f(%f,%f)=%f',x(1),x(2),f(x(1),x(2)))
 
 
 \begin{exer}\label{prob_sis3} Encontre as raizes do problema
-  \begin{eqnarray*}
+  \begin{eqnarray}
     3x-\cos(yz+z)-1/2&=&0\\
     4x^2-25y^2+0.4y+2&=&0\\
     e^{-xy}+2x-5z&=&10
-  \end{eqnarray*}
+  \end{eqnarray}
   no cubo $|x|<2, |y|<2, |z|<2.$
   Dica: Reduza a um problema de duas incógnitas e use recursos gráficos para aproximar as raízes na região.
 \end{exer}
@@ -814,7 +814,7 @@ x_{11}&=&1
 \end{itemize}
 \end{exer}
 \begin{resp}
-$$F\left(x\right)=\left[
+\begin{equation}F\left(x\right)=\left[
 \begin{array}{c}
 x_1-x_2\\[.2cm]
 -x_{1}+5(x_2+x_2^3)-x_{3}-10\exp(-2/3)\\[.2cm]
@@ -823,9 +823,9 @@ x_1-x_2\\[.2cm]
 \vdots\\
 -x_{9}+5(x_{10}+x_{10}^3)-x_{11}-10\exp(-10/3)\\[.2cm]
 x_{11}-1
-\end{array}\right] $$
+\end{array}\right] \end{equation}
 
-$$J_F(x)=\left[
+\begin{equation}J_F(x)=\left[
 \begin{array}{ccccccc}
 1& -1 &0 &0 &0&\ldots & 0\\[.2cm]
 -1&5(1+3x_2^2)& -1&0&0&\ldots & 0\\[.2cm]
@@ -835,7 +835,7 @@ $$J_F(x)=\left[
 0&0&0&0&0&\cdots&1
 \end{array}
 \right]
-$$
+\end{equation}
 
 \ifisscilab
 Exemplo de implementação no Scilab:
@@ -900,22 +900,22 @@ A linearização de $g(h)$ em torno de $h=0$ é dada por
 \begin{equation} g(h)=g(0) + hg'(0) +O(h^2) \end{equation}
 Observamos que $g(h)=f(x^{(0)}+hv)$ e $g(0)=f(x^{(0)})$. Precisamos calcular $g'(0)$:
 
-\begin{eqnarray*}
+\begin{eqnarray}
 g'(h)=\frac{d}{dh}g(h)=\frac{d}{dh}f(x^{(0)}+hv).
-\end{eqnarray*}
+\end{eqnarray}
 Pela regra da cadeia temos:
-\begin{eqnarray*}
+\begin{eqnarray}
 \frac{d}{dh}f(x^{(0)}+hv)= \sum_{j=1}^n \frac{\partial f}{\partial x_j}\frac{d x_j}{d h}.
-\end{eqnarray*}
+\end{eqnarray}
 
 Observamos que $x_j=x^{(0)}_j+hv_j$, portanto
 \begin{equation} \frac{d x_j}{d h}=v_j \end{equation}
 Assim:
-\begin{eqnarray*}
+\begin{eqnarray}
 \frac{d}{dh}f(x^{(0)}+hv)= \sum_{j=1}^n \frac{\partial f}{\partial x_j}v_j.
-\end{eqnarray*}
+\end{eqnarray}
 Observamos que esta expressão pode ser vista como o produto interno entre o gradiente de $f$ e o vetor $v$:
-\begin{eqnarray*}
+\begin{eqnarray}
 \nabla f = \left[
 \begin{matrix}
 \frac{\partial f}{\partial x_1} \\
@@ -931,7 +931,7 @@ v_2\\
 v_n
 \end{matrix}
 \right]
-\end{eqnarray*}
+\end{eqnarray}
 
 Na notação cálculo vetorial escrevemos este produto interno como $\nabla f \cdot v = v \cdot \nabla f$ na notação de produto matricial, escrevemos $\left(\nabla f\right)^T v = v^T\nabla f$. Esta quantidade é conhecida como {\bf derivada direcional} de $f$ no ponto $x^{(0)}$ na direção $v$, sobretudo quando $\|v\|=1$.
 
@@ -958,7 +958,7 @@ Interessamo-nos, agora, pela linearização da função $F:\mathbb{R}^n\to \math
     \end{matrix}\right]
 \end{equation}
 Linearizando cada uma das funções $f_j$, temos:
-\begin{eqnarray*}
+\begin{eqnarray}
 F(x)&=&\underbrace{\left[
 \begin{array}{c}
 f_1\left(x^{(0)}\right)+\nabla^T\! f_1(x^{(0)})\!~\left(x-x^{(0)}\right)   + O(\|x-x^{(0)}\|^2)\\~\\
@@ -967,9 +967,9 @@ f_2\left(x^{(0)}\right)+\nabla^T\! f_2(x^{(0)})\!~\left(x-x^{(0)}\right)   + O(\
 f_n\left(x^{(0)}\right)+\nabla^T\! f_n(x^{(0)})\!~\left(x-x^{(0)}\right)   + O(\|x-x^{(0)}\|^2)
 \end{array}
 \right]}_{\text{Vetor coluna}}
-\end{eqnarray*}
+\end{eqnarray}
 ou, equivalentemente:
-\begin{eqnarray*}
+\begin{eqnarray}
  F(x) &=&\underbrace{\left[
 \begin{array}{c}
 f_1\left(x^{(0)}\right)\\~\\
@@ -985,13 +985,13 @@ f_n\left(x^{(0)}\right)
 \nabla^T\! f_n(x^{(0)})
 \end{array}
 \right]}_{\text{Matriz jacobiana}}\underbrace{\left(x-x^{(0)}\right)}_{\text{Vetor coluna}}+O(\|x-x^{(0)}\|^2)
-\end{eqnarray*}
+\end{eqnarray}
 
 Podemos escrever a linearização de $F(x)$ na seguinte forma mais enxuta:
 \begin{equation} F(x)=F\left(x^{(0)}\right)+ J_F(x^{(0)})\left(x-x^{(0)}\right) + O\left(\left\|x-x^{(0)}\right\|^2\right)  \end{equation}
 
 A matriz jacobiana $J_F$ é matriz cujas linhas são os gradientes transpostos de $f_j$, ou seja:
-$$J_F= \frac{\partial(f_1,f_2,\ldots,f_n)}{\partial(x_1,x_2,\ldots,x_n)}=\left[
+\begin{equation}J_F= \frac{\partial(f_1,f_2,\ldots,f_n)}{\partial(x_1,x_2,\ldots,x_n)}=\left[
 \begin{array}{ccccc}
 \frac{\partial f_1}{\partial x_1}&\frac{\partial f_1}{\partial x_2}&\cdots&\frac{\partial f_1}{\partial x_n}\\~\\
 \frac{\partial f_2}{\partial x_1}&\frac{\partial f_2}{\partial x_2}&\cdots&\frac{\partial f_2}{\partial x_n}\\~\\
@@ -999,20 +999,20 @@ $$J_F= \frac{\partial(f_1,f_2,\ldots,f_n)}{\partial(x_1,x_2,\ldots,x_n)}=\left[
 \frac{\partial f_n}{\partial x_1}&\frac{\partial f_n}{\partial x_2}&\cdots&\frac{\partial f_n}{\partial x_n}\\~\\
 \end{array}
 \right]
-$$
+\end{equation}
 A matriz jacobiana de uma função ou simplesmente, o jacobiano de uma função $F(x)$ é a matriz formada pelas suas derivadas parciais:
 \begin{equation} \left(J_F\right)_{ij}=\frac{\partial f_i}{\partial x_j} \end{equation}
 
 
 \begin{ex} Calcule a matriz jacobiana da função
-$$F(x)=\left[
+\begin{equation}F(x)=\left[
 \begin{array}{c}
 \frac{x_1^2}{3}+x_2^2-1\\~\\
 x_1^2+\frac{x_2^2}{4}-1
 \end{array}
-\right]$$
+\right]\end{equation}
 
-$$J_F=\left[
+\begin{equation}J_F=\left[
 \begin{array}{cc}
 \frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2}\\~\\
 \frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2}\\
@@ -1023,7 +1023,7 @@ $$J_F=\left[
 2x_1&\frac{x_2}{2}
 \end{array}
 \right]
-$$
+\end{equation}
 \end{ex}
 
 %\end{document}

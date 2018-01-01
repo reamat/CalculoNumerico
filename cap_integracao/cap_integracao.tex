@@ -67,9 +67,9 @@ Uma tal aproximação de uma integral definida
 é chamada de quadratura numérica, onde os números $x_i$ denota seu $i$-ésimo ponto e $w_i$ seu $i$-ésimo peso. Nas próximas seções, mostraremos como obter diferentes quadraturas numéricas e discutiremos sobre suas características.
 
 % Em cada intervalo $[x_i, x_{i+1}]$, a integral será aproximada por $\Delta S_i$ e a integral será aproximada por
-% $$
+% \begin{equation}
 %  I \approx S = \sum_{i=1}^{n-1} \Delta S_i.
-% $$
+% \end{equation}
 % O tamanho de cada intervalo é dado por $h_i=x_{i+1}-x_i$. No caso uniforme, todos os intervalos possuem o mesmo tamanho $h=h_i=(b-a)/(n-1)$.
 
 % Nas próximas seções apresentaremos formas diferentes de aproximar $\Delta S_i$ iniciando com o caso mais simples que é um retângulo. Cada uma das regras obtidas também é chamada de quadratura.
@@ -92,12 +92,12 @@ O método mais simples de aproximar
  I = \int_a^b f(x) \;dx.
 \end{equation}
 com apenas um intervalo, é aproximar $f(x)$ por um polinômio constante no intervalo $[a,b]$, ou seja, $f(x)=c$. Se aproximarmos $f(x)$ pelo ponto a esquerda do intervalo temos que $f(x)\approx f(a)$ e
-\begin{eqnarray*}
+\begin{eqnarray}
  I &=& \int_a^b f(x) \;dx\\
    &\approx& \int_a^b f(a) \;dx \\
    &=& f(a) \int_a^b\,dx\\
    &=& f(a) (b-a)
-\end{eqnarray*}
+\end{eqnarray}
 Esta é a regra de quadratura local para $1$ intervalo.
 
 Quando subdividimos $[a,b]$ em $n$ intervalos com tamanho $h=(b-a)/n$ nos pontos $x_i=a+(i-1)h$ , em cada intervalo $i$ aproximamos a área por
@@ -217,13 +217,13 @@ onde
 \end{equation}
 
 % Considere o problema de calcular a área entre uma função positiva, o eixo $x$ e as retas $x=a$ e $x=b$. O valor exato dessa área é calculada fazendo uma aproximação por retângulos com bases iguais e depois tomando o limite quando o número de retângulos tende ao infinito:
-% $$
+% \begin{equation}
 % A=\lim_{n\to\infty}\sum_{i=1}^nf(x_i)h_n,
-% $$
+% \end{equation}
 % onde $h_n=\frac{b-a}{n}$ é o tamanho da base dos retângulo e $f(x_i)$, $1\leq i\leq n$, $a+(i-1)h\leq x_i\leq a+ih$, é a altura dos retângulos. Essa definição é generalizada para cálculo de integrais em um intervalo $[a,b]$:
-% $$
+% \begin{equation}
 % \int_a^bf(x)dx=\lim_{n\to\infty}\sum_{i=1}^nf(x_i)h_n.
-% $$
+% \end{equation}
 
 
 
@@ -240,51 +240,51 @@ onde
 
 % \subsection{Erro na regra do ponto médio}\index{integração numérica!regra do ponto médio}
 % A regra do ponto médio \eqref{ponto_medio_1} pode ser deduzida mais formalmente usando a expansão de Taylor
-% $$
+% \begin{equation}
 % f(x)=f(x_1)+f'(x_1)(x-x_1)+\frac{f''(\xi(x))}{2}(x-x_1)^2
-% $$
+% \end{equation}
 % que leva a integral
-% $$
+% \begin{equation}
 % \int_a^b f(x)dx=\int_a^b f(x_1) dx+f'(x_1)\int_a^b(x-x_1)dx +\int_a^b\frac{f''(\xi(x))}{2}(x-x_1)^2dx.
-% $$
+% \end{equation}
 % Usando o teorema do valor médio para integrais e que $h=b-a$ e $x_1=(a+b)/2$, temos:
-% \begin{eqnarray*}
+% \begin{eqnarray}
 % \int_a^b f(x)dx &=& h f(x_1) + f'(x_1)\int_a^b(x-x_1)dx+f''(\eta)\int_a^b\frac{1}{2}(x-x_1)^2dx\\
 %  &=& h f(x_1) +f'(x_1)\left[\frac{(x-x_1)^2}{2}\right]_a^b+f''(\eta)\left[\frac{1}{6}(x-x_1)^3\right]_a^b\\
 %  &=& h f(x_1) +f'(x_1)\left[\frac{(b-x_1)^2}{2}-\frac{(a-x_1)^2}{2}\right]\\
 %  &+& f''(\eta)\left[\frac{1}{6}(b-x_1)^3-\frac{1}{6}(a-x_1)^3\right]\\
 %  &=& h f(x_1) +\frac{h^3f''(\eta)}{3}.
-% \end{eqnarray*}
+% \end{eqnarray}
 % para $a\leq \eta\leq b$, onde o erro local é $\mathcal{O}(h^3)$.
 
 
 % \begin{ex}
 % Use a regra do ponto médio para aproximar a integral
-% $$
+% \begin{equation}
 % \int_0^1e^{-x^2}dx.
-% $$
+% \end{equation}
 % Depois divida a integral em duas
-% $$
+% \begin{equation}
 % \int_0^{1/2}e^{-x^2}dx+\int_{1/2}^{1}e^{-x^2}dx.
-% $$
+% \end{equation}
 % e aplique a regra do ponto médio em cada uma delas. Finalmente, repita o processo dividindo em quatro integrais.
 
 % Usando o intervalo $[0,1]$, temos $h=1$ e $x_1=1/2$. A regra do ponto médio resulta em
-% $$
+% \begin{equation}
 % \int_0^1e^{-x^2}dx\approx 1\cdot e^{-1/4}=0,7788008
-% $$
+% \end{equation}
 % Usando dois intervalos, $[0,1/2]$ e $[1/2,1]$ e usando a regra do ponto médio em cada um dos intervalos, temos:
-% $$
+% \begin{equation}
 % \int_0^1e^{-x^2}dx\approx 0,5\cdot e^{-1/16}+0,5\cdot e^{-9/16})=0,4697065+0,2848914=0,7545979
-% $$
+% \end{equation}
 % Agora, usando quatro intervalos, temos
-% $$
+% \begin{equation}
 % \int_0^1e^{-x^2}dx\approx 0,25\cdot e^{-1/64}+0,25\cdot e^{-9/64}+0,25\cdot e^{-25/64}+0,25\cdot e^{-49/64}=0,7487471
-% $$
+% \end{equation}
 % Observe que o valor da integral é
-% $$
+% \begin{equation}
 % \int_0^1e^{-x^2}dx=0,7468241330.
-% $$
+% \end{equation}
 % \end{ex}
 
 \subsection{Regra do ponto médio}
@@ -358,21 +358,21 @@ Aqui, utilizamos $x_1:=a$,  $x_2:=b$, $h=x_2-x_1$ e a notação $y_i=f(x_i)$, ob
 p_1(x) &=& y_1 L_1(x)+ y_2 L_2(x)
 \end{eqnarray}
 Aproximando $f(x)$ por $p_1(x)$ e integrando, obtemos:
-\begin{eqnarray*}
+\begin{eqnarray}
   \int_a^bf(x)\;dx &\approx& \int_a^bp_1(x)\;dx \\
     &=& \int_a^b y_1L_1(x) + y_2L_2(x)\;dx \\
     &=& y_1 \int_a^b L_1(x)\;dx + y_2 \int_a^b L_2(x)\;dx \\
     &=& A_1 y_1 + A_2 y_2,
-\end{eqnarray*}
+\end{eqnarray}
 onde
-\begin{eqnarray*}
+\begin{eqnarray}
   A_1 &=& \int_a^b\frac{x-x_1}{x_2-x_1}dx =  \left[\frac{(x-x_1)^2}{2h}\right]_{x_1}^{x_2}\\
       &=& \frac{(x_2-x_1)^2}{2h} = \frac{h^2}{2h} = \frac{1}{2}h.
-\end{eqnarray*}
+\end{eqnarray}
 Da mesma forma,
-\begin{eqnarray*}
+\begin{eqnarray}
   A_2 &=& \int_a^b\frac{(x-x_2)}{(x_1-x_2)}\,dx = \frac{1}{2}h,
-\end{eqnarray*}
+\end{eqnarray}
 de onde obtemos a \emph{regra do trapézio} dada por:
 \begin{equation}
   \int_a^b f(x)\;dx \approx \left(\frac{1}{2}f(a) + \frac{1}{2}f(b)\right)h.
@@ -381,15 +381,15 @@ de onde obtemos a \emph{regra do trapézio} dada por:
 
 \subsubsection{Erro na regra do trapézio}
 O \textit{erro na regra do trapézio} pode ser obtido integrando o erro da interpolação de Lagrange,
-\begin{eqnarray*}
+\begin{eqnarray}
    E_{TRAP} = \int_a^b E^2_{LAG}(x) \;dx= \int_a^b \frac{f''(\xi(x))}{2!}(x-x_1)(x-x_2) \;dx.
-\end{eqnarray*}
+\end{eqnarray}
 Pelo teorema do valor médio, existe $a\leq \eta\leq b$ tal que
-\begin{eqnarray*}
+\begin{eqnarray}
     E_{TRAP} = \frac{f''(\eta)}{2!}\int_a^b (x-x_1)(x-x_2) \;dx,
-\end{eqnarray*}
+\end{eqnarray}
 portanto
-\begin{eqnarray*}
+\begin{eqnarray}
      E_{TRAP}
   &=& \frac{f''(\eta)}{2}\left[\frac{x^3}{3}-\frac{x^2}{2}(x_2+x_1)+x_1x_2x\right]_{x_1}^{x_2}\\
   &=& \frac{f''(\eta)}{2}\left(\frac{x_2^3}{3}-\frac{x_2^2}{2}(x_2+x_1)+x_1x_2x_2-\frac{x_1^3}{3}+\frac{x_1^2}{2}(x_2+x_1)-x_1x_2x_1\right)\\
@@ -397,39 +397,39 @@ portanto
   &=& \frac{f''(\eta)}{12}\left(x_1^3-3x_1^2x_2+3x_2^2x_1-x_2^3\right)
    =  \frac{f''(\eta)}{12}(x_1-x_2)^3\\
   &=& -\frac{f''(\eta)}{12}h^3.
-\end{eqnarray*}
+\end{eqnarray}
 
 Assim, o erro na regra do trapézio é
-$$
+\begin{equation}
 E_{TRAP}  = -\frac{f''(\eta)}{12}h^3 = \mathcal{O}(h^3).
-$$
+\end{equation}
 
 \begin{ex}
 Use a regra do trapézio para aproximar a integral
-$$
+\begin{equation}
 \int_0^1e^{-x^2}\;dx.
-$$
+\end{equation}
 Depois divida a integral em duas
-$$
+\begin{equation}
 \int_0^{1/2}e^{-x^2}\;dx+\int_{1/2}^{1}e^{-x^2}\;dx.
-$$
+\end{equation}
 e aplique a regra do trapézio em cada uma delas. Finalmente, repita o processo dividindo em quatro integrais.
 \end{ex}
 Usando o intervalo $[0,1]$, temos $h=1$, $x_0=0$ e $x_1=1$. A regra do trapézio resulta em
-$$
+\begin{equation}
 \int_0^1e^{-x^2}\;dx\approx \frac{1}{2}(e^{0}+e^{-1})=0,6839397.
-$$
+\end{equation}
 Usando dois intervalos, $[0,1/2]$ e $[1/2,1]$ e usando a regra de Simpson em cada um dos intervalos, temos:
-\begin{eqnarray*}
+\begin{eqnarray}
 \int_0^1e^{-x^2}\;dx &\approx& \frac{0,5}{2}\left(e^{0}+e^{-1/4}\right) + \frac{0,5}{2}\left(e^{-1/4}+e^{-1}\right) \\
 &=& 0,4447002+0,2866701 =0,7313703.
-\end{eqnarray*}
+\end{eqnarray}
 Agora, usando quatro intervalos, temos
-\begin{eqnarray*}
+\begin{eqnarray}
 \int_0^1e^{-x^2}\;dx &\approx& \frac{0,25}{2}\left(e^{0}+e^{-1/16}\right) + \frac{0,25}{2}\left(e^{-1/16}+e^{-1/4}\right) \\
 &+& \frac{0,25}{2}\left(e^{-1/4}+e^{-9/16}\right)+\frac{0,25}{2}\left(e^{-9/16}+e^{-1}\right) \\
 &=& 0,7429841.
-\end{eqnarray*}
+\end{eqnarray}
 
 
 
@@ -463,7 +463,7 @@ Calculando essas integrais obtemos \emph{a regra de Simpson}:
 Obtenha os coeficientes $A_i$ do método de Simpson  integrando os polinômios de Lagrange $L_i(x)$.
 
 Fazendo uma translação para a origem (subtraindo $x_1$ de $x_2$ e $x_3$)
-\begin{eqnarray*}
+\begin{eqnarray}
    A_1 &=& \int_{x_1}^{x_3} \frac{(x-x_2)(x-x_3)}{(x_1-x_2)(x_1-x_3)}\;dx \\
        &=& \int_0^{2h} \frac{(x-h)(x-2h)}{(0-h)(0-2h)}\;dx
         =  \frac{1}{2h^2} \int_0^{2h} (x-h)(x-2h)\;dx \\
@@ -471,11 +471,11 @@ Fazendo uma translação para a origem (subtraindo $x_1$ de $x_2$ e $x_3$)
         =  \frac{1}{2h^2} \left.\left(\frac{1}{3}x^3 -\frac{3}{2}hx^2+2h^2x\right)\right|_0^h \\
        &=& \frac{1}{2h^2} \left(\frac{1}{3}h^3 -\frac{3}{2}h^3+2h^3\right)
       = \frac{h}{3}.
-\end{eqnarray*}
+\end{eqnarray}
 Apesar de longa, é apenas a integral de um polinômio de grau 2. De forma semelhante podemos obter
-$$
+\begin{equation}
 A_2 = \frac{4}{3}h, \;\;\; A_3 = \frac{1}{3}h
-$$
+\end{equation}
 Assim, lembrando que $h=\frac{b-a}{2}$, temos:
 \begin{equation}
  \int_a^b f(x)dx \approx \frac{b-a}{6}\left[f(a)+4f\left(\frac{a+b}{2}\right)+f(b)\right].
@@ -487,15 +487,15 @@ Assim, lembrando que $h=\frac{b-a}{2}$, temos:
 
 \subsubsection{Erro na regra de Simpson}\index{integração numérica!regra de Simpson}
 Se usarmos a mesma metodologia da regra dos trapézios, teremos
-$$
+\begin{equation}
 \int_a^bf(x)\;dx=\int_a^bp_2(x)\;dx+\int_a^b\frac{(x-x_1)(x-x_2)(x-x_3)}{6}f'''(\xi(x))\;dx
-$$
+\end{equation}
 e obteremos o fórmula de Simpson com um erro de quarta ordem. O fato é que a regra de Simpson tem ordem cinco e, para isso, usaremos uma abordagem alternativa.
 
 Considere o polinômio de Taylor em $x_2$,
-$$
+\begin{equation}
 f(x)=f(x_2)+f'(x_2)(x-x_2)+\frac{f''(x_2)}{2}(x-x_2)^2+\frac{f'''(x_2)}{6}(x-x_2)^3+\frac{f^{(4)}(\xi(x))}{24}(x-x_2)^4,
-$$
+\end{equation}
 onde $x_1\leq\xi(x)\leq x_3$ e integre no intervalo $[a,b]=[x_1,x_3]$:
 \begin{equation}
   \begin{split}
@@ -516,54 +516,54 @@ Pelo teorema do valor médio, existe $x_1\leq\eta\leq x_3$ tal que
   \end{split}
 \end{equation}
 Usando o fato que
-$$
+\begin{equation}
 (x_3-x_2)^3-(x_1-x_2)^3=2h^3,
-$$
-$$
+\end{equation}
+\begin{equation}
 (x_3-x_2)^4-(x_1-x_2)^4=0
-$$
+\end{equation}
 e
-$$
+\begin{equation}
 (x_3-x_2)^5-(x_1-x_2)^5=2h^5,
-$$
+\end{equation}
 temos
-$$
+\begin{equation}
 \int_a^bf(x)\;dx=hf(x_2)+\frac{h^3}{3}f''(x_2)+\frac{h^5f^{(4)}(\eta)}{60}.
-$$
+\end{equation}
 Usando a fórmula de diferenças finitas centrais para a derivada segunda:
-$$
+\begin{equation}
 f''(x_2)=\frac{f(x_1)-2f(x_2)+f(x_3)}{h^2}+\frac{h^2}{12}f^{(4)}(\eta_2),
-$$
+\end{equation}
 $x_1\leq \eta_2\leq x_3$, temos
-\begin{eqnarray*}
+\begin{eqnarray}
 \int_a^bf(x)\;dx&=&2hf(x_2)+\frac{h^3}{3}\left(\frac{f(x_1)-2f(x_2)+f(x_3)}{h^2}+\frac{h^2}{12}f^{(4)}(\eta_2)\right)\\
 &+&\frac{h^5f^{(4)}(\eta)}{60}\\
 &=&\frac{h}{3}\left(f(x_1)+4f(x_2)+f(x_3)\right)-\frac{h^5}{12}\left(\frac{1}{3}f^{(4)}(\eta_2)-\frac{1}{5}f^{(4)}(\eta)\right).
-\end{eqnarray*}
+\end{eqnarray}
 Pode-se mostrar que é possível escolher $\eta_3$ que substitua $\eta$ e $\eta_2$ com a seguinte estimativa
-$$
+\begin{equation}
 \int_a^bf(x)\;dx=\frac{h}{3}\left(f(x_1)+4f(x_2)+f(x_3)\right)-\frac{h^5}{90}f^{(4)}(\eta_3).
-$$
+\end{equation}
 
 \begin{ex}
 Use a regra de Simpson para aproximar a integral
-$$
+\begin{equation}
 \int_0^1e^{-x^2}\;dx.
-$$
+\end{equation}
 Depois divida a integral em duas
-$$
+\begin{equation}
 \int_0^{1/2}e^{-x^2}\;dx+\int_{1/2}^{1}e^{-x^2}\;dx.
-$$
+\end{equation}
 e aplica a regra de Simpson em cada uma delas.
 \end{ex}
 Usando o intervalo $[0,1]$, temos $h=1/2$, $x_0=0$, $x_1=1/2$ e $x_2=1$. A regra de Simpson resulta em
-$$
+\begin{equation}
 \int_0^1e^{-x^2}\;dx\approx \frac{0,5}{3}(e^{0}+4e^{-1/4}+e^{-1})=0,7471804.
-$$
+\end{equation}
 Usando dois intervalos, $[0,1/2]$ e $[1/2,1]$ e usando a regra do trapézio em cada um dos intervalos, temos:
-$$
+\begin{equation}
 \int_0^1e^{-x^2}\;dx\approx \frac{0,25}{3}(e^{0}+4e^{-1/16}+e^{-1/4})+\frac{0,25}{3}(e^{-1/4}+4e^{-9/16}+e^{-1})=0,7468554.
-$$
+\end{equation}
 
 \subsection*{Exercícios resolvidos}
 
@@ -572,11 +572,11 @@ $$
 \subsection*{Exercícios}
 
 \begin{exer}Calcule numericamente as seguintes integrais:
-  \begin{eqnarray*}
+  \begin{eqnarray}
     \text{a)}~\int_0^1e^{-x}\,dx & \text{b)}~\int_0^1x^2\,dx\\
     \text{c)}~\int_0^1x^3\,dx & \text{d)}~\int_0^1xe^{-x^2}\,dx\\
     \text{e)}~\int_0^1\frac{1}{x^2+1}\,dx &\text{e)}~\int_0^1\frac{x}{x^2+1}\;dx
-  \end{eqnarray*}
+  \end{eqnarray}
 usando os métodos simples do ponto médio, Trapézio e Simpson. Calcule, também, o valor analítico destas integrais e o erro nas aproximações dadas pelas quadraturas numéricas.
 \end{exer}
 % \begin{resp}
@@ -766,13 +766,13 @@ Em todas as estimativas de erro que derivamos, o erro depende do tamanho do inte
 onde $a=x_1<...<x_{n+1}=b$, sendo $n$ o número de subintervalos da partição do intervalo de integração. No caso uniforme $x_i = a + (i-1)h$, $h = (b-a)/n$.
 
 Depois, aplica-se um método simples de integração em cada subintervalo,
-$$
+\begin{equation}
 \int_{x_i}^{x_{i+1}} f(x)\;dx \approx \Delta S_i
-$$
+\end{equation}
 e a integral será aproximada por
-$$
+\begin{equation}
 \int_a^b f(x)\;dx \approx S= \sum_{i=1}^{n} \Delta S_i.
-$$
+\end{equation}
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
@@ -791,16 +791,16 @@ Note que esta não é a implementação mais eficiente, pois recalcula os termos
 
 \subsection{Método composto dos trapézios}\index{integração numérica!método composto!dos trapézios}
 A \emph{regra composta dos trapézios} assume a seguinte forma:
-\begin{eqnarray*}
+\begin{eqnarray}
   \int_{a}^b f(x)\;dx &=& \sum_{i=1}^{n} \int_{x_i}^{x_{i+1}}f(x)\,dx \\
   &\approx& \sum_{i=1}^{n} \frac{x_{i+1}-x_i}{2}\left[f(x_i)+f(x_{i+1})\right].
-\end{eqnarray*}
+\end{eqnarray}
 Como $h = x_{i+1} - x_i$, temos:
-\begin{eqnarray*}
+\begin{eqnarray}
 \int_{a}^b f(x)\,dx &\approx& \frac{h}{2}\sum_{k=1}^{N_i}\left[f(x_k)+f(x_{k+1})\right]\\
 &=& \frac{h}{2}\left[f(x_1)+2f(x_2)+2f(x_3)+\cdots + 2f(x_{N_i})+f(x_{N_i+1})\right]\\
 &=& \frac{h}{2}\left[f(x_1) + f(x_{N_i+1})\right] + h\sum_{i=2}^{N_i} f(x_i)
-\end{eqnarray*}
+\end{eqnarray}
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
@@ -848,10 +848,10 @@ onde $h = (b-a)/n$ e $x_i = a + (i-1)h$, $i=1,2,\dotsc,n+1$. Os parâmetros de e
 
 \subsection{Método composto de Simpson}\index{integração numérica!método composto!de Simpson}
 Já a regra composta de Simpson assume a seguinte forma:
-\begin{eqnarray*}
+\begin{eqnarray}
   \int_{a}^b f(x)\,dx &=& \sum_{k=1}^{n} \int_{x_k}^{x_{k+1}} f(x)\;dx \\
   &\approx& \sum_{k=1}^{n} \frac{x_{x+1}-x_k}{6}\left[f(x_k) + 4f\left(\frac{x_{k+1}+x_k}{2}\right)+f(x_{k+1})\right]
-\end{eqnarray*}
+\end{eqnarray}
 onde, como anteriormente, $x_k = a + (k-1)h$, $h = (b-a)/n$ e $i = 1,2,\dotsc,n+1$, sendo $n$ o número de subintervalos da partição do intervalo de integração. Podemos simplificar o somatório acima, escrevendo:
 \begin{equation}
   \int_{a}^b f(x)\,dx \approx \frac{h}{3}\left[f(x_1) + 2\sum_{i=1}^{n-1} f(x_{2i+1}) + 4\sum_{i=1}^{n} f(x_{2i}) + f(x_{2n+1})\right] + O(h^5)
@@ -978,11 +978,11 @@ cujo valor com 10 casas decimais corretas é $-.2398117420$.
 \begin{enumerate}[a)]
 \item Aproxime esta integral via Gauss-Legendre com $n=2$, $n=3$, $n=4$, $n=5$, $n=6$ e $n=7$.
 \item Use a identidade
-\begin{eqnarray*}
+\begin{eqnarray}
 \int_0^1 \ln(x)\sin(x)\;dx&=&\int_0^1 \ln(x)x\;dx+\int_0^1 \ln(x)\left[\sin(x)-x\right]\;dx\\
 &=&\left.\left(\frac{x^2}{2}\ln x-\frac{x^2}{4}\right)\right|_0^1+\int_0^1 \ln(x)\left[\sin(x)-x\right]\;dx\\
 &=&-\frac{1}{4}+\int_0^1 \ln(x)\left[\sin(x)-x\right]\;dx
-\end{eqnarray*}
+\end{eqnarray}
 e aproxime a integral $\int_0^1 \ln(x)\left[\sin(x)-x\right]\;dx$ numericamente via Gauss-Legendre com $n=2$, $n=3$, $n=4$, $n=5$, $n=6$ e $n=7$.
 \item Compare os resultados e discuta levando em consideração as respostas às seguintes perguntas: 1)Qual função é mais bem-comportada na origem? 2)Na segunda formulação, qual porção da solução foi obtida analiticamente e, portanto, sem erro de truncamento?
 \end{enumerate}
@@ -1011,35 +1011,35 @@ Ou seja, o valor exato da integral procurada é dado pelo coeficiente $I_0$.
 
 A ideia central do método de Romberg, agora, consiste em usar a extrapolação de Richardson para construir métodos de maior ordem a partir do métodos dos trapézios para o intervalo $(a,b)$
 \begin{ex} \label{exemplo_romberg_1}Construção do método de quarta ordem.
-\begin{eqnarray*}
+\begin{eqnarray}
 I(h)&=&I_0 + I_2 h^2 + I_4{h^4}+ I_6{h^6}+\ldots\\~\\
 I\left(\frac{h}{2}\right)&=&I_0 + I_2 \frac{h^2}{4} + I_4\frac{h^4}{16}+ I_6\frac{h^6}{64}+\ldots\\
-\end{eqnarray*}
+\end{eqnarray}
 Usamos agora uma eliminação gaussiana para obter o termo $I_0$:
-\begin{eqnarray*}
+\begin{eqnarray}
 \frac{4I(h/2)-I(h)}{3}=I_0-\frac{1}{4}I_4h^4-\frac{5}{16}I_6h^6+\ldots
-\end{eqnarray*}
+\end{eqnarray}
 Vamos agora aplicar a fórmula para $h=b-a$,
-\begin{eqnarray*}
+\begin{eqnarray}
 I(h)&=& \frac{h}{2} \left[f(a)+f(b)\right]\\
 I(h/2)&=& \frac{h}{4} \left[f(a)+2f\left(c\right)+f(b)\right],~~ c=\frac{a+b}{2}.\\
-\end{eqnarray*}
+\end{eqnarray}
 
-\begin{eqnarray*}
+\begin{eqnarray}
 \frac{4I(h/2)-I(h)}{3}&=&\frac{h}{3}\left[f(a)+2f\left(c\right)+f(b)\right]-\frac{h}{6} \left[f(a)+f(b)\right]\\
 &=&\frac{h}{6}\left[f(a)+4f\left(c\right)+f(b)\right].
-\end{eqnarray*}
+\end{eqnarray}
 Note que este esquema obtido coincide com o método de Simpson.
 \end{ex}
 
 A partir de agora, a fim de deduzir o caso geral, utilizaremos a seguinte notação:
-\begin{eqnarray*}
+\begin{eqnarray}
 R_{1,1}&=&I(h),\\
 R_{2,1}&=&I(h/2),\\
 R_{3,1}&=&I(h/4),\\
 &\vdots&\\
 R_{n,1}&=&I(h/2^{n-1}).
-\end{eqnarray*}
+\end{eqnarray}
 
 Observamos que os pontos envolvidos na quadratura $R_{k,1}$ são os mesmos pontos envolvidos na quadratura $R(k-1,1)$ acrescidos dos pontos centrais, assim, temos a seguinte fórmula de recorrência:
 \begin{equation} R_{k,1}=\frac{1}{2}R_{k-1,1}+\frac{h}{2^{k-1}} \sum_{i=1}^{2^{k-2}}f\left(a+(2i-1)\frac{h}{2^{k-1}}\right) \end{equation}
@@ -1178,34 +1178,34 @@ Todos os métodos de quadratura que vimos até o momento são da forma
 \begin{ex}
 \begin{enumerate}[a)]
 \item Método do trapézio
-\begin{eqnarray*}
+\begin{eqnarray}
 \int_a^b f(x)\;dx &\approx& \left[f(a)+f(b)\right]\frac{b-a}{2}\\
 &=&\frac{b-a}{2}f(a)+\frac{b-a}{2}f(b)\\
 &:=&w_1f(x_1)+w_2f(x_2)= \sum_{j=1}^2 w_j f(x_j)
-\end{eqnarray*}
+\end{eqnarray}
 
 \item Método do trapézio com dois intervalos
-\begin{eqnarray*}
+\begin{eqnarray}
 \int_a^b f(x)\;dx &\approx& \left[f(a)+2f\left(\frac{a+b}{2}\right)+f(b)\right]\frac{b-a}{4}\\
 &=&\frac{b-a}{4}f(a)+\frac{b-a}{2}f\left(\frac{a+b}{2}\right)+\frac{b-a}{4}f(b)\\
 &:=&w_1f(x_1)+w_2f(x_2)+w_3f(x_3)= \sum_{j=1}^3 w_j f(x_j)
-\end{eqnarray*}
+\end{eqnarray}
 
 \item Método de Simpson
-\begin{eqnarray*}
+\begin{eqnarray}
 \int_a^b f(x)\;dx &\approx& \left[f(a)+4f\left(\frac{a+b}{2}\right)+f(b)\right]\frac{b-a}{6}\\
 &=&\frac{b-a}{6}f(a)+\frac{2(b-a)}{3}f\left(\frac{a+b}{2}\right)+\frac{b-a}{6}f(b)\\
 &:=&\sum_{j=1}^3 w_j f(x_j)
-\end{eqnarray*}
+\end{eqnarray}
 
 \item Método de Simpson com dois intervalos
-\begin{eqnarray*}
+\begin{eqnarray}
 \int_a^b f(x)\;dx &\approx& \left[f(a)+4f\left(\frac{3a+b}{4}\right)+2f\left(\frac{a+b}{2}\right)\right.\\
 &+& \left. 4f\left(\frac{a+3b}{4}\right)+f(b)\right]\frac{b-a}{12}\\
 &=&\frac{b-a}{12}f(a)+\frac{b-a}{3}f\left(\frac{3a+b}{4}\right)+\frac{b-a}{6}f\left(\frac{a+b}{2}\right)\\
 &+&\frac{b-a}{3}f\left(\frac{a+3b}{4}\right)+\frac{b-a}{12}f(b)\\
 &:=&\sum_{j=1}^5 w_j f(x_j)
-\end{eqnarray*}
+\end{eqnarray}
 
 \end{enumerate}
 \end{ex}
@@ -1214,12 +1214,12 @@ A principal técnica que temos usado para desenvolver os métodos numéricos é 
 \begin{equation} f(x)=a_0+a_1x + a_2x^2+\ldots + a_n x^n +R_n(x) \end{equation}
 
 Integrando termo a termo, temos:
-\begin{eqnarray*}
+\begin{eqnarray}
 \int_a^bf(x)\;dx&=& \int_a^b a_0\;dx+\int_a^ba_1x\;dx + \int_a^ba_2x^2\;dx+\ldots+\\
 && \int_a^ba_n x^n\;dx +\int_a^bR_n(x)\;dx\\
 &=& a_0(b-a)+a_1\frac{b^2-a^2}{2} + a_2\frac{b^3-a^3}{3} +\ldots+\\
 &&a_n \frac{b^{n+1}-a^{n+1}}{n+1} +\int_a^bR_n(x)\;dx
-\end{eqnarray*}
+\end{eqnarray}
 
 Neste momento, é natural investigar o desempenho de um esquema numérico aplicado a funções do tipo $f(x)=x^n$.
 
@@ -1238,24 +1238,24 @@ ou, equivalentemente:
 A ordem de precisão do esquema de trapézios é 1:
 \begin{equation} \int_a^b f(x)\;dx \approx \left[f(a)+f(b)\right]\frac{b-a}{2}=\sum_{j=1}^2w_jf(x_j) \end{equation}
 onde $w_j=\frac{b-a}{2}$, $x_1=a$ e $x_2=b$.
-\begin{eqnarray*}
+\begin{eqnarray}
   &(k=0):\quad\sum_{j=1}^n w_j = b-a\\
   &(k=1):\quad\sum_{j=1}^n w_jx_j = (a+b)\frac{b-a}{2}=\frac{b^2-a^2}{2}\\
   &(k=2):\quad\sum_{j=1}^n w_jx_j^2 = (a^2+b^2)\frac{b-a}{2}\neq\frac{b^3-a^3}{3}
-\end{eqnarray*}
+\end{eqnarray}
 \end{ex}
 
 \begin{ex}
 A ordem de precisão do esquema de Simpson é 3:
 \begin{equation} \int_a^b f(x)\;dx \approx \left[f(a)+4f\left(\frac{a+b}{2}\right)+f(b)\right]\frac{b-a}{6}=\sum_{j=1}^3w_jf(x_j) \end{equation}
 onde $w_1=w_3=\frac{b-a}{6}$, $w_2=4\frac{b-a}{6}$, $x_1=a$, $x_2=\frac{a+b}{2}$ e $x_3=b$
-\begin{eqnarray*}
+\begin{eqnarray}
   &(k=0):\quad\sum_{j=1}^n w_j = (1+4+1)\frac{b-a}{6}=b-a\\
   &(k=1):\quad\sum_{j=1}^n w_jx_j = (a+4\frac{a+b}{2}+b)\frac{b-a}{6} = (a+b)\frac{b-a}{2} = \frac{b^2-a^2}{2}\\
   &(k=2):\quad\sum_{j=1}^n w_jx_j^2 = (a^2+4\left(\frac{a+b}{2}\right)^2+b^2)\frac{b-a}{6} = \frac{b^3-a^3}{3}\\
   &(k=3):\quad\sum_{j=1}^n w_jx_j^3 = (a^3+4\left(\frac{a+b}{2}\right)^3+b^3)\frac{b-a}{6}= \frac{b^4-a^4}{4}\\
   &(k=4):\quad\sum_{j=1}^n w_jx_j^4 = (a^4+4\left(\frac{a+b}{2}\right)^4+b^4)\frac{b-a}{6}\neq \frac{b^5-a^5}{4}
-\end{eqnarray*}
+\end{eqnarray}
 \end{ex}
 
 \begin{ex}
@@ -1265,12 +1265,12 @@ Encontre os pesos $w_j$ e as abscissas $x_j$ tais que o esquema de dois pontos
 \end{ex}
 \begin{sol}
   Temos um sistema de quatro equações e quatro incógnitas dado por:
-\begin{eqnarray*}
+\begin{eqnarray}
 w_1+w_2&=&2\\
 x_1w_1+x_2w_2&=&0\\
 x_1^2w_1+x_2^2w_2&=&\frac{2}{3}\\
 x_1^3w_1+x_2^3w_2&=&0\\
-\end{eqnarray*}
+\end{eqnarray}
 
 Da segunda e quarta equação, temos:
 \begin{equation} \frac{w_1}{w_2}=-\frac{x_2}{x_1}=-\frac{x_2^3}{x_1^3} \end{equation}
@@ -1528,18 +1528,18 @@ print("Para n = 5, I = %1.7f" % I5)
 Os coeficientes da quadratura de Gauss-Legendre foram obtidos no intervalo $[-1,1]$. Para aproximar a integral de $f(x)$ no intervalo $[a,b]$ devemos fazer a mudança de variável
 \begin{equation}  \bar{x}_i=\alpha t_i+ \beta , \;\; \alpha =(b-a)/2, \;\; \beta = (b+a)/2  \end{equation}
 tal que
-$$
+\begin{equation}
  \int_{a}^{b} f(x) \; dx \approx \sum_{i=1}^n w_i f( \bar{x}_i ) (b-a)/2
-$$
+\end{equation}
 
 Quando subdividimos o intervalo inicial $[a,b]$ em $N$ intervalos com extremos $[x_i,x_{i+1}]$ a transformação torna-se
-$$
+\begin{equation}
   \bar{x}_i = \alpha t_i + \beta, \;\;  \;\; \alpha =(x_{i+1}-x_i)/2, \;\; \beta = (x_{i+1}+x_i)/2
-$$
+\end{equation}
 e
-$$
+\begin{equation}
  \int_{x_i}^{x_{i+1}} f(x) \; dx \approx \sum_{i=1}^n w_i f( \bar{x}_i ) (x_{i+1}-x_i)/2
-$$
+\end{equation}
 
 \begin{ex} Aproximar
 \begin{equation} I = \int_{0}^1\sqrt{1+x^2}dx \end{equation}
@@ -1844,22 +1844,22 @@ Agora, computamos a integral $I_1$ numericamente usando a regra composta do pont
 \item O que acontece quando se aplica diretamente a quadratura gaussiana com um número impar de abscissas?
 \item Calcule o valor aproximado por quadratura gaussiana com $n=2$, $n=4$, $n=6$ e $n=8$.
 \item Calcule o valor aproximado da integral removendo a singularidade
-\begin{eqnarray*}
+\begin{eqnarray}
 I&=&\int_{-1}^1\frac{\cos(x)}{\sqrt{|x|}}dx=\int_{-1}^1\frac{\cos(x)-1}{\sqrt{|x|}}dx+\int_{-1}^1\frac{1}{\sqrt{|x|}}dx \\
 &=&\int_{-1}^1\frac{\cos(x)-1}{\sqrt{|x|}}dx+2\int_{0}^1\frac{1}{\sqrt{x}}dx=\int_{-1}^1\frac{\cos(x)-1}{\sqrt{|x|}}dx+4
-\end{eqnarray*}
+\end{eqnarray}
 e aplicando quadratura gaussiana com $n=2$, $n=4$, $n=6$ e $n=8$.
 \item Calcule o valor aproximado da integral removendo a singularidade, considerando a paridade da função
-\begin{eqnarray*}
+\begin{eqnarray}
 I&=&4+\int_{-1}^1\frac{\cos(x)-1}{\sqrt{|x|}}dx=4+2\int_{0}^1\frac{\cos(x)-1}{\sqrt{x}}dx=4+\sqrt{2}\int_{-1}^1\frac{\cos\left(\frac{1+u}{2}\right)-1}{\sqrt{1+u}}du
-\end{eqnarray*}
+\end{eqnarray}
 e aplicando quadratura gaussiana com $n=2$, $n=4$, $n=6$ e $n=8$.
 \item Expandindo a função $\cos(x)$ em série de Taylor, truncando a série depois  do $n$-ésimo  termos não nulo e integrando analiticamente. \\
 \item Aproximando a função $\cos(x)$ pelo polinômio de Taylor  de grau 4 dado por \begin{equation} P_4(x)=1-\frac{x^2}{2}+\frac{x^4}{24} \end{equation}
 e escrevendo
-\begin{eqnarray*}I&=&\int_{-1}^1\frac{\cos(x)}{\sqrt{|x|}}dx=\int_{-1}^1\frac{\cos(x)-P_4(x)}{\sqrt{|x|}}dx+\int_{-1}^1\frac{P_4(x)}{\sqrt{|x|}}dx\\
+\begin{eqnarray}I&=&\int_{-1}^1\frac{\cos(x)}{\sqrt{|x|}}dx=\int_{-1}^1\frac{\cos(x)-P_4(x)}{\sqrt{|x|}}dx+\int_{-1}^1\frac{P_4(x)}{\sqrt{|x|}}dx\\
 &=&2\underbrace{\int_{0}^1\frac{\cos(x)-P_4(x)}{\sqrt{x}}dx}_{\text{Resolver numericamente}}+2\underbrace{\int_{0}^1\left(x^{-1/2}-\frac{x^{3/2}}{2}+\frac{x^{7/2}}{24}\right)dx}_{\text{Resolver analiticamente}}
-\end{eqnarray*}
+\end{eqnarray}
 \end{enumerate}
 \end{exer}
 \begin{resp}
@@ -1884,15 +1884,15 @@ Como \begin{equation} \cos(x)=1+\sum_{n=1}^\infty(-1)^n\frac{x^{2n}}{(2n)!} \end
 temos
 \begin{equation} \frac{1-\cos(x)}{\sqrt{x}}=-\sum_{n=1}^\infty(-1)^{n}\frac{x^{2n-1/2}}{(2n)!},~~x\geq0 \end{equation}
 Logo, podemos integrar
-\begin{eqnarray*}
+\begin{eqnarray}
 I&=&4+2\int_{0}^1\frac{\cos(x)-1}{\sqrt{|x|}}dx=4-2\sum_{n=1}^\infty(-1)^{n}\int_0^1\frac{x^{2n-1/2}}{(2n)!}dx\\
 &=&4-2\sum_{n=1}^\infty(-1)^{n}\frac{1}{(2n)!(2n+1/2)}
-\end{eqnarray*}
+\end{eqnarray}
 {\bf Solução do item f)}
-\begin{eqnarray*}2\int_{0}^1\left(x^{-1/2}-\frac{x^{3/2}}{2}+\frac{x^{7/2}}{24}\right)dx=2\left(2-\frac{1}{5}+\frac{1}{54}\right)=\frac{977}{270}
-\end{eqnarray*}
-\begin{eqnarray*}2\int_{0}^1\frac{\cos(x)-P_4(x)}{\sqrt{x}}dx=\sqrt{2}\int_{-1}^1\frac{\cos\left(\frac{1+u}{2}\right)-P_4\left(\frac{1+u}{2}\right)}{\sqrt{1+u}}du
-\end{eqnarray*}
+\begin{eqnarray}2\int_{0}^1\left(x^{-1/2}-\frac{x^{3/2}}{2}+\frac{x^{7/2}}{24}\right)dx=2\left(2-\frac{1}{5}+\frac{1}{54}\right)=\frac{977}{270}
+\end{eqnarray}
+\begin{eqnarray}2\int_{0}^1\frac{\cos(x)-P_4(x)}{\sqrt{x}}dx=\sqrt{2}\int_{-1}^1\frac{\cos\left(\frac{1+u}{2}\right)-P_4\left(\frac{1+u}{2}\right)}{\sqrt{1+u}}du
+\end{eqnarray}
 \end{resp}
 
 \begin{exer}Calcule numericamente o valor das seguintes integrais com um erro relativo inferior a $10^{-4}$.
