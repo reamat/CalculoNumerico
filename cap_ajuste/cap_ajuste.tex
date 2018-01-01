@@ -64,30 +64,30 @@ Para tal, primeiro observamos que $f(x_j)=a_1+a_2 x_j$ e, portanto, o resíduo p
 \end{equation}
 
 %O objetivo é encontrar $a_1, a_2$ e geralmente temos muito mais equações do que incógnitas, isto é,
-%\begin{eqnarray*}
+%\begin{eqnarray}
 % a_1+a_2 x_1 &=&y_1 \\
 % a_1+a_2 x_2 &=&y_2 \\
 % a_1+a_2 x_3 &=&y_3 \\
 %  \vdots     &=& \vdots \\
 % a_N+a_2 x_N &=&y_N
-%\end{eqnarray*}
+%\end{eqnarray}
 %ou simplesmente $V\vec a= \vec y$.
 
 Observamos que $R(a_1,a_2)$ é uma forma quadrática e que seu mínimo ocorre quando suas derivadas parciais primeiras são iguais a zero, isto é,
-\begin{eqnarray*}
+\begin{eqnarray}
   \frac{\partial R}{\partial a_1} &=& \frac{\partial }{\partial a_1} \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2 =0, \\
   \frac{\partial R}{\partial a_2} &=& \frac{\partial }{\partial a_2} \sum_{j=1}^N (a_1 + a_2 x_j-y_j)^2 =0.
-\end{eqnarray*}
+\end{eqnarray}
 Ou seja,
-\begin{eqnarray*}
+\begin{eqnarray}
    2 \sum_{j=1}^N (a_1 + a_2 x_j-y_j)\cdot 1 &=&0, \\
    2 \sum_{j=1}^N (a_1 + a_2 x_j-y_j)\cdot x_j &=&0,
-\end{eqnarray*}
+\end{eqnarray}
 e isolando as incógnitas temos
-\begin{eqnarray*}
+\begin{eqnarray}
    a_1\sum_{j=1}^N 1 + a_2 \sum_{j=1}^Nx_j &=&\sum_{j=1}^N y_j,\\
    a_1\sum_{j=1}^N x_j + a_2 \sum_{j=1}^Nx_j^2 &=&\sum_{j=1}^N y_jx_j.
-\end{eqnarray*}
+\end{eqnarray}
 Observando que $\sum_{j=1}^N 1=N$, o sistema linear acima pode ser escrito na forma matricial $Ma = w$, isto é,
 \begin{equation}\label{eq:smq_reta}
   \underbrace{\begin{bmatrix}
@@ -105,9 +105,9 @@ Observando que $\sum_{j=1}^N 1=N$, o sistema linear acima pode ser escrito na fo
 \end{equation}
 
 Este sistema linear de duas equações e duas incógnitas admite uma única solução quando o determinante da matriz dos coeficientes for não nulo, isto é,
-\begin{eqnarray*}
+\begin{eqnarray}
 N \sum_{j=1}^N x_j^2 - \left(\sum_{j=1}^N x_j\right)^2 \neq 0
-\end{eqnarray*}
+\end{eqnarray}
 
 Pode-se mostrar usando a \emph{desigualdade de Cauchy–Schwarz} que isto acontece quando existem pelo menos duas abscissas diferentes envolvidas no ajuste.  Usando a fórmula da inversa de uma matriz dois-por-dois, chegamos às seguintes fórmulas para os coeficientes $a_1$ e $a_2$:
   \begin{equation}\label{eq:formula_final_ajuste_reta}
@@ -137,10 +137,10 @@ nos fornece a chamada solução por mínimos quadrados do sistema \eqref{eq:smq_
   Retornemos ao Exemplo~\ref{ex:intro_ajuste}. Isto é, dado o conjunto de pontos $\{(1, 1,2)$, $(1,5, 1,3)$, $(2, 2,3)\}$, encontrar a função do tipo $f(x) = a_1 + a_2x$ que melhor se ajusta os pontos dados no sentido de mínimos quadrados.
 \end{ex}
 \begin{sol} Usando as fórmulas em \eqref{eq:formula_final_ajuste_reta}, obtemos
-  \begin{eqnarray*}
+  \begin{eqnarray}
     a_1&=&\frac{7,25 \cdot 4,8 - 4,5 \cdot 7,75  }{3\cdot 7,25 - 20,25 } = -0,05, \\
     a_2&=&\frac{3\cdot 7,75 - 4,5\cdot 4,8}{3\cdot 7,25 - 20,25}=1,1.
-  \end{eqnarray*}
+  \end{eqnarray}
 Ou seja, verificamos que, de fato, a função $f(x) = -0,05 + 1,1x$ corresponde à reta que melhor ajusta os pontos dados no sentido de mínimos quadrados. Os pontos e a reta ajustada estão esboçados na Figura~\ref{fig:ex_intro}.
 
 Deixamos ao leitor a verificação de que os coeficientes $a_1$ e $a_2$ também podem ser obtidos pela expressão~\eqref{eq:sol_smq_reta}.
@@ -325,15 +325,15 @@ Do fato que $f(x_i)=\sum_{j=1}^m a_jf_j(x_i)$, temos que cada resíduo pode ser 
 \end{equation}
 
 A fim de encontrar o ponto de mínimo, resolvemos o sistema oriundo de igualar a zero cada uma das derivadas parciais de $R$ em relação aos $m$ coeficientes $a_j$, isto é, devemos resolver:
-\begin{eqnarray*}
+\begin{eqnarray}
 \frac{\partial R}{\partial a_1} &=& 2 \sum_{i=1}^n \frac{\partial R_i}{\partial a_1} = 2\sum_{i=1}^n \left[\sum_{j=1}^m a_jf_j(x_i)-y_i\right] f_1(x_i)=0,\\
 \frac{\partial R}{\partial a_2} &=& 2 \sum_{i=1}^n \frac{\partial R_i}{\partial a_2}=2\sum_{i=1}^n \left[\sum_{j=1}^m a_jf_j(x_i)-y_i\right] f_2(x_i)=0,\\
 &\vdots&\\
 \frac{\partial R}{\partial a_m} &=& 2 \sum_{i=1}^n \frac{\partial R_i}{\partial a_m}= 2\sum_{i=1}^n \left[\sum_{j=1}^m a_jf_j(x_i)-y_i\right] f_m(x_i)=0.
-\end{eqnarray*}
+\end{eqnarray}
 
 Dividindo cada equação por 2 e escrevendo na forma matricial, obtemos $Ma=w$, onde a matriz $M$ é dada por:
-\begin{eqnarray*}
+\begin{eqnarray}
 M = \begin{bmatrix}
 \sum\limits_{i=1}^n f_1(x_i)^2 & \sum\limits_{i=1}^n f_2(x_i) f_1(x_i) & \!\cdots\! & \sum\limits_{i=1}^n f_m(x_i) f_1(x_i)\\
 \sum\limits_{i=1}^n f_1(x_i) f_2(x_i)&\sum\limits_{i=1}^n f_2(x_i)^2 & \!\cdots\! & \sum\limits_{i=1}^n f_m(x_i)  f_2(x_i)\\
@@ -341,10 +341,10 @@ M = \begin{bmatrix}
 \vdots & \vdots & \ddots & \vdots\\
 \sum\limits_{i=1}^n f_1(x_i) f_m(x_i)&\sum\limits_{i=1}^n f_2(x_i)f_m(x_i) & \!\cdots\! & \sum\limits_{i=1}^n f_m(x_i)  ^2
 \end{bmatrix}.
-\end{eqnarray*}
+\end{eqnarray}
 
 E os vetores $a$ e $w$ são dados por:
-\begin{eqnarray*}
+\begin{eqnarray}
 a=\left[
 \begin{array}{c}
 a_1\\
@@ -360,7 +360,7 @@ a_m
 \sum\limits_{i=1}^n f_m(x_i) y_i
 \end{array}
 \right].
-\end{eqnarray*}
+\end{eqnarray}
 
 Agora, observamos que $M=V^TV$ e $w=V^T y$, onde a matriz $V$ é dada por:
 \begin{equation}
@@ -688,13 +688,13 @@ Isto requer que a matriz $A$ seja quadrada e de posto completo. Alternativamente
 % Esta é uma função diferenciável nos coeficientes $x_j$ e portanto todo ponto de mínimo acontece quando $\nabla E=0$, ou seja, quando \begin{equation} \frac{\partial}{\partial x_l}E=0,\forall 1\leq l \leq m  \end{equation}
 
 % O que implica a seguinte condição
-% \begin{eqnarray*}
+% \begin{eqnarray}
 % 0=\frac{\partial}{\partial x_l}E=\sum_{j=1}^N 2\left[\sum_{j=1}^m a_{ij} x_j- b_i\right] a_{il}, ~~~l=1,\cdots, m
-% \end{eqnarray*}
+% \end{eqnarray}
 % Equivalente a
-% \begin{eqnarray*}
+% \begin{eqnarray}
 % \sum_{j=1}^N\sum_{j=1}^m  a_{il}x_j a_{ij}=\sum_{j=1}^Na_{il}b_i,~~~l=1,\cdots, m
-% \end{eqnarray*}
+% \end{eqnarray}
 % que pode ser reescrito na forma vetorial como:
 % \begin{eqnarray}\label{cond_vet}
 % \left[
@@ -882,32 +882,32 @@ Para fazermos o gráfico do polinômio e dos pontos, digitamos:
 
 %
 % Dado um conjunto de $n$ pontos, desejamos encontrar o \textit{polinômio} de grau $p$ que melhor se ajusta a esses pontos de tal forma a minimizar o resíduo, ou seja, encontrar a curva $f(x)=a_1+a_2 x+...+a_{p+1}x^{p}$ tal que
-% \begin{eqnarray*}
+% \begin{eqnarray}
 %   R(a_1,...,a_{p+1}) &=&\sum_{j=1}^N (f(x_j)-y_j)^2 \\
 %                  &=&\sum_{j=1}^N (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2
-% \end{eqnarray*}
+% \end{eqnarray}
 % seja o menor possível.
 %
 % O objetivo é encontrar as incógnitas $a_i$ que minimizam a soma do quadrado do resíduo.
 %
 % O mínimo de $R$ encontra-se quando a derivada primeira é igual a zero:
-% \begin{eqnarray*}
+% \begin{eqnarray}
 %   \frac{\partial R}{\partial a_1}     &=& \frac{\partial }{\partial a_1}     \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2 =0 \\
 %   \vdots &=& \vdots \\
 %   \frac{\partial R}{\partial a_{p+1}} &=& \frac{\partial }{\partial a_{p+1}} \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)^2 =0
-% \end{eqnarray*}
+% \end{eqnarray}
 % ou seja,
-% \begin{eqnarray*}
+% \begin{eqnarray}
 %    2 \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)\cdot 1    &=&0 \\
 %   \vdots &=& \vdots \\
 %    2 \sum_{j=1}^n (a_1 + a_2 x_j+...+a_{p+1}x_j^p-y_j)\cdot x_j^p&=&0
-% \end{eqnarray*}
+% \end{eqnarray}
 % e isolando as incógnitas temos
-% \begin{eqnarray*}
+% \begin{eqnarray}
 %    a_1\sum_{j=1}^n 1     + a_2 \sum_{j=1}^Nx_j      +...+a_{p+1} \sum_{j=1}^Nx_j^{p} &=\sum_{j=1}^N y_j\\
 %   \vdots &= \vdots \\
 %    a_1\sum_{j=1}^n x_j^p + a_2 \sum_{j=1}^Nx_j^{p+1}+...+a_{p+1} \sum_{j=1}^Nx_j^{2p} &=\sum_{j=1}^N y_jx_j^{p}
-% \end{eqnarray*}
+% \end{eqnarray}
 %
 % Na forma matricial obtemos
 % \begin{equation}
@@ -990,24 +990,24 @@ Para fazermos o gráfico do polinômio e dos pontos, digitamos:
 %   \end{equation}
 % \end{exer}
 % \begin{resp}
-% \begin{eqnarray*}
+% \begin{eqnarray}
 % E_q&=&[f(0)+0,1]^2+[f(1)-2]^2+[f(2)-3,7]^2+[f(3)-7]^2\\
 % &=&[a+0,1]^2+[a+b-2]^2+[a+2b-3,7]^2+[a+3b-7]^2
-% \end{eqnarray*}
+% \end{eqnarray}
 
 % Devemos encontrar os parâmetros $a$ $b$ que minimizam o erro, por isso, calculamos as derivadas parciais:
-% \begin{eqnarray*}
+% \begin{eqnarray}
 % \frac{\partial E_q}{\partial a}&=&2[a+0,1]+2[a+b-2]+2[a+2b-3,7]+2[a+3b-7]\\
 % \frac{\partial E_q}{\partial b}&=&2[a+b-2]+4[a+2b-3,7]+6[a+3b-7]
-% \end{eqnarray*}
+% \end{eqnarray}
 
 
 
 % O erro mínimo acontece quando as derivadas são nulas, ou seja:
-% \begin{eqnarray*}
+% \begin{eqnarray}
 % 8a+12b&=&25,2\\
 % 12a+28b&=&60,8
-% \end{eqnarray*}
+% \end{eqnarray}
 % Cuja solução é dada por $a=-0,3$ e $b=2,3$.
 % Portanto a função que procuramos é $f(x)=-0,3 +2,3x$.
 % \end{resp}
@@ -1022,15 +1022,15 @@ Para fazermos o gráfico do polinômio e dos pontos, digitamos:
 % \begin{resp}
 % Defina \begin{equation} E_q=[f(x_1)-y_1]^2+[f(x_2)-y_2]^2+[f(x_3)-y_3]^2+[f(x_4)-y_4]^2 \end{equation}
 % temos que
-% \begin{eqnarray*}
+% \begin{eqnarray}
 % E_q&=&[f(0)+0,1]^2+[f(1)-2]^2+[f(2)-3,7]^2+[f(3)-7]^2\\
 % &=&[0,1]^2+[a-2]^2+[2a-3,7]^2+[3a-7]^2
-% \end{eqnarray*}
+% \end{eqnarray}
 
 % Devemos encontrar o parâmetro $a$ que minimiza o erro, portanto, calculamos:
-% \begin{eqnarray*}
+% \begin{eqnarray}
 % \frac{\partial E_q}{\partial a}&=&2[a-2]+4[2a-3,7]+6[3a-7]=28a-60,8
-% \end{eqnarray*}
+% \end{eqnarray}
 % Portanto o valor de $a$ que minimiza o erro é $a=\frac{60,8}{28}$.
 % \ifisscilab
 % \begin{verbatim}
@@ -1045,15 +1045,15 @@ Para fazermos o gráfico do polinômio e dos pontos, digitamos:
 \section{Aproximando problemas não lineares por problemas lineares}
 
 Eventualmente, problemas de ajuste de curvas podem recair em um sistema não linear. Por exemplo, para ajustar função $y=Ae^{bx}$ ao conjunto de pontos $(x_1,y_1)$, $(x_2,y_2)$ e $(x_3,y_3)$, temos que minimizar o resíduo\footnote{A soma do quadrado dos resíduos.}
-$$
+\begin{equation}
 R=(Ae^{x_1b}-y_1)^2+(Ae^{x_2b}-y_2)^2+(Ae^{x_3b}-y_3)^2
-$$
+\end{equation}
 ou seja, resolver o sistema
-\begin{eqnarray*}
+\begin{eqnarray}
 \frac{\partial R}{\partial A} &=& 2(Ae^{x_1b}-y_1)e^{x_1b}+2(Ae^{x_2b}-y_2)e^{x_2b}+2(Ae^{x_3b}-y_3)e^{x_3b}=0\\
 \frac{\partial R}{\partial b} &=& 2Ax_1(Ae^{x_1b}-y_1)e^{x_1b} + 2Ax_2(Ae^{x_2b}-y_2)e^{x_2b} \\
 &+& 2Ax_3(Ae^{x_3b}-y_3)e^{x_3b}=0
-\end{eqnarray*}
+\end{eqnarray}
 que é não linear em $A$ e $b$. Esse sistema pode ser resolvido pelo método de Newton-Raphson, o que pode se tornar custoso, ou mesmo inviável quando não dispomos de uma boa aproximação da solução para inicializar o método.
 
 Felizmente, algumas famílias de curvas admitem uma transformação que nos leva a um problema linear. No caso da curva $y=Ae^{bx}$, observe que $\ln y=\ln A+bx$. Assim, em vez de ajustar a curva original $y=Ae^{bx}$ a tabela de pontos, ajustamos a curva submetida a transformação logarítmica
@@ -1193,11 +1193,11 @@ $x_i$ & $y_i$\\
 \end{ex}
 \begin{sol}
 Usando o fato que $y=A\cos(2 \pi x+\phi)=a\cos(2 \pi x)-b\sin(2 \pi x)$, onde $a=A\cos(\phi)$ e $b=A\sin(\phi)$, $z=[\begin{array}{cc}a &b\end{array}]^T$ é solução do problema
-$$
+\begin{equation}
 B^TBz=B^Ty,
-$$
+\end{equation}
 onde
-$$
+\begin{equation}
 B\!=\!\left[\begin{array}{cc}\cos(2 \pi x_0)& -\sin(2 \pi x_0)\\ \cos(2 \pi x_1)& -\sin(2 \pi x_1)\\ \vdots\\ \cos(2 \pi x_{10})& -\sin(2\pi x_{10}) \end{array}\right]\!=\!\left[\begin{array}{cc}  1.     &      0.\\
     0,8090170 & - 0,5877853\\
     0,3090170 & - 0,9510565\\
@@ -1209,25 +1209,25 @@ B\!=\!\left[\begin{array}{cc}\cos(2 \pi x_0)& -\sin(2 \pi x_0)\\ \cos(2 \pi x_1)
     0,3090170 &   0,9510565\\
     0,8090170 &   0,5877853\\
     1,0000000 &   0,0000000   \end{array}\right].
-$$
+\end{equation}
 Assim, $a=7,9614704$ e $b=11,405721$ e obtemos o seguinte sistema:
-$$
+\begin{equation}
 \left\{\begin{array}{c}
 A\cos(\phi)=7,9614704\\ A\sin(\phi)=11,405721
 \end{array}\right..
-$$
+\end{equation}
 Observe que
-$$
+\begin{equation}
 A^2=7,9614704^2+11,405721^2
-$$
+\end{equation}
 e, escolhendo $A>0$, $A=13,909546$ e
-$$
+\begin{equation}
 \sin(\phi)=\frac{11,405721}{13,909546}=0,8199923
-$$
+\end{equation}
 Assim, como $\cos\phi$ também é positivo, $\phi$ é um ângulo do primeiro quadrante:
-$$
+\begin{equation}
 \phi=0,9613976
-$$
+\end{equation}
 Portanto $f(x)=13,909546\cos(2\pi x+0,9613976)$. Observe que nesse exemplo a solução do problema linear é a mesma do problema não linear.
 \end{sol}
 
@@ -1249,11 +1249,11 @@ Encontre a função $f$ da forma $y=f(x)=\frac{a}{b+x}$ que ajusta a seguinte ta
 \end{exeresol}
 \begin{resol}
 Usando o fato que $Y=\frac{1}{y}=\frac{b}{a}+\frac{1}{a}x$, $z=[\begin{array}{cc}\frac{b}{a} &\frac{1}{a}\end{array}]^T$ é solução do problema
-$$
+\begin{equation}
 A^TAz=A^TY,
-$$
+\end{equation}
 onde
-$$
+\begin{equation}
 A=\left[\begin{array}{cc}1& x_1\\ 1& x_2\\ 1&x_3\\1&x_4 \\ 1&x_5 \\ 1&x_6 \end{array}\right]=\left[\begin{array}{cc}
   1 &  0,0\\
   1 &  0,2\\
@@ -1262,9 +1262,9 @@ A=\left[\begin{array}{cc}1& x_1\\ 1& x_2\\ 1&x_3\\1&x_4 \\ 1&x_5 \\ 1&x_6 \end{a
   1 &  0,8\\
   1 &  1,0
 \end{array}\right]
-$$
+\end{equation}
 e
-$$
+\begin{equation}
 Y=\left[\begin{array}{c}
   1/y_1\\
     1/y_2\\
@@ -1280,7 +1280,7 @@ Y=\left[\begin{array}{c}
   0,0166667\\
   0,0181818
 \end{array}\right]
-$$
+\end{equation}
 Assim, $\frac{1}{a}=0,0082755$ e $\frac{b}{a}=0,0100288$ e, então, $a=120,83924$ e $b=1,2118696$, ou seja, $f(x)=\frac{120,83924}{1,2118696+x}$.
 \end{resol}
 
