@@ -401,10 +401,10 @@ Isto nos leva a concluir que o método da bisseção tem \emph{taxa de convergê
     |x^{(n)}-x^*|\leq \frac{b-a}{2^{n+1}},\quad n\geq 0.
   \end{equation}
 Logo, temos:
-\begin{eqnarray*}
+\begin{eqnarray}
   |x^{(n)} - x^*| &<& \frac{b - a}{2^{n+1}} = \frac{2}{2^{n+1}}\\
   &=& 2^{-n} < 10^{-1} \Rightarrow  n > -\log_2 10^{-1} \approx 3,32.
-\end{eqnarray*}
+\end{eqnarray}
 O que está de acordo com o experimento numérico realizado naquele exemplo.
 \end{ex}
 
@@ -615,18 +615,18 @@ Ou seja, $\sqrt{A}$ sempre está no intervalo entre $r$ e $\frac{A}{r}$, no qual
 \begin{equation} x=\frac{r+\frac{A}{r}}{2}. \end{equation}
 
 Aplicando esse método repetidas vezes, podemos construir a iteração (de ponto fixo):
-\begin{eqnarray*}
+\begin{eqnarray}
 x^{(1)}&=&r \\
 x^{(n+1)}&=&\frac{x^{(n)}}{2}+\frac{A}{2x^{(n)}}, \quad n=1,2,3,...
-\end{eqnarray*}
+\end{eqnarray}
 
 Por exemplo, para obter uma aproximação para $\sqrt{5}$, podemos iniciar com a aproximação inicial $r=2$ e $A=5$. Então, tomamos $x^{(1)} = 2$ e daí seguem as aproximações:
-\begin{eqnarray*}
+\begin{eqnarray}
 x^{(2)}&=&\frac{2}{2}+\frac{2,5}{2} = 2,25\\
 x^{(3)}&=&\frac{2,25}{2}+\frac{2,5}{2,25}= 2,2361111  \\
 x^{(4)}&=&\frac{2,2361111}{2}+\frac{2,5}{2,2361111}= 2,236068  \\
 x^{(5)}&=&\frac{2,236068}{2}+\frac{2,5}{2,236068}= 2,236068
-\end{eqnarray*}
+\end{eqnarray}
 \end{ex}  
 
 % \begin{ex}
@@ -664,14 +664,14 @@ A segunda pergunta é a mais fácil de ser respondida. No caso de $g(x)$ ser con
 \end{equation}
 
 % Supondo que o limite de $x_n$ exista, basta substituir $x^*$ na iteração:
-% \begin{eqnarray*}
+% \begin{eqnarray}
 % \lim_{n \to \infty }x^{(n+1)}&=&\lim_{n \to \infty }\frac{x^{(n)}}{2}+\lim_{n \to \infty }\frac{A}{2x^{(n)}}\\
 % x^*&=&\frac{x^*}{2}+\frac{A}{2x^*}\\
 % \frac{x^*}{2}&=&\frac{A}{2x^*}\\
 % {x^*}&=&\frac{A}{x^*}\\
 % {(x^*)}^2&=&{A}\\
 % x^*&=&\sqrt{A}
-% \end{eqnarray*}
+% \end{eqnarray}
 % Portanto, sempre que esse método converge, temos a garantia de que o limite é $\sqrt{A}$. (Independente do valor inicial!)
 
 % De fato, podemos provar que o método é convergente para qualquer valor inicial positivo $x$. E, ainda, que a convergência é rápida (ainda precisamos definir isso).
@@ -891,10 +891,10 @@ Assim, $|g'(x)|<0,85$ temos a desigualdade com $\beta=0,85<1$.
 
 
 A Tabela~\ref{tab:ponto_fixo_3} apresenta o comportamento numérico da iteração do ponto fixo:
-\begin{eqnarray*}
+\begin{eqnarray}
 x^{(1)} &=& 0,7\\
 x^{(n+1)} &=& \cos(x^{(n)}),\quad n\geq 1.
-\end{eqnarray*}
+\end{eqnarray}
 Para estimar o erro, consideramos $x^* = 0,7390851605$. A Figura~\ref{fig:ex_ponto_fixo_3} mostrar o decaimento do erro $\epsilon_n = |x^{(n)} - x^*|$ comparado com a taxa de convergência linear com $\beta = 0,85$.
 
 \begin{figure}
@@ -1016,29 +1016,29 @@ enquanto:
 \subsection{Estabilidade e convergência}\index{iteração do ponto fixo!estabilidade}\index{iteração do ponto fixo!convergência}
 
 A fim de compreendermos melhor os conceitos de estabilidade e convergência, considere uma função $\Phi(x)$ com um ponto fixo $x^*=g(x^*)$ e analisemos o seguinte processo iterativo:
-\begin{eqnarray*}
+\begin{eqnarray}
 x^{(n+1)}&=&g\left(x^{(n)}\right)\\
 x^{(0)}&=&x
-\end{eqnarray*}
+\end{eqnarray}
 Vamos supor que a função $g(x)$ pode ser aproximada por seu polinômio de Taylor em torno do ponto fixo:
-\begin{eqnarray*}
+\begin{eqnarray}
 g(x)&=&g(x^*)+(x-x^*) g'(x^*)+O\left((x-x^*)^2\right), n\geq 0\\
 &=&x^*+(x-x^*) g'(x^*)+O\left((x-x^*)^2\right)\\
 &\approx& x^*+(x-x^*) g'(x^*)
-\end{eqnarray*}
+\end{eqnarray}
 
 Substituindo na relação de recorrência, temos
-$$
+\begin{equation}
 x^{(n+1)}=g\left(x^{(n)}\right)\approx x^*+(x^{(n)}-x^*) g'(x^*)
-$$
+\end{equation}
 Ou seja:
-$$
+\begin{equation}
 \left(x^{(n+1)}-x^*\right)\approx {(x^{(n)}-x^*)} g'(x^*)
-$$
+\end{equation}
 Tomando módulos, temos:
-$$
+\begin{equation}
 \underbrace{\left|x^{(n+1)}-x^*\right|}_{\epsilon_{n+1}}\approx \underbrace{\left|x^{(n)}-x^*\right|}_{\epsilon_n} \left|g'(x^*)\right|,
-$$
+\end{equation}
 onde $\epsilon_n=\left|x^{(n)}-x^*\right|$.
 
 \begin{obs} A análise acima, concluímos:
@@ -1059,37 +1059,37 @@ A pergunta natural é: Será que o erro $\epsilon_n=\left|x^{(n)}-x^*\right|$ é
 Para responder a esta pergunta, observamos que
 \begin{equation} x^*=\lim_{n\to \infty }x^{(n)} \end{equation}
 portanto:
-\begin{eqnarray*}
+\begin{eqnarray}
 x^*-x^{(N)}&=&  \left(x^{(N+1)}-x^{(N)}\right)+\left(x^{(N+2)}-x^{(N+1)}\right)+\left(x^{(N+3)}-x^{(N+2)}\right)+\ldots\\
 &=&\sum_{k=0}^\infty \left(x^{(N+k+1)}-x^{(N+k)}\right)
-\end{eqnarray*}
+\end{eqnarray}
 
 Usamos também as expressões:
-\begin{eqnarray*}
+\begin{eqnarray}
 x^{(n+1)}&\approx& x^*+(x^{(n)}-x^*) g'(x^*)\\
 x^{(n)}&\approx& x^*+(x^{(n-1)}-x^*) g'(x^*)
-\end{eqnarray*}
+\end{eqnarray}
 Subtraindo uma da outra, temos:
-\begin{eqnarray*}
+\begin{eqnarray}
 x^{(n+1)}-x^{(n)}&\approx& (x^{(n)}-x^{(n-1)}) g'(x^*)
-\end{eqnarray*}
+\end{eqnarray}
 Portanto:
-\begin{eqnarray*}
+\begin{eqnarray}
 x^{(N+k+1)}-x^{(N+k)}&\approx& (x^{(N+1)}-x^{(N)}) \left(g'(x^*)\right)^{k}
-\end{eqnarray*}
+\end{eqnarray}
 E temos:
-\begin{eqnarray*}
+\begin{eqnarray}
 x^*-x^{(N)}
 &=&\sum_{k=0}^\infty \left(x^{(N+k+1)}-x^{(N+k)}\right)\\
 &\approx&\sum_{k=0}^\infty (x^{(N+1)}-x^{(N)}) \left(g'(x^*)\right)^{k}\\
 &=&(x^{(N+1)}-x^{(N)}) \frac{1}{1-g'(x^*)}, \quad \left|g'(x^*)\right|<1
-\end{eqnarray*}
+\end{eqnarray}
 Tomando módulo, temos:
-\begin{eqnarray*}
+\begin{eqnarray}
 \left|x^*-x^{(N)} \right|
 &\approx&\left|x^{(N+1)}-x^{(N)}\right| \frac{1}{1-g'(x^*)}\\
 \epsilon_N &\approx&  \frac{\Delta_N}{1-g'(x^*)}
-\end{eqnarray*}
+\end{eqnarray}
 
 \begin{obs}
 Tendo em mente a relação $x^{(n+1)}-x^{(n)}  \approx (x^{(n)}-x^{(n-1)}) g'(x^*)$, concluímos:
@@ -1139,7 +1139,7 @@ Tomando $x^{(1)} = 1$, verifique se estas sequências são convergentes.
 \begin{resp}
   
 Tomemos $x^{(1)}=1$ como aproximação inicial para a solução deste problema, iterando a primeira sequência a), obtemos:
-\begin{eqnarray*}
+\begin{eqnarray}
 x^{(1)} &=& 1\\
 x^{(2)} &=& \ln\left(\frac{10}{1}\right)=2,3025851\\
 x^{(3)} &=& \ln\left(\frac{10}{2,3025851}\right)=1,4685526\\
@@ -1147,17 +1147,17 @@ x^{(3)} &=& \ln\left(\frac{10}{2,3025851}\right)=1,4685526\\
 x^{(21)}&=& 1,7455151\\
 x^{(31)}&=& 1,745528\\
 x^{(32)}&=& 1,745528
-\end{eqnarray*}
+\end{eqnarray}
 
 Iterando a segunda sequência b), obtemos:
-\begin{eqnarray*}
+\begin{eqnarray}
 x^{(1)}&=&1\\
 x^{(2)}&=&10e^{-1}= 3,6787944   \\
 x^{(3)}&=&10e^{- 3,6787944 }= 0,2525340     \\
 x^{(4)}&=&10e^{-0,2525340}=  7,7682979      \\
 x^{(5)}&=&10e^{-7,7682979}=  0,0042293      \\
 x^{(6)}&=&10e^{-0,0042293}=  9,9577961
-\end{eqnarray*}
+\end{eqnarray}
 
 Este experimento numérico sugere que a iteração a) converge para $1,745528$ e a iteração b) não é convergente.    
   
@@ -1260,10 +1260,10 @@ Conclua que $x_n\to x^*$ quando $|1-\beta|<1$.
 \end{exer}
 
 \begin{exer}(Convergência lenta) Considere o seguinte esquema iterativo:
-  \begin{eqnarray*}
+  \begin{eqnarray}
     x^{(n+1)} &=& x_n+q^n,\\
     x^{(0)} &=& 0,   
-  \end{eqnarray*}
+  \end{eqnarray}
 onde $q=1-10^{-6}$.
 \begin{itemize}
 \item[a)] Calcule o limite \begin{equation} x_\infty=\lim_{n\to\infty}x^{(n)} \end{equation} analiticamente.
@@ -1308,7 +1308,7 @@ Em vista do problema anterior, qual valor de $\gamma$ você escolheria para que 
 \end{exer}
 
 \begin{exer} Considere o problema da Questão~\ref{prob_diodo} e dois seguintes esquemas iterativos.
-$$\begin{array}{l}
+\begin{equation}\begin{array}{l}
 A\left\{
 \begin{array}{ll}
 I^{(n+1)}=\frac{1}{R}\left[V-v_t\ln\left(1+\frac{I^{(n)}}{I_R}\right)\right],n>0\\
@@ -1320,7 +1320,7 @@ I^{(n+1)}=I_R\left[\exp\left(\frac{V-RI^{(n)}}{v_t}\right)-1\right],n>0\\
 I^{(0)}=0
 \end{array}\right.
 \end{array}
-$$
+\end{equation}
 Verifique numericamente que apenas o processo A é convergente para a, b e c; enquanto apenas o processo B é convergente para os outros itens.
 \end{exer}
 
@@ -1398,10 +1398,10 @@ Expandimos em série de Taylor em torno de $x = x^*$, obtemos:
   g(x)=g(x^*)+g'(x^*)(x-x^*) + \frac{g''(x^*)}{2}(x-x^*)^2 + O\left((x-x^*)^3\right).
 \end{equation}
 Observamos que:
-\begin{eqnarray*}
+\begin{eqnarray}
 g(x^*) &=& x^*\\
 g'(x^*) &=& 1 - \frac{f'(x^*)f'(x^*)-f(x^*)f''(x^*)}{\left(f'(x^*)\right)^2} = 0
-\end{eqnarray*}
+\end{eqnarray}
 Portanto:
 \begin{equation}
 g(x) = x^* + \frac{g''(x^*)}{2}(x-x^*)^2 + O\left((x-x^*)^3\right)\\
@@ -1563,17 +1563,17 @@ Encontre a raiz positiva da função $f(x)=\cos(x)-x^2$ pelo método de Newton i
 -->plot([0:.01:1.3],f)
 \end{verbatim} 
 Observamos facilmente uma raiz no intervalo $(0,5, 0,6)$ e outra no intervalo $(1,2, 1,3)$. Como a função $f(x)$ é contínua fora dos pontos de singularidade da tangente, é fácil verificar que existe pelo menos uma solução nos intervalos dados pelo teorema de Bolzano~\ref{teo:teorema_de_Bolzano}:
-\begin{eqnarray*}
+\begin{eqnarray}
 f(0,5) &\approx& 0,046302 >0\\
 f(0,6) &\approx& -0,035863 <0\\
 f(1,2) &\approx& -0,30784e-1 <0\\
 f(1,3) &\approx&  0,22210e-1>0\\
-\end{eqnarray*} 
+\end{eqnarray} 
 Para provar a unicidade da solução em cada intervalo, precisamos mostra que a função é monótona, ou seja, a derivada não muda de sinal em cada intervalo:
-\begin{eqnarray*}
+\begin{eqnarray}
 f'(x)=\sec^2(x)-4x=\frac{1}{\cos^2(x)}-4x\leq \frac{1}{\cos^2(0,6)}-4*0,5<0, ~~x\in[ 0,5, 0,6]\\
 f'(x)=\sec^2(x)-4x=\frac{1}{\cos^2(x)}-4x\geq \frac{1}{\cos^2(1,2)}-4*1,3>0, ~~x\in[ 1,2, 1,3]\\
-\end{eqnarray*} 
+\end{eqnarray} 
 
 % \item[b)] 
 % Já isolamos as raízes em intervalos de comprimento $10^{-1}$ e a precisão requerida exige que as isolemos em intervalos de comprimento $2\times 10^{-8}$. Como cada passo da bisseção, confina a raiz em um intervalo com comprimento igual à metade do comprimento do intervalo anterior, temos a seguinte condição para o número de passos $N_p$:
@@ -1635,20 +1635,20 @@ $x_0>1$.
 \begin{exer}(Computação) Aplique o método de Newton à função $f(x)=\frac{1}{x}-A$ e construa um esquema computacional para calcular a inversa de $A$ com base em operações de multiplicação e soma/subtração.
  \end{exer}
 \begin{resp}
-  \begin{eqnarray*}
+  \begin{eqnarray}
  x^{(0)} &=& \text{C.I.}\\
  x^{(n+1)}&=&x^{(n)}\left(2-Ax^{(n)}\right) \\ 
- \end{eqnarray*}
+ \end{eqnarray}
 \end{resp}
 
 
 \begin{exer}(Computação) Aplique o método de Newton à função $f(x)=x^n-A$ e construa um esquema computacional para calcular  $\sqrt[n]{A}$ para $A>0$ com base em operações de multiplicação e soma/subtração.
 \end{exer}
 \begin{resp}
- \begin{eqnarray*}
+ \begin{eqnarray}
  x_{0} &=& \text{C.I.}\\
  x^{(n+1)}&=&x^{(n)}\left(1-\frac{1}{n}\right) + \frac{A}{n x^{(n)}}
- \end{eqnarray*}
+ \end{eqnarray}
 
 \end{resp}
 
@@ -1656,10 +1656,10 @@ $x_0>1$.
 \begin{exer}(Computação) Aplique o método de Newton à função $f(x)=\frac{1}{x^2}-A$ e construa um esquema computacional para calcular  $\frac{1}{\sqrt{A}}$ para $A>0$ com base em operações de multiplicação e soma/subtração.
 \end{exer}
 \begin{resp}
- \begin{eqnarray*}
+ \begin{eqnarray}
  x_{0} &=& \text{C.I.}\\
  x^{(n+1)}&=&x^{(n)} + \frac{x^{(n)}-Ax^{(n)}}{2}=\frac{(3-A)x^{(n)}}{2}\\ 
- \end{eqnarray*}
+ \end{eqnarray}
 
 \end{resp}
 
@@ -1667,9 +1667,9 @@ $x_0>1$.
 
 
 \begin{exer} Considere a função dada por
-\begin{eqnarray*}
+\begin{eqnarray}
 \psi(x)&=&\ln\left(15-\ln(x)\right)
-\end{eqnarray*}
+\end{eqnarray}
 definida para $x\in \left(0,e^{15}\right)$
 \begin{itemize}
 \item [a)] Use o teorema do ponto fixo para provar que se $x^{(0)}$ pertence ao intervalo $[1,3]$, então a sequência dada iterativamente por \begin{equation} x^{(n+1)}=\psi(x^{(n)}),n\geq 0 \end{equation} converge para o único ponto fixo, $x^*$, de $\psi$. Construa a iteração $x^{(n+1)}=\psi(x^{(n)})$ e obtenha numericamente o valor do ponto fixo $x^*$. Expresse a resposta com 5 algarismos significativos corretos.
@@ -1775,19 +1775,19 @@ onde $\{\gamma_n\}_{n\in\mathbb{N}}$ é a sequência de Fibonacci\footnote{Leona
     g(x^{(n)},x^{(n-1)}) := x^{(n)} - f(x^{(n)})\frac{x^{(n)} - x^{(n-1)}}{f(x^{(n)}) - f(x^{(n-1)})}.
   \end{equation}
 Com isso, temos:
-  \begin{eqnarray*}
+  \begin{eqnarray}
     &&g(x^{(n)},x^{(n-1)}) - x^* = x^{(n)} - f(x^{(n)})\frac{x^{(n)} - x^{(n-1)}}{f(x^{(n)}) - f(x^{(n-1)})} - x^*\\
     &=& \frac{x^{(n)} - x^{(n-1)}}{f(x^{(n)}) - f(x^{(n-1)})}\left\{(x^{(n)} - x^*)\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} - f(x^{(n)}) + f(x^*)\right\}.\\
-  \end{eqnarray*}
+  \end{eqnarray}
 Então, da cota assumida para primeira derivada de $f(x)$ e do teorema do valor médio, temos: 
 \begin{equation}\label{eq:secantes-est0}
   |g(x^{(n)},x^{(n-1)}) - x^*| \leq \frac{|x^{(n)} - x^*|}{m}\left|\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} - \frac{f(x^{(n)}) - f(x^*)}{x^{(n)} - x^*}\right|.
 \end{equation}
 Agora, iremos estimar este último termo a direita. Para tanto, começamos observando que da expansão em polinômio de Taylor de ordem $0$ da função $f(x)$ com resto na forma integral, temos:
-\begin{eqnarray*}
+\begin{eqnarray}
   \frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} &= -\int_0^1 \frac{d}{dr}f(x^{(n)} + r(x^{(n-1)} - x^{(n)}))\frac{dr}{x^{(n)} - x^{(n-1)}}\\
   &= \int_0^1 f'(x^{(n)} + r(x^{(n-1)} - x^{(n)}))\,dr
-\end{eqnarray*}
+\end{eqnarray}
 De forma análoga, temos:
 \begin{equation}
   \frac{f(x^{(n)}) - f(x^*)}{x^{(n)} - x^*} = \int_0^1 f'(x^{(n)} + r(x^* - x^{(n)}))\,dr
@@ -1830,11 +1830,11 @@ Como $\rho_1 \leq q$ e $\rho_2 \leq q$, temos $\rho_n \leq q^{\gamma_{n-1}}$, $n
 Além disso, como $\gamma_{n}\to \infty$ quando $n\to\infty$ e $q < 1$, temos que as iterações do método das secantes $x^{(n)}\to x^*$ quando $n\to \infty$.
 
 Por fim, mostramos a estimativa de convergência \emph{a posteriori}. Para tanto, da cota assumida para a primeira derivada e do teorema do valor médio, temos, para $n\geq 3$:
-\begin{eqnarray*}
+\begin{eqnarray}
   |x^{(n)} - x^*| &\leq& \frac{1}{m}|f(x^{(n)} - f(x^*)|\\
   &=& \frac{1}{m}\left|f(x^{(n-1)}) + (x^{(n)} - x^{(n-1)})\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}}\right|\\
   &=& \frac{1}{m}\left|x^{(n)} - x^{(n-1)}\right|\left|\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} + \frac{f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}}\right|.
-\end{eqnarray*}
+\end{eqnarray}
 Agora, a iteração do método das secantes fornece:
 \begin{equation}
   x^{(n)} = x^{(n-1)} - f(x^{(n-1)})\frac{x^{(n-1)} - x^{(n-2)}}{f(x^{(n-1)}) - f(x^{(n-2)})} 
@@ -1887,10 +1887,10 @@ Daí, segue imediatamente o enunciado.
 
 \begin{obs}
   Sob as hipóteses do Teorema~\ref{teo:metodo_das_secantes} e da Proposição~\ref{prop:sequencia_de_Fibonacci}, temos:
-  \begin{eqnarray*}
+  \begin{eqnarray}
     \lim_{n\to\infty} \frac{|x^{(n+1)}-x^*|}{|x^{(n)} - x^*|^{\lambda_1}} &\leq& \lim_{n\to\infty} \frac{M}{2m}|x^{(n)}-x^*|^{1-\lambda_1}|x^{(n-1)}-x^*| \\
     &\leq& \lim_{n\to\infty} \left(\frac{2m}{M}\right)^{1-\lambda_1}q^{(2-\lambda_1)\lambda_1^{n}/\sqrt{5}} = 0.
-  \end{eqnarray*}
+  \end{eqnarray}
 Isto mostra que o método das secantes (nestas hipóteses) tem taxa de convergência superlinear ($\lambda_1 \approx 1,6$).
 \end{obs}
 
@@ -1958,37 +1958,37 @@ para aproximações iniciais $x^{(1)}$ e $x^{(2)}$ suficientemente próximas de 
 Seja $f(x)\in C^2$ um função tal que $f(x^*)=0$ e $f'(x^*)\neq 0$. Considere o processo iterativo do método das secantes:
 \begin{equation} x^{(n+1)}=x^{(n)}- \frac{f(x^{(n)})}{f(x^{(n)})-f(x^{(n-1)})}(x^{(n)}-x^{(n-1)}) \end{equation}
 Esta expressão pode ser escrita como:
-\begin{eqnarray*}
+\begin{eqnarray}
 x^{(n+1)}&=&x^{(n)}- \frac{f(x^{(n)})(x^{(n)}-x^{(n-1)})}{f(x^{(n)})-f(x^{(n-1)})}\\~\\
  &=&\frac{x^{(n)}\left(f(x^{(n)})-f(x^{(n-1)})\right)-f(x^{(n)})(x^{(n)}-x^{(n-1)})}{f(x^{(n)})-f(x^{(n-1)})}\\
  &=&\frac{x^{(n)} f(x^{(n-1)})-x^{(n-1)}f(x^{(n)})}{f(x^{(n)})-f(x^{(n-1)})}
-\end{eqnarray*}
+\end{eqnarray}
 
 Subtraindo $x^*$ de ambos os lados temos:
-\begin{eqnarray*}
+\begin{eqnarray}
 x^{(n+1)}-x^*
  &=&\frac{x^{(n)} f(x^{(n-1)})-x^{(n-1)}f(x^{(n)})}{f(x^{(n)})-f(x^{(n-1)})}-x^*\\
  &=&\frac{x^{(n)} f(x^{(n-1)})-x^{(n-1)}f(x^{(n)})-x^*\left(f(x^{(n)})-f(x^{(n-1)})\right)}{f(x^{(n)})-f(x^{(n-1)})}\\
  &=&\frac{(x^{(n)}-x^*) f(x^{(n-1)})-(x^{(n-1)}-x^*)f(x^{(n)})}{f(x^{(n)})-f(x^{(n-1)})}
-\end{eqnarray*}
+\end{eqnarray}
 
 Definimos $\epsilon_n=x_n-x^*$, equivalente a $x_n=x^*+\epsilon_n$
-\begin{eqnarray*}
+\begin{eqnarray}
 \epsilon_{n+1}
  &=&\frac{\epsilon_n f(x^*+\epsilon_{n-1})-\epsilon_{n-1}f(x^*+\epsilon_n)}{f(x^*+\epsilon_n)-f(x^*+\epsilon_{n-1})}
-\end{eqnarray*}
+\end{eqnarray}
 
 Aproximamos a função $f(x)$ no numerador por
-\begin{eqnarray*}
+\begin{eqnarray}
 f(x^*+\epsilon)&\approx& f(x^*)+\epsilon f'(x^*) + \epsilon^2 \frac{f''(x^*)}{2}\\
 f(x^*+\epsilon)&\approx& \epsilon f'(x^*) + \epsilon^2 \frac{f''(x^*)}{2}
-\end{eqnarray*}
+\end{eqnarray}
 
-\begin{eqnarray*}
+\begin{eqnarray}
 \epsilon_{n+1} &\approx&\frac{\epsilon_n \left[\epsilon_{n-1} f'(x^*) + \epsilon_{n-1}^2 \frac{f''(x^*)}{2}\right]-\epsilon_{n-1}\left[\epsilon_{n} f'(x^*) + \epsilon_{n}^2 \frac{f''(x^*)}{2}\right]}{f(x^*+\epsilon_n)-f(x^*+\epsilon_{n-1})}\\
 &=&\frac{\frac{f''(x^*)}{2}\left(\epsilon_{n}\epsilon_{n-1}^2-\epsilon_{n-1}\epsilon_{n}^2\right)}{f(x^*+\epsilon_n)-f(x^*+\epsilon_{n-1})}\\
 &=&\frac{1}{2}f''(x^*)\frac{\epsilon_{n}\epsilon_{n-1}\left(\epsilon_{n-1}-\epsilon_{n}\right)}{f(x^*+\epsilon_n)-f(x^*+\epsilon_{n-1})}
-\end{eqnarray*}
+\end{eqnarray}
 
 Observamos, agora, que
 \begin{equation}
@@ -2193,10 +2193,10 @@ $1,5318075$
 
 
 \begin{exer}(Otimização)\label{1d:usinas}Uma indústria consome energia elétrica de duas usinas fornecedoras. O custo de fornecimento em reais por hora como função da potência consumida em $kW$ é dada pelas seguintes funções
-\begin{eqnarray*}
+\begin{eqnarray}
 C_1(x)&=& 500+.27 x + 4.1\cdot 10^{-5}x^2 +2.1\cdot 10^{-7}x^3+4.2\cdot 10^{-10}x^4 \\
 C_2(x)&=& 1000+.22 x + 6.3\cdot 10^{-5}x^2 +8.5\cdot 10^{-7}x^3
-\end{eqnarray*}
+\end{eqnarray}
 Onde $C_1(x)$ e $C_2(x)$ são os custos de fornecimento das usinas 1 e 2, respectivamente. Calcule o custo mínimo da energia elétrica quando a potência total consumida é  $1500kW$. Obs: Para um problema envolvendo mais de duas usinas, veja \ref{nlinsis:usinas}.
 \end{exer}
 \begin{resp}

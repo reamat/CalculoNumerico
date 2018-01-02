@@ -106,12 +106,12 @@ u(0) &=& 0.
  A função identicamente nula, $u(t)=0$, satisfaz a equação diferencial e a condição de contorno, logo é uma solução do problema de valor inicial. No entanto, a função\footnote{Esta solução pode ser obtida por separação de variáveis.} $u(t)=\frac{t^2}{4}$ satisfaz a condição inicial, pois $u(0)=0$ e a equação diferencial pois $\frac{du}{dt}=\frac{t}{2}=\sqrt{\frac{t^2}{4}}$.
 
  De fato, qualquer função do tipo
- $$u(t)=\left\{
+ \begin{equation}u(t)=\left\{
  \begin{array}{ll}
   0,&0\leq t \leq t_0\\
   \frac{(t-t_0)^2}{4},& t >t_0\\
  \end{array}
- \right.$$
+ \right.\end{equation}
  é solução do problema de valor inicial dado.
 \end{resol}
 
@@ -138,7 +138,7 @@ Integrando \eqref{eq:EDO1} de $t^{(1)}$ até $t^{(2)}$, obtemos:
 \begin{eqnarray}
   \int_{t^{(1)}}^{t^{(2)}} u'(t) \;dt &=& \int_{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt\\
   u(t^{(2)})-u(t^{(1)})               &=& \int_{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt\\
-  u(t^{(1)})                      &=& u(t^{(1)}) +  \int _{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt
+  u(t^{(2)})                      &=& u(t^{(1)}) +  \int _{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt
 \end{eqnarray}
 
 Seja $u_n$ a aproximação de $u(t_n)$. Para obter o método numérico mais simples aproximamos $f$ em $[t^{(1)},t^{(2)}]$ pela função constante $f(t,u(t)) \approx  f(t^{(1)},u^{(1)})$,
@@ -497,10 +497,10 @@ A seguinte tabela resume os resultados obtidos:
 \end{exer}
 \begin{resp}
 % O esquema recursivo de Euler fica dado por:
-% \begin{eqnarray*}
+% \begin{eqnarray}
 %   u^{(k+1)}&=&u^{(k)}+h(-u^{(k)}+t^{(k)}),\\
 %   u^{(1)}&=&1.
-% \end{eqnarray*}
+% \end{eqnarray}
 \begin{center}
   \begin{tabular}{|c|c|c|c|}\hline
     $t$ &  Exato & Euler~~ $h=0,1$ & Euler~~ $h=0,01$\\\hline
@@ -521,16 +521,16 @@ A seguinte tabela resume os resultados obtidos:
  \end{equation}
 
 Depois compare com a solução exata dada por
-$$u(t)=\tan^{-1} \left( \frac {e^{2t}-1}{{2 e^t}}
+\begin{equation}u(t)=\tan^{-1} \left( \frac {e^{2t}-1}{{2 e^t}}
  \right).
-$$
+\end{equation}
 nos intantes $t=0$, $t=1$, $t=2$ e $t=3$.
 \end{exer}
 \begin{resp}
-%  \begin{eqnarray*}
+%  \begin{eqnarray}
 %   u^{(k+1)}&=&u^{(k)}+h\cos(u^{(k)})\\
 %   u^{(1)}&=&0
-% \end{eqnarray*}
+% \end{eqnarray}
 % Comparação:
 \begin{center}
   \begin{tabular}{|c|c|c|c|}\hline
@@ -629,13 +629,13 @@ Usando os seguinte passos: $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e 
 \end{equation}
 \end{exeresol}
 \begin{resol} Primeramente itentificamos $f(t,u)=-0,5u+2+t$ e construímos o processo iterativo do método de Euler melhorado:
-\begin{eqnarray*}
+\begin{eqnarray}
   k_1&=&  f(t^{(n)},u^{(n)})=-0,5u^{(n)}+2+t^{(n)}\\
   \tilde{u}&=& u^{(n)} + hk_1\\
   k_2&=&  f(t^{(n+1)},\tilde{u})=-0,5\tilde{u}+2+t^{(n+1)}\\
   u^{(n+1)}&=&u^{(n)} + h( k_1+k_2),~~n=1,2,3,\ldots\\
   u^{(1)}&=&8 ~~ \hbox{(condição inicial)}.
-\end{eqnarray*}
+\end{eqnarray}
 
 \ifisscilab
 O seguinte código pode ser usado para implementar no \verb+Scilab+ a recursão acima:
@@ -752,10 +752,10 @@ A seguinte tabela resume os resultados obtidos:
 \section{Solução de sistemas de equações diferenciais}\index{Sistemas de equações diferenciais}\label{sec:solsistema}
 
 Nas seções \ref{sec:euler} e \ref{sec:sec_euler_mod}, construimos dois métodos numéricos para resolver problemas de valor inicial. Nestas seções, sempre consideremos problemas envolvendo equações diferenciais ordinárias de primeira ordem, isto é:
-\begin{eqnarray*}
+\begin{eqnarray}
   u'(t)  &=& f(t,u(t)),~~t>t^{(1)} \\
   u(t^{(1)}) &=& a.
-\end{eqnarray*}
+\end{eqnarray}
 Estas técnicas podem ser diretamente estendidas para resolver numericamente problemas de valor inicial envolvendo sistemas de equações diferenciais ordinárias de primeira ordem, isto é:
 \begin{equation}\label{eq:exemplo_sistema}
   \begin{split}
@@ -772,7 +772,7 @@ Estas técnicas podem ser diretamente estendidas para resolver numericamente pro
   \end{split}
 \end{equation}
 O Problema~\eqref{eq:exemplo_sistema} pode ser escrito como um problema de primeira ordem envolvendo uma única incógnita, $u(t)$, dada como um vetor de funções $u_j(t)$, isto é:
-$$u(t)=\left[
+\begin{equation}u(t)=\left[
 \begin{array}{c}
  u_1(t)\\
  u_2(t)\\
@@ -780,14 +780,14 @@ $$u(t)=\left[
  \vdots\\
  u_n(t)
 \end{array}
-\right]$$
+\right]\end{equation}
 De forma que o Problema~\eqref{eq:exemplo_sistema} assuma a seguinte forma:
-\begin{eqnarray*}
+\begin{eqnarray}
   u'(t)  &=& f(t,u(t)),~~t>t^{(1)} \\
   u(t^{(1)}) &=& a.
-\end{eqnarray*}
+\end{eqnarray}
 onde
-$$f(t,u(t))=\left[
+\begin{equation}f(t,u(t))=\left[
 \begin{array}{c}
   f_1(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t))\\
   f_2(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t))\\
@@ -795,9 +795,9 @@ $$f(t,u(t))=\left[
   \vdots\\
   f^{(n)}(t,u_1(t), u_2(t), u_3(t),\ldots, u_n(t))\\
   \end{array}
-\right]$$
+\right]\end{equation}
 e
-$$a=\left[
+\begin{equation}a=\left[
 \begin{array}{c}
  a_1\\
  a_2\\
@@ -805,7 +805,7 @@ $$a=\left[
  \vdots\\
  a_n
 \end{array}
-\right]$$
+\right]\end{equation}
 
 Veja o  o Exemplo~\ref{eq:eq_exemplo_sistema}
 \begin{ex}\label{ex:exemplo_sistema_PVI}Considere o problema de resolver numericamente pelo método de Euler o seguinte sistema de equações diferenciais ordinárias com valores iniciais:
@@ -821,42 +821,42 @@ v(0)&=&0.
 Para aplicar o método de Euler a este sistema, devemos encarar as duas incógnitas do sistema como entradas de um vetor, ou seja, escrevemos:
  \begin{equation} u(t)=\left[\begin{array}{c}x(t)\\y(t)\end{array}\right]. \end{equation}
  e, portanto, o sistema pode ser escrito como:
-\begin{eqnarray*}
+\begin{eqnarray}
 \left[\begin{array}{c}x^{(k+1)}\\y^{(k+1)}\end{array}\right]=\left[\begin{array}{c}x^{(k)}\\y^{(k)}\end{array}\right]+h\left[\begin{array}{c}-y^{(k)}\\x^{(k)}\end{array}\right].
-\end{eqnarray*}
+\end{eqnarray}
 Observe que este processo iterativo é equivalente a discretiza as equações do sistema uma-a-uma, isto é:
-\begin{eqnarray*}
+\begin{eqnarray}
 x^{(k+1)}&=&x^{(k)}-hy^{(k)},\\
 y^{(k+1)}&=&y^{(k)}+hx^{(k)},\\
 x^{(1)}&=&1,\\
 y^{(1)}&=&0,\\
-\end{eqnarray*}
+\end{eqnarray}
 \end{ex}
 
 \subsection*{Exercícios Resolvidos}
 \begin{exeresol} Resolva pelo método de Euler melhorado o seguinte problema de valor inicial para aproximar o valor de $x$ e $y$ entre $t=0$ e $t=1$:
-\begin{eqnarray*}
+\begin{eqnarray}
 x'(t)&=&x(t)-y(t),\\
 y'(t)&=&x(t)-y(t)^3,\\
 u(0)&=&1.\\
 v(0)&=&0.
-\end{eqnarray*}
+\end{eqnarray}
 \end{exeresol}
 \begin{resol}
  Primeiramente, identificamos $u(t)$ como o vetor incógnita:
  \begin{equation} u(t)=\left[\begin{array}{c}x(t)\\y(t)\end{array}\right]. \end{equation}
 Depois aplicamos a recursão do método de Euler melhorado dada por:
- \begin{eqnarray*}
+ \begin{eqnarray}
 \tilde{u}^{(k+1)}&=&u^{(k)}+hf(t^{(k)},u^{(k)}),\\
 u^{(k+1)}&=&u^{(k)}+\frac{h}{2}\left(f(t^{(k)},u^{(k)})+f(t^{(k)},\tilde{u}^{(k)})\right),\\
-\end{eqnarray*}
+\end{eqnarray}
 isto é:
- \begin{eqnarray*}
+ \begin{eqnarray}
 \tilde{x}^{(k+1)}&=&x^{(k)}+h\left(x^{(k)}-y^{(k)}\right)\\
 \tilde{y}^{(k+1)}&=&y^{(k)}+h\left(x^{(k)}-{y^{(k)}}^3\right)\\
 {x}^{(k+1)}&=&x^{(k)}+\frac{h}{2}\left[\left({x}^{(k)}-{y}^{(k)}\right)+\left(\tilde{x}^{(k)}-\tilde{y}^{(k)}\right)\right]\\
 {y}^{(k+1)}&=&y^{(k)}+\frac{h}{2}\left[\left({x}^{(k)}-{{y}^{(k)}}^3\right)+ \left(\tilde{x}^{(k)}-\left.{\tilde{y}^{(k)}}\right.^3\right)\right]\\
- \end{eqnarray*}
+ \end{eqnarray}
 
  A tabela a seguir resume os resultados obtidos:
 
@@ -1005,57 +1005,57 @@ itmax=Tmax/h
 Na Seção~\ref{sec:solsistema}, estendemos os métodos de Euler e Euler melhorado visto nas seções \ref{sec:euler} e \ref{sec:sec_euler_mod} para resolver numericamente problemas de valor inicial envolvendo sistemas de equações diferenciais ordinárias de primeira ordem. Nesta seção, estenderemos estas técnicas para resolver alguns tipos de problemas de ordem superior. Para tal, converteremos a equação diferencial em um sistema, incluindo as derivadas da incógnita como novas incógnitas. Vejamos um exemplo:
 
 \begin{ex} Resolva o problema de valor inicial de segunda ordem dado por
-\begin{eqnarray*}
+\begin{eqnarray}
 y''+y'+y&=&\cos(t),\\
 y(0)&=&1,\\
 y'(0)&=&0,
-\end{eqnarray*}
+\end{eqnarray}
 A fim de transformar a equação diferencial dada em um sistema de equações de primeira ordem, introduzimos a substituição $w=y'$, de forma que obteremos o sistema:
-\begin{eqnarray*}
+\begin{eqnarray}
 y'&=&w\\
 w'&=&-w-y+\cos(t)\\
 y(0)&=&1\\
 w(0)&=&0
-\end{eqnarray*}
+\end{eqnarray}
 Este sistema pode ser resolvido usando as técnicas da Seção~\ref{sec:solsistema}.
 %Portanto, o método de Euler produz o seguinte processo iterativo:
-%\begin{eqnarray*}
+%\begin{eqnarray}
 %y^{(k+1)}&=&y^{(k)}+hw^{(k)},\\
 %w^{(k+1)}&=&w^{(k)}-hw^{(k)}-hy^{(k)}+h\cos(t^{(k)}),\\
 %y^{(1)}&=&1,\\
 %w^{(1)}&=&0.
-%\end{eqnarray*}
+%\end{eqnarray}
 \end{ex}
 
 \subsection*{Exercícios resolvidos}
 \begin{exeresol} Considere o seguinte sistema envolvendo uma equação de segunda ordem e uma de primeira ordem:
-\begin{eqnarray*}
+\begin{eqnarray}
 x''(t)-(1- 0,1 z(t))x'(t)+ x(t)&=&0\\
 10 z'(t)+z(t)&=&x(t)^2
-\end{eqnarray*}
+\end{eqnarray}
 sujeito a condições iniciais dadas por:
-\begin{eqnarray*}
+\begin{eqnarray}
 x(0)&=&3\\
 x'(0)&=&0\\
 z(0)&=&10\\
-\end{eqnarray*}
+\end{eqnarray}
 Rescreva este sistema como um sistema de três equações de primeira ordem.
 \end{exeresol}
 \begin{resol}
  Definimos $y(t)=x'(t)$, pelo que o sistema se torna:
-\begin{eqnarray*}
+\begin{eqnarray}
 x'(t)&=&y(t)\\
 y'(t)-(1- 0,1 z(t))y(t)+ x(t)&=&0\\
 10 z'(t)+z(t)&=&x(t)^2
-\end{eqnarray*}
+\end{eqnarray}
  defina o vetor $u(t)$ como:
-$$u(t)=\left[
+\begin{equation}u(t)=\left[
 \begin{array}{c}
  x(t)\\y(t)\\z(t)
 \end{array}
-\right]$$
+\right]\end{equation}
 De forma que:
-\begin{eqnarray*}
+\begin{eqnarray}
 u'(t)&=&\left[
 \begin{array}{c}
  x'(t)\\y'(t)\\z'(t)
@@ -1079,9 +1079,9 @@ u'(t)&=&\left[
  \left[u_1(t)^2-u_3(t)\right]/10
 \end{array}
 \right]
-\end{eqnarray*}
+\end{eqnarray}
 sujeito às condições iniciais dadas por:
-\begin{eqnarray*}
+\begin{eqnarray}
 u'(0)&=&\left[
 \begin{array}{c}
  x'(0)\\y'(0)\\z'(0)
@@ -1091,7 +1091,7 @@ u'(0)&=&\left[
 3\\0\\10
 \end{array}
 \right]
-\end{eqnarray*}
+\end{eqnarray}
 
 \end{resol}
 
@@ -1099,12 +1099,12 @@ u'(0)&=&\left[
 \subsection*{Exercícios}
 
 \begin{exer}Resolva o problema de valor inicial dado por
-\begin{eqnarray*}
+\begin{eqnarray}
 x'&=& -2x + \sqrt{y}\\
 y'&=& x - y\\
 x(0)&=&0\\
 y(0)&=&2\\
-\end{eqnarray*}
+\end{eqnarray}
 com passo $h=2\cdot 10^{-1}$ $h=2\cdot 10^{-2}$, $h=2\cdot 10^{-3}$ e $h=2\cdot 10^{-4}$ para obter aproximações para $x(2)$ e $y(2)$.
 \end{exer}
 \begin{resp}
@@ -1129,14 +1129,14 @@ com passo $h=2\cdot 10^{-1}$ $h=2\cdot 10^{-2}$, $h=2\cdot 10^{-3}$ e $h=2\cdot 
 \end{resp}
 
 \begin{exer} Considere o problema de segunda order dado por:
-\begin{eqnarray*}
+\begin{eqnarray}
  x''(t)+x'(t)+\sin(x(t))=1,
-\end{eqnarray*}
+\end{eqnarray}
 sujeito às condições iniciais dadas por:
-\begin{eqnarray*}
+\begin{eqnarray}
 x(0)&=&2,\\
 x'(0)&=&0.
-\end{eqnarray*}
+\end{eqnarray}
 Resolva numericamente para obter o valor de $x(0,5)$, $x(1)$, $x(1,5)$ e $x(2)$ com passo $h=10^{-2}$ e $h=10^{-3}$ via método de Euler modificado.
 \end{exer}
 
@@ -1189,9 +1189,9 @@ Partimos da construção do esquema iterativo de Euler melhorado:
   u(t^{(2)})                      &=& u(t^{(1)}) +  \int _{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt
 \end{eqnarray}
 Neste ponto, usamos o erro de truncamento do método de trapézios para aproximar a integral envolvida:
-\begin{eqnarray*}
+\begin{eqnarray}
 \int _{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt = \frac{h}{2}\left[f\left(t^{(1)},u(t^{(1)})\right) + f\left(t^{(2)},u(t^{(2)})\right)\right] + O(h^3)
-\end{eqnarray*}
+\end{eqnarray}
 Assim, temos que o erro de truncamento local do método de Euler melhorado é $O(h^3)$ e, portanto, um método de ordem 2.
 \end{ex}
 
@@ -1204,10 +1204,10 @@ Assim, temos que o erro de truncamento local do método de Euler melhorado é $O
 \construirExer
 
 \begin{exer}Aplique o método de Euler e o método de Euler melhorado para resolver o problema de valor inicial dado por
-\begin{eqnarray*}
+\begin{eqnarray}
 u'&=& -2u + \sqrt{u}\\
 u(0)&=&1
-\end{eqnarray*}
+\end{eqnarray}
 com passo $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e $h=10^{-5}$ para obter aproximações para $u(1)$. Compare com a solução exata dada do problema dada por $u(t) =  \left({1+2 e^{-t}+e^{-2 t}}\right)/{4}$ através do erro relativo e observe a ordem de precisão do método.
 \end{exer}
 \begin{resp}
@@ -1232,10 +1232,10 @@ A solução exata vale $u(1)=\frac{1+2e^{-1}+e^{-2}}{4}= \left(\frac{1+e^{-1}}{2
 
 
 \begin{exer}Resolva o problema de valor inicial dado por
-\begin{eqnarray*}
+\begin{eqnarray}
 u'&=& \cos(tu(t))\\
 u(0)&=&1\\
-\end{eqnarray*}
+\end{eqnarray}
 com passo $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e $h=10^{-5}$ para obter aproximações para $u(2)$
 \end{exer}
 \begin{resp}
@@ -1325,11 +1325,11 @@ Na tabela mais à direita, omitimos os termos obrigatoriamente nulos.
 \end{center}
 
 \begin{ex} O método de Euler modificado pode ser escrito conforme:
-\begin{eqnarray*}
+\begin{eqnarray}
  \tilde{u}_1 &=& u^{(n)}\\
  \tilde{u}_2 &=& u^{(n)} + h k_1\\
  u^{(n+1)} &=& u^{(n)} + h \left[\frac{1}{2}k_1+\frac{1}{2}k_2\right]\\
-  \end{eqnarray*}
+  \end{eqnarray}
 Identificando os coeficientes, obtemos $\nu=2$, $c_1=0$, $c_2=1$, $a_{21}=1$, $b_1=\frac{1}{2}$ e $b_2=\frac{1}{2}$. Escrevendo na forma tabular, temos:
 \begin{center}
 \begin{tabular}{c|cc}
@@ -1471,14 +1471,14 @@ Seguindo um procedimento similar ao da Seção~\ref{eq:RK_2_subsec}, podemos obt
   a_{31}+a_{32}		&=& c_3.			\label{eq:cond_euler_3est:6}
 \end{eqnarray}
 Assim, temos 6 condições para determinar 8 incógnitas, o que implica a existência de uma enorme família de métodos de Runge-Kutta com três estágios e ordem $p=3$. Se fixarmos os coeficientes $c_2$ e $c_3$, podemos os outros de forma única:
-\begin{eqnarray*}
+\begin{eqnarray}
  b_1&=&1-\frac{1}{2c_2}-\frac{1}{2c_3}+\frac{1}{3c_2c_3}\\
  b_2&=&\frac{3c_3-2}{6c_2(c_3-c_2)}\\
  b_3&=&\frac{2-3c_2}{6c_3(c_3-c_2)}\\
  a_{21}&=&c_2\\
  a_{31}&=&c_3-\frac{1}{6b_3c_2}\\
  a_{32}&=&\frac{1}{6b_3c_2}
-\end{eqnarray*}
+\end{eqnarray}
 
 
  Alguns exemplos de métodos de Runge-Kutta de 3 estágios são o método clássico de Runge-Kutta $\left(c_2=\frac{1}{2}\hbox{ e } c_3=1\right)$ e o método de Nyström $\left(c_2=c_3=\frac{2}{3}\right)$:
@@ -1519,20 +1519,20 @@ As técnicas utilizadas nas seções \ref{eq:RK_2_subsec}  e \ref{sec:RK_3_subse
 \end{center}
 
 O método de Runge-Kutta clássico é certamente o mais notório dos métodos de Runge-Kutta e seu esquema iterativo pode ser escrito como a seguir:
-\begin{eqnarray*}
+\begin{eqnarray}
 k_1&=&hf\left(t^{(n)},u^{(n)}\right)\\
 k_2&=&hf\left(t^{(n)}+h/2,u^{(n)}+hk_1/2\right)\\
 k_3&=&hf\left(t^{(n)}+h/2,u^{(n)}+hk_2/2\right)\\
 k_4&=&hf\left(t^{(n)}+h,u^{(n)}+hk_3\right)\\
 u^{(n+1)}&=&u^{(n)}+\frac{k_1+2k_2+2k_3+k_4}{6}
-\end{eqnarray*}
+\end{eqnarray}
 A seguinte heurística, usando o método de Simpson para quadratura numérica, pode ajudar a compreender os estranhos coeficientes:
-\begin{eqnarray*}
+\begin{eqnarray}
 u({t^{(n+1)}})-u({t^{(n)}})&=&\int_{t^{(n)}}^{t^{(n+1)}}f(t,u(s))ds \\
 &\approx& \frac{h}{6}\left[ f\left(t^{(n)},u(t^{(n)})\right)+4f\left(t^{(n)}+h/2,u(t^{(n)}+h/2)\right)\right.\\
 &+&\left.f\left(t^{(n)}+hu(t^{(n)}+h)\right)\right]\\
 &\approx& h\frac{k_1+4(\frac{k_2+k_3}{2})+k_4}{6}
-\end{eqnarray*}
+\end{eqnarray}
 onde $k_1$ e $k_4$ representam os valores de $f(t,u)$ nos extremos; $k_2$ e $k_3$ são duas aproximações diferentes para a inclinação no meio do intervalo.
 
 \subsection*{Exercícios resolvidos}
@@ -1547,19 +1547,19 @@ onde $k_1$ e $k_4$ representam os valores de $f(t,u)$ nos extremos; $k_2$ e $k_3
 
 \end{exeresol}
 \begin{resol}
- \begin{eqnarray*}
+ \begin{eqnarray}
     k_1&=&f\left(t^{(n)},u^{(n)}\right)\\
     k_2&=&f\left(t^{(n)}+h/2,u^{(n)}+k_1/2\right)\\
     k_3&=&f\left(t^{(n)}+h,u^{(n)}-k_1+2k_2\right)\\
   u^{(n+1)}&=&u^{(n)}+h\frac{k_1+4k_2+k_4}{6}
- \end{eqnarray*}
+ \end{eqnarray}
 \end{resol}
 
 \begin{exeresol} Utilize o método clássico de Runge-Kutta três estágios para calcular o valor de $u(2)$ com passos $h=10^{-1}$ e $h=10^{-2}$ para o seguinte problema de valor inicial:
-\begin{eqnarray*}
+\begin{eqnarray}
  u'(t)&=& -u(t)^2 + t,\\
  u(0) &=&0.
-\end{eqnarray*}
+\end{eqnarray}
 \ifisscilab
 Aplicando o processo iterativo obtido no Problema Resolvido~\ref{exeresol:problema_resolvido_RK3}, obtemos a seguinte rotina:
 \begin{verbatim}
@@ -1674,10 +1674,10 @@ print(sol[itmax])
     & $\frac{1}{4}$ & $\frac{3}{4}$
 \end{tabular}
 para resolver o problema de valor inicial dado por:
-\begin{eqnarray*}
+\begin{eqnarray}
 x'(t)&=&\sin(x(t)),\\
 x(0)&=&2.
-\end{eqnarray*}
+\end{eqnarray}
 para $t=2$ com $h=1e-1$, $h=1e-2$ e $h=1e-3$. Expresse sua resposta com oito dígitos significativos corretos.
 \end{exer}
 \begin{resp}
@@ -1729,10 +1729,10 @@ $\varepsilon_{rel}$ & 2,8e-04 & 1,9e-08 & 1,9e-12 & 1,3e-15\\
 
 
 \begin{exer}Aplique o método de Euler, o método de Euler melhorado, o método clássico de Runge-Kutta três estágios e o método clássico de Runge-Kutta quatro estágios para resolver o problema de valor inicial dado por
-\begin{eqnarray*}
+\begin{eqnarray}
 u'&=& u + t\\
 u(0)&=&1
-\end{eqnarray*}
+\end{eqnarray}
 com passo $h=1$, $h=10^{-1}$, $h=10^{-2}$ e $h=10^{-3}$  para obter aproximações para $u(1)$. Compare com a solução exata dada do problema dada por $u(t) =  2e^t-t-1$ através do erro relativo e observe a ordem de precisão do método. Expresse a sua resposta com oito dígitos significativos para a solução e 2 dígitos significativos para o erro relativo.
 \end{exer}
 \begin{resp}
@@ -1809,15 +1809,15 @@ u'(t)&=& \lambda u(t) \\
 u(0)&=&1
 \end{eqnarray}
 A relação de recorrência do método de Euler implícito é dado por:
-\begin{eqnarray*}
+\begin{eqnarray}
  y^{(n+1)}&=&y^{(n)} h\lambda y^{(n+1)}\\
  y^{(1)}&=&1
-\end{eqnarray*}
+\end{eqnarray}
 Isolando a $y^{(n+1)}$ na primeira equação, obtemos o processo iterativo dado por:
-\begin{eqnarray*}
+\begin{eqnarray}
  y^{(n+1)}&=&\frac{y^{(n)}}{1-\lambda h}\\
  y^{(1)}&=&1
-\end{eqnarray*}
+\end{eqnarray}
 \end{ex}
 
 
@@ -1836,9 +1836,9 @@ para obter:
   u(t^{(2)})                      &=& u(t^{(1)}) +  \int _{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt
 \end{eqnarray}
 Exatamente como no método de Euler melhorado, aplicamos a regra do trapézio (ver \ref{sec:trapezio}) à integral envolvida no lado direito da expressão, isto é:
-\begin{eqnarray*}
+\begin{eqnarray}
 \int _{t^{(1)}}^{t^{(2)}} f(t,u(t)) \; dt = \left[\frac{f\left(t^{(1)},u(t^{(1)})\right)+f\left(t^{(2)},u(t^{(2)})\right)}{2}\right]h + O(h^3)
-\end{eqnarray*}
+\end{eqnarray}
 onde $h=t^{(2)}-t^{(1)}$.
 
 Repetindo este procedimento para cada $n$, obtemos o esquema iterativo do método trapezoidal:
@@ -1854,15 +1854,15 @@ u'(t)&=& \lambda u(t) \\
 u(0)&=&1
 \end{eqnarray}
 onde $\lambda$ é uma constante. A relação de recorrência do método de Euler trapezoidal é dado por:
-\begin{eqnarray*}
+\begin{eqnarray}
  y^{(n+1)}&=&y^{(n)}-\frac{\lambda h}{2} \left[y^{(n+1)}+y^{(n)}\right]\\
  y^{(1)}&=&1
-\end{eqnarray*}
+\end{eqnarray}
 Isolando a $y^{(n+1)}$ na primeira equação, obtemos o processo iterativo dado por:
-\begin{eqnarray*}
+\begin{eqnarray}
  y^{(n+1)}&=&\frac{1+ \lambda h/2}{1-\lambda h/2}y^{(n)}\\
  y^{(1)}&=&1
-\end{eqnarray*}
+\end{eqnarray}
 \end{ex}
 
 \subsection{O método theta}
@@ -1877,10 +1877,10 @@ Observe que quando $\theta =1$, a relação recai no método de Euler, quando $\
 
 \begin{exeresol}
  Considere o problema de valor inicial dado por:
- \begin{eqnarray*}
+ \begin{eqnarray}
   y'(t)&=&y(t)\left(1-y(t)\right),\\
   y(0)&=&\frac{1}{2}.
- \end{eqnarray*}
+ \end{eqnarray}
 Construa a recursão via método de Euler implícito e explicite o termo $y^{(n+1)}$.
 \end{exeresol}
 \begin{resol}
@@ -1891,13 +1891,13 @@ Construa a recursão via método de Euler implícito e explicite o termo $y^{(n+
  Usando a fórmula da equação quadrática temos:
  \begin{equation} y^{(n+1)}= \frac{-(1-h)\pm \sqrt{(1-h)^2+4hy^{(n)}}}{2h} \end{equation}
 Como a condição inicial é positiva, é fácil ver que $y(t)>0$ para todo $t$ e, portanto:
- \begin{eqnarray*}
+ \begin{eqnarray}
 y^{(n+1)}&=& \frac{-(1-h)+ \sqrt{(1-h)^2+4hy^{(n)}}}{2h}\\
 &=&  (1-h) \frac{-1+ \sqrt{1+ \frac{4hy^{(n)}}{(1-h)^2} }}{2h}\\
 &=&  \frac{(1-h)}{2h} \left[\sqrt{1+ \frac{4hy^{(n)}}{(1-h)^2} }-1\right]\\
 &=&  \frac{(1-h)}{2h} \frac{4hy^{(n)}}{(1-h)^2} \frac{1}{\left[\sqrt{1+ \frac{4hy^{(n)}}{(1-h)^2} }+1\right]}\\
 &=&  \frac{2}{(1-h)} \ \frac{1}{\left[1+\sqrt{1+ \frac{4hy^{(n)}}{(1-h)^2} }\right]}y^{(n)}\\
- \end{eqnarray*}
+ \end{eqnarray}
 \end{resol}
 
 \subsection*{Exercícios}
@@ -1922,9 +1922,9 @@ onde usamos a regra da cadeida para obter:
 
 
 O método de Taylor de ordem $3$ é
-\begin{eqnarray*}
+\begin{eqnarray}
    u^{(n+1)}=u^{(n)} +h f(t^{(n)},u^{(n)})+ \frac{h^2}{2!}\frac{d f}{d t}(t^{(n)},u^{(n)})+\frac{h^3}{3!}\frac{d^2 f}{d t^2}(t^{(n)},u^{(n)})
-\end{eqnarray*}
+\end{eqnarray}
 
 \subsection*{Exercícios resolvidos}
 
@@ -1978,10 +1978,10 @@ Observe que a integral envolvida no cálculo dos coeficientes $\beta_j$ em \eqre
 
 
 \begin{ex} Calcule os coeficientes de Adams-Bashforth para $s=2$ e, depois, construa seu processo iterativo.
- \begin{eqnarray*}
+ \begin{eqnarray}
   \beta_0&=&-\int_0^1 (\tau+2-1-1)d\tau=-\frac{1}{2}\\
   \beta_1&=&\int_0^1 (\tau+2-0-1)d\tau=\frac{3}{2}
- \end{eqnarray*}
+ \end{eqnarray}
  O processo iterativo é dado por:
  \begin{equation}
   y^{(n+2)}=y^{(n)}+\frac{h}{2}\left[3f\left(t^{(n+1)},u(t^{(n+1)})\right)-f\left(t^{(n)},u(t^{(n)})\right)\right]
@@ -1990,11 +1990,11 @@ Observe que a integral envolvida no cálculo dos coeficientes $\beta_j$ em \eqre
 
 
 \begin{ex} Calcule os coeficientes e de Adams-Bashforth para $s=3$ e, depois, construa o processo iterativo.
- \begin{eqnarray*}
+ \begin{eqnarray}
   \beta_0&=&\frac{1}{2}\int_0^1 {(\tau+3-1-1)}\cdot {(\tau+3-2-1)} d\tau=\frac{5}{12}\\
   \beta_1&=&-\int_0^1 {(\tau+3-0-1)}\cdot {(\tau+3-2-1)} d\tau=-\frac{4}{3}\\
   \beta_2&=&\frac{1}{2}\int_0^1 {(\tau+3-0-1)}\cdot {(\tau+3-1-1)} d\tau=\frac{23}{12}
- \end{eqnarray*}
+ \end{eqnarray}
  O processo iterativo é dado por:
  \begin{equation}
   y^{(n+3)}=y^{(n)}+\frac{h}{12}\left[23f\left(t^{(n+2)},u(t^{(n+2)})\right)-16f\left(t^{(n+1)},u(t^{(n+1)})\right)+5f\left(t^{(n)},u(t^{(n)})\right)\right]
@@ -2016,12 +2016,12 @@ Para isso devemos obter $[b_3,b_2,b_1,b_0]$ tal que o método seja exato para po
 Supondo que os nós $t^{(k)}$ estejam igualmente espaçados, e para facilidade dos cálculos, como o intervalo de integração é $[t^{(n+3)},t^{(n+4)}]$, translade $t^{(n+3)}$ para a origem tal que $[t^{(n)},t^{(n+1)},\ldots ,t^{(n+4)}]=[-3h,-2h,-h,0,h]$.
 
 Considere a base $[1, t, t^2, t^3]$ e substitua $f(t)$ por cada um dos elementos desta basa, obtendo:
-\begin{eqnarray*}
+\begin{eqnarray}
   \int _0^{h} 1  \;dt = h             &=& h\left[ b_0(1)  +b_1(1)    + b_2(1)   + b_3(1)    \right]\\
   \int _0^{h} t  \;dt = \frac{h^2}{2}  &=& h\left[ b_0(0)  +b_1(-h)   + b_2(-2h) + b_3(-3h)  \right]\\
   \int _0^{h} t^2 \;dt = \frac{h^3}{3}  &=& h\left[b_0(0)^2 +b_1(-h)^2  + b_2(-2h)^2+ b_3(-3h)^2 \right]\\
   \int _0^{h} t^3 \;dt = \frac{h^4}{4} &=& h\left[ b_0(0)^3 +b_1(-h)^3  + b_2(-2h)^3+ b_3(-3h)^3 \right]
-\end{eqnarray*}
+\end{eqnarray}
 que pode ser escrito na forma matricial
 \begin{eqnarray}
 \left(
@@ -2068,10 +2068,10 @@ A tabela abaixo mostra as coeficientes do método de Adams-Bashforth para até 8
 
 \subsection*{Exercícios resolvidos}
 \begin{exeresol}\label{exeresol:Adams_Bashforth:prob1} Resolva numericamente o problema de valor inicial dado por:
-\begin{eqnarray*}
+\begin{eqnarray}
  y'(t)&=& \sqrt{1+y(t)}\\
  y(0)&=& 0
-\end{eqnarray*}
+\end{eqnarray}
 aplicando o método de Adams-Bashforth de dois passos e inicializando o método através do método de Euler modificado. Calcule o valor de $y(1)$ com passo de tamanho $h=0,1$.
 \end{exeresol}
 \begin{resol}
@@ -2080,13 +2080,13 @@ Primeiro observamos que o processo resursivo do método de Adams é dado por:
   y^{(n+2)}=y^{(n+1)}+\frac{h}{2}\left[3f\left(t^{(n+1)},u(t^{(n+1)})\right)-f\left(t^{(n)},u(t^{(n)})\right)\right],~n=1,2,\ldots
  \end{equation}
 O valor inicial é dado por $y^{(1)}=0$. No entanto, para inicializar o método, precisamos calcular $y^{(2)}$, para tal, aplicamos o método de Euler modificado:
-\begin{eqnarray*}
+\begin{eqnarray}
  k_1&=&\sqrt{1+0}=1\\
  k_2&=&\sqrt{1+0,1}=\sqrt{1,1}\approx 1,0488088 \\
  y^{(2)}&=& \frac{0,1}{2}\left(1+1,0488088 \right)=0,10244044
-  \end{eqnarray*}
+  \end{eqnarray}
 Aplicando o método de Adams-Bashforth, obtemos:
-  \begin{eqnarray*}
+  \begin{eqnarray}
  y^{(1)}&=&0\\
  y^{(2)}&=&0,10244044\\
  y^{(3)}&=&0,20993619\\
@@ -2098,7 +2098,7 @@ Aplicando o método de Adams-Bashforth, obtemos:
  y^{(9)}&=&0,95991874\\
  y^{(10)}&=&1,10241584\\
  y^{(11)}&=&1,24991294
-  \end{eqnarray*}
+  \end{eqnarray}
 \end{resol}
 
 \ifispython
@@ -2149,10 +2149,10 @@ print u
 O método de Adams-Moulton, assim como o método de Adams-Bashforth, é um método de passo múltiplo. A diferença entre estes dois métodos é que Adams-Bashforth é explícito, enquanto Adams-Moulton é implícito, isto é, os valores de $f\left(t,u)\right)$, nos passos $n$, $n+1$, ..., $n+s-1$ e, inclusive, $n+s$ são utilizados ao calcular $f$ em $t^{(n+s)}$.
 
 Considere o problema de valor inicial
-\begin{eqnarray*}
+\begin{eqnarray}
   u'(t) &= f(t,u(t)) \\
   u(t_0) &= a
-\end{eqnarray*}
+\end{eqnarray}
 
 Integrando a equação diferencial no intervalo $[t^{(n+s-1)},t^{(n+s)}]$, obtemos:
 \begin{equation}\label{eq:mpm2a}
@@ -2171,11 +2171,11 @@ onde
 \beta_j= \frac{1}{h}\int_{t^{(n+s-1)}}^{t^{(n+s)}} \prod_{k=0,k\neq j}^{s} \frac{t-t^{(n+k)}}{t^{(n+j)}-t^{(n+k)}}dt
 \end{equation}
 Aplicando a mudança de variáveis $t=t^{(n+s-1)}+h\tau$, temos:
-\begin{eqnarray*}\label{eq:betaj_m}
+\begin{eqnarray}\label{eq:betaj_m}
 \beta_j&=& \int_0^1 \prod_{k=0,k\neq j}^{s} \frac{\tau+s-k-1}{j-k}dt\\
 &=& \frac{(-1)^{s-j}}{j!(s-j)!}\int_{0}^{1} \prod_{k=0,k\neq j}^{s}(\tau+s-k-1)d\tau\\
 &=& \frac{(-1)^{s-j}}{j!(s-j)!}\int_{0}^{1} \prod_{k=0,k\neq s-j-1}^{s}(\tau+k-1)d\tau
-\end{eqnarray*}
+\end{eqnarray}
 
 Assim, obtemos a relação de recorrência:
 \begin{eqnarray}\label{eq:mam}
@@ -2198,12 +2198,12 @@ Para isso devemos obter $[b_3,b_2,b_1,b_0]$ tal que o método seja exato para po
 Supondo que os nós $t_k$ estejam igualmente espaçados, e para facilidade dos cálculos, como o intervalo de integração é $[t^{(n+2)},t^{(n+3)}]$, translade $t^{(n+2)}$ para a origem tal que $[t^{(n)},t^{(n+1)},\ldots ,t^{(n+3)}]=[-2h,-h,0,h]$.
 
 Considere a base $[1, t, t^2, t^3]$ e substitua $f(t)$ por cada um dos elementos da base,obtendo:
-\begin{eqnarray*}
+\begin{eqnarray}
       \int _0^{h} 1  \;dt = h             &= h( b_0(1)  +b_1(1)   + b_2(1)   + b_3(1)    )\\
       \int _0^{h} t  \;dt = \frac{h^2}{2}  &= h( b_0(h)  +b_1(0)   + b_2(-h) + b_3(-2h)  )\\
       \int _0^{h} t^2 \;dt = \frac{h^3}{3}  &= h( b_0(h)^2 +b_1(0)^2  + b_2(-h)^2+ b_3(-2h)^2 )\\
       \int _0^{h} t^3 \;dt = \frac{h^4}{4} &= h( b_0(h)^3 +b_1(0)^3  + b_2(-h)^3+ b_3(-2h)^3 )
-\end{eqnarray*}
+\end{eqnarray}
 que pode ser escrito na forma matricial
 \begin{eqnarray}
 \left(
@@ -2254,10 +2254,10 @@ A tabela abaixo mostra as coeficientes do método de Adams-Moulton para até oit
 
 \subsection*{Exercícios resolvidos}
 \begin{exeresol} Resolva o problema de valor inicial dado por:
-\begin{eqnarray*}
+\begin{eqnarray}
  u'(t)&=& -2u(t) + te^{-t}\\
  u(0)&=&-1
-\end{eqnarray*}
+\end{eqnarray}
 via Adams-Moulton com $s=2$ (três passos) com $h=0,1$ e $h=0,01$ e compare com a solução exata dada por $u(t)=(t-1)e^{-t}$ nos instantes $t=1$ e $t=2$. Inicialize com Euler modificado.
 
  \end{exeresol}
@@ -2267,15 +2267,15 @@ via Adams-Moulton com $s=2$ (três passos) com $h=0,1$ e $h=0,01$ e compare com 
   u^{(n+2)}=u^{(n+1)}+\frac{h}{12}\left[5f\left(t^{(n+2)},u(t^{(n+2)})\right)+8f\left(t^{(n+1)},u(t^{(n+1)})\right)-f\left(t^{(n)},u(t^{(n)})\right)\right]
  \end{equation}
  de forma que:
- \begin{eqnarray*}
+ \begin{eqnarray}
   u^{(n+2)}&=&u^{(n+1)}+\frac{h}{12}\left[8f\left(t^{(n+1)},u(t^{(n+1)})\right)-f\left(t^{(n)},u(t^{(n)})\right)\right]+\frac{5h}{12}f\left(t^{(n+2)},u(t^{(n+2)})\right)\\
   &=&u^{(n)}+\frac{h}{12}\left[8f^{(n+1)}-f^{(n)}\right]+\frac{5h}{12}\left(t^{(n+2)}e^{t^{(n+2)}} -2 u(t^{(n+2)})\right)
-   \end{eqnarray*}
+   \end{eqnarray}
  Assim:
- \begin{eqnarray*}
+ \begin{eqnarray}
   \left(1+\frac{5h}{6}\right)u^{(n+2)}
   &=&u^{(n+1)}+\frac{h}{12}\left[8f^{(n+1)}-f^{(n)}\right]+\frac{5h}{12}t^{(n+2)}e^{-t^{(n+2)}}
-  \end{eqnarray*}
+  \end{eqnarray}
 
  Os valores obtidos são:
 
@@ -2411,10 +2411,10 @@ endfunction
 
 
 \begin{exeresol}\label{exeresol:Adams_Moulton:prob1} Repita o Problema~\ref{exeresol:Adams_Bashforth:prob1} pelo método de Adams-Moulton, isto, é  resolva numericamente o problema de valor inicial dado por:
-\begin{eqnarray*}
+\begin{eqnarray}
  y'(t)&=& \sqrt{1+y(t)},\\
  y(0)&=& 0,
-\end{eqnarray*}
+\end{eqnarray}
 aplicando o método de Adams-Moulton de dois passos. Calcule o valor de $y(1)$ com passo de tamanho $h=0,1$.
 \end{exeresol}
 \begin{resol}
@@ -2427,7 +2427,7 @@ O valor inicial é dado por $y^{(1)}=0$. Primeiramente, precisamos isolar $y^{(x
   y^{(n+1)}=y^{(n)}+\frac{h}{8} \sqrt {{h}^{2}+16+16y^{(n)}+8h\sqrt {1+y^{(n)}}} +\frac{h}{2}\sqrt {1+y^{(n)}}+\frac{h^2}{8},~n=1,2,\ldots
  \end{equation}
 
-  \begin{eqnarray*}
+  \begin{eqnarray}
  y^{(1)}&=&0\\
  y^{(2)}&=&0,1025\\
 y^{(3)}&=&0,21\\
@@ -2439,26 +2439,26 @@ y^{(8)}&=&0,8225\\
 y^{(9)}&=&0,96\\
 y^{(10)}&=&1,1025\\
 y^{(11)}&=&1,25
-\end{eqnarray*}
+\end{eqnarray}
 
 \end{resol}
 
 
 \begin{exeresol}\label{exeresol:exersol_moulton_nl} Resolva o problema de valor inicial dado por
-\begin{eqnarray*}
+\begin{eqnarray}
  y'(t)&=& y^3-y+t,\\
  y(0)&=& 0,
-\end{eqnarray*}
+\end{eqnarray}
 aplicando o método de Adams-Moulton de dois passos. Calcule o valor de $y(1)$ com passo de tamanho $h=0,1$ e $h=0,01$.
 Primeiro observamos que o processo resursivo do método de Adams é dado por:
-\begin{eqnarray*}
+\begin{eqnarray}
   y^{(n+1)}&=&y^{(n)}+\frac{h}{2}\left[f\left(t^{(n+1)},u(t^{(n+1)})\right)+f\left(t^{(n)},u(t^{(n)})\right)\right],~n=1,2,\ldots,\\
   y^{(1)}&=&0
- \end{eqnarray*}
+ \end{eqnarray}
 Observamos que o problema de isolar $y^{(n+1)}$ pode ser escrito como
-\begin{eqnarray*}
+\begin{eqnarray}
   y^{(n+1)}-\frac{h}{2}f\left(t^{(n+1)},u(t^{(n+1)})\right) &=&y^{(n)}+\frac{h}{2}f\left(t^{(n)},u(t^{(n)})\right)
- \end{eqnarray*}
+ \end{eqnarray}
 O termo da esquerda é uma expressão não linear em $y^{(n+1)}$ e o termo da direita é conhecido, isto é, pode ser calculado com base nos valores anteriormente calculados. Devemos, então, escolher um método numérico de solução de equações algébricas não lineares (veja capítulo~\ref{cap:equacao1d}) como o método de Newton visto na Seção~\ref{sec:metodo_newton_1d} para resolver uma equação do tipo:
 \begin{equation} u-\frac{h}{2}f(t^{(n+1)},u)=a, \end{equation}
 isto é:
@@ -2588,9 +2588,9 @@ Encontre o método de Adams-Moulton para $s=1$.
 %
 %
 % O método de Taylor de ordem $3$ é
-% \begin{eqnarray*}
+% \begin{eqnarray}
 %    u_{n+1}=u^{(n)} +h f(t^{(n)},u^{(n)})+ \frac{h^2}{2!}\frac{\partial f}{\partial t}(t^{(n)},u^{(n)})+\frac{h^3}{3!}\frac{\partial^2 f}{\partial t^2}(t^{(n)},u^{(n)})
-% \end{eqnarray*}
+% \end{eqnarray}
 %
 % \subsection*{Exercícios resolvidos}
 %
@@ -2644,16 +2644,16 @@ Encontre o método de Adams-Moulton para $s=1$.
 
 \section{Método de Adams-Moulton para sistemas lineares}
 Esquemas implícitos como o de Adams-Moulton apresentam a dificuldade adicional de necessitar do valor de $f(t^{(n+1)},u^{(n+1)})$ para calcular o valor de $u^{(n+1)}$. Pelo menos para sistemas lineares, o método pode ser explicitado. Seja o seguinte problema de valor inicial linear:
-\begin{eqnarray*}
+\begin{eqnarray}
  u'(t)&=& Au(t) + g(t),\\
  u(t^{(1)}) &=& a.
-\end{eqnarray*}
+\end{eqnarray}
 Onde $u(t)$ é um vetor de n entradas e $A$ é uma matriz $n\times n$.
 
 Considere agora o esquema de Adams-Moulton dado na Equação~\eqref{eq:mam} com $f(t,u)=Au+g(t)$:
-\begin{eqnarray*}
+\begin{eqnarray}
   u^{(n+s)}  &=& u^{(n+s-1)}  + h\sum_{j=0}^{s}\beta_j \left[Au^{(n+j)} + g(t^{(n+j)})\right]
-\end{eqnarray*}
+\end{eqnarray}
 o que pode ser escrito como:
 \begin{eqnarray}
   \left(I_d-h\beta_s A\right)u^{(n+s)}  &=& u^{(n+s-1)}  + h\sum_{j=0}^{s-1}\beta_j \left[Au^{(n+j)}+ g(t^{(n+j)})\right]\nonumber\\
@@ -2675,68 +2675,68 @@ Esquemas implícitos como o de Adams-Moulton (Seção~\ref{sec:Adams_Moulton}) e
 Os métodos do tipo preditor-corretor empregam um esquema explícito para \emph{predizer} o valor de $u^{(n+1)}$ e, depois, um método implícito para recalcular, isto é, \emph{corrigir} $u^{(n+1)}$.
 
 \begin{ex} Considere o método de Euler implícito (ver \ref{sec:euler_imp}) aplicado para resolver  o problema de valor inicial
-\begin{eqnarray*}
+\begin{eqnarray}
   u'(t)  &=& f(t,u(t)) \\
   u(t^{(1)}) &=& a
-\end{eqnarray*}
+\end{eqnarray}
 cujo processo iterativo é dado por
-\begin{eqnarray*}
+\begin{eqnarray}
 u^{(n+1)}=u^{(n)} + h f(t^{(n+1)},u^{(n+1)}).
-\end{eqnarray*}
+\end{eqnarray}
 Agora aplicamos o método de Euler (ver \ref{sec:euler}) para predizer $u^{(n+1)}$:
-\begin{eqnarray*}
+\begin{eqnarray}
 u^{(n+1)}=u^{(n)} + h f(t^{(n)},u^{(n)}).
-\end{eqnarray*}
+\end{eqnarray}
 E agora, retornamos ao método de Euler implícito:
-\begin{eqnarray*}
+\begin{eqnarray}
 u^{(n+1)}=u^{(n)} + h f(t^{(n+1)},\tilde{u}^{(n+1)}).
-\end{eqnarray*}
+\end{eqnarray}
 Desta forma, a estratégia preditor-corretor aplicada ao método de Euler implícito com predição via método de Euler produz o método de Euler melhorado, ver \ref{sec:sec_euler_mod}, isto é:
-\begin{eqnarray*}
+\begin{eqnarray}
 \tilde{u}^{(n+1)}&=&u^{(n)} + h f(t^{(n)},u^{(n)}),\\
 u^{(n+1)}&=&u^{(n)} + h f(t^{(n+1)},\tilde{u}^{(n+1)}).
-\end{eqnarray*}
+\end{eqnarray}
 \end{ex}
 
 
 \begin{ex} Considere o método de trapezoidal (ver \ref{sec:trapezoidal}) aplicado para resolver o problema de valor inicial
-\begin{eqnarray*}
+\begin{eqnarray}
   u'(t)  &=& f(t,u(t)) \\
   u(t^{(1)}) &=& a
-\end{eqnarray*}
+\end{eqnarray}
 cujo processo iterativo é dado por
-\begin{eqnarray*}
+\begin{eqnarray}
 u^{(n+1)}=u^{(n)} + \frac{h}{2} \left[f(t^{(n)},u^{(n)})+f(t^{(n+1)},u^{(n+1)})\right].
-\end{eqnarray*}
+\end{eqnarray}
 Agora aplicamos o método de Euler (ver \ref{sec:euler}) para predizer $u^{(n+1)}$:
-\begin{eqnarray*}
+\begin{eqnarray}
 \tilde{u}^{(n+1)}=u^{(n)} + h f(t^{(n)},u^{(n)}).
-\end{eqnarray*}
+\end{eqnarray}
 E agora, retornamos ao método trapezoidal para obter:
-\begin{eqnarray*}
+\begin{eqnarray}
 \tilde{u}^{(n+1)}&=&u^{(n)} + h f(t^{(n)},u^{(n)}),\\
 u^{(n+1)}&=&u^{(n)} + \frac{h}{2} \left[f(t^{(n)},u^{(n)})+f(t^{(n+1)},\tilde{u}^{(n+1)})\right].
-\end{eqnarray*}
+\end{eqnarray}
 \end{ex}
 
 \begin{ex} Considere o método de Adams-Moulton de segunda ordem (ver \ref{sec:Adams_Moulton}) aplicado para resolver  o problema de valor inicial
-\begin{eqnarray*}
+\begin{eqnarray}
   u'(t)  &=& f(t,u(t)) \\
   u(t^{(1)}) &=& a
-\end{eqnarray*}
+\end{eqnarray}
 cujo processo iterativo é dado por
-\begin{eqnarray*}
+\begin{eqnarray}
 u^{(n+1)}=u^{(n)} + \frac{h}{2} \left[f(t^{(n)},u^{(n)})+f(t^{(n+1)},u^{(n+1)})\right].
-\end{eqnarray*}
+\end{eqnarray}
 Agora aplicamos o método de Adams-Bashforth de segunda ordem (ver \ref{sec:Adams_Bashforth}) para predizer $u^{(n+1)}$:
-\begin{eqnarray*}
+\begin{eqnarray}
 \tilde{u}^{(n+1)}=u^{(n)} + \frac{h}{2} \left[-f(t^{(n-1)},u^{(n-1)})+3f(t^{(n)},u^{(n)})\right].
-\end{eqnarray*}
+\end{eqnarray}
 Assim, obtemos o seguinte método:
-\begin{eqnarray*}
+\begin{eqnarray}
 \tilde{u}^{(n+1)}&=&u^{(n)} + \frac{h}{2} \left[-f(t^{(n-1)},u^{(n-1)})+3f(t^{(n)},u^{(n)})\right],\\
 u^{(n+1)}&=&u^{(n)} + \frac{h}{2} \left[f(t^{(n)},u^{(n)})+f(t^{(n+1)},\tilde{u}^{(n+1)})\right].
-\end{eqnarray*}
+\end{eqnarray}
 \end{ex}
 
 \subsection{Exercícios resolvidos}
@@ -2748,17 +2748,17 @@ u^{(n+1)}&=&u^{(n)} + \frac{h}{2} \left[f(t^{(n)},u^{(n)})+f(t^{(n+1)},\tilde{u}
 \begin{exer} Construa o esquema preditor corretor combinando Adams-Moulton de quarta ordem e Adams-Bashforth de quarta ordem.
 \end{exer}
 \begin{resp}
-\begin{eqnarray*}
+\begin{eqnarray}
 \tilde{u}^{(n+1)}&=&u^{(n)} + \frac{h}{24} \left[-9f(t^{(n-3)},u^{(n-3)}) + 37f(t^{(n-2)},u^{(n-2)}) - 59 f(t^{(n-1)},u^{(n-1)})  + 55f(t^{(n)},u^{(n)})\right],\\
 u^{(n+1)}&=&u^{(n)} + \frac{h}{24} \left[f(t^{(n-2)},u^{(n-2)})-5f(t^{(n-1)},u^{(n-1)})+19f(t^{(n)},u^{(n)})+9 f(t^{(n+1)},\tilde{u}^{(n+1)})\right].
-\end{eqnarray*}
+\end{eqnarray}
  \end{resp}
 
  \begin{exer} Seja o problema de valor inicial dado por:
-\begin{eqnarray*}
+\begin{eqnarray}
   u'(t)  &=& \sqrt{u(t)+1} \\
   u(0) &=& 0
-\end{eqnarray*} Resolva numericamente esse problema pelo método de Adams-Bashforth de segunda ordem e pelo método preditor corretor combinando Adams-Bashforth de segunda order com Adams-Moulton de segunda ordem. Compare a solução obtida para $t=10$ com a solução exata dada por:
+\end{eqnarray} Resolva numericamente esse problema pelo método de Adams-Bashforth de segunda ordem e pelo método preditor corretor combinando Adams-Bashforth de segunda order com Adams-Moulton de segunda ordem. Compare a solução obtida para $t=10$ com a solução exata dada por:
 \begin{equation} u(t)=\frac{t^2}{4}+t. \end{equation}
  Inicialize os métodos empregando Runge-Kuta de segunda ordem.
 \end{exer}
@@ -2771,9 +2771,9 @@ u^{(n+1)}&=&u^{(n)} + \frac{h}{24} \left[f(t^{(n-2)},u^{(n-2)})-5f(t^{(n-1)},u^{
 \construirSec
 
 %Considere o problema
-%\begin{eqnarray*}
+%\begin{eqnarray}
 % \left[\begin{array}{c}x_1'\\y_1'\end{array}\right]=\left[\begin{array}{cc}0 & 1\\100 & -101\end{array}\right]=\left[\begin{array}{c}x_1\\y_1\end{array}\right]
-%\end{eqnarray*}
+%\end{eqnarray}
 %com $x_1(0)=101$ e $x_2(0)=-10001$.
 
 \section{Validação e {\it Benchmarking}}\index{validação}\index{Benchmark} %Talvez um dia mover para um capítulo aparte falando de métodos numéricos em geral.
@@ -2793,10 +2793,10 @@ Toda metodologia numérica deve ser validada ao ser aplicada para resolver um pr
 
 
 \begin{ex}[Expressão analítica] A solução do problema de valor inicial estudado no Exercício Resolvido~\ref{exeresol:exeresol1} dado por:
-\begin{eqnarray*}
+\begin{eqnarray}
      u'(t)&=& -0,5u(t)+2+t,\\
             u(0) &=&  8,
-\end{eqnarray*}
+\end{eqnarray}
 admite uma solução em forma de expressão analítica dada por:
 \begin{equation}
      u(t) = 2t+8e^{-t/2}.
@@ -2804,57 +2804,57 @@ admite uma solução em forma de expressão analítica dada por:
 \end{ex}
 
 \begin{ex}[Expressão envolvendo funções especiais] A solução do problema de valor inicial dado por:
-\begin{eqnarray*}
+\begin{eqnarray}
 u'(t)&=&-u^3(t)+u^2(t)\\
 u(0)&=&\frac{1}{2}
-\end{eqnarray*}
+\end{eqnarray}
 é dada na forma:
-\begin{eqnarray*}
+\begin{eqnarray}
 u(t)=\frac{1}{1+W(e^{1-t})}
-\end{eqnarray*}
+\end{eqnarray}
 onde $W$ é a função de Lambert é a função inversa de $f(y)=ye^y$, onde $y=W(x)$.
 \end{ex}
 
 
 \begin{ex}[Expressão matemática semi-analítica] A solução do problema de valor inicial dado por:
-\begin{eqnarray*}
+\begin{eqnarray}
 u^{(5)}&+&au^{(4)}+bu'''(t)+cu''(t)+du'(t)+u(t)=1\\
 u^{(4)}(0)&=&u'''(0)=u''(0)=u'(0)=u(0)
-\end{eqnarray*}
+\end{eqnarray}
 é dada na forma:
-\begin{eqnarray*}
+\begin{eqnarray}
 u(t)=1+Ae^{r_1 t} + Be^{r_2 t} + Ce^{r_3 t} + De^{r_4 t} + Ee^{r_5 t}
-\end{eqnarray*}
+\end{eqnarray}
 onde $r_1$, $r_2$, $r_3$, $r_4$ e $r_5$ são as raízes do polinômio característico \begin{equation} p(x)=x^5+ax^4+bx^3+cx^2+dx+1, \end{equation}
 cujas raízes, salvo casos particulares, só pode ser obtida por aproximações numéricas.
  \end{ex}
 
 
  \begin{ex}[Solução numérica com reformulação analítica prévia] A solução do problema de valor inicial dado por:
-\begin{eqnarray*}
+\begin{eqnarray}
 u'(t)&=&u^3(t)+u^2(t)+u(t)+1\\
 u(0)&=&0
-\end{eqnarray*}
+\end{eqnarray}
 é dada na forma:
-\begin{eqnarray*}
+\begin{eqnarray}
 \ln  \left(\frac{\left(u(t) +1\right)^2}{u(t)^2+1}\right) +2\arctan \left( u \left( t \right)  \right) =4t
-\end{eqnarray*}
+\end{eqnarray}
 Esta analítica estabelece uma relação funcional implícita entre $t$ e $u(t)$, no entanto, é necessário resolver uma equação algébrica não-linear para cada $t$. Ainda assim, pode ser um excelente benchmark, pois o valor de $u(t)$ é dado explicitamente em função de $t$, isto é, podemos ver $t$ como uma função de $u$. Por exemplo, é fácil descobrir que $u=1$ quando $t=\frac{\ln(2)}{4}+\frac{\pi}{8}\approx 0.5659858768387104$. Além disso tomando o limite $u\to +\infty$, descobrimos que $u(t)$ tende a infinito quando $t\to \frac{\pi}{4}-$.
 \end{ex}
 
  \begin{ex}[Solução numérica com reformulação analítica prévia] A solução do problema de valor inicial dado por:
-\begin{eqnarray*}
+\begin{eqnarray}
 u'(t)&=&\left[\cos\left(u(t)\right)+u(t)\right](1+\cos(t))\\
 u(0)&=&0
-\end{eqnarray*}
+\end{eqnarray}
 é dada na forma:
-\begin{eqnarray*}
+\begin{eqnarray}
 \int_0^{y(t)}\frac{d\tau}{\cos(\tau)+\tau}=t+\sin(t)
-\end{eqnarray*}
+\end{eqnarray}
 Esta expressão reformula o problema como uma equação integral em $y(t)$. Esta nova reformulação pode ser bastante útil para produzir resultados de benchmark se fixamos o forma de $y(t)$, usamos uma técnica de quadratura númerica de boa qualidade para aproximar a integral do lado esquerdo da equação. Por exemplo, escolhendo $t(y)=100$, temos:
-\begin{eqnarray*}
+\begin{eqnarray}
 \int_0^{100}\frac{d\tau}{\cos(\tau)+\tau}=5,574304717298400
-\end{eqnarray*}
+\end{eqnarray}
 Resolvendo a equação algébrica
 \begin{equation} t+\sin(t)=5,574304717298400, \end{equation}
 obtemos:
@@ -2885,10 +2885,10 @@ Para $h=10^{-6}$, todos os quatro métodos produzem o resultado $99,99999287$.
 
 
 \begin{exer} Considere o problema de valor inicial dado por
-\begin{eqnarray*}
+\begin{eqnarray}
 \frac{d u(t)}{dt} &=& -u(t) + e^{-t} \\
 u(0)&=&0
-\end{eqnarray*}
+\end{eqnarray}
 Resolva analiticamente este problema usando as técnicas elementares de equações diferenciais ordinárias. A seguir encontre aproximações numéricas usando os métodos de Euler, Euler modificado, Runge-Kutta clássico e Adams-Bashforth de ordem 4 conforme pedido nos itens.
 \begin{itemize}
 \item[a)]  Construa uma tabela apresentando valores com 7 algarismos significativos para comparar a solução analítica com as aproximações numéricas produzidas pelos métodos sugeridos. Construa também uma tabela para o erro absoluto obtido por cada método numérico em relação à solução analítica. Nesta última tabela, expresse o erro com 2 algarismos significativos em formato científico. Dica: $format('e',8)$ para a segunda tabela.
@@ -3047,10 +3047,10 @@ onde $A$, $\alpha$ e $w_0$ são constantes positivas.
 \end{exer}
 
 \begin{exer} Considere o seguinte modelo para um oscilador não linear:
-\begin{eqnarray*}
+\begin{eqnarray}
 u''(t)-\alpha(A-z(t))u'(t)+w_0^2 u(t)&=&0\\
 Cz'(t)+z(t)&=&u(t)^2
-\end{eqnarray*}
+\end{eqnarray}
 onde $A$, $\alpha$, $w_0$ e $C$ são constantes positivas.
 \begin{itemize}
 \item[a)] Encontre a frequência e a amplitude de oscilações quando $w_0=1$, $\alpha=.1$, $A=10$ e $C=10$. (Teste diversas condições iniciais)
@@ -3059,10 +3059,10 @@ onde $A$, $\alpha$, $w_0$ e $C$ são constantes positivas.
 \end{exer}
 
 \begin{exer} Considere o seguinte modelo para o controle de temperatura em um processo químico:
-\begin{eqnarray*}
+\begin{eqnarray}
 CT'(t)+T(t)&=&\kappa P(t)+T_{ext}\\
 P'(t)&=&\alpha(T_{set}-T(t))
-\end{eqnarray*}
+\end{eqnarray}
 onde $C$, $\alpha$ e $\kappa$ são constantes positivas e $P(t)$ indica o potência do aquecedor. Sabendo que $T_{set}$ é a temperatura desejada, interprete o funcionamento esse sistema de controle. Faça o que se pede:
 \begin{itemize}
 \item[a)] Calcule a solução quando a temperatura externa $T_{ext}=0$, $T_{set}=1000$, $C=10$, $\kappa=.1$ e $\alpha=.1$. Considere condições iniciais nulas.
@@ -3091,10 +3091,10 @@ Em todos os casos, verifique se o método numérico reproduz a lei de conservaç
 \end{exer}
 
 \begin{exer} Considere o modelo simplificado de FitzHugh-Nagumo para o potencial elétrico sobre a membrana de um neurônio:
-\begin{eqnarray*}
+\begin{eqnarray}
 \frac{d V}{dt}& = &  V-V^3/3 - W +  I  \\
 \frac{d W}{dt} & = & 0,08(V+0,7 - 0,8W)
-\end{eqnarray*}
+\end{eqnarray}
 onde $I$ é a corrente de excitação.
 \begin{itemize}
 \item Encontre o único estado estacionário $\left(V_0,W_0\right)$ com $I=0$.
