@@ -28,17 +28,22 @@ CAP15=cap_octave
 ########################################
 
 pdf: main.tex
-#	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabtrue \isoctavefalse \ispythonfalse" > main.knd
 	cp main-pdf-sci.knd main.knd
 	pdflatex main
 	bibtex main
 	makeindex main
 	pdflatex main
 	pdflatex main
-#	rm -f main.knd
+
+pdf-sci: main.tex
+	cp main-pdf-sci.knd main.knd
+	pdflatex main
+	bibtex main
+	makeindex main
+	pdflatex main
+	pdflatex main
 
 pdf-py: main.tex
-#	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
 	cp main-pdf-py.knd main.knd
 	cp main.tex main-py.tex
 	pdflatex main-py
@@ -46,10 +51,9 @@ pdf-py: main.tex
 	makeindex main-py
 	pdflatex main-py
 	pdflatex main-py
-	rm -f main.knd
+	cp main-pdf-sci.knd main.knd
 
 pdf-oct: main.tex
-#	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavetrue \ispythonfalse" > main.knd
 	cp main-pdf-oct.knd main.knd
 	cp main.tex main-oct.tex
 	pdflatex main-oct
@@ -57,24 +61,22 @@ pdf-oct: main.tex
 	makeindex main-oct
 	pdflatex main-oct
 	pdflatex main-oct
-#	rm -f main.knd
+	cp main-pdf-sci.knd main.knd
 
 ########################################
 # FORMATO LIVRO DVI
 ########################################
 
 dvi: main.tex
-#	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabtrue \isoctavefalse \ispythonfalse" > main.knd
 	cp main-pdf-sci.knd main.knd
 	latex main
 	bibtex main
 	makeindex main
 	latex main
 	latex main
-#	rm -f main.knd
+	cp main-pdf-sci.knd main.knd
 
 dvi-py: main.tex
-#	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
 	cp main-pdf-py.knd main.knd
 	cp main.tex main-py.tex
 	latex main-py
@@ -82,10 +84,9 @@ dvi-py: main.tex
 	makeindex main-py
 	latex main-py
 	latex main-py
-#	rm -f main.knd
+	cp main-pdf-sci.knd main.knd
 
 dvi-oct: main.tex
-#	echo "\isbooktrue \isslidefalse \ishtmlfalse \isscilabfalse \isoctavetrue \ispythonfalse" > main.knd
 	cp main-pdf-oct.knd main.knd
 	cp main.tex main-oct.tex
 	latex main-oct
@@ -93,7 +94,7 @@ dvi-oct: main.tex
 	makeindex main-oct
 	latex main-oct
 	latex main-oct
-#	rm -f main.knd
+	cp main-pdf-sci.knd main.knd
 
 
 ########################################
@@ -101,7 +102,6 @@ dvi-oct: main.tex
 ########################################
 
 slide: main.tex
-#	echo "\isbookfalse \isslidetrue \ishtmlfalse \isscilabtrue \isoctavefalse \ispythonfalse" > main.knd
 	cp main-slide-sci.knd main.knd
 	cp main.tex slide.tex
 	pdflatex slide
@@ -109,10 +109,9 @@ slide: main.tex
 	makeindex slide
 	pdflatex slide
 	pdflatex slide
-#	rm -f main.knd
+	cp main-pdf-sci.knd main.knd
 
 slide-oct: main.tex
-#	echo "\isbookfalse \isslidetrue \ishtmlfalse \isscilabfalse \isoctavetrue \ispythonfalse" > main.knd
 	cp main-slide-oct.knd main.knd
 	cp main.tex slide-oct.tex
 	pdflatex slide-oct
@@ -120,10 +119,9 @@ slide-oct: main.tex
 	makeindex slide-oct
 	pdflatex slide-oct
 	pdflatex slide-oct
-#	rm -f main.knd
+	cp main-pdf-sci.knd main.knd
 
 slide-py: main.tex
-#	echo "\isbookfalse \isslidetrue \ishtmlfalse \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
 	cp main-slide-py.knd main.knd
 	cp main.tex slide-py.tex
 	pdflatex slide-py
@@ -131,7 +129,7 @@ slide-py: main.tex
 	makeindex slide-py
 	pdflatex slide-py
 	pdflatex slide-py
-#	rm -f main.knd
+	cp main-pdf-sci.knd main.knd
 
 
 ########################################
@@ -145,7 +143,6 @@ html-oct: main-oct.html
 html-py: main-py.html
 
 main-sci.html: main.tex
-#	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabtrue \isoctavefalse \ispythonfalse" > main.knd
 	cp main-html-sci.knd main.knd
 	mkdir -p ./html
 	rm -f ./html/*
@@ -154,10 +151,9 @@ main-sci.html: main.tex
 	latex main
 	latex main
 	mk4ht htlatex main "myconfig,3,notoc*" "" "-d./html/"
-#	rm -f main.knd
+	cp main-pdf-sci.knd main.knd
 
 main-oct.html: main.tex
-#	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavetrue \ispythonfalse" > main.knd
 	cp main-html-oct.knd main.knd
 	mkdir -p ./html-oct
 	rm -f ./html-oct/*
@@ -166,10 +162,9 @@ main-oct.html: main.tex
 	latex main
 	latex main
 	mk4ht htlatex main "myconfig,3,notoc*" "" "-d./html-oct/"
-#	rm -f main.knd
+	cp main-pdf-sci.knd main.knd
 
 main-py.html: main.tex
-#	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
 	cp main-html-py.knd main.knd
 	mkdir -p ./html-py
 	rm -f ./html-py/*
@@ -178,7 +173,7 @@ main-py.html: main.tex
 	latex main
 	latex main
 	mk4ht htlatex main "myconfig,3,notoc*" "" "-d./html-py/"
-#	rm -f main.knd
+	cp main-pdf-sci.knd main.knd
 
 ########################################
 # FORMATO EPUB
@@ -187,55 +182,52 @@ main-py.html: main.tex
 epub: main.tex
 	mkdir -p ./.tmp1
 	rm -rf ./.tmp1/*
-#	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabtrue \isoctavefalse \ispythonfalse" > main.knd
 	cp main-html-sci.knd main.knd
 	latex main 
 	bibtex main
 	latex main
 	latex main
 	htlatex main "ebook_config,html,2,notoc*" "" "-d./.tmp1/"
-	#rm -f main.knd
+	cp main-pdf-sci.knd main.knd
 
 
 	ebook-convert ./.tmp1/main.html main.epub \
 	      --authors="Todos os Colaboradores"\
               --cover=./rosto/cover-scilab-epub.png\
-	      --comments="Para mais informações sobre este livro visite  http://www.ufrgs.br/numerico"
+	      --comments="Para mais informações sobre este livro visite  http://www.ufrgs.br/reamat/CalculoNumerico"
 
 epub-oct: main.tex
 	mkdir -p ./.tmp1
 	rm -rf ./.tmp1/*
-#	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavetrue \ispythonfalse" > main.knd
 	cp main-html-oct.knd main.knd
 	latex main 
 	bibtex main
 	latex main
 	latex main
 	htlatex main "ebook_config,html,2,notoc*" "" "-d./.tmp1/"
-	#rm -f main.knd
+	cp main-pdf-sci.knd main.knd
 
 
 	ebook-convert ./.tmp1/main.html main-oct.epub \
 	      --authors="Todos os Colaboradores"\
-	      --comments="Para mais informações sobre este livro visite  http://www.ufrgs.br/numerico"
+	      --comments="Para mais informações sobre este livro visite  http://www.ufrgs.br/reamat/CalculoNumerico"
 
 epub-py: main.tex
 	mkdir -p ./.tmp1
 	rm -rf ./.tmp1/*
-#	echo "\isbookfalse \isslidefalse \ishtmltrue \isscilabfalse \isoctavefalse \ispythontrue" > main.knd
 	cp main-html-py.knd main.knd
 	latex main 
 	bibtex main
 	latex main
 	latex main
 	htlatex main "ebook_config,html,2,notoc*" "" "-d./.tmp1/"
-	#rm -f main.knd
+	cp main-pdf-sci.knd main.knd
 
 
 	ebook-convert ./.tmp1/main.html main-py.epub \
 	      --authors="Todos os Colaboradores"\
               --cover=./rosto/cover-python-epub.png\
-	      --comments="Para mais informações sobre este livro visite  http://www.ufrgs.br/numerico"
+	      --comments="Para mais informações sobre este livro visite  http://www.ufrgs.br/reamat/CalculoNumerico"
 
 
 ########################################
@@ -309,7 +301,7 @@ clean:
 		*.idx *.ilg *.ind *.blg *.backup \
 		*.4tc *.lg *.tmp *.xref *.png *.html \
 		*.4ct *.css *.idv *.maf *.mtc *.mtc0 \
-		*.xml
+		*.xml main-oct.tex main-py.tex
 	rm -f ${CAP1}/*.aux ${CAP1}/*.log ${CAP1}/*.backup
 	rm -f ${CAP2}/*.aux ${CAP2}/*.log ${CAP2}/*.backup
 	rm -f ${CAP3}/*.aux ${CAP3}/*.log ${CAP3}/*.backup
