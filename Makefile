@@ -144,13 +144,14 @@ html-py: main-py.html
 
 main-sci.html: main.tex
 	cp main-html-sci.knd main.knd
-	mkdir -p ./html
-	rm -f ./html/*
+	mkdir -p ./html-sci
+	rm -f ./html-sci/*
 	latex main
 	bibtex main
 	latex main
 	latex main
-	mk4ht htlatex main "myconfig,3,notoc*" "" "-d./html/"
+	htlatex main "myconfig,3,notoc*" " -cunihtf" "-d./html-sci/"
+#	mk4ht htlatex main "myconfig,3,notoc*" "" "-d./html/"
 	cp main-pdf-sci.knd main.knd
 
 main-oct.html: main.tex
@@ -161,7 +162,8 @@ main-oct.html: main.tex
 	bibtex main
 	latex main
 	latex main
-	mk4ht htlatex main "myconfig,3,notoc*" "" "-d./html-oct/"
+	htlatex main "myconfig,3,notoc*" " -cunihtf" "-d./html-oct/"
+#	mk4ht htlatex main "myconfig,3,notoc*" "" "-d./html-oct/"
 	cp main-pdf-sci.knd main.knd
 
 main-py.html: main.tex
@@ -172,6 +174,7 @@ main-py.html: main.tex
 	bibtex main
 	latex main
 	latex main
+	htlatex main "myconfig,3,notoc*" " -cunihtf" "-d./html-py/"
 	mk4ht htlatex main "myconfig,3,notoc*" "" "-d./html-py/"
 	cp main-pdf-sci.knd main.knd
 
