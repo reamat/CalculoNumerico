@@ -4,9 +4,8 @@ Este documento contém informações sobre os padrões de estilo de escrita e or
 
 Estamos muito mais interessados em melhorar o conteúdo do livro (tando em qualidade como em quantidade) e menos interessados em melhorar a sua estética. Portanto, busque manter o código LaTeX o mais simples possível buscando potencializar a colaboração de outras pessoas e de forma a se obter um resultado que permita uma leitura objetiva e agradável do livro.
 
-Qualquer dúvida, escreva em nossa lista de discussão:
+Qualquer dúvida, poste no nosso fórum https://www.ufrgs.br/reamat/forum.html, crie um _issue_ no repositório do livro ou escreva para reamat@ufrgs.br.
 
-<livro_colaborativo@googlegroups.com>
 
 ## Regionalização e estilo de escrita
 
@@ -48,7 +47,7 @@ Fazemos a conversão do livro de código LaTeX para HTML usando o pacote [TeX4ht
 
 * Não usar o ambiente `align`: no lugar use o ambiente `eqnarray` ou o `split` dentro de um ambiente `equation`.
 
-* Não usar a sintaxe `[\ \]`, no lugar use o ambiente `equation`.
+* Não usar a sintaxe `\[ \]` nem a sintaxe `$$ $$`, no lugar use o ambiente `equation`.
 
 * Não usar `array` para composição de tabelas. A alternativa é usar o ambiente `tabular`, por exemplo:
 
@@ -88,7 +87,9 @@ Veja, por exemplo, `.cap_equacao1d/pics/ex_metodo_da_bissecao`.
 
 ### Códigos computacionais
 
-O livro deve ser versátil o suficiente para não depender de qualquer pacote computacional em específico. Para tanto, textos envolvendo algum pacote (ou alguma linguagem) computacional devem ser encapsulados dentro de uma declaração `se ... então`. Por exemplo, o texto:
+O livro deve ser versátil o suficiente para não depender de qualquer pacote computacional em específico.
+
+Textos envolvendo algum pacote (ou alguma linguagem) computacional devem ser encapsulados dentro de uma declaração `se ... então`. Por exemplo, o texto:
 
     No Scilab, \verb+%eps+ fornece o $\epsilon$ de máquina.
 
@@ -98,7 +99,7 @@ deve ser inserido no livro como:
       No Scilab, \verb+%eps+ fornece o $\epsilon$ de máquina.
     \fi
 
-Em breve iremos disponibilizar mais informações sobre como gerar uma versão do livro com outras linguagens computacionais.
+No livro, também estão disponíveis as instruções `\ifispython` para códigos em Python e `\ifisoctave` para códigos GNU Octave.
 
 ### Equações e símbolos matemáticos
 
