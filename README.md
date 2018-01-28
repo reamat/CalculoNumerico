@@ -6,6 +6,14 @@ _Fork us on GitHub!_ O código fonte do livro está disponível no repositório 
 
 Para entrar em contato com os organizadores, envie um e-mail para reamat@ufrgs.br. Ainda, você pode postar no [fórum](https://www.ufrgs.br/reamat/forum.html) do projeto REAMAT.
 
+## Colaborações
+
+Há várias maneiras de colaborar com a escrita do livro. Toda a colaboração é bem vinda, seja ela um aviso de erro de digitação, uma reformulação de uma parte do livro, uma nova figura, uma nova seção ou um novo capítulo.
+
+Veja como colaborar em https://www.ufrgs.br/reamat/participe.html
+
+Antes de nos enviar uma colaboração, por favor, verifique se ela está de acordo com a folha de estilo do livro (https://github.com/reamat/Docs/blob/master/livro/FOLHA_DE_ESTILO.md).
+
 ## Licença
 
 Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite <https://creativecommons.org/licenses/by-sa/3.0/> ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
@@ -95,11 +103,3 @@ Por fim, o livro pode ser compilado com a seguinte sequência de comandos:
     pdflatex main
     pdflatex main
 
-
-## Colaborações
-
-Há várias maneiras de colaborar com a escrita do livro. Toda a colaboração é bem vinda, seja ela um aviso de erro de digitação, uma reformulação de uma parte do livro, uma nova figura, uma nova seção ou um novo capítulo.
-
-Veja como colaborar em https://www.ufrgs.br/reamat/participe.html
-
-Antes de nos enviar uma colaboração, por favor, verifique se ela está de acordo com a folha de estilo do livro (https://github.com/reamat/Docs/blob/master/livro/FOLHA_DE_ESTILO.md).
