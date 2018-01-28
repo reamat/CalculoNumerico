@@ -28,7 +28,7 @@ CAP15=cap_octave
 ########################################
 
 pdf: main.tex
-	cp main-pdf-sci.knd main.knd
+	cp config-pdf-sci.knd config.knd
 	pdflatex main
 	bibtex main
 	makeindex main
@@ -36,7 +36,7 @@ pdf: main.tex
 	pdflatex main
 
 pdf-sci: main.tex
-	cp main-pdf-sci.knd main.knd
+	cp config-pdf-sci.knd config.knd
 	pdflatex main
 	bibtex main
 	makeindex main
@@ -44,57 +44,57 @@ pdf-sci: main.tex
 	pdflatex main
 
 pdf-py: main.tex
-	cp main-pdf-py.knd main.knd
+	cp config-pdf-py.knd config.knd
 	cp main.tex main-py.tex
 	pdflatex main-py
 	bibtex main-py
 	makeindex main-py
 	pdflatex main-py
 	pdflatex main-py
-	cp main-pdf-sci.knd main.knd
+	cp config-pdf-sci.knd config.knd
 
 pdf-oct: main.tex
-	cp main-pdf-oct.knd main.knd
+	cp config-pdf-oct.knd config.knd
 	cp main.tex main-oct.tex
 	pdflatex main-oct
 	bibtex main-oct
 	makeindex main-oct
 	pdflatex main-oct
 	pdflatex main-oct
-	cp main-pdf-sci.knd main.knd
+	cp config-pdf-sci.knd config.knd
 
 ########################################
 # FORMATO LIVRO DVI
 ########################################
 
 dvi: main.tex
-	cp main-pdf-sci.knd main.knd
+	cp config-pdf-sci.knd config.knd
 	latex main
 	bibtex main
 	makeindex main
 	latex main
 	latex main
-	cp main-pdf-sci.knd main.knd
+	cp config-pdf-sci.knd config.knd
 
 dvi-py: main.tex
-	cp main-pdf-py.knd main.knd
+	cp config-pdf-py.knd config.knd
 	cp main.tex main-py.tex
 	latex main-py
 	bibtex main-py
 	makeindex main-py
 	latex main-py
 	latex main-py
-	cp main-pdf-sci.knd main.knd
+	cp config-pdf-sci.knd config.knd
 
 dvi-oct: main.tex
-	cp main-pdf-oct.knd main.knd
+	cp config-pdf-oct.knd config.knd
 	cp main.tex main-oct.tex
 	latex main-oct
 	bibtex main-oct
 	makeindex main-oct
 	latex main-oct
 	latex main-oct
-	cp main-pdf-sci.knd main.knd
+	cp config-pdf-sci.knd config.knd
 
 
 ########################################
@@ -102,48 +102,48 @@ dvi-oct: main.tex
 ########################################
 
 slide: main.tex
-	cp main-slide-sci.knd main.knd
+	cp config-slide-sci.knd config.knd
 	cp main.tex slide.tex
 	pdflatex slide
 	bibtex slide
 	makeindex slide
 	pdflatex slide
 	pdflatex slide
-	cp main-pdf-sci.knd main.knd
+	cp config-pdf-sci.knd config.knd
 
 slide-oct: main.tex
-	cp main-slide-oct.knd main.knd
+	cp config-slide-oct.knd config.knd
 	cp main.tex slide-oct.tex
 	pdflatex slide-oct
 	bibtex slide-oct
 	makeindex slide-oct
 	pdflatex slide-oct
 	pdflatex slide-oct
-	cp main-pdf-sci.knd main.knd
+	cp config-pdf-sci.knd config.knd
 
 slide-py: main.tex
-	cp main-slide-py.knd main.knd
+	cp config-slide-py.knd config.knd
 	cp main.tex slide-py.tex
 	pdflatex slide-py
 	bibtex slide-py
 	makeindex slide-py
 	pdflatex slide-py
 	pdflatex slide-py
-	cp main-pdf-sci.knd main.knd
+	cp config-pdf-sci.knd config.knd
 
 
 ########################################
 # FORMATO HTML
 ########################################
 
-html-sci: main-sci.html
+html: main-sci.html
 
 html-oct: main-oct.html
 
 html-py: main-py.html
 
 main-sci.html: main.tex
-	cp main-html-sci.knd main.knd
+	cp config-html-sci.knd config.knd
 	mkdir -p ./html-sci
 	rm -f ./html-sci/*
 	latex main
@@ -152,10 +152,10 @@ main-sci.html: main.tex
 	latex main
 	htlatex main "myconfig,3,notoc*" " -cunihtf" "-d./html-sci/"
 #	mk4ht htlatex main "myconfig,3,notoc*" "" "-d./html/"
-	cp main-pdf-sci.knd main.knd
+	cp config-pdf-sci.knd config.knd
 
 main-oct.html: main.tex
-	cp main-html-oct.knd main.knd
+	cp config-html-oct.knd config.knd
 	mkdir -p ./html-oct
 	rm -f ./html-oct/*
 	latex main
@@ -164,10 +164,10 @@ main-oct.html: main.tex
 	latex main
 	htlatex main "myconfig,3,notoc*" " -cunihtf" "-d./html-oct/"
 #	mk4ht htlatex main "myconfig,3,notoc*" "" "-d./html-oct/"
-	cp main-pdf-sci.knd main.knd
+	cp config-pdf-sci.knd config.knd
 
 main-py.html: main.tex
-	cp main-html-py.knd main.knd
+	cp config-html-py.knd config.knd
 	mkdir -p ./html-py
 	rm -f ./html-py/*
 	latex main
@@ -176,7 +176,7 @@ main-py.html: main.tex
 	latex main
 	htlatex main "myconfig,3,notoc*" " -cunihtf" "-d./html-py/"
 	mk4ht htlatex main "myconfig,3,notoc*" "" "-d./html-py/"
-	cp main-pdf-sci.knd main.knd
+	cp config-pdf-sci.knd config.knd
 
 ########################################
 # FORMATO EPUB
@@ -185,13 +185,13 @@ main-py.html: main.tex
 epub: main.tex
 	mkdir -p ./.tmp1
 	rm -rf ./.tmp1/*
-	cp main-html-sci.knd main.knd
+	cp config-html-sci.knd config.knd
 	latex main 
 	bibtex main
 	latex main
 	latex main
 	htlatex main "ebook_config,html,2,notoc*" "" "-d./.tmp1/"
-	cp main-pdf-sci.knd main.knd
+	cp config-pdf-sci.knd config.knd
 
 
 	ebook-convert ./.tmp1/main.html main.epub \
@@ -202,13 +202,13 @@ epub: main.tex
 epub-oct: main.tex
 	mkdir -p ./.tmp1
 	rm -rf ./.tmp1/*
-	cp main-html-oct.knd main.knd
+	cp config-html-oct.knd config.knd
 	latex main 
 	bibtex main
 	latex main
 	latex main
 	htlatex main "ebook_config,html,2,notoc*" "" "-d./.tmp1/"
-	cp main-pdf-sci.knd main.knd
+	cp config-pdf-sci.knd config.knd
 
 
 	ebook-convert ./.tmp1/main.html main-oct.epub \
@@ -218,13 +218,13 @@ epub-oct: main.tex
 epub-py: main.tex
 	mkdir -p ./.tmp1
 	rm -rf ./.tmp1/*
-	cp main-html-py.knd main.knd
+	cp config-html-py.knd config.knd
 	latex main 
 	bibtex main
 	latex main
 	latex main
 	htlatex main "ebook_config,html,2,notoc*" "" "-d./.tmp1/"
-	cp main-pdf-sci.knd main.knd
+	cp config-pdf-sci.knd config.knd
 
 
 	ebook-convert ./.tmp1/main.html main-py.epub \
