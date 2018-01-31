@@ -169,21 +169,13 @@ printf("%1.5e\n",s)
 \ifispython
 Pode-se, no \verb+Python+, implementar as somas de Riemman da seguinte forma
 \begin{verbatim}
-#funcao f(x)
 f = lambda x: np.exp(-x)*np.sin(x)
 
-#funcao utilizada para criar uma lista de valores
-#a partir do intervalo e passo definidos
-def amplitude(inicio, termino, passo):
-    i = inicio
-    while (i < termino):
-        yield i
-        i += passo
 a = 0
 b = 1
 n = 10
 h = (b-a)/n
-x = [i for i in amplitude(0, 1, h)]
+x = np.linspace(a,b,n+1)
 
 S_esq = 0
 S_dir = 0
@@ -1803,35 +1795,25 @@ def f(x):
 def F(u):
     return (x[i+1]-x[i])/2*f((x[i+1]-x[i])/2*(u+1)+x[i])
 
-def amplitude(inicio, termino, passo):
-    i = inicio
-    while (i < termino):
-        yield i
-        i += passo
-
 a = 0
 b = 1
 n = 10
 h = (b-a)/n
-x = [i for i in amplitude(0, 1, h)]
+x = np.linspace(a,b,n+1)
 
 #regra do ponto medio
 s_med = 0;
 for i in range(n):
     s_med += f((x[i]+x[i+1])/2)*h
 
-print("%1.4e" %s_med)
-
 #quadratura gaussiana (2 pontos)
 s_gl=0
 for i in range(n):
    s_gl += F(np.sqrt(3)/3) + F(-np.sqrt(3)/3)
 
-print("%1.4e" %s_gl)
-
 print('''Para {} subintervalos tem-se:
 \tPonto medio =~ {:.4e} e
-\tquadratura gaussiada (2 pontos) =~ {:.4e}'''.format(n, s_med, s_gl))
+\tquadratura gaussiada (2 pontos) =~ {:.4e}'''.format(n, s_med, s_gl)
 \end{verbatim}
 %\construirPython
 \fi
