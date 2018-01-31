@@ -1796,7 +1796,44 @@ printf("%1.4e\n",s)
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-\construirPython
+No \verb+Python+, podemos computar os valores apresentados na tabela acima da seguinte forma:
+\begin{verbatim}
+def f(x):
+    return np.exp(-x)/np.sqrt(x)
+def F(u):
+    return (x[i+1]-x[i])/2*f((x[i+1]-x[i])/2*(u+1)+x[i])
+
+def amplitude(inicio, termino, passo):
+    i = inicio
+    while (i < termino):
+        yield i
+        i += passo
+
+a = 0
+b = 1
+n = 10
+h = (b-a)/n
+x = [i for i in amplitude(0, 1, h)]
+
+#regra do ponto medio
+s_med = 0;
+for i in range(n):
+    s_med += f((x[i]+x[i+1])/2)*h
+
+print("%1.4e" %s_med)
+
+#quadratura gaussiana (2 pontos)
+s_gl=0
+for i in range(n):
+   s_gl += F(np.sqrt(3)/3) + F(-np.sqrt(3)/3)
+
+print("%1.4e" %s_gl)
+
+print('''Para {} subintervalos tem-se:
+\tPonto medio =~ {:.4e} e
+\tquadratura gaussiada (2 pontos) =~ {:.4e}'''.format(n, s_med, s_gl))
+\end{verbatim}
+%\construirPython
 \fi
 %%%%%%%%%%%%%%%%%%%%
 \end{ex}
