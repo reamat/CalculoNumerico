@@ -186,7 +186,7 @@ ans =  48826
 \begin{verbatim}
 >>> print(0b1001) #bin -> dec
 9
->>> print(0157) #oct -> dec
+>>> print(0o157) #oct -> dec
 111
 >>> print(0xbeba) #hex -> dec
 48826
@@ -433,7 +433,7 @@ ans = BEBA
 \begin{verbatim}
 >>> print(bin(9))
 0b1001
->>> print(oct(111))
+>>> print(oct(111)) #a saída será "0o157", no Python 3 ou superior
 0157
 >>> print(hex(48826))
 0xbeba
@@ -503,7 +503,7 @@ Verifique!
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-Estes cálculos podem ser feitos em \verb+Python+ com o auxílio do comando \verb+%+ e da função \verb'int'. Com o primeiro calculamos o resto da divisão entre dois números, enquanto que a segunda retorna a parte inteira de um número dado. No nosso exemplo, temos:
+Estes cálculos podem ser feitos em \verb+Python+ com o auxílio do operador \verb+%+ e da função \verb'int'. Com o primeiro calculamos o resto da divisão entre dois números, enquanto que a segunda retorna a parte inteira de um número dado. No nosso exemplo, temos:
 \begin{verbatim}
 >>> q = 125; d0 = (q % 6); print(q,d0)
 >>> q = int(q/6); d1 = (q % 6); print(q,d1)
@@ -553,7 +553,15 @@ x = 0
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-As contas feitas aqui, também podem ser computadas em \verb+Python+. Você sabe como?
+Em \verb+Python+, é possível computar esta conversão de valores fracionários da seguinte maneira:
+\begin{verbatim}
+>>> x = 0.58 + 1/3/100; print("x = {}".format(x))
+x = 0.5833333333333333
+>>> d = int(6*x); x = round(6*x,1) - d; print("d = {}, x = {}".format(d, x))
+d = 3, x = 0.5
+>>> d = int(6*x); x = round(6*x,1) - d; print("d = {}, x = {}".format(d, x))
+d = 3, x = 0.0
+\end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%
 \end{resol}
@@ -926,24 +934,28 @@ No \verb+Scilab+, temos:
 % octave
 %%%%%%%%%%%%%%%%%%%%%%%
 \ifisoctave
+\begin{verbatim}
 >> round(1.49)
 ans =  1
 >> round(1.50)
 ans =  2
 >> round(2.50)
 ans =  3
+\end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%%%%
 \ifispython
+\begin{verbatim}
 >>> round(1.49)
 1.0
 >>> round(1.50)
 2.0
 >>> round(2.50)
 3.0
+\end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%%%
 \end{obs}
@@ -1829,7 +1841,7 @@ ans = 0
 %%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%
-\ifisoctave
+\ifispython
 \begin{exer}Considere a seguinte rotina escrita para ser usada no \verb+Python+:
  \begin{verbatim}
      x=1.0

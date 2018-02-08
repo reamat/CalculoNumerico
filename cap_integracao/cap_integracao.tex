@@ -167,7 +167,35 @@ printf("%1.5e\n",s)
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-\construirPython
+Pode-se, no \verb+Python+, implementar as somas de Riemman da seguinte forma
+\begin{verbatim}
+f = lambda x: np.exp(-x)*np.sin(x)
+
+a = 0
+b = 1
+n = 10
+h = (b-a)/n
+x = np.linspace(a,b,n+1)
+
+S_esq = 0
+S_dir = 0
+S_med = 0
+
+print("Soma de Riemman de {} a {} com {} intervalos:\n".format(a, b, n))
+
+for i in range(n):
+    S_esq += f(x[i])*h
+print("A esquerda: {:.5e}".format(S_esq))
+
+for i in range(n):
+    S_dir += f(x[i+1])*h
+print("A direita: {:.5e}".format(S_dir))
+
+for i in range(n):
+    S_med += f(((x[i]) + (x[i+1]))/2)*h
+print("Pelo ponto medio: {:.5e}".format(S_med))
+\end{verbatim}
+%\construirPython
 \fi
 %%%%%%%%%%%%%%%%%%%%
 \end{ex}
@@ -338,7 +366,17 @@ I = h*f((a+b)/2)
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-\construirPython
+No \verb+Python+, computamos:
+\begin{verbatim}
+f = lambda x: np.exp(-x)*np.sin(x)
+
+a=0.1
+b=0.3
+h=b-a
+
+I = h*f((a+b)/2)
+\end{verbatim}
+%\construirPython
 \fi
 %%%%%%%%%%%%%%%%%%%%
 \end{ex}
@@ -1750,7 +1788,34 @@ printf("%1.4e\n",s)
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-\construirPython
+No \verb+Python+, podemos computar os valores apresentados na tabela acima da seguinte forma:
+\begin{verbatim}
+def f(x):
+    return np.exp(-x)/np.sqrt(x)
+def F(u):
+    return (x[i+1]-x[i])/2*f((x[i+1]-x[i])/2*(u+1)+x[i])
+
+a = 0
+b = 1
+n = 10
+h = (b-a)/n
+x = np.linspace(a,b,n+1)
+
+#regra do ponto medio
+s_med = 0;
+for i in range(n):
+    s_med += f((x[i]+x[i+1])/2)*h
+
+#quadratura gaussiana (2 pontos)
+s_gl=0
+for i in range(n):
+   s_gl += F(np.sqrt(3)/3) + F(-np.sqrt(3)/3)
+
+print('''Para {} subintervalos tem-se:
+\tPonto medio =~ {:.4e} e
+\tquadratura gaussiada (2 pontos) =~ {:.4e}'''.format(n, s_med, s_gl))
+\end{verbatim}
+%\construirPython
 \fi
 %%%%%%%%%%%%%%%%%%%%
 \end{ex}
