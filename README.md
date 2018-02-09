@@ -8,7 +8,7 @@ Para entrar em contato com os organizadores, envie um e-mail para reamat@ufrgs.b
 
 ## Colaborações
 
-Há várias maneiras de colaborar com a escrita do livro. Toda a colaboração é bem vinda, seja ela um aviso de erro de digitação, uma reformulação de uma parte do livro, uma nova figura, uma nova seção ou um novo capítulo.
+Há várias maneiras de colaborar com a escrita do livro. Toda a colaboração é bem vinda, seja ela um aviso de erro de digitação, uma pequena correção no texto, uma reformulação de uma parte do livro, uma nova figura, uma nova seção ou um novo capítulo
 
 Veja como colaborar em https://www.ufrgs.br/reamat/participe.html
 
