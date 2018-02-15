@@ -15,7 +15,7 @@ ebook-convert ./.tmp1/main.html $1 \
 	      --title= $2 \
 	      --authors="Todos os Colaboradores"\
 	      --cover="./rosto/cover-scilab.png"\
-	      --comments="Para mais informações sobre este livro visite  http://www.ufrgs.br/numerico"
+	      --comments="Para mais informações sobre este livro visite  https://www.ufrgs.br/reamat/CalculoNumerico/"
 
 
 
