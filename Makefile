@@ -186,7 +186,7 @@ epub: main.tex
 	mkdir -p ./.tmp1
 	rm -rf ./.tmp1/*
 	cp config-html-sci.knd config.knd
-	latex main 
+	latex main
 	bibtex main
 	latex main
 	latex main
@@ -197,13 +197,13 @@ epub: main.tex
 	ebook-convert ./.tmp1/main.html main.epub \
 	      --authors="Todos os Colaboradores"\
               --cover=./rosto/cover-scilab-epub.png\
-	      --comments="Para mais informações sobre este livro visite  http://www.ufrgs.br/reamat/CalculoNumerico"
+	      --comments="Para mais informações sobre este livro visite  https://www.ufrgs.br/reamat/CalculoNumerico"
 
 epub-oct: main.tex
 	mkdir -p ./.tmp1
 	rm -rf ./.tmp1/*
 	cp config-html-oct.knd config.knd
-	latex main 
+	latex main
 	bibtex main
 	latex main
 	latex main
@@ -213,13 +213,13 @@ epub-oct: main.tex
 
 	ebook-convert ./.tmp1/main.html main-oct.epub \
 	      --authors="Todos os Colaboradores"\
-	      --comments="Para mais informações sobre este livro visite  http://www.ufrgs.br/reamat/CalculoNumerico"
+	      --comments="Para mais informações sobre este livro visite  https://www.ufrgs.br/reamat/CalculoNumerico"
 
 epub-py: main.tex
 	mkdir -p ./.tmp1
 	rm -rf ./.tmp1/*
 	cp config-html-py.knd config.knd
-	latex main 
+	latex main
 	bibtex main
 	latex main
 	latex main
@@ -230,7 +230,7 @@ epub-py: main.tex
 	ebook-convert ./.tmp1/main.html main-py.epub \
 	      --authors="Todos os Colaboradores"\
               --cover=./rosto/cover-python-epub.png\
-	      --comments="Para mais informações sobre este livro visite  http://www.ufrgs.br/reamat/CalculoNumerico"
+	      --comments="Para mais informações sobre este livro visite  https://www.ufrgs.br/reamat/CalculoNumerico"
 
 
 ########################################
