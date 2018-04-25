@@ -42,7 +42,7 @@ b_{m}
 onde $A$ é chamada de \emph{matriz dos coeficientes}\index{matriz!dos coeficientes}, $x$ de \emph{vetor das incógnitas}\index{vetor!das incógnitas} e $b$ de \emph{vetor dos termos constantes}\index{vetor!dos termos constantes}.
 
 
-Definimos também a \emph{matriz completa}\index{matriz!completa} (também chamada de \emph{matriz estendida}\index{matriz!estendida}) de um sistema como $Ax=b$ como $[A|b]$, isto é
+Definimos também a \emph{matriz completa}\index{matriz!completa} (também chamada de \emph{matriz estendida}\index{matriz!estendida}) de um sistema como $Ax=b$ como $[A|b]$, isto é,
 \begin{equation}
  [A|b]=\left[\begin{array}{cccc|c}
 a_{11} & a_{12} & \cdots & a_{1n}&b_1\\
@@ -73,9 +73,9 @@ Ao longo do capítulo, apresentamos algumas computações com \verb+Python+. Nes
     \begin{split}
       x+y+z  &= 1\\
       4x+4y+2z&= 2\\
-      2x+y-z &= 0
+      2x+y-z &= 0.
     \end{split}
-  \end{equation}.
+  \end{equation}
 Na sua forma matricial, este sistema é escrito como
 \begin{equation}
   Ax = b \Leftrightarrow
@@ -88,12 +88,12 @@ Na sua forma matricial, este sistema é escrito como
   \begin{bmatrix}
     x\\y\\z
   \end{bmatrix}
-}_{\underline{x}} =
+}_{\overline{x}} =
 \underbrace{
   \begin{bmatrix}
     1\\2\\0
-  \end{bmatrix}}_{b}
-\end{equation}.
+  \end{bmatrix}}_{b}.
+\end{equation}
 %%%%%%%%%%%%%%%%%%%%
 % octave
 %%%%%%%%%%%%%%%%%%%%
@@ -122,7 +122,7 @@ A matriz estendida do sistema acima é
     1 & 1 & 1 & 1\\
     4 & 4 & 2 & 2\\
     2 & 1 & -1 & 0
-  \end{bmatrix}
+  \end{bmatrix}.
 \end{equation}
 %%%%%%%%%%%%%%%%%%%%
 % octave
@@ -145,7 +145,7 @@ E =
 
 
 \section{Eliminação gaussiana}\index{eliminação gaussiana}
-A \emph{eliminação gaussiana}, também conhecida como \emph{escalonamento}, é um método para resolver sistemas lineares. Este método consiste em manipular o sistema através de determinadas operações elementares, transformando a matriz estendida do sistema em uma matriz triangular (chamada de \emph{matriz escalonada do sistema}\index{matriz escalonada}). Uma vez, triangularizado o sistema, a solução pode ser obtida via substituição regressiva. Naturalmente estas operações elementares devem preservar a solução do sistema e consistem em:
+A \emph{eliminação gaussiana}, também conhecida como \emph{escalonamento}, é um método para resolver sistemas lineares. Este método consiste em manipular o sistema através de determinadas operações elementares, transformando a matriz estendida do sistema em uma matriz triangular (chamada de \emph{matriz escalonada do sistema}\index{matriz escalonada}). Uma vez triangularizado o sistema, a solução pode ser obtida via substituição regressiva. Naturalmente estas operações elementares devem preservar a solução do sistema e consistem em:
 \begin{enumerate}
 \item multiplicação de um linha por uma constante não nula.
 \item substituição de uma linha por ela mesma somada a um múltiplo de outra linha.
@@ -523,7 +523,7 @@ print(x)
 
 A técnica de eliminação gaussiana com pivotamento parcial ajuda a evitar a propagação dos erros de arredondamento. Vejamos o próximo exemplo.
 
-\begin{ex}[Problema com elementos com grande diferença de escala] Resolva o seguinte sistema usando eliminação gaussiana sem e com pivotamento parcial. Discuta, em cada caso, o resultado frente a aritmética de ponto flutuante quando $0<|\epsilon| \ll 1$.
+\begin{ex}[Problema com elementos com grande diferença de escala] Resolva o seguinte sistema usando eliminação gaussiana sem e com pivotamento parcial. Discuta, em cada caso, o resultado frente à aritmética de ponto flutuante quando $0<|\epsilon| \ll 1$.
   \begin{equation}
     \begin{bmatrix}
       \varepsilon & 2\\
@@ -985,7 +985,7 @@ Naturalmente o tempo vai depender do tipo de computador utilizado. É razoável 
 
 No passado (antes dos anos 80), os computadores demoravam mais tempo para realizar operações como multiplicação e divisão, se comparados à adição ou à subtração. Assim, em livros clássicos eram contados apenas o custo das operações $\times$ e $/$. Nos computadores atuais as quatro operações básicas demandam aproximadamente o mesmo tempo. Não obstante, como na maioria dos algoritmos de álgebra linear, o número de multiplicações e divisões é proporcional ao número somas e subtrações (pois a maioria dessas operações podem ser escritas como a combinações de produtos internos), é justificável dizer que o tempo de computação continua podendo ser estimado pelo número de multiplicações e divisões. Desta forma, na maior parte deste material, levaremos em conta somente multiplicações e divisões, a não ser que mencionado o contrário.
 
-Teremos em mente que a ideia é estimar o custo quando lidamos com vetores e matrizes muito grande, isto é, o custo quando estas dimensões crescem infinitamente.
+Teremos em mente que a ideia é estimar o custo quando lidamos com vetores e matrizes muito grandes, isto é, o custo quando estas dimensões crescem infinitamente.
 
 \begin{ex}[Produto escalar-vetor]
 Qual o custo para multiplicar um escalar por um vetor?
@@ -1050,12 +1050,12 @@ Qual o custo para calcular o produto de duas matrizes  $A$ e $B$?
 Sejam $A, B \in \mathbb{R}^{n\times n}$ temos que
 \begin{equation}
   \matddd{a_{11}}{a_{12}}{\cdots a_{1n}}{\vdots}{}{\vdots}{a_{n1}}{}{\cdots a_{nn}}
-  \matddd{b_{11}}{b_{12}}{\cdots a_{1n}}{\vdots}{}{\vdots}{b_{n1}}{}{\cdots b_{nn}}
- =\matddd{c_{11}}{c_{12}}{\cdots c_{1n}}{\vdots}{}{\vdots}{c_{n1}}{}{\cdots c_{nn}}
+  \matddd{b_{11}}{b_{12}}{\cdots b_{1n}}{\vdots}{}{\vdots}{b_{n1}}{}{\cdots b_{nn}}
+ =\matddd{d_{11}}{d_{12}}{\cdots d_{1n}}{\vdots}{}{\vdots}{d_{n1}}{}{\cdots d_{nn}}
 \end{equation}
 onde o elemento $d_{ij}$ é o produto da linha $i$ de $A$ pela coluna $j$ de $B$,
 \begin{equation}
-  d_{ij}=  a_{i1}\times b_{1j} + a_{i2}\times b_{2j} +...+a_{i2}\times b_{2j}
+  d_{ij}=  a_{i1}\times b_{1j} + a_{i2}\times b_{2j} +...+a_{in}\times b_{nj}
 \end{equation}
 Note que este produto tem o custo do produto vetor-vetor, ou seja, $2n-1$. Como temos $n\times n$ elementos em $D$, o custo total para multiplicar duas matrizes é\footnote{Contando apenas $\times$ e $/$ obtemos
 \begin{equation}
@@ -1092,7 +1092,7 @@ b_{n}
 \end{equation}
 tal que todos elementos abaixo da diagonal são iguais a zero.
 
-Podemos resolver esse sistema iniciando pela última equação e isolando $x_n$ obtemos
+Podemos resolver esse sistema iniciando pela última equação e isolando $x_n$, obtendo
 \begin{equation}
  x_n = b_n/a_{nn}
 \end{equation}
@@ -1105,7 +1105,7 @@ e isolando $x_{n-1}$ obtemos
 \begin{equation}
  x_{n-1} = (b_{n-1}-a_{n-1,n}x_n)/a_{n-1,n-1}
 \end{equation}
-e continuando desta forma até a primeira equação obteremos
+Continuando desta forma até a primeira equação, obteremos
 \begin{equation}
  x_{1} = (b_{1}-a_{12}x_2 \cdots -a_{1n}x_n)/a_{11}.
 \end{equation}
@@ -1326,7 +1326,7 @@ Completada a fatoração LU, resolvemos, primeiramente, o sistema $Ly = b$:
     2y_1 + 3y_2 + y_3 &= 3
   \end{split}
 \end{equation}
-o qual no fornece $y_1 = -2$, $y_2 = 5$ e $y_3 = -8$. Por fim, obtemos a solução resolvendo o sistema $Ux = y$:
+o qual nos fornece $y_1 = -2$, $y_2 = 5$ e $y_3 = -8$. Por fim, obtemos a solução resolvendo o sistema $Ux = y$:
 \begin{equation}
   \begin{split}
   x_1 + x_2 + x_3 &= -2\\
@@ -1371,7 +1371,7 @@ Em \verb+Python+, podemos implementar o algoritmo para fatoração $LU$ da segui
 %%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \subsubsection{Custo computacional}
-Podemos analisar o custo computacional, reduzindo o problema em problemas menores. % Vamos contar apenas o número de multiplicações e divisões.
+Podemos analisar o custo computacional, reduzindo o problema a problemas menores. % Vamos contar apenas o número de multiplicações e divisões.
 
 Na linha 4, iniciamos com $j=1$. Desta forma $i$ varia de $2$ até $n$ na linha 5.
 
@@ -1384,7 +1384,7 @@ Nas linhas 6-8 são feitas $(2(n-1)+1)= 2n-1$ flops independente do valor de $i$
    (n-1)\times (2(n-1)+1)=2(n-1)^2+(n-1)
 \end{equation}
 
-Voltamos a linha 4 quando $j=2$. Das linhas 6-8 teremos $n-2$ flops (o bloco terá um elemento a menos) que será repetido $n-2$ vezes, pois \verb#i=3:n#, ou seja,
+Voltamos a linha 4 quando $j=2$. Da linha 7 teremos $n-2$ flops (o bloco terá um elemento a menos) que será repetido $n-2$ vezes, pois \verb#i=3:n#, ou seja,
 \begin{equation}
    (n-2)\times(2(n-2)+1)=2(n-2)^2+(n-2)
 \end{equation}
@@ -1398,8 +1398,8 @@ Finalmente, para $j=n-1$, temos $2\cdot 1^2+1$.
 
 Somando todos esses custos, temos
 \begin{eqnarray}
-  (n-1)+2(n-1)^2 &+&  (n-2)+2(n-2)^2+... %\\&
-   + (2)+2(2)^2+1+2\cdot 1\\
+  2(n-1)^2 + (n-1) &+& 2(n-2)^2+(n-2) + \ldots %\\&
+   + 2(2)^2+(2) + 2\cdot 1+1\\
  &=& \sum_{k=1}^{n-1}2k^2+k \\
  &=& 2\sum_{k=1}^{n-1}k^2+\sum_{k=1}^{n-1}k\\
  &=& 2 \frac{(n-1)n(2n-1)}{6}+ \frac{n(n-1)}{2} \\
@@ -1460,7 +1460,7 @@ Devemos apenas multiplicar $m$ pelo custo de resolver um sistema linear usando f
 e com $m=n$ temos
 \begin{equation} \frac{2n^4}{3}+\frac{3n^3}{2}-\frac{n^2}{6}. \end{equation}
 
-Porém, se estivermos resolvendo $n$ sistemas com \textit{a mesma matriz $A$ }(e diferente lado direito $\pmb b$ para cada sistema) podemos fazer a fatoração LU uma única vez e contar apenas o custo de resolver os sistemas triangulares obtidos.
+Porém, se estivermos resolvendo $m$ sistemas com \textit{a mesma matriz $A$ }(e diferente lado direito $\pmb b$ para cada sistema) podemos fazer a fatoração LU uma única vez e contar apenas o custo de resolver os sistemas triangulares obtidos.
 
 Custo para fatoração LU de $A$: $\frac{2n^3}{3}-\frac{n^2}{2}-\frac{n}{6}$.
 
@@ -1476,7 +1476,7 @@ que quando $m=n$ obtemos
 \subsection{Custo para calcular a matriz inversa de $A$}
 Como vemos em Álgebra Linear, um método para obter a matriz $A^{-1}$ é realizar o escalonamento da matriz $[A|I]$ onde $I$ é a matriz identidade. Ao terminar o escalonamento, o bloco do lado direito conterá $A^{-1}$.
 
-Isto é equivalente a resolver $n$ sistemas lineares com a mesma matriz $A$ e os vetores da base canônica $\pmb e_i = [0,...,0,1,0,....0]^T$ tal que
+Isto é equivalente a resolver $n$ sistemas lineares com a mesma matriz $A$ e os vetores da base canônica $\pmb e_i = [0,...,0,1,0,....0]^T$, isto é,
 \begin{equation}  A \pmb x_i = \pmb e_i, \quad\quad i=1:n  \end{equation}
 onde $\pmb x_i$ serão as colunas da matriz $A$ inversa, já que $A X=I$.
 
@@ -1520,7 +1520,7 @@ Uma matriz tridiagonal é uma matriz quadrada cujos únicos elementos não nulos
 Observamos que não é necessário armazenar todos os $n^2$ elementos da matriz em memória, sendo suficiente armazenar os vetores $a_n$, $b_n$ e $c_n$. Por conveniência, a partir daqui, definiremos os elementos inexistentes na matriz $a_1$ e $c_n$ como zero:
 \begin{equation} a_1=c_n=0. \end{equation}
 
-O algoritmo para a solução do sistema tridiagonal \eqref{linsis:EqTriDiag} pelo algoritmo de Thomas é dada pelas seguintes expressões:
+Para resolver o sistema tridiagonal \eqref{linsis:EqTriDiag} pelo algoritmo de Thomas são utilizadas as seguintes expressões:
 \begin{eqnarray}\label{linsis:TriDiag_1}
  c'_i &=&
 \begin{cases}
@@ -1538,7 +1538,7 @@ d'_i &=&
 \end{array}
 \end{cases}
 \end{eqnarray}
-Finalmente a solução final é obtida por substituição reversa:
+Finalmente, a solução final é obtida por substituição reversa:
 \begin{eqnarray}\label{linsis:TriDiag_2}
 x_n &=& d'_n\\
  x_i &=& d'_i - c'_i x_{i + 1}, \qquad   i = n - 1, n - 2, \ldots, 1.
@@ -2158,7 +2158,7 @@ cond(A1,1)
 cond(A1,2)
 cond(A1,'inf')
 \end{verbatim}
-e, análogo para a matriz $A_2$.
+e analogamente para a matriz $A_2$.
 \fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
@@ -2172,7 +2172,7 @@ cond(A1,1)
 cond(A1,2)
 cond(A1,'inf')
 \end{verbatim}
-e, análogo para a matriz $A_2$.
+e analogamente para a matriz $A_2$.
 \fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
@@ -2186,7 +2186,7 @@ print(np.linalg.cond(A,p=1))
 print(np.linalg.cond(A,p=2))
 print(np.linalg.cond(A,p=np.inf))
 \end{verbatim}
-e, análogo para a matriz $A_2$.
+e analogamente para a matriz $A_2$.
 \fi
 %%%%%%%%%%%%%%%%%%%%
 \end{sol}
@@ -2339,7 +2339,7 @@ Isolando o elemento $x_1$ da primeira equação temos
 \begin{equation}
 x_1^{(k+1)}= \frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}}
 \end{equation}
-Note que utilizaremos os elementos $x_i^{(k)}$ da iteração $k$ (a direita da equação) para estimar o elemento $x_1$ da próxima iteração.
+Note que utilizaremos os elementos $x_i^{(k)}$ da iteração $k$ (à direita da equação) para estimar o elemento $x_1$ da próxima iteração.
 
 Da mesma forma, isolando o elemento $x_i$ de cada equação $i$, para todo $i=2,...,n$ podemos construir a iteração
 \begin{eqnarray}
@@ -2528,7 +2528,7 @@ y^{(3)}&=&\frac{26-x^{(3)}}{8}=2,9995312
 
 \subsection{Análise de convergência}\index{métodos iterativos!sistemas lineares!convergência}
 
-Nesta seção, analisamos a convergência de métodos iterativos para solução de sistema lineares. Para tanto, consideramos um sistema linear $Ax = b$, onde $A = [a_{i,j}]_{i,j=1}^{n,n}$ é a matriz (real) dos coeficientes, $b = (a_j)_{j=1}^n$ é um vetor dos termos constantes e $x = (x_j)_{j=1}^n$ é o vetor incógnita. No decorrer, assumimos que $A$ é uma matriz não singular.
+Nesta seção, analisamos a convergência de métodos iterativos para solução de sistema lineares. Para tanto, consideramos um sistema linear $Ax = b$, onde $A = [a_{i,j}]_{i,j=1}^{n,n}$ é a matriz (real) dos coeficientes, $b = (a_j)_{j=1}^n$ é o vetor dos termos constantes e $x = (x_j)_{j=1}^n$ é o vetor incógnita. No decorrer, assumimos que $A$ é uma matriz não singular.
 
 Geralmente, métodos iterativos são construídos como uma iteração de ponto fixo. No caso de um sistema linear, reescreve-se a equação matricial em um problema de ponto fixo equivalente, isto é:
 \begin{equation}
@@ -2536,7 +2536,7 @@ Geralmente, métodos iterativos são construídos como uma iteração de ponto f
 \end{equation}
 onde $T = [t_{i,j}]_{i,j=1}^{n,n}$ é chamada de \emph{matriz da iteração}\index{matriz de!iteração} e $c = (c_j)_{j=1}^n$ de \emph{vetor da iteração}\index{vetor de!iteração}. Construídos a matriz $T$ e o vetor $c$, o método iterativo consiste em computar a iteração:
 \begin{equation}
-  x^{(k+1)} = Tx^{(k)} + c,\quad n\geq 1,
+  x^{(k+1)} = Tx^{(k)} + c,\quad k\geq 1,
 \end{equation}
 onde $x^{(1)}$ é uma aproximação inicial dada.
 
