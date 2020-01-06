@@ -106,16 +106,16 @@ Quando subdividimos $[a,b]$ em $n$ intervalos com tamanho $h=(b-a)/n$ nos pontos
 \end{equation}
 tal que a área total será aproximada pelas \emph{somas de Riemann à esquerda}
 \begin{equation}
-S =\sum_{i=1}^{n-1} \Delta S_i = \sum_{i=1}^{n-1} f(x_i) h
+S =\sum_{i=1}^{n} \Delta S_i = \sum_{i=1}^{n} f(x_i) h
 \end{equation}
 Podemos obter uma fórmula similar se usarmos os pontos a direita do intervalo, ou seja, as \emph{somas de Riemann à direita}
 \begin{equation}
-S = \sum_{i=1}^{n-1} f(x_{i+1}) h
+S = \sum_{i=1}^{n} f(x_{i+1}) h
 \end{equation}
 
 Uma terceira opção é utilizar o ponto médio do intervalo $[x_i,x_{i+1}]$ o qual fornece a \emph{regra do ponto médio}
 \begin{equation}\label{eq:regra_do_ponto_medio}
-S = \sum_{i=1}^{n-1} f(\xi_i ) h, \qquad \xi_i=\frac{x_i+x_{i+1}}{2}.
+S = \sum_{i=1}^{n} f(\xi_i ) h, \qquad \xi_i=\frac{x_i+x_{i+1}}{2}.
 \end{equation}
 
 \begin{ex}
@@ -658,8 +658,8 @@ usando os métodos simples do ponto médio, Trapézio e Simpson. Calcule, també
  Verifique o método de Simpson pode ser entendido como uma média aritmética ponderada entre os métodos de trapézio e ponto médio. Encontre os pesos envolvidos. Explique o que são os métodos compostos.
  \end{exer}
 \begin{resp}
-\begin{equation}  
-  I_{Simpson}= \frac{1}{3} I_{Trap}+ \frac{2}{3}I_{PM} 
+\begin{equation}
+  I_{Simpson}= \frac{1}{3} I_{Trap}+ \frac{2}{3}I_{PM}
 \end{equation}
 \end{resp}
 
@@ -1628,12 +1628,12 @@ printf("%1.7f\n", I3)
 \ifispython
 Em \verb+Python+, podemos computar estas aproximações com o seguinte código:
 \begin{verbatim}
-def f(u):  
-    return np.sqrt(1+(u+1)**2/4)/2  
- 
+def f(u):
+    return np.sqrt(1+(u+1)**2/4)/2
+
 #G-L n=3
-x3 = [0, np.sqrt(3/5)]  
-w3 = [8/9, 5/9]  
+x3 = [0, np.sqrt(3/5)]
+w3 = [8/9, 5/9]
 I3 = (w3[0]*f(x3[0])
       + w3[1]*f(x3[1]) + w3[1]*f(-x3[1]))
 print("Para n = 3, I = %1.7f" %(I3))
