@@ -121,7 +121,7 @@ u(0) &=& 0.
 
 
 \section{Método de Euler}\index{método!de Euler}\label{sec:euler}
-Nesta seção, contruiremos o mais simples dos métodos para resolver problemas de valor inicial: o método de Euler com passo constante.\index{Passo} Por passo constante, queremos dizer que os pontos da malha estão todos igualmente espaçados, isto é:
+Nesta seção, construiremos o mais simples dos métodos para resolver problemas de valor inicial: o método de Euler com passo constante.\index{Passo} Por passo constante, queremos dizer que os pontos da malha estão todos igualmente espaçados, isto é:
 \begin{equation} t^{(i)}=(i-1)h,~~~i=1,2,\ldots,N. \end{equation}
 onde $h$ é passo, ou seja, a distância entre dois pontos da malha.
 
@@ -197,19 +197,19 @@ Essa aproximação é bem grosseira quando comparamos com a solução do problem
 De fato, podemos mostrar que quando $h$ se aproxima de $0$, a solução aproximada via método de Euler converge para a solução exata $e^2$. Para isto, basta observar que a solução da relação de recorrência \eqref{eq:exemplo_y_2y_euler} é dada por
  \begin{equation} u^{(k)}=(1+2h)^{k-1}. \end{equation}
  Como $t^{(k)}=(k-1)h$ e queremos a solução em $t=2$, a solução aproximada pelo método de Euler com passo $h$ em é dada por:
- \begin{equation} 
- u^{(k)}= (1+2h)^{k-1}= (1+2h)^{\frac{2}{h}}. 
+ \begin{equation}
+ u^{(k)}= (1+2h)^{k-1}= (1+2h)^{\frac{2}{h}}.
  \end{equation}
 Aplicando o limite $h\to 0+$, temos:
-  \begin{equation} 
-  \lim_{h\to 0+} (1+2h)^{\frac{2}{h}}= e^{2}. 
+  \begin{equation}
+  \lim_{h\to 0+} (1+2h)^{\frac{2}{h}}= e^{2}.
   \end{equation}
 
 %%%%%%%%%%%%%%%%%%%%
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-Em \verb+Python+, podemos computar a solução numérica deste problema de valor inicial via o método de Euler com o seguite código:
+Em \verb+Python+, podemos computar a solução numérica deste problema de valor inicial via o método de Euler com o seguinte código:
 \begin{verbatim}
 #define f(t,u)
 def f(t,u):
@@ -371,7 +371,7 @@ Para fins de comparação, calculamos a solução exata e aproximada para alguns
      u'(t)&=& -0,5u(t)+2+t\\
             u(0) &=&  8
 \end{eqnarray}
-Usando os seguinte passos: $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e $h=10^{-5}$ e compare a solução aproximada em $t=1$ com a solução exata dada por:
+Usando os seguintes passos: $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e $h=10^{-5}$ e compare a solução aproximada em $t=1$ com a solução exata dada por:
 \begin{equation}
      u(t) = 2t+8e^{-t/2} \Longrightarrow u(1)=2+8e^{-1/2} \approx 6,85224527770107
 \end{equation}
@@ -558,7 +558,7 @@ nos intantes $t=0$, $t=1$, $t=2$ e $t=3$.
 \section{Método de Euler melhorado}\index{Método! de Euler melhorado}\label{sec:sec_euler_mod}
 O método de Euler estudado na Seção~\ref{sec:euler} é aplicação bastante restrita devido à sua pequena precisão, isto é, normalmente precisamos escolher um passo $h$ muito pequeno para obter soluções de boa qualidade, o que implica um número elevado de passos e, consequentemente, alto custo computacional.
 
-Nesta seção, contruiremos o \emph{método de Euler melhorado} ou \emph{método de Euler modificado} ou, ainda, \emph{método de Heun}. Para tal, considere o problema de valor inicial dado por:
+Nesta seção, construiremos o \emph{método de Euler melhorado} ou \emph{método de Euler modificado} ou, ainda, \emph{método de Heun}. Para tal, considere o problema de valor inicial dado por:
 \begin{equation}\label{eq:EDO2}
   \begin{split}
     u'(t)  &= f(t,u(t)),~~t>t^{(1)} \\
@@ -603,7 +603,7 @@ Que pode ser escrito equivalentemente como:
 \begin{equation}
  \begin{split}
 k_1&=f(t^{(k)},u^{(k)}),\\
-k_2&=f(t^{(k+1)},u^{(k)}+k_1),\\
+k_2&=f(t^{(k+1)},u^{(k)}+h k_1),\\
 u^{(k+1)}&=u^{(k)}+h\dfrac{k_1+k_2}{2},\\
 u^{(1)}&=a~~ \hbox{\text{(condição inicial)}}.
  \end{split}
@@ -617,7 +617,7 @@ Aqui $k_1$ e $k_2$ são variáveis auxiliares que representam as inclinações e
             u(0) &=&  8
 \end{eqnarray}
 
-Usando os seguinte passos: $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e $h=10^{-5}$ e compare a solução aproximada em $t=1$ com a solução obtida pelo método de Euler e a solução exata dada por:
+Usando os seguintes passos: $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e $h=10^{-5}$ e compare a solução aproximada em $t=1$ com a solução obtida pelo método de Euler e a solução exata dada por:
 \begin{equation}
      u(t) = 2t+8e^{-t/2} \Longrightarrow u(1)=2+8e^{-1/2} \approx 6,85224527770107
 \end{equation}
@@ -627,7 +627,7 @@ Usando os seguinte passos: $h=10^{-1}$, $h=10^{-2}$, $h=10^{-3}$, $h=10^{-4}$ e 
   k_1&=&  f(t^{(n)},u^{(n)})=-0,5u^{(n)}+2+t^{(n)}\\
   \tilde{u}&=& u^{(n)} + hk_1\\
   k_2&=&  f(t^{(n+1)},\tilde{u})=-0,5\tilde{u}+2+t^{(n+1)}\\
-  u^{(n+1)}&=&u^{(n)} + h( k_1+k_2),~~n=1,2,3,\ldots\\
+  u^{(n+1)}&=&u^{(n)} + \dfrac{h( k_1+k_2)}{2},~~n=1,2,3,\ldots\\
   u^{(1)}&=&8 ~~ \hbox{\text{(condição inicial)}}.
 \end{eqnarray}
 
@@ -1155,7 +1155,7 @@ Resolva numericamente para obter o valor de $x(0,5)$, $x(1)$, $x(1,5)$ e $x(2)$ 
 
 
 \section{Erro de truncamento}\index{Ordem! de precisão}\index{Erro! de truncamento}\label{sec:erro_truncamento}
-Nas seções \ref{sec:euler} e \ref{sec:sec_euler_mod}, construimos dois métodos numéricos para resolver problemas de valor inicial. No Exercício Resolvido~\ref{exeresol:exeresol1_euler_melhorado}, vimos que o erro do método de Euler de do método de Euler melhorado caem quando se reduz o passo $h$, ademais, o erro do método de Euler melhorado cai conforme o quadrado de $h$, enquando o do método de Euler cai conforme $h^2$. Este fenômeno motiva a definção de \emph{ordem de precisão}.
+Nas seções \ref{sec:euler} e \ref{sec:sec_euler_mod}, construimos dois métodos numéricos para resolver problemas de valor inicial. No Exercício Resolvido~\ref{exeresol:exeresol1_euler_melhorado}, vimos que o erro do método de Euler de do método de Euler melhorado caem quando se reduz o passo $h$, ademais, o erro do método de Euler melhorado cai conforme o quadrado de $h$, enquanto o do método de Euler cai conforme $h^2$. Este fenômeno motiva a definção de \emph{ordem de precisão}.
 
 \begin{defn} O \emph{erro de truncamento local} é definido como o erro introduzido em cada passo pelo truncamento da equação diferencial supondo conhecida a solução exata no início do intervalo. Um método numérico é dito ter \emph{ordem de precisão} $p$ se o erro de truncamento local for da ordem de $h^{p+1}$.
 \end{defn}
@@ -1168,7 +1168,7 @@ Se escolhermos nesta expressão $t=t^{(n)}$ e, portanto, $t+h=t^{(n)}+h=t^{(n+1)
 Agora notamos que o termo principal do erro é dado por $\frac{h^2}{2}u''(t^{(n)})$, como a derivada segunda da solução não depende de $h$, o erro local de truncamento decresce conforme $h^2$ e assim a ordem de precisão do método é 1.
 \end{ex}
 
-\begin{defn} O \emph{erro de truncamento global} é definido como erro acumulado ao longo de todos os passo de resolução, supondo a condição inicial exata.
+\begin{defn} O \emph{erro de truncamento global} é definido como erro acumulado ao longo de todos os passos de resolução, supondo a condição inicial exata.
 \end{defn}
 
 A relação entre o erro de truncamento global e o erro de truncamento local depende da função $f(t,u)$ envolvida. Diante de suficiente regularidade, o erro acumulado é da mesma ordem de grande do erro de truncamento local acumulado ao longo do processo, isto é, pode ser estimado multiplicando o erro local pelo número de passos. Como o número de passos $N$ necessários para calcular a solução de um problema de valor inicial no ponto $t=t_{f}$ é dado por $N=\frac{t_f}{h}$, temos que a erro de truncamento global é uma ordem inferior ao erro de truncamento local e equivale à ordem de precisão do método.
@@ -1290,7 +1290,7 @@ onde $b_j$ são os pesos da quadratura numérica que aproxima a integral. Assim 
     \tilde{u}_3 &= u_n  + h \left[a_{31}k_1 + a_{32}k_2\right] \\
     \tilde{u}_4 &= u_n  + h \left[a_{41}k_1 + a_{42}k_2 + a_{43}k_3\right] \\
     &\vdots \\
-    \tilde{u}_\nu &= u_n  + h \left[a_{\nu 1}k_1 + a_{\nu 2}k_2 + \cdots +a_{\nu \nu}k_\nu\right] \\
+    \tilde{u}_\nu &= u_n  + h \left[a_{\nu 1}k_1 + a_{\nu 2}k_2 + \cdots +a_{\nu (\nu-1)}k_{\nu-1}\right] \\
     u^{(n+1)}&= u_n + h [ b_1k_1+b_2k_2+\cdots + b_\nu k_\nu],
   \end{split}
 \end{equation}
@@ -1304,7 +1304,7 @@ onde $k_j=f\left(\tau_j,\tilde{u}_{j}\right)$, $A:=\left(a_{ij}\right)$ é a mat
 \begin{tabular}{c|ccc}
   $c_1$  & $0$      & $0$      & $0$ \\
   $c_2$  & $a_{21}$ & $0$      & $0$ \\
-  $c_3$ & $a_{31}$ & $a_{22}$ & $0$\\  \hline
+  $c_3$ & $a_{31}$ & $a_{32}$ & $0$\\  \hline
         & $b_1$     & $b_2$     & $b_3$.
 \end{tabular}
 ~~~$=$~~~
@@ -1685,7 +1685,7 @@ para $t=2$ com $h=1e-1$, $h=1e-2$ e $h=1e-3$. Expresse sua resposta com oito dí
             u(0) &=&  8
 \end{eqnarray}
 
-Usando os seguinte passos: $h=1$, $h=10^{-1}$, $h=10^{-2}$ e $h=10^{-3}$ e compare a solução aproximada em $t=1$ com as soluções obtidas com a solução exata dada por:
+Usando os seguintes passos: $h=1$, $h=10^{-1}$, $h=10^{-2}$ e $h=10^{-3}$ e compare a solução aproximada em $t=1$ com as soluções obtidas com a solução exata dada por:
 \begin{equation}
      u(t) = 2t+8e^{-t/2} \Longrightarrow u(1)=2+8e^{-1/2} \approx 6,85224527770107
 \end{equation}
@@ -1757,7 +1757,7 @@ $\varepsilon_{rel}$ & 5,8e-03 & 1,2e-06 & 1,3e-10 & 1,2e-14\\
 
 
 \section{Métodos de Runge-Kutta implícitos}\label{sec:sec_IRK}\index{método!de Runge-Kutta exlícito}
-Nas seções anteriores contruímos os métodos de Runge-Kutta implícito, nesta seção veremos uma nova família de métodos chamados implícitos. Nos métodos implícitos o processo recursivo produz uma equação implícita para $y^{(n+1)}$ em termos de $y^{(n)}$, como por exemplo:
+Nas seções anteriores construímos os métodos de Runge-Kutta explícitos. Nesta seção, veremos uma nova família de métodos chamados implícitos. Nos métodos implícitos o processo recursivo produz uma equação implícita para $y^{(n+1)}$ em termos de $y^{(n)}$, como por exemplo:
 \begin{equation}\label{eq:IRK:exemplo1}
   \begin{split}
     y^{(n+1)}&=y^{(n)}+h y^{(n+1)}\\
@@ -1769,11 +1769,11 @@ para resolver o problema de valor inicial dado por:
  y'(t)&=&y(t)\\
  y(0)&=&1
  \end{eqnarray}
-Note que este método é \emph{implícito} pois a expressão que define a iteração depende de $u^{(n+1)}$ dos dois lados da Equação~\eqref{eq:IRK:exemplo1}, exigindo que o termo seja isolado para a aplicação do método.
+Note que este método é \emph{implícito} pois a expressão que define a iteração depende de $y^{(n+1)}$ dos dois lados da Equação~\eqref{eq:IRK:exemplo1}, exigindo que o termo seja isolado para a aplicação do método.
 
 
 \subsection{Método de Euler implícito}\index{método!de Euler}\label{sec:euler_imp}
-Contruiremos, agora, o mais simples dos métodos para resolver problemas de valor inicial: o método de Euler implícito, uma variante do método de Euler (explícito) que vimos na Seção~\ref{sec:euler}. Seguinte o mesmo raciocício daquela seção, integramos o problema de valor inicial dado por
+Construiremos, agora, o mais simples dos métodos para resolver problemas de valor inicial: o método de Euler implícito, uma variante do método de Euler (explícito) que vimos na Seção~\ref{sec:euler}. Seguindo o mesmo raciocício daquela seção, integramos o problema de valor inicial dado por
 \begin{eqnarray}
   u'(t)  &=& f(t,u(t)) \\
   u(t^{(1)}) &=& a
@@ -1795,14 +1795,14 @@ u^{(n+1)}=u^{(n)} + h\;f(t^{(n+1)},u^{(n+1)}).
 \end{eqnarray}
 
 
-Note que este método é \emph{implícito} (a equação é implícita) pois depende de $u_{n+1}$ dos dois lados da equação. Se a função $f$ for simples o suficiente, podemos resolver a equação isolando o termo $u_{n+1}$. Se isso não for possível, devemos usar um dos métodos vistos anteriormente para calcular as raízes da equação (por exemplo, método da bissecção e método de Newton).
+Note que este método é \emph{implícito} (a equação é implícita) pois depende de $u^{(n+1)}$ dos dois lados da equação. Se a função $f$ for simples o suficiente, podemos resolver a equação isolando o termo $u^{(n+1)}$. Se isso não for possível, devemos usar um dos métodos vistos anteriormente para calcular as raízes da equação (por exemplo, método da bissecção e método de Newton).
 
 \begin{ex} Considere o problema de valor inicial dado por
 \begin{eqnarray}
 u'(t)&=& \lambda u(t) \\
 u(0)&=&1
 \end{eqnarray}
-A relação de recorrência do método de Euler implícito é dado por:
+A relação de recorrência do método de Euler implícito é:
 \begin{eqnarray}
  y^{(n+1)}&=&y^{(n)} h\lambda y^{(n+1)}\\
  y^{(1)}&=&1
@@ -2465,7 +2465,7 @@ A seguinte rotina implementa a recursão:
 def f(t,u):
 	return u**3-u+t
 
-def resolve(u,t,a,h,beta): #resolve equacao nao-linear por metodo de Newton
+def resolve(u,t,a,h,beta): #resolve equacao nao-linear por método de Newton
 	ctrl=2
 	cont=0
 	while (ctrl>0):

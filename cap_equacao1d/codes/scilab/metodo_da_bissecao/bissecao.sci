@@ -1,22 +1,19 @@
 function [p] = bissecao(f, a, b, TOL, N)
-  i = 1
   fa = f(a)
-  while (i <= N)
-    //iteracao da bissecao
+  for i = 0:N do
+    //raiz aproximada
     p = a + (b-a)/2
     fp = f(p)
     //condicao de parada
     if ((fp == 0) | ((b-a)/2 < TOL)) then
-      return p
-    end    
+      return
+    end
     //bissecta o intervalo
-    i = i+1
     if (fa * fp > 0) then
       a = p
-      fa = fp
     else
       b = p
     end
-  end  
+  end
   error ('Num. max. de iter. excedido!')
 endfunction

@@ -61,13 +61,13 @@ Em outras palavras, se $f(x)$ é uma função contínua em um dado intervalo no 
 Mostre que existe pelo menos uma solução da equação $e^x=x+2$ no intervalo $(-2,0)$.
 \end{ex}
 \begin{sol}
-Primeiramente, observamos que resolver a equação $e^x = x+2$ é equivalente a resolver $f(x) = 0$ com $f(x)=e^x-x-2$. Agora, como $f(-2)=e^{-2}>0$ e $f(0)=-2<0$, temos do teorema de Bolzano que existe pelo menos um zero de $f(x)$ no intervalo $(-2, 0)$. E, portanto, existe pelo menos uma solução da equação dada no intervalo $(-2, 0)$.
+Primeiramente, observamos que resolver a equação $e^x = x+2$ é equivalente a resolver $f(x) = 0$ com $f(x)=e^x-x-2$. Agora, como $f(-2)=e^{-2}>0$ e $f(0)=-1<0$, temos do teorema de Bolzano que existe pelo menos um zero de $f(x)$ no intervalo $(-2, 0)$. E, portanto, existe pelo menos uma solução da equação dada no intervalo $(-2, 0)$.
 
 %%%%%%%%%%%%%%%%%%%%
 % scilab
 %%%%%%%%%%%%%%%%%%%%
 \ifisscilab
-Podemos usar o \verb+Scilab+ para estudarmos esta função. Por exemplo, podemos definir a função $f(x)$ e computá-la nos extremos do intervalo dado com os seguintes comandos:
+Podemos usar o \verb+Scilab+ para estudar esta função. Por exemplo, podemos definir a função $f(x)$ e computá-la nos extremos do intervalo dado com os seguintes comandos:
 \begin{verbatim}
 -->deff('y=f(x)','y=exp(x)-x-2')
 -->f(-2),f(0)
@@ -90,7 +90,7 @@ Alternativamente (e com maior precisão), podemos verificar diretamente o sinal 
 % octave
 %%%%%%%%%%%%%%%%%%%%
 \ifisoctave
-Podemos usar o \verb+GNU Octave+ para estudarmos esta função. Por exemplo, podemos definir a função $f(x)$ e computá-la nos extremos do intervalo dado com os seguintes comandos:
+Podemos usar o \verb+GNU Octave+ para estudar esta função. Por exemplo, podemos definir a função $f(x)$ e computá-la nos extremos do intervalo dado com os seguintes comandos:
 \begin{verbatim}
 >> f = @(x) exp(x)-x-2
 f = f(x) = exp(x)-x-2
@@ -110,7 +110,7 @@ ans = -1
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-Podemos usar \verb+Python+ para estudarmos esta função. Por exemplo, podemos definir a função $f(x)$ e computá-la nos extremos do intervalo dado com os seguintes comandos:
+Podemos usar \verb+Python+ para estudar esta função. Por exemplo, podemos definir a função $f(x)$ e computá-la nos extremos do intervalo dado com os seguintes comandos:
 \begin{verbatim}
 >>> def f(x): return np.exp(x)-x-2
 ...
@@ -146,9 +146,9 @@ Podemos inspecionar o comportamento da função $f(x)= e^x - x - 2$ e de sua der
 \begin{verbatim}
 -->x = linspace(-2,0,50);
 -->deff('y = f(x)','y=exp(x)-x-2')  // define f
--->plot(x,f(x));xgrid               // grafico de f
+-->plot(x,f(x));xgrid               // gráfico de f
 -->deff('y = fl(x)','y=exp(x)-1')   // a derivada
--->plot(x,fl(x));xgrid              // grafico de f'
+-->plot(x,fl(x));xgrid              // gráfico de f'
 \end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%
@@ -161,10 +161,10 @@ Podemos inspecionar o comportamento da função $f(x)= e^x - x - 2$ e de sua der
 >> xx = linspace(-2,0,50);
 >> f = @(x) exp(x)-x-2  #define f
 f = f(x) = exp(x)-x-2
->> plot(xx,f(xx))grid on;hold on #grafico de f
+>> plot(xx,f(xx))grid on;hold on #gráfico de f
 >> fl = @(x) exp(x)-1  #a derivada
 fl = f(x) = exp(x)-1
->> plot(xx,fl(xx)) #grafico de f'
+>> plot(xx,fl(xx)) #gráfico de f'
 \end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%
@@ -253,11 +253,11 @@ possui uma solução para cada $v$ real e que esta solução é única.
 
 \section{Método da bisseção}\index{método!da bisseção}
 
-O \emph{método da bisseção} explora o fato de que uma função contínua $f:[a, b]\to \mathbb{R}$ com $f(a)\cdot f(b) < 0$ tem um zero no intervalo $(a, b)$ (veja o teorema de Bolzano~\ref{teo:teorema_de_Bolzano}). Assim, a ideia para aproximar o zero de uma tal função $f(x)$ é tomar, como primeira aproximação, o ponto médio do intervalo $[a, b]$, isto é:
+O \emph{método da bisseção} explora o fato de que uma função contínua $f:[a, b]\to \mathbb{R}$ com $f(a)\cdot f(b) < 0$ tem um zero no intervalo $(a, b)$ (veja o teorema de Bolzano~\ref{teo:teorema_de_Bolzano}). Assim, a ideia para aproximar o zero de uma tal função $f(x)$ é tomar, como aproximação inicial, o ponto médio do intervalo $[a, b]$, isto é:
 \begin{equation}
   x^{(0)} = \frac{(a + b)}{2}.
 \end{equation}
-Pode ocorrer de $f(x^{(0)}) = 0$ e, neste caso, o zero de $f(x)$ é $x^* = x^{(0)}$. Caso contrário, se $f(a)\cdot f(x^{(0)}) < 0$, então $x^*\in (a, x^{(0)})$. Neste caso, tomamos como segunda aproximação do zero de $f(x)$ o ponto médio do intervalo $[a, x^{(0)}]$, isto é, $x^{(1)} = (a + x^{(0)})/2$. No outro caso, temos $f(x^{(0)})\cdot f(b) < 0$ e, então, tomamos $x^{(1)} = (x^{(0)} + b)/2$. Repetimos este procedimento até obtermos a aproximação desejada (veja Figura~\ref{fig:metodo_da_bissecao}).
+Pode ocorrer de $f(x^{(0)}) = 0$ e, neste caso, o zero de $f(x)$ é $x^* = x^{(0)}$. Caso contrário, se $f(a)\cdot f(x^{(0)}) < 0$, então $x^*\in (a, x^{(0)})$. Neste caso, tomamos como nova aproximação do zero de $f(x)$ o ponto médio do intervalo $[a, x^{(0)}]$, isto é, $x^{(1)} = (a + x^{(0)})/2$. No outro caso, temos $f(x^{(0)})\cdot f(b) < 0$ e, então, tomamos $x^{(1)} = (x^{(0)} + b)/2$. Repetimos este procedimento até obtermos a aproximação desejada (veja Figura~\ref{fig:metodo_da_bissecao}).
 
 \begin{figure}
   \centering
@@ -287,7 +287,7 @@ Voltamos a verificar o critério de parada acima e, caso não satisfeito, iteram
   \begin{equation}
     x^{(0)} = \frac{a^{(0)} + b^{(0)}}{2} = -1.
   \end{equation}
-  Apresentamos as iterações na Tabela~\ref{tab:metodo_da_bissecao}. Observamos que a precisão $TOL = 10^{-1}$ foi obtida na quarta iteração com o zero de $f(x)$ sendo aproximado por $x^{(4)} = -1,8125$.
+  Apresentamos as iterações na Tabela~\ref{tab:metodo_da_bissecao}. Observamos que a precisão $TOL = 10^{-1}$ foi obtida aproximando o zero de $f(x)$ por $x^{(4)} = -1,8125$.
   \begin{table}
     \centering
     \caption{Iteração do método da bisseção para o Exemplo~\ref{ex:metodo_da_bissecao}.}
@@ -363,16 +363,16 @@ Vamos agora discutir sobre a \emph{convergência} do método da bisseção, que 
 
 \begin{teo}[Convergência do método da bisseção]\label{teo:convergencia_bissecao} Sejam $f:[a, b]\to \mathbb{R}$ uma função contínua tal que $f(a)\cdot f(b) < 0$ e $x^*$ o único zero de $f(x)$ no intervalo $(a, b)$. Então, a sequência $\{x^{(n)}\}_{n \geq 0}$ do método da bisseção satisfaz:
   \begin{equation}
-    |x^{(n)} - x^{*}| < \frac{b - a}{2^{n+1}},\quad\forall n\geq 0,
+    |x^{(n)} - x^{*}| < \frac{b - a}{2^{n+1}},\quad\forall n\geq 0.
   \end{equation}
-isto é, $x^{(n)}\to x^*$ quando $n\to\infty$.
+Em particular, $x^{(n)}\to x^*$ quando $n\to\infty$.
 \end{teo}
 \begin{proof}
  Notemos que, a cada iteração, a distância entre a aproximação $x^{(n)}$ e o zero $x^*$ da função é menor ou igual que a metade do tamanho do intervalo $[a^{(n)}, b^{(n)}]$ (veja Figura~\ref{fig:metodo_da_bissecao}), isto é:
 \begin{equation}
   |x^{(n)}-x^*| \leq \frac{b^{(n)}-a^{(n)}}{2}.
 \end{equation}
-Por construção do método, temos $[a^{(n)}, b^{(n)}]\subset [a^{(n-1)}, b^{(n-1)}]$ e:
+Por construção do método, temos $[a^{(n)}, b^{(n)}]\subset [a^{(n-1)}, b^{(n-1)}]$ quando $n \geq 1$ e:
 \begin{equation}
   b^{(n)} - a^{(n)} = \frac{b^{(n-1)}-a^{(n-1)}}{2}.
 \end{equation}
@@ -396,7 +396,7 @@ Observamos que a hipótese de que $f(x)$ tenha um único zero no intervalo não 
 Isto nos leva a concluir que o método da bisseção tem \emph{taxa de convergência}\index{Método da bisseção!taxa de convergência} linear.
 \end{obs}
 
-\begin{ex}No Exemplo~\ref{ex:metodo_da_bissecao}, precisamos de $4$ iterações do método da bisseção para computar uma aproximação com precisão de $10^{-1}$ do zero de $f(x) = e^x - x - 2$ tomando como intervalo inicial $[a, b] = [-2, 0]$. Poderíamos ter estimado o número de iterações \emph{a priori}, pois, como vimos acima:
+\begin{ex}No Exemplo~\ref{ex:metodo_da_bissecao}, depois de escolhida a aproximação inicial $x^{(0)} = -1 \in [a, b] = [-2, 0]$, precisamos de $4$ iterações do método da bisseção para computar uma aproximação com precisão de $10^{-1}$ do zero de $f(x) = e^x - x - 2$. Poderíamos ter estimado o número de iterações \emph{a priori}, pois, como vimos acima:
   \begin{equation}
     |x^{(n)}-x^*|\leq \frac{b-a}{2^{n+1}},\quad n\geq 0.
   \end{equation}
@@ -405,7 +405,7 @@ Logo, temos:
   |x^{(n)} - x^*| &<& \frac{b - a}{2^{n+1}} = \frac{2}{2^{n+1}}\\
   &=& 2^{-n} < 10^{-1} \Rightarrow  n > -\log_2 10^{-1} \approx 3,32.
 \end{eqnarray}
-O que está de acordo com o experimento numérico realizado naquele exemplo.
+Isto está de acordo com o experimento numérico realizado naquele exemplo.
 \end{ex}
 
 O método da bisseção tem a boa propriedade de garantia de convergência, bem como de fornecer uma simples estimativa do erro na aproximação calculada. Entretanto, a taxa de convergência linear é superada por outros métodos. A construção de tais métodos está, normalmente, associada à iteração do ponto fixo, a qual exploramos na próxima seção.
@@ -421,12 +421,12 @@ O seguinte código é uma implementação no \verb+Scilab+ do algoritmo da bisse
 \item \verb+f+ - função objetivo
 \item \verb+a+ - extremo esquerdo do intervalo de inspeção $[a, b]$
 \item \verb+b+ - extremo direito do intervalo de inspeção $[a, b]$
-\item \verb+TOL+ - tolerância (critério de parada)
-\item \verb+N+ - número máximo de iterações
+\item \verb+TOL+ - tolerância para o erro absoluto (critério de parada)
+\item \verb+N+ - número máximo de iterações depois da aproximação inicial
 \end{itemize}
 A variável de saída é:
 \begin{itemize}
-\item \verb+p+ - aproximação da raiz de \verb+f+, isto é, $f(p) \approx 0$.
+\item \verb+p+ - aproximação de uma raiz $x^*$ de \verb+f+, satisfazendo $|p - x^*|< TOL$ ou $f(p) = 0$.
 \end{itemize}
 
 \verbatiminput{./cap_equacao1d/codes/scilab/metodo_da_bissecao/bissecao.sci}
@@ -443,12 +443,12 @@ O seguinte código é uma implementação no \verb+GNU Octave+ do algoritmo da b
 \item \verb+f+ - função objetivo
 \item \verb+a+ - extremo esquerdo do intervalo de inspeção $[a, b]$
 \item \verb+b+ - extremo direito do intervalo de inspeção $[a, b]$
-\item \verb+TOL+ - tolerância (critério de parada)
-\item \verb+N+ - número máximo de iterações
+\item \verb+TOL+ - tolerância para o erro absoluto (critério de parada)
+\item \verb+N+ - número máximo de iterações depois da aproximação inicial
 \end{itemize}
 A variável de saída é:
 \begin{itemize}
-\item \verb+p+ - aproximação da raiz de \verb+f+, isto é, $f(p) \approx 0$.
+\item \verb+p+ - aproximação de uma raiz $x^*$ de \verb+f+, satisfazendo $|p - x^*|< TOL$ ou $f(p) = 0$.
 \end{itemize}
 
 \verbatiminput{./cap_equacao1d/codes/octave/metodo_da_bissecao/bissecao.m}
@@ -465,12 +465,12 @@ O seguinte código é uma implementação em \verb+Python+ do algoritmo da bisse
 \item \verb+f+ - função objetivo
 \item \verb+a+ - extremo esquerdo do intervalo de inspeção $[a, b]$
 \item \verb+b+ - extremo direito do intervalo de inspeção $[a, b]$
-\item \verb+TOL+ - tolerância (critério de parada)
-\item \verb+N+ - número máximo de iterações
+\item \verb+TOL+ - tolerância para o erro absoluto (critério de parada)
+\item \verb+N+ - número máximo de iterações depois da aproximação inicial
 \end{itemize}
 A variável de saída é:
 \begin{itemize}
-\item \verb+p+ - aproximação da raiz de \verb+f+, isto é, $f(p) \approx 0$.
+\item \verb+p+ - aproximação de uma raiz $x^*$ de \verb+f+, satisfazendo $|p - x^*|< TOL$ ou $f(p) = 0$.
 \end{itemize}
 
 \verbatiminput{./cap_equacao1d/codes/python/metodo_da_bissecao/bissecao.py}
@@ -524,7 +524,7 @@ Use esta estimativa para iniciar o método de bisseção e obtenha o valor da ra
   \begin{equation}
     \tau=k\theta,
   \end{equation}
-onde $\theta$ é angulo da plataforma com a horizontal e $k$ é uma constante positiva. A plataforma é feita de material homogêneo, seu peso é $P$ e sua largura é $l$. Modele a relação entre o ângulo $\theta$ e o peso $P$ próprio da plataforma. Encontre o valor de $\theta$ quando $l=1~\mbox{m}$, $P=200~\mbox{N}$, $k=50~\mbox{Nm}/\mbox{rad}$, sabendo que o sistema está em equilíbrio. Use o método da bisseção e expresse o resultado com 4 algarismos significativos.
+onde $\theta$ é ângulo da plataforma com a horizontal e $k$ é uma constante positiva. A plataforma é feita de material homogêneo, seu peso é $P$ e sua largura é $l$. Modele a relação entre o ângulo $\theta$ e o peso $P$ próprio da plataforma. Encontre o valor de $\theta$ quando $l=1~\mbox{m}$, $P=200~\mbox{N}$, $k=50~\mbox{Nm}/\mbox{rad}$, sabendo que o sistema está em equilíbrio. Use o método da bisseção e expresse o resultado com 4 algarismos significativos.
 \end{exer}
 \begin{resp}
     $k\theta=\frac{lP}{2}\cos(\theta)$ com $\theta\in (0, \pi/2)$; $1,030$.
@@ -1359,7 +1359,7 @@ se $f'(x^*)\neq 0$.
 
 A discussão acima nos motiva a introduzir o método de Newton, cujas iterações são dada por:
 \begin{equation}
-  x^{(n+1)} = x^{(n)} - \frac{f\left(x^{(n)}\right)}{f'\left(x^{n}\right)}, \quad n\geq 1,
+  x^{(n+1)} = x^{(n)} - \frac{f\left(x^{(n)}\right)}{f'\left(x^{(n)}\right)}, \quad n\geq 1,
 \end{equation}
 sendo $x^{(1)}$ uma aproximação inicial dada.
 
@@ -1777,7 +1777,7 @@ onde $\{\gamma_n\}_{n\in\mathbb{N}}$ é a sequência de Fibonacci\footnote{Leona
 Com isso, temos:
   \begin{eqnarray}
     &&g(x^{(n)},x^{(n-1)}) - x^* = x^{(n)} - f(x^{(n)})\frac{x^{(n)} - x^{(n-1)}}{f(x^{(n)}) - f(x^{(n-1)})} - x^*\\
-    &=& \frac{x^{(n)} - x^{(n-1)}}{f(x^{(n)}) - f(x^{(n-1)})}\left\{(x^{(n)} - x^*)\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}} - f(x^{(n)}) + f(x^*)\right\}.\\
+    &=& \frac{x^{(n)} - x^{(n-1)}}{f(x^{(n)}) - f(x^{(n-1)})}\left\{(x^{(n)} - x^*)\frac{f(x^{(n)}) - f(x^{(n-1)})}{x^{(n)} - x^{(n-1)}}\right.\\ &\ &\qquad\qquad\qquad\qquad\qquad -\left. f(x^{(n)}) + f(x^*)\right\}.\\
   \end{eqnarray}
 Então, da cota assumida para primeira derivada de $f(x)$ e do teorema do valor médio, temos:
 \begin{equation}\label{eq:secantes-est0}
@@ -2035,7 +2035,7 @@ Usando  métodos numéricos encontre as primeiras raízes dessa equação. Verif
 \end{resp}
 
 
-\begin{exer}(Eletricidade) A corrente elétrica, $I$, em Ampères em uma lâmpada em função da tensão elétrica, $V$, é dada por
+\begin{exer}(Eletricidade) A corrente elétrica, $I$, em Ampéres em uma lâmpada em função da tensão elétrica, $V$, é dada por
 \begin{equation} I=\left(\frac{V}{150}\right)^{0.8} \end{equation}
 Qual a potência da lâmpada quando ligada em série com uma resistência de valor R a uma fonte de 150V quando. (procure erro inferior a 1\%)
 \begin{itemize}

@@ -172,7 +172,7 @@ Completamos este sistema com as condições de contorno dadas nas equações~\eq
 Ou seja, obtemos o seguinte problema discreto:
 \begin{eqnarray}
   u_1 &=& 0,\label{eq:pvc2_disc_bc1}\\
-  -\frac{1}{h^2}\left(u_{i+1} - 2u_i + u_{i+1}\right) &=& 100(x_i-1)^2,\quad i=2, \dotsc, N-1,\\
+  -\frac{1}{h^2}\left(u_{i-1} - 2u_i + u_{i+1}\right) &=& 100(x_i-1)^2,\quad i=2, \dotsc, N-1,\\
   u_N &=& 0.\label{eq:pvc2_disc_bc2}
 \end{eqnarray}
 Observamos que este é um sistema linear $N\times N$, o qual pode ser escrito na forma matricial $A\underline{u} = b$, cujos matriz de coeficientes é
@@ -347,7 +347,7 @@ No \verb+Scilab+, podemos fazer o esboço das soluções analítica e numérica 
 //def. sol. analitica
 deff('y = ue(x)','y = -100.0*(x-1).^4/12 - 100*x/12 + 100.0/12')
 
-//grafico
+//gráfico
 xx = linspace(0,1)
 yy = ue(xx)
 
@@ -364,7 +364,7 @@ No \verb+GNU Octave+, podemos fazer o esboço das soluções analítica e numér
 #def. sol. analitica
 ue = inline("-100.0*(x-1).^4/12 - 100*x/12 + 100.0/12")
 
-#grafico
+#gráfico
 xx = linspace(0,1)
 yy = ue(xx)
 
@@ -382,7 +382,7 @@ Em \verb+Python+, podemos fazer o esboço das soluções analítica e numérica 
 def ue(x):
     return -100.0*(x-1)**4/12 - 100*x/12 + 100.0/12
 
-#grafico
+#gráfico
 xx = np.linspace(0,1)
 yy = np.zeros(50)
 for i,xxi in enumerate(xx):
@@ -531,7 +531,7 @@ b(N) = 2
 //solucao
 u = A\b
 
-//grafico
+//gráfico
 plot(x,u,'b-o')
 \end{verbatim}
 \fi
@@ -567,7 +567,7 @@ b(N) = 2
 #solucao
 u = A\b
 
-#grafico
+#gráfico
 plot(x,u,'b-o')
 \end{verbatim}
 \fi
@@ -602,7 +602,7 @@ b[N-1] = 2
 #solucao
 u = np.linalg.solve(A,b)
 
-#grafico
+#gráfico
 plt.plot(x,u,'b-o')
 plt.show()
 \end{verbatim}

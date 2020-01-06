@@ -49,7 +49,7 @@ a_{11} & a_{12} & \cdots & a_{1n}&b_1\\
 a_{21} & a_{22} & \cdots & a_{2n}&b_2\\
 \vdots & \vdots & \ddots & \vdots&\vdots\\
 a_{m1} & a_{m2} & \cdots & a_{mn}&b_m
-\end{array}\right]
+\end{array}\right].
 \end{equation}
 
 
@@ -145,7 +145,7 @@ E =
 
 
 \section{Eliminação gaussiana}\index{eliminação gaussiana}
-A \emph{eliminação gaussiana}, também conhecida como \emph{escalonamento}, é um método para resolver sistemas lineares. Este método consiste em manipular o sistema através de determinadas operações elementares, transformando a matriz estendida do sistema em uma matriz triangular (chamada de \emph{matriz escalonada do sistema}\index{matriz escalonada}). Uma vez triangularizado o sistema, a solução pode ser obtida via substituição regressiva. Naturalmente estas operações elementares devem preservar a solução do sistema e consistem em:
+A \emph{eliminação gaussiana}, também conhecida como \emph{escalonamento}, é um método para resolver sistemas lineares. Este método consiste em manipular o sistema através de determinadas operações elementares, transformando a matriz estendida do sistema em uma matriz trapezoidal (chamada de \emph{matriz escalonada do sistema}\index{matriz escalonada}). Uma vez triangularizado o sistema, a solução pode ser obtida via substituição regressiva. Naturalmente estas operações elementares devem preservar a solução do sistema e consistem em:
 \begin{enumerate}
 \item multiplicação de um linha por uma constante não nula.
 \item substituição de uma linha por ela mesma somada a um múltiplo de outra linha.
@@ -1103,7 +1103,7 @@ Substituindo $x_n$ na penúltima equação
 \end{equation}
 e isolando $x_{n-1}$ obtemos
 \begin{equation}
- x_{n-1} = (b_{n-1}-a_{n-1,n}x_n)/a_{n-1,n-1}
+ x_{n-1} = (b_{n-1}-a_{n-1,n}x_n)/a_{n-1,n-1}.
 \end{equation}
 Continuando desta forma até a primeira equação, obteremos
 \begin{equation}
@@ -1120,7 +1120,7 @@ De forma geral, temos que
 \ifisscilab
 \subsection{Código Scilab: resolução de um sistema triangular superior}
 
-Para resolver um sistema triangular superior iniciamos da última linha em direção a primeira.
+Para resolver um sistema triangular superior, iniciamos da última linha em direção a primeira.
 
 \lstinputlisting[language=Scilab,numbers=left]{./cap_linsis/codes/scilab/solveU.sci}
 \fi
@@ -1132,7 +1132,7 @@ Para resolver um sistema triangular superior iniciamos da última linha em dire�
 \ifisoctave
 \subsection{Código GNU octave: resolução de um sistema triangular superior}
 
-Para resolver um sistema triangular superior iniciamos da última linha em direção a primeira.
+Para resolver um sistema triangular superior, iniciamos da última linha em direção a primeira.
 
 \lstinputlisting[language=Scilab,numbers=left]{./cap_linsis/codes/octave/solveU.m}
 \fi
@@ -1143,7 +1143,7 @@ Para resolver um sistema triangular superior iniciamos da última linha em dire�
 %%%%%%%%%%%%%%%%%%%%
 \ifisscilab
 \subsection{Código Scilab: resolução de um sistema triangular inferior}
-Para resolver um sistema triangular inferior podemos fazer o processo inverso iniciando da primeira equação.
+Para resolver um sistema triangular inferior, podemos fazer o processo inverso, iniciando da primeira equação.
 
 \lstinputlisting[language=Scilab,numbers=left]{./cap_linsis/codes/scilab/solveL.sci}
 
@@ -1252,14 +1252,14 @@ A matriz $L$ é construída  a partir da matriz identidade $I$, ao longo do esca
 Por exemplo, para zerar o primeiro elemento da segunda linha de $A$, calculamos
 \begin{equation} L_{21} = A_{21}/A_{11} \end{equation}
 e fazemos
-\begin{equation} A_{2,:} \Leftarrow A_{2,:} - L_{21}A_{1,:} \end{equation}
+\begin{equation} A_{2,:} \leftarrow A_{2,:} - L_{21}A_{1,:} \end{equation}
 
 Note que denotamos $A_{i,:}$ para nos referenciarmos a linha $i$ de $A$. Da mesma forma, se necessário usaremos $A_{:,j}$ para nos referenciarmos a coluna $j$ de $A$.
 
 Para zerar o primeiro elemento da terceira linha de $A$, temos
 \begin{equation} L_{31}=A_{31}/A_{11} \end{equation}
 e fazemos
-\begin{equation} A_{3,:} \Leftarrow A_{3,:} - L_{31}A_{1,:} \end{equation}
+\begin{equation} A_{3,:} \leftarrow A_{3,:} - L_{31}A_{1,:} \end{equation}
 até chegarmos ao último elemento da primeira coluna de $A$.
 
 Repetimos o processo para as próximas colunas, escalonando a matriz $A$ e coletando os elementos $L_{ij}$ abaixo da diagonal\footnote{Perceba que a partir da segunda coluna para calcular $L_{ij}$ não usamos os elementos de $A$, mas os elementos da matriz $A$ em processo de escalonamento}.
@@ -1398,8 +1398,8 @@ Finalmente, para $j=n-1$, temos $2\cdot 1^2+1$.
 
 Somando todos esses custos, temos
 \begin{eqnarray}
-  2(n-1)^2 + (n-1) &+& 2(n-2)^2+(n-2) + \ldots %\\&
-   + 2(2)^2+(2) + 2\cdot 1+1\\
+  2(n-1)^2 + (n-1) &+& 2(n-2)^2+(n-2) + \ldots \\
+ \ldots&+& 2(2)^2+(2) + 2\cdot 1+1\\
  &=& \sum_{k=1}^{n-1}2k^2+k \\
  &=& 2\sum_{k=1}^{n-1}k^2+\sum_{k=1}^{n-1}k\\
  &=& 2 \frac{(n-1)n(2n-1)}{6}+ \frac{n(n-1)}{2} \\
@@ -2467,7 +2467,7 @@ Aplicando esse raciocínio, podemos construir o método de Gauss-Seidel como
 x_1^{(k+1)}&=&\frac{y_1 - \left(a_{12}x_2^{(k)}+\cdots+a_{1n}x_n^{(k)}\right)}{a_{11}}\\
 x_2^{(k+1)}&=&\frac{y_2 - \left(a_{21}x_1^{(k+1)}+a_{23}x_3^{(k)}+\cdots+a_{2n}x_n^{(k)}\right)}{a_{22}}\\
 &\vdots&\\
-x_n^{(k+1)}&=&\frac{y_2 - \left(a_{n1}x_1^{(k+1)}+\cdots+a_{n(n-1)}x_{n-1}^{(k+1)}\right)}{a_{nn}}
+x_n^{(k+1)}&=&\frac{y_n - \left(a_{n1}x_1^{(k+1)}+\cdots+a_{n(n-1)}x_{n-1}^{(k+1)}\right)}{a_{nn}}
 \end{eqnarray}
 Em notação mais compacta, o método de Gauss-Seidel consiste na iteração:
 \begin{eqnarray}
@@ -3174,7 +3174,7 @@ tem $\lambda=3$ como maior autovalor (por quê?). Tomando $x^{(1)} = (1, 1, 1)$,
 \begin{center}
   \begin{tabular}{l|c|c}
     $k$ & $x^{(k)}$ & $\lambda^{(k)}$\\\hline
-    1   & $(1, 1, 1)$ & 17\\
+    1   & $(1, 1, 1)$ & 15\\
     2   & $(0,08,~0,41,~0,91)$ & 4,10\\
     3   & $(0,02,~0,34,~0,94)$ & 3,50\\
     4   & $(0,01,~0,30,~0,95)$ & 3,28\\
