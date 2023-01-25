@@ -8,7 +8,7 @@ function [x]=gauss_seidel(A,b,x,tol,N)
       x(i) = (b(i) - A(i,[1:i-1,i+1:n])*x([1:i-1,i+1:n]))/A(i,i);
     endfor
     #condicao de parada
-    if (norm(x-x0,'inf')<tol)
+    if ((x-x0)<tol)
       return
     endif
     #prepara nova iteracao
