@@ -320,3 +320,43 @@ clean:
 	rm -f ${CAP13}/*.aux ${CAP13}/*.log ${CAP13}/*.backup
 	rm -f ${CAP14}/*.aux ${CAP14}/*.log ${CAP14}/*.backup
 	rm -f ${CAP15}/*.aux ${CAP15}/*.log ${CAP15}/*.backup
+
+
+########################################
+# 	EXTRAI EXERCÍCIOS
+########################################
+
+
+exer-sci:
+	cp config-pdf-sci.knd config.knd
+	python3 extrai_exercicios.py
+	latex main
+	latex exercicios
+	latex exercicios_resolvidos
+	latex exercicios_todos
+	pdflatex exercicios
+	pdflatex exercicios_resolvidos
+	pdflatex exercicios_todos
+
+exer-py:
+	cp config-pdf-py.knd config.knd
+	python3 extrai_exercicios.py
+	latex main
+	latex exercicios
+	latex exercicios_resolvidos
+	latex exercicios_todos
+	pdflatex exercicios
+	pdflatex exercicios_resolvidos
+	pdflatex exercicios_todos
+
+exer-oct:
+	cp config-pdf-oct.knd config.knd
+	python3 extrai_exercicios.py
+
+	latex main
+	latex exercicios
+	latex exercicios_resolvidos
+	latex exercicios_todos
+	pdflatex exercicios
+	pdflatex exercicios_resolvidos
+	pdflatex exercicios_todos
