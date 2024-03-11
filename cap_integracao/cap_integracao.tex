@@ -64,7 +64,7 @@ Uma tal aproximação de uma integral definida
 \begin{equation}
   \int_a^b f(x)\,dx \approx \sum_{i} f(x_i)w_i,
 \end{equation}
-é chamada de quadratura numérica, onde os números $x_i$ denota seu $i$-ésimo ponto e $w_i$ seu $i$-ésimo peso. Nas próximas seções, mostraremos como obter diferentes quadraturas numéricas e discutiremos sobre suas características.
+é chamada de quadratura numérica, onde os números $x_i$ denotam seu $i$-ésimo ponto e $w_i$ seu $i$-ésimo peso. Nas próximas seções, mostraremos como obter diferentes quadraturas numéricas e discutiremos sobre suas características.
 
 % Em cada intervalo $[x_i, x_{i+1}]$, a integral será aproximada por $\Delta S_i$ e a integral será aproximada por
 % \begin{equation}
@@ -91,7 +91,7 @@ O método mais simples de aproximar
 \begin{equation}
  I = \int_a^b f(x) \;dx.
 \end{equation}
-com apenas um intervalo, é aproximar $f(x)$ por um polinômio constante no intervalo $[a,b]$, ou seja, $f(x)=c$. Se aproximarmos $f(x)$ pelo ponto a esquerda do intervalo temos que $f(x)\approx f(a)$ e
+com apenas um intervalo, é aproximar $f(x)$ por um polinômio constante no intervalo $[a,b]$, ou seja, $f(x)=c$. Se aproximarmos $f(x)$ pelo ponto à esquerda do intervalo temos que $f(x)\approx f(a)$ e
 \begin{eqnarray}
  I &=& \int_a^b f(x) \;dx\\
    &\approx& \int_a^b f(a) \;dx \\
@@ -108,7 +108,7 @@ tal que a área total será aproximada pelas \emph{somas de Riemann à esquerda}
 \begin{equation}
 S =\sum_{i=1}^{n} \Delta S_i = \sum_{i=1}^{n} f(x_i) h
 \end{equation}
-Podemos obter uma fórmula similar se usarmos os pontos a direita do intervalo, ou seja, as \emph{somas de Riemann à direita}
+Podemos obter uma fórmula similar se usarmos os pontos à direita do intervalo, ou seja, as \emph{somas de Riemann à direita}
 \begin{equation}
 S = \sum_{i=1}^{n} f(x_{i+1}) h
 \end{equation}
@@ -327,7 +327,7 @@ uma vez que $L_1(x)\equiv 1$. Então, temos
     \int_a^b f(x)\,dx &\approx \int_a^b p(x)\,dx\\
     &= \int_a^b f(x_1)\,dx\\
     &= f(x_1)\int_a^b\,dx\\
-    &= hf(\frac{a+b}{2}),
+    &= hf\left(\frac{a+b}{2}\right),
   \end{split}
 \end{equation}
 onde $h=b-a$.
@@ -336,7 +336,7 @@ onde $h=b-a$.
   Usando a regra do ponto médio, temos
   \begin{equation}
     \begin{split}
-    \int_{0,1}^{0,3} e^{-x}\sen(x)\,dx &\approx (a-b) f(\frac{a+b}{2}) \\
+    \int_{0,1}^{0,3} e^{-x}\sen(x)\,dx &\approx (a-b) f\left(\frac{a+b}{2}\right) \\
     &= 0,2e^{-0,2}\sen(0,2) = 3,25313\times 10^{-2}.
     \end{split}
   \end{equation}
@@ -404,12 +404,12 @@ Aproximando $f(x)$ por $p_1(x)$ e integrando, obtemos:
 \end{eqnarray}
 onde
 \begin{eqnarray}
-  A_1 &=& \int_a^b\frac{x-x_1}{x_2-x_1}dx =  \left[\frac{(x-x_1)^2}{2h}\right]_{x_1}^{x_2}\\
+  A_1 &=& \int_{x_1}^{x_2}\frac{x-x_2}{x_1-x_2}dx =  \left[\frac{(x-x_2)^2-x_2^2}{2h}\right]_{x_1}^{x_2}\\
       &=& \frac{(x_2-x_1)^2}{2h} = \frac{h^2}{2h} = \frac{1}{2}h.
 \end{eqnarray}
 Da mesma forma,
 \begin{eqnarray}
-  A_2 &=& \int_a^b\frac{(x-x_2)}{(x_1-x_2)}\,dx = \frac{1}{2}h,
+  A_2 &=& \int_{x_1}^{x_2}\frac{(x-x_1)}{(x_2-x_1)}\,dx = \frac{1}{2}h,
 \end{eqnarray}
 de onde obtemos a \emph{regra do trapézio} dada por:
 \begin{equation}
@@ -566,15 +566,15 @@ e
 \end{equation}
 temos
 \begin{equation}
-\int_a^bf(x)\;dx=hf(x_2)+\frac{h^3}{3}f''(x_2)+\frac{h^5f^{(4)}(\eta)}{60}.
+\int_a^bf(x)\;dx=2hf(x_2)+\frac{h^3}{3}f''(x_2)+\frac{h^5f^{(4)}(\eta)}{60}.
 \end{equation}
 Usando a fórmula de diferenças finitas centrais para a derivada segunda:
 \begin{equation}
-f''(x_2)=\frac{f(x_1)-2f(x_2)+f(x_3)}{h^2}+\frac{h^2}{12}f^{(4)}(\eta_2),
+f''(x_2)=\frac{f(x_1)-2f(x_2)+f(x_3)}{h^2}-\frac{h^2}{12}f^{(4)}(\eta_2),
 \end{equation}
 $x_1\leq \eta_2\leq x_3$, temos
 \begin{eqnarray}
-\int_a^bf(x)\;dx&=&2hf(x_2)+\frac{h^3}{3}\left(\frac{f(x_1)-2f(x_2)+f(x_3)}{h^2}+\frac{h^2}{12}f^{(4)}(\eta_2)\right)\\
+\int_a^bf(x)\;dx&=&2hf(x_2)+\frac{h^3}{3}\left(\frac{f(x_1)-2f(x_2)+f(x_3)}{h^2}-\frac{h^2}{12}f^{(4)}(\eta_2)\right)\\
 &+&\frac{h^5f^{(4)}(\eta)}{60}\\
 &=&\frac{h}{3}\left(f(x_1)+4f(x_2)+f(x_3)\right)-\frac{h^5}{12}\left(\frac{1}{3}f^{(4)}(\eta_2)-\frac{1}{5}f^{(4)}(\eta)\right).
 \end{eqnarray}
@@ -592,13 +592,13 @@ Depois divida a integral em duas
 \begin{equation}
 \int_0^{1/2}e^{-x^2}\;dx+\int_{1/2}^{1}e^{-x^2}\;dx.
 \end{equation}
-e aplica a regra de Simpson em cada uma delas.
+e aplique a regra de Simpson em cada uma delas.
 \end{ex}
 Usando o intervalo $[0,1]$, temos $h=1/2$, $x_0=0$, $x_1=1/2$ e $x_2=1$. A regra de Simpson resulta em
 \begin{equation}
 \int_0^1e^{-x^2}\;dx\approx \frac{0,5}{3}(e^{0}+4e^{-1/4}+e^{-1})=0,7471804.
 \end{equation}
-Usando dois intervalos, $[0,1/2]$ e $[1/2,1]$ e usando a regra do trapézio em cada um dos intervalos, temos:
+Usando dois intervalos, $[0,1/2]$ e $[1/2,1]$ e usando a regra de Simpson em cada um dos intervalos, temos:
 \begin{equation}
 \int_0^1e^{-x^2}\;dx\approx \frac{0,25}{3}(e^{0}+4e^{-1/16}+e^{-1/4})+\frac{0,25}{3}(e^{-1/4}+4e^{-9/16}+e^{-1})=0,7468554.
 \end{equation}
@@ -655,7 +655,7 @@ usando os métodos simples do ponto médio, Trapézio e Simpson. Calcule, també
 \begin{exer}
  Dê a interpretação geométrica dos métodos do ponto médio, trapézio e Simpson. A partir desta construção geométrica, deduza as fórmulas para aproximar
  \begin{equation} \int_a^bf(x)\;dx. \end{equation}
- Verifique o método de Simpson pode ser entendido como uma média aritmética ponderada entre os métodos de trapézio e ponto médio. Encontre os pesos envolvidos. Explique o que são os métodos compostos.
+ Verifique que o método de Simpson pode ser entendido como uma média aritmética ponderada entre os métodos de trapézio e ponto médio. Encontre os pesos envolvidos. Explique o que são os métodos compostos.
  \end{exer}
 \begin{resp}
 \begin{equation}
@@ -888,7 +888,7 @@ onde $h = (b-a)/n$ e $x_i = a + (i-1)h$, $i=1,2,\dotsc,n+1$. Os parâmetros de e
 Já a regra composta de Simpson assume a seguinte forma:
 \begin{eqnarray}
   \int_{a}^b f(x)\,dx &=& \sum_{k=1}^{n} \int_{x_k}^{x_{k+1}} f(x)\;dx \\
-  &\approx& \sum_{k=1}^{n} \frac{x_{x+1}-x_k}{6}\left[f(x_k) + 4f\left(\frac{x_{k+1}+x_k}{2}\right)+f(x_{k+1})\right]
+  &\approx& \sum_{k=1}^{n} \frac{x_{k+1}-x_k}{6}\left[f(x_k) + 4f\left(\frac{x_{k+1}+x_k}{2}\right)+f(x_{k+1})\right]
 \end{eqnarray}
 onde, como anteriormente, $x_k = a + (k-1)h$, $h = (b-a)/n$ e $i = 1,2,\dotsc,n+1$, sendo $n$ o número de subintervalos da partição do intervalo de integração. Podemos simplificar o somatório acima, escrevendo:
 \begin{equation}
@@ -1043,7 +1043,7 @@ Defina $I(h)$ a aproximação desta integral pelo método dos trapézios compost
 \begin{teo} Se $f(x)$ é uma função analítica no intervalo $(a,b)$, então a função $I(h)$ admite uma representação na forma
 \begin{equation} I(h)=I_0 + I_2 h^2 + I_4{h^4}+ I_6{h^6}+\ldots \end{equation}
 \end{teo}
-Para um demonstração, veja \cite{DEMAILLY}. Em especial observamos que
+Para uma demonstração, veja \cite{DEMAILLY}. Em especial observamos que
 \begin{equation} \int_a^b f(x)\;dx = \lim_{h\to 0}I(h)=I_0 \end{equation}
 Ou seja, o valor exato da integral procurada é dado pelo coeficiente $I_0$.
 
@@ -1132,7 +1132,7 @@ com uma aproximação de ordem 12.
 \subsection*{Exercícios}
 
 \begin{exer}
-Para cada integrando, encontre o função $I(h)=a_0+a_1h+a_2h^2+a_3h^3+a_4h^4$ que melhor se ajusta aos dados, onde $h=\frac{1}{n-1}$. Discuta os resultados com base no teorema envolvido na construção do método de Romberg.
+Para cada integrando, encontre a função $I(h)=a_0+a_1h+a_2h^2+a_3h^3+a_4h^4$ que melhor se ajusta aos dados, onde $h=\frac{1}{n-1}$. Discuta os resultados com base no teorema envolvido na construção do método de Romberg.
 \end{exer}
 \begin{resp}
 
@@ -1190,7 +1190,7 @@ Sem usar rotinas prontas, use o método de integração de Romberg para obter a 
 \end{resp}
 
 \begin{exer}
-Encontre uma expressão para $R_{2,2}$ em termos de $f(x)$ e verifique o método de Romberg $R_{2,2}$ é equivalente ao método de Simpson.
+Encontre uma expressão para $R_{2,2}$ em termos de $f(x)$ e verifique que o método de Romberg $R_{2,2}$ é equivalente ao método de Simpson.
 \end{exer}
 
 \begin{exer}
@@ -1345,7 +1345,7 @@ $\displaystyle x^2\sqrt{3+x^3}$&$\begin{array}{l}\frac{16}{9}-\frac{4}{9}\sqrt{2
 \begin{exer}
 Encontre os pesos $w_1$, $w_2$ e $w_3$ tais que o esquema de quadratura dado por
 \begin{equation} \int_{0}^{1}f(x)\;dx\approx w_1f(0)+w_2f(1/2)+w_3 f(1) \end{equation}
-apresente máxima ordem de exatidão. Qual a ordem obtida?
+apresente máxima ordem de exatidão. Qual é a ordem obtida?.
 \end{exer}
 \begin{resp}
 
@@ -1370,16 +1370,16 @@ Encontre a ordem de exatidão do seguinte método de integração:
 5
 \end{resp}
 
-\begin{exer} Encontre os pesos $w_1$, $w_2$ e $w_3$ tal que o método de integração
+\begin{exer} Encontre os pesos $w_1$, $w_2$ e $w_3$ tais que o método de integração
 \begin{equation} \int_0^1 f(x)\;dx \approx w_1 f(1/3)  + w_2f(1/2) + w_3f(2/3) \end{equation}
-tenha ordem de exatidão máxima. Qual é ordem obtida?
+tenha ordem de exatidão máxima. Qual é a ordem obtida?.
 \end{exer}
 \begin{resp}
 $\int_0^1 f(x)\;dx \approx \frac{3}{2} f(1/3)  -2f(1/2) + \frac{3}{2}f(2/3)$ com ordem 3.
 \end{resp}
 
 \begin{exer}
-Quantos pontos são envolvidos no esquema de quadratura $R_{3,2}$? Qual a ordem do erro deste esquema de quadratura? Qual a ordem de exatidão desta quadratura?
+Quantos pontos são envolvidos no esquema de quadratura $R_{3,2}$? Qual é a ordem do erro deste esquema de quadratura? Qual é a ordem de exatidão desta quadratura?.
 \end{exer}
 \begin{resp}
  5, 4, 3
@@ -1580,15 +1580,15 @@ e
 \end{equation}
 
 \begin{ex} Aproximar
-\begin{equation} I = \int_{0}^1\sqrt{1+x^2}dx \end{equation}
+\begin{equation} I = \int_{0}^1\sqrt{1+x^2} \;dx \end{equation}
 pelo método de Gauss-Legendre com 3 pontos.
 \end{ex}
 \begin{sol}
 Para tanto, fazemos a mudança de variáveis $u=2x-1$:
 \begin{equation}
   \begin{split}
-    I &= \int_{0}^1\sqrt{1+x^2}dx\\
-    &= \frac{1}{2}\int_{-1}^1\sqrt{1+\left(\frac{u+1}{2}\right)^2}du.
+    I &= \int_{0}^1\sqrt{1+x^2} \;dx\\
+    &= \frac{1}{2}\int_{-1}^1\sqrt{1+\left(\frac{u+1}{2}\right)^2}\;du.
   \end{split}
 \end{equation}
 E, então aplicamos a quadratura gaussiana nesta última integral, o que nos fornece $I \approx 1,1478011$.
@@ -2018,9 +2018,9 @@ Use esse método para avaliar o valor da integral das seguintes integrais e comp
 \end{resp}
 
 
-\begin{exer} Encontre os pesos $w_1$, $w_2$ e $w_3$ tal que o método de integração
+\begin{exer} Encontre os pesos $w_1$, $w_2$ e $w_3$ tais que o método de integração
 \begin{equation} \int_{-1}^1 f(x)dx \approx w_1 f\left(-\frac{\sqrt{3}}{3}\right)  + w_2f(0) + w_3f\left(\frac{\sqrt{3}}{3}\right) \end{equation}
-tenha ordem de exatidão máxima. Qual é ordem obtida?
+tenha ordem de exatidão máxima. Qual é a ordem obtida?.
 \end{exer}
 \begin{resp}
   $w_1=w_3=1$ e $w_2=0$ com ordem 3.
