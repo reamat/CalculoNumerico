@@ -6,7 +6,7 @@ function [autovalor, autovetor] = maior_eigen(matriz, vetor_inicial, tolerancia,
         vetor_produto = matriz * autovetor // y = Ax
         norma_vetor_produto = sqrt(sum(vetor_produto .^ 2)) // ||y||
         autovetor = vetor_produto / norma_vetor_produto // x = y / ||y||
-        autovalor_atual = autovetor' * vetor_produto // λ = x.T * y
+        autovalor_atual = autovetor' * vetor_produto //  lambda = x.T * y
         if abs(autovalor - autovalor_atual) < tolerancia then
             return
         end
