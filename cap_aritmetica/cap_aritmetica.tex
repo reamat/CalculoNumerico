@@ -13,9 +13,9 @@ A representação de números e a aritmética em computadores levam aos chamados
 % python
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
-Ao longo do capítulo, faremos alguns comentários usando códigos em \verb+Python 2.7+. Nestes, assumiremos que os seguintes módulos estão carregados:
+Ao longo do capítulo, faremos alguns comentários usando códigos em \verb+Python+. Nestes, assumiremos que os seguintes módulos estão carregados:
 \begin{verbatim}
->>> from __future__ import division
+
 >>> import numpy as np
 \end{verbatim}
 A primeira instrução garante que divisões de números inteiros sejam computadas em ponto flutuante (\verb+double+) e a segunda carrega a biblioteca de computação científica \href{http://www.numpy.org/}{numpy}.
@@ -301,13 +301,13 @@ x = 0
 Em \verb+Python+, podemos usar os comandos \verb+int+ (truncamento) e a operação \verb+%+ (resto da divisão) para computar esta conversão da seguinte forma
 \begin{verbatim}
 >>> x = 9
->>> d0 = x%2; x = int(x/2); print("d0 = %d, x = %d" % (d0,x))
+>>> d0 = x%2; x = int(x/2); print(f"d0 = {d0}, x = {x}")
 d0 = 1, x = 4
->>> d1 = x%2; x = int(x/2); print("d1 = %d, x = %d" % (d1,x))
+>>> d1 = x%2; x = int(x/2); print(f"d1 = {d1}, x = {x}")
 d1 = 0, x = 2
->>> d2 = x%2; x = int(x/2); print("d2 = %d, x = %d" % (d2,x))
+>>> d2 = x%2; x = int(x/2); print(f"d2 = {d2}, x = {x}")
 d2 = 0, x = 1
->>> d3 = x%2; x = int(x/2); print("d3 = %d, x = %d" % (d3,x))
+>>> d3 = x%2; x = int(x/2); print(f"d3 = {d3}, x = {x}")
 d3 = 1, x = 0
 \end{verbatim}
 \fi
@@ -433,7 +433,7 @@ ans = BEBA
 \begin{verbatim}
 >>> print(bin(9))
 0b1001
->>> print(oct(111)) #a saída será "0o157", no Python 3 ou superior
+>>> print(oct(111))
 0157
 >>> print(hex(48826))
 0xbeba
@@ -755,9 +755,9 @@ No primeiro caso, obtemos a representação em ponto flutuante decimal com $6$ d
 \begin{obs}
 Em $\verb+Python+$, podemos controlar a impressão de números usando o comando \verb+print+. Por exemplo:
 \begin{verbatim}
->>> print("%1.5f" % -np.pi)
+>>> print(f"{-np.pi:1.5f}")
 -3.14159
->>> print("%1.5e" % -np.pi)
+>>> print(f"{-np.pi:1.5e}")
 -3.14159e+00
 \end{verbatim}
 No primeiro caso, obtemos a representação em ponto flutuante decimal com $6$ dígitos do número $-\pi$. No segundo caso, obtemos a representação em notação científica normalizada com $6$ dígitos.
@@ -1014,7 +1014,7 @@ Em \verb+Python+, podemos obter a representação de $x_3 = -0,675$ fazendo:
 \end{verbatim}
 e, em notação normalizada, temos:
 \begin{verbatim}
->>> print("%1.1e" % (int(-0.675*1e2)/1e2))
+>>> print("{:1.1e}".format(int(-0.675*1e2)/1e2))
 -6.7e-01
 \end{verbatim}
 \fi
@@ -1065,12 +1065,12 @@ e, em notação normalizada, temos:
 \ifispython
 Em \verb+Python+, a representação de números por arredondamento é o padrão. Assim, para obtermos a representação desejada de $x_3 = 0,675$ fazemos:
 \begin{verbatim}
->>> print("%1.2f" % (-0.675))
+>>> print("{:1.2f}".format(-0.675))
 -0.68
 \end{verbatim}
 e, em notação normalizada:
 \begin{verbatim}
->>> print("%1.1e" % (-0.675))
+>>> print("{:1.1e}".format(-0.675))
 -6.8e-01
 \end{verbatim}
 \fi
@@ -1167,12 +1167,12 @@ e, em notação normalizada:
   O \verb+Python+ usa arredondamento por proximidade com desempate par
   como padrão. Assim sendo, por exemplo
 \begin{verbatim}
->>> print('%1.1e\n' % 1.25)
+>>> print('{:1.1e}'.format(1.25))
 1.2e+00
 \end{verbatim}
   Agora:
 \begin{verbatim}
->>> print('%1.1e\n' % 2.45)
+>>> print('{:1.1e}'.format(2.45)
 2.5e+00
 \end{verbatim}
   Não deveria ser $2.4$? Explique o que está ocorrendo.
@@ -2602,20 +2602,20 @@ ans =  70368744177664
 \ifispython
 Para entendermos isso melhor, vejamos o que acontece no \verb+Python+ quando $n=7\times 10^{13}$:
 \begin{verbatim}
->>> n=7e13; print("%1.15e" % n)
+>>> n = 7e13; print(f"{n:1.15e}")
 7.000000000000000e+13
->>> n=7e13; print("%1.20e" % n)
+>>> n = 7e13; print(f"{n:1.20e}")
 7.00000000000000000000e+13
->>> print("%1.20e" % (1/n))
+>>> print(f"{1/n:1.20e}")
 1.42857142857142843451e-14
->>> y=1+1/n; print("%1.20e" % y)
+>>> y = 1 + 1/n; print(f"{y:1.20e}")
 1.00000000000001421085e+00
 \end{verbatim}
 Observe a perda de informação ao deslocar a mantissa de $1/n$. Para evidenciar o fenômenos, observamos o que acontece quando tentamos recalcular $n$ subtraindo $1$ de $1+1/n$ e invertendo o resultado:
 \begin{verbatim}
->>> print("%1.20e" % (y-1))
+>>> print(f"{(y-1):1.20e}")
 1.42108547152020037174e-14
->>> print("%1.20e" % (1/(y-1)))
+>>> print(f"{(1/(y-1)):1.20e}")
 7.03687441776640000000e+13
 \end{verbatim}
 \fi
