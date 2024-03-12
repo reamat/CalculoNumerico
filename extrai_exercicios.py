@@ -43,7 +43,10 @@ def extrai_exercicios(arq, exer, exeresol, exemplo, tipo):
         texto_cru = limpa_isif(f.read(), tipo)
     #    texto_cru = f.read()
         for i, linha in enumerate(texto_cru.splitlines()):
+            if linha.startswith(b"%"):
+                continue
             linha += b"\n"
+
             if any([s in linha for s in tags]):
                 texto += linha
 
@@ -96,7 +99,7 @@ def limpa_secoes_vazias(texto):
         texto = ""
         for i, linha in enumerate(linhas):
             if (tag in linha and all(t not in linhas[i+1] for t in tags) and linhas[i+1] != "") or tag not in linha:
-                texto += linha+"\n"
+                texto += "\n" + linha
             elif tag in linha:
                 texto += r"\stepcounter{" + tag[1:] + r"}"
                 print("Seção vazia")
@@ -118,9 +121,9 @@ if len(sys.argv) < 2:
 else:
     tipo = sys.argv[1].encode()
 
-receitas = [("exercicios_resolvidos.tex",         (False, True,  False)),
-            ("exercicios.tex",                    (True,  False, False)),
-            ("exercicios_todos.tex",              (True,  True,  False)),
+receitas = [(f"exercicios_resolvidos-{sys.argv[1]}.tex",         (False, True,  False)),
+            (f"exercicios-{sys.argv[1]}.tex",                    (True,  False, False)),
+            (f"exercicios_todos-{sys.argv[1]}.tex",              (True,  True,  False)),
 #            ("exercicios_todos_com_exemplos.tex", (True,  True,  True ))
 ]
 
