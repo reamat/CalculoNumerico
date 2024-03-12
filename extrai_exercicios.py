@@ -46,6 +46,14 @@ def lida_com_if(linha, numero_linha):
         return nova_linha + f"% {numero_linha+1}".encode() + b"\n" 
     return nova_linha
 
+def limpa_isif(texto, tipo=b'py'):
+    tags = [rb"isoctave", rb"ispython", rb"isscilab", rb"ishtml"]
+    
+    expr = rb"\\if(" + b"|".join([t for t in tags if tipo not in t]) + rb").*?\\fi\b" 
+    print(expr)
+    res = re.split(expr, texto, flags=re.DOTALL|re.MULTILINE)
+    novo_texto = b"".join([r for i, r in enumerate(res) if i %2 == 0])
+    return novo_texto
 
 
 def extrai_exercicios(arq, exer, exeresol, exemplo):
@@ -60,9 +68,11 @@ def extrai_exercicios(arq, exer, exeresol, exemplo):
     contagem = 0
     dentro_de_bloco = False
     with open(arq, 'rb') as f: 
-        for i, linha in enumerate(f.readlines()):
-            # if converte:
-            #    linha = linha.replace(rb"{exeresol}", rb"{exer}").replace(rb"{resol}", rb"{resp}")
+        texto_cru = limpa_isif(f.read())
+    #    texto_cru = f.read()
+        for i, linha in enumerate(texto_cru.splitlines()):
+            linha += b"\n"
+            # print(i, len(linha), linha)
             if any([s in linha for s in tags]):
                 texto += linha
 
@@ -76,7 +86,8 @@ def extrai_exercicios(arq, exer, exeresol, exemplo):
                 if linha.strip() != b'':
                     texto += linha
             else:  
-                texto += lida_com_if(linha, i) 
+                pass
+                # texto += lida_com_if(linha, i) 
                     
 
             if any([s in linha for s in fechamentos]):
@@ -108,17 +119,20 @@ def abre_arquivos(receita):
     return texto
 
 def limpa_secoes_vazias(texto):
-    tag = r"\section"
-    tags = [tag, r"\chapter", r"%%%% Extraído de"]
-    linhas = texto.splitlines() + [""]
     
-    texto = ""
-    for i, linha in enumerate(linhas):
-        if (tag in linha and all(t not in linhas[i+1] for t in tags) and linhas[i+1] != "") or tag not in linha:
-            texto += linha+"\n"
-        elif tag in linha:
-            texto += r"\stepcounter{section}"
-            print("Seção vazia")
+    ltags = [r"\subsection", r"\section", r"\chapter", r"%%%% Extraído de"]
+    for n in range(2):
+        tag = ltags[n]
+        tags = ltags[n:]
+        linhas = texto.splitlines() + [""]
+        
+        texto = ""
+        for i, linha in enumerate(linhas):
+            if (tag in linha and all(t not in linhas[i+1] for t in tags) and linhas[i+1] != "") or tag not in linha:
+                texto += linha+"\n"
+            elif tag in linha:
+                texto += r"\stepcounter{" + tag[1:] + r"}"
+                print("Seção vazia")
 
     return texto.strip()
         
