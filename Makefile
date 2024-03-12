@@ -329,7 +329,7 @@ clean:
 
 exer-sci:
 	cp config-pdf-sci.knd config.knd
-	python3 extrai_exercicios.py
+	python3 extrai_exercicios.py sci
 	latex main
 	latex exercicios
 	latex exercicios_resolvidos
@@ -340,7 +340,7 @@ exer-sci:
 
 exer-py:
 	cp config-pdf-py.knd config.knd
-	python3 extrai_exercicios.py
+	python3 extrai_exercicios.py pyt
 	latex main
 	latex exercicios
 	latex exercicios_resolvidos
@@ -351,7 +351,7 @@ exer-py:
 
 exer-oct:
 	cp config-pdf-oct.knd config.knd
-	python3 extrai_exercicios.py
+	python3 extrai_exercicios.py oct
 
 	latex main
 	latex exercicios

@@ -16,35 +16,7 @@ def casa_brackets(text, sub=b"{"):
             count -= 1
         pos += 1
     return pos_ini, pos
- 
-def lida_com_if(linha, numero_linha):
-    condicionais = [rb"\\ifisoctave\b", 
-                    rb"\\ifispython\b", 
-                    rb"\\ifisscilab\b", 
-                    rb"\\iffalse\b",
-                    rb"\\iftrue\b",   
-                    rb"\\ifishtml\b",
-                    rb"\\fi\b"]
 
-    pos = 0
-    nova_linha = b""
-    while True:
-        #lista = [(linha.find(s, pos), i) for i, s in enumerate(condicionais)]
-        lista = []
-        for i, s in enumerate(condicionais):
-            res = re.search(s, linha[pos:])
-            if res != None:
-                lista.append((res.start() + pos, res.end() + pos,  i))
-        #lista = [t for t in lista if t[0] != -1]
-        if not lista:
-            break
-        pos, pos_end, n = min(lista)
-        nova_linha += linha[pos:pos_end]
-        pos += 1
-
-    if nova_linha != b"":
-        return nova_linha + f"% {numero_linha+1}".encode() + b"\n" 
-    return nova_linha
 
 def limpa_isif(texto, tipo=b'py'):
     tags = [rb"isoctave", rb"ispython", rb"isscilab", rb"ishtml"]
@@ -56,7 +28,7 @@ def limpa_isif(texto, tipo=b'py'):
     return novo_texto
 
 
-def extrai_exercicios(arq, exer, exeresol, exemplo):
+def extrai_exercicios(arq, exer, exeresol, exemplo, tipo):
     texto = b""
 
     blocos = ([rb"exer", rb"resp"] if exer else [])\
@@ -68,11 +40,10 @@ def extrai_exercicios(arq, exer, exeresol, exemplo):
     contagem = 0
     dentro_de_bloco = False
     with open(arq, 'rb') as f: 
-        texto_cru = limpa_isif(f.read())
+        texto_cru = limpa_isif(f.read(), tipo)
     #    texto_cru = f.read()
         for i, linha in enumerate(texto_cru.splitlines()):
             linha += b"\n"
-            # print(i, len(linha), linha)
             if any([s in linha for s in tags]):
                 texto += linha
 
@@ -81,8 +52,6 @@ def extrai_exercicios(arq, exer, exeresol, exemplo):
                 contagem = contagem + 1
 
             if dentro_de_bloco:
-                # if rb"ref{" in linha:
-                #   print(linha)
                 if linha.strip() != b'':
                     texto += linha
             else:  
@@ -103,23 +72,21 @@ def extrai_exercicios(arq, exer, exeresol, exemplo):
     return contagem, limpa_secoes_vazias(texto.decode()) if contagem > 0 else ""
 
 
-def abre_arquivos(receita):
+def abre_arquivos(receita, tipo):
     texto = ""
     with open("main.tex", "rb") as f:
         for linha in f.readlines():
             if linha.strip()[0:9] == rb"\include{":
-                # print(linha)
                 s, e = casa_brackets(linha)
                 arq = linha[s+1 : e-1].decode() + ".tex"
                 print(r"%Extraindo de " + arq)
                 texto = texto + r"%%%% Extraído de " + arq + "\n"
-                contagem, conteudo = extrai_exercicios(arq, *receita)
+                contagem, conteudo = extrai_exercicios(arq, *receita, tipo)
                 texto = texto + conteudo
-                # print(texto)
     return texto
 
+
 def limpa_secoes_vazias(texto):
-    
     ltags = [r"\subsection", r"\section", r"\chapter", r"%%%% Extraído de"]
     for n in range(2):
         tag = ltags[n]
@@ -137,6 +104,8 @@ def limpa_secoes_vazias(texto):
     return texto.strip()
         
 
+
+### main
 cabecalho = r"""\documentclass[10pt]{book}
 \input preambulo.tex
 \setlength{\headheight}{30pt}
@@ -144,10 +113,16 @@ cabecalho = r"""\documentclass[10pt]{book}
 \externaldocument{main}
 \begin{document}"""
 
+if len(sys.argv) < 2:
+    tipo = b"sci"
+else:
+    tipo = sys.argv[1].encode()
+
 receitas = [("exercicios_resolvidos.tex",         (False, True,  False)),
             ("exercicios.tex",                    (True,  False, False)),
             ("exercicios_todos.tex",              (True,  True,  False)),
-            ("exercicios_todos_com_exemplos.tex", (True,  True,  True ))]
+#            ("exercicios_todos_com_exemplos.tex", (True,  True,  True ))
+]
 
 for arq, receita in receitas:
     if receita[0] or receita[2]:
@@ -155,7 +130,7 @@ for arq, receita in receitas:
     else:
         rodape = r"\end{document}"
 
-    texto = cabecalho + abre_arquivos(receita) + rodape
+    texto = cabecalho + abre_arquivos(receita, tipo) + rodape
     with open(arq, "w") as f:
         f.write(texto)
 
