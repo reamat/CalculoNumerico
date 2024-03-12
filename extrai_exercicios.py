@@ -1,5 +1,6 @@
 import sys
 import os
+import re
 
 def casa_brackets(text, sub=b"{"):
     if sub not in text or b"}" not in text :
@@ -16,23 +17,33 @@ def casa_brackets(text, sub=b"{"):
         pos += 1
     return pos_ini, pos
  
-def lida_com_if(linha):
-    condicionais = [rb"\ifisoctave", 
-                    rb"\ifispython", 
-                    rb"\ifisscilab", 
-                    rb"\iffalse",
-                    rb"\iftrue",   
-                    rb"\fi"]
+def lida_com_if(linha, numero_linha):
+    condicionais = [rb"\\ifisoctave\b", 
+                    rb"\\ifispython\b", 
+                    rb"\\ifisscilab\b", 
+                    rb"\\iffalse\b",
+                    rb"\\iftrue\b",   
+                    rb"\\ifishtml\b",
+                    rb"\\fi\b"]
 
     pos = 0
     nova_linha = b""
     while True:
-        lista = [(linha.find(s, pos), i) for i, s in enumerate(condicionais) if linha.find(s, pos) >= 0]
+        #lista = [(linha.find(s, pos), i) for i, s in enumerate(condicionais)]
+        lista = []
+        for i, s in enumerate(condicionais):
+            res = re.search(s, linha[pos:])
+            if res != None:
+                lista.append((res.start() + pos, res.end() + pos,  i))
+        #lista = [t for t in lista if t[0] != -1]
         if not lista:
             break
-        pos, n = min(lista)
-        nova_linha += condicionais[n]
-        pos += 1 
+        pos, pos_end, n = min(lista)
+        nova_linha += linha[pos:pos_end]
+        pos += 1
+
+    if nova_linha != b"":
+        return nova_linha + f"% {numero_linha+1}".encode() + b"\n" 
     return nova_linha
 
 
@@ -49,7 +60,7 @@ def extrai_exercicios(arq, exer, exeresol, exemplo):
     contagem = 0
     dentro_de_bloco = False
     with open(arq, 'rb') as f: 
-        for linha in f.readlines():
+        for i, linha in enumerate(f.readlines()):
             # if converte:
             #    linha = linha.replace(rb"{exeresol}", rb"{exer}").replace(rb"{resol}", rb"{resp}")
             if any([s in linha for s in tags]):
@@ -65,7 +76,7 @@ def extrai_exercicios(arq, exer, exeresol, exemplo):
                 if linha.strip() != b'':
                     texto += linha
             else:  
-                texto += lida_com_if(linha)
+                texto += lida_com_if(linha, i) 
                     
 
             if any([s in linha for s in fechamentos]):
