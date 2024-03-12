@@ -111,7 +111,9 @@ def limpa_secoes_vazias(texto):
 ### main
 cabecalho = r"""\documentclass[10pt]{book}
 \input preambulo.tex
-\setlength{\headheight}{30pt}
+%\setlength{\headheight}{30pt}
+\geometry{a4paper, total={170mm, 257mm}, left=20mm, top=20mm, textwidth=170mm}
+\pagestyle{plain}
 \usepackage{xr}
 \externaldocument{main}
 \begin{document}"""
