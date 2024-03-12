@@ -328,35 +328,37 @@ clean:
 
 
 exer-sci:
+	make clean
 	cp config-pdf-sci.knd config.knd
 	python3 extrai_exercicios.py sci
 	latex main
-	latex exercicios
-	latex exercicios_resolvidos
-	latex exercicios_todos
-	pdflatex exercicios
-	pdflatex exercicios_resolvidos
-	pdflatex exercicios_todos
+	latex exercicios-sci
+	latex exercicios_resolvidos-sci
+	latex exercicios_todos-sci
+	pdflatex exercicios-sci
+	pdflatex exercicios_resolvidos-sci
+	pdflatex exercicios_todos-sci
 
 exer-py:
+	make clean
 	cp config-pdf-py.knd config.knd
-	python3 extrai_exercicios.py pyt
+	python3 extrai_exercicios.py py
 	latex main
-	latex exercicios
-	latex exercicios_resolvidos
-	latex exercicios_todos
-	pdflatex exercicios
-	pdflatex exercicios_resolvidos
-	pdflatex exercicios_todos
+	latex exercicios-py
+	latex exercicios_resolvidos-py
+	latex exercicios_todos-py
+	pdflatex exercicios-py
+	pdflatex exercicios_resolvidos-py
+	pdflatex exercicios_todos-py
 
 exer-oct:
+	make clean
 	cp config-pdf-oct.knd config.knd
 	python3 extrai_exercicios.py oct
-
 	latex main
-	latex exercicios
-	latex exercicios_resolvidos
-	latex exercicios_todos
-	pdflatex exercicios
-	pdflatex exercicios_resolvidos
-	pdflatex exercicios_todos
+	latex exercicios-oct
+	latex exercicios_resolvidos-oct
+	latex exercicios_todos-oct
+	pdflatex exercicios-oct
+	pdflatex exercicios_resolvidos-oct
+	pdflatex exercicios_todos-oct
