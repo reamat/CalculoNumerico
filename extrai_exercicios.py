@@ -22,7 +22,7 @@ def limpa_isif(texto, tipo=b'py'):
     tags = [rb"isoctave", rb"ispython", rb"isscilab", rb"ishtml"]
     
     expr = rb"\\if(" + b"|".join([t for t in tags if tipo not in t]) + rb").*?\\fi\b" 
-    print(expr)
+
     res = re.split(expr, texto, flags=re.DOTALL|re.MULTILINE)
     novo_texto = b"".join([r for i, r in enumerate(res) if i %2 == 0])
     return novo_texto
@@ -119,16 +119,17 @@ cabecalho = r"""\documentclass[10pt]{book}
 \begin{document}"""
 
 if len(sys.argv) < 2:
-    tipo = b"sci"
+    tipo = "sci"
 else:
-    tipo = sys.argv[1].encode()
+    tipo = sys.argv[1]
 
-receitas = [(f"exercicios_resolvidos-{sys.argv[1]}.tex",         (False, True,  False)),
-            (f"exercicios-{sys.argv[1]}.tex",                    (True,  False, False)),
-            (f"exercicios_todos-{sys.argv[1]}.tex",              (True,  True,  False)),
+receitas = [(f"exercicios_resolvidos-{tipo}.tex",         (False, True,  False)),
+            (f"exercicios-{tipo}.tex",                    (True,  False, False)),
+            (f"exercicios_todos-{tipo}.tex",              (True,  True,  False)),
 #            ("exercicios_todos_com_exemplos.tex", (True,  True,  True ))
 ]
 
+tipo = tipo.encode()
 for arq, receita in receitas:
     if receita[0] or receita[2]:
         rodape = r"\include{respostas}" + '\n' + r"\end{document}"
