@@ -1,5 +1,5 @@
 %Este trabalho está licenciado sob a Licença Creative Commons Atribuição-CompartilhaIgual 3.0 Não Adaptada. Para ver uma cópia desta licença, visite https://creativecommons.org/licenses/by-sa/3.0/ ou envie uma carta para Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
-
+% !TEX root = ../main.tex
 %\documentclass[main.tex]{subfiles}
 %\begin{document}
 
@@ -22,13 +22,13 @@ A primeira instrução garante que divisões de números inteiros sejam computad
 \fi
 %%%%%%%%%%%%%%%%%%%%
 \section{Sistema de numeração e mudança de base}\index{mudança de base}\index{sistema de numeração}
-Usualmente, utilizamos o sistema de numeração decimal para representar números. Esse é um sistema de numeração posicional onde a posição do dígito indica a potência de $10$ que o dígito representa.
+Usualmente, utilizamos o sistema de numeração decimal, isto é, base 10, para representar números. Esse é um sistema de numeração em que a posição do algarismo indica a potência de $10$ pela qual seu valor é multiplicado.
 
 \begin{ex}
   O número $293$ é decomposto como
   \begin{equation}
     \begin{split}
-      293 &= 2\ \text{centenas}+9\ \text{dezenas}+3\ \text{unidades}\\
+      293 &= 2\ \text{centenas} + 9\ \text{dezenas }+ 3\ \text{unidades}\\
       &= 2\cdot 10^2+9\cdot 10^1+3\cdot 10^0.
     \end{split}
   \end{equation}
@@ -182,14 +182,25 @@ ans =  48826
 %%%%%%%%%%%%%%%%%%%%
 \ifispython
 \begin{obs}
-  \verb+Python+ tem algumas sintaxes para representar números em algumas bases. Por exemplo, temos:
+  O \verb+Python+ tem preficos para representar números nas bases 2, 8 e 10. Por exemplo, temos:
 \begin{verbatim}
->>> print(0b1001) #bin -> dec
+>>> print(0b1001)  # bin
 9
->>> print(0o157) #oct -> dec
+>>> print(0o157)  # oct
 111
->>> print(0xbeba) #hex -> dec
+>>> print(0xbeba)  # hex
 48826
+\end{verbatim}
+Também é possível usar a função int() para interpretar a representação de um inteiro em uma base com b entre 2 e 36. Por exemplo, temos:
+\begin{verbatim}
+>>> print(int('1001', 2))  # Base 2
+9
+>>> print(int('1001', 5))  # Base 5
+126
+>>> print(int('ABCD', 20))  # Base 20
+84653
+>>> print(int('zz', 36))  # Base 36
+1295
 \end{verbatim}
 \end{obs}
 \fi
@@ -2038,9 +2049,9 @@ A resposta exata é $120,1$.
 
 
 \section{Erros nas operações elementares}
-O erro relativo presente nas operações elementares de adição, subtração, multiplicação e divisão é da ordem do épsilon de máquina. Se estivermos usando uma máquina com 64 bits, temos que $\epsilon = 2^{-52} \approx 2,22E-16$.
+O erro relativo presente nas operações elementares de adição, subtração, multiplicação e divisão é da ordem do épsilon de máquina. Se estivermos usando o sistema de numeração {\it binary64} ou {\it double}, temos $\epsilon = 2^{-52} \approx 2,22\cdot 10^{-16}$.
 
-Este erro é bem pequeno para a maioria das aplicações! Assumindo que $x$ e $y$ são representados com todos dígitos corretos, temos aproximadamente 15 dígitos significativos corretos quando fazemos uma das operações $x+y$, $x-y$, $x\times y$ ou $x/y$.
+Este erro é bem pequeno para a maioria das aplicações! Assumindo que $x$ e $y$ são representados com todos dígitos corretos, esperamos ter aproximadamente 15 dígitos significativos corretos quando fazemos uma das operações $x+y$, $x-y$, $x\times y$ ou $x/y$.
 
 %%
 %% fornecer exemplo para +,-,*,/
@@ -2048,7 +2059,7 @@ Este erro é bem pequeno para a maioria das aplicações! Assumindo que $x$ e $y
 
 Mesmo que fizéssemos, por exemplo, $1000$ operações elementares sucessivas em ponto flutuante, teríamos, no pior dos casos, acumulado todos esses erros e perdido $3$ casas decimais ($1000\times 10^{-15} \approx 10^{-12})$.
 
-Entretanto, quando subtraímos números muito próximos, o erro pode se propagar de forma catastrófica.
+Entretanto, existem situações em que o erro se propaga de forma muito catastrófica, me especial, quando subtraímos números positivos muito próximos.
 
 \section{Cancelamento catastrófico}\index{cancelamento catastrófico}
 
