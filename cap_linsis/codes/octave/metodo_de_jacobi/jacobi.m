@@ -8,7 +8,7 @@ function [x]=jacobi(A,b,x,tol,N)
       x(i) = (b(i) - A(i,[1:i-1,i+1:n])*x0([1:i-1,i+1:n]))/A(i,i);
     endfor
     #condicao de parada
-    if (norm(x-x0,'inf')<tol)
+    if ((x-x0)<tol)
       return
     endif
     #prepara nova iteracao
