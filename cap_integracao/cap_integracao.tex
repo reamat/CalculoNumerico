@@ -118,9 +118,9 @@ S = \sum_{i=1}^{n} f(\xi_i ) h, \qquad \xi_i=\frac{x_i+x_{i+1}}{2}.
 \end{equation}
 
 \begin{ex}
-  A integral de $f(x) = e^{-x}\sen(x)$ no intervalo $[0,1, 0,2]$ é
+  A integral de $f(x) = e^{-x}\sen(x)$ no intervalo $[0,1]$ é
   \begin{equation}
-    \int_{0}^{1} f(x)\,dx \approx 2,45837\E-1.
+    \int_{0}^{1} f(x)\,dx \approx 2,45837\times 10^{-1}.
   \end{equation}
 Usando somas de Riemann à esquerda com $10$ intervalos, obtemos
 \begin{equation}
@@ -139,7 +139,35 @@ E, usando a regra do ponto médio, temos
 % scilab
 %%%%%%%%%%%%%%%%%%%%
 \ifisscilab
-\construirScilab
+No \verb+Scilab+, podemos computar as somas de Riemann da seguinte forma:
+\begin{verbatim}
+deff('y=f(x)','y = exp(-x)*sin(x)')
+
+a = 0
+b = 1
+n = 10
+h = (b-a)/n
+x = linspace(a,b,n+1) 
+
+S_esq = 0
+S_dir = 0
+S_med = 0
+
+for i = 1:n
+    S_esq = S_esq + f(x(i))*h
+end
+mprintf('A esquerda %.5e \n',S_esq)
+
+for i = 1:n
+    S_dir = S_dir + f(x(i+1))*h
+end
+mprintf('A esquerda %.5e \n',S_dir)
+
+for i = 1:n
+    S_med = S_med + f((x(i)+x(i+1))/2)*h
+end
+mprintf('A esquerda %.5e \n',S_med)
+\end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
@@ -344,7 +372,16 @@ onde $h=b-a$.
 % scilab
 %%%%%%%%%%%%%%%%%%%%
 \ifisscilab
-\construirScilab
+No \verb+Scilab+, computamos:
+\begin{verbatim}
+deff('y=f(x)','y = exp(-x)*sin(x)')
+
+a = 0.1
+b = 0.3
+h = b-a
+
+I = h*f((a+b)/2)
+\end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
@@ -1750,7 +1787,36 @@ obtemos os seguintes resultados ($n$ número de subintervalos):
 % scilab
 %%%%%%%%%%%%%%%%%%%%
 \ifisscilab
-\construirScilab
+No \verb+Scilab+, podemos computar os valores apresentados na tabela acima da seguinte forma:
+\begin{verbatim}
+deff('y=f(x)','y = exp(-x)/x^(1/2)')
+
+a = 0
+b = 1
+n = 10
+h = (b-a)/n
+x = linspace(a,b,n+1) 
+  
+// Regra do ponto médio
+S_med = 0
+for i = 1:n
+    S_med = S_med + f((x(i)+x(i+1))/2)*h
+end
+mprintf('Regra do ponto médio com %g subintervalos %.4e \n',n,S_med)
+  
+// Quadratura Gaussiana
+S_GL = 0
+t1 = -sqrt(3)/3
+t2 = sqrt(3)/3
+for i = 1:n
+    alpha = (x(i+1) - x(i))/2
+    Beta = (x(i+1) + x(i))/2
+    X1 = alpha*t1 + Beta
+    X2 = alpha*t2 + Beta
+    S_GL = S_GL + (f(X1)+f(X2)) * h/2
+end
+mprintf('Quadratura gaussiana com %g subintervalos %.4e \n',n,S_GL)
+\end{verbatim}
 \fi
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
